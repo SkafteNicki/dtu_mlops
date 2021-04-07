@@ -11,3 +11,30 @@ This repository contains the exercises for the DTU course 02457 Machine Learning
 
 
 ## 
+
+
+### Week 1
+        |  Presentation topic  | Framework/exercise
+Monday  |  How autodiff changed the world | Freshup on pytorch
+Tuesday |  Code organisation: why it matters | Github + docker
+Wednesday | Debugging and visualization | Tensorboard, wandb
+Thursday | Project overview: pytorch ecosystem | Project work
+Friday  |  - | Project work
+
+### Week 2
+
+        |  Presentation topic  | Framework/exercise
+Monday  |  How autodiff changed the world | Freshup on pytorch
+Tuesday |  Code organisation: why it matters | Github + docker
+Wednesday | Debugging and visualization | Tensorboard, wandb
+Thursday | Project overview: pytorch ecosystem | Project work
+Friday  |  - | Project work
+
+### Week 3
+
+        |  Presentation topic  | Framework/exercise
+Monday  |  How autodiff changed the world | Freshup on pytorch
+Tuesday |  Code organisation: why it matters | Github + docker
+Wednesday | Debugging and visualization | Tensorboard, wandb
+Thursday | Project overview: pytorch ecosystem | Project work
+Friday  |  - | Project work
