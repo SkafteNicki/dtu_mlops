@@ -16,15 +16,15 @@ supposed to fill out are inlined in the text in small "exercise" blocks:
 
 ## Exercises
 
-1. Complete the [Tensors in Pytorch](Tensors in PyTorch.ipynb) notebook. It focuses on basic
+1. Complete the [Tensors in Pytorch](Tensors_in_PyTorch.ipynb) notebook. It focuses on basic
    manipulation of pytorch tensors. You can pass this notebook if you are conftable doing this.
    
    1.1. (Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
         between an `[N,d]` tensor and `[M,d]` tensor. You should use the following identity:
         ``` ||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b> ```. Hint: you need to use broadcasting.
    
-2. Complete the [Neural Networks in PyTorch] notebook. It focuses on building a very simple
-   neural network using the pytorch `nn.Module` interface.
+2. Complete the [Neural Networks in PyTorch](Neural_Networks_in_PyTorch.ipynb) notebook. It focuses on 
+   building a very simple neural network using the pytorch `nn.Module` interface.
    
    2.1 (Bonus exercise): One layer that argubly is missing in Pytorch is for doing reshapes.
        It is ofcause possible to do this directly to tensors, but sometimes it is great to
@@ -32,8 +32,18 @@ supposed to fill out are inlined in the text in small "exercise" blocks:
        takes a variable number arguments e.g. `Reshape(2)` or `Reshape(2,3)` and the forward
        takes a single input that it reshaped and returned.
 
-3. Complete the Part 3 - Training Neural Networks (Exercises).ipynb notebook. It focuses on
-   how to write a simple neural network for training. 
+3. Complete the [Training Neural Networks](Training_Neural_Networks.ipynb) notebook. It focuses on
+   how to write a simple training loop for training a neural network.
+   
+4. Complete the [Fashion MNIST](Fashion_MNIST.ipynb) notebook, that summaries concepts learned in the
+   notebook 2 and 3 on building a neural network for classifying the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) 
+   dataset
+
+5. Complete the [Inference and Validation](Inference_and_Validation.ipynb) notebook. This notebook adds
+   important concepts on how to do inference and validation on our neural network
+   
+6. Complete the [Saving_and_Loading_Models](Saving_and_Loading_Models.ipynb) notebook. This notebook addresses
+   how to save and load model weights. This is important if you want to share a model with someone else.
 
 ### Final exercise
 
