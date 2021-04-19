@@ -51,7 +51,7 @@ the project structure, but complete the following steps
 	filled into the `data/raw` and `data/processed` folder. Hint: `torchvision.datasets.MNIST` will
 	make everything smooth for you.
 
-	4.2. put your model file into `src/models` folder together with the training file from yesterday.
+	4.2. put your model file into `src/models` folder together with the training file (`main.py`) from yesterday.
 	Make sure that trained models gets saved in the `models` folder (preferrable in subfolders).
 	
 	4.3 make sure that some statistics from the trained models gets saved to the `reports/figures/`
