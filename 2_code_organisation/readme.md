@@ -74,6 +74,45 @@ the project structure, but complete the following steps
 	4.7 finally make sure to update the `requirements.txt` file with any packages that are nessesary
 	for running your code.
  
+### Good cooding practise
+
+While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
+to secure that code from different users actually look like each other. Code being written in a specific style
+is important when doing a project together with multiple people. The question then remains what styling you
+should use. This is where [Pep8](https://www.python.org/dev/peps/pep-0008/) comes into play, which is the 
+official style guide for python. It is essentially contains what is considered "good practise" and 
+"bad practise" when coding python. One way to check if your code is pep8 compliant is to use 
+[flake8](https://flake8.pycqa.org/en/latest/).
+
+1. Install flake8
+   ```
+   pip install flake8
+   ```
+
+2. run flake8 on your project
+   ```
+   flake8 .
+   ```
+   are you pep8 compliant or are you a normal mortal?
+
+You could go and fix all the small errors that `flake8` is giving. However, in practise large projects instead
+relies on some kind of code formatter, that will automatically format your code for you to be pep8 compliant.
+Some of the biggest are:
+
+* [black](https://github.com/psf/black)
+* [yapf](https://github.com/google/yapf)
+
+3. install a code formatter of your own choice and let it format atleast one of the script in your codebase.
+   (Optional): play around with different formatters a find out which formatter you like the most.
+
+In addtion 
+
+4. Install isort
+   `pip install isort`
+    
+5. run isort on your project
+   `isort .`
+ 
 ### Extra
 
 While we in this course focus on git/version control for keeping track of code changes, it can also
