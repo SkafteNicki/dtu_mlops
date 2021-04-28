@@ -17,7 +17,18 @@ the bugs before looking at the script). Succesfully debugging and running the sc
 
 ### Profilers
 
-Using profilers can help you find bottlenecks in your code. Luckly, PyTorch already comes with a build-in profiler.
+Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
+profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html), pythons
+build in profiler.
+
+1. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
+   script using the `-m` arg
+   `python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py) `
+
+
+
+
+Luckly, PyTorch already comes with a build-in profiler.
 Note that these exercises requires that you have pytorch v1.8.1 installed. You can always check which version you
 currently have installed by writing (in python):
 
