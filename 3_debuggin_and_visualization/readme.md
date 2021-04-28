@@ -1,3 +1,19 @@
+### Debugging
+
+Debugging is very hard to teach and is one of the skills that just comes with experience. That said, we here
+provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
+the script and try to understand what is going on. Hereafter, try to get it running. The following bugs exist
+in the script:
+
+* One device bug (will only show if running on gpu, but try to find it anyways)
+* One shape bug 
+* One math bug 
+* One training bug
+
+Some of the bugs prevents the script from even running, while some of them influences the training dynamics.
+Try to find them all. We also provide a working version called `vae_mnist_working.py` (but please try to find
+the bugs before looking at the script). Succesfully debugging and running the script should produce three files: 
+`orig_data.png`, `reconstructions.png`, `generated_samples.png`. 
 
 ### Profilers
 
@@ -10,7 +26,26 @@ import torch
 print(torch.__version__)
 ```
 
-https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/
+Also it will require us to have the tensorboard profiler plugin installed:
+
+``` 
+pip install torch_tb_profiler
+```
+
+For more info on the profiler see this [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
+and the [documentation](https://pytorch.org/docs/stable/profiler.html).
+
+For this exercise
+
+1. Start by going over the following [tutorial](https://pytorch.org/tutorials/beginner/profiler.html)
+
+2. Secondly try to profile the `vae_mnist_working.py` script from the debugging exercises. Can you improve
+something in the code?
+
+3. Apply the profiler to your own code. 
+
+
+
 
 ### Experiement visualizers
 
@@ -45,7 +80,6 @@ stems from playing around with the hyperparameters of your model.
    ```tensorboard --logdir experiments```
    or as
    ```tensorboard --logdir=name1:/path/to/logs/1,name2:/path/to/logs/2```
-
 
 While tensorboard is a great logger for many things, more advanced loggers may be more suitable. For the remaining 
 of the exercises we will try to look at the [wandb](https://wandb.ai/site) logger. 
