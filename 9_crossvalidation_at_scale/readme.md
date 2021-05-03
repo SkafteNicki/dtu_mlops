@@ -5,4 +5,4 @@ our different models.
 1. Start by installing optuna:
    `pip install optuna`
    
-2. Cr
+2. The two main concepts of optuna is a study and 

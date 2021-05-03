@@ -2,7 +2,7 @@
 
 The intention behind the first set of exercises is to bring everyones 
 Pytorch skills up-to-date. If you already are Pytorch-jedi feel free to
-pass the first exercise, but I recommend still that you still complete it.
+pass the first set of exercises, but I recommend still that you still complete it.
 
 The exercises are in large part taken directly from the 
 [deep learning course at udacity](https://github.com/udacity/deep-learning-v2-pytorch).
