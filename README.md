@@ -1,8 +1,8 @@
 ![mlops](figures/mlops-loop-en.jpg)
 
-# 02457 Machine Learning Operations
+# ????? Machine Learning Operations
 
-This repository contains the exercises for the DTU course 02457 Machine Learning Operations (MLOps). 
+This repository contains the exercises for the DTU course ????? Machine Learning Operations (MLOps). 
 All exercises are writting in the [Python](https://www.python.org/) programming language and formatted 
 into a combination of scripts and [Jupyter Notebooks](https://jupyter.org/). 
 
@@ -10,6 +10,16 @@ This repository borrows heavily from previous work, in particular:
 
 * 
 
+## MLOps: What is it?
+
+A compound of “machine learning” and “operations”, refers to the practice for collaboration and communication 
+between data scientists and operations professionals to help manage production ML (or deep learning) lifecycle.
+
+Reading resourses:
+* https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning.
+  Introduction blog post for those that have never heard about MLOps
+* https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f. Great document
+  from google about the different levels of MLOps
 
 ## Setup
 
