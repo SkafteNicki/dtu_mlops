@@ -1,9 +1,16 @@
-### Debugging
+# 3. Debugging, profiling and visualizing code
 
-Debugging is very hard to teach and is one of the skills that just comes with experience. That said, we here
-provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
-the script and try to understand what is going on. Hereafter, try to get it running. The following bugs exist
-in the script:
+## Debugging
+
+Debugging is very hard to teach and is one of the skills that just comes with experience. That said, you should
+familar yourself with the build-in [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in
+handy during the course. 
+
+### Exercises
+
+We here provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
+the script and try to understand what is going on. Hereafter, try to get it running by solving the bugs. The following 
+bugs exist in the script:
 
 * One device bug (will only show if running on gpu, but try to find it anyways)
 * One shape bug 
@@ -15,20 +22,19 @@ Try to find them all. We also provide a working version called `vae_mnist_workin
 the bugs before looking at the script). Succesfully debugging and running the script should produce three files: 
 `orig_data.png`, `reconstructions.png`, `generated_samples.png`. 
 
-### Profilers
+## Profilers
 
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html), pythons
 build in profiler.
 
+### Exercises
+
 1. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
    script using the `-m` arg
    `python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py) `
 
-
-
-
-Luckly, PyTorch already comes with a build-in profiler.
+In addition to using pythons build-in profiler we will also investigate the profiler that is build into PyTorch already.
 Note that these exercises requires that you have pytorch v1.8.1 installed. You can always check which version you
 currently have installed by writing (in python):
 
@@ -54,9 +60,6 @@ For this exercise
 something in the code?
 
 3. Apply the profiler to your own code. 
-
-
-
 
 ### Experiement visualizers
 

@@ -7,7 +7,7 @@ of results to be able to accuratly report the exact enviroment that you are usin
 as a laboratory. If others were to reproduce your experiements, they would need to know the exact chemicals and
 machines that you have been using.
 
-[good-bad-coding](../figures/wtf.jpeg)
+![good-bad-coding](../figures/wtf.jpeg)
 
 A lot of the exercises today are very loosely stated and you are expected to seek out information before you
 ask for help (Google is your friend ;-) ).
@@ -166,6 +166,8 @@ should use. This is where [Pep8](https://www.python.org/dev/peps/pep-0008/) come
 official style guide for python. It is essentially contains what is considered "good practise" and 
 "bad practise" when coding python. One way to check if your code is pep8 compliant is to use 
 [flake8](https://flake8.pycqa.org/en/latest/).
+
+### Exercises
 
 1. Install flake8
    ```

@@ -1,3 +1,5 @@
+![mlops](figures/mlops-loop-en.jpg)
+
 # 02457 Machine Learning Operations
 
 This repository contains the exercises for the DTU course 02457 Machine Learning Operations (MLOps). 
