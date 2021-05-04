@@ -28,9 +28,15 @@ you will have to choose one as the foundation for your project. The three framew
    the framework that you have chosen to work with into your project. The **Final exercise** for today is to formulate a
    project description (see bottom of this page).
 
-4. When you formed groups and formed a project
+4. When you formed groups and formed a project you are allowed to start. To start with, do the following:API
 
-You will be given time each week to work on your own self chosen project. 
+   4.1. Create a github reposatory for your project and make sure that all team members have access to pull
+        and push
+        
+   4.2. Create the folder structure by using the `cookie-cutter` approach
+
+5. From here you are free to work on the parts of the project that you wish. It is recommended to start with
+   getting the data sorted out as prior experience have shown that this may take longer time than expected.
 
 
 ### Final objective
