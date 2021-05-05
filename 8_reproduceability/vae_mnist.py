@@ -104,6 +104,14 @@ optimizer = Adam(model.parameters(), lr=lr)
 print("Start training VAE...")
 model.train()
 for epoch in range(epochs):
+#    with torch.profiler.profile(
+#    schedule=torch.profiler.schedule(
+#        wait=2,
+#        warmup=2,
+#        active=6,
+#        repeat=1),
+#    on_trace_ready=torch.profiler.tensorboard_trace_handler(''),
+#    ) as profiler:
     overall_loss = 0
     for batch_idx, (x, _) in enumerate(train_loader):
         x = x.view(batch_size, x_dim)
@@ -118,6 +126,7 @@ for epoch in range(epochs):
         
         loss.backward()
         optimizer.step()
+#            profiler.step()
     print("\tEpoch", epoch + 1, "complete!", "\tAverage Loss: ", overall_loss / (batch_idx*batch_size))    
 print("Finish!!")
 
