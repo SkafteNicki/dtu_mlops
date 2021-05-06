@@ -42,7 +42,14 @@ The following exercises should be applyed to your MNIST reposatory
    pytest tests/
    ```
 
-   4.1. Data testing: 
+   4.1. Data testing: In a file called `tests/test_data.py` implement atleast a test that
+        checks that data gets correctly loaded. By this we mean that you should check
+        ```
+        dataset = MNIST(...)
+        assert len(dataset) == 60000 for training and 10000 for test
+        assert that each datapoint has shape [1,28,28] or [728] depending on how you choose to format
+        assert that all labels are represented
+        ```
 
    4.2. Model testing: In a file called `tests/test_model.py` implement atleast a test that
         checks for a given input with shape *X* that the output of the model have shape *Y*
