@@ -14,9 +14,8 @@ automates this.
 <p align="center">
 <b> “Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.” -Martin Fowler, Chief Scientist, ThoughtWorks </b>
 </p>
+
 ![ci](../figures/ci.png)
-
-
 
 ### 
 Continuous Integration (CI) is a development practice where developers integrate code into a shared repository frequently, preferably several times a day. Each integration can then be verified by an automated build and automated tests. While automated testing is not strictly part of CI it is typically implied.
