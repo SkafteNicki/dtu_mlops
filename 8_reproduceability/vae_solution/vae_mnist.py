@@ -4,6 +4,7 @@ https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
+import os
 import torch
 import torch.nn as nn
 from torchvision.utils import save_image
@@ -114,6 +115,9 @@ def train(config):
             optimizer.step()
         log.info(f"Epoch {epoch+1} complete! Average Loss: {overall_loss / (batch_idx*hparams['batch_size'])}") 
     log.info("Finish!!")
+    
+    # save weights
+    torch.save(model, f"{os.getcwd()}/trained_model.pt")
     
     # Generate reconstructions
     model.eval()
