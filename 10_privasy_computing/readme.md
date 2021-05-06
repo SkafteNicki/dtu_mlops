@@ -13,8 +13,8 @@ automates this.
 
 <p align="center">
 <b> “Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.” -Martin Fowler, Chief Scientist, ThoughtWorks </b>
-![ci](../figures/ci.png)
 </p>
+![ci](../figures/ci.png)
 
 
 
