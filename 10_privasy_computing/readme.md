@@ -8,7 +8,7 @@ are automatically tested such that it does not break existing code. When we look
 CI belongs to the operation part. 
 
 It should be notes that applying CI does not magically secure that your code does not break.
-CI is only as strong as the unittest that are automatically executed. CI simply structures and
+CI is only as strong as the tests that are automatically executed. CI simply structures and
 automates this.
 
 <p align="center">
@@ -17,15 +17,35 @@ automates this.
 
 ![ci](../figures/ci.png)
 
-### 
-Continuous Integration (CI) is a development practice where developers integrate code into a shared repository frequently, preferably several times a day. Each integration can then be verified by an automated build and automated tests. While automated testing is not strictly part of CI it is typically implied.
+### Exercises
 
-One of the key benefits of integrating regularly is that you can detect errors quickly and locate them more easily. As each change introduced is typically small, pinpointing the specific change that introduced a defect can be done quickly.
+The following exercises should be applyed to your MNIST reposatory
 
-In recent years CI has become a best practice for software development and is guided by a set of key principles. Among them are revision control, build automation and automated testing.
+1. The first part of doing CI is writing the unit tests. We do not expect you to cover every part
+   of the code you have developed but try to atleast write tests that cover two files. Start by
+   creating a `tests` folder.
 
-Additionally, continuous deployment and continuous delivery have developed as best-practices for keeping your application deployable at any point or even pushing your main codebase automatically into production whenever new changes are brought into it. This allows your team to move fast while keeping high quality standards that can be checked automatically.
+2. Read the [getting started guide](https://docs.pytest.org/en/6.2.x/getting-started.html) for pytest
+   which is the testing framework that we are going to use
+   
+3. Install pytest:
 
+   ```
+   pip install pytest
+   ```
+   
+4. Write some tests. Below are some guidelines on some tests that should be implemented, but
+   you are ofcause free to implement more tests. You can at any point check if your tests are
+   passing by typing in a terminal
+   
+   ```
+   pytest tests/
+   ```
 
+   4.1. Data testing: 
 
+   4.2. Model testing: In a file called `tests/test_model.py` implement atleast a test that
+        checks for a given input with shape *X* that the output of the model have shape *Y*
+   
+   4.3. Training testing: In a file called `tests/test_training.py` 
 
