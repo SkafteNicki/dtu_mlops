@@ -1,6 +1,5 @@
 # 10. Privacy computing
 
-
 ## Continues-Integration
 
 Continues integration (CI) is a development practise that makes sure that updates to code 
@@ -53,6 +52,48 @@ The following exercises should be applyed to your MNIST reposatory
 
    4.2. Model testing: In a file called `tests/test_model.py` implement atleast a test that
         checks for a given input with shape *X* that the output of the model have shape *Y*
-   
-   4.3. Training testing: In a file called `tests/test_training.py` 
+        
+   4.3. Training testing: In a file called `tests/test_training.py` implement atleast one test
+        that asserts something about your training script. You are here given free hands on what
+        should be tested, but try to test something the risk being broken when developing the code.
 
+5. Finally, make sure that all your tests pass locally
+
+## Github actions
+Github actions are the CI solution that github provides. Each of your reposatories gets 2,000 minutes of free 
+testing per month which should be more than enough for the scope of this course (and probably all personal 
+projects you do). Getting Github actions setup in a reposatory may seem complicated at first, but workflow
+files that you create for one reposatory can more or less be reused for any other reposatory that you have.
+
+1. Start by creating a `.github` folder in the base of your reposatory. Add a subfolder to that called `workflows`
+
+2. Go over this [page](https://docs.github.com/en/actions/guides/building-and-testing-python) that explains
+   how to do automated testing of python code in github actions. You do not have to understand everything,
+   but atleast get a feeling of what a workflow file should look like.
+   
+3. We have provided a workflow file called `tests.yml` that should do run your tests for you. Place this file
+   in the `.github/workflows/` folder. The workflow file consist of three steps
+   
+   * First a python enviroment is setup (in this case python 3.8)
+   
+   * Next all dependencies required to run the test are installed
+   
+   * Finally, `pytest` is called and test will be run
+
+4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. The first
+   file should contain all packages required to run your code. The second file is all *additional*  packages
+   required to run the tests. In your simple case it may very well be that the second file is empty, however
+   sometimes additional packages are used for testing that are not strictly required for the scripts to run.
+   
+5. Finally, try pushing the changes to your reposatory. Hopefully your tests should just start, and you will
+   after sometime see a green checkermark next to hash of the commit. Also try to checkout the *Actions*  tap
+   where you can see the history of actions run.
+
+![action](../figures/action.PNG)
+
+6. (Optional) Normally we develop code one operating system and just hope that it will work on other operating
+   systems. However, CI enables us to automatically test on other systems than ourself.
+   
+   6.1 The provided `tests.yml` only runs on one operating system. Which one?
+   
+   6.2 Alter the file (or write a new) that executes the test on the two other main operating systems that exist
