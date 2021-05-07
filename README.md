@@ -32,7 +32,16 @@ if you do not have git installed (yet) we will touch apon it in the course.
 
 ## Course details
 
-
+* 5 ECTS
+* 3 week period
+* Master course
+* Grade: Pass/not passed
+* Type of assesment: weekly project updates + final oral examination/presentation
+* Recommended prerequisites: [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or experience
+with the following:
+    * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.) and 
+    basic knowledge about deep learning (backpropergation, convolutional neural network, auto-encoders ect.)
+    * Coding in [Pytorch](https://pytorch.org/)
 
 ## 
 
@@ -75,3 +84,19 @@ The last week is about extentions, that both may benefit production settings and
 |Wednesday | Deployment | Torchserve + bentoml
 |Thursday | - | Project work
 |Friday  |  - | Project presentations
+
+## Learning objectives
+
+A student who has met the objectives of the course will be able to:
+
+* Demonstrate a broad knowledge of state-of-the-art frameworks for doing research within deep learning 
+* Organise code in a efficient way for easy maintainability and shareability (git + docker)
+* Being able to debug, visualize and monitor multiple experiments to assess model performance (wandb)
+* Cable of using online computing services to scale experiments (AWS)
+* Demonstrate knowledge about different distributed training paradigms (data parallelism, model parallelism, ect) 
+with deep learning and how to apply them (pytorch-lightning)
+* Understand the importance of reproducibility and how to make sure experiments are reproducible (hydra)
+* Efficiently do cross-validation and hyperparameter searched (optuna)
+* Knowledge about privacy computing (Pysyft, opacus)
+* Deploy deep learning models in the wild (torchserve)
+* Conduct a research project in collaboration with follow students using the frameworks teached in the course
