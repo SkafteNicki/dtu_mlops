@@ -97,3 +97,29 @@ files that you create for one reposatory can more or less be reused for any othe
    6.1 The provided `tests.yml` only runs on one operating system. Which one?
    
    6.2 Alter the file (or write a new) that executes the test on the two other main operating systems that exist
+
+## Auto linter (optional)
+
+In part 2 of the course you where introduced to a couple of good coding practises such as being consistent
+with how your packages are sorted and that your code follows certain standards. In this set of exercises we
+will setup workflows that will automatically test for this. 
+
+1. Create a new workflow file called `isort.yml`, that implements the following three steps
+
+   * Setup python enviroment
+   
+   * Installs `isort`
+   
+   * Runs `isort` on the reposatory
+   
+   (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
+   
+2. Create a new workflow file called `flake8.yml`, that implements the following three steps
+
+   * Setup python enviroment
+   
+   * Installs `flake8`
+   
+   * Runs `flake8` on the reposatory
+   
+   (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)

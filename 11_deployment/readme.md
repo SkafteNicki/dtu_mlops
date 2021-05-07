@@ -1,10 +1,14 @@
 # 11. Model deployment
 
 Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
-world. that
+world. One way to do this is ofcause to just place all your code in a github reposatory, upload a file with
+the trained model weights to your favorit online storage (assuming it is too big for github to handle) and
+ask people to run your code. This is a fine approach in a research setting, but in production you need to be
+able to **deploy** the model to a enviroment that is fully contained that people can just execute without
+looking (too hard) at the code. 
 
 Today is all about deploying your model. The hope is that by the end of this exercise you will be able to
-access your model online 
+access your model online and to inference in real-time.
 
 ## Drifing data
 
@@ -46,3 +50,18 @@ model (in Pytorch).
     3.5 Repeat the exercise with some out-of-distribution data for example 
         [FashionMnist](https://github.com/zalandoresearch/fashion-mnist) dataset. Is it easier for the
         drift detectors to figure out true out-of-distribution data compared to the slightly blurred data.
+
+## Deploying the model with torchserve
+
+Torchserve is Pytorch own framework for deploying/serving models. It can be a bit rough around the edges but
+is fairly easy to work with. 
+
+4. Find someone else that can test your model for you. 
+
+
+## Creating fully deployable packages
+
+Torchserve all not by default create a fully contained enviroment that can be shipped of to production. This
+would require to also include all dependencies nessesary ect. We therefore turn our attention now to
+[bentoML](https://github.com/bentoml/BentoML) that was created with making model serving easy to do. 
+

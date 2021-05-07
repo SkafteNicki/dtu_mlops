@@ -80,9 +80,3 @@ to your own "Google Drive" and then you can call your scripts from a google cola
 
 Be sure to have completed the final exercise before the next session, as we will be building on top of the model
 you have created.
-
-
-
-
-
-
