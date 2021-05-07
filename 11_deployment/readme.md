@@ -54,9 +54,68 @@ model (in Pytorch).
 ## Deploying the model with torchserve
 
 Torchserve is Pytorch own framework for deploying/serving models. It can be a bit rough around the edges but
-is fairly easy to work with. 
+is fairly easy to work with. We are largely going to follow the instructions listed in the 
+[readme file](https://github.com/pytorch/serve/blob/master/README.md#serve-a-model) for torchserve. The intention
+is to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
 
-4. Find someone else that can test your model for you. 
+1. Install `torchserve` either using pip or conda:
+   ```
+   pip install torchserve torch-model-archiver
+   conda install torchserve torch-model-archiver -c pytorch
+   ```
+   
+2. create a folder called `model_store`
+
+2. We need a model to serve. The problem however is that we cannot give a `torchserve` a raw file of trained
+   model weights as these essentially is just a list of floats. We need a file that both contains the model
+   definition and the trained weights. For this we are going to use `TorchScript`, Pytorchs build-in way
+   to create serializable models. The great part about scriptet models are:
+   
+   * TorchScript code can be invoked in its own interpreter, which is basically a restricted Python interpreter. 
+     This interpreter does not acquire the Global Interpreter Lock, and so many requests can be processed on the 
+     same instance simultaneously.
+   * This format allows us to save the whole model to disk and load it into another environment, such as in a 
+     server written in a language other than Python
+   * TorchScript gives us a representation in which we can do compiler optimizations on the code to provide 
+     more efficient execution
+   * TorchScript allows us to interface with many backend/device runtimes that require a broader view of the 
+     program than individual operators.
+
+   Lukely `TorchScript` is very easy to use. Choose a resnet model from `torchvision` and script it
+   
+   ```
+   model = ResnetFromTorchVision(pretrained=True)
+   script_model = torch.jit.script(model)
+   script_model.save('deployable_model.pt')
+   ```
+   
+   
+   
+
+
+3. We are going to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
+   To create a model that we can serve we need both the model definition and a file containing the weights
+   that we want do use in our served model. We have already provided a file called `resnet.py` (directly
+   taken from `torchvision`) that contains the model definition. Inside the file you can see various paths
+   to different versions of resnet. Download the model weights that you want to serve.
+
+4. TorchScript is a way to create serializable and optimizable models from PyTorch code. Any TorchScript program can be saved from a Python process and loaded in a process where there is no Python dependency.
+
+
+4. Call the model archiver
+   ```
+   torch-model-archiver \
+       --model-name my_fancy_model 
+       --version 1.0 \
+       --model-file path/to/model_definition.py \ 
+       --serialized-file path/to/model_weights.pth \
+       --export-path model_store 
+       --extra-files index_to_name.json 
+       --handler image_classifier
+   ```
+
+
+1. Find someone else that can test your model for you. 
 
 
 ## Creating fully deployable packages
