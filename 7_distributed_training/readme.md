@@ -47,7 +47,7 @@ can be parallized based on loading the raw datafiles (.jpg) at runtime.
    number of workers along the x-axis and the timing along the y-axis. The errorbars should correspond to
    the standard deviation over the 5 runs.
 
-3. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the
+6. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the
    `pin_memory` flag to `True`. By setting this flag we are essentially telling pytorch that they can
    lock the data in-place in memory which will make the transfer between the *host* (CPU) and the
    *device* (GPU) faster.
@@ -74,8 +74,34 @@ would require more than just wrapping your model in the appropriate class. This 
 frameworks such as *Pytorch Lightning* comes into play. As long as we format our model to the required
 format of the framework we can enable distributed training with a single change of code.
 
-###
+### Exercises
 
+1. Convert your model into a `LightningModule`. The bare minimum that should be for the module to work with 
+   the rest of lightning is:
+   
+   * The `training_step` method. This function should contain essentially what goes into a single
+   training step and should return the loss at the end
+   
+   * The `configure_optimizers` method
+   
+   Please read the [documentation](https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html)
+   for more info.
+   
+2. For data you have 3 options, all requiring you to have it defined as Pytorch DataLoaders:
+   
+   * They can be part of the model definition by defining the `training_dataloader`, `val_dataloader` and `test_dataloader`
+     methods
+     
+   * They can also be made into a [datamodule](https://pytorch-lightning.readthedocs.io/en/latest/extensions/datamodules.html) 
+     for easy reuse 
+     
+   * Finally, they can be directly feed into the trainer object when doing the fitting
+
+3. Instanciate a `Trainer` object. It is recommended to take a look at the 
+   [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags)
+   (there are many of them) but it is not strictly nessesary.
+   
+4. Try fitting your model: `trainer.fit(model)`
 
 5. (Optional) As default pytorch uses `float32` for representing floating point numbers. However, 
    research have shown that neural network training is very robust towards a decrease in precision.
