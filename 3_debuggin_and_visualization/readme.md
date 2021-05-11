@@ -96,6 +96,45 @@ stems from playing around with the hyperparameters of your model.
    ```tensorboard --logdir=name1:/path/to/logs/1,name2:/path/to/logs/2```
 
 While tensorboard is a great logger for many things, more advanced loggers may be more suitable. For the remaining 
-of the exercises we will try to look at the [wandb](https://wandb.ai/site) logger. 
+of the exercises we will try to look at the [wandb](https://wandb.ai/site) logger. The great benefit of using wandb
+over tensorboard is that it was build with colllaboration in mind (whereas tensorboard somewhat got it along the
+way).
+
+1. Start by creating an account at [wandb](https://wandb.ai/site). I recommend using your github account but feel
+   free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
+   use (HINT: if you forgot to copy the API key, you can find it under settings).
+
+2. Next install wandb on your laptop
+   ```
+   pip install wandb
+   ```
+
+3. Now connect to your wandb account
+   ```
+   wandb login
+   ```
+   you will be asked to provide the 40 length API key. The connection will be closed to the wandb server whenever
+   you close the terminal. If using `wandb` in a notebook you need to manually close the connection using
+   `wandb.finish()`
+   ```
+
+4. With it all setup we are now ready to incorporate `wandb` into our code. The interface is fairly simple, and
+   this [guide](https://docs.wandb.ai/guides/integrations/pytorch) should give enough hints to get you through
+   the exercise. (HINT: the two methods you need to call are `wandb.init` and `wandb.log`). To start with, logging
+   the training loss of your model will be enough.
+
+5. After running your model, checkout the webpage. Hopefully you should be able to see atleast 
+
+6. Finally, lets create a report that you can share. Click the **Create report** botton where you choose the *blank*
+   option. Then choose to include everything in the report 
+
+7. To make sure that you have completed todays exercises, make the report shareable by clicking the *Share* botton
+   and create *view-only-link*. Send the link to my email `nsde@dtu.dk`, so I can checkout your awesome work.
+
+8. Feel free to experiment more with `wandb` as it is a great tool for logging, organising and sharing experiments.
+
+
+
+
 
 
