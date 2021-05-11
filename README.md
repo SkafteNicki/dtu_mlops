@@ -43,21 +43,20 @@ with the following:
     basic knowledge about deep learning (backpropergation, convolutional neural network, auto-encoders ect.)
     * Coding in [Pytorch](https://pytorch.org/)
 
-## 
-
+## Course plan
 
 ### Week 1
 
 The first week is all about getting set up for the following two weeks. In particular this week focus setting
 up a good practise for how to organise and develop code.
 
-|        |  Presentation topic                    | Framework/exercise
-|--------|-----------------------------------|--------------------
-|Monday  |  How autodiff changed the world   | Freshup on pytorch
-|Tuesday |  Code organisation: why it matters | Conda + Github + docker
-|Wednesday | Debugging and visualization | Tensorboard, wandb
-|Thursday | Project overview: pytorch ecosystem | Project work
-|Friday  |  - | Project work
+Date | Day       |  Presentation topic                 | Framework/exercise
+-----|-----------|-------------------------------------|--------------------------
+4/6  | Friday    | How autodiff changed the world      | Freshup on pytorch
+7/6  | Monday    | Code organisation: why it matters   | Conda + Github + docker
+8/6  | Tuesday   | Debugging and visualization         | Tensorboard, wandb
+9/6  | Wednesday | Project overview: pytorch ecosystem | Project work
+10/6 | Thursday  | -                                   | Project work
 
 ### Week 2
 
@@ -65,25 +64,25 @@ The second week is about scalability. While many times it does not require huge 
 there are always certain phases that requires you to scale your experiments. In this week we will focus on 
 getting conftable on how to write distributed application and how we can run them
 
-|            |  Presentation topic  | Framework/exercise
-|--------|-----------------------------------|--------------------
-|Monday      |  Training in the sky | AWS, azura, google cloud
-|Tuesday    |  Distributed training: a overview | Pytorch Lightning
-|Wednesday | Reproducibility: configuration files | Hydra
-|Thursday   | - | Project work
-|Friday     |  - | Project work
+Date | Day       | Presentation topic                   | Framework/exercise
+-----|-----------|--------------------------------------|-------------------------
+11/6 | Friday    | Training in the sky                  | AWS, azura, google cloud
+14/6 | Monday    | Distributed training: a overview     | Pytorch Lightning
+15/6 | Tuesday   | Reproducibility: configuration files | Hydra
+16/6 | Wednesday | -                                    | Project work
+17/6 | Thursday  | -                                    | Project work
 
 ### Week 3
 
 The last week is about extentions, that both may benefit production settings and research settings.
 
-|        |  Presentation topic  | Framework/exercise
-|--------|-----------------------------------|--------------------
-|Monday  |  Cross validation and hyperparameters | Optuna
-|Tuesday |  Conputing on data you do not own | PySyft + opacus
-|Wednesday | Deployment | Torchserve + bentoml
-|Thursday | - | Project work
-|Friday  |  - | Project presentations
+Date | Day       | Presentation topic                   | Framework/exercise
+-----|-----------|--------------------------------------|--------------------
+18/6 | Friday    | Cross validation and hyperparameters | Optuna
+21/6 | Monday    | Conputing on data you do not own     | PySyft + opacus
+22/6 | Tuesday   | Deployment                           | Torchserve + bentoml
+23/6 | Wednesday | -                                    | Project work
+24/6 | Thursday  | -                                    | Project presentations
 
 ## Learning objectives
 
