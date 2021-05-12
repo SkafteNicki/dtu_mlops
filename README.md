@@ -1,19 +1,17 @@
 ![mlops](figures/mlops-loop-en.jpg)
 
-# ????? Machine Learning Operations
+# Machine Learning Operations
 
 This repository contains the exercises for the DTU course ????? Machine Learning Operations (MLOps). 
 All exercises are writting in the [Python](https://www.python.org/) programming language and formatted 
 into a combination of scripts and [Jupyter Notebooks](https://jupyter.org/). 
 
-This repository borrows heavily from previous work, in particular:
-
-* 
-
 ## MLOps: What is it?
 
 A compound of “machine learning” and “operations”, refers to the practice for collaboration and communication 
 between data scientists and operations professionals to help manage production ML (or deep learning) lifecycle.
+The lifecycle consist of a design, development and operations phase that are all equal important to get a
+functional machine learning model.
 
 Reading resourses:
 * https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning.
@@ -21,17 +19,11 @@ Reading resourses:
 * https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f. Great document
   from google about the different levels of MLOps
 
-## Setup
-
-Start by cloning or downloading this reposatory
-```
-git clone https://github.com/SkafteNicki/02457_mlops
-```
-if you do not have git installed (yet) we will touch apon it in the course.
-
-
 ## Course details
 
+* Course responsable
+    * Postdoc Nicki Skafte Detlefsen, nsde@dtu.dk
+    * Professor Søren Hauberg, sohau@dtu.dk
 * 5 ECTS
 * 3 week period
 * Master course
@@ -42,6 +34,14 @@ with the following:
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.) and 
     basic knowledge about deep learning (backpropergation, convolutional neural network, auto-encoders ect.)
     * Coding in [Pytorch](https://pytorch.org/)
+
+## Setup
+
+Start by cloning or downloading this reposatory
+```
+git clone https://github.com/SkafteNicki/02457_mlops
+```
+if you do not have git installed (yet) we will touch apon it in the course.
 
 ## Course plan
 
@@ -55,32 +55,33 @@ Date | Day       |  Presentation topic                 | Framework/exercise
 4/6  | Friday    | How autodiff changed the world      | Freshup on pytorch
 7/6  | Monday    | Code organisation: why it matters   | Conda + Github + docker
 8/6  | Tuesday   | Debugging and visualization         | Tensorboard, wandb
-9/6  | Wednesday | Project overview: pytorch ecosystem | Project work
-10/6 | Thursday  | -                                   | Project work
+9/6  | Wednesday | Continues integration               | Pytest + github actions
+10/6 | Thursday  | Pytorch ecosystem                   | Project work
 
 ### Week 2
 
 The second week is about scalability. While many times it does not require huge resources to do development,
 there are always certain phases that requires you to scale your experiments. In this week we will focus on 
-getting conftable on how to write distributed application and how we can run them
+getting comfortable on how to write distributed application and how we can run them
 
 Date | Day       | Presentation topic                   | Framework/exercise
 -----|-----------|--------------------------------------|-------------------------
-11/6 | Friday    | Training in the sky                  | AWS, azura, google cloud
+11/6 | Friday    | Training in the sky                  | Azura
 14/6 | Monday    | Distributed training: a overview     | Pytorch Lightning
-15/6 | Tuesday   | Reproducibility: configuration files | Hydra
+15/6 | Tuesday   | Reproducibility                      | Hydra
 16/6 | Wednesday | -                                    | Project work
 17/6 | Thursday  | -                                    | Project work
 
 ### Week 3
 
-The last week is about extentions, that both may benefit production settings and research settings.
+The last wee is about two important extensions of your workflow: hyperparameter tuning and model
+deployment. Mastering both of these topics is both beneficial in production and research settings.
 
 Date | Day       | Presentation topic                   | Framework/exercise
 -----|-----------|--------------------------------------|--------------------
 18/6 | Friday    | Cross validation and hyperparameters | Optuna
-21/6 | Monday    | Conputing on data you do not own     | PySyft + opacus
-22/6 | Tuesday   | Deployment                           | Torchserve + bentoml
+21/6 | Monday    | Deployment                           | Torchserve + bentoml
+22/6 | Tuesday   | -                                    | Project work
 23/6 | Wednesday | -                                    | Project work
 24/6 | Thursday  | -                                    | Project presentations
 
