@@ -88,15 +88,14 @@ Date | Day       | Presentation topic                   | Framework/exercise
 ## Learning objectives
 
 A student who has met the objectives of the course will be able to:
+**Demonstrate a broad knowledge of state-of-the-art frameworks for doing research within deep learning**
 
-* Demonstrate a broad knowledge of state-of-the-art frameworks for doing research within deep learning 
-* Organise code in a efficient way for easy maintainability and shareability (git + docker)
-* Being able to debug, visualize and monitor multiple experiments to assess model performance (wandb)
-* Cable of using online computing services to scale experiments (AWS)
+* Organise code in a efficient way for easy maintainability and shareability (git, cookiecutter)
+* Being able to debug, visualize and monitor multiple experiments to assess model performance (tensorflow, wandb)
+* Cable of using online computing services to scale experiments (azure)
 * Demonstrate knowledge about different distributed training paradigms (data parallelism, model parallelism, ect) 
 with deep learning and how to apply them (pytorch-lightning)
 * Understand the importance of reproducibility and how to make sure experiments are reproducible (hydra)
 * Efficiently do cross-validation and hyperparameter searched (optuna)
-* Knowledge about privacy computing (Pysyft, opacus)
-* Deploy deep learning models in the wild (torchserve)
+* Deploy deep learning models in the wild (torchserve, azure)
 * Conduct a research project in collaboration with follow students using the frameworks teached in the course
