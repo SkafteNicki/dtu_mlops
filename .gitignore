@@ -130,3 +130,6 @@ dmypy.json
 
 # hydra logging folder
 outputs/
+
+# datasets
+FashionMNIST/

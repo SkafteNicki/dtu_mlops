@@ -58,14 +58,25 @@ our different models.
    a neural network with too many parameters so it is just overfitting to the training data. This however begs the
    question: what consitutes an unpromising trial? This is up to you to define based on prior experimentation.
    
-   6.1. Start by looking at the `simple_neural_network.py` script. Its a simple regression network for predicting
-        ???. Run the script with the default hyperparameters to get a feeling of how the training should be progress.
+   6.1. Start by looking at the `fashion_trainer.py` script. Its a simple classification network for classifying
+        images in the [FashionMNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. Run the script 
+        with the default hyperparameters to get a feeling of how the training should be progress.
         Note down the performance on the test set.
         
-   6.2. Now, adjust the script to use Optuna. Atleast 5 hyperparameters needs to be tunable. Run a small study
-        (`n_tirals=3`) to check that the code is working.
+   6.2. Now, adjust the script to use Optuna. The following 5 hyperparameters should atleast be included in the
+        hyperparameter search
+        * Learning rate
+        * Number of output features in the second last layer
+        * The amount of dropout to Apply
+        * Batch size
+        * To use batch normalize or not
+        * (Optional) Can you figure out how to choose between different activations functions 
+        (`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`)?
         
-   6.3. If implemented correctly the number of hyperparameter combinations should be around ???^??? meaning that
+        Some of the parameters the search space is already given, but for the remaining you must come up with
+        a good guess of values to investigate. Run a small study (`n_tirals=3`) to check that the code is working.
+
+   6.3. If implemented correctly the number of hyperparameter combinations should be atleast 1000, meaning that
         we not only need baysian optimization but probably also need pruning to succed. Checkout the page for
         [build-in pruners](https://optuna.readthedocs.io/en/stable/reference/pruners.html) in Optuna. Implement
         pruning in the script. I recommend using either the `MedianPruner` or the `ProcentilePruner`. 
@@ -84,9 +95,48 @@ our different models.
 
 7. The exercises until now have focused on doing the hyperparameter searching sequentially, meaning that we test one
    set of parameters at the time. It is a fine approach because you can easely let it run for a week without any
-   interaction. However, assuming that you have the computational resources to run in parallel, how do you do that.
+   interaction. However, assuming that you have the computational resources to run in parallel, how do you do that?
    
+   7.1 To run hyperparameter search in parallel we need a common database that all experiments can read and
+       write to. We are going to use the recommende `mysql`. You do not have to understand what SQL is to
+       complete this exercise, but it is [basically](https://en.wikipedia.org/wiki/SQL) a language (like python)
+       for managing databases. Install mysql
+       ```
+       pip install mysql
+       ```
+       
+   7.2 Next we are going to initialize a database that we can read and write to. For this exercises we are going
+       to focus on a locally stored database but it could ofcause also be located in the cloud.
+       ```
+       mysql -u root -e "CREATE DATABASE IF NOT EXISTS example"
+       ```
+       
+   7.3 Now we are going to create a Optuna study in our database
+       ```
+       optuna create-study --study-name "distributed-example" --storage "mysql://root@localhost/example"
+       ``` 
+      
+   7.4 Change how you initialize the study to read and write to the database. Therefore, instead of doing
+       ```
+       study = optuna.create_study()
+       ```
+       then do
+       ```
+       study = optuna.load_study(
+        study_name="distributed-example", storage="mysql://root@localhost/example"
+       )
+       ```
+       where the `study_name` and `storage` should match how the study was created. 
    
+   7.4 For running in parallel, you can either open up a extra terminal and simple launch your script once
+       per open terminal or you can use the provided `parallel_lancher.py` that will lanuch multiple executions
+       of your script. It should be used as:
+       ```
+       python parallel_lancher.py myscript.py --num_parallel 2
+       ```
+   
+   7.5 Finally, make sure that you can access the results 
+      
 
 ### Final exercise
 
