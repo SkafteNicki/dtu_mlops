@@ -1,6 +1,4 @@
-# 10. Privacy computing
-
-## Continues-Integration
+# 4. Continues-Integration
 
 Continues integration (CI) is a development practise that makes sure that updates to code 
 are automatically tested such that it does not break existing code. When we look at MLOps,
