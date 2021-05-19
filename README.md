@@ -50,13 +50,13 @@ if you do not have git installed (yet) we will touch apon it in the course.
 The first week is all about getting set up for the following two weeks. In particular this week focus setting
 up a good practise for how to organise and develop code.
 
-Date | Day       |  Presentation topic                 | Framework/exercise
------|-----------|-------------------------------------|--------------------------
-4/6  | Friday    | How autodiff changed the world      | Freshup on pytorch
-7/6  | Monday    | Code organisation: why it matters   | Conda + Github + docker
-8/6  | Tuesday   | Debugging and visualization         | Tensorboard, wandb
-9/6  | Wednesday | Continues integration               | Pytest + github actions
-10/6 | Thursday  | Pytorch ecosystem                   | Project work
+Date | Day       |  Presentation topic                 | Framework/exercise       | On-site/Virtual
+-----|-----------|-------------------------------------|--------------------------|--------------------
+4/6  | Friday    | How autodiff changed the world      | Freshup on pytorch       | On-site
+7/6  | Monday    | Code organisation: why it matters   | Conda + Github + docker  | On-site
+8/6  | Tuesday   | Debugging and visualization         | Tensorboard, wandb       | On-site
+9/6  | Wednesday | Continues integration               | Pytest + github actions  | on-site
+10/6 | Thursday  | Pytorch ecosystem                   | Project work             | Virtual
 
 ### Week 2
 
@@ -64,26 +64,26 @@ The second week is about scalability. While many times it does not require huge 
 there are always certain phases that requires you to scale your experiments. In this week we will focus on 
 getting comfortable on how to write distributed application and how we can run them
 
-Date | Day       | Presentation topic                   | Framework/exercise
------|-----------|--------------------------------------|-------------------------
-11/6 | Friday    | Training in the sky                  | Azura
-14/6 | Monday    | Distributed training: a overview     | Pytorch Lightning
-15/6 | Tuesday   | Reproducibility                      | Hydra
-16/6 | Wednesday | -                                    | Project work
-17/6 | Thursday  | -                                    | Project work
+Date | Day       | Presentation topic                   | Framework/exercise      | On-site/Virtual
+-----|-----------|--------------------------------------|-------------------------|-------------------
+11/6 | Friday    | Training in the sky                  | Azura                   | On-site
+14/6 | Monday    | Distributed training: a overview     | Pytorch Lightning       | On-site
+15/6 | Tuesday   | Reproducibility                      | Hydra                   | On-site
+16/6 | Wednesday | -                                    | Project work            | Virtual
+17/6 | Thursday  | -                                    | Project work            | Virtual
 
 ### Week 3
 
 The last wee is about two important extensions of your workflow: hyperparameter tuning and model
 deployment. Mastering both of these topics is both beneficial in production and research settings.
 
-Date | Day       | Presentation topic                   | Framework/exercise
------|-----------|--------------------------------------|--------------------
-18/6 | Friday    | Cross validation and hyperparameters | Optuna
-21/6 | Monday    | Deployment                           | Torchserve + bentoml
-22/6 | Tuesday   | -                                    | Project work
-23/6 | Wednesday | -                                    | Project work
-24/6 | Thursday  | -                                    | Project presentations
+Date | Day       | Presentation topic                   | Framework/exercise    | On-site/Virtual
+-----|-----------|--------------------------------------|-----------------------|---------------------
+18/6 | Friday    | Cross validation and hyperparameters | Optuna                | On-site
+21/6 | Monday    | Deployment                           | Torchserve + bentoml  | On-site
+22/6 | Tuesday   | -                                    | Project work          | Virtual
+23/6 | Wednesday | -                                    | Project work          | Virtual
+24/6 | Thursday  | -                                    | Project presentations | On-site
 
 ## Learning objectives
 
