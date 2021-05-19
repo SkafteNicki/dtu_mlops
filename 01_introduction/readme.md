@@ -30,14 +30,15 @@ supposed to fill out are inlined in the text in small "exercise" blocks:
        It is ofcause possible to do this directly to tensors, but sometimes it is great to
        have it directly in a `nn.Sequential` module. Write a `Reshape` layer which `__init__`
        takes a variable number arguments e.g. `Reshape(2)` or `Reshape(2,3)` and the forward
-       takes a single input that it reshaped and returned.
+       takes a single input `x` where the reshape is applied to all other dimensions than the
+       batch dimension.
 
 3. Complete the [Training Neural Networks](3_Training_Neural_Networks.ipynb) notebook. It focuses on
    how to write a simple training loop for training a neural network.
    
 4. Complete the [Fashion MNIST](4_Fashion_MNIST.ipynb) notebook, that summaries concepts learned in the
    notebook 2 and 3 on building a neural network for classifying the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) 
-   dataset
+   dataset.
 
 5. Complete the [Inference and Validation](5_Inference_and_Validation.ipynb) notebook. This notebook adds
    important concepts on how to do inference and validation on our neural network

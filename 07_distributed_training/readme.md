@@ -99,14 +99,24 @@ format of the framework we can enable distributed training with a single change 
 
 3. Instanciate a `Trainer` object. It is recommended to take a look at the 
    [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags)
-   (there are many of them) but it is not strictly nessesary.
+   (there are many of them) and maybe adjust some of them:
    
+   3.1 Lightning supports most experiment loggers including both Tensorboard and Wandb. As default the trainer
+       will use a Tensorboard logger but feel free to change it to Wandb using the `logger` flag.
+       
+   3.2 As default lightning will run for 1000 epochs. This may be too much (for now). Change this by changing
+       the appropriate flag.
+       
+   3.3 To start with we also want to limit the amount of training data to 20% of its original size. which
+       trainer flag do you need to set for this to work?
+
 4. Try fitting your model: `trainer.fit(model)`
 
-5. (Optional) As default pytorch uses `float32` for representing floating point numbers. However, 
+5. For experiment logging
+
+6. (Optional) As default pytorch uses `float32` for representing floating point numbers. However, 
    research have shown that neural network training is very robust towards a decrease in precision.
    The great benefit going from `float32` to `float16` is that we get approxemately half the [memory
    consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training 
-   in pytorch lightning. You can enable this by setting the [precision
-   ](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
-   
+   in pytorch lightning. You can enable this by setting the [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) 
+   flag in the `Trainer`.

@@ -59,7 +59,7 @@ For this exercise
 2. Secondly try to profile the `vae_mnist_working.py` script from the debugging exercises. Can you improve
 something in the code?
 
-3. Apply the profiler to your own code. 
+3. Apply the profiler to your own MNIST code.
 
 ### Experiement visualizers
 
@@ -113,10 +113,9 @@ way).
    ```
    wandb login
    ```
-   you will be asked to provide the 40 length API key. The connection will be closed to the wandb server whenever
-   you close the terminal. If using `wandb` in a notebook you need to manually close the connection using
-   `wandb.finish()`
-   ```
+   you will be asked to provide the 40 length API key. The connection should be remain open to the wandb server
+   even when you close the terminal, such that you do not have to login each time. If using `wandb` in a notebook 
+   you need to manually close the connection using `wandb.finish()`.
 
 4. With it all setup we are now ready to incorporate `wandb` into our code. The interface is fairly simple, and
    this [guide](https://docs.wandb.ai/guides/integrations/pytorch) should give enough hints to get you through
@@ -125,16 +124,14 @@ way).
 
 5. After running your model, checkout the webpage. Hopefully you should be able to see atleast 
 
-6. Finally, lets create a report that you can share. Click the **Create report** botton where you choose the *blank*
+6. Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
+   cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image` ect. dependending
+   on what you choose to log.
+
+7. Finally, lets create a report that you can share. Click the **Create report** botton where you choose the *blank*
    option. Then choose to include everything in the report 
 
-7. To make sure that you have completed todays exercises, make the report shareable by clicking the *Share* botton
+8. To make sure that you have completed todays exercises, make the report shareable by clicking the *Share* botton
    and create *view-only-link*. Send the link to my email `nsde@dtu.dk`, so I can checkout your awesome work.
 
-8. Feel free to experiment more with `wandb` as it is a great tool for logging, organising and sharing experiments.
-
-
-
-
-
-
+9. Feel free to experiment more with `wandb` as it is a great tool for logging, organising and sharing experiments.

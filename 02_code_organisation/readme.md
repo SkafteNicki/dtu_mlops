@@ -83,27 +83,32 @@ integrate this into your own projects depends, but you are atleast expected to b
    3.5 Finally push the files to your reposatory using `git push`. Make sure to check online that the files
        have been updated in your reposatory.
 
-4. (Optional) Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
+4. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
    not completly untrue when you are only one or two working on a project. However, these file manegement 
-   systems falls short when we hundred to tousand of people work to together. For this exercise you will
+   systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
    4.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
-       just fork this reposatory.
+       just choose the reposatory belonging to the course. Now fork the project by clicking the *Fork* botton.
        
+![forking](..figures/forking.PNG)
+
+      This will create a local copy of the reposatory which you have complete writing access to. Note that
+      code updates to the original reposatory does not update code in your local reposatory.
+
    4.2 Clone your local fork of the project using ```git clone```
-   
+
    4.3 As default your local reposatory will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
        the ```git checkout``` commando to create a new branch.
-       
+
    4.4 You are now ready to make changes to reposatory. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
-       
+
    4.5 Go online to the original reposatory and go the ```Pull requests``` tap. Find ```compare``` botton and
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
        in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
-       
+
    4.6 Write a bit about the changes you have made and click send :)
 
 
@@ -194,7 +199,7 @@ In addtion
 
 4. Install isort
    `pip install isort`
-    
+
 5. run isort on your project
    `isort .`
  
@@ -205,6 +210,3 @@ be extended to keep track of changes to data, model ect.
 
 In this extra exercise you are encouraged to checkout https://github.com/iterative/dvc which works
 similar to git but focuses on version control for machine learning.
-
-
-
