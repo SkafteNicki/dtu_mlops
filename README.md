@@ -3,22 +3,22 @@
 # Machine Learning Operations
 
 This repository contains the exercises for the DTU course Machine Learning Operations (MLOps). 
-All exercises are writting in the [Python](https://www.python.org/) programming language and formatted 
+All exercises are written in the [Python](https://www.python.org/) programming language and formatted 
 into a combination of scripts and [Jupyter Notebooks](https://jupyter.org/). 
 
 ## MLOps: What is it?
 
 A compound of “machine learning” and “operations”, refers to the practice for collaboration and communication 
 between data scientists and operations professionals to help manage production ML (or deep learning) lifecycle.
-The lifecycle consist of a design, development and operations phase that are all equal important to get a
+The life cycle consist of a design, development and operations phase that are all equal important to get a
 functional machine learning model.
 
-Reading resourses:
+Reading resources:
 * https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning.
   Introduction blog post for those that have never heard about MLOps
 * https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f. Great document
   from google about the different levels of MLOps
-* https://ml-ops.org/content/mlops-principles. The principals of MLOps
+* https://ml-ops.org/content/mlops-principles. The principles of MLOps
 * https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf. Great paper about the
 technical "depth" in machine learning (can also be found in the litterature folder)
 
@@ -31,11 +31,11 @@ technical "depth" in machine learning (can also be found in the litterature fold
 * 3 week period of June 2021
 * Master course
 * Grade: Pass/not passed
-* Type of assesment: weekly project updates + final oral examination/presentation
+* Type of assessment: weekly project updates + final oral examination/presentation
 * Recommended prerequisites: [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or experience
 with the following:
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.) and 
-    basic knowledge about deep learning (backpropergation, convolutional neural network, auto-encoders ect.)
+    basic knowledge about deep learning (backpropagation, convolutional neural network, auto-encoders ect.)
     * Coding in [Pytorch](https://pytorch.org/)
 
 ## Setup
@@ -44,7 +44,7 @@ Start by cloning or downloading this repository
 ```
 git clone https://github.com/SkafteNicki/dtu_mlops
 ```
-if you do not have git installed (yet) we will touch apon it in the course.
+if you do not have git installed (yet) we will touch upon it in the course.
 
 ## Course plan
 
@@ -58,18 +58,18 @@ Date | Day       |  Presentation topic                 | Framework/exercise     
 4/6  | Friday    | How autodiff changed the world      | Freshup on pytorch       | On-site
 7/6  | Monday    | Code organisation: why it matters   | Conda + Github + docker  | On-site
 8/6  | Tuesday   | Debugging and visualization         | Tensorboard, wandb       | On-site
-9/6  | Wednesday | Continues integration               | Pytest + github actions  | on-site
+9/6  | Wednesday | Continuous integration              | Pytest + github actions  | on-site
 10/6 | Thursday  | Pytorch ecosystem                   | Project work             | Virtual
 
 ### Week 2
 
 The second week is about scalability. While many times it does not require huge resources to do development,
-there are always certain phases that requires you to scale your experiments. In this week we will focus on 
+there are always certain phases that require you to scale your experiments. In this week we will focus on 
 getting comfortable on how to write distributed application and how we can run them
 
 Date | Day       | Presentation topic                   | Framework/exercise      | On-site/Virtual
 -----|-----------|--------------------------------------|-------------------------|-------------------
-11/6 | Friday    | Training in the sky                  | Azura                   | On-site
+11/6 | Friday    | Training in the sky                  | Azure                   | On-site
 14/6 | Monday    | Distributed training: a overview     | Pytorch Lightning       | On-site
 15/6 | Tuesday   | Reproducibility                      | Hydra                   | On-site
 16/6 | Wednesday | -                                    | Project work            | Virtual
