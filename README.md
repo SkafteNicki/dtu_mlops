@@ -39,7 +39,7 @@ with the following:
 
 Start by cloning or downloading this reposatory
 ```
-git clone https://github.com/SkafteNicki/02457_mlops
+git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 if you do not have git installed (yet) we will touch apon it in the course.
 
