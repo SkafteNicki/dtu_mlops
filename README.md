@@ -88,8 +88,12 @@ Date | Day       | Presentation topic                   | Framework/exercise    
 ## Learning objectives
 
 A student who has met the objectives of the course will be able to:
-**Demonstrate a broad knowledge of state-of-the-art frameworks for doing research within deep learning**
 
+<p align="center">
+<b>Demonstrate a broad knowledge of state-of-the-art frameworks for doing research within deep learning</b>
+</p>
+  
+This includes:
 * Organise code in a efficient way for easy maintainability and shareability (git, cookiecutter)
 * Being able to debug, visualize and monitor multiple experiments to assess model performance (tensorflow, wandb)
 * Cable of using online computing services to scale experiments (azure)
