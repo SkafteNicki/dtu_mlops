@@ -1,5 +1,5 @@
 ![mlops](figures/mlops-loop-en.jpg)
-
+(All credit to [link](https://ml-ops.org/content/mlops-principles))
 # Machine Learning Operations
 
 This repository contains the exercises for the DTU course ????? Machine Learning Operations (MLOps). 
