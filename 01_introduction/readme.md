@@ -36,13 +36,27 @@ supposed to fill out are inlined in the text in small "exercise" blocks:
 3. Complete the [Training Neural Networks](3_Training_Neural_Networks.ipynb) notebook. It focuses on
    how to write a simple training loop for training a neural network.
    
+   3.1 (Bonus exercise): A working training loop in Pytorch should have these three function calls:
+       ``optimizer.zero_grad()``, ``loss.backward()``, ``optimizer.step()``. Explain what would happen
+       in the training loop (or implement it) if you forgot each of the function calls.
+   
 4. Complete the [Fashion MNIST](4_Fashion_MNIST.ipynb) notebook, that summaries concepts learned in the
    notebook 2 and 3 on building a neural network for classifying the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) 
    dataset.
+   
+   4.1 (Bonus exercise): The exercise focuses on the Fashion MNIST dataset but should without much
+       work be able to train on multiple datasets. Implement a variable `dataset` that can take the
+       values `mnist`, `fashionmnist` and `cifar` and train a model on the respective dataset.
 
 5. Complete the [Inference and Validation](5_Inference_and_Validation.ipynb) notebook. This notebook adds
-   important concepts on how to do inference and validation on our neural network
+   important concepts on how to do inference and validation on our neural network.
    
+   5.1 (Bonus exercise): The exercise shows how dropout can be used to prevent overfitting. However, today it
+       is often used to get uncertainty estimates of the network predictions using [Monte Carlo Dropout](http://proceedings.mlr.press/v48/gal16.pdf).
+       Implement monte carlo dropout such that we at inference time gets different predictions for the same
+       input (HINT: do not set the network in evaluation mode). Construct a histogram of class prediction for a
+       single image using 100 monte carlo dropout samples.
+
 6. Complete the [Saving_and_Loading_Models](6_Saving_and_Loading_Models.ipynb) notebook. This notebook addresses
    how to save and load model weights. This is important if you want to share a model with someone else.
 
