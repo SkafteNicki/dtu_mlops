@@ -19,7 +19,7 @@ this means that the model is receiving input that is outside of the scope that i
 
 For this exercise we will rely on **TorchDrift** that contains state-of-the-art methods for detecting data
 drifting in classification models. It is a model agnostic tool that should work with any black-box classification
-model (in Pytorch).
+model (in Pytorch). You can learn more about TorchDrift in this [video](https://www.youtube.com/watch?v=rV5BhoKILoE&t=1s).
 
 ### Exercises
 
