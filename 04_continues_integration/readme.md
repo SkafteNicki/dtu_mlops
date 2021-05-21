@@ -16,7 +16,7 @@ automates this.
   <img src="../figures/ci.png" width="600" title="hover text">
 </p>
 
-(All credit to [link](https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests))
+(Image credit to [link](https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests))
 
 
 ## Pytest
