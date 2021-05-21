@@ -18,6 +18,9 @@ Reading resourses:
   Introduction blog post for those that have never heard about MLOps
 * https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f. Great document
   from google about the different levels of MLOps
+* https://ml-ops.org/content/mlops-principles. The principals of MLOps
+* https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf. Great paper about the
+technical "depth" in machine learning (can also be found in the litterature folder)
 
 ## Course details
 

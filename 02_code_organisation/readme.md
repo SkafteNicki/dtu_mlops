@@ -195,14 +195,20 @@ Some of the biggest are:
 3. install a code formatter of your own choice and let it format atleast one of the script in your codebase.
    (Optional): play around with different formatters a find out which formatter you like the most.
 
-In addtion 
+One aspect not covered by `pep8` is how `import` statements in python should be organised. If you are like most
+people, you place your `import` statements at the top of the file and they are ordered simply by when you needed them.
+For this reason `import` statements is something we also want to take care of, but do not want to deal with outself.
 
-4. Install isort
-   `pip install isort`
+4. Install [isort](https://github.com/PyCQA/isort) the standard for sorting imports
+   ``` 
+   pip install isort
+   ```
 
 5. run isort on your project
-   `isort .`
- 
+   ```
+   isort .
+   ```
+
 ## Extra
 
 While we in this course focus on git/version control for keeping track of code changes, it can also

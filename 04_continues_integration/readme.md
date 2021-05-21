@@ -14,6 +14,13 @@ automates this.
 
 ![ci](../figures/ci.png)
 
+
+## Pytest
+
+The first part of continues integration is writing tests. It is both a hard and tidious task to do but
+arguable the most important aspects of continues integration. Python offers a couple of different libaries
+for writing tests. We are going to use `pytest`
+
 ### Exercises
 
 The following exercises should be applyed to your MNIST reposatory
@@ -54,8 +61,27 @@ The following exercises should be applyed to your MNIST reposatory
    4.3. Training testing: In a file called `tests/test_training.py` implement atleast one test
         that asserts something about your training script. You are here given free hands on what
         should be tested, but try to test something the risk being broken when developing the code.
+        
+   4.4. Good code raises errors and give out warnings in appropiate places. This is often in the case of some
+        invalid combination of input to your script. For example, you model could check for the size of the input
+        given to it:
+        ```
+        def forward(self, x: Tensor):
+            if x.ndim != 4:
+                raise ValueError('Expected input to a 4D tensor')
+            if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3]
+                raise ValueError('Expected each sample to have shape [1, 28, 28]')
+        ```
+        Your code would probably still fail with shape errors by PyTorch without these checks but the errors 
+        would make much less sense to a enduser. Implement atleast one raised error or warning somewhere in
+        your code and use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
 
 5. Finally, make sure that all your tests pass locally
+
+6. (Optional). We often want to check a function/module for various input arguments. In this case you could
+   write the same test over and over again for the different input, but `pytest` also have build in support
+   for this with the use of the [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html).
+   Implement a parametrize test and make sure that it runs for different input.
 
 ## Github actions
 Github actions are the CI solution that github provides. Each of your reposatories gets 2,000 minutes of free 
@@ -96,7 +122,7 @@ files that you create for one reposatory can more or less be reused for any othe
    
    6.2 Alter the file (or write a new) that executes the test on the two other main operating systems that exist
 
-## Auto linter (optional)
+## Auto linter
 
 In part 2 of the course you where introduced to a couple of good coding practises such as being consistent
 with how your packages are sorted and that your code follows certain standards. In this set of exercises we
