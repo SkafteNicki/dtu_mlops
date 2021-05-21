@@ -2,7 +2,7 @@
 (All credit to [link](https://ml-ops.org/content/mlops-principles))
 # Machine Learning Operations
 
-This repository contains the exercises for the DTU course ????? Machine Learning Operations (MLOps). 
+This repository contains the exercises for the DTU course Machine Learning Operations (MLOps). 
 All exercises are writting in the [Python](https://www.python.org/) programming language and formatted 
 into a combination of scripts and [Jupyter Notebooks](https://jupyter.org/). 
 
@@ -28,7 +28,7 @@ technical "depth" in machine learning (can also be found in the litterature fold
     * Postdoc Nicki Skafte Detlefsen, nsde@dtu.dk
     * Professor Søren Hauberg, sohau@dtu.dk
 * 5 ECTS
-* 3 week period
+* 3 week period of June 2021
 * Master course
 * Grade: Pass/not passed
 * Type of assesment: weekly project updates + final oral examination/presentation
@@ -40,7 +40,7 @@ with the following:
 
 ## Setup
 
-Start by cloning or downloading this reposatory
+Start by cloning or downloading this repository
 ```
 git clone https://github.com/SkafteNicki/dtu_mlops
 ```
