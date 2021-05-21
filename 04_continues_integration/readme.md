@@ -12,7 +12,11 @@ automates this.
 <b> “Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.” -Martin Fowler, Chief Scientist, ThoughtWorks </b>
 </p>
 
-![ci](../figures/ci.png)
+<p align="center">
+  <img src="../figures/ci.png" width="600" title="hover text">
+</p>
+
+(All credit to [link](https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests))
 
 
 ## Pytest
