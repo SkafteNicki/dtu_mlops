@@ -8,6 +8,7 @@ as a laboratory. If others were to reproduce your experiements, they would need 
 machines that you have been using.
 
 ![good-bad-coding](../figures/wtf.jpeg)
+(All credit to [link](https://the-tech-lead.com/2020/07/19/good-code-bad-code/))
 
 A lot of the exercises today are very loosely stated and you are expected to seek out information before you
 ask for help (Google is your friend ;-) ).
