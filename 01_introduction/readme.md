@@ -14,6 +14,10 @@ supposed to fill out are inlined in the text in small "exercise" blocks:
 
 ![exercise](../figures/exercise.PNG)
 
+If you need a freshup on any deep learning topic in general throughout the course, we recommend to find the relevant 
+chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow, 
+Yoshua Bengio and Aaron Courville (can also be found in the litterature folder).
+
 ## Exercises
 
 1. Complete the [Tensors in Pytorch](1_Tensors_in_PyTorch.ipynb) notebook. It focuses on basic
