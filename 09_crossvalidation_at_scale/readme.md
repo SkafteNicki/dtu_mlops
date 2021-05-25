@@ -1,8 +1,34 @@
 ### 9. Hyperparameter optimization
-For todays exercises we will be integrating [optuna](https://optuna.readthedocs.io/en/stable/index.html) into 
-our different models.
+Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
+the uprise of deep learning. This can mainly be contributed to the following:
 
-![hyperparams](../figures/hyperparameters.jpg)
+* Trying to beat state-of-the-art often comes down to very small differences in performance, and hyperparameter
+  optimization can help squeeze out a bit more
+* Deep learning models are in general not that robust towards the choice of hyparameter so choosing it wrong
+  may lead to a model that does not work 
+
+However the problem with doing hyperparameter optimization of a deep learning models is that it can take over a
+week to train a single model. In most cases we cannot therefore do a full grid search of all hyperparameter
+combinations to get the best model. Instead we have to do some tricks that will help us speed up our searching.
+For todays exercises we are going to integrating [optuna](https://optuna.readthedocs.io/en/stable/index.html) into 
+our different models, that will provide the tools for speeding up our seach.
+
+<p align="center">
+  <img src="../figures/hyperparameters.jpg" width="500" title="hover text">
+</p>
+
+
+It should be noted that alot of deep learning models does not optimize every hyperparameter that is included
+in the model but instead relies on heuristic guidelines ("rule of thumb") based on what seems to be working
+in general e.g. a learning rate of 0.01 seems to work great with the Adam optimizer. That said, these rules
+probably only apply to 80% of deep learning model, whereas for the last 20% the recommendations may be suboptimal
+Here is a great [site](https://jeffmacaluso.github.io/post/DeepLearningRulesOfThumb/) that has collected an 
+extensive list of these recommendations, taken from the excellent [deep learning](https://www.deeplearningbook.org/) 
+book by Ian Goodfellow, Yoshua Bengio and Aaron Courville.
+
+In practise, I recommend trying to identify (through experimentation) which hyperparameters that are important for
+the performance of your model and then spend your computational budget trying to optimize them while setting the
+rest to a "recommended value". 
 
 ### Exercises
 
