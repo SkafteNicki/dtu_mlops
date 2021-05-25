@@ -7,20 +7,31 @@ of results to be able to accuratly report the exact enviroment that you are usin
 as a laboratory. If others were to reproduce your experiements, they would need to know the exact chemicals and
 machines that you have been using.
 
-![good-bad-coding](../figures/wtf.jpeg)
+<p align="center">
+  <img src="../figures/wtf.jpeg" width="700" title="hover text">
+</p>
 (All credit to [link](https://the-tech-lead.com/2020/07/19/good-code-bad-code/))
 
-A lot of the exercises today are very loosely stated and you are expected to seek out information before you
-ask for help (Google is your friend ;-) ).
+A lot of the exercises in this course are very loosly stated (including the exercises today). You are expected to
+seek out information before you ask for help (Google is your friend!) as you will both learn more for trying to
+solve the problems yourself and it is more realistic of how the "real world" works.
 
 ## Editor 
 
-Notebooks can be great sometimes but for truely getting work done you will need a good editor / IDE. However,
-each on 
+Notebooks can be great for testing out ideas, developing simple code and explaining and vizualizing certain aspects
+of a codebase. Remember that [Jupyter notebook](https://jupyter.org/) was created with intention to "...allows you 
+to create and share documents that contain live code, equations, visualizations and narrative text." However, 
+any larger deep learning project will require you to work in multiple `.py` files and here notebooks will provide 
+a suboptimal workflow. Therefore, to for truely getting "work done" you will need a good editor / IDE. 
 
-- Spyder
-- Virtual studio code
-- PyCharm
+Many opinions exist on this matter, but for simplicity we recommend getting started with one of the following 3:
+
+Editor		   | Webpage  				| Comment (Biased opinion)
+-------------------|------------------------------------|----------------------------------------------------------------------
+Spyder             | https://www.spyder-ide.org/        | Matlab like enviroment that is easy to get started with
+Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
+PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
+--------------------------------------------------------------------------------------------------------------------------------
 
 ### Exercise
 
@@ -91,11 +102,9 @@ integrate this into your own projects depends, but you are atleast expected to b
    
    4.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
        just choose the reposatory belonging to the course. Now fork the project by clicking the *Fork* botton.
-       
-![forking](..figures/forking.PNG)
-
-      This will create a local copy of the reposatory which you have complete writing access to. Note that
-      code updates to the original reposatory does not update code in your local reposatory.
+       ![forking](../figures/forking.PNG)
+       This will create a local copy of the reposatory which you have complete writing access to. Note that
+       code updates to the original reposatory does not update code in your local reposatory.
 
    4.2 Clone your local fork of the project using ```git clone```
 
