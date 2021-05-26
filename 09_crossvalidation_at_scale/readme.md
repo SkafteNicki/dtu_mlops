@@ -83,24 +83,25 @@ rest to a "recommended value".
    that does not seem to lead anywhere. You may have learning rate that is so high that training is diverging or
    a neural network with too many parameters so it is just overfitting to the training data. This however begs the
    question: what consitutes an unpromising trial? This is up to you to define based on prior experimentation.
-   
+
    6.1. Start by looking at the `fashion_trainer.py` script. Its a simple classification network for classifying
         images in the [FashionMNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. Run the script 
         with the default hyperparameters to get a feeling of how the training should be progress.
         Note down the performance on the test set.
         
-   6.2. Now, adjust the script to use Optuna. The following 5 hyperparameters should atleast be included in the
-        hyperparameter search
-        * Learning rate
-        * Number of output features in the second last layer
-        * The amount of dropout to Apply
-        * Batch size
-        * To use batch normalize or not
-        * (Optional) Can you figure out how to choose between different activations functions 
-        (`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`)?
+   6.2. Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should atleast be included
+        in the hyperparameter search. For some we have already defined the search space but for the remaning you need to come
+        up with a good range of values to investigate. We done integrating optuna, run a small study (`n_tirals=3`) to check 
+        that the code is working.
         
-        Some of the parameters the search space is already given, but for the remaining you must come up with
-        a good guess of values to investigate. Run a small study (`n_tirals=3`) to check that the code is working.
+   Hyperparameter                                     | Search space                                                 |
+   ---------------------------------------------------|--------------------------------------------------------------| 
+   Learning rate                                      | 1e-6 to 1e0                                                  | 
+   Number of output features in the second last layer | ???                                                          |
+   The amount of dropout to apply                     | ???                                                          |
+   Batch size                                         | ???                                                          |
+   Use batch normalize or not                         | {True, False}                                                |
+   (Optional) Different activations functions         | {`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`} |
 
    6.3. If implemented correctly the number of hyperparameter combinations should be atleast 1000, meaning that
         we not only need baysian optimization but probably also need pruning to succed. Checkout the page for

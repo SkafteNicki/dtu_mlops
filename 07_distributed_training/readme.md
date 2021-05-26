@@ -112,7 +112,8 @@ format of the framework we can enable distributed training with a single change 
 
 4. Try fitting your model: `trainer.fit(model)`
 
-5. For experiment logging
+5. Scaling your experiment with Lightning is as simple as changing some flags in the `Trainer`. Take a look
+   at the `gpus` and `accelerator` flags and try to run your script on multiple gpus in Azure. 
 
 6. (Optional) As default pytorch uses `float32` for representing floating point numbers. However, 
    research have shown that neural network training is very robust towards a decrease in precision.
