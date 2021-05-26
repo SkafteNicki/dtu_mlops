@@ -11,6 +11,7 @@ from torchvision.utils import save_image
 from torchvision.datasets import MNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
+from model import Encoder, Decoder, Model
 
 
 # Model Hyperparameters
@@ -34,56 +35,6 @@ test_dataset  = MNIST(dataset_path, transform=mnist_transform, train=False, down
 train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader  = DataLoader(dataset=test_dataset,  batch_size=batch_size, shuffle=False)
 
-class Encoder(nn.Module):  
-    def __init__(self, input_dim, hidden_dim, latent_dim):
-        super(Encoder, self).__init__()
-        
-        self.FC_input = nn.Linear(input_dim, hidden_dim)
-        self.FC_mean  = nn.Linear(hidden_dim, latent_dim)
-        self.FC_var   = nn.Linear (hidden_dim, latent_dim)
-        self.training = True
-        
-    def forward(self, x):
-        h_       = torch.relu(self.FC_input(x))
-        mean     = self.FC_mean(h_)
-        log_var  = self.FC_var(h_)                     
-                                                      
-        var      = torch.exp(0.5*log_var)             
-        z        = self.reparameterization(mean, var)
-        
-        return z, mean, log_var
-       
-    def reparameterization(self, mean, var,):
-        epsilon = torch.rand_like(var)
-        
-        z = mean + var*epsilon
-        
-        return z
-    
-class Decoder(nn.Module):
-    def __init__(self, latent_dim, hidden_dim, output_dim):
-        super(Decoder, self).__init__()
-        self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
-        self.FC_output = nn.Linear(hidden_dim, output_dim)
-        
-    def forward(self, x):
-        h     = torch.relu(self.FC_hidden(x))
-        x_hat = torch.sigmoid(self.FC_output(h))
-        return x_hat
-    
-    
-class Model(nn.Module):
-    def __init__(self, Encoder, Decoder):
-        super(Model, self).__init__()
-        self.Encoder = Encoder
-        self.Decoder = Decoder
-                
-    def forward(self, x):
-        z, mean, log_var = self.Encoder(x)
-        x_hat            = self.Decoder(z)
-        
-        return x_hat, mean, log_var
-    
 encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
 decoder = Decoder(latent_dim=latent_dim, hidden_dim = hidden_dim, output_dim = x_dim)
 
