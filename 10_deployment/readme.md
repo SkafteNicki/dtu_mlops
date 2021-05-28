@@ -88,10 +88,6 @@ is to serve a Resnet type neural network that is trained for classification on [
    script_model = torch.jit.script(model)
    script_model.save('deployable_model.pt')
    ```
-   
-   
-   
-
 
 3. We are going to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
    To create a model that we can serve we need both the model definition and a file containing the weights
@@ -123,4 +119,12 @@ is to serve a Resnet type neural network that is trained for classification on [
 Torchserve all not by default create a fully contained enviroment that can be shipped of to production. This
 would require to also include all dependencies nessesary ect. We therefore turn our attention now to
 [bentoML](https://github.com/bentoml/BentoML) that was created with making model serving easy to do. 
+
+Follow these instructions
+
+https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where?tabs=python
+
+
+
+
 

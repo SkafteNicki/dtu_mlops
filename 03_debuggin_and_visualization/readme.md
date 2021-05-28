@@ -6,6 +6,10 @@ Debugging is very hard to teach and is one of the skills that just comes with ex
 familar yourself with the build-in [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in
 handy during the course. 
 
+<p align="center">
+  <img src="../figures/debug.jpg" width="700" title="hover text">
+</p>
+
 ### Exercises
 
 We here provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
@@ -33,6 +37,17 @@ build in profiler.
 1. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
    script using the `-m` arg
    `python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py) `
+   
+2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
+
+3. To get a better feeling of the profiled result we can try to visualize it. Python does not
+   provide a native solution, but open-source solutions such as [snakeviz](https://jiffyclub.github.io/snakeviz/)
+   exist. Try installin snakeviz and load a profiled run into it (HINT: snakeviz expect the run to have the file
+   format `.prof`).
+
+4. Try optimizing the run! (Hint: The data is not stored as torch tensor)
+
+### Exercises (optional)
 
 In addition to using pythons build-in profiler we will also investigate the profiler that is build into PyTorch already.
 Note that these exercises requires that you have pytorch v1.8.1 installed. You can always check which version you
@@ -43,21 +58,34 @@ import torch
 print(torch.__version__)
 ```
 
-Also it will require us to have the tensorboard profiler plugin installed:
-
+Additionally, it Pytorch needs to be build with kineto. This mean that if you get the following error when
+trying to do the exercises:
+```
+Requested Kineto profiling but Kineto is not available, make sure PyTorch is built with USE_KINETO=1
+```
+You will sadly not be able to complet them. However, if not, the exercise will also require you to have the 
+tensorboard profiler plugin installed:
 ``` 
 pip install torch_tb_profiler
 ```
 
-For more info on the profiler see this [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
-and the [documentation](https://pytorch.org/docs/stable/profiler.html).
+For this exercise we have provided the solution in form of the script `vae_mnist_pytorch_profiler.py` where
+we have already implemented the Pytorch profiler in the script. However, try to solve the exercise yourself!
 
-For this exercise
+1. The documentatation on the new profiler is sparse but take a look at this
+   [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
+   and the [documentation](https://pytorch.org/docs/stable/profiler.html) which should give you an idea of 
+   how to use the pytorch profiler.
 
-1. Start by going over the following [tutorial](https://pytorch.org/tutorials/beginner/profiler.html)
-
-2. Secondly try to profile the `vae_mnist_working.py` script from the debugging exercises. Can you improve
-something in the code?
+2. Secondly try to implement the profile in the `vae_mnist_working.py` script from the debugging exercises 
+   (HINT: run the script with `epochs = 1`) and run the script with the profiler on.
+   
+3. Try loading the saved profiling run in tensorboard by writing
+   ```
+   tensorboard --logdir=./log  
+   ```
+   in a terminal. Inspect the results in the `pytorch_profiler` tab. What is the most computational expensive
+   part of the code? What does the profiler recommend that you improve? Can you improve something in the code?
 
 3. Apply the profiler to your own MNIST code.
 
