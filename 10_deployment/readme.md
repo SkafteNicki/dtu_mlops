@@ -44,12 +44,14 @@ model (in Pytorch). You can learn more about TorchDrift in this [video](https://
     
     3.4 TorchDrift comes with multiple drift detectors and one may work better on your dataset than others. 
         Investigate the different choices of `kernel` parameter for the `KernelMMDDriftDetector`. You are
-        supposed to produce one table that compares the `p-value` for the different detectors and a single
-        plot with a subplot of embeddings of each detector.
+        supposed to produce one table that compares the `score` and `p-value` for the different detectors and a single
+        plot with a subplot of embeddings of each detector similar to the figure below
     
     3.5 Repeat the exercise with some out-of-distribution data for example 
         [FashionMnist](https://github.com/zalandoresearch/fashion-mnist) dataset. Is it easier for the
-        drift detectors to figure out true out-of-distribution data compared to the slightly blurred data.
+        drift detectors to figure out true out-of-distribution data compared to the slightly blurred data?
+
+![exercise](../figures/drifting_ex.PNG)
 
 ## Deploying the model with torchserve
 
@@ -64,7 +66,7 @@ is to serve a Resnet type neural network that is trained for classification on [
    conda install torchserve torch-model-archiver -c pytorch
    ```
    
-2. create a folder called `model_store`
+2. Create a folder called `model_store`. This is where we will store the model that we are going to deploy
 
 2. We need a model to serve. The problem however is that we cannot give a `torchserve` a raw file of trained
    model weights as these essentially is just a list of floats. We need a file that both contains the model
@@ -81,7 +83,7 @@ is to serve a Resnet type neural network that is trained for classification on [
    * TorchScript allows us to interface with many backend/device runtimes that require a broader view of the 
      program than individual operators.
 
-   Lukely `TorchScript` is very easy to use. Choose a resnet model from `torchvision` and script it
+   Lukely `TorchScript` is very easy to use. Choose a resnet model from `torchvision` package and script it
    
    ```
    model = ResnetFromTorchVision(pretrained=True)
@@ -95,10 +97,14 @@ is to serve a Resnet type neural network that is trained for classification on [
    taken from `torchvision`) that contains the model definition. Inside the file you can see various paths
    to different versions of resnet. Download the model weights that you want to serve.
 
-4. TorchScript is a way to create serializable and optimizable models from PyTorch code. Any TorchScript program can be saved from a Python process and loaded in a process where there is no Python dependency.
+4. TorchScript is a way to create serializable and optimizable models from PyTorch code. Any TorchScript program 
+   can be saved from a Python process and loaded in a process where there is no Python dependency.
 
 
-4. Call the model archiver
+4. Call the model archiver. We have provided a file called `index_to_name.json` that maps from predicted class
+   indices to interpreble class name e.g. `1->"goldfish"`. This file should be provided as the `extra-files` 
+   argument such that the deployed model automatically outputs the class name. Note that this files ofcause
+   only works for models trained on imagenet.
    ```
    torch-model-archiver \
        --model-name my_fancy_model 
@@ -110,8 +116,30 @@ is to serve a Resnet type neural network that is trained for classification on [
        --handler image_classifier
    ```
 
+5. Checkout the `model_store` folder. Has the model archiver correctly created a model inside the folder?
 
-1. Find someone else that can test your model for you. 
+6. Finally, we are going to deploy our model and use it:
+
+   6.1. Start serving your model in one terminal:
+        ```
+        torchserve --start --ncs --model-store model_store --models densenet161.mar
+        ```
+       
+   6.2. Next, pick a image that you want to do inference on. It can be any image that you want but try to pick
+        one that actually contains an object from the set of imagenet classes.
+       
+   6.3. Open another terminal, which we are going to use for inference. The easiest way to do inference is using
+        `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
+        python. Using `curl` should look something like this
+        ```
+        curl http://127.0.0.1:8080/predictions/densenet161 -T my_image.jpg
+        ```
+
+7. (Optional) One strategry that researchers often resort to when trying to push out a bit of extra performance
+   is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
+   way that teams won the imagenet compition, by pooling togther their individual models. Try creating and serving
+   a ensemple model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
+
 
 
 ## Creating fully deployable packages

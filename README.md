@@ -45,6 +45,10 @@ Start by cloning or downloading this repository
 git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 if you do not have git installed (yet) we will touch upon it in the course.
+Additionally, you should join our slack channel which we use for communication:
+
+https://join.slack.com/t/slack-ddr8461/shared_invite/zt-qzk7ho8z-1tBT_SkkkxtpgMU8x197pg
+
 
 ## Course plan
 

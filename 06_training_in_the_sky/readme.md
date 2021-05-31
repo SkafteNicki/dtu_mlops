@@ -54,6 +54,9 @@ today exercises only will give a glimse of what Azura can provide.
 
 9. (Optional) After doing all of the above exercises can you figure out how many credit you have used.
 
+10. https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-pytorch
+
+
 10. Remember to stop whatever compute resourses that you have running to make sure that you do not burn
     through your credit on the first day ;)
 
