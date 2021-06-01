@@ -1,7 +1,7 @@
 # 1. Introduction to PyTorch
 
 The intention behind the first set of exercises is to bring everyones 
-Pytorch skills up-to-date. If you already are Pytorch-jedi feel free to
+Pytorch skills up-to-date. If you already are Pytorch-Jedi feel free to
 pass the first set of exercises, but I recommend still that you still complete it.
 
 The exercises are in large part taken directly from the 
@@ -14,24 +14,24 @@ supposed to fill out are inlined in the text in small "exercise" blocks:
 
 ![exercise](../figures/exercise.PNG)
 
-If you need a freshup on any deep learning topic in general throughout the course, we recommend to find the relevant 
+If you need a fresh up on any deep learning topic in general throughout the course, we recommend to find the relevant 
 chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow, 
-Yoshua Bengio and Aaron Courville (can also be found in the litterature folder).
+Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
 ## Exercises
 
 1. Complete the [Tensors in Pytorch](1_Tensors_in_PyTorch.ipynb) notebook. It focuses on basic
-   manipulation of pytorch tensors. You can pass this notebook if you are conftable doing this.
+   manipulation of Pytorch tensors. You can pass this notebook if you are comfortable doing this.
    
    1.1. (Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
         between an `[N,d]` tensor and `[M,d]` tensor. You should use the following identity:
         ``` ||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b> ```. Hint: you need to use broadcasting.
    
-2. Complete the [Neural Networks in PyTorch](2_Neural_Networks_in_PyTorch.ipynb) notebook. It focuses on 
-   building a very simple neural network using the pytorch `nn.Module` interface.
+2. Complete the [Neural Networks in Pytorch](2_Neural_Networks_in_PyTorch.ipynb) notebook. It focuses on 
+   building a very simple neural network using the Pytorch `nn.Module` interface.
    
-   2.1 (Bonus exercise): One layer that argubly is missing in Pytorch is for doing reshapes.
-       It is ofcause possible to do this directly to tensors, but sometimes it is great to
+   2.1 (Bonus exercise): One layer that arguably is missing in Pytorch is for doing reshapes.
+       It is of course possible to do this directly to tensors, but sometimes it is great to
        have it directly in a `nn.Sequential` module. Write a `Reshape` layer which `__init__`
        takes a variable number arguments e.g. `Reshape(2)` or `Reshape(2,3)` and the forward
        takes a single input `x` where the reshape is applied to all other dimensions than the
@@ -92,7 +92,7 @@ that your model is actually working, when running in the `train` command the scr
 produce a single plot with the training curve (training step vs training loss). When the `eval` command is run,
 it should write the test set accuracy to the terminal.
 
-It is part of the excercise to not implement in notebooks as code development in the real life 
+It is part of the exercise to not implement in notebooks as code development in the real life 
 happens in script. As the model is simple to run (for now) you should be able to complete
 the exercise on your laptop, even if you are only training on cpu. That said you are allowed to upload your scripts
 to your own "Google Drive" and then you can call your scripts from a google colab notebook.

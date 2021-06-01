@@ -1,28 +1,29 @@
 # 2. Getting started with MLOps - Organization
 
-This set of exercises focus on getting organised and make sure that you are familiar with good development
-practises. While this may not seem that important, it is crusial when working in large groups that the difference
-in how different people organise their code is minimized. Additionally, it is important for the reproduceability
-of results to be able to accuratly report the exact enviroment that you are using. Try to think of your computer
-as a laboratory. If others were to reproduce your experiements, they would need to know the exact chemicals and
-machines that you have been using.
+This set of exercises focus on getting organized and make sure that you are familiar with good development
+practices. While this may not seem that important, it is crucial when working in large groups that the difference
+in how different people organize their code is minimized. Additionally, it is important for the reproducibility
+of results to be able to accurately report the exact environment that you are using. Try to think of your computer
+as a laboratory. If others were to reproduce your experiments, they would need to know the exact configuration of your
+machine that you have been using, similar to how a real laboratory needs to report the exact chemicals they are using.
+This is one of the cornerstones of the [scientific method](https://en.wikipedia.org/wiki/Scientific_method)
 
 <p align="center">
   <img src="../figures/wtf.jpeg" width="700" title="hover text">
 </p>
 (All credit to [link](https://the-tech-lead.com/2020/07/19/good-code-bad-code/))
 
-A lot of the exercises in this course are very loosly stated (including the exercises today). You are expected to
+A lot of the exercises in this course are very loosely stated (including the exercises today). You are expected to
 seek out information before you ask for help (Google is your friend!) as you will both learn more for trying to
 solve the problems yourself and it is more realistic of how the "real world" works.
 
 ## Editor 
 
-Notebooks can be great for testing out ideas, developing simple code and explaining and vizualizing certain aspects
+Notebooks can be great for testing out ideas, developing simple code and explaining and visualizing certain aspects
 of a codebase. Remember that [Jupyter notebook](https://jupyter.org/) was created with intention to "...allows you 
 to create and share documents that contain live code, equations, visualizations and narrative text." However, 
 any larger deep learning project will require you to work in multiple `.py` files and here notebooks will provide 
-a suboptimal workflow. Therefore, to for truely getting "work done" you will need a good editor / IDE. 
+a suboptimal workflow. Therefore, to for truly getting "work done" you will need a good editor / IDE. 
 
 Many opinions exist on this matter, but for simplicity we recommend getting started with one of the following 3:
 
@@ -38,10 +39,10 @@ PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python profess
 1. Download and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
    on the files that you created in the final exercise in the last lecture.
 
-## Conda enviroment
+## Conda environment
 
 You probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed 
-on your laptop, which is great. Conda is an enviroment manager that helps you make sure that the dependencies of
+on your laptop, which is great. Conda is an environment manager that helps you make sure that the dependencies of
 different projects does not cross-contaminate each other. 
 
 ### Exercise
@@ -49,29 +50,29 @@ different projects does not cross-contaminate each other.
 1. Download and install conda. Make sure that your installation is working by writing `conda help` in a terminal 
    and it should show you the help message for conda.
 
-2. Create a new conda enviroment for the remaining of the exercises using `conda create -n "my_enviroment"`
+2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_enviroment"`
 
-3. Which commando gives you a list of the packages installed in the current enviroment (HINT: check the
-   `conda_cheatsheet.pdf` file). How do you easely export this list to a text file?
+3. Which commando gives you a list of the packages installed in the current environment (HINT: check the
+   `conda_cheatsheet.pdf` file). How do you easily export this list to a text file?
 
 ## Git 
 
-Proper collaboration with other people will require that you can work on the same codebase in a organised manner.
+Proper collaboration with other people will require that you can work on the same codebase in a organized manner.
 This is the reason that **version control** exist. Simply stated, it is a way to keep track of:
 
 * Who made changes to the code
-* When did the change happend
+* When did the change happen
 * What changes where made
 
-For a full explaination please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
+For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
-hosting reposatories but that does not mean that they are the only onces (see [bitbucket](https://bitbucket.org/product/) 
+hosting repositories but that does not mean that they are the only onces (see [bitbucket](https://bitbucket.org/product/) 
 for another example).
 
 That said we will be using git+github throughout this course. It is a requirement for passing this course that 
-you create a public reposatory with your code and use git to upload any code changes. How much you choose to
-integrate this into your own projects depends, but you are atleast expected to be familiar with git+github.
+you create a public repository with your code and use git to upload any code changes. How much you choose to
+integrate this into your own projects depends, but you are at least expected to be familiar with git+github.
 
 ### Exercise
 
@@ -80,13 +81,13 @@ integrate this into your own projects depends, but you are atleast expected to b
 
 2. Create a [github](github.com/) account 
 
-3. In your account create an reposatory, where the intention is that you upload the code from the final exercise
+3. In your account create an repository, where the intention is that you upload the code from the final exercise
    from yesterday
    
-   3.1 After creating the reposatory, clone it to your computer
+   3.1 After creating the repository, clone it to your computer
        ```git clone https://github.com/my_user_name/my_reposatory_name.git```
        
-   3.2 Move/copy the three files from yesterday into the reposatory
+   3.2 Move/copy the three files from yesterday into the repository
    
    3.3 Add the files to a commit by using ```git add`` command
    

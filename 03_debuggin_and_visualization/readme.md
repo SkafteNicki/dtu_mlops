@@ -3,7 +3,7 @@
 ## Debugging
 
 Debugging is very hard to teach and is one of the skills that just comes with experience. That said, you should
-familar yourself with the build-in [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in
+familiarize yourself with the build-in [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in
 handy during the course. 
 
 <p align="center">
@@ -23,7 +23,7 @@ bugs exist in the script:
 
 Some of the bugs prevents the script from even running, while some of them influences the training dynamics.
 Try to find them all. We also provide a working version called `vae_mnist_working.py` (but please try to find
-the bugs before looking at the script). Succesfully debugging and running the script should produce three files: 
+the bugs before looking at the script). Successfully debugging and running the script should produce three files: 
 `orig_data.png`, `reconstructions.png`, `generated_samples.png`. 
 
 ## Profilers
@@ -42,7 +42,7 @@ build in profiler.
 
 3. To get a better feeling of the profiled result we can try to visualize it. Python does not
    provide a native solution, but open-source solutions such as [snakeviz](https://jiffyclub.github.io/snakeviz/)
-   exist. Try installin snakeviz and load a profiled run into it (HINT: snakeviz expect the run to have the file
+   exist. Try installing snakeviz and load a profiled run into it (HINT: snakeviz expect the run to have the file
    format `.prof`).
 
 4. Try optimizing the run! (Hint: The data is not stored as torch tensor)
@@ -63,7 +63,7 @@ trying to do the exercises:
 ```
 Requested Kineto profiling but Kineto is not available, make sure PyTorch is built with USE_KINETO=1
 ```
-You will sadly not be able to complet them. However, if not, the exercise will also require you to have the 
+You will sadly not be able to complete them. However, if not, the exercise will also require you to have the 
 tensorboard profiler plugin installed:
 ``` 
 pip install torch_tb_profiler
@@ -72,10 +72,10 @@ pip install torch_tb_profiler
 For this exercise we have provided the solution in form of the script `vae_mnist_pytorch_profiler.py` where
 we have already implemented the Pytorch profiler in the script. However, try to solve the exercise yourself!
 
-1. The documentatation on the new profiler is sparse but take a look at this
+1. The documentation on the new profiler is sparse but take a look at this
    [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
    and the [documentation](https://pytorch.org/docs/stable/profiler.html) which should give you an idea of 
-   how to use the pytorch profiler.
+   how to use the Pytorch profiler.
 
 2. Secondly try to implement the profile in the `vae_mnist_working.py` script from the debugging exercises 
    (HINT: run the script with `epochs = 1`) and run the script with the profiler on.
@@ -89,13 +89,13 @@ we have already implemented the Pytorch profiler in the script. However, try to 
 
 3. Apply the profiler to your own MNIST code.
 
-### Experiement visualizers
+### Experiment visualizers
 
 While logging loss values to terminal, or plotting training curves in matplotlib may be enough doing smaller experiment,
 there is no way around using a proper experiment tracker and visualizer when doing large scale experiments.
 
 For these exercises we will initially be looking at incorporating [tensorboard](https://www.tensorflow.org/tensorboard) into our code, 
-as it comes with native support in pytorch
+as it comes with native support in Pytorch
 
 1. Install tensorboard (does not require you to install tensorflow)
    ```pip install tensorboard```
@@ -111,12 +111,12 @@ as it comes with native support in pytorch
    
 5. Inspect what was logged in tensorboard
 
-Experiement visualizers are especially useful for comparing values across training runs. Multiple runs often
+Experiment visualizers are especially useful for comparing values across training runs. Multiple runs often
 stems from playing around with the hyperparameters of your model.
 
 6. In your training script make sure the hyperparameters are saved to tensorboard (`writer.add_hparams`)
 
-7. Run atleast two models with different hyperparameters, open them both at the same time in tensorboard
+7. Run at least two models with different hyperparameters, open them both at the same time in tensorboard
    Hint: to open multiple experiments in the same tensorboard they either have to share a root folder e.g.
    `experiments/experiment_1` and `experiments/experiment_2` you can start tensorboard as
    ```tensorboard --logdir experiments```
@@ -150,16 +150,16 @@ way).
    the exercise. (HINT: the two methods you need to call are `wandb.init` and `wandb.log`). To start with, logging
    the training loss of your model will be enough.
 
-5. After running your model, checkout the webpage. Hopefully you should be able to see atleast 
+5. After running your model, checkout the webpage. Hopefully you should be able to see at least 
 
 6. Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
-   cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image` ect. dependending
+   cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image` ect. depending
    on what you choose to log.
 
-7. Finally, lets create a report that you can share. Click the **Create report** botton where you choose the *blank*
+7. Finally, lets create a report that you can share. Click the **Create report** button where you choose the *blank*
    option. Then choose to include everything in the report 
 
-8. To make sure that you have completed todays exercises, make the report shareable by clicking the *Share* botton
+8. To make sure that you have completed todays exercises, make the report shareable by clicking the *Share* button
    and create *view-only-link*. Send the link to my email `nsde@dtu.dk`, so I can checkout your awesome work.
 
-9. Feel free to experiment more with `wandb` as it is a great tool for logging, organising and sharing experiments.
+9. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
