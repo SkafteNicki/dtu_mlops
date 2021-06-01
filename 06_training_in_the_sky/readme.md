@@ -37,17 +37,17 @@ today exercises only will give a glimse of what Azura can provide.
    
 6. Adjust the training script from the last instructions to run on GPU:
 
-   6.1 Add `.to('cuda')` in appropiate places
+   6.1 Add `.to('cuda')` in appropriate places
    
-   6.2 Running on GPU will require you to change the `config.run_config.environment` to a curated enviroment 
-       that has cuda enabled pytorch installed. You can check which are availble by copy-and-running the
+   6.2 Running on GPU will require you to change the `config.run_config.environment` to a curated environment 
+       that has cuda enabled Pytorch installed. You can check which are available by copy-and-running the
        `enviroments.py` script in Azure
 
 7. We have provided a script called `???.py`. The objective is to get this running on Azure, but doing this
-   naively will promt you that some packages are not installed because the default enviroment that we have
+   naively will prompt you that some packages are not installed because the default environment that we have
    been using until now only have some specific packages installed. Go over this 
    [page](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-environments) on how to
-   create your own enviroment.
+   create your own environment.
    
 8. Finally we are going to get Azure running locally. By this we mean that instead of copying everything
    to the online webbrowser we are going to connect to Azure locally by using their API.
@@ -57,7 +57,7 @@ today exercises only will give a glimse of what Azura can provide.
 10. https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-pytorch
 
 
-10. Remember to stop whatever compute resourses that you have running to make sure that you do not burn
+10. Remember to stop whatever compute resources that you have running to make sure that you do not burn
     through your credit on the first day ;)
 
 

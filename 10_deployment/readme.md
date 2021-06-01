@@ -1,10 +1,10 @@
 # 11. Model deployment
 
 Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
-world. One way to do this is ofcause to just place all your code in a github reposatory, upload a file with
-the trained model weights to your favorit online storage (assuming it is too big for github to handle) and
+world. One way to do this is of course to just place all your code in a github repository, upload a file with
+the trained model weights to your favorite online storage (assuming it is too big for github to handle) and
 ask people to run your code. This is a fine approach in a research setting, but in production you need to be
-able to **deploy** the model to a enviroment that is fully contained that people can just execute without
+able to **deploy** the model to a environment that is fully contained that people can just execute without
 looking (too hard) at the code. 
 
 Today is all about deploying your model. The hope is that by the end of this exercise you will be able to
@@ -28,9 +28,9 @@ model (in Pytorch). You can learn more about TorchDrift in this [video](https://
 2. Look over the following [example](https://torchdrift.org/notebooks/drift_detection_on_images.html). It goes
    over the API of TorchDrift and better explains the concept of drifting data distributions
    
-3. Implement drift detection on your mnist example, this includes
+3. Implement drift detection on your Mnist example, this includes
 
-    3.1 Start by creating artifically drifted mnist data similar to the above example (HINT: apply gaussian
+    3.1 Start by creating artifically drifted Mnist data similar to the above example (HINT: apply gaussian
         blur to the training data)
         
     3.2 Implement drift detection by going over the same steps as in the example. You can skip over a large
@@ -61,7 +61,7 @@ is fairly easy to work with. We are largely going to follow the instructions lis
 is to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
 
 1. Install `torchserve` and its dependencies. I recommend installing version 0.2.0 as the newest version (0.3.0)
-   seems to have some incompatilities with the rest of the torch ecosystem. There are seperate instructions 
+   seems to have some incompatilities with the rest of the torch ecosystem. There are separate instructions 
    [here](https://github.com/pytorch/serve#install-torchserve-and-torch-model-archiver) if you are on linux/mac
    vs. windows.
    
@@ -85,9 +85,9 @@ is to serve a Resnet type neural network that is trained for classification on [
    * TorchScript allows us to interface with many backend/device runtimes that require a broader view of the 
      program than individual operators.
 
-   Lukely `TorchScript` is very easy to use. Choose a resnet model from `torchvision` package and script it
+   Luckily `TorchScript` is very easy to use. Choose a resnet model from `torchvision` package and script it
    
-   ```
+   ```python
    model = ResnetFromTorchVision(pretrained=True)
    script_model = torch.jit.script(model)
    script_model.save('deployable_model.pt')
@@ -95,7 +95,7 @@ is to serve a Resnet type neural network that is trained for classification on [
 
 3. Check that output of the scripted model corresponds to output of the non-scripted model. You can do this on
    a single random input, and you should check that the top-5 predicted indices are the same e.g.
-   ```
+   ```python
    assert torch.allclose(unscripted_top5_indices, scripted_top5_indices)
    ```
    (HINT: [torch.topk](https://pytorch.org/docs/stable/generated/torch.topk.html))
@@ -137,13 +137,13 @@ is to serve a Resnet type neural network that is trained for classification on [
 
 7. (Optional) One strategry that researchers often resort to when trying to push out a bit of extra performance
    is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
-   way that teams won the imagenet compition, by pooling togther their individual models. Try creating and serving
-   a ensemple model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
+   way that teams won the imagenet competition, by pooling together their individual models. Try creating and serving
+   a ensemble model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
 
 ## Creating fully deployable packages
 
-Torchserve all not by default create a fully contained enviroment that can be shipped of to production. This
-would require to also include all dependencies nessesary ect. We therefore turn our attention now to
+Torchserve all not by default create a fully contained environment that can be shipped of to production. This
+would require to also include all dependencies necessary ect. We therefore turn our attention now to
 [bentoML](https://github.com/bentoml/BentoML) that was created with making model serving easy to do. 
 
 Follow these instructions

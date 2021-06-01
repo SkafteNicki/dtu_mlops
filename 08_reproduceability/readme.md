@@ -5,7 +5,7 @@ should be done about, but reality is that it is very hard to secure full reprodu
 
 For the first set of exercises we have provided a single script. Your task is to use Hydra to make sure that everything
 gets correctly logged such that you would be able to exactly report to other how each experiment was configured. In the
-provided script, the hyperparameters are hardcoded into the code and your job will be to seperatethem out into a 
+provided script, the hyperparameters are hardcoded into the code and your job will be to seperate them out into a 
 configuration file.
 
 ### Exercises
@@ -19,9 +19,9 @@ Remember: its not about the result, its about the journey.
 2. Next take a look at the `vae_mnist.py` and `model.py` file and understand what is going on. It is the same model 
    that you debugged in part 3 (just without the bugs).
    
-3. Identify the key hyperparameters of the script. Some of them should be easy to find, but atleast 3 have
+3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have
    made it into the core part of the code. One essential hyperparameter is also not included in the script
-   but is needed to be completly reproduceable (HINT: the weights of any neural network is initialized at
+   but is needed to be completely reproducible (HINT: the weights of any neural network is initialized at
    random).
    
 4. Write a configuration file `config.yaml` where you write down the hyparameters that you have found
@@ -31,18 +31,18 @@ Remember: its not about the result, its about the journey.
    
 6. Run the script
 
-7. By default hydra will write the results to a `outputs` folder, with a subfolder for the day the experiment
+7. By default hydra will write the results to a `outputs` folder, with a sub-folder for the day the experiment
    was run and further the time it was started. Inspect your run by going over each file the hydra has generated
    and check the information has been logged. Can you find the hyperparameters?
    
-8. Hydra also allows for dynamically changing and adding parameters on the fly from the commandline:
+8. Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:
 
-   8.1 Try changing one parameter from the commandline
+   8.1 Try changing one parameter from the command-line
        ```
        python vae_mnist.py seed=1234
        ```
 
-   8.2 Try adding one parameter from the commandline
+   8.2 Try adding one parameter from the command-line
        ```
        python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
        ```
@@ -53,7 +53,7 @@ Remember: its not about the result, its about the journey.
    printed output from the script we need to convert all calls to `print` with `log.info`
 
    8.1 Create a logger in the script:
-       ```
+       ```python
        import logging
        log = logging.getLogger(__name__)
        ```
@@ -79,7 +79,7 @@ Remember: its not about the result, its about the journey.
   
 ### Final exercise
 
-Make your MNIST code reproduceable! Apply what you have just done to the simple script to your MNIST code.
-Only requirement is that you this time use multiple configuration files, meaning that you should have atleast
-one `model_conf.yaml` file and a `training_conf.yaml` file that seperates out the hyperparameters that have to
+Make your MNIST code reproducible! Apply what you have just done to the simple script to your MNIST code.
+Only requirement is that you this time use multiple configuration files, meaning that you should have at least
+one `model_conf.yaml` file and a `training_conf.yaml` file that separates out the hyperparameters that have to
 do with the model definition and those that have to do with the training.

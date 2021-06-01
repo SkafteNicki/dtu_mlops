@@ -17,7 +17,7 @@ dataset. The dataset consist images of famous people extracted from the internet
 to drive the field of facial verification, which you can read more about 
 [here](https://machinelearningmastery.com/introduction-to-deep-learning-for-face-recognition/). We are going
 imagine that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that
-can be parallized based on loading the raw datafiles (.jpg) at runtime.
+can be parallelized based on loading the raw datafiles (.jpg) at runtime.
 
 1. Download the dataset and extract to a folder. It does not matter if you choose the non-aligned or
    aligned version of the dataset.
@@ -48,13 +48,13 @@ can be parallized based on loading the raw datafiles (.jpg) at runtime.
    the standard deviation over the 5 runs.
 
 6. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the
-   `pin_memory` flag to `True`. By setting this flag we are essentially telling pytorch that they can
+   `pin_memory` flag to `True`. By setting this flag we are essentially telling Pytorch that they can
    lock the data in-place in memory which will make the transfer between the *host* (CPU) and the
    *device* (GPU) faster.
 
 ## Distributed Data
 
-For this exercise we will breifly touch apon how to implement data parallel training in pytorch using
+For this exercise we will briefly touch upon how to implement data parallel training in Pytorch using
 their [nn.DataParallel](https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html) class.
 
 ### Exercises
@@ -97,7 +97,7 @@ format of the framework we can enable distributed training with a single change 
      
    * Finally, they can be directly feed into the trainer object when doing the fitting
 
-3. Instanciate a `Trainer` object. It is recommended to take a look at the 
+3. Instantiate a `Trainer` object. It is recommended to take a look at the 
    [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags)
    (there are many of them) and maybe adjust some of them:
    
@@ -115,9 +115,9 @@ format of the framework we can enable distributed training with a single change 
 5. Scaling your experiment with Lightning is as simple as changing some flags in the `Trainer`. Take a look
    at the `gpus` and `accelerator` flags and try to run your script on multiple gpus in Azure. 
 
-6. (Optional) As default pytorch uses `float32` for representing floating point numbers. However, 
+6. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, 
    research have shown that neural network training is very robust towards a decrease in precision.
-   The great benefit going from `float32` to `float16` is that we get approxemately half the [memory
+   The great benefit going from `float32` to `float16` is that we get approximately half the [memory
    consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training 
-   in pytorch lightning. You can enable this by setting the [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) 
+   in Pytorch lightning. You can enable this by setting the [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) 
    flag in the `Trainer`.
