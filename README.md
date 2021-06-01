@@ -49,8 +49,25 @@ Additionally, you should join our slack channel which we use for communication:
 
 https://join.slack.com/t/slack-ddr8461/shared_invite/zt-qzk7ho8z-1tBT_SkkkxtpgMU8x197pg
 
-
 ## Course plan
+
+## On-site days:
+
+Each day will start at 9:00 in the morning with an ½-1 hour lecture about the topic of the day.
+The the remaining of the day will be spend on solving exercises. We aim that the exercises should
+be able to be solved in around 4 hours, meaning that you will be able to get help until 14:00. 
+Note that since the material is untested some exercises may take less time and some may take more. 
+
+Lectures and exercises will take place in building 208 auditorium 11. We additionally have room 006
+reserved for exercises and other than that you are free to in the connecting study areas.
+
+## Virtual days:
+
+Virtual days are intended for project work and you are therefore responsable for making an agreement
+with your group when you are going to work. Please note that on the the first virtual day, a lecture
+will be given at 9:00 (zoom link will be sent out) with project information. Two times during each virtual
+day we will have office hours where you can ask questions. Please note, that while you will not be able
+to get physical help you are more than welcome to still use DTU´s facilities for your group work.
 
 ### Week 1
 
