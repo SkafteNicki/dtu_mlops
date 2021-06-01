@@ -60,13 +60,15 @@ is fairly easy to work with. We are largely going to follow the instructions lis
 [readme file](https://github.com/pytorch/serve/blob/master/README.md#serve-a-model) for torchserve. The intention
 is to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
 
-1. Install `torchserve` either using pip or conda:
-   ```
-   pip install torchserve torch-model-archiver
-   conda install torchserve torch-model-archiver -c pytorch
-   ```
+1. Install `torchserve` and its dependencies. I recommend installing version 0.2.0 as the newest version (0.3.0)
+   seems to have some incompatilities with the rest of the torch ecosystem. There are seperate instructions 
+   [here](https://github.com/pytorch/serve#install-torchserve-and-torch-model-archiver) if you are on linux/mac
+   vs. windows.
    
 2. Create a folder called `model_store`. This is where we will store the model that we are going to deploy
+
+3. Try to run the `torchserve --model-store model_store` command. If the service starts with no errors, you
+   have installed it correctly and can continue the exercise. Else it is googling time!
 
 2. We need a model to serve. The problem however is that we cannot give a `torchserve` a raw file of trained
    model weights as these essentially is just a list of floats. We need a file that both contains the model
@@ -91,15 +93,12 @@ is to serve a Resnet type neural network that is trained for classification on [
    script_model.save('deployable_model.pt')
    ```
 
-3. We are going to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
-   To create a model that we can serve we need both the model definition and a file containing the weights
-   that we want do use in our served model. We have already provided a file called `resnet.py` (directly
-   taken from `torchvision`) that contains the model definition. Inside the file you can see various paths
-   to different versions of resnet. Download the model weights that you want to serve.
-
-4. TorchScript is a way to create serializable and optimizable models from PyTorch code. Any TorchScript program 
-   can be saved from a Python process and loaded in a process where there is no Python dependency.
-
+3. Check that output of the scripted model corresponds to output of the non-scripted model. You can do this on
+   a single random input, and you should check that the top-5 predicted indices are the same e.g.
+   ```
+   assert torch.allclose(unscripted_top5_indices, scripted_top5_indices)
+   ```
+   (HINT: [torch.topk](https://pytorch.org/docs/stable/generated/torch.topk.html))
 
 4. Call the model archiver. We have provided a file called `index_to_name.json` that maps from predicted class
    indices to interpreble class name e.g. `1->"goldfish"`. This file should be provided as the `extra-files` 
@@ -109,38 +108,37 @@ is to serve a Resnet type neural network that is trained for classification on [
    torch-model-archiver \
        --model-name my_fancy_model 
        --version 1.0 \
-       --model-file path/to/model_definition.py \ 
-       --serialized-file path/to/model_weights.pth \
+       --serialized-file path/to/serialized_model.pt \
        --export-path model_store 
        --extra-files index_to_name.json 
        --handler image_classifier
    ```
 
-5. Checkout the `model_store` folder. Has the model archiver correctly created a model inside the folder?
+5. Checkout the `model_store` folder. Has the model archiver correctly created a model (with `.mar` extension)
+   inside the folder?
 
 6. Finally, we are going to deploy our model and use it:
 
    6.1. Start serving your model in one terminal:
         ```
-        torchserve --start --ncs --model-store model_store --models densenet161.mar
+        torchserve --start --ncs --model-store model_store --models my_fancy_model=my_fancy_model.mar
         ```
        
    6.2. Next, pick a image that you want to do inference on. It can be any image that you want but try to pick
-        one that actually contains an object from the set of imagenet classes.
+        one that actually contains an object from the set of imagenet classes. I have also provided a image of
+        my own cat in the `my_cat.jpg` file.
        
    6.3. Open another terminal, which we are going to use for inference. The easiest way to do inference is using
         `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
         python. Using `curl` should look something like this
         ```
-        curl http://127.0.0.1:8080/predictions/densenet161 -T my_image.jpg
+        curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
         ```
 
 7. (Optional) One strategry that researchers often resort to when trying to push out a bit of extra performance
    is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
    way that teams won the imagenet compition, by pooling togther their individual models. Try creating and serving
    a ensemple model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
-
-
 
 ## Creating fully deployable packages
 
