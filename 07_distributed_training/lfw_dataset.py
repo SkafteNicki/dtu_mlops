@@ -21,9 +21,7 @@ class LFWDataset(Dataset):
         # TODO: fill out
         return self.transform(img)
 
-
-
-
+        
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-path_to_folder', default='', type=str)
@@ -54,7 +52,7 @@ if __name__ == '__main__':
         for _ in range(5):
             start = time.time()
             for batch in dataloader:
-                # similate that we do something with the batch
+                # simulate that we do something with the batch
                 time.pause(0.2)
             end = time.time()
             
