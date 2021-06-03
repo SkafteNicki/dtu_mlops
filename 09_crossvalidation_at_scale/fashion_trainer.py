@@ -3,7 +3,6 @@ Credit to: https://www.kaggle.com/pankajj/fashion-mnist-with-pytorch-93-accuracy
 """
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 from torchvision.datasets import FashionMNIST
 import torchvision.transforms as transforms
@@ -74,12 +73,10 @@ def train_and_test():
     
     error = nn.CrossEntropyLoss()
     
-    learning_rate = 0.001
-    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     print(model)
     
     num_epochs = 10
-    count = 0
     # Lists for visualization of loss and accuracy 
     loss_list = []
     iteration_list = []
@@ -90,15 +87,12 @@ def train_and_test():
     labels_list = []
     
     for epoch in range(num_epochs):
-        for images, labels in train_loader:
+        for batch_idx, (images, labels) in enumerate(train_loader):
             # Transfering images and labels to GPU if available
             images, labels = images.to(device), labels.to(device)
-        
-            train = Variable(images.view(100, 1, 28, 28))
-            labels = Variable(labels)
-            
+
             # Forward pass 
-            outputs = model(train)
+            outputs = model(images)
             loss = error(outputs, labels)
             
             # Initializing a gradient as 0 so there is no mixing of gradient among the batches
@@ -109,11 +103,9 @@ def train_and_test():
             
             # Optimizing the parameters
             optimizer.step()
-        
-            count += 1
-        
+                
             # Testing the model
-        
+            count = epoch * len(train_loader) + batch_idx
             if not (count % 50):    # It's same as "if count % 50 == 0"
                 total = 0
                 correct = 0
@@ -122,9 +114,7 @@ def train_and_test():
                     images, labels = images.to(device), labels.to(device)
                     labels_list.append(labels)
                 
-                    test = Variable(images.view(100, 1, 28, 28))
-                
-                    outputs = model(test)
+                    outputs = model(images)
                 
                     predictions = torch.max(outputs, 1)[1].to(device)
                     predictions_list.append(predictions)
@@ -146,8 +136,7 @@ def train_and_test():
     with torch.no_grad():
         for images, labels in test_loader:
             images, labels = images.to(device), labels.to(device)
-            test = Variable(images)
-            outputs = model(test)
+            outputs = model(images)
             predicted = torch.max(outputs, 1)[1]
             c = (predicted == labels).squeeze()
             

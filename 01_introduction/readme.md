@@ -43,6 +43,12 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
    3.1 (Bonus exercise): A working training loop in Pytorch should have these three function calls:
        ``optimizer.zero_grad()``, ``loss.backward()``, ``optimizer.step()``. Explain what would happen
        in the training loop (or implement it) if you forgot each of the function calls.
+
+   3.2 (Bonus exercise): Many state-of-the-art results depend on the concept of learning rate schedulers.
+       In short a learning rate scheduler go in and either statically or dynamically changes the learning
+       rate of your optimizer, such that training speed is either increased or decreased. Implement a 
+       [learning rate scheduler](https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate)
+       in the notebook.
    
 4. Complete the [Fashion MNIST](4_Fashion_MNIST.ipynb) notebook, that summaries concepts learned in the
    notebook 2 and 3 on building a neural network for classifying the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) 
@@ -64,14 +70,17 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 6. Complete the [Saving_and_Loading_Models](6_Saving_and_Loading_Models.ipynb) notebook. This notebook addresses
    how to save and load model weights. This is important if you want to share a model with someone else.
 
+   6.1 (Bonus exercise): Being able to save and load weights are important for the concept of early stopping. In
+       short, early stopping monitors some metric (often on the validation set) and then will stop the training
+       and save a checkpoint when this metric have not improve for `N` steps. Implement early stopping in one of
+       the previous notebooks.
+
 ### Final exercise
 
-As the final exercise we will develop an simple baseline model which we will
-continue to develop on during the course.
+As the final exercise we will develop an simple baseline model which we will continue to develop on during the course.
 
 #### Goal: 
-Implement a mnist convolutional neural network that achives atlest 90 % accuracy
-on the test set
+Implement a mnist convolutional neural network that achives atlest 95 % accuracy on the test set.
 
 We will already in this exercise start to think about how to organise our code and
 you shall therefore complete the following subgoals
@@ -95,7 +104,10 @@ it should write the test set accuracy to the terminal.
 It is part of the exercise to not implement in notebooks as code development in the real life 
 happens in script. As the model is simple to run (for now) you should be able to complete
 the exercise on your laptop, even if you are only training on cpu. That said you are allowed to upload your scripts
-to your own "Google Drive" and then you can call your scripts from a google colab notebook.
+to your own "Google Drive" and then you can call your scripts from a google colab notebook, which is shown in the image
+below where all code is place in the `fashion_trainer.py` script and the colab notebook is just used to execute it.
+
+![colab](../figures/colab.PNG)
 
 Be sure to have completed the final exercise before the next session, as we will be building on top of the model
 you have created.
