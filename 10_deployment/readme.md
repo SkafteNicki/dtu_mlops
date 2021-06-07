@@ -1,4 +1,4 @@
-# 11. Model deployment
+# 10. Model deployment
 
 Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
 world. One way to do this is of course to just place all your code in a github repository, upload a file with
