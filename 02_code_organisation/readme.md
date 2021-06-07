@@ -1,6 +1,6 @@
 # 2. Getting started with MLOps - Organization
 
-This set of exercises focus on getting organized and make sure that you are familiar with good development
+This set of exercises focus on getting organized and making sure that you are familiar with good development
 practices. While this may not seem that important, it is crucial when working in large groups that the difference
 in how different people organize their code is minimized. Additionally, it is important for the reproducibility
 of results to be able to accurately report the exact environment that you are using. Try to think of your computer
@@ -67,7 +67,7 @@ This is the reason that **version control** exist. Simply stated, it is a way to
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
-hosting repositories but that does not mean that they are the only onces (see [bitbucket](https://bitbucket.org/product/) 
+hosting repositories but that does not mean that they are the only once (see [bitbucket](https://bitbucket.org/product/) 
 for another example).
 
 That said we will be using git+github throughout this course. It is a requirement for passing this course that 
@@ -89,7 +89,7 @@ integrate this into your own projects depends, but you are at least expected to 
        
    3.2 Move/copy the three files from yesterday into the repository
    
-   3.3 Add the files to a commit by using ```git add`` command
+   3.3 Add the files to a commit by using `git add` command
    
    3.4 Commit the files using `git commit`
    
@@ -101,7 +101,7 @@ integrate this into your own projects depends, but you are at least expected to 
    local copy
 
 5. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
-   not completly untrue when you are only one or two working on a project. However, these file manegement 
+   not completely untrue when you are only one or two working on a project. However, these file management 
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
