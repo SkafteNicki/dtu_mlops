@@ -63,9 +63,7 @@ reserved for exercises and other than that you are free to in the connecting stu
 
 ## Virtual days:
 
-Virtual days are intended for project work and you are therefore responsable for making an agreement
-with your group when you are going to work. Please note that on the the first virtual day, a lecture
-will be given at 9:00 (zoom link will be sent out) with project information. Two times during each virtual
+Virtual days are intended for project work and you are therefore responsable for making an agreement with your group when you are going to work. Please note that on the the first virtual day, a lecture will be given at 9:00 (zoom link will be sent out) with project information. Two times during each virtual
 day we will have office hours where you can ask questions. Please note, that while you will not be able
 to get physical help you are more than welcome to still use DTU´s facilities for your group work.
 
@@ -124,6 +122,6 @@ This includes:
 * Demonstrate knowledge about different distributed training paradigms (data parallelism, model parallelism, ect) 
 with deep learning and how to apply them (pytorch-lightning)
 * Understand the importance of reproducibility and how to make sure experiments are reproducible (hydra)
-* Efficiently do cross-validation and hyperparameter searched (optuna)
+* Efficiently do crossvalidation and hyperparameter searched (optuna)
 * Deploy deep learning models in the wild (torchserve, azure)
 * Conduct a research project in collaboration with follow students using the frameworks teached in the course
