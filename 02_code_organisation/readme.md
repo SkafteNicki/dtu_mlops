@@ -113,7 +113,7 @@ integrate this into your own projects depends, but you are at least expected to 
 
    5.2 Clone your local fork of the project using ```git clone```
 
-   5.3 As default your local reposatory will be on the ```master branch``` (HINT: you can check this with the
+   5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
        the ```git checkout``` commando to create a new branch.
 
