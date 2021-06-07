@@ -1,4 +1,4 @@
-# 11. Model deployment
+# 10. Model deployment
 
 Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
 world. One way to do this is of course to just place all your code in a github repository, upload a file with
@@ -10,9 +10,9 @@ looking (too hard) at the code.
 Today is all about deploying your model. The hope is that by the end of this exercise you will be able to
 access your model online and to inference in real-time.
 
-## Drifing data
+## Drifting data
 
-One of the first question that often comes up is how to . This is where detection of **data drifing** comes 
+One of the first question that often comes up is how to . This is where detection of **data drifting** comes 
 into play. Data drift is one of the top reasons model accuracy degrades over time. For machine learning models,
 data drift is the change in model input data that leads to model performance degradation. In practical terms
 this means that the model is receiving input that is outside of the scope that it was trained on. 
