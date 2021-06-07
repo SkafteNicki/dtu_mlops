@@ -2,7 +2,6 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-Hej hej hej
 
 class Network(nn.Module):
     def __init__(self, input_size, output_size, hidden_layers, drop_p=0.5):
