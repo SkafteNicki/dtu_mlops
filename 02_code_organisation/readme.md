@@ -89,7 +89,7 @@ integrate this into your own projects depends, but you are at least expected to 
        
    3.2 Move/copy the three files from yesterday into the repository
    
-   3.3 Add the files to a commit by using ```git add`` command
+   3.3 Add the files to a commit by using `git add` command
    
    3.4 Commit the files using `git commit`
    
