@@ -63,8 +63,7 @@ reserved for exercises and other than that you are free to in the connecting stu
 
 ## Virtual days:
 
-Virtual days are intended for project work and you are therefore responsable for making an agreement
-with your group when you are going to work. Please note that on the the first virtual day, a lecture
+Virtual days are intended for project work and you are therefore responsable for making an agreement with your group when you are going to work. Please note that on the the first virtual day, a lecture
 will be given at 9:00 (zoom link will be sent out) with project information. Two times during each virtual
 day we will have office hours where you can ask questions. Please note, that while you will not be able
 to get physical help you are more than welcome to still use DTU´s facilities for your group work.
