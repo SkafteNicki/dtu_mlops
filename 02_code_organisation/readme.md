@@ -96,7 +96,7 @@ integrate this into your own projects depends, but you are at least expected to 
    3.5 Finally push the files to your reposatory using `git push`. Make sure to check online that the files
        have been updated in your reposatory.
 
-4. If you do not already have a cloned version of this reposatory, make sure to make one! I am continuously updating/
+4. If you do not already have a cloned version of this repository, make sure to make one! I am continuously updating/
    changing some of the material and I therefore recommend that you each day before the lecture do a `git pull` on your
    local copy
 
