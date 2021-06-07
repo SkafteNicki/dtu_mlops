@@ -98,7 +98,7 @@ Date | Day       | Presentation topic                   | Framework/exercise    
 
 ### Week 3
 
-The last wee is about two important extensions of your workflow: hyperparameter tuning and model
+The last week is about two important extensions of your workflow: hyperparameter tuning and model
 deployment. Mastering both of these topics is both beneficial in production and research settings.
 
 Date | Day       | Presentation topic                   | Framework/exercise    | On-site/Virtual
