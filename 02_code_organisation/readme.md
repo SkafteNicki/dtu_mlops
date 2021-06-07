@@ -29,7 +29,7 @@ Many opinions exist on this matter, but for simplicity we recommend getting star
 
 Editor		   | Webpage  				| Comment (Biased opinion)
 -------------------|------------------------------------|----------------------------------------------------------------------
-Spyder             | https://www.spyder-ide.org/        | Matlab like enviroment that is easy to get started with
+Spyder             | https://www.spyder-ide.org/        | Matlab like environment that is easy to get started with
 Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
 PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
 --------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ different projects does not cross-contaminate each other.
 1. Download and install conda. Make sure that your installation is working by writing `conda help` in a terminal 
    and it should show you the help message for conda.
 
-2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_enviroment"`
+2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_environment"`
 
 3. Which commando gives you a list of the packages installed in the current environment (HINT: check the
    `conda_cheatsheet.pdf` file). How do you easily export this list to a text file?
@@ -128,7 +128,7 @@ integrate this into your own projects depends, but you are at least expected to 
 
 ## Code organisation
 
-While the two first exercises is about setting up a good enviroment for developing
+While the two first exercises is about setting up a good environment for developing
 code, the final exercise here is about organising actual code using reasonable standardized
 project structure.
 
@@ -176,7 +176,7 @@ the project structure, but complete the following steps
 	4.7 finally make sure to update the `requirements.txt` file with any packages that are nessesary
 	for running your code.
  
-## Good cooding practise
+## Good coding practise
 
 While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Code being written in a specific style
