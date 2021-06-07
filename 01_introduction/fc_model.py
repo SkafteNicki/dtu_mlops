@@ -96,4 +96,8 @@ def train(model, trainloader, testloader, criterion, optimizer, epochs=5, print_
                 running_loss = 0
                 
                 # Make sure dropout and grads are on for training
+<<<<<<< HEAD
                 model.train()
+=======
+                model.train()
+>>>>>>> 8a26211319ac593118eb375bb860c27b2b005f41

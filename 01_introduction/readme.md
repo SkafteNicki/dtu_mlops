@@ -92,7 +92,7 @@ you shall therefore complete the following subgoals
    should train or evaluate. Something like:
    ```
    python main.py train
-   python main.py eval
+   python main.py evaluate
    ```
    which can be implemented in various ways.
    
