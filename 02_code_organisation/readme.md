@@ -67,7 +67,7 @@ This is the reason that **version control** exist. Simply stated, it is a way to
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
-hosting repositories but that does not mean that they are the only onces (see [bitbucket](https://bitbucket.org/product/) 
+hosting repositories but that does not mean that they are the only once (see [bitbucket](https://bitbucket.org/product/) 
 for another example).
 
 That said we will be using git+github throughout this course. It is a requirement for passing this course that 
