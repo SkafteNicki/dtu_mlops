@@ -75,14 +75,14 @@ is to serve a Resnet type neural network that is trained for classification on [
    definition and the trained weights. For this we are going to use `TorchScript`, Pytorchs build-in way
    to create serializable models. The great part about scriptet models are:
    
-   * TorchScript code can be invoked in its own interpreter, which is basically a restricted Python interpreter. 
+   - [x] TorchScript code can be invoked in its own interpreter, which is basically a restricted Python interpreter. 
      This interpreter does not acquire the Global Interpreter Lock, and so many requests can be processed on the 
      same instance simultaneously.
-   * This format allows us to save the whole model to disk and load it into another environment, such as in a 
+   - [x] This format allows us to save the whole model to disk and load it into another environment, such as in a 
      server written in a language other than Python
-   * TorchScript gives us a representation in which we can do compiler optimizations on the code to provide 
+   - [x] TorchScript gives us a representation in which we can do compiler optimizations on the code to provide 
      more efficient execution
-   * TorchScript allows us to interface with many backend/device runtimes that require a broader view of the 
+   - [x] TorchScript allows us to interface with many backend/device runtimes that require a broader view of the 
      program than individual operators.
 
    Luckily `TorchScript` is very easy to use. Choose a resnet model from `torchvision` package and script it
