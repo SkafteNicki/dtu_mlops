@@ -93,10 +93,10 @@ integrate this into your own projects depends, but you are at least expected to 
    
    3.4 Commit the files using `git commit`
    
-   3.5 Finally push the files to your reposatory using `git push`. Make sure to check online that the files
-       have been updated in your reposatory.
+   3.5 Finally push the files to your repository using `git push`. Make sure to check online that the files
+       have been updated in your repository.
 
-4. If you do not already have a cloned version of this reposatory, make sure to make one! I am continuously updating/
+4. If you do not already have a cloned version of this repository, make sure to make one! I am continuously updating/
    changing some of the material and I therefore recommend that you each day before the lecture do a `git pull` on your
    local copy
 
@@ -106,21 +106,21 @@ integrate this into your own projects depends, but you are at least expected to 
    go through the steps of sending an open-source contribution:
    
    5.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
-       just choose the reposatory belonging to the course. Now fork the project by clicking the *Fork* botton.
+       just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
        ![forking](../figures/forking.PNG)
-       This will create a local copy of the reposatory which you have complete writing access to. Note that
-       code updates to the original reposatory does not update code in your local reposatory.
+       This will create a local copy of the repository which you have complete writing access to. Note that
+       code updates to the original repository does not update code in your local repository.
 
    5.2 Clone your local fork of the project using ```git clone```
 
-   5.3 As default your local reposatory will be on the ```master branch``` (HINT: you can check this with the
+   5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
        the ```git checkout``` commando to create a new branch.
 
-   5.4 You are now ready to make changes to reposatory. Try to find something to improve (any spelling mistakes?).
+   5.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
-   5.5 Go online to the original reposatory and go the ```Pull requests``` tap. Find ```compare``` botton and
+   5.5 Go online to the original repository and go the ```Pull requests``` tap. Find ```compare``` botton and
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
        in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
 
