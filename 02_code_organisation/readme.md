@@ -1,6 +1,6 @@
 # 2. Getting started with MLOps - Organization
 
-This set of exercises focus on getting organized and make sure that you are familiar with good development
+This set of exercises focus on getting organized and making sure that you are familiar with good development
 practices. While this may not seem that important, it is crucial when working in large groups that the difference
 in how different people organize their code is minimized. Additionally, it is important for the reproducibility
 of results to be able to accurately report the exact environment that you are using. Try to think of your computer
@@ -85,11 +85,11 @@ integrate this into your own projects depends, but you are at least expected to 
    from yesterday
    
    3.1 After creating the repository, clone it to your computer
-       ```git clone https://github.com/my_user_name/my_reposatory_name.git```
+       ```git clone https://github.com/my_user_name/my_repository_name.git```
        
    3.2 Move/copy the three files from yesterday into the repository
    
-   3.3 Add the files to a commit by using ```git add`` command
+   3.3 Add the files to a commit by using `git add` command
    
    3.4 Commit the files using `git commit`
    
@@ -101,7 +101,7 @@ integrate this into your own projects depends, but you are at least expected to 
    local copy
 
 5. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
-   not completly untrue when you are only one or two working on a project. However, these file manegement 
+   not completely untrue when you are only one or two working on a project. However, these file management 
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
@@ -113,14 +113,14 @@ integrate this into your own projects depends, but you are at least expected to 
 
    5.2 Clone your local fork of the project using ```git clone```
 
-   5.3 As default your local reposatory will be on the ```master branch``` (HINT: you can check this with the
+   5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
        the ```git checkout``` commando to create a new branch.
 
-   5.4 You are now ready to make changes to reposatory. Try to find something to improve (any spelling mistakes?).
+   5.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
-   5.5 Go online to the original reposatory and go the ```Pull requests``` tap. Find ```compare``` botton and
+   5.5 Go online to the original repository and go the ```Pull requests``` tap. Find ```compare``` button and
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
        in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
 
