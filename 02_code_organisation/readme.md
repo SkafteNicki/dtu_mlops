@@ -176,7 +176,7 @@ the project structure, but complete the following steps
 	4.7 finally make sure to update the `requirements.txt` file with any packages that are nessesary
 	for running your code.
  
-## Good cooding practise
+## Good coding practise
 
 While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Code being written in a specific style
