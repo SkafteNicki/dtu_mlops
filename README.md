@@ -126,5 +126,8 @@ with deep learning and how to apply them (pytorch-lightning)
 * Deploy deep learning models in the wild (torchserve, azure)
 * Conduct a research project in collaboration with follow students using the frameworks teached in the course
 
-![meme](https://miro.medium.com/proxy/1*KBobA-DaVtQ8Px6P_-tNqQ.jpeg)
+<p align="center">
+  <img src="https://miro.medium.com/proxy/1*KBobA-DaVtQ8Px6P_-tNqQ.jpeg" width="700" title="hover text">
+</p>
+
 (Image credit to [link](https://medium.com/nybles/understanding-machine-learning-through-memes-4580b67527bf))
