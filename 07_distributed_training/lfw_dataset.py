@@ -1,13 +1,15 @@
 """
 LFW dataloading
 """
-import torch
-from torch.utils.data import Dataset, DataLoader
-from PIL import Image
-from torchvision import transforms
 import argparse
 import time
+
 import numpy as np
+import torch
+from PIL import Image
+from torch.utils.data import DataLoader, Dataset
+from torchvision import transforms
+
 
 class LFWDataset(Dataset):
     def __init__(self, path_to_folder: str, transform) -> None:

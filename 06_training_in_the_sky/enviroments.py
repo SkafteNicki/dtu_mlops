@@ -1,4 +1,4 @@
-from azureml.core import Workspace, Environment
+from azureml.core import Environment, Workspace
 
 ws = Workspace.from_config()
 env = Environment.get(workspace=ws, name="AzureML-Minimal")

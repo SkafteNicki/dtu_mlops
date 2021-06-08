@@ -3,10 +3,9 @@ Credit to: https://www.kaggle.com/pankajj/fashion-mnist-with-pytorch-93-accuracy
 """
 import torch
 import torch.nn as nn
-
-from torchvision.datasets import FashionMNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
+from torchvision.datasets import FashionMNIST
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
