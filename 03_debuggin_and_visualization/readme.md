@@ -58,7 +58,7 @@ import torch
 print(torch.__version__)
 ```
 
-Additionally, it Pytorch needs to be build with kineto. This mean that if you get the following error when
+Additionally, it PyTorch needs to be build with Kineto. This mean that if you get the following error when
 trying to do the exercises:
 ```
 Requested Kineto profiling but Kineto is not available, make sure PyTorch is built with USE_KINETO=1
@@ -70,7 +70,7 @@ pip install torch_tb_profiler
 ```
 
 For this exercise we have provided the solution in form of the script `vae_mnist_pytorch_profiler.py` where
-we have already implemented the Pytorch profiler in the script. However, try to solve the exercise yourself!
+we have already implemented the PyTorch profiler in the script. However, try to solve the exercise yourself!
 
 1. The documentation on the new profiler is sparse but take a look at this
    [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
