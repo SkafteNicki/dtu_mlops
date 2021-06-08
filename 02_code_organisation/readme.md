@@ -105,7 +105,6 @@ integrate this into your own projects depends, but you are at least expected to 
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
-<<<<<<< Updated upstream
    5.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
 =======
    4.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
