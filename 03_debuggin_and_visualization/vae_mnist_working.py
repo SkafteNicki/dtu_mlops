@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader
 
 # Model Hyperparameters
 dataset_path = '~/datasets'
-cuda = True
+cuda = torch.cuda.is_available()
 DEVICE = torch.device("cuda" if cuda else "cpu")
 batch_size = 100
 x_dim  = 784
