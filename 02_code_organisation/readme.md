@@ -160,12 +160,12 @@ the project structure, but complete the following steps
 	4.3 make sure that some statistics from the trained models gets saved to the `reports/figures/`
 	folder. This could be a simple .png of the training curve. 
 
-	4.4 create a new file `scr/models/predict_model.py` that takes a pre-trained model file and
+	4.4 create a new file `src/models/predict_model.py` that takes a pre-trained model file and
 	creates prediction for some data. Recommended interface is that users can give this file either 
 	a folder with raw images that gets loaded in or a `numpy` or `pickle` file with already loaded
 	images
 
-	4.5 create a new file `scr/visualization/visualize.py` that as minimum does the following
+	4.5 create a new file `src/visualization/visualize.py` that as minimum does the following
 	- loads a pretrained network, extracts features from the mnist test set (i.e. the features
 	just before the final classification layer and does [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
 	embedding of the features (color coded according to the class label).
