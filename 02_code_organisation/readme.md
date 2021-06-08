@@ -1,6 +1,6 @@
 # 2. Getting started with MLOps - Organization
 
-This set of exercises focus on getting organized and make sure that you are familiar with good development
+This set of exercises focus on getting organized and making sure that you are familiar with good development
 practices. While this may not seem that important, it is crucial when working in large groups that the difference
 in how different people organize their code is minimized. Additionally, it is important for the reproducibility
 of results to be able to accurately report the exact environment that you are using. Try to think of your computer
@@ -29,7 +29,7 @@ Many opinions exist on this matter, but for simplicity we recommend getting star
 
 Editor		   | Webpage  				| Comment (Biased opinion)
 -------------------|------------------------------------|----------------------------------------------------------------------
-Spyder             | https://www.spyder-ide.org/        | Matlab like enviroment that is easy to get started with
+Spyder             | https://www.spyder-ide.org/        | Matlab like environment that is easy to get started with
 Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
 PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
 --------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ different projects does not cross-contaminate each other.
 1. Download and install conda. Make sure that your installation is working by writing `conda help` in a terminal 
    and it should show you the help message for conda.
 
-2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_enviroment"`
+2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_environment"`
 
 3. Which commando gives you a list of the packages installed in the current environment (HINT: check the
    `conda_cheatsheet.pdf` file). How do you easily export this list to a text file?
@@ -67,7 +67,7 @@ This is the reason that **version control** exist. Simply stated, it is a way to
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
-hosting repositories but that does not mean that they are the only onces (see [bitbucket](https://bitbucket.org/product/) 
+hosting repositories but that does not mean that they are the only once (see [bitbucket](https://bitbucket.org/product/) 
 for another example).
 
 That said we will be using git+github throughout this course. It is a requirement for passing this course that 
@@ -89,7 +89,7 @@ integrate this into your own projects depends, but you are at least expected to 
        
    3.2 Move/copy the three files from yesterday into the repository
    
-   3.3 Add the files to a commit by using ```git add`` command
+   3.3 Add the files to a commit by using `git add` command
    
    3.4 Commit the files using `git commit`
    
@@ -101,7 +101,7 @@ integrate this into your own projects depends, but you are at least expected to 
    local copy
 
 5. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
-   not completly untrue when you are only one or two working on a project. However, these file manegement 
+   not completely untrue when you are only one or two working on a project. However, these file management 
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
@@ -115,10 +115,11 @@ integrate this into your own projects depends, but you are at least expected to 
 
    5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
-       the ```git checkout``` commando to create a new branch.
+       the ```git branch``` command followed by the ```git checkout``` command to create a new branch.
 
    5.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
+
 
    5.5 Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
@@ -128,7 +129,7 @@ integrate this into your own projects depends, but you are at least expected to 
 
 ## Code organisation
 
-While the two first exercises is about setting up a good enviroment for developing
+While the two first exercises is about setting up a good environment for developing
 code, the final exercise here is about organising actual code using reasonable standardized
 project structure.
 
@@ -176,7 +177,7 @@ the project structure, but complete the following steps
 	4.7 finally make sure to update the `requirements.txt` file with any packages that are nessesary
 	for running your code.
  
-## Good cooding practise
+## Good coding practise
 
 While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Code being written in a specific style

@@ -10,7 +10,7 @@ the uprise of deep learning. This can mainly be contributed to the following:
 However the problem with doing hyperparameter optimization of a deep learning models is that it can take over a
 week to train a single model. In most cases we cannot therefore do a full grid search of all hyperparameter
 combinations to get the best model. Instead we have to do some tricks that will help us speed up our searching.
-For todays exercises we are going to integrating [optuna](https://optuna.readthedocs.io/en/stable/index.html) into 
+For todays exercises we are going to be integrating [optuna](https://optuna.readthedocs.io/en/stable/index.html) into 
 our different models, that will provide the tools for speeding up our search.
 
 <p align="center">

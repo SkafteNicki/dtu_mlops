@@ -10,6 +10,19 @@ handy during the course.
   <img src="../figures/debug.jpg" width="700" title="hover text">
 </p>
 
+To invoke the build in python debugger you can either:
+* If you are using an editor, then you can insert inline breakpoints (in VS code this can be done by pressing F9)
+  and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
+  your code). The editor should then offer some interface to allow you step through your code.
+
+* Set a trace directly with the python debugger by calling
+  ```python
+  import pdb
+  pdb.set_trace()
+  ```
+  anywhere you want to stop the code. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`)
+  to step through the code.
+
 ### Exercises
 
 We here provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
