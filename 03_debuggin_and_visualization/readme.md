@@ -50,7 +50,7 @@ build in profiler.
 ### Exercises (optional)
 
 In addition to using pythons build-in profiler we will also investigate the profiler that is build into PyTorch already.
-Note that these exercises requires that you have pytorch v1.8.1 installed. You can always check which version you
+Note that these exercises requires that you have PyTorch v1.8.1 installed. You can always check which version you
 currently have installed by writing (in python):
 
 ```python
@@ -75,7 +75,7 @@ we have already implemented the PyTorch profiler in the script. However, try to 
 1. The documentation on the new profiler is sparse but take a look at this
    [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
    and the [documentation](https://pytorch.org/docs/stable/profiler.html) which should give you an idea of 
-   how to use the Pytorch profiler.
+   how to use the PyTorch profiler.
 
 2. Secondly try to implement the profile in the `vae_mnist_working.py` script from the debugging exercises 
    (HINT: run the script with `epochs = 1`) and run the script with the profiler on.
@@ -95,7 +95,7 @@ While logging loss values to terminal, or plotting training curves in matplotlib
 there is no way around using a proper experiment tracker and visualizer when doing large scale experiments.
 
 For these exercises we will initially be looking at incorporating [tensorboard](https://www.tensorflow.org/tensorboard) into our code, 
-as it comes with native support in Pytorch
+as it comes with native support in PyTorch
 
 1. Install tensorboard (does not require you to install tensorflow)
    ```pip install tensorboard```
