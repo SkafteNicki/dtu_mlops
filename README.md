@@ -1,7 +1,7 @@
 ![mlops](figures/mlops-loop-en.jpg)
 (Image credit to [link](https://ml-ops.org/content/mlops-principles))
 # Machine Learning Operations
-
+Hej
 This repository contains the exercises for the DTU course Machine Learning Operations (MLOps). 
 All exercises are written in the [Python](https://www.python.org/) programming language and formatted 
 into a combination of scripts and [Jupyter Notebooks](https://jupyter.org/). 
@@ -96,7 +96,7 @@ Date | Day       | Presentation topic                   | Framework/exercise    
 
 ### Week 3
 
-The last wee is about two important extensions of your workflow: hyperparameter tuning and model
+The last week is about two important extensions of your workflow: hyperparameter tuning and model
 deployment. Mastering both of these topics is both beneficial in production and research settings.
 
 Date | Day       | Presentation topic                   | Framework/exercise    | On-site/Virtual

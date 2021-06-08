@@ -115,7 +115,7 @@ integrate this into your own projects depends, but you are at least expected to 
 
    5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
-       the ```git checkout``` commando to create a new branch.
+       the ```git branch``` command followed by the ```git checkout``` command to create a new branch.
 
    5.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
