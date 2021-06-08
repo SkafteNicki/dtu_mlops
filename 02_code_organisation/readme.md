@@ -106,9 +106,6 @@ integrate this into your own projects depends, but you are at least expected to 
    go through the steps of sending an open-source contribution:
    
    5.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
-=======
-   4.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
->>>>>>> Stashed changes
        just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
        ![forking](../figures/forking.PNG)
        This will create a local copy of the repository which you have complete writing access to. Note that
@@ -116,7 +113,6 @@ integrate this into your own projects depends, but you are at least expected to 
 
    5.2 Clone your local fork of the project using ```git clone```
 
-<<<<<<< Updated upstream
    5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
        the ```git checkout``` commando to create a new branch.
@@ -125,16 +121,6 @@ integrate this into your own projects depends, but you are at least expected to 
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
    5.5 Go online to the original repository and go the ```Pull requests``` tap. Find ```compare``` botton and
-=======
-   4.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
-       ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
-       the ```git checkout``` commando to create a new branch.
-
-   4.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
-       When you have made the changes, do the standard git cycle: ```add -> commit -> push```
-
-   4.5 Go online to the original repository and go the ```Pull requests``` tap. Find ```compare``` botton and
->>>>>>> Stashed changes
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
        in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
 
