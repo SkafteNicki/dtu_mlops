@@ -47,15 +47,15 @@ class Encoder(nn.Module):
         mean     = self.FC_mean(h_)
         log_var  = self.FC_var(h_)                     
                                                       
-        var      = torch.exp(0.5*log_var)             
-        z        = self.reparameterization(mean, var)
+        std      = torch.exp(0.5*log_var)             
+        z        = self.reparameterization(mean, std)
         
         return z, mean, log_var
        
-    def reparameterization(self, mean, var,):
-        epsilon = torch.rand_like(var)
+    def reparameterization(self, mean, std,):
+        epsilon = torch.rand_like(std)
         
-        z = mean + var*epsilon
+        z = mean + std*epsilon
         
         return z
     
