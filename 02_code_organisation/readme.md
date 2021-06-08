@@ -120,7 +120,8 @@ integrate this into your own projects depends, but you are at least expected to 
    5.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
-   5.5 Go online to the original repository and go the ```Pull requests``` tap. Find ```compare``` botton and
+
+   5.5 Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
        in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
 
