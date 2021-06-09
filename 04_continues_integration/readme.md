@@ -52,12 +52,13 @@ The following exercises should be applied to your MNIST repository
 
    4.1. Data testing: In a file called `tests/test_data.py` implement at least a test that
         checks that data gets correctly loaded. By this we mean that you should check
-        ```
-        dataset = MNIST(...)
-        assert len(dataset) == 60000 for training and 10000 for test
-        assert that each datapoint has shape [1,28,28] or [728] depending on how you choose to format
-        assert that all labels are represented
-        ```
+
+   ```python
+   dataset = MNIST(...)
+   assert len(dataset) == 60000 for training and 10000 for test
+   assert that each datapoint has shape [1,28,28] or [728] depending on how you choose to format
+   assert that all labels are represented
+   ```
 
    4.2. Model testing: In a file called `tests/test_model.py` implement at least a test that
         checks for a given input with shape *X* that the output of the model have shape *Y*
@@ -70,8 +71,9 @@ The following exercises should be applied to your MNIST repository
         invalid combination of input to your script. For example, you model could check for the size of the input
         given to it (see code below) to make sure it corresponds to what you are expecting. Not implementing 
         such errors would still result in Pytorch failing at a later point due to shape errors, however these
-        custom errros will probably make more sense to the end user. Implement at least one raised error or warning 
+        custom errors will probably make more sense to the end user. Implement at least one raised error or warning 
         somewhere in your code and use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
+
    ```python
    def forward(self, x: Tensor):
       if x.ndim != 4:
@@ -82,10 +84,40 @@ The following exercises should be applied to your MNIST repository
 
 5. Finally, make sure that all your tests pass locally
 
-6. (Optional). We often want to check a function/module for various input arguments. In this case you could
+6. We often want to check a function/module for various input arguments. In this case you could
    write the same test over and over again for the different input, but `pytest` also have build in support
-   for this with the use of the [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html).
-   Implement a parametrize test and make sure that it runs for different input.
+   for this with the use of the [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html). Implement a parametrize test and make sure that it runs for different input. (HINT: you can just edit one
+   of the test )
+
+7. There really do not exist any way of measuring how good the test you have written are. However, what we
+   can measure is the *code coverage*. Code coverage refers to the percentage of your codebase that actually gets
+   run when all your tests are executed. Having a high coverage at least means that all your code will run when executed.
+
+   7.1. Install coverage
+   
+   ```
+   pip install coverage
+   ```
+
+   7.2. Instead of running your tests directly with `pytest`, now do
+   ```
+   coverage run -m pytest tests/
+   ```
+
+   7.3. To get a simple coverage report simply type
+   
+   ```
+   coverage report
+   ```
+   which will give you the percentage of cover in each of your files. You can also
+   write
+   ```
+   coverage report -m
+   ```
+   to get the exact lines that was missed by your tests.
+
+   7.4. Finally, try to increase the coverage by writing a new test that runs some
+        of the lines in your codebase that is not covered yet.
 
 ## Github actions
 Github actions are the CI solution that github provides. Each of your repositories gets 2,000 minutes of free 
