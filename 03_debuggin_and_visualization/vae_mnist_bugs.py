@@ -6,17 +6,19 @@ A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
 import torch
 import torch.nn as nn
+from torchvision.utils import save_image
+from torchvision.datasets import MNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-from torchvision.datasets import MNIST
-from torchvision.utils import save_image
+import pdb
+
 
 # Model Hyperparameters
 dataset_path = '~/datasets'
 cuda = True
 DEVICE = torch.device("cuda" if cuda else "cpu")
 batch_size = 100
-x_dim  = 784
+x_dim = 784
 hidden_dim = 400
 latent_dim = 20
 lr = 1e-3
@@ -32,19 +34,20 @@ test_dataset  = MNIST(dataset_path, transform=mnist_transform, train=False, down
 train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader  = DataLoader(dataset=test_dataset,  batch_size=batch_size, shuffle=False)
 
+
 class Encoder(nn.Module):  
     def __init__(self, input_dim, hidden_dim, latent_dim):
         super(Encoder, self).__init__()
         
-        self.FC_input = nn.Linear(input_dim, hidden_dim)
-        self.FC_mean  = nn.Linear(hidden_dim, latent_dim)
-        self.FC_var   = nn.Linear (hidden_dim, latent_dim)
+        self.FC_input = nn.Linear(input_dim, hidden_dim) #784x400
+        self.FC_mean  = nn.Linear(hidden_dim, latent_dim) #400x20
+        self.FC_var   = nn.Linear(hidden_dim, latent_dim) #400x20
         self.training = True
         
     def forward(self, x):
-        h_       = torch.relu(self.FC_input(x))
-        mean     = self.FC_mean(h_)
-        log_var  = self.FC_var(h_)                     
+        h_       = torch.relu(self.FC_input(x)) #784x400
+        mean     = self.FC_mean(h_) #400x20
+        log_var  = self.FC_var(h_) #400x20
                                                       
         z        = self.reparameterization(mean, log_var)
         
@@ -57,15 +60,16 @@ class Encoder(nn.Module):
         
         return z
     
+
 class Decoder(nn.Module):
     def __init__(self, latent_dim, hidden_dim, output_dim):
         super(Decoder, self).__init__()
-        self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
-        self.FC_output = nn.Linear(latent_dim, output_dim)
+        self.FC_hidden = nn.Linear(latent_dim, hidden_dim) #20x400
+        self.FC_output = nn.Linear(latent_dim, output_dim) #20xoutput
         
     def forward(self, x):
-        h     = torch.relu(self.FC_hidden(x))
-        x_hat = torch.sigmoid(self.FC_output(h))
+        h     = torch.relu(self.FC_hidden(x)) #20x400
+        x_hat = torch.sigmoid(self.FC_output(h)) #400xoutput
         return x_hat
     
     
@@ -80,9 +84,11 @@ class Model(nn.Module):
         x_hat            = self.Decoder(z)
         
         return x_hat, mean, log_var
-    
+
 encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
-decoder = Decoder(latent_dim=latent_dim, hidden_dim = hidden_dim, output_dim = x_dim)
+pdb.set_trace()
+decoder = Decoder(latent_dim=latent_dim, hidden_dim=hidden_dim, output_dim=x_dim)
+pdb.set_trace()
 
 model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
 
@@ -90,9 +96,10 @@ from torch.optim import Adam
 
 BCE_loss = nn.BCELoss()
 
+
 def loss_function(x, x_hat, mean, log_var):
     reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction='sum')
-    KLD      = - 0.5 * torch.sum(1+ log_var - mean.pow(2) - log_var.exp())
+    KLD      = - 0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
 
     return reproduction_loss + KLD
 

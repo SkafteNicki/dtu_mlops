@@ -1,11 +1,10 @@
-import argparse
 import sys
+import argparse
 
 import torch
 
 from data import mnist
 from model import MyAwesomeModel
-
 
 class TrainOREvaluate(object):
     """ Helper class that will help launch class methods as commands
