@@ -1,8 +1,6 @@
-from multiprocessing import Pool
 import argparse
 import os
-
-
+from multiprocessing import Pool
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -25,7 +25,7 @@ To invoke the build in python debugger you can either:
 
 ### Exercises
 
-We here provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
+We here provide a script `vae_mnist_bugs.py` which contains a number of bugs to get it running. Start by going over
 the script and try to understand what is going on. Hereafter, try to get it running by solving the bugs. The following 
 bugs exist in the script:
 
