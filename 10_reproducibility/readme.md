@@ -1,11 +1,11 @@
-# 8. Reproduceability and cofiguration files
+# 10. Reproducibility and configuration files
 
-Today is all about reproduceability - one of those concepts that everyone agrees is very important and something
-should be done about, but reality is that it is very hard to secure full reproduceability.
+Today is all about reproducibility - one of those concepts that everyone agrees is very important and something
+should be done about, but reality is that it is very hard to secure full reproducibility.
 
 For the first set of exercises we have provided a single script. Your task is to use Hydra to make sure that everything
 gets correctly logged such that you would be able to exactly report to other how each experiment was configured. In the
-provided script, the hyperparameters are hardcoded into the code and your job will be to seperate them out into a 
+provided script, the hyperparameters are hardcoded into the code and your job will be to separate them out into a 
 configuration file.
 
 ### Exercises
@@ -63,10 +63,10 @@ Remember: its not about the result, its about the journey.
    8.3 Try re-running the script and make sure that the output printed to the terminal also gets saved to the
        `vae_mnist.log` file
 
-10. Make sure that your script is fully reproduceable. To check this you will need two runs of the script to
+10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to
     compare. Then run the `reproduceability_tester.py` script as
     ```
-    python reproduceability_tester path/to/run/1 path/to/run/2
+    python reproducibility_tester path/to/run/1 path/to/run/2
     ```
     the script will go over trained weights to see if the match and that the hyperparameters was the same. Note:
     for the script to work, the weights should be saved to a file called `trained_model.pt` (this is the default
