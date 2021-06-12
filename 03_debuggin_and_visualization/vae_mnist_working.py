@@ -6,14 +6,13 @@ A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
 import torch
 import torch.nn as nn
-from torchvision.utils import save_image
-from torchvision.datasets import MNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-
+from torchvision.datasets import MNIST
+from torchvision.utils import save_image
 
 # Model Hyperparameters
-dataset_path = '~/datasets'
+dataset_path = 'datasets'
 cuda = torch.cuda.is_available()
 DEVICE = torch.device("cuda" if cuda else "cpu")
 batch_size = 100
@@ -47,15 +46,15 @@ class Encoder(nn.Module):
         mean     = self.FC_mean(h_)
         log_var  = self.FC_var(h_)                     
                                                       
-        var      = torch.exp(0.5*log_var)             
-        z        = self.reparameterization(mean, var)
+        std      = torch.exp(0.5*log_var)             
+        z        = self.reparameterization(mean, std)
         
         return z, mean, log_var
        
-    def reparameterization(self, mean, var,):
-        epsilon = torch.rand_like(var)
+    def reparameterization(self, mean, std,):
+        epsilon = torch.rand_like(std)
         
-        z = mean + var*epsilon
+        z = mean + std*epsilon
         
         return z
     

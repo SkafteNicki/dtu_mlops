@@ -1,6 +1,8 @@
 import sys
+
 import torch
-from model import Model, Encoder, Decoder
+
+from model import Decoder, Encoder, Model
 
 if __name__ == "__main__":
     print(sys.argv)

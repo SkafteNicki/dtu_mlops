@@ -1,70 +1,51 @@
 # Training in the sky
-Running computations locally is often sufficient when only playing around with code in
-initial phase of development.
+Running computations locally is often sufficient when only playing around with code in initial phase of 
+development. However, to really scale your experiments you will need more computing power than what your
+standard laptop/desktop can offer. You probably already have experience with running on a local cluster
+or similar but todays topic is about utilizing cloud computing.
 
-There exist a [numerous](https://github.com/zszazi/Deep-learning-in-cloud) cloud compute providers with
-some of the biggest being:
+<p align="center">
+  <img src="../figures/cloud_computing.jpeg" width="600" title="hover text">
+</p>
+
+There exist a [numerous](https://github.com/zszazi/Deep-learning-in-cloud) amount of cloud compute providers 
+with some of the biggest being:
 * Azure
 * AWS
 * Alibaba cloud
 * Google Cloud
 
-In this course we are going to focus on Azura, the solution from Microsoft. It should be noted that
-today exercises only will give a glimse of what Azura can provide.
+The all have slight advantages and disadvantages over each others. In this course we are going to focus on Azure, 
+the solution from Microsoft. It should be noted that today exercises only will give a glimpse of what Azure can do, 
+as they offer much more than just simply training your models in the cloud.
 
 ### Exercises
 
+Todays exercises are based on Microsoft own [learning portal](https://docs.microsoft.com/en-us/learn/). The idea
+is that you read the tutorials and follow along on your laptop.
+
 1. Create an account at https://azure.microsoft.com/en-us/free/. If you already have an Azure account make
-   sure to sign up with a new account so you are sure that you get the $200 free credit which is nessesary to
-   complete the exercises
-   
-2. Login with your account and follow these instructions:
-   https://docs.microsoft.com/en-us/azure/machine-learning/quickstart-create-resources
-   This will help you get started with Azure machine learning interface and how to start an compute
-   instance. By the end of the exercise you should be able to start executing scripts in the cloud
-   
-3. Next follow these instructions:
-   https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-1st-experiment-hello-world
-   This will go over how to launch your first script ("Hallo World") on the Azure platform.
-   
-4. Next follow these instructions
-   https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-1st-experiment-sdk-train
-   These will go over how to launch a training script in Azure.
-   
-5. With the basics in place, lets move on to a bit more advance. Close down the cpu compute instance
-   that you was asked to create during the first instructions and now create a compute instance that
-   have a GPU equipped.
-   
-6. Adjust the training script from the last instructions to run on GPU:
+   sure to sign up with a new account so you are sure that you get the $200 free credit which is necessary to
+   complete the exercises.
 
-   6.1 Add `.to('cuda')` in appropriate places
-   
-   6.2 Running on GPU will require you to change the `config.run_config.environment` to a curated environment 
-       that has cuda enabled Pytorch installed. You can check which are available by copy-and-running the
-       `enviroments.py` script in Azure
+2. Start with this [exercise](https://docs.microsoft.com/en-us/learn/modules/intro-to-azure-machine-learning-service/2a-create-workspace).
+   It will introduce the *Azure Machine Learning studio*  and how to create a workspace and run notebooks in Azure.
 
-7. We have provided a script called `???.py`. The objective is to get this running on Azure, but doing this
-   naively will prompt you that some packages are not installed because the default environment that we have
-   been using until now only have some specific packages installed. Go over this 
-   [page](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-environments) on how to
-   create your own environment.
-   
-8. Finally we are going to get Azure running locally. By this we mean that instead of copying everything
-   to the online webbrowser we are going to connect to Azure locally by using their API.
+3. Next to this [exercise](https://docs.microsoft.com/en-us/learn/modules/intro-to-azure-machine-learning-service/5-using-azure-ml).
+   It will describe how to run an Azure machine learning experiment and run a script as an experiment.
 
-9. (Optional) After doing all of the above exercises can you figure out how many credit you have used.
+4. Next complete this [exercise](https://docs.microsoft.com/en-us/learn/modules/train-local-model-with-azure-mls/5-training-model).
+   It will go over how to use a script to train a model, how to parameterize script to train a model and register a model.
 
-10. https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-pytorch
+5. Finally, complete [this](https://docs.microsoft.com/en-us/learn/modules/intro-to-azure-machine-learning-service/5a-knowledge-check?ns-enrollment-type=LearningPath&ns-enrollment-id=learn.data-ai.build-ai-solutions-with-azure-ml-service) and [this](https://docs.microsoft.com/en-us/learn/modules/train-local-model-with-azure-mls/5a-knowledge-check)
+   knowledge check to make sure that you have understand todays exercises.
 
+> WARNING: Remember to close down any compute instance that you have started if you are not going to use them for a longer period of time. Below is shown how the cost can add up by just forgetting to close a single gpu instance (real mistake by me).
 
-10. Remember to stop whatever compute resources that you have running to make sure that you do not burn
-    through your credit on the first day ;)
-
-
-https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
-
+![cost](../figures/cost.PNG)
 
 ### Final exercise
 
-With the above completed exercises, try to get your MNIST code running on Azure. It does not have to
-run for very long time
+With the above completed exercises, and you still have extra time left then try to get your MNIST code running on Azure. 
+It does not have to run for very long time, it is just to check that you understand how to get your own code running on 
+Azure. Additionally, you can already start to thick how to get your project running in Azure.

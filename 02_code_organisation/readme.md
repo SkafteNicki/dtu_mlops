@@ -1,6 +1,6 @@
 # 2. Getting started with MLOps - Organization
 
-This set of exercises focus on getting organized and make sure that you are familiar with good development
+This set of exercises focus on getting organized and making sure that you are familiar with good development
 practices. While this may not seem that important, it is crucial when working in large groups that the difference
 in how different people organize their code is minimized. Additionally, it is important for the reproducibility
 of results to be able to accurately report the exact environment that you are using. Try to think of your computer
@@ -29,7 +29,7 @@ Many opinions exist on this matter, but for simplicity we recommend getting star
 
 Editor		   | Webpage  				| Comment (Biased opinion)
 -------------------|------------------------------------|----------------------------------------------------------------------
-Spyder             | https://www.spyder-ide.org/        | Matlab like enviroment that is easy to get started with
+Spyder             | https://www.spyder-ide.org/        | Matlab like environment that is easy to get started with
 Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
 PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
 --------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ different projects does not cross-contaminate each other.
 1. Download and install conda. Make sure that your installation is working by writing `conda help` in a terminal 
    and it should show you the help message for conda.
 
-2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_enviroment"`
+2. Create a new conda environment for the remaining of the exercises using `conda create -n "my_environment"`
 
 3. Which commando gives you a list of the packages installed in the current environment (HINT: check the
    `conda_cheatsheet.pdf` file). How do you easily export this list to a text file?
@@ -67,7 +67,7 @@ This is the reason that **version control** exist. Simply stated, it is a way to
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
-hosting repositories but that does not mean that they are the only onces (see [bitbucket](https://bitbucket.org/product/) 
+hosting repositories but that does not mean that they are the only once (see [bitbucket](https://bitbucket.org/product/) 
 for another example).
 
 That said we will be using git+github throughout this course. It is a requirement for passing this course that 
@@ -85,42 +85,43 @@ integrate this into your own projects depends, but you are at least expected to 
    from yesterday
    
    3.1 After creating the repository, clone it to your computer
-       ```git clone https://github.com/my_user_name/my_reposatory_name.git```
+       ```git clone https://github.com/my_user_name/my_repository_name.git```
        
    3.2 Move/copy the three files from yesterday into the repository
    
-   3.3 Add the files to a commit by using ```git add`` command
+   3.3 Add the files to a commit by using `git add` command
    
    3.4 Commit the files using `git commit`
    
-   3.5 Finally push the files to your reposatory using `git push`. Make sure to check online that the files
-       have been updated in your reposatory.
+   3.5 Finally push the files to your repository using `git push`. Make sure to check online that the files
+       have been updated in your repository.
 
-4. If you do not already have a cloned version of this reposatory, make sure to make one! I am continuously updating/
+4. If you do not already have a cloned version of this repository, make sure to make one! I am continuously updating/
    changing some of the material and I therefore recommend that you each day before the lecture do a `git pull` on your
    local copy
 
 5. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
-   not completly untrue when you are only one or two working on a project. However, these file manegement 
+   not completely untrue when you are only one or two working on a project. However, these file management 
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
    5.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
-       just choose the reposatory belonging to the course. Now fork the project by clicking the *Fork* botton.
+       just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
        ![forking](../figures/forking.PNG)
-       This will create a local copy of the reposatory which you have complete writing access to. Note that
-       code updates to the original reposatory does not update code in your local reposatory.
+       This will create a local copy of the repository which you have complete writing access to. Note that
+       code updates to the original repository does not update code in your local repository.
 
    5.2 Clone your local fork of the project using ```git clone```
 
-   5.3 As default your local reposatory will be on the ```master branch``` (HINT: you can check this with the
+   5.3 As default your local repository will be on the ```master branch``` (HINT: you can check this with the
        ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
-       the ```git checkout``` commando to create a new branch.
+       the ```git branch``` command followed by the ```git checkout``` command to create a new branch.
 
-   5.4 You are now ready to make changes to reposatory. Try to find something to improve (any spelling mistakes?).
+   5.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
-   5.5 Go online to the original reposatory and go the ```Pull requests``` tap. Find ```compare``` botton and
+
+   5.5 Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
        choose the to compare the ```master branch``` of the original repo with the branch that you just created
        in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
 
@@ -128,7 +129,7 @@ integrate this into your own projects depends, but you are at least expected to 
 
 ## Code organisation
 
-While the two first exercises is about setting up a good enviroment for developing
+While the two first exercises is about setting up a good environment for developing
 code, the final exercise here is about organising actual code using reasonable standardized
 project structure.
 
@@ -159,12 +160,12 @@ the project structure, but complete the following steps
 	4.3 make sure that some statistics from the trained models gets saved to the `reports/figures/`
 	folder. This could be a simple .png of the training curve. 
 
-	4.4 create a new file `scr/models/predict_model.py` that takes a pre-trained model file and
+	4.4 create a new file `src/models/predict_model.py` that takes a pre-trained model file and
 	creates prediction for some data. Recommended interface is that users can give this file either 
 	a folder with raw images that gets loaded in or a `numpy` or `pickle` file with already loaded
 	images
 
-	4.5 create a new file `scr/visualization/visualize.py` that as minimum does the following
+	4.5 create a new file `src/visualization/visualize.py` that as minimum does the following
 	- loads a pretrained network, extracts features from the mnist test set (i.e. the features
 	just before the final classification layer and does [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
 	embedding of the features (color coded according to the class label).
@@ -176,7 +177,7 @@ the project structure, but complete the following steps
 	4.7 finally make sure to update the `requirements.txt` file with any packages that are nessesary
 	for running your code.
  
-## Good cooding practise
+## Good coding practise
 
 While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Code being written in a specific style

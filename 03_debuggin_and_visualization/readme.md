@@ -10,9 +10,22 @@ handy during the course.
   <img src="../figures/debug.jpg" width="700" title="hover text">
 </p>
 
+To invoke the build in python debugger you can either:
+* If you are using an editor, then you can insert inline breakpoints (in VS code this can be done by pressing F9)
+  and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
+  your code). The editor should then offer some interface to allow you step through your code.
+
+* Set a trace directly with the python debugger by calling
+  ```python
+  import pdb
+  pdb.set_trace()
+  ```
+  anywhere you want to stop the code. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`)
+  to step through the code.
+
 ### Exercises
 
-We here provide a script `mnist_vae_bugs.py` which contains a number of bugs to get it running. Start by going over
+We here provide a script `vae_mnist_bugs.py` which contains a number of bugs to get it running. Start by going over
 the script and try to understand what is going on. Hereafter, try to get it running by solving the bugs. The following 
 bugs exist in the script:
 
@@ -50,7 +63,7 @@ build in profiler.
 ### Exercises (optional)
 
 In addition to using pythons build-in profiler we will also investigate the profiler that is build into PyTorch already.
-Note that these exercises requires that you have pytorch v1.8.1 installed. You can always check which version you
+Note that these exercises requires that you have PyTorch v1.8.1 installed. You can always check which version you
 currently have installed by writing (in python):
 
 ```python
@@ -58,7 +71,7 @@ import torch
 print(torch.__version__)
 ```
 
-Additionally, it Pytorch needs to be build with kineto. This mean that if you get the following error when
+Additionally, it PyTorch needs to be build with Kineto. This mean that if you get the following error when
 trying to do the exercises:
 ```
 Requested Kineto profiling but Kineto is not available, make sure PyTorch is built with USE_KINETO=1
@@ -70,12 +83,12 @@ pip install torch_tb_profiler
 ```
 
 For this exercise we have provided the solution in form of the script `vae_mnist_pytorch_profiler.py` where
-we have already implemented the Pytorch profiler in the script. However, try to solve the exercise yourself!
+we have already implemented the PyTorch profiler in the script. However, try to solve the exercise yourself!
 
 1. The documentation on the new profiler is sparse but take a look at this
    [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
    and the [documentation](https://pytorch.org/docs/stable/profiler.html) which should give you an idea of 
-   how to use the Pytorch profiler.
+   how to use the PyTorch profiler.
 
 2. Secondly try to implement the profile in the `vae_mnist_working.py` script from the debugging exercises 
    (HINT: run the script with `epochs = 1`) and run the script with the profiler on.
@@ -95,7 +108,7 @@ While logging loss values to terminal, or plotting training curves in matplotlib
 there is no way around using a proper experiment tracker and visualizer when doing large scale experiments.
 
 For these exercises we will initially be looking at incorporating [tensorboard](https://www.tensorflow.org/tensorboard) into our code, 
-as it comes with native support in Pytorch
+as it comes with native support in PyTorch
 
 1. Install tensorboard (does not require you to install tensorflow)
    ```pip install tensorboard```

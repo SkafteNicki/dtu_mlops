@@ -1,9 +1,8 @@
+import numpy as np
 from sklearn import datasets
-from sklearn.model_selection import train_test_split, ParameterGrid, KFold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-
-import numpy as np
+from sklearn.model_selection import KFold, ParameterGrid, train_test_split
 
 np.random.seed(123)
 OPTUNA = False
