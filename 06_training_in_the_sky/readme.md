@@ -22,7 +22,8 @@ as they offer much more than just simply training your models in the cloud.
 ### Exercises
 
 Todays exercises are based on Microsoft own [learning portal](https://docs.microsoft.com/en-us/learn/). The idea
-is that you read the tutorials and follow along on your laptop.
+is that you read the tutorials and follow along on your laptop. Additionally, here is a 
+[cheatsheet](https://azure.github.io/azureml-cheatsheets/docs/cheatsheets/python/v1/cheatsheet/) that may be useful.
 
 1. Create an account at https://azure.microsoft.com/en-us/free/. If you already have an Azure account make
    sure to sign up with a new account so you are sure that you get the $200 free credit which is necessary to
