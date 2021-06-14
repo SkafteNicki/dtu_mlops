@@ -133,3 +133,6 @@ outputs/
 
 # datasets
 FashionMNIST/
+
+# vs code
+.vscode/settings.json
