@@ -93,9 +93,9 @@ can be parallelized based on loading the raw datafiles (.jpg) at runtime.
 
 2. We provide the `lfw_dataset.py` file where we have started the process of defining a data class. 
    Fill out the `__init__`, `__len__` and `__getitem__`. Note that `__getitem__` expect that you
-   return a single `img` which should be a [PIL Image](https://pillow.readthedocs.io/en/stable/)
-   We want the `img` to be `PIL` image so we can take advantage of 
-   [torchvision](https://pytorch.org/vision/stable/transforms.html) for data augmentation.  
+   return a single `img` which should be a `torch.Tensor`. Loading should be done using 
+   [PIL Image](https://pillow.readthedocs.io/en/stable/), as `PIL` images is the default input format for
+   [torchvision](https://pytorch.org/vision/stable/transforms.html) for transforms (for data augmentation).  
 
 3. Make sure that the script runs without any additional arguments
    ```
