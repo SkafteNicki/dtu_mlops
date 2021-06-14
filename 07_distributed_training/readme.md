@@ -29,7 +29,7 @@ Sadly, Azure does not support starting multi-gpu instances with the free credit 
 creating an account. We are therefore today going to be using the local gpu cluster at DTU compute
 to run the experiments. The first exercise (Distributed data loading) is possible to do own your
 own laptop (assuming that you have one with multiple cores) but the remaining exercises need to
-be executed in multi-gpu compute enviroment.
+be executed in multi-gpu compute environment.
 
 1. Download and install [thinlinc](https://www.cendio.com/thinlinc/download) for getting access to
    DTUs linux terminals
@@ -54,7 +54,7 @@ be executed in multi-gpu compute enviroment.
    ```
    conda activate dtu_mlops
    ```
-   if you need to install additional packages, please take a copy of this enviroment and install in that
+   if you need to install additional packages, please take a copy of this environment and install in that
    ```
    conda create --name my_study_number --clone dtu_mlops
    ```
@@ -185,11 +185,12 @@ format of the framework we can enable distributed training with a single change 
 5. Scaling your experiment with Lightning is as simple as changing some flags in the `Trainer`. Take a look
    at the `gpus` and `accelerator` flags and try to run your script on multiple gpus in Azure. 
 
-6. Experiment with what the lightning framework is capable of.
-
 6. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, 
    research have shown that neural network training is very robust towards a decrease in precision.
    The great benefit going from `float32` to `float16` is that we get approximately half the [memory
    consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training 
    in Pytorch lightning. You can enable this by setting the [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) 
    flag in the `Trainer`.
+
+7. Free exercise: Experiment with what the lightning framework is capable of. Either try out more of the trainer
+   flags, maybe convert your own MNIST model to the framework etc. Only your imagination is the limit!
