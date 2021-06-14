@@ -33,7 +33,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     lfw_trans = transforms.Compose([
-        transforms.RandomAffine(5, (10, 10), (0.5, 2.0)),
+        transforms.RandomAffine(5, (0.1, 0.1), (0.5, 2.0)),
         transforms.ToTensor()
     ])
     
@@ -48,14 +48,13 @@ if __name__ == '__main__':
         # TODO: visualize a batch of images
         pass
         
-    if args.timing:
+    if args.get_timing:
         # lets do so repetitions
         res = [ ]
         for _ in range(5):
             start = time.time()
             for batch in dataloader:
-                # simulate that we do something with the batch
-                time.pause(0.2)
+                continue
             end = time.time()
             
             res.append(end - start)
