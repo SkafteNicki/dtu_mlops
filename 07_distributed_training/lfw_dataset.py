@@ -41,7 +41,9 @@ if __name__ == '__main__':
     dataset = LFWDataset(args.path_to_folder, lfw_trans)
     
     # Define dataloader
-    dataloader = DataLoader(dataset, batch_size=16, shuffle=False,
+    # Note we need a high batch size to see an effect of using many
+    # number of workers
+    dataloader = DataLoader(dataset, batch_size=512, shuffle=False,
                             num_workers=args.num_workers)
     
     if args.visualize_batch:
@@ -53,12 +55,12 @@ if __name__ == '__main__':
         res = [ ]
         for _ in range(5):
             start = time.time()
-            for batch in dataloader:
-                continue
+            for batch_idx, batch in enumerate(dataloader):
+                if batch_idx > 100:
+                    break
             end = time.time()
-            
+
             res.append(end - start)
             
         res = np.array(res)
         print('Timing: {np.mean(res)}+-{np.std(res)}')
-        
