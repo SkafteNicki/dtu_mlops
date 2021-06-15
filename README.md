@@ -90,7 +90,7 @@ Date | Day       | Presentation topic                   | Framework/exercise    
 -----|-----------|--------------------------------------|-------------------------|-------------------
 11/6 | Friday    | Training in the sky                  | Azure                   | On-site
 14/6 | Monday    | Distributed training: a overview     | Pytorch Lightning       | On-site
-15/6 | Tuesday   | Reproducibility                      | Hydra                   | On-site
+15/6 | Tuesday   | Deployment                           | Azure + Torchserve      | On-site
 16/6 | Wednesday | -                                    | Project work            | Virtual
 17/6 | Thursday  | -                                    | Project work            | Virtual
 
@@ -102,7 +102,7 @@ deployment. Mastering both of these topics is both beneficial in production and 
 Date | Day       | Presentation topic                   | Framework/exercise    | On-site/Virtual
 -----|-----------|--------------------------------------|-----------------------|---------------------
 18/6 | Friday    | Cross validation and hyperparameters | Optuna                | On-site
-21/6 | Monday    | Deployment                           | Torchserve + bentoml  | On-site
+21/6 | Monday    | Reproducibility                      | Hydra                 | On-site
 22/6 | Tuesday   | -                                    | Project work          | Virtual
 23/6 | Wednesday | -                                    | Project work          | Virtual
 24/6 | Thursday  | -                                    | Project presentations | On-site
