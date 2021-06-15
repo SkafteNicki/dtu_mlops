@@ -25,6 +25,9 @@ We are going to continue with Azure, where we this time focus on deploying a tra
    
 3. Finally, try to deploy either your MNIST model or the model in your own project
 
+4. (Optional) If you have deployed a model on Azure try to get someone else from the course to consume it through 
+   the [requests API](https://docs.python-requests.org/en/master/) in python.
+
 Here is the general [learning module](https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/)
 from Microsoft about deploying models to Azure, and below is listed a couple of reading resourses:
 
