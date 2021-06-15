@@ -3,19 +3,37 @@
 Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
 world. One way to do this is of course to just place all your code in a github repository, upload a file with
 the trained model weights to your favorite online storage (assuming it is too big for github to handle) and
-ask people to run your code. This is a fine approach in a research setting, but in production you need to be
-able to **deploy** the model to a environment that is fully contained that people can just execute without
-looking (too hard) at the code. 
+ask people to just download your code and the weights to run the code themself. This is a fine approach in small
+research setting, but in production you need to be able to **deploy** the model to a environment that is fully 
+contained such that people can just execute without looking (too hard) at the code. 
 
-Today is all about deploying your model. The hope is that by the end of this exercise you will be able to
-access your model online and to inference in real-time.
+<p align="center">
+  <img src="../figures/deployment.jpg" width="600" title="hover text">
+</p>
+
+## Deployment on Azure
+
+We are going to continue with Azure, where we this time focus on deploying a trained model
+
+1. Complete this [exercise](https://docs.microsoft.com/en-us/learn/modules/register-and-deploy-model-with-amls/5-deploying-a-model)
+
+2. Afterwards answer [this](https://docs.microsoft.com/en-us/learn/modules/register-and-deploy-model-with-amls/5a-knowledge-check)
+   knowledge check.
+
+Here is the general [learning module](https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/)
+from Microsoft about deploying models to Azure, and below is listed a couple of reading resourses:
+
+* https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where?tabs=azcli
+* https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-container-instance
+* https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-kubernetes-service?tabs=python
+
 
 ## Drifting data
 
-One of the first question that often comes up is how to . This is where detection of **data drifting** comes 
-into play. Data drift is one of the top reasons model accuracy degrades over time. For machine learning models,
-data drift is the change in model input data that leads to model performance degradation. In practical terms
-this means that the model is receiving input that is outside of the scope that it was trained on. 
+A big part of deployment is also monitoring the performance of your deployed model. Especially, the concept of
+detecting **data drifting** comes into play. Data drift is one of the top reasons model accuracy degrades over time. 
+For machine learning models, data drift is the change in model input data that leads to model performance degradation. 
+In practical terms this means that the model is receiving input that is outside of the scope that it was trained on. 
 
 For this exercise we will rely on **TorchDrift** that contains state-of-the-art methods for detecting data
 drifting in classification models. It is a model agnostic tool that should work with any black-box classification
@@ -28,9 +46,9 @@ model (in Pytorch). You can learn more about TorchDrift in this [video](https://
 2. Look over the following [example](https://torchdrift.org/notebooks/drift_detection_on_images.html). It goes
    over the API of TorchDrift and better explains the concept of drifting data distributions
    
-3. Implement drift detection on your Mnist example, this includes
+3. Implement drift detection on your MNIST example, this includes
 
-    3.1 Start by creating artifically drifted Mnist data similar to the above example (HINT: apply gaussian
+    3.1 Start by creating artificially drifted MNIST data similar to the above example (HINT: apply Gaussian
         blur to the training data)
         
     3.2 Implement drift detection by going over the same steps as in the example. You can skip over a large
@@ -101,8 +119,8 @@ is to serve a Resnet type neural network that is trained for classification on [
    (HINT: [torch.topk](https://pytorch.org/docs/stable/generated/torch.topk.html))
 
 4. Call the model archiver. We have provided a file called `index_to_name.json` that maps from predicted class
-   indices to interpreble class name e.g. `1->"goldfish"`. This file should be provided as the `extra-files` 
-   argument such that the deployed model automatically outputs the class name. Note that this files ofcause
+   indices to interpretable class name e.g. `1->"goldfish"`. This file should be provided as the `extra-files` 
+   argument such that the deployed model automatically outputs the class name. Note that this files of course
    only works for models trained on imagenet.
    ```
    torch-model-archiver \
@@ -135,22 +153,7 @@ is to serve a Resnet type neural network that is trained for classification on [
         curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
         ```
 
-7. (Optional) One strategry that researchers often resort to when trying to push out a bit of extra performance
+7. (Optional) One strategy that researchers often resort to when trying to push out a bit of extra performance
    is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
    way that teams won the imagenet competition, by pooling together their individual models. Try creating and serving
    a ensemble model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
-
-## Creating fully deployable packages
-
-Torchserve all not by default create a fully contained environment that can be shipped of to production. This
-would require to also include all dependencies necessary ect. We therefore turn our attention now to
-[bentoML](https://github.com/bentoml/BentoML) that was created with making model serving easy to do. 
-
-Follow these instructions
-
-https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where?tabs=python
-
-
-
-
-
