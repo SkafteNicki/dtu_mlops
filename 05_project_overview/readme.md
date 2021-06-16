@@ -61,6 +61,9 @@ We will briefly look over your github repository and project description to chec
 
 ## Project checklist
 
+Please note that all the lists are *exhaustive* meaning that I do not expect you to have completed very
+point on the checklist for the exam.
+
 ### Week 1
 
 - [ ] Create a git repository
@@ -77,6 +80,13 @@ We will briefly look over your github repository and project description to chec
 - [ ] remember to comply with good coding practices while doing the project
 
 ### Week 2
+
+- [ ] Setup and used Azure to train your model
+- [ ] Played around with distributed data loading
+- [ ] (not curreculum) Reformated your code in the pytorch lightning format
+- [ ] Deployed your model using Azure
+- [ ] Checked how robust your model is towards data drifting
+- [ ] Deployed your model locally using TorchServe
 
 ### Week 3
 
