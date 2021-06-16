@@ -83,7 +83,7 @@ point on the checklist for the exam.
 
 - [ ] Setup and used Azure to train your model
 - [ ] Played around with distributed data loading
-- [ ] (not curreculum) Reformated your code in the pytorch lightning format
+- [ ] (not curriculum) Reformated your code in the pytorch lightning format
 - [ ] Deployed your model using Azure
 - [ ] Checked how robust your model is towards data drifting
 - [ ] Deployed your model locally using TorchServe
