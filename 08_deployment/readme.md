@@ -11,6 +11,9 @@ contained such that people can just execute without looking (too hard) at the co
   <img src="../figures/deployment.jpg" width="600" title="hover text">
 </p>
 
+The main focus today is to solve the exercises that has to do with Azure. The remaining two are not strictly
+required but will introduce you to the concept of data drifing and how to natively serve pytorch models.
+
 ## Deployment on Azure
 
 We are going to continue with Azure, where we this time focus on deploying a trained model
@@ -19,6 +22,11 @@ We are going to continue with Azure, where we this time focus on deploying a tra
 
 2. Afterwards answer [this](https://docs.microsoft.com/en-us/learn/modules/register-and-deploy-model-with-amls/5a-knowledge-check)
    knowledge check.
+   
+3. Finally, try to deploy either your MNIST model or the model in your own project
+
+4. (Optional) If you have deployed a model on Azure try to get someone else from the course to consume it through 
+   the [requests API](https://docs.python-requests.org/en/master/) in python.
 
 Here is the general [learning module](https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/)
 from Microsoft about deploying models to Azure, and below is listed a couple of reading resourses:
@@ -26,7 +34,6 @@ from Microsoft about deploying models to Azure, and below is listed a couple of 
 * https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where?tabs=azcli
 * https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-container-instance
 * https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-kubernetes-service?tabs=python
-
 
 ## Drifting data
 
