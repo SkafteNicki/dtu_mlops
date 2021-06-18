@@ -62,10 +62,10 @@ class FashionCNN(nn.Module):
 
 def train_and_test():
     train_set = FashionMNIST('', train=True, download=True, transform=transforms.Compose([transforms.ToTensor()]))
-    train_set = FashionMNIST('', train=False, download=True, transform=transforms.Compose([transforms.ToTensor()]))
+    test_set = FashionMNIST('', train=False, download=True, transform=transforms.Compose([transforms.ToTensor()]))
 
     train_loader = DataLoader(train_set, batch_size=100)
-    test_loader = DataLoader(train_set, batch_size=100)
+    test_loader = DataLoader(test_set, batch_size=100)
     
     model = FashionCNN()
     model.to(device)
