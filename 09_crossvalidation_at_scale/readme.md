@@ -4,11 +4,11 @@ the uprise of deep learning. This can mainly be contributed to the following:
 
 * Trying to beat state-of-the-art often comes down to very small differences in performance, and hyperparameter
   optimization can help squeeze out a bit more
-* Deep learning models are in general not that robust towards the choice of hyparameter so choosing it wrong
+* Deep learning models are in general not that robust towards the choice of hyparameter so choosing the wrong set
   may lead to a model that does not work 
 
 However the problem with doing hyperparameter optimization of a deep learning models is that it can take over a
-week to train a single model. In most cases we cannot therefore do a full grid search of all hyperparameter
+week to train a single model. In most cases we therefore cannot do a full grid search of all hyperparameter
 combinations to get the best model. Instead we have to do some tricks that will help us speed up our searching.
 For todays exercises we are going to be integrating [optuna](https://optuna.readthedocs.io/en/stable/index.html) into 
 our different models, that will provide the tools for speeding up our search.
@@ -16,7 +16,6 @@ our different models, that will provide the tools for speeding up our search.
 <p align="center">
   <img src="../figures/hyperparameters.jpg" width="500" title="hover text">
 </p>
-
 
 It should be noted that a lot of deep learning models does not optimize every hyperparameter that is included
 in the model but instead relies on heuristic guidelines ("rule of thumb") based on what seems to be working
@@ -68,11 +67,12 @@ rest to a "recommended value".
    
    5.1. By default the `.optimize` method will minimize the objective (by definition the optimum of an objective
         function is at its minimum). Is the score your objective function is returning something that should
-        be minimized? If not, a simple solution is to put a `-` infront. However, look through the documentation
-        on how to change the **direction**.
+        be minimized? If not, a simple solution is to put a `-` in front of the metric. However, look through 
+        the documentation on how to change the **direction** of the optimization.
         
-   5.2. Optuna will by default do baysian optimization when sampling the hyperparameters. However, since this
-        example is quite simple, we can actually perform a full grid search. How would you do this in Optuna?
+   5.2. Optuna will by default do baysian optimization when sampling the hyperparameters (using a evolutionary
+        algorithm for suggesting new trials). However, since this example is quite simple, we can actually 
+        perform a full grid search. How would you do this in Optuna?
         
    5.3. Compare the performance of a single optuna run using baysian optimization with `n_trials=10` with a
         exhaustive grid search that have search through all hyperparameters. What is the performance/time
@@ -88,36 +88,39 @@ rest to a "recommended value".
         images in the [FashionMNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. Run the script 
         with the default hyperparameters to get a feeling of how the training should be progress.
         Note down the performance on the test set.
+
+   6.2. Start by defining a validation set and a validation dataloader that we can use for hyperparameter optimization
+        (HINT: use 5-10% of you training data).
         
-   6.2. Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should at least be included
+   6.3. Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should at least be included
         in the hyperparameter search. For some we have already defined the search space but for the remaining you need to come
         up with a good range of values to investigate. We done integrating optuna, run a small study (`n_tirals=3`) to check 
         that the code is working.
         
    Hyperparameter                                     | Search space                                                 |
    ---------------------------------------------------|--------------------------------------------------------------| 
-   Learning rate                                      | 1e-6 to 1e0                                                  | 
+   Learning rate                                      | 1e-6 to 1e0                                                  |
    Number of output features in the second last layer | ???                                                          |
    The amount of dropout to apply                     | ???                                                          |
    Batch size                                         | ???                                                          |
    Use batch normalize or not                         | {True, False}                                                |
    (Optional) Different activations functions         | {`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`} |
 
-   6.3. If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
+   6.4. If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
         we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
         [build-in pruners](https://optuna.readthedocs.io/en/stable/reference/pruners.html) in Optuna. Implement
         pruning in the script. I recommend using either the `MedianPruner` or the `ProcentilePruner`. 
-        
-   6.4 Re-run the study using pruning with a large number of trials (`n_trials>50`) 
 
-   6.5 Take a look at this [visualization page](https://optuna.readthedocs.io/en/latest/tutorial/10_key_features/005_visualization.html) 
+   6.5 Re-run the study using pruning with a large number of trials (`n_trials>50`) 
+
+   6.6 Take a look at this [visualization page](https://optuna.readthedocs.io/en/latest/tutorial/10_key_features/005_visualization.html) 
        for ideas on how to visualize the study you just did. Make at least two visualization of the study and
        make sure that you understand them.
    
-   6.6 Pruning is great for better spending your computational budged, however it comes with a trade-off. What is
+   6.7 Pruning is great for better spending your computational budged, however it comes with a trade-off. What is
        it and what hyperparameter should one be especially careful about when using pruning?
    
-   6.7 Finally, what parameter combination achieved the best performance? What is the test set performance for this
+   6.8 Finally, what parameter combination achieved the best performance? What is the test set performance for this
        set of parameters. Did you improve over the initial set of hyperparameters?
 
 7. The exercises until now have focused on doing the hyperparameter searching sequentially, meaning that we test one
@@ -127,17 +130,16 @@ rest to a "recommended value".
    7.1 To run hyperparameter search in parallel we need a common database that all experiments can read and
        write to. We are going to use the recommended `mysql`. You do not have to understand what SQL is to
        complete this exercise, but it is [basically](https://en.wikipedia.org/wiki/SQL) a language (like python)
-       for managing databases. Install mysql
-       ```
-       pip install mysql
-       ```
+       for managing databases. Install [mysql](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/).
        
    7.2 Next we are going to initialize a database that we can read and write to. For this exercises we are going
        to focus on a locally stored database but it could of course also be located in the cloud.
        ```
        mysql -u root -e "CREATE DATABASE IF NOT EXISTS example"
        ```
-       
+       you can also do this directly in python when calling the `create_study` command by also setting the 
+       `storage` and `load_if_exists=True` flags.
+
    7.3 Now we are going to create a Optuna study in our database
        ```
        optuna create-study --study-name "distributed-example" --storage "mysql://root@localhost/example"
@@ -163,7 +165,7 @@ rest to a "recommended value".
        ```
    
    7.5 Finally, make sure that you can access the results 
-      
+
 
 ### Final exercise
 

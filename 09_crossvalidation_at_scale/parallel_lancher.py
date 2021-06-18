@@ -2,6 +2,9 @@ import argparse
 import os
 from multiprocessing import Pool
 
+def script_launcher(script):
+    os.system(f"python {script}")
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('script', type=str)
@@ -10,8 +13,5 @@ if __name__ == '__main__':
     
     print(f"Arguments: {args.__dict__}")
     
-    def script_launcher():
-        os.system(f"python {args.script}")      
-    
     pool = Pool(processes=args.num_parallel) 
-    pool.map(script_launcher, list(range(args.num_parallel))) 
+    pool.map(script_launcher, [args.script for _ in range(args.num_parallel)]) 
