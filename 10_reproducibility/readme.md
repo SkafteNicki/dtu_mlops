@@ -4,15 +4,14 @@ Today is all about reproducibility - one of those concepts that everyone agrees 
 should be done about, but reality is that it is very hard to secure full reproducibility.
 
 For the first set of exercises we have provided a single script. Your task is to use Hydra to make sure that everything
-gets correctly logged such that you would be able to exactly report to other how each experiment was configured. In the
+gets correctly logged such that you would be able to exactly report to others how each experiment was configured. In the
 provided script, the hyperparameters are hardcoded into the code and your job will be to separate them out into a 
 configuration file.
 
 ### Exercises
 
 Note that we provide an solution (in the `vae_solution` folder) that can help you get through the exercise, 
-but try to look online for your answers before looking at the solution. 
-Remember: its not about the result, its about the journey.
+but try to look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
 
 1. Start by install hydra: `pip install hydra-core --upgrade`
 
@@ -66,7 +65,7 @@ Remember: its not about the result, its about the journey.
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to
     compare. Then run the `reproduceability_tester.py` script as
     ```
-    python reproducibility_tester path/to/run/1 path/to/run/2
+    python reproducibility_tester.py path/to/run/1 path/to/run/2
     ```
     the script will go over trained weights to see if the match and that the hyperparameters was the same. Note:
     for the script to work, the weights should be saved to a file called `trained_model.pt` (this is the default
