@@ -76,21 +76,27 @@ point on the checklist for the exam.
 - [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
 - [ ] Write unit tests for some part of the codebase and calculate the 
 - [ ] Get some continues integration running on the github repository
-- [ ] use either tensorboard or wandb to log training progress and other important metrics/artifacts in your code
-- [ ] remember to comply with good coding practices while doing the project
+- [ ] Use either tensorboard or wandb to log training progress and other important metrics/artifacts in your code
+- [ ] Remember to comply with good coding practices (`pep8`) while doing the project 
 
 ### Week 2
 
-- [ ] Setup and used Azure to train your model
+- [ ] Setup and use Azure to train your model
 - [ ] Played around with distributed data loading
-- [ ] (not curriculum) Reformated your code in the pytorch lightning format
+- [ ] (not curriculum) Reformat your code in the pytorch lightning format
 - [ ] Deployed your model using Azure
 - [ ] Checked how robust your model is towards data drifting
 - [ ] Deployed your model locally using TorchServe
 
 ### Week 3
 
+- [ ] Used Optuna to run hyperparameter optimization on your model
+- [ ] Wrote one or multiple configurations files for your experiments
+- [ ] Used Hydra to load the configurations and manage your hyperparameters
 
+### Additional
 
-
-
+- [ ] Revisit your initial project description. Did the project turn out as you wanted?
+- [ ] Make sure all group members have a understanding about all parts of the project
+- [ ] Created a powerpoint presentation explaining your project
+- [ ] Uploaded all your code to github
