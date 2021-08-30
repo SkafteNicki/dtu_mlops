@@ -1,3 +1,11 @@
+---
+layout: default
+title: Extra
+nav_order: 11
+has_children: true
+permalink: extra
+---
+
 ### 9. Hyperparameter optimization
 Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
 the uprise of deep learning. This can mainly be contributed to the following:
@@ -171,6 +179,4 @@ rest to a "recommended value".
 
 Apply the techniques you have just learned to the running MNIST example. Feel free to choose what hyperparameters that you
 want to use 
-   
-
    
