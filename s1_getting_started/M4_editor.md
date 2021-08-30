@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Editor
-parent: Day 1 - Getting started
+parent: S1 - Getting started
 nav_order: 4
 ---
 
