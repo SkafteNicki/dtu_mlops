@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M9 - Experiment logging
+title: M11 - Experiment logging
 parent: S3 - Debugging, Profiling and Logging
 nav_order: 3
 ---

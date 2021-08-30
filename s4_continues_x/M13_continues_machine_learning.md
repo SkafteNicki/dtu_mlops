@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M10 - Profiling
-parent: S3 - Debugging, Profiling and Logging
+title: M10 - Continues Machine Learning
+parent: S4 - Continues X
 nav_order: 2
 ---
 
-# Title
+# Continues Machine Learning
 {: .no_toc }
 
 <details open markdown="block">

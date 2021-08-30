@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Code structure
+title: M7 - Code structure
 parent: S2 - Organisation
 nav_order: 3
 ---

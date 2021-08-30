@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M10 - Profiling
-parent: S3 - Debugging, Profiling and Logging
-nav_order: 2
+title: M12 - Continues Integration
+parent: S4 - Continues X
+nav_order: 1
 ---
 
-# Title
+# Continues Integration
 {: .no_toc }
 
 <details open markdown="block">

@@ -47,7 +47,13 @@ Reading resources:
 * https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf. Great paper about the
 technical "depth" in machine learning (can also be found in the litterature folder)
 
+## Course structure
+
+The course is divided into a number of *sessions*, where each session may contain multiple *modules*.
+Each day the intention is that you complete a single session.
+
 ## Setup
+
 
 Start by cloning or downloading this repository
 ```
