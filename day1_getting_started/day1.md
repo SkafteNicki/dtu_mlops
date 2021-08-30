@@ -1,0 +1,15 @@
+---
+layout: default
+title: Day 1 - Getting started
+nav_order: 2
+has_children: true
+permalink: day1_getting_started
+---
+
+# Getting started
+
+Today we start our journey into the world of machine learning operations. However, before we really can get started we need to make 
+sure that you have a basic understanding about a couple of topics, as we will be using these throughout the course. Today will therefore
+be fairly easy for some of you as it is mostly repitition of already known topics.
+
+

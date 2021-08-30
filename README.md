@@ -5,13 +5,31 @@ nav_order: 1
 permalink: /
 ---
 
-![mlops](figures/mlops-loop-en.jpg)
-(Image credit to [link](https://ml-ops.org/content/mlops-principles))
-# Machine Learning Operations
-Hej
-This repository contains the exercises for the DTU course Machine Learning Operations (MLOps). 
-All exercises are written in the [Python](https://www.python.org/) programming language and formatted 
-into a combination of scripts and [Jupyter Notebooks](https://jupyter.org/). 
+<p align="center">
+    <h1 align="center">Machine Learning Operations</h1>
+    <p align="center">Reposatory for the DTU MLOps course containing lectures and exercises.</p>
+    <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
+</p>
+
+<p align="center"> 
+  <img src="figures/mlops.png" width="1000" title="hover text">
+</p>
+
+## Course details
+
+* Course responsable
+    * Postdoc Nicki Skafte Detlefsen, nsde@dtu.dk
+    * Professor Søren Hauberg, sohau@dtu.dk
+* 5 ECTS
+* 3 week period of January 2022
+* Master course
+* Grade: Pass/not passed
+* Type of assessment: weekly project updates + final oral examination/presentation
+* Recommended prerequisites: [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or experience
+with the following:
+    * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.) and 
+    basic knowledge about deep learning (backpropagation, convolutional neural network, auto-encoders ect.)
+    * Coding in [Pytorch](https://pytorch.org/)
 
 ## MLOps: What is it?
 
@@ -28,22 +46,6 @@ Reading resources:
 * https://ml-ops.org/content/mlops-principles. The principles of MLOps
 * https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf. Great paper about the
 technical "depth" in machine learning (can also be found in the litterature folder)
-
-## Course details
-
-* Course responsable
-    * Postdoc Nicki Skafte Detlefsen, nsde@dtu.dk
-    * Professor Søren Hauberg, sohau@dtu.dk
-* 5 ECTS
-* 3 week period of June 2021
-* Master course
-* Grade: Pass/not passed
-* Type of assessment: weekly project updates + final oral examination/presentation
-* Recommended prerequisites: [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or experience
-with the following:
-    * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.) and 
-    basic knowledge about deep learning (backpropagation, convolutional neural network, auto-encoders ect.)
-    * Coding in [Pytorch](https://pytorch.org/)
 
 ## Setup
 
