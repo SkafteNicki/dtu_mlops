@@ -1,3 +1,10 @@
+---
+layout: default
+title: Homepage
+nav_order: 1
+permalink: /
+---
+
 ![mlops](figures/mlops-loop-en.jpg)
 (Image credit to [link](https://ml-ops.org/content/mlops-principles))
 # Machine Learning Operations
