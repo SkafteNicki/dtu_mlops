@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Conda
+title: M2 - Conda
 parent: S1 - Getting started
 nav_order: 2
 ---

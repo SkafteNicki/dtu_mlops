@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Git
-parent: Day 2 - Organisation
+title: M5 - Git
+parent: S2 - Organisation
 nav_order: 1
 ---
 
