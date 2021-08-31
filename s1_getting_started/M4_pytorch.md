@@ -2,7 +2,7 @@
 layout: default
 title: M3 - Pytorch
 parent: S1 - Getting started
-nav_order: 3
+nav_order: 4
 ---
 
 # Pytorch
