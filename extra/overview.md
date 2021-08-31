@@ -2,7 +2,7 @@
 layout: default
 title: Timeplan
 nav_order: 2
-permalink: /
+permalink: extra
 ---
 
 The course runs in hybrid format, which means that some day you are expected to be at campus and other days
