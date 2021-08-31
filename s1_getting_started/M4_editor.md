@@ -18,3 +18,28 @@ nav_order: 4
 </details>
 
 ---
+
+
+## Editor 
+
+Notebooks can be great for testing out ideas, developing simple code and explaining and visualizing certain aspects
+of a codebase. Remember that [Jupyter notebook](https://jupyter.org/) was created with intention to "...allows you 
+to create and share documents that contain live code, equations, visualizations and narrative text." However, 
+any larger deep learning project will require you to work in multiple `.py` files and here notebooks will provide 
+a suboptimal workflow. Therefore, to for truly getting "work done" you will need a good editor / IDE. 
+
+Many opinions exist on this matter, but for simplicity we recommend getting started with one of the following 3:
+
+Editor		   | Webpage  				| Comment (Biased opinion)
+-------------------|------------------------------------|----------------------------------------------------------------------
+Spyder             | https://www.spyder-ide.org/        | Matlab like environment that is easy to get started with
+Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
+PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
+--------------------------------------------------------------------------------------------------------------------------------
+
+### Exercise
+
+1. Download and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
+   on the files that you created in the final exercise in the last lecture.
+
+
