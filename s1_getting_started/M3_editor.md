@@ -32,7 +32,18 @@ Spyder             | https://www.spyder-ide.org/        | Matlab like environmen
 Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
 PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
 
-We highly recommend Visual studio code if you do not already have a editor installed (or just want to try something new.).
+We highly recommend Visual studio (vs) code  if you do not already have a editor installed (or just want to try something new.). We therefore
+put additional effort into explaining vs code.
+
+Below you see an overview of the vs code interface
+
+<p align="center">
+  <img src="../figures/vscode.PNG" width="700" title="hover text">
+</p>
+
+The main components of vs code are:
+* The action bar: Here you can 
+
 
 ### Exercise
 
@@ -40,6 +51,7 @@ We highly recommend Visual studio code if you do not already have a editor insta
    on the files that you created in the final exercise in the last lecture.
 
 The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
-if using another editor.
+if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
+(one for windows and one for mac/linux), that can give you an easy overview of the different macros in vs code.
 
 2. 

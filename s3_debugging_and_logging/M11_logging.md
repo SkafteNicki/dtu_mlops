@@ -5,7 +5,7 @@ parent: S3 - Debugging, Profiling and Logging
 nav_order: 3
 ---
 
-# Title
+# Experiment logging
 {: .no_toc }
 
 <details open markdown="block">
@@ -19,13 +19,23 @@ nav_order: 3
 
 ---
 
+Experiment logging or model monitoring is an important part of understanding what is going on with your model. It can help you debug your model and help tweak your models to perfection.
+
+The most basic logging we can to is writing the metric that our model is producing to the terminal or a file for later inspection. We can then also use tools such as [matplotlib](https://matplotlib.org/) for plotting the training curve. This kind of workflow may be enough when doing smaller experiments or working alone on a project, but there is no way around using a proper experiment tracker and visualizer when doing large scale experiments in collaboration with others. This is the topic of this module.
+
+There exist many tools for logging your experiments, with some of them being:
+* [Tensorboard](https://www.tensorflow.org/tensorboard)
+* [Comet](https://www.comet.ml/site/)
+* [MLFlow](https://mlflow.org/)
+* [Neptune](https://neptune.ai/)
+* [Weights and Bias](https://wandb.ai/site)
+
+We are going to use Weights and Bias (wandb) as it is an excellent tool for collaboration.
+
+#### Exercises
 
 
 
-### Experiment visualizers
-
-While logging loss values to terminal, or plotting training curves in matplotlib may be enough doing smaller experiment,
-there is no way around using a proper experiment tracker and visualizer when doing large scale experiments.
 
 For these exercises we will initially be looking at incorporating [tensorboard](https://www.tensorflow.org/tensorboard) into our code, 
 as it comes with native support in PyTorch

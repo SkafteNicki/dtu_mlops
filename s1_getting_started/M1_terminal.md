@@ -30,7 +30,8 @@ Instead it was created at a time where it was not given that your computer had a
 you could interact with. Think of it as a text interface to your computer.
 
 It is a well known concept to users of linux, however MAC and Windows users not so much. Having a basic understanding 
-of how to use a terminal can really help improve your workflow.
+of how to use a terminal can really help improve your workflow. We have put a cheat sheet in the `exercise_files` folder
+belonging to this session, that give an quick overview of the different command that can be executed in the terminal.
 
 #### Exercises
 
