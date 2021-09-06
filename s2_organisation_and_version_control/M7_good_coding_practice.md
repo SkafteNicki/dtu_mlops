@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M8 - Good coding practice
-parent: S2 - Organisation
-nav_order: 4
+title: M7 - Good coding practice
+parent: S2 - Organisation and version control
+nav_order: 3
 ---
 
 # Good coding practice

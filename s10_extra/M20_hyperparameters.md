@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Extra
-nav_order: 11
+title: Hyperparameter optimization
+nav_order: 1
 has_children: true
-permalink: extra
+permalink: S10 - extra
 ---
 
 ### 9. Hyperparameter optimization

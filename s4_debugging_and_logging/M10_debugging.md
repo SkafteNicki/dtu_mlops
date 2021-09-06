@@ -1,7 +1,7 @@
 ---
 layout: default
-title: M9 - Debugging
-parent: S3 - Debugging, Profiling and Logging
+title: M10 - Debugging
+parent: S4 - Debugging, Profiling and Logging
 nav_order: 1
 ---
 

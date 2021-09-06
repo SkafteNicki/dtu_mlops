@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M6 - Docker
-parent: S2 - Organisation
-nav_order: 2
+title: M9 - Docker
+parent: S3 - Reproduceability
+nav_order: 1
 ---
 
 # Docker

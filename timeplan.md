@@ -2,7 +2,7 @@
 layout: default
 title: Timeplan
 nav_order: 2
-permalink: extra
+permalink: /
 ---
 
 # Timeplan

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M5 - Git
-parent: S2 - Organisation
+parent: S2 - Organisation and version control
 nav_order: 1
 ---
 

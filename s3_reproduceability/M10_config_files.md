@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M12 - Continues Integration
-parent: S4 - Continues X
-nav_order: 1
+title: M10 - Config files
+parent: S3 - Reproduceability
+nav_order: 2
 ---
 
-# Continues Integration
+# Config files
 {: .no_toc }
 
 <details open markdown="block">

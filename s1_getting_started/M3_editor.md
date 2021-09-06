@@ -54,4 +54,20 @@ The remaining of the exercises are specific to Visual studio code but we recomme
 if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
 (one for windows and one for mac/linux), that can give you an easy overview of the different macros in vs code.
 
-2. 
+2. VS code is a general editor for many languages and to get proper *python* support we need to install some
+extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
+we highly recommend installing the following packages:
+   * `Python`: general python support
+   * `Python for VSCode`: python syntax support
+   * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
+   * `Jupyter`: support for jupyter notebooks directly in VSCode
+
+3. One of the most usefull tools with an editor is the ability to navigate a hole project using the build-in
+`Explorer`. 
+
+4. If you install the `Python` package you should see something like this in your status bar:
+
+
+
+
+
