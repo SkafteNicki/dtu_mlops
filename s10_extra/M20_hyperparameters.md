@@ -1,12 +1,24 @@
 ---
 layout: default
-title: Hyperparameter optimization
+title: M20 - Hyperparameter optimization
+parent: S10 - Extra
 nav_order: 1
-has_children: true
-permalink: S10 - extra
 ---
 
-### 9. Hyperparameter optimization
+# Hyperparameter optimization
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+---
+
 Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
 the uprise of deep learning. This can mainly be contributed to the following:
 

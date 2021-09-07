@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M11 - Profiling
+title: M12 - Profiling
 parent: S4 - Debugging, Profiling and Logging
 nav_order: 2
 ---
