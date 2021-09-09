@@ -57,10 +57,10 @@ The main components of VS code are:
 1. Download and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
    on the files that you created in the final exercise in the last lecture.
 
-The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
-if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
-(one for windows and one for mac/linux), that can give you an easy overview of the different macros in vs code. The
-following exercises are just to get you started but you can find many more tutorials [here](https://code.visualstudio.com/docs/python/python-tutorial).
+ The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
+ if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
+ (one for windows and one for mac/linux), that can give you an easy overview of the different macros in vs code. The
+ following exercises are just to get you started but you can find many more tutorials [here](https://code.visualstudio.com/docs/python/python-tutorial).
 
 2. VS code is a general editor for many languages and to get proper *python* support we need to install some
 extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
@@ -83,17 +83,12 @@ we highly recommend installing the following packages:
 Create a folder called `hallo` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file` button and create a file called `hallo.py`.
 
    <p align="center">
-     <img src="../figures/toolbar-new-file.PNG" width="700" title="Image credit to https://code.visualstudio.com/docs/python/python-tutorial">
+     <img src="../figures/toolbar_new_file.png" width="700" title="Image credit to https://code.visualstudio.com/docs/python/python-tutorial">
    </p>
 
 5. Finally, lets run some code. Add something simple to the `hallo.py` file like:
-   ```python
-   msg = "Hallo Wrold"
-   print(msg)
-   ```
-
    <p align="center">
-     <img src="../figures/run-python-file-in-terminal-button.PNG" width="700" title="Image credit to https://code.visualstudio.com/docs/python/python-tutorial">
+     <img src="../figures/run_python_file.png" width="700" title="Image credit to https://code.visualstudio.com/docs/python/python-tutorial">
    </p>
 
    and click the `run` button as shown in the image. It should create a new terminal, activate the environment that you have
