@@ -19,53 +19,68 @@ nav_order: 2
 
 ---
 
-While the two first exercises is about setting up a good environment for developing
-code, the final exercise here is about organising actual code using reasonable standardized
-project structure.
+With a basic understanding of version control, it is now time to really begin filling up our code repository. However, the question then remains how to organize our code? As developers we tend to not think about code organization that much. It is instead something that just dynamically is being created as we may need it. However, maybe we should spend some time initially getting organized with the chance of this making our code easier to develop and maintain in the long run.
+
+We are here going to focus on the organization of data science projects e.g. where some kind of data is involved. The key to modern machine learning/deep learning is without a doubt the vast amounts of data that we have access to today. It is therefore not unreasonable that data should influence our choice of code structure.
+
+We are in this course going to use the `cookie-cutter` approach. We are not going to argue that `cookie-cutter` is better than other approaches to code organization, we are just focusing on that it is **standardized** way of creating project structures. By standardized we mean, that if two persons are both using `cookie-cutter` the layout of their code does follow some specific rules, making one able to faster get understand the other persons code. Code organization is therefore not only to make the code easier for you to maintain but also for others to read and understand.
 
 ### Exercise
 
-1. Start by reading, as it will give you insight to why standardized code organisation is important:
-https://drivendata.github.io/cookiecutter-data-science/
+1. Start by reading [this page](https://drivendata.github.io/cookiecutter-data-science/), as it will give you insight to why standardized code organization is important.
 
 2. Install [cookie cutter for data science](https://github.com/drivendata/cookiecutter-data-science)
-
-```
-pip install cookiecutter
-```
+   ``` bash
+   # install using the terminal
+   pip install cookiecutter
+   ```
 
 3. Take a look at the webpage to see how you start a new project.
 
-4. The remaining of this exercise is intended to be used on taking the simple cnn mnist classifier from
-yesterdays exercise and force it into this structure. You are not required to fill out every folder in
-the project structure, but complete the following steps
+ The remaining of this exercise is intended to be used on taking the simple
+ cnn mnist classifier from yesterdays exercise and force it into this structure. You are not required to fill out every folder and file in
+ the project structure, but complete the following steps
 
-	4.1. start by filling out the `src/data/make_dataset.py` file. Make sure that data gets correctly
-	filled into the `data/raw` and `data/processed` folder. Hint: `torchvision.datasets.MNIST` will
-	make everything smooth for you.
+4. After having created your project we are going to install it as a package in our conda enviroment. Either run 
+    ```bash
+    # install in a terminal in your conda env
+    pip install -e .
+    # or 
+    conda develop .
+	```
 
-	4.2. put your model file into `src/models` folder together with the training file (`main.py`) from yesterday.
-	Make sure that trained models gets saved in the `models` folder (preferrable in subfolders).
+5. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it 	should take the raw data files in `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this intermediate representation to the `data/processed` folder. 
+
+5. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in a project. You do not have to understand the complete file by try taking a look at it. In particular the following commands may come in handy
+    ```bash
+	make data  # runs the make_dataset.py file, try it!
+	make clean  # clean __pycache__ files
+	make requirements  # install everything in the requirements.py file
+	```
+6. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py` file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved to the `models` folder (preferably in sub-folders).
 	
-	4.3 make sure that some statistics from the trained models gets saved to the `reports/figures/`
-	folder. This could be a simple .png of the training curve. 
+7. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to the `reports/figures/` folder. This could be a simple `.png` of the training curve. 
 
-	4.4 create a new file `src/models/predict_model.py` that takes a pre-trained model file and
-	creates prediction for some data. Recommended interface is that users can give this file either 
-	a folder with raw images that gets loaded in or a `numpy` or `pickle` file with already loaded
-	images
+8. (Optional) Can you figure out a way to add a `train` command to the `Makefile` such that training can be started using
+    ```bash
+	make train
+	```
 
-	4.5 create a new file `src/visualization/visualize.py` that as minimum does the following
-	- loads a pretrained network, extracts features from the mnist test set (i.e. the features
-	just before the final classification layer and does [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
-	embedding of the features (color coded according to the class label).
-	- feel free to create more files/more visualizations (what about investigating/explore the data
-	distribution of mnist?)
+8. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and creates prediction for some data. Recommended interface is that users can give this file either a folder with raw images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
+    ```bash
+	python src/models/predict_model.py \
+	    models/my_trained_model.pt \  # file containing a pretrained model
+		data/example_images.npy  # file containing just 10 images for prediction
+    ```
+9. Create a new file `src/visualization/visualize.py` that as minimum does the following
+	- loads a pre-trained network,
+	- extracts some intermediate representation of the data in from your cnn. This could be the features just before the final classification layer
+	- Visualize features in a 2D space using [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality reduction
+	- save the visualization to a file in the `reports/figures/` folder
 
-	4.6 make sure to update the readme with a short description on how your scripts should be run
+10. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
 
-	4.7 finally make sure to update the `requirements.txt` file with any packages that are nessesary
-	for running your code.
- 
+11. Make sure to update the `README.md` file with a short description on how your scripts
+    should be run
 
-
+12. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your code (see [this set of exercises](../s1_getting_started/M2_conda.md) for help)
