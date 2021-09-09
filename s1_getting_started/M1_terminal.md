@@ -22,7 +22,7 @@ nav_order: 1
 ---
 
 <p align="center">
-  <img src="../figures/terminal_power.jpg" width="700" title="hover text">
+  <img src="../figures/terminal_power.jpg" width="500" title="hover text">
 </p>
 
 Contrary to popular belief the terminal is not mythical being that have existed since the dawn of time. 
@@ -35,7 +35,9 @@ belonging to this session, that give an quick overview of the different command 
 
 #### Exercises
 
-1. Open a terminal 
+1. Open a terminal
+
+
 
 2. (Windows users) We highly recommend that you activate *Windows Subsystem for Linux*. Please follow this 
    [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Remember to run commands from a elevated

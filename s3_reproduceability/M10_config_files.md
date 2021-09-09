@@ -19,10 +19,9 @@ nav_order: 2
 
 ---
 
-# 10. Reproducibility and configuration files
+One of the most frustrating thing about most deep learning models today, are the number of hyperparameters that need to
+be set. For many of them 
 
-Today is all about reproducibility - one of those concepts that everyone agrees is very important and something
-should be done about, but reality is that it is very hard to secure full reproducibility.
 
 For the first set of exercises we have provided a single script. Your task is to use Hydra to make sure that everything
 gets correctly logged such that you would be able to exactly report to others how each experiment was configured. In the
@@ -32,7 +31,8 @@ configuration file.
 ### Exercises
 
 Note that we provide an solution (in the `vae_solution` folder) that can help you get through the exercise, 
-but try to look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
+but try to look online for your answers before looking at the solution. Remember: its not about the result, 
+its about the journey.
 
 1. Start by install hydra: `pip install hydra-core --upgrade`
 

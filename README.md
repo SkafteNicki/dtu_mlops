@@ -7,7 +7,8 @@ permalink: /
 
 <p align="center">
     <h1 align="center">Machine Learning Operations</h1>
-    <p align="center">Reposatory for the DTU MLOps course containing lectures and exercises.</p>
+    <h3 align="center">Work in progress!</h3>
+    <p align="center">Repository for the DTU MLOps course containing lectures and exercises.</p>
     <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
 </p>
 
