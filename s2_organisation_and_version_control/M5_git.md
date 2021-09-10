@@ -77,7 +77,7 @@ Assuming that we have made some changes to our local *working directory* and tha
 Ofcause, the real power of version control is the ability to make branches, as in the image below
 
 <p align="center">
-  <img src="../figures/git_branches.PNG" width="1000," title="hover text">
+  <img src="../figures/git_branches.png" width="1000," title="hover text">
 </p>
 
 Each branch can contain code that are not present on other branches. This is usefull when you are many developers working together on the same project. 
@@ -139,4 +139,4 @@ Each branch can contain code that are not present on other branches. This is use
 
 5. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning. However, if you are using a proper editor they also have build in support for version control. We recommend getting familiar with these features (here is a tutorial for [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
-Thats covers the basics of git to get you stated. In the exercise folder you can find a [git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands.
+Thats covers the basics of git to get you stated. In the exercise folder you can find a [git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference.
