@@ -40,10 +40,6 @@ for your datafiles. Your large datafiles are then stored in some remote location
 Amazon.
 
 
-
-
-
-
 ### Exercises
 
 If in doubt about some of the exercises, we recommend checking out the [documentation for dvc](https://dvc.org/doc) as it
@@ -69,7 +65,7 @@ contains excellent tutorials.
    belonging to that folder as shown in the figure below
 
    <p align="center">
-     <img src="../figures/google_drive.png" width="1000," title="hover text">
+     <img src="../figures/google_drive.PNG" width="1000," title="hover text">
    </p>
    Using this identifier, add it as a remote storage 
    ```bash

@@ -23,7 +23,7 @@ nav_order: 1
   <img src="../figures/docker.png" width="400" title="hover text">
 </p>
 
-While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/) came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility goes beyond versioning our code with `git` and using `conda` enviroment to keep track of our python installations. To really get reproduceability we need to also encapture also system level components like
+While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/) came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility goes beyond versioning our code with `git` and using `conda` enviroment to keep track of our python installations. To really get reproducibility we need to also capture also system level components like
 
 * operating system
 * software dependencies (other than python packages)
@@ -32,28 +32,23 @@ Docker provides this kind of system-level reproducibility by creating isolated p
 
 ## Docker overview
 
-Docker has two key concepts: *container*  and *image*:
-
-* A *container* refers
-
-* A image* refers 
+Docker has three main concepts: **docker file**, **docker image** and **docker container**:
 
 <p align="center">
-  <img src="../figures/docker_architecture.png" width="800" title="hover text">
+  <img src="../figures/docker_structure.png" width="800" title="hover text">
 </p>
 
+* A **docker file** is a basic text document that contains all the commands a user could call on the commandline to run an application. This includes installing dependencies, pulling data from online storage, setting up code and what commands that you want to run (e.g. `python train.py`)
 
-Additionally, it is important for the reproducibility
-of results to be able to accurately report the exact environment that you are using. Try to think of your computer
-as a laboratory. If others were to reproduce your experiments, they would need to know the exact configuration of your
-machine that you have been using, similar to how a real laboratory needs to report the exact chemicals they are using.
-This is one of the cornerstones of the [scientific method](https://en.wikipedia.org/wiki/Scientific_method)
+* Running, or more correctly *building* a docker file will create a **docker image**. An image is a lightweight, standalone/containerized, executable package of software that includes everything (application code, libraries, tools, dependencies etc.) necessary to make an application run. 
+
+* Actually *running* an image will create a **docker container**. This means that the same image can be launched multiple times, creating multiple containers.
+
 
 
 ### Exercises
 
-1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through
-   depends on your operating system.
+1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through depends on your operating system.
 
   
 
