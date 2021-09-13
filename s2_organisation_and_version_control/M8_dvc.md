@@ -29,8 +29,7 @@ more data that you feed them, we are seeing models today that are being trained 
 
 Because this is a important concept there exist a couple of frameworks that have specialized in versioning data such as
 [dvc](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Hub](https://www.activeloop.ai/), [Modelstore](https://modelstore.readthedocs.io/en/latest/)
-and [ModelDB](https://github.com/VertaAI/modeldb/). We are here going to use `dvc` as they also provide tools for
-automatizing machine learning, which we are going to focus on later.
+and [ModelDB](https://github.com/VertaAI/modeldb/). We are here going to use `dvc` provided by [iterative.ai](https://iterative.ai/) as they also provide tools for automatizing machine learning, which we are going to focus on later.
 
 ### DVC: What is it?
 
@@ -39,6 +38,100 @@ in general. But how does it deal with these large data files? Essentially, `dvc`
 that will then point to some remote location where you original data is store. *metafiles* essentially works as placeholders
 for your datafiles. Your large datafiles are then stored in some remote location such as Google drive or an `S3` bucket from
 Amazon.
+
+
+
+
+
+
+### Exercises
+
+If in doubt about some of the exercises, we recommend checking out the [documentation for dvc](https://dvc.org/doc) as it
+contains excellent tutorials.
+
+1. For these exercises we are going to use [Google drive](https://www.google.com/intl/da/drive/) as remote storage solution
+   for our data. If you do not already have a Google account, please create one (we are going to use it again in later
+   exercises). Please make sure that you at least have 1GB of free space.
+
+2. Next, install dvc
+   ```bash
+   pip install dvc
+   ```
+
+3. In your mnist repository run the following command from the terminal
+   ```bash
+   dvc init
+   ```
+   this will setup `dvc` for this repository (similar to how `git init` will initialize a git repository).
+   These files should be committed using standard `git` to your repository.
+
+4. Go to your Google drive and create a new folder called `dtu_mlops_data`. Then copy the unique identifier
+   belonging to that folder as shown in the figure below
+
+   <p align="center">
+     <img src="../figures/google_drive.png" width="1000," title="hover text">
+   </p>
+   Using this identifier, add it as a remote storage 
+   ```bash
+   dvc remote add -d storage gdrive://<your_identifier>
+   ```
+
+5. Check the content of the file `.dvc/config`. Does it contain a pointer to your remote storage?
+
+6. Call the `dvc add` command on your data files exactly like you would add a file with `git` (you do not need to add every
+   file by itself as you can directly add the `data/` folder). Doing this should create a human-readable file with the extension `.dvc`. This is the *metafile*  as explained earlier that will serve as a placeholder for your data
+
+7. Now we are going to add, commit and tag the *metafiles* so we can restore to this stage later on. Commit and tag the files, should look something like this:
+   ```bash
+   git add data.dvc .gitignore
+   git commit -m "First datasets, containing 25000 images"
+   git tag -a "v1.0" -m "data v1.0"
+   ```
+
+7. Finally, push your data to the remote storage using `dvs push`. You will be asked to authenticate, which involves
+   copy-pasting the code in the link prompted. Checkout your google drive folder that the data is stored in your google drive folder.
+
+8. After completing the above steps, it is very easy for others (or yourself) to get setup with both
+   code and data by simply running
+   ```bash
+   git clone <my_reposatory>
+   dvc pull
+   ```
+   Try doing this (in some other location than your standard code) to make sure that the two commands indeed downloads
+   both your code and data.
+
+9. Lets look about the process of updating our data. Remember the important aspect of version control is that we do not need
+   to store explicit files called `data_v1.pt`, `data_v2.pt` ect. but just have a single `data.pt` that where we can always
+   checkout earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from this reposatory to your
+   mnist code. This contains 3 extra datafiles with 15000 addtional observations. Rerun your data pipeline so these gets
+   incorporated into the files in your `processed` folder.
+
+10. Redo the above steps, adding the new data using `dvc`, commiting and tagging the metafiles e.g. the following commands
+    should be executed (with appropriate input): `dvc add -> git add -> git commit -> git tag -> dvc push -> git push`.
+
+11. Lets say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
+    you should be able to do this using:
+    ```bash
+    git checkout v1.0
+    dvc checkout
+    ```
+    confirm that you have reverted back to the original data.
+
+9. (Optional) Finally, it is important to note that `dvc` is not only intended to be used to store data files but also 
+   any other large files such as trained model weights (with billion of parameters these can be quite large). For example 
+   if we always stored out best performing model in a file called `best_model.ckpt` then we can use `dvc` to version control 
+   it, store it online and make it easy for other to download. Feel free to experiment with this using your own model checkpoints.
+
+Thats all for today. With the combined power of `git` and `dvc` we should be able to version control everything in our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc` offers
+much more than just data version control, so if you want to deep dive into `dvc` we recommend their 
+[pipeline](https://dvc.org/doc/user-guide/project-structure/pipelines-files) feature and how this can be used to setup
+version controlled [experiments](https://dvc.org/doc/command-reference/exp).
+
+
+
+
+
+
 
 
 
