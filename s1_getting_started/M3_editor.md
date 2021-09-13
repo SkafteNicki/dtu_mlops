@@ -28,9 +28,9 @@ Many opinions exist on this matter, but for simplicity we recommend getting star
 
 Editor		         | Webpage  	                  			| Comment (Biased opinion)
 -------------------|------------------------------------|----------------------------------------------------------------------
-Spyder             | https://www.spyder-ide.org/        | Matlab like environment that is easy to get started with
-Visual studio code | https://code.visualstudio.com/     | Support for multiple languages with fairly easy setup
-PyCharm            | https://www.jetbrains.com/pycharm/ | IDE for python professionals. Will take a bit of time getting used to
+Spyder             | <https://www.spyder-ide.org/>        | Matlab like environment that is easy to get started with
+Visual studio code | <https://code.visualstudio.com/>     | Support for multiple languages with fairly easy setup
+PyCharm            | <https://www.jetbrains.com/pycharm/> | IDE for python professionals. Will take a bit of time getting used to
 
 We highly recommend Visual studio (vs) code  if you do not already have a editor installed (or just want to try something new.). We therefore put additional effort into explaining vs code.
 

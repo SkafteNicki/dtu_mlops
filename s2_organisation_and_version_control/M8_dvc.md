@@ -39,6 +39,12 @@ that will then point to some remote location where you original data is store. *
 for your datafiles. Your large datafiles are then stored in some remote location such as Google drive or an `S3` bucket from
 Amazon.
 
+<p align="center">
+  <img src="../figures/dvc.png" width="700," title="hover text">
+</p>
+
+As the figure shows, we now have two remote locations: one for code and one for data. We use `git pull/push` for the code and `dvc pull/push` for the data. The key concept is the connection between the data file `model.pkl` that is fairly large and its respective *metafile* `model.pkl.dvc` that is very small. The large file is stored in the data remote and the metafile is stored in code remote. 
+
 
 ### Exercises
 

@@ -19,9 +19,16 @@ nav_order: 2
 
 ---
 
-
-
 ## Profilers
+
+In general profiling code is about improving the performance of your code. In this session we are going to take a somewhat narrow approach to what "performance" is: runtime, meaning the time it takes to execute your program. 
+
+At the bare minimum, the two questions a proper profiling of your program should be able to answer is:
+
+* *“How many times is each method in my code called?”*
+* *“How long do each of these methods take?”*
+
+The first question is important to priorities optimization. If two methods `A` and `B` have approximately the same runtime, but `A` is called 1000 more times than `B` we should propably spend time optimizing `A` over `B` if we want to speedup our code. The second question is gives itself, directly telling us which methods are the expensive to call.
 
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html), pythons
@@ -29,11 +36,13 @@ build in profiler.
 
 ### Exercises
 
-1️ Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
+1️. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
    script using the `-m` arg
    `python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py) `
    
 2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
+
+3. Can you explain the difference between `tottime` and `cumtime`? Under what circumstances does these differ and when are they equal. 
 
 3. To get a better feeling of the profiled result we can try to visualize it. Python does not
    provide a native solution, but open-source solutions such as [snakeviz](https://jiffyclub.github.io/snakeviz/)
@@ -41,6 +50,10 @@ build in profiler.
    format `.prof`).
 
 4. Try optimizing the run! (Hint: The data is not stored as torch tensor)
+
+## Pytorch profiling
+
+Profiling machine learning code can become much more complex because we are suddenly beginning to mix different devices (CPU+GPU), that can (and should) overlap some of their computations. When profiling this kind of machine learning code we are often looking for *bottlenecks*. A bottleneck is simple the place in your code that is preventing other processes fo
 
 ### Exercises (optional)
 
