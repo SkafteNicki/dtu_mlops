@@ -21,7 +21,7 @@ nav_order: 3
 
 Experiment logging or model monitoring is an important part of understanding what is going on with your model. It can help you debug your model and help tweak your models to perfection.
 
-The most basic logging we can to is writing the metric that our model is producing to the terminal or a file for later inspection. We can then also use tools such as [matplotlib](https://matplotlib.org/) for plotting the training curve. This kind of workflow may be enough when doing smaller experiments or working alone on a project, but there is no way around using a proper experiment tracker and visualizer when doing large scale experiments in collaboration with others. This is the topic of this module.
+The most basic logging we can do is writing the metric that our model is producing to the terminal or a file for later inspection. We can then also use tools such as [matplotlib](https://matplotlib.org/) for plotting the training curve. This kind of workflow may be enough when doing smaller experiments or working alone on a project, but there is no way around using a proper experiment tracker and visualizer when doing large scale experiments in collaboration with others. This is the topic of this module.
 
 There exist many tools for logging your experiments, with some of them being:
 * [Tensorboard](https://www.tensorflow.org/tensorboard)
@@ -32,39 +32,18 @@ There exist many tools for logging your experiments, with some of them being:
 
 We are going to use Weights and Bias (wandb) as it is an excellent tool for collaboration.
 
+### Wandb
+
+Wandb is also called weights and biases
+
+
+Please note that you will begin to see some overlap between the different frameworks that we are using. While `hydra` can be used to only configure your python scripts it can also be used to save metrics and hyperparameters. Similar arguments holds for `dvc` which can also be used to log metrics. We are therefore not saying that the combination of tools presented in this course are the best, but each one do provide specific features that the others does not.
+
+
 #### Exercises
 
 
 
-
-For these exercises we will initially be looking at incorporating [tensorboard](https://www.tensorflow.org/tensorboard) into our code, 
-as it comes with native support in PyTorch
-
-1. Install tensorboard (does not require you to install tensorflow)
-   ```pip install tensorboard```
-
-2. Take a look at this [tutorial](https://pytorch.org/docs/stable/tensorboard.html)
-
-3. Implement the summarywriter in your training script from the last session. The summarywrite should log both
-   a scalar (`writer.add_scalar`) (atleast one) and a histogram (`writer.add_histogram`). Additionally, try log
-   the computational graph (`writer.add_graph`).
-   
-4. Start tensorboard in a terminal
-   ```tensorboard --logdir this/is/the/dir/tensorboard/logged/to```
-   
-5. Inspect what was logged in tensorboard
-
-Experiment visualizers are especially useful for comparing values across training runs. Multiple runs often
-stems from playing around with the hyperparameters of your model.
-
-6. In your training script make sure the hyperparameters are saved to tensorboard (`writer.add_hparams`)
-
-7. Run at least two models with different hyperparameters, open them both at the same time in tensorboard
-   Hint: to open multiple experiments in the same tensorboard they either have to share a root folder e.g.
-   `experiments/experiment_1` and `experiments/experiment_2` you can start tensorboard as
-   ```tensorboard --logdir experiments```
-   or as
-   ```tensorboard --logdir=name1:/path/to/logs/1,name2:/path/to/logs/2```
 
 While tensorboard is a great logger for many things, more advanced loggers may be more suitable. For the remaining 
 of the exercises we will try to look at the [wandb](https://wandb.ai/site) logger. The great benefit of using wandb

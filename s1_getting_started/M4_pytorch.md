@@ -129,15 +129,16 @@ Your overall task is the following:
    should train or evaluate. Something like:
    ```
    python main.py train
-   python main.py evaluate
+   python main.py evaluate trained_model.pt
    ```
    which can be implemented in various ways.
 
-To start you off, a very barebone version of each script is provided in the `final_exercise` folder. As documentation that your model is actually working, when running in the `train` command the script needs to
-produce a single plot with the training curve (training step vs training loss). When the `eval` command is run,
+To start you off, a very barebone version of each script is provided in the `final_exercise` folder. 
+As documentation that your model is actually working, when running in the `train` command the script needs to
+produce a single plot with the training curve (training step vs training loss). When the `evaluate` command is run,
 it should write the test set accuracy to the terminal.
 
-It is part of the exercise to not implement in notebooks as code development in the real life 
+It is part of the exercise to not implement in notebooks as code development in the real life  
 happens in script. As the model is simple to run (for now) you should be able to complete the exercise on your laptop, 
 even if you are only training on cpu. That said you are allowed to upload your scripts to your own "Google Drive" and 
 then you can call your scripts from a google colab notebook, which is shown in the image below where all code is 

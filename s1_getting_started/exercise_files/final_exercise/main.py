@@ -41,14 +41,13 @@ class TrainOREvaluate(object):
     def evaluate(self):
         print("Evaluating until hitting the ceiling")
         parser = argparse.ArgumentParser(description='Training arguments')
-        parser.add_argument('--load_model_from', default="")
+        parser.add_argument('load_model_from', default="")
         # add any additional argument that you want
         args = parser.parse_args(sys.argv[2:])
         print(args)
         
         # TODO: Implement evaluation logic here
-        if args.load_model_from:
-            model = torch.load(args.load_model_from)
+        model = torch.load(args.load_model_from)
         _, test_set = mnist()
 
 if __name__ == '__main__':

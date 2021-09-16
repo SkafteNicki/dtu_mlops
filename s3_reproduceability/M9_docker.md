@@ -48,7 +48,28 @@ Docker has three main concepts: **docker file**, **docker image** and **docker c
 
 ### Exercises
 
+In the following exercises we guide you how to build a docker file for your mnist reposatory that will make the training a self contained
+application. Please make sure that you somewhat understand each step and do not just copy of the exercise.
+
 1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through depends on your operating system.
 
-  
+2. After installing docker we will begin to construct a docker file for our MNIST project. Create a file called `Dockerfile`.
 
+3. Instead of starting from scracts we nearly always want to start from some base image. For this exercise we are going
+   to start from a simple `python` image. Add the following to your `Dockerfile`
+   ```docker
+   # Base image
+   FROM python:3.7-slim
+   ```
+
+4. Next we are going install dependencies. Here we take care of python requirement that our package needs to run. Add the following
+   ```docker
+   # copy relevant files to the docker image
+   COPY setup.py setup.py
+   COPY requirements.txt requirements.txt
+   COPY Makefile Makefile
+   ```
+
+COPY ./ /app
+WORKDIR /app
+RUN pip install -r requirements_inference.txt

@@ -88,4 +88,31 @@ commenting with a performance report on your PR.
    point.
 
 
+### Continues docker building
+
+```txt
+name: Create Docker Container
+
+on: [push]
+
+jobs:
+  mlops-container:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./week_6_github_actions
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Build container
+        run: |
+          docker network create data
+          docker build --tag inference:latest .
+          docker run -d -p 8000:8000 --network data --name inference_container inference:latest
+```
+
+
+
 Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
