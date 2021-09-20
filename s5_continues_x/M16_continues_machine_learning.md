@@ -81,14 +81,18 @@ our trained model to us after it is trained, we need to give it some statistics 
 3. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k) very short video on how to send yourself a pull-request with a small change. If you workflow file is executed correctly you should see `github-actions`
 commenting with a performance report on your PR.
 
-[![Continues machine learning](http://img.youtube.com/vi/xwyJexAnt9k/0.jpg)](http://www.youtube.com/watch?v=xwyJexAnt9k "Video Title")
-
 4. (Optional) `cml` is offered by the same people behind `dvc` and it should therefore come as no surprise that these features
    can interact with each other. If you want to deep dive into this, [here](https://cml.dev/doc/cml-with-dvc) is a great starting
    point.
 
 
-### Continues docker building
+# Continues docker building
+
+The final task we are going to automatize is docker building. 
+
+
+
+
 
 ```txt
 name: Create Docker Container

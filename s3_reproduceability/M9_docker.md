@@ -113,7 +113,7 @@ for easy getting an overview of which images have been build and which are runni
    name and tag that we se afterwards when running `docker images`. Note that building a docker image can take a couple of minutes.
 
  <p align="center">
-   <img src="../figures/docker_output.png" width="1000" title="hover text">
+   <img src="../figures/docker_output.PNG" width="1000" title="hover text">
  </p>
 
 6. Try running `docker image` and confirm that you get output similar to the one above. If you succeds with this, then try running the
