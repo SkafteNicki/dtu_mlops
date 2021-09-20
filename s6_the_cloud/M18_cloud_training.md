@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M23 - System monitoring
-parent: S9 - Monitoring
-nav_order: 1
+title: M18 - Cloud Training
+parent: S6 - The cloud
+nav_order: 2
 ---
 
-# System monitoring
+# Cloud training
 {: .no_toc }
 
 <details open markdown="block">

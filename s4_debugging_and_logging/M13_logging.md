@@ -84,4 +84,11 @@ way).
 8. To make sure that you have completed todays exercises, make the report shareable by clicking the *Share* button
    and create *view-only-link*. Send the link to my email `nsde@dtu.dk`, so I can checkout your awesome work.
 
+9. (Optional) Wandb also comes with build in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
+   which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
+   sweep in Wandb. You atleast need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
+   in your code on an appropriate value.
+
 9. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
+
+10

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M17 - Cloud Training
-parent: S6 - The cloud
+title: M20 - Distributed Training
+parent: S7 - Distributed Applications
 nav_order: 2
 ---
 
-# Cloud training
+# Distributed Training
 {: .no_toc }
 
 <details open markdown="block">

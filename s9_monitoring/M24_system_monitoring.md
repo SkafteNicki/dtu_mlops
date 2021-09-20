@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M20 - Local deployment
-parent: S8 - Deployment
+title: M24 - System monitoring
+parent: S9 - Monitoring
 nav_order: 1
 ---
 
-# Local Deployment
+# System monitoring
 {: .no_toc }
 
 <details open markdown="block">
