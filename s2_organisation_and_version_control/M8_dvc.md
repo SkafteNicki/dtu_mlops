@@ -31,7 +31,7 @@ Because this is a important concept there exist a couple of frameworks that have
 [dvc](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Hub](https://www.activeloop.ai/), [Modelstore](https://modelstore.readthedocs.io/en/latest/)
 and [ModelDB](https://github.com/VertaAI/modeldb/). We are here going to use `dvc` provided by [iterative.ai](https://iterative.ai/) as they also provide tools for automatizing machine learning, which we are going to focus on later.
 
-### DVC: What is it?
+## DVC: What is it?
 
 DVC (Data Version Control) is simply an extension of `git` to not only take versioning data but also models and experiments
 in general. But how does it deal with these large data files? Essentially, `dvc` will just keep track of a small *metafile*
@@ -46,7 +46,7 @@ Amazon.
 As the figure shows, we now have two remote locations: one for code and one for data. We use `git pull/push` for the code and `dvc pull/push` for the data. The key concept is the connection between the data file `model.pkl` that is fairly large and its respective *metafile* `model.pkl.dvc` that is very small. The large file is stored in the data remote and the metafile is stored in code remote. 
 
 
-### Exercises
+## Exercises
 
 If in doubt about some of the exercises, we recommend checking out the [documentation for dvc](https://dvc.org/doc) as it
 contains excellent tutorials.

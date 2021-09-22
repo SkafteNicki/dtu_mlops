@@ -60,7 +60,7 @@ where other can get our image by simply running `docker pull`, making them able 
  </p>
 
 
-### Exercises
+## Exercises
 
 In the following exercises we guide you how to build a docker file for your mnist reposatory that will make the training a self contained
 application. Please make sure that you somewhat understand each step and do not just copy of the exercise.

@@ -124,7 +124,7 @@ Callbacks is one way to add additional functionality to your model, that strictl
 
 Multiple callbacks can be used by passing them all in a list e.g. `Trainer(callbacks=[checkpoint_callbacks, early_stopping_callback])`
 
-### Exercises
+## Exercises
 
 Please note that the in following exercise we will basically ask you to reformat all your MNIST code to follow the lightning standard, such that we can take advantage of all the tricks the framework has to offer. The reason we did not implement our model in `lightning` to begin with, is that to truly understand why it is beneficially to use a high-level framework to do some of the heavy lifting you need to have gone through some of implementation troubles yourself.
 

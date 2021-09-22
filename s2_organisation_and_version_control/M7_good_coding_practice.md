@@ -19,8 +19,6 @@ nav_order: 3
 
 ---
 
-## Good coding practice
-
 > Code is read more often than it is written. -- [Guido Van Rossum](https://gvanrossum.github.io/) (author of Python)
 
 To understand what good coding practice are, it is important to understand what it is *not*:
@@ -30,7 +28,7 @@ To understand what good coding practice are, it is important to understand what 
 
 Instead good coding practices really comes down to two topics: documentation and styling.
 
-### Documentation
+## Documentation
 
 Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourself, but love
 when someone else have actually taken time to add it to their code. There is no doubt about that well documented
@@ -48,7 +46,7 @@ Here is a good rule of thump for inline comments
 
 > “Code tells you how; Comments tell you why.” -- Jeff Atwood
 
-#### Exercises
+### Exercises
 
 1. Go over the most complicated file in your project. Be critical and add comments where the logic
 behind the code is not easily understandable. Hint: In deep learning we often work with tensors that
@@ -59,7 +57,7 @@ You can see [here (example 5)](https://www.programiz.com/python-programming/docs
 how to use identifiable keywords such as `Parameters`, `Args`, `Returns` which standardizes the way of
 writing docstrings.
 
-### Styling
+## Styling
 
 While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Maybe even more troubling is that you
@@ -73,7 +71,7 @@ comes into play, which is the  official style guide for python. It is essentiall
 One way to check if your code is pep8 compliant is to use 
 [flake8](https://flake8.pycqa.org/en/latest/).
 
-#### Exercises
+### Exercises
 
 3. Install flake8
    ```
@@ -126,7 +124,7 @@ max-line-length = 100
 
 10. (Optional) Experiment further with the customization of `flake8`, `black` ect. Especially it may be worth looking into the `include` and `exclude` keywords for specifying which files should actually be formatted.
 
-### Typing 
+## Typing 
 
 In addition to writing documentation and following a specific styling, in python we have a third way of improving the quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier programming languages like `c`, `c++` ect. where data types needed to be explicit stated for variables:
 
@@ -172,27 +170,25 @@ def add2(x: Any, y: Any) -> Any:
 ```
 However, in this case we basically is in the same case as if our function were not typed, as the type hints does not help us at all. Therefore, use `Any` only when nessesary.
 
-#### Exercises
+### Exercises
 
 11. We provide a file called `typing_exercise.py`. Add typing everywhere in the file. Please note that you will
 need the following import:
-```python
-from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
-```
-for it to work. Hint: [here](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on typing. We also
-provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
+    ```python
+    from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
+    ```
+    for it to work. Hint: [here](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
 
 12. [mypy](https://mypy.readthedocs.io/en/stable/index.html) is what is called a static type checker. If you are using typing
 in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code, but it scans it and
 checks that the types you have given are compatible. Install `mypy`
 
-```bash
-pip install mypy
-```
+    ```bash
+    pip install mypy
+    ```
 
 13. Try to run `mypy` on the `typing.py` file
-```bash
-mypy typing_exercise.py
-```
-If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your types are
-incompatible.
+    ```bash
+    mypy typing_exercise.py
+    ```
+    If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your types are incompatible.

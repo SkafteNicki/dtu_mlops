@@ -5,7 +5,7 @@ parent: S2 - Organisation and version control
 nav_order: 1
 ---
 
-# Title
+# Git
 {: .no_toc }
 
 <details open markdown="block">
@@ -18,8 +18,6 @@ nav_order: 1
 </details>
 
 ---
-
-## Git 
 
 Proper collaboration with other people will require that you can work on the same codebase in a organized manner.
 This is the reason that **version control** exist. Simply stated, it is a way to keep track of:
@@ -35,7 +33,7 @@ hosting repositories but that does not mean that they are the only one providing
 
 That said we will be using git+github throughout this course. It is a requirement for passing this course that you create a public repository with your code and use git to upload any code changes. How much you choose to integrate this into your own projects depends, but you are at least expected to be familiar with git+github.
 
-### Initial config
+## Initial config
 
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure 
    that your installation is working by writing `git help` in a terminal and it should show you the help message for git.
@@ -50,7 +48,7 @@ git config credential.helper store
 git config --global user.email <email>
 ```
 
-### Git overview
+## Git overview
 
 The most simple way to think of version control, is that it is just nodes with lines connecting them
 
@@ -82,22 +80,22 @@ Ofcause, the real power of version control is the ability to make branches, as i
 
 Each branch can contain code that are not present on other branches. This is usefull when you are many developers working together on the same project. 
 
-### Exercise
+## Exercise
 
-1. In your github account create an repository, where the intention is that you upload the code from the final exercise from yesterday
+1. In your github account create an repository, where the intention is that you upload the code from the final exercise from yesterday  
    
-   1.1 After creating the repository, clone it to your computer
-       ```git clone https://github.com/my_user_name/my_repository_name.git```
+   1. After creating the repository, clone it to your computer
+      ```git clone https://github.com/my_user_name/my_repository_name.git```
        
-   1.2 Move/copy the three files from yesterday into the repository (and any other that you made)
+   2. Move/copy the three files from yesterday into the repository (and any other that you made)
    
-   1.3 Add the files to a commit by using `git add` command
+   3. Add the files to a commit by using `git add` command
    
-   1.4 Commit the files using `git commit`
+   4. Commit the files using `git commit`
    
-   1.5 Finally push the files to your repository using `git push`. Make sure to check online that the files have been updated in your repository.
+   5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been updated in your repository.
 
-   1.6 You can always use the commando `git status` to check where you are in the process of making a commit.
+   6. You can always use the commando `git status` to check where you are in the process of making a commit.
 
 2. If you do not already have a cloned version of this repository belonging to the course, make sure to make one! I am continuously updating/
    changing some of the material during the course and I therefore recommend that you each day before the lecture 
@@ -108,27 +106,27 @@ Each branch can contain code that are not present on other branches. This is use
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
    
-   3.1 Go online and find a project you do not own, where you can improve the code. For simplicity you can
-       just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
-       ![forking](../figures/forking.PNG)
-       This will create a local copy of the repository which you have complete writing access to. Note that
-       code updates to the original repository does not update code in your local repository.
+   1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
+      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
+      ![forking](../figures/forking.PNG)
+      This will create a local copy of the repository which you have complete writing access to. Note that
+      code updates to the original repository does not update code in your local repository.
 
-   3.2 Clone your local fork of the project using ```git clone```
+   2. Clone your local fork of the project using ```git clone```
 
-   3.3 As default your local repository will be on the ```main branch``` (HINT: you can check this with the
-       ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
-       the ```git branch``` command followed by the ```git checkout``` command to create a new branch.
+   3. As default your local repository will be on the ```main branch``` (HINT: you can check this with the
+      ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
+      the ```git branch``` command followed by the ```git checkout``` command to create a new branch.
 
-   3.4 You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
-       When you have made the changes, do the standard git cycle: ```add -> commit -> push```
+   4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
+      When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
 
-   3.5 Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
-       choose the to compare the ```master branch``` of the original repo with the branch that you just created
-       in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
+   5. Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
+      choose the to compare the ```master branch``` of the original repo with the branch that you just created
+      in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
 
-   5.6 Write a bit about the changes you have made and click send :)
+   6. Write a bit about the changes you have made and click send :)
 
 4. Finally, make sure that you understand how to make branches, as this will allow you to try out code changes without messing with your working code. Creating a new branch can be done using:
     ```bash

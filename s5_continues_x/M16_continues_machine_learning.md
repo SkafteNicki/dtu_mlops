@@ -90,7 +90,7 @@ commenting with a performance report on your PR.
 
 The final task we are going to automatize is docker building. 
 
-
+The problem with docker is that the images we are building often often takes up a couple of GBs, and we therefore need to store them somewhere 
 
 
 
