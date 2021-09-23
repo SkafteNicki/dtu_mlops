@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M20 - Hyperparameter optimization
+title: M26 - Hyperparameter optimization
 parent: S10 - Extra
-nav_order: 1
+nav_order: 2
 ---
 
 # Hyperparameter optimization

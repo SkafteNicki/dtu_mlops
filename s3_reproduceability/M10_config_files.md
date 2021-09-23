@@ -101,27 +101,27 @@ Note that we provide an solution (in the `vae_solution` folder) that can help yo
    
 8. Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:
 
-   8.1 Try changing one parameter from the command-line
-   ```bash
-   python vae_mnist.py seed=1234
-   ```
+   1. Try changing one parameter from the command-line
+      ```bash
+      python vae_mnist.py seed=1234
+      ```
 
-   8.2 Try adding one parameter from the command-line
-   ```bash
-   python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
-   ```
+   2. Try adding one parameter from the command-line
+      ```bash
+      python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
+      ```
 
 9. By default the file `vae_mnist.log` should be empty, meaning that whatever you printed to the terminal did not get picked up by Hydra. This is due to Hydra under the hood making use of the native python [logging](https://docs.python.org/3/library/logging.html) package. This means that to also save all printed output from the script we need to convert all calls to `print` with `log.info`
 
-   9.1 Create a logger in the script:
-   ```python
-   import logging
-   log = logging.getLogger(__name__)
-   ```
+   1. Create a logger in the script:
+      ```python
+      import logging
+      log = logging.getLogger(__name__)
+      ```
 
-   9.2 Exchange all calls to `print` with calls to `log.info`
+   2. Exchange all calls to `print` with calls to `log.info`
 
-   9.3 Try re-running the script and make sure that the output printed to the terminal also gets saved to the `vae_mnist.log` file
+   3. Try re-running the script and make sure that the output printed to the terminal also gets saved to the `vae_mnist.log` file
 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare. Then run the `reproduceability_tester.py` script as
     ```bash

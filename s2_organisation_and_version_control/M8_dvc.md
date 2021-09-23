@@ -133,8 +133,7 @@ Thats all for today. With the combined power of `git` and `dvc` we should be abl
 pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc` offers
 much more than just data version control, so if you want to deep dive into `dvc` we recommend their 
 [pipeline](https://dvc.org/doc/user-guide/project-structure/pipelines-files) feature and how this can be used to setup
-version controlled [experiments](https://dvc.org/doc/command-reference/exp). Note that we are going to revisit `dvc` later 
-for a more permanent (and large scale) storage solution.
+version controlled [experiments](https://dvc.org/doc/command-reference/exp). Note that we are going to revisit `dvc` later for a more permanent (and large scale) storage solution.
 
 
 

@@ -123,10 +123,8 @@ Your overall task is the following:
 
 3. Implement your data setup in a script called `data.py`
 
-4. Implement training and evaluation of your model in `main.py` script
-   
-   3.1 Your script should be able to take an additional argument indicating if the model
-   should train or evaluate. Something like:
+4. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to 
+   take an additional argument indicating if the model should train or evaluate. It will look something like this:
    ```
    python main.py train
    python main.py evaluate trained_model.pt

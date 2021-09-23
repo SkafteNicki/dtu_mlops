@@ -37,14 +37,14 @@ We are in this course going to use the `cookie-cutter` approach. We are not goin
 
 3. Take a look at the webpage to see how you start a new project.
 
- The remaining of this exercise is intended to be used on taking the simple cnn mnist classifier from yesterdays exercise and force it into this structure. You are not required to fill out every folder and file in the project structure, but complete the following steps. When you need to run a file I recommend always doing this from the root directory
- e.g.
- ```bash
- python src/data/make_dataset.py data/raw data/processed
- python src/models/train_model.py <arguments>
- ect...
- ```
- in this way paths (for saving and loading files) are always relative to the root.
+  The remaining of this exercise is intended to be used on taking the simple cnn mnist classifier from yesterdays exercise and force it into this structure. You are not required to fill out every folder and file in the project structure, but complete the following steps. When you need to run a file I recommend always doing this from the root directory
+  e.g.
+  ```bash
+  python src/data/make_dataset.py data/raw data/processed
+  python src/models/train_model.py <arguments>
+  ect...
+  ```
+  in this way paths (for saving and loading files) are always relative to the root.
 
 4. After having created your project we are going to install it as a package in our conda enviroment. Either run 
     ```bash
