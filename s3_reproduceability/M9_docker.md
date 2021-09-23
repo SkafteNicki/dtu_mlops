@@ -66,7 +66,8 @@ In the following exercises we guide you how to build a docker file for your mnis
 application. Please make sure that you somewhat understand each step and do not just copy of the exercise.
 
 If you are using `VScode` then we recommend install the [docker VCcode extension](https://code.visualstudio.com/docs/containers/overview)
-for easy getting an overview of which images have been build and which are running.
+for easy getting an overview of which images have been build and which are running. Additionally the extension named *Remote - Containers*
+may also be beneficial for you to download.
 
 
 1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through depends on your operating system.
