@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M25 - Model monitoring
+title: M25 - System monitoring
 parent: S9 - Monitoring
-nav_order: 2
+nav_order: 1
 ---
 
-# Model monitoring
+# System monitoring
 {: .no_toc }
 
 <details open markdown="block">

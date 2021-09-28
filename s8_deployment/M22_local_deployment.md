@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M21 - Local deployment
+title: M22 - Local deployment
 parent: S8 - Deployment
 nav_order: 1
 ---

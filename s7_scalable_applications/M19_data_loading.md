@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M19 - Distributed Data Loading
-parent: S7 - Distributed Applications
+parent: S7 - Scalable applications
 nav_order: 1
 ---
 
@@ -81,12 +81,8 @@ This phenomenem is exactly what we are going to investigate in the exercises.
 
 ### Exercises
 
-This exercise is intended to be done on the [labeled faces in the wild (LFW)](http://vis-www.cs.umass.edu/lfw/)
-dataset. The dataset consist images of famous people extracted from the internet. The dataset had been used
-to drive the field of facial verification, which you can read more about 
-[here](https://machinelearningmastery.com/introduction-to-deep-learning-for-face-recognition/). We are going
-imagine that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that
-can be parallelized based on loading the raw datafiles (.jpg) at runtime.
+This exercise is intended to be done on the [labeled faces in the wild (LFW)](http://vis-www.cs.umass.edu/lfw/) dataset. The dataset consist images of famous people extracted from the internet. The dataset had been used to drive the field of facial verification, which you can read more about 
+[here](https://machinelearningmastery.com/introduction-to-deep-learning-for-face-recognition/). We are going imagine that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can be parallelized based on loading the raw datafiles (.jpg) at runtime.
 
 1. Download the dataset and extract to a folder. It does not matter if you choose the non-aligned or
    aligned version of the dataset.
@@ -107,14 +103,11 @@ can be parallelized based on loading the raw datafiles (.jpg) at runtime.
    python lfw_dataset.py -visualize_batch
    ```
 
-5. Experiment how the number of workers influences the performance. We have already provide code that will
-   pass over the dataset 5 times and calculate how long time it took, which you can play around with by calling
+5. Experiment how the number of workers influences the performance. We have already provide code that will pass over the dataset 5 times and calculate how long time it took, which you can play around with by calling
    ```
    python lfw_dataset.py -get_timing -num_workers 1
    ```
-   Make a [errorbar plot](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.errorbar.html) with
-   number of workers along the x-axis and the timing along the y-axis. The errorbars should correspond to
-   the standard deviation over the 5 runs.
+   Make a [errorbar plot](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.errorbar.html) with number of workers along the x-axis and the timing along the y-axis. The errorbars should correspond to the standard deviation over the 5 runs. HINT: if it is taking too long to evaluate, use a subsection of the dataset. Also if you are not seeing an improvement, try increasing the batch size (since data loading is parallelized per batch).
 
 6. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the
    `pin_memory` flag to `True`. By setting this flag we are essentially telling Pytorch that they can

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M20 - Distributed Training
-parent: S7 - Distributed Applications
+parent: S7 - Scalable applications
 nav_order: 2
 ---
 
