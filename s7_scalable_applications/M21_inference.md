@@ -19,8 +19,6 @@ nav_order: 3
 
 ---
 
-# Scaling inference
-
 Inference is task of applying our trained model to some new and unseen data, often called *prediction*. Thus, scaling inference is different from scaling data loading and training, mainly due to inference normally only using a single data point (or a few). As we can neither parallelize the data loading or parallelize using multiple GPUs (at least not in any efficient way), this is of no use to us when we are doing inference. Secondly, inference is often not something we do on machines that can perform large computations, as most inference today is actually either done on *edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter about how we scale inference than just throwing more compute at it.
 
 ## Choosing the right architecture
