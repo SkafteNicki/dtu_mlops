@@ -3,6 +3,7 @@ layout: default
 title: M20 - Distributed Training
 parent: S7 - Scalable applications
 nav_order: 2
+mathjax: true
 ---
 
 # Distributed Training
@@ -36,26 +37,60 @@ our computations
 * Distributed data parallel training
 * Sharded training
 
+## Data parallel
+
+While data parallel today in general is seen as obsolete compared to distributed data parallel, we are still going to investigate it a bit since it offers the most simple form of distributed computations in deep learning pipeline.
+
+In the figure below is shown both the *forward* and *backward* step in the data parallel paradigm
+
+<p align="center">
+   <img src="../figures/data_parallel.png" width="600" title="text">
+</p>
+
+The steps are the following:
+
+* Whenever we try to do *forward* call e.g. `out=model(batch)` we take the batch and divide it equally between all devices. If we have a batch size of $N$ and $M$ devices each device will be sent $N/M$ datapoints.
+
+* Afterwards each device receives a copy of the `model` e.g. a copy of the weights that currently parametrizes our neural network
+
+* In this step we perform the actual *forward* pass in parallel. This is the actual steps that can help us scale our training
+
+* Finally we need to send back the output of each replicated model to the primary device.
+
+Similar to the anaysis we did of parallel data loading, we cannot always expect that this will actual take less time than doing the forward call on a single GPU. If we are parallizing over $M$ devices, we essentially need to do $3\cdot M$ communication calls to send batch, model and output between the devices. If the parallel forward call does not outweigh this, then it will take longer.
+
+In addition, we also have the *backward* path to focus on 
+
+* As the end of the *forward* collected the output on the primary device, this is also where the loss is accumulated. Thus, gradients are first calculated on the primary device
+
+* Next we scatter the 
 
 
-## Distributed Data 
+One of the big downsides of using data parallel is that all the replicas are destroyed after each *backward* call. This means that we over and over again need to replicate our model and send it to the devices that are part of the computations. 
 
+Eventhough it seems like a lot of logic is going into data paralle, in practise in Pytorch we can very simply enable data parallel training by wrapping our model in the [nn.DataParallel](https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html) class.
+```python
+from torch import nn
+model = MyModelClass()
+model = nn.DataParallel(model, device_ids=[0, 1])  # data parallel on gpu 0 and 1
+preds = model(input)  # same as usual
+```
 
 ### Exercises
 
-For this exercise we will briefly touch upon how to implement data parallel training in Pytorch using
-their [nn.DataParallel](https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html) class.
+Please note that the exercise only makes sense if you have access to multiple GPUs.
 
-### Exercises
+1. Create a new script (call it `data_parallel.py`) where you take a copy of model `FashionCNN` from the `fashion_mnist.py` script. Instantiate the model and wrap `torch.nn.DataParallel` around it such that it can be executed in data parallel.
 
-1. Create a small script where you take a copy of model `FashionCNN` from the `fashion_mnist.py` script.
-   Instantiate the model and wrap `torch.nn.DataParallel` around it such that it can be executed in data
-   parallel.
-
-2. Try to run inference in parallel on multiple devices (pass a batch multiple times and time it). 
-   Does data parallel decrease the inference time? If no, can you explain why that may be? Try playing
-   around with the batch size, and see if data parallel is more beneficial for larger batch sizes.
-
+2. Try to run inference in parallel on multiple devices (pass a batch multiple times and time it) e.g.
+   ```python
+   import time
+   start = time.time()
+   for _ in range(n_reps):
+      out = model(batch)
+   end = time.time()
+   ```
+   Does data parallel decrease the inference time? If no, can you explain why that may be? Try playing around with the batch size, and see if data parallel is more beneficial for larger batch sizes.
 
 
 ## Distributed data parallel
