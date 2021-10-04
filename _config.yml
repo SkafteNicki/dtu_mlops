@@ -30,3 +30,6 @@ gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into t
 
 compress_html:
   blanklines: true
+mathjax:
+  source: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML
+  config: 'MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "AMS" } } })'
