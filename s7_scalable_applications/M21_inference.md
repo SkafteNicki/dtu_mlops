@@ -74,11 +74,11 @@ As discussed in this [blogpost series](https://devblog.pytorchlightning.ai/bench
 
 But how do we convert between floats and integers in quantization? In most cases we often use a *linear affine quantization*:
 
-$$ 
+$$
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right) 
-$$ 
+$$
 
-where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
+where $$s$$ is a scale and $$z$$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
 
 <p align="center">
    <img src="../figures/quantization_overview.png" width="800" title="All credit to https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512">
