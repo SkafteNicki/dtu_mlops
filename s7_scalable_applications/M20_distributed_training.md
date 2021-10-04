@@ -19,19 +19,29 @@ nav_order: 2
 
 ---
 
-In this module we are going to look at distributed training. Di
+In this module we are going to look at distributed training. Distributed training is one of the key ingredients
+to all the awesome results that deep learning models are producing. For example: 
+[Alphafold](https://deepmind.com/blog/article/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology)
+the highly praised model from Deepmind that seems to have solved protein structure prediction, was trained
+in a distributed fashion for a few weeks. The training was done on 16 TPUv3s (specialized hardware), which
+is approximately equal to 100-200 modern GPUs. This means that training Alphafold without distributed training
+on a single GPU (probably not even possible) would take a couple of years to train! Therefore, it is simply 
+impossible currently to train some of the state-of-the-art (SOTA) models within deep learning currently, 
+without taking advantage of distributed training.
 
+When we talk about distributed training, there are a number of different paradigms that we may use to parallelize
+our computations
 
+* Data parallel training
+* Distributed data parallel training
+* Sharded training
 
-Today is about distributed training. We will start simple by making use of `DistributedData` which
-is kind of the old standard for doing distributed training, and from there move on to format our
-code that will make it agnostic towards device type and distributed setting using 
-[Pytorch Lightning](https://pytorch-lightning.readthedocs.io/en/latest/).
 
 
 ## Distributed Data 
 
 
+### Exercises
 
 For this exercise we will briefly touch upon how to implement data parallel training in Pytorch using
 their [nn.DataParallel](https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html) class.
@@ -46,12 +56,14 @@ their [nn.DataParallel](https://pytorch.org/docs/stable/generated/torch.nn.DataP
    Does data parallel decrease the inference time? If no, can you explain why that may be? Try playing
    around with the batch size, and see if data parallel is more beneficial for larger batch sizes.
 
-## Going all the way
 
-Moving beyond the just adjusting the number of workers in the dataloader or wrapping your model in
-`torch.nn.DataParallel` is not so simple. To get your script to work with 
-[Distributed data parallel](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel) would require more than just wrapping your model in the appropriate class. It is in these situations that frameworks such as *Pytorch Lightning* really shines as the comes into play. As long as we format our model to the required
-format of the framework we can enable distributed training with a single change of code.
+
+## Distributed data parallel
+
+For the exercises we are mainly going to focus on distributed data parallel training as it is the most common one to use.
+
+### Exercises
+
 
 ### Exercises
 
@@ -78,3 +90,18 @@ format of the framework we can enable distributed training with a single change 
 
 3. (Optional) Calling `self.log` by default will only log the result from process 1. Try chaning the `sync_dist` flag to accumulate
    the values across devices.
+
+
+
+### Sharded
+
+The two approaches we have looked at until now assumes one thing: that you can actually fit the computations going on in your
+model and the model itself on every single device in the distributed environment. However, if your model has a lot
+of parameters (around 500 millons or more on modern GPUs) you simply cannot fit the model on each device and we therefore have
+to rethink our distributed paradigm.
+
+
+
+
+
+
