@@ -142,14 +142,13 @@ Please note that the in following exercise we will basically ask you to reformat
 
 3. Instantiate a `Trainer` object. It is recommended to take a look at the [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags) (there are many of them) and maybe adjust some of them:
          
-   3.1 Investigate what the `default_root_dir` flag does
+   1. Investigate what the `default_root_dir` flag does
 
-   3.2 As default lightning will run for 1000 epochs. This may be too much (for now). Change this by changing
-       the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
-       should train for.
+   2. As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
+      changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we should train for.
        
-   3.2 To start with we also want to limit the amount of training data to 20% of its original size. which
-       trainer flag do you need to set for this to work?
+   3. To start with we also want to limit the amount of training data to 20% of its original size. which
+      trainer flag do you need to set for this to work?
 
 4. Try fitting your model: `trainer.fit(model)`
 
@@ -157,34 +156,35 @@ Please note that the in following exercise we will basically ask you to reformat
 
 6. The privous module was all about logging in `wandb`, so the question is naturally how does `lightning` support this. Lightning does not only support `wandb`, but also many [others](https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html). Common for all of them, is that logging just need to happen through the `self.log` method in your `LightningModule`:
 
-   6.1 Add `self.log` to your `LightningModule. Should look something like this:
-   ```python
-   def training_step(self, batch, batch_idx):
-      data, target = batch
-      preds = self(data)
-      loss = self.criterion(preds, target)
-      acc = (target == preds.argmax(dim=-1)).float().mean()
-      self.log('train_loss', loss)
-      self.log('train_acc', acc)
-      return loss
-   ```
-   6.2 Add the `wandb` logger to your trainer
-   ```python
-   trainer = Trainer(logger=pl.loggers.WandbLogger(project="dtu_mlops"))
-   ```
-   and try to train the model. Confirm that you are seeing the scalars appearing in your `wandb` portal.
+   1. Add `self.log` to your `LightningModule. Should look something like this:
+      ```python
+      def training_step(self, batch, batch_idx):
+          data, target = batch
+          preds = self(data)
+          loss = self.criterion(preds, target)
+          acc = (target == preds.argmax(dim=-1)).float().mean()
+          self.log('train_loss', loss)
+          self.log('train_acc', acc)
+          return loss
+      ```
 
-   6.3 `self.log` does sadly only support logging scalar tensors. Luckily, for logging For logging other quantities we can still access the standard `wandb.log` through our model
-   ```python
-   def training_step(self, batch, batch_idx):
-       ...
-       # self.logger.experiment is the same as wandb.log
-       self.logger.experiment.log({'logits': wandb.Histrogram(preds)})
-   ```
-   try doing this, by logging something else than scalar tensors.
+   2. Add the `wandb` logger to your trainer
+      ```python
+      trainer = Trainer(logger=pl.loggers.WandbLogger(project="dtu_mlops"))
+      ```
+      and try to train the model. Confirm that you are seeing the scalars appearing in your `wandb` portal.
 
-7. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step` and
-   `test_step` to our lightning module and supply the respective data in form of a separate dataloader. Try to at least implement one of them.
+   3. `self.log` does sadly only support logging scalar tensors. Luckily, for logging other quantities we
+      can still access the standard `wandb.log` through our model
+      ```python
+      def training_step(self, batch, batch_idx):
+          ...
+          # self.logger.experiment is the same as wandb.log
+          self.logger.experiment.log({'logits': wandb.Histrogram(preds)})
+      ```
+      try doing this, by logging something else than scalar tensors.
+
+7. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step` and `test_step` to our lightning module and supply the respective data in form of a separate dataloader. Try to at least implement one of them.
 
 8. (Optional, requires GPU) One of the big advantages of using `lightning` is that you no more need to deal with device placement e.g. called `.to('cuda')` everywhere. If you have a GPU, try to set the `gpus` flag in the trainer. If you do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.
 
@@ -192,7 +192,11 @@ Please note that the in following exercise we will basically ask you to reformat
 
 10. (Optional) Lightning also have build-in support for profiling. Checkout how to do this using the [profiler](https://pytorch-lightning.readthedocs.io/en/latest/advanced/profiler.html#built-in-checks) argument in the `Trainer` object.
 
-11. Free exercise: Experiment with what the lightning framework is capable of. Either try out more of the trainer
-    flags, some of the other callbacks, or maybe look into some of the other methods that can be implemented in your lightning module. Only your imagination is the limit!
+11. Free exercise: Experiment with what the lightning framework is capable of. Either try out more of the trainer flags, some of the other callbacks, or maybe look into some of the other methods that can be implemented in your lightning module. Only your imagination is the limit!
 
-That covers everything for today :]
+That covers everything for today. It has been a mix of topics that all should help you write "better" code (by some objective measure). If you want to deep dive more into the lightning framework, we highly recommend looking at the different tutorials in the documentation that covers more advanced models and training cases. Additionally, we also want to highlight other frameworks in the lightning ecosystem:
+
+* [Torchmetrics](https://torchmetrics.readthedocs.io/en/latest/): collection of machine learning metrics written in Pytorch
+* [lightning flash](https://lightning-flash.readthedocs.io/en/latest/): High-level framework for fast prototyping, baselining, finetuning with a even simpler interface than lightning
+* [lightning-bolts](https://lightning-bolts.readthedocs.io/en/latest/): Collection of SOTA pretrained models, model components, callbacks, losses and datasets for testing out ideas as fast a possible
+

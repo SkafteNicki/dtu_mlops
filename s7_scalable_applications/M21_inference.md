@@ -3,6 +3,7 @@ layout: default
 title: M21 - Scalable Inference
 parent: S7 - Scalable applications
 nav_order: 3
+mathjax: true
 ---
 
 # Scalable Inference
@@ -73,7 +74,9 @@ As discussed in this [blogpost series](https://devblog.pytorchlightning.ai/bench
 
 But how do we convert between floats and integers in quantization? In most cases we often use a *linear affine quantization*:
 
-$$ x_{int} = \lceil \frac{x_{float}}{s} + z \rceil $$ 
+$$ 
+x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right) 
+$$ 
 
 where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
 
@@ -103,7 +106,7 @@ where $s$ is a scale and $z$ is the so called zero point. But how does to doing 
    
       Make sure that your model fulfills this
 
-   2. 
+   2. Next, 
 
 3. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Below is shown some code that you need to adjust to yourself. Also try to perform the benchmark on the non-quantized model and see if you get a difference. 
 
