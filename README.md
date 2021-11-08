@@ -8,7 +8,7 @@ permalink: /
 <p align="center">
     <h1 align="center">Machine Learning Operations</h1>
     <h3 align="center">Work in progress!</h3>
-    <p align="center">Repository for the DTU MLOps course containing lectures and exercises.</p>
+    <p align="center">Repository for <a href="https://kurser.dtu.dk/course/02476">course 02476</a> at DTU containing lectures and exercises.</p>
     <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
 </p>
 
@@ -121,8 +121,9 @@ This includes:
 
 ## License
 
-The content of this course is free to use under the Apache 2.0 license.
-To cite the course content, please use:
+I highly value open-source, and the content of this course is therefore free
+to use under the Apache 2.0 license. If you use parts of this course in your
+own work, please cite using:
 
 ```bibtex
 @misc{skafte_mlops,
