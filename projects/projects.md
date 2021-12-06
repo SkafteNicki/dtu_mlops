@@ -60,16 +60,19 @@ It is better that you start out with a smaller project and then add along the wa
 
 ### Exercises
 
-1. (Optional) Familiar yourself with each of the libraries. One way to do this is to find relevant tutorials on each project  and try to figure out the code. Such tutorials will give you a rough idea how the API for each library looks like.
+1. (Optional) Familiar yourself with each of the libraries. One way to do this is to find relevant tutorials on each project 
+   and try to figure out the code. Such tutorials will give you a rough idea how the API for each library looks like.
 
-2. Form groups! The recommended group size is 4 persons, but we also accept 3 or 5 man groups. Try to other people based
+2. Form groups! The recommended group size is 4 persons, but we also accept 3 or 5 man groups. Try to find other people based
    on what framework that you would like to work with.
 
 3. Brainstorm projects! Try to figure out exactly what you want to work with and especially how you are going to incorporate
-   the framework that you have chosen to work with into your project. The **Final exercise** for today is to formulate a
-   project description (see bottom of this page).
+   the frameworks (we are aware that you are not familiar with every framework yet) that you have chosen to work with into 
+   your project. The **Final exercise** for today is to formulate a project description (see bottom of this page).
 
-4. When you formed groups and formulated a project you are allowed to start working on the actual code. I have included a to-do list at the bottom that somewhat summaries what we have done in the course until know. You are **NOT** expected to fulfill all bullet points on the to-do list today, as you will continues to work on the project in the following two weeks. 
+4. When you formed groups and formulated a project you are allowed to start working on the actual code. I have included a 
+   to-do list at the bottom that somewhat summaries what we have done in the course until know. You are **NOT** expected 
+   to fulfill all bullet points on the to-do list today, as you will continues to work on the project in the following two weeks.
 
 ### Final objective
 
@@ -81,10 +84,9 @@ Final exercise for today is making a project description. Write around half to o
 * What data are you going to run on (initially, may change)
 * What deep learning models do you expect to use
 
-The project description will serve as an guideline for us at the exam that you have somewhat
-reached the goals that you set out to do. 
+The project description will serve as an guideline for us at the exam that you have somewhat reached the goals that you set out to do. 
 
-By the end of the day (17:00) you should upload your project description + whatever you have done on the project
+By the end of the day (17:00) you should upload your project description (in the `README.md` file) + whatever you have done on the project
 until now to github. When this is done one of your group members should send a email to **nsde@dtu.dk** with:
 
 * Link to github page

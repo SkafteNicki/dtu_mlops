@@ -62,8 +62,8 @@ where other can get our image by simply running `docker pull`, making them able 
 
 ## Exercises
 
-In the following exercises we guide you how to build a docker file for your mnist reposatory that will make the training a self contained
-application. Please make sure that you somewhat understand each step and do not just copy of the exercise.
+In the following exercises we guide you how to build a docker file for your mnist reposatory that will make the training a self contained application. Please make sure that you somewhat understand each step and do not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g. with 
+administrative privilege.
 
 If you are using `VScode` then we recommend install the [docker VCcode extension](https://code.visualstudio.com/docs/containers/overview)
 for easy getting an overview of which images have been build and which are running. Additionally the extension named *Remote - Containers*
@@ -82,42 +82,48 @@ may also be beneficial for you to download.
    FROM python:3.7-slim
    ```
 
-4. Next we are going install dependencies. Here we take care of python requirement that our package needs to run. Add the following
+4. Next we are going to install some essentials in our image. These may seem familar if you are using ubuntu:
    ```docker
-   COPY ./ /app  # this will copy everything (code, data ect) into the docker container in a folder called app
-   WORKDIR /app  # set the app folder as the working dir
-   RUN pip install -r requirements.txt --no-cache-dir  # install dependencies
-   ```
-   the `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to docker.
-
-5. Next we are going to expose our training command such that we can execute it when the image is running:
-   ```docker
-   CMD ['python3', '/app/src/models/train_model.py']
-   ```
-   In total you should therefore end up with a file looking like this:
-   ```docker
-   FROM python:3.8-slim
-
-   COPY ./ /app
-   WORKDIR /app
-   RUN pip install -r requirements.txt --no-cache-dir
-
-   CMD ['python3', '/app/src/models/train_model.py']
+   # install python 
+   RUN apt update && \
+       apt install --no-install-recommends -y build-essential gcc && \
+       apt clean && rm -rf /var/lib/apt/lists/*
    ```
 
-5. We are now ready to building our docker file into a docker image
+5. The last two steps are base setup that you nearly always need to do (atleast if you are using docker for running a python application). All remaining steps are application specific:
+
+   1. Lets copy over our application (the essential parts) from our computer to the contrainer:
+      ```docker
+      COPY requirements.txt requirements.txt
+      COPY setup.py setup.py
+      COPY src/ src/
+      COPY data/ data/
+      ```
+      Remember that we only want the essential parts to keep our docker image as small as possible.
+
+   2. Lets set the working directory in our container and add commands that install the dependencies:
+      ```docker
+      WORKDIR /
+      RUN pip install -r requirements.txt --no-cache-dir
+      ```
+      the `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to docker.
+
+   3. Finally, we are going to expose the training command such that we can execute it when the image is running:
+      ```docker
+      CMD ['python3', '/app/src/models/train_model.py']
+      ```
+
+6. We are now ready to building our docker file into a docker image
    ```bash
    docker build -f train.dockerfile . -t trainer:latest
    ```
-   please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is important to remember) 
-   indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and the `-t trainer:latest` is the respective 
-   name and tag that we se afterwards when running `docker images`. Note that building a docker image can take a couple of minutes.
+   please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and the `-t trainer:latest` is the respective name and tag that we se afterwards when running `docker images` (see image below). Note that building a docker image can take a couple of minutes.
 
  <p align="center">
    <img src="../figures/docker_output.PNG" width="1000" title="hover text">
  </p>
 
-6. Try running `docker image` and confirm that you get output similar to the one above. If you succeds with this, then try running the
+6. Try running `docker images` and confirm that you get output similar to the one above. If you succeds with this, then try running the
    docker image
    ```bash
    docker run --name experiment1 trainer:latest
