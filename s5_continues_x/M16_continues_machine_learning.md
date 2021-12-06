@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M16 - Continues Machine Learning
-parent: S5 - Continues X
+parent: S5 - Continuous X
 nav_order: 2
 ---
 

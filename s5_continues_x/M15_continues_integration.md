@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M15 - Continues Integration
-parent: S5 - Continues X
+parent: S5 - Continuous X
 nav_order: 1
 ---
 
