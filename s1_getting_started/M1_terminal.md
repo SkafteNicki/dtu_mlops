@@ -42,8 +42,8 @@ Note if you already is a terminal wizard then feel free to skip the exercises be
 
 1. (Windows users) We highly recommend that you activate *Windows Subsystem for Linux*. Please follow this 
    [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Remember to run commands from a elevated
-   (as administrator) powershell. This is optional because many of the command that we use are available through
-   a standard Windows terminal, but some are not.
+   (as administrator) powershell. You can complete todays exercises without WSL but for later exercises you are
+   going to need it.
 
 2. Open a terminal. It should look something like below
 
