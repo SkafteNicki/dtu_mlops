@@ -19,7 +19,7 @@ nav_order: 2
 
 ---
 
-The continues X we have looked at until now is what we can consider "classical" continues integration. We are now gonna change gear and look at **continues machine learning**. As the name may suggest we are now focusing on automatizing actual machine learning processes (compared to automatizing unit testing). The automatization we are going to look at here is model training.
+The continues X we have looked at until now is what we can consider "classical" continues integration. We are now gonna change gear and look at **continues machine learning**. As the name may suggest we are now focusing on automatizing actual machine learning processes (compared to automatizing unit testing). The automatization we are going to look at here is reporting of model performance whenever we push changes to our github reposatory.
 
 We are going to use `cml` by [iterative.ai](https://iterative.ai/) for this session. Strictly speaking, then `cml` is not a necessary component for CML but it offers tools to easily get a report about how a specific run performed. If we where just interested in trigging model training everytime we do a `git push` we essentially just need to include
 ```yaml
@@ -30,7 +30,8 @@ to any of our workflow files.
 ### Exercises
 
 1. We are first going to revisit our `train.py` script. If we want `cml` to automatically be able to report the performance of
-our trained model to us after it is trained, we need to give it some statistics to work with. Below is some psedo-code that computes the accuracy and the confusion matrix of our trained model. Include this in your `train.py` file:
+our trained model to us after it is trained, we need to give it some statistics to work with. Below is some psedo-code that computes the accuracy and the confusion matrix of our trained model. Create an copy of your training script (call it `train_cml.py`) and make sure your script is also producing an classification report and confusion matrix as in the pseudo-code.
+
    ```python
    # assume we have a trained model
    import matplotlib.pyplot as plt
@@ -53,7 +54,7 @@ our trained model to us after it is trained, we need to give it some statistics 
    plt.savefig('confusion_matrix.png')
    ```
 
-2. Similar to what we have looked at until now, automazation happens using *github workflow* files. The main difference from continues integration we have looked on until now, is that we are actually going to *train* our model whenever we do a `git push`. Include th
+2. Similar to what we have looked at until now, automation happens using *github workflow* files. The main difference from continues integration we have looked on until now, is that we are actually going to *train* our model whenever we do a `git push`. Copy the following code into a new workflow (called `cml.yaml`) and add that file to the folder were you keep your workflow files.
 
     ```yaml
     name: train-my-model
@@ -78,18 +79,18 @@ our trained model to us after it is trained, we need to give it some statistics 
 
     ```
 
-3. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k) very short video on how to send yourself a pull-request with a small change. If you workflow file is executed correctly you should see `github-actions`
-commenting with a performance report on your PR.
+3. Try pushing the workflow file to your github repository and make sure that it completes. If it does not, you may need to adjust the workflow file slightly.
 
-4. (Optional) `cml` is offered by the same people behind `dvc` and it should therefore come as no surprise that these features
-   can interact with each other. If you want to deep dive into this, [here](https://cml.dev/doc/cml-with-dvc) is a great starting
-   point.
+3. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k) very short video on how to send yourself a pull-request with a small change. If you workflow file is executed correctly you should see `github-actions` commenting with a performance report on your PR.
+
+4. (Optional) `cml` is offered by the same people behind `dvc` and it should therefore come as no surprise that these features can interact with each other. If you want to deep dive into this, [here](https://cml.dev/doc/cml-with-dvc) is a great starting point.
 
 
 # Continues docker building
 
 `cml` integrates well with github and can give a taste of what a continues machine learning pipeline feels like. However, to take our applications
-to the next level we are going to 
+to the next level we are going to look at how we can automatize docker building. As you have already seen docker building can take a couple of minutes
+to build each time we do changes to our codebase. For this reason we really just want to build a new image everytime we 
 
 
 The final task we are going to automatize is docker building. 
@@ -122,5 +123,15 @@ jobs:
 ```
 
 
+    Go to [GCP consle](https://console.cloud.google.com/) and create a project.
 
-Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
+https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account
+
+    To create a service account, navigate to IAM & Admin in the left sidebar, and select Service Accounts. Click + CREATE SERVICE ACCOUNT, on the next screen, enter Service account name e.g. "MLOps", and click Create.
+
+normal
+
+  Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
+
+
+
