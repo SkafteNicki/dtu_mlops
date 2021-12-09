@@ -90,48 +90,47 @@ our trained model to us after it is trained, we need to give it some statistics 
 
 `cml` integrates well with github and can give a taste of what a continues machine learning pipeline feels like. However, to take our applications
 to the next level we are going to look at how we can automatize docker building. As you have already seen docker building can take a couple of minutes
-to build each time we do changes to our codebase. For this reason we really just want to build a new image everytime we 
+to build each time we do changes to our codebase. For this reason we really just want to build a new image everytime we do a commit of our code. Thus,
+it should come as no surprise that we can also automize the building process.
 
 
-The final task we are going to automatize is docker building. 
+### Exercises
 
-The problem with docker is that the images we are building often often takes up a couple of GBs, and we therefore need to store them somewhere 
+We are for now going to focus on automatizing out training and prediction docker images from session 3. You will most likely need to change the docker image for your training application if it contains your data e.g. you have an `COPY data/ data/` statement in it. Since the github repository does not store our data, we cannot copy it during the build process. We are later going to see how we can pull data during the build process, but this requires us to configure a cloud API storage account which will be part of session 6.
 
+1. Below is an example workflow file for building a docker image. Create one of building your training and one for building
+   your prediction docker files. You will need to adjust the file sligtly.
+   ```yaml
+   name: Create Docker Container
 
+   on: [push]
 
-```txt
-name: Create Docker Container
+   jobs:
+     mlops-container:
+       runs-on: ubuntu-latest
+       defaults:
+         run:
+           working-directory: ./week_6_github_actions
+       steps:
+         - name: Checkout
+           uses: actions/checkout@v2
+           with:
+             ref: ${{ github.ref }}
+         - name: Build container
+           run: |
+             docker build --tag inference:latest .
+   ```
+   Explain why it is better to have the two builds in seperated workflow files instead of 1.
 
-on: [push]
+2. Push the files to do your github reposatory and make sure the workflow succedes.
 
-jobs:
-  mlops-container:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./week_6_github_actions
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.ref }}
-      - name: Build container
-        run: |
-          docker network create data
-          docker build --tag inference:latest .
-          docker run -d -p 8000:8000 --network data --name inference_container inference:latest
-```
+3. (Optional) To test that the container works directly in github you can also try to include an additional
+   step that actually runs the container.
+   ```yaml
+   - name: Run container
+     run: |
+       docker run ...
+   ```
 
-
-    Go to [GCP consle](https://console.cloud.google.com/) and create a project.
-
-https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account
-
-    To create a service account, navigate to IAM & Admin in the left sidebar, and select Service Accounts. Click + CREATE SERVICE ACCOUNT, on the next screen, enter Service account name e.g. "MLOps", and click Create.
-
-normal
-
-  Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
-
-
+Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
 
