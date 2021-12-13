@@ -127,9 +127,9 @@ We are for now going to focus on automatizing out training and prediction docker
 3. (Optional) To test that the container works directly in github you can also try to include an additional
    step that actually runs the container.
    ```yaml
-   - name: Run container
-     run: |
-       docker run ...
+     - name: Run container
+       run: |
+         docker run ...
    ```
 
 Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
