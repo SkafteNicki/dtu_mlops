@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M18 - Cloud Training
+title: M18 - Using the cloud
 parent: S6 - The cloud
 nav_order: 2
 ---
 
-# Cloud training
+# Using the cloud
 {: .no_toc }
 
 <details open markdown="block">
@@ -19,7 +19,12 @@ nav_order: 2
 
 ---
 
-### Compute
+In this set of exercises we are going to get more familiar with the using some of the resources that google cloud offers.
+
+## Compute
+
+
+### Exercises
 
 We are now going to start actually using the cloud.
 
@@ -53,8 +58,16 @@ gcloud compute instances create %INSTANCE_NAME% \
   --image-project=deeplearning-platform-release
 ```
 
+## Data storage
+Another big part of cloud computing is storage of data. There are many reason that you want to store your data in the cloud including:
 
-### Data storage
+- Easily being able to share
+- Easily expand as you need more
+- Data is stored multiple locations, making sure that it is not lost in case of an emergency
+
+Cloud storage is luckily also very cheap. Google cloud only takes around $0.026 per GB per month. This means that around 1 TB of data would cost you $26 which is more than what the same amount of data would cost on Goggle Drive, but the storage in Google cloud is much more focused on enterprise where you have a need for accessing data through an API.
+
+### Exercises
 When we did the exercise on data version control, we made `dvc` work together with our own google drive to storage data. However, a big limitation of this is that we need to authentic each time we try to either push or pull the data. The reason is that we need to use an API instead which is offered through google cloud.
 
 We are going to follow the instructions from this [page](https://dvc.org/doc/user-guide/setup-google-drive-remote)
@@ -78,7 +91,12 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
 3. Now in your mnist reposatory where you have already configured dvc, we are going to change the storage from our google drive to our newly created google cloud storage.
    ```bash
-   dvc remote add -d remote_storage gs://<project-name>/<bucket-name>
+   dvc remote add -d remote_storage <output-from-gsutils>
+   ```
+
+4. The above command will change the `.dvc/config` file. Add and commit that file. Finally, push data to the cloud
+   ```bash
+   dvc push
    ```
 
 ### Container registry
