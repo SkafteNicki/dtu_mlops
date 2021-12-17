@@ -32,7 +32,7 @@ We are now going to start actually using the cloud.
 
 2. Try to `Create instance`. You will see the following image below.
    <p align="center">
-     <img src="../figures/gcp4.png" width="800" title="hover text">
+     <img src="../figures/gcp4.PNG" width="800" title="hover text">
    </p>
    Give it a meaningful name, set the location to some location that is closer to where you actually is (to reduce latency). Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute unit? 
    
@@ -74,7 +74,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
 1. Lets start by creating a data storage. On the GCP startpage, in the sidebar, click on the `Cloud Storage`. On the next page click the `Create bucket`:
    <p align="center">
-     <img src="../figures/gcp5.png" width="800" title="hover text">
+     <img src="../figures/gcp5.PNG" width="800" title="hover text">
    </p>
    Give the bucket an unique name, set it to a region close by and make it of size 20 GB as seen in the image.
 
@@ -99,10 +99,83 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
    dvc push
    ```
 
+5. Finally make sure that you can pull without having to give your credentials. The easiest way to see this is to delete the `.dvc/cache` folder that should
+   be locally on your laptop and afterwards do a `dvc pull`.
+
 ### Container registry
 
-We are now going to return to docker. We have until now seen how we can automitize building images using github actions. Now, we are going to automize the
-process of uploading the build containers to a so called `container registry.
+We are now going to return to docker. We have until now seen how we can automatize building images using github actions. Now, we are going to automatize the
+process of uploading the build containers to a so called `container registry`. Exercise more or less follows the instructions listed [here](https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions)
+but replaced with an python example.
 
-1. At the homepage of *gcp* type in `Google Container Registry API` in the search bar. Find the service and enable it.
+1. First we are going to enable a few services. Instead of doing this through the webpage, we are instead going to use `gcloud` this time.
+   Enable the following three services
+   ```bash
+   gcloud services enable cloudbuild.googleapis.com 
+   gcloud services enable run.googleapis.com 
+   gcloud services enable containerregistry.googleapis.com
+   ```
+   corresponding to the three services `Cloud Build`, `Cloud Run`, `Container Registry`
+
+2. Next we are going to create an service account. An service account is essentially the way to tell other applications how to gain access to out google cloud account
+   and services. 
+
+   1. Navigate to the `service account tab`
+      <p align="center">
+        <img src="../figures/gcp6.PNG" width="800" title="hover text">
+      </p>
+   
+   2. Next create the service account. Fill out the information as below:
+      <p align="center">
+        <img src="../figures/gcp7.PNG" width="800" title="hover text">
+      </p>
+      Note that the name should be all lowercase (not like in the image). We are here allowing the service account full to all services. In general this is bad practice and we can give very fine gained control on what service should have access to what. The corresponding `gcloud` commands for giving exact
+      access to what we need are:
+
+      ```bash
+      # this creates the service account
+      gcloud iam service-accounts create $ACCOUNT_NAME \
+         --description="Cloud Run deploy account" \
+         --display-name="Cloud-Run-Deploy"
+      # this gives the service account access to storage
+      gcloud projects add-iam-policy-binding $PROJECT_ID \
+         --member=serviceAccount:$ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com \
+         --role=roles/run.admin
+      gcloud projects add-iam-policy-binding $PROJECT_ID \
+         --member=serviceAccount:$ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com \
+         --role=roles/storage.admin
+      gcloud projects add-iam-policy-binding $PROJECT_ID \
+         --member=serviceAccount:$ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com \
+         --role=roles/iam.serviceAccountUser
+      ```
+   3. Finally, we will create a key for later use with github. See instructions below:
+      <p align="center">
+        <img src="../figures/gcp8.PNG" width="800" title="hover text">
+      </p>
+      Clicking the `create` button will prompt you to save an `.json` file. 
+      DO NOT SHARE this file with anybody. If you know anything about cryptography, this is your
+      private key.
+
+3. Next we are going to work on a simple example. Please **fork** [this reposatory](https://github.com/SkafteNicki/gcp_docker_example). The reposatory contains a simple python script that does image classification using sklearn.
+
+   1. Checkout the code and make sure you know what it does.
+
+   2. Now we are going to add secrets to the github reposatory such that it "can talk" to our service account and our
+      google cloud resources. Go to the secrets tab and begin to add the following:
+      <p align="center">
+        <img src="../figures/github_gcp.PNG" width="800" title="hover text">
+      </p>
+
+      * GCP_APP_NAME: this should be the exact name of your service. In the example above the name was `example-mlops-service`.
+      * GCP_CREDENTIALS: this should be the content of the `.json` file you downloaded after creating the service account
+      * GCP_EMAIL: this should be the email belonging to your service. It will be called something like: `<service-name>@<project-name>.iam.gserviceaccount.com` and can be seen on the service front page.
+      * GCP_PROJECT_ID: you should be able to find this on the front webpage.
+
+
+
+
+
+
+
+
 
