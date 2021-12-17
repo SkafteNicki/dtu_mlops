@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M3 - Pytorch
+title: M4 - Pytorch
 parent: S1 - Getting started
 nav_order: 4
 ---

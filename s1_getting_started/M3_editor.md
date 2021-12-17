@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M4 - Editor
+title: M3 - Editor
 parent: S1 - Getting started
 nav_order: 3
 ---
