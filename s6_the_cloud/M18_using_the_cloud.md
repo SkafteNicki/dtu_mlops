@@ -171,7 +171,57 @@ but replaced with an python example.
       * GCP_EMAIL: this should be the email belonging to your service. It will be called something like: `<service-name>@<project-name>.iam.gserviceaccount.com` and can be seen on the service front page.
       * GCP_PROJECT_ID: you should be able to find this on the front webpage.
 
+## Training 
 
+The exercises largely build on the material in this tutorial: <https://cloud.google.com/ai-platform/training/docs/getting-started-pytorch>
+
+1. Start by enabling the `AI Platform Training & Prediction API.` in the gcp webpage.
+
+2. Next lets create a dedicated storage bucket for out trained models. Instead of using the web interface, lets use the `gsutil` command:
+   ```bash
+   gsutil mb -l <LOC> gs://<BUCKET_NAME>
+   ```
+   choose `<LOC>>` as one to be one of available bucket storage locations (see this [page](https://cloud.google.com/storage/docs/locations))
+   and set `<BUCKET_NAME>` to some appropriate name like `experiment_storage`.
+
+
+3. Submit the job to `gcp`
+   ```bash
+
+   gcloud ai-platform jobs submit training <JOB_NAME> \
+   --region=us-central1 \
+   --master-image-uri=gcr.io/cloud-ml-public/training/pytorch-xla.1-10 \
+   --scale-tier=BASIC \
+   --job-dir=${JOB_DIR} \
+   --package-path=./trainer \
+   --module-name=trainer.task \
+   -- \
+   --train-files=gs://cloud-samples-data/ai-platform/chicago_taxi/training/small/taxi_trips_train.csv \
+   --eval-files=gs://cloud-samples-data/ai-platform/chicago_taxi/training/small/taxi_trips_eval.csv \
+   --num-epochs=10 \
+   --batch-size=100 \
+   --learning-rate=0.001
+   ```
+
+4. After submitting a job you should see a messege like this:
+   ```
+   Job <JOB_NAME> submitted successfully.
+   Your job is still active. You may view the status of your job with the command
+   ```
+
+   1. Call the following command
+      ```bash
+      gcloud ai-platform jobs describe <JOB_NAME>
+      ```
+      what does the command do?
+
+   2. Call the following command
+      ```bash
+      gcloud ai-platform jobs stream-logs <JOB_NAME>
+      ```
+      what does the command do?
+
+5. As a final exericse, Use the ai-platform to train your 
 
 
 

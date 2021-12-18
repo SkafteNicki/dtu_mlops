@@ -84,7 +84,7 @@ As the first step we are going to get you setup with some google cloud credits.
       ```
       this should work without any errors.
 
-   4. (Optional) If you are using VSCode you can also download the relevant [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode) called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar. 
+   5. (Optional) If you are using VSCode you can also download the relevant [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode) called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar. 
 
 
 

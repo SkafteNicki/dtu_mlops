@@ -19,8 +19,6 @@ nav_order: 1
 
 ---
 
-
-
 ## Deploying the model with torchserve
 
 Torchserve is Pytorch own framework for deploying/serving models. It can be a bit rough around the edges but
