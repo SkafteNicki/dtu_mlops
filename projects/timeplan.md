@@ -34,8 +34,8 @@ Date | Day       |  Presentation topic                 | Framework/exercise     
 -----|-----------|-------------------------------------|----------------------------------------------|----------------
 3/1  | Monday    | Deep learning software              | Terminal, Conda, IDE, Pytorch                | On-site
 4/1  | Tuesday   | MLOps: what is it?                  | Git, CookieCutter, Pep8, DVC                 | On-site
-5/1  | Wednedday | Reproduceability                    | Docker, Hydra                                | On-site
-6/1  | Thursday  | Debugging                           | Debugger, Profiler, Wandb, Pytorch Lightning | on-site
+5/1  | Wednesday | Reproducibility                     | Docker, Hydra                                | On-site
+6/1  | Thursday  | Debugging                           | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
 7/1  | Friday    | Pytorch ecosystem                   | Project work                                 | Virtual
 
 ### Week 2
@@ -48,7 +48,7 @@ comfortable on how to write distributed application and how we can run them
 Date | Day       | Presentation topic                   | Framework/exercise          | On-site/Virtual
 -----|-----------|--------------------------------------|-----------------------------|----------------
 10/1 | Monday    | Continues X                          | Pytest, Github actions, CML | On-site
-11/1 | Tuesday   | The Cloud                            | Goggle Cloud                | On-site
+11/1 | Tuesday   | The Cloud                            | Google Cloud                | On-site
 12/1 | Wednesday | Scalable applications                | Pytorch, Pytorch lightning  | On-site
 13/1 | Thursday  | -                                    | Project work                | Virtual
 14/1 | Friday    | -                                    | Project work                | Virtual
@@ -61,7 +61,7 @@ locally or in the cloud and that we have the tools to monitor how they behave ov
 
 Date | Day       | Presentation topic                   | Framework/exercise       | On-site/Virtual
 -----|-----------|--------------------------------------|--------------------------|----------------
-17/1 | Monday    | Deployment                           | Goggle Cloud, TorchServe | On-site
+17/1 | Monday    | Deployment                           | Google Cloud, TorchServe | On-site
 18/1 | Tuesday   | Monitoring                           | Kibana                   | On-site
 19/1 | Wednesday | -                                    | Project work             | Virtual
 20/1 | Thursday  | -                                    | Project work             | Virtual
