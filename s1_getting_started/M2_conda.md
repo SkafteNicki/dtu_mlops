@@ -51,27 +51,35 @@ it has build in compatible layer. In general, what works for me
    ```bash
    conda create -n "my_environment"
    ``` 
-   We really recommend that you use multiple conda environment during the course to make sure you do not mix dependencies between your exercises.
+   We really recommend that you use multiple conda environment during the course to make sure you do not 
+   mix dependencies between your exercises.
 
-3. When create a environment with `conda`, how do you specify which python version
-   it should be using?
+3. When you create an environment with `conda`, how do you specify which python version it should be using?
 
 4. Which `conda` commando gives you a list of the packages installed in the 
-   current environment (HINT: check the `conda_cheatsheet.pdf` file). How do you easily export this list to a text file? Do this, and make sure you export it to
-   a file called `enviroment.yml`. Finally, inspect the file to see what is in it.
+   current environment (HINT: check the `conda_cheatsheet.pdf` file in the `exercise_files` folder). 
 
-5. The `enviroment.yml` file you have created is one way to secure *reproducibility*
-   between users, a concept we will go over many times in the course. Try creating a new environment directly from you `enviroment.yml` file.
+   1. How do you easily export this list to a text file? Do this, and make sure you export it to
+   a file called `enviroment.yml`. 
+   
+   2. Finally, inspect the file to see what is in it.
 
-6. Which `conda` commando gives you a list of all the environments that you 
-   have created?
+   3. The `enviroment.yml` file you have created is one way to secure *reproducibility* between users, because
+   anyone should be able to get an exact copy of you enviroment if they have your `enviroment.yml` file. 
+   Try creating a new environment directly from you `enviroment.yml` file and check that the packages being
+   installed exactly matches what you originally had.
+
+6. Which `conda` commando gives you a list of all the environments that you have created?
 
 4. As the introduction states, it is fairly safe to use `pip` inside `conda` today.
-   What is the corresponding `pip` command that gives you a list of all `pip` installed packages? and how to you export this to a file called `requirements.txt`? (We will revisit requirement files at a later point)
+   What is the corresponding `pip` command that gives you a list of all `pip` installed packages? 
+   and how to you export this to a file called `requirements.txt`? 
+   (We will revisit requirement files at a later point)
 
-5. (Optional) If you look through the requirements that both `pip` and `conda` produces then you will see that it
-   is often filled with a lot more packages than what you are actually using in your project e.g. what you write import statements: `from package import module`.
-   One way to come around this is to use the package `pipreqs`, that will automatically scan your project and create a requirement file specific to that.
+5. If you look through the requirements that both `pip` and `conda` produces then you will see that it
+   is often filled with a lot more packages than what you are actually using in your project e.g. what 
+   you write import statements: `from package import module`. One way to come around this is to use the 
+   package `pipreqs`, that will automatically scan your project and create a requirement file specific to that.
    Lets try it out:
 
    1. Install `pipreqs`:
