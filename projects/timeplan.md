@@ -8,13 +8,13 @@ nav_order: 2
 
 The course runs in hybrid format, which means that some day you are expected to be at campus and other days
 it is optional. All *On-site* days start at 9:00 in the morning with an short lecture (15-30 min) that will 
-give some context about atleast one of thec topics of that day. The remaining of the day will be spend on 
+give some context about atleast one of the topics of that day. The remaining of the day will be spend on 
 solving exercises. We aim that the exercises should be able to be solved in around 4 hours, meaning that 
 you will be able to get help until 14:00. The rest of the day is dedicated to self study, which means that 
 you determine when to stop. We note that since the material is still fairly new, some exercises may take 
 less than 4 hours and some may take more.
 
-> Note 2021 version: Due to the on-going corona situaion all students can freely choose if they want to 
+> Note 2021 version: Due to the on-going corona situation all students can freely choose if they want to 
   come to campus or work from home on a day-to-day basis on all *on-site* days. 
 
 ## Virtual days
