@@ -23,20 +23,38 @@ In this set of exercises we are going to get more familiar with the using some o
 
 ## Compute
 
+The most basic service of any cloud provider is the ability to create and run virtual machines. 
+In `gcp` this service is called [Compute Engine API](https://cloud.google.com/compute/docs/reference/rest/v1).
+A virtual machine allows you to essentially run an operating system that behaves like a completely separate computer.
+There are many reasons why one to use virtual machines:
+* Virtual machines allow you to scale your operations, essentially giving you access to infinitely many individual computers
+* Virtual machines allow you to use large scale hardware. For example if you are developing an deep learning model on your
+laptop and want to know the inference time for a specific hardware configuration, you can just create a virtual machine
+with those specs and run your model.
+* Virtual machines allow you to run processes in the "background". If you want to train a model for a week or more, you
+do not want to do this on your own laptop as you cannot really move it or do anything with while it is training. Virtual
+machines allow you to just launch a job and forget about it (at least until you run out of credit).
+
+<p align="center">
+   <img src="../figures/gcp_compute_engine.png" width="800" title="hover text">
+</p>
 
 ### Exercises
 
 We are now going to start actually using the cloud.
 
-1. Enable the `Compute Engine API`. You should be able to find it in the sidebar.
+1. Enable the `Compute Engine API`. You should be able to find it in the sidebar on the homepage of `gcp`.
 
 2. Try to `Create instance`. You will see the following image below.
    <p align="center">
      <img src="../figures/gcp4.PNG" width="800" title="hover text">
    </p>
-   Give it a meaningful name, set the location to some location that is closer to where you actually is (to reduce latency). Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute unit? 
+   Give it a meaningful name, set the location to some location that is closer to where you actually is (to reduce latency). 
+   Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute unit? 
    
-3. After figuring this out, create a `e2-medium` instance (leave rest configured as default). Before clicking the `Create` button make sure to check the `Equavalent Command Line` botton. You should see a very long command that you could have typed instead to do the exact same.
+3. After figuring this out, create a `e2-medium` instance (leave rest configured as default). Before clicking the `Create` button 
+   make sure to check the `Equavalent Command Line` botton. You should see a very long command that you could have typed instead to 
+   do the exact same.
 
 4. Now in a local terminal type:
    ```bash
@@ -57,6 +75,13 @@ gcloud compute instances create %INSTANCE_NAME% \
   --image-family=%IMAGE_FAMILY% 
   --image-project=deeplearning-platform-release
 ```
+
+7. Finally, everything that you have done locally can also be achieved through the web terminal, which of cause
+   comes pre-installed with the `gcloud` command etc. 
+   <p align="center">
+     <img src="../figures/gcp_terminal.PNG" width="800" title="hover text">
+   </p>
+   Try out launching this and run some of the commands from the previous exercises.
 
 ## Data storage
 Another big part of cloud computing is storage of data. There are many reason that you want to store your data in the cloud including:
@@ -102,7 +127,13 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 5. Finally make sure that you can pull without having to give your credentials. The easiest way to see this is to delete the `.dvc/cache` folder that should
    be locally on your laptop and afterwards do a `dvc pull`.
 
-### Container registry
+## Container registry
+
+You should hopefully at this point have seen the strength of using containers e.g. Docker. They allow us 
+
+A container registry 
+
+### Exercises
 
 We are now going to return to docker. We have until now seen how we can automatize building images using github actions. Now, we are going to automatize the
 process of uploading the build containers to a so called `container registry`. Exercise more or less follows the instructions listed [here](https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions)
@@ -222,10 +253,5 @@ The exercises largely build on the material in this tutorial: <https://cloud.goo
       what does the command do?
 
 5. As a final exericse, Use the ai-platform to train your 
-
-
-
-
-
 
 
