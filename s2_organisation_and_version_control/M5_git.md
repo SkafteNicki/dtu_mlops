@@ -56,15 +56,19 @@ The most simple way to think of version control, is that it is just nodes with l
   <img src="../figures/git_branch.png" width="1000," title="hover text">
 </p>
 
-Each node, which we call a *commit* is uniquely identified by a hash string. Each node, stores what our code looked like at that point in time (when we made the commit) and using the hash codes we can easely revert to a specific point in time. 
+Each node, which we call a *commit* is uniquely identified by a hash string. Each node, stores what our code 
+looked like at that point in time (when we made the commit) and using the hash codes we can easily 
+revert to a specific point in time. 
 
-The commits are made up of local changes that we make to our code. A basic workflow for adding commits are seen below
+The commits are made up of local changes that we make to our code. A basic workflow for 
+adding commits are seen below
 
 <p align="center">
   <img src="../figures/git_structure.PNG" width="1000," title="hover text">
 </p>
 
-Assuming that we have made some changes to our local *working directory* and that we want to get this updates to be online in the *remote reposatory* we have to do the following steps:
+Assuming that we have made some changes to our local *working directory* and that we 
+want to get this updates to be online in the *remote reposatory* we have to do the following steps:
 
 * First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique hash to the code yet, and we can therefore still overwrite it.
 
@@ -97,9 +101,20 @@ Each branch can contain code that are not present on other branches. This is use
 
    6. You can always use the commando `git status` to check where you are in the process of making a commit.
 
-2. If you do not already have a cloned version of this repository belonging to the course, make sure to make one! I am continuously updating/
-   changing some of the material during the course and I therefore recommend that you each day before the lecture 
-   do a `git pull` on your local copy
+2. Make sure that you understand how to make branches, as this will allow you to try out code changes without messing with your working code. 
+   Creating a new branch can be done using:
+   ```bash
+   # create a new branch
+   git checkout -b <my_branch_name>
+   ```
+   Afterwards, you can use `git checkout` to change between branches (remember to commit your work!)
+   Try adding something (a file, a new line of code etc.) to the newly created branch, commit it and
+   try changing back to master afterwards. You should hopefully see whatever you added on the branch
+   is not present on the main branch.
+
+2. If you do not already have a cloned version of this repository belonging to the course, make sure to make one! 
+   I am continuously updating/changing some of the material during the course and I therefore recommend that you 
+   each day before the lecture do a `git pull` on your local copy
 
 3. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
    not completely untrue when you are only one or two working on a project. However, these file management 
@@ -121,20 +136,21 @@ Each branch can contain code that are not present on other branches. This is use
    4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
       When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
-
    5. Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
       choose the to compare the ```master branch``` of the original repo with the branch that you just created
-      in your own repo. Check the diff on the page to make sure that it contains the changes you have made.
+      in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
    6. Write a bit about the changes you have made and click send :)
 
-4. Finally, make sure that you understand how to make branches, as this will allow you to try out code changes without messing with your working code. Creating a new branch can be done using:
-    ```bash
-    # create a new branch
-    git checkout -b <my_branch_name>
-    ```
-    Afterwards, you can use `git checkout` to change between branches (remember to commit your work!)
+4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To mitigate this
+   we can set what is called an *remote upstream*. Take a look on this 
+   [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork)
+   , and set a remote upstream for the repository you just forked.
 
-5. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning. However, if you are using a proper editor they also have build in support for version control. We recommend getting familiar with these features (here is a tutorial for [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
+5. After setting the upstream branch, we need to pull and merge any update. Take a look on this 
+   [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) and
+   figure out how to do this.
+
+6. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning. However, if you are using a proper editor they also have build in support for version control. We recommend getting familiar with these features (here is a tutorial for [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
 Thats covers the basics of git to get you stated. In the exercise folder you can find a [git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference.
