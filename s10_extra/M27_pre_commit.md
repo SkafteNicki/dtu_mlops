@@ -21,7 +21,7 @@ nav_order: 1
 
 One of the cornerstones of working with git is remembering to commit your work often. Often committing makes sure
 that it is easier to identify and revert unwanted changes that you have introduced, because the code changes becomes
-smalle per commit.
+smaller per commit.
 
 However, as you hopefully already seen in the course there are a lot of mental task to do before you actually write
 `git commit` in the terminal. The most basic thing is of cause making sure that you have saved all your changes, and
