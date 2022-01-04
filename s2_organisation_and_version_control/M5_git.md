@@ -127,7 +127,7 @@ Each branch can contain code that are not present on other branches. This is use
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
 
-   2. Clone your local fork of the project using ```git clone```
+   2. Clone your local fork of the project using ```git clone```.
 
    3. As default your local repository will be on the ```main branch``` (HINT: you can check this with the
       ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
