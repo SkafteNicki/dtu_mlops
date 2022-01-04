@@ -25,9 +25,12 @@ nav_order: 1
   <img src="../figures/terminal_power.jpg" width="500" title="hover text">
 </p>
 
-Contrary to popular belief the terminal is not mythical being that have existed since the dawn of time. 
-Instead it was created at a time where it was not given that your computer had a graphical interface that
-you could interact with. Think of it as a text interface to your computer.
+Contrary to popular belief, the terminal is not a mythical being that has existed since the dawn of time. 
+Instead, it was created at a time where it was not given that your computer had a graphical interface that you could interact with. Think of it as a text interface to your computer.
+
+<p align="center">
+  <img src="../figures/yoda_terminal.jpg" width="500" title="hover text">
+</p>
 
 It is a well known concept to users of linux, however MAC and (especially) Windows users not so much. Having a basic understanding 
 of how to use a terminal can really help improve your workflow. We have put a cheat sheet in the `exercise_files` folder
