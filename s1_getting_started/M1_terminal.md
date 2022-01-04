@@ -69,11 +69,11 @@ Note if you already is a terminal wizard then feel free to skip the exercises be
    2. Write the following text in the script
       ```python
       if __name__ == "__main__":
-        print("Hallo world!")
+        print("Hello world!")
       ```
    3. Save the script and try to execute it
 
-   4. Afterward, try to edit the file through the terminal (change `Hallo world` to something else)
+   4. Afterward, try to edit the file through the terminal (change `Hello world` to something else)
 
 7. All terminals comes with their own programming language. The most common system is called `bash`. It can come in handy 
    being able to write simple programs in bash. For example, one case is that you want to execute multiple python programs 
