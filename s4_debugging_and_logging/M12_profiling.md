@@ -49,7 +49,8 @@ build in profiler.
    exist. Try installing `snakeviz` and load a profiled run into it (HINT: snakeviz expect the run to have the file
    format `.prof`).
 
-5. Try optimizing the run! (Hint: The data is not stored as torch tensor). After optimizing the code make sure (using `cProfile` and `snakeviz`) that the code actually runs faster.
+5. Try optimizing the run! (Hint: The data is not stored as torch tensor). After optimizing the code make sure 
+   (using `cProfile` and `snakeviz`) that the code actually runs faster.
 
 ## Pytorch profiling
 
@@ -71,42 +72,74 @@ with torch.profiler.profile(...) as prof:
 
 ### Exercises (optional)
 
-In these investigate the profiler that is build into PyTorch already. Note that these exercises requires that you have PyTorch v1.8.1 installed (or higher). You can always check which version you currently have installed by writing (in a python interpreter):
+In these investigate the profiler that is build into PyTorch already. Note that these exercises requires that you 
+have PyTorch v1.8.1 installed (or higher). You can always check which version you currently have installed by writing 
+(in a python interpreter):
 
 ```python
 import torch
 print(torch.__version__)
 ```
 
-Additionally, to display the result nicely (like `snakeviz` for `cProfile`) we are also going to use the tensorboard profiler extension
+Additionally, to display the result nicely (like `snakeviz` for `cProfile`) we are also going to use the 
+tensorboard profiler extension
 
 ```bash 
 pip install torch_tb_profiler
 ```
-
-Finally, the profiler requires that it is a Pytorch version that is build using [Kineto](https://github.com/pytorch/kineto) (the internal tool pytorch uses for profiling). This have the sad consequence that if you get the following error when
-trying to do the exercises:
-
-```bash
-Requested Kineto profiling but Kineto is not available, make sure PyTorch is built with USE_KINETO=1
-```
-
-You will sadly not be able to complete them. For this exercise we have provided the solution in form of the script `vae_mnist_pytorch_profiler.py` where we have already implemented the PyTorch profiler in the script. 
-However, try to solve the exercise yourself!
 
 1. The documentation on the new profiler is sparse but take a look at this
    [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
    and the [documentation](https://pytorch.org/docs/stable/profiler.html) which should give you an idea of 
    how to use the PyTorch profiler.
 
-2. Secondly try to implement the profile in the `vae_mnist_working.py` script from the debugging exercises 
-   (HINT: run the script with `epochs = 1`) and run the script with the profiler on.
-   
-3. Try loading the saved profiling run in tensorboard by writing
-   ```
-   tensorboard --logdir=./log  
-   ```
-   in a terminal. Inspect the results in the `pytorch_profiler` tab. What is the most computational expensive
-   part of the code? What does the profiler recommend that you improve? Can you improve something in the code?
+2. Lets try out an simple example:
 
-3. Apply the profiler to your own MNIST code.
+   1. Try to run the following code
+      ```python
+      import torch
+      import torchvision.models as models
+      from torch.profiler import profile, record_function, ProfilerActivity
+
+      model = models.resnet18()
+      inputs = torch.randn(5, 3, 224, 224)
+
+      with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
+         with record_function("model_inference"):
+            model(inputs)
+      ```
+      this will profile the `forward` pass of resnet 18 model. 
+      
+   2. Running this code will produce an `prof` object that contains all the relevant information about the profiling. 
+      Try writing the following code:
+      ```python
+      print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
+      ```
+      what operation is taking most of the cpu?
+
+   3. Try running
+      ```python
+      print(prof.key_averages(group_by_input_shape=True).table(sort_by="cpu_time_total", row_limit=30))
+      ```
+      can you see any correlation between the shape of the input and the cost of the operation?
+
+   4. (Optional) If you have a GPU you can also profile the operations on that device:
+      ```python
+      with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+         with record_function("model_inference"):
+            model(inputs)
+      ```
+
+3. The `torch.profiler.profile` function takes some additional arguments. What argument would you need to 
+   set to also profile the memory usage? (Hint: this [page](https://pytorch.org/docs/stable/profiler.html))
+   Try doing it to the simple example above and make sure to sort the sample by `self_cpu_memory_usage`.
+
+4. As mentioned we can also get a graphical output for better inspection. After having done a profiling
+   try to export the results with:
+   ```python
+   prof.export_chrome_trace("trace.json")
+   ```
+   you should be able to visualize the file by going to `chrome://tracing` in any chromium based web browser.
+
+5. Redo the steps above on the `vae_mnist_working.py` file, implementing now multiple calls to `record_function`
+   on various levels of the training. Try running the profiling and investigate if you are able to improve the code.

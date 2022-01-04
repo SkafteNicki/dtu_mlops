@@ -10,6 +10,7 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
+from torch.profiler import profile, record_function, ProfilerActivity
 
 # Model Hyperparameters
 dataset_path = 'datasets'
