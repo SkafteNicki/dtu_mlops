@@ -40,7 +40,7 @@ Start by cloning or downloading this repository
 git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 
-if you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
+If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
 exercise material for this course and lectures. Additionally, you should join our slack channel which 
 we use for communication:
 
