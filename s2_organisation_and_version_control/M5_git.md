@@ -140,7 +140,7 @@ Each branch can contain code that are not present on other branches. This is use
       choose the to compare the ```master branch``` of the original repo with the branch that you just created
       in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
-   6. Write a bit about the changes you have made and click send :)
+   6. Write a bit about the changes you have made and click `Create pull request` :)
 
 4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To mitigate this
    we can set what is called an *remote upstream*. Take a look on this 
