@@ -25,6 +25,12 @@ We are here going to focus on the organization of data science projects e.g. whe
 
 We are in this course going to use the `cookie-cutter` approach. We are not going to argue that `cookie-cutter` is better than other approaches to code organization, we are just focusing on that it is **standardized** way of creating project structures. By standardized we mean, that if two persons are both using `cookie-cutter` the layout of their code does follow some specific rules, making one able to faster get understand the other persons code. Code organization is therefore not only to make the code easier for you to maintain but also for others to read and understand.
 
+Below is seen the default code structure of cookie-cutter for data science projects.
+
+<p align="center">
+  <img src="../figures/cookie_cutter.png" width="1000," title="hover text">
+</p>
+
 ### Exercise
 
 1. Start by reading [this page](https://drivendata.github.io/cookiecutter-data-science/), as it will give you insight to why standardized code organization is important.

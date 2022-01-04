@@ -77,9 +77,10 @@ it has build in compatible layer. In general, what works for me
    (We will revisit requirement files at a later point)
 
 5. If you look through the requirements that both `pip` and `conda` produces then you will see that it
-   is often filled with a lot more packages than what you are actually using in your project e.g. what 
-   you write import statements: `from package import module`. One way to come around this is to use the 
-   package `pipreqs`, that will automatically scan your project and create a requirement file specific to that.
+   is often filled with a lot more packages than what you are actually using in your project. What you are
+   really interested in are the packages that you import in your code: `from package import module`. 
+   One way to come around this is to use the package `pipreqs`, that will automatically scan your project 
+   and create a requirement file specific to that.
    Lets try it out:
 
    1. Install `pipreqs`:
@@ -87,6 +88,6 @@ it has build in compatible layer. In general, what works for me
       pip install pipreqs
       ```
 
-   2. Either try out `pipreqs` on one of your own projects or try it out on some
-      other online project. What does the file `pipreqs` produce look like compared
-      to the files produces by either `pip` or `conda`.
+   2. Either try out `pipreqs` on one of your own projects or try it out on some other online project. 
+      What does the `requirements.txt` file `pipreqs` produce look like compared to the files produces 
+      by either `pip` or `conda`.
