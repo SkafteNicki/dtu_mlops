@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4a68e49-ce86-46d5-be57-92872e57b866" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dtu_mlops.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/4_Fashion_MNIST.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/4_Fashion_MNIST.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/5_Inference_and_Validation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/5_Inference_and_Validation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,12 +133,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
