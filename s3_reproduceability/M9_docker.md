@@ -23,7 +23,7 @@ nav_order: 1
   <img src="../figures/docker.png" width="400" title="hover text">
 </p>
 
-While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/) came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility goes beyond versioning our code with `git` and using `conda` enviroment to keep track of our python installations. To really get reproducibility we need to also capture also system level components like
+While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/) came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility goes beyond versioning our code with `git` and using `conda` environment to keep track of our python installations. To really get reproducibility we need to also capture also system level components like
 
 * operating system
 * software dependencies (other than python packages)
@@ -38,9 +38,9 @@ Docker has three main concepts: **docker file**, **docker image** and **docker c
   <img src="../figures/docker_structure.png" width="800" title="hover text">
 </p>
 
-* A **docker file** is a basic text document that contains all the commands a user could call on the commandline to run an application. This includes installing dependencies, pulling data from online storage, setting up code and what commands that you want to run (e.g. `python train.py`)
+* A **docker file** is a basic text document that contains all the commands a user could call on the command line to run an application. This includes installing dependencies, pulling data from online storage, setting up code and what commands that you want to run (e.g. `python train.py`)
 
-* Running, or more correctly *building* a docker file will create a **docker image**. An image is a lightweight, standalone/containerized, executable package of software that includes everything (appBülowsvej 17lication code, libraries, tools, dependencies etc.) necessary to make an application run. 
+* Running, or more correctly *building* a docker file will create a **docker image**. An image is a lightweight, standalone/containerized, executable package of software that includes everything (application code, libraries, tools, dependencies etc.) necessary to make an application run. 
 
 * Actually *running* an image will create a **docker container**. This means that the same image can be launched multiple times, creating multiple containers.
 
@@ -50,10 +50,10 @@ The exercises today will focus on how to construct the actual docker file, as th
 The hole point of using docker is that sharing applications becomes much easier. In general, we have two options
 
 * After creating the `Dockerfile` we can simply commit it to github (its just a text file) and then ask other users
-to simple build the image themself.
+to simple build the image by themselves.
 
 * After building the image ourself, we can choose to upload it to a *image registry* such as [Docker Hub](https://hub.docker.com/)
-where other can get our image by simply running `docker pull`, making them able to instantinius running it as a container, as shown in the figure below
+where other can get our image by simply running `docker pull`, making them able to instantaneous running it as a container, as shown in the figure below
 
  <p align="center">
    <img src="../figures/docker_share.png" width="1000" title="Credit to https://www.ravirajag.dev/blog/mlops-docker">
@@ -61,7 +61,7 @@ where other can get our image by simply running `docker pull`, making them able 
 
 ## Exercises
 
-In the following exercises we guide you how to build a docker file for your mnist reposatory that will make the training and prediction a self contained application. Please make sure that you somewhat understand each step and do not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g. with administrative privilege.
+In the following exercises we guide you how to build a docker file for your Mnist repository that will make the training and prediction a self contained application. Please make sure that you somewhat understand each step and do not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g. with administrative privilege.
 
 The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a production setting view. For example we often want to keep the size of docker image as small as possible, which we are not focusing on for these exercises.
 
