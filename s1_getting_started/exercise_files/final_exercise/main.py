@@ -3,8 +3,11 @@ import sys
 
 import torch
 
-from data import mnist
+from torch import optim, nn
 from model import MyAwesomeModel
+from data import CustomDataset
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
 
 
 class TrainOREvaluate(object):
@@ -36,7 +39,32 @@ class TrainOREvaluate(object):
         
         # TODO: Implement training loop here
         model = MyAwesomeModel()
-        train_set, _ = mnist()
+        traindata = CustomDataset(['corruptmnist/train_0.npz', 'corruptmnist/train_1.npz', 'corruptmnist/train_2.npz', 'corruptmnist/train_3.npz', 'corruptmnist/train_4.npz'])
+        trainloader = DataLoader(traindata, batch_size=32, shuffle=True)
+
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.SGD(model.parameters(), lr=0.03)
+
+        train_loss = []
+        for e in range(10):
+            running_loss = 0
+            model.train()
+            for images, labels in trainloader:
+                images = images.view(images.shape[0], -1).float()
+                optimizer.zero_grad()
+                
+                log_ps = model(images)
+                loss = criterion(log_ps, labels)
+                loss.backward()
+                optimizer.step()
+                
+                running_loss += loss.item()
+            train_loss.append(running_loss)
+            print(f'Epoch {e:2}: {running_loss / len(trainloader)}')
+        plt.plot(train_loss)
+        plt.show()
+        torch.save(model, 'trained_model.pt')
+        
         
     def evaluate(self):
         print("Evaluating until hitting the ceiling")
@@ -48,16 +76,19 @@ class TrainOREvaluate(object):
         
         # TODO: Implement evaluation logic here
         model = torch.load(args.load_model_from)
-        _, test_set = mnist()
+
+        testdata = CustomDataset('corruptmnist/test.npz')
+        testloader = DataLoader(testdata, batch_size=64, shuffle=True)
+        model.eval()
+        accuracy = 0
+        with torch.no_grad():
+            for images, labels in testloader:
+                images = images.view(images.shape[0], -1).float()
+                output = model(images)
+                top_p, top_class = output.topk(1, dim=1)
+                equals = top_class == labels.view(*top_class.shape)
+                accuracy = torch.mean(equals.type(torch.FloatTensor))
+            print(f'Accuracy: {accuracy.item()*100}%')
 
 if __name__ == '__main__':
     TrainOREvaluate()
-    
-    
-    
-    
-    
-    
-    
-    
-    
