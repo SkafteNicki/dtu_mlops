@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4a68e49-ce86-46d5-be57-92872e57b866" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/checkpoint.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/1_Tensors_in_PyTorch.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/1_Tensors_in_PyTorch.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/2_Neural_Networks_in_PyTorch.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/2_Neural_Networks_in_PyTorch.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/3_Training_Neural_Networks.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/3_Training_Neural_Networks.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dtu_mlops.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/4_Fashion_MNIST.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/4_Fashion_MNIST.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/5_Inference_and_Validation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/5_Inference_and_Validation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/6_Saving_and_Loading_Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/6_Saving_and_Loading_Models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/fc_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/fc_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/model.py" afterDir="false" />
@@ -46,7 +47,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="dtu_mlops" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -91,8 +92,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="dtu_mlops" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/main.py" />
+      <option name="PARAMETERS" value="train" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.data" />
+      <item itemvalue="Python.main" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.data" />
       </list>
     </recent_temporary>
@@ -138,18 +163,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/data.py</url>
-          <line>37</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise/main.py</url>
-          <line>48</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -160,6 +173,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dtu_mlops$data.coverage" NAME="data Coverage Results" MODIFIED="1641302581441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise" />
+    <SUITE FILE_PATH="coverage/dtu_mlops$main.coverage" NAME="main Coverage Results" MODIFIED="1641312070800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise" />
+    <SUITE FILE_PATH="coverage/dtu_mlops$data.coverage" NAME="data Coverage Results" MODIFIED="1641309747718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/s1_getting_started/exercise_files/final_exercise" />
   </component>
 </project>
