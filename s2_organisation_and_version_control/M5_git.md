@@ -31,7 +31,7 @@ For a full explanation please see this [page](https://git-scm.com/book/en/v2/Get
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
 hosting repositories but that does not mean that they are the only one providing free repository hosting (see [bitbucket](https://bitbucket.org/product/ or [gitlab](https://about.gitlab.com/)) for some other examples).
 
-That said we will be using git+github throughout this course. It is a requirement for passing this course that you create a public repository with your code and use git to upload any code changes. How much you choose to integrate this into your own projects depends, but you are at least expected to be familiar with git+github.
+That said we will be using git and github throughout this course. It is a requirement for passing this course that you create a public repository with your code and use git to upload any code changes. How much you choose to integrate this into your own projects depends, but you are at least expected to be familiar with git+github.
 
 ## Initial config
 
