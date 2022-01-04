@@ -1,0 +1,35 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="22">
+            <item index="0" class="java.lang.String" itemvalue="pyarrow" />
+            <item index="1" class="java.lang.String" itemvalue="pydot" />
+            <item index="2" class="java.lang.String" itemvalue="joblib" />
+            <item index="3" class="java.lang.String" itemvalue="scikit-learn" />
+            <item index="4" class="java.lang.String" itemvalue="lz4" />
+            <item index="5" class="java.lang.String" itemvalue="hyperopt" />
+            <item index="6" class="java.lang.String" itemvalue="pyspark" />
+            <item index="7" class="java.lang.String" itemvalue="vaex" />
+            <item index="8" class="java.lang.String" itemvalue="numpy" />
+            <item index="9" class="java.lang.String" itemvalue="zstandard" />
+            <item index="10" class="java.lang.String" itemvalue="pandas" />
+            <item index="11" class="java.lang.String" itemvalue="prettytable" />
+            <item index="12" class="java.lang.String" itemvalue="zstd" />
+            <item index="13" class="java.lang.String" itemvalue="tables" />
+            <item index="14" class="java.lang.String" itemvalue="tensorflow" />
+            <item index="15" class="java.lang.String" itemvalue="seaborn" />
+            <item index="16" class="java.lang.String" itemvalue="scikit-optimize" />
+            <item index="17" class="java.lang.String" itemvalue="librosa" />
+            <item index="18" class="java.lang.String" itemvalue="tune-sklearn" />
+            <item index="19" class="java.lang.String" itemvalue="lightgbm" />
+            <item index="20" class="java.lang.String" itemvalue="xgboost" />
+            <item index="21" class="java.lang.String" itemvalue="ray" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
