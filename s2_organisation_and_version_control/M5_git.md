@@ -136,6 +136,8 @@ Each branch can contain code that are not present on other branches. This is use
    4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
       When you have made the changes, do the standard git cycle: ```add -> commit -> push```
 
+   French modification : 'j'adore les baguettes' 
+   
    5. Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
       choose the to compare the ```master branch``` of the original repo with the branch that you just created
       in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
