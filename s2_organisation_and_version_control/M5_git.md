@@ -19,12 +19,12 @@ nav_order: 1
 
 ---
 
-Proper collaboration with other people will require that you can work on the same codebase in a organized manner.
+Proper collaboration with other people will require that you can work on the same codebase in an	 organized manner.
 This is the reason that **version control** exist. Simply stated, it is a way to keep track of:
 
 * Who made changes to the code
 * When did the change happen
-* What changes where made
+* What changes were made
 
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
@@ -68,7 +68,7 @@ adding commits are seen below
 </p>
 
 Assuming that we have made some changes to our local *working directory* and that we 
-want to get this updates to be online in the *remote reposatory* we have to do the following steps:
+want to get this updates to be online in the *remote repository* we have to do the following steps:
 
 * First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique hash to the code yet, and we can therefore still overwrite it.
 
