@@ -59,7 +59,7 @@ repos:
     -   id: check-added-large-files
 ```
 the file structure is very simple:
-* It start by listing the reposatories where we want to get our pre-commits from, in this case <https://github.com/pre-commit/pre-commit-hooks> (this repo contains a large collection of pre-commit hooks)
+* It starts by listing the reposatories where we want to get our pre-commits from, in this case <https://github.com/pre-commit/pre-commit-hooks> (this repo contains a large collection of pre-commit hooks)
 * Next is defined what pre-commit hooks that we want to get by specifying the `id` of the different hooks. The `id` corresponds to an `id` in this file: <https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-hooks.yaml>
 
 When we are done defining our `.pre-commit-config.yaml` we just need to install it
