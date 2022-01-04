@@ -87,13 +87,10 @@ Final exercise for today is making a project description. Write around half to o
 The project description will serve as an guideline for us at the exam that you have somewhat reached the goals that you set out to do. 
 
 By the end of the day (17:00) you should upload your project description (in the `README.md` file) + whatever you have done on the project
-until now to github. When this is done one of your group members should send a email to **nsde@dtu.dk** with:
+until now to a github repository. When this you have done this, on DTU Learn go to assignments and hand in (as a group) the project description.
 
-* Link to github page
-* The study number of all members of the group
-* Your project description
-
-We will briefly look over your github repository and project description to check that everything is fine.
+We will briefly (before next Monday) look over your github repository and project description to check that everything is fine. If we have
+any questions/concerns we will contact you.
 
 ## Project checklist
 
@@ -104,35 +101,74 @@ point on the checklist for the exam.
 
 - [ ] Create a git repository
 - [ ] Make sure that all team members have write access to the github repository
-- [ ] Create a dedicated environment for you project to keep track of your packages
+- [ ] Create a dedicated environment for you project to keep track of your packages (using conda)
 - [ ] Create the initial file structure using cookiecutter
 - [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and 
 - [ ] Add a model file and a training script and get that running
-- [ ] When you have something that works somewhat, remember at some point to to some profiling and see if you can optimize your code
 - [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-- [ ] Write unit tests for some part of the codebase and calculate the 
-- [ ] Get some continues integration running on the github repository
-- [ ] Use either tensorboard or wandb to log training progress and other important metrics/artifacts in your code
-- [ ] Remember to comply with good coding practices (`pep8`) while doing the project 
+- [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+- [ ] Do a bit of code typing and remember to document essential parts of your code
+- [ ] Setup version control for your data or part of your data
+- [ ] Construct one or multiple docker files for your code
+- [ ] Build the docker files locally and make sure they work as intended
+- [ ] Write one or multiple configurations files for your experiments
+- [ ] Used Hydra to load the configurations and manage your hyperparameters
+- [ ] When you have something that works somewhat, remember at some point to to some profiling and see if you can optimize your code
+- [ ] Use wandb to log training progress and other important metrics/artifacts in your code
+- [ ] Use pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-- [ ] Setup and use Azure to train your model
-- [ ] Played around with distributed data loading
-- [ ] (not curriculum) Reformat your code in the pytorch lightning format
-- [ ] Deployed your model using Azure
-- [ ] Checked how robust your model is towards data drifting
-- [ ] Deployed your model locally using TorchServe
+- [ ] Write unit tests related to the data part of your code
+- [ ] Write unit tests related to model construction
+- [ ] Calculate the coverage.
+- [ ] Get some continues integration running on the github repository
+- [ ] (optional) Create a new project on `gcp` and invite all group members to it
+- [ ] Create a data storage on `gcp` for you data
+- [ ] Create a trigger workflow for automatically building your docker images
+- [ ] Get your model training on `gcp`
+- [ ] Play around with distributed data loading
+- [ ] (optional) Play around with distributed model training
+- [ ] Play around with quantization and compilation for you trained models
 
 ### Week 3
 
-- [ ] Used Optuna to run hyperparameter optimization on your model
-- [ ] Wrote one or multiple configurations files for your experiments
-- [ ] Used Hydra to load the configurations and manage your hyperparameters
+- [ ] Deployed your model locally using TorchServe
+- [ ] Checked how robust your model is towards data drifting
+- [ ] Deployed your model using `gcp`
+- [ ] Monitored the system of your deployed model
+- [ ] Monitored the performance of your deployed model
 
 ### Additional
 
 - [ ] Revisit your initial project description. Did the project turn out as you wanted?
 - [ ] Make sure all group members have a understanding about all parts of the project
-- [ ] Created a powerpoint presentation explaining your project
+- [ ] Create a presentation explaining your project
 - [ ] Uploaded all your code to github
+- [ ] (extra) Implemented pre-commit hooks for your project reposatory
+- [ ] (extra) Used Optuna to run hyperparameter optimization on your model
+
+## Exam and Presentation
+
+The exam includes:
+*	6 min presentation
+*	10 min discussion
+
+For the presentation we are going to keep a fairly strict format to get the exam rolling. 
+Therefore, please create a presentation with the following 5 slides (+- 1 slide if you need it):
+
+1.	Problem description: What problem is your model trying to solve?
+2.	Model description: What kind of model are you using?
+3.	Data description: What does your data look like (where did you get it from, size)?
+4.	Framework: How did you include the framework that you choose to work with?
+5.	Use case: Show something from the course that you think you did very well! 
+    As this is a practical course you are also free to give a live demo. Examples:
+
+    * Did you really use the cookiecutter structure?
+    * Did you make good use of `gcp` for your project?
+    * Show (live) that you have deployed your model
+
+The last slide will be used as springboard to talk about how you have used all the other 
+tools taught in the course. Please have both your presentation and webpage with your project 
+github repository and the main `gcp` account used ready before the exam so we can keep the 
+time plan.
