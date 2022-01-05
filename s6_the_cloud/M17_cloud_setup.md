@@ -19,7 +19,7 @@ nav_order: 1
 
 ---
 
-Google cloud project is the cloud service provided by google. The key concept, or selling point, of any cloud provider is the idea of near-infinite resources. Without the cloud it simply is not feasible to do many modern deep learning and machine learning tasks because they cannot be scaled locally.
+Google cloud project is the cloud service provided by Google. The key concept, or selling point, of any cloud provider is the idea of near-infinite resources. Without the cloud it simply is not feasible to do many modern deep learning and machine learning tasks because they cannot be scaled locally.
 
 The image below shows all the different services that the google cloud platform offers. The ones marked in red is the onces we are actually going to investigate in this course. Therefore, if you get done with exercises early I highly recommend that you deep dive more into the google cloud platform.
 
