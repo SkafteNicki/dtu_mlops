@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M7 - Good coding practice
-parent: S2 - Organisation and version control
+parent: S2 - Organization and version control
 nav_order: 3
 ---
 

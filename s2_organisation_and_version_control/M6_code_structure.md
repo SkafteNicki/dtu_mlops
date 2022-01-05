@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M6 - Code structure
-parent: S2 - Organisation and version control
+parent: S2 - Organization and version control
 nav_order: 2
 ---
 
@@ -53,12 +53,17 @@ Below is seen the default code structure of cookie-cutter for data science proje
   in this way paths (for saving and loading files) are always relative to the root.
 
 4. After having created your project we are going to install it as a package in our conda enviroment. Either run 
-    ```bash
-    # install in a terminal in your conda env
-    pip install -e .
-    # or 
-    conda develop .
-	```
+   ```bash
+   # install in a terminal in your conda env
+   pip install -e .
+   # or 
+   conda develop .
+	 ```
+   In addition you may need to run
+   ```bash
+   pip install -r requirements.txt
+   ```
+   to install additional packages required by `cookie-cutter`.
 
 5. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data files in `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this intermediate representation to the `data/processed` folder. 
 
