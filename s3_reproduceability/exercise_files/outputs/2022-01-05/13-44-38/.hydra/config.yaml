@@ -1,0 +1,9 @@
+experiment:
+  dataset_path: ~/datasets
+  x_dim: 784
+  hidden_dim: 400
+  latent_dim: 20
+  batch_size: 16
+  lr: 0.01
+  n_epochs: 20
+  seed: 123
