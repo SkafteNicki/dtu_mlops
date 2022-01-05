@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M8 - Data Version Control
-parent: S2 - Organisation and version control
+parent: S2 - Organization and version control
 nav_order: 4
 ---
 

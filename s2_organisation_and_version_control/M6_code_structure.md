@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M6 - Code structure
-parent: S2 - Organisation and version control
+parent: S2 - Organization and version control
 nav_order: 2
 ---
 
