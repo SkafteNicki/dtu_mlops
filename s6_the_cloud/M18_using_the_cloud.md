@@ -114,7 +114,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
    pip install dvc[gs]
    ```
 
-3. Now in your mnist reposatory where you have already configured dvc, we are going to change the storage from our google drive to our newly created google cloud storage.
+3. Now in your mnist repository where you have already configured dvc, we are going to change the storage from our google drive to our newly created google cloud storage.
    ```bash
    dvc remote add -d remote_storage <output-from-gsutils>
    ```
@@ -187,11 +187,11 @@ but replaced with an python example.
       DO NOT SHARE this file with anybody. If you know anything about cryptography, this is your
       private key.
 
-3. Next we are going to work on a simple example. Please **fork** [this reposatory](https://github.com/SkafteNicki/gcp_docker_example). The reposatory contains a simple python script that does image classification using sklearn.
+3. Next we are going to work on a simple example. Please **fork** [this repository](https://github.com/SkafteNicki/gcp_docker_example). The repository contains a simple python script that does image classification using sklearn.
 
    1. Checkout the code and make sure you know what it does.
 
-   2. Now we are going to add secrets to the github reposatory such that it "can talk" to our service account and our
+   2. Now we are going to add secrets to the github repository such that it "can talk" to our service account and our
       google cloud resources. Go to the secrets tab and begin to add the following:
       <p align="center">
         <img src="../figures/github_gcp.PNG" width="800" title="hover text">

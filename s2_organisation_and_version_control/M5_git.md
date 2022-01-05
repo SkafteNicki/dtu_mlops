@@ -72,7 +72,7 @@ want to get this updates to be online in the *remote repository* we have to do t
 
 * First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique hash to the code yet, and we can therefore still overwrite it.
 
-* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally add a note to the graph. It is important again, that we have not pushed the commit to the online *repository` yet.
+* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
 
 * Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our commit gets online
 

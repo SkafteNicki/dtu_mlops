@@ -101,7 +101,7 @@ contains excellent tutorials.
 8. After completing the above steps, it is very easy for others (or yourself) to get setup with both
    code and data by simply running
    ```bash
-   git clone <my_reposatory>
+   git clone <my_repository>
    dvc pull
    ```
    (assuming that you give them access right to the folder in your drive). Try doing this (in some other location 
