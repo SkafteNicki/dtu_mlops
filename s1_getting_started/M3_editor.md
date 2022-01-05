@@ -59,7 +59,7 @@ The main components of VS code are:
 
  The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
  if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
- (one for windows and one for mac/linux), that can give you an easy overview of the different macros in vs code. The
+ (one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in vs code. The
  following exercises are just to get you started but you can find many more tutorials [here](https://code.visualstudio.com/docs/python/python-tutorial).
 
 2. VS code is a general editor for many languages and to get proper *python* support we need to install some
