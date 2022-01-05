@@ -19,12 +19,12 @@ nav_order: 1
 
 ---
 
-Proper collaboration with other people will require that you can work on the same codebase in a organized manner.
+Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
 This is the reason that **version control** exist. Simply stated, it is a way to keep track of:
 
 * Who made changes to the code
 * When did the change happen
-* What changes where made
+* What changes were made
 
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
