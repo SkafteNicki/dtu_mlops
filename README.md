@@ -18,7 +18,7 @@ permalink: /
 
 ## Course details
 
-* Course responsable
+* Course responsible
     * Postdoc Nicki Skafte Detlefsen, nsde@dtu.dk
     * Professor Søren Hauberg, sohau@dtu.dk
 * 5 ECTS
@@ -29,7 +29,7 @@ permalink: /
 * Recommended prerequisites: [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or experience
 with the following:
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.) and 
-    basic knowledge about deep learning (backpropagation, convolutional neural network, auto-encoders ect.)
+    basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
     * Coding in [Pytorch](https://pytorch.org/)
 
 ## Course setup
@@ -40,7 +40,7 @@ Start by cloning or downloading this repository
 git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 
-if you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
+If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
 exercise material for this course and lectures. Additionally, you should join our slack channel which 
 we use for communication:
 
@@ -48,9 +48,9 @@ we use for communication:
 
 ## MLOps: What is it?
 
-Machine Learning Operations (MLOps) is rather new field that has seen its uprise as machine learning and particular deep
+Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particular deep
 learning has become a technology that is widely available. The term itself is a compound of "machine learning" and "operations"
-and covers everything that has to do with the management of production ML lifecycle. 
+and covers everything that has to do with the management of the production ML lifecycle. 
 
 The lifecycle of production ML can largely be divided into three phases:
 

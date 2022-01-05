@@ -172,7 +172,7 @@ If you are using `VScode` then we recommend install the [docker VCcode extension
 
 13. We are now ready to building our docker file into a docker image
     ```bash
-    docker build -f train.dockerfile . -t trainer:latest
+    docker build -f trainer.dockerfile . -t trainer:latest
     ```
     please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and the `-t trainer:latest` is the respective name and tag that we se afterwards when running `docker images` (see image below). Please note that building a docker image can take a couple of minutes.
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M5 - Git
-parent: S2 - Organisation and version control
+parent: S2 - Organization and version control
 nav_order: 1
 ---
 
@@ -76,7 +76,7 @@ want to get this updates to be online in the *remote repository* we have to do t
 
 * Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our commit gets online
 
-Ofcause, the real power of version control is the ability to make branches, as in the image below
+Of course, the real power of version control is the ability to make branches, as in the image below
 
 <p align="center">
   <img src="../figures/git_branches.png" width="1000," title="hover text">
@@ -127,7 +127,7 @@ Each branch can contain code that are not present on other branches. This is use
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
 
-   2. Clone your local fork of the project using ```git clone```
+   2. Clone your local fork of the project using ```git clone```.
 
    3. As default your local repository will be on the ```main branch``` (HINT: you can check this with the
       ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
