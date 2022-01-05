@@ -71,5 +71,5 @@ class MyAwesomeConvolutionalModel(nn.Module):
         #print(x.size())
         x = F.relu(self.fc1(x))
         x = F.log_softmax(self.l_out(x), dim = 1)
-        pip install black
+        
         return x
