@@ -4,5 +4,5 @@ click==8.0.3
 matplotlib==3.5.1
 numpy==1.22.0
 setuptools==58.1.0
-torch==1.10.1 -f https://download.pytorch.org/whl/nightly/cu102/torch_nightly.html
-torchvision==0.11.2 -f https://download.pytorch.org/whl/nightly/cu102/torch_nightly.html
+torch==1.10.1 #-f https://download.pytorch.org/whl/nightly/cu102/torch_nightly.html
+torchvision==0.11.2 #-f https://download.pytorch.org/whl/nightly/cu102/torch_nightly.html
