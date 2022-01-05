@@ -67,7 +67,10 @@ The exercises today are only an introduction to docker and some of the steps are
 
 If you are using `VScode` then we recommend install the [docker VCcode extension](https://code.visualstudio.com/docs/containers/overview) for easy getting an overview of which images have been build and which are running. Additionally the extension named *Remote - Containers* may also be beneficial for you to download.
 
-1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through depends on your operating system. Windows users that have not installed WSL yet are going to have to do it now.
+1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through depends on your operating system. 
+   For Windows and Mac we recommend they install *Docker desktop*, which comes with a graphical user interface (GUI) for quickly viewing docker images 
+   and docker containers currently build/in-use. Windows users that have not installed WSL yet are going to have to do it now (as docker need it as 
+   backend for starting virtual machines) but you do not need to install docker in WSL.
 
 2. Try running the following to confirm that your installation is working:
    ```bash
@@ -165,10 +168,11 @@ If you are using `VScode` then we recommend install the [docker VCcode extension
        the `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to docker.
 
     3. Finally, we are going to name our training script as the *entrypoint* for our docker image. The *entrypoint* is the application that we want to run when the image is being executed:
-      ```docker
-      ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
-      ```
-      the `"u"` here makes sure that any output from our script e.g. any `print(...)` statements gets redirected to out consol. If not included you would need to use `docker logs` to inspect your run.
+       ```docker
+       ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
+       ```
+       the `"u"` here makes sure that any output from our script e.g. any `print(...)` statements gets redirected to out consol. 
+       If not included you would need to use `docker logs` to inspect your run.
 
 13. We are now ready to building our docker file into a docker image
     ```bash
@@ -208,54 +212,54 @@ If you are using `VScode` then we recommend install the [docker VCcode extension
 
 16. Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start the image in interactive mode:
     ```bash
-    docker run -it --entrypoint sh {container_name}:{container_tag}
+    docker run -it --entrypoint sh {image_name}:{image_name}
     ```
 
 17. With training done we also need to write an application for prediction. Create a new docker image called `predict.dockerfile`. This file should call your `src/models/predict_model.py` script instead. This image will need some trained model weights to work. Feel free to either includes these during the build process or mount them afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if you are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably need to look something like
-```bash
-docker run --name predict --rm \
-  -v %cd%/trained_model.pt:/models/trained_model.pt \  # mount trained model file
-  -v %cd%/data/example_images.npy:/example_images.npy \  # mount data we want to predict on
-  predict:latest \
-  ../../models/trained_model.pt \  # argument to script, path relative to script location in container
-  ../../example_images.npy
-```
+    ```bash
+    docker run --name predict --rm \
+      -v %cd%/trained_model.pt:/models/trained_model.pt \  # mount trained model file
+      -v %cd%/data/example_images.npy:/example_images.npy \  # mount data we want to predict on
+      predict:latest \
+      ../../models/trained_model.pt \  # argument to script, path relative to script location in container
+      ../../example_images.npy
+    ```
 
 18. By default a virtual machine created by docker only have access to your `cpu` and not your `gpu`. While you do not necessarily have a laptop with a GPU that supports training of neural network (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage of a GPU if you were to run this on a machine in the future that have a GPU (e.g. in the cloud). Luckily for us there is someone else that have already done the hard part and shared their work through [Docker hub](https://hub.docker.com/).
 
-   1. Go to Docker hub and find the hub page belonging to this person: `anibali`. It both contains base images with and without CUDA support.
+    1. Go to Docker hub and find the hub page belonging to this person: `anibali`. It both contains base images with and without CUDA support.
 
-   2. Next pull a relevant image. The relevant command is
-      ```bash
-      docker pull anibali/pytorch:{version}-{cuda}
-      ```
-      where `{version}` refers to the version of pytorch that you want and `{cuda}` is the specific cuda version you want. Some examples
-      ```bash
-      docker pull anibali/pytorch:1.8.1-cuda11.1  # pytorch 1.8.1 with cuda 11.1
-      docker pull anibali/pytorch:1.10.0-nocuda  # pytorch 1.10.0 with no cuda support
-      docker pull anibali/pytorch  # get the latest version of pytorch with 
-      ```
+    2. Next pull a relevant image. The relevant command is
+       ```bash
+       docker pull anibali/pytorch:{version}-{cuda}
+       ```
+       where `{version}` refers to the version of pytorch that you want and `{cuda}` is the specific cuda version you want. Some examples
+       ```bash
+       docker pull anibali/pytorch:1.8.1-cuda11.1  # pytorch 1.8.1 with cuda 11.1
+       docker pull anibali/pytorch:1.10.0-nocuda  # pytorch 1.10.0 with no cuda support
+       docker pull anibali/pytorch  # get the latest version of pytorch with 
+       ```
 
-   3. Lets say that we just wanted to execute an simple `Pytorch` application. Then we can use these base images directly
-      ```bash
-       docker run --rm -it --init \
-         --gpus=all \  # only if cuda version
-         --ipc=host \  # only if using multiprocessing
-         --user="$(id -u):$(id -g)" \  # optional, useful for writing files with correct ownership
-         --volume="$PWD:/app" \  # optional, mount additional files
-         {pulled_docker_image_name} python3 main.py
-      ```
-      try executing the `pytorch_docker.py` file from this sessions exercise folder with the pulled docker image.
-      This script should only exit successfully if the image indeed contains an Pytorch installation.
+    3. Lets say that we just wanted to execute an simple `Pytorch` application. Then we can use these base images directly
+       ```bash
+        docker run --rm -it --init \
+          --gpus=all \  # only if cuda version
+          --ipc=host \  # only if using multiprocessing
+          --user="$(id -u):$(id -g)" \  # optional, useful for writing files with correct ownership
+          --volume="$PWD:/app" \  # optional, mount additional files
+          {pulled_docker_image_name} python3 main.py
+       ```
+       try executing the `pytorch_docker.py` file from this sessions exercise folder with the pulled docker image.
+       This script should only exit successfully if the image indeed contains an Pytorch installation.
   
-   4. Finally, we can also use these Pytorch images for building our own images. We simply need to change the first line in our docker files from
-      ```docker
-      FROM python:3.7-slim
-      ```
-      to
-      ```docker
-      FROM anibali/pytorch:1.8.1-cuda11.1-ubuntu20.04  # or whatever image you want to use
-      ```
-      Try building a new image doing this. Make sure that you do not end up downloading Pytorch again when installing the requirements during the build process.
+    4. Finally, we can also use these Pytorch images for building our own images. We simply need to change the first line in our docker files from
+       ```docker
+       FROM python:3.7-slim
+       ```
+       to
+       ```docker
+       FROM anibali/pytorch:1.8.1-cuda11.1-ubuntu20.04  # or whatever image you want to use
+       ```
+       Try building a new image doing this. Make sure that you do not end up downloading Pytorch again when installing the requirements during the build process.
 
 The covers the absolute minimum you should know about docker to get a working image and container. That said, if you are actively going to be using docker in the near future, one thing to consider is the image size. Even these simple images that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the image size for you or your end user.
