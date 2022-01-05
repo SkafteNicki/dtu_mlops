@@ -19,7 +19,7 @@ nav_order: 2
 
 ---
 
-The continues X we have looked at until now is what we can consider "classical" continues integration. We are now gonna change gear and look at **continues machine learning**. As the name may suggest we are now focusing on automatizing actual machine learning processes (compared to automatizing unit testing). The automatization we are going to look at here is reporting of model performance whenever we push changes to our github reposatory.
+The continues X we have looked at until now is what we can consider "classical" continues integration. We are now gonna change gear and look at **continues machine learning**. As the name may suggest we are now focusing on automatizing actual machine learning processes (compared to automatizing unit testing). The automatization we are going to look at here is reporting of model performance whenever we push changes to our github repository.
 
 We are going to use `cml` by [iterative.ai](https://iterative.ai/) for this session. Strictly speaking, then `cml` is not a necessary component for CML but it offers tools to easily get a report about how a specific run performed. If we where just interested in trigging model training everytime we do a `git push` we essentially just need to include
 ```yaml
@@ -122,7 +122,7 @@ We are for now going to focus on automatizing out training and prediction docker
    ```
    Explain why it is better to have the two builds in seperated workflow files instead of 1.
 
-2. Push the files to do your github reposatory and make sure the workflow succedes.
+2. Push the files to do your github repository and make sure the workflow succedes.
 
 3. (Optional) To test that the container works directly in github you can also try to include an additional
    step that actually runs the container.
