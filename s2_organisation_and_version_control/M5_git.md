@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M5 - Git
-parent: S2 - Organisation and version control
+parent: S2 - Organization and version control
 nav_order: 1
 ---
 
@@ -68,15 +68,15 @@ adding commits are seen below
 </p>
 
 Assuming that we have made some changes to our local *working directory* and that we 
-want to get this updates to be online in the *remote reposatory* we have to do the following steps:
+want to get this updates to be online in the *remote repository* we have to do the following steps:
 
 * First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique hash to the code yet, and we can therefore still overwrite it.
 
-* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally add a note to the graph. It is important again, that we have not pushed the commit to the online *reposatory` yet.
+* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
 
 * Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our commit gets online
 
-Ofcause, the real power of version control is the ability to make branches, as in the image below
+Of cause, the real power of version control is the ability to make branches, as in the image below
 
 <p align="center">
   <img src="../figures/git_branches.png" width="1000," title="hover text">
@@ -127,7 +127,7 @@ Each branch can contain code that are not present on other branches. This is use
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
 
-   2. Clone your local fork of the project using ```git clone```
+   2. Clone your local fork of the project using ```git clone```.
 
    3. As default your local repository will be on the ```main branch``` (HINT: you can check this with the
       ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
