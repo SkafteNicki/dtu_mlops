@@ -110,7 +110,7 @@ for epoch in range(epochs):
                 warmup=2,
                 active=6,
                 repeat=1),
-        on_trace_ready=torch.profiler.tensorboard_trace_handler(''),
+        on_trace_ready=torch.profiler.tensorboard_trace_handler('profiler'),
         with_stack=True
     ) as profiler:
         overall_loss = 0
@@ -121,12 +121,14 @@ for epoch in range(epochs):
             optimizer.zero_grad()
     
             x_hat, mean, log_var = model(x)
-            loss = loss_function(x, x_hat, mean, log_var)
+            with record_function("model_loss"):
+                loss = loss_function(x, x_hat, mean, log_var)
             
             overall_loss += loss.item()
             
-            loss.backward()
-            optimizer.step()
+            with record_function("backward"):
+                loss.backward()
+                optimizer.step()
             profiler.step()
             
         print("\tEpoch", epoch + 1, "complete!", "\tAverage Loss: ", overall_loss / (batch_idx*batch_size))    

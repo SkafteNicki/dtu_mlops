@@ -57,7 +57,7 @@ def train():
             return z, mean, log_var
         
         def reparameterization(self, mean, std,):
-            epsilon = torch.rand_like(std)
+            epsilon = torch.randn_like(std)
             
             z = mean + std*epsilon
             
@@ -73,7 +73,6 @@ def train():
             h     = torch.relu(self.FC_hidden(x))
             x_hat = torch.sigmoid(self.FC_output(h))
             return x_hat
-        
         
     class Model(nn.Module):
         def __init__(self, Encoder, Decoder):
