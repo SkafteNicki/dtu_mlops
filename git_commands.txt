@@ -1,0 +1,7 @@
+git fetch origin
+
+git fetch upstream
+
+git pull
+
+git merge upstream/main
