@@ -38,7 +38,7 @@ build in profiler.
 
 1. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
    script using the `-m` arg
-   `python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py) `
+   `python -m cProfile -o <output_file> -s <sort_order> myscript.py`
    
 2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
 
