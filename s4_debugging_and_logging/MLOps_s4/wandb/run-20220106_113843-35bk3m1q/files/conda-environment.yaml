@@ -1,0 +1,4 @@
+name: MLOps_ex
+channels:
+  - defaults
+prefix: C:\Users\sdoni\Anaconda3\envs\MLOps_ex\envs\MLOps_ex

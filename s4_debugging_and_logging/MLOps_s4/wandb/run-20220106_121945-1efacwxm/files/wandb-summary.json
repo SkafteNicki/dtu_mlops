@@ -1,0 +1,1 @@
+{"loss": 0.02880243050015491, "_runtime": 448, "_timestamp": 1641468433, "_step": 10, "Training_Accuracy_1": {"_type": "plotly-file", "path": "media/plotly/Training_Accuracy_1_10_5ce933b6e76b713b26d9.plotly.json", "sha256": "5ce933b6e76b713b26d9b69deabbeb022a109207b001c10c67c628e3df6ecf56", "size": 8647}, "_wandb": {"runtime": 443}}

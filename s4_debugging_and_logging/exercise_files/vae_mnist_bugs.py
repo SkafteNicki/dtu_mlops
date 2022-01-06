@@ -10,17 +10,20 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
+import pdb
 
 # Model Hyperparameters
 dataset_path = 'datasets'
-cuda = True
+# CHANGE: True->False
+#pdb.set_trace()
+cuda = False 
 DEVICE = torch.device("cuda" if cuda else "cpu")
 batch_size = 100
 x_dim  = 784
 hidden_dim = 400
 latent_dim = 20
 lr = 1e-3
-epochs = 20
+epochs = 10
 
 
 # Data loading
@@ -44,9 +47,12 @@ class Encoder(nn.Module):
     def forward(self, x):
         h_       = torch.relu(self.FC_input(x))
         mean     = self.FC_mean(h_)
-        log_var  = self.FC_var(h_)                     
+        log_var  = self.FC_var(h_)   
+
+        # CHANGE: reparameterization needs var and not log_var   
+        var      = torch.exp(0.5*log_var)                
                                                       
-        z        = self.reparameterization(mean, log_var)
+        z        = self.reparameterization(mean, var)
         
         return z, mean, log_var
        
@@ -61,7 +67,8 @@ class Decoder(nn.Module):
     def __init__(self, latent_dim, hidden_dim, output_dim):
         super(Decoder, self).__init__()
         self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
-        self.FC_output = nn.Linear(latent_dim, output_dim)
+        # CHANGE: latent_dim -> hidden_dim
+        self.FC_output = nn.Linear(hidden_dim, output_dim)
         
     def forward(self, x):
         h     = torch.relu(self.FC_hidden(x))
@@ -106,7 +113,11 @@ for epoch in range(epochs):
     for batch_idx, (x, _) in enumerate(train_loader):
         x = x.view(batch_size, x_dim)
         x = x.to(DEVICE)
+        
+        # CHANGE: add zero_grad step
+        optimizer.zero_grad()
 
+        #pdb.set_trace()
         x_hat, mean, log_var = model(x)
         loss = loss_function(x, x_hat, mean, log_var)
         
@@ -126,12 +137,12 @@ with torch.no_grad():
         x_hat, _, _ = model(x)       
         break
 
-save_image(x.view(batch_size, 1, 28, 28), 'orig_data.png')
-save_image(x_hat.view(batch_size, 1, 28, 28), 'reconstructions.png')
+save_image(x.view(batch_size, 1, 28, 28), 's4_debugging_and_logging/exercise_files/orig_data.png')
+save_image(x_hat.view(batch_size, 1, 28, 28), 's4_debugging_and_logging/exercise_files/reconstructions.png')
 
 # Generate samples
 with torch.no_grad():
     noise = torch.randn(batch_size, latent_dim).to(DEVICE)
     generated_images = decoder(noise)
     
-save_image(generated_images.view(batch_size, 1, 28, 28), 'generated_sample.png')
+save_image(generated_images.view(batch_size, 1, 28, 28), 's4_debugging_and_logging/exercise_files/generated_sample.png')
