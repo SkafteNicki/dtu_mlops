@@ -29,7 +29,11 @@ Contrary to popular belief, the terminal is not a mythical being that have exist
 Instead, it was created at a time when it was not given that your computer had a graphical interface that
 you could interact with. Think of it as a text interface to your computer.
 
-It is a well known concept to users of Linux, however MAC and (especially) Windows users not so much. Having a basic understanding 
+<p align="center">
+  <img src="../figures/yoda_terminal.jpg" width="500" title="hover text">
+</p>
+
+It is a well-known concept to users of linux, however MAC and (especially) Windows users not so much. Having a basic understanding 
 of how to use a terminal can really help improve your workflow. We have put a cheat sheet in the `exercise_files` folder
 belonging to this session, that give a quick overview of the different command that can be executed in the terminal.
 
@@ -69,11 +73,11 @@ Note if you already is a terminal wizard then feel free to skip the exercises be
    2. Write the following text in the script
       ```python
       if __name__ == "__main__":
-        print("Hallo world!")
+        print("Hello world!")
       ```
    3. Save the script and try to execute it
 
-   4. Afterward, try to edit the file through the terminal (change `Hallo world` to something else)
+   4. Afterward, try to edit the file through the terminal (change `Hello world` to something else)
 
 7. All terminals come with their own programming language. The most common system is called `bash`. It can come in handy 
    being able to write simple programs in bash. For example, one case is that you want to execute multiple python programs 
