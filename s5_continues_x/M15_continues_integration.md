@@ -71,13 +71,20 @@ The following exercises should be applied to your MNIST repository
       assert that all labels are represented
       ```
 
-   2. Model testing: In a file called `tests/test_model.py` implement at least a test that
+   2. A test is only as good as the error message it gives, and by default `assert`
+      will only report that the check failed. However, we can help our self by adding strings after like
+      ```python
+      assert len(train_dataset) == 60000, "Dataset did not have the correct number of samples"
+      ```
+      Add such comments to the assert statements you just did.
+
+   3. Model testing: In a file called `tests/test_model.py` implement at least a test that
       checks for a given input with shape *X* that the output of the model have shape *Y*
         
-   3. Training testing: In a file called `tests/test_training.py` implement at least one
+   4. Training testing: In a file called `tests/test_training.py` implement at least one
       test that asserts something about your training script. You are here given free hands on what should be tested, but try to test something the risk being broken when developing the code.
         
-   4. Good code raises errors and give out warnings in appropriate places. This is often in  
+   5. Good code raises errors and give out warnings in appropriate places. This is often in  
       the case of some  invalid combination of input to your script. For example, you model could check for the size of the input given to it (see code below) to make sure it corresponds to what you are expecting. Not implementing  such errors would still result in Pytorch failing at a later point due to shape errors, however these custom errors will probably make more sense to the end user. Implement at least one raised error or warning somewhere in your code and use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
 
       ```python
@@ -119,15 +126,23 @@ The following exercises should be applied to your MNIST repository
       of the lines in your codebase that is not covered yet.
 
 ## Github actions
-Github actions are the CI solution that github provides. Each of your repositories gets 2,000 minutes of free testing per month which should be more than enough for the scope of this course (and probably all personal projects you do). Getting Github actions setup in a repository may seem complicated at first, but workflow files that you create for one repository can more or less be reused for any other repository that you have.
+Github actions are the CI solution that github provides. Each of your repositories gets 2,000 minutes 
+of free testing per month which should be more than enough for the scope of this course (and probably 
+all personal projects you do). Getting Github actions setup in a repository may seem complicated at 
+first, but workflow files that you create for one repository can more or less be reused for any 
+other repository that you have.
 
-Lets take a look at how a github workflow file is organised:
+Lets take a look at how a github workflow file is organized:
 
 * Initially we start by giving the workflow a `name`
-* Next we specify on what events the workflow should be triggered. This includes both the action (pull request, push ect) and on what branches is should activate
-* Next we list the jobs that we want to do. Jobs are by default executed in parallel but can also be dependent on each other
-* In the `runs-on` we can specify which operation system we want the workflow to run on. We also have the possibility to specify multiple.
-* Finally we have the `steps`. This is where we specify the actual commands that should be run when the workflow is executed.
+* Next we specify on what events the workflow should be triggered. This includes both the action 
+  (pull request, push ect) and on what branches is should activate
+* Next we list the jobs that we want to do. Jobs are by default executed in parallel but can 
+  also be dependent on each other
+* In the `runs-on` we can specify which operation system we want the workflow to run on. We also 
+  have the possibility to specify multiple.
+* Finally we have the `steps`. This is where we specify the actual commands that should be 
+  run when the workflow is executed.
 
 <p align="center">
   <img src="../figures/actions.png" width="1000" title="credits to https://madewithml.com/courses/mlops/cicd/#github-actions">
@@ -135,11 +150,15 @@ Lets take a look at how a github workflow file is organised:
 
 ### Exercises
 
-1. Start by creating a `.github` folder in the base of your repository. Add a subfolder to that called `workflows`
+1. Start by creating a `.github` folder in the root of your repository. 
+   Add a sub-folder to that called `workflows`.
 
-2. Go over this [page](https://docs.github.com/en/actions/guides/building-and-testing-python) that explains how to do automated testing of python code in github actions. You do not have to understand everything, but at least get a feeling of what a workflow file should look like.
+2. Go over this [page](https://docs.github.com/en/actions/guides/building-and-testing-python) 
+   that explains how to do automated testing of python code in github actions. You do not have 
+   to understand everything, but at least get a feeling of what a workflow file should look like.
    
-3. We have provided a workflow file called `tests.yml` that should do run your tests for you. Place this file in the `.github/workflows/` folder. The workflow file consist of three steps
+3. We have provided a workflow file called `tests.yml` that should run your tests for you. Place 
+   this file in the `.github/workflows/` folder. The workflow file consist of three steps
    
    * First a python environment is setup (in this case python 3.8)
    
@@ -147,28 +166,45 @@ Lets take a look at how a github workflow file is organised:
    
    * Finally, `pytest` is called and test will be run
 
-4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. The first file should contain all packages required to run your code. The second file is all *additional*  packages required to run the tests. In your simple case it may very well be that the second file is empty, however sometimes additional packages are used for testing that are not strictly required for the scripts to run.
+4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. 
+   The first file should contain all packages required to run your code. The second file is all 
+   *additional*  packages required to run the tests. In your simple case it may very well be that 
+   the second file is empty, however sometimes additional packages are used for testing that are 
+   not strictly required for the scripts to run.
    
-5. Finally, try pushing the changes to your repository. Hopefully your tests should just start, and you will after sometime see a green check mark next to hash of the commit. Also try to checkout the *Actions*  tap where you can see the history of actions run.
+5. Finally, try pushing the changes to your repository. Hopefully your tests should just start, 
+   and you will after sometime see a green check mark next to hash of the commit. Also try to 
+   checkout the *Actions*  tap where you can see the history of actions run.
 
-![action](../figures/action.PNG)
+   ![action](../figures/action.PNG)
 
-6. (Optional) Normally we develop code one operating system and just hope that it will work on other operating
+6. Normally we develop code one operating system and just hope that it will work on other operating
    systems. However, CI enables us to automatically test on other systems than ourself.
    
    1. The provided `tests.yml` only runs on one operating system. Which one?
    
-   2. Alter the file (or write a new) that executes the test on the two other main operating systems that exist
+   2. Alter the file (or write a new) that executes the test on the two other main operating 
+      systems that exist.
 
-7. As the workflow is currently setup, github actions will destroy every downloaded package when the workflow has been executed. To improve this we can take advantage of `caching`:
+7. As the workflow is currently setup, github actions will destroy every downloaded package 
+   when the workflow has been executed. To improve this we can take advantage of `caching`:
 
-   1. Figure out how to implement `caching` in your workflow file
+   1. Figure out how to implement `caching` in your workflow file. Hint: this
+      [page](https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows)
 
    2. Measure how long your workflow takes before and after adding `caching` to your workflow
 
+8. (Optional) Code coverage can also be added to the workflow file by uploading it as an artifact
+   after running the coverage. Follow the instructions in this
+   [post](https://about.codecov.io/blog/python-code-coverage-using-github-actions-and-codecov/)
+   on how to do it.
+
 ## Auto linter
 
-In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.md) of the course you where introduced to a couple of good coding practices such as being consistent with how your python packages are sorted and that your code follows certain standards. In this set of exercises we will setup github workflows that will automatically test for this. 
+In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.md) of the course 
+you where introduced to a couple of good coding practices such as being consistent with how your 
+python packages are sorted and that your code follows certain standards. In this set of exercises 
+we will setup github workflows that will automatically test for this. 
 
 1. Create a new workflow file called `isort.yml`, that implements the following three steps
 
@@ -189,3 +225,15 @@ In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.
    * Runs `flake8` on the repository
    
    (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
+
+3. Create a new workflow file  called `mypy.yml`, that implements the following three steps
+
+   * Setup python environment
+
+   * Installs `mypy`
+
+   * Runs `mypy` on the repository
+
+3. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
+   to get passing, so this exercise formally only requires you to get `isort` and `flake8`
+   passing.
