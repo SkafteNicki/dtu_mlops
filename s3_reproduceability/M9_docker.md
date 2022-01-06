@@ -228,6 +228,8 @@ If you are using `VScode` then we recommend install the [docker VCcode extension
 18. By default a virtual machine created by docker only have access to your `cpu` and not your `gpu`. While you do not necessarily have a laptop with a GPU that supports training of neural network (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage of a GPU if you were to run this on a machine in the future that have a GPU (e.g. in the cloud). Luckily for us there is someone else that have already done the hard part and shared their work through [Docker hub](https://hub.docker.com/).
 
     1. Go to Docker hub and find the hub page belonging to this person: `anibali`. It both contains base images with and without CUDA support.
+       If you want to use images with CUDA support you need to install the
+       [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
     2. Next pull a relevant image. The relevant command is
        ```bash
