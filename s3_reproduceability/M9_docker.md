@@ -252,7 +252,8 @@ If you are using `VScode` then we recommend install the [docker VCcode extension
        try executing the `pytorch_docker.py` file from this sessions exercise folder with the pulled docker image.
        This script should only exit successfully if the image indeed contains an Pytorch installation.
   
-    4. Finally, we can also use these Pytorch images for building our own images. We simply need to change the first line in our docker files from
+    4. Finally, we can also use these Pytorch images for building our own images. We simply need to change a couple of lines
+       First change the image we start from
        ```docker
        FROM python:3.7-slim
        ```
@@ -260,6 +261,29 @@ If you are using `VScode` then we recommend install the [docker VCcode extension
        ```docker
        FROM anibali/pytorch:1.8.1-cuda11.1-ubuntu20.04  # or whatever image you want to use
        ```
-       Try building a new image doing this. Make sure that you do not end up downloading Pytorch again when installing the requirements during the build process.
+       secondly we need to remove this part
+       ```docker
+       # install python 
+       RUN apt update && \
+          apt install --no-install-recommends -y build-essential gcc && \
+          apt clean && rm -rf /var/lib/apt/lists/*
+       ```
+       as it is already taken care of in the new base image (you can inspect the dockerfiles
+       [here](https://github.com/anibali/docker-pytorch/tree/master/dockerfiles)). Finally, we need
+       to change the workdir from 
+       ```docker
+       WORKDIR /
+       ```
+       to
+       ```docker
+       WORKDIR / app/ -> WORKDIR /app
+       ```
+       since the new base image assumes we work in an subfolder called `app` and not just the
+       root dir. Try building a new image doing this. Make sure that you do not end up downloading 
+       Pytorch again when installing the requirements during the build process (you probably need
+       to remove it from the requirements file).
 
-The covers the absolute minimum you should know about docker to get a working image and container. That said, if you are actively going to be using docker in the near future, one thing to consider is the image size. Even these simple images that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the image size for you or your end user.
+The covers the absolute minimum you should know about docker to get a working image and container. 
+That said, if you are actively going to be using docker in the near future, one thing to consider 
+is the image size. Even these simple images that we have build still takes up GB in size. A number 
+of optimizations steps can be taken to reduce the image size for you or your end user.

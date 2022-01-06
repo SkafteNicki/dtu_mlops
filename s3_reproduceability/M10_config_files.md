@@ -103,7 +103,7 @@ Note that we provide an solution (in the `vae_solution` folder) that can help yo
 
    1. Try changing one parameter from the command-line
       ```bash
-      python vae_mnist.py seed=1234
+      python vae_mnist.py hyperparameters.seed=1234
       ```
 
    2. Try adding one parameter from the command-line
