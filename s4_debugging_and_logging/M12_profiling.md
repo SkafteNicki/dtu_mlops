@@ -28,7 +28,7 @@ At the bare minimum, the two questions a proper profiling of your program should
 * *“How many times is each method in my code called?”*
 * *“How long do each of these methods take?”*
 
-The first question is important to priorities optimization. If two methods `A` and `B` have approximately the same runtime, but `A` is called 1000 more times than `B` we should propably spend time optimizing `A` over `B` if we want to speedup our code. The second question is gives itself, directly telling us which methods are the expensive to call.
+The first question is important to priorities optimization. If two methods `A` and `B` have approximately the same runtime, but `A` is called 1000 more times than `B` we should probably spend time optimizing `A` over `B` if we want to speedup our code. The second question is gives itself, directly telling us which methods are the expensive to call.
 
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html), pythons
@@ -54,9 +54,17 @@ build in profiler.
 
 ## Pytorch profiling
 
-Profiling machine learning code can become much more complex because we are suddenly beginning to mix different devices (CPU+GPU), that can (and should) overlap some of their computations. When profiling this kind of machine learning code we are often looking for *bottlenecks*. A bottleneck is simple the place in your code that is preventing other processes from performing their best. This is the reason that all major deep learning frameworks also include their own profilers that can help profiling more complex applications.
+Profiling machine learning code can become much more complex because we are suddenly beginning to mix different 
+devices (CPU+GPU), that can (and should) overlap some of their computations. When profiling this kind of machine 
+learning code we are often looking for *bottlenecks*. A bottleneck is simple the place in your code that is 
+preventing other processes from performing their best. This is the reason that all major deep learning 
+frameworks also include their own profilers that can help profiling more complex applications.
 
-The image below show a typical report afeter using the [build in profiler in pytorch](https://www.google.com/search?client=firefox-b-d&q=pytorch+profiling). As the image shows the profiler looks both a the `kernel` time (this is the time spend doing actual computations) and also transfer times such as `memcpy` (where we are copying data between devices). It can even analyze your code and give recommendations.
+The image below show a typical report using the 
+[build in profiler in pytorch](https://www.google.com/search?client=firefox-b-d&q=pytorch+profiling). 
+As the image shows the profiler looks both a the `kernel` time (this is the time spend doing actual computations) 
+and also transfer times such as `memcpy` (where we are copying data between devices). 
+It can even analyze your code and give recommendations.
 
 <p align="center">
   <img src="../figures/pytorch_profiler.png" width="700" title="hover text">
@@ -141,5 +149,19 @@ pip install torch_tb_profiler
    ```
    you should be able to visualize the file by going to `chrome://tracing` in any chromium based web browser.
 
-5. Redo the steps above on the `vae_mnist_working.py` file, implementing now multiple calls to `record_function`
+5. Additionally, we can also vizualize the profiling results using the profiling viewer in tensorboard. Simply
+   initialize the `profile` function with an additional argument:
+   ```python
+   from torch.profiler import profile, tensorboard_trace_handler
+   with profile(..., on_trace_ready=tensorboard_trace_handler(<profile_dir>)):
+      ...
+   ```
+   where `<profile_dir>` you choose yourself. After doing a profile you should see a file being created in the
+   chosen folder having the file extension `.pt.trace.json`. Finally, launch tensorboard and look a the profiled
+   result
+   ```bash
+   tensorboard --logdir <profile_dir>
+   ```
+   
+6. Redo the steps above on the `vae_mnist_working.py` file, implementing now multiple calls to `record_function`
    on various levels of the training. Try running the profiling and investigate if you are able to improve the code.
