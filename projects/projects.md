@@ -87,7 +87,8 @@ Final exercise for today is making a project description. Write around half to o
 The project description will serve as an guideline for us at the exam that you have somewhat reached the goals that you set out to do. 
 
 By the end of the day (17:00) you should upload your project description (in the `README.md` file) + whatever you have done on the project
-until now to a github repository. When this you have done this, on DTU Learn go to assignments and hand in (as a group) the project description.
+until now to your github repository. When this you have done this, on DTU Learn go to assignments and hand in (as a group) the link to
+your github repository.
 
 We will briefly (before next Monday) look over your github repository and project description to check that everything is fine. If we have
 any questions/concerns we will contact you.
