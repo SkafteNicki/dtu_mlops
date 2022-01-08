@@ -19,14 +19,23 @@ nav_order: 1
 
 ---
 
-Continues integration (CI) is a development practice that makes sure that updates to code are automatically tested such that it does not break existing code. If you look at the MLOps pipeline, CI is one of cornerstones of operations part. However, it should be notes that applying CI does not magically secure that your code does not break. CI is only as strong as the tests that are automatically executed. CI simply structures and automates this.
+Continues integration (CI) is a development practice that makes sure that updates to code are 
+automatically tested such that it does not break existing code. If you look at the MLOps pipeline, 
+CI is one of cornerstones of operations part. However, it should be notes that applying CI does 
+not magically secure that your code does not break. CI is only as strong as the tests that are 
+automatically executed. CI simply structures and automates this.
 
 <p align="center">
-<b> “Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.” -Martin Fowler, Chief Scientist, ThoughtWorks </b>
+   <b> 
+      “Continuous Integration doesn’t get rid of bugs, but it does make 
+      them dramatically easier to find and remove.” 
+      -Martin Fowler, Chief Scientist, ThoughtWorks 
+   </b>
 </p>
 
 <p align="center">
-  <img src="../figures/ci.png" width="600" title="credits to https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests">
+  <img src="../figures/ci.png" width="600" 
+  title="credits to https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests">
 </p>
 
 
@@ -34,7 +43,7 @@ Continues integration (CI) is a development practice that makes sure that update
 
 The first part of continues integration is writing tests. It is both a hard and tedious task to do but
 arguable the most important aspects of continues integration. Python offers a couple of different libraries
-for writing tests. We are going to use `pytest`
+for writing tests. We are going to use `pytest`.
 
 ### Exercises
 
@@ -48,7 +57,6 @@ The following exercises should be applied to your MNIST repository
    which is the testing framework that we are going to use
    
 3. Install pytest:
-
    ```
    pip install pytest
    ```
@@ -71,21 +79,20 @@ The following exercises should be applied to your MNIST repository
       assert that all labels are represented
       ```
 
-   2. A test is only as good as the error message it gives, and by default `assert`
-      will only report that the check failed. However, we can help our self by adding strings after like
-      ```python
-      assert len(train_dataset) == 60000, "Dataset did not have the correct number of samples"
-      ```
-      Add such comments to the assert statements you just did.
-
    3. Model testing: In a file called `tests/test_model.py` implement at least a test that
       checks for a given input with shape *X* that the output of the model have shape *Y*
         
    4. Training testing: In a file called `tests/test_training.py` implement at least one
-      test that asserts something about your training script. You are here given free hands on what should be tested, but try to test something the risk being broken when developing the code.
+      test that asserts something about your training script. You are here given free hands on 
+      what should be tested, but try to test something the risk being broken when developing the code.
         
    5. Good code raises errors and give out warnings in appropriate places. This is often in  
-      the case of some  invalid combination of input to your script. For example, you model could check for the size of the input given to it (see code below) to make sure it corresponds to what you are expecting. Not implementing  such errors would still result in Pytorch failing at a later point due to shape errors, however these custom errors will probably make more sense to the end user. Implement at least one raised error or warning somewhere in your code and use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
+      the case of some  invalid combination of input to your script. For example, you model 
+      could check for the size of the input given to it (see code below) to make sure it corresponds 
+      to what you are expecting. Not implementing  such errors would still result in Pytorch failing 
+      at a later point due to shape errors, however these custom errors will probably make more sense 
+      to the end user. Implement at least one raised error or warning somewhere in your code and 
+      use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
 
       ```python
       def forward(self, x: Tensor):
@@ -95,11 +102,26 @@ The following exercises should be applied to your MNIST repository
             raise ValueError('Expected each sample to have shape [1, 28, 28]')
       ```
 
-5. Finally, make sure that all your tests pass locally
+   6. A test is only as good as the error message it gives, and by default `assert`
+      will only report that the check failed. However, we can help our self and others by adding 
+      strings after `assert` like
+      ```python
+      assert len(train_dataset) == 60000, "Dataset did not have the correct number of samples"
+      ```
+      Add such comments to the assert statements you just did.
 
-6. We often want to check a function/module for various input arguments. In this case you could write the same test over and over again for the different input, but `pytest` also have build in support for this with the use of the [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html). Implement a parametrize test and make sure that it runs for different input. (HINT: you can just edit one of the test )
+5. After writing the different tests, make sure that they are passing locally.
 
-7. There really do not exist any way of measuring how good the test you have written are. However, what we can measure is the *code coverage*. Code coverage refers to the percentage of your codebase that actually gets run when all your tests are executed. Having a high coverage at least means that all your code will run when executed.
+6. We often want to check a function/module for various input arguments. In this case you could 
+   write the same test over and over again for the different input, but `pytest` also have build 
+   in support for this with the use of the 
+   [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html). 
+   Implement a parametrize test and make sure that it runs for different input. 
+
+7. There really do not exist any way of measuring how good the test you have written are. However, 
+   what we can measure is the *code coverage*. Code coverage refers to the percentage of your 
+   codebase that actually gets run when all your tests are executed. Having a high coverage
+   at least means that all your code will run when executed.
 
    1. Install coverage
       ```bash
@@ -115,8 +137,8 @@ The following exercises should be applied to your MNIST repository
       ```bash
       coverage report
       ```
-      which will give you the percentage of cover in each of your files. You can also
-      write
+      which will give you the percentage of cover in each of your files. 
+      You can also write
       ```bash
       coverage report -m
       ```
@@ -124,6 +146,11 @@ The following exercises should be applied to your MNIST repository
 
    4. Finally, try to increase the coverage by writing a new test that runs some
       of the lines in your codebase that is not covered yet.
+
+   5. Often `coverage` reports the code coverage on files that we actually do not want
+      to get a code coverage for. Figure out how to configure `coverage` to exclude
+      some files.
+
 
 ## Github actions
 Github actions are the CI solution that github provides. Each of your repositories gets 2,000 minutes 
@@ -237,3 +264,5 @@ we will setup github workflows that will automatically test for this.
 3. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
    to get passing, so this exercise formally only requires you to get `isort` and `flake8`
    passing.
+
+
