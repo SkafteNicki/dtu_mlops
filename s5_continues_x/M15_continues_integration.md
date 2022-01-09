@@ -71,13 +71,15 @@ The following exercises should be applied to your MNIST repository
 
    1. Data testing: In a file called `tests/test_data.py` implement at least a
       test that checks that data gets correctly loaded. By this we mean that you should check
-
       ```python
       dataset = MNIST(...)
-      assert len(dataset) == 60000 for training and 10000 for test
+      assert len(dataset) == N_train for training and N_test for test
       assert that each datapoint has shape [1,28,28] or [728] depending on how you choose to format
       assert that all labels are represented
       ```
+      where `N_train` should be either 25000 or 40000 depending on if you are just the first
+      subset of the corrupted Mnist data or also including the second subset. `N_test` should 
+      be 5000.
 
    3. Model testing: In a file called `tests/test_model.py` implement at least a test that
       checks for a given input with shape *X* that the output of the model have shape *Y*
@@ -93,7 +95,7 @@ The following exercises should be applied to your MNIST repository
       at a later point due to shape errors, however these custom errors will probably make more sense 
       to the end user. Implement at least one raised error or warning somewhere in your code and 
       use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
-
+      As inspiration, the following implements `ValueError` in code belonging to the model:
       ```python
       def forward(self, x: Tensor):
          if x.ndim != 4:
@@ -101,12 +103,18 @@ The following exercises should be applied to your MNIST repository
          if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3]
             raise ValueError('Expected each sample to have shape [1, 28, 28]')
       ```
+      which would be captured by a test looking something like this:
+      ```python
+      def test_error_on_wrong_shape():
+         with pytest.raises(ValueError, match='Expected input to a 4D tensor')
+            model(torch.randn(1,2,3))
+      ```
 
    6. A test is only as good as the error message it gives, and by default `assert`
       will only report that the check failed. However, we can help our self and others by adding 
       strings after `assert` like
       ```python
-      assert len(train_dataset) == 60000, "Dataset did not have the correct number of samples"
+      assert len(train_dataset) == N_train, "Dataset did not have the correct number of samples"
       ```
       Add such comments to the assert statements you just did.
 
@@ -172,7 +180,8 @@ Lets take a look at how a github workflow file is organized:
   run when the workflow is executed.
 
 <p align="center">
-  <img src="../figures/actions.png" width="1000" title="credits to https://madewithml.com/courses/mlops/cicd/#github-actions">
+  <img src="../figures/actions.png" width="1000" 
+  title="credits to https://madewithml.com/courses/mlops/cicd/#github-actions">
 </p>
 
 ### Exercises
