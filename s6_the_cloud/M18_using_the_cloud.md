@@ -19,7 +19,8 @@ nav_order: 2
 
 ---
 
-In this set of exercises we are going to get more familiar with the using some of the resources that google cloud offers.
+In this set of exercises we are going to get more familiar with the using some of the resources that 
+the Google cloud project offers.
 
 ## Compute
 
@@ -89,7 +90,13 @@ We are now going to start actually using the cloud.
       --image-project=deeplearning-platform-release
       ```
 
-   3. ssh to 
+   3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
+      both a python installation and Pytorch is also installed. Hint: you also have the possibility
+      through the web page to start a browser session directly to the VMs you create:
+      <p align="center">
+         <img src="../figures/gcp_vm_browser.PNG" width="800" title="hover text">
+      </p>
+      
 
 7. Finally, everything that you have done locally can also be achieved through the web 
    terminal, which of cause comes pre-installed with the `gcloud` command etc. 
@@ -99,20 +106,28 @@ We are now going to start actually using the cloud.
    Try out launching this and run some of the commands from the previous exercises.
 
 ## Data storage
-Another big part of cloud computing is storage of data. There are many reason that you want to store your data in the cloud including:
+Another big part of cloud computing is storage of data. There are many reason that you want to store your 
+data in the cloud including:
 
 - Easily being able to share
 - Easily expand as you need more
 - Data is stored multiple locations, making sure that it is not lost in case of an emergency
 
-Cloud storage is luckily also very cheap. Google cloud only takes around $0.026 per GB per month. This means that around 1 TB of data would cost you $26 which is more than what the same amount of data would cost on Goggle Drive, but the storage in Google cloud is much more focused on enterprise where you have a need for accessing data through an API.
+Cloud storage is luckily also very cheap. Google cloud only takes around $0.026 per GB per month. 
+This means that around 1 TB of data would cost you $26 which is more than what the same amount of 
+data would cost on Goggle Drive, but the storage in Google cloud is much more focused on enterprise 
+where you have a need for accessing data through an API.
 
 ### Exercises
-When we did the exercise on data version control, we made `dvc` work together with our own google drive to storage data. However, a big limitation of this is that we need to authentic each time we try to either push or pull the data. The reason is that we need to use an API instead which is offered through google cloud.
+When we did the exercise on data version control, we made `dvc` work together with our own Google 
+drive to storage data. However, a big limitation of this is that we need to authentic each time we 
+try to either push or pull the data. The reason is that we need to use an API instead which is 
+offered through `gcp`.
 
 We are going to follow the instructions from this [page](https://dvc.org/doc/user-guide/setup-google-drive-remote)
 
-1. Lets start by creating a data storage. On the GCP startpage, in the sidebar, click on the `Cloud Storage`. On the next page click the `Create bucket`:
+1. Lets start by creating a data storage. On the GCP startpage, in the sidebar, click on the `Cloud Storage`. 
+   On the next page click the `Create bucket`:
    <p align="center">
      <img src="../figures/gcp5.PNG" width="800" title="hover text">
    </p>
@@ -124,154 +139,140 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
    ```
    `gsutil` is an additional command to `gcloud`, that provides more command line options.
 
-2. Next we need the google storage extension for `dvc`
+2. Next we need the Google storage extension for `dvc`
    ```bash
    pip install dvc[gs]
    ```
 
-3. Now in your mnist repository where you have already configured dvc, we are going to change the storage from our google drive to our newly created google cloud storage.
+3. Now in your Mnist repository where you have already configured dvc, we are going to change the storage 
+   from our Google drive to our newly created Google cloud storage.
    ```bash
    dvc remote add -d remote_storage <output-from-gsutils>
    ```
 
-4. The above command will change the `.dvc/config` file. Add and commit that file. Finally, push data to the cloud
+4. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file. 
+   Finally, push data to the cloud
    ```bash
    dvc push
    ```
 
-5. Finally make sure that you can pull without having to give your credentials. The easiest way to see this is to delete the `.dvc/cache` folder that should
-   be locally on your laptop and afterwards do a `dvc pull`.
+5. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this 
+   is to delete the `.dvc/cache` folder that should be locally on your laptop and afterwards do a `dvc pull`.
 
 ## Container registry
 
-You should hopefully at this point have seen the strength of using containers e.g. Docker. They allow us 
+You should hopefully at this point have seen the strength of using containers e.g. Docker. They allow us to
+specify exactly the software that we want to run inside our VMs. However, you should already have run into
+two problems with docker
+* Building process can take a lot of time
+* Docker images can be large
 
-A container registry 
+For this reason we want to move both the building process and the storage of images to the cloud.
 
 ### Exercises
 
-We are now going to return to docker. We have until now seen how we can automatize building images using github actions. Now, we are going to automatize the
-process of uploading the build containers to a so called `container registry`. Exercise more or less follows the instructions listed [here](https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions)
-but replaced with an python example.
+For the purpose of these exercise I recommend that you start out with a dummy version of some code to make sure
+that the building process do not take too long. You are more than free to **fork** 
+[this repository](https://github.com/SkafteNicki/gcp_docker_example). The repository contains a simple python 
+script that does image classification using sklearn. The docker images for this application are therefore going
+to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.
 
-1. First we are going to enable a few services. Instead of doing this through the webpage, we are instead going to use `gcloud` this time.
-   Enable the following three services
-   ```bash
-   gcloud services enable cloudbuild.googleapis.com 
-   gcloud services enable run.googleapis.com 
-   gcloud services enable containerregistry.googleapis.com
+1. Start by enabling the service: `Google Container Registry API`
+
+2. Google cloud building can in principal work out of the box with docker files. However, the recommended way
+   is to add specialized `cloudbuild.yaml` files. They should look something like this:
+   ```yaml
+   steps:
+      - name: 'gcr.io/cloud-builders/docker'
+        args: ['build', '-t', 'gcr.io/<project_id>/<image_name>', '.']
+      - name: 'gcr.io/cloud-builders/docker'
+        args: ['push', 'gcr.io/<project_id>/<image_name>']
    ```
-   corresponding to the three services `Cloud Build`, `Cloud Run`, `Container Registry`
+   which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
+   that should be used and the arguments for that service. In the above example we are calling the same service
+   (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
+   repository. Hint: if you forked the repository then you at least need to change the `<project_id>`.
 
-2. Next we are going to create an service account. An service account is essentially the way to tell other applications how to gain access to out google cloud account
-   and services. 
+3. From the `gcp` homepage, navigate to the triggers panel:
+   <p align="center">
+     <img src="../figures/gcp_trigger_1.png" width="800" title="hover text">
+   </p>
+   Click on the manage repositories.
 
-   1. Navigate to the `service account tab`
-      <p align="center">
-        <img src="../figures/gcp6.PNG" width="800" title="hover text">
-      </p>
-   
-   2. Next create the service account. Fill out the information as below:
-      <p align="center">
-        <img src="../figures/gcp7.PNG" width="800" title="hover text">
-      </p>
-      Note that the name should be all lowercase (not like in the image). We are here allowing the service account full to all services. In general this is bad practice and we can give very fine gained control on what service should have access to what. The corresponding `gcloud` commands for giving exact
-      access to what we need are:
+4. From there, click the `Connect Repository` and go through the steps of authenticating your github profile with
+   `gcp` and choose the repository that you want to setup build triggers. For now, skip the `Create a trigger (optional)`
+    part by pressing `Done` in the end.
+   <p align="center">
+     <img src="../figures/gcp_trigger_2.png" width="800" title="hover text">
+   </p>
 
-      ```bash
-      # this creates the service account
-      gcloud iam service-accounts create $ACCOUNT_NAME \
-         --description="Cloud Run deploy account" \
-         --display-name="Cloud-Run-Deploy"
-      # this gives the service account access to storage
-      gcloud projects add-iam-policy-binding $PROJECT_ID \
-         --member=serviceAccount:$ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com \
-         --role=roles/run.admin
-      gcloud projects add-iam-policy-binding $PROJECT_ID \
-         --member=serviceAccount:$ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com \
-         --role=roles/storage.admin
-      gcloud projects add-iam-policy-binding $PROJECT_ID \
-         --member=serviceAccount:$ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com \
-         --role=roles/iam.serviceAccountUser
-      ```
-   3. Finally, we will create a key for later use with github. See instructions below:
-      <p align="center">
-        <img src="../figures/gcp8.PNG" width="800" title="hover text">
-      </p>
-      Clicking the `create` button will prompt you to save an `.json` file. 
-      DO NOT SHARE this file with anybody. If you know anything about cryptography, this is your
-      private key.
+5. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
+   * Give a name
+   * Event: choose `Push to branch`
+   * Source: choose the repository you just connected
+   * Branch: choose `^main$`
+   * Configuration: choose either `Autodetected` or `Cloud build configuration file`
+   Finally click the `Create` button and the trigger should show up on the triggers page.
 
-3. Next we are going to work on a simple example. Please **fork** [this repository](https://github.com/SkafteNicki/gcp_docker_example). The repository contains a simple python script that does image classification using sklearn.
+6. To activate the trigger, push some code to the chosen repository.
 
-   1. Checkout the code and make sure you know what it does.
+7. Go to the `Cloud Build` page and you should see the image being build and pushed.
+   <p align="center">
+     <img src="../figures/gcp_build.png" width="800" title="hover text">
+   </p>
+   Try clicking on the build to checkout the build process and building summary. As 
+   you can see from the image, if a build is failing you will often find valuable info
+   by looking at the build summary.
 
-   2. Now we are going to add secrets to the github repository such that it "can talk" to our service account and our
-      google cloud resources. Go to the secrets tab and begin to add the following:
-      <p align="center">
-        <img src="../figures/github_gcp.PNG" width="800" title="hover text">
-      </p>
+8. If/when your build is successful, navigate to the `Container Registry` page. You should
+   hopefully find that the image you just build was pushed here. Congrats!
 
-      * GCP_APP_NAME: this should be the exact name of your service. In the example above the name was `example-mlops-service`.
-      * GCP_CREDENTIALS: this should be the content of the `.json` file you downloaded after creating the service account
-      * GCP_EMAIL: this should be the email belonging to your service. It will be called something like: `<service-name>@<project-name>.iam.gserviceaccount.com` and can be seen on the service front page.
-      * GCP_PROJECT_ID: you should be able to find this on the front webpage.
+9. Finally, to to pull your image down to your laptop
+   ```bash
+   docker pull gcr.io/<project_id>/<image_name>:<image_tag>
+   ```
+   you will need to authenticate `docker` with `gcp` first. Instructions can be found 
+   [here](https://cloud.google.com/container-registry/docs/advanced-authentication).
 
-4. Finally, figure out how to pull the image that was automatically build to your local computer.
+10. Automatization through the cloud is in general the way to go, but sometimes you may
+    want to manually create images and push them to the registry. Figure out how to push
+    an image to your `Container Registry`. For simplicity you can just push the `busybox`
+    image you downloaded during the way to deal with 
+https://cloud.google.com/container-registry/docs/pushing-and-pulling
+
+11. Finally, figure out how to pull the image that was automatically build to your local computer.
    This [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling#pulling_images_from_a_registry)
    should help you.
 
 
 ## Training 
 
-The exercises largely build on the material in this tutorial: <https://cloud.google.com/ai-platform/training/docs/getting-started-pytorch>
+As the final step in our journey into `gcp` we are going to tackle the problem of training our models.
+We could do this by connecting to a VM with Pytorch installed and run `python train_model.py` directly
+inside the VM. However, `gcp` offers additional support for training which we are going to look at now.
 
-1. Start by enabling the `AI Platform Training & Prediction API.` in the gcp webpage.
+### Exercises
+1. Start by enabling the `AI Platform Training & Prediction API` in the `gcp` web page.
 
-2. Next lets create a dedicated storage bucket for out trained models. Instead of using the web interface, lets use the `gsutil` command:
-   ```bash
-   gsutil mb -l <LOC> gs://<BUCKET_NAME>
-   ```
-   choose `<LOC>>` as one to be one of available bucket storage locations (see this [page](https://cloud.google.com/storage/docs/locations))
-   and set `<BUCKET_NAME>` to some appropriate name like `experiment_storage`.
+2. Follow the instructions in [this tutorial](https://cloud.google.com/ai-platform/training/docs/getting-started-pytorch).
+   Since we have already setup everything, you can start from the `Downloading sample code` section. If you
+   have problems, additional info can be found in the
+   [documentation](https://cloud.google.com/ai-platform/training/docs) for the AI platform service.
+   
+3. For the final exercise we will try to connect nearly everything we have learned about the different
+   cloud services. Especially, we have seen how build custom images and train using pre-defined images.
+   The question then remains how we can train using custom images. Try to replicate the step from
+   [this tutorial](https://cloud.google.com/ai-platform/training/docs/custom-containers-training) on
+   how to train a Pytorch model using a custom container on your own Mnist model. Some notes:
 
+   * If you are using `wandb` then you are probably going to to need to set some 
+     [environment variables](https://docs.wandb.ai/guides/track/advanced/environment-variables)
+     before doing a run. Since you do not want other do have access to your `wandb` API Key
+     you are going to need the [secret manager](https://cloud.google.com/secret-manager/docs) 
+     from `gcp`.
 
-3. Submit the job to `gcp`
-   ```bash
-
-   gcloud ai-platform jobs submit training <JOB_NAME> \
-   --region=us-central1 \
-   --master-image-uri=gcr.io/cloud-ml-public/training/pytorch-xla.1-10 \
-   --scale-tier=BASIC \
-   --job-dir=${JOB_DIR} \
-   --package-path=./trainer \
-   --module-name=trainer.task \
-   -- \
-   --train-files=gs://cloud-samples-data/ai-platform/chicago_taxi/training/small/taxi_trips_train.csv \
-   --eval-files=gs://cloud-samples-data/ai-platform/chicago_taxi/training/small/taxi_trips_eval.csv \
-   --num-epochs=10 \
-   --batch-size=100 \
-   --learning-rate=0.001
-   ```
-
-4. After submitting a job you should see a messege like this:
-   ```
-   Job <JOB_NAME> submitted successfully.
-   Your job is still active. You may view the status of your job with the command
-   ```
-
-   1. Call the following command
-      ```bash
-      gcloud ai-platform jobs describe <JOB_NAME>
-      ```
-      what does the command do?
-
-   2. Call the following command
-      ```bash
-      gcloud ai-platform jobs stream-logs <JOB_NAME>
-      ```
-      what does the command do?
-
-5. As a final exericse, Use the ai-platform to train your 
+4. (Optional) Feel free to checkout the `Vertex AI` service, which is `gcp` newest service for doing
+   MLOps, see [docs](https://cloud.google.com/vertex-ai/docs). `Vertex AI` is essentially a combination
+   of the `AI Platform` service and their `AutoML` service.
 
 
