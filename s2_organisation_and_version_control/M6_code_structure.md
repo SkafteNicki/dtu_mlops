@@ -67,7 +67,7 @@ Below is seen the default code structure of cookie-cutter for data science proje
 
 5. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data files in `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this intermediate representation to the `data/processed` folder. 
 
-5. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in a project. You do not have to understand the complete file by try taking a look at it. In particular the following commands may come in handy
+5. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in a project. You do not have to understand the complete file but try taking a look at it. In particular the following commands may come in handy
     ```bash
 	make data  # runs the make_dataset.py file, try it!
 	make clean  # clean __pycache__ files
