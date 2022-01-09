@@ -94,14 +94,14 @@ We are now going to start actually using the cloud.
       both a python installation and Pytorch is also installed. Hint: you also have the possibility
       through the web page to start a browser session directly to the VMs you create:
       <p align="center">
-         <img src="../figures/gcp_vm_browser.PNG" width="800" title="hover text">
+         <img src="../figures/gcp_vm_browser.png" width="800" title="hover text">
       </p>
       
 
 7. Finally, everything that you have done locally can also be achieved through the web 
    terminal, which of cause comes pre-installed with the `gcloud` command etc. 
    <p align="center">
-     <img src="../figures/gcp_terminal.PNG" width="800" title="hover text">
+     <img src="../figures/gcp_terminal.png" width="800" title="hover text">
    </p>
    Try out launching this and run some of the commands from the previous exercises.
 
@@ -274,5 +274,8 @@ inside the VM. However, `gcp` offers additional support for training which we ar
 4. (Optional) Feel free to checkout the `Vertex AI` service, which is `gcp` newest service for doing
    MLOps, see [docs](https://cloud.google.com/vertex-ai/docs). `Vertex AI` is essentially a combination
    of the `AI Platform` service and their `AutoML` service.
+
+This ends the session on how to use Google cloud services for now. In a future session we are going to
+take a look at how to deploy trained models using the `AI platform`.
 
 
