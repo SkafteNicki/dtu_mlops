@@ -63,13 +63,26 @@ The following exercises should be applied to your MNIST repository
    
 4. Write some tests. Below are some guidelines on some tests that should be implemented, but
    you are of course free to implement more tests. You can at any point check if your tests are
-   passing by typing in a terminal
-   
+   passing by typing in a terminal   
    ```
    pytest tests/
    ```
 
-   1. Data testing: In a file called `tests/test_data.py` implement at least a
+   1. Start by creating a `tests/__init__.py` file and fill in the following:
+      ```python
+      import os
+      _TEST_ROOT = os.path.dirname(__file__)  # root of test folder
+      _PROJECT_ROOT = os.path.dirname(_TEST_ROOT)  # root of project
+      _PATH_DATA = os.path.join(_PROJECT_ROOT, "Data")  # root of data
+      ```
+      these can help you refer to your data files during testing. For example, in another test
+      file I could write 
+      ```python
+      from tests import _PATH_DATA
+      ```
+      which then contains the root path to my data.
+
+   2. Data testing: In a file called `tests/test_data.py` implement at least a
       test that checks that data gets correctly loaded. By this we mean that you should check
       ```python
       dataset = MNIST(...)
