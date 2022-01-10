@@ -1,8 +1,9 @@
 import torch.nn.functional as F
 from torch import nn, optim
+import torch
 from torch.nn import BatchNorm2d, Conv2d, Dropout2d, Linear, MaxPool2d
 from torch.nn.functional import elu, relu, relu6, sigmoid, softmax, tanh
-
+import pytest
 
 class MyAwesomeModel(nn.Module):
     def __init__(self):
@@ -13,6 +14,7 @@ class MyAwesomeModel(nn.Module):
         self.fc4 = nn.Linear(64, 10)
         
     def forward(self, x):
+        
         # make sure input tensor is flattened
         x = x.view(x.shape[0], -1)
         
@@ -57,7 +59,11 @@ class MyAwesomeConvolutionalModel(nn.Module):
                             bias=False)
         
     def forward(self, x):
-       
+        if x.ndim != 4:
+            raise ValueError('Expected input to a 4D tensor')
+        if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3] != 28:
+            raise ValueError('Expected each sample to have shape [1, 28, 28]')
+         
         #x = x.permute(0, 3, 1, 2)
         x = F.relu(self.batchnorm1(self.conv_1(x)))
         #x = self.dropout(x)
@@ -73,3 +79,4 @@ class MyAwesomeConvolutionalModel(nn.Module):
         x = F.log_softmax(self.l_out(x), dim = 1)
         
         return x
+
