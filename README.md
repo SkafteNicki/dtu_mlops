@@ -112,7 +112,7 @@ This includes:
 * Organize code in a efficient way for easy maintainability and shareability
 * Understand the importance of reproducibility and how to create reproducible containerized applications and experiments
 * Cable of using version control to efficiently collaborate on code development
-* Knowledge of continuous integration (CI) and continues machine learning (CML) for automating code development
+* Knowledge of continuous integration (CI) and continuous machine learning (CML) for automating code development
 * Being able to debug, profile, visualize and monitor multiple experiments to assess model performance
 * Cable of using online cloud based computing services to scale experiments
 * Demonstrate knowledge about different distributed training paradigms within  machine learning and how to apply them

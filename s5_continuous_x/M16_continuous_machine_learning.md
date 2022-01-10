@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M16 - Continues Machine Learning
+title: M16 - Continuous Machine Learning
 parent: S5 - Continuous X
 nav_order: 2
 ---
 
-# Continues Machine Learning
+# Continuous Machine Learning
 {: .no_toc }
 
 <details open markdown="block">
@@ -22,8 +22,8 @@ nav_order: 2
 > Note 2021 version: This exercise is not mandatory and you should only do it if you really feel like it.
   Consider checking out M27 (under the extra modules) on Pre-commit instead.
 
-The continues X we have looked at until now is what we can consider "classical" continues integration. 
-We are now gonna change gear and look at **continues machine learning**. As the name may suggest we 
+The continuous X we have looked at until now is what we can consider "classical" continuous integration.
+We are now gonna change gear and look at **continuous machine learning**. As the name may suggest we
 are now focusing on automatizing actual machine learning processes (compared to automatizing unit testing). 
 The automatization we are going to look at here is reporting of model performance whenever we push 
 changes to our github repository.
@@ -68,7 +68,7 @@ to any of our workflow files.
    ```
 
 2. Similar to what we have looked at until now, automation happens using *github workflow* files. 
-   The main difference from continues integration we have looked on until now, is that we are actually 
+   The main difference from continuous integration we have looked on until now, is that we are actually
    going to *train* our model whenever we do a `git push`. Copy the following code into a new workflow 
    (called `cml.yaml`) and add that file to the folder were you keep your workflow files.
 
@@ -78,7 +78,7 @@ to any of our workflow files.
     jobs:
       run:
         runs-on: [ubuntu-latest]
-        container: docker://iterativeai/cml:0-dvc2-base1  # this contains the continues machine learning pipeline
+        container: docker://iterativeai/cml:0-dvc2-base1  # continuous machine learning tools
         steps:
             - uses: actions/checkout@v2
             - name: cml_run
@@ -107,9 +107,9 @@ to any of our workflow files.
    [here](https://cml.dev/doc/cml-with-dvc) is a great starting point.
 
 
-# Continues docker building
+# Continuous docker building
 
-`cml` integrates well with github and can give a taste of what a continues machine learning 
+`cml` integrates well with github and can give a taste of what a continuous machine learning
 pipeline feels like. However, to take our applications to the next level we are going to look 
 at how we can automatize docker building. As you have already seen docker building can take 
 a couple of minutes to build each time we do changes to our codebase. For this reason we 
@@ -160,5 +160,5 @@ this requires us to configure a cloud API storage account which will be part of 
          docker run ...
    ```
 
-Thats ends the session on Continues X. We are going to revisit this topic when we get to deployment, which 
-is the other common factor in classical continues X e.g. CI/CD=continues integration and continues deployment.
+Thats ends the session on Continuous X. We are going to revisit this topic when we get to deployment, which
+is the other common factor in classical continuous X e.g. CI/CD=continuous integration and continuous deployment.

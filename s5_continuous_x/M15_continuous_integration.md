@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M15 - Continues Integration
+title: M15 - Continuous Integration
 parent: S5 - Continuous X
 nav_order: 1
 ---
 
-# Continues Integration
+# Continuous Integration
 {: .no_toc }
 
 <details open markdown="block">
@@ -19,7 +19,7 @@ nav_order: 1
 
 ---
 
-Continues integration (CI) is a development practice that makes sure that updates to code are 
+Continuous integration (CI) is a development practice that makes sure that updates to code are
 automatically tested such that it does not break existing code. If you look at the MLOps pipeline, 
 CI is one of cornerstones of operations part. However, it should be notes that applying CI does 
 not magically secure that your code does not break. CI is only as strong as the tests that are 
@@ -41,8 +41,8 @@ automatically executed. CI simply structures and automates this.
 
 ## Pytest
 
-The first part of continues integration is writing tests. It is both a hard and tedious task to do but
-arguable the most important aspects of continues integration. Python offers a couple of different libraries
+The first part of continuous integration is writing tests. It is both a hard and tedious task to do but
+arguable the most important aspects of continuous integration. Python offers a couple of different libraries
 for writing tests. We are going to use `pytest`.
 
 ### Exercises
