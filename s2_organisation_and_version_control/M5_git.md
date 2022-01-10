@@ -76,7 +76,7 @@ want to get this updates to be online in the *remote repository* we have to do t
 
 * Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our commit gets online
 
-Of cause, the real power of version control is the ability to make branches, as in the image below
+Of course, the real power of version control is the ability to make branches, as in the image below
 
 <p align="center">
   <img src="../figures/git_branches.png" width="1000," title="hover text">
