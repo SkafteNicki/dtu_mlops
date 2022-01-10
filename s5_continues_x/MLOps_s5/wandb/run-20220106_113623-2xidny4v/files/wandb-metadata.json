@@ -1,0 +1,25 @@
+{
+    "os": "Windows-10-10.0.19041-SP0",
+    "python": "3.8.8",
+    "heartbeatAt": "2022-01-06T10:36:28.748788",
+    "startedAt": "2022-01-06T10:36:23.823565",
+    "docker": null,
+    "cpu_count": 4,
+    "cuda": null,
+    "args": [
+        "0.01",
+        "2"
+    ],
+    "state": "running",
+    "program": "src/models/train_model.py",
+    "codePath": "s4_debugging_and_logging\\MLOps_s4\\src\\models\\train_model.py",
+    "git": {
+        "remote": "https://github.com/SaraDortheaNielsen/dtu_mlops.git",
+        "commit": "376b7760218ddfcc5eb9dac3a07111bc5a4ad0d9"
+    },
+    "email": "sdoni@dtu.dk",
+    "root": "C:/Users/sdoni/Documents/dtu_mlops",
+    "host": "COMP-nb3568",
+    "username": "sdoni",
+    "executable": "C:\\Users\\sdoni\\Anaconda3\\envs\\MLOps_ex\\python.exe"
+}
