@@ -19,6 +19,9 @@ nav_order: 2
 
 ---
 
+> Note 2021 version: This exercise is not mandatory and you should only do it if you really feel like it.
+  Consider checking out M27 (under the extra modules) on Pre-commit instead.
+
 The continues X we have looked at until now is what we can consider "classical" continues integration. 
 We are now gonna change gear and look at **continues machine learning**. As the name may suggest we 
 are now focusing on automatizing actual machine learning processes (compared to automatizing unit testing). 

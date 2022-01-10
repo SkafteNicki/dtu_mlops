@@ -89,14 +89,15 @@ The following exercises should be applied to your MNIST repository
       what should be tested, but try to test something the risk being broken when developing the code.
         
    5. Good code raises errors and give out warnings in appropriate places. This is often in  
-      the case of some  invalid combination of input to your script. For example, you model 
+      the case of some invalid combination of input to your script. For example, you model 
       could check for the size of the input given to it (see code below) to make sure it corresponds 
-      to what you are expecting. Not implementing  such errors would still result in Pytorch failing 
+      to what you are expecting. Not implementing such errors would still result in Pytorch failing 
       at a later point due to shape errors, however these custom errors will probably make more sense 
       to the end user. Implement at least one raised error or warning somewhere in your code and 
       use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
       As inspiration, the following implements `ValueError` in code belonging to the model:
       ```python
+      # src/models/model.py
       def forward(self, x: Tensor):
          if x.ndim != 4:
             raise ValueError('Expected input to a 4D tensor')
@@ -105,6 +106,7 @@ The following exercises should be applied to your MNIST repository
       ```
       which would be captured by a test looking something like this:
       ```python
+      # tests/test_model.py
       def test_error_on_wrong_shape():
          with pytest.raises(ValueError, match='Expected input to a 4D tensor')
             model(torch.randn(1,2,3))
@@ -117,6 +119,18 @@ The following exercises should be applied to your MNIST repository
       assert len(train_dataset) == N_train, "Dataset did not have the correct number of samples"
       ```
       Add such comments to the assert statements you just did.
+
+   7. The tests that involve checking anything that have to do with our data, will of cause fail
+      if the data is not present. To future proof our code, we can take advantage of the
+      `pytest.mark.skipif` decorator. Use this decorator to skip your data tests if the corresponding
+      data files does not exist. It should look something like this
+      ```python
+      import os.path
+      @pytest.mark.skipif(not os.path.exists(file_path), reason="Data files not found")
+      def test_something_about_data():
+         ...
+      ```
+      You can read more about skipping tests [here](https://docs.pytest.org/en/latest/how-to/skipping.html)
 
 5. After writing the different tests, make sure that they are passing locally.
 
