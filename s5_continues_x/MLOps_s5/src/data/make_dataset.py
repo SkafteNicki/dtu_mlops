@@ -58,6 +58,8 @@ def mnist(input_filepath):
       train_images = train_images.reshape((-1, 1, 28, 28))
       test_images = test_images.reshape((-1, 1, 28, 28))
 
+     
+
       #train = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
       
 
