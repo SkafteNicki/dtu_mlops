@@ -44,7 +44,7 @@ machines allow you to just launch a job and forget about it (at least until you 
 
 We are now going to start actually using the cloud.
 
-1. Enable the `Compute Engine API`. You should be able to find it in the sidebar on the homepage of `gcp`.
+1. Click on the `Compute Engine` tab in sidebar on the homepage of `gcp`.
 
 2. Try to `Create instance`. You will see the following image below.
    <p align="center">

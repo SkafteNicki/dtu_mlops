@@ -86,7 +86,11 @@ As the first step we are going to get you setup with some Google cloud credits.
       you should be able to see the `Project ID` belonging to your `dtumlops` project. Copy this an type 
       the following command in a terminal
       ```bash
-      gcloud auth application-default set-quota-project <project-id>
+      gcloud config set project <project-id>
+      ```
+      You can also get the project info by running
+      ```bash
+      gcloud projects list
       ```
 
    4. Next install the Google cloud python API:
