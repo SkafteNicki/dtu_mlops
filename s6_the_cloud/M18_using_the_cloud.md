@@ -54,7 +54,7 @@ We are now going to start actually using the cloud.
    Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute unit? 
    
 3. After figuring this out, create a `e2-medium` instance (leave rest configured as default). Before clicking the `Create` button 
-   make sure to check the `Equavalent Command Line` botton. You should see a very long command that you could have typed instead to 
+   make sure to check the `Equavalent Command Line` button. You should see a very long command that you could have typed instead to 
    do the exact same.
 
 4. Now in a local terminal type:
@@ -65,8 +65,13 @@ We are now going to start actually using the cloud.
 
 5. You can start a terminal directly by typing:
    ```bash
-   gcloud beta compute ssh --zone <zone> <name> --project <project-name> 
+   gcloud beta compute ssh --zone <zone> <name> --project <project-id> 
    ```
+   You can always see the exact command that you need to run to `ssh` to an VM by selecting the
+   `View gcloud command` option in the Compute Engine overview (see image below).
+   <p align="center">
+     <img src="../figures/gcp_ssh_command.PNG" width="800" title="hover text">
+   </p>
 
 6. While logged into the instance, check if Python and Pytorch is installed? 
    You should see that neither is installed. The VM we have only specified what
@@ -86,7 +91,7 @@ We are now going to start actually using the cloud.
       ```bash
       gcloud compute instances create %INSTANCE_NAME% \
       --zone=%ZONE% 
-      --image-family=<image_family>
+      --image-family=<image-family>
       --image-project=deeplearning-platform-release
       ```
       Hint: you can find relevant image families
@@ -191,14 +196,14 @@ to be substantially faster to build and smaller in size than the images we are u
    ```yaml
    steps:
       - name: 'gcr.io/cloud-builders/docker'
-        args: ['build', '-t', 'gcr.io/<project_id>/<image_name>', '.']
+        args: ['build', '-t', 'gcr.io/<project-id>/<image-name>', '.']
       - name: 'gcr.io/cloud-builders/docker'
-        args: ['push', 'gcr.io/<project_id>/<image_name>']
+        args: ['push', 'gcr.io/<project-id>/<image-name>']
    ```
    which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
    that should be used and the arguments for that service. In the above example we are calling the same service
    (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
-   repository. Hint: if you forked the repository then you at least need to change the `<project_id>`.
+   repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
 
 3. From the `gcp` homepage, navigate to the triggers panel:
    <p align="center">
@@ -236,7 +241,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
 9. Finally, to to pull your image down to your laptop
    ```bash
-   docker pull gcr.io/<project_id>/<image_name>:<image_tag>
+   docker pull gcr.io/<project-id>/<image_name>:<image_tag>
    ```
    you will need to authenticate `docker` with `gcp` first. Instructions can be found 
    [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but

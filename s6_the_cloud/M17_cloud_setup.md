@@ -76,7 +76,11 @@ As the first step we are going to get you setup with some Google cloud credits.
       ```bash
       gcloud auth login
       ```
-      you should be sent to an web page where you link your cloud account to the `gcloud` interface. 
+      you should be sent to an web page where you link your cloud account to the `gcloud` interface.
+      Afterwards, also run this command:
+      ```bash
+      gcloud auth application-default login
+      ```
       If you at some point want to revoke this you can type:
       ```bash
       gcloud auth revoke
