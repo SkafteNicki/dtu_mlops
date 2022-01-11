@@ -74,8 +74,8 @@ package for calculating this in pytorch: [ptflops](https://github.com/sovrasov/f
 
 ## Quantization
 
-Quantization is a technique where all computations are performed with integers instead of floats. We are essentially taking 
-all continues signals and converting them into discretized signals.
+Quantization is a technique where all computations are performed with integers instead of floats. 
+We are essentially taking all continuous signals and converting them into discretized signals.
 
 <p align="center">
    <img src="../figures/quantization.png" width="300" title="All credit to https://arxiv.org/abs/1910.01108v4">

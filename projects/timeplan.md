@@ -47,7 +47,7 @@ comfortable on how to write distributed application and how we can run them
 
 Date | Day       | Presentation topic                   | Framework/exercise          | On-site/Virtual
 -----|-----------|--------------------------------------|-----------------------------|----------------
-10/1 | Monday    | Continues X                          | Pytest, Github actions, CML | On-site
+10/1 | Monday    | Continuous X                         | Pytest, Github actions, CML | On-site
 11/1 | Tuesday   | The Cloud                            | Google Cloud                | On-site
 12/1 | Wednesday | Scalable applications                | Pytorch, Pytorch lightning  | On-site
 13/1 | Thursday  | -                                    | Project work                | Virtual
