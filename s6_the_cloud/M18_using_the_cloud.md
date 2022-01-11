@@ -251,13 +251,15 @@ to be substantially faster to build and smaller in size than the images we are u
 10. Automatization through the cloud is in general the way to go, but sometimes you may
     want to manually create images and push them to the registry. Figure out how to push
     an image to your `Container Registry`. For simplicity you can just push the `busybox`
-    image you downloaded during the way to deal with 
-https://cloud.google.com/container-registry/docs/pushing-and-pulling
+    image you downloaded during the initial docker exercises. This
+    [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling) should help
+    you with exercise.
 
-11. Finally, figure out how to pull the image that was automatically build to your local computer.
-   This [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling#pulling_images_from_a_registry)
-   should help you.
-
+11. Finally, we sometimes also want to manually pull the images from our container registry
+    to either run or inspect on our own laptop. Figure out how to pull the image that was
+    automatically build by `gcp` to your own laptop. This 
+    [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling#pulling_images_from_a_registry)
+    should help you.
 
 ## Training 
 
