@@ -239,7 +239,14 @@ to be substantially faster to build and smaller in size than the images we are u
    docker pull gcr.io/<project_id>/<image_name>:<image_tag>
    ```
    you will need to authenticate `docker` with `gcp` first. Instructions can be found 
-   [here](https://cloud.google.com/container-registry/docs/advanced-authentication).
+   [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but
+   the following command should hopefully be enough to make `docker` and `gcp` talk to
+   each other:
+   ```bash
+   gcloud auth configure-docker
+   ```
+   Note: To do this you need to have `docker` actively running in the background, as any
+   other time you want to use `docker`.
 
 10. Automatization through the cloud is in general the way to go, but sometimes you may
     want to manually create images and push them to the registry. Figure out how to push
