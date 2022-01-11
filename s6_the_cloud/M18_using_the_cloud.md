@@ -44,7 +44,7 @@ machines allow you to just launch a job and forget about it (at least until you 
 
 We are now going to start actually using the cloud.
 
-1. Enable the `Compute Engine API`. You should be able to find it in the sidebar on the homepage of `gcp`.
+1. Click on the `Compute Engine` tab in sidebar on the homepage of `gcp`.
 
 2. Try to `Create instance`. You will see the following image below.
    <p align="center">
@@ -54,7 +54,7 @@ We are now going to start actually using the cloud.
    Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute unit? 
    
 3. After figuring this out, create a `e2-medium` instance (leave rest configured as default). Before clicking the `Create` button 
-   make sure to check the `Equavalent Command Line` botton. You should see a very long command that you could have typed instead to 
+   make sure to check the `Equavalent Command Line` button. You should see a very long command that you could have typed instead to 
    do the exact same.
 
 4. Now in a local terminal type:
@@ -65,8 +65,13 @@ We are now going to start actually using the cloud.
 
 5. You can start a terminal directly by typing:
    ```bash
-   gcloud beta compute ssh --zone <zone> <name> --project <project-name> 
+   gcloud beta compute ssh --zone <zone> <name> --project <project-id> 
    ```
+   You can always see the exact command that you need to run to `ssh` to an VM by selecting the
+   `View gcloud command` option in the Compute Engine overview (see image below).
+   <p align="center">
+     <img src="../figures/gcp_ssh_command.PNG" width="800" title="hover text">
+   </p>
 
 6. While logged into the instance, check if Python and Pytorch is installed? 
    You should see that neither is installed. The VM we have only specified what
@@ -86,9 +91,11 @@ We are now going to start actually using the cloud.
       ```bash
       gcloud compute instances create %INSTANCE_NAME% \
       --zone=%ZONE% 
-      --image-family=%IMAGE_FAMILY% 
+      --image-family=<image-family>
       --image-project=deeplearning-platform-release
       ```
+      Hint: you can find relevant image families
+      [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
 
    3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
       both a python installation and Pytorch is also installed. Hint: you also have the possibility
@@ -177,21 +184,26 @@ that the building process do not take too long. You are more than free to **fork
 script that does image classification using sklearn. The docker images for this application are therefore going
 to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.
 
-1. Start by enabling the service: `Google Container Registry API`
+1. Start by enabling the service: `Google Container Registry API` and `Google Cloud Build API`. This can be
+   done through the web side (by searching for the services) or can also be enabled from the terminal:
+   ```bash
+   gcloud services enable containerregistry.googleapis.com
+   gcloud services enable cloudbuild.googleapis.com
+   ```
 
 2. Google cloud building can in principal work out of the box with docker files. However, the recommended way
    is to add specialized `cloudbuild.yaml` files. They should look something like this:
    ```yaml
    steps:
       - name: 'gcr.io/cloud-builders/docker'
-        args: ['build', '-t', 'gcr.io/<project_id>/<image_name>', '.']
+        args: ['build', '-t', 'gcr.io/<project-id>/<image-name>', '.']
       - name: 'gcr.io/cloud-builders/docker'
-        args: ['push', 'gcr.io/<project_id>/<image_name>']
+        args: ['push', 'gcr.io/<project-id>/<image-name>']
    ```
    which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
    that should be used and the arguments for that service. In the above example we are calling the same service
    (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
-   repository. Hint: if you forked the repository then you at least need to change the `<project_id>`.
+   repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
 
 3. From the `gcp` homepage, navigate to the triggers panel:
    <p align="center">
@@ -229,21 +241,30 @@ to be substantially faster to build and smaller in size than the images we are u
 
 9. Finally, to to pull your image down to your laptop
    ```bash
-   docker pull gcr.io/<project_id>/<image_name>:<image_tag>
+   docker pull gcr.io/<project-id>/<image_name>:<image_tag>
    ```
    you will need to authenticate `docker` with `gcp` first. Instructions can be found 
-   [here](https://cloud.google.com/container-registry/docs/advanced-authentication).
+   [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but
+   the following command should hopefully be enough to make `docker` and `gcp` talk to
+   each other:
+   ```bash
+   gcloud auth configure-docker
+   ```
+   Note: To do this you need to have `docker` actively running in the background, as any
+   other time you want to use `docker`.
 
 10. Automatization through the cloud is in general the way to go, but sometimes you may
     want to manually create images and push them to the registry. Figure out how to push
     an image to your `Container Registry`. For simplicity you can just push the `busybox`
-    image you downloaded during the way to deal with 
-https://cloud.google.com/container-registry/docs/pushing-and-pulling
+    image you downloaded during the initial docker exercises. This
+    [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling) should help
+    you with exercise.
 
-11. Finally, figure out how to pull the image that was automatically build to your local computer.
-   This [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling#pulling_images_from_a_registry)
-   should help you.
-
+11. Finally, we sometimes also want to manually pull the images from our container registry
+    to either run or inspect on our own laptop. Figure out how to pull the image that was
+    automatically build by `gcp` to your own laptop. This 
+    [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling#pulling_images_from_a_registry)
+    should help you.
 
 ## Training 
 

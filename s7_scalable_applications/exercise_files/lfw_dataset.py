@@ -27,9 +27,12 @@ class LFWDataset(Dataset):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-path_to_folder', default='', type=str)
+    parser.add_argument('-batch_size', default=512, type=int)
     parser.add_argument('-num_workers', default=None, type=int)
     parser.add_argument('-visualize_batch', action='store_true')
     parser.add_argument('-get_timing', action='store_true')
+    parser.add_argument('-batches_to_check', default=100, type=int)
+    
     args = parser.parse_args()
     
     lfw_trans = transforms.Compose([
@@ -41,22 +44,24 @@ if __name__ == '__main__':
     dataset = LFWDataset(args.path_to_folder, lfw_trans)
     
     # Define dataloader
-    # Note we need a high batch size to see an effect of using many
-    # number of workers
-    dataloader = DataLoader(dataset, batch_size=512, shuffle=False,
-                            num_workers=args.num_workers)
+    dataloader = DataLoader(
+        dataset, 
+        batch_size=args.batch_size, 
+        shuffle=False,
+        num_workers=args.num_workers
+    )
     
     if args.visualize_batch:
         # TODO: visualize a batch of images
         pass
         
     if args.get_timing:
-        # lets do so repetitions
+        # lets do some repetitions
         res = [ ]
         for _ in range(5):
             start = time.time()
             for batch_idx, batch in enumerate(dataloader):
-                if batch_idx > 100:
+                if batch_idx > args.batches_to_check:
                     break
             end = time.time()
 

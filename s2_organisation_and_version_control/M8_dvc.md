@@ -58,8 +58,10 @@ contains excellent tutorials.
 2. Next, install dvc and the google drive extenstion
    ```bash
    pip install dvc
-   pip install dvc[gdrive]
+   pip install "dvc[gdrive]"
    ```
+   > If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these optional dependencies: [s3], [azure], [gdrive], [gs], [oss], [ssh]. Alternatively, use [all] to include them all. The command should look like this: pip install "dvc[s3]".
+
 
 3. In your mnist repository run the following command from the terminal
    ```bash

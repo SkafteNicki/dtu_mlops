@@ -74,9 +74,13 @@ As the first step we are going to get you setup with some Google cloud credits.
 
    2. Now login by typing
       ```bash
+      gcloud auth login
+      ```
+      you should be sent to an web page where you link your cloud account to the `gcloud` interface.
+      Afterwards, also run this command:
+      ```bash
       gcloud auth application-default login
       ```
-      you should be sent to an web page where you link your cloud account to the `gcloud` interface. 
       If you at some point want to revoke this you can type:
       ```bash
       gcloud auth revoke
@@ -86,7 +90,11 @@ As the first step we are going to get you setup with some Google cloud credits.
       you should be able to see the `Project ID` belonging to your `dtumlops` project. Copy this an type 
       the following command in a terminal
       ```bash
-      gcloud auth application-default set-quota-project <project-id>
+      gcloud config set project <project-id>
+      ```
+      You can also get the project info by running
+      ```bash
+      gcloud projects list
       ```
 
    4. Next install the Google cloud python API:
@@ -98,6 +106,16 @@ As the first step we are going to get you setup with some Google cloud credits.
       import googleapiclient
       ```
       this should work without any errors.
+
+   5. Finally, we need some additional commands for `gcloud` which are part of the `beta` component.
+      Install with:
+      ```bash
+      gcloud components install beta
+      ```
+      You can get a list of all install components using
+      ```bash
+      gcloud components list
+      ```
 
    5. (Optional) If you are using VSCode you can also download the relevant 
       [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode) 
