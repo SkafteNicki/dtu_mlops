@@ -86,9 +86,11 @@ We are now going to start actually using the cloud.
       ```bash
       gcloud compute instances create %INSTANCE_NAME% \
       --zone=%ZONE% 
-      --image-family=%IMAGE_FAMILY% 
+      --image-family=<image_family>
       --image-project=deeplearning-platform-release
       ```
+      Hint: you can find relevant image families
+      [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
 
    3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
       both a python installation and Pytorch is also installed. Hint: you also have the possibility
@@ -177,7 +179,12 @@ that the building process do not take too long. You are more than free to **fork
 script that does image classification using sklearn. The docker images for this application are therefore going
 to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.
 
-1. Start by enabling the service: `Google Container Registry API`
+1. Start by enabling the service: `Google Container Registry API` and `Google Cloud Build API`. This can be
+   done through the web side (by searching for the services) or can also be enabled from the terminal:
+   ```bash
+   gcloud services enable containerregistry.googleapis.com
+   gcloud services enable cloudbuild.googleapis.com
+   ```
 
 2. Google cloud building can in principal work out of the box with docker files. However, the recommended way
    is to add specialized `cloudbuild.yaml` files. They should look something like this:
