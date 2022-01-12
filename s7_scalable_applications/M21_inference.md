@@ -105,10 +105,12 @@ $$
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right) 
 $$
 
-where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
+where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows 
+all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
 
 <p align="center">
-   <img src="../figures/quantization_overview.png" width="800" title="All credit to https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512">
+   <img src="../figures/quantization_overview.png" width="800" 
+   title="All credit to https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512">
 </p>
 
 ### Exercises
@@ -129,62 +131,16 @@ where $s$ is a scale and $z$ is the so called zero point. But how does to doing 
    sound reason for this. Can you figure out why quantization still works with all the small rounding 
    errors? HINT: it has to do with the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
-3. Lets move on to quantization of our model.
+3. Lets move on to quantization of our model. Follow this
+   [tutorial](https://pytorch.org/docs/stable/quantization.html) from Pytorch on how to do quantization. The goal is
+   to construct a model `model_fc32` that works on normal floats and a quantized version `model_int8`. For simplicity
+   you can just use one of the models from the tutorial.
 
-   1. something
-      ```python
-      import torch
+3. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also try 
+   to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an improvement,
+   explain why that may be.
 
-      # define a floating point model
-      class M(torch.nn.Module):
-         def __init__(self):
-            super(M, self).__init__()
-            self.fc = torch.nn.Linear(4, 4)
-
-         def forward(self, x):
-            x = self.fc(x)
-            return x
-
-      # create a model instance
-      model_fp32 = M()
-      # create a quantized model instance
-      model_int8 = torch.quantization.quantize_dynamic(
-         model_fp32,  # the original model
-         {torch.nn.Linear},  # a set of layers to dynamically quantize
-         dtype=torch.qint8)  # the target dtype for quantized weights
-
-      # run the model
-      input_fp32 = torch.randn(4, 4, 4, 4)
-      res = model_int8(input_fp32)
-      ```
-
-   1. First we need to make sure that our model can actually be quantized by making it *statefull*. By this we mean 
-      that your model should fulfill the following:
-      * No reusing of activation functions
-      * Avoid using in-place operations
-      Make sure that your model fulfills this
-
-   2. Next, 
-
-3. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Below 
-   is shown some code that you need to adjust to yourself. Also try to perform the benchmark on the non-quantized model 
-   and see if you get a difference. 
-
-   ```python
-   import torch
-   import torch.utils.benchmark
-
-   torch.backends.quantized.engine = "qnnpack"
-   q_model = my_model.quantized()
-   rand_inp = torch.randn(1, *input_shape)
-   tq = torch.utils.benchmark.Timer(
-      setup='from __main__ import q_model, rand_inp',
-      stmt='q_model(q_model.quant(inp)'
-   )
-   print(f"quantized {tq.timeit(200).median * 1000:.1f} ms")
-   ```
-
-3. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and converting it. 
+4. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and converting it. 
    However, quantization can be further implemented into our pipeline by doing `quantization aware training`, where we also 
    apply quantization during training to hopefully get model that quantize better in the end. This can easily be done in 
    lightning using the 
