@@ -18,5 +18,6 @@ contained such that people can just execute without looking (too hard) at the co
   <img src="../figures/deployment.jpg" width="600" title="hover text">
 </p>
 
-
+In this session we try to look at methods specialized towards deployment of models on your local machine and
+also how to deploy services in the cloud.
 
