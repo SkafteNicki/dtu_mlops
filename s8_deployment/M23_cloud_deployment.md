@@ -55,15 +55,21 @@ do you have to manage the server. Everything is magically taken care of behind t
      <img src="../figures/gcp_test_function.png" width="800" title="hover text">
    </p>
 
-5. If you know what the application does, it should come as no surprise that does not require any input. We
+5. If you know what the application does, it should come as no surprise that it can run without any input. We
    therefore just send an empty request by clicking the `Test The Function` button. Does the function return
    the output you expected? Wait for the logs to show up. What do they show?
 
-   1. Click on the metrics tab. Identify what each panel is showing.
+   1. What should the `Triggering event` look like in the testing prompt for the program to respond with
+      ```
+      Good day to you sir!
+      ```
+      Try it out.
 
-   2. Go to the trigger tab and go to the url for the application.
+   2. Click on the metrics tab. Identify what each panel is showing.
 
-   3. Checkout the logs tab. You should see that your application have already been invoked multiple times.
+   3. Go to the trigger tab and go to the url for the application.
+
+   4. Checkout the logs tab. You should see that your application have already been invoked multiple times.
 
 6. Next, we are going to create an application that actually takes some input so we can try to send it requests.
    We provide a very simple `sklearn_cloud_function.py` script to get started.
@@ -83,23 +89,57 @@ do you have to manage the server. Everything is magically taken care of behind t
       snippet to help you:
       ```python
       from google.cloud import storage
-      client = storage.Client()
-      bucket = client.get_bucket("dtumlops")
-      blob = bucket.get_blob("model.pkl")
-      pickle_in = blob.download_as_string()
-      my_model = pickle.loads(pickle_in)
+      import pickle
 
+      BUCKET_NAME = ...
+      MODEL_FILE = ...
+
+      client = storage.Client()
+      bucket = client.get_bucket(BUCKET_NAME)
+      blob = bucket.get_blob(MODEL_FILE)
+      my_model = pickle.loads(blob.download_as_string())
 
       def knn_classifier(request):
-        """ Will do stuff """
-        request_json = request.get_json()
-        print(request_json)
-
+         """ will to stuff to your request """
+         request_json = request.get_json()
+         if request_json and 'input_data' in request_json:
+               data = request_json['input_data']
+               input_data = list(map(int, data.split(',')))
+               prediction = my_model.predict([input_data])
+               return f'Belongs to class: {prediction}'
+         else:
+               return 'No input data received'
 
       ```
-      HINT: if you want to test locally you need to install the `google-cloud-storage` API:
-      ```bash
-      pip install google-cloud-storage
-      ```
+      Some notes:
+         * For locally testing the above code you will need to install the `google-cloud-storage` python package
+         * Remember to change the `Entry point`
+         * Remember to also fill out the `requirements.txt` file. You need at least two packages to run the application
+           with `google-cloud-storage` being one of them. 
+         * If you deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you identify why.
+   
+   4. When you have successfully deployed the model, try to make predictions with it.
+      
+7. You can finally try to redo the exercises deploying a Pytorch application. You will essentially
+   need to go through the same steps as the sklearn example, including uploading a trained model
+   to a storage, write a cloud function that loads it and return some output. You are free to choose
+   whatever Pytorch model you want.
 
+## AI Platform
 
+Cloud functions are great for simple deployment, however they are really not meant to be used in combination
+with containers. For that we have to move to more complex systems. For that we return to 
+
+1. Follow this [tutorial](https://cloud.google.com/ai-platform/prediction/docs/getting-started-pytorch-container) 
+   that goes through the process of constructing a docker image that can be used for prediction
+   (which includes `torchserve`) and afterwards how that image can be deployed using the
+   *AI Platform Prediction*  interface. 
+
+The exercises above is just a small taste of what deployment has to offer. In both exercises we have explicitly
+not talked about management of clusters. That is taken care of by Google such that you can focus on the application.
+That said for those of you that are really interested in taking deployment to the next level should get started
+on *kubernetes* which is the de-facto open-source container orchestration platform that is being used in production
+enviroments. If you want to deep dive we recommend starting [here](https://cloud.google.com/ai-platform/pipelines/docs)
+which describes how to make pipelines that are a nessesary component before you start to `
+[create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own
+kubernetes cluster.
