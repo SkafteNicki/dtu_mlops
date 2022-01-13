@@ -35,7 +35,9 @@ layout of a standard CPU (the brain of your computer).
 Most modern CPUs is a single chip that consist of multiple *cores*. Each core can further be
 divided into *threads*. In most laptops the core count is 4 and commonly 2 threads per code.
 This means that the common laptop have 8 threads. The number of threads a compute unit has is
-important, because that directly corresponds to the number of parallel operations that can be executed i.e. one per thread. In a Python terminal you should be able to get the number of cores in your machine by writing (try it):
+important, because that directly corresponds to the number of parallel operations that can be 
+executed i.e. one per thread. In a Python terminal you should be able to get the number of 
+cores in your machine by writing (try it):
 
 ```python
 import multiprocessing
@@ -79,7 +81,8 @@ threads have a copy of our dataset definition so each can call the `__getitem__`
 
 Then comes the actual part where we request a batch for data. Assume that we have a batch
 size of 8 and we do not do any shuffeling. In this step the master thread then distributes
-the list of requested data points (`[0,1,2,3,4,5,6,7]`) to the four worker threads. With 8 indices and 4 workers, each worker will receive 2 indices.
+the list of requested data points (`[0,1,2,3,4,5,6,7]`) to the four worker threads. With 8 
+indices and 4 workers, each worker will receive 2 indices.
 
 <p align="center">
     <img src="../figures/cpu_data_loading2.PNG" width="500," title="hover text">
