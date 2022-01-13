@@ -37,6 +37,10 @@ our computations
 * Distributed data parallel training
 * Sharded training
 
+For all the exercises in the module you are going to need a multi-gpu setup. For DTU Students I can recommend checking
+out [this module](../s10_extra/M31_HPC.md) on using the high performance cluster (HPC) where you can get
+access to GPU resources. 
+
 ## Data parallel
 
 While data parallel today in general is seen as obsolete compared to distributed data parallel, we are still 
