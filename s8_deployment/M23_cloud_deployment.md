@@ -69,7 +69,10 @@ do you have to manage the server. Everything is magically taken care of behind t
 
    3. Go to the trigger tab and go to the url for the application.
 
-   4. Checkout the logs tab. You should see that your application have already been invoked multiple times.
+   4. Checkout the logs tab. You should see that your application have already been invoked multiple times. Also try to execute this command in a terminal:
+      ```bash
+      gcloud functions logs read
+      ```
 
 6. Next, we are going to create an application that actually takes some input so we can try to send it requests.
    We provide a very simple `sklearn_cloud_function.py` script to get started.
