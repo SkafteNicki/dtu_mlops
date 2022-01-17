@@ -19,24 +19,24 @@ nav_order: 1
 
 ---
 
-
-
 ## Deploying the model with torchserve
+
+
+### Exercises
 
 Torchserve is Pytorch own framework for deploying/serving models. It can be a bit rough around the edges but
 is fairly easy to work with. We are largely going to follow the instructions listed in the 
 [readme file](https://github.com/pytorch/serve/blob/master/README.md#serve-a-model) for torchserve. The intention
 is to serve a Resnet type neural network that is trained for classification on [ImageNet](https://www.image-net.org/).
+Additional documentation can be found [here](https://pytorch.org/serve/).
 
-1. Install `torchserve` and its dependencies. I recommend installing version 0.2.0 as the newest version (0.3.0)
-   seems to have some incompatilities with the rest of the torch ecosystem. There are separate instructions 
-   [here](https://github.com/pytorch/serve#install-torchserve-and-torch-model-archiver) if you are on linux/mac
-   vs. windows.
+1. Install `torchserve` and its dependencies. There are separate instructions on the
+   [homepage](https://github.com/pytorch/serve) depending on you are using Windows, WSL or Linux/MAC.
    
 2. Create a folder called `model_store`. This is where we will store the model that we are going to deploy
 
 3. Try to run the `torchserve --model-store model_store` command. If the service starts with no errors, you
-   have installed it correctly and can continue the exercise. Else it is googling time!
+   have installed it correctly and can continue the exercise. Else it is Googling time!
 
 2. We need a model to serve. The problem however is that we cannot give a `torchserve` a raw file of trained
    model weights as these essentially is just a list of floats. We need a file that both contains the model
@@ -60,6 +60,8 @@ is to serve a Resnet type neural network that is trained for classification on [
    script_model = torch.jit.script(model)
    script_model.save('deployable_model.pt')
    ```
+   Try creating a serialized model yourself. As the example above you can just use a pre-trained model
+   from `torchvision`.
 
 3. Check that output of the scripted model corresponds to output of the non-scripted model. You can do this on
    a single random input, and you should check that the top-5 predicted indices are the same e.g.

@@ -37,6 +37,10 @@ our computations
 * Distributed data parallel training
 * Sharded training
 
+For all the exercises in the module you are going to need a multi-gpu setup. For DTU Students I can recommend checking
+out [this module](../s10_extra/M31_HPC.md) on using the high performance cluster (HPC) where you can get
+access to GPU resources. 
+
 ## Data parallel
 
 While data parallel today in general is seen as obsolete compared to distributed data parallel, we are still 
@@ -51,7 +55,7 @@ In the figure below is shown both the *forward* and *backward* step in the data 
 The steps are the following:
 
 * Whenever we try to do *forward* call e.g. `out=model(batch)` we take the batch and divide it equally between all devices. 
-If we have a batch size of $N$ and $M$ devices each device will be sent $N/M$ datapoints.
+If we have a batch size of `N` and `M` devices each device will be sent `N/M` datapoints.
 
 * Afterwards each device receives a copy of the `model` e.g. a copy of the weights that currently parametrizes our neural network
 
@@ -60,7 +64,7 @@ If we have a batch size of $N$ and $M$ devices each device will be sent $N/M$ da
 * Finally we need to send back the output of each replicated model to the primary device.
 
 Similar to the analysis we did of parallel data loading, we cannot always expect that this will actual take less time than 
-doing the forward call on a single GPU. If we are parallelizing over $M$ devices, we essentially need to do $3\cdot M$ communication 
+doing the forward call on a single GPU. If we are parallelizing over `M` devices, we essentially need to do `3xM` communication 
 calls to send batch, model and output between the devices. If the parallel forward call does not outweigh this, then it will take longer.
 
 In addition, we also have the *backward* path to focus on 
@@ -165,7 +169,7 @@ in the script to get this kind of distributed training to work. Try to answer th
 3. The first exercise have hopefully convinced you that it can be quite the trouble writing distributed training applications yourself. 
    Luckily for us, `Pytorch-lightning` can take care of this for us such that we do not have to care about the specific details. To get 
    your model training on multiple GPUs you need to change two arguments in the trainer: the `accelerator` flag and the `gpus` flag. 
-   In addition to this, you can read through this [guide](https://pytorch-lightning.readthedocs.io/en/latest/advanced/multi_gpu.html) 
+   In addition to this, you can read through this [guide](https://pytorch-lightning.readthedocs.io/en/latest/accelerators/gpu.html) 
    about any additional steps you may need to do (for many of you, it should just work). Try running your model on multiple GPUs.
 
 4. Try benchmarking your training using 1 and 2 gpus e.g. try running a couple of epochs and measure how long time it takes. How much 

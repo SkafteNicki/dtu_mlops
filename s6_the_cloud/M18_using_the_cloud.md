@@ -70,7 +70,7 @@ We are now going to start actually using the cloud.
    You can always see the exact command that you need to run to `ssh` to an VM by selecting the
    `View gcloud command` option in the Compute Engine overview (see image below).
    <p align="center">
-     <img src="../figures/gcp_ssh_command.PNG" width="800" title="hover text">
+     <img src="../figures/gcp_ssh_command.png" width="800" title="hover text">
    </p>
 
 6. While logged into the instance, check if Python and Pytorch is installed? 
