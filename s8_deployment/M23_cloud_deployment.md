@@ -39,7 +39,7 @@ do you have to manage the server. Everything is magically taken care of behind t
    search for it. Activate the service if not already active.
 
 2. Click the `Create Function` button which should take you to a screen like the image below. Give it a name,
-   set the server region to somewhere close by and change the authetication policy to 
+   set the server region to somewhere close by and change the authentication policy to 
    `Allow unauthenticated invocations` so we can access it directly from a browser. Remember to note down the
    *URL* of the service somewhere.
    <p align="center">
