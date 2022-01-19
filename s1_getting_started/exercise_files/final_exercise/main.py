@@ -40,7 +40,7 @@ class TrainOREvaluate(object):
         
     def evaluate(self):
         print("Evaluating until hitting the ceiling")
-        parser = argparse.ArgumentParser(description='Training arguments')
+        parser = argparse.ArgumentParser(description='Evaluation arguments')
         parser.add_argument('load_model_from', default="")
         # add any additional argument that you want
         args = parser.parse_args(sys.argv[2:])
