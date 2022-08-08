@@ -126,7 +126,7 @@ max-line-length = 100
 
 ## Typing 
 
-In addition to writing documentation and following a specific styling, in python we have a third way of improving the quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier programming languages like `c`, `c++` ect. where data types needed to be explicit stated for variables:
+In addition to writing documentation and following a specific styling, in python we have a third way of improving the quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier programming languages like `c`, `c++` ect. where [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/) needed to be explicit stated for variables:
 
 ```cpp
 int main() {
