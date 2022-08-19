@@ -21,11 +21,11 @@ nav_order: 2
 
 You probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed 
 on your laptop, which is great. Conda is an environment manager that helps you make sure that the dependencies of
-different projects does not cross-contaminate each other. However, one thing is having conda installed, another is to
+different projects do not cross-contaminate each other. However, one thing is having conda installed, another is to
 actually use it. 
 
 Before we get on with the exercises, it is probably important to mention the differences between `pip` and `conda`.
-Here is a great [summary](https://www.anaconda.com/blog/understanding-conda-and-pip) but it essentially it boils down 
+Here is a great [summary](https://www.anaconda.com/blog/understanding-conda-and-pip) but it essentially boils down 
 to this: 
 * `pip` always install python packages (in the form of python wheels and distributions) whereas `conda` can
 also install packages written in other languages because it installs from a binary file. 
