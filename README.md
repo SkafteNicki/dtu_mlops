@@ -44,7 +44,7 @@ If you do not have git installed (yet) we will touch upon it in the course. The 
 exercise material for this course and lectures. Additionally, you should join our slack channel which 
 we use for communication:
 
-<https://join.slack.com/t/dtumlops/shared_invite/zt-10vol1tec-TS5qcF_WqTxIpQc8PdTz9g>
+<https://join.slack.com/t/dtumlops/shared_invite/zt-1fygl299d-tMc1NPfUZag0yNGYl~xCyQ>
 
 ## MLOps: What is it?
 
