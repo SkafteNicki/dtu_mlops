@@ -21,18 +21,22 @@ nav_order: 2
 
 ## Profilers
 
-In general profiling code is about improving the performance of your code. In this session we are going to take a somewhat narrow approach to what "performance" is: runtime, meaning the time it takes to execute your program. 
+In general profiling code is about improving the performance of your code. In this session we are going to take a 
+somewhat narrow approach to what "performance" is: runtime, meaning the time it takes to execute your program. 
 
 At the bare minimum, the two questions a proper profiling of your program should be able to answer is:
 
 * *“How many times is each method in my code called?”*
 * *“How long do each of these methods take?”*
 
-The first question is important to priorities optimization. If two methods `A` and `B` have approximately the same runtime, but `A` is called 1000 more times than `B` we should probably spend time optimizing `A` over `B` if we want to speedup our code. The second question is gives itself, directly telling us which methods are the expensive to call.
+The first question is important to priorities optimization. If two methods `A` and `B` have approximately the same 
+runtime, but `A` is called 1000 more times than `B` we should probably spend time optimizing `A` over `B` if we want 
+to speedup our code. The second question is gives itself, directly telling us which methods are the expensive to call.
 
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
-profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html), pythons
-build in profiler.
+profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html). `cProfile` is
+pythons build in profiler that can help give you an overview runtime of all the functions and methods involved in your
+programs. 
 
 ### Exercises
 
@@ -42,7 +46,8 @@ build in profiler.
    
 2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
 
-3. Can you explain the difference between `tottime` and `cumtime`? Under what circumstances does these differ and when are they equal.
+3. Can you explain the difference between `tottime` and `cumtime`? Under what circumstances does these differ and 
+   when are they equal.
 
 4. To get a better feeling of the profiled result we can try to visualize it. Python does not
    provide a native solution, but open-source solutions such as [snakeviz](https://jiffyclub.github.io/snakeviz/)
@@ -70,7 +75,8 @@ It can even analyze your code and give recommendations.
   <img src="../figures/pytorch_profiler.png" width="700" title="hover text">
 </p>
 
-Using the profiler can be as simple as wrapping the code that you want to profile with the `torch.profiler.profile` decorator
+Using the profiler can be as simple as wrapping the code that you want to profile with the `torch.profiler.profile`
+decorator
 
 ```python
 with torch.profiler.profile(...) as prof:
@@ -165,3 +171,11 @@ pip install torch_tb_profiler
    
 6. Redo the steps above on the `vae_mnist_working.py` file, implementing now multiple calls to `record_function`
    on various levels of the training. Try running the profiling and investigate if you are able to improve the code.
+
+This end the module on profiling. If you want to go into more details on this topic we can recommend looking into
+[line_profiler and kernprof](https://github.com/pyutils/line_profiler). A downside of using python's `cProfile` is that
+it can only profiling at an functional/modular level, that is great for identifying hotspots in your code. However,
+sometimes the cause of an computationally hotspot is a single line of code in a function, which will not be caught by
+`cProfile`. An example would be an simple index operations such as `a[idx] = b`, which for large arrays and
+non-sequential indexes is really expensive. For these cases
+[line_profiler and kernprof](https://github.com/pyutils/line_profiler) are excellent tools to have in your toolbox.

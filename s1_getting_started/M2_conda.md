@@ -29,22 +29,29 @@ Here is a great [summary](https://www.anaconda.com/blog/understanding-conda-and-
 to this: 
 * `pip` always install python packages (in the form of python wheels and distributions) whereas `conda` can
 also install packages written in other languages because it installs from a binary file. 
-* `pip` installs dependencies in a serialized-recursive way, meaning that it can lead to dependencies issues, because all other
-dependencies are ignored when we are installing the first and so on. On the other hand, `conda` go over all dependencies in the
-beginning checking for compatibility before installing anything.
+* `pip` installs dependencies in a serialized-recursive way, meaning that it can lead to dependencies issues,
+because all other dependencies are ignored when we are installing the first and so on. On the other hand, `conda` 
+go over all dependencies in the beginning checking for compatibility before installing anything.
 * `pip` is bound to a specific python version, whereas `conda` can manage multiple python versions at the same time
 
-It is therefore highly recommended to use conda enviroments compared to python virtual enviroments. However, does that mean
-that you cannot mix `pip install` and `conda install`? If you are using `conda>=4.6` then you should be fairly safe, because
-it has build in compatible layer. In general, what works for me
-* Use `conda` to create enviroments
-* Use `pip` to install packages in that enviroment (with a few exceptions like `pytorch`)
+It is therefore highly recommended to use conda enviroments compared to python virtual enviroments. However, does that
+mean that you cannot mix `pip install` and `conda install`? If you are using `conda>=4.6` then you should be fairly 
+safe, because it has build in compatible layer. In general, what works for me
+* Use `conda` to create environments
+* Use `pip` to install packages in that environment (with a few exceptions like `pytorch`)
+
+Finally, it is worth mentioning that `pip` and `conda` are not the only two environment managers that exist for Python.
+[Pipenv](https://pypi.org/project/pipenv/) is another alternative that is often used that has its own pros and cons
+compared to other environment managers.
 
 ### Exercise
 
-1. Download and install `conda`. You are also free to use `miniconda` if that rocks your boat. Make sure that 
-   your installation is working by writing `conda help` in a terminal and it should show you the help message 
-   for conda. If this does not work you probably need to set some system variable to 
+1. Download and install `conda`. You are free to either install full `conda` or the much simpler version `miniconda`. 
+   The core difference between the two packages is that `conda` already comes with a lot of packages that you would 
+   normally have to install with `miniconda`. The downside is that `conda` is an much larger package which can be a 
+   huge disadvantage on smaller devices. Make sure that your installation is working by writing `conda help` in a 
+   terminal and it should show you the help message for conda. If this does not work you probably need to set some
+   system variable to
    [point to the conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
 
 2. Create a new conda environment for the remaining of the exercises using
