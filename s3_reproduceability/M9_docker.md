@@ -5,6 +5,8 @@ parent: S3 - Reproduceability
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/m9.png" width="130"> 
+
 # Docker
 {: .no_toc }
 

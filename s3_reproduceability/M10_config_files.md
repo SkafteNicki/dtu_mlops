@@ -5,6 +5,8 @@ parent: S3 - Reproduceability
 nav_order: 2
 ---
 
+<img style="float: right;" src="../figures/icons/m10.png" width="130"> 
+
 # Config files
 {: .no_toc }
 

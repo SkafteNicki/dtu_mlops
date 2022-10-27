@@ -53,8 +53,9 @@ frameworks (listed in order of when they were published):
 
 * [JAX](https://github.com/google/jax)
 
-<br> </br>
-
+\
+\
+\
 We wont go into a longer discussion on what framework is the best, as it is pointless. Pytorch and Tensorflow
 have been around for the longest and therefore have bigger communities and feature sets at this point in time.
 They both very similar in the sense that they both have features directed against research and production. 
@@ -65,8 +66,7 @@ not as mature as the other frameworks. As the frameworks uses different kind pro
 In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the
 framework that we use for our day to day research life.
 
-<br> </br>
-
+\
 The intention behind this set of exercises is to bring everyones Pytorch skills up-to-date. If you already 
 are Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
 The exercises are in large part taken directly from the
