@@ -5,6 +5,8 @@ parent: S2 - Organization and version control
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/m5.png" width="130"> 
+
 # Git
 {: .no_toc }
 

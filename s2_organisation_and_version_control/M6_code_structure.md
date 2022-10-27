@@ -5,6 +5,8 @@ parent: S2 - Organization and version control
 nav_order: 2
 ---
 
+<img style="float: right;" src="../figures/icons/m6.png" width="130"> 
+
 # Code organization
 {: .no_toc }
 
@@ -100,4 +102,4 @@ Below is seen the default code structure of cookie-cutter for data science proje
 
 11. Make sure to update the `README.md` file with a short description on how your scripts should be run
 
-12. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your code (see [this set of exercises](../s1_getting_started/M2_conda.md) for help)
+12. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your code (see [this set of exercises](../s1_development_environment/M2_conda.md) for help)
