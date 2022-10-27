@@ -24,7 +24,9 @@ nav_order: 4
 {: .important }
 > Core module
 
-Deep learning have since its [revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html) transformed our lives. From Google Translate to driverless cars
+Deep learning have since its 
+[revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html) 
+transformed our lives. From Google Translate to driverless cars
 to personal assistants to protein engineering, deep learning is transforming nearly every sector of our economy and
 or lives. However, it did not take long before people realized that deep learning is not as simple beast to tame
 and it comes with its own kind of problems, especially if you want to use it in a production setting. In particular 
@@ -64,14 +66,17 @@ not as mature as the other frameworks. As the frameworks uses different kind pro
 (object oriented vs. functional programming), comparing them is essentially meaningless.
 
 In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the
-framework that we use for our day to day research life.
+framework that we use for our day to day research life. Additionally, as of right now it is the absolutely
+the [dominating framework](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/) for published
+models, research papers and [competition winners](https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w)
 
 \
 The intention behind this set of exercises is to bring everyones Pytorch skills up-to-date. If you already 
 are Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
 The exercises are in large part taken directly from the
 [deep learning course at udacity](https://github.com/udacity/deep-learning-v2-pytorch).
-Note that these exercises are given as notebooks, which is the last time we are going to use them actively in course. Instead after this set of exercises we are going to focus on writing code in python scripts.
+Note that these exercises are given as notebooks, which is the last time we are going to use them actively in course. 
+Instead after this set of exercises we are going to focus on writing code in python scripts.
 
 The notebooks contains a lot of explaining text. The exercises that you are supposed to fill out are inlined in 
 the text in small "exercise" blocks:
