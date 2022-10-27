@@ -21,6 +21,11 @@ nav_order: 1
 
 ---
 
+{: .important }
+> Something
+>
+> A paragraph with a custom title callout
+
 <p align="center">
   <img src="../figures/terminal_power.jpg" width="500" title="hover text">
 </p>

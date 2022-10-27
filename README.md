@@ -48,6 +48,19 @@ we use for communication:
 <https://join.slack.com/t/dtumlops/shared_invite/zt-1fygl299d-tMc1NPfUZag0yNGYl~xCyQ>
 (link may be expired, write to me to gain access)
 
+## Course organization
+
+We recommend that when going through the material that you use the [homepage](https://skaftenicki.github.io/dtu_mlops/)
+which is the corresponding [Github pages](https://pages.github.com/) version of this repository that is more nicely
+rendered, that also includes some special html magic provided by
+[just the docs](https://github.com/just-the-docs/just-the-docs).
+
+The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
+corresponds to full day of work if you are following the course, meaning approx 9 hours of work. Each session (**S**)
+corresponds to topic within MLOps and consist of multiple modules (**M**) that each covers an tool within the session.
+
+Importantly 
+
 ## MLOps: What is it?
 
 Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particular
