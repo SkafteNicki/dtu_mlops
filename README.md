@@ -16,6 +16,15 @@ permalink: /
   <img src="figures/mlops.png" width="1000" title="hover text">
 </p>
 
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 ## Course details
 
 * Course responsible
@@ -59,7 +68,13 @@ The course is divided into sessions, denoted by capital **S**, and modules, deno
 corresponds to full day of work if you are following the course, meaning approx 9 hours of work. Each session (**S**)
 corresponds to topic within MLOps and consist of multiple modules (**M**) that each covers an tool within the session.
 
-Importantly 
+Importantly we differ between core modules and optional modules. Core modules will be marked by
+
+{: .important }
+> Core module
+
+at the top of their corresponding page. Core modules are importantly to go through to be able to pass the course.
+You are highly recommended to still do the optional modules.
 
 ## MLOps: What is it?
 
