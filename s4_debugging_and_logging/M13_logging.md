@@ -19,6 +19,9 @@ nav_order: 3
 
 ---
 
+{: .important }
+> Core module
+
 Experiment logging or model monitoring is an important part of understanding what is going on with your model. 
 It can help you debug your model and help tweak your models to perfection.
 

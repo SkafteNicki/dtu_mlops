@@ -19,6 +19,9 @@ nav_order: 2
 
 ---
 
+{: .important }
+> Core module
+
 ## Profilers
 
 In general profiling code is about improving the performance of your code. In this session we are going to take a 

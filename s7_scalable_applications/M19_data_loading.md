@@ -19,6 +19,9 @@ nav_order: 1
 
 ---
 
+{: .important }
+> Core module
+
 The first set of exercises lets focus on distributed data loader, but before 
 we start on the exercises lets try to understand what is going on behind the scene
 when we use Pytorch to parallelize data loading.

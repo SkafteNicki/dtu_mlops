@@ -92,7 +92,7 @@ Some of the biggest are:
 
 It is important to note, that code formatting is in general not about following a specific code style, but rather that all users follow the same.
 
-5. Install a code formatter of your own choice (I recommend black) and let it format at least one of the script in your codebase. You can also try to play around with the different formatters to find out which formatter you like the most 
+5. Install a code formatter of your own choice (I recommend `black`) and let it format at least one of the script in your codebase. You can also try to play around with the different formatters to find out which formatter you like the most 
 
 One aspect not covered by `pep8` is how `import` statements in python should be organized. If you are like most
 people, you place your `import` statements at the top of the file and they are ordered simply by when you needed them.

@@ -19,6 +19,9 @@ nav_order: 1
 
 ---
 
+{: .important }
+> Core module
+
 Google cloud project is the cloud service provided by Google. The key concept, or selling point, of any cloud 
 provider is the idea of near-infinite resources. Without the cloud it simply is not feasible to do many modern 
 deep learning and machine learning tasks because they cannot be scaled locally.

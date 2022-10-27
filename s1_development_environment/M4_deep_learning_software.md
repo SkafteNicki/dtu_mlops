@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M4 - Deep Learning Software
-parent: S1 - Getting started
+parent: S1 - Development environment
 nav_order: 4
 ---
 

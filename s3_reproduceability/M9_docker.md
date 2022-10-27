@@ -19,6 +19,9 @@ nav_order: 1
 
 ---
 
+{: .important }
+> Core module
+
 <p align="center">
   <img src="../figures/docker.png" width="400" title="hover text">
 </p>

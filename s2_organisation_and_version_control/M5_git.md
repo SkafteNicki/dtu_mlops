@@ -19,6 +19,9 @@ nav_order: 1
 
 ---
 
+{: .important }
+> Core module
+
 Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
 This is the reason that **version control** exist. Simply stated, it is a way to keep track of:
 

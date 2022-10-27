@@ -19,6 +19,9 @@ nav_order: 1
 
 ---
 
+{: .important }
+> Core module
+
 Continuous integration (CI) is a development practice that makes sure that updates to code are
 automatically tested such that it does not break existing code. If you look at the MLOps pipeline, 
 CI is one of cornerstones of operations part. However, it should be notes that applying CI does 
