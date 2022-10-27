@@ -5,6 +5,8 @@ parent: S10 - Extra
 nav_order: 2
 ---
 
+<img style="float: right;" src="../figures/icons/m28.png" width="130"> 
+
 # Hyperparameter optimization
 {: .no_toc }
 

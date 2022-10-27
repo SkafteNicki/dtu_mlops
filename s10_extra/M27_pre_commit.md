@@ -5,6 +5,8 @@ parent: S10 - Extra
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/m27.png" width="130"> 
+
 # Pre-commit
 {: .no_toc }
 
