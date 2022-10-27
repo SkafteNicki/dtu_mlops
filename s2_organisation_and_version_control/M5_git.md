@@ -34,24 +34,28 @@ This is the reason that **version control** exist. Simply stated, it is a way to
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
-hosting repositories but that does not mean that they are the only one providing free repository hosting (see [bitbucket](https://bitbucket.org/product/ or [gitlab](https://about.gitlab.com/)) for some other examples).
+hosting repositories but that does not mean that they are the only one providing free repository hosting
+(see [bitbucket](https://bitbucket.org/product/ or [gitlab](https://about.gitlab.com/)) for some other examples).
 
-That said we will be using git and github throughout this course. It is a requirement for passing this course that you create a public repository with your code and use git to upload any code changes. How much you choose to integrate this into your own projects depends, but you are at least expected to be familiar with git+github.
+That said we will be using git and github throughout this course. It is a requirement for passing this course that 
+you create a public repository with your code and use git to upload any code changes. How much you choose to integrate 
+this into your own projects depends, but you are at least expected to be familiar with git+github.
 
 ## Initial config
 
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure
    that your installation is working by writing `git help` in a terminal and it should show you the help message for git.
 
-2. Create a [github](github.com/) account
+2. Create a [github](github.com/) account if you do not already have one.
 
-3. To make sure that we do not have to type in our github username every time that we want to do some changes, we can once and for all set them on our local machine
+3. To make sure that we do not have to type in our github username every time that we want to do some changes, 
+   we can once and for all set them on our local machine
 
-```bash
-# type in a terminal
-git config credential.helper store
-git config --global user.email <email>
-```
+   ```bash
+   # type in a terminal
+   git config credential.helper store
+   git config --global user.email <email>
+   ```
 
 ## Git overview
 
@@ -75,11 +79,15 @@ adding commits are seen below
 Assuming that we have made some changes to our local *working directory* and that we 
 want to get this updates to be online in the *remote repository* we have to do the following steps:
 
-* First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique hash to the code yet, and we can therefore still overwrite it.
+* First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the 
+  staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique 
+  hash to the code yet, and we can therefore still overwrite it.
 
-* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
+* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally 
+  add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
 
-* Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our commit gets online
+* Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our 
+  commit gets online
 
 Of course, the real power of version control is the ability to make branches, as in the image below
 
@@ -87,11 +95,13 @@ Of course, the real power of version control is the ability to make branches, as
   <img src="../figures/git_branches.png" width="1000," title="hover text">
 </p>
 
-Each branch can contain code that are not present on other branches. This is usefull when you are many developers working together on the same project.
+Each branch can contain code that are not present on other branches. This is usefull when you are many developers
+working together on the same project.
 
 ## Exercise
 
-1. In your github account create an repository, where the intention is that you upload the code from the final exercise from yesterday  
+1. In your github account create an repository, where the intention is that you upload the code from the final 
+   exercise from yesterday  
 
    1. After creating the repository, clone it to your computer
       ```git clone https://github.com/my_user_name/my_repository_name.git```
@@ -102,12 +112,13 @@ Each branch can contain code that are not present on other branches. This is use
 
    4. Commit the files using `git commit`
 
-   5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been updated in your repository.
+   5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
+      updated in your repository.
 
    6. You can always use the commando `git status` to check where you are in the process of making a commit.
 
-2. Make sure that you understand how to make branches, as this will allow you to try out code changes without messing with your working code.
-   Creating a new branch can be done using:
+2. Make sure that you understand how to make branches, as this will allow you to try out code changes without 
+   messing with your working code. Creating a new branch can be done using:
    ```bash
    # create a new branch
    git checkout -b <my_branch_name>
@@ -147,15 +158,50 @@ Each branch can contain code that are not present on other branches. This is use
 
    6. Write a bit about the changes you have made and click `Create pull request` :)
 
-4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To mitigate this
-   we can set what is called an *remote upstream*. Take a look on this
+4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To 
+   mitigate this we can set what is called an *remote upstream*. Take a look on this
    [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork)
    , and set a remote upstream for the repository you just forked.
 
 5. After setting the upstream branch, we need to pull and merge any update. Take a look on this
-   [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) and
-   figure out how to do this.
+   [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
+   and figure out how to do this.
 
-6. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning. However, if you are using a proper editor they also have build in support for version control. We recommend getting familiar with these features (here is a tutorial for [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
+6. As an final exercise we want to simulate an *merge conflict*, which happens when two users try to commit changes
+   to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be
+   integrated.
 
-That covers the basics of git to get you stated. In the exercise folder you can find a [git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference.
+   1. In your browser, open your favorite repository (it could be the one you just worked on), go to any file of
+      your choosing and click the edit button (see image below) and make some change to the file. For example, if
+      you choose an python file you can just import some random packages at the top of the file. Commit the change.
+      <p align="center">
+         <img src="../figures/git_edit.png" width="1000," title="hover text">
+      </p>
+
+   2. Make sure not to pull the change you just made to your local computer. Locally make changes to the same
+      file in the same lines and commit them afterwards.
+
+   3. Now try to `git pull` the online changes. What should (hopefully) happen is that git will tell you that it found
+      a merge conflict that needs to be resolved. Open the file and you should see something like this
+      ```
+      <<<<<<< HEAD
+      this is some content to mess with
+      content to append
+      =======
+      totally different content to merge later
+      >>>>>>> master
+      ```
+      this should be interpret as: everything thats between `<<<<<<<` and `=======` are the changes made by your local
+      commit and everything between `=======` and `>>>>>>>` are the changes you are trying to pull. To fix the merge
+      conflict you simply have to make the code in the two "cells" work together. When you are done, remove the
+      identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
+
+   4. Finally, commit the merge and try to push.
+
+7. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning. 
+   However, if you are using a proper editor they also have build in support for version control. We recommend getting
+   familiar with these features (here is a tutorial for 
+   [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
+
+That covers the basics of git to get you started. In the exercise folder you can find a 
+[git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference.
