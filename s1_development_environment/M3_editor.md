@@ -1,9 +1,11 @@
 ---
 layout: default
 title: M3 - Editor
-parent: S1 - Getting started
+parent: S1 - Development environment
 nav_order: 3
 ---
+
+<img style="float: right;" src="../figures/icons/m3.png" width="130"> 
 
 # Editor/IDE
 {: .no_toc }
@@ -18,6 +20,10 @@ nav_order: 3
 </details>
 
 ---
+
+{: .important }
+> Core module
+
 Notebooks can be great for testing out ideas, developing simple code and explaining and visualizing certain aspects
 of a codebase. Remember that [Jupyter notebook](https://jupyter.org/) was created with intention to "...allows you 
 to create and share documents that contain live code, equations, visualizations and narrative text." However, 

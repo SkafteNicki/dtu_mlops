@@ -1,11 +1,13 @@
 ---
 layout: default
-title: M4 - Pytorch
+title: M4 - Deep Learning Software
 parent: S1 - Getting started
 nav_order: 4
 ---
 
-# Pytorch
+<img style="float: right;" src="../figures/icons/m4.png" width="130"> 
+
+# Deep Learning Software
 {: .no_toc }
 
 <details open markdown="block">
@@ -19,17 +21,57 @@ nav_order: 4
 
 ---
 
-The currently two biggest frameworks for doing deep learning is [pytorch](https://github.com/pytorch/pytorch)
-and [Tensorflow](https://github.com/tensorflow/tensorflow). At this in time the frameworks are very similar
-in that they both have features that directed against research and production. However, we have choosen to
-go with pytorch because we find it a bit more intuitive than Tensorflow.
+{: .important }
+> Core module
+
+Deep learning have since its [revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html) transformed our lives. From Google Translate to driverless cars
+to personal assistants to protein engineering, deep learning is transforming nearly every sector of our economy and
+or lives. However, it did not take long before people realized that deep learning is not as simple beast to tame
+and it comes with its own kind of problems, especially if you want to use it in a production setting. In particular 
+the concept of [technical debt](https://research.google/pubs/pub43146/) was invented to indicate the significant
+maintenance costs at an system level that it takes to run machine learning in production. MLOps should very much
+be seen as the respone to the concept of technical dept, namely that we should develop methods, processes and tools
+(with inspiration from classical devops) to counter the problems we run into when working with deep learning models.
+
+It is important to note that all the concepts and tools that have been developed for MLOps can absolutly be used 
+together with more classical machine learning models (think K-nearest neighbour, Random forest etc.), however
+deep learning comes with its own set of problems which mostly have to do with the shear size of the data and models
+we are working with. For these reason, we are focusing on working with deep learning models in this course
+
+## Software landscape for Deep Learning
+
+Regarding software for Deep Learning, the landscape is currently dominated by three software 
+frameworks (listed in order of when they were published):
+
+<img style="float: right;" src="../figures/tensorflow.png" width="120"> 
+<img style="float: right;" src="../figures/pytorch.png" width="130"> 
+<img style="float: right;" src="../figures/jax.png" width="200">
+
+* [Tensorflow](https://github.com/tensorflow/tensorflow) 
+
+* [Pytorch](https://github.com/pytorch/pytorch)         
+
+* [JAX](https://github.com/google/jax)
+
+<br> </br>
+
+We wont go into a longer discussion on what framework is the best, as it is pointless. Pytorch and Tensorflow
+have been around for the longest and therefore have bigger communities and feature sets at this point in time.
+They both very similar in the sense that they both have features directed against research and production. 
+JAX is kind of the new kid on the block, that in many ways improve on Pytorch and Tensorflow, but is still
+not as mature as the other frameworks. As the frameworks uses different kind programming principles
+(object oriented vs. functional programming), comparing them is essentially meaningless.
+
+In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the
+framework that we use for our day to day research life.
+
+<br> </br>
 
 The intention behind this set of exercises is to bring everyones Pytorch skills up-to-date. If you already 
 are Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
-
-The exercises are in large part taken directly from the [deep learning course at udacity](https://github.com/udacity/deep-learning-v2-pytorch).
-Note that these exercises are given as notebooks, which is the last time we are going to use them actively in course. Instead
-after this set of exercises we are going to focus on writing code in python scripts.
+The exercises are in large part taken directly from the
+[deep learning course at udacity](https://github.com/udacity/deep-learning-v2-pytorch).
+Note that these exercises are given as notebooks, which is the last time we are going to use them actively in course. Instead after this set of exercises we are going to focus on writing code in python scripts.
 
 The notebooks contains a lot of explaining text. The exercises that you are supposed to fill out are inlined in 
 the text in small "exercise" blocks:

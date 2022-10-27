@@ -1,13 +1,14 @@
 ---
 layout: default
 title: M1 - Terminal
-parent: S1 - Getting started
+parent: S1 - Development environment
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/m1.png" width="130"> 
+
 # The terminal
-<!-- 
-{: .no_toc } 
+{: .no_toc }
 
 <details open markdown="block">
   <summary>
@@ -17,14 +18,11 @@ nav_order: 1
 1. TOC
 {:toc}
 </details>
--->
 
 ---
 
 {: .important }
-> Something
->
-> A paragraph with a custom title callout
+> Core module
 
 <p align="center">
   <img src="../figures/terminal_power.jpg" width="500" title="hover text">
@@ -47,7 +45,7 @@ that you will interact to some degree with the terminal.
 
 Note if you already are a terminal wizard then feel free to skip the exercises below. They are very elementary.
 
-#### Exercises
+### Exercises
 
 1. (Windows users) We highly recommend that you activate *Windows Subsystem for Linux*. Please follow this 
    [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Remember to run commands from an elevated
