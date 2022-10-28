@@ -58,18 +58,20 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
    </p>
    Windows users can either use the WSL terminal or Windows command promt
 
-3. To navigate inside a terminal, we rely on the `cd` command and `pwd` command. Make sure you know how to go back and forth
-   in your file system. HINT: try [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) to save some time.
+3. To navigate inside a terminal, we rely on the `cd` command and `pwd` command. Make sure you know how to go back and
+   forth in your file system. HINT: try [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) to
+   save some time.
 
 4. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try 
    it with the additional option `-l`. What does it show?
 
-5. Make sure to familiar yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also familiarize yourself 
-   with the `>` operator. You are probably going to use some of them throughout the course or in your future career. For Windows
-   users these commands may be named something else, e.g. `where` command on Windows corresponds to `which`.
+5. Make sure to familiar yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also familiarize
+   yourself with the `>` operator. You are probably going to use some of them throughout the course or in your future
+   career. For Windows users these commands may be named something else, e.g. `where` command on Windows corresponds 
+   to `which`.
 
-6. It is also significant that you know how to edit a file through the terminal. Most systems should have the `nano` editor
-   installed, else try to figure out which one is installed in your system.
+6. It is also significant that you know how to edit a file through the terminal. Most systems should have the 
+   `nano` editor installed, else try to figure out which one is installed in your system.
 
    1. Type `nano` in the terminal
 
@@ -83,8 +85,8 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
    4. Afterward, try to edit the file through the terminal (change `Hello world` to something else)
 
 7. All terminals come with their own programming language. The most common system is called `bash`. It can come in handy 
-   being able to write simple programs in bash. For example, one case is that you want to execute multiple python programs 
-   sequentially, which can be done through a bash script.
+   being able to write simple programs in bash. For example, one case is that you want to execute multiple python
+   programs sequentially, which can be done through a bash script.
 
    1. Write a bash script (in `nano`) and try executing it:
       ```bash

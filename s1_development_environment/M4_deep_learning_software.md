@@ -32,11 +32,11 @@ or lives. However, it did not take long before people realized that deep learnin
 and it comes with its own kind of problems, especially if you want to use it in a production setting. In particular 
 the concept of [technical debt](https://research.google/pubs/pub43146/) was invented to indicate the significant
 maintenance costs at an system level that it takes to run machine learning in production. MLOps should very much
-be seen as the respone to the concept of technical dept, namely that we should develop methods, processes and tools
-(with inspiration from classical devops) to counter the problems we run into when working with deep learning models.
+be seen as the response to the concept of technical dept, namely that we should develop methods, processes and tools
+(with inspiration from classical DevOps) to counter the problems we run into when working with deep learning models.
 
-It is important to note that all the concepts and tools that have been developed for MLOps can absolutly be used 
-together with more classical machine learning models (think K-nearest neighbour, Random forest etc.), however
+It is important to note that all the concepts and tools that have been developed for MLOps can absolutely be used 
+together with more classical machine learning models (think K-nearest neighbor, Random forest etc.), however
 deep learning comes with its own set of problems which mostly have to do with the shear size of the data and models
 we are working with. For these reason, we are focusing on working with deep learning models in this course
 
@@ -127,8 +127,8 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
       in the notebook.
    
 5. Complete the [Fashion MNIST](exercise_files/4_Fashion_MNIST.ipynb) notebook, that summaries concepts learned in the
-   notebook 2 and 3 on building a neural network for classifying the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) 
-   dataset.
+   notebook 2 and 3 on building a neural network for classifying the
+   [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset.
    
    1. (Bonus exercise): The exercise focuses on the Fashion MNIST dataset but should without much
       work be able to train on multiple datasets. Implement a variable `dataset` that can take the
@@ -138,13 +138,13 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
    important concepts on how to do inference and validation on our neural network.
    
    1. (Bonus exercise): The exercise shows how dropout can be used to prevent overfitting. However, today it
-      is often used to get uncertainty estimates of the network predictions using [Monte Carlo Dropout](http://proceedings.mlr.press/v48/gal16.pdf).
-      Implement monte carlo dropout such that we at inference time gets different predictions for the same
-      input (HINT: do not set the network in evaluation mode). Construct a histogram of class prediction for a
-      single image using 100 monte carlo dropout samples.
+      is often used to get uncertainty estimates of the network predictions using
+      [Monte Carlo Dropout](http://proceedings.mlr.press/v48/gal16.pdf). Implement monte carlo dropout such that we at 
+      inference time gets different predictions for the same input (HINT: do not set the network in evaluation mode).
+      Construct a histogram of class prediction for a single image using 100 monte carlo dropout samples.
 
-7. Complete the [Saving_and_Loading_Models](exercise_files/6_Saving_and_Loading_Models.ipynb) notebook. This notebook addresses
-   how to save and load model weights. This is important if you want to share a model with someone else.
+7. Complete the [Saving_and_Loading_Models](exercise_files/6_Saving_and_Loading_Models.ipynb) notebook. This notebook
+   addresses how to save and load model weights. This is important if you want to share a model with someone else.
 
    1. (Bonus exercise): Being able to save and load weights are important for the concept of early stopping. In
       short, early stopping monitors some metric (often on the validation set) and then will stop the training
@@ -154,9 +154,9 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 ### Final exercise
 
 As the final exercise we will develop an simple baseline model which we will continue to develop on during the course.
-For this exercise we provide the data in the `data/corruptedmnist` folder. Do **NOT** use the data in the `corruptedmnist_v2`
-folder as that is intended for another exercise. As the name suggest this is a (subsampled) corrupted version of regular mnist. 
-Your overall task is the following:
+For this exercise we provide the data in the `data/corruptedmnist` folder. Do **NOT** use the data in the
+`corruptedmnist_v2` folder as that is intended for another exercise. As the name suggest this is a (subsampled) 
+corrupted version of regular mnist. Your overall task is the following:
 
 > **Implement a mnist neural network that achives atlest 85 % accuracy on the test set.**
 
@@ -171,23 +171,29 @@ Your overall task is the following:
 3. Implement your data setup in a script called `data.py`
 
 4. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to 
-   take an additional argument indicating if the model should train or evaluate. It will look something like this:
+   take an additional subcommands indicating if the model should train or evaluate. It will look something like this:
    ```
-   python main.py train
+   python main.py train --lr 1e-4
    python main.py evaluate trained_model.pt
    ```
-   which can be implemented in various ways.
+   which can be implemented in various ways. 
 
-To start you off, a very barebone version of each script is provided in the `final_exercise` folder. 
+To start you off, a very barebone version of each script is provided in the `final_exercise` folder. We have already
+implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
+interested in how this is done you can checkout this optional module on defining
+[command line interfaces (CLI)](../s10_extra/M_cli.md). We additionally also provide an `requirements.py` with
+suggestion to what packages are nessesary to complete the exercise.
+
+\
 As documentation that your model is actually working, when running in the `train` command the script needs to
 produce a single plot with the training curve (training step vs training loss). When the `evaluate` command is run,
 it should write the test set accuracy to the terminal.
 
-It is part of the exercise to not implement in notebooks as code development in the real life  
-happens in script. As the model is simple to run (for now) you should be able to complete the exercise on your laptop, 
+It is part of the exercise to not implement in notebooks as code development in the real life happens in script. 
+As the model is simple to run (for now) you should be able to complete the exercise on your laptop, 
 even if you are only training on cpu. That said you are allowed to upload your scripts to your own "Google Drive" and 
 then you can call your scripts from a google colab notebook, which is shown in the image below where all code is 
-place in the `fashion_trainer.py` script and the colab notebook is just used to execute it.
+place in the `fashion_trainer.py` script and the Colab notebook is just used to execute it.
 
 ![colab](../figures/colab.PNG)
 
