@@ -5,6 +5,8 @@ parent: S4 - Debugging, Profiling and Logging
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/m11.png" width="130"> 
+
 # Debugging
 {: .no_toc }
 
