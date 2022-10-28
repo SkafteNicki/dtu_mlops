@@ -14,9 +14,6 @@ you will be able to get help until 14:00. The rest of the day is dedicated to se
 you determine when to stop. We note that since the material is still fairly new, some exercises may take 
 less than 4 hours and some may take more.
 
-> Note 2021 version: Due to the on-going corona situation all students can freely choose if they want to 
-  come to campus or work from home on a day-to-day basis on all *on-site* days. 
-
 ## Virtual days
 
 Virtual days are intended for project work and you are therefore responsable for making an agreement with 
