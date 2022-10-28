@@ -42,7 +42,8 @@ There exist many tools for logging your experiments, with some of them being:
 * [Weights and Bias](https://wandb.ai/site)
 
 All of the frameworks offers many of the same functionalities. We are going to use Weights and Bias (wandb), as it 
-support everything we need in this course. Additionally, it is an excellent tool for collaboration and sharing of results.
+support everything we need in this course. Additionally, it is an excellent tool for collaboration and sharing of 
+results.
 
 ### Exercises
 
@@ -101,3 +102,9 @@ log metrics. In our opinion `wandb` just offers a better experience when interac
 We want to stress that the combination of tools presented in this course may not be the best for all your future 
 projects, and we recommend finding a setup that fits you. That said, each framework provide specific features 
 that the others does not.
+
+\
+Finally, we want to note that we during the course really try to showcase a lot of open source frameworks, Wandb is not
+one. It is free to use for personal usage (with a few restrictions) but for enterprise it does require a license. If you
+are eager to only work with open-source tools we highly recommend trying out [MLFlow](https://mlflow.org/) which offers
+the same overall functionalities as Wandb.
