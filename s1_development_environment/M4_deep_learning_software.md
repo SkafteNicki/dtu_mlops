@@ -163,12 +163,13 @@ corrupted version of regular mnist. Your overall task is the following:
 1. Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
    create the corrupted version. This should give you a cloue about what network architechture to use.
 
- One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
- in the future as you start to add more and more features. As subgoals, please forfill the following exercises
+One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
+in the future as you start to add more and more features. As subgoals, please forfill the following exercises
 
 2. Implement your model in a script called `model.py`
 
-3. Implement your data setup in a script called `data.py`
+3. Implement your data setup in a script called `data.py`. Hint: The data can be loaded using
+   [np.load](https://numpy.org/doc/stable/reference/generated/numpy.load.html).
 
 4. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to 
    take an additional subcommands indicating if the model should train or evaluate. It will look something like this:

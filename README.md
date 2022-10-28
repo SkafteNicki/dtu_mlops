@@ -59,9 +59,10 @@ we use for communication:
 
 ## Course organization
 
-We recommend that when going through the material that you use the [homepage](https://skaftenicki.github.io/dtu_mlops/)
-which is the corresponding [Github pages](https://pages.github.com/) version of this repository that is more nicely
-rendered, that also includes some special html magic provided by
+We highly recommend that when going through the material that you use the 
+[homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding 
+[Github pages](https://pages.github.com/) version of this repository that is more nicely
+rendered, that also includes some special HTML magic provided by
 [just the docs](https://github.com/just-the-docs/just-the-docs).
 
 The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
