@@ -41,7 +41,7 @@ to speedup our code. The second question is gives itself, directly telling us wh
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html). `cProfile` is
 pythons build in profiler that can help give you an overview runtime of all the functions and methods involved in your
-programs. 
+programs.
 
 ### Exercises
 
@@ -184,3 +184,5 @@ sometimes the cause of an computationally hotspot is a single line of code in a 
 `cProfile`. An example would be an simple index operations such as `a[idx] = b`, which for large arrays and
 non-sequential indexes is really expensive. For these cases
 [line_profiler and kernprof](https://github.com/pyutils/line_profiler) are excellent tools to have in your toolbox.
+Additionally, if you do not like cProfile we can also recommend [py-spy](https://github.com/benfred/py-spy) which is
+another open-source profiling tool for python programs.
