@@ -6,6 +6,8 @@ nav_order: 2
 
 # Timeplan
 
+[Slides](../slides/0.%20Intro%20to%20the%20course.pdf){: .btn .btn-blue }
+
 The course runs in hybrid format, which means that some day you are expected to be at campus and other days
 it is optional. All *On-site* days start at 9:00 in the morning with an short lecture (15-30 min) that will 
 give some context about atleast one of the topics of that day. The remaining of the day will be spend on 
@@ -29,11 +31,11 @@ up a good practise for how to organise and develop code with the focus on making
 
 Date | Day       |  Presentation topic                 | Framework/exercise                           | On-site/Virtual
 -----|-----------|-------------------------------------|----------------------------------------------|----------------
-3/1  | Monday    | Deep learning software              | Terminal, Conda, IDE, Pytorch                | On-site
-4/1  | Tuesday   | MLOps: what is it?                  | Git, CookieCutter, Pep8, DVC                 | On-site
-5/1  | Wednesday | Reproducibility                     | Docker, Hydra                                | On-site
-6/1  | Thursday  | Debugging                           | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
-7/1  | Friday    | Pytorch ecosystem                   | Project work                                 | Virtual
+2/1  | Monday    | Deep learning software              | Terminal, Conda, IDE, Pytorch                | On-site
+3/1  | Tuesday   | MLOps: what is it?                  | Git, CookieCutter, Pep8, DVC                 | On-site
+4/1  | Wednesday | Reproducibility                     | Docker, Hydra                                | On-site
+5/1  | Thursday  | Debugging                           | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
+6/1  | Friday    | Pytorch ecosystem                   | Project work                                 | Virtual
 
 ### Week 2
 
@@ -42,13 +44,13 @@ does not break when we make changes to it. While many times it does not require 
 there are always certain phases that require you to scale your experiments. In this week we will focus on getting 
 comfortable on how to write distributed application and how we can run them
 
-Date | Day       | Presentation topic                   | Framework/exercise          | On-site/Virtual
------|-----------|--------------------------------------|-----------------------------|----------------
-10/1 | Monday    | Continuous X                         | Pytest, Github actions, CML | On-site
-11/1 | Tuesday   | The Cloud                            | Google Cloud                | On-site
-12/1 | Wednesday | Scalable applications                | Pytorch, Pytorch lightning  | On-site
-13/1 | Thursday  | -                                    | Project work                | Virtual
-14/1 | Friday    | -                                    | Project work                | Virtual
+Date | Day       | Presentation topic                   | Framework/exercise                           | On-site/Virtual
+-----|-----------|--------------------------------------|----------------------------------------------|----------------
+9/1  | Monday    | Continuous Integration               | Pytest, Github actions, CML                  | On-site
+10/1 | Tuesday   | The Cloud                            | GCP                                          | On-site
+11/1 | Wednesday | Scalable applications                | Dataloaders, Pytorch lightning, Quantization | On-site
+12/1 | Thursday  | -                                    | Project work                                 | Virtual
+13/1 | Friday    | -                                    | Project work                                 | Virtual
 
 ### Week 3
 
@@ -58,8 +60,8 @@ locally or in the cloud and that we have the tools to monitor how they behave ov
 
 Date | Day       | Presentation topic                   | Framework/exercise       | On-site/Virtual
 -----|-----------|--------------------------------------|--------------------------|----------------
-17/1 | Monday    | Deployment                           | Google Cloud, TorchServe | On-site
-18/1 | Tuesday   | Monitoring                           | Kibana                   | On-site
-19/1 | Wednesday | -                                    | Project work             | Virtual
-20/1 | Thursday  | -                                    | Project work             | Virtual
-21/1 | Friday    | EXAM                                 | Project presentations    | On-site
+16/1 | Monday    | Deployment                           | Google Cloud, TorchServe | On-site
+17/1 | Tuesday   | Monitoring                           | Kibana                   | On-site
+18/1 | Wednesday | -                                    | Project work             | Virtual
+19/1 | Thursday  | -                                    | Project work             | Virtual
+20/1 | Friday    | EXAM                                 | Project presentations    | On-site
