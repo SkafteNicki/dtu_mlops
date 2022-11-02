@@ -6,20 +6,10 @@ permalink: projects
 ---
 
 # Project work
-<!-- 
-{: .no_toc } 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
--->
 
 ---
+
+[Slides](../slides/Projects.pdf){: .btn .btn-blue }
 
 Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen 

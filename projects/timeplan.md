@@ -6,7 +6,9 @@ nav_order: 2
 
 # Timeplan
 
-[Slides](../slides/0.%20Intro%20to%20the%20course.pdf){: .btn .btn-blue }
+---
+
+[Slides](../slides/Intro%20to%20the%20course.pdf){: .btn .btn-blue }
 
 The course runs in hybrid format, which means that some day you are expected to be at campus and other days
 it is optional. All *On-site* days start at 9:00 in the morning with an short lecture (15-30 min) that will 
