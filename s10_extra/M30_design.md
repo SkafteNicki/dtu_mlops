@@ -1,5 +1,11 @@
+---
+layout: default
+title: M30 - Designing MLOps pipelines
+parent: S10 - Extra
+nav_order: 2
+---
 
-
+# Designing MLOps pipelines (UNDER CONSTRUCTION)
 
 > Machine learning engineering is 10% machine learning and 90% engineering.
 > *Chip Huyen*

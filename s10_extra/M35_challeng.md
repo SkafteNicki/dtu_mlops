@@ -1,8 +1,20 @@
-### Open questions
+---
+layout: default
+title: M35 - Designing MLOps pipelines
+parent: S10 - Extra
+nav_order: 7
+---
 
-Below are listed some technical hard problems regarding MLOps. These are meant
-as inspiration to get you to deep dive more into using all the cloud services
-that `gcp` offers. You are also free to continue work on your project.
+# Open questions
+
+If you have managed to go through all other material, congratulations, you are already a good way to becoming an MLOps
+engineer with a great overview of tools, concepts and techniques within the field. Below are listed some technical 
+hard problems regarding MLOps. These are meant as inspiration to get you to deep dive more into using all the cloud 
+services that `gcp` offers. You are also free to continue work on your project.
+
+<p align="center">
+  <img src="../figures/technical_depth_meme.jpg" width="500" title="hover text">
+</p>
 
 * Currently testing takes place in Github, but it should come as no
   surprise that `gcp` can also take care of this. Implementing testing
@@ -47,7 +59,7 @@ that `gcp` offers. You are also free to continue work on your project.
   is to setup a system using [Pub and Sub](https://cloud.google.com/pubsub) 
   (publish and subscription) service in `gcp`. Essentially it allows a service
   to publish a message and other services to subscribe and react to it. For 
-  example the AI platform could publish a messesage everytime a model was done
+  example the AI platform could publish a message every time a model was done
   training and cloud build could subscribe to that, automatically staring to
   build a docker image using the trained model. Investigate Pub and Sub and
   try to make two services talk to each other.

@@ -2,7 +2,7 @@
 layout: default
 title: M28 - Hyperparameter optimization
 parent: S10 - Extra
-nav_order: 2
+nav_order: 3
 ---
 
 <img style="float: right;" src="../figures/icons/m28.png" width="130"> 
@@ -44,7 +44,8 @@ in the model but instead relies on heuristic guidelines ("rule of thumb") based 
 in general e.g. a learning rate of 0.01 seems to work great with the Adam optimizer. That said, these rules
 probably only apply to 80% of deep learning model, whereas for the last 20% the recommendations may be suboptimal
 Here is a great [site](https://jeffmacaluso.github.io/post/DeepLearningRulesOfThumb/) that has collected an 
-extensive list of these recommendations, taken from the excellent [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow, Yoshua Bengio and Aaron Courville.
+extensive list of these recommendations, taken from the excellent [deep learning](https://www.deeplearningbook.org/) 
+book by Ian Goodfellow, Yoshua Bengio and Aaron Courville.
 
 In practice, I recommend trying to identify (through experimentation) which hyperparameters that are important for
 the performance of your model and then spend your computational budget trying to optimize them while setting the
@@ -73,8 +74,9 @@ rest to a "recommended value".
    want to optimize. (HINT: did you remember to do K-fold crossvalidation inside your objective function?)
    
 4. Next lets focus on the trial. Inside the `objective` function the trial should be used to suggest what
-   parameters to use next. Take a look at the documentation for [trial](https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.Trial.html) or take a look at the [code examples](https://optuna.org/#code_examples) and figure out how to define
-   the hyperparameter of the model.
+   parameters to use next. Take a look at the documentation for 
+   [trial](https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.Trial.html) or take a look at 
+   the [code examples](https://optuna.org/#code_examples) and figure out how to define the hyperparameter of the model.
    
 5. Finally lets launch a study. It can be as simple as
 
@@ -113,18 +115,18 @@ rest to a "recommended value".
       (HINT: use 5-10% of you training data).
         
    3. Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should at least be included
-      in the hyperparameter search. For some we have already defined the search space but for the remaining you need to come
-      up with a good range of values to investigate. We done integrating optuna, run a small study (`n_tirals=3`) to check 
-      that the code is working.
+      in the hyperparameter search. For some we have already defined the search space but for the remaining you need to 
+      come up with a good range of values to investigate. We done integrating optuna, run a small study (`n_tirals=3`) 
+      to check that the code is working.
         
-      Hyperparameter                                     | Search space                                                 |
-      ---------------------------------------------------|--------------------------------------------------------------| 
-      Learning rate                                      | 1e-6 to 1e0                                                  |
-      Number of output features in the second last layer | ???                                                          |
-      The amount of dropout to apply                     | ???                                                          |
-      Batch size                                         | ???                                                          |
-      Use batch normalize or not                         | {True, False}                                                |
-      (Optional) Different activations functions         | {`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`} |
+      Hyperparameter                                     | Search space                                                |
+      ---------------------------------------------------|-------------------------------------------------------------| 
+      Learning rate                                      | 1e-6 to 1e0                                                 |
+      Number of output features in the second last layer | ???                                                         |
+      The amount of dropout to apply                     | ???                                                         |
+      Batch size                                         | ???                                                         |
+      Use batch normalize or not                         | {True, False}                                               |
+      (Optional) Different activations functions         | {`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`}|
 
    4. If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
       we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
@@ -133,7 +135,8 @@ rest to a "recommended value".
 
    5. Re-run the study using pruning with a large number of trials (`n_trials>50`) 
 
-   6. Take a look at this [visualization page](https://optuna.readthedocs.io/en/latest/tutorial/10_key_features/005_visualization.html) 
+   6. Take a look at this 
+      [visualization page](https://optuna.readthedocs.io/en/latest/tutorial/10_key_features/005_visualization.html) 
       for ideas on how to visualize the study you just did. Make at least two visualization of the study and
       make sure that you understand them.
    
@@ -186,4 +189,6 @@ rest to a "recommended value".
    
    6. Finally, make sure that you can access the results 
 
-Thats all on how to do hyperparameter optimization in a scalable way. If you feel like it you can try to apply these techniques on the ongoing corrupted MNIST example, where you are free to choose what hyperparameters that you want to use.
+Thats all on how to do hyperparameter optimization in a scalable way. If you feel like it you can try to apply these 
+techniques on the ongoing corrupted MNIST example, where you are free to choose what hyperparameters that you want 
+to use.
