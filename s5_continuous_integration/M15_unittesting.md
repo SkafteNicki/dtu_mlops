@@ -1,11 +1,13 @@
 ---
 layout: default
-title: M15 - Continuous Integration
-parent: S5 - Continuous X
+title: M16 - Unittesting
+parent: S5 - Continuous Integration
 nav_order: 1
 ---
 
-# Continuous Integration
+<img style="float: right;" src="../figures/icons/m15.png" width="130"> 
+
+# Unit testing
 {: .no_toc }
 
 <details open markdown="block">
@@ -22,11 +24,12 @@ nav_order: 1
 {: .important }
 > Core module
 
-Continuous integration (CI) is a development practice that makes sure that updates to code are
-automatically tested such that it does not break existing code. If you look at the MLOps pipeline, 
-CI is one of cornerstones of operations part. However, it should be notes that applying CI does 
-not magically secure that your code does not break. CI is only as strong as the tests that are 
-automatically executed. CI simply structures and automates this.
+What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
+CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
+introduced in the codebase it will be catched early on. If you look at the [MLOps pipeline](../figures/mlops.png), 
+CI is one of cornerstones of operations part. However, it should be notes that applying CI does not magically secure 
+that your code does not break. CI is only as strong as the tests that are automatically executed. CI simply structures 
+and automates this.
 
 <p align="center">
    <b> 
@@ -41,12 +44,18 @@ automatically executed. CI simply structures and automates this.
   title="credits to https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests">
 </p>
 
+The kind of tests we are going to look at are called [unit testing](https://en.wikipedia.org/wiki/Unit_testing). Unit
+testing refer to the practice of writing test that tests individual parts of your code base to test for correctness. By
+unit you can therefore think a function, module or in general any object. By writing tests in this way it should be 
+very easy to isolate which part of the code that broke after an update to the code base. Another way to test your code
+base would be through [integration testing](https://en.wikipedia.org/wiki/Integration_testing) which is equally
+important but we are not going to focus on it in this course.
 
 ## Pytest
 
-The first part of continuous integration is writing tests. It is both a hard and tedious task to do but
-arguable the most important aspects of continuous integration. Python offers a couple of different libraries
-for writing tests. We are going to use `pytest`.
+Before we can begin to automatize testing of our code base we of cause need to write the tests first. It is both a hard 
+and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
+for writing tests. We are going to use `pytest`. 
 
 ### Exercises
 
@@ -189,119 +198,12 @@ The following exercises should be applied to your MNIST repository
       to get a code coverage for. Figure out how to configure `coverage` to exclude
       some files.
 
-
-## Github actions
-Github actions are the CI solution that github provides. Each of your repositories gets 2,000 minutes 
-of free testing per month which should be more than enough for the scope of this course (and probably 
-all personal projects you do). Getting Github actions setup in a repository may seem complicated at 
-first, but workflow files that you create for one repository can more or less be reused for any 
-other repository that you have.
-
-Lets take a look at how a github workflow file is organized:
-
-* Initially we start by giving the workflow a `name`
-* Next we specify on what events the workflow should be triggered. This includes both the action 
-  (pull request, push ect) and on what branches is should activate
-* Next we list the jobs that we want to do. Jobs are by default executed in parallel but can 
-  also be dependent on each other
-* In the `runs-on` we can specify which operation system we want the workflow to run on. We also 
-  have the possibility to specify multiple.
-* Finally we have the `steps`. This is where we specify the actual commands that should be 
-  run when the workflow is executed.
-
-<p align="center">
-  <img src="../figures/actions.png" width="1000" 
-  title="credits to https://madewithml.com/courses/mlops/cicd/#github-actions">
-</p>
-
-### Exercises
-
-1. Start by creating a `.github` folder in the root of your repository. 
-   Add a sub-folder to that called `workflows`.
-
-2. Go over this [page](https://docs.github.com/en/actions/guides/building-and-testing-python) 
-   that explains how to do automated testing of python code in github actions. You do not have 
-   to understand everything, but at least get a feeling of what a workflow file should look like.
-   
-3. We have provided a workflow file called `tests.yml` that should run your tests for you. Place 
-   this file in the `.github/workflows/` folder. The workflow file consist of three steps
-   
-   * First a python environment is setup (in this case python 3.8)
-   
-   * Next all dependencies required to run the test are installed
-   
-   * Finally, `pytest` is called and test will be run
-
-4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. 
-   The first file should contain all packages required to run your code. The second file is all 
-   *additional*  packages required to run the tests. In your simple case it may very well be that 
-   the second file is empty, however sometimes additional packages are used for testing that are 
-   not strictly required for the scripts to run.
-   
-5. Finally, try pushing the changes to your repository. Hopefully your tests should just start, 
-   and you will after sometime see a green check mark next to hash of the commit. Also try to 
-   checkout the *Actions*  tap where you can see the history of actions run.
-
-   ![action](../figures/action.PNG)
-
-6. Normally we develop code one operating system and just hope that it will work on other operating
-   systems. However, CI enables us to automatically test on other systems than ourself.
-   
-   1. The provided `tests.yml` only runs on one operating system. Which one?
-   
-   2. Alter the file (or write a new) that executes the test on the two other main operating 
-      systems that exist.
-
-7. As the workflow is currently setup, github actions will destroy every downloaded package 
-   when the workflow has been executed. To improve this we can take advantage of `caching`:
-
-   1. Figure out how to implement `caching` in your workflow file. Hint: this
-      [page](https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows)
-
-   2. Measure how long your workflow takes before and after adding `caching` to your workflow
-
-8. (Optional) Code coverage can also be added to the workflow file by uploading it as an artifact
-   after running the coverage. Follow the instructions in this
-   [post](https://about.codecov.io/blog/python-code-coverage-using-github-actions-and-codecov/)
-   on how to do it.
-
-## Auto linter
-
-In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.md) of the course 
-you where introduced to a couple of good coding practices such as being consistent with how your 
-python packages are sorted and that your code follows certain standards. In this set of exercises 
-we will setup github workflows that will automatically test for this. 
-
-1. Create a new workflow file called `isort.yml`, that implements the following three steps
-
-   * Setup python environment
-   
-   * Installs `isort`
-   
-   * Runs `isort` on the repository
-   
-   (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
-   
-2. Create a new workflow file called `flake8.yml`, that implements the following three steps
-
-   * Setup python environment
-   
-   * Installs `flake8`
-   
-   * Runs `flake8` on the repository
-   
-   (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
-
-3. Create a new workflow file  called `mypy.yml`, that implements the following three steps
-
-   * Setup python environment
-
-   * Installs `mypy`
-
-   * Runs `mypy` on the repository
-
-3. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
-   to get passing, so this exercise formally only requires you to get `isort` and `flake8`
-   passing.
-
-
+That covers the basic of writing unittests for python code. We want to note that `pytest` of cause is not the only
+framework for doing this. Python actually have an build in framework called 
+[unittest](https://docs.python.org/3/library/unittest.html) for doing this also (but `pytest` offers a bit more 
+features). Another open-source framework that you could choose to checkout is
+[hypothesis](https://github.com/HypothesisWorks/hypothesis) that can really help catch errors in corner cases of your
+code. In addition to writing unittests it is also highly recommended to test code that you include in your
+docstring belonging to your functions and modulus to make sure that any code there is in your documentation is also
+correct. For such testing we can highly recommend using pythons build-in framework 
+[doctest](https://docs.python.org/3/library/doctest.html).
