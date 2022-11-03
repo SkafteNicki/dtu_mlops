@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M24 - Data drifting
+title: M27 - Data drifting
 parent: S8 - Deployment
 nav_order: 3
 ---

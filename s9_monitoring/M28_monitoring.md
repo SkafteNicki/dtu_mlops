@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M25 - System monitoring
+title: M28 - System monitoring
 parent: S9 - Monitoring
 nav_order: 1
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M23 - Cloud deployment
+title: M26 - Cloud deployment
 parent: S8 - Deployment
 nav_order: 2
 ---
