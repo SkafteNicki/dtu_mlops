@@ -7,8 +7,6 @@ permalink: projects
 
 # Project work
 
----
-
 [Slides](../slides/Projects.pdf){: .btn .btn-blue }
 
 Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your

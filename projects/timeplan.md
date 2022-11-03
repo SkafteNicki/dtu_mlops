@@ -6,8 +6,6 @@ nav_order: 2
 
 # Timeplan
 
----
-
 [Slides](../slides/Intro%20to%20the%20course.pdf){: .btn .btn-blue }
 
 The course runs in hybrid format, which means that some day you are expected to be at campus and other days
