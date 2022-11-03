@@ -31,13 +31,13 @@ to still use DTU´s facilities for your group work.
 The first week is all about getting set up for the following two weeks. In particular this week focus setting
 up a good practise for how to organise and develop code with the focus on making reproduceable code.
 
-Date | Day       |  Presentation topic                 | Framework/exercise                           | On-site/Virtual
------|-----------|-------------------------------------|----------------------------------------------|----------------
-2/1  | Monday    | Deep learning software              | Terminal, Conda, IDE, Pytorch                | On-site
-3/1  | Tuesday   | MLOps: what is it?                  | Git, CookieCutter, Pep8, DVC                 | On-site
-4/1  | Wednesday | Reproducibility                     | Docker, Hydra                                | On-site
-5/1  | Thursday  | Debugging                           | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
-6/1  | Friday    | Pytorch ecosystem                   | Project work                                 | Virtual
+Date | Day       | Presentation topic                                                 | Framework/exercise                           | On-site/Virtual
+-----|-----------|--------------------------------------------------------------------|----------------------------------------------|----------------
+2/1  | Monday    | [Deep learning software](../slides/Deep%20Learning%20software.pdf) | Terminal, Conda, IDE, Pytorch                | On-site
+3/1  | Tuesday   | MLOps: what is it?                                                 | Git, CookieCutter, Pep8, DVC                 | On-site
+4/1  | Wednesday | Reproducibility                                                    | Docker, Hydra                                | On-site
+5/1  | Thursday  | Debugging                                                          | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
+6/1  | Friday    | [Pytorch ecosystem](../slides/Projects.pdf)                        | Project work                                 | Virtual
 
 ### Week 2
 
