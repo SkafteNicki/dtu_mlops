@@ -19,13 +19,25 @@ nav_order: 3
 
 ---
 
-The applications that we are developing in this course are focused on calling python functions directly. However, if we were to produce an product that some users should use we cannot expect them to want to work with our applications on a code level. Additionally, we cannot expect that they want to work with python related data types. We should therefore develop application programming interface (API) such that users can easily interact with to use our applications, meaning that it should have the correct level of abstraction that users can use our application as they seem fit, without ever having to look at the code.
+The applications that we are developing in this course are focused on calling python functions directly. However, if we 
+were to produce an product that some users should use we cannot expect them to want to work with our applications on a 
+code level. Additionally, we cannot expect that they want to work with python related data types. We should therefore 
+develop application programming interface (API) such that users can easily interact with to use our applications, 
+meaning that it should have the correct level of abstraction that users can use our application as they seem fit, 
+without ever having to look at the code.
 
-We will be designing our API around an client-server type of of architechture: the client (user) is going to send *requests* to a server (our application) and the server will give an *response*. For example the user may send an request of getting classifing a specific image, which our application will do and then send back the response in terms of a label.
+We will be designing our API around an client-server type of of architechture: the client (user) is going to send 
+*requests* to a server (our application) and the server will give an *response*. For example the user may send an 
+request of getting classifying a specific image, which our application will do and then send back the response in 
+terms of a label.
 
 ## FastAPI
 
-For these exercises we are going to use [FastAPI](https://fastapi.tiangolo.com/) for creating our API. FastAPI is a *modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints*. FastAPI is only one of many frameworks for defining APIs, however compared to other frameworks such as [Flask](https://flask.palletsprojects.com/en/2.0.x/) and [django](https://www.djangoproject.com/) it offers a sweet spot of being flexible enough to do what you want without having many additional (unnecessary) features. 
+For these exercises we are going to use [FastAPI](https://fastapi.tiangolo.com/) for creating our API. FastAPI is a 
+*modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints*. 
+FastAPI is only one of many frameworks for defining APIs, however compared to other frameworks such as 
+[Flask](https://flask.palletsprojects.com/en/2.0.x/) and [django](https://www.djangoproject.com/) it offers a sweet 
+spot of being flexible enough to do what you want without having many additional (unnecessary) features. 
 
 ### Exercises
 
@@ -88,7 +100,8 @@ For these exercises we are going to use [FastAPI](https://fastapi.tiangolo.com/)
 
    2. something something
 
+## BentoML
   
-
+## steamlit
 
 
