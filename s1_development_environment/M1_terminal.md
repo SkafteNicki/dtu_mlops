@@ -5,7 +5,7 @@ parent: S1 - Development environment
 nav_order: 1
 ---
 
-<img style="float: right;" src="../figures/icons/m1.png" width="130"> 
+<img style="float: right;" src="../figures/icons/terminal.png" width="130"> 
 
 # The terminal
 {: .no_toc }

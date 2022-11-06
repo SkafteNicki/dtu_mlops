@@ -5,7 +5,7 @@ parent: S5 - Continuous Integration
 nav_order: 3
 ---
 
-<img style="float: right;" src="../figures/icons/m27.png" width="130"> 
+<img style="float: right;" src="../figures/icons/precommit.png" width="130"> 
 
 # Pre-commit
 {: .no_toc }

@@ -5,7 +5,7 @@ parent: S2 - Organization and version control
 nav_order: 2
 ---
 
-<img style="float: right;" src="../figures/icons/m6.png" width="130"> 
+<img style="float: right;" src="../figures/icons/cookiecutter.png" width="130"> 
 
 # Code organization
 {: .no_toc }

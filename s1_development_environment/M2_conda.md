@@ -5,7 +5,7 @@ parent: S1 - Development environment
 nav_order: 2
 ---
 
-<img style="float: right;" src="../figures/icons/m2.png" width="130"> 
+<img style="float: right;" src="../figures/icons/conda.png" width="130"> 
 
 # Conda and virtual enviroments
 {: .no_toc }

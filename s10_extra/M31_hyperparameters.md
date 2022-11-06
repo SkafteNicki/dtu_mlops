@@ -5,7 +5,7 @@ parent: S10 - Extra
 nav_order: 3
 ---
 
-<img style="float: right;" src="../figures/icons/m28.png" width="130"> 
+<img style="float: right;" src="../figures/icons/optuna.png" width="130"> 
 
 # Hyperparameter optimization
 {: .no_toc }

@@ -5,7 +5,7 @@ parent: S1 - Development environment
 nav_order: 3
 ---
 
-<img style="float: right;" src="../figures/icons/m3.png" width="130"> 
+<img style="float: right;" src="../figures/icons/vscode.png" width="130"> 
 
 # Editor/IDE
 {: .no_toc }

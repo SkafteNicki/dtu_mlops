@@ -5,7 +5,7 @@ parent: S10 - Extra
 nav_order: 5
 ---
 
-<img style="float: right;" src="../figures/icons/m30.png" width="130"> 
+<img style="float: right;" src="../figures/icons/onnx.png" width="130"> 
 
 # Onnx (Under construction)
 {: .no_toc }

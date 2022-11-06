@@ -5,7 +5,7 @@ parent: S10 - Extra
 nav_order: 1
 ---
 
-<img style="float: right;" src="../figures/icons/m29.png" width="130"> 
+<img style="float: right;" src="../figures/icons/click.png" width="130"> 
 
 # Command line interfaces
 {: .no_toc }

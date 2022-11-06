@@ -5,7 +5,7 @@ parent: S4 - Debugging, Profiling and Logging
 nav_order: 4
 ---
 
-<img style="float: right;" src="../figures/icons/m14.png" width="130"> 
+<img style="float: right;" src="../figures/icons/lightning.png" width="130"> 
 
 # Minimizing boilerplate
 {: .no_toc }

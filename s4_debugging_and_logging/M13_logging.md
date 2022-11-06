@@ -5,7 +5,7 @@ parent: S4 - Debugging, Profiling and Logging
 nav_order: 3
 ---
 
-<img style="float: right;" src="../figures/icons/m13.png" width="130"> 
+<img style="float: right;" src="../figures/icons/w&b.png" width="130"> 
 
 # Experiment logging
 {: .no_toc }

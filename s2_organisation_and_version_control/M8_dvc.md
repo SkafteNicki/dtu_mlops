@@ -5,7 +5,7 @@ parent: S2 - Organization and version control
 nav_order: 4
 ---
 
-<img style="float: right;" src="../figures/icons/m8.png" width="130"> 
+<img style="float: right;" src="../figures/icons/dvc.png" width="130"> 
 
 # Data Version Control
 {: .no_toc }

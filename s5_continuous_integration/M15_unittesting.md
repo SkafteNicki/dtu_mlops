@@ -5,7 +5,7 @@ parent: S5 - Continuous Integration
 nav_order: 1
 ---
 
-<img style="float: right;" src="../figures/icons/m15.png" width="130"> 
+<img style="float: right;" src="../figures/icons/pytest.png" width="130"> 
 
 # Unit testing
 {: .no_toc }

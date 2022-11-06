@@ -5,7 +5,7 @@ parent: S1 - Development environment
 nav_order: 4
 ---
 
-<img style="float: right;" src="../figures/icons/m4.png" width="130"> 
+<img style="float: right;" src="../figures/icons/pytorch.png" width="130"> 
 
 # Deep Learning Software
 {: .no_toc }

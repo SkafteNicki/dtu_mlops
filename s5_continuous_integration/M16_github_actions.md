@@ -5,7 +5,7 @@ parent: S5 - Continuous Integration
 nav_order: 2
 ---
 
-<img style="float: right;" src="../figures/icons/m16.png" width="130"> 
+<img style="float: right;" src="../figures/icons/actions.png" width="130"> 
 
 # Github actions
 {: .no_toc }
