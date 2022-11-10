@@ -140,5 +140,11 @@ project.
 12. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
     code (see [this set of exercises](../s1_development_environment/M2_conda.md) for help)
 
-
-
+That ends the module on code structure and `cookiecutter`. We again want to stress the point that `cookiecutter` is
+just one template for organizing your code. What often happens in a team is that multiple templates are needed in
+different stages of the development phase or for different product types because they share commen structure, while
+still having some specifics. Keeping templates up-to-date then becomes critical such that no team member is using an
+outdated template. If you ever end up in this situation, we highly recommend to checkout 
+[cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make projects but update
+existing ones as template evolves. Cruft additionally also has template validation capabilities to ensure projects
+match the latest version of a template.
