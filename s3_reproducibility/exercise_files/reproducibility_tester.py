@@ -15,4 +15,4 @@ if __name__ == "__main__":
     
     for p1, p2 in zip(model1.parameters(), model2.parameters()):
         assert torch.allclose(p1, p2), \
-            "encountered a difference in parameters, your script is not fully reproduceable"
+            "encountered a difference in parameters, your script is not fully reproducible"

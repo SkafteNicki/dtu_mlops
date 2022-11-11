@@ -27,13 +27,13 @@ to still use DTU´s facilities for your group work.
 ### Week 1
 
 The first week is all about getting set up for the following two weeks. In particular this week focus setting
-up a good practise for how to organise and develop code with the focus on making reproduceable code.
+up a good practise for how to organise and develop code with the focus on making reproducible code.
 
 Date | Day       | Presentation topic                                                 | Framework/exercise                           | On-site/Virtual
 -----|-----------|--------------------------------------------------------------------|----------------------------------------------|----------------
 2/1  | Monday    | [Deep learning software](../slides/Deep%20Learning%20software.pdf) | Terminal, Conda, IDE, Pytorch                | On-site
 3/1  | Tuesday   | [MLOps: what is it?](../slides/What%20is%20MLOps.pdf)              | Git, CookieCutter, Pep8, DVC                 | On-site
-4/1  | Wednesday | [Reproducibility](../slides/Reproduceability.pdf)                  | Docker, Hydra                                | On-site
+4/1  | Wednesday | [Reproducibility](../slides/Reproducibility.pdf)                  | Docker, Hydra                                | On-site
 5/1  | Thursday  | Debugging                                                          | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
 6/1  | Friday    | [Pytorch ecosystem](../slides/Projects.pdf)                        | Project work                                 | Virtual
 

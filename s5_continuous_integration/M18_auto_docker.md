@@ -28,7 +28,7 @@ to build each time we do changes to our codebase. For this reason we really just
 do a commit of our code. Thus, it should come as no surprise that we can also automatize the building process and 
 furthermore we can take advantage of online compute power to parallelize the process.
 
-As discussed in the initial module on [docker](../s3_reproduceability/M9_docker.md), 
+As discussed in the initial module on [docker](../s3_reproducibility/M9_docker.md), 
 [docker hub](https://hub.docker.com/) is an online solution for storing build docker images in the cloud that is then
 easy to pull down on whatever machine you want to run on. Docker hub is 
 [free to use](https://www.docker.com/pricing/) for personal use, as long as the images you push are public. We are in
@@ -45,7 +45,7 @@ FROM busybox
 CMD echo "Howdy cowboy"
 ```
 Alternatively, you can choose to focus on automatizing the training and prediction docker files back from 
-[M9](../s3_reproduceability/M9_docker.md). You will most likely need to change the docker image for your applications
+[M9](../s3_reproducibility/M9_docker.md). You will most likely need to change the docker image for your applications
 if they contains any references to your data e.g. you have an `COPY data/ data/` statement in the file. Since we do
 not store our data in Github, we cannot copy it during the build process.
 

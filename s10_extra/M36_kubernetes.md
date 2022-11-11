@@ -2,7 +2,7 @@
 layout: default
 title: M36 - Kubernetes
 parent: S10 - Extra
-nav_order: 1
+nav_order: 8
 ---
 
 <img style="float: right;" src="../figures/icons/kubernetes.png" width="130"> 
@@ -40,3 +40,7 @@ nav_order: 1
    kubectl
    ```
    in a terminal.
+
+## Yatai
+
+https://github.com/bentoml/Yatai

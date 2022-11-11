@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M10 - Config files
-parent: S3 - Reproduceability
+parent: S3 - Reproducibility
 nav_order: 2
 ---
 
@@ -162,7 +162,7 @@ look online for your answers before looking at the solution. Remember: its not a
       `vae_mnist.log` file
 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare. 
-    Then run the `reproduceability_tester.py` script as
+    Then run the `reproducibility_tester.py` script as
     ```bash
     python reproducibility_tester.py path/to/run/1 path/to/run/2
     ```

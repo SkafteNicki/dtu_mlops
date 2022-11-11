@@ -101,7 +101,26 @@ spot of being flexible enough to do what you want without having many additional
    2. something something
 
 ## BentoML
-  
+
+https://github.com/bentoml/BentoML
+
+In particular 
+bentoml.pytorch_lightning.save_model
+bentoml.pytorch.save
+bentoml.onnx.save_model
+
+```
+runner = bentoml.pytorch.get("my_torch_model").to_runner()
+
+svc = bentoml.Service(name="test_service", runners=[runner])
+
+@svc.api(input=JSON(), output=JSON())
+async def predict(json_obj: JSONSerializable) -> JSONSerializable:
+    batch_ret = await runner.async_run([json_obj])
+    return batch_ret[0]
+```
+
+
 ## steamlit
 
 

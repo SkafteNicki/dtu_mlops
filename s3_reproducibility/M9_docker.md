@@ -1,7 +1,7 @@
 ---
 layout: default
 title: M9 - Docker
-parent: S3 - Reproduceability
+parent: S3 - Reproducibility
 nav_order: 1
 ---
 
