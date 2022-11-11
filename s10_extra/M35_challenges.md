@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M35 - Designing MLOps pipelines
+title: M35 - Challenges
 parent: S10 - Extra
 nav_order: 7
 ---
