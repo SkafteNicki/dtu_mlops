@@ -40,7 +40,9 @@ As the first step we are going to get you setup with some Google cloud credits.
 
 1. Go to <https://learn.inside.dtu.dk>. Go to this course. Find the recent message where there should be a download 
    link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there are a 
-   limited amount of coupons. 
+   limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits 
+   whenever you signup with a new account. NOTE that you need to provide an credit card for this so make
+   sure to closely monitor your credit use so you do not end spending more than the free credit.
 
 2. Login to the homepage of gcp. It should look like this:
    <p align="center">

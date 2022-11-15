@@ -5,7 +5,7 @@ parent: S4 - Debugging, Profiling and Logging
 nav_order: 2
 ---
 
-<img style="float: right;" src="../figures/icons/m12.png" width="130"> 
+<img style="float: right;" src="../figures/icons/profiler.png" width="130"> 
 
 # Profilers
 {: .no_toc }

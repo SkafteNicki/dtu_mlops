@@ -33,8 +33,8 @@ Date | Day       | Presentation topic                                           
 -----|-----------|--------------------------------------------------------------------|----------------------------------------------|----------------
 2/1  | Monday    | [Deep learning software](../slides/Deep%20Learning%20software.pdf) | Terminal, Conda, IDE, Pytorch                | On-site
 3/1  | Tuesday   | [MLOps: what is it?](../slides/What%20is%20MLOps.pdf)              | Git, CookieCutter, Pep8, DVC                 | On-site
-4/1  | Wednesday | [Reproducibility](../slides/Reproducibility.pdf)                  | Docker, Hydra                                | On-site
-5/1  | Thursday  | Debugging                                                          | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
+4/1  | Wednesday | [Reproducibility](../slides/Reproducibility.pdf)                   | Docker, Hydra                                | On-site
+5/1  | Thursday  | [Debugging](../slides/Debugging%20ML%20Code.pdf)                   | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
 6/1  | Friday    | [Pytorch ecosystem](../slides/Projects.pdf)                        | Project work                                 | Virtual
 
 ### Week 2
