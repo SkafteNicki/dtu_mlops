@@ -20,54 +20,61 @@ mathjax: true
 
 ---
 
-Inference is task of applying our trained model to some new and unseen data, often called *prediction*. Thus, scaling inference 
-is different from scaling data loading and training, mainly due to inference normally only using a single data point (or a few). 
-As we can neither parallelize the data loading or parallelize using multiple GPUs (at least not in any efficient way), this is 
-of no use to us when we are doing inference. Secondly, inference is often not something we do on machines that can perform large 
-computations, as most inference today is actually either done on *edge* devices e.g. mobile phones or in low-cost-low-compute 
-cloud environments. Thus, we need to be smarter about how we scale inference than just throwing more compute at it.
+Inference is task of applying our trained model to some new and unseen data, often called *prediction*. Thus, scaling 
+inference is different from scaling data loading and training, mainly due to inference normally only using a single 
+data point (or a few). As we can neither parallelize the data loading or parallelize using multiple GPUs (at least 
+not in any efficient way), this is of no use to us when we are doing inference. Secondly, inference is often not 
+something we do on machines that can perform large computations, as most inference today is actually either done on 
+*edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter about how 
+we scale inference than just throwing more compute at it.
 
 ## Choosing the right architecture
 
-When coming up with a model architectures we often look at prior work a make a copy or mix of this. It is a great way to get started, 
-but not all model architectures are created equal. Take `Distillbert` for example. `Distillbert` is a smaller version of the large 
-natural-language procession model `Bert` that has been trained using *model distillation*. Model distillation assumes that we already 
-have a big model that performs well. By running our training set through our large model, we get input-output pairs ${x_i,y_i}_{i=1}^N$ 
-that we can train a small model to mimic. This is exactly what `Distillbert` successfully did, and as you can see in the figure below 
-it is by far the smallest model in newer time (not that I would call 66 million parameters for "small").
+When coming up with a model architectures we often look at prior work a make a copy or mix of this. It is a great way 
+to get started, but not all model architectures are created equal. Take `Distillbert` for example. `Distillbert` is a 
+smaller version of the large natural-language procession model `Bert` that has been trained using *model distillation*. 
+Model distillation assumes that we already have a big model that performs well. By running our training set through our 
+large model, we get input-output pairs ${x_i,y_i}_{i=1}^N$ that we can train a small model to mimic. This is exactly 
+what `Distillbert` successfully did, and as you can see in the figure below it is by far the smallest model in newer 
+time (not that I would call 66 million parameters for "small").
 
 <p align="center">
    <img src="../figures/distill.png" width="600" title="All credit to https://arxiv.org/abs/1910.01108v4">
 </p>
 
 As discussed in this 
-[blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413) the
-probably largest increase in inference speed you will see (given some specific hardware) is choosing an efficient model architecture. 
-Model distillation is just one way of coming up with more efficient architechtures. In the exercises below we are going to investigate 
-the third generation of mobile nets `MobileNet v3`, which was constructed using a combination of efficient convolutional layers called 
-inverted residual blocks, special swich non-linarity and neural architecture search. You can read more about it 
+[blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413) 
+the probably largest increase in inference speed you will see (given some specific hardware) is choosing an efficient 
+model architecture. Model distillation is just one way of coming up with more efficient architechtures. In the exercises 
+below we are going to investigate the third generation of mobile nets `MobileNet v3`, which was constructed using a 
+combination of efficient convolutional layers called inverted residual blocks, special swich non-linarity and neural 
+architecture search. You can read more about it 
 [here](https://towardsdatascience.com/everything-you-need-to-know-about-mobilenetv3-and-its-comparison-with-previous-versions-a5d5e5a6eeaa)
 
 ### Exercises
 
-1. Write a small script that does inference with both `MobileNet V3 Large` and `ResNet-152` (pre-trained versions of both can be 
-downloaded using `torchvision`) and try to time it. Do you see a difference in inference time? Can you figure out the performance 
-difference between the two model architectures, and in your opinion is this high enough to justify an increase in inference time.
+1. Write a small script that does inference with both `MobileNet V3 Large` and `ResNet-152` (pre-trained versions of 
+   both can be downloaded using `torchvision`) and try to time it. Do you see a difference in inference time? Can you 
+   figure out the performance difference between the two model architectures, and in your opinion is this high enough 
+   to justify an increase in inference time.
 
-2. To figure out why one net is more efficient than another we can try to count the operations each network need to do for inference. 
-A operation here we can define as a [FLOP (floating point operation)](https://en.wikipedia.org/wiki/FLOPS) which is any mathematical 
-operation (such as +, -, *, /) or assignment that involves floating-point numbers. Luckily for us someone has already created a python 
-package for calculating this in pytorch: [ptflops](https://github.com/sovrasov/flops-counter.pytorch)
+2. To figure out why one net is more efficient than another we can try to count the operations each network need to 
+   do for inference. A operation here we can define as a 
+   [FLOP (floating point operation)](https://en.wikipedia.org/wiki/FLOPS) which is any mathematical operation (such as 
+   +, -, *, /) or assignment that involves floating-point numbers. Luckily for us someone has already created a python 
+   package for calculating this in pytorch: [ptflops](https://github.com/sovrasov/flops-counter.pytorch)
 
    1. Install the package
       ```bash
       pip install ptflops
       ```
 
-   2. Try calling the `get_model_complexity_info` function from the `ptflops` package on the two networks from the previous exercise. 
-   What are the results? How many times less operations does the mobile net need to perform compared to the resnet?
+   2. Try calling the `get_model_complexity_info` function from the `ptflops` package on the two networks from the 
+      previous exercise. What are the results? How many times less operations does the mobile net need to perform 
+      compared to the resnet?
 
-3. (Optional) Try out model distillation yourself. Assuming that you already have a trained conv net (on the corrupted mnist dataset), 
+3. (Optional) Try out model distillation yourself. Assuming that you already have a trained conv net (on the corrupted 
+   mnist dataset), 
    try to run all your training data through and record the log-probabilities that the model is predicting. Then design a smaller conv net, 
    that you train to map from images to the log-probabilities that you recorded earlier. Finally, try out your small distilled model by 
    measuring overall performance on the test set and compare to your original model.

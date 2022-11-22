@@ -28,8 +28,8 @@ One way that deep learning fundamentally changed the way we think about data in 
 always better*. This was very much not the case with more traditional machine learning algorithms (random forest, 
 support vector machines etc.) where a pleatau in performance was often reached for a certain amount of data and did not
 improve if more was added. However, as deep learning models have become deeper and deeper and thereby more and more 
-data hungry performance seems to be ever increasing or atleast not reaching a pleatau in the same way as for traditional
-machine learning.
+data hungry performance seems to be ever increasing or atl east not reaching a pleatau in the same way as for 
+traditional machine learning.
 
 <p align="center">
   <img src="../figures/ml_data.PNG" width="500" title="Image credit">

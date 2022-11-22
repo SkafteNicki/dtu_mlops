@@ -72,7 +72,8 @@ do you have to manage the server. Everything is magically taken care of behind t
 
    3. Go to the trigger tab and go to the url for the application.
 
-   4. Checkout the logs tab. You should see that your application have already been invoked multiple times. Also try to execute this command in a terminal:
+   4. Checkout the logs tab. You should see that your application have already been invoked multiple times. Also try 
+      to execute this command in a terminal:
       ```bash
       gcloud functions logs read
       ```
