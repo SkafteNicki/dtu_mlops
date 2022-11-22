@@ -101,12 +101,14 @@ select `Open Folder`). You should end up with a completly clean workspace (as sh
 button and create a file called `hallo.py`.
 
    <p align="center">
-     <img src="../figures/toolbar_new_file.png" width="700" title="Image credit to https://code.visualstudio.com/docs/python/python-tutorial">
+     <img src="../figures/toolbar_new_file.png" width="700">
+     <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a>
    </p>
 
 5. Finally, lets run some code. Add something simple to the `hallo.py` file like:
    <p align="center">
-     <img src="../figures/run_python_file.png" width="700" title="Image credit to https://code.visualstudio.com/docs/python/python-tutorial">
+     <img src="../figures/run_python_file.png" width="700">
+     <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a>
    </p>
 
    and click the `run` button as shown in the image. It should create a new terminal, activate the environment that you have
