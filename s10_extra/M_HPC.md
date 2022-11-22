@@ -1,8 +1,11 @@
 ---
 layout: default
-title: M34 - High Performance Clusters (UNDER CONSTRUCTION)
+title: M34 - High Performance Clusters
 parent: S10 - Extra
 nav_order: 6
 ---
 
-# High Performance Clusters (UNDER CONSTRUCTION)
+{: .warning }
+> Module is still under development
+
+# High Performance Clusters

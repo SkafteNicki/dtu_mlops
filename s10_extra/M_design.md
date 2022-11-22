@@ -2,10 +2,27 @@
 layout: default
 title: M30 - Designing MLOps pipelines
 parent: S10 - Extra
-nav_order: 2
+nav_order: 5
 ---
 
-# Designing MLOps pipelines (UNDER CONSTRUCTION)
+# Designing MLOps pipelines
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+---
+
+{: .warning }
+> Module is still under development
+
+# Designing MLOps pipelines
 
 > Machine learning engineering is 10% machine learning and 90% engineering.
 > *Chip Huyen*

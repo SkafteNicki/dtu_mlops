@@ -5,7 +5,7 @@ parent: S10 - Extra
 nav_order: 4
 ---
 
-# Creating APIs (Under construction)
+# Creating APIs
 {: .no_toc }
 
 <details open markdown="block">
@@ -18,6 +18,9 @@ nav_order: 4
 </details>
 
 ---
+
+{: .warning }
+> Module is still under development
 
 The applications that we are developing in this course are focused on calling python functions directly. However, if we 
 were to produce an product that some users should use we cannot expect them to want to work with our applications on a 

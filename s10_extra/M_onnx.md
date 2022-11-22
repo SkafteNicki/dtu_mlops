@@ -2,12 +2,12 @@
 layout: default
 title: M33 - Onnx
 parent: S10 - Extra
-nav_order: 5
+nav_order: 8
 ---
 
 <img style="float: right;" src="../figures/icons/onnx.png" width="130"> 
 
-# Onnx (Under construction)
+# Onnx
 {: .no_toc }
 
 <details open markdown="block">
@@ -21,6 +21,8 @@ nav_order: 5
 
 ---
 
+{: .warning }
+> Module is still under development
 
 # Model packaging
 

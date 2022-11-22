@@ -1,13 +1,13 @@
 ---
 layout: default
-title: M36 - Kubernetes (UNDER CONSTRUCTION)
+title: M36 - Kubernetes
 parent: S10 - Extra
-nav_order: 8
+nav_order: 7
 ---
 
 <img style="float: right;" src="../figures/icons/kubernetes.png" width="130"> 
 
-# Kubernetes (UNDER CONSTRUCTION)
+# Kubernetes
 {: .no_toc }
 
 <details open markdown="block">
@@ -21,6 +21,8 @@ nav_order: 8
 
 ---
 
+{: .warning }
+> Module is still under development
 
 ## Kubernetes architechture
 

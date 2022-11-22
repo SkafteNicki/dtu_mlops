@@ -2,7 +2,7 @@
 layout: default
 title: M28 - Hyperparameter optimization
 parent: S10 - Extra
-nav_order: 3
+nav_order: 2
 ---
 
 <img style="float: right;" src="../figures/icons/optuna.png" width="130"> 
