@@ -280,72 +280,69 @@ beneficial for you to download.
         ../../example_images.npy
     ```
 
-18. By default a virtual machine created by docker only have access to your `cpu` and not your `gpu`. While you do 
-    not necessarily have a laptop with a GPU that supports training of neural network (e.g. one from Nvidia) it is 
-    beneficial that you understand how to construct a docker image that can take advantage of a GPU if you were to run 
-    this on a machine in the future that have a GPU (e.g. in the cloud). Luckily for us there is someone else that have 
-    already done the hard part and shared their work through [Docker hub](https://hub.docker.com/).
+18. (Optional, requires GPU support) By default a virtual machine created by docker only have access to your `cpu` and 
+    not your `gpu`. While you do not necessarily have a laptop with a GPU that supports training of neural network 
+    (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage 
+    of a GPU if you were to run this on a machine in the future that have a GPU (e.g. in the cloud). It does take a bit
+    more work, but many of the steps will be similar to building a normal docker image.
 
-    1. Go to Docker hub and find the hub page belonging to this person: `anibali`. It both contains base images with 
-       and without CUDA support.
-       If you want to use images with CUDA support you need to install the
-       [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+    1. There are three prerequisites for working with Nvidia GPU accelerated docker containers. First you need to have
+       the Docker Engine installed (already taken care of), have Nvidia GPU with updated GPU drivers and finally have
+       the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The last part you not likely have not installed and needs to do.
 
-    2. Next pull a relevant image. The relevant command is
+    2. To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is 
+       the correct image:
        ```bash
-       docker pull anibali/pytorch:{version}-{cuda}
+       docker pull nvidia/cuda:11.0.3-base-ubuntu20.04
        ```
-       where `{version}` refers to the version of pytorch that you want and `{cuda}` is the specific cuda version you 
-       want. Some examples
+       but it may differ based on what cuda vision you have. You can find all the different offical Nvidia images 
+       [here](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
+       inside a container based on the image you just pulled. It should look something like this:
        ```bash
-       docker pull anibali/pytorch:1.8.1-cuda11.1  # pytorch 1.8.1 with cuda 11.1
-       docker pull anibali/pytorch:1.10.0-nocuda  # pytorch 1.10.0 with no cuda support
-       docker pull anibali/pytorch  # get the latest version of pytorch with 
+       docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
        ```
+       and should show an image like below:
+       <p align="center">
+          <img src="../figures/nvidia_smi.png" width="600">
+       </p>
+       If it does not work, try redoing the steps.
 
-    3. Lets say that we just wanted to execute an simple `Pytorch` application. Then we can use these base images 
-       directly
+    3. We should hopefully have a working setup now for running Nvidia accelerated docker containers. Next step is to
+       get Pytorch inside of our container, such that our Pytorch implementation also correctly identify the GPU.
+       Luckily for us Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
+       through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
+       The containers that have to do with Pytorch can be seen 
+       [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html). Try pulling the latest:
        ```bash
-        docker run --rm -it --init \
-          --gpus=all \  # only if cuda version
-          --ipc=host \  # only if using multiprocessing
-          --user="$(id -u):$(id -g)" \  # optional, useful for writing files with correct ownership
-          --volume="$PWD:/app" \  # optional, mount additional files
-          {pulled_docker_image_name} python3 main.py
+       docker pull nvcr.io/nvidia/pytorch:22.07-py3
        ```
-       try executing the `pytorch_docker.py` file from this sessions exercise folder with the pulled docker image.
-       This script should only exit successfully if the image indeed contains an Pytorch installation.
-  
-    4. Finally, we can also use these Pytorch images for building our own images. We simply need to change a couple 
-       of lines. First change the image we start from
+       It may take some time, because the NGC images includes a lot of other software for optimizing Pytorch
+       applications. It may be possible for you to find other images for running GPU accelerated applications that have 
+       a smaller memory footprint, but NGC are the recommend and supported way.
+
+    4. Lets test that this container work:
+       ```
+       docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:22.07-py3
+       ```
+       this should run the container in interactive mode attached to your current terminal. Try opening `python` in
+       the container and try writing:
+       ```python
+       import torch
+       print(torch.cuda.is_available())
+       ```
+       which hopefully should return `True`.
+
+    5. Finally, we need to incorporate all this into our already developed docker files for our application. This is 
+       also fairly easy as we just need to change our `FROM` statement in the beginning of our docker file:
        ```docker
        FROM python:3.7-slim
        ```
-       to
+       change to
        ```docker
-       FROM anibali/pytorch:1.8.1-cuda11.1-ubuntu20.04  # or whatever image you want to use
+       FROM  nvcr.io/nvidia/pytorch:22.07-py3
        ```
-       secondly we need to remove this part
-       ```docker
-       # install python 
-       RUN apt update && \
-          apt install --no-install-recommends -y build-essential gcc && \
-          apt clean && rm -rf /var/lib/apt/lists/*
-       ```
-       as it is already taken care of in the new base image (you can inspect the dockerfiles
-       [here](https://github.com/anibali/docker-pytorch/tree/master/dockerfiles)). Finally, we need
-       to change the workdir from 
-       ```docker
-       WORKDIR /
-       ```
-       to
-       ```docker
-       WORKDIR / app/ -> WORKDIR /app
-       ```
-       since the new base image assumes we work in an subfolder called `app` and not just the
-       root dir. Try building a new image doing this. Make sure that you do not end up downloading 
-       Pytorch again when installing the requirements during the build process (you probably need
-       to remove it from the requirements file).
+       try doing this to one of your docker files, build the image and run the container. Remember to check that your
+       application is using GPU by printing `torch.cuda.is_available()`.
 
 The covers the absolute minimum you should know about docker to get a working image and container. 
 That said, if you are actively going to be using docker in the near future, one thing to consider 
