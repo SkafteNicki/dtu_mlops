@@ -27,7 +27,7 @@ as expected.
 
 1. Go to the `Monitoring` service. Then go to `Alerting` tab. 
    <p align="center">
-     <img src="../figures/gcp_alert.png" width="800" title="hover text">
+     <img src="../figures/gcp_alert.png" width="800">
    </p>
 
 2. Start by setting up an notification channel. A recommend setting up with an
@@ -39,7 +39,7 @@ as expected.
    an cloud function is invoked (actually it measures the amount of log entries
    from cloud functions).
    <p align="center">
-     <img src="../figures/gcp_alert_condition.png" width="800" title="hover text">
+     <img src="../figures/gcp_alert_condition.png" width="800">
    </p>
 
 3. After adding the condition, add the notification channel you created in one of

@@ -49,6 +49,8 @@ drive or an `S3` bucket from Amazon.
 
 <p align="center">
   <img src="../figures/dvc.png" width="700," title="hover text">
+  <br>
+  <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
 </p>
 
 As the figure shows, we now have two remote locations: one for code and one for data. We use `git pull/push` for the
@@ -88,7 +90,7 @@ it contains excellent tutorials.
    belonging to that folder as shown in the figure below
 
    <p align="center">
-     <img src="../figures/google_drive.PNG" width="1000," title="hover text">
+     <img src="../figures/google_drive.PNG" width="1000">
    </p>
 
    Using this identifier, add it as a remote storage 

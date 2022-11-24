@@ -25,20 +25,19 @@ nav_order: 1
 > Core module
 
 <p align="center">
-  <img src="../figures/terminal_power.jpg" width="500" title="hover text">
+  <img src="../figures/terminal_power.jpg" width="500">
+  <br>
+  <a href="https://twitter.com/rorypreddy/status/1257336536477171712"> Image credit </a>
 </p>
 
 Contrary to popular belief, the terminal is not a mythical being that has existed since the dawn of time. 
 Instead, it was created at a time when it was not given that your computer had a graphical interface that
 you could interact with. Think of it as a text interface to your computer.
 
-<p align="center">
-  <img src="../figures/yoda_terminal.jpg" width="500" title="hover text">
-</p>
-
-It is a well-known concept to users of linux, however MAC and (especially) Windows users not so much. Having a basic understanding 
-of how to use a terminal can really help improve your workflow. We have put a cheat sheet in the `exercise_files` folder
-belonging to this session, that gives a quick overview of the different commands that can be executed in the terminal.
+It is a well-known concept to users of linux, however MAC and (especially) Windows users not so much. Having a basic 
+understanding of how to use a terminal can really help improve your workflow. We have put a cheat sheet in the 
+`exercise_files` folder belonging to this session, that gives a quick overview of the different commands that can be 
+executed in the terminal.
 
 The reason that the terminal is an important tool to get to know, is that doing machine learning in the cloud assumes
 that you will interact to some degree with the terminal. 
@@ -54,7 +53,7 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
 
 2. Open a terminal. It should look something like below
    <p align="center">
-     <img src="../figures/terminal.PNG" width="1000" title="hover text">
+     <img src="../figures/terminal.PNG" width="1000">
    </p>
    Windows users can either use the WSL terminal or Windows command promt
 

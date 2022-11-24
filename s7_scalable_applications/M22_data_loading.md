@@ -32,7 +32,7 @@ data hungry performance seems to be ever increasing or atl east not reaching a p
 traditional machine learning.
 
 <p align="center">
-  <img src="../figures/ml_data.PNG" width="500" title="Image credit">
+  <img src="../figures/ml_data.PNG" width="500">
   <br>
   <a href="https://www.codesofinterest.com/2017/04/how-deep-should-deep-learning-be.html"> Image credit </a>
 </p>
@@ -99,7 +99,7 @@ we request 4) are called *workers*. When the dataloader is created, we create th
 threads have a copy of our dataset definition so each can call the `__getitem__` method.
 
 <p align="center">
-    <img src="../figures/cpu_data_loading1.PNG" width="500," title="hover text">
+    <img src="../figures/cpu_data_loading1.PNG" width="500">
 </p>
 
 Then comes the actual part where we request a batch for data. Assume that we have a batch size of 8 and we do not do 
@@ -107,14 +107,14 @@ any shuffeling. In this step the master thread then distributes the list of requ
 to the four worker threads. With 8 indices and 4 workers, each worker will receive 2 indices.
 
 <p align="center">
-    <img src="../figures/cpu_data_loading2.PNG" width="500," title="hover text">
+    <img src="../figures/cpu_data_loading2.PNG" width="500">
 </p>
 
 Each worker thread then calls `__getitem__` method for all the indices it has received. When all processes are done, the 
 loaded images datapoints gets send back to the master thread collected into a single structure/tensor.
 
 <p align="center">
-    <img src="../figures/cpu_data_loading3.PNG" width="500," title="hover text">
+    <img src="../figures/cpu_data_loading3.PNG" width="500">
 </p>
 
 Each arrow is corresponds to a communication between two threads, which is not a free operations. In total to get a 

@@ -46,7 +46,7 @@ do you have to manage the server. Everything is magically taken care of behind t
    `Allow unauthenticated invocations` so we can access it directly from a browser. Remember to note down the
    *URL* of the service somewhere.
    <p align="center">
-     <img src="../figures/gcp_cloud_functions.png" width="500" title="hover text">
+     <img src="../figures/gcp_cloud_functions.png" width="500">
    </p>
 
 3. On the next page, for `Runtime` pick the `Python 3.9` option. This will make the inline editor show both
@@ -55,7 +55,7 @@ do you have to manage the server. Everything is magically taken care of behind t
 4. Afterwards you should see a green check mark beside your function meaning that it is deployed. Click the
    `Test function` button which will take you to the testing page.
    <p align="center">
-     <img src="../figures/gcp_test_function.png" width="800" title="hover text">
+     <img src="../figures/gcp_test_function.png" width="800">
    </p>
 
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
