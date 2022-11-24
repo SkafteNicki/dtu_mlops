@@ -175,7 +175,7 @@ working together on the same project.
       your choosing and click the edit button (see image below) and make some change to the file. For example, if
       you choose an python file you can just import some random packages at the top of the file. Commit the change.
       <p align="center">
-         <img src="../figures/git_edit.png" width="1000," title="hover text">
+         <img src="../figures/git_edit.PNG" width="1000," title="hover text">
       </p>
 
    2. Make sure not to pull the change you just made to your local computer. Locally make changes to the same

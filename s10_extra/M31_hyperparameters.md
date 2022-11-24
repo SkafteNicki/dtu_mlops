@@ -36,7 +36,7 @@ In these exercises we are going to be integrating [optuna](https://optuna.readth
 our different models, that will provide the tools for speeding up our search.
 
 <p align="center">
-  <img src="../figures/hyperparameters.jpg" width="500" title="hover text">
+  <img src="../figures/hyperparameters.jpg" width="500">
 </p>
 
 It should be noted that a lot of deep learning models does not optimize every hyperparameter that is included

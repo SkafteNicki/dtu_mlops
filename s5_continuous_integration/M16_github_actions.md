@@ -113,7 +113,7 @@ Lets take a look at how a github workflow file is organized:
    before we actually merge code into our codebase. We can directly prevent bad behavior by adding *branch 
    protection rules* to our repository. Take the image below as an example from one of my own PRs:
    <p align="center">
-     <img src="../figures/ci_pull_request.PNG" width="1000," title="hover text">
+     <img src="../figures/ci_pull_request.PNG" width="1000">
    </p>
    In this example, the PR cannot be merge to the *main* branch before the following is fulfilled: At least 2 reviewers
    with write access have approved the PR, all Github actions marked as *Required* are passing and all conversations

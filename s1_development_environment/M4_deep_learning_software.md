@@ -82,7 +82,7 @@ The notebooks contains a lot of explaining text. The exercises that you are supp
 the text in small "exercise" blocks:
 
 <p align="center"> 
-  <img src="../figures/exercise.PNG" width="1000" title="hover text">
+  <img src="../figures/exercise.PNG" width="1000">
 </p>
 
 If you need a fresh up on any deep learning topic in general throughout the course, we recommend to find the relevant 

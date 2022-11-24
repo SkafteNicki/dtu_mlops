@@ -88,7 +88,7 @@ we highly recommend installing the following packages:
 3. If you install the `Python` package you should see something like this in your status bar:
 
    <p align="center">
-     <img src="../figures/action_bar.PNG" width="700" title="hover text">
+     <img src="../figures/action_bar.PNG" width="700">
    </p>
 
    which indicates that you are using the stock python installation, instead of the one you have created using `conda`. 
