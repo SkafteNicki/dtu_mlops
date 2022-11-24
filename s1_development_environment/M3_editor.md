@@ -102,12 +102,14 @@ button and create a file called `hallo.py`.
 
    <p align="center">
      <img src="../figures/toolbar_new_file.png" width="700">
+     <br>
      <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a>
    </p>
 
 5. Finally, lets run some code. Add something simple to the `hallo.py` file like:
    <p align="center">
      <img src="../figures/run_python_file.png" width="700">
+     <br>
      <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a>
    </p>
 

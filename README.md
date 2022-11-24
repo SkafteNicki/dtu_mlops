@@ -13,7 +13,7 @@ permalink: /
 </p>
 
 <p align="center"> 
-  <img src="figures/mlops.png" width="1000" title="hover text">
+  <img src="figures/mlops.png" width="1000">
 </p>
 
 <details open markdown="block">

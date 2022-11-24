@@ -47,7 +47,9 @@ both deep learning and traditional ML. It defines an extensible computation grap
 built-in operators and standard data types.
 
 <p align="center">
-  <img src="../figures/onnx.png" width="600" title="hover text">
+  <img src="../figures/onnx.png" width="600">
+  <br>
+  <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a>
 </p>
 
 As the above image indicates, the idea behind ONNX is that a model trained with a specific framework on a specific
