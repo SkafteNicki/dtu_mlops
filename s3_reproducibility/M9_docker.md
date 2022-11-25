@@ -25,7 +25,9 @@ nav_order: 1
 > Core module
 
 <p align="center">
-  <img src="../figures/docker.png" width="400" title="hover text">
+  <img src="../figures/docker.png" width="400">
+  <br>
+  <a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a>
 </p>
 
 While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/) 

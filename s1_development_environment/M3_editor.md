@@ -44,7 +44,9 @@ We highly recommend Visual studio (vs) code if you do not already have a editor 
 Below you see an overview of the vs code interface
 
 <p align="center">
-  <img src="../figures/vscode.PNG" width="700" title="hover text">
+  <img src="../figures/vscode.PNG" width="700">
+  <br>
+  <a href=" https://www.git-tower.com/learn/cheat-sheets/vscode/"> Image credit </a>
 </p>
 
 The main components of VS code are:

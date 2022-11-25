@@ -48,7 +48,7 @@ works as placeholders for your datafiles. Your large datafiles are then stored i
 drive or an `S3` bucket from Amazon.
 
 <p align="center">
-  <img src="../figures/dvc.png" width="700," title="hover text">
+  <img src="../figures/dvc.png" width="700">
   <br>
   <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
 </p>

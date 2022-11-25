@@ -92,7 +92,7 @@ want to get this updates to be online in the *remote repository* we have to do t
 Of course, the real power of version control is the ability to make branches, as in the image below
 
 <p align="center">
-  <img src="../figures/git_branches.png" width="1000," title="hover text">
+  <img src="../figures/git_branches.png" width="1000">
   <br>
   <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </p>
@@ -177,7 +177,7 @@ working together on the same project.
       your choosing and click the edit button (see image below) and make some change to the file. For example, if
       you choose an python file you can just import some random packages at the top of the file. Commit the change.
       <p align="center">
-         <img src="../figures/git_edit.PNG" width="1000," title="hover text">
+         <img src="../figures/git_edit.PNG" width="1000">
       </p>
 
    2. Make sure not to pull the change you just made to your local computer. Locally make changes to the same

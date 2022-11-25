@@ -40,7 +40,9 @@ is therefore not only to make the code easier for you to maintain but also for o
 Below is seen the default code structure of cookie-cutter for data science projects.
 
 <p align="center">
-  <img src="../figures/cookie_cutter.png" width="1000," title="hover text">
+  <img src="../figures/cookie_cutter.png" width="1000">
+  <br>
+  <a href="https://github.com/drivendata/cookiecutter-data-science"> Image credit </a>
 </p>
 
 What is important to keep in mind when using a template such as cookie-cutter, is that it exactly is a template. By
