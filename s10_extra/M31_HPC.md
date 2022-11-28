@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M34 - High Performance Clusters
+title: M31 - High Performance Clusters
 parent: S10 - Extra
-nav_order: 6
+nav_order: 3
 ---
 
 <img style="float: right;" src="../figures/icons/pbs.png" width="130"> 
@@ -19,9 +19,6 @@ nav_order: 6
 </details>
 
 ---
-
-{: .warning }
-> Module is still under development
 
 As discussed in [the intro session on the cloud](../s6_the_cloud/S6.md), cloud providers offers near infinite
 compute resources. However, using these resources comes at a hefty price often and it is therefore important to be

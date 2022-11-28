@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M36 - Kubernetes
+title: Kubernetes
 parent: S10 - Extra
 nav_order: 7
 ---

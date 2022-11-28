@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M33 - Onnx
+title: Onnx
 parent: S10 - Extra
 nav_order: 8
 ---

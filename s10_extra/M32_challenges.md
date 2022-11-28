@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M35 - Challenges
+title: M32 - Challenges
 parent: S10 - Extra
-nav_order: 3
+nav_order: 4
 ---
 
 # Open questions

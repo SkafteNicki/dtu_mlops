@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M32 - Creating APIs
+title: Pipelines
 parent: S10 - Extra
-nav_order: 4
+nav_order: 9
 ---
 
 # Pipelines and workflows

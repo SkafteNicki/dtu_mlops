@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M30 - Designing MLOps pipelines
+title: Designing MLOps pipelines
 parent: S10 - Extra
-nav_order: 5
+nav_order: 6
 ---
 
 # Designing MLOps pipelines
