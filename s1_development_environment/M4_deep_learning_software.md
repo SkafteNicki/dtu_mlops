@@ -182,7 +182,7 @@ in the future as you start to add more and more features. As subgoals, please fo
 To start you off, a very barebone version of each script is provided in the `final_exercise` folder. We have already
 implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
 interested in how this is done you can checkout this optional module on defining
-[command line interfaces (CLI)](../s10_extra/M_cli.md). We additionally also provide an `requirements.py` with
+[command line interfaces (CLI)](../s10_extra/M29_cli.md). We additionally also provide an `requirements.py` with
 suggestion to what packages are nessesary to complete the exercise.
 
 \
