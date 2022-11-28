@@ -101,8 +101,8 @@ mention [Typer](https://typer.tiangolo.com/).
 5. As an final exercise we provide you with a script that is ready to run as it is, but your job will be do turn it
    into a script with multiple subcommands, with multiple arguments for each subcommand.
 
-   1. Start by taking a look at the provided [code](...). It is a simple script that runs the K-nearest neighbour
-      classification algorithm on the iris dataset and produces a plot of the decision boundary.
+   1. Start by taking a look at the provided [code](exercise_files/knn_iris.py). It is a simple script that runs the 
+      K-nearest neighbour classification algorithm on the iris dataset and produces a plot of the decision boundary.
 
    2. Create a script that has the following subcommands with input arguments
       * Subcommand `train`: Load data, train model and save. Should take a single argument `-o` that specifics 

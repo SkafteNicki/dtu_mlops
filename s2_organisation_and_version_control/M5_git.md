@@ -46,7 +46,7 @@ this into your own projects depends, but you are at least expected to be familia
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure
    that your installation is working by writing `git help` in a terminal and it should show you the help message for git.
 
-2. Create a [github](github.com/) account if you do not already have one.
+2. Create a [github](https://github.com/) account if you do not already have one.
 
 3. To make sure that we do not have to type in our github username every time that we want to do some changes, 
    we can once and for all set them on our local machine

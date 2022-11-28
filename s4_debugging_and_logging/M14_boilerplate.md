@@ -124,7 +124,7 @@ all three assume that we are using `torch.utils.data.DataLoader` for the dataloa
    ```
  
 3. Finally, `Lightning` also have the `LightningDataModule` that organizes data loading into a single structure, see 
-   this [page](https://pytorch-lightning.readthedocs.io/en/latest/extensions/datamodules.html) for more info. Putting 
+   this [page](https://pytorch-lightning.readthedocs.io/en/latest/data/datamodule.html) for more info. Putting 
    data loading into a `DataModule` makes sense as it is then can be reused between projects. 
 
 ### Callbacks
@@ -251,7 +251,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
    [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
 
 10. (Optional) Lightning also have build-in support for profiling. Checkout how to do this using the 
-    [profiler](https://pytorch-lightning.readthedocs.io/en/latest/advanced/profiler.html#built-in-checks) argument in 
+    [profiler]https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in 
     the `Trainer` object.
 
 11. Free exercise: Experiment with what the lightning framework is capable of. Either try out more of the trainer flags, 

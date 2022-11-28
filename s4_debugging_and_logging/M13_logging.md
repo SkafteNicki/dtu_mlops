@@ -91,7 +91,7 @@ results.
    sweep in Wandb. You at least need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
    in your code on an appropriate value. Note: if you want `hydra` and `wandb` to work together you will need to change
    the `command` config in your `sweep.yaml` file, see this 
-   [page](https://docs.wandb.ai/guides/sweeps/configuration#command).
+   [page](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration).
 
 10. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
 
