@@ -151,7 +151,7 @@ all the conversations that we need to make to our standard inference pipeline to
    However, quantization can be further implemented into our pipeline by doing `quantization aware training`, where we also 
    apply quantization during training to hopefully get model that quantize better in the end. This can easily be done in 
    lightning using the 
-   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/extensions/generated/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining) callback. Try it out!
+   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/api/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining) callback. Try it out!
 
 
 ## Compilation
