@@ -5,10 +5,23 @@ parent: S10 - Extra
 nav_order: 6
 ---
 
-{: .warning }
-> Module is still under development
+<img style="float: right;" src="../figures/icons/pbs.png" width="130"> 
 
 # High Performance Clusters
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+---
+
+{: .warning }
+> Module is still under development
 
 As discussed in [the intro session on the cloud](../s6_the_cloud/S6.md), cloud providers offers near infinite
 compute resources. However, using these resources comes at a hefty price often and it is therefore important to be
@@ -20,6 +33,27 @@ everybody (with a project) can apply for. As an example in the EU we have
 centralized location for [applying for resources](https://pracecalls.eu/) that are both open for research projects
 and start-ups.
 
+Depending on your application, you may have different needs and it is therefore important to be aware also of the
+different tiers of HPC. In Europe, HPC are often categorized such that Tier-0 are European Centers with petaflop 
+or hexascale machines, Tier 1 are National centers of supercomputers, and Tier 2 are Regional centers. The lower the
+Tier, the larger applications it is possible to run.
+
+<p align="center">
+  <img src="../figures/hpc_tiers.png" width="800">
+  <br>
+  <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a>
+</p>
+
+## Cluster architectures
+
+In very general terms, cluster can come as two different kind of systems: supercomputers and LSF 
+(Load Sharing Facility). A supercomputer (as shown below) is organized into different modules, that are seperated by
+network link. When you login to a supercomputer you will meet the front end which contains all the software needed to 
+run computations. When you submit a job it will get sent to the backend modules which in most cases includes: general 
+compute modules (CPU), acceleration modules (GPU), a memory module (RAM) and finally a storage module (HDD). Depending 
+on your application you may need one module more than another. For example in deep learning the acceleration module is 
+important but in physics simulation the general compute module / storage model is probably more important.
+
 <p align="center">
   <img src="../figures/meluxina_overview.png" width="800">
   <br>
@@ -28,13 +62,26 @@ and start-ups.
   <a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
 </p>
 
-Regardless which cluster you can get access to, in most cases it looks something like the image above, namely it is 
-organized into different modules. When login to the cluster you will meet the front end of the cluster which contains
-all the software needed to run computations. When you submit a job it will get sent to the backend modules which in most 
-cases includes: general compute modules (CPU), acceleration modules (GPU), a memory module (RAM) and finally a storage 
-module (HDD). Depending on your application you may need one module more than another. For example in deep learning 
-the acceleration module is important but in physics simulation the general compute module / storage model is probably 
-more important.
+Alternatively, LSF are a network of computers where each computer has its own CPU, GPU, RAM etc. and the individual
+computes (or nodes) are then connected by network. The important different between a supercomputer and as LSF systems 
+is how the resources are organized. When comparing supercomputers to LSF system it is generally the case that it is
+better to run on a LSF system if you are only requesting resources that can be handled by a single node, however it
+is better to run on a supercomputer if you have a resource intensive application that requires many devices to
+communicate with each others.
+
+Regardless of cluster architechtures, on the software side of HPC, the most important part is whats called the 
+*HPC scheduler*. Without a HPC scheduler an HPC cluster would just be a bunch of servers with different jobs 
+interfering with each other. The problem is when you have a large collection of resources and a large collection of 
+users, you cannot rely on the users just running their applications without interfering with each other. A HPC scheduler 
+is in charge of managing that whenever an user request to run an application, they get put in a queue and whenever the
+resources their application ask for are available the application gets run. 
+
+The biggest bach control systems for doing scheduling on HPC are:
+* SLURM
+* MOAB HPC Suite
+* PBS Works
+
+We are going to take a look at PBS works as that is what is installed on our local university cluster.
 
 ### Exercises
 
@@ -67,7 +114,11 @@ want to.
       ```
       and activate it.
 
-   3. Next, install all the requirements you need. If you want to run the image classifier script you can run this
+   3. Copy over any files you need. For the image classifier script you need the 
+      [requirements file](exercise_files/image_classifier_requirements.txt) and the actual 
+      [application](exercise_files/image_classifier.py).
+
+   4. Next, install all the requirements you need. If you want to run the image classifier script you can run this
       command in the terminal
       ```
       pip install -r image_classifier_requirements.txt
@@ -76,11 +127,62 @@ want to.
 
 3. Thats all the setup needed. You would need to go through the creating of environment and installation of requirements
    whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
-   jobs on the cluster.
+   jobs on the cluster. We are now ready to submit the our first job to the cluster:
 
-   ```bash
-   bsub
-   qsub
-   classstat
-   qstat
-   ```
+   1. Start by checking the statistics for the different clusters. Try to use both the `qstat` command which should give
+      an overview of the different cluster, number of running jobs and number of pending jobs. For many system you can
+      also try the much more user friendly command `classstat` command.
+
+   2. Figure out which queue you want to use. For the sake of the exercises it needs to be one with GPU support. For
+      DTU students, any queue that starts with `gpu` are GPU accelerated. 
+
+   3. Now we are going to develop a bash script for submitting our job. We have provided an example of such 
+      [scripts](exercise_files/jobscript.sh). Take a careful look and go each line and make sure you understand it.
+      Afterwards, change it to your needs (queue and student email).
+   
+   4. Try to submit the script:
+      ```bash
+      bsub < jobscript.sh
+      ```
+      You can check the status of your script by running the `bstat` command. Hopefully, the job should go trough really 
+      quickly. Take a look at the output file, it should be called something like `gpu_*.out`. Also take a look at the 
+      `gpu_*.err` file. Does both files look as they should?
+
+4. Lets now try to run our application on the cluster. To do that we need to take care of two things:
+
+   1. First we need to load the correct version of CUDA. A cluster system often contains multiple versions of specific
+      software to suit the needs of all their users, and it is the users that are in charge of *loading* the correct 
+      software during job submission. The only extra software that needs to be loaded for most Pytorch applications are
+      a CUDA module. You can check which modules are available on the cluster with
+      ```bash
+      module avail
+      ```
+      Afterwards, add the correct CUDA version you need to the `jobscript.sh` file. If you are trying to run the 
+      provided image classifier script then the correct version is `CUDA/11.7` (can be seen in the requirements file).
+      ```
+      # add to the bottom of the file
+      module load cuda/11.7
+      ```
+
+   2. We are now ready to add in our application. The only thing we need to take care of is telling the system to run
+      it using the `python` version that is connected to our `hpc_env` we created in the beginning. Try typing:
+      ```bash
+      which python 
+      ```
+      which should give you the full path. Then add to the bottom of the `jobscript` file:
+      ```bash
+      ~/miniconda3/envs/hpc_env/bin/python image_classifier.py --trainer.accelerator 'gpu' --trainer.devices 1
+      ```
+      which will run the image classifier script (change it if you are runnning something else).
+
+   3. Finally submit the job:
+      ```bash
+      bsub < jobscript.sh
+      ```
+      and check when it is done that it has produced what you expected.
+   
+   4. (Optional) If you application supports multi GPUs also try that out. You would first need to change the jobscript
+      to request multiple GPUs and additionally you would need to tell your application to run on multiple GPUs. For the
+      image classifier script it can be done by changing the `--trainer.devices` flag to `2` (or higher).
+
+This ends the module on using HPC systems.

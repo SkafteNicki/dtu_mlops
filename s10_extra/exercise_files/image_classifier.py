@@ -1,19 +1,13 @@
 # Adjusted version of
 # https://github.com/Lightning-AI/lightning/blob/master/examples/pl_basics/backbone_image_classifier.py
-from os import path
-from typing import Optional
-
 import torch
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, random_split
 
-from pytorch_lightning import cli_lightning_logo, LightningDataModule, LightningModule
+from pytorch_lightning import LightningDataModule, LightningModule
 from pytorch_lightning.cli import LightningCLI
 from pytorch_lightning.demos.mnist_datamodule import MNIST
-from pytorch_lightning.utilities.imports import _TORCHVISION_AVAILABLE
 from torchvision import transforms
-
-DATASETS_PATH = path.join(path.dirname(__file__), "..", "..", "Datasets")
 
 
 class LitClassifier(LightningModule):
@@ -55,8 +49,8 @@ class LitClassifier(LightningModule):
 class MyDataModule(LightningDataModule):
     def __init__(self, batch_size: int = 32):
         super().__init__()
-        dataset = MNIST(DATASETS_PATH, train=True, download=True, transform=transforms.ToTensor())
-        self.mnist_test = MNIST(DATASETS_PATH, train=False, download=True, transform=transforms.ToTensor())
+        dataset = MNIST("Datasets", train=True, download=True, transform=transforms.ToTensor())
+        self.mnist_test = MNIST("Datasets", train=False, download=True, transform=transforms.ToTensor())
         self.mnist_train, self.mnist_val = random_split(dataset, [55000, 5000])
         self.batch_size = batch_size
 
