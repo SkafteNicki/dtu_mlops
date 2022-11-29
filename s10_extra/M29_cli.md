@@ -131,5 +131,3 @@ mention [Typer](https://typer.tiangolo.com/).
       python main.py plot -i 'model.ckpt' -o 'generated_plot.png'
       python main.py optim
       ```
-
-

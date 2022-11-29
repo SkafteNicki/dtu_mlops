@@ -59,7 +59,6 @@ an developer friendly framework, however it has historically been slow to run in
 such as [Caffe2](https://caffe2.ai/). ONNX allow you to mix-and-match frameworks based on different usecases, and
 essentially increases the longivity of your model.
 
-
 ## Exercises
 
 1. Start by installing ONNX:
@@ -83,7 +82,7 @@ essentially increases the longivity of your model.
    completely different hardware. Can you identify at least two of the providers that are necessary for running
    standard Pytorch code on CPU and GPU? Can you identify others
 
-2. One big advantage of having a standardized format, is that we can easily visualize the computational graph of our
+3. One big advantage of having a standardized format, is that we can easily visualize the computational graph of our
    model because it consist only of core ONNX operations. We are here going to use the open-source tool
    [netron](https://github.com/lutzroeder/netron) for visualization. You can either choose to download the program
    or just run it in your [webbrowser](https://netron.app/).

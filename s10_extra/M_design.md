@@ -31,7 +31,6 @@ We highly recommend that you read the book
 *Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications* by Chip Huyen which gives
 an fantastic overview of the thought processes that goes into designing moder machine learning systems.
 
-
 # The stack
 
 Have you ever encountered the concept of **full stack developer**. A full stack developer is an developer who can

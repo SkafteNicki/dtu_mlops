@@ -113,7 +113,7 @@ spot of being flexible enough to do what you want without having many additional
 
 ## BentoML
 
-https://github.com/bentoml/BentoML
+[bentoml](https://github.com/bentoml/BentoML)
 
 In particular
 

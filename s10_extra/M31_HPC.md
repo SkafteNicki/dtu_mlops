@@ -74,6 +74,7 @@ is in charge of managing that whenever an user request to run an application, th
 resources their application ask for are available the application gets run.
 
 The biggest bach control systems for doing scheduling on HPC are:
+
 * SLURM
 * MOAB HPC Suite
 * PBS Works

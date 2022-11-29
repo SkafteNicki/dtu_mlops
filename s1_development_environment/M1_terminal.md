@@ -44,7 +44,7 @@ that you will interact to some degree with the terminal.
 
 Note if you already are a terminal wizard then feel free to skip the exercises below. They are very elementary.
 
-### Exercises
+## Exercises
 
 1. (Windows users) We highly recommend that you activate *Windows Subsystem for Linux*. Please follow this
    [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Remember to run commands from an elevated

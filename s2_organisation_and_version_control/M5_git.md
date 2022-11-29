@@ -35,7 +35,7 @@ For a full explanation please see this [page](https://git-scm.com/book/en/v2/Get
 
 Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
 hosting repositories but that does not mean that they are the only one providing free repository hosting
-(see [bitbucket](https://bitbucket.org/product/ or [gitlab](https://about.gitlab.com/)) for some other examples).
+(see [bitbucket](https://bitbucket.org/product/) or [gitlab](https://about.gitlab.com/)) for some other examples).
 
 That said we will be using git and github throughout this course. It is a requirement for passing this course that
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
@@ -124,10 +124,12 @@ working together on the same project.
 
 2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
    messing with your working code. Creating a new branch can be done using:
+
    ```bash
    # create a new branch
    git checkout -b <my_branch_name>
    ```
+
    Afterwards, you can use `git checkout` to change between branches (remember to commit your work!)
    Try adding something (a file, a new line of code etc.) to the newly created branch, commit it and
    try changing back to master afterwards. You should hopefully see whatever you added on the branch

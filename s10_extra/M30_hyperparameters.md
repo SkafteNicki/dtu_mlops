@@ -51,7 +51,7 @@ In practice, I recommend trying to identify (through experimentation) which hype
 the performance of your model and then spend your computational budget trying to optimize them while setting the
 rest to a "recommended value".
 
-### Exercises
+## Exercises
 
 1. Start by installing optuna:
    `pip install optuna`
@@ -161,6 +161,7 @@ rest to a "recommended value".
       ```bash
       mysql -u root -e "CREATE DATABASE IF NOT EXISTS example"
       ```
+
       you can also do this directly in python when calling the `create_study` command by also setting the
       `storage` and `load_if_exists=True` flags.
 

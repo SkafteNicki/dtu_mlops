@@ -70,4 +70,3 @@ services that `gcp` offers. You are also free to continue work on your project.
   [Logs routing](https://cloud.google.com/logging/docs/routing/overview) for one of
   your deployed services to your cloud storage. Afterwards setup a VM that consumes
   the logs and accumulate them.
-

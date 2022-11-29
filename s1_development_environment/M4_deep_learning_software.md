@@ -102,7 +102,7 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
    1. (Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
       between an `[N,d]` tensor and `[M,d]` tensor. You should use the following identity:
-      `||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b> `. Hint: you need to use broadcasting.
+      $||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b>$. Hint: you need to use broadcasting.
 
 3. Complete the [Neural Networks in Pytorch](exercise_files/2_Neural_Networks_in_PyTorch.ipynb) notebook.
    It focuses on building a very simple neural network using the Pytorch `nn.Module` interface.
