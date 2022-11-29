@@ -98,11 +98,13 @@ in this way paths (for saving and loading files) are always relative to the root
 5. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in
    a project. You do not have to understand the complete file by try taking a look at it. In particular the following
    commands may come in handy
+
    ```bash
-	 make data  # runs the make_dataset.py file, try it!
-	 make clean  # clean __pycache__ files
-	 make requirements  # install everything in the requirements.py file
-	 ```
+	make data  # runs the make_dataset.py file, try it!
+	make clean  # clean __pycache__ files
+	make requirements  # install everything in the requirements.py file
+	```
+
    If you are running Windows, `make` is not a build-in command and you either need to install
    [chocolatey](https://chocolatey.org/) or
    [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows.
@@ -116,27 +118,29 @@ in this way paths (for saving and loading files) are always relative to the root
 
 8. (Optional) Can you figure out a way to add a `train` command to the `Makefile` such that training can be started
    using
+
    ```bash
-	 make train
-	 ```
+	make train
+	```
 
 9. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
    creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
    images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
+
    ```bash
-	 python src/models/predict_model.py \
-	        models/my_trained_model.pt \  # file containing a pretrained model
-		      data/example_images.npy  # file containing just 10 images for prediction
+	python src/models/predict_model.py \
+	  models/my_trained_model.pt \  # file containing a pretrained model
+	  data/example_images.npy  # file containing just 10 images for prediction
    ```
 
 10. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
-	  * Loads a pre-trained network
-	  * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
+	 * Loads a pre-trained network
+	 * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
       features just before the final classification layer
-	  * Visualize features in a 2D space using
+	 * Visualize features in a 2D space using
       [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
       reduction.
-	  * Save the visualization to a file in the `reports/figures/` folder.
+	 * Save the visualization to a file in the `reports/figures/` folder.
 
 10. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
 

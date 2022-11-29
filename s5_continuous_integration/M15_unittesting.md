@@ -69,39 +69,47 @@ The following exercises should be applied to your MNIST repository
    which is the testing framework that we are going to use
 
 3. Install pytest:
-   ```
+
+   ```bash
    pip install pytest
    ```
 
 4. Write some tests. Below are some guidelines on some tests that should be implemented, but
    you are of course free to implement more tests. You can at any point check if your tests are
    passing by typing in a terminal
-   ```
+
+   ```bash
    pytest tests/
    ```
 
    1. Start by creating a `tests/__init__.py` file and fill in the following:
+
       ```python
       import os
       _TEST_ROOT = os.path.dirname(__file__)  # root of test folder
       _PROJECT_ROOT = os.path.dirname(_TEST_ROOT)  # root of project
       _PATH_DATA = os.path.join(_PROJECT_ROOT, "Data")  # root of data
       ```
+
       these can help you refer to your data files during testing. For example, in another test
       file I could write
+
       ```python
       from tests import _PATH_DATA
       ```
+
       which then contains the root path to my data.
 
    2. Data testing: In a file called `tests/test_data.py` implement at least a
       test that checks that data gets correctly loaded. By this we mean that you should check
+
       ```python
       dataset = MNIST(...)
       assert len(dataset) == N_train for training and N_test for test
       assert that each datapoint has shape [1,28,28] or [728] depending on how you choose to format
       assert that all labels are represented
       ```
+
       where `N_train` should be either 25000 or 40000 depending on if you are just the first
       subset of the corrupted Mnist data or also including the second subset. `N_test` should
       be 5000.
@@ -121,6 +129,7 @@ The following exercises should be applied to your MNIST repository
       to the end user. Implement at least one raised error or warning somewhere in your code and
       use either `pytest.raises` or `pytest.warns` to check that they are correctly raised/warned.
       As inspiration, the following implements `ValueError` in code belonging to the model:
+
       ```python
       # src/models/model.py
       def forward(self, x: Tensor):
@@ -129,7 +138,9 @@ The following exercises should be applied to your MNIST repository
          if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3] != 28:
             raise ValueError('Expected each sample to have shape [1, 28, 28]')
       ```
+
       which would be captured by a test looking something like this:
+
       ```python
       # tests/test_model.py
       def test_error_on_wrong_shape():
@@ -140,21 +151,25 @@ The following exercises should be applied to your MNIST repository
    6. A test is only as good as the error message it gives, and by default `assert`
       will only report that the check failed. However, we can help our self and others by adding
       strings after `assert` like
+
       ```python
       assert len(train_dataset) == N_train, "Dataset did not have the correct number of samples"
       ```
+
       Add such comments to the assert statements you just did.
 
    7. The tests that involve checking anything that have to do with our data, will of cause fail
       if the data is not present. To future proof our code, we can take advantage of the
       `pytest.mark.skipif` decorator. Use this decorator to skip your data tests if the corresponding
       data files does not exist. It should look something like this
+
       ```python
       import os.path
       @pytest.mark.skipif(not os.path.exists(file_path), reason="Data files not found")
       def test_something_about_data():
          ...
       ```
+
       You can read more about skipping tests [here](https://docs.pytest.org/en/latest/how-to/skipping.html)
 
 5. After writing the different tests, make sure that they are passing locally.
@@ -171,24 +186,29 @@ The following exercises should be applied to your MNIST repository
    at least means that all your code will run when executed.
 
    1. Install coverage
+
       ```bash
       pip install coverage
       ```
 
    2. Instead of running your tests directly with `pytest`, now do
+
       ```bash
       coverage run -m pytest tests/
       ```
 
    3. To get a simple coverage report simply type
+
       ```bash
       coverage report
       ```
-      which will give you the percentage of cover in each of your files.
-      You can also write
+
+      which will give you the percentage of cover in each of your files. You can also write
+
       ```bash
       coverage report -m
       ```
+
       to get the exact lines that was missed by your tests.
 
    4. Finally, try to increase the coverage by writing a new test that runs some

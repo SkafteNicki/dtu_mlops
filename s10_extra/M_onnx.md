@@ -63,18 +63,22 @@ essentially increases the longivity of your model.
 ## Exercises
 
 1. Start by installing ONNX:
+
    ```bash
    pip install onnx
    pip install onnxruntime
    ```
+
    the first package includes the basic building blocks for implementing generalized ONNX models and the second
    package is for running ONNX optimal on different hardware.
 
 2. As an test that your installation is working, try executing the following python code
+
    ```python
    import onnxruntime
    onnxruntime.get_all_providers()
    ```
+
    these providers are *translation layers* that are implemented ONNX, such that the same ONNX model can run on
    completely different hardware. Can you identify at least two of the providers that are necessary for running
    standard Pytorch code on CPU and GPU? Can you identify others

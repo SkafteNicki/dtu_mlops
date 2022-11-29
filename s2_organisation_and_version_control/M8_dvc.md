@@ -68,18 +68,22 @@ it contains excellent tutorials.
    in later exercises). Please make sure that you at least have 1GB of free space.
 
 2. Next, install dvc and the Google drive extension
+
    ```bash
    pip install dvc
    pip install "dvc[gdrive]"
    ```
+
    If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
    optional dependencies: [s3], [azure], [gdrive], [gs], [oss], [ssh]. Alternatively, use [all] to include them all.
    The command should look like this:
+
    ```bash
    pip install "dvc[s3]"
    ```
 
-3. In your mnist repository run the following command from the terminal
+3. In your MNIST repository run the following command from the terminal
+
    ```bash
    dvc init
    ```
@@ -94,6 +98,7 @@ it contains excellent tutorials.
    </p>
 
    Using this identifier, add it as a remote storage
+
    ```bash
    dvc remote add -d storage gdrive://<your_identifier>
    ```
@@ -107,6 +112,7 @@ it contains excellent tutorials.
 
 7. Now we are going to add, commit and tag the *metafiles* so we can restore to this stage later on. Commit and tag
    the files, should look something like this:
+
    ```bash
    git add data.dvc .gitignore
    git commit -m "First datasets, containing 25000 images"
@@ -121,10 +127,12 @@ it contains excellent tutorials.
 
 8. After completing the above steps, it is very easy for others (or yourself) to get setup with both
    code and data by simply running
+
    ```bash
    git clone <my_repository>
    dvc pull
    ```
+
    (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
    than your standard code) to make sure that the two commands indeed downloads both your code and data.
 
@@ -140,10 +148,12 @@ it contains excellent tutorials.
 
 11. Lets say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
     you should be able to do this using:
+
     ```bash
     git checkout v1.0
     dvc checkout
     ```
+
     confirm that you have reverted back to the original data.
 
 9. (Optional) Finally, it is important to note that `dvc` is not only intended to be used to store data files but also

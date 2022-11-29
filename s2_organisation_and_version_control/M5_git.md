@@ -188,6 +188,7 @@ working together on the same project.
 
    3. Now try to `git pull` the online changes. What should (hopefully) happen is that git will tell you that it found
       a merge conflict that needs to be resolved. Open the file and you should see something like this
+
       ```
       <<<<<<< HEAD
       this is some content to mess with
@@ -196,6 +197,7 @@ working together on the same project.
       totally different content to merge later
       >>>>>>> master
       ```
+
       this should be interpret as: everything thats between `<<<<<<<` and `=======` are the changes made by your local
       commit and everything between `=======` and `>>>>>>>` are the changes you are trying to pull. To fix the merge
       conflict you simply have to make the code in the two "cells" work together. When you are done, remove the
@@ -214,11 +216,15 @@ we want to point out another awesome feature of Github: in browser editor. Somet
 to make, but still would like to do this in a IDE/editor. Or you may be in the situation where you are working from
 another device than your usual developer machine. Github has an build-in editor that can simply be enabled by changing
 any URL from
+
 ```bash
 https://github.com/username/repository
 ```
+
 to
+
 ```bash
 https://github.dev/username/repository
 ```
+
 Try it out on your newly created repository.
