@@ -75,10 +75,12 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
    1. Type `nano` in the terminal
 
    2. Write the following text in the script
+
       ```python
       if __name__ == "__main__":
         print("Hello world!")
       ```
+
    3. Save the script and try to execute it
 
    4. Afterward, try to edit the file through the terminal (change `Hello world` to something else)
@@ -88,6 +90,7 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
    programs sequentially, which can be done through a bash script.
 
    1. Write a bash script (in `nano`) and try executing it:
+
       ```bash
       #!/bin/bash
       # A sample Bash script, by Ryan

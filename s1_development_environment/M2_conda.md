@@ -60,9 +60,11 @@ compared to other environment managers.
    [point to the conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
 
 2. Create a new conda environment for the remaining of the exercises using
+
    ```bash
    conda create -n "my_environment"
    ```
+
    We really recommend that you use multiple conda environment during the course to make sure you do not
    mix dependencies between your exercises.
 
@@ -96,6 +98,7 @@ compared to other environment managers.
    Lets try it out:
 
    1. Install `pipreqs`:
+
       ```bash
       pip install pipreqs
       ```

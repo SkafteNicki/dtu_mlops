@@ -80,8 +80,9 @@ The main components of VS code are:
  [here](https://code.visualstudio.com/docs/python/python-tutorial).
 
 2. VS code is a general editor for many languages and to get proper *python* support we need to install some
-extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
-we highly recommend installing the following packages:
+   extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
+   we highly recommend installing the following packages:
+
    * `Python`: general python support
    * `Python for VSCode`: python syntax support
    * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
@@ -97,10 +98,10 @@ we highly recommend installing the following packages:
    Click it and change the python environment to the one you actually want to use.
 
 4. One of the most useful tools in VSCode is the ability to navigate a hole project using the build-in
-`Explorer`. To really take advantage of the VC code you need to make sure what you are working on is a project.
-Create a folder called `hallo` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
-select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
-button and create a file called `hallo.py`.
+   `Explorer`. To really take advantage of the VC code you need to make sure what you are working on is a project.
+   Create a folder called `hallo` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
+   select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
+   button and create a file called `hallo.py`.
 
    <p align="center">
      <img src="../figures/toolbar_new_file.png" width="700">
@@ -115,11 +116,12 @@ button and create a file called `hallo.py`.
      <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a>
    </p>
 
-   and click the `run` button as shown in the image. It should create a new terminal, activate the environment that you have
-   chosen and finally run your script. In addition to clicking the `run` button, you can also
+   and click the `run` button as shown in the image. It should create a new terminal, activate the environment that you
+   have chosen and finally run your script. In addition to clicking the `run` button, you can also
 
    * Select some code and press `Shift+Enter` to run it in the terminal
-   * Select some code and right click, choosing to run in a interactive window (where you can interact with the results like in a jupyter notebook)
+   * Select some code and right click, choosing to run in a interactive window (where you can interact with the results
+     like in a jupyter notebook)
 
 Thats, the basic of using VScode. We recommend highly that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
@@ -134,15 +136,19 @@ opinions to jupyter notebooks that exist within the developer community.
 
 All this said there at least exist one simple tool to make notebooks work better in a production setting. Its called
 `nbconvert` and can be installed with
+
 ```bash
 conda install nbconvert # or pip install nbconvert
 ```
+
 You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install
 instructions [here](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)).
 After this, converting a notebook to a `.py` script is a simple as:
+
 ```bash
 jupyter nbconvert --to=script my_notebook.ipynb
 ```
+
 which will produce a similar named script called `my_notebook.py`. We highly recommend that you stick to developing
 scripts directly during the course to get experience with doing so, but `nbconvert` can be an fantastic tool to have
 in your toolbox.
