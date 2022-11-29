@@ -148,6 +148,7 @@ point on the checklist for the exam.
 ## Exam and Presentation
 
 The exam includes:
+
 * 6 min presentation
 * 10 min discussion
 
@@ -155,12 +156,11 @@ For the presentation we are going to keep a fairly strict format to get the exam
 Therefore, please create a presentation with the following 5 slides (+- 1 slide if you need it):
 
 1. Problem description: What problem is your model trying to solve?
-2.	Model description: What kind of model are you using?
-3.	Data description: What does your data look like (where did you get it from, size)?
-4.	Framework: How did you include the framework that you choose to work with?
-5.	Use case: Show something from the course that you think you did very well!
+2. Model description: What kind of model are you using?
+3. Data description: What does your data look like (where did you get it from, size)?
+4. Framework: How did you include the framework that you choose to work with?
+5. Use case: Show something from the course that you think you did very well!
    As this is a practical course you are also free to give a live demo. Examples:
-
    * Did you make good use the cookiecutter structure?
    * Did you make good use of `gcp` for your project?
    * Show (live) that you have deployed your model

@@ -123,7 +123,4 @@ async def predict(json_obj: JSONSerializable) -> JSONSerializable:
     return batch_ret[0]
 ```
 
-
 ## steamlit
-
-
