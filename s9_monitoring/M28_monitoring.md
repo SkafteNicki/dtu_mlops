@@ -42,14 +42,15 @@ as expected.
      <img src="../figures/gcp_alert_condition.png" width="800">
    </p>
 
-3. After adding the condition, add the notification channel you created in one of
+4. After adding the condition, add the notification channel you created in one of
    the earlier steps. Remember to also add some documentation that should be send
    with the alert to better describe what the alert is actually doing.
 
-4. When the alert is setup you need to trigger it. If you setup the condition as
+5. When the alert is setup you need to trigger it. If you setup the condition as
    the image above you just need to invoke the cloud function many times. Here is
    a small code snippet that you can execute on your laptop to call a cloud function
    many time (you need to change the url and payload depending on your function):
+
    ```python
    import time
    import requests
@@ -60,6 +61,4 @@ as expected.
       r = requests.get(url, params=payload)
    ```
 
-5. Make sure that you get the alert through the notification channel you setup.
-
-
+6. Make sure that you get the alert through the notification channel you setup.

@@ -106,7 +106,10 @@ working together on the same project.
    exercise from yesterday
 
    1. After creating the repository, clone it to your computer
-      ```git clone https://github.com/my_user_name/my_repository_name.git```
+
+      ```bash
+      git clone https://github.com/my_user_name/my_repository_name.git
+      ```
 
    2. Move/copy the three files from yesterday into the repository (and any other that you made)
 
@@ -130,11 +133,11 @@ working together on the same project.
    try changing back to master afterwards. You should hopefully see whatever you added on the branch
    is not present on the main branch.
 
-2. If you do not already have a cloned version of this repository belonging to the course, make sure to make one!
+3. If you do not already have a cloned version of this repository belonging to the course, make sure to make one!
    I am continuously updating/changing some of the material during the course and I therefore recommend that you
    each day before the lecture do a `git pull` on your local copy
 
-3. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
+4. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
    not completely untrue when you are only one or two working on a project. However, these file management
    systems falls short when we hundred to thousand of people work to together. For this exercise you will
    go through the steps of sending an open-source contribution:
@@ -145,31 +148,31 @@ working together on the same project.
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
 
-   2. Clone your local fork of the project using ```git clone```.
+   2. Clone your local fork of the project using `git clone`.
 
-   3. As default your local repository will be on the ```main branch``` (HINT: you can check this with the
-      ```git status``` commando). It is good practise to make a new branch when working on some changes. Use
-      the ```git branch``` command followed by the ```git checkout``` command to create a new branch.
+   3. As default your local repository will be on the `main branch` (HINT: you can check this with the
+      `git status` commando). It is good practise to make a new branch when working on some changes. Use
+      the `git branch` command followed by the `git checkout` command to create a new branch.
 
    4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
-      When you have made the changes, do the standard git cycle: ```add -> commit -> push```
+      When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
-   5. Go online to the original repository and go the ```Pull requests``` tab. Find ```compare``` botton and
-      choose the to compare the ```master branch``` of the original repo with the branch that you just created
+   5. Go online to the original repository and go the `Pull requests` tab. Find `compare` botton and
+      choose the to compare the `master branch` of the original repo with the branch that you just created
       in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
    6. Write a bit about the changes you have made and click `Create pull request` :)
 
-4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
+5. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
    mitigate this we can set what is called an *remote upstream*. Take a look on this
    [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork)
    , and set a remote upstream for the repository you just forked.
 
-5. After setting the upstream branch, we need to pull and merge any update. Take a look on this
+6. After setting the upstream branch, we need to pull and merge any update. Take a look on this
    [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
    and figure out how to do this.
 
-6. As an final exercise we want to simulate an *merge conflict*, which happens when two users try to commit changes
+7. As an final exercise we want to simulate an *merge conflict*, which happens when two users try to commit changes
    to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be
    integrated.
 
@@ -200,7 +203,7 @@ working together on the same project.
 
    4. Finally, commit the merge and try to push.
 
-7. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
+8. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
    However, if you are using a proper editor they also have build in support for version control. We recommend getting
    familiar with these features (here is a tutorial for
    [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))

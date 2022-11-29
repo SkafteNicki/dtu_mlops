@@ -63,6 +63,7 @@ do you have to manage the server. Everything is magically taken care of behind t
    the output you expected? Wait for the logs to show up. What do they show?
 
    1. What should the `Triggering event` look like in the testing prompt for the program to respond with
+
       ```
       Good day to you sir!
       ```
@@ -74,6 +75,7 @@ do you have to manage the server. Everything is magically taken care of behind t
 
    4. Checkout the logs tab. You should see that your application have already been invoked multiple times. Also try
       to execute this command in a terminal:
+
       ```bash
       gcloud functions logs read
       ```
@@ -85,15 +87,18 @@ do you have to manage the server. Everything is magically taken care of behind t
 
    2. Next create a storage bucket and upload the model file to the bucket. You can either do this through the
       webpage or run the following commands:
-      ```
+
+      ```bash
       gsutil mb gs://<bucket-name>  # mb stands for make bucket
       gsutil cp <file-name> gs://<bucket-name>  # cp stands for copy
-      ``
+      ```
+
       check that the file is in the bucket.
 
    3. Create a new cloud function with the same initial settings as the first one. Choose also the `Python 3.9`
       but this time change code to something that can actually use the model we just uploaded. Here is a code
       snippet to help you:
+
       ```python
       from google.cloud import storage
       import pickle
@@ -116,14 +121,14 @@ do you have to manage the server. Everything is magically taken care of behind t
                return f'Belongs to class: {prediction}'
          else:
                return 'No input data received'
-
       ```
+
       Some notes:
-         * For locally testing the above code you will need to install the `google-cloud-storage` python package
-         * Remember to change the `Entry point`
-         * Remember to also fill out the `requirements.txt` file. You need at least two packages to run the application
-           with `google-cloud-storage` being one of them.
-         * If you deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you identify why.
+      * For locally testing the above code you will need to install the `google-cloud-storage` python package
+      * Remember to change the `Entry point`
+      * Remember to also fill out the `requirements.txt` file. You need at least two packages to run the application
+        with `google-cloud-storage` being one of them.
+      * If you deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you identify why.
 
    4. When you have successfully deployed the model, try to make predictions with it.
 

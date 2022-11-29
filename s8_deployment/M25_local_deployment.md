@@ -38,7 +38,7 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
 3. Try to run the `torchserve --model-store model_store` command. If the service starts with no errors, you
    have installed it correctly and can continue the exercise. Else it is Googling time!
 
-2. We need a model to serve. The problem however is that we cannot give a `torchserve` a raw file of trained
+4. We need a model to serve. The problem however is that we cannot give a `torchserve` a raw file of trained
    model weights as these essentially is just a list of floats. We need a file that both contains the model
    definition and the trained weights. For this we are going to use `TorchScript`, Pytorchs build-in way
    to create serializable models. The great part about scriptet models are:
@@ -60,21 +60,23 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
    script_model = torch.jit.script(model)
    script_model.save('deployable_model.pt')
    ```
+
    Try creating a serialized model yourself. As the example above you can just use a pre-trained model
    from `torchvision`.
 
-3. Check that output of the scripted model corresponds to output of the non-scripted model. You can do this on
+5. Check that output of the scripted model corresponds to output of the non-scripted model. You can do this on
    a single random input, and you should check that the top-5 predicted indices are the same e.g.
    ```python
    assert torch.allclose(unscripted_top5_indices, scripted_top5_indices)
    ```
    (HINT: [torch.topk](https://pytorch.org/docs/stable/generated/torch.topk.html))
 
-4. Call the model archiver. We have provided a file called `index_to_name.json` that maps from predicted class
+6. Call the model archiver. We have provided a file called `index_to_name.json` that maps from predicted class
    indices to interpretable class name e.g. `1->"goldfish"`. This file should be provided as the `extra-files`
    argument such that the deployed model automatically outputs the class name. Note that this files of course
    only works for models trained on imagenet.
-   ```
+
+   ```bash
    torch-model-archiver \
        --model-name my_fancy_model
        --version 1.0 \
@@ -84,28 +86,29 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
        --handler image_classifier
    ```
 
-5. Checkout the `model_store` folder. Has the model archiver correctly created a model (with `.mar` extension)
+7. Checkout the `model_store` folder. Has the model archiver correctly created a model (with `.mar` extension)
    inside the folder?
 
-6. Finally, we are going to deploy our model and use it:
+8. Finally, we are going to deploy our model and use it:
 
-   6.1. Start serving your model in one terminal:
+   1. Start serving your model in one terminal:
+
         ```
         torchserve --start --ncs --model-store model_store --models my_fancy_model=my_fancy_model.mar
         ```
 
-   6.2. Next, pick a image that you want to do inference on. It can be any image that you want but try to pick
+   2. Next, pick a image that you want to do inference on. It can be any image that you want but try to pick
         one that actually contains an object from the set of imagenet classes. I have also provided a image of
         my own cat in the `my_cat.jpg` file.
 
-   6.3. Open another terminal, which we are going to use for inference. The easiest way to do inference is using
+   3. Open another terminal, which we are going to use for inference. The easiest way to do inference is using
         `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
         python. Using `curl` should look something like this
         ```
         curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
         ```
 
-7. (Optional) One strategy that researchers often resort to when trying to push out a bit of extra performance
+9. (Optional) One strategy that researchers often resort to when trying to push out a bit of extra performance
    is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
    way that teams won the imagenet competition, by pooling together their individual models. Try creating and serving
    a ensemble model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
