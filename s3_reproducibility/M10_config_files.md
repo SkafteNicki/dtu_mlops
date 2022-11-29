@@ -184,6 +184,7 @@ look online for your answers before looking at the solution. Remember: its not a
     ```bash
     python vae_mnist.py experiment=exp2
     ```
+
     We recommend that you use a file structure like this
 
     ```bash
@@ -194,6 +195,7 @@ look online for your answers before looking at the solution. Remember: its not a
     |     |--exp2.yaml
     |--my_app.py
     ```
+
 ### Final exercise
 
 Make your MNIST code reproducible! Apply what you have just done to the simple script to your MNIST code. Only

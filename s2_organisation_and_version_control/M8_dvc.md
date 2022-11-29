@@ -119,13 +119,13 @@ it contains excellent tutorials.
    git tag -a "v1.0" -m "data v1.0"
    ```
 
-7. Finally, push your data to the remote storage using `dvc push`. You will be asked to authenticate, which involves
+8. Finally, push your data to the remote storage using `dvc push`. You will be asked to authenticate, which involves
    copy-pasting the code in the link prompted. Checkout your Google drive folder. You will see that the data is not
    in a recognizable format anymore due to the way that `dvc` packs and tracks the data. The boring details is that
    `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
    which makes data much faster to get. Finally, make sure that your data is not stored in your github repository.
 
-8. After completing the above steps, it is very easy for others (or yourself) to get setup with both
+9. After completing the above steps, it is very easy for others (or yourself) to get setup with both
    code and data by simply running
 
    ```bash
@@ -136,17 +136,17 @@ it contains excellent tutorials.
    (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
    than your standard code) to make sure that the two commands indeed downloads both your code and data.
 
-9. Lets look about the process of updating our data. Remember the important aspect of version control is that we do not
-   need to store explicit files called `data_v1.pt`, `data_v2.pt` ect. but just have a single `data.pt` that where we
-   can always checkout earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from this
-   repository to your MNIST code. This contains 3 extra datafiles with 15000 additional observations. Rerun your data
-   pipeline so these gets incorporated into the files in your `processed` folder.
+10. Lets look about the process of updating our data. Remember the important aspect of version control is that we do not
+    need to store explicit files called `data_v1.pt`, `data_v2.pt` ect. but just have a single `data.pt` that where we
+    can always checkout earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from this
+    repository to your MNIST code. This contains 3 extra datafiles with 15000 additional observations. Rerun your data
+    pipeline so these gets incorporated into the files in your `processed` folder.
 
-10. Redo the above steps, adding the new data using `dvc`, committing and tagging the metafiles e.g. the following
+11. Redo the above steps, adding the new data using `dvc`, committing and tagging the metafiles e.g. the following
     commands should be executed (with appropriate input):
     `dvc add -> git add -> git commit -> git tag -> dvc push -> git push`.
 
-11. Lets say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
+12. Lets say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
     you should be able to do this using:
 
     ```bash
@@ -156,11 +156,11 @@ it contains excellent tutorials.
 
     confirm that you have reverted back to the original data.
 
-9. (Optional) Finally, it is important to note that `dvc` is not only intended to be used to store data files but also
-   any other large files such as trained model weights (with billion of parameters these can be quite large). For
-   example if we always stored out best performing model in a file called `best_model.ckpt` then we can use `dvc` to
-   version control it, store it online and make it easy for other to download. Feel free to experiment with this using
-   your own model checkpoints.
+13. (Optional) Finally, it is important to note that `dvc` is not only intended to be used to store data files but also
+    any other large files such as trained model weights (with billion of parameters these can be quite large). For
+    example if we always stored out best performing model in a file called `best_model.ckpt` then we can use `dvc` to
+    version control it, store it online and make it easy for other to download. Feel free to experiment with this using
+    your own model checkpoints.
 
 Thats all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc`

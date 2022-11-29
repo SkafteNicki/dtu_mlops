@@ -78,16 +78,20 @@ in this way paths (for saving and loading files) are always relative to the root
 3. Take a look at the webpage to see how you start a new project. We recommend using `v2` of cookiecutter.
 
 4. After having created your project we are going to install it as a package in our conda environment. Either run
+
    ```bash
    # install in a terminal in your conda env
    pip install -e .
    # or
    conda develop .
-	 ```
+	```
+
    In addition you may need to run
+
    ```bash
    pip install -r requirements.txt
    ```
+
    to install additional packages required by `cookie-cutter`.
 
 5. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data files in
@@ -95,7 +99,7 @@ in this way paths (for saving and loading files) are always relative to the root
    intermediate representation to the `data/processed` folder. By normalization here we refer to making sure the
    images have mean 0 and standard deviation 1.
 
-5. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in
+6. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in
    a project. You do not have to understand the complete file by try taking a look at it. In particular the following
    commands may come in handy
 
@@ -109,44 +113,44 @@ in this way paths (for saving and loading files) are always relative to the root
    [chocolatey](https://chocolatey.org/) or
    [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows.
 
-6. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py`
+7. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py`
    file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved
    to the `models` folder (preferably in sub-folders).
 
-7. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to
+8. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to
    the `reports/figures/` folder. This could be a simple `.png` of the training curve.
 
-8. (Optional) Can you figure out a way to add a `train` command to the `Makefile` such that training can be started
+9. (Optional) Can you figure out a way to add a `train` command to the `Makefile` such that training can be started
    using
 
    ```bash
 	make train
 	```
 
-9. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
-   creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
-   images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
+10. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
+    creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
+    images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
 
-   ```bash
-	python src/models/predict_model.py \
-	  models/my_trained_model.pt \  # file containing a pretrained model
-	  data/example_images.npy  # file containing just 10 images for prediction
-   ```
+    ```bash
+	 python src/models/predict_model.py \
+	   models/my_trained_model.pt \  # file containing a pretrained model
+	   data/example_images.npy  # file containing just 10 images for prediction
+    ```
 
-10. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
+11. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
 	 * Loads a pre-trained network
 	 * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
       features just before the final classification layer
 	 * Visualize features in a 2D space using
       [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
       reduction.
-	 * Save the visualization to a file in the `reports/figures/` folder.
+	  * Save the visualization to a file in the `reports/figures/` folder.
 
-10. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
+12. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
 
-11. Make sure to update the `README.md` file with a short description on how your scripts should be run
+13. Make sure to update the `README.md` file with a short description on how your scripts should be run
 
-12. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
+14. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
     code (see [this set of exercises](../s1_development_environment/M2_conda.md) for help)
 
 That ends the module on code structure and `cookiecutter`. We again want to stress the point that `cookiecutter` is
