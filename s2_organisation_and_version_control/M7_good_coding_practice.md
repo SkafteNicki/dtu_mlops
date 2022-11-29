@@ -24,6 +24,7 @@ nav_order: 3
 > Code is read more often than it is written. -- [Guido Van Rossum](https://gvanrossum.github.io/) (author of Python)
 
 To understand what good coding practice are, it is important to understand what it is *not*:
+
 * Making sure your code run fast
 * Making sure that you use a specific coding paradigm (object orientated programming ect.)
 * Making sure to only few dependencies
@@ -38,11 +39,12 @@ code is much easier to maintain as you do not need to remember all details about
 It is key to remember that good documentation saves more time than it takes to write.
 
 The problem with documentation is that there is no right or wrong way to do it. You can end up doing:
+
 * Under documentation: You document information that is clearly visible from the code and not the complex
-parts that are actually hard to understand.
+  parts that are actually hard to understand.
 
 * Over documentation: Writing too much documentation will have the opposite effect on most people than
-what you want: there is too much to read, so people will skip it.
+  what you want: there is too much to read, so people will skip it.
 
 Here is a good rule of thump for inline comments
 
@@ -115,9 +117,11 @@ For this reason `import` statements is something we also want to take care of, b
    ```
 
 2. run isort on your project
+
    ```bash
    isort .
    ```
+
    and check how the imports were sorted.
 
 Finally, we can also configure `black`, `isort` ect. to our specific needs. For example the recommended line length

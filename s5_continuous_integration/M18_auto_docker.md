@@ -36,7 +36,7 @@ this session going to look how we can automatically build and push our docker bu
 [future module](../s6_the_cloud/M21_using_the_cloud.md) we are also going to look at the exact same process of building
 and pushing containers but this time to an general cloud provider.
 
-### Exercises
+## Exercises
 
 For these exercises you can choose to work with any docker file of your choosing. If you want an easy docker file,
 you can use the following:
@@ -79,8 +79,10 @@ not store our data in Github, we cannot copy it during the build process.
        - uses: actions/checkout@v2
        - name: Build the Docker image
          run: |
-           echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
-           docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+           echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
+             -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
+           docker build . --file Dockerfile \
+             --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
            docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
    ```
 

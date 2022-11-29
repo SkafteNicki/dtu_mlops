@@ -42,9 +42,11 @@ going to use `cml` by [iterative.ai](https://iterative.ai/) for this session. St
 `cml` framework is not a necessary component for doing continuous machine learning but it streamlined way of doing this
 and offers tools to easily get a report about how a specific run performed. If we where just interested in trigging
 model training every time we do a `git push` we essentially just need to include
+
 ```yaml
 run: python train.py
 ```
+
 to any of our workflow files.
 
 The figure below describes the overall process using the `cml` framework. It should be clear that it is the very
@@ -65,6 +67,7 @@ after the run is done.
    matrix of our trained model. Create an copy of your training script (call it `train_cml.py`) and
    make sure your script is also producing an classification report and confusion matrix as in the
    pseudo-code.
+
    ```python
    # assume we have a trained model
    import matplotlib.pyplot as plt
@@ -115,6 +118,7 @@ after the run is done.
               cml-publish confusion_matrix.png --md >> report.md
               cml-send-comment report.md
     ```
+
     Nearly everything in the workflow file should look familar, except the last two lines.
 
 3. Try pushing the workflow file to your github repository and make sure that it completes.

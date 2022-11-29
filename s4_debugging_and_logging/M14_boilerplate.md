@@ -262,7 +262,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
    [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
 
 10. (Optional) Lightning also have build-in support for profiling. Checkout how to do this using the
-    [profiler]https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in
+    [profiler](https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in
     the `Trainer` object.
 
 11. (Optional) Another great feature of Lightning is that the allow for easily defining command line interfaces through

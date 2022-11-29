@@ -87,6 +87,7 @@ it contains excellent tutorials.
    ```bash
    dvc init
    ```
+
    this will setup `dvc` for this repository (similar to how `git init` will initialize a git repository).
    These files should be committed using standard `git` to your repository.
 

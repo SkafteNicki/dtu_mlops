@@ -27,6 +27,7 @@ nav_order: 2
 With the tests established in the previous module we are now ready to move on to actually implementing some continuous
 integration in our pipeline. As you probably have already realized testing your code locally may take cumbersome to do,
 because
+
 * You need to run it often to make sure to catch bugs early on
 * If you want to have high code coverage of your code base, you will need many tests that takes a long time to run
 
@@ -167,7 +168,7 @@ we will setup github workflows that will automatically test for this.
 
    * Runs `mypy` on the repository
 
-3. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
+4. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
    to get passing, so this exercise formally only requires you to get `isort` and `flake8`
    passing.
 

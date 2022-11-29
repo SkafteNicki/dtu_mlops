@@ -107,7 +107,7 @@ in this way paths (for saving and loading files) are always relative to the root
    make data  # runs the make_dataset.py file, try it!
    make clean  # clean __pycache__ files
    make requirements  # install everything in the requirements.py file
-	```
+   ```
 
    If you are running Windows, `make` is not a build-in command and you either need to install
    [chocolatey](https://chocolatey.org/) or
@@ -138,13 +138,13 @@ in this way paths (for saving and loading files) are always relative to the root
     ```
 
 11. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
-	 * Loads a pre-trained network
-	 * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
+    * Loads a pre-trained network
+    * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
       features just before the final classification layer
-	 * Visualize features in a 2D space using
+    * Visualize features in a 2D space using
       [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
       reduction.
-	  * Save the visualization to a file in the `reports/figures/` folder.
+    * Save the visualization to a file in the `reports/figures/` folder.
 
 12. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
 

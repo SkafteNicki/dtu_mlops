@@ -35,6 +35,7 @@ experiments in collaboration with others. It especially becomes important when y
 between different runs. Organizing monitoring is the topic of this module.
 
 There exist many tools for logging your experiments, with some of them being:
+
 * [Tensorboard](https://www.tensorflow.org/tensorboard)
 * [Comet](https://www.comet.ml/site/)
 * [MLFlow](https://mlflow.org/)
@@ -45,7 +46,7 @@ All of the frameworks offers many of the same functionalities. We are going to u
 support everything we need in this course. Additionally, it is an excellent tool for collaboration and sharing of
 results.
 
-### Exercises
+## Exercises
 
 1. Start by creating an account at [wandb](https://wandb.ai/site). I recommend using your github account but feel
    free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
@@ -89,14 +90,14 @@ results.
    and try them out. It will come in handy for your group work as they essentially allows multiple users to upload their
    own runs to the same project in `wandb`.
 
-9. Wandb also comes with build in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
-   which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
-   sweep in Wandb. You at least need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
-   in your code on an appropriate value. Note: if you want `hydra` and `wandb` to work together you will need to change
-   the `command` config in your `sweep.yaml` file, see this
-   [page](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration).
+10. Wandb also comes with build in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
+    which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
+    sweep in Wandb. You at least need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
+    in your code on an appropriate value. Note: if you want `hydra` and `wandb` to work together you will need to change
+    the `command` config in your `sweep.yaml` file, see this
+    [page](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration).
 
-10. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
+11. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
 
 That is the module on logging. Please note that at this point in the course you will begin to see some overlap between
 the different frameworks. While we mainly used `hydra` for configuring our python scripts it can also be used to save

@@ -31,7 +31,7 @@ of 255 papers and tried to figure out which factors where significant to succeed
 was used to run the experiments. It should come as no surprise that this can be a determining factor for
 reproducibility, however it is not given that hyperparameters is always well specified.
 
-### Configure experiments
+## Configure experiments
 
 There is really no way around it: deep learning contains *a lot* of hyperparameters. In general, a *hyperparameter* is
 any parameter that affects the learning process (e.g. the weights of a neural network are not hyperparameters because
