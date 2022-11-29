@@ -12,7 +12,7 @@ permalink: /
     <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
 </p>
 
-<p align="center"> 
+<p align="center">
   <img src="figures/mlops.png" width="1000">
 </p>
 
@@ -35,7 +35,7 @@ permalink: /
 * Master course
 * Grade: Pass/not passed
 * Type of assessment: weekly project updates + final oral examination/presentation
-* Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or 
+* Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or
   experience with the following topics:
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.)
     * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
@@ -51,7 +51,7 @@ git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 
 If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
-exercise material for this course and lectures. Additionally, you should join our slack channel which 
+exercise material for this course and lectures. Additionally, you should join our slack channel which
 we use for communication:
 
 <https://join.slack.com/t/dtumlops/shared_invite/zt-1fygl299d-tMc1NPfUZag0yNGYl~xCyQ>
@@ -59,8 +59,8 @@ we use for communication:
 
 ## Course organization
 
-We highly recommend that when going through the material that you use the 
-[homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding 
+We highly recommend that when going through the material that you use the
+[homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
 [Github pages](https://pages.github.com/) version of this repository that is more nicely
 rendered, that also includes some special HTML magic provided by
 [just the docs](https://github.com/just-the-docs/just-the-docs).
@@ -81,7 +81,7 @@ You are highly recommended to still do the optional modules.
 
 Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particular
 deep learning has become a technology that is widely available. The term itself is a compound of "machine learning"
-and "operations" and covers everything that has to do with the management of the production ML lifecycle. 
+and "operations" and covers everything that has to do with the management of the production ML lifecycle.
 
 The lifecycle of production ML can largely be divided into three phases:
 
@@ -97,7 +97,7 @@ our model is generalizing well.
 
 3. Operations: Based on the model development phase, we now have a model and we actual want to use. The operations
 is where create an automatic pipeline that makes sure that whenever we make changes to our codebase they gets
-automatically incorporated into our model, such that we do not slow down production. Equally important is also the 
+automatically incorporated into our model, such that we do not slow down production. Equally important is also the
 ongoing monitoring of already deployed models to make sure that they behave exactly as we specified them.
 
 It is important to note that the three steps are in fact a *cycle*, meaning that we you have successfully deployed a
@@ -106,19 +106,19 @@ design phase. Some new algorithm may show promising results, so you revisit the 
 this. And finally, you may try to cut the cost of running your model in production, making you revisit the operations
 phase, trying to optimize some steps.
 
-The focus in this course is particular on the **Operations** part of MLOps as this is what many data scientist are 
-missing in their toolbox to take all the knowledge they have about data processing and model development into a 
+The focus in this course is particular on the **Operations** part of MLOps as this is what many data scientist are
+missing in their toolbox to take all the knowledge they have about data processing and model development into a
 production setting.
 
 ## Learning objectives
 
 General course objective
 
-> Introduce the student to a number of coding practices that will help them organization, scale, 
-> monitor and deploy machine learning models either in a research or production setting. To provide 
-> hands-on experience with a number of frameworks, both local and in the cloud, for doing large 
+> Introduce the student to a number of coding practices that will help them organization, scale,
+> monitor and deploy machine learning models either in a research or production setting. To provide
+> hands-on experience with a number of frameworks, both local and in the cloud, for doing large
 > scale machine learning models.
-  
+
 This includes:
 * Organize code in a efficient way for easy maintainability and shareability
 * Understand the importance of reproducibility and how to create reproducible containerized applications and experiments
@@ -134,9 +134,9 @@ This includes:
 
 Additional reading resources (in no particular order):
 
-* [Ref 1](https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f) 
+* [Ref 1](https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f)
   Introduction blog post for those that have never heard about MLOps and want to get an overview.
-  
+
 * [Ref 2](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)
   Great document from Google about the different levels of MLOps.
 
@@ -162,7 +162,7 @@ Other course with content similar to this:
 
 ## License
 
-I highly value open-source, and the content of this course is therefore free to use under the Apache 2.0 license. 
+I highly value open-source, and the content of this course is therefore free to use under the Apache 2.0 license.
 If you use parts of this course in your own work, please cite using:
 
 ```bibtex
