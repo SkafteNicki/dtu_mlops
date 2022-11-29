@@ -94,6 +94,7 @@ model = MyAwesomeModel()  # this is our LightningModule
 trainer = Trainer()
 traier.fit(model)
 ```
+
 Thats is essentially all that you need to specify in lightning to have a working model. The trainer object does not
 have methods that you need to implement yourself, but it have a bunch of arguments that can be used to control how many
 epochs that you want to train, if you want to run on gpu ect. To get the training of our model to work we just need to
@@ -106,6 +107,7 @@ all three assume that we are using `torch.utils.data.DataLoader` for the dataloa
 
 1. If we already have a `train_dataloader` and possible also a `val_dataloader` and `test_dataloader` defined we can
    simply add them to our `LightningModule` using the similar named methods:
+
    ```python
    def train_dataloader(self):
        return DataLoader(...)
@@ -118,6 +120,7 @@ all three assume that we are using `torch.utils.data.DataLoader` for the dataloa
    ```
 
 2. Maybe even simplier, we can directly feed such dataloaders in the `fit` method of the `Trainer` object:
+
    ```python
    trainer.fit(model, train_dataloader, val_dataloader)
    trainer.test(model, test_dataloader)
@@ -139,6 +142,7 @@ Of particular interest are `ModelCheckpoint` and `EarlyStopping` callbacks:
 * The `ModelCheckpoint` makes sure to save checkpoints of you model. This is in pricipal not hard to do yourself, but
   the `ModelCheckpoint` callback offers additional functionality by saving checkpoints only when some metric improves,
   or only save the best `K` performing models ect.
+
   ```python
   model = MyModel()
   checkpoint_callback = ModelCheckpoint(
@@ -150,6 +154,7 @@ Of particular interest are `ModelCheckpoint` and `EarlyStopping` callbacks:
 
 * The `EarlyStopping` callback can help you prevent overfitting by automatically stopping the training if a certain
   value is not improving anymore:
+
   ```python
   model = MyModel()
   early_stopping_callback = EarlyStopping(
@@ -160,6 +165,7 @@ Of particular interest are `ModelCheckpoint` and `EarlyStopping` callbacks:
   ```
 
 Multiple callbacks can be used by passing them all in a list e.g.
+
 ```python
 trainer = Trainer(callbacks=[checkpoint_callbacks, early_stopping_callback])
 ```
@@ -208,6 +214,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
    logging just need to happen through the `self.log` method in your `LightningModule`:
 
    1. Add `self.log` to your `LightningModule. Should look something like this:
+
       ```python
       def training_step(self, batch, batch_idx):
           data, target = batch
@@ -220,19 +227,23 @@ framework to do some of the heavy lifting you need to have gone through some of 
       ```
 
    2. Add the `wandb` logger to your trainer
+
       ```python
       trainer = Trainer(logger=pl.loggers.WandbLogger(project="dtu_mlops"))
       ```
+
       and try to train the model. Confirm that you are seeing the scalars appearing in your `wandb` portal.
 
    3. `self.log` does sadly only support logging scalar tensors. Luckily, for logging other quantities we
       can still access the standard `wandb.log` through our model
+
       ```python
       def training_step(self, batch, batch_idx):
           ...
           # self.logger.experiment is the same as wandb.log
           self.logger.experiment.log({'logits': wandb.Histrogram(preds)})
       ```
+
       try doing this, by logging something else than scalar tensors.
 
 7. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step`

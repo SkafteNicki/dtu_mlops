@@ -66,6 +66,7 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
 
 5. Check that output of the scripted model corresponds to output of the non-scripted model. You can do this on
    a single random input, and you should check that the top-5 predicted indices are the same e.g.
+
    ```python
    assert torch.allclose(unscripted_top5_indices, scripted_top5_indices)
    ```
@@ -104,6 +105,7 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
    3. Open another terminal, which we are going to use for inference. The easiest way to do inference is using
         `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
         python. Using `curl` should look something like this
+
         ```
         curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
         ```
@@ -112,4 +114,3 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
    is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
    way that teams won the imagenet competition, by pooling together their individual models. Try creating and serving
    a ensemble model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
-

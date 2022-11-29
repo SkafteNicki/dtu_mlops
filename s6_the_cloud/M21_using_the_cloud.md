@@ -63,15 +63,19 @@ We are now going to start actually using the cloud.
    could have typed instead to do the exact same.
 
 4. Now in a local terminal type:
+
    ```bash
    gcloud compute instances list
    ```
+
    you should hopefully see the instance you have just created.
 
 5. You can start a terminal directly by typing:
+
    ```bash
    gcloud beta compute ssh --zone <zone> <name> --project <project-id>
    ```
+
    You can always see the exact command that you need to run to `ssh` to an VM by selecting the
    `View gcloud command` option in the Compute Engine overview (see image below).
    <p align="center">
@@ -86,19 +90,23 @@ We are now going to start actually using the cloud.
    1. `gcp` Comes with a number of ready-to-go images for doing deep learning.
       More info can be found [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
       Try, running this line:
+
       ```bash
       gcloud container images list --repository="gcr.io/deeplearning-platform-release"
       ```
+
       what does the output show?
 
    2. Next, start (in the terminal) a new instance using a Pytorch image. The
       command for doing it should look something like this:
+
       ```bash
       gcloud compute instances create %INSTANCE_NAME% \
       --zone=%ZONE%
       --image-family=<image-family>
       --image-project=deeplearning-platform-release
       ```
+
       Hint: you can find relevant image families
       [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
 
@@ -121,9 +129,9 @@ We are now going to start actually using the cloud.
 Another big part of cloud computing is storage of data. There are many reason that you want to store your
 data in the cloud including:
 
-- Easily being able to share
-- Easily expand as you need more
-- Data is stored multiple locations, making sure that it is not lost in case of an emergency
+* Easily being able to share
+* Easily expand as you need more
+* Data is stored multiple locations, making sure that it is not lost in case of an emergency
 
 Cloud storage is luckily also very cheap. Google cloud only takes around $0.026 per GB per month.
 This means that around 1 TB of data would cost you $26 which is more than what the same amount of
@@ -146,24 +154,29 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
    Give the bucket an unique name, set it to a region close by and make it of size 20 GB as seen in the image.
 
 2. After creating the storage, you should be able to see it if you type
+
    ```bash
    gsutil ls
    ```
+
    `gsutil` is an additional command to `gcloud`, that provides more command line options.
 
 2. Next we need the Google storage extension for `dvc`
+
    ```bash
    pip install dvc[gs]
    ```
 
 3. Now in your Mnist repository where you have already configured dvc, we are going to change the storage
    from our Google drive to our newly created Google cloud storage.
+
    ```bash
    dvc remote add -d remote_storage <output-from-gsutils>
    ```
 
 4. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file.
    Finally, push data to the cloud
+
    ```bash
    dvc push
    ```
@@ -191,6 +204,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
 1. Start by enabling the service: `Google Container Registry API` and `Google Cloud Build API`. This can be
    done through the web side (by searching for the services) or can also be enabled from the terminal:
+
    ```bash
    gcloud services enable containerregistry.googleapis.com
    gcloud services enable cloudbuild.googleapis.com
@@ -198,6 +212,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
 2. Google cloud building can in principal work out of the box with docker files. However, the recommended way
    is to add specialized `cloudbuild.yaml` files. They should look something like this:
+
    ```yaml
    steps:
       - name: 'gcr.io/cloud-builders/docker'
@@ -245,16 +260,20 @@ to be substantially faster to build and smaller in size than the images we are u
    hopefully find that the image you just build was pushed here. Congrats!
 
 9. Finally, to to pull your image down to your laptop
+
    ```bash
    docker pull gcr.io/<project-id>/<image_name>:<image_tag>
    ```
+
    you will need to authenticate `docker` with `gcp` first. Instructions can be found
    [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but
    the following command should hopefully be enough to make `docker` and `gcp` talk to
    each other:
+
    ```bash
    gcloud auth configure-docker
    ```
+
    Note: To do this you need to have `docker` actively running in the background, as any
    other time you want to use `docker`.
 
@@ -278,6 +297,7 @@ We could do this by connecting to a VM with Pytorch installed and run `python tr
 inside the VM. However, `gcp` offers additional support for training which we are going to look at now.
 
 ### Exercises
+
 1. Start by enabling the `AI Platform Training & Prediction API` in the `gcp` web page.
 
 2. Follow the instructions in [this tutorial](https://cloud.google.com/ai-platform/training/docs/getting-started-pytorch).

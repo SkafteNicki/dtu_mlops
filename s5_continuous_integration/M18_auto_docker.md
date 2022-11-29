@@ -40,10 +40,12 @@ and pushing containers but this time to an general cloud provider.
 
 For these exercises you can choose to work with any docker file of your choosing. If you want an easy docker file,
 you can use the following:
+
 ```dockerfile
 FROM busybox
 CMD echo "Howdy cowboy"
 ```
+
 Alternatively, you can choose to focus on automatizing the training and prediction docker files back from
 [M9](../s3_reproducibility/M9_docker.md). You will most likely need to change the docker image for your applications
 if they contains any references to your data e.g. you have an `COPY data/ data/` statement in the file. Since we do
@@ -62,6 +64,7 @@ not store our data in Github, we cannot copy it during the build process.
    that contains your docker username and docker repository name respectively.
 
 5. Next we are going to construct the actual Github actions workflow file:
+
    ```yaml
    name: Docker Image CI
 
@@ -80,6 +83,7 @@ not store our data in Github, we cannot copy it during the build process.
            docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
            docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
    ```
+
    The first part of the workflow file should look somewhat recognizable. However, the last three lines are where
    all the magic happens. Carefully go through them and figure out what they do. If you want some help you can looking
    at the help page for `docker login`, `docker build` and `docker push`.
@@ -89,8 +93,9 @@ not store our data in Github, we cannot copy it during the build process.
 
 7. Make sure that you can execute `docker pull` locally to pull down the image that you just continuesly build
 
-7. (Optional) To test that the container works directly in github you can also try to include an additional
+8. (Optional) To test that the container works directly in github you can also try to include an additional
    step that actually runs the container.
+
    ```yaml
      - name: Run container
        run: |

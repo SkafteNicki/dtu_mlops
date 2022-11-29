@@ -46,10 +46,13 @@ afterwards would do a `git push`.
 </p>
 
 The system works by looking for a file called `.pre-commit-config.yaml` that we can configure. If we execute
+
 ```bash
 pre-commit sample-config > .pre-commit-config.yaml
 ```
+
 you should get a sample file that looks like
+
 ```yaml
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
@@ -62,7 +65,9 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
 ```
+
 the file structure is very simple:
+
 * It starts by listing the repositories where we want to get our pre-commits from, in this case
   <https://github.com/pre-commit/pre-commit-hooks>. This repository contains a large collection of pre-commit hooks.
 * Next we need to defined what pre-commit hooks that we want to get by specifying the `id` of the different hooks.
@@ -70,19 +75,23 @@ the file structure is very simple:
   <https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-hooks.yaml>
 
 When we are done defining our `.pre-commit-config.yaml` we just need to install it
+
 ```bash
 pre-commit install
 ```
+
 this will make sure that the file is automatically executed whenever we run `git commit`
 
 ### Exercises
 
 1. Install pre-commit
+
    ```bash
    pip install pre-commit
    ```
 
 2. Next create the sample file
+
    ```bash
    pre-commit sample-config > .pre-commit-config.yaml
    ```
@@ -97,6 +106,7 @@ this will make sure that the file is automatically executed whenever we run `git
    hooks. Google how to do it, include one of them and then test out that it actually works.
 
 6. Make sure that you also can do commits without running `pre-commit` e.g.
+
    ```bash
    git commit -m <message> --no-verify
    ```

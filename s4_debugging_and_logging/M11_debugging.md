@@ -34,10 +34,12 @@ way of debugging when dealing with a very large codebase. You should therefore f
 To invoke the build in python debugger you can either:
 
 * Set a trace directly with the python debugger by calling
+
   ```python
   import pdb
   pdb.set_trace()
   ```
+
   anywhere you want to stop the code. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`)
   to step through the code.
 
@@ -48,7 +50,8 @@ To invoke the build in python debugger you can either:
 
 * Additionally, if your program is stopping on an error and you automatically want to start the debugger where it
   happens, then you can simply launch the program like this from the terminal
-  ```
+
+  ```bash
   python -m pdb -c continue my_script.py
   ```
 

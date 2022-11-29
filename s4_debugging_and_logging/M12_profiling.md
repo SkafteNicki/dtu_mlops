@@ -47,7 +47,10 @@ programs.
 
 1. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
    script using the `-m` arg
-   `python -m cProfile -o <output_file> -s <sort_order> myscript.py`
+
+   ```bash
+   python -m cProfile -o <output_file> -s <sort_order> myscript.py
+   ```
 
 2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
 
@@ -115,6 +118,7 @@ pip install torch_tb_profiler
 2. Lets try out an simple example:
 
    1. Try to run the following code
+
       ```python
       import torch
       import torchvision.models as models
@@ -127,22 +131,28 @@ pip install torch_tb_profiler
          with record_function("model_inference"):
             model(inputs)
       ```
+
       this will profile the `forward` pass of resnet 18 model.
 
    2. Running this code will produce an `prof` object that contains all the relevant information about the profiling.
       Try writing the following code:
+
       ```python
       print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
       ```
+
       what operation is taking most of the cpu?
 
    3. Try running
+
       ```python
       print(prof.key_averages(group_by_input_shape=True).table(sort_by="cpu_time_total", row_limit=30))
       ```
+
       can you see any correlation between the shape of the input and the cost of the operation?
 
    4. (Optional) If you have a GPU you can also profile the operations on that device:
+
       ```python
       with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
          with record_function("model_inference"):
@@ -155,21 +165,26 @@ pip install torch_tb_profiler
 
 4. As mentioned we can also get a graphical output for better inspection. After having done a profiling
    try to export the results with:
+
    ```python
    prof.export_chrome_trace("trace.json")
    ```
+
    you should be able to visualize the file by going to `chrome://tracing` in any chromium based web browser.
 
 5. Additionally, we can also vizualize the profiling results using the profiling viewer in tensorboard. Simply
    initialize the `profile` function with an additional argument:
+
    ```python
    from torch.profiler import profile, tensorboard_trace_handler
    with profile(..., on_trace_ready=tensorboard_trace_handler(<profile_dir>)):
       ...
    ```
+
    where `<profile_dir>` you choose yourself. After doing a profile you should see a file being created in the
    chosen folder having the file extension `.pt.trace.json`. Finally, launch tensorboard and look a the profiled
    result
+
    ```bash
    tensorboard --logdir <profile_dir>
    ```

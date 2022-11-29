@@ -52,11 +52,13 @@ results.
    use (HINT: if you forgot to copy the API key, you can find it under settings).
 
 2. Next install wandb on your laptop
+
    ```
    pip install wandb
    ```
 
 3. Now connect to your wandb account
+
    ```
    wandb login
    ```
