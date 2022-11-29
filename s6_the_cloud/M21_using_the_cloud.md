@@ -118,7 +118,6 @@ We are now going to start actually using the cloud.
          <img src="../figures/gcp_vm_browser.png" width="800" title="hover text">
       </p>
 
-
 7. Finally, everything that you have done locally can also be achieved through the web
    terminal, which of cause comes pre-installed with the `gcloud` command etc.
    <p align="center">
@@ -190,6 +189,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 You should hopefully at this point have seen the strength of using containers e.g. Docker. They allow us to
 specify exactly the software that we want to run inside our VMs. However, you should already have run into
 two problems with docker
+
 * Building process can take a lot of time
 * Docker images can be large
 
@@ -221,6 +221,7 @@ to be substantially faster to build and smaller in size than the images we are u
       - name: 'gcr.io/cloud-builders/docker'
         args: ['push', 'gcr.io/<project-id>/<image-name>']
    ```
+
    which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
    that should be used and the arguments for that service. In the above example we are calling the same service
    (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
@@ -324,5 +325,3 @@ inside the VM. However, `gcp` offers additional support for training which we ar
 
 This ends the session on how to use Google cloud services for now. In a future session we are going to
 take a look at how to deploy trained models using the `AI platform`.
-
-

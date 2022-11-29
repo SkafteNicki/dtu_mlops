@@ -118,7 +118,6 @@ Please note that the exercise only makes sense if you have access to multiple GP
    Does data parallel decrease the inference time? If no, can you explain why that may be? Try
    playing around with the batch size, and see if data parallel is more beneficial for larger batch sizes.
 
-
 ## Distributed data parallel
 
 It should be clear that there is huge disadvantage of using the data parallel paradigm to scale your applications:

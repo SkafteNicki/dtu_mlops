@@ -36,7 +36,7 @@ you get done with exercises early I highly recommend that you deep dive more int
   <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a>
 </p>
 
-### Exercises
+## Exercises
 
 As the first step we are going to get you setup with some Google cloud credits.
 
@@ -141,7 +141,7 @@ As the first step we are going to get you setup with some Google cloud credits.
       gcloud components list
       ```
 
-   5. (Optional) If you are using VSCode you can also download the relevant
+   6. (Optional) If you are using VSCode you can also download the relevant
       [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
       called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar.
 

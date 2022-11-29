@@ -59,7 +59,7 @@ after the run is done.
   title="credits to https://towardsdatascience.com/continuous-machine-learning-e1ffb847b8da">
 </p>
 
-### Exercises
+## Exercises
 
 1. We are first going to revisit our `train.py` script. If we want `cml` to automatically be able
    to report the performance of our trained model to us after it is trained, we need to give it some
@@ -124,11 +124,11 @@ after the run is done.
 3. Try pushing the workflow file to your github repository and make sure that it completes.
    If it does not, you may need to adjust the workflow file slightly.
 
-3. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k)
+4. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k)
    very short video on how to send yourself a pull-request with a small change. If you workflow file is
    executed correctly you should see `github-actions` commenting with a performance report on your PR.
 
-4. (Optional) `cml` is offered by the same people behind `dvc` and it should therefore come as no surprise
+5. (Optional) `cml` is offered by the same people behind `dvc` and it should therefore come as no surprise
    that these features can interact with each other. If you want to deep dive into this,
    [here](https://cml.dev/doc/cml-with-dvc) is a great starting point.
 

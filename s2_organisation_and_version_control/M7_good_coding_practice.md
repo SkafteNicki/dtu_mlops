@@ -208,6 +208,7 @@ help us at all. Therefore, use `Any` only when necessary.
    ```python
    from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
    ```
+
    for it to work. Hint: [here](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
    typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
 

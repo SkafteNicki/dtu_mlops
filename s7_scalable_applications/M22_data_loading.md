@@ -49,7 +49,7 @@ In the first set of exercises we are therefore going to focus on distributed dat
 parallel to make sure that we always have data ready for our compute devices. We are in the following going to look
 at what is going on behind the scene when we use Pytorch to parallelize data loading.
 
-### A closer look on Data loading
+## A closer look on Data loading
 
 Before we talk distributed applications it is important to understand the physical  layout of a standard CPU (the
 brain of your computer).
