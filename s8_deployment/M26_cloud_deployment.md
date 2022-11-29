@@ -64,7 +64,7 @@ do you have to manage the server. Everything is magically taken care of behind t
 
    1. What should the `Triggering event` look like in the testing prompt for the program to respond with
 
-      ```
+      ```txt
       Good day to you sir!
       ```
       Try it out.

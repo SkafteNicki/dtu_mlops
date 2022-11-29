@@ -32,7 +32,7 @@ a suboptimal workflow. Therefore, to for truly getting "work done" you will need
 
 Many opinions exist on this matter, but for simplicity we recommend getting started with one of the following 3:
 
-Editor		         | Webpage  	                  		   	| Comment (Biased opinion)
+Editor  	         | Webpage  	                          | Comment (Biased opinion)
 -------------------|--------------------------------------|----------------------------------------------------------------------
 Spyder             | <https://www.spyder-ide.org/>        | Matlab like environment that is easy to get started with
 Visual studio code | <https://code.visualstudio.com/>     | Support for multiple languages with fairly easy setup
@@ -50,6 +50,7 @@ Below you see an overview of the vs code interface
 </p>
 
 The main components of VS code are:
+
 * The action bar: VS code is not an editor meant for a single language and can do many things. One of the core reasons
   that VC code have become so popular is that custom plug-ins called **extensions** can be installed to add
   functionality to VS code. It is in the action bar that you can navigate between these different applications
@@ -66,7 +67,6 @@ The main components of VS code are:
 
 * The status bar: The status bar contains information based on the extensions that you have installed. In particular
   for python development, the status bar can be used to change conda environment.
-
 
 ### Exercise
 

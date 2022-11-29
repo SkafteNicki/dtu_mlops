@@ -123,7 +123,7 @@ bentoml.pytorch.save
 bentoml.onnx.save_model
 ```
 
-```
+```python
 runner = bentoml.pytorch.get("my_torch_model").to_runner()
 svc = bentoml.Service(name="test_service", runners=[runner])
 @svc.api(input=JSON(), output=JSON())

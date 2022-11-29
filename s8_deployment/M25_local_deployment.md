@@ -19,9 +19,6 @@ nav_order: 1
 
 ---
 
-## Deploying the model with torchserve
-
-
 ### Exercises
 
 Torchserve is Pytorch own framework for deploying/serving models. It can be a bit rough around the edges but
@@ -94,7 +91,7 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
 
    1. Start serving your model in one terminal:
 
-        ```
+        ```bash
         torchserve --start --ncs --model-store model_store --models my_fancy_model=my_fancy_model.mar
         ```
 
@@ -106,7 +103,7 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
         `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
         python. Using `curl` should look something like this
 
-        ```
+        ```bash
         curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
         ```
 

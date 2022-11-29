@@ -367,7 +367,7 @@ beneficial for you to download.
 
     4. Lets test that this container work:
 
-       ```
+       ```bash
        docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:22.07-py3
        ```
 

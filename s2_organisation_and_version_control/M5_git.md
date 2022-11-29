@@ -189,7 +189,7 @@ working together on the same project.
    3. Now try to `git pull` the online changes. What should (hopefully) happen is that git will tell you that it found
       a merge conflict that needs to be resolved. Open the file and you should see something like this
 
-      ```
+      ```txt
       <<<<<<< HEAD
       this is some content to mess with
       content to append

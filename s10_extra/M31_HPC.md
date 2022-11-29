@@ -121,7 +121,7 @@ want to.
    4. Next, install all the requirements you need. If you want to run the image classifier script you can run this
       command in the terminal
 
-      ```
+      ```bash
       pip install -r image_classifier_requirements.txt
       ```
 

@@ -102,7 +102,7 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
    1. (Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
       between an `[N,d]` tensor and `[M,d]` tensor. You should use the following identity:
-      ``` ||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b> ```. Hint: you need to use broadcasting.
+      `||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b> `. Hint: you need to use broadcasting.
 
 3. Complete the [Neural Networks in Pytorch](exercise_files/2_Neural_Networks_in_PyTorch.ipynb) notebook.
    It focuses on building a very simple neural network using the Pytorch `nn.Module` interface.
@@ -161,23 +161,25 @@ corrupted version of regular mnist. Your overall task is the following:
 
 > **Implement a mnist neural network that achives atlest 85 % accuracy on the test set.**
 
-1. Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
-   create the corrupted version. This should give you a cloue about what network architechture to use.
+Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
+create the corrupted version. This should give you a cloue about what network architechture to use.
 
 One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
 in the future as you start to add more and more features. As subgoals, please forfill the following exercises
 
-2. Implement your model in a script called `model.py`
+1. Implement your model in a script called `model.py`
 
-3. Implement your data setup in a script called `data.py`. Hint: The data can be loaded using
+2. Implement your data setup in a script called `data.py`. Hint: The data can be loaded using
    [np.load](https://numpy.org/doc/stable/reference/generated/numpy.load.html).
 
-4. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to
+3. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to
    take an additional subcommands indicating if the model should train or evaluate. It will look something like this:
-   ```
+
+   ```bash
    python main.py train --lr 1e-4
    python main.py evaluate trained_model.pt
    ```
+
    which can be implemented in various ways.
 
 To start you off, a very barebone version of each script is provided in the `final_exercise` folder. We have already

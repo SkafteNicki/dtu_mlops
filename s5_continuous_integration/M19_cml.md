@@ -129,7 +129,7 @@ after the run is done.
    [here](https://cml.dev/doc/cml-with-dvc) is a great starting point.
 
 The ends the session on continues machine learning. If you have not already noticed, one limitation of using github
-actions is that their default runners e.g. ```runs-on: [ubuntu-latest]``` are only CPU machines (see
+actions is that their default runners e.g. `runs-on: [ubuntu-latest]` are only CPU machines (see
 [hardware config](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
 . As we all know, modern machine learning more or less requires hardware acceleration (=GPUs) to train within
 reasonable time. Luckily for us `cml` also integrated with large cloud provides and I therefore recommend that

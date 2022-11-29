@@ -53,15 +53,16 @@ results.
 
 2. Next install wandb on your laptop
 
-   ```
+   ```bash
    pip install wandb
    ```
 
 3. Now connect to your wandb account
 
-   ```
+   ```bash
    wandb login
    ```
+
    you will be asked to provide the 40 length API key. The connection should be remain open to the wandb server
    even when you close the terminal, such that you do not have to login each time. If using `wandb` in a notebook
    you need to manually close the connection using `wandb.finish()`.

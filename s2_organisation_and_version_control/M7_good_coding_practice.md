@@ -78,13 +78,13 @@ One way to check if your code is pep8 compliant is to use
 
 1. Install flake8
 
-   ```
+   ```bash
    pip install flake8
    ```
 
 2. run flake8 on your project
 
-   ```
+   ```bash
    flake8 .
    ```
 
@@ -115,7 +115,7 @@ For this reason `import` statements is something we also want to take care of, b
    ```
 
 2. run isort on your project
-   ```
+   ```bash
    isort .
    ```
    and check how the imports were sorted.
