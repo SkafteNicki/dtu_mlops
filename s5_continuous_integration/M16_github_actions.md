@@ -178,4 +178,5 @@ a workflow file directly in Github you may encounter the following page
 
 Github comes with many templates for writing actions file for whatever you may need, to make sure you have a good
 starting point. We highly recommend checking this out if you want to write any other kind of CI pipeline in 
-Github actions.
+Github actions. Additionally we can also recommend [this repository](https://github.com/sdras/awesome-actions) that
+have an list of awesome actions.
