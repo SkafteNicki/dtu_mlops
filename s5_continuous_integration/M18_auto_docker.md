@@ -5,7 +5,7 @@ parent: S5 - Continuous Integration
 nav_order: 4
 ---
 
-<img style="float: right;" src="../figures/icons/dockerhub.png" width="130"> 
+<img style="float: right;" src="../figures/icons/dockerhub.png" width="130">
 
 # Continuous docker building
 {: .no_toc }
@@ -21,19 +21,19 @@ nav_order: 4
 
 ---
 
-The Github Actions we learned about in [M16](M16_github_actions.md) are an powerfull tool that can be used to much more 
+The Github Actions we learned about in [M16](M16_github_actions.md) are an powerfull tool that can be used to much more
 than simply running our tests tests that we write for our application. In this module we are going to look at how we can
-use it for continuously building docker images. As you have already seen docker building can take a couple of minutes 
-to build each time we do changes to our codebase. For this reason we really just want to build a new image every time we 
-do a commit of our code. Thus, it should come as no surprise that we can also automatize the building process and 
+use it for continuously building docker images. As you have already seen docker building can take a couple of minutes
+to build each time we do changes to our codebase. For this reason we really just want to build a new image every time we
+do a commit of our code. Thus, it should come as no surprise that we can also automatize the building process and
 furthermore we can take advantage of online compute power to parallelize the process.
 
-As discussed in the initial module on [docker](../s3_reproducibility/M9_docker.md), 
+As discussed in the initial module on [docker](../s3_reproducibility/M9_docker.md),
 [docker hub](https://hub.docker.com/) is an online solution for storing build docker images in the cloud that is then
-easy to pull down on whatever machine you want to run on. Docker hub is 
+easy to pull down on whatever machine you want to run on. Docker hub is
 [free to use](https://www.docker.com/pricing/) for personal use, as long as the images you push are public. We are in
-this session going to look how we can automatically build and push our docker builds to docker hub. In a 
-[future module](../s6_the_cloud/M21_using_the_cloud.md) we are also going to look at the exact same process of building 
+this session going to look how we can automatically build and push our docker builds to docker hub. In a
+[future module](../s6_the_cloud/M21_using_the_cloud.md) we are also going to look at the exact same process of building
 and pushing containers but this time to an general cloud provider.
 
 ### Exercises
@@ -44,7 +44,7 @@ you can use the following:
 FROM busybox
 CMD echo "Howdy cowboy"
 ```
-Alternatively, you can choose to focus on automatizing the training and prediction docker files back from 
+Alternatively, you can choose to focus on automatizing the training and prediction docker files back from
 [M9](../s3_reproducibility/M9_docker.md). You will most likely need to change the docker image for your applications
 if they contains any references to your data e.g. you have an `COPY data/ data/` statement in the file. Since we do
 not store our data in Github, we cannot copy it during the build process.
@@ -56,7 +56,7 @@ not store our data in Github, we cannot copy it during the build process.
 3. Next, within Docker Hub create an access token by going to `Settings -> Security`. Click the `New Access Token`
    button and give it a name that you recognize.
 
-4. Copy the newly created access token and head over to your Github repository online. Go to 
+4. Copy the newly created access token and head over to your Github repository online. Go to
    `Settings -> Secrets -> Actions` and click the `New repository secret`. Copy over the access token and give
    it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and `DOCKER_HUB_REPOSITORY`
    that contains your docker username and docker repository name respectively.
@@ -99,6 +99,6 @@ not store our data in Github, we cannot copy it during the build process.
 
 That ends the session on continues docker building. We are going to revisit this topic after introducing the basic
 concepts of working in the cloud, as it will make our life easier in the long run when we get to continues deployment
-(CD) that our containers are stored the same place where we are going to run them. For completeness it is worth 
-mentioning that docker hub also offers the possibility of building your images in a continues way, by specifying so 
+(CD) that our containers are stored the same place where we are going to run them. For completeness it is worth
+mentioning that docker hub also offers the possibility of building your images in a continues way, by specifying so
 called [build rules](https://docs.docker.com/docker-hub/builds/).
