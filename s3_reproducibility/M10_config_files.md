@@ -170,9 +170,11 @@ look online for your answers before looking at the solution. Remember: its not a
 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare.
     Then run the `reproducibility_tester.py` script as
+
     ```bash
     python reproducibility_tester.py path/to/run/1 path/to/run/2
     ```
+
     the script will go over trained weights to see if the match and that the hyperparameters was the same.
     Note: for the script to work, the weights should be saved to a file called `trained_model.pt` (this is the default
     of the `vae_mnist.py` script, so only relevant if you have changed the saving of the weights)
@@ -206,8 +208,10 @@ config setups: in the image below the configuration has two layers such that we 
 hyperparameters belonging to a specific model architecture and hyperparameters for each individual optimizer
 that we may try.
 
+<!-- markdownlint-disable -->
 <p align="center">
   <img src="../figures/hydra_config.PNG" width="1000">
   <br>
   <a href="https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710"> Image credit </a>
 </p>
+<!-- markdownlint-restore -->

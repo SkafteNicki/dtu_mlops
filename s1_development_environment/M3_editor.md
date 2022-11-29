@@ -32,7 +32,7 @@ a suboptimal workflow. Therefore, to for truly getting "work done" you will need
 
 Many opinions exist on this matter, but for simplicity we recommend getting started with one of the following 3:
 
-Editor  	         | Webpage  	                          | Comment (Biased opinion)
+Editor             | Webpage                              | Comment (Biased opinion)
 -------------------|--------------------------------------|----------------------------------------------------------------------
 Spyder             | <https://www.spyder-ide.org/>        | Matlab like environment that is easy to get started with
 Visual studio code | <https://code.visualstudio.com/>     | Support for multiple languages with fairly easy setup

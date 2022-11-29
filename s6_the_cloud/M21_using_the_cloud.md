@@ -31,6 +31,7 @@ The most basic service of any cloud provider is the ability to create and run vi
 In `gcp` this service is called [Compute Engine API](https://cloud.google.com/compute/docs/reference/rest/v1).
 A virtual machine allows you to essentially run an operating system that behaves like a completely separate computer.
 There are many reasons why one to use virtual machines:
+
 * Virtual machines allow you to scale your operations, essentially giving you access to infinitely many individual
   computers
 * Virtual machines allow you to use large scale hardware. For example if you are developing an deep learning model on
@@ -161,27 +162,27 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
    `gsutil` is an additional command to `gcloud`, that provides more command line options.
 
-2. Next we need the Google storage extension for `dvc`
+3. Next we need the Google storage extension for `dvc`
 
    ```bash
    pip install dvc[gs]
    ```
 
-3. Now in your Mnist repository where you have already configured dvc, we are going to change the storage
+4. Now in your Mnist repository where you have already configured dvc, we are going to change the storage
    from our Google drive to our newly created Google cloud storage.
 
    ```bash
    dvc remote add -d remote_storage <output-from-gsutils>
    ```
 
-4. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file.
+5. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file.
    Finally, push data to the cloud
 
    ```bash
    dvc push
    ```
 
-5. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
+6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterwards do a `dvc pull`.
 
 ## Container registry

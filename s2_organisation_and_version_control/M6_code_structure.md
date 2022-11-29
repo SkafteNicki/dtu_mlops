@@ -84,7 +84,7 @@ in this way paths (for saving and loading files) are always relative to the root
    pip install -e .
    # or
    conda develop .
-	```
+   ```
 
    In addition you may need to run
 
@@ -104,9 +104,9 @@ in this way paths (for saving and loading files) are always relative to the root
    commands may come in handy
 
    ```bash
-	make data  # runs the make_dataset.py file, try it!
-	make clean  # clean __pycache__ files
-	make requirements  # install everything in the requirements.py file
+   make data  # runs the make_dataset.py file, try it!
+   make clean  # clean __pycache__ files
+   make requirements  # install everything in the requirements.py file
 	```
 
    If you are running Windows, `make` is not a build-in command and you either need to install
@@ -124,17 +124,17 @@ in this way paths (for saving and loading files) are always relative to the root
    using
 
    ```bash
-	make train
-	```
+   make train
+   ```
 
 10. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
     creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
     images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
 
     ```bash
-	 python src/models/predict_model.py \
-	   models/my_trained_model.pt \  # file containing a pretrained model
-	   data/example_images.npy  # file containing just 10 images for prediction
+    python src/models/predict_model.py \
+      models/my_trained_model.pt \  # file containing a pretrained model
+      data/example_images.npy  # file containing just 10 images for prediction
     ```
 
 11. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)

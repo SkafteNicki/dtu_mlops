@@ -65,6 +65,7 @@ architecture search. You can read more about it
    package for calculating this in pytorch: [ptflops](https://github.com/sovrasov/flops-counter.pytorch)
 
    1. Install the package
+
       ```bash
       pip install ptflops
       ```
@@ -117,11 +118,13 @@ where $s$ is a scale and $z$ is the so called zero point. But how does to doing 
 figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
 computations in quantized format.
 
+<!-- markdownlint-disable -->
 <p align="center">
    <img src="../figures/quantization_overview.png" width="800"
    <br>
    <a href="https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512"> Image credit </a>
 </p>
+<!-- markdownlint-restore -->
 
 ### Exercises
 

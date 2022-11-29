@@ -49,4 +49,4 @@ nav_order: 7
 
 ## Yatai
 
-https://github.com/bentoml/Yatai
+[yatai](https://github.com/bentoml/Yatai)

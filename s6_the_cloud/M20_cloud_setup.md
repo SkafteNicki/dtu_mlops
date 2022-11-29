@@ -147,7 +147,3 @@ As the first step we are going to get you setup with some Google cloud credits.
 
 After following these step your laptop should hopefully be setup for using `gcp` locally. You are now
 ready to use their services.
-
-
-
-

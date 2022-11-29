@@ -87,8 +87,3 @@ essentially increases the longivity of your model.
    model because it consist only of core ONNX operations. We are here going to use the open-source tool
    [netron](https://github.com/lutzroeder/netron) for visualization. You can either choose to download the program
    or just run it in your [webbrowser](https://netron.app/).
-
-
-
-
-
