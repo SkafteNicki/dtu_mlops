@@ -12,4 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install write-good
-      - run: npx write-good *.md
+      # TODO: include at some point
+      #- run: npx write-good *.md
