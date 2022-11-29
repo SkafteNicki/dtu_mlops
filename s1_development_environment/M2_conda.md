@@ -83,14 +83,14 @@ compared to other environment managers.
    Try creating a new environment directly from you `enviroment.yml` file and check that the packages being
    installed exactly matches what you originally had.
 
-6. Which `conda` commando gives you a list of all the environments that you have created?
+5. Which `conda` commando gives you a list of all the environments that you have created?
 
-4. As the introduction states, it is fairly safe to use `pip` inside `conda` today.
+6. As the introduction states, it is fairly safe to use `pip` inside `conda` today.
    What is the corresponding `pip` command that gives you a list of all `pip` installed packages?
    and how to you export this to a file called `requirements.txt`?
    (We will revisit requirement files at a later point)
 
-5. If you look through the requirements that both `pip` and `conda` produces then you will see that it
+7. If you look through the requirements that both `pip` and `conda` produces then you will see that it
    is often filled with a lot more packages than what you are actually using in your project. What you are
    really interested in are the packages that you import in your code: `from package import module`.
    One way to come around this is to use the package `pipreqs`, that will automatically scan your project

@@ -157,6 +157,7 @@ rest to a "recommended value".
 
    2. Next we are going to initialize a database that we can read and write to. For this exercises we are going
       to focus on a locally stored database but it could of course also be located in the cloud.
+
       ```bash
       mysql -u root -e "CREATE DATABASE IF NOT EXISTS example"
       ```
@@ -164,25 +165,31 @@ rest to a "recommended value".
       `storage` and `load_if_exists=True` flags.
 
    3. Now we are going to create a Optuna study in our database
+
       ```bash
       optuna create-study --study-name "distributed-example" --storage "mysql://root@localhost/example"
       ```
 
    4. Change how you initialize the study to read and write to the database. Therefore, instead of doing
+
        ```python
        study = optuna.create_study()
        ```
+
        then do
+
        ```python
        study = optuna.load_study(
         study_name="distributed-example", storage="mysql://root@localhost/example"
        )
        ```
+
        where the `study_name` and `storage` should match how the study was created.
 
    5. For running in parallel, you can either open up a extra terminal and simple launch your script once
        per open terminal or you can use the provided `parallel_lancher.py` that will launch multiple executions
        of your script. It should be used as:
+
        ```bash
        python parallel_lancher.py myscript.py --num_parallel 2
        ```

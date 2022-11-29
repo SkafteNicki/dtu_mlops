@@ -45,16 +45,19 @@ spot of being flexible enough to do what you want without having many additional
 ### Exercises
 
 1. Install FastAPI
+
    ```bash
    pip install fastapi
    ```
 
 2. Additionally, also install uvicorn which is a package for defining low level server applications.
+
    ```bash
    pip install uvicorn[standard]
    ```
 
 3. Start by defining a small application like this in a file called `main.py`
+
    ```python
    from fastapi import FastAPI
    app = FastAPI()
@@ -68,12 +71,15 @@ spot of being flexible enough to do what you want without having many additional
        """ return an input item """
        return id
    ```
+
    explain what the idea behind the two functions are.
 
 4. Next lets lunch our app. In a terminal write
+
    ```bash
    uvicorn main:app --reload
    ```
+
    this will launch an server at this page: `http://localhost:8000/`. As you will hopefully see, this
    page will return the content of the `root` function.
 
@@ -85,6 +91,7 @@ spot of being flexible enough to do what you want without having many additional
 5. With the fundamentals in place lets configure it a bit more:
 
    1. Lets start by changing the root function to include a bit more info:
+
       ```python
       from http import HTTPStatus
 
@@ -98,6 +105,7 @@ spot of being flexible enough to do what you want without having many additional
           }
           return response
       ```
+
       try to reload the app and see what is returned now. You should not have to re-launch the app because we
       initialized the app with the `--reload` argument.
 
@@ -108,15 +116,16 @@ spot of being flexible enough to do what you want without having many additional
 https://github.com/bentoml/BentoML
 
 In particular
+
+```python
 bentoml.pytorch_lightning.save_model
 bentoml.pytorch.save
 bentoml.onnx.save_model
+```
 
 ```
 runner = bentoml.pytorch.get("my_torch_model").to_runner()
-
 svc = bentoml.Service(name="test_service", runners=[runner])
-
 @svc.api(input=JSON(), output=JSON())
 async def predict(json_obj: JSONSerializable) -> JSONSerializable:
     batch_ret = await runner.async_run([json_obj])

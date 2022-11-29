@@ -23,9 +23,11 @@ nav_order: 1
 
 If you have worked with python for some time you are probably familiar with the `argparse` package, which allows you
 to directly pass in additional arguments to your script in the terminal
+
 ```bash
 python my_script.py --arg1 val1 --arg2 val2
 ```
+
 `argparse` is a very simple way of constructing what is called a command line interfaces (CLI).
 [CLI](https://en.wikipedia.org/wiki/Command-line_interface) allows you to interact with your application directly in
 the terminal instead of having change things in your code. It is essentially a text-based user interface (UI) (in
@@ -43,18 +45,20 @@ with (again think `git` where each subcommand can be given the `-h` arg to get s
 
 Instead of using `argparse` we are here going to look at the [click](https://click.palletsprojects.com/en/8.1.x/)
 package. `click` extends the functionalities of `argparse` to allow for easy definition of subcommands and many other
-things, which we are not going to touch upon in this module. For completness we should also mention that `click` is not
+things, which we are not going to touch upon in this module. For completeness we should also mention that `click` is not
 the only package for doing this, and of other excellent frameworks for creating command line interfaces easily we can
 mention [Typer](https://typer.tiangolo.com/).
 
 ## Exercises
 
 1. Install [click](https://click.palletsprojects.com/en/8.1.x/)
+
    ```bash
    pip install click
    ```
 
 2. Create a new python file `greetings.py` and add the following code:
+
    ```python
    import click
 
@@ -70,7 +74,9 @@ mention [Typer](https://typer.tiangolo.com/).
    if __name__ == '__main__':
        hello()
    ```
+
    try running the program in the following ways
+
    ```bash
    python greetings.py
    python greetings.py --count=3
@@ -82,6 +88,7 @@ mention [Typer](https://typer.tiangolo.com/).
 
 4. As stated above, the power of using a tool like click is due to its ability to define subcommands. In `click` this
    is done through the `click.group()` decorator. To the code example from above, add another command:
+
    ```python
    @click.command()
    @click.option('--count', default=1, help='Number of greetings.')
@@ -91,8 +98,10 @@ mention [Typer](https://typer.tiangolo.com/).
        for x in range(count):
            click.echo(f"Howdy {name}!")
    ```
+
    and by using the `click.group()` decorator make these commands into subcommands such that you would be able to
    call the script in the following way
+
    ```bash
    python greetings.py hello
    python greetings.py howdy
@@ -115,6 +124,7 @@ mention [Typer](https://typer.tiangolo.com/).
         take a single argument that in some way adjust the hyperparameter optimization (free to choose how)
 
       In the end we like the script to be callable in the following ways
+
       ```bash
       python main.py train -o 'model.ckpt'
       python main.py infer -i 'model.ckpt' -d [[0,1]]

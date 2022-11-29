@@ -70,16 +70,16 @@ The main components of VS code are:
 
 ### Exercise
 
-1. Download and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
-   on the files that you created in the final exercise in the last lecture.
+Start by downloading and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
+on the files that you created in the final exercise in the last lecture.
 
- The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
- if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
- (one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in vs code. The
- following exercises are just to get you started but you can find many more tutorials
- [here](https://code.visualstudio.com/docs/python/python-tutorial).
+The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
+if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
+(one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in vs code. The
+following exercises are just to get you started but you can find many more tutorials
+[here](https://code.visualstudio.com/docs/python/python-tutorial).
 
-2. VS code is a general editor for many languages and to get proper *python* support we need to install some
+1. VS code is a general editor for many languages and to get proper *python* support we need to install some
    extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
    we highly recommend installing the following packages:
 
@@ -88,7 +88,7 @@ The main components of VS code are:
    * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
    * `Jupyter`: support for jupyter notebooks directly in VSCode
 
-3. If you install the `Python` package you should see something like this in your status bar:
+2. If you install the `Python` package you should see something like this in your status bar:
 
    <p align="center">
      <img src="../figures/action_bar.PNG" width="700">
@@ -97,7 +97,7 @@ The main components of VS code are:
    which indicates that you are using the stock python installation, instead of the one you have created using `conda`.
    Click it and change the python environment to the one you actually want to use.
 
-4. One of the most useful tools in VSCode is the ability to navigate a hole project using the build-in
+3. One of the most useful tools in VSCode is the ability to navigate a hole project using the build-in
    `Explorer`. To really take advantage of the VC code you need to make sure what you are working on is a project.
    Create a folder called `hallo` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
    select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
@@ -109,7 +109,7 @@ The main components of VS code are:
      <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a>
    </p>
 
-5. Finally, lets run some code. Add something simple to the `hallo.py` file like:
+4. Finally, lets run some code. Add something simple to the `hallo.py` file like:
    <p align="center">
      <img src="../figures/run_python_file.png" width="700">
      <br>
