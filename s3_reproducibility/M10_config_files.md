@@ -71,6 +71,7 @@ around writing config files to keep track of hyperparameters. Hydra operates on 
 [OmegaConf](https://github.com/omry/omegaconf) which is a `yaml` based hierarchical configuration system.
 
 A simple `yaml` configuration file could look like
+
 ```yaml
 #config.yaml
 hyperparameters:
@@ -89,7 +90,9 @@ config = OmegaConf.load('config.yaml')
 dl = DataLoader(dataset, batch_size=config.hyperparameters.batch_size)
 optimizer = torch.optim.Adam(model.parameters(), lr=config['hyperparameters']['lr'])
 ```
+
 or using `hydra` for loading the configuration
+
 ```python
 import hydra
 
@@ -100,6 +103,7 @@ def main(cfg):
 if __name__ == "__main__":
     main()
 ```
+
 The idea behind refactoring our hyperparameters into `.yaml` files is that we disentangle the model configuration from
 the model. In this way it is easier to do version control of the configuration because we have it in a seperate file.
 
@@ -136,11 +140,13 @@ look online for your answers before looking at the solution. Remember: its not a
 8. Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:
 
    1. Try changing one parameter from the command-line
+
       ```bash
       python vae_mnist.py hyperparameters.seed=1234
       ```
 
    2. Try adding one parameter from the command-line
+
       ```bash
       python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
       ```
@@ -151,6 +157,7 @@ look online for your answers before looking at the solution. Remember: its not a
    from the script we need to convert all calls to `print` with `log.info`
 
    1. Create a logger in the script:
+
       ```python
       import logging
       log = logging.getLogger(__name__)
@@ -173,10 +180,12 @@ look online for your answers before looking at the solution. Remember: its not a
 11. Finally, make a new experiment using a new configuration file where you have changed a hyperparameter of your own
     choice. You are not allowed to change the configuration file in the script but should instead be able to provide it
     as an argument when launching the script e.g. something like
+
     ```bash
     python vae_mnist.py experiment=exp2
     ```
     We recommend that you use a file structure like this
+
     ```bash
     |--conf
     |  |--config.yaml
@@ -196,5 +205,7 @@ hyperparameters belonging to a specific model architecture and hyperparameters f
 that we may try.
 
 <p align="center">
-  <img src="../figures/hydra_config.PNG" width="1000" title="Credit: https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710">
+  <img src="../figures/hydra_config.PNG" width="1000">
+  <br>
+  <a href="https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710"> Image credit </a>
 </p>

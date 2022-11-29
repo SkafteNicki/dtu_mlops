@@ -146,22 +146,27 @@ can be parallelized based on loading the raw datafiles (.jpg) at runtime.
    transforms (for data augmentation).
 
 3. Make sure that the script runs without any additional arguments
-   ```
+
+   ```bash
    python lfw_dataset.py
    ```
 
 4. Visualize a single batch by filling out the codeblock after the first *TODO* right after defining the dataloader.
    The visualization should show when launching the script as
-   ```
+
+   ```bash
    python lfw_dataset.py -visualize_batch
    ```
+
    Hint: this [tutorial](https://pytorch.org/vision/stable/auto_examples/plot_visualization_utils.html#sphx-glr-auto-examples-plot-visualization-utils-py).
 
 5. Experiment how the number of workers influences the performance. We have already provide code that will pass over 100
    batches from the dataset 5 times and calculate how long time it took, which you can play around with by calling
-   ```
+
+   ```bash
    python lfw_dataset.py -get_timing -num_workers 1
    ```
+
    Make a [errorbar plot](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.errorbar.html) with number of
    workers along the x-axis and the timing along the y-axis. The errorbars should correspond to the standard deviation
    over the 5 runs. HINT: if it is taking too long to evaluate, measure the time over less batches (set the

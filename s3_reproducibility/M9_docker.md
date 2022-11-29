@@ -102,54 +102,69 @@ beneficial for you to download.
    starting virtual machines) but you do not need to install docker in WSL.
 
 2. Try running the following to confirm that your installation is working:
+
    ```bash
    docker run hello-world
    ```
+
    which should give the message
+
    ```bash
    Hello from Docker!
    This message shows that your installation appears to be working correctly.
    ```
 
 3. Next lets try to download a image from docker hub. Download the `busybox` image:
+
    ```bash
    docker pull busybox
    ```
+
    which is an very small (1-5Mb) containerized application that contains the
    most essential GNU fileutils, shellutils etc.
 
 4. After pulling the image, write
+
    ```bash
    docker images
    ```
+
    which should show you all images that are available. You should see the
    `busybox` image that we just downloaded.
 
 5. Lets try to run this image
+
    ```bash
    docker run busybox
    ```
+
    you will get that nothing happens! The reason for that is we did that not
    provide any commands to `docker run`. We essentially just ask it to start
    the `busybox` virtual machine, do nothing and then close it again. Now, try
    again this time with
+
    ```bash
    docker run busybox echo "hello from busybox"
    ```
+
    Note how fast this process is. In just a few seconds, Docker is able to
    start a virtual machine, execute a command and kill it afterwards.
 
 6. Try running
+
    ```bash
    docker ps
    ```
+
    what does this command do? What if you add `-a` to the end?
 
 7. If we wanted to run multiple commands within the virtual machine, we can
    start it in *interactive mode*
+
    ```bash
    docker run -it busybox
    ```
+
    this can be a great way to investigate what the filesystem of our virtual
    machine looks like.
 
@@ -157,6 +172,7 @@ beneficial for you to download.
    can still see small remnants of the containers using `docker ps -a`. These
    stray containers can end up take a lot of disk space. To remove them, use
    `docker rm` where you provide the container id that you want to delete
+
    ```bash
    docker rm <container_id>
    ```
@@ -167,6 +183,7 @@ beneficial for you to download.
 
 10. Instead of starting from scratch we nearly always want to start from some base image. For this exercise we are
     going to start from a simple `python` image. Add the following to your `Dockerfile`
+
     ```docker
     # Base image
     FROM python:3.7-slim
@@ -174,6 +191,7 @@ beneficial for you to download.
 
 11. Next we are going to install some essentials in our image. The essentials more or less consist of a python
     installation. These instructions may seem familiar if you are using linux:
+
     ```docker
     # install python
     RUN apt update && \
@@ -185,35 +203,43 @@ beneficial for you to download.
     are application specific (to some degree):
 
     1. Lets copy over our application (the essential parts) from our computer to the container:
+
        ```docker
        COPY requirements.txt requirements.txt
        COPY setup.py setup.py
        COPY src/ src/
        COPY data/ data/
        ```
+
        Remember that we only want the essential parts to keep our docker image as small as possible. Why do we need each
        of these files/folders to run training in our docker container?
 
     2. Lets set the working directory in our container and add commands that install the dependencies:
+
        ```docker
        WORKDIR /
        RUN pip install -r requirements.txt --no-cache-dir
        ```
+
        the `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to
        docker.
 
     3. Finally, we are going to name our training script as the *entrypoint* for our docker image. The *entrypoint* is
        the application that we want to run when the image is being executed:
+
        ```docker
        ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
        ```
+
        the `"u"` here makes sure that any output from our script e.g. any `print(...)` statements gets redirected to our
        terminal. If not included you would need to use `docker logs` to inspect your run.
 
 13. We are now ready to building our docker file into a docker image
+
     ```bash
     docker build -f trainer.dockerfile . -t trainer:latest
     ```
+
     please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is
     important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and
     the `-t trainer:latest` is the respective name and tag that we se afterwards when running `docker images` (see image
@@ -226,9 +252,11 @@ beneficial for you to download.
 14. Try running `docker images` and confirm that you get output similar to the one above. If you succeeds with this,
     then try running the image
     docker image
+
     ```bash
     docker run --name experiment1 trainer:latest
     ```
+
     you should hopefully see your training starting. Please note that we can start as many containers that we want at
     the same time by giving them all different names using the `--name` tag.
 
@@ -237,23 +265,29 @@ beneficial for you to download.
     files were created inside your container (which is its own little machine). To get the files you have two options:
 
     1. If you already have a completed run then you can use
+
        ```bash
        docker cp
        ```
+
        to copy the files between your container and laptop. For example to copy a file called `trained_model.pt` from a
        folder you would do:
+
        ```bash
        docker cp {container_name}:{dir_path}/{file_name} {local_dir_path}/{local_file_name}
        ```
+
        Try this out.
 
     2. A much more efficient strategy is to mount a volume that is shared between the host (your laptop) and the
        container. This can be done with the `-v` option for the `docker run` command. For example, if we want to
        automatically get the `trained_model.pt` file after running our training script we could simply execute the
        container as
+
        ```bash
        docker run --name {container_name} -v %cd%/models:/models/ trainer:latest
        ```
+
        this command mounts our local `models` folder as a corresponding `models` folder in the container. Any file save
        by the container to this folder will be synchronized back to our host machine. Try this out! Note if you have
        multiple files/folders that you want to mount (if in doubt about file organization in the container try to do
@@ -263,6 +297,7 @@ beneficial for you to download.
 
 16. Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start
     the image in interactive mode:
+
     ```bash
     docker run -it --entrypoint sh {image_name}:{image_name}
     ```
@@ -273,6 +308,7 @@ beneficial for you to download.
     afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if you
     are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably
     need to look something like
+
     ```bash
     docker run --name predict --rm \
         -v %cd%/trained_model.pt:/models/trained_model.pt \  # mount trained model file
@@ -290,19 +326,24 @@ beneficial for you to download.
 
     1. There are three prerequisites for working with Nvidia GPU accelerated docker containers. First you need to have
        the Docker Engine installed (already taken care of), have Nvidia GPU with updated GPU drivers and finally have
-       the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The last part you not likely have not installed and needs to do.
+       the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+       installed. The last part you not likely have not installed and needs to do.
 
     2. To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
        the correct image:
+
        ```bash
        docker pull nvidia/cuda:11.0.3-base-ubuntu20.04
        ```
+
        but it may differ based on what cuda vision you have. You can find all the different offical Nvidia images
        [here](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
        inside a container based on the image you just pulled. It should look something like this:
+
        ```bash
        docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
        ```
+
        and should show an image like below:
        <p align="center">
           <img src="../figures/nvidia_smi.png" width="600">
@@ -315,34 +356,44 @@ beneficial for you to download.
        through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
        The containers that have to do with Pytorch can be seen
        [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html). Try pulling the latest:
+
        ```bash
        docker pull nvcr.io/nvidia/pytorch:22.07-py3
        ```
+
        It may take some time, because the NGC images includes a lot of other software for optimizing Pytorch
        applications. It may be possible for you to find other images for running GPU accelerated applications that have
        a smaller memory footprint, but NGC are the recommend and supported way.
 
     4. Lets test that this container work:
+
        ```
        docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:22.07-py3
        ```
+
        this should run the container in interactive mode attached to your current terminal. Try opening `python` in
        the container and try writing:
+
        ```python
        import torch
        print(torch.cuda.is_available())
        ```
+
        which hopefully should return `True`.
 
     5. Finally, we need to incorporate all this into our already developed docker files for our application. This is
        also fairly easy as we just need to change our `FROM` statement in the beginning of our docker file:
+
        ```docker
        FROM python:3.7-slim
        ```
+
        change to
+
        ```docker
        FROM  nvcr.io/nvidia/pytorch:22.07-py3
        ```
+
        try doing this to one of your docker files, build the image and run the container. Remember to check that your
        application is using GPU by printing `torch.cuda.is_available()`.
 

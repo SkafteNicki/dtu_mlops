@@ -74,10 +74,10 @@ architecture search. You can read more about it
       compared to the resnet?
 
 3. (Optional) Try out model distillation yourself. Assuming that you already have a trained conv net (on the corrupted
-   mnist dataset),
-   try to run all your training data through and record the log-probabilities that the model is predicting. Then design a smaller conv net,
-   that you train to map from images to the log-probabilities that you recorded earlier. Finally, try out your small distilled model by
-   measuring overall performance on the test set and compare to your original model.
+   mnist dataset), try to run all your training data through and record the log-probabilities that the model is
+   predicting. Then design a smaller conv net, that you train to map from images to the log-probabilities that you
+   recorded earlier. Finally, try out your small distilled model by measuring overall performance on the test set and
+   compare to your original model.
 
 ## Quantization
 
@@ -90,9 +90,9 @@ We are essentially taking all continuous signals and converting them into discre
 
 As discussed in this
 [blogpost series](https://devblog.pytorchlightning.ai/benchmarking-quantized-mobile-speech-recognition-models-with-pytorch-lightning-and-grid-9a69f7503d07),
-while `float` (32-bit) is the primarily used precision in machine learning because is strikes a good balance between memory
-consumption, precision and computational requirement it does not mean that during inference we can take advantage of quantization
-to improve the speed of our model. For instance:
+while `float` (32-bit) is the primarily used precision in machine learning because is strikes a good balance between
+memory consumption, precision and computational requirement it does not mean that during inference we can take
+advantage of quantization to improve the speed of our model. For instance:
 
 * Floating-point computations are slower than integer operations
 
@@ -106,18 +106,21 @@ to improve the speed of our model. For instance:
   a checkpoint. This is especially useful in relation to deploying models using docker (as you hopefully remember) as
   it will lower the size of our docker images.
 
-But how do we convert between floats and integers in quantization? In most cases we often use a *linear affine quantization*:
+But how do we convert between floats and integers in quantization? In most cases we often use a
+*linear affine quantization*:
 
 $$
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$
 
-where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows
-all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
+where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The
+figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
+computations in quantized format.
 
 <p align="center">
    <img src="../figures/quantization_overview.png" width="800"
-   title="All credit to https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512">
+   <br>
+   <a href="https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512"> Image credit </a>
 </p>
 
 ### Exercises
@@ -143,16 +146,16 @@ all the conversations that we need to make to our standard inference pipeline to
    to construct a model `model_fc32` that works on normal floats and a quantized version `model_int8`. For simplicity
    you can just use one of the models from the tutorial.
 
-3. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also try
-   to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an improvement,
-   explain why that may be.
+3. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also
+   try to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an
+   improvement, explain why that may be.
 
-4. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and converting it.
-   However, quantization can be further implemented into our pipeline by doing `quantization aware training`, where we also
-   apply quantization during training to hopefully get model that quantize better in the end. This can easily be done in
-   lightning using the
-   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/api/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining) callback. Try it out!
-
+4. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and
+   converting it. However, quantization can be further implemented into our pipeline by doing
+   `quantization aware training`, where we also apply quantization during training to hopefully get model that quantize
+   better in the end. This can easily be done in lightning using the
+   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/api/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining)
+   callback. Try it out!
 
 ## Compilation
 
@@ -162,10 +165,9 @@ this means taken whatever you have written in your preferred programming languag
 that the computer can execute. But what does compilation have to do with coding pytorch models?
 
 It happens to be that `Pytorch` comes with its own compiler that can optimize your model for you. It can be found in
-the submodule `torch.jit`. Jit stands for *just-in-time*, meaning that compilation runs at the same time we are executing
-the code. If you know anything about low-level languages such c/c++ you know that we normally compile the code before we
-run it. With `jit` we essentially merges the two phases into one.
-
+the submodule `torch.jit`. Jit stands for *just-in-time*, meaning that compilation runs at the same time we are
+executing the code. If you know anything about low-level languages such c/c++ you know that we normally compile the code
+before we run it. With `jit` we essentially merges the two phases into one.
 
 ### Exercises
 
@@ -180,6 +182,7 @@ run it. With `jit` we essentially merges the two phases into one.
 
 
 Thats all for this topic on doing scalable inference. If you want to further deep dive into this topic, I highly
-recommend that you also checkout methods such as [pruning](https://towardsdatascience.com/pruning-neural-networks-1bb3ab5791f9).
+recommend that you also checkout methods such as
+[pruning](https://towardsdatascience.com/pruning-neural-networks-1bb3ab5791f9).
 Pytorch has an [build-in module](https://pytorch.org/tutorials/intermediate/pruning_tutorial.html) for doing this,
 which is another way to make models more efficient and thereby scalable.
