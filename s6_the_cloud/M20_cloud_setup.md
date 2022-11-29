@@ -26,12 +26,14 @@ Google cloud project is the cloud service provided by Google. The key concept, o
 provider is the idea of near-infinite resources. Without the cloud it simply is not feasible to do many modern 
 deep learning and machine learning tasks because they cannot be scaled locally.
 
-The image below shows all the different services that the Google cloud platform offers. The ones marked in red 
-is the onces we are actually going to investigate in this course. Therefore, if you get done with exercises early 
-I highly recommend that you deep dive more into the Google cloud platform.
+The image below shows a subset of [all the different services](https://cloud.google.com/products) that the Google cloud
+platform offers. The ones marked in red is the onces we are actually going to investigate in this course. Therefore, if 
+you get done with exercises early I highly recommend that you deep dive more into the Google cloud platform.
 
 <p align="center">
-  <img src="../figures/gcp-services.png" width="800" title="hover text">
+  <img src="../figures/gcp_services_summary.png" width="800" title="hover text">
+  <br>
+  <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a>  
 </p>
 
 ### Exercises

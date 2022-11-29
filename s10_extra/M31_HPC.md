@@ -168,7 +168,7 @@ want to.
       ```
       which should give you the full path. Then add to the bottom of the `jobscript` file:
       ```bash
-      ~/miniconda3/envs/hpc_env/bin/python image_classifier.py --trainer.accelerator 'gpu' --trainer.devices 1
+      ~/miniconda3/envs/hpc_env/bin/python image_classifier.py --trainer.accelerator 'gpu' --trainer.devices 1  --trainer.max_epochs 5
       ```
       which will run the image classifier script (change it if you are runnning something else).
 
