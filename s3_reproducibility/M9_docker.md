@@ -5,7 +5,7 @@ parent: S3 - Reproducibility
 nav_order: 1
 ---
 
-<img style="float: right;" src="../figures/icons/docker.png" width="130"> 
+<img style="float: right;" src="../figures/icons/docker.png" width="130">
 
 # Docker
 {: .no_toc }
@@ -30,16 +30,16 @@ nav_order: 1
   <a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a>
 </p>
 
-While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/) 
-came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility 
-goes beyond versioning our code with `git` and using `conda` environment to keep track of our python installations. 
+While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/)
+came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility
+goes beyond versioning our code with `git` and using `conda` environment to keep track of our python installations.
 To really get reproducibility we need to also capture also system level components like
 
 * operating system
 * software dependencies (other than python packages)
 
-Docker provides this kind of system-level reproducibility by creating isolated programs dependencies. In addition to 
-docker providing reproducibility, one of the key features are also scaleability which is important when we later on 
+Docker provides this kind of system-level reproducibility by creating isolated programs dependencies. In addition to
+docker providing reproducibility, one of the key features are also scaleability which is important when we later on
 are going to discuss deployment. Because docker is system-level reproducible, it does not (conceptually) matter if
 we try to start our program on a single machine or a 1000 machines at once.
 
@@ -51,18 +51,18 @@ Docker has three main concepts: **docker file**, **docker image** and **docker c
   <img src="../figures/docker_structure.png" width="800" title="hover text">
 </p>
 
-* A **docker file** is a basic text document that contains all the commands a user could call on the command line to 
-  run an application. This includes installing dependencies, pulling data from online storage, setting up code and 
+* A **docker file** is a basic text document that contains all the commands a user could call on the command line to
+  run an application. This includes installing dependencies, pulling data from online storage, setting up code and
   what commands that you want to run (e.g. `python train.py`)
 
-* Running, or more correctly *building* a docker file will create a **docker image**. An image is a lightweight, 
-  standalone/containerized, executable package of software that includes everything (application code, libraries, 
-  tools, dependencies etc.) necessary to make an application run. 
+* Running, or more correctly *building* a docker file will create a **docker image**. An image is a lightweight,
+  standalone/containerized, executable package of software that includes everything (application code, libraries,
+  tools, dependencies etc.) necessary to make an application run.
 
-* Actually *running* an image will create a **docker container**. This means that the same image can be launched 
+* Actually *running* an image will create a **docker container**. This means that the same image can be launched
   multiple times, creating multiple containers.
 
-The exercises today will focus on how to construct the actual docker file, as this is the first step to constructing 
+The exercises today will focus on how to construct the actual docker file, as this is the first step to constructing
 your own container.
 
 ## Docker sharing
@@ -72,7 +72,7 @@ The hole point of using docker is that sharing applications becomes much easier.
   to simple build the image by themselves.
 
 * After building the image ourself, we can choose to upload it to a *image registry* such as
-  [Docker Hub](https://hub.docker.com/) where other can get our image by simply running `docker pull`, making them 
+  [Docker Hub](https://hub.docker.com/) where other can get our image by simply running `docker pull`, making them
   able to instantaneous running it as a container, as shown in the figure below
 
  <p align="center">
@@ -82,23 +82,23 @@ The hole point of using docker is that sharing applications becomes much easier.
 ## Exercises
 
 In the following exercises we guide you how to build a docker file for your MNIST repository that will make the
-training and prediction a self contained application. Please make sure that you somewhat understand each step and do 
-not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g. 
+training and prediction a self contained application. Please make sure that you somewhat understand each step and do
+not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g.
 with administrative privilege.
 
-The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a 
-production setting view. For example we often want to keep the size of docker image as small as possible, which we are 
+The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
+production setting view. For example we often want to keep the size of docker image as small as possible, which we are
 not focusing on for these exercises.
 
-If you are using `VScode` then we recommend install the 
-[docker VScode extension](https://code.visualstudio.com/docs/containers/overview) for easy getting an overview of 
-which images have been build and which are running. Additionally the extension named *Remote - Containers* may also be 
+If you are using `VScode` then we recommend install the
+[docker VScode extension](https://code.visualstudio.com/docs/containers/overview) for easy getting an overview of
+which images have been build and which are running. Additionally the extension named *Remote - Containers* may also be
 beneficial for you to download.
 
-1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through 
-   depends on your operating system. For Windows and Mac we recommend they install *Docker desktop*, which comes with 
-   a graphical user interface (GUI) for quickly viewing docker images and docker containers currently build/in-use. 
-   Windows users that have not installed WSL yet are going to have to do it now (as docker need it as backend for 
+1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through
+   depends on your operating system. For Windows and Mac we recommend they install *Docker desktop*, which comes with
+   a graphical user interface (GUI) for quickly viewing docker images and docker containers currently build/in-use.
+   Windows users that have not installed WSL yet are going to have to do it now (as docker need it as backend for
    starting virtual machines) but you do not need to install docker in WSL.
 
 2. Try running the following to confirm that your installation is working:
@@ -162,26 +162,26 @@ beneficial for you to download.
    ```
 
 9. Lets, now move on to trying to construct an docker file ourself for our
-   MNIST project. Create a file called `trainer.dockerfile`. The intention is that we want to develop one dockerfile 
+   MNIST project. Create a file called `trainer.dockerfile`. The intention is that we want to develop one dockerfile
    for running our training script and one for doing predictions.
 
-10. Instead of starting from scratch we nearly always want to start from some base image. For this exercise we are 
+10. Instead of starting from scratch we nearly always want to start from some base image. For this exercise we are
     going to start from a simple `python` image. Add the following to your `Dockerfile`
     ```docker
     # Base image
     FROM python:3.7-slim
     ```
 
-11. Next we are going to install some essentials in our image. The essentials more or less consist of a python 
+11. Next we are going to install some essentials in our image. The essentials more or less consist of a python
     installation. These instructions may seem familiar if you are using linux:
     ```docker
-    # install python 
+    # install python
     RUN apt update && \
         apt install --no-install-recommends -y build-essential gcc && \
         apt clean && rm -rf /var/lib/apt/lists/*
     ```
 
-12. The previous two steps are common for any docker application where you want to run python. All the remaining steps 
+12. The previous two steps are common for any docker application where you want to run python. All the remaining steps
     are application specific (to some degree):
 
     1. Lets copy over our application (the essential parts) from our computer to the container:
@@ -214,64 +214,64 @@ beneficial for you to download.
     ```bash
     docker build -f trainer.dockerfile . -t trainer:latest
     ```
-    please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is 
-    important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and 
-    the `-t trainer:latest` is the respective name and tag that we se afterwards when running `docker images` (see image 
+    please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is
+    important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and
+    the `-t trainer:latest` is the respective name and tag that we se afterwards when running `docker images` (see image
     below). Please note that building a docker image can take a couple of minutes.
 
     <p align="center">
       <img src="../figures/docker_output.PNG" width="1000" title="hover text">
     </p>
 
-14. Try running `docker images` and confirm that you get output similar to the one above. If you succeeds with this, 
+14. Try running `docker images` and confirm that you get output similar to the one above. If you succeeds with this,
     then try running the image
     docker image
     ```bash
     docker run --name experiment1 trainer:latest
     ```
-    you should hopefully see your training starting. Please note that we can start as many containers that we want at 
+    you should hopefully see your training starting. Please note that we can start as many containers that we want at
     the same time by giving them all different names using the `--name` tag.
 
-15. When your training has completed you will notice that any files that is created when running your training script is 
-    not present on your laptop (for example if your script is saving the trained model to file). This is because the 
+15. When your training has completed you will notice that any files that is created when running your training script is
+    not present on your laptop (for example if your script is saving the trained model to file). This is because the
     files were created inside your container (which is its own little machine). To get the files you have two options:
 
     1. If you already have a completed run then you can use
        ```bash
        docker cp
        ```
-       to copy the files between your container and laptop. For example to copy a file called `trained_model.pt` from a 
+       to copy the files between your container and laptop. For example to copy a file called `trained_model.pt` from a
        folder you would do:
        ```bash
        docker cp {container_name}:{dir_path}/{file_name} {local_dir_path}/{local_file_name}
        ```
        Try this out.
 
-    2. A much more efficient strategy is to mount a volume that is shared between the host (your laptop) and the 
-       container. This can be done with the `-v` option for the `docker run` command. For example, if we want to 
-       automatically get the `trained_model.pt` file after running our training script we could simply execute the 
+    2. A much more efficient strategy is to mount a volume that is shared between the host (your laptop) and the
+       container. This can be done with the `-v` option for the `docker run` command. For example, if we want to
+       automatically get the `trained_model.pt` file after running our training script we could simply execute the
        container as
        ```bash
        docker run --name {container_name} -v %cd%/models:/models/ trainer:latest
        ```
-       this command mounts our local `models` folder as a corresponding `models` folder in the container. Any file save 
-       by the container to this folder will be synchronized back to our host machine. Try this out! Note if you have 
-       multiple files/folders that you want to mount (if in doubt about file organization in the container try to do 
-       the next exercise first). Also note that the `%cd%` need to change depending on your OS, see this 
-       [page](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) 
+       this command mounts our local `models` folder as a corresponding `models` folder in the container. Any file save
+       by the container to this folder will be synchronized back to our host machine. Try this out! Note if you have
+       multiple files/folders that you want to mount (if in doubt about file organization in the container try to do
+       the next exercise first). Also note that the `%cd%` need to change depending on your OS, see this
+       [page](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10)
        for help.
 
-16. Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start 
+16. Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start
     the image in interactive mode:
     ```bash
     docker run -it --entrypoint sh {image_name}:{image_name}
     ```
 
-17. With training done we also need to write an application for prediction. Create a new docker image called 
-    `predict.dockerfile`. This file should call your `src/models/predict_model.py` script instead. This image will 
-    need some trained model weights to work. Feel free to either includes these during the build process or mount them 
-    afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if you 
-    are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably 
+17. With training done we also need to write an application for prediction. Create a new docker image called
+    `predict.dockerfile`. This file should call your `src/models/predict_model.py` script instead. This image will
+    need some trained model weights to work. Feel free to either includes these during the build process or mount them
+    afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if you
+    are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably
     need to look something like
     ```bash
     docker run --name predict --rm \
@@ -282,9 +282,9 @@ beneficial for you to download.
         ../../example_images.npy
     ```
 
-18. (Optional, requires GPU support) By default a virtual machine created by docker only have access to your `cpu` and 
-    not your `gpu`. While you do not necessarily have a laptop with a GPU that supports training of neural network 
-    (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage 
+18. (Optional, requires GPU support) By default a virtual machine created by docker only have access to your `cpu` and
+    not your `gpu`. While you do not necessarily have a laptop with a GPU that supports training of neural network
+    (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage
     of a GPU if you were to run this on a machine in the future that have a GPU (e.g. in the cloud). It does take a bit
     more work, but many of the steps will be similar to building a normal docker image.
 
@@ -292,12 +292,12 @@ beneficial for you to download.
        the Docker Engine installed (already taken care of), have Nvidia GPU with updated GPU drivers and finally have
        the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The last part you not likely have not installed and needs to do.
 
-    2. To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is 
+    2. To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
        the correct image:
        ```bash
        docker pull nvidia/cuda:11.0.3-base-ubuntu20.04
        ```
-       but it may differ based on what cuda vision you have. You can find all the different offical Nvidia images 
+       but it may differ based on what cuda vision you have. You can find all the different offical Nvidia images
        [here](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
        inside a container based on the image you just pulled. It should look something like this:
        ```bash
@@ -313,13 +313,13 @@ beneficial for you to download.
        get Pytorch inside of our container, such that our Pytorch implementation also correctly identify the GPU.
        Luckily for us Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
        through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
-       The containers that have to do with Pytorch can be seen 
+       The containers that have to do with Pytorch can be seen
        [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html). Try pulling the latest:
        ```bash
        docker pull nvcr.io/nvidia/pytorch:22.07-py3
        ```
        It may take some time, because the NGC images includes a lot of other software for optimizing Pytorch
-       applications. It may be possible for you to find other images for running GPU accelerated applications that have 
+       applications. It may be possible for you to find other images for running GPU accelerated applications that have
        a smaller memory footprint, but NGC are the recommend and supported way.
 
     4. Lets test that this container work:
@@ -334,7 +334,7 @@ beneficial for you to download.
        ```
        which hopefully should return `True`.
 
-    5. Finally, we need to incorporate all this into our already developed docker files for our application. This is 
+    5. Finally, we need to incorporate all this into our already developed docker files for our application. This is
        also fairly easy as we just need to change our `FROM` statement in the beginning of our docker file:
        ```docker
        FROM python:3.7-slim
@@ -346,7 +346,7 @@ beneficial for you to download.
        try doing this to one of your docker files, build the image and run the container. Remember to check that your
        application is using GPU by printing `torch.cuda.is_available()`.
 
-The covers the absolute minimum you should know about docker to get a working image and container. 
-That said, if you are actively going to be using docker in the near future, one thing to consider 
-is the image size. Even these simple images that we have build still takes up GB in size. A number 
+The covers the absolute minimum you should know about docker to get a working image and container.
+That said, if you are actively going to be using docker in the near future, one thing to consider
+is the image size. Even these simple images that we have build still takes up GB in size. A number
 of optimizations steps can be taken to reduce the image size for you or your end user.
