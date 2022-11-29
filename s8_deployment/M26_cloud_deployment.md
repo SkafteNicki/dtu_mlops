@@ -67,6 +67,7 @@ do you have to manage the server. Everything is magically taken care of behind t
       ```txt
       Good day to you sir!
       ```
+
       Try it out.
 
    2. Click on the metrics tab. Identify what each panel is showing.

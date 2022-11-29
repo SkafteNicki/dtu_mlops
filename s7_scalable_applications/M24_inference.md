@@ -180,7 +180,6 @@ before we run it. With `jit` we essentially merges the two phases into one.
    Do you see a decrease in time of the jit compiled model compared to the standard one?
    If so, what is the percentage increase in efficiency?
 
-
 Thats all for this topic on doing scalable inference. If you want to further deep dive into this topic, I highly
 recommend that you also checkout methods such as
 [pruning](https://towardsdatascience.com/pruning-neural-networks-1bb3ab5791f9).

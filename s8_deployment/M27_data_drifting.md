@@ -19,7 +19,6 @@ nav_order: 3
 
 ---
 
-
 ## Drifting data
 
 A big part of deployment is also monitoring the performance of your deployed model. Especially, the concept of

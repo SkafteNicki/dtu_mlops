@@ -19,7 +19,7 @@ nav_order: 1
 
 ---
 
-### Exercises
+## Exercises
 
 Torchserve is Pytorch own framework for deploying/serving models. It can be a bit rough around the edges but
 is fairly easy to work with. We are largely going to follow the instructions listed in the
@@ -67,6 +67,7 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
    ```python
    assert torch.allclose(unscripted_top5_indices, scripted_top5_indices)
    ```
+
    (HINT: [torch.topk](https://pytorch.org/docs/stable/generated/torch.topk.html))
 
 6. Call the model archiver. We have provided a file called `index_to_name.json` that maps from predicted class

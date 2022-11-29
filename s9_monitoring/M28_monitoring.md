@@ -19,7 +19,7 @@ nav_order: 1
 
 ---
 
-### Exercises
+## Exercises
 
 We are in this exercise going to look at how we can setup automatic alerting
 such that we get an message every time one of our applications are not behaving
