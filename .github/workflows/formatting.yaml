@@ -1,4 +1,4 @@
-name: Check Markdown links
+name: Check Markdown formatting
 
 on:
   push:
@@ -7,8 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  markdown-link-check:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      - uses: xt0rted/markdownlint-problem-matcher@v2
+      - run: markdownlint **/*.md --ignore node_modules
