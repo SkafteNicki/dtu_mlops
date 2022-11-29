@@ -5,7 +5,7 @@ parent: S2 - Organization and version control
 nav_order: 1
 ---
 
-<img style="float: right;" src="../figures/icons/git.png" width="130"> 
+<img style="float: right;" src="../figures/icons/git.png" width="130">
 
 # Git
 {: .no_toc }
@@ -37,8 +37,8 @@ Secondly, it is important to note that Github is not git! Github is the dominati
 hosting repositories but that does not mean that they are the only one providing free repository hosting
 (see [bitbucket](https://bitbucket.org/product/ or [gitlab](https://about.gitlab.com/)) for some other examples).
 
-That said we will be using git and github throughout this course. It is a requirement for passing this course that 
-you create a public repository with your code and use git to upload any code changes. How much you choose to integrate 
+That said we will be using git and github throughout this course. It is a requirement for passing this course that
+you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+github.
 
 ## Initial config
@@ -48,7 +48,7 @@ this into your own projects depends, but you are at least expected to be familia
 
 2. Create a [github](https://github.com/) account if you do not already have one.
 
-3. To make sure that we do not have to type in our github username every time that we want to do some changes, 
+3. To make sure that we do not have to type in our github username every time that we want to do some changes,
    we can once and for all set them on our local machine
 
    ```bash
@@ -76,17 +76,17 @@ adding commits are seen below
   <img src="../figures/git_structure.PNG" width="1000," title="hover text">
 </p>
 
-Assuming that we have made some changes to our local *working directory* and that we 
+Assuming that we have made some changes to our local *working directory* and that we
 want to get this updates to be online in the *remote repository* we have to do the following steps:
 
-* First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the 
-  staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique 
+* First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the
+  staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique
   hash to the code yet, and we can therefore still overwrite it.
 
-* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally 
+* To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally
   add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
 
-* Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our 
+* Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our
   commit gets online
 
 Of course, the real power of version control is the ability to make branches, as in the image below
@@ -102,8 +102,8 @@ working together on the same project.
 
 ## Exercise
 
-1. In your github account create an repository, where the intention is that you upload the code from the final 
-   exercise from yesterday  
+1. In your github account create an repository, where the intention is that you upload the code from the final
+   exercise from yesterday
 
    1. After creating the repository, clone it to your computer
       ```git clone https://github.com/my_user_name/my_repository_name.git```
@@ -119,7 +119,7 @@ working together on the same project.
 
    6. You can always use the commando `git status` to check where you are in the process of making a commit.
 
-2. Make sure that you understand how to make branches, as this will allow you to try out code changes without 
+2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
    messing with your working code. Creating a new branch can be done using:
    ```bash
    # create a new branch
@@ -160,7 +160,7 @@ working together on the same project.
 
    6. Write a bit about the changes you have made and click `Create pull request` :)
 
-4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To 
+4. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
    mitigate this we can set what is called an *remote upstream*. Take a look on this
    [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork)
    , and set a remote upstream for the repository you just forked.
@@ -200,12 +200,12 @@ working together on the same project.
 
    4. Finally, commit the merge and try to push.
 
-7. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning. 
+7. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
    However, if you are using a proper editor they also have build in support for version control. We recommend getting
-   familiar with these features (here is a tutorial for 
+   familiar with these features (here is a tutorial for
    [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
-That covers the basics of git to get you started. In the exercise folder you can find a 
+That covers the basics of git to get you started. In the exercise folder you can find a
 [git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference. Finally,
 we want to point out another awesome feature of Github: in browser editor. Sometimes you have a small edit that you want
 to make, but still would like to do this in a IDE/editor. Or you may be in the situation where you are working from

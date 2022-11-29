@@ -5,7 +5,7 @@ parent: S2 - Organization and version control
 nav_order: 3
 ---
 
-<img style="float: right;" src="../figures/icons/pep8.png" width="130"> 
+<img style="float: right;" src="../figures/icons/pep8.png" width="130">
 
 # Good coding practice
 {: .no_toc }
@@ -35,13 +35,13 @@ Instead good coding practices really comes down to two topics: documentation and
 Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourself, but love
 when someone else have actually taken time to add it to their code. There is no doubt about that well documented
 code is much easier to maintain as you do not need to remember all details about the code to still maintain it.
-It is key to remember that good documentation saves more time than it takes to write. 
+It is key to remember that good documentation saves more time than it takes to write.
 
 The problem with documentation is that there is no right or wrong way to do it. You can end up doing:
 * Under documentation: You document information that is clearly visible from the code and not the complex
 parts that are actually hard to understand.
 
-* Over documentation: Writing too much documentation will have the opposite effect on most people than 
+* Over documentation: Writing too much documentation will have the opposite effect on most people than
 what you want: there is too much to read, so people will skip it.
 
 Here is a good rule of thump for inline comments
@@ -67,10 +67,10 @@ will often see that your own style of coding changes as you become more and more
 difference in coding style is not that important to take care of when you are working on a personal project,
 but when working multiple people together on the same project it is important to consider.
 
-The question then remains what styling you should use. This is where [Pep8](https://www.python.org/dev/peps/pep-0008/) 
-comes into play, which is the  official style guide for python. It is essentially contains what is considered "good practice" and "bad practice" when coding python. 
+The question then remains what styling you should use. This is where [Pep8](https://www.python.org/dev/peps/pep-0008/)
+comes into play, which is the  official style guide for python. It is essentially contains what is considered "good practice" and "bad practice" when coding python.
 
-One way to check if your code is pep8 compliant is to use 
+One way to check if your code is pep8 compliant is to use
 [flake8](https://flake8.pycqa.org/en/latest/).
 
 ### Exercises
@@ -94,14 +94,14 @@ Some of the biggest are:
 
 It is important to note, that code formatting is in general not about following a specific code style, but rather that all users follow the same.
 
-5. Install a code formatter of your own choice (I recommend `black`) and let it format at least one of the script in your codebase. You can also try to play around with the different formatters to find out which formatter you like the most 
+5. Install a code formatter of your own choice (I recommend `black`) and let it format at least one of the script in your codebase. You can also try to play around with the different formatters to find out which formatter you like the most
 
 One aspect not covered by `pep8` is how `import` statements in python should be organized. If you are like most
 people, you place your `import` statements at the top of the file and they are ordered simply by when you needed them.
 For this reason `import` statements is something we also want to take care of, but do not want to deal with ourself.
 
 6. Install [isort](https://github.com/PyCQA/isort) the standard for sorting imports
-   ``` 
+   ```
    pip install isort
    ```
 
@@ -126,7 +126,7 @@ max-line-length = 100
 
 10. (Optional) Experiment further with the customization of `flake8`, `black` ect. Especially it may be worth looking into the `include` and `exclude` keywords for specifying which files should actually be formatted.
 
-## Typing 
+## Typing
 
 In addition to writing documentation and following a specific styling, in python we have a third way of improving the quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier programming languages like `c`, `c++` ect. where [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/) needed to be explicit stated for variables:
 
