@@ -92,7 +92,7 @@ with torch.profiler.profile(...) as prof:
    output = model(data)
 ```
 
-### Exercises (optional)
+### Exercises
 
 In these investigate the profiler that is build into PyTorch already. Note that these exercises requires that you
 have PyTorch v1.8.1 installed (or higher). You can always check which version you currently have installed by writing
@@ -103,36 +103,34 @@ import torch
 print(torch.__version__)
 ```
 
-Additionally, to display the result nicely (like `snakeviz` for `cProfile`) we are also going to use the
-tensorboard profiler extension
+But we always recommend to update to the latest Pytorch version for the best experience. Additionally, to display the
+result nicely (like `snakeviz` for `cProfile`) we are also going to use the tensorboard profiler extension
 
 ```bash
 pip install torch_tb_profiler
 ```
 
-1. The documentation on the new profiler is sparse but take a look at this
-   [blogpost](https://pytorch.org/blog/introducing-pytorch-profiler-the-new-and-improved-performance-tool/)
-   and the [documentation](https://pytorch.org/docs/stable/profiler.html) which should give you an idea of
-   how to use the PyTorch profiler.
+1. A good starting point is too look at the [API for the profiler](https://pytorch.org/docs/stable/profiler.html). Here
+   the important class to look at is the `torch.profiler.profile` class.
 
-2. Lets try out an simple example:
+2. Lets try out an simple example (taken from
+   [here](https://pytorch.org/tutorials/recipes/recipes/profiler_recipe.html)):
 
    1. Try to run the following code
 
       ```python
       import torch
       import torchvision.models as models
-      from torch.profiler import profile, record_function, ProfilerActivity
+      from torch.profiler import profile, ProfilerActivity
 
       model = models.resnet18()
       inputs = torch.randn(5, 3, 224, 224)
 
       with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
-         with record_function("model_inference"):
-            model(inputs)
+         model(inputs)
       ```
 
-      this will profile the `forward` pass of resnet 18 model.
+      this will profile the `forward` pass of Resnet 18 model.
 
    2. Running this code will produce an `prof` object that contains all the relevant information about the profiling.
       Try writing the following code:
@@ -155,9 +153,21 @@ pip install torch_tb_profiler
 
       ```python
       with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
-         with record_function("model_inference"):
-            model(inputs)
+         model(inputs)
       ```
+
+   5. (Optional) As an alternative to using `profile` as an
+      [context-manager](https://book.pythontips.com/en/latest/context_managers.html) we can also use its `.start` and
+      `.stop` methods:
+
+      ```python
+      prof = profile(...)
+      prof.start()
+      ...  # code I want to profile
+      prof.stop()
+      ```
+
+      Try doing this on the above example.
 
 3. The `torch.profiler.profile` function takes some additional arguments. What argument would you need to
    set to also profile the memory usage? (Hint: this [page](https://pytorch.org/docs/stable/profiler.html))
@@ -171,26 +181,59 @@ pip install torch_tb_profiler
    ```
 
    you should be able to visualize the file by going to `chrome://tracing` in any chromium based web browser.
+   Can you still identify the information printed in the previous exercises from the visualizations?
 
-5. Additionally, we can also vizualize the profiling results using the profiling viewer in tensorboard. Simply
-   initialize the `profile` function with an additional argument:
+5. Running profiling on a single forward step can produce misleading results as it only provides a single sample that
+   may depend on what background processes that are running on your computer. Therefore it is recommended to profile
+   multiple iterations of your model. If this is the case then we need to include `prof.step()` to tell the profiler
+   when we are doing a new iteration
 
    ```python
-   from torch.profiler import profile, tensorboard_trace_handler
-   with profile(..., on_trace_ready=tensorboard_trace_handler(<profile_dir>)):
-      ...
+   with profile(...) as prof:
+      for i in range(10):
+         model(inputs)
+         prof.step()
    ```
 
-   where `<profile_dir>` you choose yourself. After doing a profile you should see a file being created in the
-   chosen folder having the file extension `.pt.trace.json`. Finally, launch tensorboard and look a the profiled
-   result
+   Try doing this. Is the conclusion this the same on what operations that are taken up most of the time? Have the
+   percentage changed significantly?
 
-   ```bash
-   tensorboard --logdir <profile_dir>
-   ```
+6. Additionally, we can also visualize the profiling results using the profiling viewer in tensorboard.
 
-6. Redo the steps above on the `vae_mnist_working.py` file, implementing now multiple calls to `record_function`
-   on various levels of the training. Try running the profiling and investigate if you are able to improve the code.
+   1. Start by initializing the `profile` class with an additional argument:
+
+      ```python
+      from torch.profiler import profile, tensorboard_trace_handler
+      with profile(..., on_trace_ready=tensorboard_trace_handler("./log/resnet18")) as prof:
+         ...
+      ```
+
+      Try run a profiling (using a couple of iterations) and make sure that a file with the `.pt.trace.json` is
+      produced in the `log/resnet18` folder.
+
+   2. Now try launching tensorboard
+
+      ```bash
+      tensorboard --logdir=./log
+      ```
+
+      and open the page <http://localhost:6006/#pytorch_profiler>, where you should hopefully see an image similar
+      to the one below:
+      <p align="center">
+         <img src="../figures/profile_overview.png" width="600">
+         <br>
+         <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a>
+      </p>
+
+      Try poking around in the interface.
+
+   3. Tensorboard have a nice feature for comparing runs under the `diff` tab. Try redoing a profiling run but use
+      `model = models.resnet34()` instead. Load up both runs and try to look at the `diff` between them.
+
+7. As an final exercise, try to use the profiler on the `vae_mnist_working.py` file from the previous module on
+   debugging, where you profile a hole training run (not only the forward pass). What is the bottleneck during the
+   training? Is it still the forward pass or is it something else? Can you improve the code somehow based on the
+   information from the profiler.
 
 This end the module on profiling. If you want to go into more details on this topic we can recommend looking into
 [line_profiler and kernprof](https://github.com/pyutils/line_profiler). A downside of using python's `cProfile` is that
@@ -201,3 +244,6 @@ non-sequential indexes is really expensive. For these cases
 [line_profiler and kernprof](https://github.com/pyutils/line_profiler) are excellent tools to have in your toolbox.
 Additionally, if you do not like cProfile we can also recommend [py-spy](https://github.com/benfred/py-spy) which is
 another open-source profiling tool for python programs.
+
+
+
