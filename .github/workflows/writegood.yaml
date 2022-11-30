@@ -1,4 +1,4 @@
-name: Check Markdown links
+name: Check Good writing
 
 on:
   push:
@@ -7,8 +7,10 @@ on:
     branches: [main]
 
 jobs:
-  markdown-link-check:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      - run: npm install write-good
+      # TODO: include at some point
+      #- run: npx write-good *.md

@@ -1,0 +1,16 @@
+name: Check Markdown formatting
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: xt0rted/markdownlint-problem-matcher@v2
+      - run: npm install -g markdownlint-cli
+      - run: markdownlint **/*.md --ignore node_modules

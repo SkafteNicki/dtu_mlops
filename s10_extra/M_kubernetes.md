@@ -5,7 +5,7 @@ parent: S10 - Extra
 nav_order: 7
 ---
 
-<img style="float: right;" src="../figures/icons/kubernetes.png" width="130"> 
+<img style="float: right;" src="../figures/icons/kubernetes.png" width="130">
 
 # Kubernetes
 {: .no_toc }
@@ -33,16 +33,20 @@ nav_order: 7
 1. Install [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
 2. Make sure that minikube is correctly installed by typing
+
    ```bash
    minikube
    ```
+
    in a terminal. Additionally, also check that [kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/) (the
    command line tool for kubernetes, its a dependency of minikube) is correctly installed by typing
+
    ```bash
    kubectl
    ```
+
    in a terminal.
 
 ## Yatai
 
-https://github.com/bentoml/Yatai
+[yatai](https://github.com/bentoml/Yatai)

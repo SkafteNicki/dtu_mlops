@@ -20,105 +20,111 @@ mathjax: true
 
 ---
 
-Inference is task of applying our trained model to some new and unseen data, often called *prediction*. Thus, scaling 
-inference is different from scaling data loading and training, mainly due to inference normally only using a single 
-data point (or a few). As we can neither parallelize the data loading or parallelize using multiple GPUs (at least 
-not in any efficient way), this is of no use to us when we are doing inference. Secondly, inference is often not 
-something we do on machines that can perform large computations, as most inference today is actually either done on 
-*edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter about how 
+Inference is task of applying our trained model to some new and unseen data, often called *prediction*. Thus, scaling
+inference is different from scaling data loading and training, mainly due to inference normally only using a single
+data point (or a few). As we can neither parallelize the data loading or parallelize using multiple GPUs (at least
+not in any efficient way), this is of no use to us when we are doing inference. Secondly, inference is often not
+something we do on machines that can perform large computations, as most inference today is actually either done on
+*edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter about how
 we scale inference than just throwing more compute at it.
 
 ## Choosing the right architecture
 
-When coming up with a model architectures we often look at prior work a make a copy or mix of this. It is a great way 
-to get started, but not all model architectures are created equal. Take `Distillbert` for example. `Distillbert` is a 
-smaller version of the large natural-language procession model `Bert` that has been trained using *model distillation*. 
-Model distillation assumes that we already have a big model that performs well. By running our training set through our 
-large model, we get input-output pairs ${x_i,y_i}_{i=1}^N$ that we can train a small model to mimic. This is exactly 
-what `Distillbert` successfully did, and as you can see in the figure below it is by far the smallest model in newer 
+When coming up with a model architectures we often look at prior work a make a copy or mix of this. It is a great way
+to get started, but not all model architectures are created equal. Take `Distillbert` for example. `Distillbert` is a
+smaller version of the large natural-language procession model `Bert` that has been trained using *model distillation*.
+Model distillation assumes that we already have a big model that performs well. By running our training set through our
+large model, we get input-output pairs ${x_i,y_i}_{i=1}^N$ that we can train a small model to mimic. This is exactly
+what `Distillbert` successfully did, and as you can see in the figure below it is by far the smallest model in newer
 time (not that I would call 66 million parameters for "small").
 
 <p align="center">
    <img src="../figures/distill.png" width="600" title="All credit to https://arxiv.org/abs/1910.01108v4">
 </p>
 
-As discussed in this 
-[blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413) 
-the probably largest increase in inference speed you will see (given some specific hardware) is choosing an efficient 
-model architecture. Model distillation is just one way of coming up with more efficient architechtures. In the exercises 
-below we are going to investigate the third generation of mobile nets `MobileNet v3`, which was constructed using a 
-combination of efficient convolutional layers called inverted residual blocks, special swich non-linarity and neural 
-architecture search. You can read more about it 
+As discussed in this
+[blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413)
+the probably largest increase in inference speed you will see (given some specific hardware) is choosing an efficient
+model architecture. Model distillation is just one way of coming up with more efficient architechtures. In the exercises
+below we are going to investigate the third generation of mobile nets `MobileNet v3`, which was constructed using a
+combination of efficient convolutional layers called inverted residual blocks, special swich non-linarity and neural
+architecture search. You can read more about it
 [here](https://towardsdatascience.com/everything-you-need-to-know-about-mobilenetv3-and-its-comparison-with-previous-versions-a5d5e5a6eeaa)
 
 ### Exercises
 
-1. Write a small script that does inference with both `MobileNet V3 Large` and `ResNet-152` (pre-trained versions of 
-   both can be downloaded using `torchvision`) and try to time it. Do you see a difference in inference time? Can you 
-   figure out the performance difference between the two model architectures, and in your opinion is this high enough 
+1. Write a small script that does inference with both `MobileNet V3 Large` and `ResNet-152` (pre-trained versions of
+   both can be downloaded using `torchvision`) and try to time it. Do you see a difference in inference time? Can you
+   figure out the performance difference between the two model architectures, and in your opinion is this high enough
    to justify an increase in inference time.
 
-2. To figure out why one net is more efficient than another we can try to count the operations each network need to 
-   do for inference. A operation here we can define as a 
-   [FLOP (floating point operation)](https://en.wikipedia.org/wiki/FLOPS) which is any mathematical operation (such as 
-   +, -, *, /) or assignment that involves floating-point numbers. Luckily for us someone has already created a python 
+2. To figure out why one net is more efficient than another we can try to count the operations each network need to
+   do for inference. A operation here we can define as a
+   [FLOP (floating point operation)](https://en.wikipedia.org/wiki/FLOPS) which is any mathematical operation (such as
+   +, -, *, /) or assignment that involves floating-point numbers. Luckily for us someone has already created a python
    package for calculating this in pytorch: [ptflops](https://github.com/sovrasov/flops-counter.pytorch)
 
    1. Install the package
+
       ```bash
       pip install ptflops
       ```
 
-   2. Try calling the `get_model_complexity_info` function from the `ptflops` package on the two networks from the 
-      previous exercise. What are the results? How many times less operations does the mobile net need to perform 
+   2. Try calling the `get_model_complexity_info` function from the `ptflops` package on the two networks from the
+      previous exercise. What are the results? How many times less operations does the mobile net need to perform
       compared to the resnet?
 
-3. (Optional) Try out model distillation yourself. Assuming that you already have a trained conv net (on the corrupted 
-   mnist dataset), 
-   try to run all your training data through and record the log-probabilities that the model is predicting. Then design a smaller conv net, 
-   that you train to map from images to the log-probabilities that you recorded earlier. Finally, try out your small distilled model by 
-   measuring overall performance on the test set and compare to your original model.
+3. (Optional) Try out model distillation yourself. Assuming that you already have a trained conv net (on the corrupted
+   mnist dataset), try to run all your training data through and record the log-probabilities that the model is
+   predicting. Then design a smaller conv net, that you train to map from images to the log-probabilities that you
+   recorded earlier. Finally, try out your small distilled model by measuring overall performance on the test set and
+   compare to your original model.
 
 ## Quantization
 
-Quantization is a technique where all computations are performed with integers instead of floats. 
+Quantization is a technique where all computations are performed with integers instead of floats.
 We are essentially taking all continuous signals and converting them into discretized signals.
 
 <p align="center">
    <img src="../figures/quantization.png" width="300" title="All credit to https://arxiv.org/abs/1910.01108v4">
 </p>
 
-As discussed in this 
-[blogpost series](https://devblog.pytorchlightning.ai/benchmarking-quantized-mobile-speech-recognition-models-with-pytorch-lightning-and-grid-9a69f7503d07), 
-while `float` (32-bit) is the primarily used precision in machine learning because is strikes a good balance between memory 
-consumption, precision and computational requirement it does not mean that during inference we can take advantage of quantization 
-to improve the speed of our model. For instance:
+As discussed in this
+[blogpost series](https://devblog.pytorchlightning.ai/benchmarking-quantized-mobile-speech-recognition-models-with-pytorch-lightning-and-grid-9a69f7503d07),
+while `float` (32-bit) is the primarily used precision in machine learning because is strikes a good balance between
+memory consumption, precision and computational requirement it does not mean that during inference we can take
+advantage of quantization to improve the speed of our model. For instance:
 
 * Floating-point computations are slower than integer operations
 
 * Recent hardware have specialized hardware for doing integer operations
 
-* Many neural networks are actually not bottlenecked by how many computations they need to do but by how fast we can 
-  transfer data e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit 
+* Many neural networks are actually not bottlenecked by how many computations they need to do but by how fast we can
+  transfer data e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit
   integers vs 32-bit floats means that we can approximately move data around 4 times as fast.
 
-* Storing models in integers instead of floats save us approximately 75% of the ram/harddisk space whenever we save 
-  a checkpoint. This is especially useful in relation to deploying models using docker (as you hopefully remember) as 
+* Storing models in integers instead of floats save us approximately 75% of the ram/harddisk space whenever we save
+  a checkpoint. This is especially useful in relation to deploying models using docker (as you hopefully remember) as
   it will lower the size of our docker images.
 
-But how do we convert between floats and integers in quantization? In most cases we often use a *linear affine quantization*:
+But how do we convert between floats and integers in quantization? In most cases we often use a
+*linear affine quantization*:
 
 $$
-x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right) 
+x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$
 
-where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The figure below shows 
-all the conversations that we need to make to our standard inference pipeline to actually do computations in quantized format.
+where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The
+figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
+computations in quantized format.
 
+<!-- markdownlint-disable -->
 <p align="center">
-   <img src="../figures/quantization_overview.png" width="800" 
-   title="All credit to https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512">
+   <img src="../figures/quantization_overview.png" width="800"
+   <br>
+   <a href="https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512"> Image credit </a>
 </p>
+<!-- markdownlint-restore -->
 
 ### Exercises
 
@@ -132,10 +138,10 @@ all the conversations that we need to make to our standard inference pipeline to
    3. Finally, try to call the `.dequantize()` method on the tensor. Do you get a tensor back that is
       close to what you initially started out with.
 
-2. As you hopefully saw in the first exercise we are going to perform a number of rounding errors when 
-   doing quantization and naively we would expect that this would accumulate and lead to a much worse model. 
-   However, in practice we observe that quantization still works, and we actually have a mathematically 
-   sound reason for this. Can you figure out why quantization still works with all the small rounding 
+2. As you hopefully saw in the first exercise we are going to perform a number of rounding errors when
+   doing quantization and naively we would expect that this would accumulate and lead to a much worse model.
+   However, in practice we observe that quantization still works, and we actually have a mathematically
+   sound reason for this. Can you figure out why quantization still works with all the small rounding
    errors? HINT: it has to do with the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
 3. Lets move on to quantization of our model. Follow this
@@ -143,43 +149,42 @@ all the conversations that we need to make to our standard inference pipeline to
    to construct a model `model_fc32` that works on normal floats and a quantized version `model_int8`. For simplicity
    you can just use one of the models from the tutorial.
 
-3. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also try 
-   to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an improvement,
-   explain why that may be.
+4. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also
+   try to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an
+   improvement, explain why that may be.
 
-4. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and converting it. 
-   However, quantization can be further implemented into our pipeline by doing `quantization aware training`, where we also 
-   apply quantization during training to hopefully get model that quantize better in the end. This can easily be done in 
-   lightning using the 
-   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/api/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining) callback. Try it out!
-
+5. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and
+   converting it. However, quantization can be further implemented into our pipeline by doing
+   `quantization aware training`, where we also apply quantization during training to hopefully get model that quantize
+   better in the end. This can easily be done in lightning using the
+   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/api/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining)
+   callback. Try it out!
 
 ## Compilation
 
-If you ever coded in any low-level language such as c, fortran or c++ you should be familiar with the term *compiling*. 
-Compiling is the task of taken a computer program written in one language and translating it into another. In most cases 
-this means taken whatever you have written in your preferred programming language and translating it into machine code 
+If you ever coded in any low-level language such as c, fortran or c++ you should be familiar with the term *compiling*.
+Compiling is the task of taken a computer program written in one language and translating it into another. In most cases
+this means taken whatever you have written in your preferred programming language and translating it into machine code
 that the computer can execute. But what does compilation have to do with coding pytorch models?
 
 It happens to be that `Pytorch` comes with its own compiler that can optimize your model for you. It can be found in
-the submodule `torch.jit`. Jit stands for *just-in-time*, meaning that compilation runs at the same time we are executing
-the code. If you know anything about low-level languages such c/c++ you know that we normally compile the code before we
-run it. With `jit` we essentially merges the two phases into one.
-
+the submodule `torch.jit`. Jit stands for *just-in-time*, meaning that compilation runs at the same time we are
+executing the code. If you know anything about low-level languages such c/c++ you know that we normally compile the code
+before we run it. With `jit` we essentially merges the two phases into one.
 
 ### Exercises
 
-1. To see the difference in the this exercises, we start out with a large model. Download one of large imagenet 
+1. To see the difference in the this exercises, we start out with a large model. Download one of large imagenet
    classification models from `torchvision` such as `ResNet-152` (remember to get the pretrained version).
 
 2. Next try to script the model using `torch.jit.script`.
 
-3. Finally, use `torch.utils.benchmark.Timer` to time both the standard model and jit-compiled version of the model. 
-   Do you see a decrease in time of the jit compiled model compared to the standard one? 
+3. Finally, use `torch.utils.benchmark.Timer` to time both the standard model and jit-compiled version of the model.
+   Do you see a decrease in time of the jit compiled model compared to the standard one?
    If so, what is the percentage increase in efficiency?
 
-
-Thats all for this topic on doing scalable inference. If you want to further deep dive into this topic, I highly 
-recommend that you also checkout methods such as [pruning](https://towardsdatascience.com/pruning-neural-networks-1bb3ab5791f9). 
+Thats all for this topic on doing scalable inference. If you want to further deep dive into this topic, I highly
+recommend that you also checkout methods such as
+[pruning](https://towardsdatascience.com/pruning-neural-networks-1bb3ab5791f9).
 Pytorch has an [build-in module](https://pytorch.org/tutorials/intermediate/pruning_tutorial.html) for doing this,
 which is another way to make models more efficient and thereby scalable.

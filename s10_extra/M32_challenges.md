@@ -8,8 +8,8 @@ nav_order: 4
 # Open questions
 
 If you have managed to go through all other material, congratulations, you are already a good way to becoming an MLOps
-engineer with a great overview of tools, concepts and techniques within the field. Below are listed some technical 
-hard problems regarding MLOps. These are meant as inspiration to get you to deep dive more into using all the cloud 
+engineer with a great overview of tools, concepts and techniques within the field. Below are listed some technical
+hard problems regarding MLOps. These are meant as inspiration to get you to deep dive more into using all the cloud
 services that `gcp` offers. You are also free to continue work on your project.
 
 <p align="center">
@@ -18,7 +18,7 @@ services that `gcp` offers. You are also free to continue work on your project.
 
 * Currently testing takes place in Github, but it should come as no
   surprise that `gcp` can also take care of this. Implementing testing
-  on `gcp`. This 
+  on `gcp`. This
   [blogpost](https://mickeyabhi1999.medium.com/basic-ci-cd-on-google-cloud-platform-using-cloud-build-b5c33d6842a7)
   can probably help.
 
@@ -56,18 +56,17 @@ services that `gcp` offers. You are also free to continue work on your project.
   can be a good place to start.
 
 * If you want different services to be able to talk to each other the correct way
-  is to setup a system using [Pub and Sub](https://cloud.google.com/pubsub) 
+  is to setup a system using [Pub and Sub](https://cloud.google.com/pubsub)
   (publish and subscription) service in `gcp`. Essentially it allows a service
-  to publish a message and other services to subscribe and react to it. For 
+  to publish a message and other services to subscribe and react to it. For
   example the AI platform could publish a message every time a model was done
   training and cloud build could subscribe to that, automatically staring to
   build a docker image using the trained model. Investigate Pub and Sub and
   try to make two services talk to each other.
 
 * In the deployment exercises you probably looked at least once on the logs. We can
-  automate what we do with the logs using the Logs Explorer service, which collects 
+  automate what we do with the logs using the Logs Explorer service, which collects
   all logs from all services that you are using. Setup
   [Logs routing](https://cloud.google.com/logging/docs/routing/overview) for one of
   your deployed services to your cloud storage. Afterwards setup a VM that consumes
   the logs and accumulate them.
-  

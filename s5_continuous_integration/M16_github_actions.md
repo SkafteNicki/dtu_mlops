@@ -5,7 +5,7 @@ parent: S5 - Continuous Integration
 nav_order: 2
 ---
 
-<img style="float: right;" src="../figures/icons/actions.png" width="130"> 
+<img style="float: right;" src="../figures/icons/actions.png" width="130">
 
 # Github actions
 {: .no_toc }
@@ -25,78 +25,79 @@ nav_order: 2
 > Core module
 
 With the tests established in the previous module we are now ready to move on to actually implementing some continuous
-integration in our pipeline. As you probably have already realized testing your code locally may take cumbersome to do, 
+integration in our pipeline. As you probably have already realized testing your code locally may take cumbersome to do,
 because
+
 * You need to run it often to make sure to catch bugs early on
 * If you want to have high code coverage of your code base, you will need many tests that takes a long time to run
 
-For these reasons we want to automatize the testing, such that it done every time we push to our repository. If we 
+For these reasons we want to automatize the testing, such that it done every time we push to our repository. If we
 combine this with only pushing to branches and then only merging these branches whenever all automatized testing have
 passed, our code should be fairly safe against unwanted bugs (assuming your tests are well covering your code).
 
 ## Github actions
-Github actions are the CI solution that Github provides. Each of your repositories gets 2,000 minutes 
-of free testing per month which should be more than enough for the scope of this course (and probably 
-all personal projects you do). Getting Github actions setup in a repository may seem complicated at 
-first, but workflow files that you create for one repository can more or less be reused for any 
+Github actions are the CI solution that Github provides. Each of your repositories gets 2,000 minutes
+of free testing per month which should be more than enough for the scope of this course (and probably
+all personal projects you do). Getting Github actions setup in a repository may seem complicated at
+first, but workflow files that you create for one repository can more or less be reused for any
 other repository that you have.
 
 Lets take a look at how a github workflow file is organized:
 
 * Initially we start by giving the workflow a `name`
-* Next we specify on what events the workflow should be triggered. This includes both the action 
+* Next we specify on what events the workflow should be triggered. This includes both the action
   (pull request, push ect) and on what branches is should activate
-* Next we list the jobs that we want to do. Jobs are by default executed in parallel but can 
+* Next we list the jobs that we want to do. Jobs are by default executed in parallel but can
   also be dependent on each other
-* In the `runs-on` we can specify which operation system we want the workflow to run on. We also 
+* In the `runs-on` we can specify which operation system we want the workflow to run on. We also
   have the possibility to specify multiple.
-* Finally we have the `steps`. This is where we specify the actual commands that should be 
+* Finally we have the `steps`. This is where we specify the actual commands that should be
   run when the workflow is executed.
 
 <p align="center">
-  <img src="../figures/actions.png" width="1000" 
+  <img src="../figures/actions.png" width="1000"
   title="credits to https://madewithml.com/courses/mlops/cicd/#github-actions">
 </p>
 
 ### Exercises
 
-1. Start by creating a `.github` folder in the root of your repository. 
+1. Start by creating a `.github` folder in the root of your repository.
    Add a sub-folder to that called `workflows`.
 
-2. Go over this [page](https://docs.github.com/en/actions/guides/building-and-testing-python) 
-   that explains how to do automated testing of python code in github actions. You do not have 
+2. Go over this [page](https://docs.github.com/en/actions/guides/building-and-testing-python)
+   that explains how to do automated testing of python code in github actions. You do not have
    to understand everything, but at least get a feeling of what a workflow file should look like.
-   
-3. We have provided a workflow file called `tests.yml` that should run your tests for you. Place 
+
+3. We have provided a workflow file called `tests.yml` that should run your tests for you. Place
    this file in the `.github/workflows/` folder. The workflow file consist of three steps
-   
+
    * First a python environment is setup (in this case python 3.8)
-   
+
    * Next all dependencies required to run the test are installed
-   
+
    * Finally, `pytest` is called and test will be run
 
-4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. 
-   The first file should contain all packages required to run your code. The second file is all 
-   *additional*  packages required to run the tests. In your simple case it may very well be that 
-   the second file is empty, however sometimes additional packages are used for testing that are 
+4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`.
+   The first file should contain all packages required to run your code. The second file is all
+   *additional*  packages required to run the tests. In your simple case it may very well be that
+   the second file is empty, however sometimes additional packages are used for testing that are
    not strictly required for the scripts to run.
-   
-5. Finally, try pushing the changes to your repository. Hopefully your tests should just start, 
-   and you will after sometime see a green check mark next to hash of the commit. Also try to 
+
+5. Finally, try pushing the changes to your repository. Hopefully your tests should just start,
+   and you will after sometime see a green check mark next to hash of the commit. Also try to
    checkout the *Actions*  tap where you can see the history of actions run.
 
    ![action](../figures/action.PNG)
 
 6. Normally we develop code one operating system and just hope that it will work on other operating
    systems. However, CI enables us to automatically test on other systems than ourself.
-   
+
    1. The provided `tests.yml` only runs on one operating system. Which one?
-   
-   2. Alter the file (or write a new) that executes the test on the two other main operating 
+
+   2. Alter the file (or write a new) that executes the test on the two other main operating
       systems that exist.
 
-7. As the workflow is currently setup, github actions will destroy every downloaded package 
+7. As the workflow is currently setup, github actions will destroy every downloaded package
    when the workflow has been executed. To improve this we can take advantage of `caching`:
 
    1. Figure out how to implement `caching` in your workflow file. Hint: this
@@ -110,7 +111,7 @@ Lets take a look at how a github workflow file is organized:
    on how to do it.
 
 9. As stated in the introduction, ideally we want to only push our code to branches, such that our workflows run
-   before we actually merge code into our codebase. We can directly prevent bad behavior by adding *branch 
+   before we actually merge code into our codebase. We can directly prevent bad behavior by adding *branch
    protection rules* to our repository. Take the image below as an example from one of my own PRs:
    <p align="center">
      <img src="../figures/ci_pull_request.PNG" width="1000">
@@ -121,8 +122,8 @@ Lets take a look at how a github workflow file is organized:
    implement something similar. Do the following:
 
    1. On your Github repository of choice, go to `Settings -> Branches -> Add branch protection rule`:
-      
-   2. To your main/master branch add the following rules: 
+
+   2. To your main/master branch add the following rules:
       * Atleast one person needs to approve any PR
       * All your workflows has to pass
       * All conversations needs to be resolved
@@ -132,31 +133,31 @@ Lets take a look at how a github workflow file is organized:
 
 ## Auto linter
 
-In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.md) of the course 
-you where introduced to a couple of good coding practices such as being consistent with how your 
-python packages are sorted and that your code follows certain standards. In this set of exercises 
-we will setup github workflows that will automatically test for this. 
+In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.md) of the course
+you where introduced to a couple of good coding practices such as being consistent with how your
+python packages are sorted and that your code follows certain standards. In this set of exercises
+we will setup github workflows that will automatically test for this.
 
 ### Exercises
 
 1. Create a new workflow file called `isort.yml`, that implements the following three steps
 
    * Setup python environment
-   
+
    * Installs `isort`
-   
+
    * Runs `isort` on the repository
-   
+
    (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
-   
+
 2. Create a new workflow file called `flake8.yml`, that implements the following three steps
 
    * Setup python environment
-   
+
    * Installs `flake8`
-   
+
    * Runs `flake8` on the repository
-   
+
    (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
 
 3. Create a new workflow file  called `mypy.yml`, that implements the following three steps
@@ -167,7 +168,7 @@ we will setup github workflows that will automatically test for this.
 
    * Runs `mypy` on the repository
 
-3. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
+4. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
    to get passing, so this exercise formally only requires you to get `isort` and `flake8`
    passing.
 
@@ -177,6 +178,6 @@ a workflow file directly in Github you may encounter the following page
 ![action](../figures/github_workflows.PNG)
 
 Github comes with many templates for writing actions file for whatever you may need, to make sure you have a good
-starting point. We highly recommend checking this out if you want to write any other kind of CI pipeline in 
+starting point. We highly recommend checking this out if you want to write any other kind of CI pipeline in
 Github actions. Additionally we can also recommend [this repository](https://github.com/sdras/awesome-actions) that
 have an list of awesome actions.
