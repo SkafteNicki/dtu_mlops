@@ -26,6 +26,12 @@ nav_order: 7
 
 ## Kubernetes architechture
 
+<p align="center">
+  <img src="../figures/components_of_kubernetes.png" width="800">
+  <br>
+  <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a>
+</p>
+
 ## Minikube
 
 ### Exercises
