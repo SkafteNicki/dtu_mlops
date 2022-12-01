@@ -87,7 +87,9 @@ Lets take a look at how a github workflow file is organized:
    and you will after sometime see a green check mark next to hash of the commit. Also try to
    checkout the *Actions*  tap where you can see the history of actions run.
 
-   ![action](../figures/action.PNG)
+   <p align="center">
+      <img src="../figures/action.PNG" width="1000">
+   </p>
 
 6. Normally we develop code one operating system and just hope that it will work on other operating
    systems. However, CI enables us to automatically test on other systems than ourself.
@@ -100,10 +102,21 @@ Lets take a look at how a github workflow file is organized:
 7. As the workflow is currently setup, github actions will destroy every downloaded package
    when the workflow has been executed. To improve this we can take advantage of `caching`:
 
-   1. Figure out how to implement `caching` in your workflow file. Hint: this
-      [page](https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows)
+   1. Figure out how to implement `caching` in your workflow file. Hint: checkout this guide
+      [page](https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows) .
+      If you need help, you can check out [this small repository](https://github.com/SkafteNicki/gh_tester) where
+      I have setup a simple caching vs non-caching experiment with all the requirements that are installed throughout
+      this course.
 
-   2. Measure how long your workflow takes before and after adding `caching` to your workflow
+   2. When you have implemented a caching system go to `Actions->Caches` in your repository and make sure that they
+      are correctly added. It should look something like the image below
+
+      <p align="center">
+         <img src="../figures/github_caches.png" width="1000">
+      </p>
+
+   3. Measure how long your workflow takes before and after adding `caching` to your workflow. Did it improve the
+      runtime of your workflow?
 
 8. (Optional) Code coverage can also be added to the workflow file by uploading it as an artifact
    after running the coverage. Follow the instructions in this
