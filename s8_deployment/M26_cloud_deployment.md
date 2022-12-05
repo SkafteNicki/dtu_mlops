@@ -5,6 +5,9 @@ parent: S8 - Deployment
 nav_order: 2
 ---
 
+<img style="float: right;" src="../figures/icons/functions.png" width="130">
+<img style="float: right;" src="../figures/icons/run.png" width="130">
+
 # Cloud deployment
 {: .no_toc }
 

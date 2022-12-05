@@ -5,6 +5,8 @@ parent: S8 - Deployment
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+
 # Local Deployment
 {: .no_toc }
 
@@ -18,6 +20,24 @@ nav_order: 1
 </details>
 
 ---
+
+Regardless of your application, model and usecase, the first starting point of serving your model should always be to
+deploy it locally. The simple reason for that is debugging: if you deploy directly to the cloud you often get less
+verbose error message and/or the iteration time is much slower because it simply takes much longer time to deploy
+to the cloud than locally. Locally should therefore always be the first step with any new application.
+
+<p align="center">
+  <img src="../figures/deployment_diagram.PNG" width="1000">
+</p>
+
+For this module we are going to focus on deployment of deep learning models, in particular Pytorch models which is used
+throughout the course. Pytorch has historically been developed for reseach purposed, where iterating with quick ideas
+was valued over fast computations. This is evident since Pytorch uses an *dynamic* graph underneath to represent the
+computational graph that is being created whenever you are running calculations. The graph is important, as it keeps
+track on how to do backpropergation though your Pytorch application. However, running code dynamically, or more
+correctly as *just-in-time* (JIT) compilation is notoriously slower than compiling your code before running it.
+
+
 
 ## Exercises
 
@@ -92,23 +112,23 @@ Additional documentation can be found [here](https://pytorch.org/serve/).
 
    1. Start serving your model in one terminal:
 
-        ```bash
-        torchserve --start --ncs --model-store model_store --models my_fancy_model=my_fancy_model.mar
-        ```
+      ```bash
+      torchserve --start --ncs --model-store model_store --models my_fancy_model=my_fancy_model.mar
+      ```
 
    2. Next, pick a image that you want to do inference on. It can be any image that you want but try to pick
-        one that actually contains an object from the set of imagenet classes. I have also provided a image of
-        my own cat in the `my_cat.jpg` file.
+      one that actually contains an object from the set of imagenet classes. I have also provided a image of
+      my own cat in the `my_cat.jpg` file.
 
    3. Open another terminal, which we are going to use for inference. The easiest way to do inference is using
-        `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
-        python. Using `curl` should look something like this
+      `curl` directly in the terminal but you are also free to experiment with the `requests` API directly in
+      python. Using `curl` should look something like this
 
-        ```bash
-        curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
-        ```
+      ```bash
+      curl http://127.0.0.1:8080/predictions/my_fancy_model -T my_image.jpg
+      ```
 
 9. (Optional) One strategy that researchers often resort to when trying to push out a bit of extra performance
-   is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often the
-   way that teams won the imagenet competition, by pooling together their individual models. Try creating and serving
-   a ensemble model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
+   is creating [ensembles](https://en.wikipedia.org/wiki/Ensemble_learning) of models. Before Alexnet, this was often
+   the way that teams won the imagenet competition, by pooling together their individual models. Try creating and
+   serving a ensemble model. HINT: We have already started creating a ensemble model in the `ensemblemodel.py` file.
