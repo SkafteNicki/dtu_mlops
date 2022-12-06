@@ -33,13 +33,21 @@ without taking advantage of distributed training.
 When we talk about distributed training, there are a number of different paradigms that we may use to parallelize
 our computations
 
-* Data parallel training
-* Distributed data parallel training
+* Data parallel (DP) training
+* Distributed data parallel (DDP) training
 * Sharded training
 
-For all the exercises in the module you are going to need a multi-gpu setup. For DTU Students I can recommend checking
-out [this module](../s10_extra/M31_HPC.md) on using the high performance cluster (HPC) where you can get
-access to GPU resources.
+In this module we are going to look at data parallel training, which is the original way of doing parallel training and
+distributed data parallel training which is an improved version of data parallel. If you want to know more about sharded
+training which is the newest of the paradigms you can read more about it in this
+[blog post](https://towardsdatascience.com/sharded-a-new-technique-to-double-the-size-of-pytorch-models-3af057466dba),
+which describes how sharded can save over 60% of memory used during your training.
+
+Finally, we want to note that for all the exercises in the module you are going to need a multi GPU setup. If you have
+not already gained access to multi GPU machines on GCP (see the quotas exercises in
+[this module](../s6_the_cloud/M20_cloud_setup.md)) you will need to find another way of running the exercises. For
+DTU Students I can recommend checking out [this optional module](../s10_extra/M31_HPC.md) on using the high performance
+cluster (HPC) where you can get access to multi GPU resources.
 
 ## Data parallel
 
