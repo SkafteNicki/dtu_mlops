@@ -145,5 +145,54 @@ As the first step we are going to get you setup with some Google cloud credits.
       [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
       called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar.
 
-After following these step your laptop should hopefully be setup for using `gcp` locally. You are now
-ready to use their services.
+After following these step your laptop should hopefully be setup for using `gcp` locally. You are now ready to use their
+services, both locally on your laptop and in the cloud console.
+
+## Quotas
+
+A big part of using the cloud in a bigger organisation has to do with Admin and quotas. Admin here in general refers
+to the different roles that users of GCP and quotas refers to the amount of resources that a given user has access to.
+For example one employee, lets say a data scientist, may only be granted access to certain GCP services that have to do
+with development and training of machine learning model, with `X` amounts of GPUs available to use to make sure that the
+employee does not spend too much money. Another employee, a devops engineer, probably do not need access to the same
+services and not necessarily the same resources.
+
+In this course we are not going to focus too much on this aspect but it is important to know about. What we are going
+to go through is how to increase the quotas for how many GPUs you have available. By default any free accounts in GCP
+(or accounts using teaching credits) the default quota for GPUs that you can use is either 0 or 1 (their policies
+sometimes changes). We will in the exercises below try to increase it.
+
+### Exercises
+
+1. Start by enabling the `Compute Engine` service. Simply search for it in the top search bar. It should bring you
+   to the a page where you can enable the service (may take some time). We are going to look more into this service
+   in the next module.
+
+2. Next go to the `IAM & Admin` page, again search for it in the top search bar. The remaining steps are illustrated
+   in the figure below.
+
+   1. Go to the `quotas page`
+
+   2. In the search field search for `GPUs (all region)`, such that you get the same quota as in the image
+
+   3. In the limit you can see what your current quota for the number of GPUs you can use are. Additional, to the
+      right of the limit you can see the current usage. It is worth checking in on if you are ever in doubt if a job
+      is running on GPU or not.
+
+   4. Click the quota and afterwards the `Edit qoutas` button.
+
+   5. In the pop-op window, increase your limit to either 1 or 2.
+
+   6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request
+
+   <p align="center">
+     <img src="../figures/quotas.png" width="1000" title="hover text">
+   </p>
+
+If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
+go to this page and see what you are actually allowed to use currently and try to increase it.
+
+\
+Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
+request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
+services some more to make sure you are not a bot that wants to mine crypto.

@@ -173,7 +173,20 @@ can be parallelized based on loading the raw datafiles (.jpg) at runtime.
    `-batches_to_check` flag). Also if you are not seeing an improvement, try increasing the batch size (since data
    loading is parallelized per batch).
 
-6. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the `pin_memory` flag
+6. Retry the experiment where you change the data augmentation to be more complex:
+
+   ```python
+   lfw_trans = transforms.Compose([
+       transforms.RandomAffine(5, (0.1, 0.1), (0.5, 2.0)),
+       # add more transforms here
+       transforms.ToTensor()
+   ])
+   ```
+
+   by making the augmentation more computationally demanding, it should be easier to get an boost in performance when
+   using multiple workers because the data augmentation is also executed in parallel.
+
+7. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the `pin_memory` flag
    to `True`. By setting this flag we are essentially telling Pytorch that they can lock the data in-place in memory
    which will make the transfer between the *host* (CPU) and the *device* (GPU) faster.
 
