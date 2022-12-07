@@ -51,7 +51,7 @@ Finally, it is worth mentioning that `pip` and `conda` are not the only two envi
 [Pipenv](https://pypi.org/project/pipenv/) is another alternative that is often used that has its own pros and cons
 compared to other environment managers.
 
-## Exercise
+## Exercises
 
 1. Download and install `conda`. You are free to either install full `conda` or the much simpler version `miniconda`.
    The core difference between the two packages is that `conda` already comes with a lot of packages that you would

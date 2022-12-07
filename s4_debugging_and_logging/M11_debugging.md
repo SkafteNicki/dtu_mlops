@@ -55,7 +55,7 @@ To invoke the build in python debugger you can either:
   python -m pdb -c continue my_script.py
   ```
 
-## Exercise
+## Exercises
 
 We here provide a script `vae_mnist_bugs.py` which contains a number of bugs to get it running. Start by going over
 the script and try to understand what is going on. Hereafter, try to get it running by solving the bugs. The following

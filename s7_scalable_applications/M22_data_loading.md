@@ -28,11 +28,11 @@ One way that deep learning fundamentally changed the way we think about data in 
 always better*. This was very much not the case with more traditional machine learning algorithms (random forest,
 support vector machines etc.) where a pleatau in performance was often reached for a certain amount of data and did not
 improve if more was added. However, as deep learning models have become deeper and deeper and thereby more and more
-data hungry performance seems to be ever increasing or atl east not reaching a pleatau in the same way as for
+data hungry performance seems to be ever increasing or at least not reaching a pleatau in the same way as for
 traditional machine learning.
 
 <p align="center">
-  <img src="../figures/ml_data.PNG" width="500">
+  <img src="../figures/ml_data.png" width="500">
   <br>
   <a href="https://www.codesofinterest.com/2017/04/how-deep-should-deep-learning-be.html"> Image credit </a>
 </p>

@@ -50,7 +50,7 @@ definition a template is *guide* to make something. Therefore, not all parts of 
 project at hand. Your job is to pick the parts from the template that is useful for organizing your data science.
 project.
 
-## Exercise
+## Exercises
 
 After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on taking the
 simple CNN MNIST classifier from yesterdays exercise and force it into this structure. You are not required to fill out

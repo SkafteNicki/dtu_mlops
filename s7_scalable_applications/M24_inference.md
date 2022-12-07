@@ -374,7 +374,7 @@ finish because it involves training multiple networks and therefore involve some
    pip install datasets
    ```
 
-   which we are going to download the cifar10 dataset and a teacher model
+   which we are going to download the cifar10 dataset and a teacher model.
 
 2. Next download the cifar10 dataset
 
@@ -420,6 +420,7 @@ finish because it involves training multiple networks and therefore involve some
       loss = loss + loss_teacher
       loss.backward()
       # ...
+   ```
 
 8. Compare the final performance obtained with and without knowledge distillation. Did the performance improve or not?
 

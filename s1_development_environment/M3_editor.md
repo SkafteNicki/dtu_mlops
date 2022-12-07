@@ -68,7 +68,7 @@ The main components of VS code are:
 * The status bar: The status bar contains information based on the extensions that you have installed. In particular
   for python development, the status bar can be used to change conda environment.
 
-## Exercise
+## Exercises
 
 Start by downloading and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
 on the files that you created in the final exercise in the last lecture.

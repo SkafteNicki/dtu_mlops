@@ -100,7 +100,7 @@ Of course, the real power of version control is the ability to make branches, as
 Each branch can contain code that are not present on other branches. This is usefull when you are many developers
 working together on the same project.
 
-## Exercise
+## Exercises
 
 1. In your github account create an repository, where the intention is that you upload the code from the final
    exercise from yesterday
