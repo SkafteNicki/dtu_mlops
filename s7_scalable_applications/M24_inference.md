@@ -294,7 +294,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
       keeping a copy of the original weights in memory. Make the change permanent by calling `prune.remove` on every
       pruned module in the model. Hint: iterate over the `parameters_to_prune` tuple.
 
-   3. Next try to measure the time of a single inference (repeated 100 times) for both the pruned and non-pruned network
+   2. Next try to measure the time of a single inference (repeated 100 times) for both the pruned and non-pruned network
 
       ```python
       import time
@@ -307,8 +307,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 
       Is the pruned network actually faster? If not can you explain why?
 
-
-   2. Next lets measure the size of our network (called `pruned_network`) and a freshly initialized network (called`
+   3. Next lets measure the size of our network (called `pruned_network`) and a freshly initialized network (called
       `network`):
 
       ```python
@@ -318,7 +317,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 
       Lookup the size of each file. Are the pruned network actually smaller? If not can you explain why?
 
-   3. Repeat the last exercise, but this time start by converting all pruned weights to sparse format first by calling
+   4. Repeat the last exercise, but this time start by converting all pruned weights to sparse format first by calling
       the `.to_sparse()` method on each pruned weight. Is the saved model smaller now?
 
 This ends the exercises on pruning. As you probably realized in the last couple of exercises, then pruning does not
