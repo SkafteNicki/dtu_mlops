@@ -167,7 +167,7 @@ working together on the same project.
 
 5. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
    mitigate this we can set what is called an *remote upstream*. Take a look on this
-   [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork)
+   [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork)
    , and set a remote upstream for the repository you just forked.
 
 6. After setting the upstream branch, we need to pull and merge any update. Take a look on this
