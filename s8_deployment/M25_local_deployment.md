@@ -113,8 +113,9 @@ python inference.py --my_model model_checkpoint.pt --new_datapoint img.png
 If we where never going to do anything else than just calling the model ourself then it is probably not worth adding
 anything else. However, if we ever want anyone else to interact with our model, we need to comply with standard ways
 of requesting and sending data. This is especially true when the next step is to start deploying our model in the cloud.
-Torchserve essentially brings in a inference API on top of our model that turns our model into a client-server type
-of system: the client (user) is going to send *requests* to a server (our application) and the server will give an *response*. The request will be send as a standard
+Torchserve essentially brings in a inference API on top of our model that turns our model into a client-server type of
+system: the client (user) is going to send *requests* to a server (our application) and the server will give an
+*response*. The request will be send as a standard
 [HTTP requests](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 which Torchserve will help us decode into a useful input which we can then do inference on and return the result, again
 as an standardized HTTP response. Torchserve is in that regard similar to
