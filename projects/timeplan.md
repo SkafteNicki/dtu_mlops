@@ -44,13 +44,13 @@ does not break when we make changes to it. While many times it does not require 
 there are always certain phases that require you to scale your experiments. In this week we will focus on getting
 comfortable on how to write distributed application and how we can run them
 
-Date | Day       | Presentation topic                                              | Framework/exercise                           | On-site/Virtual
------|-----------|-----------------------------------------------------------------|----------------------------------------------|----------------
-9/1  | Monday    | [Continuous Integration](../slides/Continues%20Integration.pdf) | Pytest, Github actions, CML                  | On-site
-10/1 | Tuesday   | [The Cloud](../slides/Cloud%20Intro.pdf)                        | GCP                                          | On-site
-11/1 | Wednesday | Scalable applications                                           | Dataloaders, Pytorch lightning, Quantization | On-site
-12/1 | Thursday  | -                                                               | Project work                                 | Virtual
-13/1 | Friday    | -                                                               | Project work                                 | Virtual
+Date | Day       | Presentation topic                                              | Framework/exercise          | On-site/Virtual
+-----|-----------|-----------------------------------------------------------------|-----------------------------|----------------
+9/1  | Monday    | [Continuous Integration](../slides/Continues%20Integration.pdf) | Pytest, Github actions, CML | On-site
+10/1 | Tuesday   | [The Cloud](../slides/Cloud%20Intro.pdf)                        | GCP                         | On-site
+11/1 | Wednesday | [Deployment](../slides/Deployment.pdf)                          | Google Cloud, TorchServe    | On-site
+12/1 | Thursday  | -                                                               | Project work                | Virtual
+13/1 | Friday    | -                                                               | Project work                | Virtual
 
 ### Week 3
 
@@ -58,10 +58,10 @@ For the final week we look into advance topics such as deployment and monitoring
 important for the longivity for the applications that we develop, that we actually can deploy them either
 locally or in the cloud and that we have the tools to monitor how they behave over time.
 
-Date | Day       | Presentation topic                     | Framework/exercise       | On-site/Virtual
------|-----------|----------------------------------------|--------------------------|----------------
-16/1 | Monday    | [Deployment](../slides/Deployment.pdf) | Google Cloud, TorchServe | On-site
-17/1 | Tuesday   | Monitoring                             | Kibana                   | On-site
-18/1 | Wednesday | -                                      | Project work             | Virtual
-19/1 | Thursday  | -                                      | Project work             | Virtual
-20/1 | Friday    | EXAM                                   | Project presentations    | On-site
+Date | Day       | Presentation topic                     | Framework/exercise                           | On-site/Virtual
+-----|-----------|----------------------------------------|----------------------------------------------|----------------
+16/1 | Monday    | Monitoring                             | Kibana                                       | On-site
+17/1 | Tuesday   | Scalable applications                  | Dataloaders, Pytorch lightning, Quantization | On-site
+18/1 | Wednesday | -                                      | Project work                                 | Virtual
+19/1 | Thursday  | -                                      | Project work                                 | Virtual
+20/1 | Friday    | EXAM                                   | Project presentations                        | On-site
