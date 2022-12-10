@@ -131,5 +131,3 @@ async def predict(json_obj: JSONSerializable) -> JSONSerializable:
     batch_ret = await runner.async_run([json_obj])
     return batch_ret[0]
 ```
-
-## steamlit

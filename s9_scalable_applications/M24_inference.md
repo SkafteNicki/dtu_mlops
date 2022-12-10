@@ -6,6 +6,8 @@ nav_order: 3
 mathjax: true
 ---
 
+<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+
 # Scalable Inference
 {: .no_toc }
 

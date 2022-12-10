@@ -1,13 +1,11 @@
 <!---
----
-layout: default
-title: Pipelines
-parent: S10 - Extra
-nav_order: 9
----
+#layout: default
+#title: Pipelines
+#parent: S10 - Extra
+#nav_order: 9
 -->
 
-# Pipelines and workflows
+# Frontend
 {: .no_toc }
 
 <details open markdown="block">
@@ -24,4 +22,4 @@ nav_order: 9
 {: .warning }
 > Module is still under development
 
-`prefect`
+`steamlit`

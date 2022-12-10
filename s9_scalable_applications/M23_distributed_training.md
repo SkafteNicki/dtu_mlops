@@ -6,6 +6,8 @@ nav_order: 2
 mathjax: true
 ---
 
+<img style="float: right;" src="../figures/icons/lightning.png" width="130">
+
 # Distributed Training
 {: .no_toc }
 
