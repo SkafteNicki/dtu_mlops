@@ -1,11 +1,10 @@
-<!---
 ---
 layout: default
 title: Onnx
 parent: S10 - Extra
 nav_order: 8
+nav_exclude: true
 ---
--->
 
 <img style="float: right;" src="../figures/icons/onnx.png" width="130">
 

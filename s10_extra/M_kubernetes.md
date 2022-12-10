@@ -1,11 +1,10 @@
-<!---
 ---
 layout: default
 title: Kubernetes
 parent: S10 - Extra
 nav_order: 7
+nav_exclude: true
 ---
--->
 
 <img style="float: right;" src="../figures/icons/kubernetes.png" width="130">
 

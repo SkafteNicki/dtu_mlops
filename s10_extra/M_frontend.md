@@ -1,9 +1,10 @@
-<!---
-#layout: default
-#title: Pipelines
-#parent: S10 - Extra
-#nav_order: 9
--->
+---
+layout: default
+title: Designing MLOps pipelines
+parent: S10 - Extra
+nav_order: 6
+nav_exclude: true
+---
 
 # Frontend
 {: .no_toc }

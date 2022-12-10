@@ -1,11 +1,10 @@
-<!---
 ---
 layout: default
 title: Pipelines
 parent: S10 - Extra
 nav_order: 9
+nav_exclude: true
 ---
--->
 
 # Pipelines and workflows
 {: .no_toc }

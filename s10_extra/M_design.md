@@ -1,11 +1,11 @@
-<!---
 ---
 layout: default
 title: Designing MLOps pipelines
 parent: S10 - Extra
 nav_order: 6
+nav_exclude: true
 ---
--->
+
 
 # Designing MLOps pipelines
 {: .no_toc }
