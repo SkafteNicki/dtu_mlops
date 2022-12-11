@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M22 - Cloud deployment
+title: M22 - Requests and APIs
 parent: S7 - Deployment
 nav_order: 1
 ---
 
-# Creating APIs
+# Requests and APIs
 {: .no_toc }
 
 <details open markdown="block">

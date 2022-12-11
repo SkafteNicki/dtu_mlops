@@ -1,11 +1,11 @@
 ---
 layout: default
-title: M33 - Challenges
-parent: S10 - Extra
-nav_order: 4
+title: Challenges
+nav_order: 13
+permalink: projects
 ---
 
-# Open questions
+# Challenges
 
 If you have managed to go through all other material, congratulations, you are already a good way to becoming an MLOps
 engineer with a great overview of tools, concepts and techniques within the field. Below are listed some technical
