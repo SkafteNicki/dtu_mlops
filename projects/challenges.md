@@ -2,7 +2,7 @@
 layout: default
 title: Challenges
 nav_order: 13
-permalink: projects
+permalink: challenges
 ---
 
 # Challenges
