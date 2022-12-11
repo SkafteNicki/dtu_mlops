@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M23 - Distributed Training
+title: M28 - Distributed Training
 parent: S9 - Scalable applications
 nav_order: 2
 mathjax: true

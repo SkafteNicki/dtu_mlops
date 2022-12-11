@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M27 - Data drifting
-parent: S8 - Deployment
-nav_order: 3
+title: M25 - Data drifting
+parent: S8 - Monitoring
+nav_order: 1
 ---
 
 # Data drifting

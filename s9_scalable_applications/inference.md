@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M24 - Scalable Inference
+title: M29 - Scalable Inference
 parent: S9 - Scalable applications
 nav_order: 3
 mathjax: true

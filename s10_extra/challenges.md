@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M32 - Challenges
+title: M33 - Challenges
 parent: S10 - Extra
 nav_order: 4
 ---

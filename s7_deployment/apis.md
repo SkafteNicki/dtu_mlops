@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Creating APIs
-parent: S10 - Extra
-nav_order: 5
+title: M22 - Cloud deployment
+parent: S7 - Deployment
+nav_order: 1
 ---
 
 # Creating APIs
@@ -18,6 +18,12 @@ nav_order: 5
 </details>
 
 ---
+
+{: .important }
+> Core module
+
+{: .warning }
+> Module is still under development
 
 Before we can get deployment of our models we need to understand concepts such as APIs and requests. It is essentially
 that we do this for one reason: the world does not run on python.

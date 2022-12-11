@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M22 - Distributed Data Loading
+title: M27 - Distributed Data Loading
 parent: S9 - Scalable applications
 nav_order: 1
 ---

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M25 - Local deployment
+title: M23 - Local deployment
 parent: S7 - Deployment
-nav_order: 1
+nav_order: 2
 ---
 
 <img style="float: right;" src="../figures/icons/pytorch.png" width="130">

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: M26 - Cloud deployment
+title: M24 - Cloud deployment
 parent: S7 - Deployment
-nav_order: 2
+nav_order: 3
 ---
 
 <img style="float: right;" src="../figures/icons/functions.png" width="130">
