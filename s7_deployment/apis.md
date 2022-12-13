@@ -5,6 +5,8 @@ parent: S7 - Deployment
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/fastapi.png" width="130">
+
 # Requests and APIs
 {: .no_toc }
 
@@ -286,7 +288,6 @@ trying to go through these.
         <img src="../figures/fastapi.PNG" width="800">
       </p>
 
-
    4. You can also checkout `http://localhost:8000/openapi.json` to check out the schema that is generated
       which essentially are a `json` file containing the overall specifications of your program.
 
@@ -472,7 +473,7 @@ trying to go through these.
       # add anything else you application needs to be able to run
       ```
 
-   3. Next create a `Dockerfile` with the following content
+   2. Next create a `Dockerfile` with the following content
 
       ```Dockerfile
       FROM python:3.9
@@ -501,13 +502,13 @@ trying to go through these.
       standard way that we have run our FastAPI applications as the last couple of exercises, this time with some extra
       arguments regarding the ports we allow.
 
-   4. Next build the corresponding docker image
+   3. Next build the corresponding docker image
 
       ```bash
       docker build -t my_fastapi_app .
       ```
 
-   5. Finally, run the image such that a container is spinned up that runs our application. The important part here is
+   4. Finally, run the image such that a container is spinned up that runs our application. The important part here is
       to remember to specify the `-p` argument (p for port) that should be the same number as the port we have specified
       in the last line of our Dockerfile.
 
@@ -515,8 +516,7 @@ trying to go through these.
       docker run -d --name mycontainer -p 80:80 myimage
       ```
 
-   6. Check that everything is working by going to the corresponding localhost page <http://localhost/items/5?q=somequery>
-
+   5. Check that everything is working by going to the corresponding localhost page <http://localhost/items/5?q=somequery>
 
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you checkout
 [bentoml](https://github.com/bentoml/BentoML) that is an API standard that focuses solely on creating easy to understand
