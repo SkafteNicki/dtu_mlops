@@ -80,7 +80,7 @@ and also transfer times such as `memcpy` (where we are copying data between devi
 It can even analyze your code and give recommendations.
 
 <p align="center">
-  <img src="../figures/pytorch_profiler.png" width="700" title="hover text">
+  <img src="../figures/pytorch_profiler.png" width="700" >
 </p>
 
 Using the profiler can be as simple as wrapping the code that you want to profile with the `torch.profiler.profile`

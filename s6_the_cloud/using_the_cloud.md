@@ -42,7 +42,7 @@ There are many reasons why one to use virtual machines:
   Virtual machines allow you to just launch a job and forget about it (at least until you run out of credit).
 
 <p align="center">
-   <img src="../figures/gcp_compute_engine.png" width="800" title="hover text">
+   <img src="../figures/gcp_compute_engine.png" width="800" >
 </p>
 
 ### Exercises
@@ -53,7 +53,7 @@ We are now going to start actually using the cloud.
 
 2. Try to `Create instance`. You will see the following image below.
    <p align="center">
-     <img src="../figures/gcp4.PNG" width="800" title="hover text">
+     <img src="../figures/gcp4.PNG" width="800" >
    </p>
    Give it a meaningful name, set the location to some location that is closer to where you actually is (to reduce
    latency). Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute
@@ -80,7 +80,7 @@ We are now going to start actually using the cloud.
    You can always see the exact command that you need to run to `ssh` to an VM by selecting the
    `View gcloud command` option in the Compute Engine overview (see image below).
    <p align="center">
-     <img src="../figures/gcp_ssh_command.png" width="800" title="hover text">
+     <img src="../figures/gcp_ssh_command.png" width="800" >
    </p>
 
 6. While logged into the instance, check if Python and Pytorch is installed?
@@ -115,13 +115,13 @@ We are now going to start actually using the cloud.
       both a python installation and Pytorch is also installed. Hint: you also have the possibility
       through the web page to start a browser session directly to the VMs you create:
       <p align="center">
-         <img src="../figures/gcp_vm_browser.png" width="800" title="hover text">
+         <img src="../figures/gcp_vm_browser.png" width="800" >
       </p>
 
 7. Finally, everything that you have done locally can also be achieved through the web
    terminal, which of cause comes pre-installed with the `gcloud` command etc.
    <p align="center">
-     <img src="../figures/gcp_terminal.png" width="800" title="hover text">
+     <img src="../figures/gcp_terminal.png" width="800" >
    </p>
    Try out launching this and run some of the commands from the previous exercises.
 
@@ -149,7 +149,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 1. Lets start by creating a data storage. On the GCP startpage, in the sidebar, click on the `Cloud Storage`.
    On the next page click the `Create bucket`:
    <p align="center">
-     <img src="../figures/gcp5.PNG" width="800" title="hover text">
+     <img src="../figures/gcp5.PNG" width="800" >
    </p>
    Give the bucket an unique name, set it to a region close by and make it of size 20 GB as seen in the image.
 
@@ -229,7 +229,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
 3. From the `gcp` homepage, navigate to the triggers panel:
    <p align="center">
-     <img src="../figures/gcp_trigger_1.png" width="800" title="hover text">
+     <img src="../figures/gcp_trigger_1.png" width="800" >
    </p>
    Click on the manage repositories.
 
@@ -237,7 +237,7 @@ to be substantially faster to build and smaller in size than the images we are u
    `gcp` and choose the repository that you want to setup build triggers. For now, skip the
    `Create a trigger (optional)` part by pressing `Done` in the end.
    <p align="center">
-     <img src="../figures/gcp_trigger_2.png" width="800" title="hover text">
+     <img src="../figures/gcp_trigger_2.png" width="800" >
    </p>
 
 5. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
@@ -252,7 +252,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
 7. Go to the `Cloud Build` page and you should see the image being build and pushed.
    <p align="center">
-     <img src="../figures/gcp_build.png" width="800" title="hover text">
+     <img src="../figures/gcp_build.png" width="800" >
    </p>
    Try clicking on the build to checkout the build process and building summary. As
    you can see from the image, if a build is failing you will often find valuable info

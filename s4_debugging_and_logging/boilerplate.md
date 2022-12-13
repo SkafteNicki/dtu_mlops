@@ -77,7 +77,7 @@ requires two more methods implemented:
 Below is shown these two methods added to standard MNIST classifier
 
 <p align="center">
-  <img src="../figures/lightning.png" width="700" title="hover text">
+  <img src="../figures/lightning.png" width="700" >
 </p>
 
 Compared to a standard `nn.Module`, the additional methods in the `LightningModule` basically specifies exactly how you

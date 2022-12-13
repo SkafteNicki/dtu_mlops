@@ -28,7 +28,7 @@ way of debugging when dealing with a very large codebase. You should therefore f
 [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in handy during the course.
 
 <p align="center">
-  <img src="../figures/debug.jpg" width="700" title="hover text">
+  <img src="../figures/debug.jpg" width="700" >
 </p>
 
 To invoke the build in python debugger you can either:

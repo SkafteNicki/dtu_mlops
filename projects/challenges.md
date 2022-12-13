@@ -13,7 +13,7 @@ hard problems regarding MLOps. These are meant as inspiration to get you to deep
 services that `gcp` offers. You are also free to continue work on your project.
 
 <p align="center">
-  <img src="../figures/technical_depth_meme.jpg" width="500" title="hover text">
+  <img src="../figures/technical_depth_meme.jpg" width="500" >
 </p>
 
 * Currently testing takes place in Github, but it should come as no

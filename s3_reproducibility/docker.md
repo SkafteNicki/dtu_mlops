@@ -48,7 +48,7 @@ we try to start our program on a single machine or a 1000 machines at once.
 Docker has three main concepts: **docker file**, **docker image** and **docker container**:
 
 <p align="center">
-  <img src="../figures/docker_structure.png" width="800" title="hover text">
+  <img src="../figures/docker_structure.png" width="800" >
 </p>
 
 * A **docker file** is a basic text document that contains all the commands a user could call on the command line to
@@ -246,7 +246,7 @@ beneficial for you to download.
     below). Please note that building a docker image can take a couple of minutes.
 
     <p align="center">
-      <img src="../figures/docker_output.PNG" width="1000" title="hover text">
+      <img src="../figures/docker_output.PNG" width="1000" >
     </p>
 
 14. Try running `docker images` and confirm that you get output similar to the one above. If you succeeds with this,

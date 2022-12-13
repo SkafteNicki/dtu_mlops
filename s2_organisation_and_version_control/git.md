@@ -62,7 +62,7 @@ this into your own projects depends, but you are at least expected to be familia
 The most simple way to think of version control, is that it is just nodes with lines connecting them
 
 <p align="center">
-  <img src="../figures/git_branch.png" width="1000," title="hover text">
+  <img src="../figures/git_branch.png" width="1000," >
 </p>
 
 Each node, which we call a *commit* is uniquely identified by a hash string. Each node, stores what our code
@@ -73,7 +73,7 @@ The commits are made up of local changes that we make to our code. A basic workf
 adding commits are seen below
 
 <p align="center">
-  <img src="../figures/git_structure.PNG" width="1000," title="hover text">
+  <img src="../figures/git_structure.PNG" width="1000," >
 </p>
 
 Assuming that we have made some changes to our local *working directory* and that we

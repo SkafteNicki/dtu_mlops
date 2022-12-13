@@ -31,7 +31,7 @@ platform offers. The ones marked in red is the onces we are actually going to in
 you get done with exercises early I highly recommend that you deep dive more into the Google cloud platform.
 
 <p align="center">
-  <img src="../figures/gcp_services_summary.png" width="800" title="hover text">
+  <img src="../figures/gcp_services_summary.png" width="800" >
   <br>
   <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a>
 </p>
@@ -48,12 +48,12 @@ As the first step we are going to get you setup with some Google cloud credits.
 
 2. Login to the homepage of gcp. It should look like this:
    <p align="center">
-   <img src="../figures/gcp1.PNG" width="800" title="hover text">
+   <img src="../figures/gcp1.PNG" width="800" >
    </p>
 
 3. Go to billing and make sure that your account is showing $50 of cloud credit
    <p align="center">
-     <img src="../figures/gcp2.PNG" width="800" title="hover text">
+     <img src="../figures/gcp2.PNG" width="800" >
    </p>
    make sure to also checkout the `Reports` throughout the course. When you are starting to use some of the cloud
    services these tabs will update with info about how much time you can use before your cloud credit runs out.
@@ -61,7 +61,7 @@ As the first step we are going to get you setup with some Google cloud credits.
 
 4. One way to stay organized within GCP is to create projects.
    <p align="center">
-     <img src="../figures/gcp3.PNG" width="800" title="hover text">
+     <img src="../figures/gcp3.PNG" width="800" >
    </p>
    Create a new project called `dtumlops`. When you click `create` you should get a notification that the project
    is being created. The notification bell is good way to make sure how the processes you are running are doing
@@ -186,7 +186,7 @@ sometimes changes). We will in the exercises below try to increase it.
    6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request
 
    <p align="center">
-     <img src="../figures/quotas.png" width="1000" title="hover text">
+     <img src="../figures/quotas.PNG" width="1000">
    </p>
 
 If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
