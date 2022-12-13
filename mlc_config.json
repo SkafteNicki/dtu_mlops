@@ -12,9 +12,4 @@
             }
         }
     ],
-    "ignorePatterns": [
-        {
-            "pattern": "^http://localhost.*"
-        },
-    ]
 }
