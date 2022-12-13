@@ -459,7 +459,10 @@ trying to go through these.
       Figure out where to add them to the code and try running the application one more time to see that you actually
       get an file back with the resized image.
 
-7. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
+7. As our final app lets consider doing some inference with https://huggingface.co/openai/clip-vit-large-patch145
+
+
+8. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
    application. For the following you can take whatever privious FastAPI application as the base application for the
    container
