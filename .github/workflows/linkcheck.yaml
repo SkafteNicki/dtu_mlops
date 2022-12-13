@@ -10,8 +10,6 @@ jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          use-verbose-mode: 'yes'
-          config-file: 'mlc_config.json'
+    - uses: actions/checkout@master
+    - name: md-linkcheck
+      uses: ./
