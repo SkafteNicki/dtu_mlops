@@ -58,10 +58,10 @@ For the final week we look into advance topics such as deployment and monitoring
 important for the longivity for the applications that we develop, that we actually can deploy them either
 locally or in the cloud and that we have the tools to monitor how they behave over time.
 
-Date | Day       | Presentation topic                     | Framework/exercise                           | On-site/Virtual
------|-----------|----------------------------------------|----------------------------------------------|----------------
-16/1 | Monday    | Monitoring                             | Kibana                                       | On-site
-17/1 | Tuesday   | Scalable applications                  | Dataloaders, Pytorch lightning, Quantization | On-site
-18/1 | Wednesday | -                                      | Project work                                 | Virtual
-19/1 | Thursday  | -                                      | Project work                                 | Virtual
-20/1 | Friday    | EXAM                                   | Project presentations                        | On-site
+Date | Day       | Presentation topic                                                | Framework/exercise         | On-site/Virtual
+-----|-----------|-------------------------------------------------------------------|----------------------------|----------------
+16/1 | Monday    | Monitoring                                                        | Kibana                     | On-site
+17/1 | Tuesday   | [Scalable applications](../slides/Distributed%20applications.pdf) | Pytorch, Pytorch lightning | On-site
+18/1 | Wednesday | -                                                                 | Project work               | Virtual
+19/1 | Thursday  | -                                                                 | Project work               | Virtual
+20/1 | Friday    | EXAM                                                              | Project presentations      | On-site
