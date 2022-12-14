@@ -15,6 +15,9 @@
     "ignorePatterns": [
         {
             "pattern": "^http://localhost.*"
+        },
+        {
+            "pattern": "^https://api.github.*"
         }
     ]
 }
