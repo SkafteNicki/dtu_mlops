@@ -501,7 +501,7 @@ trying to go through these.
       ```
 
       Hopefully all these step should look familiar if you already went through
-      [module M9](../s3_reproducibility/M9_docker.md), except for maybe the last line. However, this is just the
+      [module M9](../s3_reproducibility/docker.md), except for maybe the last line. However, this is just the
       standard way that we have run our FastAPI applications as the last couple of exercises, this time with some extra
       arguments regarding the ports we allow.
 
