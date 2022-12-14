@@ -112,7 +112,7 @@ Lets take a look at how a github workflow file is organized:
       are correctly added. It should look something like the image below
 
       <p align="center">
-         <img src="../figures/github_caches.png" width="1000">
+         <img src="../figures/github_caches.PNG" width="1000">
       </p>
 
    3. Measure how long your workflow takes before and after adding `caching` to your workflow. Did it improve the

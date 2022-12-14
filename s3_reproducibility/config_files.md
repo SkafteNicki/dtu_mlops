@@ -210,7 +210,7 @@ that we may try.
 
 <!-- markdownlint-disable -->
 <p align="center">
-  <img src="../figures/hydra_config.PNG" width="1000">
+  <img src="../figures/hydra_config.png" width="1000">
   <br>
   <a href="https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710"> Image credit </a>
 </p>

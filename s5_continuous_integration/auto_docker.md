@@ -21,7 +21,7 @@ nav_order: 4
 
 ---
 
-The Github Actions we learned about in [M16](M16_github_actions.md) are an powerfull tool that can be used to much more
+The Github Actions we learned about in [M16](github_actions.md) are an powerfull tool that can be used to much more
 than simply running our tests tests that we write for our application. In this module we are going to look at how we can
 use it for continuously building docker images. As you have already seen docker building can take a couple of minutes
 to build each time we do changes to our codebase. For this reason we really just want to build a new image every time we
