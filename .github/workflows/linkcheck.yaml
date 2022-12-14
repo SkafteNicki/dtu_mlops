@@ -14,4 +14,4 @@ jobs:
       - uses: gaurav-nelson/github-action-markdown-link-check@master
         with:
           use-verbose-mode: 'yes'
-          config-file: 'mlc_config.json'
+          config-file: '.github/linkcheck_config.json'
