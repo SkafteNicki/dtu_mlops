@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Designing MLOps pipelines
+title: Frontend
 parent: S10 - Extra
 nav_order: 6
 nav_exclude: true
@@ -23,4 +23,16 @@ nav_exclude: true
 {: .warning }
 > Module is still under development
 
+## Streamlit
+
 `steamlit`
+
+### Exercises
+
+1. Start by installing `streamlit`
+
+   ```bash
+   pip install streamlit
+   ```
+
+   and run `streamlit hallo` afterwards to check that everything works as expected.

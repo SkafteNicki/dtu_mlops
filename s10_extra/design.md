@@ -24,8 +24,6 @@ nav_exclude: true
 {: .warning }
 > Module is still under development
 
-# Designing MLOps pipelines
-
 > Machine learning engineering is 10% machine learning and 90% engineering.
 > *Chip Huyen*
 
