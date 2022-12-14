@@ -40,6 +40,6 @@ both develop client and server software or in more general terms, it is a develo
 developer pipeline.
 
 Below is seen an image of the massive amounts of tools that exist within the MLOps umbrella.
-<img src="../figures/tool_landscape.png" width="800" title="Credit to: https://mlops.neptune.ai/">
+<img src="../figures/tool_landscape.PNG" width="800" title="Credit to: https://mlops.neptune.ai/">
 
 ## Visualizing the design
