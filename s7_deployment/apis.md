@@ -460,6 +460,49 @@ can look through for help.
       Figure out where to add them to the code and try running the application one more time to see that you actually
       get an file back with the resized image.
 
+7. (Optional) Lets try to figure out how to use FastAPI in a machine learning context. Below is a script that downloads
+   a `VisionEncoderDecoder` from
+   [huggingface](https://huggingface.co/docs/transformers/model_doc/vision-encoder-decoder#transformers.VisionEncoderDecoderModel)
+   . The model can use to create captions for a given image. Thus calling
+
+   ```python
+   predict_step(['s7_deployment/exercise_files/my_cat.jpg'])
+   ```
+
+   returns a list of strings like `['a cat laying on a couch with a stuffed animal']` (try this yourself). Create an
+   FastAPI application that can do inference using this model e.g. it should take in a image, preferrably a optional
+   `json` object for configuring some of the hyperparameters (like `max_length`) and should return a string
+   containing the generated caption.
+
+   ```python
+   from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
+   import torch
+   from PIL import Image
+
+   model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+   feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+   tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+
+   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+   model.to(device)
+
+   gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
+   def predict_step(image_paths):
+      images = []
+      for image_path in image_paths:
+         i_image = Image.open(image_path)
+         if i_image.mode != "RGB":
+            i_image = i_image.convert(mode="RGB")
+
+         images.append(i_image)
+      pixel_values = feature_extractor(images=images, return_tensors="pt").pixel_values
+      pixel_values = pixel_values.to(device)
+      output_ids = model.generate(pixel_values, **gen_kwargs)
+      preds = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+      preds = [pred.strip() for pred in preds]
+      return preds
+   ```
+
 7. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
    application. For the following you can take whatever privious FastAPI application as the base application for the
