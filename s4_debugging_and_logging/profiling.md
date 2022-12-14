@@ -220,7 +220,7 @@ pip install torch_tb_profiler
       and open the page <http://localhost:6006/#pytorch_profiler>, where you should hopefully see an image similar
       to the one below:
       <p align="center">
-         <img src="../figures/profile_overview.png" width="600">
+         <img src="../figures/profiler_overview.png" width="600">
          <br>
          <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a>
       </p>
