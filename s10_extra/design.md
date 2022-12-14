@@ -6,7 +6,6 @@ nav_order: 6
 nav_exclude: true
 ---
 
-
 # Designing MLOps pipelines
 {: .no_toc }
 
@@ -24,8 +23,7 @@ nav_exclude: true
 {: .warning }
 > Module is still under development
 
-> Machine learning engineering is 10% machine learning and 90% engineering.
-> *Chip Huyen*
+"Machine learning engineering is 10% machine learning and 90% engineering." - *Chip Huyen*
 
 We highly recommend that you read the book
 *Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications* by Chip Huyen which gives
