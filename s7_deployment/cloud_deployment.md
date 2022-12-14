@@ -25,7 +25,7 @@ nav_order: 3
 {: .important }
 > Core module
 
-We are now returning to using the cloud. In [this module](../s6_the_cloud/M21_using_the_cloud.md) you should have
+We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md) you should have
 gone through the steps of having your code in your github repository to automatically build into a docker
 container, store that, store data and pull it all together to make a training run. After the training is
 completed you should hopefully have a file stored in the cloud with your trained model weights.

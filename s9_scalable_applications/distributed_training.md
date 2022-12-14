@@ -47,8 +47,8 @@ which describes how sharded can save over 60% of memory used during your trainin
 
 Finally, we want to note that for all the exercises in the module you are going to need a multi GPU setup. If you have
 not already gained access to multi GPU machines on GCP (see the quotas exercises in
-[this module](../s6_the_cloud/M20_cloud_setup.md)) you will need to find another way of running the exercises. For
-DTU Students I can recommend checking out [this optional module](../s10_extra/M31_HPC.md) on using the high performance
+[this module](../s6_the_cloud/cloud_setup.md)) you will need to find another way of running the exercises. For
+DTU Students I can recommend checking out [this optional module](../s10_extra/HPC.md) on using the high performance
 cluster (HPC) where you can get access to multi GPU resources.
 
 ## Data parallel

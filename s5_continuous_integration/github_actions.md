@@ -112,7 +112,7 @@ Lets take a look at how a github workflow file is organized:
       are correctly added. It should look something like the image below
 
       <p align="center">
-         <img src="../figures/github_caches.png" width="1000">
+         <img src="../figures/github_caches.PNG" width="1000">
       </p>
 
    3. Measure how long your workflow takes before and after adding `caching` to your workflow. Did it improve the
@@ -146,7 +146,7 @@ Lets take a look at how a github workflow file is organized:
 
 ## Auto linter
 
-In [this module](../s2_organisation_and_version_control/M7_good_coding_practice.md) of the course
+In [this module](../s2_organisation_and_version_control/good_coding_practice.md) of the course
 you where introduced to a couple of good coding practices such as being consistent with how your
 python packages are sorted and that your code follows certain standards. In this set of exercises
 we will setup github workflows that will automatically test for this.

@@ -98,7 +98,7 @@ want to.
    start by opening a terminal.
 
    1. Lets start by setting up conda for controlling our dependencies. If you have not already worked with `conda`,
-      please checkout module [M2 on conda](../s1_development_environment/M2_conda.md). In general you should be able to
+      please checkout module [M2 on conda](../s1_development_environment/conda.md). In general you should be able to
       setup (mini)conda through these two commands:
 
       ```bash

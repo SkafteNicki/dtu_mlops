@@ -459,10 +459,7 @@ trying to go through these.
       Figure out where to add them to the code and try running the application one more time to see that you actually
       get an file back with the resized image.
 
-7. As our final app lets consider doing some inference with https://huggingface.co/openai/clip-vit-large-patch145
-
-
-8. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
+7. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
    application. For the following you can take whatever privious FastAPI application as the base application for the
    container
@@ -501,7 +498,7 @@ trying to go through these.
       ```
 
       Hopefully all these step should look familiar if you already went through
-      [module M9](../s3_reproducibility/M9_docker.md), except for maybe the last line. However, this is just the
+      [module M9](../s3_reproducibility/docker.md), except for maybe the last line. However, this is just the
       standard way that we have run our FastAPI applications as the last couple of exercises, this time with some extra
       arguments regarding the ports we allow.
 

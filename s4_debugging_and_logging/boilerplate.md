@@ -268,8 +268,8 @@ framework to do some of the heavy lifting you need to have gone through some of 
 11. (Optional) Another great feature of Lightning is that the allow for easily defining command line interfaces through
     the [Lightning CLI](https://pytorch-lightning.readthedocs.io/en/stable/cli/lightning_cli.html) feature. The
     Lightning CLI is essentially a drop in replacement for defining command line interfaces (covered in
-    [this module](../s10_extra/M29_cli.md)) and can also replace the need for config files (covered in
-    [this module](../s3_reproducibility/M10_config_files.md)) for securing reproducibility when working inside the
+    [this module](../s10_extra/cli.md)) and can also replace the need for config files (covered in
+    [this module](../s3_reproducibility/config_files.md)) for securing reproducibility when working inside the
     Lightning framework. We highly recommend checking out the feature and that you try to refactor your code such that
     you do not need to call `trainer.fit` anymore but it is instead directly controlled from the Lightning CLI.
 

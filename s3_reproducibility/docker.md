@@ -346,7 +346,7 @@ beneficial for you to download.
 
        and should show an image like below:
        <p align="center">
-          <img src="../figures/nvidia_smi.png" width="600">
+          <img src="../figures/nvidia_smi.PNG" width="600">
        </p>
        If it does not work, try redoing the steps.
 
