@@ -5,6 +5,13 @@ nav_exclude: true
 
 # Exam sheet
 
+This is the template for the exam. Please do not remove anything from the template, only add your answers.
+For including images, add it to the figures subfolder and then in this template add:
+```
+![my_image](figures/<image>.<extension>)
+```
+
+
 ## Group information
 
 ### 1.
@@ -14,6 +21,7 @@ nav_exclude: true
 > Enter the study number for each member in the group
 > Example:
 > *sXXXXXX, sXXXXXX, sXXXXXX*
+> Answer:
 
 ### 3.
 > What framework did you choose to work with and did it help you complete the project?
@@ -49,11 +57,18 @@ nav_exclude: true
 
 ### 6.
 
+> Did you implement any rules for code quality and format? Additionally, explain with your own words why these concepts matters in larger projects.
+>
+> **Answer length: 50-100 words.**
+>
+
 ## Version control
 
 > In the following section we are interested in learning more about you local development environment.
 
 ### 7.
+
+> How many tests did you implement?
 
 ### 8.
 
@@ -72,11 +87,41 @@ nav_exclude: true
 
 ### 13.
 
+> What is the total code coverage (in percentage) of your code?
+If you code had an code coverage of 100% (or close to), would you still trust it to be error free? Explain you reasoning.
+>
+> **Answer length: 100-200 words.**
+>
+> Example:
+> *The total code coverage of code is X%, which includes all our source code*
+> *We are far from 100% coverage of our code and even if we were then...*
+
 ### 14.
+
+> Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and pull request can help improve version control.
+>
+> **Answer length: 100-200 words.**
+>
+> Example:
+> *We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in addition to the main branch. To merge code we ...*
+
 
 ### 15.
 
+> Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version control of your data. If no, explain a case where it would be beneficial to have version control of your data.
+>
+> **Answer length: 100-200 words.**
+
 ### 16.
+
+> Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of your github actions workflow.
+>
+> **Answer length: 200-300 words.**
+>
+> Example:
+> *We have organised our CI into 3 separate files: one for doing ..., one for running ... testing and one for running ... . In particular for our ..., we used ...*
+> *An example of a triggered workflow can be seen here:*
+> *https://github.com/nielstiben/MLOPS-Project/actions/runs/1728347853*
 
 ### 17.
 
@@ -86,7 +131,18 @@ nav_exclude: true
 
 ### 18.
 
+> How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would run a experiment.
+>
+> **Answer length: 50-100 words.**
+>
+> Example:
+> *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
+
 ### 19.
+
+> Reproducibility of experiments are important. Related to the last question, how did you secure that no information is lost when running experiments and that your experiments are reproducible?
+>
+> **Answer length: 100-200 words.**
 
 ### 20.
 
