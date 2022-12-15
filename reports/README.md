@@ -18,7 +18,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 1 fill here ---
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -29,7 +29,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 2 fill here ---
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -42,7 +42,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 3 fill here ---
 
 ## Coding environment
 
@@ -61,7 +61,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 4 fill here ---
 
 ### Question 5
 
@@ -76,7 +76,7 @@ For including images, add it to the figures subfolder and then in this template 
 > *experiments.*
 > Answer:
 
---- fill here ---
+--- question 5 fill here ---
 
 ### Question 6
 
@@ -87,7 +87,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 6 fill here ---
 
 ## Version control
 
@@ -100,7 +100,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 7 fill here ---
 
 ### Question 8
 
@@ -115,7 +115,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 8 fill here ---
 
 ### Question 9
 
@@ -130,7 +130,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 9 fill here ---
 
 ### Question 10
 
@@ -145,7 +145,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 10 fill here ---
 
 ### Question 11
 
@@ -161,7 +161,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 11 fill here ---
 
 ## Running code and tracking experiments
 
@@ -180,7 +180,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 12 fill here ---
 
 ### Question 13
 
@@ -195,7 +195,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 13 fill here ---
 
 ### Question 14
 
@@ -213,7 +213,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 14 fill here ---
 
 ### Question 15
 
@@ -228,7 +228,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 15 fill here ---
 
 ### Question 16
 
@@ -243,7 +243,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 16 fill here ---
 
 ## Working in the cloud
 
@@ -262,7 +262,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 17 fill here ---
 
 ### Question 18
 
@@ -277,7 +277,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 18 fill here ---
 
 ### Question 19
 
@@ -287,7 +287,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 19 fill here ---
 
 ### Question 20
 
@@ -297,7 +297,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 20 fill here ---
 
 ### Question 21
 
@@ -308,7 +308,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 21 fill here ---
 
 ### Question 22
 
@@ -324,7 +324,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 22 fill here ---
 
 ### Question 23
 
@@ -339,7 +339,7 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 23 fill here ---
 
 ### Question 24
 
@@ -353,13 +353,13 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 24 fill here ---
 
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### 26.
+### Question 25
 
 <img style="float: right;" src="figures/overview.png" width="300">
 
@@ -375,9 +375,9 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 25 fill here ---
 
-### 27.
+### Question 26
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -389,9 +389,9 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 26 fill here ---
 
-### 28.
+### Question 27
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
 > **make sure all members contributed actively to the project**
@@ -406,4 +406,4 @@ For including images, add it to the figures subfolder and then in this template 
 >
 > Answer:
 
---- fill here ---
+--- question 27 fill here ---
