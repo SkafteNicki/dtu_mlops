@@ -8,41 +8,45 @@ import warnings
 import re
 from functools import partial
 
+
 class TeacherWarning(UserWarning):
     pass
+
 
 @click.group()
 def cli():
     pass
 
+
 @cli.command()
 def html():
-    with open('README.md', 'r') as file:
+    with open("README.md", "r") as file:
         text = file.read()
-    text = text[43:] # remove header
+    text = text[43:]  # remove header
 
     html = markdown.markdown(text)
 
-    with open('report.html', 'w') as newfile:
+    with open("report.html", "w") as newfile:
         newfile.write(html)
+
 
 @cli.command()
 def check():
-    with open('README.md', 'r') as file:
+    with open("README.md", "r") as file:
         text = file.read()
-    text = text[43:] # remove header
+    text = text[43:]  # remove header
 
     answers = []
-    per_question = text.split('Answer:')
+    per_question = text.split("Answer:")
     for q in per_question:
-        if '###' in q:
+        if "###" in q:
             q = q.split("###")[0]
             if "##" in q:
                 q = q.split("##")[0]
             answers.append(q)
     answers.append(per_question[-1])
     answers = answers[1:]  # remove first section
-    answers = [ans.strip('\n') for ans in answers]
+    answers = [ans.strip("\n") for ans in answers]
 
     def no_constraints(answer, index):
         pass
@@ -88,7 +92,7 @@ def check():
             constrains=(
                 partial(length_constraints, min=200, max=300),
                 partial(image_constrains, min=1, max=3),
-            )
+            ),
         ),
         partial(length_constraints, min=100, max=200),
         partial(length_constraints, min=100, max=200),
@@ -105,21 +109,19 @@ def check():
             constrains=(
                 partial(length_constraints, min=200, max=400),
                 partial(image_constrains, min=1, max=1),
-            )
+            ),
         ),
         partial(length_constraints, min=200, max=400),
         partial(length_constraints, min=50, max=200),
     ]
     if len(answers) != 27:
-        raise ValueError("Number of answers are different from the expected 27. Have you filled out every field?")
+        raise ValueError(
+            "Number of answers are different from the expected 27. Have you filled out every field?"
+        )
 
     for i, (ans, const) in enumerate(zip(answers, question_constrains)):
         const(ans, i)
 
-@cli.command()
-def scrape(filename):
-    with open(filename, 'r') as file:
-        text = file.read()
 
 if __name__ == "__main__":
     cli()
