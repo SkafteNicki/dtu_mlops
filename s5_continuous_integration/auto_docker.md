@@ -21,11 +21,11 @@ nav_order: 4
 
 ---
 
-The Github Actions we learned about in [M16](github_actions.md) are an powerfull tool that can be used to much more
+The Github Actions we learned about in [M16](github_actions.md) are an powerful tool that can be used to much more
 than simply running our tests tests that we write for our application. In this module we are going to look at how we can
 use it for continuously building docker images. As you have already seen docker building can take a couple of minutes
-to build each time we do changes to our codebase. For this reason we really just want to build a new image every time we
-do a commit of our code. Thus, it should come as no surprise that we can also automatize the building process and
+to build each time we do changes to our code base. For this reason we really just want to build a new image every time
+we do a commit of our code. Thus, it should come as no surprise that we can also automatize the building process and
 furthermore we can take advantage of online compute power to parallelize the process.
 
 As discussed in the initial module on [docker](../s3_reproducibility/docker.md),

@@ -167,7 +167,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
    pip install dvc[gs]
    ```
 
-4. Now in your Mnist repository where you have already configured dvc, we are going to change the storage
+4. Now in your MNIST repository where you have already configured dvc, we are going to change the storage
    from our Google drive to our newly created Google cloud storage.
 
    ```bash
@@ -183,6 +183,10 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterwards do a `dvc pull`.
+
+
+If you ever end up with credential issues when working with your data, we in general recommend for this course that you
+in
 
 ## Container registry
 
@@ -294,34 +298,144 @@ to be substantially faster to build and smaller in size than the images we are u
 
 ## Training
 
-As the final step in our journey into `gcp` we are going to tackle the problem of training our models.
-We could do this by connecting to a VM with Pytorch installed and run `python train_model.py` directly
-inside the VM. However, `gcp` offers additional support for training which we are going to look at now.
+As our final step in our journey through different GCP services in this module we are going to look at training of our
+models. This is one of the important tasks that GCP can help us with because we can always rent more hardware as long
+as we have credits, meaning that we can both scale horizontal (run more experiments) and vertical (run longer
+experiments).
+
+We are going to checkout two ways of running our experiments. First we are going to return to the Compute Engine service
+because it gives the most simple form of scaling of experiments. That is: we create a VM with a appropriate docker
+image, we start it and login to the VM and we run our experiments. It is possible for most people to run a couple of
+experiments in parallel this way. However, what if there was an abstract layer that automatically created VM for us,
+lunched our experiments and the close the VM afterwards?
+
+This is where Vertex AI service comes into play. This is a dedicated service for handling ML models in GCP in the cloud.
+Vertex AI is in principal and end-to-end service that can take care of everything machine learning related in the cloud.
+In this course we are primarily focused on just the training of our models, and then use other services for different
+parts of our pipeline.
 
 ### Exercises
 
-1. Start by enabling the `AI Platform Training & Prediction API` in the `gcp` web page.
+1. Lets start by see how we could train a model using Pytorch using the Compute Engine service:
 
-2. Follow the instructions in [this tutorial](https://cloud.google.com/ai-platform/training/docs/getting-started-pytorch).
-   Since we have already setup everything, you can start from the `Downloading sample code` section. If you
-   have problems, additional info can be found in the
-   [documentation](https://cloud.google.com/ai-platform/training/docs) for the AI platform service.
+   1. Start by creating a appropriate VM. If you want to start a VM that have Pytorch pre-installed with only CPU
+      support you can run the following command
 
-3. For the final exercise we will try to connect nearly everything we have learned about the different
-   cloud services. Especially, we have seen how build custom images and train using pre-defined images.
-   The question then remains how we can train using custom images. Try to replicate the step from
-   [this tutorial](https://cloud.google.com/ai-platform/training/docs/custom-containers-training) on
-   how to train a Pytorch model using a custom container on your own Mnist model. Some notes:
+      ```bash
+      gcloud compute instances create <instance-name> \
+        --zone europe-west1-b
+        --image-family=pytorch-latest-cpu
+        --image-project=deeplearning-platform-release
+      ```
 
-   * If you are using `wandb` then you are probably going to to need to set some
-     [environment variables](https://docs.wandb.ai/guides/track/advanced/environment-variables)
-     before doing a run. Since you do not want other do have access to your `wandb` API Key
-     you are going to need the [secret manager](https://cloud.google.com/secret-manager/docs)
-     from `gcp`.
+      alternatively, if you have access to GPU in your GCP account you could start a VM in the following way
 
-4. (Optional) Feel free to checkout the `Vertex AI` service, which is `gcp` newest service for doing
-   MLOps, see [docs](https://cloud.google.com/vertex-ai/docs). `Vertex AI` is essentially a combination
-   of the `AI Platform` service and their `AutoML` service.
+      ```bash
+      gcloud compute instances create <instance-name> \
+        --zone europe-west4-a
+        --image-family=pytorch-latest-gpu
+        --image-project=deeplearning-platform-release
+        --accelerator="type=nvidia-tesla-v100,count=1"
+        --metadata="install-nvidia-driver=True"
+        --maintenance-policy TERMINATE
+      ```
 
-This ends the session on how to use Google cloud services for now. In a future session we are going to
-take a look at how to deploy trained models using the `AI platform`.
+   2. Next login into your newly created VM. You can either open an `ssh` terminal in the cloud console or run the
+      following command
+
+      ```bash
+      gcloud beta compute ssh <instance-name>
+      ```
+
+   3. It is recommend to always check that the VM we get is actually what we asked for. In this case the VM should have
+      Pytorch pre-installed so lets check for that by running
+
+      ```bash
+      python -c "import torch; print(torch.__version__)"
+      ```
+
+      Additionally, if you have a VM with GPU support also try running the `nvidia-smi` command.
+
+   4. When you have logged in to the VM, it works as your own machine. Therefore to run some training code you would
+      need to do the same setup step you have done on your own machine: clone your github, install dependencies,
+      download data, run code. Try doing this to make sure you can train a model.
+
+2. The last step in the previous exercise involves a lot of setup that would be necessary to do every time we create a
+   new VM, making horizontal scaling of experiments cumbersome. However, we have already developed docker images that
+   can take care of most of the setup.
+
+   1. Lets for simplicity just create a very small docker image (called `gcp_vm_tester.dockerfile`) that you can use
+
+      ```dockerfile
+      FROM gcr.io/deeplearning-platform-release/pytorch-cpu
+      RUN pip install matplotlib
+      ```
+
+      this basically just extends the base Pytorch image to also install matplotlib. The important part about the docker
+      images that we want to use here is that they should not have an `ENTRYPOINT` at the end, because we do not want
+      the docker container to actually run our scripts, just install dependencies on startup.
+
+   2. Lets build docker and manually push it to our container repository in gcp. Build with:
+
+      ```bash
+      docker build -f gcp_vm_tester.dockerfile.dockerfile . -t gcp_vm_tester:latest
+      ```
+
+      and then push with
+
+      ```bash
+      docker tag tester gcr.io/<project-id>/gcp_vm_tester
+      docker push gcr.io/<project-id>/gcp_vm_tester
+      ```
+
+      confirm by going to the container registry in the cloud consol and check that the image has been correctly
+      pushed.
+
+   3. Lets then create a VM with that particular docker image. Instead of using `gcloud compute instances create` we
+      are now using the `gcloud compute instances create-with-container` command
+
+      ```bash
+      gcloud compute instances create-with-container <instance-name> \
+        --container-image=gcr.io/<project-id>/gcp_vm_tester
+        --zone europe-west1-b
+      ```
+
+   4. Confirm that everything works by accessing your newly created VM and run both of these commands
+
+      ```bash
+      python -c "import torch; print(torch.__version__)"
+      python -c "import matplotlib; print(matplotlib.__version__)"
+      ```
+
+3. We are now moving on to the final way to train our code, using `Vertex AI` service.
+
+   1. Start by enabling it by searching for `Vertex AI` in the cloud consol and go to the service
+
+   2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker containers
+      that contains everything to run our code. Thus the only command that we actually need to use is
+      `gcloud ai custom-jobs create` command. An example here would be:
+
+      ```bash
+      gcloud ai custom-jobs create \
+         --region=europe-west1 \
+         --display-name=test-run \
+         --worker-pool-spec=machine-type=e2-standard-4,replica-count=1,container-image-uri=gcr.io/<project-id>/<docker-img>
+      ```
+
+      Essentially, this command combines everything into one command: it first creates a VM with the specs specified
+      and then attaches and runs the specified container. The difference from the previous exercises is that our docker
+      image this time should include an `ENTRYPOINT` that runs our code. Try to execute a job using Vertex AI. For
+      help you can checkout [the documentation on the command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create)
+      and [this page](https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging) and
+      [this page](https://cloud.google.com/vertex-ai/docs/training/configure-compute)
+
+   3. Assuming you manage to lunch a job, you should see an output like this:
+
+      <p align="center">
+         <img src="../figures/gcp_vertex_custom.png" width="800" >
+      </p>
+
+      To executing the commands that is outputted to look at both the status and the progress of your job.
+
+This ends the session on how to use Google cloud services for now. In a future session we are going to investigate a bit
+more of the services offered in GCP, in particular for deploying the models that we have just trained.
