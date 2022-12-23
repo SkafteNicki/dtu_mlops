@@ -437,5 +437,13 @@ parts of our pipeline.
 
       To executing the commands that is outputted to look at both the status and the progress of your job.
 
+   4. In addition you can also visit the `Custom Jobs` tab in `training` part of Vertex AI
+
+      <p align="center">
+         <img src="../figures/gcp_vertex_job.png" width="800" >
+      </p>
+
+      Check it out.
+
 This ends the session on how to use Google cloud services for now. In a future session we are going to investigate a bit
 more of the services offered in GCP, in particular for deploying the models that we have just trained.
