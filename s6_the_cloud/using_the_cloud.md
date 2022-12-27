@@ -184,9 +184,9 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterwards do a `dvc pull`.
 
-
 If you ever end up with credential issues when working with your data, we in general recommend for this course that you
-in
+store data in a bucket that is public accessible e.g. no authentication needed. You can read more about how to make your
+buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
 
 ## Container registry
 
@@ -432,7 +432,7 @@ parts of our pipeline.
    3. Assuming you manage to lunch a job, you should see an output like this:
 
       <p align="center">
-         <img src="../figures/gcp_vertex_custom.png" width="800" >
+         <img src="../figures/gcp_vertex_custom.PNG" width="800" >
       </p>
 
       To executing the commands that is outputted to look at both the status and the progress of your job.
@@ -440,7 +440,7 @@ parts of our pipeline.
    4. In addition you can also visit the `Custom Jobs` tab in `training` part of Vertex AI
 
       <p align="center">
-         <img src="../figures/gcp_vertex_job.png" width="800" >
+         <img src="../figures/gcp_vertex_job.PNG" width="800" >
       </p>
 
       Check it out.
