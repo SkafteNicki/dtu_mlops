@@ -419,13 +419,43 @@ parts of our pipeline.
       gcloud ai custom-jobs create \
          --region=europe-west1 \
          --display-name=test-run \
-         --worker-pool-spec=machine-type=e2-standard-4,replica-count=1,container-image-uri=gcr.io/<project-id>/<docker-img>
+         --config=config.yaml
       ```
 
-      Essentially, this command combines everything into one command: it first creates a VM with the specs specified
-      and then attaches and runs the specified container. The difference from the previous exercises is that our docker
-      image this time should include an `ENTRYPOINT` that runs our code. Try to execute a job using Vertex AI. For
-      help you can checkout [the documentation on the command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create)
+      Essentially, this command combines everything into one command: it first creates a VM with the specs specified by
+      a configuration file, then loads a container specified again in the configuration file and finally it runs
+      everything. A example of a config file could be:
+
+      ```yaml
+      # config_cpu.yaml
+      workerPoolSpecs:
+         machineSpec:
+            machineType: n1-highmem-2
+         replicaCount: 1
+         containerSpec:
+            imageUri: gcr.io/<project-id>/<docker-img>
+      ```
+
+      if you only want to run on CPU and another example for GPU:
+
+      ```yaml
+      # config_gpu.yaml
+      workerPoolSpecs:
+         machineSpec:
+            machineType: n1-standard-8
+            acceleratorType: NVIDIA_TESLA_T4
+            acceleratorCount: 1
+         replicaCount: 1
+         containerSpec:
+            imageUri: gcr.io/<project-id>/<docker-img>
+      ```
+
+      you can read more about the configuration formatting
+      [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
+      and the different types of machines
+      [here](https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types). Try to execute a job
+      using the `gcloud ai custom-jobs create` command. For additional documentation you can checkout
+      [the documentation on the command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create)
       and [this page](https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging) and
       [this page](https://cloud.google.com/vertex-ai/docs/training/configure-compute)
 
