@@ -97,7 +97,39 @@ results.
     the `command` config in your `sweep.yaml` file, see this
     [page](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration).
 
-11. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
+11. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
+    training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
+    previous exercise, it needs to happen automatically. Lets therefore look into how we can do that.
+
+    1. First we need to generate an authentication key, or more precise an API key. This is in general the way any
+       service (like a docker container) can authenticate. Start by going <https://wandb.ai/home>, click your profile
+       icon in the upper right corner and then go to settings. Scroll down to the danger zone and generate a new API
+       key and finally copy it.
+
+    2. Next create a new docker file called `wandb.docker` and add the following code
+
+       ```dockerfile
+       FROM python:3.9
+       RUN apt update && \
+           apt install --no-install-recommends -y build-essential gcc && \
+           apt clean && rm -rf /var/lib/apt/lists/*
+       RUN pip install wandb
+       COPY s4_debugging_and_logging/exercise_files/wandb_tester.py wandb_tester.py
+       ENTRYPOINT ["python", "-u", "wandb_tester.py"]
+       ```
+
+       please take a look at the script being copied into the image and afterwards build the docker image.
+
+    3. When we want to run the image, what we need to do is including a environment variables that contains the API key
+       we generated. This will then autheticate the docker container with the wandb server:
+
+       ```bash
+       docker run -e WANDB_API_KEY=<your-api-key> wandb:latest
+       ```
+
+       Try running it an confirm that the results are uploaded to the wandb server.
+
+12. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
 
 That is the module on logging. Please note that at this point in the course you will begin to see some overlap between
 the different frameworks. While we mainly used `hydra` for configuring our python scripts it can also be used to save

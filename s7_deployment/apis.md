@@ -503,7 +503,7 @@ can look through for help.
       return preds
    ```
 
-7. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
+8. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
    application. For the following you can take whatever privious FastAPI application as the base application for the
    container
