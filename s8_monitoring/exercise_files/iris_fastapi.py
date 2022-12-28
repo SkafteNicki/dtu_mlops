@@ -20,11 +20,12 @@ def iris_inference_v1(
     return {"prediction": classes[prediction], "prediction_int": prediction}
 
 with open('prediction_database.csv', 'w') as file:
-    file.write("time, sepal_length, sepal_width, petal_length, petal_width\n")
+    file.write("time, sepal_length, sepal_width, petal_length, petal_width, prediction\n")
 
-def add_to_database(now: str, sepal_length: float, sepal_width: float, petal_length: float, petal_width: float):
+def add_to_database(
+    now: str, sepal_length: float, sepal_width: float, petal_length: float, petal_width: float, prediction: int):
     with open('prediction_database.csv', 'a') as file:
-        file.write(f"{now}, {sepal_length}, {sepal_width}, {petal_length}, {petal_width}\n")
+        file.write(f"{now}, {sepal_length}, {sepal_width}, {petal_length}, {petal_width}, {prediction}\n")
 
 from fastapi import BackgroundTasks
 
@@ -36,8 +37,10 @@ async def iris_inference_v2(
     petal_width: float,
     background_tasks: BackgroundTasks,
 ):
-    now = str(datetime.now())
-    background_tasks.add_task(add_to_database, now, sepal_length, sepal_width, petal_length, petal_width)
     prediction = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
     prediction = prediction.item()
+
+    now = str(datetime.now())
+    background_tasks.add_task(add_to_database, now, sepal_length, sepal_width, petal_length, petal_width, prediction)
+
     return {"prediction": classes[prediction], "prediction_int": prediction}
