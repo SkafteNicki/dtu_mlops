@@ -8,60 +8,60 @@ nav_order: 2
 
 [Slides](../slides/Intro%20to%20the%20course.pdf){: .btn .btn-blue }
 
-The course runs in hybrid format, which means that some day you are expected to be at campus and other days
-it is optional. All *On-site* days start at 9:00 in the morning with an short lecture (15-30 min) that will
-give some context about atleast one of the topics of that day. The remaining of the day will be spend on
-solving exercises. We aim that the exercises should be able to be solved in around 4 hours, meaning that
-you will be able to get help until 14:00. The rest of the day is dedicated to self study, which means that
-you determine when to stop. We note that since the material is still fairly new, some exercises may take
-less than 4 hours and some may take more.
+The course is organised into *exercise* (2/3 of the course) days and *project* days (1/3 of the course).
 
-## Virtual days
+*Exercise* days start at 9:00 in the morning with an lecture (15-30 min) that will give some context about atleast one
+of the topics of that day. Additionally, previous days exercises may shortly be touched upon. The remaining of the day
+will be spend on solving exercises either individually or in small groups. For some people the exercises may be fast to
+do and for others it will take the hole day. We will provide help throughout the day. We will try to answer questions
+on slack but help with be priorities to students physically on campus.
 
-Virtual days are intended for project work and you are therefore responsable for making an agreement with
-your group when you are going to work. Please note that on the the first virtual day, a lecture will be given
-at 9:00 with project information. One time during each virtual day we will have office hours where you can
-ask questions. Please note, that while you will not be able to get physical help you are more than welcome
-to still use DTU´s facilities for your group work.
+*Project* days are intended for project work and you are therefore responsable for making an agreement with your group
+when and where you are going to work. The first project days there will be a lecture at 9:00 with project information.
+Other project days we may also start the day with an external lecture, which we highly recommend that you participate
+in. During each project day we will have office hours where you can ask questions for the project.
 
-### Week 1
+Below is an overall timeplan for each day, including the presentation topic of the day and the frameworks that you will
+be using in the exercises.
 
-The first week is all about getting set up for the following two weeks. In particular this week focus setting
-up a good practise for how to organise and develop code with the focus on making reproducible code.
+## Week 1
 
-Date | Day       | Presentation topic                                                 | Framework/exercise                           | On-site/Virtual
------|-----------|--------------------------------------------------------------------|----------------------------------------------|----------------
-2/1  | Monday    | [Deep learning software](../slides/Deep%20Learning%20software.pdf) | Terminal, Conda, IDE, Pytorch                | On-site
-3/1  | Tuesday   | [MLOps: what is it?](../slides/What%20is%20MLOps.pdf)              | Git, CookieCutter, Pep8, DVC                 | On-site
-4/1  | Wednesday | [Reproducibility](../slides/Reproducibility.pdf)                   | Docker, Hydra                                | On-site
-5/1  | Thursday  | [Debugging](../slides/Debugging%20ML%20Code.pdf)                   | Debugger, Profiler, Wandb, Pytorch Lightning | On-site
-6/1  | Friday    | [Pytorch ecosystem](../slides/Projects.pdf)                        | Project work                                 | Virtual
+In the first week you will be introduced to a number of development practises for organising and developing code,
+especially with a focus on making everything reproducible.
 
-### Week 2
+Date | Day       | Presentation topic                                                 | Frameworks                           | Format
+-----|-----------|--------------------------------------------------------------------|--------------------------------------|-----------
+2/1  | Monday    | [Deep learning software](../slides/Deep%20Learning%20software.pdf) | Terminal, Conda, IDE, Pytorch        | Exercises
+3/1  | Tuesday   | [MLOps: what is it?](../slides/What%20is%20MLOps.pdf)              | Git, CookieCutter, Pep8, DVC         | Exercises
+4/1  | Wednesday | [Reproducibility](../slides/Reproducibility.pdf)                   | Docker, Hydra                        | Exercises
+5/1  | Thursday  | [Debugging](../slides/Debugging%20ML%20Code.pdf)                   | Debugger, Profiler, Wandb, Lightning | Exercises
+6/1  | Friday    | [Pytorch ecosystem](../slides/Projects.pdf)                        | -                                    | Projects
 
-The second week is about automatization and scalability. Automatization will help use making sure that our code
-does not break when we make changes to it. While many times it does not require huge resources to do development,
-there are always certain phases that require you to scale your experiments. In this week we will focus on getting
-comfortable on how to write distributed application and how we can run them
+## Week 2
 
-Date | Day       | Presentation topic                                              | Framework/exercise          | On-site/Virtual
------|-----------|-----------------------------------------------------------------|-----------------------------|----------------
-9/1  | Monday    | [Continuous Integration](../slides/Continues%20Integration.pdf) | Pytest, Github actions, CML | On-site
-10/1 | Tuesday   | [The Cloud](../slides/Cloud%20Intro.pdf)                        | GCP                         | On-site
-11/1 | Wednesday | [Deployment](../slides/Deployment.pdf)                          | Google Cloud, TorchServe    | On-site
-12/1 | Thursday  | -                                                               | Project work                | Virtual
-13/1 | Friday    | -                                                               | Project work                | Virtual
+The second week is about automatization and the cloud. Automatization will help use making sure that our code
+does not break when we make changes to it. The cloud will help us scale up our applications and we learn how to use
+different services to help develop a full machine learning pipeline.
 
-### Week 3
+Date | Day       | Presentation topic                                              | Frameworks                                        | Format
+-----|-----------|-----------------------------------------------------------------|---------------------------------------------------|-----------
+9/1  | Monday    | [Continuous Integration](../slides/Continues%20Integration.pdf) | Pytest, Github actions, Pre-commit, CML           | Exercises
+10/1 | Tuesday   | [The Cloud](../slides/Cloud%20Intro.pdf)                        | GCP Engine, Bucket, Container registry, Vertex AI | Exercises
+11/1 | Wednesday | [Deployment](../slides/Deployment.pdf)                          | FastAPI, Torchservce, GCP Functions, Run          | Exercises
+12/1 | Thursday  | Guest lecture                                                   | -                                                 | Projects
+13/1 | Friday    | Guest lecture                                                   | -                                                 | Projects
 
-For the final week we look into advance topics such as deployment and monitoring. Both these topics are
+## Week 3
+
+For the final week we look into advance topics such as monitoring and scaling of applications. Monitoring is especially
 important for the longivity for the applications that we develop, that we actually can deploy them either
-locally or in the cloud and that we have the tools to monitor how they behave over time.
+locally or in the cloud and that we have the tools to monitor how they behave over time. Scaling of applications is an
+important topic if we ever want our applications to be used by many people at the same time.
 
-Date | Day       | Presentation topic                                                | Framework/exercise         | On-site/Virtual
------|-----------|-------------------------------------------------------------------|----------------------------|----------------
-16/1 | Monday    | Monitoring                                                        | Kibana                     | On-site
-17/1 | Tuesday   | [Scalable applications](../slides/Distributed%20applications.pdf) | Pytorch, Pytorch lightning | On-site
-18/1 | Wednesday | -                                                                 | Project work               | Virtual
-19/1 | Thursday  | -                                                                 | Project work               | Virtual
-20/1 | Friday    | EXAM                                                              | Project presentations      | On-site
+Date | Day       | Presentation topic                                                | Frameworks                          | Format
+-----|-----------|-------------------------------------------------------------------|-------------------------------------|----------
+16/1 | Monday    | Monitoring (Guest lecture)                                        | Evidently AI, OpenTelemetry, Signoz | Exercises
+17/1 | Tuesday   | [Scalable applications](../slides/Distributed%20applications.pdf) | Pytorch, Lightning                  | Exercises
+18/1 | Wednesday | -                                                                 | -                                   | Projects
+19/1 | Thursday  | -                                                                 | -                                   | Projects
+20/1 | Friday    | -                                                                 | -                                   | Exam
