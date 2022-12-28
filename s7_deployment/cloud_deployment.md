@@ -85,7 +85,7 @@ do you have to manage the server. Everything is magically taken care of behind t
       ```
 
 6. Next, we are going to create an application that actually takes some input so we can try to send it requests.
-   We provide a very simple `sklearn_cloud_function.py` script to get started.
+   We provide a very simple [sklearn_cloud_function.py script](exercise_files/sklearn_cloud_functions.py) to get started.
 
    1. Figure out what the script does and run the script. This should create a file with trained model.
 
