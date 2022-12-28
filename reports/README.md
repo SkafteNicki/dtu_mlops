@@ -3,13 +3,44 @@ layout: default
 nav_exclude: true
 ---
 
-# Exam sheet
+# Exam template for 02476 Machine Learning Operations
 
-This is the template for the exam. Please do not remove anything from the template, only add your answers.
-For including images, add it to the figures subfolder and then in this template add:
-```
+This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
+like:
+
+```--- question 1 fill here ---```
+
+where you instead should add your answers. Any other changes may have unwanted consequences when your report is auto
+generated in the end of the course. For questions where you are asked to include images, start by adding the image to
+the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
+
+```markdown
 ![my_image](figures/<image>.<extension>)
 ```
+
+In addition to this markdown file, we also provide the `report.py` script that provides two utility functions:
+
+* Running:
+
+  ```bash
+  python report.py html
+  ```
+
+  will generate an `.html` page of your report. After deadline for answering this template, we will autoscrape
+  everything in this `reports` folder and then use this utility to generate an `.html` page that will be your serve
+  as your final handin.
+
+* Running
+
+  ```bash
+  python report.py check
+  ```
+
+  will check your answers in this template against the constrains listed for each question e.g. is your answer too
+  short, too long, have you included an image when asked to.
+
+For both functions to work it is important that you do not rename anything. The script have two dependencies that can
+be installed with `pip install click markdown`.
 
 ## Group information
 
@@ -199,11 +230,10 @@ For including images, add it to the figures subfolder and then in this template 
 
 ### Question 14
 
-<img style="float: right;" src="figures/wandb.png" width="300">
-
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
-> **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. Explain what**
-> **metrics you are tracking and why they are important**
+> **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
+> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
 >
@@ -251,8 +281,6 @@ For including images, add it to the figures subfolder and then in this template 
 
 ### Question 17
 
-<img style="float: right;" src="figures/gcp.png" width="300">
-
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
 > Answer length: 50-200 words.
@@ -281,9 +309,8 @@ For including images, add it to the figures subfolder and then in this template 
 
 ### Question 19
 
-<img style="float: right;" src="figures/bucket.png" width="300">
-
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
+> **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
 
@@ -291,9 +318,8 @@ For including images, add it to the figures subfolder and then in this template 
 
 ### Question 20
 
-<img style="float: right;" src="figures/registry.png" width="300">
-
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
+> **You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
 
@@ -301,10 +327,8 @@ For including images, add it to the figures subfolder and then in this template 
 
 ### Question 21
 
-<img style="float: right;" src="figures/build.png" width="300">
-
 > **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
-> **your project.**
+> **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
 
@@ -361,15 +385,14 @@ For including images, add it to the figures subfolder and then in this template 
 
 ### Question 25
 
-<img style="float: right;" src="figures/overview.png" width="300">
-
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
-> **You can take inspiration from the figure to the right. Additionally in your own words, explain the overall steps**
-> **in figure.**
+> **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the**
+> **overall steps in figure.**
 >
 > Answer length: 200-400 words
 >
 > Example:
+> *
 > *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
 > *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
 >
