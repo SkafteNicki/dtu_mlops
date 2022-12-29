@@ -47,9 +47,6 @@ We have now come up with a solution to the data drift problem, but there is one 
 care of: When we should actually trigger the retraining? We do not want to wait around for our model performance to
 degrade, thus we need tools that can detect when we are seeing a drift in our data.
 
-## Detection of drift
-
-
 ## Exercises
 
 For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) developed by
@@ -118,7 +115,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
    3. Call you API a number of times to generate some dummy data in the database.
 
-4. Create a new `data_drift.py` file where we are going to implement the data drifting detection and reporting. Start
+3. Create a new `data_drift.py` file where we are going to implement the data drifting detection and reporting. Start
    by adding both the real iris data and your generated dummy data as pandas dataframes.
 
    ```python
@@ -151,7 +148,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
    Standardize the dataframes such that they have the same column names and drop the time column from the `current_data`
    dataframe.
 
-5. We are now ready to generate some reports about data drifting:
+4. We are now ready to generate some reports about data drifting:
 
    1. Try executing the following code:
 
@@ -179,17 +176,19 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
    3. The final report present we will look at is the `TargetDriftPreset`. Again, add to report, re-run and inspect.
 
-6. Evidently reports are meant for debugging, exploration and reporting of results. However, as we stated in the
+5. Evidently reports are meant for debugging, exploration and reporting of results. However, as we stated in the
    beginning, what we are actually interested in methods automatically detecting when we are beginning to drift. For
    this we will need to look at Test and TestSuites:
 
    1. Lets start with a simple test that checks if there are any missing values in our dataset:
+
       ```python
       from evidently.test_suite import TestSuite
       from evidently.tests import TestNumberOfMissingValues
       data_test = TestSuite(tests=[TestNumberOfMissingValues()])
       data_test.run(reference_data=reference, current_data=current)
       ```
+
       again we could run `data_test.save_html` to get a nice view of the results (feel free to try it out) but
       additionally we can also call `data_test.as_dict()` method that will give a dict with the test results.
       What dictionary key contains the if all tests have passed or not?
