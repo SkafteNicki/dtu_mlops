@@ -47,6 +47,9 @@ We have now come up with a solution to the data drift problem, but there is one 
 care of: When we should actually trigger the retraining? We do not want to wait around for our model performance to
 degrade, thus we need tools that can detect when we are seeing a drift in our data.
 
+## Detection of drift
+
+
 ## Exercises
 
 For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) developed by
@@ -57,7 +60,8 @@ exercise to look at the [docs](https://docs.evidentlyai.com/) for API and exampl
 
 Additionally, we want to stress that data drift detection, concept drift detection etc. is still an active field of
 research and therefore exist multiple frameworks for doing this kind of detection. In addition to Evidently,
-we can also mention [NannyML](https://github.com/NannyML/nannyml) and [WhyLogs](https://github.com/whylabs/whylogs).
+we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
+[deepcheck](https://github.com/deepchecks/deepchecks).
 
 1. Start by install Evidently
 
@@ -179,28 +183,94 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml) and [WhyLogs](
    beginning, what we are actually interested in methods automatically detecting when we are beginning to drift. For
    this we will need to look at Test and TestSuites:
 
-   1. hest
+   1. Lets start with a simple test that checks if there are any missing values in our dataset:
       ```python
       from evidently.test_suite import TestSuite
-      from evidently.tests import TestNumberOfRows
-      data_integrity_dataset_tests = TestSuite(tests=[TestNumberOfRows()])
+      from evidently.tests import TestNumberOfMissingValues
+      data_test = TestSuite(tests=[TestNumberOfMissingValues()])
+      data_test.run(reference_data=reference, current_data=current)
+      ```
+      again we could run `data_test.save_html` to get a nice view of the results (feel free to try it out) but
+      additionally we can also call `data_test.as_dict()` method that will give a dict with the test results.
+      What dictionary key contains the if all tests have passed or not?
+
+   2. Take a look at this [colab notebook](https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl)
+      that contains all tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
+      and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your usecase
+      and get them all passing.
+
+6. (Optional) When doing monitoring in practice, we are not always interested in running on all data collected from our
+   API maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
+   the timestamps of when our API is called we can use that for filtering. Implement a simple filter that either takes
+   an integer `n` and returns the last `n` entries in our database or some datetime `t` that filters away observations
+   earlier than this.
+
+7. Evidently by default only supports structured data e.g. tabular data (so does nearly every other framework). Thus,
+   the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
+   structured features from the data which we then can run the analysis on.
+
+   1. (Optional) For images the simple solution would be to flatten the images and consider each pixel a feature,
+      however this does not work in practice because changes in the individual pixels does not really tell anything
+      about the image. Instead we should derive some feature such as:
+
+      * Average brightness
+      * Contrast of image
+      * Image sharpness
+      * ...
+
+      These are all numbers that can make up a feature vector for a image. Try out doing this yourself, for example by
+      extracting such features from MNIST and FashionMNIST datasets, and check if you can detect a drift between the two
+      sets.
+
+   2. (Optional) For text a common approach is to extra some higher level embedding such as the very classical
+      [GLOVE](https://nlp.stanford.edu/projects/glove/) embedding. Try following
+      [this tutorial](https://github.com/evidentlyai/evidently/blob/main/examples/how_to_questions/how_to_run_drift_report_for_text_encoders.ipynb)
+      to understand how drift detection is done on text.
+
+   3. Lets instead take a deep learning based approach to doing this. Lets consider the
+      [CLIP](https://openai.com/blog/clip/) model, which is normally used to do image captioning. For our purpose this
+      is perfect because we can use the model to get abstract feature embeddings for both images and text:
+
+      ```python
+      from PIL import Image
+      import requests
+      # requires transformers package: pip install transformers
+      from transformers import CLIPProcessor, CLIPModel
+
+      model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+      processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+      url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+      image = Image.open(requests.get(url, stream=True).raw)
+
+      # set either text=None or images=None when only the other is needed
+      inputs = processor(text=["a photo of a cat", "a photo of a dog"], images=image, return_tensors="pt", padding=True)
+
+      img_features = model.get_image_features(inputs['pixel_values'])
+      text_features = model.get_text_features(inputs['input_ids'], inputs['attention_mask'])
       ```
 
+      Both `img_features` and `text_features` are in this case a `(512,)` abstract feature embedding, that should be
+      able to tell us something about our data distribution. Try using this method to extract features on two different
+      datasets like CIFAR10 and SVHN if you want to work with vision or
+      [IMDB movie review](https://www.kaggle.com/code/lakshmi25npathi/sentiment-analysis-of-imdb-movie-reviews) and
+      [Amazon review](https://www.kaggle.com/datasets/PromptCloudHQ/amazon-echo-dot-2-reviews-dataset) for text. After
+      extracting the features try running some of the data distribution testing you just learned about.
 
-
-
-6. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
+8. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
    monitoring to be a deployed application (that only we can access). Implement a `/monitoring/` endpoint that does
-   all the reporting we just went through such that you two endpoints:
+   all the reporting we just went through such that you have two endpoints:
 
    ```bash
-   http://127.0.0.1:8000/iris_inference/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0 # user endpoint
+   http://127.0.0.1:8000/iris_infer/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0 # user endpoint
    http://127.0.0.1:8000/iris_monitoring/ # monitoring endpoint
    ```
 
-   as with our script the monitoring endpoint should return a `.pdf` with the results of the data analysis.
+   Our monitoring endpoint should return a HTML page either showing an Evidently report or test suit. Try implementing
+   this endpoint. We have implemented a solution in this [file](exercise_files/iris_fastapi.py) if you need help with
+   how to return an HTML page from a FastAPI application.
 
-7. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
+9. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
    implement this in a container e.g. GCP Run service because the data gathering from the endpoint should still be
    implemented as an background task. For this to work you will need to change the following:
 
@@ -211,4 +281,18 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml) and [WhyLogs](
      or alternatively you can deploy this as its own endpoint that can be invoked. For the latter option we recommend
      that this should require authentication.
 
-That ends the module on detection of data drifting.
+That ends the module on detection of data drifting, data quality etc. If this has not already been made clear,
+monitoring of machine learning applications is an extremely hard discipline because it is not a clear cut when we should
+actually respond to feature beginning to drift and when it is probably fine. That comes down to the individual
+application what kind of rules that should be implemented. Additionally, the tools presented here are also in no way
+complete and are especially limited in one way: they are only considering the marginal distribution of data. Every
+analysis that we done have been on the distribution per feature (the marginal distribution), however as the image below
+show it is possible for data to have drifted to another distribution with the marginal being approximatively the same.
+
+<p align="center">
+  <img src="../figures/data_drift_marginals.png" width="500">
+</p>
+
+There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.csail.mit.edu/papers/v13/gretton12a.html)
+that are able to do testing on multivariate distributions, which you are free to dive into. In this course we will just
+always recommend to consider multiple features when doing decision regarding your deployed applications.
