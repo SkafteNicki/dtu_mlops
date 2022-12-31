@@ -20,24 +20,24 @@ the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add
 
 In addition to this markdown file, we also provide the `report.py` script that provides two utility functions:
 
-* Running:
+Running:
 
-  ```bash
-  python report.py html
-  ```
+```bash
+python report.py html
+```
 
-  will generate an `.html` page of your report. After deadline for answering this template, we will autoscrape
-  everything in this `reports` folder and then use this utility to generate an `.html` page that will be your serve
-  as your final handin.
+will generate an `.html` page of your report. After deadline for answering this template, we will autoscrape
+everything in this `reports` folder and then use this utility to generate an `.html` page that will be your serve
+as your final handin.
 
-* Running
+Running
 
-  ```bash
-  python report.py check
-  ```
+```bash
+python report.py check
+```
 
-  will check your answers in this template against the constrains listed for each question e.g. is your answer too
-  short, too long, have you included an image when asked to.
+will check your answers in this template against the constrains listed for each question e.g. is your answer too
+short, too long, have you included an image when asked to.
 
 For both functions to work it is important that you do not rename anything. The script have two dependencies that can
 be installed with `pip install click markdown`.
