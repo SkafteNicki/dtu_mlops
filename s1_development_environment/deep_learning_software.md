@@ -91,6 +91,9 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
 ### Exercises
 
+{: .highlight }
+> [Exercise files](exercise_files)
+
 1. Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)
 
    ```bash
