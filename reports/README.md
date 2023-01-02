@@ -392,7 +392,7 @@ be installed with `pip install click markdown`.
 > Answer length: 200-400 words
 >
 > Example:
-> *
+>
 > *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
 > *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
 >

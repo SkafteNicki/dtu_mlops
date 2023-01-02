@@ -55,6 +55,7 @@ exercise material for this course and lectures. Additionally, you should join ou
 we use for communication:
 
 <https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw>
+
 (link may be expired, write to me to gain access)
 
 ## Course organization
