@@ -1,5 +1,6 @@
-import torch
 import numpy as np
+import torch
+from torch.utils.data import DataLoader
 
 
 def mnist():
@@ -20,6 +21,24 @@ def mnist():
     train['labels'] = temp_labels
 
     test = np.load("/Users/Gustav/Desktop/DesktopV00183/DTU/1st/MLOps.nosync/dtu_mlops/data/corruptmnist/test.npz")
+
+    """
+    loaders = {
+    'train' : torch.utils.data.DataLoader(train, 
+                                          batch_size=100, 
+                                          shuffle=True, 
+                                          num_workers=1),
+    
+    'test'  : torch.utils.data.DataLoader(test, 
+                                          batch_size=100, 
+                                          shuffle=True, 
+                                          num_workers=1),
+    }
+    print(loaders)
+    for i, (images, labels) in enumerate(loaders['train']):
+        print(images, labels)
+        break
+    """
     return train, test
 
 if __name__ == '__main__':
