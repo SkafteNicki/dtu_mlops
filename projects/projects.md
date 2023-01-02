@@ -162,4 +162,3 @@ demo of your project. What we are interested in seeing is essentially a live dem
 We will possibly also ask questions regarding the overall curriculum of the course. Importantly, you should have your
 deployed application, the github repository with your project code, `W&B` account and your `gcp` account ready before
 you enter the exam so we can quickly jump around. We will send out an the time slots during the last week.
-s

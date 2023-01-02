@@ -53,7 +53,8 @@ For these exercises we are going to use the framework [Evidently](https://github
 [EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports both detection for both regression and
 classification models. The exercises are in large taken from
 [here](https://docs.evidentlyai.com/get-started/hello-world) and in general we recommend if you are in doubt about an
-exercise to look at the [docs](https://docs.evidentlyai.com/) for API and examples.
+exercise to look at the [docs](https://docs.evidentlyai.com/) for API and examples (their documentation can be a bit
+lacking sometimes, so you may also have to dive into the source code).
 
 Additionally, we want to stress that data drift detection, concept drift detection etc. is still an active field of
 research and therefore exist multiple frameworks for doing this kind of detection. In addition to Evidently,
@@ -174,7 +175,10 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
       and re-run the report. Checkout the newly generated report. Again go over the generated plots and make sure that
       it picked up on the missing values you just added.
 
-   3. The final report present we will look at is the `TargetDriftPreset`. Again, add to report, re-run and inspect.
+   3. The final report present we will look at is the `TargetDriftPreset`. Target drift means that our model is
+      over/under predicting certain classes e.g. or general terms the distribution of predicted values differs from the
+      ground true distribution of targets. Try adding the `TargetDriftPreset` to the `Report` class and re-run the
+      analysis and inspect the result. Have your targets drifted?
 
 5. Evidently reports are meant for debugging, exploration and reporting of results. However, as we stated in the
    beginning, what we are actually interested in methods automatically detecting when we are beginning to drift. For

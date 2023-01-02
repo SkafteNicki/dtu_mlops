@@ -84,7 +84,6 @@ following exercises are just to get you started but you can find many more tutor
    we highly recommend installing the following packages:
 
    * `Python`: general python support
-   * `Python for VSCode`: python syntax support
    * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
    * `Jupyter`: support for jupyter notebooks directly in VSCode
 
