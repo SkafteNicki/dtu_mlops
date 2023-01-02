@@ -5,6 +5,8 @@ parent: S8 - Monitoring
 nav_order: 1
 ---
 
+<img style="float: right;" src="../figures/icons/evidentlyai.png" width="130">
+
 # Data drifting
 {: .no_toc }
 
