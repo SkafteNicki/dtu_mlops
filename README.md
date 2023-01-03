@@ -51,7 +51,7 @@ git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 
 If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
-exercise material for this course and lectures. Additionally, you should join our slack channel which
+exercise material for this course and lectures. Additionally, you should join our Slack channel which
 we use for communication:
 
 <https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw>
