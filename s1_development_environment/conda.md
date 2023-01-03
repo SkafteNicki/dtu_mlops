@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M2 - Conda
+titl: M2 - Conda
 parent: S1 - Development environment
 nav_order: 2
 ---
