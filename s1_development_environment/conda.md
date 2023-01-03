@@ -76,13 +76,13 @@ compared to other environment managers.
    current environment (HINT: check the `conda_cheatsheet.pdf` file in the `exercise_files` folder).
 
    1. How do you easily export this list to a text file? Do this, and make sure you export it to
-   a file called `enviroment.yml`.
+   a file called `enviroment.txt`.
 
    2. Finally, inspect the file to see what is in it.
 
-   3. The `enviroment.yml` file you have created is one way to secure *reproducibility* between users, because
-   anyone should be able to get an exact copy of you enviroment if they have your `enviroment.yml` file.
-   Try creating a new environment directly from you `enviroment.yml` file and check that the packages being
+   3. The `enviroment.txt` file you have created is one way to secure *reproducibility* between users, because
+   anyone should be able to get an exact copy of you environment if they have your `enviroment.txt` file.
+   Try creating a new environment directly from you `enviroment.txt` file and check that the packages being
    installed exactly matches what you originally had.
 
 5. Which `conda` commando gives you a list of all the environments that you have created?

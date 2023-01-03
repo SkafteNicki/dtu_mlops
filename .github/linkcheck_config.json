@@ -19,5 +19,9 @@
         {
             "pattern": "^https://api.github.*"
         }
+    ],
+    "aliveStatusCodes": [
+        0,
+        200
     ]
 }
