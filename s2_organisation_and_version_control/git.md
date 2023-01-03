@@ -156,7 +156,7 @@ working together on the same project.
       `git status` commando). It is good practise to make a new branch when working on some changes. Use
       the `git branch` command followed by the `git checkout` command to create a new branch.
 
-   4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
+   4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
       When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
    5. Go online to the original repository and go the `Pull requests` tab. Find `compare` botton and
