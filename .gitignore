@@ -136,3 +136,4 @@ FashionMNIST/
 
 # vs code
 .vscode/settings.json
+/data
