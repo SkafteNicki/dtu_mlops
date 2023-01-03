@@ -97,7 +97,7 @@ Of course, the real power of version control is the ability to make branches, as
   <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </p>
 
-Each branch can contain code that are not present on other branches. This is usefull when you are many developers
+Each branch can contain code that are not present on other branches. This is useful when you are many developers
 working together on the same project.
 
 ## Exercises
@@ -145,7 +145,7 @@ working together on the same project.
    go through the steps of sending an open-source contribution:
 
    1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
-      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
+      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* button.
       ![forking](../figures/forking.PNG)
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
@@ -153,7 +153,7 @@ working together on the same project.
    2. Clone your local fork of the project using `git clone`.
 
    3. As default your local repository will be on the `main branch` (HINT: you can check this with the
-      `git status` commando). It is good practise to make a new branch when working on some changes. Use
+      `git status` commando). It is good practice to make a new branch when working on some changes. Use
       the `git branch` command followed by the `git checkout` command to create a new branch.
 
    4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
