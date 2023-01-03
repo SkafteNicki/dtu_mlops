@@ -165,7 +165,7 @@ corrupted version of regular mnist. Your overall task is the following:
 > **Implement a mnist neural network that achives atlest 85 % accuracy on the test set.**
 
 Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
-create the corrupted version. This should give you a cloue about what network architechture to use.
+create the corrupted version. This should give you a clue about what network architechture to use.
 
 One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
 in the future as you start to add more and more features. As subgoals, please forfill the following exercises
