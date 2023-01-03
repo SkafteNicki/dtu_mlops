@@ -10,7 +10,7 @@ def test_network(net, trainloader):
     optimizer = optim.Adam(net.parameters(), lr=0.001)
 
     dataiter = iter(trainloader)
-    images, labels = dataiter.next()
+    images, labels = next(dataiter)
 
     # Create Variables for the inputs and targets
     inputs = Variable(images)
