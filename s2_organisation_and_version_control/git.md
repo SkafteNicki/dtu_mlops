@@ -97,7 +97,7 @@ Of course, the real power of version control is the ability to make branches, as
   <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </p>
 
-Each branch can contain code that are not present on other branches. This is usefull when you are many developers
+Each branch can contain code that are not present on other branches. This is useful when you are many developers
 working together on the same project.
 
 ## Exercises
