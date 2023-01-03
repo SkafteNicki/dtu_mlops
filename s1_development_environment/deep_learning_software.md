@@ -91,9 +91,6 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
 ### Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files)
-
 1. Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)
 
    ```bash
