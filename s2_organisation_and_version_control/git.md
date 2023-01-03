@@ -120,7 +120,7 @@ working together on the same project.
    5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
       updated in your repository.
 
-   6. You can always use the commando `git status` to check where you are in the process of making a commit.
+   6. You can always use the command `git status` to check where you are in the process of making a commit.
 
 2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
    messing with your working code. Creating a new branch can be done using:
