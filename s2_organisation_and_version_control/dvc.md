@@ -87,7 +87,6 @@ it contains excellent tutorials.
    If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
    you follow the instructions [here](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
 
-
 3. In your MNIST repository run the following command from the terminal
 
    ```bash
