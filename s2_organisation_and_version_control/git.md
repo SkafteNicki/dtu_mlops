@@ -150,7 +150,7 @@ working together on the same project.
    go through the steps of sending an open-source contribution:
 
    1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
-      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
+      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* button.
       ![forking](../figures/forking.PNG)
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
