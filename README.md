@@ -78,7 +78,7 @@ Importantly we differ between core modules and optional modules. Core modules wi
 at the top of their corresponding page. Core modules are importantly to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.
 
-## MLOps: What is it and what it is not?
+## MLOps: What is it and what it is not??
 
 Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particular
 deep learning has become a technology that is widely available. The term itself is a compound of "machine learning"
