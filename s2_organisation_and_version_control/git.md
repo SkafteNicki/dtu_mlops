@@ -158,7 +158,7 @@ working together on the same project.
    2. Clone your local fork of the project using `git clone`.
 
    3. As default your local repository will be on the `main branch` (HINT: you can check this with the
-      `git status` command). It is good practise to make a new branch when working on some changes. Use
+      `git status` command). It is good practice to make a new branch when working on some changes. Use
       the `git branch` command followed by the `git checkout` command to create a new branch.
 
    4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
