@@ -141,7 +141,7 @@ working together on the same project.
 
 4. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
    not completely untrue when you are only one or two working on a project. However, these file management
-   systems falls short when hundred to thousand of people work to together. For this exercise you will
+   systems falls short when hundreds to thousands of people work together. For this exercise you will
    go through the steps of sending an open-source contribution:
 
    1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
