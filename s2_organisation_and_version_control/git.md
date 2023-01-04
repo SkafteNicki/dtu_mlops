@@ -120,7 +120,7 @@ working together on the same project.
    5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
       updated in your repository.
 
-   6. You can always use the commando `git status` to check where you are in the process of making a commit.
+   6. You can always use the command `git status` to check where you are in the process of making a commit.
 
 2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
    messing with your working code. Creating a new branch can be done using:
@@ -153,7 +153,7 @@ working together on the same project.
    2. Clone your local fork of the project using `git clone`.
 
    3. As default your local repository will be on the `main branch` (HINT: you can check this with the
-      `git status` commando). It is good practise to make a new branch when working on some changes. Use
+      `git status` command). It is good practise to make a new branch when working on some changes. Use
       the `git branch` command followed by the `git checkout` command to create a new branch.
 
    4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
