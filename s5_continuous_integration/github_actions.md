@@ -144,6 +144,57 @@ Lets take a look at how a github workflow file is organized:
    3. To test that everything works, try creating a PR (possibly with a small bug) and see that your main/master
       branch is protected
 
+10. One problem you may have encountered is running your tests that have to do with your data, with the core problem
+    being that your data is actually not stored in github (assuming you have done module
+    [M8 - DVC](../s2_organisation_and_version_control/dvc.md)) and therefore cannot be tested. However, it is possible
+    for us to download data while running our CI. Lets try to setup that:
+
+    1. The first problem is that we need our CI needs to be able to authenticate with the our storage solution. We can
+       take advantage of an authentication file that is created the first time we push with DVC. It is located in
+       `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
+
+       macOS            | Linux (*typical) | Windows
+       -----------------|------------------|----------
+       ~/Library/Caches | ~/.cache         |	{user}/AppData/Local
+
+       Find the file. The content should look similar to this (only some fields are shown):
+
+       ```json
+       {"access_token": ...,
+        "client_id": ...,
+        "client_secret": ...,
+        "refresh_token": ...,
+        ...
+       }
+       ```
+
+    2. The content of that file is should be treated as an password an not shared with the world and the relevant
+       question is therefore how to use this info in *public* repository. The answer is github *secrets*, where we can
+       store information, access it in our workflow files and it is still not public. Navigate to the secrets option
+       (as shown below) and create a secret with the name `GDRIVE_CREDENTIALS_DATA` that contains the content of the
+       file you found in the previous exercise.
+
+       <p align="center">
+         <img src="../figures/github_secrets.PNG" width="1000">
+       </p>
+
+    3. Afterwards, add the following code to your workflow file:
+
+       ```yaml
+       - uses: iterative/setup-dvc@v1
+
+       - name: Get data
+         run: dvc pull
+         env:
+           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+       ```
+
+       that runs `dvc pull` using the secret authentication file. For help you can visit this
+       [small repository](https://github.com/SkafteNicki/gha_dvc_test) that implements the same workflow.
+
+    4. Finally, add the changes, commit, push and confirm that everything works as expected. You should now be able to
+       run unit tests that depends on your input data.
+
 ## Auto linter
 
 In [this module](../s2_organisation_and_version_control/good_coding_practice.md) of the course

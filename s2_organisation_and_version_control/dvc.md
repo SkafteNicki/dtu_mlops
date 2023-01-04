@@ -76,11 +76,17 @@ it contains excellent tutorials.
 
    If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
    optional dependencies: [s3], [azure], [gdrive], [gs], [oss], [ssh]. Alternatively, use [all] to include them all.
-   The command should look like this:
+   If you encounter that the installation fails, we recommend that you start by updating pip and then trying to
+   update `dvc`:
 
    ```bash
-   pip install "dvc[s3]"
+   pip install -U pip
+   pip install -U ”dvc[gdrive]”
    ```
+
+   If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
+   you follow the instructions [here](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
+
 
 3. In your MNIST repository run the following command from the terminal
 
