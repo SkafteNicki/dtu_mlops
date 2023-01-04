@@ -36,7 +36,7 @@ Instead good coding practices really comes down to two topics: documentation and
 Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourself, but love
 when someone else have actually taken time to add it to their code. There is no doubt about that well documented
 code is much easier to maintain as you do not need to remember all details about the code to still maintain it.
-It is key to remember that good documentation saves more time than it takes to write.
+It is key to remember that good documentation saves more time, than it takes to write.
 
 The problem with documentation is that there is no right or wrong way to do it. You can end up doing:
 
