@@ -92,7 +92,7 @@ not focusing on for these exercises.
 
 If you are using `VScode` then we recommend install the
 [docker VScode extension](https://code.visualstudio.com/docs/containers/overview) for easy getting an overview of
-which images have been build and which are running. Additionally the extension named *Remote - Containers* may also be
+which images have been build and which are running. Additionally the extension named *Dev Containers* may also be
 beneficial for you to download.
 
 1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble that you need to go through
