@@ -151,7 +151,7 @@ Additional reading resources (in no particular order):
 * [Ref 5](https://arxiv.org/abs/2209.09125)
   Interview study that uncovers many of the pain points that ML engineers go through when doing MLOps.
 
-Other course with content similar to this:
+Other courses with content similar to this:
 
 * [Made with ML](https://madewithml.com). Great online MLOps course that also covers additional topics on the
   foundations of working with ML.
