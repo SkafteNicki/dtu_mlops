@@ -23,7 +23,7 @@ nav_order: 3
 
 > Code is read more often than it is written. -- [Guido Van Rossum](https://gvanrossum.github.io/) (author of Python)
 
-To understand what good coding practice are, it is important to understand what it is *not*:
+To understand what good coding practice is, it is important to understand what it is *not*:
 
 * Making sure your code run fast
 * Making sure that you use a specific coding paradigm (object orientated programming ect.)
