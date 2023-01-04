@@ -130,6 +130,7 @@ This includes:
 * Demonstrate knowledge about different distributed training paradigms within  machine learning and how to apply them
 * Deploy machine learning models, both locally and in the cloud
 * Conduct a research project in collaboration with follow students using the frameworks taught in the course
+* Have lots of fun and share memes! :)
 
 ## References
 
