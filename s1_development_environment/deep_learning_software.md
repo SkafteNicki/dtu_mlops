@@ -97,7 +97,7 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 1. Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)
 
    ```bash
-   jupyter notebook s1_getting_started/exercise_files/
+   jupyter notebook s1_development_environment/exercise_files/
    ```
 
 2. Complete the [Tensors in Pytorch](exercise_files/1_Tensors_in_PyTorch.ipynb) notebook. It focuses on basic
