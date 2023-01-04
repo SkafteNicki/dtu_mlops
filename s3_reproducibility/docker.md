@@ -33,13 +33,13 @@ nav_order: 1
 While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/)
 came to existence. A big part of creating a MLOps pipeline, is that you are able to **reproduce** it. Reproducibility
 goes beyond versioning our code with `git` and using `conda` environment to keep track of our python installations.
-To really get reproducibility we need to also capture also system level components like
+To really get reproducibility we need to capture also system level components like
 
 * operating system
 * software dependencies (other than python packages)
 
 Docker provides this kind of system-level reproducibility by creating isolated programs dependencies. In addition to
-docker providing reproducibility, one of the key features are also scaleability which is important when we later on
+docker providing reproducibility, one of the key features are also scalability which is important when we later on
 are going to discuss deployment. Because docker is system-level reproducible, it does not (conceptually) matter if
 we try to start our program on a single machine or a 1000 machines at once.
 
@@ -72,7 +72,7 @@ The hole point of using docker is that sharing applications becomes much easier.
   to simple build the image by themselves.
 
 * After building the image ourself, we can choose to upload it to a *image registry* such as
-  [Docker Hub](https://hub.docker.com/) where other can get our image by simply running `docker pull`, making them
+  [Docker Hub](https://hub.docker.com/) where others can get our image by simply running `docker pull`, making them
   able to instantaneous running it as a container, as shown in the figure below
 
  <p align="center">
