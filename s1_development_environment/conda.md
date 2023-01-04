@@ -40,7 +40,7 @@ to this:
   go over all dependencies in the beginning checking for compatibility before installing anything.
 * `pip` is bound to a specific python version, whereas `conda` can manage multiple python versions at the same time
 
-It is therefore highly recommended to use conda enviroments compared to python virtual enviroments. However, does that
+It is therefore highly recommended to use conda environments compared to python virtual environments. However, does that
 mean that you cannot mix `pip install` and `conda install`? If you are using `conda>=4.6` then you should be fairly
 safe, because it has build in compatible layer. In general, what works for me
 

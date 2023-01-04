@@ -23,20 +23,20 @@ nav_order: 3
 
 > Code is read more often than it is written. -- [Guido Van Rossum](https://gvanrossum.github.io/) (author of Python)
 
-To understand what good coding practice are, it is important to understand what it is *not*:
+To understand what good coding practice is, it is important to understand what it is *not*:
 
 * Making sure your code run fast
 * Making sure that you use a specific coding paradigm (object orientated programming ect.)
-* Making sure to only few dependencies
+* Making sure to only use few dependencies
 
 Instead good coding practices really comes down to two topics: documentation and styling.
 
 ## Documentation
 
 Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourself, but love
-when someone else have actually taken time to add it to their code. There is no doubt about that well documented
-code is much easier to maintain as you do not need to remember all details about the code to still maintain it.
-It is key to remember that good documentation saves more time than it takes to write.
+when someone else has actually taken time to add it to their code. There is no doubt about that well documented
+code is much easier to maintain, as you do not need to remember all details about the code to still maintain it.
+It is key to remember that good documentation saves more time, than it takes to write.
 
 The problem with documentation is that there is no right or wrong way to do it. You can end up doing:
 

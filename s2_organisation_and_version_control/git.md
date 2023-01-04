@@ -43,6 +43,8 @@ this into your own projects depends, but you are at least expected to be familia
 
 <p align="center">
   <img src="../figures/git_meme.jpg" width="1000," >
+  <img src="../figures/git.png" height="400," >
+  <a href="https://xkcd.com/1597/"> Image credit </a>
 </p>
 
 ## Initial config
@@ -81,7 +83,7 @@ adding commits are seen below
 </p>
 
 Assuming that we have made some changes to our local *working directory* and that we
-want to get this updates to be online in the *remote repository* we have to do the following steps:
+want to get these updates to be online in the *remote repository* we have to do the following steps:
 
 * First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the
   staging area we can very easily revert them (using `git restore`). There have therefore not been assigned a unique
@@ -90,7 +92,7 @@ want to get this updates to be online in the *remote repository* we have to do t
 * To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally
   add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
 
-* Finally, we want other to be able to use the changes that we made. We do a simple `git push` and our
+* Finally, we want others to be able to use the changes that we made. We do a simple `git push` and our
   commit gets online
 
 Of course, the real power of version control is the ability to make branches, as in the image below
@@ -101,7 +103,7 @@ Of course, the real power of version control is the ability to make branches, as
   <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </p>
 
-Each branch can contain code that are not present on other branches. This is usefull when you are many developers
+Each branch can contain code that are not present on other branches. This is useful when you are many developers
 working together on the same project.
 
 ## Exercises
@@ -124,7 +126,7 @@ working together on the same project.
    5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
       updated in your repository.
 
-   6. You can always use the commando `git status` to check where you are in the process of making a commit.
+   6. You can always use the command `git status` to check where you are in the process of making a commit.
 
 2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
    messing with your working code. Creating a new branch can be done using:
@@ -145,11 +147,11 @@ working together on the same project.
 
 4. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
    not completely untrue when you are only one or two working on a project. However, these file management
-   systems falls short when we hundred to thousand of people work to together. For this exercise you will
+   systems falls short when hundreds to thousands of people work together. For this exercise you will
    go through the steps of sending an open-source contribution:
 
    1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
-      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* botton.
+      just choose the repository belonging to the course. Now fork the project by clicking the *Fork* button.
       ![forking](../figures/forking.PNG)
       This will create a local copy of the repository which you have complete writing access to. Note that
       code updates to the original repository does not update code in your local repository.
@@ -157,10 +159,10 @@ working together on the same project.
    2. Clone your local fork of the project using `git clone`.
 
    3. As default your local repository will be on the `main branch` (HINT: you can check this with the
-      `git status` commando). It is good practise to make a new branch when working on some changes. Use
+      `git status` command). It is good practice to make a new branch when working on some changes. Use
       the `git branch` command followed by the `git checkout` command to create a new branch.
 
-   4. You are now ready to make changes to repository. Try to find something to improve (any spelling mistakes?).
+   4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
       When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
    5. Go online to the original repository and go the `Pull requests` tab. Find `compare` botton and
@@ -234,3 +236,9 @@ https://github.dev/username/repository
 ```
 
 Try it out on your newly created repository.
+
+Machine Learning joke by ChatGPT:
+
+Why was the machine learning model feeling depressed?
+
+Because it kept getting weighted down by all of its gradient descent.
