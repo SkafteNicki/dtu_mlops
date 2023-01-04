@@ -41,6 +41,11 @@ That said we will be using git and github throughout this course. It is a requir
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+github.
 
+<p align="center">
+  <img src="../figures/git.png" height="400," >
+  <a href="https://xkcd.com/1597/"> Image credit </a>
+</p>
+
 ## Initial config
 
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure
