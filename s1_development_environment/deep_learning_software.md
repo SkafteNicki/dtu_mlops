@@ -162,13 +162,13 @@ For this exercise we provide the data in the `data/corruptedmnist` folder. Do **
 `corruptedmnist_v2` folder as that is intended for another exercise. As the name suggest this is a (subsampled)
 corrupted version of regular mnist. Your overall task is the following:
 
-> **Implement a mnist neural network that achives atlest 85 % accuracy on the test set.**
+> **Implement a mnist neural network that achieves at least 85 % accuracy on the test set.**
 
 Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
 create the corrupted version. This should give you a cloue about what network architechture to use.
 
 One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
-in the future as you start to add more and more features. As subgoals, please forfill the following exercises
+in the future as you start to add more and more features. As subgoals, please fulfill the following exercises
 
 1. Implement your model in a script called `model.py`
 
