@@ -104,12 +104,19 @@ it contains excellent tutorials.
    dvc remote add -d storage gdrive://<your_identifier>
    ```
 
-5. Check the content of the file `.dvc/config`. Does it contain a pointer to your remote storage?
+5. Check the content of the file `.dvc/config`. Does it contain a pointer to your remote storage? Afterwards make sure
+   to add this file to the next commit we are going to make:
+
+   ```bash
+   git add .dvc/config
+   ```
 
 6. Call the `dvc add` command on your data files exactly like you would add a file with `git` (you do not need to
    add every file by itself as you can directly add the `data/` folder). Doing this should create a human-readable
    file with the extension `.dvc`. This is the *metafile*  as explained earlier that will serve as a placeholder for
-   your data. If you are on Windows and this step fail you may need to install `pywin32`.
+   your data. If you are on Windows and this step fail you may need to install `pywin32`. At the same time the `data/`
+   folder should have been added to the `.gitignore` file that marks which files should not be tracked by git. Confirm
+   that this is correct.
 
 7. Now we are going to add, commit and tag the *metafiles* so we can restore to this stage later on. Commit and tag
    the files, should look something like this:

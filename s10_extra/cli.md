@@ -51,6 +51,9 @@ mention [Typer](https://typer.tiangolo.com/).
 
 ## Exercises
 
+{: .highlight }
+> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files)
+
 1. Install [click](https://click.palletsprojects.com/en/8.1.x/)
 
    ```bash
