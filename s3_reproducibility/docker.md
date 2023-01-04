@@ -120,7 +120,7 @@ beneficial for you to download.
    docker pull busybox
    ```
 
-   which is an very small (1-5Mb) containerized application that contains the
+   which is a very small (1-5Mb) containerized application that contains the
    most essential GNU fileutils, shellutils etc.
 
 4. After pulling the image, write
