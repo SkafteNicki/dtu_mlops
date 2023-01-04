@@ -170,7 +170,7 @@ If you use parts of this course in your own work, please cite using:
 ```bibtex
 @misc{skafte_mlops,
     author       = {Nicki Skafte Detlefsen},
-    title        = {Machine Learning Opeartions},
+    title        = {Machine Learning Operations},
     howpublished = {\url{https://github.com/SkafteNicki/dtu_mlops}},
     year         = {2022}
 }
