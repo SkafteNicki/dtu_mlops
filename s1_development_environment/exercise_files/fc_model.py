@@ -37,6 +37,17 @@ class Network(nn.Module):
 
 
 def validation(model, testloader, criterion):
+    """
+        Validate the model prediction on the testdata
+        by calculating the sum of mean loss and mean accuracy for each test batch.
+
+        Arguments
+        ---------
+        model: torch network
+        testloader: torch.utils.data.DataLoader, dataloader of test set
+        criterion: loss funtion
+    """
+
     accuracy = 0
     test_loss = 0
     for images, labels in testloader:
