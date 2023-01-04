@@ -40,7 +40,7 @@ permalink: /
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.)
     * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
     * Coding in [PyTorch](https://pytorch.org/). The first day we provide a number of exercises in PyTorch to
-      get everyone's skills up-to-date.
+      get everyone's skills up-to-date as fast as possible.
 
 ## Course setup
 
