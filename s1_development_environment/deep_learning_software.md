@@ -58,7 +58,7 @@ frameworks (listed in order of when they were published):
 \
 \
 \
-We wont go into a longer discussion on what framework is the best, as it is pointless. Pytorch and Tensorflow
+We won't go into a longer discussion on what framework is the best, as it is pointless. Pytorch and Tensorflow
 have been around for the longest and therefore have bigger communities and feature sets at this point in time.
 They both very similar in the sense that they both have features directed against research and production.
 JAX is kind of the new kid on the block, that in many ways improve on Pytorch and Tensorflow, but is still
@@ -97,7 +97,7 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 1. Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)
 
    ```bash
-   jupyter notebook s1_getting_started/exercise_files/
+   jupyter notebook s1_development_environment/exercise_files/
    ```
 
 2. Complete the [Tensors in Pytorch](exercise_files/1_Tensors_in_PyTorch.ipynb) notebook. It focuses on basic
@@ -152,23 +152,23 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
    1. (Bonus exercise): Being able to save and load weights are important for the concept of early stopping. In
       short, early stopping monitors some metric (often on the validation set) and then will stop the training
-      and save a checkpoint when this metric have not improve for `N` steps. Implement early stopping in one of
+      and save a checkpoint when this metric has not improved for `N` steps. Implement early stopping in one of
       the previous notebooks.
 
 ### Final exercise
 
-As the final exercise we will develop an simple baseline model which we will continue to develop on during the course.
+As the final exercise we will develop a simple baseline model which we will continue to develop on during the course.
 For this exercise we provide the data in the `data/corruptedmnist` folder. Do **NOT** use the data in the
 `corruptedmnist_v2` folder as that is intended for another exercise. As the name suggest this is a (subsampled)
 corrupted version of regular mnist. Your overall task is the following:
 
-> **Implement a mnist neural network that achives atlest 85 % accuracy on the test set.**
+> **Implement a mnist neural network that achieves at least 85 % accuracy on the test set.**
 
 Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
-create the corrupted version. This should give you a cloue about what network architechture to use.
+create the corrupted version. This should give you a clue about what network architechture to use.
 
 One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
-in the future as you start to add more and more features. As subgoals, please forfill the following exercises
+in the future as you start to add more and more features. As subgoals, please fulfill the following exercises
 
 1. Implement your model in a script called `model.py`
 
@@ -199,7 +199,7 @@ it should write the test set accuracy to the terminal.
 It is part of the exercise to not implement in notebooks as code development in the real life happens in script.
 As the model is simple to run (for now) you should be able to complete the exercise on your laptop,
 even if you are only training on cpu. That said you are allowed to upload your scripts to your own "Google Drive" and
-then you can call your scripts from a google colab notebook, which is shown in the image below where all code is
+then you can call your scripts from a Google Colab notebook, which is shown in the image below where all code is
 place in the `fashion_trainer.py` script and the Colab notebook is just used to execute it.
 
 ![colab](../figures/colab.PNG)
