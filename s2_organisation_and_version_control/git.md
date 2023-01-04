@@ -43,6 +43,7 @@ this into your own projects depends, but you are at least expected to be familia
 
 <p align="center">
   <img src="../figures/git.png" height="400," >
+  <a href="https://xkcd.com/1597/"> Image credit </a>
 </p>
 
 ## Initial config
