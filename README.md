@@ -40,7 +40,7 @@ permalink: /
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.)
     * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
     * Coding in [PyTorch](https://pytorch.org/). The first day we provide a number of exercises in PyTorch to
-      get everyones skills up-to-date as fast as possible.
+      get everyone's skills up-to-date as fast as possible.
 
 ## Course setup
 
@@ -55,7 +55,8 @@ exercise material for this course and lectures. Additionally, you should join ou
 we use for communication:
 
 <https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw>
-(link may be expired, write to me to gain access)
+
+(link may be expired, write to me to gain access.)
 
 ## Course organization
 
@@ -129,6 +130,7 @@ This includes:
 * Demonstrate knowledge about different distributed training paradigms within  machine learning and how to apply them
 * Deploy machine learning models, both locally and in the cloud
 * Conduct a research project in collaboration with follow students using the frameworks taught in the course
+* Have lots of fun and share memes! :)
 
 ## References
 
@@ -149,7 +151,7 @@ Additional reading resources (in no particular order):
 * [Ref 5](https://arxiv.org/abs/2209.09125)
   Interview study that uncovers many of the pain points that ML engineers go through when doing MLOps.
 
-Other course with content similar to this:
+Other courses with content similar to this:
 
 * [Made with ML](https://madewithml.com). Great online MLOps course that also covers additional topics on the
   foundations of working with ML.
@@ -168,7 +170,7 @@ If you use parts of this course in your own work, please cite using:
 ```bibtex
 @misc{skafte_mlops,
     author       = {Nicki Skafte Detlefsen},
-    title        = {Machine Learning Opeartions},
+    title        = {Machine Learning Operations},
     howpublished = {\url{https://github.com/SkafteNicki/dtu_mlops}},
     year         = {2022}
 }

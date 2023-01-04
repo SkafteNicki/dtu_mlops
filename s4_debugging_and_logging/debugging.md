@@ -57,6 +57,9 @@ To invoke the build in python debugger you can either:
 
 ## Exercises
 
+{: .highlight }
+> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files)
+
 We here provide a script `vae_mnist_bugs.py` which contains a number of bugs to get it running. Start by going over
 the script and try to understand what is going on. Hereafter, try to get it running by solving the bugs. The following
 bugs exist in the script:
