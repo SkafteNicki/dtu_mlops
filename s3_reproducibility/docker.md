@@ -99,7 +99,8 @@ beneficial for you to download.
    depends on your operating system. For Windows and Mac we recommend they install *Docker desktop*, which comes with
    a graphical user interface (GUI) for quickly viewing docker images and docker containers currently build/in-use.
    Windows users that have not installed WSL yet are going to have to do it now (as docker need it as backend for
-   starting virtual machines) but you do not need to install docker in WSL.
+   starting virtual machines) but you do not need to install docker in WSL. After installing docker we recommend that
+   you restart you laptop.
 
 2. Try running the following to confirm that your installation is working:
 

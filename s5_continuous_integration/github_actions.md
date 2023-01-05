@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M17 - Github actions
+title: M16 - Github actions
 parent: S5 - Continuous Integration
 nav_order: 2
 ---

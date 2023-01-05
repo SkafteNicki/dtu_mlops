@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M22 - Using the cloud
+title: M21 - Using the cloud
 parent: S6 - The cloud
 nav_order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M24 - Local deployment
+title: M23 - Local deployment
 parent: S7 - Deployment
 nav_order: 2
 ---

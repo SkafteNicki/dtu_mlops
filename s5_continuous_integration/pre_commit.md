@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M18 - Pre-commit
+title: M17 - Pre-commit
 parent: S5 - Continuous Integration
 nav_order: 3
 ---

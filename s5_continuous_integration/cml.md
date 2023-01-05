@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M20 - Continuous Machine Learning
+title: M19 - Continuous Machine Learning
 parent: S5 - Continuous Integration
 nav_order: 5
 ---
