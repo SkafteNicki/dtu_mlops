@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M22 - Requests and APIs
+title: M23 - Requests and APIs
 parent: S7 - Deployment
 nav_order: 1
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M20 - Cloud setup
+title: M21 - Cloud setup
 parent: S6 - The cloud
 nav_order: 1
 ---

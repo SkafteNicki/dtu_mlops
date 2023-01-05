@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M24 - Cloud deployment
+title: M25 - Cloud deployment
 parent: S7 - Deployment
 nav_order: 3
 ---

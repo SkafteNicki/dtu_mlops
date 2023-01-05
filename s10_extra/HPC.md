@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M32 - High Performance Clusters
+title: M33 - High Performance Clusters
 parent: S10 - Extra
 nav_order: 3
 ---

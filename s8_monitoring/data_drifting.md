@@ -1,6 +1,6 @@
 ---
 layout: default
-title: M25 - Data drifting
+title: M26 - Data drifting
 parent: S8 - Monitoring
 nav_order: 1
 ---
