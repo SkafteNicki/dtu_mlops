@@ -3,7 +3,6 @@ import numpy as np
 from torch import nn, optim
 from torch.autograd import Variable
 
-import math
 
 def test_network(net, trainloader):
 
@@ -11,7 +10,7 @@ def test_network(net, trainloader):
     optimizer = optim.Adam(net.parameters(), lr=0.001)
 
     dataiter = iter(trainloader)
-    images, labels = next(dataiter)
+    images, labels = dataiter.next()
 
     # Create Variables for the inputs and targets
     inputs = Variable(images)

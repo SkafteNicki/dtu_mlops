@@ -12,6 +12,7 @@ from torchvision.datasets import MNIST
 from torchvision.utils import save_image
 from torch.profiler import profile, record_function, ProfilerActivity
 
+
 # Model Hyperparameters
 dataset_path = 'datasets'
 cuda = False

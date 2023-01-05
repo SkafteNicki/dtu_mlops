@@ -40,7 +40,7 @@ to this:
   go over all dependencies in the beginning checking for compatibility before installing anything.
 * `pip` is bound to a specific python version, whereas `conda` can manage multiple python versions at the same time
 
-It is therefore highly recommended to use conda environments compared to python virtual environments. However, does that
+It is therefore highly recommended to use conda enviroments compared to python virtual enviroments. However, does that
 mean that you cannot mix `pip install` and `conda install`? If you are using `conda>=4.6` then you should be fairly
 safe, because it has build in compatible layer. In general, what works for me
 
@@ -76,14 +76,14 @@ compared to other environment managers.
    current environment (HINT: check the `conda_cheatsheet.pdf` file in the `exercise_files` folder).
 
    1. How do you easily export this list to a text file? Do this, and make sure you export it to
-      a file called `enviroment.txt`.
+   a file called `enviroment.txt`.
 
    2. Finally, inspect the file to see what is in it.
 
    3. The `enviroment.txt` file you have created is one way to secure *reproducibility* between users, because
-      anyone should be able to get an exact copy of you environment if they have your `enviroment.txt` file.
-      Try creating a new environment directly from you `enviroment.txt` file and check that the packages being
-      installed exactly matches what you originally had.
+   anyone should be able to get an exact copy of you environment if they have your `enviroment.txt` file.
+   Try creating a new environment directly from you `enviroment.txt` file and check that the packages being
+   installed exactly matches what you originally had.
 
 5. Which `conda` commando gives you a list of all the environments that you have created?
 
