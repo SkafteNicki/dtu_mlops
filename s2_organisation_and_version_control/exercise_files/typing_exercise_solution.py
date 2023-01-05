@@ -10,7 +10,7 @@ class Network(nn.Module):
         
             Arguments
             ---------
-            input_size: integer, size of the input layer
+            input_size: integer, size of the input layer.
             output_size: integer, size of the output layer
             hidden_layers: list of integers, the sizes of the hidden layers
         
