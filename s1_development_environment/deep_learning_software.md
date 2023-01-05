@@ -32,7 +32,7 @@ or lives. However, it did not take long before people realized that deep learnin
 and it comes with its own kind of problems, especially if you want to use it in a production setting. In particular
 the concept of [technical debt](https://research.google/pubs/pub43146/) was invented to indicate the significant
 maintenance costs at an system level that it takes to run machine learning in production. MLOps should very much
-be seen as the response to the concept of technical dept, namely that we should develop methods, processes and tools
+be seen as the response to the concept of technical debt, namely that we should develop methods, processes and tools
 (with inspiration from classical DevOps) to counter the problems we run into when working with deep learning models.
 
 It is important to note that all the concepts and tools that have been developed for MLOps can absolutely be used
