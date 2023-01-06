@@ -5,6 +5,8 @@ parent: S8 - Monitoring
 nav_order: 2
 ---
 
+<img style="float: right;" src="../figures/icons/signoz.png" width="130">
+<img style="float: right;" src="../figures/icons/opentelemetry.png" width="130">
 <img style="float: right;" src="../figures/icons/monitoring.png" width="130">
 
 # Monitoring
