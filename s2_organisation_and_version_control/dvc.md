@@ -138,6 +138,16 @@ it contains excellent tutorials.
    `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
    which makes data much faster to get. Finally, make sure that your data is not stored in your github repository.
 
+   After authenticating the first time, dvc should be setup without having to authenticate again. If you for some reason
+   encounter that dvc fails to authenticate, you can try to reset the authentication. Locate the file
+   `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
+
+   macOS            | Linux (*typical) | Windows              |
+   -----------------|------------------|----------------------|
+   ~/Library/Caches | ~/.cache         | {user}/AppData/Local |
+
+   Delete the complete `{gdrive_client_id}` folder and retry authenticating with `dvc push`.
+
 9. After completing the above steps, it is very easy for others (or yourself) to get setup with both
    code and data by simply running
 

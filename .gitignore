@@ -136,3 +136,6 @@ FashionMNIST/
 
 # vs code
 .vscode/settings.json
+
+# mac specific
+.DS_Store
