@@ -48,7 +48,7 @@ tools that are taught throughout the course in a meaningful way.
 
 Also note that the project is not expected to be very large in scope. It may simply be that you want to train X model
 on Y data. You will approximately be given 4 full days to work on the project. It is better that you start out with a
-smaller project and then add along the way if you have time.
+smaller project and then add complexity along the way if you have time.
 
 1. (Optional) Familiar yourself with each of the libraries. One way to do this is to find relevant tutorials on each
    project and try to figure out the code. Such tutorials will give you a rough idea how the API for each library looks
@@ -97,7 +97,7 @@ point on the checklist for the exam.
 
 * [ ] Create a git repository
 * [ ] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages (using conda)
+* [ ] Create a dedicated environment for you project to keep track of your packages
 * [ ] Create the initial file structure using cookiecutter
 * [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
 * [ ] Add a model file and a training script and get that running
@@ -111,39 +111,37 @@ point on the checklist for the exam.
 * [ ] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use wandb to log training progress and other important metrics/artifacts in your code
-* [ ] Use pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+      consider running a hyperparameter optimization sweep.
+* [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
 * [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction
+* [ ] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
 * [ ] Get some continuous integration running on the github repository
-* [ ] (optional) Create a new project on `gcp` and invite all group members to it
-* [ ] Create a data storage on `gcp` for you data
+* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training on `gcp`
-* [ ] Play around with distributed data loading
-* [ ] (optional) Play around with distributed model training
-* [ ] Play around with quantization and compilation for you trained models
+* [ ] Get your model training in GCP using either the Engine or Vertex AI
+* [ ] Create a FastAPI application that can do inference using your model
+* [ ] If applicable, consider deploying the model locally using torchserve
+* [ ] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
-* [ ] Deployed your model locally using TorchServe
-* [ ] Checked how robust your model is towards data drifting
-* [ ] Deployed your model using `gcp`
-* [ ] Monitored the system of your deployed model
-* [ ] Monitored the performance of your deployed model
+* [ ] Check how robust your model is towards data drifting
+* [ ] Setup monitoring for the system telemetry of your deployed model
+* [ ] Setup monitoring for the performance of your deployed model
+* [ ] If applicable, play around with distributed data loading
+* [ ] If applicable, play around with distributed model training
+* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
 
 ### Additional
 
 * [ ] Revisit your initial project description. Did the project turn out as you wanted?
 * [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Create a presentation explaining your project
 * [ ] Uploaded all your code to github
-* [ ] (extra) Implemented pre*commit hooks for your project repository
-* [ ] (extra) Used Optuna to run hyperparameter optimization on your model
 
 ## Exam
 
@@ -160,5 +158,5 @@ scrape it automatically, and changes after this point are therefore not register
 For the oral part of the exam you will be given a time slot where you have to show up for 5-7 min and give a very short
 demo of your project. What we are interested in seeing is essentially a live demo of your deployed application/project.
 We will possibly also ask questions regarding the overall curriculum of the course. Importantly, you should have your
-deployed application, the github repository with your project code, `W&B` account and your `gcp` account ready before
+deployed application, the github repository with your project code, W&B account and your GCP account ready before
 you enter the exam so we can quickly jump around. We will send out an the time slots during the last week.

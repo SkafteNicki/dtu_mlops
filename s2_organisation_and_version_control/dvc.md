@@ -143,6 +143,7 @@ it contains excellent tutorials.
 
    ```bash
    git clone <my_repository>
+   cd <my_repository>
    dvc pull
    ```
 
