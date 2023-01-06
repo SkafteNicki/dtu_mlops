@@ -75,7 +75,7 @@ Importantly we differ between core modules and optional modules. Core modules wi
 {: .important }
 > Core module
 
-at the top of their corresponding page. Core modules are importantly to go through to be able to pass the course.
+at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.
 
 ## MLOps: What is it?
