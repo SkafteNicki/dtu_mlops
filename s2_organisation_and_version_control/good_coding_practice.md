@@ -188,7 +188,9 @@ def add2(x: Union[int, float, Tensor], y: Union[int, float, Tensor]) -> Union[in
    return x+y
 ```
 
-Since `Python 3.10` type expressions have been added to the language, such that `A | B | ...` can be written instad of `Union[A, B, ...]` and instead of `Optional[A]` you can write `A | None`. The above example could, therefore, be written as:
+Since `Python 3.10` type expressions have been added to the language, such that `A | B | ...` can be written instead of
+`Union[A, B, ...]` and instead of `Optional[A]` you can write `A | None`. The above example could, therefore, be
+written as:
 
 ```python
 from torch import Tensor  # note it is Tensor with upper case T. This is the base class of all tensors
@@ -196,7 +198,8 @@ def add2(x: int | float | Tensor, y: int | float | Tensor) -> int | float | Tens
    return x+y
 ```
 
-The type expressions does not need an import statement and might make it simpler to read for complex types, however, it is not fully backwards compatiple.
+The type expressions does not need an import statement and might make it simpler to read for complex types, however, it
+is not fully backwards compatible.
 
 Finally, since this is a very generic function it also works on `numpy` arrays ect. we can always default to the `Any`
 type if we are not sure about all the specific types that a function can take
