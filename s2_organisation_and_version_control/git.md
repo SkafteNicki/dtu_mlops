@@ -179,13 +179,13 @@ working together on the same project.
    [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
    and figure out how to do this.
 
-7. As an final exercise we want to simulate an *merge conflict*, which happens when two users try to commit changes
+7. As a final exercise we want to simulate a *merge conflict*, which happens when two users try to commit changes
    to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be
    integrated.
 
    1. In your browser, open your favorite repository (it could be the one you just worked on), go to any file of
       your choosing and click the edit button (see image below) and make some change to the file. For example, if
-      you choose an python file you can just import some random packages at the top of the file. Commit the change.
+      you choose a python file you can just import some random packages at the top of the file. Commit the change.
       <p align="center">
          <img src="../figures/git_edit.PNG" width="1000">
       </p>
