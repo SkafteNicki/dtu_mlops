@@ -53,7 +53,7 @@ important but we are not going to focus on it in this course.
 
 ## Pytest
 
-Before we can begin to automatize testing of our code base we of cause need to write the tests first. It is both a hard
+Before we can begin to automatize testing of our code base we of course need to write the tests first. It is both a hard
 and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
 for writing tests. We are going to use `pytest`.
 
@@ -173,7 +173,7 @@ The following exercises should be applied to your MNIST repository
 
       Add such comments to the assert statements you just did.
 
-   7. The tests that involve checking anything that have to do with our data, will of cause fail
+   7. The tests that involve checking anything that have to do with our data, will of course fail
       if the data is not present. To future proof our code, we can take advantage of the
       `pytest.mark.skipif` decorator. Use this decorator to skip your data tests if the corresponding
       data files does not exist. It should look something like this
@@ -233,7 +233,7 @@ The following exercises should be applied to your MNIST repository
       to get a code coverage for. Figure out how to configure `coverage` to exclude
       some files.
 
-That covers the basic of writing unittests for python code. We want to note that `pytest` of cause is not the only
+That covers the basic of writing unittests for python code. We want to note that `pytest` of course is not the only
 framework for doing this. Python actually have an build in framework called
 [unittest](https://docs.python.org/3/library/unittest.html) for doing this also (but `pytest` offers a bit more
 features). Another open-source framework that you could choose to checkout is

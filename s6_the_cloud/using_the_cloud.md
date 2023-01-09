@@ -119,7 +119,7 @@ We are now going to start actually using the cloud.
       </p>
 
 7. Finally, everything that you have done locally can also be achieved through the web
-   terminal, which of cause comes pre-installed with the `gcloud` command etc.
+   terminal, which of course comes pre-installed with the `gcloud` command etc.
    <p align="center">
      <img src="../figures/gcp_terminal.png" width="800" >
    </p>

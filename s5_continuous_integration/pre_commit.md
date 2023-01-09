@@ -26,7 +26,7 @@ that it is easier to identify and revert unwanted changes that you have introduc
 smaller per commit.
 
 However, as you hopefully already seen in the course there are a lot of mental task to do before you actually write
-`git commit` in the terminal. The most basic thing is of cause making sure that you have saved all your changes, and
+`git commit` in the terminal. The most basic thing is of course making sure that you have saved all your changes, and
 you are not committing a not up-to-date file. However, this also includes tasks such as styling, formatting, making
 sure all tests succeeds etc. All these mental to-do notes does not mix well with the principal of remembering to commit
 often, because you in principal have to do them every time.
