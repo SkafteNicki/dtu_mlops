@@ -27,7 +27,7 @@ To understand what good coding practice is, it is important to understand what i
 
 * Making sure your code run fast
 * Making sure that you use a specific coding paradigm (object orientated programming ect.)
-* Making sure to only few dependencies
+* Making sure to only use few dependencies
 
 Instead good coding practices really comes down to two topics: documentation and styling.
 
