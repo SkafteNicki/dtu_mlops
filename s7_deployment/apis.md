@@ -557,7 +557,7 @@ can look through for help.
       in the last line of our Dockerfile.
 
       ```bash
-      docker run -d --name mycontainer -p 80:80 myimage
+      docker run --name mycontainer -p 80:80 myimage
       ```
 
    5. Check that everything is working by going to the corresponding localhost page <http://localhost/items/5?q=somequery>

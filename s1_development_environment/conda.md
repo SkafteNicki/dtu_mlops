@@ -108,3 +108,7 @@ compared to other environment managers.
    2. Either try out `pipreqs` on one of your own projects or try it out on some other online project.
       What does the `requirements.txt` file `pipreqs` produce look like compared to the files produces
       by either `pip` or `conda`.
+
+This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
+to construct requirements files automatic, sometimes it is just easier to manually sit down and create the files as you
+in that way secure that only the most necessary requirements are actually installed when creating a new environment.
