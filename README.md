@@ -87,7 +87,7 @@ and "operations" and covers everything that has to do with the management of the
 The lifecycle of production ML can largely be divided into three phases:
 
 1. Design: The initial phase starts with a investigation of the problem. Based on this analysis, a number of
-requirements can be prioritized of what we want our future model to actual do. Since machine learning requires
+requirements can be prioritized of what we want our future model to actually do. Since machine learning requires
 data to be trained, we also investigate in this step what data we have and if we need to source it in some other way.
 
 2. Model development: Based on the design phase we can actually begin to conjurer some machine learning algorithm to
