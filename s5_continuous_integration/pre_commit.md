@@ -48,7 +48,7 @@ afterwards would do a `git push`.
 The system works by looking for a file called `.pre-commit-config.yaml` that we can configure. If we execute
 
 ```bash
-pre-commit sample-config > .pre-commit-config.yaml
+pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
 ```
 
 you should get a sample file that looks like
@@ -93,7 +93,7 @@ this will make sure that the file is automatically executed whenever we run `git
 2. Next create the sample file
 
    ```bash
-   pre-commit sample-config > .pre-commit-config.yaml
+   pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
    ```
 
 3. The sample file already contains 4 hooks. Make sure you understand what each do and if you need them at all.
