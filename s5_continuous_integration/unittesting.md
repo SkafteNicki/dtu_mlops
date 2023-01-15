@@ -121,7 +121,7 @@ The following exercises should be applied to your MNIST repository
       def test_data():
          dataset = MNIST(...)
          assert len(dataset) == N_train for training and N_test for test
-         assert that each datapoint has shape [1,28,28] or [728] depending on how you choose to format
+         assert that each datapoint has shape [1,28,28] or [784] depending on how you choose to format
          assert that all labels are represented
       ```
 
