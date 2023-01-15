@@ -329,6 +329,8 @@ beneficial for you to download.
        the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
        installed. The last part you not likely have not installed and needs to do.
 
+       To install on pop_os read through [this issue](https://github.com/NVIDIA/nvidia-docker/issues/1388) first. Pop_os has higher priority repositories than nvidia, thus installing older versions of nvidia-docker.
+
     2. To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
        the correct image:
 
