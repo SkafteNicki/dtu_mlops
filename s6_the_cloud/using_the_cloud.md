@@ -292,12 +292,6 @@ to be substantially faster to build and smaller in size than the images we are u
     [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling) should help
     you with exercise.
 
-11. Finally, we sometimes also want to manually pull the images from our container registry
-    to either run or inspect on our own laptop. Figure out how to pull the image that was
-    automatically build by `gcp` to your own laptop. This
-    [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling#pulling_images_from_a_registry)
-    should help you.
-
 ## Training
 
 As our final step in our journey through different GCP services in this module we are going to look at training of our
