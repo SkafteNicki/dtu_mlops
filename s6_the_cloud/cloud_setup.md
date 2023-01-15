@@ -173,7 +173,8 @@ sometimes changes). We will in the exercises below try to increase it.
 
    1. Go to the `quotas page`
 
-   2. In the search field search for `GPUs (all region)`, such that you get the same quota as in the image
+   2. In the search field search for `GPUs (all regions)` (needs to match exactly, the search field is case sensitive),
+      such that you get the same quota as in the image.
 
    3. In the limit you can see what your current quota for the number of GPUs you can use are. Additional, to the
       right of the limit you can see the current usage. It is worth checking in on if you are ever in doubt if a job

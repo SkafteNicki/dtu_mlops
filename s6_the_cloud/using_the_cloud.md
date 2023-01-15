@@ -258,9 +258,11 @@ to be substantially faster to build and smaller in size than the images we are u
    <p align="center">
      <img src="../figures/gcp_build.png" width="800" >
    </p>
-   Try clicking on the build to checkout the build process and building summary. As
-   you can see from the image, if a build is failing you will often find valuable info
-   by looking at the build summary.
+   Try clicking on the build to checkout the build process and building summary. As you can see from the image, if a
+   build is failing you will often find valuable info by looking at the build summary. If you build is failing try
+   to configure it to run in one of these regions:
+   `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
+   [documentation](https://cloud.google.com/build/docs/locations).
 
 8. If/when your build is successful, navigate to the `Container Registry` page. You should
    hopefully find that the image you just build was pushed here. Congrats!
