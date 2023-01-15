@@ -212,8 +212,8 @@ The particular kind of API we are going to work with is called REST API (or REST
 contrains that a particular API needs to fullfill to be considered RESTful. You can read more about what the six
 guiding principals behind REST API is [on this page](https://restfulapi.net/) but on of the most important to have in
 mind is that the clien-server architechture needs to be stateless. This means that whenever a request is send to the
-server it needs to be self-contained (all information included) and the server cannot rely on any priviously stored
-information from privious requests.
+server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
+information from previous requests.
 
 To implement APIs in practise we are going to use [FastAPI](https://fastapi.tiangolo.com/). FastAPI is a
 *modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints*.
