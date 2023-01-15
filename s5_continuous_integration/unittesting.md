@@ -53,7 +53,7 @@ important but we are not going to focus on it in this course.
 
 ## Pytest
 
-Before we can begin to automatize testing of our code base we of cause need to write the tests first. It is both a hard
+Before we can begin to automatize testing of our code base we of course need to write the tests first. It is both a hard
 and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
 for writing tests. We are going to use `pytest`.
 
@@ -82,6 +82,20 @@ The following exercises should be applied to your MNIST repository
    pytest tests/
    ```
 
+   When you implement a test you need to follow two standards, for `pytest` to be able to find your tests. First any
+   files created (except `__init__.py`) should always start with `test_*.py`. Secondly, any test implemented needs to be
+   wrapped into its own function that again needs to start with `test_`:
+
+   ```python
+   # this will be found and executed by pytest
+   def test_something():
+      ...
+
+   # this will not be found and executed by pytest
+   def something_to_test():
+      ...
+   ```
+
    1. Start by creating a `tests/__init__.py` file and fill in the following:
 
       ```python
@@ -100,18 +114,19 @@ The following exercises should be applied to your MNIST repository
 
       which then contains the root path to my data.
 
-   2. Data testing: In a file called `tests/test_data.py` implement at least a
-      test that checks that data gets correctly loaded. By this we mean that you should check
+   2. Data testing: In a file called `tests/test_data.py` implement at least a test that checks that data gets
+      correctly loaded. By this we mean that you should check
 
       ```python
-      dataset = MNIST(...)
-      assert len(dataset) == N_train for training and N_test for test
-      assert that each datapoint has shape [1,28,28] or [784] depending on how you choose to format
-      assert that all labels are represented
+      def test_data():
+         dataset = MNIST(...)
+         assert len(dataset) == N_train for training and N_test for test
+         assert that each datapoint has shape [1,28,28] or [784] depending on how you choose to format
+         assert that all labels are represented
       ```
 
       where `N_train` should be either 25000 or 40000 depending on if you are just the first
-      subset of the corrupted Mnist data or also including the second subset. `N_test` should
+      subset of the corrupted MNIST data or also including the second subset. `N_test` should
       be 5000.
 
    3. Model testing: In a file called `tests/test_model.py` implement at least a test that
@@ -158,7 +173,7 @@ The following exercises should be applied to your MNIST repository
 
       Add such comments to the assert statements you just did.
 
-   7. The tests that involve checking anything that have to do with our data, will of cause fail
+   7. The tests that involve checking anything that have to do with our data, will of course fail
       if the data is not present. To future proof our code, we can take advantage of the
       `pytest.mark.skipif` decorator. Use this decorator to skip your data tests if the corresponding
       data files does not exist. It should look something like this
@@ -218,7 +233,7 @@ The following exercises should be applied to your MNIST repository
       to get a code coverage for. Figure out how to configure `coverage` to exclude
       some files.
 
-That covers the basic of writing unittests for python code. We want to note that `pytest` of cause is not the only
+That covers the basic of writing unittests for python code. We want to note that `pytest` of course is not the only
 framework for doing this. Python actually have an build in framework called
 [unittest](https://docs.python.org/3/library/unittest.html) for doing this also (but `pytest` offers a bit more
 features). Another open-source framework that you could choose to checkout is

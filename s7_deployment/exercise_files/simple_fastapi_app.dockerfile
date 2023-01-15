@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-EXPOSE 8501
+EXPOSE $PORT
 
 WORKDIR /app
 
@@ -14,6 +14,6 @@ RUN pip install fastapi
 RUN pip install pydantic
 RUN pip install uvicorn
 
-COPY simple_app.py simple_app.py
+COPY simple_fastapi_app.py simple_fastapi_app.py
 
-CMD exec uvicorn simple_app:app --port $PORT --host 0.0.0.0 --workers 1
+CMD exec uvicorn simple_fastapi_app:app --port $PORT --host 0.0.0.0 --workers 1

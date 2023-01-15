@@ -34,7 +34,7 @@ While the latter two certainly seems important, in most cases the actual *develo
 around defining the model. In this sense, both the training code and the utilities becomes boilerplate that should just
 carry over from one project to another. But the problem usually is that we have not generalized our training code to
 take care of the small adjusted that may be required in future projects and we therefore end up implementing it over
-and over again every time that we start a new project. This is of cause a waste of our time that we should try to
+and over again every time that we start a new project. This is of course a waste of our time that we should try to
 find a solution to.
 
 This is where high-level frameworks comes into play. High-level frameworks are build on top of another framework
