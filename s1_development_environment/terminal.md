@@ -48,14 +48,15 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
 
 1. (Windows users) We highly recommend that you activate *Windows Subsystem for Linux*. Please follow this
    [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Remember to run commands from an elevated
-   (as administrator) Powershell. You can complete today's exercises without WSL but for later exercises you are
-   going to need it.
+   (as administrator) Windows Command Prompt. You can in general complete all exercises in the course, but some are
+   easier to do if you run from WSL. If you decide to not run in WSL, please always work in a Windows Command Prompt and
+   not Powershell.
 
 2. Open a terminal. It should look something like below
+
    <p align="center">
      <img src="../figures/terminal.PNG" width="1000">
    </p>
-   Windows users can either use the WSL terminal or Windows command promt
 
 3. To navigate inside a terminal, we rely on the `cd` command and `pwd` command. Make sure you know how to go back and
    forth in your file system. HINT: try [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) to

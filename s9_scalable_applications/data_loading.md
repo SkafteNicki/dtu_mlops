@@ -173,6 +173,9 @@ datafiles (.jpg) at runtime.
    `-batches_to_check` flag). Also if you are not seeing an improvement, try increasing the batch size (since data
    loading is parallelized per batch).
 
+   For certain machines like the Mac with M1 chipset it is nessesary to set the `multiprocessing_context` flag in the
+   dataloder to `"fork"`. This essentially tells the dataloader how the worker nodes should be created.
+
 6. Retry the experiment where you change the data augmentation to be more complex:
 
    ```python
