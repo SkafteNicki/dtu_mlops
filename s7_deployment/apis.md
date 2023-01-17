@@ -183,7 +183,7 @@ We are going to do a couple of exercises on sending requests using
 
    3. Try to redo some of the exercise yourself using `curl`.
 
-That ends the intro session on `requests`. Do not worry if you are still not completly comftable with sending requests,
+That ends the intro session on `requests`. Do not worry if you are still not completly comfortable with sending requests,
 we are going to return do how we do it in practise when we have actually created our own API. If you want to learn more
 about the `requests` package you can checkout [this tutorial](https://realpython.com/python-requests/) and if you want
 to see more example on how to use `curl` you can checkout
