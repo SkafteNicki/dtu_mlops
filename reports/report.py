@@ -121,7 +121,7 @@ def check():
         )
 
     for i, (ans, const) in enumerate(zip(answers, question_constrains)):
-        const(ans, i)
+        const(ans, i+1)
 
 
 if __name__ == "__main__":
