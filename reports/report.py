@@ -120,7 +120,7 @@ def check():
             "Number of answers are different from the expected 27. Have you filled out every field?"
         )
 
-    for i, (ans, const) in enumerate(zip(answers, question_constrains)):
+    for i, (ans, const) in enumerate(zip(answers, question_constrains), start=1):
         const(ans, i)
 
 
