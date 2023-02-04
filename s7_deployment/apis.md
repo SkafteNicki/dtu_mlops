@@ -34,9 +34,9 @@ with those requests.
 ## Requests
 
 When we are talking about requests, we are essentially talking about the communication method used in client-server
-types of architechtures. As show in the image below, in this architechture the client (user) is going to send
-*requests* to a server (our machine learning application) and the server will give an *response*. For example the user
-may send an request of getting the class of a specific image, which our application will do and then send back the
+types of architechtures. As shown in the image below, in this architechture the client (user) is going to send
+*requests* to a server (our machine learning application) and the server will give a *response*. For example the user
+may send a request of getting the class of a specific image, which our application will do and then send back the
 response in terms of a label.
 
 <p align="center">
@@ -46,7 +46,7 @@ response in terms of a label.
 </p>
 
 The common way of of sending requests are called HTTP (Hypertext Transfer Protocol). It is essentially a specification
-of the intermediary transportation method between the clien and server. A HTTP request essentially consist of two
+of the intermediary transportation method between the client and server. A HTTP request essentially consist of two
 parts:
 
 * A request URL: the location of the server we want to send our request to
@@ -58,7 +58,7 @@ The common request methods are (case sensitive):
 * POST/PUT: send data to the server
 * DELETE: delete data on the server
 
-You can read more about the different method [here](https://dev.to/adidoshi/http-request-methods-16ik). For most machine
+You can read more about the different methods [here](https://dev.to/adidoshi/http-request-methods-16ik). For most machine
 learning applications, GET and POST are the core methods to remember. Additionally, if you want to read more about HTTP
 in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol, but the TLDR is
 that it provides privacy, integrity and identification over the web.
@@ -93,7 +93,7 @@ We are going to do a couple of exercises on sending requests using
    print(response.status_code)
    ```
 
-   What is the status code now and what does it mean? Status codes are important when you have a application that are
+   What is the status code now and what does it mean? Status codes are important when you have an application that is
    interacting with a server and want to make sure that it does not fail, which can be done with simple `if` statements
    on the status codes
 
@@ -110,7 +110,7 @@ We are going to do a couple of exercises on sending requests using
    response=requests.get("https://api.github.com/repos/SkafteNicki/dtu_mlops")
    ```
 
-   which actually gives back a *payload*. Essentially, payload refers to any additional data that is send from the
+   which actually gives back a *payload*. Essentially, payload refers to any additional data that is sent from the
    client to the server or vice-versa. Try looking at the `response.content` attribute. What is the type of this
    attribute?
 
@@ -139,7 +139,7 @@ We are going to do a couple of exercises on sending requests using
    [page](https://docs.github.com/en/rest/search?apiVersion=2022-11-28) for help.
 
 7. Sometimes the content of a page cannot be converted into `json`, because as already stated data is send as bytes.
-   Say that we want to download a image, which we can do in the following way
+   Say that we want to download an image, which we can do in the following way
 
    ```python
    import requests
@@ -147,7 +147,7 @@ We are going to do a couple of exercises on sending requests using
    ```
 
    Try calling `response.json()`, what happens? Next try calling `response.content`. For actually getting the result
-   in this case we would need to convert from bytes to a image:
+   in this case we would need to convert from bytes to an image:
 
    ```python
    with open(r'img.png','wb') as f:
@@ -183,7 +183,7 @@ We are going to do a couple of exercises on sending requests using
 
    3. Try to redo some of the exercise yourself using `curl`.
 
-That ends the intro session on `requests`. Do not worry if you are still not completly comftable with sending requests,
+That ends the intro session on `requests`. Do not worry if you are still not completly comfortable with sending requests,
 we are going to return do how we do it in practise when we have actually created our own API. If you want to learn more
 about the `requests` package you can checkout [this tutorial](https://realpython.com/python-requests/) and if you want
 to see more example on how to use `curl` you can checkout
@@ -194,7 +194,7 @@ to see more example on how to use `curl` you can checkout
 Requests are all about being on the client side of our client-server architechture. We are now going to move on to the
 server side where we will be learning about writing the APIs that requests can interact with. An application programming
 interface (API) is essentially the way of the developer (you) telling a user how to use the application that you have
-created. The API is an abstraction layer that allows the user the interact with our application in the way we want them
+created. The API is an abstraction layer that allows the user to interact with our application in the way we want them
 to interact with it, without the user even having to look at the code.
 
 We can take the API from github as an example <https://api.github.com>. This API allows any user to retrieve, integrate
@@ -205,13 +205,13 @@ functions:
 * <https://api.github.com/search/code>: search through github for repositories
 * <https://api.github.com/repos/OWNER/REPO/actions/workflows>: check the status of workflows for a given repository
 
-and we could go on. However, there may be functionality that github are not interested in users having access to and
+and we could go on. However, there may be functionality that github is not interested in users having access to and
 they may therefore choose not to have endpoints for specific features.
 
 The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
 contrains that a particular API needs to fullfill to be considered RESTful. You can read more about what the six
-guiding principals behind REST API is [on this page](https://restfulapi.net/) but on of the most important to have in
-mind is that the clien-server architechture needs to be stateless. This means that whenever a request is send to the
+guiding principals behind REST API is [on this page](https://restfulapi.net/) but one of the most important to have in
+mind is that the client-server architechture needs to be stateless. This means that whenever a request is send to the
 server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
 information from previous requests.
 
@@ -223,7 +223,7 @@ spot of being flexible enough to do what you want without having many additional
 
 ### Exercises
 
-The exercises below are an condensed version of [this](https://fastapi.tiangolo.com/tutorial/) and
+The exercises below are a condensed version of [this](https://fastapi.tiangolo.com/tutorial/) and
 [this](https://fastapi.tiangolo.com/advanced/) tutorial. If you ever need context for the exercises, we can recommend
 trying to go through these. Additionally, we also provide [this solution file](exercise_files/fastapi.py) that you
 can look through for help.
@@ -234,9 +234,9 @@ can look through for help.
    pip install fastapi
    ```
 
-   This contais the functions, modules, variables we are going to need to define our interface.
+   This contais the functions, modules, and variables we are going to need to define our interface.
 
-2. Additionally, also install uvicorn which is a package for defining low level server applications.
+2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
 
    ```bash
    pip install uvicorn[standard]
@@ -260,14 +260,14 @@ can look through for help.
    Importantly here is the use of the `@app.get` decorator. What could this decorator refer to? Explain what the two
    functions are probably doing.
 
-4. Next lets lunch our app. Since we called our script `main.py` and we inside the script initialized our API with
+4. Next lets launch our app. Since we called our script `main.py` and we inside the script initialized our API with
    `app = FastAPI`, our application that we want to deploy can be referenced by `main:app`:
 
    ```bash
    uvicorn --reload --port 8000 main:app
    ```
 
-   this will launch an server at this page: `http://localhost:8000/`. As you will hopefully see, this page will return
+   this will launch a server at this page: `http://localhost:8000/`. As you will hopefully see, this page will return
    the content of the `root` function, like the image below. Remember to also check the output in your terminal as that
    will give info on when and how your application is being invoked.
 
@@ -281,7 +281,7 @@ can look through for help.
       these pages show?
 
    3. The power of the `docs` and `redoc` pages is that they allow you to easily test your application with their simple
-      UI. As show in the image below, simply open the endpoint you want to test, click the `Try it out` button, input
+      UI. As shown in the image below, simply open the endpoint you want to test, click the `Try it out` button, input
       any values and execute it. It will return both the corresponding `curl` command for invoking your endpoint,
       the corresponding URL and response of you application. Try it out.
 
@@ -290,7 +290,7 @@ can look through for help.
       </p>
 
    4. You can also checkout `http://localhost:8000/openapi.json` to check out the schema that is generated
-      which essentially are a `json` file containing the overall specifications of your program.
+      which essentially is a `json` file containing the overall specifications of your program.
 
    5. Try to access `http://localhost:8000/items/foo`, what happens in this case? When you specify types in your API,
       FastAPI will automatically do type validation using [pydantic](https://docs.pydantic.dev/), making sure users can
@@ -319,10 +319,10 @@ can look through for help.
       initialized the app with the `--reload` argument.
 
    2. When we decorate our functions with `@app.get("/items/{item_id}")`, `item_id` is in the case what we call a
-      *path parameters* because it is an parameter that is directly included in the path of our endpoint. We have
-      already seen how we can restrict a path to a single type, but what if we want to strict it to specific values?
-      This is often the case of we are working with parameters of type `str`. In this case we would need to define a
-      enum:
+      *path parameters* because it is a parameter that is directly included in the path of our endpoint. We have
+      already seen how we can restrict a path to a single type, but what if we want to restrict it to specific values?
+      This is often the case if we are working with parameters of type `str`. In this case we would need to define a
+      `enum`:
 
       ```python
       from enum import Enum
@@ -337,10 +337,10 @@ can look through for help.
 
       ```
 
-      Add this API, reload and execute both an valid parameter and a non-valid parameter.
+      Add this API, reload and execute both a valid parameter and a non-valid parameter.
 
    3. In contrast to path parameters we have query parameters. In the requests exersices we saw an example of this where
-      we where calling <https://api.github.com/search/code> with the query `'q': 'requests+language:python'`. Any
+      we were calling <https://api.github.com/search/code> with the query `'q': 'requests+language:python'`. Any
       parameter in FastAPI that is not a path parameter, will be considered a query parameter:
 
       ```python
@@ -373,12 +373,12 @@ can look through for help.
       ```
 
       Make sure you understand what the function does and then try to execute it a couple of times to see your database
-      updating. It is important to note that we sometimes in the following exercises uses the `.get` method and
+      updating. It is important to note that we sometimes in the following exercises use the `.get` method and
       sometimes the `.post` method. For our usage it does not really matter.
 
 6. We are now moving to figuring out how to provide different standard inputs like text, images, json to our APIs. It
    is important that you try out each example yourself and in particular you look at the `curl` commands that are
-   nessesary to invoke each application.
+   necessary to invoke each application.
 
    1. Here is a small application, that takes a single text input
 
@@ -433,11 +433,11 @@ can look through for help.
       ```
 
       A couple of new things are going on here: we use the specialized `UploadFile` and `File` bodies in our input
-      definition. Addtionally, we added the `async`/`await` keywords. Figure put what everything does and try to run
+      definition. Addtionally, we added the `async`/`await` keywords. Figure out what everything does and try to run
       the application (you can use any image file you like).
 
    4. The above application actually does not do anything. Lets add [opencv](https://pypi.org/project/opencv-python/)
-      as an package and lets resize the image. It can be done with the following three lines:
+      as a package and lets resize the image. It can be done with the following three lines:
 
       ```python
       import cv2
@@ -458,7 +458,7 @@ can look through for help.
       ```
 
       Figure out where to add them to the code and try running the application one more time to see that you actually
-      get an file back with the resized image.
+      get a file back with the resized image.
 
 7. (Optional) Lets try to figure out how to use FastAPI in a machine learning context. Below is a script that downloads
    a `VisionEncoderDecoder` from
@@ -469,8 +469,8 @@ can look through for help.
    predict_step(['s7_deployment/exercise_files/my_cat.jpg'])
    ```
 
-   returns a list of strings like `['a cat laying on a couch with a stuffed animal']` (try this yourself). Create an
-   FastAPI application that can do inference using this model e.g. it should take in a image, preferrably a optional
+   returns a list of strings like `['a cat laying on a couch with a stuffed animal']` (try this yourself). Create a
+   FastAPI application that can do inference using this model e.g. it should take in an image, preferrably an optional
    `json` object for configuring some of the hyperparameters (like `max_length`) and should return a string
    containing the generated caption.
 
@@ -505,10 +505,10 @@ can look through for help.
 
 8. As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
-   application. For the following you can take whatever privious FastAPI application as the base application for the
+   application. For the following you can take whatever previous FastAPI application as the base application for the
    container
 
-   1. Start by creating a `requirement.txt` file for you application. You will atleast need `fastapi` and `unicorn` in
+   1. Start by creating a `requirement.txt` file for you application. You will atleast need `fastapi` and `uvicorn` in
       the file and we as always recommend that you are specific about the version you want to use:
 
       ```txt
@@ -565,7 +565,7 @@ can look through for help.
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you checkout
 [bentoml](https://github.com/bentoml/BentoML) that is an API standard that focuses solely on creating easy to understand
 APIs and services for machine learning applications. Additionally, we can also highly recommend checking out
-[Postman](https://www.postman.com/) that can help design, document and in particul test the API you are writing to make
+[Postman](https://www.postman.com/) that can help design, document and in particular test the API you are writing to make
 sure that they work as expected.
 
 <!---
