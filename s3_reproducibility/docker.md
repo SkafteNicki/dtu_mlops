@@ -327,9 +327,9 @@ beneficial for you to download.
     1. There are three prerequisites for working with Nvidia GPU accelerated docker containers. First you need to have
        the Docker Engine installed (already taken care of), have Nvidia GPU with updated GPU drivers and finally have
        the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
-       installed. The last part you not likely have not installed and needs to do.
-
-       To install on pop_os read through [this issue](https://github.com/NVIDIA/nvidia-docker/issues/1388) first. Pop_os has higher priority repositories than nvidia, thus installing older versions of nvidia-docker.
+       installed. The last part you not likely have not installed and needs to do. Some distros of Linux have known
+       problems with the installation process, so you may have to search through known issues in
+       [nvidia-docker repository](https://github.com/NVIDIA/nvidia-docker/issues) to find a solution
 
     2. To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
        the correct image:
