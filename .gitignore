@@ -1,3 +1,6 @@
+# git files
+.gitconfig
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -120,6 +123,9 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# jekyll generated site
+_site
+
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -139,3 +145,6 @@ FashionMNIST/
 
 # mac specific
 .DS_Store
+
+# gemfile
+Gemfile.lock
