@@ -189,13 +189,6 @@ computations in quantized format.
    try to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an
    improvement, explain why that may be.
 
-5. (Optional) The quantization we have look on until now is a post-processing step, taking a trained model and
-   converting it. However, quantization can be further implemented into our pipeline by doing
-   `quantization aware training`, where we also apply quantization during training to hopefully get model that quantize
-   better in the end. This can easily be done in lightning using the
-   [QuantizationAwareTraining](https://pytorch-lightning.readthedocs.io/en/latest/api/pytorch_lightning.callbacks.QuantizationAwareTraining.html#pytorch_lightning.callbacks.QuantizationAwareTraining)
-   callback. Try it out!
-
 ## Pruning
 
 Pruning is another way for reducing the model size and maybe improve performance of our network. As the figure below
