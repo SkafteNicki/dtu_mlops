@@ -148,3 +148,7 @@ FashionMNIST/
 
 # gemfile
 Gemfile.lock
+
+# google drive 
+.tmp.drivedownload
+.tmp.driveupload
