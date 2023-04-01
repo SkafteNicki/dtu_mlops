@@ -152,3 +152,6 @@ Gemfile.lock
 # google drive 
 .tmp.drivedownload
 .tmp.driveupload
+
+# Weights 
+*.pth
