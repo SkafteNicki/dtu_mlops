@@ -1,9 +1,3 @@
----
-layout: default
-title: Timeplan
-nav_order: 2
----
-
 # Timeplan
 
 [Slides](../slides/Intro%20to%20the%20course.pdf){: .btn .btn-blue }

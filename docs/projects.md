@@ -1,10 +1,3 @@
----
-layout: default
-title: Projects
-nav_order: 12
-permalink: projects
----
-
 # Project work
 
 [Slides](../slides/Projects.pdf){: .btn .btn-blue }
