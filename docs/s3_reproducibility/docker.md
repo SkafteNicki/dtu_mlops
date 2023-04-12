@@ -1,28 +1,12 @@
----
-layout: default
-title: M9 - Docker
-parent: S3 - Reproducibility
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/docker.png" width="130">
+![Logo](../figures/icons/docker.png){ align=right width="130"}
 
 # Docker
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 <p align="center">
   <img src="../figures/docker.png" width="400">

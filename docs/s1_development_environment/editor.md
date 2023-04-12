@@ -1,28 +1,11 @@
----
-layout: default
-title: M3 - Editor
-parent: S1 - Development environment
-nav_order: 3
----
-
-<img style="float: right;" src="../figures/icons/vscode.png" width="130">
+![Logo](../figures/icons/vscode.png){ align=right width="130"}
 
 # Editor/IDE
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 Notebooks can be great for testing out ideas, developing simple code and explaining and visualizing certain aspects
 of a codebase. Remember that [Jupyter notebook](https://jupyter.org/) was created with intention to "...allows you

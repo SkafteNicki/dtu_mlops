@@ -1,23 +1,7 @@
----
-layout: default
-title: M31 - Hyperparameter optimization
-parent: S10 - Extra
-nav_order: 2
----
-
-<img style="float: right;" src="../figures/icons/optuna.png" width="130">
+![Logo](../figures/icons/optuna.png){ align=right width="130"}
 
 # Hyperparameter optimization
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

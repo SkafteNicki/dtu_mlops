@@ -31,9 +31,14 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
 
 plugins:
   - search
+  - glightbox
 
 nav:
   - Home: index.md

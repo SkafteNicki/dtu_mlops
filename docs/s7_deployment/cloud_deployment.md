@@ -1,29 +1,14 @@
----
-layout: default
-title: M24 - Cloud deployment
-parent: S7 - Deployment
-nav_order: 3
----
 
-<img style="float: right;" src="../figures/icons/functions.png" width="130">
-<img style="float: right;" src="../figures/icons/run.png" width="130">
+![Logo](../figures/icons/functions.png){ align=right width="130"}
+![Logo](../figures/icons/run.png){ align=right width="130"}
 
 # Cloud deployment
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md) you should have
 gone through the steps of having your code in your github repository to automatically build into a docker

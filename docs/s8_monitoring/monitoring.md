@@ -1,25 +1,10 @@
----
-layout: default
-title: M26 - System monitoring
-parent: S8 - Monitoring
-nav_order: 2
----
 
-<img style="float: right;" src="../figures/icons/signoz.png" width="130">
-<img style="float: right;" src="../figures/icons/opentelemetry.png" width="130">
-<img style="float: right;" src="../figures/icons/monitoring.png" width="130">
+![Logo](../figures/icons/signoz.png){ align=right width="130"}
+![Logo](../figures/icons/opentelemetry.png){ align=right width="130"}
+![Logo](../figures/icons/monitoring.png){ align=right width="130"}
 
 # Monitoring
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

@@ -1,26 +1,10 @@
----
-layout: default
-title: M21 - Using the cloud
-parent: S6 - The cloud
-nav_order: 2
----
-
 # Using the cloud
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 In this set of exercises we are going to get more familiar with the using some of the resources that
 the Google cloud project offers.

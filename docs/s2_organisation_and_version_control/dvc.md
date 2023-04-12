@@ -1,28 +1,12 @@
----
-layout: default
-title: M8 - Data Version Control
-parent: S2 - Organization and version control
-nav_order: 4
----
-
-<img style="float: right;" src="../figures/icons/dvc.png" width="130">
+![Logo](../figures/icons/dvc.png){ align=right width="130"}
 
 # Data Version Control
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 In this module we are going to return to version control. However, this time we are going to focus on version control
 of data. The reason we need to separate between standandard version control and data version control comes down to one

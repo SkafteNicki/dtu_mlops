@@ -1,13 +1,6 @@
----
-layout: default
-title: S7 - Deployment
-nav_order: 9
-has_children: true
----
-
 # 08. Model deployment
 
-[Slides](../slides/Deployment.pdf){: .btn .btn-blue }
+[Slides](../../slides/Deployment.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/fastapi.png" width="130">

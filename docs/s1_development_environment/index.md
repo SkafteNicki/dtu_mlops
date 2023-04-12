@@ -1,13 +1,6 @@
----
-layout: default
-title: S1 - Development environment
-nav_order: 3
-has_children: true
----
-
 # Getting started - Setting up a development environment
 
-[Slides](../slides/Deep%20Learning%20software.pdf){: .btn .btn-blue }
+[Slides](../../slides/Deep%20Learning%20software.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/terminal.png" width="130">

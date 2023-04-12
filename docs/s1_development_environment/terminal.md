@@ -1,28 +1,11 @@
----
-layout: default
-title: M1 - Terminal
-parent: S1 - Development environment
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/terminal.png" width="130">
+![Logo](../figures/icons/terminal.png){ align=right width="130"}
 
 # The terminal
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 <p align="center">
   <img src="../figures/terminal_power.jpg" width="500">

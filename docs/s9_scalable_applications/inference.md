@@ -1,24 +1,8 @@
----
-layout: default
-title: M29 - Scalable Inference
-parent: S9 - Scalable applications
-nav_order: 3
-mathjax: true
----
 
-<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+![Logo](../figures/icons/pytorch.png){ align=right width="130"}
 
 # Scalable Inference
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

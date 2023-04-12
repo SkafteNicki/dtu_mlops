@@ -1,11 +1,4 @@
----
-layout: default
-title: M32 - High Performance Clusters
-parent: S10 - Extra
-nav_order: 3
----
-
-<img style="float: right;" src="../figures/icons/pbs.png" width="130">
+![Logo](../figures/icons/pbs.png){ align=right width="130"}
 
 # High Performance Clusters
 

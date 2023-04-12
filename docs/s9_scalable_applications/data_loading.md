@@ -1,28 +1,13 @@
----
-layout: default
-title: M27 - Distributed Data Loading
-parent: S9 - Scalable applications
-nav_order: 1
----
 
-<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+![Logo](../figures/icons/pytorch.png){ align=right width="130"}
 
 # Distributed Data Loading
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 One way that deep learning fundamentally changed the way we think about data in machine learning is that *more data is
 always better*. This was very much not the case with more traditional machine learning algorithms (random forest,

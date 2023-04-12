@@ -1,23 +1,7 @@
----
-layout: default
-title: M6 - Code structure
-parent: S2 - Organization and version control
-nav_order: 2
----
-
-<img style="float: right;" src="../figures/icons/cookiecutter.png" width="130">
+![Logo](../figures/icons/cookiecutter.png){ align=right width="130"}
 
 # Code organization
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

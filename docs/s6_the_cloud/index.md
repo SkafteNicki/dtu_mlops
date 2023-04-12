@@ -1,13 +1,6 @@
----
-layout: default
-title: S6 - The cloud
-nav_order: 8
-has_children: true
----
+  # Cloud computing
 
-# Cloud computing
-
-[Slides](../slides/Cloud%20Intro.pdf){: .btn .btn-blue }
+[Slides](../../slides/Cloud%20Intro.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/engine.png" width="130">

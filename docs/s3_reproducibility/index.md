@@ -1,13 +1,6 @@
----
-layout: default
-title: S3 - Reproducibility
-nav_order: 5
-has_children: true
----
-
 # Reproducibility
 
-[Slides](../slides/Reproducibility.pdf){: .btn .btn-blue }
+[Slides](../../slides/Reproducibility.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/docker.png" width="130">

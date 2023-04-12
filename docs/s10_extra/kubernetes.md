@@ -1,24 +1,7 @@
----
-layout: default
-title: Kubernetes
-parent: S10 - Extra
-nav_order: 7
-nav_exclude: true
----
-
-<img style="float: right;" src="../figures/icons/kubernetes.png" width="130">
+![Logo](../figures/icons/kubernetes.png){ align=right width="130"}
 
 # Kubernetes
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

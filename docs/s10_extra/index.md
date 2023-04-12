@@ -1,10 +1,3 @@
----
-layout: default
-title: S10 - Extra
-nav_order: 12
-has_children: true
----
-
 # Extra learning modules
 
 All modules listed here are not part of the core course, but expands on some of the other topics.

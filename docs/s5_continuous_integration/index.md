@@ -1,13 +1,6 @@
----
-layout: default
-title: S5 - Continuous Integration
-nav_order: 7
-has_children: true
----
-
 # Continuous Integration
 
-[Slides](../slides/Continues%20Integration.pdf){: .btn .btn-blue }
+[Slides](../../slides/Continues%20Integration.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/pytest.png" width="130">

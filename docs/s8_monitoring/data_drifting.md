@@ -1,23 +1,8 @@
----
-layout: default
-title: M25 - Data drifting
-parent: S8 - Monitoring
-nav_order: 1
----
 
-<img style="float: right;" src="../figures/icons/evidentlyai.png" width="130">
+![Logo](../figures/icons/evidentlyai.png){ align=right width="130"}
 
 # Data drifting
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

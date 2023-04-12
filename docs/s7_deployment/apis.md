@@ -1,28 +1,12 @@
----
-layout: default
-title: M22 - Requests and APIs
-parent: S7 - Deployment
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/fastapi.png" width="130">
+![Logo](../figures/icons/fastapi.png){ align=right width="130"}
 
 # Requests and APIs
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
 for this is that we need a new abstraction layer ontop of our applications that are not python specific. While Python

@@ -1,6 +1,6 @@
 # Timeplan
 
-[Slides](../slides/Intro%20to%20the%20course.pdf){: .btn .btn-blue }
+[Slides](../../slides/Intro%20to%20the%20course.pdf){ .md-button }
 
 The course is organised into *exercise* (2/3 of the course) days and *project* days (1/3 of the course).
 

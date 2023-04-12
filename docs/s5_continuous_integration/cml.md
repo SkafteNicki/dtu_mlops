@@ -1,23 +1,7 @@
----
-layout: default
-title: M19 - Continuous Machine Learning
-parent: S5 - Continuous Integration
-nav_order: 5
----
-
-<img style="float: right;" src="../figures/icons/cml.png" width="130">
+![Logo](../figures/icons/cml.png){ align=right width="130"}
 
 # Continuous Machine Learning
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

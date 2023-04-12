@@ -1,28 +1,10 @@
----
-layout: default
-title: M2 - Conda
-parent: S1 - Development environment
-nav_order: 2
----
-
-<img style="float: right;" src="../figures/icons/conda.png" width="130">
+![Logo](../figures/icons/conda.png){ align=right width="130"}
 
 # Conda and virtual enviroments
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+!!! note "Core Module"
 
 You probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
 on your laptop, which is great. Conda is an environment manager that helps you make sure that the dependencies of

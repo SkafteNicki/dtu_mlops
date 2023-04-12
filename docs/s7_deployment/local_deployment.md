@@ -1,23 +1,7 @@
----
-layout: default
-title: M23 - Local deployment
-parent: S7 - Deployment
-nav_order: 2
----
-
-<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+![Logo](../figures/icons/pytorch.png){ align=right width="130"}
 
 # Local Deployment
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

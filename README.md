@@ -55,8 +55,8 @@ corresponds to topic within MLOps and consist of multiple modules (**M**) that e
 
 Importantly we differ between core modules and optional modules. Core modules will be marked by
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.

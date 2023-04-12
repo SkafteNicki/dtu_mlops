@@ -1,28 +1,12 @@
----
-layout: default
-title: M5 - Git
-parent: S2 - Organization and version control
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/git.png" width="130">
+![Logo](../figures/icons/git.png){ align=right width="130"}
 
 # Git
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
 This is the reason that **version control** exist. Simply stated, it is a way to keep track of:

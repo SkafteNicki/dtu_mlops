@@ -1,28 +1,12 @@
----
-layout: default
-title: M15 - Unittesting
-parent: S5 - Continuous Integration
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/pytest.png" width="130">
+![Logo](../figures/icons/pytest.png){ align=right width="130"}
 
 # Unit testing
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
 CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been

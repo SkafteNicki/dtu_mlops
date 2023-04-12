@@ -1,27 +1,13 @@
----
-layout: default
-title: M7 - Good coding practice
-parent: S2 - Organization and version control
-nav_order: 3
----
-
-<img style="float: right;" src="../figures/icons/pep8.png" width="130">
+![Logo](../figures/icons/pep8.png){ align=right width="130"}
 
 # Good coding practice
-{: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-> Code is read more often than it is written. -- [Guido Van Rossum](https://gvanrossum.github.io/) (author of Python)
+!!! quote
+    *Code is read more often than it is written.* <br>
+    Guido Van Rossum (author of Python)
 
 To understand what good coding practice is, it is important to understand what it is *not*:
 
@@ -48,7 +34,9 @@ The problem with documentation is that there is no right or wrong way to do it. 
 
 Here is a good rule of thump for inline comments
 
-> “Code tells you how; Comments tell you why.” -- Jeff Atwood
+!!! quote
+    *Code tells you how; Comments tell you why.* <br>
+    Jeff Atwood
 
 ### Exercises
 

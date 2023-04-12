@@ -1,28 +1,11 @@
----
-layout: default
-title: M4 - Deep Learning Software
-parent: S1 - Development environment
-nav_order: 4
----
-
-<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+![Logo](../figures/icons/pytorch.png){ align=right width="130"}
 
 # Deep Learning Software
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+
+!!! note "Core Module"
 
 Deep learning have since its
 [revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
@@ -46,7 +29,7 @@ Regarding software for Deep Learning, the landscape is currently dominated by th
 frameworks (listed in order of when they were published):
 
 <img style="float: right;" src="../figures/tensorflow.png" width="120">
-<img style="float: right;" src="../figures/pytorch.png" width="130">
+![Logo](../figures/pytorch.png){ align=right width="130"}
 <img style="float: right;" src="../figures/jax.png" width="200">
 
 * [Tensorflow](https://github.com/tensorflow/tensorflow)

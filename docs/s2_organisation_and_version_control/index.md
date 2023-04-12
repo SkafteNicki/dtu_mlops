@@ -1,13 +1,6 @@
----
-layout: default
-title: S2 - Organization and version control
-nav_order: 4
-has_children: true
----
-
 # Getting started with MLOps - Organization and version control
 
-[Slides](../slides/What%20is%20MLOps.pdf){: .btn .btn-blue }
+[Slides](../../slides/What%20is%20MLOps.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/git.png" width="130">
