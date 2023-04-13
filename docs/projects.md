@@ -1,6 +1,6 @@
 # Project work
 
-[Slides](../slides/Projects.pdf){ .md-button }
+[Slides](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Projects.pdf){ .md-button }
 
 Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen

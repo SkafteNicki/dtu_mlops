@@ -1,6 +1,6 @@
-  # Cloud computing
+# Cloud computing
 
-[Slides](../../slides/Cloud%20Intro.pdf){ .md-button }
+[Slides](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Cloud%20Intro.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/engine.png" width="130">

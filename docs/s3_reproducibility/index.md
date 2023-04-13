@@ -1,6 +1,6 @@
 # Reproducibility
 
-[Slides](../../slides/Reproducibility.pdf){ .md-button }
+[Slides](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Reproducibility.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/docker.png" width="130">

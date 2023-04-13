@@ -1,6 +1,6 @@
 # Continuous Integration
 
-[Slides](../../slides/Continues%20Integration.pdf){ .md-button }
+[Slides](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Continues%20Integration.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/pytest.png" width="130">

@@ -1,6 +1,6 @@
 # Getting started - Setting up a development environment
 
-[Slides](../../slides/Deep%20Learning%20software.pdf){ .md-button }
+[Slides](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Deep%20Learning%20software.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/terminal.png" width="130">

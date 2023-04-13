@@ -3,7 +3,6 @@
 
 # Data drifting
 
-
 ---
 
 Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
@@ -54,7 +53,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
    you will also need `scikit-learn` and `pandas` installed if you do not already have it.
 
-2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/S7.md). As part of the deployment to
+2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/index.md). As part of the deployment to
    GCP functions you should have developed a application that can classify the
    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
    [script](../s7_deployment/exercise_files/sklearn_cloud_functions.py). We are going to convert this into a FastAPI

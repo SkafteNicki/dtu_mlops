@@ -1,6 +1,6 @@
 # Scaling applications
 
-[Slides](../../slides/Distributed%20applications.pdf){ .md-button }
+[Slides](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Distributed%20applications.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/pytorch.png" width="130">
