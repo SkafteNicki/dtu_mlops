@@ -28,11 +28,10 @@ different tiers of HPC. In Europe, HPC are often categorized such that Tier-0 ar
 or hexascale machines, Tier 1 are National centers of supercomputers, and Tier 2 are Regional centers. The lower the
 Tier, the larger applications it is possible to run.
 
-<p align="center">
-  <img src="../figures/hpc_tiers.png" width="800">
-  <br>
-  <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/hpc_tiers.png){ width="800" }
+  <figcaption> <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
+</figure>
 
 ## Cluster architectures
 

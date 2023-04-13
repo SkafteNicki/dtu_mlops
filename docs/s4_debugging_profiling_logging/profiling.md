@@ -63,9 +63,9 @@ As the image shows the profiler looks both a the `kernel` time (this is the time
 and also transfer times such as `memcpy` (where we are copying data between devices).
 It can even analyze your code and give recommendations.
 
-<p align="center">
-  <img src="../figures/pytorch_profiler.png" width="700" >
-</p>
+<figure markdown>
+  ![Image](../figures/pytorch_profiler.png){width="700" }
+</figure>
 
 Using the profiler can be as simple as wrapping the code that you want to profile with the `torch.profiler.profile`
 decorator

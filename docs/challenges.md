@@ -5,9 +5,9 @@ engineer with a great overview of tools, concepts and techniques within the fiel
 hard problems regarding MLOps. These are meant as inspiration to get you to deep dive more into using all the cloud
 services that `gcp` offers. You are also free to continue work on your project.
 
-<p align="center">
-  <img src="../figures/technical_depth_meme.jpg" width="500" >
-</p>
+<figure markdown>
+  ![Image](../figures/technical_depth_meme.jpg){width="500" }
+</figure>
 
 * Currently testing takes place in Github, but it should come as no
   surprise that `gcp` can also take care of this. Implementing testing

@@ -16,11 +16,10 @@ improve if more was added. However, as deep learning models have become deeper a
 data hungry performance seems to be ever increasing or at least not reaching a pleatau in the same way as for
 traditional machine learning.
 
-<p align="center">
-  <img src="../figures/ml_data.png" width="500">
-  <br>
-  <a href="https://www.codesofinterest.com/2017/04/how-deep-should-deep-learning-be.html"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/ml_data.png){ width="500" }
+  <figcaption> <a href="https://www.codesofinterest.com/2017/04/how-deep-should-deep-learning-be.html"> Image credit </a> </figcaption>
+</figure>
 
 As we are trying to feed more and more data into our models and obvious first question to ask is how to do this in a
 efficient way. As an general rule of thumb we want the performance bottleneck to be the forward/backward e.g. the

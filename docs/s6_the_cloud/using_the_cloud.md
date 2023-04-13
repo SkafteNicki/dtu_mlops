@@ -36,9 +36,9 @@ We are now going to start actually using the cloud.
 1. Click on the `Compute Engine` tab in sidebar on the homepage of `gcp`.
 
 2. Try to `Create instance`. You will see the following image below.
-   <p align="center">
-     <img src="../figures/gcp4.PNG" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp4.PNG){ width="800"  }
+   </figure>
    Give it a meaningful name, set the location to some location that is closer to where you actually is (to reduce
    latency). Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute
    unit?
@@ -63,9 +63,9 @@ We are now going to start actually using the cloud.
 
    You can always see the exact command that you need to run to `ssh` to an VM by selecting the
    `View gcloud command` option in the Compute Engine overview (see image below).
-   <p align="center">
-     <img src="../figures/gcp_ssh_command.png" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_ssh_command.png){ width="800"  }
+   </figure>
 
 6. While logged into the instance, check if Python and Pytorch is installed?
    You should see that neither is installed. The VM we have only specified what
@@ -104,9 +104,9 @@ We are now going to start actually using the cloud.
 
 7. Finally, everything that you have done locally can also be achieved through the web
    terminal, which of course comes pre-installed with the `gcloud` command etc.
-   <p align="center">
-     <img src="../figures/gcp_terminal.png" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_terminal.png){ width="800"  }
+   </figure>
    Try out launching this and run some of the commands from the previous exercises.
 
 ## Data storage
@@ -132,9 +132,9 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
 1. Lets start by creating a data storage. On the GCP startpage, in the sidebar, click on the `Cloud Storage`.
    On the next page click the `Create bucket`:
-   <p align="center">
-     <img src="../figures/gcp5.PNG" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp5.PNG){ width="800"  }
+   </figure>
    Give the bucket an unique name, set it to a region close by and make it of size 20 GB as seen in the image.
 
 2. After creating the storage, you should be able to see it if you type
@@ -216,17 +216,17 @@ to be substantially faster to build and smaller in size than the images we are u
    repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
 
 3. From the `gcp` homepage, navigate to the triggers panel:
-   <p align="center">
-     <img src="../figures/gcp_trigger_1.png" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_trigger_1.png){ width="800"  }
+   </figure>
    Click on the manage repositories.
 
 4. From there, click the `Connect Repository` and go through the steps of authenticating your github profile with
    `gcp` and choose the repository that you want to setup build triggers. For now, skip the
    `Create a trigger (optional)` part by pressing `Done` in the end.
-   <p align="center">
-     <img src="../figures/gcp_trigger_2.png" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_trigger_2.png){ width="800"  }
+   </figure>
 
 5. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
    * Give a name
@@ -239,9 +239,9 @@ to be substantially faster to build and smaller in size than the images we are u
 6. To activate the trigger, push some code to the chosen repository.
 
 7. Go to the `Cloud Build` page and you should see the image being build and pushed.
-   <p align="center">
-     <img src="../figures/gcp_build.png" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_build.png){ width="800"  }
+   </figure>
    Try clicking on the build to checkout the build process and building summary. As you can see from the image, if a
    build is failing you will often find valuable info by looking at the build summary. If you build is failing try
    to configure it to run in one of these regions:

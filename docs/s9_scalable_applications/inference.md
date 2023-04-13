@@ -182,11 +182,10 @@ important but the general rule that the importance of a weight is proportional t
 makes intuitively sense, since weights in all linear operations (fully connected or convolutional) are always
 multiplied onto the incoming value, thus a small weight means a small outgoing activation.
 
-<p align="center">
-  <img src="../figures/pruning.png" width="800">
-  <br>
-  <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/pruning.png){ width="800" }
+  <figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
+</figure>
 
 ### Exercises
 

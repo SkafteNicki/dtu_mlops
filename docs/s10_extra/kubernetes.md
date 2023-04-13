@@ -10,11 +10,10 @@
 
 ## Kubernetes architechture
 
-<p align="center">
-  <img src="../figures/components_of_kubernetes.png" width="800">
-  <br>
-  <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/components_of_kubernetes.png){ width="800" }
+  <figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
+</figure>
 
 ## Minikube
 

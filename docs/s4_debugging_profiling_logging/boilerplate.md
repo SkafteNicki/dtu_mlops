@@ -60,9 +60,9 @@ requires two more methods implemented:
 
 Below is shown these two methods added to standard MNIST classifier
 
-<p align="center">
-  <img src="../figures/lightning.png" width="700" >
-</p>
+<figure markdown>
+  ![Image](../figures/lightning.png){width="700" }
+</figure>
 
 Compared to a standard `nn.Module`, the additional methods in the `LightningModule` basically specifies exactly how you
 want to optimize your model.

@@ -23,11 +23,10 @@ types of architechtures. As shown in the image below, in this architechture the 
 may send a request of getting the class of a specific image, which our application will do and then send back the
 response in terms of a label.
 
-<p align="center">
-  <img src="../figures/http.png" width="800">
-  <br>
-  <a href="https://dev.to/adidoshi/http-request-methods-16ik"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/http.png){ width="800" }
+  <figcaption> <a href="https://dev.to/adidoshi/http-request-methods-16ik"> Image credit </a> </figcaption>
+</figure>
 
 The common way of of sending requests are called HTTP (Hypertext Transfer Protocol). It is essentially a specification
 of the intermediary transportation method between the client and server. A HTTP request essentially consist of two

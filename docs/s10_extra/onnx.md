@@ -30,11 +30,10 @@ learning models. ONNX provides an [open source format](https://github.com/onnx/o
 both deep learning and traditional ML. It defines an extensible computation graph model, as well as definitions of
 built-in operators and standard data types.
 
-<p align="center">
-  <img src="../figures/onnx.png" width="600">
-  <br>
-  <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/onnx.png){ width="600" }
+  <figcaption> <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a> </figcaption>
+</figure>
 
 As the above image indicates, the idea behind ONNX is that a model trained with a specific framework on a specific
 device, lets say Pytorch on your local computer, can be exported and run with an entirely different framework and

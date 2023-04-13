@@ -6,11 +6,10 @@
 {: .warning }
 > Module is still under development
 
-<p align="center">
-  <img src="../figures/prefect_flow.png" width="800">
-  <br>
-  <a href="https://www.prefect.io/guide/blog/prefect-zero-to-hero/"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/prefect_flow.png){ width="800" }
+  <figcaption> <a href="https://www.prefect.io/guide/blog/prefect-zero-to-hero/"> Image credit </a> </figcaption>
+</figure>
 
 ## DAGs
 

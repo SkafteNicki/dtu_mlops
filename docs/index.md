@@ -3,9 +3,9 @@
     <p align="center">Repository for <a href="https://kurser.dtu.dk/course/02476">course 02476</a> at DTU.</p>
 </p>
 
-<p align="center">
-  <img src="figures/mlops.png" width="1000">
-</p>
+<figure markdown>
+  ![Image](figures/mlops.png){width="1000"}
+</figure>
 
 ## Course details
 

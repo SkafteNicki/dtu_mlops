@@ -22,6 +22,7 @@ theme:
     - navigation.expand
     - navigation.indexes
     - content.code.copy
+    - navigation.footer
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -35,10 +36,21 @@ markdown_extensions:
   - md_in_html
   - admonition
   - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
 
 plugins:
   - search
   - glightbox
+
+extra:
+  social:
+    - icon: material/email
+      link: mailto:skaftenicki@gmail.com
+    - icon: fontawesome/brands/github
+      link: https://github.com/SkafteNicki
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/nicki-skafte-detlefsen/
 
 nav:
   - Home: index.md
@@ -57,8 +69,8 @@ nav:
     - M8 - Data version control: s2_organisation_and_version_control/dvc.md
   - S3 - Reproduceability ♻:
     - s3_reproducibility/index.md
-    - M9 - Git: s3_reproducibility/docker.md
-    - M10 - Code structure: s3_reproducibility/config_files.md
+    - M9 - Docker: s3_reproducibility/docker.md
+    - M10 - Config Files: s3_reproducibility/config_files.md
   - S4 - Debugging, Profiling and Logging ⏱️:
     - s4_debugging_profiling_logging/index.md
     - M11 - Debugging: s4_debugging_profiling_logging/debugging.md

@@ -14,11 +14,10 @@ The image below shows a subset of [all the different services](https://cloud.goo
 platform offers. The ones marked in red are the ones we are actually going to investigate in this course. Therefore, if
 you get done with exercises early I highly recommend that you deep dive more into the Google cloud platform.
 
-<p align="center">
-  <img src="../figures/gcp_services_summary.png" width="800" >
-  <br>
-  <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/gcp_services_summary.png){ width="800"  }
+  <figcaption> <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a> </figcaption>
+</figure>
 
 ## Exercises
 
@@ -36,17 +35,17 @@ As the first step we are going to get you setup with some Google cloud credits.
    </p>
 
 3. Go to billing and make sure that your account is showing $50 of cloud credit
-   <p align="center">
-     <img src="../figures/gcp2.PNG" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp2.PNG){ width="800"  }
+   </figure>
    make sure to also checkout the `Reports` throughout the course. When you are starting to use some of the cloud
    services these tabs will update with info about how much time you can use before your cloud credit runs out.
    Make sure that you monitor this page as you will not be given another coupon.
 
 4. One way to stay organized within GCP is to create projects.
-   <p align="center">
-     <img src="../figures/gcp3.PNG" width="800" >
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp3.PNG){ width="800"  }
+   </figure>
    Create a new project called `dtumlops`. When you click `create` you should get a notification that the project
    is being created. The notification bell is good way to make sure how the processes you are running are doing
    throughout the course.
@@ -170,9 +169,9 @@ sometimes changes). We will in the exercises below try to increase it.
 
    6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request
 
-   <p align="center">
-     <img src="../figures/quotas.PNG" width="1000">
-   </p>
+  <figure markdown>
+     ![Image](../figures/quotas.PNG){ width="1000" }
+   </figure>
 
 If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
 go to this page and see what you are actually allowed to use currently and try to increase it.

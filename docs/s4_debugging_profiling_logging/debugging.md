@@ -11,9 +11,9 @@ in our code. It is easy and can many times help narrow down where the problem ha
 way of debugging when dealing with a very large codebase. You should therefore familiarize yourself with the build-in
 [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in handy during the course.
 
-<p align="center">
-  <img src="../figures/debug.jpg" width="700" >
-</p>
+<figure markdown>
+  ![Image](../figures/debug.jpg){width="700" }
+</figure>
 
 To invoke the build in python debugger you can either:
 

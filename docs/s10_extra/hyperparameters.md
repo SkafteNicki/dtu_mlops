@@ -19,9 +19,9 @@ combinations to get the best model. Instead we have to do some tricks that will 
 In these exercises we are going to be integrating [optuna](https://optuna.readthedocs.io/en/stable/index.html) into
 our different models, that will provide the tools for speeding up our search.
 
-<p align="center">
-  <img src="../figures/hyperparameters.jpg" width="500">
-</p>
+<figure markdown>
+  ![Image](../figures/hyperparameters.jpg){width="500"}
+</figure>
 
 It should be noted that a lot of deep learning models does not optimize every hyperparameter that is included
 in the model but instead relies on heuristic guidelines ("rule of thumb") based on what seems to be working
