@@ -43,13 +43,12 @@ compute modules (CPU), acceleration modules (GPU), a memory module (RAM) and fin
 on your application you may need one module more than another. For example in deep learning the acceleration module is
 important but in physics simulation the general compute module / storage model is probably more important.
 
-<p align="center">
-  <img src="../figures/meluxina_overview.png" width="800">
-  <br>
-  Overview of the Meluxina supercomputer thats part of EuroHPC.
-  <br>
+<figure markdown>
+  ![Image](../figures/meluxina_overview.png){ width="800" }
+  <figcaption> Overview of the Meluxina supercomputer thats part of EuroHPC.
   <a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
-</p>
+  </figcaption>
+</figure>
 
 Alternatively, LSF are a network of computers where each computer has its own CPU, GPU, RAM etc. and the individual
 computes (or nodes) are then connected by network. The important different between a supercomputer and as LSF systems
