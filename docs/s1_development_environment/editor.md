@@ -61,12 +61,12 @@ following exercises are just to get you started but you can find many more tutor
 [here](https://code.visualstudio.com/docs/python/python-tutorial).
 
 1. VS code is a general editor for many languages and to get proper *python* support we need to install some
-   extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
-   we highly recommend installing the following packages:
+    extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
+    we highly recommend installing the following packages:
 
-   * `Python`: general python support
-   * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
-   * `Jupyter`: support for jupyter notebooks directly in VSCode
+    * `Python`: general python support
+    * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
+    * `Jupyter`: support for jupyter notebooks directly in VSCode
 
 2. If you install the `Python` package you should see something like this in your status bar:
 
@@ -74,14 +74,14 @@ following exercises are just to get you started but you can find many more tutor
     ![Image](../figures/action_bar.PNG){ width="700" }
     </figure>
 
-   which indicates that you are using the stock python installation, instead of the one you have created using `conda`.
-   Click it and change the python environment to the one you actually want to use.
+    which indicates that you are using the stock python installation, instead of the one you have created using `conda`.
+    Click it and change the python environment to the one you actually want to use.
 
 3. One of the most useful tools in VSCode is the ability to navigate a hole project using the build-in
-   `Explorer`. To really take advantage of the VC code you need to make sure what you are working on is a project.
-   Create a folder called `hello` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
-   select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
-   button and create a file called `hello.py`.
+    `Explorer`. To really take advantage of the VC code you need to make sure what you are working on is a project.
+    Create a folder called `hello` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
+    select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
+    button and create a file called `hello.py`.
 
     <figure markdown>
     ![Image](../figures/toolbar_new_file.png){ width="700" }
@@ -95,12 +95,12 @@ following exercises are just to get you started but you can find many more tutor
     <figcaption> <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a> </figcaption>
     </figure>
 
-   and click the `run` button as shown in the image. It should create a new terminal, activate the environment that you
-   have chosen and finally run your script. In addition to clicking the `run` button, you can also
+    and click the `run` button as shown in the image. It should create a new terminal, activate the environment that you
+    have chosen and finally run your script. In addition to clicking the `run` button, you can also
 
-   * Select some code and press `Shift+Enter` to run it in the terminal
-   * Select some code and right click, choosing to run in a interactive window (where you can interact with the results
-     like in a jupyter notebook)
+    * Select some code and press `Shift+Enter` to run it in the terminal
+    * Select some code and right click, choosing to run in a interactive window (where you can interact with the results
+        like in a jupyter notebook)
 
 Thats, the basic of using VScode. We recommend highly that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
