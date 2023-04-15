@@ -7,7 +7,7 @@
 !!! note "Core Module"
 
 Deep learning have since its
-[revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
+[revolution back in 2012,](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
 transformed our lives. From Google Translate to driverless cars
 to personal assistants to protein engineering, deep learning is transforming nearly every sector of our economy and
 or lives. However, it did not take long before people realized that deep learning is not as simple beast to tame
@@ -19,7 +19,7 @@ be seen as the response to the concept of technical debt, namely that we should 
 
 It is important to note that all the concepts and tools that have been developed for MLOps can absolutely be used
 together with more classical machine learning models (think K-nearest neighbor, Random forest etc.), however
-deep learning comes with its own set of problems which mostly have to do with the shear size of the data and models
+deep learning comes with its own set of problems which mostly have to do with the sheer size of the data and models
 we are working with. For these reason, we are focusing on working with deep learning models in this course
 
 ## Software landscape for Deep Learning
