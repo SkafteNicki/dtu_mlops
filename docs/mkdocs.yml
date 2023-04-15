@@ -5,7 +5,8 @@ site_dir: ../site
 theme:
   language: en
   name: material
-  favicon: imgs/favicon.png
+  favicon: figures/favicon.png
+  logo: figures/mlops_transparant.png
   palette:
     # Palette toggle for light mode
     - scheme: default
