@@ -3,8 +3,8 @@
 
 ---
 
-{: .warning }
-> Module is still under development
+!!! danger
+    Module is still under development
 
 <figure markdown>
   ![Image](../figures/prefect_flow.png){ width="800" }

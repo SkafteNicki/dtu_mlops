@@ -1,10 +1,9 @@
 # Frontend
 
-
 ---
 
-{: .warning }
-> Module is still under development
+!!! danger
+    Module is still under development
 
 ## Streamlit
 

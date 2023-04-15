@@ -3,8 +3,8 @@
 
 ---
 
-{: .warning }
-> Module is still under development
+!!! danger
+    Module is still under development
 
 "Machine learning engineering is 10% machine learning and 90% engineering." - *Chip Huyen*
 

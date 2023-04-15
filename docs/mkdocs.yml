@@ -1,4 +1,7 @@
 site_name: DTU-MLOps
+docs_dir: .
+site_dir: ../site
+
 theme:
   language: en
   name: material
@@ -38,10 +41,14 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 plugins:
   - search
   - glightbox
+  - same-dir
 
 extra:
   social:

@@ -24,10 +24,10 @@ Pre-commit simply works by inserting whatever workflow we want to automate in be
 afterwards would do a `git push`.
 
 <figure markdown>
-    ![Image](../figures/pre_commit.png){ width="700" }
-    <figcaption>
-    <a href="https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/"> Image credit </a>
-    </figcaption>
+![Image](../figures/pre_commit.png){ width="700" }
+<figcaption>
+<a href="https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/"> Image credit </a>
+</figcaption>
 </figure>
 
 The system works by looking for a file called `.pre-commit-config.yaml` that we can configure. If we execute

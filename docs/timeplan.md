@@ -27,11 +27,11 @@ especially with a focus on making everything reproducible.
 
 Date | Day       | Presentation topic                                                 | Frameworks                           | Format
 -----|-----------|--------------------------------------------------------------------|--------------------------------------|-----------
-2/1  | Monday    | Deep learning software [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Deep%20Learning%20software.pdf) [🎥](https://drive.google.com/file/d/1v0vEWhpFESLIpDz_buyaQIopUwiO-qP4/view?usp=share_link)| Terminal, Conda, IDE, Pytorch        | Exercises
-3/1  | Tuesday   | MLOps: what is it? [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/What%20is%20MLOps.pdf) [🎥](https://drive.google.com/file/d/1YIQszJZK9jkBfaQjvbdNFZB6UkEXw0_7/view?usp=share_link)             | Git, CookieCutter, Pep8, DVC         | Exercises
-4/1  | Wednesday | Reproducibility [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Reproducibility.pdf) [🎥](https://drive.google.com/file/d/186y1ndv9NMUrL7A9v05G6Jnow4Qg20Hp/view?usp=share_link)                  | Docker, Hydra                        | Exercises
-5/1  | Thursday  | Debugging [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Debugging%20ML%20Code.pdf) [🎥](https://drive.google.com/file/d/1DeW3UI62jrq42av1uN0-yV5FRNTdeKYz/view?usp=share_link)                  | Debugger, Profiler, Wandb, Lightning | Exercises
-6/1  | Friday    | Pytorch ecosystem [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Projects.pdf) [🎥](https://drive.google.com/file/d/1gH0mhUJqA8itDf2gIgYltcEpFCFuCUg-/view?usp=share_link)                       | -                                    | Projects
+2/1  | Monday    | Deep learning software <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Deep%20Learning%20software.pdf) [🎥](https://drive.google.com/file/d/1v0vEWhpFESLIpDz_buyaQIopUwiO-qP4/view?usp=share_link)| Terminal, Conda, IDE, Pytorch        | Exercises
+3/1  | Tuesday   | MLOps: what is it? <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/What%20is%20MLOps.pdf) [🎥](https://drive.google.com/file/d/1YIQszJZK9jkBfaQjvbdNFZB6UkEXw0_7/view?usp=share_link)             | Git, CookieCutter, Pep8, DVC         | Exercises
+4/1  | Wednesday | Reproducibility <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Reproducibility.pdf) [🎥](https://drive.google.com/file/d/186y1ndv9NMUrL7A9v05G6Jnow4Qg20Hp/view?usp=share_link)                  | Docker, Hydra                        | Exercises
+5/1  | Thursday  | Debugging <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Debugging%20ML%20Code.pdf) [🎥](https://drive.google.com/file/d/1DeW3UI62jrq42av1uN0-yV5FRNTdeKYz/view?usp=share_link)                  | Debugger, Profiler, Wandb, Lightning | Exercises
+6/1  | Friday    | Pytorch ecosystem <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Projects.pdf) [🎥](https://drive.google.com/file/d/1gH0mhUJqA8itDf2gIgYltcEpFCFuCUg-/view?usp=share_link)                       | -                                    | Projects
 
 ## Week 2
 
@@ -41,11 +41,11 @@ different services to help develop a full machine learning pipeline.
 
 Date | Day       | Presentation topic                                              | Frameworks                                        | Format
 -----|-----------|-----------------------------------------------------------------|---------------------------------------------------|-----------
-9/1  | Monday    | Continuous Integration [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Continues%20Integration.pdf) [🎥](https://drive.google.com/file/d/1KN1j0BI3oWPJPXe1zY_4bxVvruNn7R6O/view?usp=share_link)| Pytest, Github actions, Pre-commit, CML           | Exercises
-10/1 | Tuesday   | The Cloud [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Cloud%20Intro.pdf) [🎥](https://drive.google.com/file/d/1EF60Z_pGlsy1I5UWI01RSUtt3Ef1a_o6/view?usp=share_link)                        | GCP Engine, Bucket, Container registry, Vertex AI | Exercises
-11/1 | Wednesday | Deployment [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Deployment.pdf) [🎥](https://drive.google.com/file/d/1MbZyaN_ia_VC9Na894NdMLodj4TbAirJ/view?usp=share_link)                         | FastAPI, Torchservce, GCP Functions, Run          | Exercises
-12/1 | Thursday  | Guest lecture [🎥](https://drive.google.com/file/d/1Qg0LnSINe8epdR7q8sQbMsrXKJenTuDT/view?usp=share_link)                                                  | -                                                 | Projects
-13/1 | Friday    | Guest lecture [🎥](https://drive.google.com/file/d/1fGq9VSx0WUj3X7kpKP2y5avMbW-jw6K7/view?usp=share_link)                                                  | -                                                 | Projects
+9/1  | Monday    | Continuous Integration <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Continues%20Integration.pdf) [🎥](https://drive.google.com/file/d/1KN1j0BI3oWPJPXe1zY_4bxVvruNn7R6O/view?usp=share_link)| Pytest, Github actions, Pre-commit, CML           | Exercises
+10/1 | Tuesday   | The Cloud <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Cloud%20Intro.pdf) [🎥](https://drive.google.com/file/d/1EF60Z_pGlsy1I5UWI01RSUtt3Ef1a_o6/view?usp=share_link)                        | GCP Engine, Bucket, Container registry, Vertex AI | Exercises
+11/1 | Wednesday | Deployment <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Deployment.pdf) [🎥](https://drive.google.com/file/d/1MbZyaN_ia_VC9Na894NdMLodj4TbAirJ/view?usp=share_link)                         | FastAPI, Torchservce, GCP Functions, Run          | Exercises
+12/1 | Thursday  | Guest lecture <br> [🎥](https://drive.google.com/file/d/1Qg0LnSINe8epdR7q8sQbMsrXKJenTuDT/view?usp=share_link)                                                  | -                                                 | Projects
+13/1 | Friday    | Guest lecture <br> [🎥](https://drive.google.com/file/d/1fGq9VSx0WUj3X7kpKP2y5avMbW-jw6K7/view?usp=share_link)                                                  | -                                                 | Projects
 
 ## Week 3
 
@@ -56,9 +56,8 @@ important topic if we ever want our applications to be used by many people at th
 
 Date | Day       | Presentation topic                                                | Frameworks                          | Format
 -----|-----------|-------------------------------------------------------------------|-------------------------------------|----------
-16/1 | Monday    | Monitoring (Guest lecture) [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz | Exercises
-17/1 | Tuesday   | Scalable applications [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1_QLJD_yTkQmE2-_b-oMeDro1WU8KBeP3/view?usp=share_link) | Pytorch, Lightning                  | Exercises
+16/1 | Monday    | Monitoring (Guest lecture) <br> [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz | Exercises
+17/1 | Tuesday   | Scalable applications <br> [📝](https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1_QLJD_yTkQmE2-_b-oMeDro1WU8KBeP3/view?usp=share_link) | Pytorch, Lightning                  | Exercises
 18/1 | Wednesday | -                                                                 | -                                   | Projects
 19/1 | Thursday  | -                                                                 | -                                   | Projects
 20/1 | Friday    | -                                                                 | -                                   | Exam
-🥘
