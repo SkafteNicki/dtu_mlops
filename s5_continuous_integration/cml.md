@@ -122,5 +122,5 @@ actions is that their default runners e.g. `runs-on: [ubuntu-latest]` are only C
 [hardware config](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
 . As we all know, modern machine learning more or less requires hardware acceleration (=GPUs) to train within
 reasonable time. Luckily for us `cml` also integrated with large cloud provides and I therefore recommend that
-after doing through the modules on [cloud computing](../s6_the_cloud/S6.md) that you return to this exercise and
+after doing through the modules on [cloud computing](../s6_the_cloud/README.md) that you return to this exercise and
 experiment with setting up [self-hosted runners](https://github.com/iterative/cml#advanced-setup).
