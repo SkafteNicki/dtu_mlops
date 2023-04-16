@@ -1,23 +1,6 @@
----
-layout: default
-title: M17 - Pre-commit
-parent: S5 - Continuous Integration
-nav_order: 3
----
-
-<img style="float: right;" src="../figures/icons/precommit.png" width="130">
+![Logo](../figures/icons/precommit.png){ align=right width="130"}
 
 # Pre-commit
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -40,10 +23,12 @@ that we do a `git commit`.
 Pre-commit simply works by inserting whatever workflow we want to automate in between whenever we do a `git commit` and
 afterwards would do a `git push`.
 
-<p align="center">
-  <img src="../figures/pre_commit.png" width="700"
-  title="credit to https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/">
-</p>
+<figure markdown>
+![Image](../figures/pre_commit.png){ width="700" }
+<figcaption>
+<a href="https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/"> Image credit </a>
+</figcaption>
+</figure>
 
 The system works by looking for a file called `.pre-commit-config.yaml` that we can configure. If we execute
 
@@ -86,30 +71,30 @@ this will make sure that the file is automatically executed whenever we run `git
 
 1. Install pre-commit
 
-   ```bash
-   pip install pre-commit
-   ```
+    ```bash
+    pip install pre-commit
+    ```
 
 2. Next create the sample file
 
-   ```bash
-   pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
-   ```
+    ```bash
+    pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
+    ```
 
 3. The sample file already contains 4 hooks. Make sure you understand what each do and if you need them at all.
 
 4. The base repo <https://github.com/pre-commit/pre-commit-hooks> also have a hook for configuring `flake8` to run.
-   Add this to the config file and make sure it works as expected e.g. make something that is not `flake8` compliant
-   and then try to commit that change.
+    Add this to the config file and make sure it works as expected e.g. make something that is not `flake8` compliant
+    and then try to commit that change.
 
 5. Running `black` or `yapf` is not part of the base repo, however it is still possible to include this as pre-commit
-   hooks. Google how to do it, include one of them and then test out that it actually works.
+    hooks. Google how to do it, include one of them and then test out that it actually works.
 
 6. Make sure that you also can do commits without running `pre-commit` e.g.
 
-   ```bash
-   git commit -m <message> --no-verify
-   ```
+    ```bash
+    git commit -m <message> --no-verify
+    ```
 
 7. Finally, figure out how to disable `pre-commit` again.
 

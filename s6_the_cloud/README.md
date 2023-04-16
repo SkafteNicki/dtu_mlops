@@ -1,13 +1,6 @@
----
-layout: default
-title: S6 - The cloud
-nav_order: 8
-has_children: true
----
-
 # Cloud computing
 
-[Slides](../slides/Cloud%20Intro.pdf){: .btn .btn-blue }
+[Slides](../slides/Cloud%20Intro.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/engine.png" width="130">
@@ -23,11 +16,10 @@ standard laptop/desktop can offer. You probably already have experience with run
 or similar but todays topic is about utilizing cloud computing.
 
 <!-- markdownlint-disable -->
-<p align="center">
-  <img src="../figures/cloud_computing.jpeg" width="600">
-  <br>
-  <a href="https://towardsdatascience.com/how-to-start-a-data-science-project-using-google-cloud-platform-6618b7c6edd2"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/cloud_computing.jpeg){ width="600" }
+  <figcaption> <a href="https://towardsdatascience.com/how-to-start-a-data-science-project-using-google-cloud-platform-6618b7c6edd2"> Image credit </a> </figcaption>
+</figure>
 <!-- markdownlint-restore -->
 
 There exist a [numerous](https://github.com/zszazi/Deep-learning-in-cloud) amount of cloud compute providers
