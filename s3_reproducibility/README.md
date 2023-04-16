@@ -1,13 +1,6 @@
----
-layout: default
-title: S3 - Reproducibility
-nav_order: 5
-has_children: true
----
-
 # Reproducibility
 
-[Slides](../slides/Reproducibility.pdf){: .btn .btn-blue }
+[Slides](../slides/Reproducibility.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/docker.png" width="130">
@@ -32,11 +25,10 @@ equally careful making sure our environments are reproducible (think of your lap
 Secondly, if we focus on why reproducibility matters especially to machine learning, it is part of the bigger challenge
 of making sure that machine learning is **trustworthy**.
 
-<p align="center">
-  <img src="../figures/trustworthy_ml.png" width="600">
-  <br>
-  <a href="https://towardsdatascience.com/reproducible-machine-learning-cf1841606805"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/trustworthy_ml.png){ width="600" }
+  <figcaption> <a href="https://towardsdatascience.com/reproducible-machine-learning-cf1841606805"> Image credit </a> </figcaption>
+</figure>
 
 Trustworthy ML is basically the idea that machine learning agents *can* be trusted. Take the example of an machine
 learning agent being responsible for medical diagnoses. It is s very clear that we need to be able to trust that the

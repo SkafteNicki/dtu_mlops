@@ -1,23 +1,7 @@
----
-layout: default
-title: M10 - Config files
-parent: S3 - Reproducibility
-nav_order: 2
----
 
-<img style="float: right;" src="../figures/icons/hydra.png" width="130">
+![Logo](../figures/icons/hydra.png){ align=right width="130"}
 
 # Config files
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -123,53 +107,53 @@ look online for your answers before looking at the solution. Remember: its not a
 1. Start by install hydra: `pip install hydra-core --upgrade`
 
 2. Next take a look at the `vae_mnist.py` and `model.py` file and understand what is going on. It is a model we will
-   revisit during the course.
+    revisit during the course.
 
 3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
-   into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
-   completely reproducible (HINT: the weights of any neural network is initialized at random).
+    into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
+    completely reproducible (HINT: the weights of any neural network is initialized at random).
 
 4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found
 
 5. Get the script running by loading the configuration file inside your script (using hydra) that incorporates the
-   hyperparameters into the script. Note: you should only edit the `vae_mnist.py` file and not the `model.py` file.
+    hyperparameters into the script. Note: you should only edit the `vae_mnist.py` file and not the `model.py` file.
 
 6. Run the script
 
 7. By default hydra will write the results to a `outputs` folder, with a sub-folder for the day the experiment was
-   run and further the time it was started. Inspect your run by going over each file the hydra has generated and check
-   the information has been logged. Can you find the hyperparameters?
+    run and further the time it was started. Inspect your run by going over each file the hydra has generated and check
+    the information has been logged. Can you find the hyperparameters?
 
 8. Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:
 
-   1. Try changing one parameter from the command-line
+    1. Try changing one parameter from the command-line
 
-      ```bash
-      python vae_mnist.py hyperparameters.seed=1234
-      ```
+        ```bash
+        python vae_mnist.py hyperparameters.seed=1234
+        ```
 
-   2. Try adding one parameter from the command-line
+    2. Try adding one parameter from the command-line
 
-      ```bash
-      python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
-      ```
+        ```bash
+        python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
+        ```
 
 9. By default the file `vae_mnist.log` should be empty, meaning that whatever you printed to the terminal did not get
-   picked up by Hydra. This is due to Hydra under the hood making use of the native python
-   [logging](https://docs.python.org/3/library/logging.html) package. This means that to also save all printed output
-   from the script we need to convert all calls to `print` with `log.info`
+    picked up by Hydra. This is due to Hydra under the hood making use of the native python
+    [logging](https://docs.python.org/3/library/logging.html) package. This means that to also save all printed output
+    from the script we need to convert all calls to `print` with `log.info`
 
-   1. Create a logger in the script:
+    1. Create a logger in the script:
 
-      ```python
-      import logging
-      log = logging.getLogger(__name__)
-      ```
+        ```python
+        import logging
+        log = logging.getLogger(__name__)
+        ```
 
-   2. Exchange all calls to `print` with calls to `log.info`
+    2. Exchange all calls to `print` with calls to `log.info`
 
-   3. Try re-running the script and make sure that the output printed to the terminal also gets saved to the
-      `vae_mnist.log` file
+    3. Try re-running the script and make sure that the output printed to the terminal also gets saved to the
+        `vae_mnist.log` file
 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare.
     Then run the `reproducibility_tester.py` script as
@@ -212,9 +196,8 @@ hyperparameters belonging to a specific model architecture and hyperparameters f
 that we may try.
 
 <!-- markdownlint-disable -->
-<p align="center">
-  <img src="../figures/hydra_config.png" width="1000">
-  <br>
-  <a href="https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/hydra_config.png){ width="1000" }
+  <figcaption> <a href="https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710"> Image credit </a> </figcaption>
+</figure>
 <!-- markdownlint-restore -->
