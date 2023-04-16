@@ -207,7 +207,9 @@ pip install torch_tb_profiler
 
         <figure markdown>
         ![Image](../figures/profiler_overview.png){ width="600" }
-        <figcaption> <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a> </figcaption>
+        <figcaption>
+        <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a>
+        </figcaption>
         </figure>
 
         Try poking around in the interface.

@@ -175,6 +175,8 @@ a integer. Assuming that we are also going to use the function for floats and `t
 typing by specifying a *union* of types. Depending on the version of python you are using the syntax for this can be
 different.
 
+<!-- markdownlint-disable -->
+
 === "python <3.10"
 
     ```python
@@ -184,6 +186,8 @@ different.
         return x+y
     ```
 
+
+
 === "python >=3.10"
 
     ```python
@@ -191,6 +195,8 @@ different.
     def add2(x: int | float | Tensor, y: int | float | Tensor) -> int | float | Tensor:
         return x+y
     ```
+
+<!-- markdownlint-restore -->
 
 Finally, since this is a very generic function it also works on `numpy` arrays ect. we can always default to the `Any`
 type if we are not sure about all the specific types that a function can take

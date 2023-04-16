@@ -197,7 +197,7 @@ working together on the same project.
         the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
         remove the identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
 
-4. Finally, commit the merge and try to push.
+    4. Finally, commit the merge and try to push.
 
 8. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
     However, if you are using a proper editor they also have build in support for version control. We recommend getting
