@@ -3,3 +3,4 @@ mkdocs-glightbox
 mkdocs-material-extensions
 pymdown-extensions
 mkdocs-same-dir
+mkdocs-git-revision-date-localized-plugin

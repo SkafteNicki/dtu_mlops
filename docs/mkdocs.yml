@@ -1,12 +1,15 @@
 site_name: DTU-MLOps
 docs_dir: .
 site_dir: ../site
+repo_url: https://github.com/SkafteNicki/dtu_mlops
 
 theme:
   language: en
   name: material
   favicon: figures/favicon.png
   logo: figures/mlops_transparant.png
+  icon:
+    repo: fontawesome/brands/github
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -27,6 +30,8 @@ theme:
     - navigation.indexes
     - content.code.copy
     - navigation.footer
+    - search.suggest
+    - search.highlight
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -50,6 +55,8 @@ plugins:
   - search
   - glightbox
   - same-dir
+  - git-revision-date-localized:
+      enable_creation_date: true
 
 extra:
   social:
