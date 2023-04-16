@@ -1,23 +1,6 @@
----
-layout: default
-title: M6 - Code structure
-parent: S2 - Organization and version control
-nav_order: 2
----
-
-<img style="float: right;" src="../figures/icons/cookiecutter.png" width="130">
+![Logo](../figures/icons/cookiecutter.png){ align=right width="130"}
 
 # Code organization
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -39,11 +22,10 @@ is therefore not only to make the code easier for you to maintain but also for o
 
 Below is seen the default code structure of cookie-cutter for data science projects.
 
-<p align="center">
-  <img src="../figures/cookie_cutter.png" width="1000">
-  <br>
-  <a href="https://github.com/drivendata/cookiecutter-data-science"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/cookie_cutter.png){ width="1000" }
+  <figcaption> <a href="https://github.com/drivendata/cookiecutter-data-science"> Image credit </a> </figcaption>
+</figure>
 
 What is important to keep in mind when using a template such as cookie-cutter, is that it exactly is a template. By
 definition a template is *guide* to make something. Therefore, not all parts of an template may be important for your
@@ -66,66 +48,66 @@ ect...
 in this way paths (for saving and loading files) are always relative to the root.
 
 1. Start by reading [this page](https://drivendata.github.io/cookiecutter-data-science/), as it will give you insight
-   to why standardized code organization is important.
+    to why standardized code organization is important.
 
 2. Install [cookie cutter for data science](https://github.com/drivendata/cookiecutter-data-science)
 
-   ``` bash
-   # install using the terminal
-   pip install cookiecutter
-   ```
+    ``` bash
+    # install using the terminal
+    pip install cookiecutter
+    ```
 
 3. Take a look at the webpage to see how you start a new project. We recommend using `v2` of cookiecutter.
 
 4. After having created your project we are going to install it as a package in our conda environment. Either run
 
-   ```bash
-   # install in a terminal in your conda env
-   pip install -e .
-   # or
-   conda develop .
-   ```
+    ```bash
+    # install in a terminal in your conda env
+    pip install -e .
+    # or
+    conda develop .
+    ```
 
-   In addition you may need to run
+    In addition you may need to run
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-   to install additional packages required by `cookie-cutter`.
+    to install additional packages required by `cookie-cutter`.
 
 5. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data files in
-   `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this
-   intermediate representation to the `data/processed` folder. By normalization here we refer to making sure the
-   images have mean 0 and standard deviation 1.
+    `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this
+    intermediate representation to the `data/processed` folder. By normalization here we refer to making sure the
+    images have mean 0 and standard deviation 1.
 
 6. Every `cookie-cutter` project comes with a build in `Makefile` that can be used to easily define common operations in
-   a project. You do not have to understand the complete file by try taking a look at it. In particular the following
-   commands may come in handy
+    a project. You do not have to understand the complete file by try taking a look at it. In particular the following
+    commands may come in handy
 
-   ```bash
-   make data  # runs the make_dataset.py file, try it!
-   make clean  # clean __pycache__ files
-   make requirements  # install everything in the requirements.py file
-   ```
+    ```bash
+    make data  # runs the make_dataset.py file, try it!
+    make clean  # clean __pycache__ files
+    make requirements  # install everything in the requirements.py file
+    ```
 
-   If you are running Windows, `make` is not a build-in command and you either need to install
-   [chocolatey](https://chocolatey.org/) or
-   [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows.
+    If you are running Windows, `make` is not a build-in command and you either need to install
+    [chocolatey](https://chocolatey.org/) or
+    [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows.
 
 7. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py`
-   file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved
-   to the `models` folder (preferably in sub-folders).
+    file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved
+    to the `models` folder (preferably in sub-folders).
 
 8. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to
-   the `reports/figures/` folder. This could be a simple `.png` of the training curve.
+    the `reports/figures/` folder. This could be a simple `.png` of the training curve.
 
 9. (Optional) Can you figure out a way to add a `train` command to the `Makefile` such that training can be started
-   using
+    using
 
-   ```bash
-   make train
-   ```
+    ```bash
+    make train
+    ```
 
 10. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
     creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
@@ -133,17 +115,17 @@ in this way paths (for saving and loading files) are always relative to the root
 
     ```bash
     python src/models/predict_model.py \
-      models/my_trained_model.pt \  # file containing a pretrained model
-      data/example_images.npy  # file containing just 10 images for prediction
+        models/my_trained_model.pt \  # file containing a pretrained model
+        data/example_images.npy  # file containing just 10 images for prediction
     ```
 
 11. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
     * Loads a pre-trained network
     * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
-      features just before the final classification layer
+        features just before the final classification layer
     * Visualize features in a 2D space using
-      [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
-      reduction.
+        [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
+        reduction.
     * Save the visualization to a file in the `reports/figures/` folder.
 
 12. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
