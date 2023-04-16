@@ -1,23 +1,7 @@
----
-layout: default
-title: M25 - Data drifting
-parent: S8 - Monitoring
-nav_order: 1
----
 
-<img style="float: right;" src="../figures/icons/evidentlyai.png" width="130">
+![Logo](../figures/icons/evidentlyai.png){ align=right width="130"}
 
 # Data drifting
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -27,11 +11,10 @@ this means that the model is receiving input that is outside of the scope that i
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
 two years
 
-<p align="center">
-  <img src="../figures/data_drift.png" width="700">
-  <br>
-  <a href="https://www.picsellia.com/post/what-is-data-drift-and-how-to-detect-it-with-mlops"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/data_drift.png){ width="700" }
+  <figcaption> <a href="https://www.picsellia.com/post/what-is-data-drift-and-how-to-detect-it-with-mlops"> Image credit </a> </figcaption>
+</figure>
 
 In some cases, it may be that if you normalize some feature in a better way that you are able to generalize your model
 better, but this is not always the case. The reason for such a drift is commonly some external factor that you
@@ -39,11 +22,10 @@ essentially have no control over. That really only leaves you with one option: r
 input features and deploy that model to production. This process is probably going to repeat over the lifetime of your
 application if you want to keep it up-to-date with the real world.
 
-<p align="center">
-  <img src="../figures/retrain_model.png" width="700">
-  <br>
-  <a href="https://www.evidentlyai.com/blog/machine-learning-monitoring-data-and-concept-drift"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/retrain_model.png){ width="700" }
+  <figcaption> <a href="https://www.evidentlyai.com/blog/machine-learning-monitoring-data-and-concept-drift"> Image credit </a> </figcaption>
+</figure>
 
 We have now come up with a solution to the data drift problem, but there is one important detail that we have not taken
 care of: When we should actually trigger the retraining? We do not want to wait around for our model performance to
@@ -71,7 +53,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
    you will also need `scikit-learn` and `pandas` installed if you do not already have it.
 
-2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/S7.md). As part of the deployment to
+2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/index.md). As part of the deployment to
    GCP functions you should have developed a application that can classify the
    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
    [script](../s7_deployment/exercise_files/sklearn_cloud_functions.py). We are going to convert this into a FastAPI
@@ -294,9 +276,9 @@ complete and are especially limited in one way: they are only considering the ma
 analysis that we done have been on the distribution per feature (the marginal distribution), however as the image below
 show it is possible for data to have drifted to another distribution with the marginal being approximatively the same.
 
-<p align="center">
-  <img src="../figures/data_drift_marginals.png" width="500">
-</p>
+<figure markdown>
+  ![Image](../figures/data_drift_marginals.png){width="500"}
+</figure>
 
 There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.csail.mit.edu/papers/v13/gretton12a.html)
 that are able to do testing on multivariate distributions, which you are free to dive into. In this course we will just

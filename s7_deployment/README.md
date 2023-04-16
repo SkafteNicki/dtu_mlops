@@ -1,13 +1,6 @@
----
-layout: default
-title: S7 - Deployment
-nav_order: 9
-has_children: true
----
-
 # 08. Model deployment
 
-[Slides](../slides/Deployment.pdf){: .btn .btn-blue }
+[Slides](../slides/Deployment.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/fastapi.png" width="130">
@@ -23,11 +16,10 @@ ask people to just download your code and the weights to run the code by themsel
 research setting, but in production you need to be able to **deploy** the model to an environment that is fully
 contained such that people can just execute without looking (too hard) at the code.
 
-<p align="center">
-  <img src="../figures/deployment.jpg" width="600">
-  <br>
-  <a href="https://soliditydeveloper.com/deployments"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/deployment.jpg){ width="600" }
+  <figcaption> <a href="https://soliditydeveloper.com/deployments"> Image credit </a> </figcaption>
+</figure>
 
 In this session we try to look at methods specialized towards deployment of models on your local machine and
 also how to deploy services in the cloud.

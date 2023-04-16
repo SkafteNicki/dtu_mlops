@@ -1,23 +1,6 @@
----
-layout: default
-title: M23 - Local deployment
-parent: S7 - Deployment
-nav_order: 2
----
-
-<img style="float: right;" src="../figures/icons/pytorch.png" width="130">
+![Logo](../figures/icons/pytorch.png){ align=right width="130"}
 
 # Local Deployment
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -26,9 +9,9 @@ deploy it locally. The simple reason for that is debugging: if you deploy direct
 verbose error message and/or the iteration time is much slower because it simply takes much longer time to deploy
 to the cloud than locally. Locally should therefore always be the first step with any new application.
 
-<p align="center">
-  <img src="../figures/deployment_diagram.PNG" width="1000">
-</p>
+<figure markdown>
+  ![Image](../figures/deployment_diagram.PNG){width="1000"}
+</figure>
 
 For this module we are going to focus on deployment of deep learning models, in particular Pytorch models which is used
 throughout the course. Pytorch has historically been developed for research purposed, where iterating with quick ideas
@@ -96,11 +79,10 @@ For locally deploying our model we are going to look at Torchserve. Torchserve (
 services for packaging and serving multiple Pytorch at the same time.
 
 <!-- markdownlint-disable -->
-<p align="center">
-  <img src="../figures/torchserve.png" width="1000">
-  <br>
-  <a href="https://aws.amazon.com/blogs/machine-learning/deploying-pytorch-models-for-inference-at-scale-using-torchserve/"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/torchserve.png){ width="1000" }
+  <figcaption> <a href="https://aws.amazon.com/blogs/machine-learning/deploying-pytorch-models-for-inference-at-scale-using-torchserve/"> Image credit </a> </figcaption>
+</figure>
 <!-- markdownlint-restore -->
 
 Before we go into details of Torchmetrics, an important question is why we need such an abstraction on top of our

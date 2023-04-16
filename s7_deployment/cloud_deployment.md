@@ -1,29 +1,12 @@
----
-layout: default
-title: M24 - Cloud deployment
-parent: S7 - Deployment
-nav_order: 3
----
 
-<img style="float: right;" src="../figures/icons/functions.png" width="130">
-<img style="float: right;" src="../figures/icons/run.png" width="130">
+![Logo](../figures/icons/functions.png){ align=right width="130"}
+![Logo](../figures/icons/run.png){ align=right width="130"}
 
 # Cloud deployment
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+!!! note "Core Module"
 
 We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md) you should have
 gone through the steps of having your code in your github repository to automatically build into a docker
@@ -48,18 +31,18 @@ do you have to manage the server. Everything is magically taken care of behind t
    set the server region to somewhere close by and change the authentication policy to
    `Allow unauthenticated invocations` so we can access it directly from a browser. Remember to note down the
    *URL* of the service somewhere.
-   <p align="center">
-     <img src="../figures/gcp_cloud_functions.png" width="500">
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_cloud_functions.png){ width="500" }
+   </figure>
 
 3. On the next page, for `Runtime` pick the `Python 3.9` option. This will make the inline editor show both
    a `main.py` and `requirements.py` file. Look over them. Click the `Deploy` button in the lower left corner.
 
 4. Afterwards you should see a green check mark beside your function meaning that it is deployed. Click the
    `Test function` button which will take you to the testing page.
-   <p align="center">
-     <img src="../figures/gcp_test_function.png" width="800">
-   </p>
+  <figure markdown>
+     ![Image](../figures/gcp_test_function.png){ width="800" }
+   </figure>
 
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
    therefore just send an empty request by clicking the `Test The Function` button. Does the function return
