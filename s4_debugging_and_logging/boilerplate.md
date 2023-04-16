@@ -1,23 +1,6 @@
----
-layout: default
-title: M14 - Minimizing boilerplate
-parent: S4 - Debugging, Profiling and Logging
-nav_order: 4
----
-
-<img style="float: right;" src="../figures/icons/lightning.png" width="130">
+![Logo](../figures/icons/lightning.png){ align=right width="130"}
 
 # Minimizing boilerplate
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -76,9 +59,9 @@ requires two more methods implemented:
 
 Below is shown these two methods added to standard MNIST classifier
 
-<p align="center">
-  <img src="../figures/lightning.png" width="700" >
-</p>
+<figure markdown>
+  ![Image](../figures/lightning.png){width="700" }
+</figure>
 
 Compared to a standard `nn.Module`, the additional methods in the `LightningModule` basically specifies exactly how you
 want to optimize your model.

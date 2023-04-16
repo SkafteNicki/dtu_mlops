@@ -1,13 +1,6 @@
----
-layout: default
-title: S4 - Debugging, Profiling and Logging
-nav_order: 6
-has_children: true
----
-
 # Debugging, Profiling, Logging and Boilerplate
 
-[Slides](../slides/Debugging%20ML%20Code.pdf){: .btn .btn-blue }
+[Slides](../slides/Debugging%20ML%20Code.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/debugger.png" width="130">

@@ -1,23 +1,6 @@
----
-layout: default
-title: M11 - Debugging
-parent: S4 - Debugging, Profiling and Logging
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/debugger.png" width="130">
+![Logo](../figures/icons/debugger.png){ align=right width="130"}
 
 # Debugging
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -27,9 +10,9 @@ in our code. It is easy and can many times help narrow down where the problem ha
 way of debugging when dealing with a very large codebase. You should therefore familiarize yourself with the build-in
 [python debugger](https://docs.python.org/3/library/pdb.html) as it may come in handy during the course.
 
-<p align="center">
-  <img src="../figures/debug.jpg" width="700" >
-</p>
+<figure markdown>
+  ![Image](../figures/debug.jpg){width="700" }
+</figure>
 
 To invoke the build in python debugger you can either:
 
