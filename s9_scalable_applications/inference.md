@@ -135,10 +135,14 @@ where $s$ is a scale and $z$ is the so called zero point. But how does to doing 
 figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
 computations in quantized format.
 
+<!-- markdownlint-disable -->
 <figure markdown>
 ![Image](../figures/quantization_overview.png){ width="600" }
-<figcaption> <a href="https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512"> Image credit </a> </figcaption>
+<figcaption>
+<a href="https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512"> Image credit </a>
+</figcaption>
 </figure>
+<!-- markdownlint-restore -->
 
 ### Exercises
 

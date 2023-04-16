@@ -31,7 +31,9 @@ drive or an `S3` bucket from Amazon.
 
 <figure markdown>
   ![Image](../figures/dvc.png){ width="700" }
-  <figcaption> <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a> </figcaption>
+  <figcaption>
+  <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
+  </figcaption>
 </figure>
 
 As the figure shows, we now have two remote locations: one for code and one for data. We use `git pull/push` for the

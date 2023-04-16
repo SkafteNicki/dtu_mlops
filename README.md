@@ -1,10 +1,3 @@
----
-layout: default
-title: Homepage
-nav_order: 1
-permalink: /
----
-
 <p align="center">
     <h1 align="center">Machine Learning Operations</h1>
     <p align="center">Repository for <a href="https://kurser.dtu.dk/course/02476">course 02476</a> at DTU.</p>
@@ -14,15 +7,6 @@ permalink: /
 <p align="center">
   <img src="figures/mlops.png" width="1000">
 </p>
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ## Course details
 
@@ -71,8 +55,7 @@ corresponds to topic within MLOps and consist of multiple modules (**M**) that e
 
 Importantly we differ between core modules and optional modules. Core modules will be marked by
 
-{: .important }
-> Core module
+!!! note "Core Module"
 
 at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.

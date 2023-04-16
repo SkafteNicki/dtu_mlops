@@ -31,7 +31,8 @@ this into your own projects depends, but you are at least expected to be familia
 ## Initial config
 
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure
-    that your installation is working by writing `git help` in a terminal and it should show you the help message for git.
+    that your installation is working by writing `git help` in a terminal and it should show you the help message for
+    git.
 
 2. Create a [github](https://github.com/) account if you do not already have one.
 
@@ -80,7 +81,9 @@ Of course, the real power of version control is the ability to make branches, as
 
 <figure markdown>
 ![Image](../figures/git_branches.png){ width="1000" }
-<figcaption> <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a> </figcaption>
+<figcaption>
+<a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
+</figcaption>
 </figure>
 
 Each branch can contain code that are not present on other branches. This is useful when you are many developers
@@ -189,10 +192,10 @@ working together on the same project.
         >>>>>>> master
         ```
 
-        this should be interpret as: everything thats between `<<<<<<<` and `=======` are the changes made by your local
-        commit and everything between `=======` and `>>>>>>>` are the changes you are trying to pull. To fix the merge
-        conflict you simply have to make the code in the two "cells" work together. When you are done, remove the
-        identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
+        this should be interpret as: everything thats between `<<<<<<<` and `=======` are the changes made by your
+        local commit and everything between `=======` and `>>>>>>>` are the changes you are trying to pull. To fix
+        the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
+        remove the identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
 
 4. Finally, commit the merge and try to push.
 
@@ -203,10 +206,10 @@ working together on the same project.
 
 That covers the basics of git to get you started. In the exercise folder you can find a
 [git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference. Finally,
-we want to point out another awesome feature of Github: in browser editor. Sometimes you have a small edit that you want
-to make, but still would like to do this in a IDE/editor. Or you may be in the situation where you are working from
-another device than your usual developer machine. Github has an build-in editor that can simply be enabled by changing
-any URL from
+we want to point out another awesome feature of Github: in browser editor. Sometimes you have a small edit that you
+want to make, but still would like to do this in a IDE/editor. Or you may be in the situation where you are working
+from another device than your usual developer machine. Github has an build-in editor that can simply be enabled by
+changing any URL from
 
 ```bash
 https://github.com/username/repository
