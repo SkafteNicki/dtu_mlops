@@ -6,7 +6,7 @@ hard problems regarding MLOps. These are meant as inspiration to get you to deep
 services that `gcp` offers. You are also free to continue work on your project.
 
 <figure markdown>
-    ![Image](../figures/technical_depth_meme.jpg){ width="500" }
+![Image](figures/technical_depth_meme.jpg){ width="500" }
 </figure>
 
 * Currently testing takes place in Github, but it should come as no

@@ -1,6 +1,6 @@
 # Getting started with MLOps - Organization and version control
 
-[Slides]../slides/What%20is%20MLOps.pdf){ .md-button }
+[Slides](../slides/What%20is%20MLOps.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/git.png" width="130">
@@ -19,8 +19,8 @@ The topics in this session will focus on:
 * Coding practices for staying organized in lar
 
 <figure markdown>
-  ![Image](../figures/wtf.jpeg){ width="700" }
-  <figcaption> <a href="https://the-tech-lead.com/2020/07/19/good-code-bad-code/"> Image credit </a> </figcaption>
+![Image](../figures/wtf.jpeg){ width="700" }
+<figcaption> <a href="https://the-tech-lead.com/2020/07/19/good-code-bad-code/"> Image credit </a> </figcaption>
 </figure>
 
 Some exercises in this course are very loosely stated (including the exercises today). You are expected to seek out

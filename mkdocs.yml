@@ -82,7 +82,7 @@ nav:
     - M6 - Code structure: s2_organisation_and_version_control/code_structure.md
     - M7 - Good coding practice: s2_organisation_and_version_control/good_coding_practice.md
     - M8 - Data version control: s2_organisation_and_version_control/dvc.md
-  - S3 - Reproduceability ♻:
+  - S3 - Reproduceability ♻️:
     - s3_reproducibility/README.md
     - M9 - Docker: s3_reproducibility/docker.md
     - M10 - Config Files: s3_reproducibility/config_files.md
@@ -92,7 +92,7 @@ nav:
     - M12 - Profiling: s4_debugging_and_logging/profiling.md
     - M13 - Good Coding practice: s4_debugging_and_logging/logging.md
     - M14 - Data Version control: s4_debugging_and_logging/boilerplate.md
-  - S5 - Continues Integration ✔:
+  - S5 - Continues Integration ✔️:
     - s5_continuous_integration/README.md
     - M15 - Unittesting: s5_continuous_integration/unittesting.md
     - M16 - Github Actions: s5_continuous_integration/github_actions.md
@@ -112,7 +112,7 @@ nav:
     - s8_monitoring/README.md
     - M25 - Data Drifting: s8_monitoring/data_drifting.md
     - M26 - System Monitoring: s8_monitoring/monitoring.md
-  - S9 - Scalable applications ⚖:
+  - S9 - Scalable applications ⚖️:
     - s9_scalable_applications/README.md
     - M27 - Distributed Data Loading: s9_scalable_applications/data_loading.md
     - M28 - Distributed Training: s9_scalable_applications/distributed_training.md
