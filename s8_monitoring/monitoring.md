@@ -5,7 +5,6 @@
 
 # Monitoring
 
-
 ---
 
 In this module we are going to look into more classical monitoring of applications. The key concept we are often working

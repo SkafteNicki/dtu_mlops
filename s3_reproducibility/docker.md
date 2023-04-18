@@ -7,8 +7,10 @@
 !!! note "Core Module"
 
 <figure markdown>
-  ![Image](../figures/docker.png){ width="400" }
-  <figcaption> <a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a> </figcaption>
+![Image](../figures/docker.png){ width="400" }
+<figcaption>
+<a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a>
+</figcaption>
 </figure>
 
 While the above picture may seem silly at first, it is actually pretty close to how [docker](https://www.docker.com/)

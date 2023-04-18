@@ -103,6 +103,7 @@ General course objective
 > scale machine learning models.
 
 This includes:
+
 * Organize code in a efficient way for easy maintainability and shareability
 * Understand the importance of reproducibility and how to create reproducible containerized applications and experiments
 * Cable of using version control to efficiently collaborate on code development
