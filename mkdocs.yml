@@ -76,7 +76,7 @@ nav:
     - M2 - Conda: s1_development_environment/conda.md
     - M3 - Editor: s1_development_environment/editor.md
     - M4 - Deep Learning Software: s1_development_environment/deep_learning_software.md
-  - S2 - Organisation and Version Control 🗂:
+  - S2 - Organisation and Version Control 📁:
     - s2_organisation_and_version_control/README.md
     - M5 - Git: s2_organisation_and_version_control/git.md
     - M6 - Code structure: s2_organisation_and_version_control/code_structure.md

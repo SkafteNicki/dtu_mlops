@@ -5,7 +5,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 One way that deep learning fundamentally changed the way we think about data in machine learning is that *more data is
 always better*. This was very much not the case with more traditional machine learning algorithms (random forest,

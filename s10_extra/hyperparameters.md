@@ -36,8 +36,7 @@ rest to a "recommended value".
 
 ## Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files)
+[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 
 1. Start by installing optuna:
    `pip install optuna`

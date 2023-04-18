@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
 for this is that we need a new abstraction layer ontop of our applications that are not python specific. While Python

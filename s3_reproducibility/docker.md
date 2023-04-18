@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 <figure markdown>
 ![Image](../figures/docker.png){ width="400" }

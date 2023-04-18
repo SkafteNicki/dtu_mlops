@@ -212,8 +212,7 @@ help us at all. Therefore, use `Any` only when necessary.
 
 ### Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files)
+[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files){ .md-button }
 
 1. We provide a file called `typing_exercise.py`. Add typing everywhere in the file. Please note that you will
     need the following import:

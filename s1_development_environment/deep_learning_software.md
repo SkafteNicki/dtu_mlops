@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 Deep learning have since its
 [revolution back in 2012,](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
@@ -70,8 +70,7 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
 ### Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files)
+[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }
 
 1. Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)
 

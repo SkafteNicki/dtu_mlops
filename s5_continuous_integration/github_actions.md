@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 With the tests established in the previous module we are now ready to move on to actually implementing some continuous
 integration in our pipeline. As you probably have already realized testing your code locally may take cumbersome to do,

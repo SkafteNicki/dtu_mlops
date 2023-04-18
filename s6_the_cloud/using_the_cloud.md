@@ -2,7 +2,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 In this set of exercises we are going to get more familiar with the using some of the resources that
 the Google cloud project offers.

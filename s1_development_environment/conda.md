@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 You probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
 on your laptop, which is great. Conda is an environment manager that helps you make sure that the dependencies of
@@ -53,6 +53,13 @@ compared to other environment managers.
     mix dependencies between your exercises.
 
 3. When you create an environment with `conda`, how do you specify which python version it should be using?
+
+    ??? warning "Use python 3.7 or higher"
+
+        We highly recommend that you use python 3.7 or higher for this course. In general, we recommend that you use
+        the second latest version of python that is available (currently python 3.10 as of writing this). This is
+        because many the latest version of python is often not supported by all packages. You can always check the
+        python version support [here](https://devguide.python.org/versions/).
 
 4. Which `conda` commando gives you a list of the packages installed in the
     current environment (HINT: check the `conda_cheatsheet.pdf` file in the `exercise_files` folder).

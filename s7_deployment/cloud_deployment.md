@@ -6,7 +6,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md) you should have
 gone through the steps of having your code in your github repository to automatically build into a docker

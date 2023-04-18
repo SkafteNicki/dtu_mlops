@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 Notebooks can be great for testing out ideas, developing simple code and explaining and visualizing certain aspects
 of a codebase. Remember that [Jupyter notebook](https://jupyter.org/) was created with intention to "...allows you

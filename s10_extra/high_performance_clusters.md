@@ -65,8 +65,7 @@ We are going to take a look at PBS works as that is what is installed on our loc
 
 ### Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files)
+[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 
 The following exercises are focused on local students at DTU that want to use our local
 [HPC resources](https://www.hpc.dtu.dk/). That said, the steps in the exercise are fairly general to other types

@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 ## Profilers
 
@@ -76,8 +76,7 @@ with torch.profiler.profile(...) as prof:
 
 ### Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files)
+[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files){ .md-button }
 
 In these investigate the profiler that is build into PyTorch already. Note that these exercises requires that you
 have PyTorch v1.8.1 installed (or higher). You can always check which version you currently have installed by writing

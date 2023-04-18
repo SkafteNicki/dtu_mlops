@@ -93,8 +93,7 @@ the model. In this way it is easier to do version control of the configuration b
 
 ### Exercises
 
-{: .highlight }
-> [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s3_reproducibility/exercise_files)
+[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s3_reproducibility/exercise_files){ .md-button }
 
 The main idea behind the exercises is to take a single script (that we provide) and use Hydra to make sure that
 everything gets correctly logged such that you would be able to exactly report to others how each experiment was

@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 In this module we are going to return to version control. However, this time we are going to focus on version control
 of data. The reason we need to separate between standandard version control and data version control comes down to one

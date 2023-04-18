@@ -4,7 +4,7 @@
 
 ---
 
-!!! note "Core Module"
+!!! info "Core Module"
 
 What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
 CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
