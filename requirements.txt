@@ -1,6 +1,6 @@
-mkdocs-material
-mkdocs-glightbox
+mkdocs-material>=9.1.6
+mkdocs-glightbox>=0.3.2
 mkdocs-material-extensions
-pymdown-extensions
-mkdocs-same-dir
-mkdocs-git-revision-date-localized-plugin
+pymdown-extensions>=1.1.1
+mkdocs-same-dir>=0.1.2
+mkdocs-git-revision-date-localized-plugin>=1.2.0
