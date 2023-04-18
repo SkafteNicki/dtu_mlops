@@ -1,13 +1,6 @@
----
-layout: default
-title: S9 - Scalable applications
-nav_order: 11
-has_children: true
----
-
 # Scaling applications
 
-[Slides](../slides/Distributed%20applications.pdf){: .btn .btn-blue }
+[Slides](../slides/Distributed%20applications.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/pytorch.png" width="130">

@@ -1,23 +1,6 @@
----
-layout: default
-title: M18 - Continuous containers
-parent: S5 - Continuous Integration
-nav_order: 4
----
-
-<img style="float: right;" src="../figures/icons/dockerhub.png" width="130">
+![Logo](../figures/icons/dockerhub.png){ align=right width="130"}
 
 # Continuous docker building
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 

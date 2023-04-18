@@ -1,28 +1,10 @@
----
-layout: default
-title: M13 - Experiment logging
-parent: S4 - Debugging, Profiling and Logging
-nav_order: 3
----
-
-<img style="float: right;" src="../figures/icons/w&b.png" width="130">
+![Logo](../figures/icons/w&b.png){ align=right width="130"}
 
 # Experiment logging
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+!!! note "Core Module"
 
 Experiment logging or model monitoring is an important part of understanding what is going on with your model.
 It can help you debug your model and help tweak your models to perfection.

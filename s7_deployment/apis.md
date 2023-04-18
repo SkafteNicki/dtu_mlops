@@ -1,28 +1,10 @@
----
-layout: default
-title: M22 - Requests and APIs
-parent: S7 - Deployment
-nav_order: 1
----
-
-<img style="float: right;" src="../figures/icons/fastapi.png" width="130">
+![Logo](../figures/icons/fastapi.png){ align=right width="130"}
 
 # Requests and APIs
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+!!! note "Core Module"
 
 Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
 for this is that we need a new abstraction layer ontop of our applications that are not python specific. While Python
@@ -39,11 +21,10 @@ types of architechtures. As shown in the image below, in this architechture the 
 may send a request of getting the class of a specific image, which our application will do and then send back the
 response in terms of a label.
 
-<p align="center">
-  <img src="../figures/http.png" width="800">
-  <br>
-  <a href="https://dev.to/adidoshi/http-request-methods-16ik"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/http.png){ width="800" }
+  <figcaption> <a href="https://dev.to/adidoshi/http-request-methods-16ik"> Image credit </a> </figcaption>
+</figure>
 
 The common way of of sending requests are called HTTP (Hypertext Transfer Protocol). It is essentially a specification
 of the intermediary transportation method between the client and server. A HTTP request essentially consist of two

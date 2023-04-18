@@ -1,13 +1,6 @@
----
-layout: default
-title: Projects
-nav_order: 12
-permalink: projects
----
-
 # Project work
 
-[Slides](../slides/Projects.pdf){: .btn .btn-blue }
+[Slides](slides/Projects.pdf){ .md-button }
 
 Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
@@ -51,21 +44,21 @@ on Y data. You will approximately be given 4 full days to work on the project. I
 smaller project and then add complexity along the way if you have time.
 
 1. (Optional) Familiar yourself with each of the libraries. One way to do this is to find relevant tutorials on each
-   project and try to figure out the code. Such tutorials will give you a rough idea how the API for each library looks
-   like.
+    project and try to figure out the code. Such tutorials will give you a rough idea how the API for each library looks
+    like.
 
 2. Form groups! The recommended group size is 4 persons, but we also accept 3 or 5 man groups. Try to find other people
-   based on what framework that you would like to work with.
+    based on what framework that you would like to work with.
 
 3. Brainstorm projects! Try to figure out exactly what you want to work with and especially how you are going to
-   incorporate the frameworks (we are aware that you are not familiar with every framework yet) that you have chosen to
-   work with into your project. The **Final exercise** for today is to formulate a project description (see bottom of
-   this page).
+    incorporate the frameworks (we are aware that you are not familiar with every framework yet) that you have chosen to
+    work with into your project. The **Final exercise** for today is to formulate a project description (see bottom of
+    this page).
 
 4. When you formed groups and formulated a project you are allowed to start working on the actual code. I have included
-   a to-do list at the bottom that somewhat summaries what we have done in the course until know. You are **NOT**
-   expected to fulfill all bullet points on the to-do list today, as you will continue to work on the project in the
-   following two weeks.
+    a to-do list at the bottom that somewhat summaries what we have done in the course until know. You are **NOT**
+    expected to fulfill all bullet points on the to-do list today, as you will continue to work on the project in the
+    following two weeks.
 
 Final exercise for today is making a project description. Write around half to one page about:
 

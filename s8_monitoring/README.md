@@ -1,10 +1,3 @@
----
-layout: default
-title: S8 - Monitoring
-nav_order: 10
-has_children: true
----
-
 # Monitoring
 
 <p align="center">

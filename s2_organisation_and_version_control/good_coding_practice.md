@@ -1,27 +1,12 @@
----
-layout: default
-title: M7 - Good coding practice
-parent: S2 - Organization and version control
-nav_order: 3
----
-
-<img style="float: right;" src="../figures/icons/pep8.png" width="130">
+![Logo](../figures/icons/pep8.png){ align=right width="130"}
 
 # Good coding practice
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-> Code is read more often than it is written. -- [Guido Van Rossum](https://gvanrossum.github.io/) (author of Python)
+!!! quote
+    *Code is read more often than it is written.* <br>
+    Guido Van Rossum (author of Python)
 
 To understand what good coding practice is, it is important to understand what it is *not*:
 
@@ -48,18 +33,20 @@ The problem with documentation is that there is no right or wrong way to do it. 
 
 Here is a good rule of thump for inline comments
 
-> “Code tells you how; Comments tell you why.” -- Jeff Atwood
+!!! quote
+    *Code tells you how; Comments tell you why.* <br>
+    Jeff Atwood
 
 ### Exercises
 
 1. Go over the most complicated file in your project. Be critical and add comments where the logic
-   behind the code is not easily understandable. Hint: In deep learning we often work with tensors that
-   change shape constantly. It is always a good idea to add comments where a tensor undergoes some reshaping.
+    behind the code is not easily understandable. Hint: In deep learning we often work with tensors that
+    change shape constantly. It is always a good idea to add comments where a tensor undergoes some reshaping.
 
 2. Add [docstrings](https://www.python.org/dev/peps/pep-0257/) to at least two python function/methods.
-   You can see [here (example 5)](https://www.programiz.com/python-programming/docstrings) a good example
-   how to use identifiable keywords such as `Parameters`, `Args`, `Returns` which standardizes the way of
-   writing docstrings.
+    You can see [here (example 5)](https://www.programiz.com/python-programming/docstrings) a good example
+    how to use identifiable keywords such as `Parameters`, `Args`, `Returns` which standardizes the way of
+    writing docstrings.
 
 ## Styling
 
@@ -80,17 +67,17 @@ One way to check if your code is pep8 compliant is to use
 
 1. Install flake8
 
-   ```bash
-   pip install flake8
-   ```
+    ```bash
+    pip install flake8
+    ```
 
 2. run flake8 on your project
 
-   ```bash
-   flake8 .
-   ```
+    ```bash
+    flake8 .
+    ```
 
-   are you pep8 compliant or are you a normal mortal?
+    are you pep8 compliant or are you a normal mortal?
 
 You could go and fix all the small errors that `flake8` is giving. However, in practice large projects instead relies
 on some kind of code formatter, that will automatically format your code for you to be pep8 compliant.
@@ -103,8 +90,8 @@ It is important to note, that code formatting is in general not about following 
 all users follow the same.
 
 1. Install a code formatter of your own choice (I recommend `black`) and let it format at least one of the script in
-   your codebase. You can also try to play around with the different formatters to find out which formatter you like
-   the most
+    your codebase. You can also try to play around with the different formatters to find out which formatter you like
+    the most
 
 One aspect not covered by `pep8` is how `import` statements in python should be organized. If you are like most
 people, you place your `import` statements at the top of the file and they are ordered simply by when you needed them.
@@ -112,17 +99,17 @@ For this reason `import` statements is something we also want to take care of, b
 
 1. Install [isort](https://github.com/PyCQA/isort) the standard for sorting imports
 
-   ```bash
-   pip install isort
-   ```
+    ```bash
+    pip install isort
+    ```
 
 2. run isort on your project
 
-   ```bash
-   isort .
-   ```
+    ```bash
+    isort .
+    ```
 
-   and check how the imports were sorted.
+    and check how the imports were sorted.
 
 Finally, we can also configure `black`, `isort` etc. to our specific needs. All the different frameworks can be
 configured directly from the command line. For example the recommended line length in `pep8` is 79 characters, which by
@@ -149,12 +136,12 @@ max-line-length = 100
 ```
 
 1. Add the above code snippet to a file named `setup.cfg` in your project. Add a line with a length longer than the
-   standard 79 characters but below 100 and run `flake8` again to check that you get no error.
+    standard 79 characters but below 100 and run `flake8` again to check that you get no error.
 
 2. To make sure that your formatter still does not try to format to 79 character length, add a `pyproject.toml` file to
-   your project where you customize the rules for the different formatters. For `black` you can look at this
-   [page](https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html) on how to configure the file
-   Again create a line above 79 but below 100 characters and check that it is not being formatted.
+    your project where you customize the rules for the different formatters. For `black` you can look at this
+    [page](https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html) on how to configure the file
+    Again create a line above 79 but below 100 characters and check that it is not being formatted.
 
 3. (Optional) Experiment further with the customization of `flake8`, `black` etc. Especially it may be worth looking
     into the `include` and `exclude` keywords for specifying which files should actually be formatted.
@@ -168,9 +155,9 @@ needed to be explicit stated for variables:
 
 ```cpp
 int main() {
-  int x = 5 + 6;
-  float y = 0.5;
-  cout << "Hello World! " << x << std::endl();
+    int x = 5 + 6;
+    float y = 0.5;
+    cout << "Hello World! " << x << std::endl();
 }
 ```
 
@@ -180,40 +167,36 @@ type hints. Here is one example of adding typing to a function:
 
 ```python
 def add2(x: int, y: int) -> int:
-   return x+y
+    return x+y
 ```
 
 here we mark that both `x` and `y` are integers and using the arrow notation `->` we mark that the output type is also
-a integer. Assuming that we are also going to use the function for floats we could improve the typing by specifying a
-`Union` of types that the function can accept:
+a integer. Assuming that we are also going to use the function for floats and `torch.Tensor`s we could improve the
+typing by specifying a *union* of types. Depending on the version of python you are using the syntax for this can be
+different.
 
-```python
-from typing import Union
-def add2(x: Union[int, float], y: Union[int, float]) -> Union[int, float]:
-   return x+y
-```
+<!-- markdownlint-disable -->
 
-and similar adding support for Pytorch tensors:
+=== "python <3.10"
 
-```python
-from torch import Tensor  # note it is Tensor with upper case T. This is the base class of all tensors
-from typing import Union
-def add2(x: Union[int, float, Tensor], y: Union[int, float, Tensor]) -> Union[int, float, Tensor]:
-   return x+y
-```
+    ```python
+    from torch import Tensor  # note it is Tensor with upper case T. This is the base class of all tensors
+    from typing import Union
+    def add2(x: Union[int, float, Tensor], y: Union[int, float, Tensor]) -> Union[int, float, Tensor]:
+        return x+y
+    ```
 
-Since `Python 3.10` type expressions have been added to the language, such that `A | B | ...` can be written instead of
-`Union[A, B, ...]` and instead of `Optional[A]` you can write `A | None`. The above example could, therefore, be
-written as:
 
-```python
-from torch import Tensor  # note it is Tensor with upper case T. This is the base class of all tensors
-def add2(x: int | float | Tensor, y: int | float | Tensor) -> int | float | Tensor:
-   return x+y
-```
 
-The type expressions does not need an import statement and might make it simpler to read for complex types, however, it
-is not fully backwards compatible.
+=== "python >=3.10"
+
+    ```python
+    from torch import Tensor  # note it is Tensor with upper case T. This is the base class of all tensors
+    def add2(x: int | float | Tensor, y: int | float | Tensor) -> int | float | Tensor:
+        return x+y
+    ```
+
+<!-- markdownlint-restore -->
 
 Finally, since this is a very generic function it also works on `numpy` arrays ect. we can always default to the `Any`
 type if we are not sure about all the specific types that a function can take
@@ -221,7 +204,7 @@ type if we are not sure about all the specific types that a function can take
 ```python
 from typing import Any
 def add2(x: Any, y: Any) -> Any:
-   return x+y
+    return x+y
 ```
 
 However, in this case we basically is in the same case as if our function were not typed, as the type hints does not
@@ -233,28 +216,28 @@ help us at all. Therefore, use `Any` only when necessary.
 > [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files)
 
 1. We provide a file called `typing_exercise.py`. Add typing everywhere in the file. Please note that you will
-   need the following import:
+    need the following import:
 
-   ```python
-   from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
-   ```
+    ```python
+    from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
+    ```
 
-   for it to work. Hint: [here](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
-   typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
+    for it to work. Hint: [here](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
+    typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
 
 2. [mypy](https://mypy.readthedocs.io/en/stable/index.html) is what is called a static type checker. If you are using
-   typing in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code,
-   but it scans it and checks that the types you have given are compatible. Install `mypy`
+    typing in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code,
+    but it scans it and checks that the types you have given are compatible. Install `mypy`
 
-   ```bash
-   pip install mypy
-   ```
+    ```bash
+    pip install mypy
+    ```
 
 3. Try to run `mypy` on the `typing.py` file
 
-   ```bash
-   mypy typing_exercise.py
-   ```
+    ```bash
+    mypy typing_exercise.py
+    ```
 
-   If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your
-   types are incompatible.
+    If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your
+    types are incompatible.

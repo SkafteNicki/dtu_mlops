@@ -1,28 +1,10 @@
----
-layout: default
-title: M8 - Data Version Control
-parent: S2 - Organization and version control
-nav_order: 4
----
-
-<img style="float: right;" src="../figures/icons/dvc.png" width="130">
+![Logo](../figures/icons/dvc.png){ align=right width="130"}
 
 # Data Version Control
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
-{: .important }
-> Core module
+!!! note "Core Module"
 
 In this module we are going to return to version control. However, this time we are going to focus on version control
 of data. The reason we need to separate between standandard version control and data version control comes down to one
@@ -47,11 +29,12 @@ small *metafile* that will then point to some remote location where you original
 works as placeholders for your datafiles. Your large datafiles are then stored in some remote location such as Google
 drive or an `S3` bucket from Amazon.
 
-<p align="center">
-  <img src="../figures/dvc.png" width="700">
-  <br>
+<figure markdown>
+  ![Image](../figures/dvc.png){ width="700" }
+  <figcaption>
   <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
-</p>
+  </figcaption>
+</figure>
 
 As the figure shows, we now have two remote locations: one for code and one for data. We use `git pull/push` for the
 code and `dvc pull/push` for the data. The key concept is the connection between the data file `model.pkl` that is
@@ -64,101 +47,107 @@ If in doubt about some of the exercises, we recommend checking out the [document
 it contains excellent tutorials.
 
 1. For these exercises we are going to use [Google drive](https://www.google.com/intl/da/drive/) as remote storage
-   solution for our data. If you do not already have a Google account, please create one (we are going to use it again
-   in later exercises). Please make sure that you at least have 1GB of free space.
+    solution for our data. If you do not already have a Google account, please create one (we are going to use it again
+    in later exercises). Please make sure that you at least have 1GB of free space.
 
 2. Next, install dvc and the Google drive extension
 
-   ```bash
-   pip install dvc
-   pip install "dvc[gdrive]"
-   ```
+    ```bash
+    pip install dvc
+    pip install "dvc[gdrive]"
+    ```
 
-   If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
-   optional dependencies: [s3], [azure], [gdrive], [gs], [oss], [ssh]. Alternatively, use [all] to include them all.
-   If you encounter that the installation fails, we recommend that you start by updating pip and then trying to
-   update `dvc`:
+    If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
+    optional dependencies: [s3], [azure], [gdrive], [gs], [oss], [ssh]. Alternatively, use [all] to include them all.
+    If you encounter that the installation fails, we recommend that you start by updating pip and then trying to
+    update `dvc`:
 
-   ```bash
-   pip install -U pip
-   pip install -U ”dvc[gdrive]”
-   ```
+    ```bash
+    pip install -U pip
+    pip install -U ”dvc[gdrive]”
+    ```
 
-   If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
-   you follow the instructions [here](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
+    If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
+    you follow the instructions [here](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
 
 3. In your MNIST repository run the following command from the terminal
 
-   ```bash
-   dvc init
-   ```
+    ```bash
+    dvc init
+    ```
 
-   this will setup `dvc` for this repository (similar to how `git init` will initialize a git repository).
-   These files should be committed using standard `git` to your repository.
+    this will setup `dvc` for this repository (similar to how `git init` will initialize a git repository).
+    These files should be committed using standard `git` to your repository.
 
 4. Go to your Google drive and create a new folder called `dtu_mlops_data`. Then copy the unique identifier
-   belonging to that folder as shown in the figure below
+    belonging to that folder as shown in the figure below
 
-   <p align="center">
-     <img src="../figures/google_drive.PNG" width="1000">
-   </p>
+    <figure markdown>
+    ![Image](../figures/google_drive.PNG){ width="1000" }
+    </figure>
 
-   Using this identifier, add it as a remote storage
+    Using this identifier, add it as a remote storage
 
-   ```bash
-   dvc remote add -d storage gdrive://<your_identifier>
-   ```
+    ```bash
+    dvc remote add -d storage gdrive://<your_identifier>
+    ```
 
 5. Check the content of the file `.dvc/config`. Does it contain a pointer to your remote storage? Afterwards make sure
-   to add this file to the next commit we are going to make:
+    to add this file to the next commit we are going to make:
 
-   ```bash
-   git add .dvc/config
-   ```
+    ```bash
+    git add .dvc/config
+    ```
 
 6. Call the `dvc add` command on your data files exactly like you would add a file with `git` (you do not need to
-   add every file by itself as you can directly add the `data/` folder). Doing this should create a human-readable
-   file with the extension `.dvc`. This is the *metafile*  as explained earlier that will serve as a placeholder for
-   your data. If you are on Windows and this step fail you may need to install `pywin32`. At the same time the `data/`
-   folder should have been added to the `.gitignore` file that marks which files should not be tracked by git. Confirm
-   that this is correct.
+    add every file by itself as you can directly add the `data/` folder). Doing this should create a human-readable
+    file with the extension `.dvc`. This is the *metafile*  as explained earlier that will serve as a placeholder for
+    your data. If you are on Windows and this step fail you may need to install `pywin32`. At the same time the `data/`
+    folder should have been added to the `.gitignore` file that marks which files should not be tracked by git. Confirm
+    that this is correct.
 
 7. Now we are going to add, commit and tag the *metafiles* so we can restore to this stage later on. Commit and tag
-   the files, should look something like this:
+    the files, should look something like this:
 
-   ```bash
-   git add data.dvc .gitignore
-   git commit -m "First datasets, containing 25000 images"
-   git tag -a "v1.0" -m "data v1.0"
-   ```
+    ```bash
+    git add data.dvc .gitignore
+    git commit -m "First datasets, containing 25000 images"
+    git tag -a "v1.0" -m "data v1.0"
+    ```
 
 8. Finally, push your data to the remote storage using `dvc push`. You will be asked to authenticate, which involves
-   copy-pasting the code in the link prompted. Checkout your Google drive folder. You will see that the data is not
-   in a recognizable format anymore due to the way that `dvc` packs and tracks the data. The boring details is that
-   `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
-   which makes data much faster to get. Finally, make sure that your data is not stored in your github repository.
+    copy-pasting the code in the link prompted. Checkout your Google drive folder. You will see that the data is not
+    in a recognizable format anymore due to the way that `dvc` packs and tracks the data. The boring details is that
+    `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
+    which makes data much faster to get. Finally, make sure that your data is not stored in your github repository.
 
-   After authenticating the first time, dvc should be setup without having to authenticate again. If you for some reason
-   encounter that dvc fails to authenticate, you can try to reset the authentication. Locate the file
-   `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
+    After authenticating the first time, dvc should be setup without having to authenticate again. If you for some
+    reason encounter that dvc fails to authenticate, you can try to reset the authentication. Locate the file
+    `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
 
-   macOS            | Linux (*typical) | Windows              |
-   -----------------|------------------|----------------------|
-   ~/Library/Caches | ~/.cache         | {user}/AppData/Local |
+    === "macOS"
+        ```~/Library/Caches```
 
-   Delete the complete `{gdrive_client_id}` folder and retry authenticating with `dvc push`.
+    === "Linux"
+        ```~/.cache``` <br>
+        This is the typical location, but it may vary depending on what distro you are running
+
+    === "Windows"
+        ```{user}/AppData/Local```
+
+    Delete the complete `{gdrive_client_id}` folder and retry authenticating with `dvc push`.
 
 9. After completing the above steps, it is very easy for others (or yourself) to get setup with both
-   code and data by simply running
+    code and data by simply running
 
-   ```bash
-   git clone <my_repository>
-   cd <my_repository>
-   dvc pull
-   ```
+    ```bash
+    git clone <my_repository>
+    cd <my_repository>
+    dvc pull
+    ```
 
-   (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
-   than your standard code) to make sure that the two commands indeed downloads both your code and data.
+    (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
+    than your standard code) to make sure that the two commands indeed downloads both your code and data.
 
 10. Lets look about the process of updating our data. Remember the important aspect of version control is that we do not
     need to store explicit files called `data_v1.pt`, `data_v2.pt` ect. but just have a single `data.pt` that where we

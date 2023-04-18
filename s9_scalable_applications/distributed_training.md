@@ -1,24 +1,6 @@
----
-layout: default
-title: M28 - Distributed Training
-parent: S9 - Scalable applications
-nav_order: 2
-mathjax: true
----
-
-<img style="float: right;" src="../figures/icons/lightning.png" width="130">
+![Logo](../figures/icons/lightning.png){ align=right width="130"}
 
 # Distributed Training
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ---
 
@@ -48,8 +30,8 @@ which describes how sharded can save over 60% of memory used during your trainin
 Finally, we want to note that for all the exercises in the module you are going to need a multi GPU setup. If you have
 not already gained access to multi GPU machines on GCP (see the quotas exercises in
 [this module](../s6_the_cloud/cloud_setup.md)) you will need to find another way of running the exercises. For
-DTU Students I can recommend checking out [this optional module](../s10_extra/HPC.md) on using the high performance
-cluster (HPC) where you can get access to multi GPU resources.
+DTU Students I can recommend checking out [this optional module](../s10_extra/high_performance_clusters.md) on using the
+high performance cluster (HPC) where you can get access to multi GPU resources.
 
 ## Data parallel
 
@@ -59,20 +41,20 @@ pipeline.
 
 In the figure below is shown both the *forward* and *backward* step in the data parallel paradigm
 
-<p align="center">
-   <img src="../figures/data_parallel.png" width="1000" title="text">
-</p>
+<figure markdown>
+![Image](../figures/data_parallel.png){ width="1000" }
+</figure>
 
 The steps are the following:
 
 * Whenever we try to do *forward* call e.g. `out=model(batch)` we take the batch and divide it equally between all
-  devices. If we have a batch size of `N` and `M` devices each device will be sent `N/M` datapoints.
+    devices. If we have a batch size of `N` and `M` devices each device will be sent `N/M` datapoints.
 
 * Afterwards each device receives a copy of the `model` e.g. a copy of the weights that currently parametrizes our
-  neural network.
+    neural network.
 
 * In this step we perform the actual *forward* pass in parallel. This is the actual steps that can help us scale
-  our training.
+    our training.
 
 * Finally we need to send back the output of each replicated model to the primary device.
 
@@ -84,7 +66,7 @@ this, then it will take longer.
 In addition, we also have the *backward* path to focus on
 
 * As the end of the *forward* collected the output on the primary device, this is also where the loss is accumulated.
-   Thus, loss gradients are first calculated on the primary device
+    Thus, loss gradients are first calculated on the primary device
 
 * Next we scatter the gradient to all the workers
 
@@ -112,21 +94,21 @@ preds = model(input)  # same as usual
 Please note that the exercise only makes sense if you have access to multiple GPUs.
 
 1. Create a new script (call it `data_parallel.py`) where you take a copy of model `FashionCNN`
-   from the `fashion_mnist.py` script. Instantiate the model and wrap `torch.nn.DataParallel`
-   around it such that it can be executed in data parallel.
+    from the `fashion_mnist.py` script. Instantiate the model and wrap `torch.nn.DataParallel`
+    around it such that it can be executed in data parallel.
 
 2. Try to run inference in parallel on multiple devices (pass a batch multiple times and time it) e.g.
 
-   ```python
-   import time
-   start = time.time()
-   for _ in range(n_reps):
-      out = model(batch)
-   end = time.time()
-   ```
+    ```python
+    import time
+    start = time.time()
+    for _ in range(n_reps):
+        out = model(batch)
+    end = time.time()
+    ```
 
-   Does data parallel decrease the inference time? If no, can you explain why that may be? Try
-   playing around with the batch size, and see if data parallel is more beneficial for larger batch sizes.
+    Does data parallel decrease the inference time? If no, can you explain why that may be? Try
+    playing around with the batch size, and see if data parallel is more beneficial for larger batch sizes.
 
 ## Distributed data parallel
 
@@ -134,9 +116,9 @@ It should be clear that there is huge disadvantage of using the data parallel pa
 the model needs to replicated on each pass (because it is destroyed in the end), which requires a large transfer
 of data. This is the main problem that distributed data parallel tries to solve.
 
-<p align="center">
-   <img src="../figures/distributed_data_parallel.png" width="8000" title="text">
-</p>
+<figure markdown>
+![Image](../figures/distributed_data_parallel.png){ width="8000" }
+</figure>
 
 The two key difference between distributed data parallel and data parallel that we move the model update
 (the gradient step) to happen on each device in parallel instead of only on the main device. This has the consequence
@@ -146,18 +128,18 @@ we keep updating. The full set of steps (as shown in the figure):
 * Initialize an exact copy of the model on each device
 
 * From disk (or memory) we start by loading data into a section of page-locked host memory per device. Page-locked
-  memory is essentially a way to reverse a piece of a computers memory for a specific transfer that is going to
-  happen over and over again to speed it up. The page-locked regions are loaded with non-overlapping data.
+    memory is essentially a way to reverse a piece of a computers memory for a specific transfer that is going to
+    happen over and over again to speed it up. The page-locked regions are loaded with non-overlapping data.
 
 * Transfer data from page-locked memory to each device in parallel
 
 * Perform *forward*  pass in parallel
 
 * Do a all-reduce operation on the gradients. An all-reduce operation is a so call *all-to-all*  operation meaning
-  that all processes send their own gradient to all other processes and also received from all other processes.
+    that all processes send their own gradient to all other processes and also received from all other processes.
 
 * Reduce the combined gradient signal from all processes and update the individual model in parallel. Since all
-  processes received the same gradient information, all models will still be in sync.
+    processes received the same gradient information, all models will still be in sync.
 
 Thus, in distributed data parallel we here end up only doing a single communication call between all processes, compared
 to all the communication going on in data parallel. While all-reduce is a more expensive operation that many of the
@@ -170,26 +152,26 @@ Pytorch, distributed data parallel is much more involving.
 ### Exercises
 
 1. We have provided an example of how to do distributed data parallel training in Pytorch in the two
-   files `distributed_example.py` and `distributed_example.sh`. You objective is to get a understanding of the necessary
-   components in the script to get this kind of distributed training to work. Try to answer the following questions
-   (HINT: try to Google around):
+    files `distributed_example.py` and `distributed_example.sh`. You objective is to get a understanding of the necessary
+    components in the script to get this kind of distributed training to work. Try to answer the following questions
+    (HINT: try to Google around):
 
-   1. What is the function of the `DDP` wrapper?
+    1. What is the function of the `DDP` wrapper?
 
-   2. What is the function of the `DistributedSampler`?
+    2. What is the function of the `DistributedSampler`?
 
-   3. Why is it necessary to call `dist.barrier()` before passing a batch into the model?
+    3. Why is it necessary to call `dist.barrier()` before passing a batch into the model?
 
-   4. What does the different environment variables do in the `.sh` file
+    4. What does the different environment variables do in the `.sh` file
 
 2. Try to benchmark the runs using 1 and 2 GPUs
 
 3. The first exercise have hopefully convinced you that it can be quite the trouble writing distributed training
-   applications yourself. Luckily for us, `Pytorch-lightning` can take care of this for us such that we do not have to
-   care about the specific details. To get your model training on multiple GPUs you need to change two arguments in the
-   trainer: the `accelerator` flag and the `gpus` flag. In addition to this, you can read through this
-   [guide](https://pytorch-lightning.readthedocs.io/en/latest/accelerators/gpu.html) about any additional steps you may
-   need to do (for many of you, it should just work). Try running your model on multiple GPUs.
+    applications yourself. Luckily for us, `Pytorch-lightning` can take care of this for us such that we do not have to
+    care about the specific details. To get your model training on multiple GPUs you need to change two arguments in the
+    trainer: the `accelerator` flag and the `gpus` flag. In addition to this, you can read through this
+    [guide](https://pytorch-lightning.readthedocs.io/en/latest/accelerators/gpu.html) about any additional steps you may
+    need to do (for many of you, it should just work). Try running your model on multiple GPUs.
 
 4. Try benchmarking your training using 1 and 2 gpus e.g. try running a couple of epochs and measure how long time it
-   takes. How much of a speedup can you actually get? Why can you not get a speedup of 2?
+    takes. How much of a speedup can you actually get? Why can you not get a speedup of 2?

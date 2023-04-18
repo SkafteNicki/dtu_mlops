@@ -1,13 +1,6 @@
----
-layout: default
-title: S2 - Organization and version control
-nav_order: 4
-has_children: true
----
-
 # Getting started with MLOps - Organization and version control
 
-[Slides](../slides/What%20is%20MLOps.pdf){: .btn .btn-blue }
+[Slides]../slides/What%20is%20MLOps.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/git.png" width="130">
@@ -25,11 +18,10 @@ The topics in this session will focus on:
 * Version control for helping tracking and managing changes to your code and data
 * Coding practices for staying organized in lar
 
-<p align="center">
-  <img src="../figures/wtf.jpeg" width="700">
-  <br>
-  <a href="https://the-tech-lead.com/2020/07/19/good-code-bad-code/"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/wtf.jpeg){ width="700" }
+  <figcaption> <a href="https://the-tech-lead.com/2020/07/19/good-code-bad-code/"> Image credit </a> </figcaption>
+</figure>
 
 Some exercises in this course are very loosely stated (including the exercises today). You are expected to seek out
 information before you ask for help (Google is your friend!) as you will both learn more for trying to solve the

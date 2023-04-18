@@ -1,13 +1,6 @@
----
-layout: default
-title: S5 - Continuous Integration
-nav_order: 7
-has_children: true
----
-
 # Continuous Integration
 
-[Slides](../slides/Continues%20Integration.pdf){: .btn .btn-blue }
+[Slides](../slides/Continues%20Integration.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/pytest.png" width="130">
@@ -29,11 +22,10 @@ Basically any code change we will expect will have a influence on the final resu
 doing changes to the start of our pipeline is that we want the change to propagate all the way through
 to the end of the pipeline.
 
-<p align="center">
-  <img src="../figures/continuous_x.png" width="1000">
-  <br>
-  <a href="https://faun.pub/most-popular-ci-cd-pipelines-and-tools-ccfdce429867"> Image credit </a>
-</p>
+<figure markdown>
+  ![Image](../figures/continuous_x.png){ width="1000" }
+  <figcaption> <a href="https://faun.pub/most-popular-ci-cd-pipelines-and-tools-ccfdce429867"> Image credit </a> </figcaption>
+</figure>
 
 This is where *continuous X* comes into play. The word *continuous* here refer to the fact that the
 pipeline should *continuously* be updated as we make code changes. You can also choose to think of this
