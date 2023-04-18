@@ -205,11 +205,11 @@ working together on the same project.
     [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
 That covers the basics of git to get you started. In the exercise folder you can find a
-[git cheat sheet](exercise_files/git_cheat_sheet.pdf) with the most useful commands for future reference. Finally,
-we want to point out another awesome feature of Github: in browser editor. Sometimes you have a small edit that you
-want to make, but still would like to do this in a IDE/editor. Or you may be in the situation where you are working
-from another device than your usual developer machine. Github has an build-in editor that can simply be enabled by
-changing any URL from
+[git cheat sheet](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf)
+with the most useful commands for future reference. Finally, we want to point out another awesome feature of Github:
+in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
+IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
+Github has an build-in editor that can simply be enabled by changing any URL from
 
 ```bash
 https://github.com/username/repository

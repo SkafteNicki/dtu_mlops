@@ -68,7 +68,9 @@ do you have to manage the server. Everything is magically taken care of behind t
         ```
 
 6. Next, we are going to create an application that actually takes some input so we can try to send it requests.
-    We provide a very simple [sklearn_cloud_function.py script](exercise_files/sklearn_cloud_functions.py) to get started.
+    We provide a very simple
+    [sklearn_cloud_function.py script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py)
+    to get started.
 
     1. Figure out what the script does and run the script. This should create a file with trained model.
 
@@ -134,9 +136,9 @@ service in GCP for deploying containers.
 ### Exercises
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
-    from: first a small FastAPI app consisting of this [.py file](exercise_files/simple_fastapi_app.py) and this
-    [dockerfile](exercise_files/simple_fastapi_app.dockerfile). Secondly a small [streamlit](https://streamlit.io/)
-    application consisting of just this [dockerfile](exercise_files/streamlit_app.dockerfile). You are free to choose
+    from: first a small FastAPI app consisting of this [.py file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.py) and this
+    [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.dockerfile). Secondly a small [streamlit](https://streamlit.io/)
+    application consisting of just this [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/streamlit_app.dockerfile). You are free to choose
     which application to work with.
 
     1. Start by going over the files belonging to your choice app and understand what it does.

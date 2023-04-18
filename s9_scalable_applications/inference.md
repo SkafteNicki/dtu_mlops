@@ -189,8 +189,8 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 
 1. We provide a start script that implements the famous
     [LeNet](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf) in this
-    [file](exercise_files/lenet.py). Open and run it just to make sure that
-    you know the network.
+    [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s9_scalable_applications/exercise_files/lenet.py).
+    Open and run it just to make sure that you know the network.
 
 2. Pytorch have already some pruning methods implemented in its package.
     Import the `prune` module from `torch.nn.utils` in the script.

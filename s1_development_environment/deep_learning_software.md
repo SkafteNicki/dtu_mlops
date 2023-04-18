@@ -78,15 +78,18 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
     jupyter notebook s1_development_environment/exercise_files/
     ```
 
-2. Complete the [Tensors in Pytorch](exercise_files/1_Tensors_in_PyTorch.ipynb) notebook. It focuses on basic
-    manipulation of Pytorch tensors. You can pass this notebook if you are comfortable doing this.
+2. Complete the
+    [Tensors in Pytorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
+    notebook. It focuses on basic manipulation of Pytorch tensors. You can pass this notebook if you are comfortable
+    doing this.
 
     1. (Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
         between an `[N,d]` tensor and `[M,d]` tensor. You should use the following identity:
         $||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b>$. Hint: you need to use broadcasting.
 
-3. Complete the [Neural Networks in Pytorch](exercise_files/2_Neural_Networks_in_PyTorch.ipynb) notebook.
-    It focuses on building a very simple neural network using the Pytorch `nn.Module` interface.
+3. Complete the
+    [Neural Networks in Pytorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb)
+    notebook. It focuses on building a very simple neural network using the Pytorch `nn.Module` interface.
 
     1. (Bonus exercise): One layer that arguably is missing in Pytorch is for doing reshapes.
         It is of course possible to do this directly to tensors, but sometimes it is great to
@@ -95,8 +98,9 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
         takes a single input `x` where the reshape is applied to all other dimensions than the
         batch dimension.
 
-4. Complete the [Training Neural Networks](exercise_files/3_Training_Neural_Networks.ipynb) notebook.
-    It focuses on how to write a simple training loop for training a neural network.
+4. Complete the
+    [Training Neural Networks](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/3_Training_Neural_Networks.ipynb)
+    notebook. It focuses on how to write a simple training loop for training a neural network.
 
     1. (Bonus exercise): A working training loop in Pytorch should have these three function calls:
         ``optimizer.zero_grad()``, ``loss.backward()``, ``optimizer.step()``. Explain what would happen
@@ -108,16 +112,18 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
         [learning rate scheduler](https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate)
         in the notebook.
 
-5. Complete the [Fashion MNIST](exercise_files/4_Fashion_MNIST.ipynb) notebook, that summaries concepts learned in the
-    notebook 2 and 3 on building a neural network for classifying the
+5. Complete the
+    [Fashion MNIST](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/4_Fashion_MNIST.ipynb)
+    notebook, that summaries concepts learned in the notebook 2 and 3 on building a neural network for classifying the
     [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset.
 
     1. (Bonus exercise): The exercise focuses on the Fashion MNIST dataset but should without much
         work be able to train on multiple datasets. Implement a variable `dataset` that can take the
         values `mnist`, `fashionmnist` and `cifar` and train a model on the respective dataset.
 
-6. Complete the [Inference and Validation](exercise_files/5_Inference_and_Validation.ipynb) notebook. This notebook adds
-    important concepts on how to do inference and validation on our neural network.
+6. Complete the
+    [Inference and Validation](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/5_Inference_and_Validation.ipynb)
+    notebook. This notebook adds important concepts on how to do inference and validation on our neural network.
 
     1. (Bonus exercise): The exercise shows how dropout can be used to prevent overfitting. However, today it
         is often used to get uncertainty estimates of the network predictions using
@@ -125,8 +131,10 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
         inference time gets different predictions for the same input (HINT: do not set the network in evaluation mode).
         Construct a histogram of class prediction for a single image using 100 monte carlo dropout samples.
 
-7. Complete the [Saving_and_Loading_Models](exercise_files/6_Saving_and_Loading_Models.ipynb) notebook. This notebook
-   addresses how to save and load model weights. This is important if you want to share a model with someone else.
+7. Complete the
+    [Saving_and_Loading_Models](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/6_Saving_and_Loading_Models.ipynb)
+    notebook. This notebook addresses how to save and load model weights. This is important if you want to share a
+    model with someone else.
 
     1. (Bonus exercise): Being able to save and load weights are important for the concept of early stopping. In
         short, early stopping monitors some metric (often on the validation set) and then will stop the training
@@ -151,17 +159,17 @@ in the future as you start to add more and more features. As subgoals, please fu
 1. Implement your model in a script called `model.py`
 
 2. Implement your data setup in a script called `data.py`. Hint: The data can be loaded using
-   [np.load](https://numpy.org/doc/stable/reference/generated/numpy.load.html).
+    [np.load](https://numpy.org/doc/stable/reference/generated/numpy.load.html).
 
 3. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to
-   take an additional subcommands indicating if the model should train or evaluate. It will look something like this:
+    take an additional subcommands indicating if the model should train or evaluate. It will look something like this:
 
-   ```bash
-   python main.py train --lr 1e-4
-   python main.py evaluate trained_model.pt
-   ```
+    ```bash
+    python main.py train --lr 1e-4
+    python main.py evaluate trained_model.pt
+    ```
 
-   which can be implemented in various ways.
+    which can be implemented in various ways.
 
 To start you off, a very barebone version of each script is provided in the `final_exercise` folder. We have already
 implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are

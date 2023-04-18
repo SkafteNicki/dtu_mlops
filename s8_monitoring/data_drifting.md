@@ -60,8 +60,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the deployment
    to GCP functions you should have developed a application that can classify the
    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
-   [script](../s7_deployment/exercise_files/sklearn_cloud_functions.py). We are going to convert this into a FastAPI
-   application for the purpose here:
+   [script](../s7_deployment/https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files/sklearn_cloud_functions.py)
+   . We are going to convert this into a FastAPI application for the purpose here:
 
    1. Convert your GCP function into a FastAPI application. The appropriate `curl` command should look something like
       this:
@@ -82,7 +82,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
       }
       ```
 
-      We have implemented a solution in this [file](exercise_files/iris_fastapi.py) (called v1) if you need help.
+      We have implemented a solution in this [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files/iris_fastapi.py) (called v1) if you need help.
 
    2. Next we are going to add some functionality to our application. We need to add that the input for the user is
       saved to a database whenever our application is called. However, to not slow down the response to our user we want

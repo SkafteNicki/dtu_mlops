@@ -206,8 +206,9 @@ spot of being flexible enough to do what you want without having many additional
 
 The exercises below are a condensed version of [this](https://fastapi.tiangolo.com/tutorial/) and
 [this](https://fastapi.tiangolo.com/advanced/) tutorial. If you ever need context for the exercises, we can recommend
-trying to go through these. Additionally, we also provide [this solution file](exercise_files/fastapi.py) that you
-can look through for help.
+trying to go through these. Additionally, we also provide
+[this solution file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/fastapi.py) that
+you can look through for help.
 
 1. Install FastAPI
 

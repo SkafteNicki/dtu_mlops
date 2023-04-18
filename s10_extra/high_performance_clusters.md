@@ -70,8 +70,8 @@ We are going to take a look at PBS works as that is what is installed on our loc
 The following exercises are focused on local students at DTU that want to use our local
 [HPC resources](https://www.hpc.dtu.dk/). That said, the steps in the exercise are fairly general to other types
 of cluster. For the purpose of this exercise we are going to see how we can run this
-[image classifier script](exercise_files/image_classifier.py), but feel free to work with whatever application you
-want to.
+[image classifier script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier.py)
+, but feel free to work with whatever application you want to.
 
 1. Start by accessing the cluster. This can either be through `ssh` in a terminal or if you want a graphical interface
     [thinlinc](https://www.cendio.com/thinlinc/download) can be installed. In general we recommend following the steps
@@ -100,8 +100,9 @@ want to.
         and activate it.
 
    3. Copy over any files you need. For the image classifier script you need the
-        [requirements file](exercise_files/image_classifier_requirements.txt) and the actual
-        [application](exercise_files/image_classifier.py).
+        [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt)
+        and the actual
+        [application](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier.py).
 
    4. Next, install all the requirements you need. If you want to run the image classifier script you can run this
         command in the terminal
@@ -110,7 +111,7 @@ want to.
         pip install -r image_classifier_requirements.txt
         ```
 
-        using this [requirements file](exercise_files/image_classifier_requirements.txt).
+        using this [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt).
 
 3. Thats all the setup needed. You would need to go through the creating of environment and installation of requirements
     whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
@@ -124,8 +125,9 @@ want to.
         DTU students, any queue that starts with `gpu` are GPU accelerated.
 
    3. Now we are going to develop a bash script for submitting our job. We have provided an example of such
-        [scripts](exercise_files/jobscript.sh). Take a careful look and go each line and make sure you understand it.
-        Afterwards, change it to your needs (queue and student email).
+        [scripts](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/jobscript.sh). Take a
+        careful look and go each line and make sure you understand it. Afterwards, change it to your needs
+        (queue and student email).
 
    4. Try to submit the script:
 
@@ -133,16 +135,16 @@ want to.
         bsub < jobscript.sh
         ```
 
-        You can check the status of your script by running the `bstat` command. Hopefully, the job should go trough really
-        quickly. Take a look at the output file, it should be called something like `gpu_*.out`. Also take a look at the
-        `gpu_*.err` file. Does both files look as they should?
+        You can check the status of your script by running the `bstat` command. Hopefully, the job should go trough
+        really quickly. Take a look at the output file, it should be called something like `gpu_*.out`. Also take a
+        look at the `gpu_*.err` file. Does both files look as they should?
 
 4. Lets now try to run our application on the cluster. To do that we need to take care of two things:
 
     1. First we need to load the correct version of CUDA. A cluster system often contains multiple versions of specific
         software to suit the needs of all their users, and it is the users that are in charge of *loading* the correct
-        software during job submission. The only extra software that needs to be loaded for most Pytorch applications are
-        a CUDA module. You can check which modules are available on the cluster with
+        software during job submission. The only extra software that needs to be loaded for most Pytorch applications
+        are a CUDA module. You can check which modules are available on the cluster with
 
         ```bash
         module avail
@@ -181,8 +183,9 @@ want to.
 
         and check when it is done that it has produced what you expected.
 
-    4. (Optional) If you application supports multi GPUs also try that out. You would first need to change the jobscript
-        to request multiple GPUs and additionally you would need to tell your application to run on multiple GPUs. For the
-        image classifier script it can be done by changing the `--trainer.devices` flag to `2` (or higher).
+    4. (Optional) If you application supports multi GPUs also try that out. You would first need to change the
+        jobscript to request multiple GPUs and additionally you would need to tell your application to run on multiple
+        GPUs. For the image classifier script it can be done by changing the `--trainer.devices` flag
+        to `2` (or higher).
 
 This ends the module on using HPC systems.
