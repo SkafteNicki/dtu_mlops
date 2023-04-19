@@ -5,7 +5,7 @@
 ---
 
 !!! quote
-    *Code is read more often than it is written.* <br>
+    *Code is read more often than it is written.* <br> <br>
     Guido Van Rossum (author of Python)
 
 To understand what good coding practice is, it is important to understand what it is *not*:
@@ -34,7 +34,7 @@ The problem with documentation is that there is no right or wrong way to do it. 
 Here is a good rule of thump for inline comments
 
 !!! quote
-    *Code tells you how; Comments tell you why.* <br>
+    *Code tells you how; Comments tell you why.* <br> <br>
     Jeff Atwood
 
 ### Exercises

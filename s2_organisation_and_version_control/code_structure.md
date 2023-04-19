@@ -8,7 +8,21 @@ With a basic understanding of version control, it is now time to really begin fi
 the question then remains how to organize our code? As developers we tend to not think about code organization that
 much. It is instead something that just dynamically is being created as we may need it. However, maybe we should spend
 some time initially getting organized with the chance of this making our code easier to develop and maintain in the
-long run.
+long run. If we do not spend time organizing our code, we may end up with a mess of code that is hard to understand
+or maintain
+
+!!! quote "Big ball of Mud"
+    *A Big Ball of Mud is a haphazardly structured, sprawling, sloppy, duct-tape-and-baling-wire, spaghetti-code*
+    *jungle. These systems show unmistakable signs of unregulated growth, and repeated, expedient repair. Information*
+    *is shared promiscuously among distant elements of the system, often to the point where nearly all the important*
+    *information becomes global or duplicated.* <br>
+    *The overall structure of the system may never have been well defined.* <br>
+    *If it was, it may have eroded beyond recognition. Programmers with a shred of architectural sensibility shun these*
+    *quagmires. Only those who are unconcerned about architecture, and, perhaps, are comfortable with the inertia of*
+    *the day-to-day chore of patching the holes in these failing dikes, are content to work on such systems.*
+    <br> <br>
+    Brian Foote and Joseph Yoder, Big Ball of Mud. Fourth Conference on Patterns Languages of Programs
+    (PLoP '97/EuroPLoP '97) Monticello, Illinois, September 1997
 
 We are here going to focus on the organization of data science projects e.g. where some kind of data is involved. The
 key to modern machine learning/deep learning is without a doubt the vast amounts of data that we have access to today.
@@ -91,9 +105,13 @@ in this way paths (for saving and loading files) are always relative to the root
     make requirements  # install everything in the requirements.py file
     ```
 
-    If you are running Windows, `make` is not a build-in command and you either need to install
-    [chocolatey](https://chocolatey.org/) or
-    [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows.
+    ??? note "Windows users"
+
+        `make` is a GNU build tool that is by default not available on Windows. There are two recommended ways to get
+        it running on Windows. The first is leveraging
+        [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows which you maybe have
+        already installed. The second option is utilizing the [chocolatey](https://chocolatey.org/) package manager,
+        which enables Windows users to install packages similar to Linux system. The second option is running
 
 7. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py`
     file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved

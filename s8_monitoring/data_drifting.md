@@ -60,7 +60,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the deployment
     to GCP functions you should have developed a application that can classify the
     [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
-    [script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files/sklearn_cloud_functions.py)
+    [script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py)
     . We are going to convert this into a FastAPI application for the purpose here:
 
     1. Convert your GCP function into a FastAPI application. The appropriate `curl` command should look something like

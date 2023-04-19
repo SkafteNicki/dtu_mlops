@@ -182,3 +182,19 @@ go to this page and see what you are actually allowed to use currently and try t
 Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
 request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
 services some more to make sure you are not a bot that wants to mine crypto.
+
+## Knowledge check
+
+??? question "Knowledge question 1"
+
+    What considerations to take when choosing an GCP region for running a new application?
+
+    ??? success "Solution"
+
+        A series of factors may influence your choice of region, including:
+
+        * Services availability in the region, not all services are available in all regions
+        * Reduced latency: if your application is running in the same region as your users, the latency will be lower
+        * Compliance: some countries has strict rules that requires user info to be stored inside a particular region
+            eg. EU has GDPR rules that requires all user data to be stored in the EU
+        * Pricing: some regions may have different pricing than others

@@ -8,7 +8,7 @@
   <img src="figures/mlops.png" width="1000">
 </p>
 
-## Course details
+## ℹ️ Course information
 
 * Course responsible
     * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), nsde@dtu.dk
@@ -23,9 +23,9 @@
     * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.)
     * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
     * Coding in [PyTorch](https://pytorch.org/). The first day we provide a number of exercises in PyTorch to
-      get everyone's skills up-to-date as fast as possible.
+        get everyone's skills up-to-date as fast as possible.
 
-## Course setup
+## 💻 Course setup
 
 Start by cloning or downloading this repository
 
@@ -34,14 +34,11 @@ git clone https://github.com/SkafteNicki/dtu_mlops
 ```
 
 If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
-exercise material for this course and lectures. Additionally, you should join our Slack channel which
-we use for communication:
+exercise material for this course and lectures. Additionally, you should join our
+[Slack channel](https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw)
+which we use for communication. Link may be expired, write to [me](mailto:skaftenicki@gmail.com).
 
-<https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw>
-
-(link may be expired, write to me to gain access.)
-
-## Course organization
+## 📂 Course organization
 
 We highly recommend that when going through the material that you use the
 [homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
@@ -60,7 +57,7 @@ Importantly we differ between core modules and optional modules. Core modules wi
 at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.
 
-## MLOps: What is it?
+## 🆒 MLOps: What is it?
 
 Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particular
 deep learning has become a technology that is widely available. The term itself is a compound of "machine learning"
@@ -93,7 +90,7 @@ The focus in this course is particular on the **Operations** part of MLOps as th
 missing in their toolbox to take all the knowledge they have about data processing and model development into a
 production setting.
 
-## Learning objectives
+## ❔ Learning objectives
 
 General course objective
 
@@ -115,7 +112,7 @@ This includes:
 * Conduct a research project in collaboration with follow students using the frameworks taught in the course
 * Have lots of fun and share memes! :)
 
-## References
+## 📓 References
 
 Additional reading resources (in no particular order):
 

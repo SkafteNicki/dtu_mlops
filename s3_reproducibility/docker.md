@@ -386,6 +386,28 @@ beneficial for you to download.
         try doing this to one of your docker files, build the image and run the container. Remember to check that your
         application is using GPU by printing `torch.cuda.is_available()`.
 
+## Knowledge check
+
+??? question "Knowledge question 1"
+
+    What is the difference between a docker image and a docker container?
+
+    ??? success "Solution"
+
+        A docker image is a template for a docker container. A docker container is a running instance of a docker
+        image. A docker image is a static file, while a docker container is a running process.
+
+??? question "Knowledge question 2"
+
+    What advantage is there to running your application inside a docker container instead of running the application
+    directly on your machine?
+
+    ??? success "Solution"
+
+        Running inside a docker container gives you a consistent and independent environment for your application.
+        This means that you can be sure that your application will run the same way on your machine as it will on
+        another machine. Thus, docker gives the ability to abstract away the differences between different machines.
+
 The covers the absolute minimum you should know about docker to get a working image and container. That said, if you are
 actively going to be using docker in the near future, one thing to consider is the image size. Even these simple images
 that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the image size for

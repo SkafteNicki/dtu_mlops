@@ -140,9 +140,15 @@ Lets take a look at how a github workflow file is organized:
         take advantage of an authentication file that is created the first time we push with DVC. It is located in
         `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
 
-        macOS            | Linux (*typical) | Windows
-        -----------------|------------------|----------
-        ~/Library/Caches | ~/.cache         | {user}/AppData/Local
+        === "macOS"
+            ```~/Library/Caches```
+
+        === "Linux"
+            ```~/.cache``` <br>
+            This is the typical location, but it may vary depending on what distro you are running
+
+        === "Windows"
+            ```{user}/AppData/Local```
 
         Find the file. The content should look similar to this (only some fields are shown):
 

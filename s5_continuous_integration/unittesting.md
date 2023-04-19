@@ -14,7 +14,8 @@ that your code does not break. CI is only as strong as the tests that are automa
 and automates this.
 
 !!! quote
-    *Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.* <br>
+    *Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.*
+    <br> <br>
     Martin Fowler, Chief Scientist, ThoughtWorks
 
 <figure markdown>

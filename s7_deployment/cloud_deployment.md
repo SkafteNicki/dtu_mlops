@@ -136,10 +136,13 @@ service in GCP for deploying containers.
 ### Exercises
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
-    from: first a small FastAPI app consisting of this [.py file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.py) and this
-    [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.dockerfile). Secondly a small [streamlit](https://streamlit.io/)
-    application consisting of just this [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/streamlit_app.dockerfile). You are free to choose
-    which application to work with.
+    from: first a small FastAPI app consisting of this
+    [.py file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.py)
+    and this
+    [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.dockerfile)
+    . Secondly a small [streamlit](https://streamlit.io/) application consisting of just this
+    [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/streamlit_app.dockerfile)
+    . You are free to choose which application to work with.
 
     1. Start by going over the files belonging to your choice app and understand what it does.
 
@@ -158,9 +161,9 @@ service in GCP for deploying containers.
 
         afterwards check you container registry to check that you have successfully pushed the image.
 
-2. Next go to `Cloud Run` in the cloud consol an enable the service
+1. Next go to `Cloud Run` in the cloud consol an enable the service
 
-3. Click the `Create Service` button which should bring you to a page similar to the one below
+2. Click the `Create Service` button which should bring you to a page similar to the one below
 
     <p align="center">
         <img src="../figures/gcp_run.PNG" width="1000">
@@ -179,7 +182,7 @@ service in GCP for deploying containers.
 
     Finally, click the create button and wait for the service to be deployed (may take some time).
 
-4. If you manage to deploy the service you should see a image like this:
+3. If you manage to deploy the service you should see a image like this:
 
     <p align="center">
         <img src="../figures/gcp_run2.PNG" width="1000">
@@ -188,7 +191,7 @@ service in GCP for deploying containers.
     You can now access you application by clicking url. This will access the root of your application, so you may need
     to add `/` or `/<path>` to the url depending on how the app works.
 
-5. (Optional) Everything we just did to deploy an container can be reproduced using the following command:
+4. (Optional) Everything we just did to deploy an container can be reproduced using the following command:
 
     ```bash
     gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
@@ -203,7 +206,7 @@ service in GCP for deploying containers.
 
     feel free to experiment doing the deployment from the command line.
 
-6. As an final exercise, we recommend redoing the above deployment steps with your own developed MNIST code such that
+5. As an final exercise, we recommend redoing the above deployment steps with your own developed MNIST code such that
     you get more experience with deploying a machine learning application.
 
 That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In

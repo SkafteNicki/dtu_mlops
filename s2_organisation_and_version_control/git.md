@@ -204,6 +204,53 @@ working together on the same project.
     familiar with these features (here is a tutorial for
     [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
+## Knowledge check
+
+??? question "Knowledge question 1"
+
+    How do you know if a certain directory is a git repository?
+
+    ??? success "Solution"
+
+        You can check if there is a ".git" directory. Alternative you can use the `git status` command.
+
+??? question "Knowledge question 2"
+
+    Explain what the file `gitignore` is used for?
+
+    ??? success "Solution"
+
+        The file `gitignore` is used to tell git which files to ignore when doing a `git add .` command. This is
+        useful for files that are not part of the codebase, but are needed for the code to run (e.g. data files)
+        or files that contain sensitive information (e.g. `.env` files that contain API keys and passwords).
+
+??? question "Knowledge question 3"
+
+    You have two branches - *main* and *devel*. What sequence of commands would you need to execute to make sure that
+    *devel* is in sync with *main*?
+
+    ??? success "Solution"
+
+        ```bash
+        git checkout main
+        git pull
+        git checkout devel
+        git merge main
+        ```
+
+??? question "Knowledge question 4"
+
+    What best practices are you familiar with regarding version control?
+
+    ??? success "Solution"
+
+        * Use a descriptive commit message
+        * Make each commit a logical unit
+        * Incorporate others' changes frequently
+        * Share your changes frequently
+        * Coordinate with your co-workers
+        * Don't commit generated files
+
 That covers the basics of git to get you started. In the exercise folder you can find a
 [git cheat sheet](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf)
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of Github:
