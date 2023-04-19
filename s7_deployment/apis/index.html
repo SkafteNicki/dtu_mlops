@@ -1,0 +1,1169 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../" rel="prev"/>
+<link href="../local_deployment/" rel="next"/>
+<link href="../../figures/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.1.6" name="generator"/>
+<title>M22 - Requests and APIs - DTU-MLOps</title>
+<link href="../../assets/stylesheets/main.ded33207.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="" data-md-color-primary="light-blue" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#requests-and-apis">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="DTU-MLOps" class="md-header__button md-logo" data-md-component="logo" href="../.." title="DTU-MLOps">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            DTU-MLOps
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              M22 - Requests and APIs
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="light-blue" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="DTU-MLOps" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="DTU-MLOps">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    DTU-MLOps
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../timeplan/">
+        Timeplan
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s1_development_environment/">S1 - Development Environment 💻</a>
+<label for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          S1 - Development Environment 💻
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/terminal/">
+        M1 - Terminal
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/conda/">
+        M2 - Conda
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/editor/">
+        M3 - Editor
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/deep_learning_software/">
+        M4 - Deep Learning Software
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s2_organisation_and_version_control/">S2 - Organisation and Version Control 📁</a>
+<label for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          S2 - Organisation and Version Control 📁
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/git/">
+        M5 - Git
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/code_structure/">
+        M6 - Code structure
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/good_coding_practice/">
+        M7 - Good coding practice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/dvc/">
+        M8 - Data version control
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s3_reproducibility/">S3 - Reproduceability ♻️</a>
+<label for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          S3 - Reproduceability ♻️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s3_reproducibility/docker/">
+        M9 - Docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s3_reproducibility/config_files/">
+        M10 - Config Files
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s4_debugging_and_logging/">S4 - Debugging, Profiling and Logging ⏱️</a>
+<label for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          S4 - Debugging, Profiling and Logging ⏱️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/debugging/">
+        M11 - Debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/profiling/">
+        M12 - Profiling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/logging/">
+        M13 - Good Coding practice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/boilerplate/">
+        M14 - Data Version control
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_7" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s5_continuous_integration/">S5 - Continues Integration ✔️</a>
+<label for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          S5 - Continues Integration ✔️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/unittesting/">
+        M15 - Unittesting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/github_actions/">
+        M16 - Github Actions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/pre_commit/">
+        M17 - Pre commit
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/auto_docker/">
+        M18 - Continues Containers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/cml/">
+        M19 - Continues Machine Learning
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_8" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s6_the_cloud/">S6 - The cloud 🌐</a>
+<label for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+          S6 - The cloud 🌐
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s6_the_cloud/cloud_setup/">
+        M20 - Cloud Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s6_the_cloud/using_the_cloud/">
+        M21 - Using the Cloud
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../">S7 - Deployment 📦</a>
+<label for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+          S7 - Deployment 📦
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          M22 - Requests and APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        M22 - Requests and APIs
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requests">
+    Requests
+  </a>
+<nav aria-label="Requests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises">
+    Exercises
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-apis">
+    Creating APIs
+  </a>
+<nav aria-label="Creating APIs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises_1">
+    Exercises
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../local_deployment/">
+        M23 - Local Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cloud_deployment/">
+        M24 - Cloud Deployment
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_10" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s8_monitoring/">S8 - Monitoring 📊</a>
+<label for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_10_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+          S8 - Monitoring 📊
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s8_monitoring/data_drifting/">
+        M25 - Data Drifting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s8_monitoring/monitoring/">
+        M26 - System Monitoring
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_11" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s9_scalable_applications/">S9 - Scalable applications ⚖️</a>
+<label for="__nav_11">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_11_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_11">
+<span class="md-nav__icon md-icon"></span>
+          S9 - Scalable applications ⚖️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/data_loading/">
+        M27 - Distributed Data Loading
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/distributed_training/">
+        M28 - Distributed Training
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/inference/">
+        M29 - Scalable Inference
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_12" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s10_extra/">S10 - Extra 🔥</a>
+<label for="__nav_12">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_12_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_12">
+<span class="md-nav__icon md-icon"></span>
+          S10 - Extra 🔥
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/cli/">
+        M30 - Command Line Interfaces
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/hyperparameters/">
+        M31 - Hyperparameter optimization
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/high_performance_clusters/">
+        M32 - High Performance Clusters
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../projects/">
+        Projects
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../challenges/">
+        Challenges
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requests">
+    Requests
+  </a>
+<nav aria-label="Requests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises">
+    Exercises
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-apis">
+    Creating APIs
+  </a>
+<nav aria-label="Creating APIs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises_1">
+    Exercises
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/icons/fastapi.png"><img align="right" alt="Logo" src="../../figures/icons/fastapi.png" width="130"/></a></p>
+<h1 id="requests-and-apis">Requests and APIs</h1>
+<hr/>
+<div class="admonition info">
+<p class="admonition-title">Core Module</p>
+</div>
+<p>Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
+for this is that we need a new abstraction layer ontop of our applications that are not python specific. While Python
+is the defacto language for machine learning, we cannot expect everybody else to use it and in particular we cannot
+expect network protocols (both locally and external) to be able to communicate with our python programs out of the box.
+For this reason we need to understand requests, in particular HTTP requests and how to create APIs that can interact
+with those requests.</p>
+<h2 id="requests">Requests</h2>
+<p>When we are talking about requests, we are essentially talking about the communication method used in client-server
+types of architechtures. As shown in the image below, in this architechture the client (user) is going to send
+<em>requests</em> to a server (our machine learning application) and the server will give a <em>response</em>. For example the user
+may send a request of getting the class of a specific image, which our application will do and then send back the
+response in terms of a label.</p>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/http.png"><img alt="Image" src="../../figures/http.png" width="800"/></a>
+</p>
+<figcaption> <a href="https://dev.to/adidoshi/http-request-methods-16ik"> Image credit </a> </figcaption>
+</figure>
+<p>The common way of of sending requests are called HTTP (Hypertext Transfer Protocol). It is essentially a specification
+of the intermediary transportation method between the client and server. A HTTP request essentially consist of two
+parts:</p>
+<ul>
+<li>A request URL: the location of the server we want to send our request to</li>
+<li>A request Method: what action we want to perform on the server.</li>
+</ul>
+<p>The common request methods are (case sensitive):</p>
+<ul>
+<li>GET: get data from the server</li>
+<li>POST/PUT: send data to the server</li>
+<li>DELETE: delete data on the server</li>
+</ul>
+<p>You can read more about the different methods <a href="https://dev.to/adidoshi/http-request-methods-16ik">here</a>. For most machine
+learning applications, GET and POST are the core methods to remember. Additionally, if you want to read more about HTTP
+in general we highly recommend that you go over this <a href="https://howhttps.works/">comic strip</a> protocol, but the TLDR is
+that it provides privacy, integrity and identification over the web.</p>
+<h3 id="exercises">Exercises</h3>
+<p>We are going to do a couple of exercises on sending requests using
+<a href="https://requests.readthedocs.io/en/latest/">requests package</a> to get familiar with the syntax.</p>
+<ol>
+<li>Start by install the <code>requests</code> package</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>requests
+</span></code></pre></div>
+<ol>
+<li>Afterwards, create a small script and try to execute the code</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">requests</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'https://api.github.com/this-api-should-not-exist'</span><span class="p">)</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</span></code></pre></div>
+<p>As you can see from the syntax, we are sending a request using the GET method. This code should return status
+   code 404. Take a look at <a href="https://restfulapi.net/http-status-codes/">this page</a> that contains a list of status codes.</p>
+<ol>
+<li>Next lets call a page that actually exists</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">requests</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'https://api.github.com'</span><span class="p">)</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</span></code></pre></div>
+<p>What is the status code now and what does it mean? Status codes are important when you have an application that is
+   interacting with a server and want to make sure that it does not fail, which can be done with simple <code>if</code> statements
+   on the status codes</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>   <span class="nb">print</span><span class="p">(</span><span class="s1">'Success!'</span><span class="p">)</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>   <span class="nb">print</span><span class="p">(</span><span class="s1">'Not Found.'</span><span class="p">)</span>
+</span></code></pre></div>
+<ol>
+<li>Next try to call the following</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">response</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://api.github.com/repos/SkafteNicki/dtu_mlops"</span><span class="p">)</span>
+</span></code></pre></div>
+<p>which actually gives back a <em>payload</em>. Essentially, payload refers to any additional data that is sent from the
+   client to the server or vice-versa. Try looking at the <code>response.content</code> attribute. What is the type of this
+   attribute?</p>
+<ol>
+<li>You should hopefully observe that the <code>.content</code> atttribute is of type <code>bytes</code>. It is important to note that this is
+   the standard way of sending payloads to encode them into <code>byte</code> objects. To get a more human readable version of
+   the response, we can convert to <a href="https://www.json.org/json-en.html">JSON</a> format</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></code></pre></div>
+<p>Important to remember that a json object in python is just a nested dict, if you ever want to iterate over the object
+   in some way.</p>
+<ol>
+<li>When we use the GET method we can additionally provide an <code>params</code> argument, that specifies what we want the server
+   to send back for a specific request URL:</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a>   <span class="s1">'https://api.github.com/search/repositories'</span><span class="p">,</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a>   <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">'q'</span><span class="p">:</span> <span class="s1">'requests+language:python'</span><span class="p">},</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>Before looking at <code>reponse.json()</code> can you explain what the code does? You can try looking at this
+   <a href="https://docs.github.com/en/rest/search?apiVersion=2022-11-28">page</a> for help.</p>
+<ol>
+<li>Sometimes the content of a page cannot be converted into <code>json</code>, because as already stated data is send as bytes.
+   Say that we want to download an image, which we can do in the following way</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kn">import</span> <span class="nn">requests</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'https://imgs.xkcd.com/comics/making_progress.png'</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Try calling <code>response.json()</code>, what happens? Next try calling <code>response.content</code>. For actually getting the result
+   in this case we would need to convert from bytes to an image:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">'img.png'</span><span class="p">,</span><span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span></code></pre></div>
+<ol>
+<li>The <code>get</code> method is the most useful method because it allows us to get data from the server. However, as stated in
+   the beginning multiple request methods exist, for example the POST method for sending data to the server. Try
+   executing:</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">pload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'username'</span><span class="p">:</span><span class="s1">'Olivia'</span><span class="p">,</span><span class="s1">'password'</span><span class="p">:</span><span class="s1">'123'</span><span class="p">}</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">'https://httpbin.org/post'</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pload</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Investigate the response (this is an artifical example, because we actually does not control the server).</p>
+<ol>
+<li>
+<p>Finally, we should also know that requests can be send directly from the command line using the <code>curl</code> command.
+   Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do directly from
+   a script.</p>
+</li>
+<li>
+<p>Make sure you have <code>curl</code> installed, else find instruction on installing it. To check call <code>curl --help</code> for
+      the documentation on curl.</p>
+</li>
+<li>
+<p>To execute <code>requests.get('https://api.github.com')</code> using curl we would simply do</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"https://api.github.com"</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>-I<span class="w"> </span><span class="s2">"https://api.github.com"</span><span class="w"> </span><span class="c1"># if you want the status code</span>
+</span></code></pre></div>
+<p>Try it yourself.</p>
+</li>
+<li>
+<p>Try to redo some of the exercise yourself using <code>curl</code>.</p>
+</li>
+</ol>
+<p>That ends the intro session on <code>requests</code>. Do not worry if you are still not completly comfortable with sending requests,
+we are going to return do how we do it in practise when we have actually created our own API. If you want to learn more
+about the <code>requests</code> package you can checkout <a href="https://realpython.com/python-requests/">this tutorial</a> and if you want
+to see more example on how to use <code>curl</code> you can checkout
+<a href="https://gist.github.com/subfuzion/08c5d85437d5d4f00e58">this page</a></p>
+<h2 id="creating-apis">Creating APIs</h2>
+<p>Requests are all about being on the client side of our client-server architechture. We are now going to move on to the
+server side where we will be learning about writing the APIs that requests can interact with. An application programming
+interface (API) is essentially the way of the developer (you) telling a user how to use the application that you have
+created. The API is an abstraction layer that allows the user to interact with our application in the way we want them
+to interact with it, without the user even having to look at the code.</p>
+<p>We can take the API from github as an example <a href="https://api.github.com">https://api.github.com</a>. This API allows any user to retrieve, integrate
+and send data to github without ever having to visit their webpage. The API exposes multiple endpoints that have various
+functions:</p>
+<ul>
+<li><a href="https://api.github.com/repos/OWNER/REPO/branches">https://api.github.com/repos/OWNER/REPO/branches</a>: checkout the branches on a given repository</li>
+<li><a href="https://api.github.com/search/code">https://api.github.com/search/code</a>: search through github for repositories</li>
+<li><a href="https://api.github.com/repos/OWNER/REPO/actions/workflows">https://api.github.com/repos/OWNER/REPO/actions/workflows</a>: check the status of workflows for a given repository</li>
+</ul>
+<p>and we could go on. However, there may be functionality that github is not interested in users having access to and
+they may therefore choose not to have endpoints for specific features.</p>
+<p>The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
+contrains that a particular API needs to fullfill to be considered RESTful. You can read more about what the six
+guiding principals behind REST API is <a href="https://restfulapi.net/">on this page</a> but one of the most important to have in
+mind is that the client-server architechture needs to be stateless. This means that whenever a request is send to the
+server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
+information from previous requests.</p>
+<p>To implement APIs in practise we are going to use <a href="https://fastapi.tiangolo.com/">FastAPI</a>. FastAPI is a
+<em>modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints</em>.
+FastAPI is only one of many frameworks for defining APIs, however compared to other frameworks such as
+<a href="https://flask.palletsprojects.com/en/2.0.x/">Flask</a> and <a href="https://www.djangoproject.com/">django</a> it offers a sweet
+spot of being flexible enough to do what you want without having many additional (unnecessary) features.</p>
+<h3 id="exercises_1">Exercises</h3>
+<p>The exercises below are a condensed version of <a href="https://fastapi.tiangolo.com/tutorial/">this</a> and
+<a href="https://fastapi.tiangolo.com/advanced/">this</a> tutorial. If you ever need context for the exercises, we can recommend
+trying to go through these. Additionally, we also provide
+<a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/fastapi.py">this solution file</a> that
+you can look through for help.</p>
+<ol>
+<li>Install FastAPI</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+</span></code></pre></div>
+<p>This contais the functions, modules, and variables we are going to need to define our interface.</p>
+<ol>
+<li>Additionally, also install <code>uvicorn</code> which is a package for defining low level server applications.</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>uvicorn<span class="o">[</span>standard<span class="o">]</span>
+</span></code></pre></div>
+<ol>
+<li>Start by defining a small application like this in a file called <code>main.py</code>:</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="k">def</span> <span class="nf">read_root</span><span class="p">():</span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a>   <span class="k">return</span> <span class="p">{</span><span class="s2">"Hello"</span><span class="p">:</span> <span class="s2">"World"</span><span class="p">}</span>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/items/</span><span class="si">{item_id}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-13-10"><a href="#__codelineno-13-10" id="__codelineno-13-10" name="__codelineno-13-10"></a>   <span class="k">return</span> <span class="p">{</span><span class="s2">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Importantly here is the use of the <code>@app.get</code> decorator. What could this decorator refer to? Explain what the two
+   functions are probably doing.</p>
+<ol>
+<li>Next lets launch our app. Since we called our script <code>main.py</code> and we inside the script initialized our API with
+   <code>app = FastAPI</code>, our application that we want to deploy can be referenced by <code>main:app</code>:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a>uvicorn<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span><span class="w"> </span>main:app
+</span></code></pre></div>
+<p>this will launch a server at this page: <code>http://localhost:8000/</code>. As you will hopefully see, this page will return
+   the content of the <code>root</code> function, like the image below. Remember to also check the output in your terminal as that
+   will give info on when and how your application is being invoked.</p>
+<p align="center">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../figures/fastapi_request.PNG"><img src="../figures/fastapi_request.PNG" width="1000"/></a>
+</p>
+<ol>
+<li>
+<p>What webpage should you open to get the server to return <code>1</code>?</p>
+</li>
+<li>
+<p>Also checkout the pages: <code>http://localhost:8000/docs</code> and <code>http://localhost:8000/redoc</code>. What does
+      these pages show?</p>
+</li>
+<li>
+<p>The power of the <code>docs</code> and <code>redoc</code> pages is that they allow you to easily test your application with their simple
+      UI. As shown in the image below, simply open the endpoint you want to test, click the <code>Try it out</code> button, input
+      any values and execute it. It will return both the corresponding <code>curl</code> command for invoking your endpoint,
+      the corresponding URL and response of you application. Try it out.</p>
+<p><p align="center">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../figures/fastapi.PNG"><img src="../figures/fastapi.PNG" width="800"/></a>
+</p></p>
+</li>
+<li>
+<p>You can also checkout <code>http://localhost:8000/openapi.json</code> to check out the schema that is generated
+      which essentially is a <code>json</code> file containing the overall specifications of your program.</p>
+</li>
+<li>
+<p>Try to access <code>http://localhost:8000/items/foo</code>, what happens in this case? When you specify types in your API,
+      FastAPI will automatically do type validation using <a href="https://docs.pydantic.dev/">pydantic</a>, making sure users can
+      only access your API with the correct types. Therefore, remember to include types in your applications!</p>
+</li>
+<li>
+<p>With the fundamentals in place lets configure it a bit more:</p>
+</li>
+<li>
+<p>Lets start by changing the root function to include a bit more info. In particular we are also interested in
+      returning the status code so the end user can easily read that. Default status codes are included in the
+      <a href="https://docs.python.org/3/library/http.html">http</a> build-in python package:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+</span><span id="__span-15-4"><a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="k">def</span> <span class="nf">root</span><span class="p">():</span>
+</span><span id="__span-15-5"><a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">    </span><span class="sd">""" Health check."""</span>
+</span><span id="__span-15-6"><a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-15-7"><a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a>        <span class="s2">"message"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-15-8"><a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a>        <span class="s2">"status-code"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-15-9"><a href="#__codelineno-15-9" id="__codelineno-15-9" name="__codelineno-15-9"></a>    <span class="p">}</span>
+</span><span id="__span-15-10"><a href="#__codelineno-15-10" id="__codelineno-15-10" name="__codelineno-15-10"></a>    <span class="k">return</span> <span class="n">response</span>
+</span></code></pre></div>
+<p>try to reload the app and see what is returned now. You should not have to re-launch the app because we
+  initialized the app with the <code>--reload</code> argument.</p>
+</li>
+<li>
+<p>When we decorate our functions with <code>@app.get("/items/{item_id}")</code>, <code>item_id</code> is in the case what we call a
+      <em>path parameters</em> because it is a parameter that is directly included in the path of our endpoint. We have
+      already seen how we can restrict a path to a single type, but what if we want to restrict it to specific values?
+      This is often the case if we are working with parameters of type <code>str</code>. In this case we would need to define a
+      <code>enum</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="k">class</span> <span class="nc">ItemEnum</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a>   <span class="n">alexnet</span> <span class="o">=</span> <span class="s2">"alexnet"</span>
+</span><span id="__span-16-4"><a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a>   <span class="n">resnet</span> <span class="o">=</span> <span class="s2">"resnet"</span>
+</span><span id="__span-16-5"><a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a>   <span class="n">lenet</span> <span class="o">=</span> <span class="s2">"lenet"</span>
+</span><span id="__span-16-6"><a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a href="#__codelineno-16-7" id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/restric_items/</span><span class="si">{item_id}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-16-8"><a href="#__codelineno-16-8" id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="n">ItemEnum</span><span class="p">):</span>
+</span><span id="__span-16-9"><a href="#__codelineno-16-9" id="__codelineno-16-9" name="__codelineno-16-9"></a>   <span class="k">return</span> <span class="p">{</span><span class="s2">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Add this API, reload and execute both a valid parameter and a non-valid parameter.</p>
+</li>
+<li>
+<p>In contrast to path parameters we have query parameters. In the requests exersices we saw an example of this where
+      we were calling <a href="https://api.github.com/search/code">https://api.github.com/search/code</a> with the query <code>'q': 'requests+language:python'</code>. Any
+      parameter in FastAPI that is not a path parameter, will be considered a query parameter:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/query_items"</span><span class="p">)</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a>   <span class="k">return</span> <span class="p">{</span><span class="s2">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Add this API, reload and figure out how to pass in a query parameter.</p>
+</li>
+<li>
+<p>We have until now worked with the <code>.get</code> method, but lets also see an example of the <code>.post</code> method. As already
+      described the POST request method is used for uploading data to the server. Here is a simple app that saves
+      username and password in a database (please never implement this in real life like this):</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="n">database</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'username'</span><span class="p">:</span> <span class="p">[</span> <span class="p">],</span> <span class="s1">'password'</span><span class="p">:</span> <span class="p">[</span> <span class="p">]}</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/login/"</span><span class="p">)</span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a>   <span class="n">username_db</span> <span class="o">=</span> <span class="n">database</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a>   <span class="n">password_db</span> <span class="o">=</span> <span class="n">database</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a>   <span class="k">if</span> <span class="n">username</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">username_db</span> <span class="ow">and</span> <span class="n">password</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">password_db</span><span class="p">:</span>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a>      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'database.csv'</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a>            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-18-10"><a href="#__codelineno-18-10" id="__codelineno-18-10" name="__codelineno-18-10"></a>      <span class="n">username_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+</span><span id="__span-18-11"><a href="#__codelineno-18-11" id="__codelineno-18-11" name="__codelineno-18-11"></a>      <span class="n">password_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+</span><span id="__span-18-12"><a href="#__codelineno-18-12" id="__codelineno-18-12" name="__codelineno-18-12"></a>   <span class="k">return</span> <span class="s2">"login saved"</span>
+</span></code></pre></div>
+<p>Make sure you understand what the function does and then try to execute it a couple of times to see your database
+  updating. It is important to note that we sometimes in the following exercises use the <code>.get</code> method and
+  sometimes the <code>.post</code> method. For our usage it does not really matter.</p>
+</li>
+<li>
+<p>We are now moving to figuring out how to provide different standard inputs like text, images, json to our APIs. It
+   is important that you try out each example yourself and in particular you look at the <code>curl</code> commands that are
+   necessary to invoke each application.</p>
+</li>
+<li>
+<p>Here is a small application, that takes a single text input</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/text_model/"</span><span class="p">)</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="k">def</span> <span class="nf">contains_email</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a>   <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a>   <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a>      <span class="s2">"input"</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a>      <span class="s2">"message"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a>      <span class="s2">"status-code"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-19-8"><a href="#__codelineno-19-8" id="__codelineno-19-8" name="__codelineno-19-8"></a>      <span class="s2">"is_email"</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="__span-19-9"><a href="#__codelineno-19-9" id="__codelineno-19-9" name="__codelineno-19-9"></a>   <span class="p">}</span>
+</span><span id="__span-19-10"><a href="#__codelineno-19-10" id="__codelineno-19-10" name="__codelineno-19-10"></a>   <span class="k">return</span> <span class="n">response</span>
+</span></code></pre></div>
+<p>What does the application do? Try it out yourself</p>
+</li>
+<li>
+<p>Lets say we wanted to extend the application to check for a specific email domain, either <code>gmail</code> or <code>hotmail</code>.
+      And lets say we want to feed this into our application as a <code>json</code> object e.g.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="p">{</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">   </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mlops@gmail.com"</span><span class="p">,</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">   </span><span class="nt">"domain_match"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gmail"</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Figure out how to alter the <code>data</code> parameter such that it takes in the <code>json</code> object and make sure to extend the
+  application to check if the email and domain also matches. Hint: take a look at
+  <a href="https://fastapi.tiangolo.com/tutorial/body/">this page</a></p>
+</li>
+<li>
+<p>Lets move on to an application that requires a file input:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">UploadFile</span><span class="p">,</span> <span class="n">File</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/cv_model/"</span><span class="p">)</span>
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">cv_model</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a>   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'image.jpg'</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a>      <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a>      <span class="n">image</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span><span id="__span-21-9"><a href="#__codelineno-21-9" id="__codelineno-21-9" name="__codelineno-21-9"></a>      <span class="n">image</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-21-10"><a href="#__codelineno-21-10" id="__codelineno-21-10" name="__codelineno-21-10"></a>
+</span><span id="__span-21-11"><a href="#__codelineno-21-11" id="__codelineno-21-11" name="__codelineno-21-11"></a>   <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-21-12"><a href="#__codelineno-21-12" id="__codelineno-21-12" name="__codelineno-21-12"></a>      <span class="s2">"input"</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+</span><span id="__span-21-13"><a href="#__codelineno-21-13" id="__codelineno-21-13" name="__codelineno-21-13"></a>      <span class="s2">"message"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-21-14"><a href="#__codelineno-21-14" id="__codelineno-21-14" name="__codelineno-21-14"></a>      <span class="s2">"status-code"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-21-15"><a href="#__codelineno-21-15" id="__codelineno-21-15" name="__codelineno-21-15"></a>   <span class="p">}</span>
+</span><span id="__span-21-16"><a href="#__codelineno-21-16" id="__codelineno-21-16" name="__codelineno-21-16"></a>   <span class="k">return</span> <span class="n">response</span>
+</span></code></pre></div>
+<p>A couple of new things are going on here: we use the specialized <code>UploadFile</code> and <code>File</code> bodies in our input
+  definition. Addtionally, we added the <code>async</code>/<code>await</code> keywords. Figure out what everything does and try to run
+  the application (you can use any image file you like).</p>
+</li>
+<li>
+<p>The above application actually does not do anything. Lets add <a href="https://pypi.org/project/opencv-python/">opencv</a>
+      as a package and lets resize the image. It can be done with the following three lines:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="kn">import</span> <span class="nn">cv2</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">"image.jpg"</span><span class="p">)</span>
+</span><span id="__span-22-3"><a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+</span></code></pre></div>
+<p>Figure out where to add them in the application and additionally add <code>h</code> and <code>w</code> as <strong>optional</strong> parameters, with
+  a default value of 28. Try running the application where you specify everything and one more time where you leave
+  out <code>h</code> and <code>w</code>.</p>
+</li>
+<li>
+<p>Finally, lets also figure out how to return a file from our application. You will need to add the following lines:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="kn">from</span> <span class="nn">fastapi.responses</span> <span class="kn">import</span> <span class="n">FileResponse</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">'image_resize.jpg'</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+</span><span id="__span-23-3"><a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="n">FileResponse</span><span class="p">(</span><span class="s1">'image_resize.jpg'</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Figure out where to add them to the code and try running the application one more time to see that you actually
+  get a file back with the resized image.</p>
+</li>
+<li>
+<p>(Optional) Lets try to figure out how to use FastAPI in a machine learning context. Below is a script that downloads
+   a <code>VisionEncoderDecoder</code> from
+   <a href="https://huggingface.co/docs/transformers/model_doc/vision-encoder-decoder#transformers.VisionEncoderDecoderModel">huggingface</a>
+   . The model can use to create captions for a given image. Thus calling</p>
+</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="n">predict_step</span><span class="p">([</span><span class="s1">'s7_deployment/exercise_files/my_cat.jpg'</span><span class="p">])</span>
+</span></code></pre></div>
+<p>returns a list of strings like <code>['a cat laying on a couch with a stuffed animal']</code> (try this yourself). Create a
+   FastAPI application that can do inference using this model e.g. it should take in an image, preferrably an optional
+   <code>json</code> object for configuring some of the hyperparameters (like <code>max_length</code>) and should return a string
+   containing the generated caption.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">VisionEncoderDecoderModel</span><span class="p">,</span> <span class="n">ViTFeatureExtractor</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a>
+</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">VisionEncoderDecoderModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"nlpconnect/vit-gpt2-image-captioning"</span><span class="p">)</span>
+</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a><span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">ViTFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"nlpconnect/vit-gpt2-image-captioning"</span><span class="p">)</span>
+</span><span id="__span-25-7"><a href="#__codelineno-25-7" id="__codelineno-25-7" name="__codelineno-25-7"></a><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"nlpconnect/vit-gpt2-image-captioning"</span><span class="p">)</span>
+</span><span id="__span-25-8"><a href="#__codelineno-25-8" id="__codelineno-25-8" name="__codelineno-25-8"></a>
+</span><span id="__span-25-9"><a href="#__codelineno-25-9" id="__codelineno-25-9" name="__codelineno-25-9"></a><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span><span class="p">)</span>
+</span><span id="__span-25-10"><a href="#__codelineno-25-10" id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span-25-11"><a href="#__codelineno-25-11" id="__codelineno-25-11" name="__codelineno-25-11"></a>
+</span><span id="__span-25-12"><a href="#__codelineno-25-12" id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="n">gen_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"max_length"</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">"num_beams"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">"num_return_sequences"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</span><span id="__span-25-13"><a href="#__codelineno-25-13" id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="k">def</span> <span class="nf">predict_step</span><span class="p">(</span><span class="n">image_paths</span><span class="p">):</span>
+</span><span id="__span-25-14"><a href="#__codelineno-25-14" id="__codelineno-25-14" name="__codelineno-25-14"></a>   <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-25-15"><a href="#__codelineno-25-15" id="__codelineno-25-15" name="__codelineno-25-15"></a>   <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">:</span>
+</span><span id="__span-25-16"><a href="#__codelineno-25-16" id="__codelineno-25-16" name="__codelineno-25-16"></a>      <span class="n">i_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+</span><span id="__span-25-17"><a href="#__codelineno-25-17" id="__codelineno-25-17" name="__codelineno-25-17"></a>      <span class="k">if</span> <span class="n">i_image</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s2">"RGB"</span><span class="p">:</span>
+</span><span id="__span-25-18"><a href="#__codelineno-25-18" id="__codelineno-25-18" name="__codelineno-25-18"></a>         <span class="n">i_image</span> <span class="o">=</span> <span class="n">i_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"RGB"</span><span class="p">)</span>
+</span><span id="__span-25-19"><a href="#__codelineno-25-19" id="__codelineno-25-19" name="__codelineno-25-19"></a>
+</span><span id="__span-25-20"><a href="#__codelineno-25-20" id="__codelineno-25-20" name="__codelineno-25-20"></a>      <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_image</span><span class="p">)</span>
+</span><span id="__span-25-21"><a href="#__codelineno-25-21" id="__codelineno-25-21" name="__codelineno-25-21"></a>   <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">)</span><span class="o">.</span><span class="n">pixel_values</span>
+</span><span id="__span-25-22"><a href="#__codelineno-25-22" id="__codelineno-25-22" name="__codelineno-25-22"></a>   <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">pixel_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span-25-23"><a href="#__codelineno-25-23" id="__codelineno-25-23" name="__codelineno-25-23"></a>   <span class="n">output_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">pixel_values</span><span class="p">,</span> <span class="o">**</span><span class="n">gen_kwargs</span><span class="p">)</span>
+</span><span id="__span-25-24"><a href="#__codelineno-25-24" id="__codelineno-25-24" name="__codelineno-25-24"></a>   <span class="n">preds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">output_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-25-25"><a href="#__codelineno-25-25" id="__codelineno-25-25" name="__codelineno-25-25"></a>   <span class="n">preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">pred</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
+</span><span id="__span-25-26"><a href="#__codelineno-25-26" id="__codelineno-25-26" name="__codelineno-25-26"></a>   <span class="k">return</span> <span class="n">preds</span>
+</span></code></pre></div>
+<ol>
+<li>
+<p>As the final step, we want to figure out how do include our FastAPI application in a docker container as it will help
+   us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
+   application. For the following you can take whatever previous FastAPI application as the base application for the
+   container</p>
+</li>
+<li>
+<p>Start by creating a <code>requirement.txt</code> file for you application. You will atleast need <code>fastapi</code> and <code>uvicorn</code> in
+      the file and we as always recommend that you are specific about the version you want to use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a>fastapi&gt;=0.68.0,&lt;0.69.0
+</span><span id="__span-26-2"><a href="#__codelineno-26-2" id="__codelineno-26-2" name="__codelineno-26-2"></a>uvicorn&gt;=0.15.0,&lt;0.16.0
+</span><span id="__span-26-3"><a href="#__codelineno-26-3" id="__codelineno-26-3" name="__codelineno-26-3"></a># add anything else you application needs to be able to run
+</span></code></pre></div>
+</li>
+<li>
+<p>Next create a <code>Dockerfile</code> with the following content</p>
+<div class="language-Dockerfile highlight"><pre><span></span><code><span id="__span-27-1"><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
+</span><span id="__span-27-2"><a href="#__codelineno-27-2" id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-27-3"><a href="#__codelineno-27-3" id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-27-4"><a href="#__codelineno-27-4" id="__codelineno-27-4" name="__codelineno-27-4"></a>
+</span><span id="__span-27-5"><a href="#__codelineno-27-5" id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-27-6"><a href="#__codelineno-27-6" id="__codelineno-27-6" name="__codelineno-27-6"></a><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span><span id="__span-27-7"><a href="#__codelineno-27-7" id="__codelineno-27-7" name="__codelineno-27-7"></a>
+</span><span id="__span-27-8"><a href="#__codelineno-27-8" id="__codelineno-27-8" name="__codelineno-27-8"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"uvicorn"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app.main:app"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--host"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0.0.0.0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">]</span>
+</span></code></pre></div>
+<p>The above assumes that your file structure looks like this</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a href="#__codelineno-28-1" id="__codelineno-28-1" name="__codelineno-28-1"></a>.
+</span><span id="__span-28-2"><a href="#__codelineno-28-2" id="__codelineno-28-2" name="__codelineno-28-2"></a>├── app
+</span><span id="__span-28-3"><a href="#__codelineno-28-3" id="__codelineno-28-3" name="__codelineno-28-3"></a>│   ├── __init__.py
+</span><span id="__span-28-4"><a href="#__codelineno-28-4" id="__codelineno-28-4" name="__codelineno-28-4"></a>│   └── main.py
+</span><span id="__span-28-5"><a href="#__codelineno-28-5" id="__codelineno-28-5" name="__codelineno-28-5"></a>├── Dockerfile
+</span><span id="__span-28-6"><a href="#__codelineno-28-6" id="__codelineno-28-6" name="__codelineno-28-6"></a>└── requirements.txt
+</span></code></pre></div>
+<p>Hopefully all these step should look familiar if you already went through
+  <a href="../../s3_reproducibility/docker/">module M9</a>, except for maybe the last line. However, this is just the
+  standard way that we have run our FastAPI applications as the last couple of exercises, this time with some extra
+  arguments regarding the ports we allow.</p>
+</li>
+<li>
+<p>Next build the corresponding docker image</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a href="#__codelineno-29-1" id="__codelineno-29-1" name="__codelineno-29-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my_fastapi_app<span class="w"> </span>.
+</span></code></pre></div>
+</li>
+<li>
+<p>Finally, run the image such that a container is spinned up that runs our application. The important part here is
+      to remember to specify the <code>-p</code> argument (p for port) that should be the same number as the port we have specified
+      in the last line of our Dockerfile.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mycontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>myimage
+</span></code></pre></div>
+</li>
+<li>
+<p>Check that everything is working by going to the corresponding localhost page <a href="http://localhost/items/5?q=somequery">http://localhost/items/5?q=somequery</a></p>
+</li>
+</ol>
+<p>This ends the module on APIs. If you want to go further in this direction we highly recommend that you checkout
+<a href="https://github.com/bentoml/BentoML">bentoml</a> that is an API standard that focuses solely on creating easy to understand
+APIs and services for machine learning applications. Additionally, we can also highly recommend checking out
+<a href="https://www.postman.com/">Postman</a> that can help design, document and in particular test the API you are writing to make
+sure that they work as expected.</p>
+<!---
+## BentoML
+
+[bentoml](https://github.com/bentoml/BentoML)
+
+In particular
+
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">bentoml</span><span class="o">.</span><span class="n">pytorch_lightning</span><span class="o">.</span><span class="n">save_model</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">bentoml</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">save</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="n">bentoml</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">save_model</span>
+</span></code></pre></div>
+
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">runner</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;my_torch_model&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_runner</span><span class="p">()</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="n">svc</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;test_service&quot;</span><span class="p">,</span> <span class="n">runners</span><span class="o">=</span><span class="p">[</span><span class="n">runner</span><span class="p">])</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="nd">@svc</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">JSON</span><span class="p">(),</span> <span class="n">output</span><span class="o">=</span><span class="n">JSON</span><span class="p">())</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">json_obj</span><span class="p">:</span> <span class="n">JSONSerializable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JSONSerializable</span><span class="p">:</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>    <span class="n">batch_ret</span> <span class="o">=</span> <span class="k">await</span> <span class="n">runner</span><span class="o">.</span><span class="n">async_run</span><span class="p">([</span><span class="n">json_obj</span><span class="p">])</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>    <span class="k">return</span> <span class="n">batch_ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></code></pre></div>
+--->
+<hr/>
+<div class="md-source-file">
+<small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+<br/>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+</small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: 08. Model deployment" class="md-footer__link md-footer__link--prev" href="../" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                08. Model deployment
+              </div>
+</div>
+</a>
+<a aria-label="Next: M23 - Local Deployment" class="md-footer__link md-footer__link--next" href="../local_deployment/" rel="next">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                M23 - Local Deployment
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="mailto:skaftenicki@gmail.com" rel="noopener" target="_blank" title="">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/SkafteNicki" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/in/nicki-skafte-detlefsen/" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.expand", "navigation.indexes", "content.code.copy", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

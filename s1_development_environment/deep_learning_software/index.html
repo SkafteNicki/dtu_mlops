@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../editor/" rel="prev"/>
+<link href="../../s2_organisation_and_version_control/" rel="next"/>
+<link href="../../figures/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.1.6" name="generator"/>
+<title>M4 - Deep Learning Software - DTU-MLOps</title>
+<link href="../../assets/stylesheets/main.ded33207.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="" data-md-color-primary="light-blue" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#deep-learning-software">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="DTU-MLOps" class="md-header__button md-logo" data-md-component="logo" href="../.." title="DTU-MLOps">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            DTU-MLOps
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              M4 - Deep Learning Software
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="light-blue" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="DTU-MLOps" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="DTU-MLOps">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    DTU-MLOps
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../timeplan/">
+        Timeplan
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../">S1 - Development Environment 💻</a>
+<label for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          S1 - Development Environment 💻
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../terminal/">
+        M1 - Terminal
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../conda/">
+        M2 - Conda
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../editor/">
+        M3 - Editor
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          M4 - Deep Learning Software
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        M4 - Deep Learning Software
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#software-landscape-for-deep-learning">
+    Software landscape for Deep Learning
+  </a>
+<nav aria-label="Software landscape for Deep Learning" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises">
+    Exercises
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#final-exercise">
+    Final exercise
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s2_organisation_and_version_control/">S2 - Organisation and Version Control 📁</a>
+<label for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          S2 - Organisation and Version Control 📁
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/git/">
+        M5 - Git
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/code_structure/">
+        M6 - Code structure
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/good_coding_practice/">
+        M7 - Good coding practice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s2_organisation_and_version_control/dvc/">
+        M8 - Data version control
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s3_reproducibility/">S3 - Reproduceability ♻️</a>
+<label for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          S3 - Reproduceability ♻️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s3_reproducibility/docker/">
+        M9 - Docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s3_reproducibility/config_files/">
+        M10 - Config Files
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s4_debugging_and_logging/">S4 - Debugging, Profiling and Logging ⏱️</a>
+<label for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          S4 - Debugging, Profiling and Logging ⏱️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/debugging/">
+        M11 - Debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/profiling/">
+        M12 - Profiling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/logging/">
+        M13 - Good Coding practice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/boilerplate/">
+        M14 - Data Version control
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_7" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s5_continuous_integration/">S5 - Continues Integration ✔️</a>
+<label for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          S5 - Continues Integration ✔️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/unittesting/">
+        M15 - Unittesting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/github_actions/">
+        M16 - Github Actions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/pre_commit/">
+        M17 - Pre commit
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/auto_docker/">
+        M18 - Continues Containers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/cml/">
+        M19 - Continues Machine Learning
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_8" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s6_the_cloud/">S6 - The cloud 🌐</a>
+<label for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+          S6 - The cloud 🌐
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s6_the_cloud/cloud_setup/">
+        M20 - Cloud Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s6_the_cloud/using_the_cloud/">
+        M21 - Using the Cloud
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_9" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s7_deployment/">S7 - Deployment 📦</a>
+<label for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+          S7 - Deployment 📦
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s7_deployment/apis/">
+        M22 - Requests and APIs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s7_deployment/local_deployment/">
+        M23 - Local Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s7_deployment/cloud_deployment/">
+        M24 - Cloud Deployment
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_10" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s8_monitoring/">S8 - Monitoring 📊</a>
+<label for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_10_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+          S8 - Monitoring 📊
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s8_monitoring/data_drifting/">
+        M25 - Data Drifting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s8_monitoring/monitoring/">
+        M26 - System Monitoring
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_11" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s9_scalable_applications/">S9 - Scalable applications ⚖️</a>
+<label for="__nav_11">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_11_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_11">
+<span class="md-nav__icon md-icon"></span>
+          S9 - Scalable applications ⚖️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/data_loading/">
+        M27 - Distributed Data Loading
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/distributed_training/">
+        M28 - Distributed Training
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/inference/">
+        M29 - Scalable Inference
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_12" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s10_extra/">S10 - Extra 🔥</a>
+<label for="__nav_12">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_12_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_12">
+<span class="md-nav__icon md-icon"></span>
+          S10 - Extra 🔥
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/cli/">
+        M30 - Command Line Interfaces
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/hyperparameters/">
+        M31 - Hyperparameter optimization
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/high_performance_clusters/">
+        M32 - High Performance Clusters
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../projects/">
+        Projects
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../challenges/">
+        Challenges
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#software-landscape-for-deep-learning">
+    Software landscape for Deep Learning
+  </a>
+<nav aria-label="Software landscape for Deep Learning" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises">
+    Exercises
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#final-exercise">
+    Final exercise
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/icons/pytorch.png"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130"/></a></p>
+<h1 id="deep-learning-software">Deep Learning Software</h1>
+<hr/>
+<div class="admonition info">
+<p class="admonition-title">Core Module</p>
+</div>
+<p>Deep learning have since its
+<a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">revolution back in 2012,</a>
+transformed our lives. From Google Translate to driverless cars
+to personal assistants to protein engineering, deep learning is transforming nearly every sector of our economy and
+or lives. However, it did not take long before people realized that deep learning is not as simple beast to tame
+and it comes with its own kind of problems, especially if you want to use it in a production setting. In particular
+the concept of <a href="https://research.google/pubs/pub43146/">technical debt</a> was invented to indicate the significant
+maintenance costs at an system level that it takes to run machine learning in production. MLOps should very much
+be seen as the response to the concept of technical debt, namely that we should develop methods, processes and tools
+(with inspiration from classical DevOps) to counter the problems we run into when working with deep learning models.</p>
+<p>It is important to note that all the concepts and tools that have been developed for MLOps can absolutely be used
+together with more classical machine learning models (think K-nearest neighbor, Random forest etc.), however
+deep learning comes with its own set of problems which mostly have to do with the sheer size of the data and models
+we are working with. For these reason, we are focusing on working with deep learning models in this course</p>
+<h2 id="software-landscape-for-deep-learning">Software landscape for Deep Learning</h2>
+<p>Regarding software for Deep Learning, the landscape is currently dominated by three software
+frameworks (listed in order of when they were published):</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/tensorflow.png"><img align="right" alt="Logo" src="../../figures/tensorflow.png" width="120"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/pytorch.png"><img align="right" alt="Logo" src="../../figures/pytorch.png" width="130"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/jax.png"><img align="right" alt="Logo" src="../../figures/jax.png" width="200"/></a></p>
+<ul>
+<li>
+<p><a href="https://github.com/tensorflow/tensorflow">Tensorflow</a></p>
+</li>
+<li>
+<p><a href="https://github.com/pytorch/pytorch">Pytorch</a></p>
+</li>
+<li>
+<p><a href="https://github.com/google/jax">JAX</a></p>
+</li>
+</ul>
+<p>We won't go into a longer discussion on what framework is the best, as it is pointless. Pytorch and Tensorflow
+have been around for the longest and therefore have bigger communities and feature sets at this point in time.
+They both very similar in the sense that they both have features directed against research and production.
+JAX is kind of the new kid on the block, that in many ways improve on Pytorch and Tensorflow, but is still
+not as mature as the other frameworks. As the frameworks uses different kind programming principles
+(object oriented vs. functional programming), comparing them is essentially meaningless.</p>
+<p>In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the
+framework that we use for our day to day research life. Additionally, as of right now it is the absolutely
+the <a href="https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/">dominating framework</a> for published
+models, research papers and <a href="https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w">competition winners</a></p>
+<p>\
+The intention behind this set of exercises is to bring everyones Pytorch skills up-to-date. If you already
+are Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
+The exercises are in large part taken directly from the
+<a href="https://github.com/udacity/deep-learning-v2-pytorch">deep learning course at udacity</a>.
+Note that these exercises are given as notebooks, which is the last time we are going to use them actively in course.
+Instead after this set of exercises we are going to focus on writing code in python scripts.</p>
+<p>The notebooks contains a lot of explaining text. The exercises that you are supposed to fill out are inlined in
+the text in small "exercise" blocks:</p>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/exercise.PNG"><img alt="Image" src="../../figures/exercise.PNG" width="1000"/></a></p>
+</figure>
+<p>If you need a fresh up on any deep learning topic in general throughout the course, we recommend to find the relevant
+chapter in the <a href="https://www.deeplearningbook.org/">deep learning</a> book by Ian Goodfellow,
+Yoshua Bengio and Aaron Courville (can also be found in the literature folder).</p>
+<h3 id="exercises">Exercises</h3>
+<!-- markdownlint-disable -->
+<p><a class="md-button" href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files">Exercise files</a></p>
+<!-- markdownlint-restore -->
+<ol>
+<li>
+<p>Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>jupyter<span class="w"> </span>notebook<span class="w"> </span>s1_development_environment/exercise_files/
+</span></code></pre></div>
+</li>
+<li>
+<p>Complete the
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb">Tensors in Pytorch</a>
+    notebook. It focuses on basic manipulation of Pytorch tensors. You can pass this notebook if you are comfortable
+    doing this.</p>
+<ol>
+<li>(Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
+    between an <code>[N,d]</code> tensor and <code>[M,d]</code> tensor. You should use the following identity:
+    $||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b>$. Hint: you need to use broadcasting.</a,b></li>
+</ol>
+</li>
+<li>
+<p>Complete the
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb">Neural Networks in Pytorch</a>
+    notebook. It focuses on building a very simple neural network using the Pytorch <code>nn.Module</code> interface.</p>
+<ol>
+<li>(Bonus exercise): One layer that arguably is missing in Pytorch is for doing reshapes.
+    It is of course possible to do this directly to tensors, but sometimes it is great to
+    have it directly in a <code>nn.Sequential</code> module. Write a <code>Reshape</code> layer which <code>__init__</code>
+    takes a variable number arguments e.g. <code>Reshape(2)</code> or <code>Reshape(2,3)</code> and the forward
+    takes a single input <code>x</code> where the reshape is applied to all other dimensions than the
+    batch dimension.</li>
+</ol>
+</li>
+<li>
+<p>Complete the
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/3_Training_Neural_Networks.ipynb">Training Neural Networks</a>
+    notebook. It focuses on how to write a simple training loop for training a neural network.</p>
+<ol>
+<li>
+<p>(Bonus exercise): A working training loop in Pytorch should have these three function calls:
+    <code>optimizer.zero_grad()</code>, <code>loss.backward()</code>, <code>optimizer.step()</code>. Explain what would happen
+    in the training loop (or implement it) if you forgot each of the function calls.</p>
+</li>
+<li>
+<p>(Bonus exercise): Many state-of-the-art results depend on the concept of learning rate schedulers.
+    In short a learning rate scheduler go in and either statically or dynamically changes the learning
+    rate of your optimizer, such that training speed is either increased or decreased. Implement a
+    <a href="https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate">learning rate scheduler</a>
+    in the notebook.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Complete the
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/4_Fashion_MNIST.ipynb">Fashion MNIST</a>
+    notebook, that summaries concepts learned in the notebook 2 and 3 on building a neural network for classifying the
+    <a href="https://github.com/zalandoresearch/fashion-mnist">Fashion MNIST</a> dataset.</p>
+<ol>
+<li>(Bonus exercise): The exercise focuses on the Fashion MNIST dataset but should without much
+    work be able to train on multiple datasets. Implement a variable <code>dataset</code> that can take the
+    values <code>mnist</code>, <code>fashionmnist</code> and <code>cifar</code> and train a model on the respective dataset.</li>
+</ol>
+</li>
+<li>
+<p>Complete the
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/5_Inference_and_Validation.ipynb">Inference and Validation</a>
+    notebook. This notebook adds important concepts on how to do inference and validation on our neural network.</p>
+<ol>
+<li>(Bonus exercise): The exercise shows how dropout can be used to prevent overfitting. However, today it
+    is often used to get uncertainty estimates of the network predictions using
+    <a href="http://proceedings.mlr.press/v48/gal16.pdf">Monte Carlo Dropout</a>. Implement monte carlo dropout such that we at
+    inference time gets different predictions for the same input (HINT: do not set the network in evaluation mode).
+    Construct a histogram of class prediction for a single image using 100 monte carlo dropout samples.</li>
+</ol>
+</li>
+<li>
+<p>Complete the
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/6_Saving_and_Loading_Models.ipynb">Saving_and_Loading_Models</a>
+    notebook. This notebook addresses how to save and load model weights. This is important if you want to share a
+    model with someone else.</p>
+<ol>
+<li>(Bonus exercise): Being able to save and load weights are important for the concept of early stopping. In
+    short, early stopping monitors some metric (often on the validation set) and then will stop the training
+    and save a checkpoint when this metric has not improved for <code>N</code> steps. Implement early stopping in one of
+    the previous notebooks.</li>
+</ol>
+</li>
+</ol>
+<h3 id="final-exercise">Final exercise</h3>
+<p>As the final exercise we will develop a simple baseline model which we will continue to develop on during the course.
+For this exercise we provide the data in the <code>data/corruptedmnist</code> folder. Do <strong>NOT</strong> use the data in the
+<code>corruptedmnist_v2</code> folder as that is intended for another exercise. As the name suggest this is a (subsampled)
+corrupted version of regular mnist. Your overall task is the following:</p>
+<blockquote>
+<p><strong>Implement a mnist neural network that achieves at least 85 % accuracy on the test set.</strong></p>
+</blockquote>
+<p>Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
+create the corrupted version. This should give you a clue about what network architechture to use.</p>
+<p>One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
+in the future as you start to add more and more features. As subgoals, please fulfill the following exercises</p>
+<ol>
+<li>
+<p>Implement your model in a script called <code>model.py</code></p>
+</li>
+<li>
+<p>Implement your data setup in a script called <code>data.py</code>. Hint: The data can be loaded using
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.load.html">np.load</a>.</p>
+</li>
+<li>
+<p>Implement training and evaluation of your model in <code>main.py</code> script. The <code>main.py</code> script should be able to
+    take an additional subcommands indicating if the model should train or evaluate. It will look something like this:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>train<span class="w"> </span>--lr<span class="w"> </span>1e-4
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>evaluate<span class="w"> </span>trained_model.pt
+</span></code></pre></div>
+<p>which can be implemented in various ways.</p>
+</li>
+</ol>
+<p>To start you off, a very barebone version of each script is provided in the <code>final_exercise</code> folder. We have already
+implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
+interested in how this is done you can checkout this optional module on defining
+<a href="../../s10_extra/cli/">command line interfaces (CLI)</a>. We additionally also provide an <code>requirements.py</code> with
+suggestion to what packages are nessesary to complete the exercise.</p>
+<p>\
+As documentation that your model is actually working, when running in the <code>train</code> command the script needs to
+produce a single plot with the training curve (training step vs training loss). When the <code>evaluate</code> command is run,
+it should write the test set accuracy to the terminal.</p>
+<p>It is part of the exercise to not implement in notebooks as code development in the real life happens in script.
+As the model is simple to run (for now) you should be able to complete the exercise on your laptop,
+even if you are only training on cpu. That said you are allowed to upload your scripts to your own "Google Drive" and
+then you can call your scripts from a Google Colab notebook, which is shown in the image below where all code is
+place in the <code>fashion_trainer.py</code> script and the Colab notebook is just used to execute it.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/colab.PNG"><img alt="colab" src="../../figures/colab.PNG"/></a></p>
+<p>Be sure to have completed the final exercise before the next session, as we will be building on top of the model
+you have created.</p>
+<hr/>
+<div class="md-source-file">
+<small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+<br/>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+</small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: M3 - Editor" class="md-footer__link md-footer__link--prev" href="../editor/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                M3 - Editor
+              </div>
+</div>
+</a>
+<a aria-label="Next: Getting started with MLOps - Organization and version control" class="md-footer__link md-footer__link--next" href="../../s2_organisation_and_version_control/" rel="next">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                Getting started with MLOps - Organization and version control
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="mailto:skaftenicki@gmail.com" rel="noopener" target="_blank" title="">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/SkafteNicki" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/in/nicki-skafte-detlefsen/" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.expand", "navigation.indexes", "content.code.copy", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

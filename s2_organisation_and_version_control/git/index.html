@@ -1,0 +1,919 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../" rel="prev"/>
+<link href="../code_structure/" rel="next"/>
+<link href="../../figures/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.1.6" name="generator"/>
+<title>M5 - Git - DTU-MLOps</title>
+<link href="../../assets/stylesheets/main.ded33207.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="" data-md-color-primary="light-blue" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#git">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="DTU-MLOps" class="md-header__button md-logo" data-md-component="logo" href="../.." title="DTU-MLOps">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            DTU-MLOps
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              M5 - Git
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="light-blue" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="DTU-MLOps" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="DTU-MLOps">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    DTU-MLOps
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../timeplan/">
+        Timeplan
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s1_development_environment/">S1 - Development Environment 💻</a>
+<label for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          S1 - Development Environment 💻
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/terminal/">
+        M1 - Terminal
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/conda/">
+        M2 - Conda
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/editor/">
+        M3 - Editor
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s1_development_environment/deep_learning_software/">
+        M4 - Deep Learning Software
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../">S2 - Organisation and Version Control 📁</a>
+<label for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          S2 - Organisation and Version Control 📁
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          M5 - Git
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        M5 - Git
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initial-config">
+    Initial config
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#git-overview">
+    Git overview
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises">
+    Exercises
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#knowledge-check">
+    Knowledge check
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../code_structure/">
+        M6 - Code structure
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../good_coding_practice/">
+        M7 - Good coding practice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../dvc/">
+        M8 - Data version control
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s3_reproducibility/">S3 - Reproduceability ♻️</a>
+<label for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          S3 - Reproduceability ♻️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s3_reproducibility/docker/">
+        M9 - Docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s3_reproducibility/config_files/">
+        M10 - Config Files
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s4_debugging_and_logging/">S4 - Debugging, Profiling and Logging ⏱️</a>
+<label for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          S4 - Debugging, Profiling and Logging ⏱️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/debugging/">
+        M11 - Debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/profiling/">
+        M12 - Profiling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/logging/">
+        M13 - Good Coding practice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s4_debugging_and_logging/boilerplate/">
+        M14 - Data Version control
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_7" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s5_continuous_integration/">S5 - Continues Integration ✔️</a>
+<label for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          S5 - Continues Integration ✔️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/unittesting/">
+        M15 - Unittesting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/github_actions/">
+        M16 - Github Actions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/pre_commit/">
+        M17 - Pre commit
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/auto_docker/">
+        M18 - Continues Containers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s5_continuous_integration/cml/">
+        M19 - Continues Machine Learning
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_8" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s6_the_cloud/">S6 - The cloud 🌐</a>
+<label for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+          S6 - The cloud 🌐
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s6_the_cloud/cloud_setup/">
+        M20 - Cloud Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s6_the_cloud/using_the_cloud/">
+        M21 - Using the Cloud
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_9" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s7_deployment/">S7 - Deployment 📦</a>
+<label for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+          S7 - Deployment 📦
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s7_deployment/apis/">
+        M22 - Requests and APIs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s7_deployment/local_deployment/">
+        M23 - Local Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s7_deployment/cloud_deployment/">
+        M24 - Cloud Deployment
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_10" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s8_monitoring/">S8 - Monitoring 📊</a>
+<label for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_10_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+          S8 - Monitoring 📊
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s8_monitoring/data_drifting/">
+        M25 - Data Drifting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s8_monitoring/monitoring/">
+        M26 - System Monitoring
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_11" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s9_scalable_applications/">S9 - Scalable applications ⚖️</a>
+<label for="__nav_11">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_11_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_11">
+<span class="md-nav__icon md-icon"></span>
+          S9 - Scalable applications ⚖️
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/data_loading/">
+        M27 - Distributed Data Loading
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/distributed_training/">
+        M28 - Distributed Training
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s9_scalable_applications/inference/">
+        M29 - Scalable Inference
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_12" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../s10_extra/">S10 - Extra 🔥</a>
+<label for="__nav_12">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_12_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_12">
+<span class="md-nav__icon md-icon"></span>
+          S10 - Extra 🔥
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/cli/">
+        M30 - Command Line Interfaces
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/hyperparameters/">
+        M31 - Hyperparameter optimization
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../s10_extra/high_performance_clusters/">
+        M32 - High Performance Clusters
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../projects/">
+        Projects
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../challenges/">
+        Challenges
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initial-config">
+    Initial config
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#git-overview">
+    Git overview
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercises">
+    Exercises
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#knowledge-check">
+    Knowledge check
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/icons/git.png"><img align="right" alt="Logo" src="../../figures/icons/git.png" width="130"/></a></p>
+<h1 id="git">Git</h1>
+<hr/>
+<div class="admonition info">
+<p class="admonition-title">Core Module</p>
+</div>
+<p>Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
+This is the reason that <strong>version control</strong> exist. Simply stated, it is a way to keep track of:</p>
+<ul>
+<li>Who made changes to the code</li>
+<li>When did the change happen</li>
+<li>What changes were made</li>
+</ul>
+<p>For a full explanation please see this <a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F">page</a></p>
+<p>Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
+hosting repositories but that does not mean that they are the only one providing free repository hosting
+(see <a href="https://bitbucket.org/product/">bitbucket</a> or <a href="https://about.gitlab.com/">gitlab</a>) for some other examples).</p>
+<p>That said we will be using git and Github throughout this course. It is a requirement for passing this course that
+you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
+this into your own projects depends, but you are at least expected to be familiar with git+github.</p>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/git.png"><img alt="Image" src="../../figures/git.png" width="400"/></a></p>
+<figcaption> <a href="https://xkcd.com/1597/"> Image credit </a> </figcaption>
+</figure>
+<h2 id="initial-config">Initial config</h2>
+<ol>
+<li>
+<p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Install git</a> on your computer and make sure
+    that your installation is working by writing <code>git help</code> in a terminal and it should show you the help message for
+    git.</p>
+</li>
+<li>
+<p>Create a <a href="https://github.com/">github</a> account if you do not already have one.</p>
+</li>
+<li>
+<p>To make sure that we do not have to type in our github username every time that we want to do some changes,
+    we can once and for all set them on our local machine</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># type in a terminal</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>credential.helper<span class="w"> </span>store
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span>&lt;email&gt;
+</span></code></pre></div>
+</li>
+</ol>
+<h2 id="git-overview">Git overview</h2>
+<p>The most simple way to think of version control, is that it is just nodes with lines connecting them</p>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/git_branch.png"><img alt="Image" src="../../figures/git_branch.png" width="1000,"/></a></p>
+</figure>
+<p>Each node, which we call a <em>commit</em> is uniquely identified by a hash string. Each node, stores what our code
+looked like at that point in time (when we made the commit) and using the hash codes we can easily
+revert to a specific point in time.</p>
+<p>The commits are made up of local changes that we make to our code. A basic workflow for
+adding commits are seen below</p>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/git_structure.PNG"><img alt="Image" src="../../figures/git_structure.PNG" width="1000,"/></a></p>
+</figure>
+<p>Assuming that we have made some changes to our local <em>working directory</em> and that we
+want to get these updates to be online in the <em>remote repository</em> we have to do the following steps:</p>
+<ul>
+<li>
+<p>First we run the command <code>git add</code>. This will move our changes to the <em>staging area</em>. While changes are in the
+    staging area we can very easily revert them (using <code>git restore</code>). There have therefore not been assigned a unique
+    hash to the code yet, and we can therefore still overwrite it.</p>
+</li>
+<li>
+<p>To take our code from the <em>staging area</em> and make it into a commit, we simply run <code>git commit</code> which will locally
+    add a note to the graph. It is important again, that we have not pushed the commit to the online <em>repository</em> yet.</p>
+</li>
+<li>
+<p>Finally, we want others to be able to use the changes that we made. We do a simple <code>git push</code> and our
+    commit gets online</p>
+</li>
+</ul>
+<p>Of course, the real power of version control is the ability to make branches, as in the image below</p>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/git_branches.png"><img alt="Image" src="../../figures/git_branches.png" width="1000"/></a></p>
+<figcaption>
+<a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
+</figcaption>
+</figure>
+<p>Each branch can contain code that are not present on other branches. This is useful when you are many developers
+working together on the same project.</p>
+<h2 id="exercises">Exercises</h2>
+<ol>
+<li>
+<p>In your github account create an repository, where the intention is that you upload the code from the final
+    exercise from yesterday</p>
+<ol>
+<li>
+<p>After creating the repository, clone it to your computer</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/my_user_name/my_repository_name.git
+</span></code></pre></div>
+</li>
+<li>
+<p>Move/copy the three files from yesterday into the repository (and any other that you made)</p>
+</li>
+<li>
+<p>Add the files to a commit by using <code>git add</code> command</p>
+</li>
+<li>
+<p>Commit the files using <code>git commit</code></p>
+</li>
+<li>
+<p>Finally push the files to your repository using <code>git push</code>. Make sure to check online that the files have been
+    updated in your repository.</p>
+</li>
+<li>
+<p>You can always use the command <code>git status</code> to check where you are in the process of making a commit.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Make sure that you understand how to make branches, as this will allow you to try out code changes without
+    messing with your working code. Creating a new branch can be done using:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># create a new branch</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;my_branch_name&gt;
+</span></code></pre></div>
+<p>Afterwards, you can use <code>git checkout</code> to change between branches (remember to commit your work!)
+Try adding something (a file, a new line of code etc.) to the newly created branch, commit it and
+try changing back to master afterwards. You should hopefully see whatever you added on the branch
+is not present on the main branch.</p>
+</li>
+<li>
+<p>If you do not already have a cloned version of this repository belonging to the course, make sure to make one!
+    I am continuously updating/changing some of the material during the course and I therefore recommend that you
+    each day before the lecture do a <code>git pull</code> on your local copy</p>
+</li>
+<li>
+<p>Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
+    not completely untrue when you are only one or two working on a project. However, these file management
+    systems falls short when hundreds to thousands of people work together. For this exercise you will
+    go through the steps of sending an open-source contribution:</p>
+<ol>
+<li>Go online and find a project you do not own, where you can improve the code. For simplicity you can
+   just choose the repository belonging to the course. Now fork the project by clicking the <em>Fork</em> button.</li>
+</ol>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/forking.PNG"><img alt="forking" src="../../figures/forking.PNG"/></a></p>
+<p>This will create a local copy of the repository which you have complete writing access to. Note that
+   code updates to the original repository does not update code in your local repository.</p>
+<ol>
+<li>
+<p>Clone your local fork of the project using <code>git clone</code>.</p>
+</li>
+<li>
+<p>As default your local repository will be on the <code>main branch</code> (HINT: you can check this with the
+   <code>git status</code> command). It is good practice to make a new branch when working on some changes. Use
+   the <code>git branch</code> command followed by the <code>git checkout</code> command to create a new branch.</p>
+</li>
+<li>
+<p>You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
+   When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code></p>
+</li>
+<li>
+<p>Go online to the original repository and go the <code>Pull requests</code> tab. Find <code>compare</code> botton and
+   choose the to compare the <code>master branch</code> of the original repo with the branch that you just created
+   in your own repository. Check the diff on the page to make sure that it contains the changes you have made.</p>
+</li>
+<li>
+<p>Write a bit about the changes you have made and click <code>Create pull request</code> :)</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
+    mitigate this we can set what is called an <em>remote upstream</em>. Take a look on this
+    <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork">page</a>
+    , and set a remote upstream for the repository you just forked.</p>
+</li>
+<li>
+<p>After setting the upstream branch, we need to pull and merge any update. Take a look on this
+    <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">page</a>
+    and figure out how to do this.</p>
+</li>
+<li>
+<p>As a final exercise we want to simulate a <em>merge conflict</em>, which happens when two users try to commit changes
+    to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be
+    integrated.</p>
+<ol>
+<li>
+<p>In your browser, open your favorite repository (it could be the one you just worked on), go to any file of
+    your choosing and click the edit button (see image below) and make some change to the file. For example, if
+    you choose a python file you can just import some random packages at the top of the file. Commit the change.</p>
+<p><figure markdown="">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/git_edit.PNG"><img alt="Image" src="../../figures/git_edit.PNG" width="1000"/></a>
+</figure></p>
+</li>
+<li>
+<p>Make sure not to pull the change you just made to your local computer. Locally make changes to the same
+    file in the same lines and commit them afterwards.</p>
+</li>
+<li>
+<p>Now try to <code>git pull</code> the online changes. What should (hopefully) happen is that git will tell you that it found
+    a merge conflict that needs to be resolved. Open the file and you should see something like this</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>this is some content to mess with
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a>content to append
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>=======
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>totally different content to merge later
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
+</span></code></pre></div>
+<p>this should be interpret as: everything thats between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
+local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
+the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
+remove the identifiers <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</p>
+</li>
+<li>
+<p>Finally, commit the merge and try to push.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>(Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
+    However, if you are using a proper editor they also have build in support for version control. We recommend getting
+    familiar with these features (here is a tutorial for
+    <a href="https://code.visualstudio.com/docs/editor/versioncontrol">VS Code</a>)</p>
+</li>
+</ol>
+<h2 id="knowledge-check">Knowledge check</h2>
+<details class="question">
+<summary>Knowledge question 1</summary>
+<p>How do you know if a certain directory is a git repository?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You can check if there is a ".git" directory. Alternative you can use the <code>git status</code> command.</p>
+</details>
+</details>
+<details class="question">
+<summary>Knowledge question 2</summary>
+<p>Explain what the file <code>gitignore</code> is used for?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The file <code>gitignore</code> is used to tell git which files to ignore when doing a <code>git add .</code> command. This is
+useful for files that are not part of the codebase, but are needed for the code to run (e.g. data files)
+or files that contain sensitive information (e.g. <code>.env</code> files that contain API keys and passwords).</p>
+</details>
+</details>
+<details class="question">
+<summary>Knowledge question 3</summary>
+<p>You have two branches - <em>main</em> and <em>devel</em>. What sequence of commands would you need to execute to make sure that
+<em>devel</em> is in sync with <em>main</em>?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
+</span></code></pre></div>
+</details>
+</details>
+<details class="question">
+<summary>Knowledge question 4</summary>
+<p>What best practices are you familiar with regarding version control?</p>
+<details class="success">
+<summary>Solution</summary>
+<ul>
+<li>Use a descriptive commit message</li>
+<li>Make each commit a logical unit</li>
+<li>Incorporate others' changes frequently</li>
+<li>Share your changes frequently</li>
+<li>Coordinate with your co-workers</li>
+<li>Don't commit generated files</li>
+</ul>
+</details>
+</details>
+<p>That covers the basics of git to get you started. In the exercise folder you can find a
+<a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf">git cheat sheet</a>
+with the most useful commands for future reference. Finally, we want to point out another awesome feature of Github:
+in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
+IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
+Github has an build-in editor that can simply be enabled by changing any URL from</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a>https://github.com/username/repository
+</span></code></pre></div>
+<p>to</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a>https://github.dev/username/repository
+</span></code></pre></div>
+<p>Try it out on your newly created repository.</p>
+<hr/>
+<div class="md-source-file">
+<small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+<br/>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+</small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Getting started with MLOps - Organization and version control" class="md-footer__link md-footer__link--prev" href="../" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                Getting started with MLOps - Organization and version control
+              </div>
+</div>
+</a>
+<a aria-label="Next: M6 - Code structure" class="md-footer__link md-footer__link--next" href="../code_structure/" rel="next">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                M6 - Code structure
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="mailto:skaftenicki@gmail.com" rel="noopener" target="_blank" title="">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/SkafteNicki" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/in/nicki-skafte-detlefsen/" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.expand", "navigation.indexes", "content.code.copy", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
