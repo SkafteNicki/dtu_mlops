@@ -161,9 +161,9 @@ service in GCP for deploying containers.
 
         afterwards check you container registry to check that you have successfully pushed the image.
 
-1. Next go to `Cloud Run` in the cloud consol an enable the service
+2. Next go to `Cloud Run` in the cloud consol an enable the service
 
-2. Click the `Create Service` button which should bring you to a page similar to the one below
+3. Click the `Create Service` button which should bring you to a page similar to the one below
 
     <p align="center">
         <img src="../figures/gcp_run.PNG" width="1000">
@@ -182,7 +182,7 @@ service in GCP for deploying containers.
 
     Finally, click the create button and wait for the service to be deployed (may take some time).
 
-3. If you manage to deploy the service you should see a image like this:
+4. If you manage to deploy the service you should see a image like this:
 
     <p align="center">
         <img src="../figures/gcp_run2.PNG" width="1000">
@@ -191,7 +191,7 @@ service in GCP for deploying containers.
     You can now access you application by clicking url. This will access the root of your application, so you may need
     to add `/` or `/<path>` to the url depending on how the app works.
 
-4. (Optional) Everything we just did to deploy an container can be reproduced using the following command:
+5. (Optional) Everything we just did to deploy an container can be reproduced using the following command:
 
     ```bash
     gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
@@ -206,7 +206,7 @@ service in GCP for deploying containers.
 
     feel free to experiment doing the deployment from the command line.
 
-5. As an final exercise, we recommend redoing the above deployment steps with your own developed MNIST code such that
+6. As an final exercise, we recommend redoing the above deployment steps with your own developed MNIST code such that
     you get more experience with deploying a machine learning application.
 
 That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In

@@ -90,3 +90,23 @@ Note if you already are a terminal wizard then feel free to skip the exercises b
     2. Change the bash script to call your python program you just wrote.
 
     3. Try to Google how to write a simple for-loop that executes the python script 10 times in a row.
+
+## Knowledge check
+
+??? question "Knowledge question 1"
+
+    A common argument that nearly all commands have is the `-h` or `--help` argument. What does it do?
+
+    ??? success "Solution"
+
+        It prints the help message for the command, including subcommands and arguments.
+        Try it out by executing ``python --help``.
+
+??? question "Knowledge question 2"
+
+    Another commont argument is the `-v` or `--version` argument. What does it do?
+
+    ??? success "Solution"
+
+        It prints the version of the installed program.
+        Try it out by executing `` python --version``.

@@ -30,8 +30,8 @@ both deep learning and traditional ML. It defines an extensible computation grap
 built-in operators and standard data types.
 
 <figure markdown>
-  ![Image](../figures/onnx.png){ width="600" }
-  <figcaption> <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a> </figcaption>
+![Image](../figures/onnx.png){ width="600" }
+<figcaption> <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a> </figcaption>
 </figure>
 
 As the above image indicates, the idea behind ONNX is that a model trained with a specific framework on a specific
@@ -45,24 +45,24 @@ essentially increases the longivity of your model.
 
 1. Start by installing ONNX:
 
-   ```bash
-   pip install onnx
-   pip install onnxruntime
-   ```
+    ```bash
+    pip install onnx
+    pip install onnxruntime
+    ```
 
-   the first package includes the basic building blocks for implementing generalized ONNX models and the second
-   package is for running ONNX optimal on different hardware.
+    the first package includes the basic building blocks for implementing generalized ONNX models and the second
+    package is for running ONNX optimal on different hardware.
 
 2. As an test that your installation is working, try executing the following python code
 
-   ```python
-   import onnxruntime
-   onnxruntime.get_all_providers()
-   ```
+    ```python
+    import onnxruntime
+    onnxruntime.get_all_providers()
+    ```
 
-   these providers are *translation layers* that are implemented ONNX, such that the same ONNX model can run on
-   completely different hardware. Can you identify at least two of the providers that are necessary for running
-   standard Pytorch code on CPU and GPU? Can you identify others
+    these providers are *translation layers* that are implemented ONNX, such that the same ONNX model can run on
+    completely different hardware. Can you identify at least two of the providers that are necessary for running
+    standard Pytorch code on CPU and GPU? Can you identify others
 
 3. One big advantage of having a standardized format, is that we can easily visualize the computational graph of our
    model because it consist only of core ONNX operations. We are here going to use the open-source tool
