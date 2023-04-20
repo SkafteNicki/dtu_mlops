@@ -569,16 +569,16 @@ rest to a "recommended value".</p>
 <ol>
 <li>
 <p>Start by installing optuna:
-   <code>pip install optuna</code></p>
+    <code>pip install optuna</code></p>
 </li>
 <li>
 <p>Initially we will look at the <code>cross_validate.py</code> file. It implements simple K-fold cross validation of
-   a random forest sklearn digits dataset (subset of MNIST). Look over the script and try to run it.</p>
+    a random forest sklearn digits dataset (subset of MNIST). Look over the script and try to run it.</p>
 </li>
 <li>
 <p>We will now try to write the same code in optune. Please note that the script have a variable <code>OPTUNA=False</code>
-   that you can use to change what part of the code should run. The three main concepts of optuna is</p>
-</li>
+    that you can use to change what part of the code should run. The three main concepts of optuna is</p>
+<ul>
 <li>
 <p>A trial: a single experiment</p>
 </li>
@@ -588,22 +588,20 @@ rest to a "recommended value".</p>
 <li>
 <p>The objective: function to determine how "good" a trial is</p>
 </li>
-</ol>
+</ul>
 <p>Lets start by writing the objective function, which we have already started in the script. For now you do
-   not need to care about the <code>trial</code> argument, just assume that it contains the hyperparameters needed to
-   define your random forest model. The output of the objective function should be a single number that we
-   want to optimize. (HINT: did you remember to do K-fold crossvalidation inside your objective function?)</p>
-<ol>
+not need to care about the <code>trial</code> argument, just assume that it contains the hyperparameters needed to
+define your random forest model. The output of the objective function should be a single number that we
+want to optimize. (HINT: did you remember to do K-fold crossvalidation inside your objective function?)</p>
+</li>
 <li>
 <p>Next lets focus on the trial. Inside the <code>objective</code> function the trial should be used to suggest what
-   parameters to use next. Take a look at the documentation for
-   <a href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.Trial.html">trial</a> or take a look at
-   the <a href="https://optuna.org/#code_examples">code examples</a> and figure out how to define the hyperparameter of the model.</p>
+    parameters to use next. Take a look at the documentation for
+    <a href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.Trial.html">trial</a> or take a look at
+    the <a href="https://optuna.org/#code_examples">code examples</a> and figure out how to define the hyperparameter of the model.</p>
 </li>
 <li>
 <p>Finally lets launch a study. It can be as simple as</p>
-</li>
-</ol>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
 </span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </span></code></pre></div>
@@ -611,42 +609,44 @@ rest to a "recommended value".</p>
 <ol>
 <li>
 <p>By default the <code>.optimize</code> method will minimize the objective (by definition the optimum of an objective
-      function is at its minimum). Is the score your objective function is returning something that should
-      be minimized? If not, a simple solution is to put a <code>-</code> in front of the metric. However, look through
-      the documentation on how to change the <strong>direction</strong> of the optimization.</p>
+    function is at its minimum). Is the score your objective function is returning something that should
+    be minimized? If not, a simple solution is to put a <code>-</code> in front of the metric. However, look through
+    the documentation on how to change the <strong>direction</strong> of the optimization.</p>
 </li>
 <li>
 <p>Optuna will by default do Bayesian optimization when sampling the hyperparameters (using a evolutionary
-      algorithm for suggesting new trials). However, since this example is quite simple, we can actually
-      perform a full grid search. How would you do this in Optuna?</p>
+    algorithm for suggesting new trials). However, since this example is quite simple, we can actually
+    perform a full grid search. How would you do this in Optuna?</p>
 </li>
 <li>
 <p>Compare the performance of a single optuna run using Bayesian optimization with <code>n_trials=10</code> with a
-      exhaustive grid search that have search through all hyperparameters. What is the performance/time
-      trade-off for these two solutions?</p>
+    exhaustive grid search that have search through all hyperparameters. What is the performance/time
+    trade-off for these two solutions?</p>
+</li>
+</ol>
 </li>
 <li>
 <p>In addition to doing baysian optimization, the other great part about Optuna is that it have native support
-   for <strong>Pruning</strong> unpromising trials. Pruning refers to the user stopping trials for hyperparameter combinations
-   that does not seem to lead anywhere. You may have learning rate that is so high that training is diverging or
-   a neural network with too many parameters so it is just overfitting to the training data. This however begs the
-   question: what constitutes an unpromising trial? This is up to you to define based on prior experimentation.</p>
-</li>
+    for <strong>Pruning</strong> unpromising trials. Pruning refers to the user stopping trials for hyperparameter combinations
+    that does not seem to lead anywhere. You may have learning rate that is so high that training is diverging or
+    a neural network with too many parameters so it is just overfitting to the training data. This however begs the
+    question: what constitutes an unpromising trial? This is up to you to define based on prior experimentation.</p>
+<ol>
 <li>
 <p>Start by looking at the <code>fashion_trainer.py</code> script. Its a simple classification network for classifying
-      images in the <a href="https://github.com/zalandoresearch/fashion-mnist">FashionMNIST</a> dataset. Run the script
-      with the default hyperparameters to get a feeling of how the training should be progress.
-      Note down the performance on the test set.</p>
+    images in the <a href="https://github.com/zalandoresearch/fashion-mnist">FashionMNIST</a> dataset. Run the script
+    with the default hyperparameters to get a feeling of how the training should be progress.
+    Note down the performance on the test set.</p>
 </li>
 <li>
 <p>Start by defining a validation set and a validation dataloader that we can use for hyperparameter optimization
-      (HINT: use 5-10% of you training data).</p>
+    (HINT: use 5-10% of you training data).</p>
 </li>
 <li>
 <p>Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should at least be included
-      in the hyperparameter search. For some we have already defined the search space but for the remaining you need to
-      come up with a good range of values to investigate. We done integrating optuna, run a small study (<code>n_tirals=3</code>)
-      to check that the code is working.</p>
+    in the hyperparameter search. For some we have already defined the search space but for the remaining you need to
+    come up with a good range of values to investigate. We done integrating optuna, run a small study (<code>n_tirals=3</code>)
+    to check that the code is working.</p>
 <table>
 <thead>
 <tr>
@@ -684,45 +684,47 @@ rest to a "recommended value".</p>
 </li>
 <li>
 <p>If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
-      we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
-      <a href="https://optuna.readthedocs.io/en/stable/reference/pruners.html">build-in pruners</a> in Optuna. Implement
-      pruning in the script. I recommend using either the <code>MedianPruner</code> or the <code>ProcentilePruner</code>.</p>
+    we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
+    <a href="https://optuna.readthedocs.io/en/stable/reference/pruners.html">build-in pruners</a> in Optuna. Implement
+    pruning in the script. I recommend using either the <code>MedianPruner</code> or the <code>ProcentilePruner</code>.</p>
 </li>
 <li>
 <p>Re-run the study using pruning with a large number of trials (<code>n_trials&gt;50</code>)</p>
 </li>
 <li>
 <p>Take a look at this
-      <a href="https://optuna.readthedocs.io/en/latest/tutorial/10_key_features/005_visualization.html">visualization page</a>
-      for ideas on how to visualize the study you just did. Make at least two visualization of the study and
-      make sure that you understand them.</p>
+    <a href="https://optuna.readthedocs.io/en/latest/tutorial/10_key_features/005_visualization.html">visualization page</a>
+    for ideas on how to visualize the study you just did. Make at least two visualization of the study and
+    make sure that you understand them.</p>
 </li>
 <li>
 <p>Pruning is great for better spending your computational budged, however it comes with a trade-off. What is
-      it and what hyperparameter should one be especially careful about when using pruning?</p>
+    it and what hyperparameter should one be especially careful about when using pruning?</p>
 </li>
 <li>
 <p>Finally, what parameter combination achieved the best performance? What is the test set performance for this
-      set of parameters. Did you improve over the initial set of hyperparameters?</p>
+    set of parameters. Did you improve over the initial set of hyperparameters?</p>
+</li>
+</ol>
 </li>
 <li>
 <p>The exercises until now have focused on doing the hyperparameter searching sequentially, meaning that we test one
-   set of parameters at the time. It is a fine approach because you can easily let it run for a week without any
-   interaction. However, assuming that you have the computational resources to run in parallel, how do you do that?</p>
-</li>
+    set of parameters at the time. It is a fine approach because you can easily let it run for a week without any
+    interaction. However, assuming that you have the computational resources to run in parallel, how do you do that?</p>
+<ol>
 <li>
 <p>To run hyperparameter search in parallel we need a common database that all experiments can read and
-      write to. We are going to use the recommended <code>mysql</code>. You do not have to understand what SQL is to
-      complete this exercise, but it is <a href="https://en.wikipedia.org/wiki/SQL">basically</a> a language (like python)
-      for managing databases. Install <a href="https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/">mysql</a>.</p>
+    write to. We are going to use the recommended <code>mysql</code>. You do not have to understand what SQL is to
+    complete this exercise, but it is <a href="https://en.wikipedia.org/wiki/SQL">basically</a> a language (like python)
+    for managing databases. Install <a href="https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/">mysql</a>.</p>
 </li>
 <li>
 <p>Next we are going to initialize a database that we can read and write to. For this exercises we are going
-      to focus on a locally stored database but it could of course also be located in the cloud.</p>
+    to focus on a locally stored database but it could of course also be located in the cloud.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE DATABASE IF NOT EXISTS example"</span>
 </span></code></pre></div>
 <p>you can also do this directly in python when calling the <code>create_study</code> command by also setting the
-  <code>storage</code> and <code>load_if_exists=True</code> flags.</p>
+<code>storage</code> and <code>load_if_exists=True</code> flags.</p>
 </li>
 <li>
 <p>Now we are going to create a Optuna study in our database</p>
@@ -735,20 +737,22 @@ rest to a "recommended value".</p>
 </span></code></pre></div>
 <p>then do</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">load_study</span><span class="p">(</span>
-</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a> <span class="n">study_name</span><span class="o">=</span><span class="s2">"distributed-example"</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="s2">"mysql://root@localhost/example"</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>    <span class="n">study_name</span><span class="o">=</span><span class="s2">"distributed-example"</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="s2">"mysql://root@localhost/example"</span>
 </span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>where the <code>study_name</code> and <code>storage</code> should match how the study was created.</p>
 </li>
 <li>
 <p>For running in parallel, you can either open up a extra terminal and simple launch your script once
-       per open terminal or you can use the provided <code>parallel_lancher.py</code> that will launch multiple executions
-       of your script. It should be used as:</p>
+    per open terminal or you can use the provided <code>parallel_lancher.py</code> that will launch multiple executions
+    of your script. It should be used as:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a>python<span class="w"> </span>parallel_lancher.py<span class="w"> </span>myscript.py<span class="w"> </span>--num_parallel<span class="w"> </span><span class="m">2</span>
 </span></code></pre></div>
 </li>
 <li>
 <p>Finally, make sure that you can access the results</p>
+</li>
+</ol>
 </li>
 </ol>
 <p>Thats all on how to do hyperparameter optimization in a scalable way. If you feel like it you can try to apply these
@@ -759,10 +763,10 @@ to use.</p>
 <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 20, 2023</span>
 <br/>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 14, 2021</span>
 </small>
 </div>
 </article>

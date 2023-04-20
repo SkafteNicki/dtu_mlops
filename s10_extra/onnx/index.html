@@ -531,8 +531,7 @@ learning models. ONNX provides an <a href="https://github.com/onnx/onnx">open so
 both deep learning and traditional ML. It defines an extensible computation graph model, as well as definitions of
 built-in operators and standard data types.</p>
 <figure>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/onnx.png"><img alt="Image" src="../../figures/onnx.png" width="600"/></a>
-</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../figures/onnx.png"><img alt="Image" src="../../figures/onnx.png" width="600"/></a></p>
 <figcaption> <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a> </figcaption>
 </figure>
 <p>As the above image indicates, the idea behind ONNX is that a model trained with a specific framework on a specific
@@ -543,37 +542,39 @@ such as <a href="https://caffe2.ai/">Caffe2</a>. ONNX allow you to mix-and-match
 essentially increases the longivity of your model.</p>
 <h2 id="exercises">Exercises</h2>
 <ol>
-<li>Start by installing ONNX:</li>
-</ol>
+<li>
+<p>Start by installing ONNX:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>onnx
 </span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime
 </span></code></pre></div>
 <p>the first package includes the basic building blocks for implementing generalized ONNX models and the second
-   package is for running ONNX optimal on different hardware.</p>
-<ol>
-<li>As an test that your installation is working, try executing the following python code</li>
-</ol>
+package is for running ONNX optimal on different hardware.</p>
+</li>
+<li>
+<p>As an test that your installation is working, try executing the following python code</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">onnxruntime</span>
 </span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_all_providers</span><span class="p">()</span>
 </span></code></pre></div>
 <p>these providers are <em>translation layers</em> that are implemented ONNX, such that the same ONNX model can run on
-   completely different hardware. Can you identify at least two of the providers that are necessary for running
-   standard Pytorch code on CPU and GPU? Can you identify others</p>
-<ol>
-<li>One big advantage of having a standardized format, is that we can easily visualize the computational graph of our
+completely different hardware. Can you identify at least two of the providers that are necessary for running
+standard Pytorch code on CPU and GPU? Can you identify others</p>
+</li>
+<li>
+<p>One big advantage of having a standardized format, is that we can easily visualize the computational graph of our
    model because it consist only of core ONNX operations. We are here going to use the open-source tool
    <a href="https://github.com/lutzroeder/netron">netron</a> for visualization. You can either choose to download the program
-   or just run it in your <a href="https://netron.app/">webbrowser</a>.</li>
+   or just run it in your <a href="https://netron.app/">webbrowser</a>.</p>
+</li>
 </ol>
 <hr/>
 <div class="md-source-file">
 <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 20, 2023</span>
 <br/>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 28, 2021</span>
 </small>
 </div>
 </article>
