@@ -100,9 +100,10 @@ We are now going to start actually using the cloud.
     3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
         both a python installation and Pytorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
-        <p align="center">
-            <img src="../figures/gcp_vm_browser.png" width="800" >
-        </p>
+
+        <figure markdown>
+        ![Image](../figures/gcp_vm_browser.png){ width="800" }
+        </figure>
 
 7. Finally, everything that you have done locally can also be achieved through the web
     terminal, which of course comes pre-installed with the `gcloud` command etc.

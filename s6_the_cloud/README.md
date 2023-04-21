@@ -17,8 +17,10 @@ or similar but todays topic is about utilizing cloud computing.
 
 <!-- markdownlint-disable -->
 <figure markdown>
-  ![Image](../figures/cloud_computing.jpeg){ width="600" }
-  <figcaption> <a href="https://towardsdatascience.com/how-to-start-a-data-science-project-using-google-cloud-platform-6618b7c6edd2"> Image credit </a> </figcaption>
+![Image](../figures/cloud_computing.jpeg){ width="600" }
+<figcaption>
+<a href="https://towardsdatascience.com/how-to-start-a-data-science-project-using-google-cloud-platform-6618b7c6edd2"> Image credit </a>
+</figcaption>
 </figure>
 <!-- markdownlint-restore -->
 

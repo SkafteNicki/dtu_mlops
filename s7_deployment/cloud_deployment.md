@@ -165,9 +165,9 @@ service in GCP for deploying containers.
 
 3. Click the `Create Service` button which should bring you to a page similar to the one below
 
-    <p align="center">
-        <img src="../figures/gcp_run.PNG" width="1000">
-    </p>
+    <figure markdown>
+    ![Image](../figures/gcp_run.PNG){ width="1000" }
+    </figure>
 
     Do the following:
     * Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
@@ -184,9 +184,9 @@ service in GCP for deploying containers.
 
 4. If you manage to deploy the service you should see a image like this:
 
-    <p align="center">
-        <img src="../figures/gcp_run2.PNG" width="1000">
-    </p>
+    <figure markdown>
+    ![Image](../figures/gcp_run2.PNG){ width="1000" }
+    </figure>
 
     You can now access you application by clicking url. This will access the root of your application, so you may need
     to add `/` or `/<path>` to the url depending on how the app works.

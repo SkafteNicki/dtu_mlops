@@ -172,7 +172,7 @@ beneficial for you to download.
 
     ```docker
     # Base image
-    FROM python:3.7-slim
+    FROM python:3.9-slim
     ```
 
 11. Next we are going to install some essentials in our image. The essentials more or less consist of a python
@@ -225,6 +225,18 @@ beneficial for you to download.
     ```bash
     docker build -f trainer.dockerfile . -t trainer:latest
     ```
+
+    ??? warning "MAC M1/M2 users"
+
+        There is a good chance that it docker build will not work out of the box for you, because M1/M2 chips use
+        another build architechture. Thus you need to specify the platform that you want to build for. This can be
+        done by adding the following to your `FROM` statement:
+
+        ```docker
+        FROM --platform=linux/amd64 python:3.9-slim
+        ```
+
+        and in you build step you need to add `--platform linux/amd64` to the command.
 
     please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is
     important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and

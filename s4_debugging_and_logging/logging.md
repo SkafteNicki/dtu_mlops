@@ -24,9 +24,10 @@ There exist many tools for logging your experiments, with some of them being:
 * [Neptune](https://neptune.ai/)
 * [Weights and Bias](https://wandb.ai/site)
 
-All of the frameworks offers many of the same functionalities. We are going to use Weights and Bias (wandb), as it
-support everything we need in this course. Additionally, it is an excellent tool for collaboration and sharing of
-results.
+All of the frameworks offers many of the same functionalities, you can see a (bias) review
+[here](https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/). We are going to use
+Weights and Bias (wandb), as it support everything we need in this course. Additionally, it is an excellent tool for
+collaboration and sharing of results.
 
 ## Exercises
 

@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Core Module"
+
 With a basic understanding of version control, it is now time to really begin filling up our code repository. However,
 the question then remains how to organize our code? As developers we tend to not think about code organization that
 much. It is instead something that just dynamically is being created as we may need it. However, maybe we should spend

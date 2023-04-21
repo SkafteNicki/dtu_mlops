@@ -19,7 +19,7 @@ In these exercises we are going to be integrating [optuna](https://optuna.readth
 our different models, that will provide the tools for speeding up our search.
 
 <figure markdown>
-  ![Image](../figures/hyperparameters.jpg){width="500"}
+![Image](../figures/hyperparameters.jpg){width="500"}
 </figure>
 
 It should be noted that a lot of deep learning models does not optimize every hyperparameter that is included
