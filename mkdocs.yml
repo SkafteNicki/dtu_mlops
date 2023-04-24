@@ -26,7 +26,6 @@ theme:
         name: Switch to light mode
   features:
     - navigation.instant
-    - navigation.expand
     - navigation.indexes
     - content.code.copy
     - navigation.footer
@@ -91,7 +90,7 @@ nav:
     - M11 - Debugging: s4_debugging_and_logging/debugging.md
     - M12 - Profiling: s4_debugging_and_logging/profiling.md
     - M13 - Good Coding practice: s4_debugging_and_logging/logging.md
-    - M14 - Data Version control: s4_debugging_and_logging/boilerplate.md
+    - M14 - Boilerplate: s4_debugging_and_logging/boilerplate.md
   - S5 - Continues Integration ✔️:
     - s5_continuous_integration/README.md
     - M15 - Unittesting: s5_continuous_integration/unittesting.md
@@ -122,5 +121,6 @@ nav:
     - M30 - Command Line Interfaces: s10_extra/cli.md
     - M31 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M32 - High Performance Clusters: s10_extra/high_performance_clusters.md
+  - Summary: overview.md
   - Projects: projects.md
   - Challenges: challenges.md

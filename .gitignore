@@ -148,3 +148,6 @@ FashionMNIST/
 
 # gemfile
 Gemfile.lock
+
+# js
+node_modules/
