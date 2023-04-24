@@ -44,7 +44,7 @@ after the run is done.
     </figcaption>
 </figure>
 
-## Exercises
+## ❔ Exercises
 
 1. We are first going to revisit our `train.py` script. If we want `cml` to automatically be able
     to report the performance of our trained model to us after it is trained, we need to give it some

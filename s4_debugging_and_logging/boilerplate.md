@@ -153,7 +153,7 @@ Multiple callbacks can be used by passing them all in a list e.g.
 trainer = Trainer(callbacks=[checkpoint_callbacks, early_stopping_callback])
 ```
 
-## Exercises
+## ❔ Exercises
 
 Please note that the in following exercise we will basically ask you to reformat all your MNIST code to follow the
 lightning standard, such that we can take advantage of all the tricks the framework has to offer. The reason we did not

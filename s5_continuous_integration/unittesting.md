@@ -38,7 +38,7 @@ Before we can begin to automatize testing of our code base we of course need to 
 and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
 for writing tests. We are going to use `pytest`.
 
-### Exercises
+### ❔ Exercises
 
 The following exercises should be applied to your MNIST repository
 

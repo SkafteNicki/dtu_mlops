@@ -89,7 +89,7 @@ model = nn.DataParallel(model, device_ids=[0, 1])  # data parallel on gpu 0 and 
 preds = model(input)  # same as usual
 ```
 
-### Exercises
+### ❔ Exercises
 
 Please note that the exercise only makes sense if you have access to multiple GPUs.
 
@@ -149,7 +149,7 @@ Empirically distributed data parallel tends to be 2-3 times faster than data par
 However, this performance increase does not come for free. Where we could implement data parallel in a single line in
 Pytorch, distributed data parallel is much more involving.
 
-### Exercises
+### ❔ Exercises
 
 1. We have provided an example of how to do distributed data parallel training in Pytorch in the two
     files `distributed_example.py` and `distributed_example.sh`. You objective is to get a understanding of the necessary

@@ -19,7 +19,7 @@ this session going to look how we can automatically build and push our docker bu
 [future module](../s6_the_cloud/using_the_cloud.md) we are also going to look at the exact same process of building
 and pushing containers but this time to an general cloud provider.
 
-## Exercises
+## ❔ Exercises
 
 For these exercises you can choose to work with any docker file of your choosing. If you want an easy docker file,
 you can use the following:

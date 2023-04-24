@@ -17,7 +17,7 @@ data from our application. It could be numbers such as:
   the core contributor to the latency that our users are experience (which we want to be low).
 * ...
 
-## Exercises
+## ❔ Exercises
 
 The exercise here is simply to follow the instructions in this repository:
 
@@ -51,7 +51,7 @@ however it is more often the case that we either have
 Therefore, setting up proper alert systems can be as challenging as setting up the systems for actually the metrics we
 want to trigger alerts.
 
-### Exercises
+### ❔ Exercises
 
 We are in this exercise going to look at how we can setup automatic alerting such that we get an message every time one
 of our applications are not behaving as expected.

@@ -32,7 +32,7 @@ things, which we are not going to touch upon in this module. For completeness we
 the only package for doing this, and of other excellent frameworks for creating command line interfaces easily we can
 mention [Typer](https://typer.tiangolo.com/).
 
-## Exercises
+## ❔ Exercises
 
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 

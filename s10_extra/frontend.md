@@ -9,7 +9,7 @@
 
 `steamlit`
 
-### Exercises
+### ❔ Exercises
 
 1. Start by installing `streamlit`
 

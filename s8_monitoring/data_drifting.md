@@ -35,7 +35,7 @@ We have now come up with a solution to the data drift problem, but there is one 
 care of: When we should actually trigger the retraining? We do not want to wait around for our model performance to
 degrade, thus we need tools that can detect when we are seeing a drift in our data.
 
-## Exercises
+## ❔ Exercises
 
 For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) developed by
 [EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports both detection for both regression and

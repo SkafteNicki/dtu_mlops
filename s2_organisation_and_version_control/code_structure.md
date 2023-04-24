@@ -48,7 +48,7 @@ definition a template is *guide* to make something. Therefore, not all parts of 
 project at hand. Your job is to pick the parts from the template that is useful for organizing your data science.
 project.
 
-## Exercises
+## ❔ Exercises
 
 After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on taking the
 simple CNN MNIST classifier from yesterdays exercise and force it into this structure. You are not required to fill out
@@ -163,3 +163,56 @@ outdated template. If you ever end up in this situation, we highly recommend to 
 [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make projects but update
 existing ones as template evolves. Cruft additionally also has template validation capabilities to ensure projects
 match the latest version of a template.
+
+
+
+However, before we can get started with how to organize code, we need to start by understanding how to package code in
+python because that will already have a big impact on how we structure our code.
+
+## Python packaging
+
+Python is a very flexible language and as such there are many ways to package code, sadly. And we therefore have to be
+aware of the two standards that exist for packaging python code.
+
+* `setup.py` files in combination with `requirements.txt` files. This is the older standard.
+* `pyproject.toml` files. This is the newer standard introduced in [pep518](https://peps.python.org/pep-0518/).
+
+The reason we need to know about these two standards is that while `pyproject.toml` is the newer standard, it is not
+the one that is mostly used, because developers have not yet adopted it.
+
+### `setup.py` files
+
+```python
+from setuptools import setup
+setup(
+    name="my_package",
+    version="0.1",
+    packages=["my_package"],
+    install_requires=[
+        "numpy",
+        "pandas",
+    ],
+)
+```
+
+and then run
+
+```bash
+python setup.py install  # or pip install .
+```
+
+### `pyproject.toml` files
+
+```toml
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "my_package"
+version = "0.1"
+description = ""
+```
+
+
+## Code structures

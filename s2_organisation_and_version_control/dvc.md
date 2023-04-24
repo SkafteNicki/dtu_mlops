@@ -41,7 +41,7 @@ code and `dvc pull/push` for the data. The key concept is the connection between
 fairly large and its respective *metafile* `model.pkl.dvc` that is very small. The large file is stored in the data
 remote and the metafile is stored in code remote.
 
-## Exercises
+## ❔ Exercises
 
 If in doubt about some of the exercises, we recommend checking out the [documentation for dvc](https://dvc.org/doc) as
 it contains excellent tutorials.

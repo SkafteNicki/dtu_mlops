@@ -64,7 +64,7 @@ The whole point of using docker is that sharing applications becomes much easier
 <figcaption> <a href="https://www.ravirajag.dev/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 
-## Exercises
+## ❔ Exercises
 
 In the following exercises we guide you how to build a docker file for your MNIST repository that will make the
 training and prediction a self contained application. Please make sure that you somewhat understand each step and do

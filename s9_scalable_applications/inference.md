@@ -37,7 +37,7 @@ architectures (conv) are more efficient than transformer (vit) for the same para
 <figcaption> <a href="https://twitter.com/wightmanr/status/1453060491970953217"> Image credit </a> </figcaption>
 </figure>
 
-### Exercises
+### ❔ Exercises
 
 As dissed in this
 [blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413)
@@ -144,7 +144,7 @@ computations in quantized format.
 </figure>
 <!-- markdownlint-restore -->
 
-### Exercises
+### ❔ Exercises
 
 1. Lets look at how quantized tensors look in Pytorch
 
@@ -185,7 +185,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 <figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
 </figure>
 
-### Exercises
+### ❔ Exercises
 
 1. We provide a start script that implements the famous
     [LeNet](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf) in this
@@ -335,7 +335,7 @@ the same capasity to learn the same as the teacher.
 <figcaption> <a href="https://deeplearningsystems.ai/#ch06/"> Image credit </a> </figcaption>
 </figure>
 
-### Exercises
+### ❔ Exercises
 
 Lets try implementing model distillation ourself. We are going to see if we can achive this on the
 [cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that exercise below can take quite long time to

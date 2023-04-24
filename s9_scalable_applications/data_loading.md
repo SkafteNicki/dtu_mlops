@@ -109,7 +109,7 @@ between the main thread and the workers. Multiprocessing makes sense when the pr
 
 It is this trade-off that we are going to investigate in the exercises.
 
-### Exercises
+### ❔ Exercises
 
 This exercise is intended to be done on the
 [labeled faces in the wild (LFW)](http://vis-www.cs.umass.edu/lfw/) dataset. The dataset consist images of famous people

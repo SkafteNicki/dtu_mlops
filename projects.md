@@ -33,7 +33,7 @@ choose between one of three such frameworks which will serve as the basis of you
   learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
   geometric deep learning, from a variety of published papers.
 
-## Exercises for project day 1
+## ❔ Exercises for project day 1
 
 Today is also dedicated to doing project work. Remember that the focus of the project work is not to demonstrate that
 you can work with the biggest and baddest deep learning model, but instead that you show that you can incorporate the

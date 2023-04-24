@@ -67,7 +67,7 @@ pre-commit install
 
 this will make sure that the file is automatically executed whenever we run `git commit`
 
-### Exercises
+### ❔ Exercises
 
 1. Install pre-commit
 

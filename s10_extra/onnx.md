@@ -41,7 +41,7 @@ an developer friendly framework, however it has historically been slow to run in
 such as [Caffe2](https://caffe2.ai/). ONNX allow you to mix-and-match frameworks based on different usecases, and
 essentially increases the longivity of your model.
 
-## Exercises
+## ❔ Exercises
 
 1. Start by installing ONNX:
 

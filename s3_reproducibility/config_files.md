@@ -91,7 +91,7 @@ if __name__ == "__main__":
 The idea behind refactoring our hyperparameters into `.yaml` files is that we disentangle the model configuration from
 the model. In this way it is easier to do version control of the configuration because we have it in a separate file.
 
-### Exercises
+### ❔ Exercises
 
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s3_reproducibility/exercise_files){ .md-button }
 

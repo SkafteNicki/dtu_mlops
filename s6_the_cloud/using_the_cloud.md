@@ -28,7 +28,7 @@ There are many reasons why one to use virtual machines:
 ![Image](../figures/gcp_compute_engine.png){ width="800"  }
 </figure>
 
-### Exercises
+### ❔ Exercises
 
 We are now going to start actually using the cloud.
 
@@ -127,7 +127,7 @@ This means that around 1 TB of data would cost you $26 which is more than what t
 data would cost on Goggle Drive, but the storage in Google cloud is much more focused on enterprise
 where you have a need for accessing data through an API.
 
-### Exercises
+### ❔ Exercises
 When we did the exercise on data version control, we made `dvc` work together with our own Google
 drive to storage data. However, a big limitation of this is that we need to authentic each time we
 try to either push or pull the data. The reason is that we need to use an API instead which is
@@ -190,7 +190,7 @@ two problems with docker
 
 For this reason we want to move both the building process and the storage of images to the cloud.
 
-### Exercises
+### ❔ Exercises
 
 For the purpose of these exercise I recommend that you start out with a dummy version of some code to make sure
 that the building process do not take too long. You are more than free to **fork**
@@ -308,7 +308,7 @@ Vertex AI is in principal and end-to-end service that can take care of everythin
 In this course we are primarily focused on just the training of our models, and then use other services for different
 parts of our pipeline.
 
-### Exercises
+### ❔ Exercises
 
 1. Lets start by see how we could train a model using Pytorch using the Compute Engine service:
 

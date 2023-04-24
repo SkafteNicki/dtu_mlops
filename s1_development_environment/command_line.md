@@ -48,7 +48,7 @@ The core difference between options and arguments is that options are optional, 
 <figcaption> <a href="https://www.learnenough.com/command-line-tutorial/basics"> Image credit </a> </figcaption>
 </figure>
 
-## Exercises
+## ❔ Exercises
 
 We have put a cheat sheet in the
 [exercise files folder](https://github.com/SkafteNicki/dtu_mlops/blob/main/s1_development_environment/exercise_files/command_line_cheatsheet.pdf)
@@ -124,7 +124,7 @@ command line.
     ```bash
     gcloud compute instances create-with-container instance-1 \
         --container-image=gcr.io/<project-id>/gcp_vm_tester
-        --zone europe-west1-b
+        --zone=europe-west1-b
     ```
 
     Identify the command, options and arguments.
@@ -132,7 +132,7 @@ command line.
     ??? success "Solution"
 
         * The command is `gcloud compute instances create-with-container`.
-        * The options are `--container-image=gcr.io/<project-id>/gcp_vm_tester` and `--zone europe-west1-b`.
+        * The options are `--container-image=gcr.io/<project-id>/gcp_vm_tester` and `--zone=europe-west1-b`.
         * The arguments are `instance-1`.
 
         The tricky part of this example is that commands can have subcommands, which are also commands. In this case

@@ -43,7 +43,7 @@ Lets take a look at how a github workflow file is organized:
     </figcaption>
 </figure>
 
-### Exercises
+### ❔ Exercises
 
 1. Start by creating a `.github` folder in the root of your repository.
     Add a sub-folder to that called `workflows`.
@@ -195,7 +195,7 @@ you where introduced to a couple of good coding practices such as being consiste
 python packages are sorted and that your code follows certain standards. In this set of exercises
 we will setup github workflows that will automatically test for this.
 
-### Exercises
+### ❔ Exercises
 
 1. Create a new workflow file called `isort.yml`, that implements the following three steps
 

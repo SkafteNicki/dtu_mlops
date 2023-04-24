@@ -38,7 +38,7 @@ To invoke the build in python debugger you can either:
   python -m pdb -c continue my_script.py
   ```
 
-## Exercises
+## ❔ Exercises
 
 <!-- markdownlint-disable -->
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files){ .md-button }

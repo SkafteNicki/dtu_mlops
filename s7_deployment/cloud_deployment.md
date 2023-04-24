@@ -22,7 +22,7 @@ Cloud functions are the easiest way to get started with deployment because they 
 For serverless deployment we still need a server to do the actual workload, however the core concept is that **you**
 do you have to manage the server. Everything is magically taken care of behind the scene.
 
-### Exercises
+### ❔ Exercises
 
 1. Go to the start page of `Cloud Functions`. Can be found in the sidebar on the homepage or you can just
    search for it. Activate the service if not already active.
@@ -133,7 +133,7 @@ requirements. However, they do not really scale with more advance applications t
 languages. We are already familiar with how we can deal with this through containers and Cloud Run is the corresponding
 service in GCP for deploying containers.
 
-### Exercises
+### ❔ Exercises
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
     from: first a small FastAPI app consisting of this

@@ -34,7 +34,7 @@ In practice, I recommend trying to identify (through experimentation) which hype
 the performance of your model and then spend your computational budget trying to optimize them while setting the
 rest to a "recommended value".
 
-## Exercises
+## ❔ Exercises
 
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 

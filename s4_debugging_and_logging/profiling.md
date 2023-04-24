@@ -25,7 +25,7 @@ profilers, with the first one being the [cProfile](https://docs.python.org/3/lib
 pythons build in profiler that can help give you an overview runtime of all the functions and methods involved in your
 programs.
 
-### Exercises
+### ❔ Exercises
 
 1. Run the `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
     script using the `-m` arg
@@ -74,7 +74,7 @@ with torch.profiler.profile(...) as prof:
     output = model(data)
 ```
 
-### Exercises
+### ❔ Exercises
 
 <!-- markdownlint-disable -->
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files){ .md-button }

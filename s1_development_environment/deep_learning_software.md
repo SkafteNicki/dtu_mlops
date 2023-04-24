@@ -68,7 +68,7 @@ If you need a fresh up on any deep learning topic in general throughout the cour
 chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow,
 Yoshua Bengio and Aaron Courville (can also be found in the literature folder).
 
-### Exercises
+### ❔ Exercises
 
 <!-- markdownlint-disable -->
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }

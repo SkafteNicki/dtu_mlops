@@ -14,7 +14,7 @@
 
 Directed Acyclic Graph (DAG)
 
-### Exercises
+### ❔ Exercises
 
 1. Start by installing `prefect`:
 

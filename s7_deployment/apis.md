@@ -44,7 +44,7 @@ machine learning applications, GET and POST are the core methods to remember. Ad
 about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol, but
 the TLDR is that it provides privacy, integrity and identification over the web.
 
-### Exercises
+### ❔ Exercises
 
 We are going to do a couple of exercises on sending requests using
 [requests package](https://requests.readthedocs.io/en/latest/) to get familiar with the syntax.
@@ -203,7 +203,7 @@ FastAPI is only one of many frameworks for defining APIs, however compared to ot
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) and [django](https://www.djangoproject.com/) it offers a sweet
 spot of being flexible enough to do what you want without having many additional (unnecessary) features.
 
-### Exercises
+### ❔ Exercises
 
 The exercises below are a condensed version of [this](https://fastapi.tiangolo.com/tutorial/) and
 [this](https://fastapi.tiangolo.com/advanced/) tutorial. If you ever need context for the exercises, we can recommend

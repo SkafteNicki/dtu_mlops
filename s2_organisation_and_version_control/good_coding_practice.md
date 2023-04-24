@@ -37,7 +37,7 @@ Here is a good rule of thump for inline comments
     *Code tells you how; Comments tell you why.* <br> <br>
     Jeff Atwood
 
-### Exercises
+### ❔ Exercises
 
 1. Go over the most complicated file in your project. Be critical and add comments where the logic
     behind the code is not easily understandable. Hint: In deep learning we often work with tensors that
@@ -63,7 +63,7 @@ comes into play, which is the  official style guide for python. It is essentiall
 One way to check if your code is pep8 compliant is to use
 [flake8](https://flake8.pycqa.org/en/latest/).
 
-### Exercises
+### ❔ Exercises
 
 1. Install flake8
 
@@ -210,7 +210,7 @@ def add2(x: Any, y: Any) -> Any:
 However, in this case we basically is in the same case as if our function were not typed, as the type hints does not
 help us at all. Therefore, use `Any` only when necessary.
 
-### Exercises
+### ❔ Exercises
 
 <!-- markdownlint-disable -->
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files){ .md-button }

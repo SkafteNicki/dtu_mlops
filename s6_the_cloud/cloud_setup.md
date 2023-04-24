@@ -17,7 +17,7 @@ you get done with exercises early I highly recommend that you deep dive more int
 <figcaption> <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a> </figcaption>
 </figure>
 
-## Exercises
+## ❔ Exercises
 
 As the first step we are going to get you setup with some Google cloud credits.
 
@@ -148,7 +148,7 @@ to go through is how to increase the quotas for how many GPUs you have available
 (or accounts using teaching credits) the default quota for GPUs that you can use is either 0 or 1 (their policies
 sometimes changes). We will in the exercises below try to increase it.
 
-### Exercises
+### ❔ Exercises
 
 1. Start by enabling the `Compute Engine` service. Simply search for it in the top search bar. It should bring you
     to the a page where you can enable the service (may take some time). We are going to look more into this service

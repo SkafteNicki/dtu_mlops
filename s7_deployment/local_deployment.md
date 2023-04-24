@@ -47,7 +47,7 @@ The major reasons why we want to compile our models with `torch.jit` are:
 * Scriptet code allows us to interface with many backend/device runtimes that require a broader view of the
   program than individual operators.
 
-### Exercises
+### ❔ Exercises
 
 We are here going to look at `torch.jit.script` for compiling our code.
 
@@ -108,7 +108,7 @@ Finally, the packaging part of Torchserve is necessary because we cannot give a 
 weights as these essentially is just a list of floats. We need a file that both contains the model definition and the
 trained weights, such that the model essentially becomes independent of the python interpreter.
 
-### Exercises
+### ❔ Exercises
 
 Torchserve can be a bit rough around the edges but is fairly easy to work with. We are largely going to follow the
 instructions listed in the [readme file](https://github.com/pytorch/serve/blob/master/README.md#serve-a-model) for

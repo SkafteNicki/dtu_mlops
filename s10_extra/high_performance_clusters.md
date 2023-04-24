@@ -63,7 +63,7 @@ The biggest bach control systems for doing scheduling on HPC are:
 
 We are going to take a look at PBS works as that is what is installed on our local university cluster.
 
-### Exercises
+### ❔ Exercises
 
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 

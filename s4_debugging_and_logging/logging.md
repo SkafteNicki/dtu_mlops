@@ -29,7 +29,7 @@ All of the frameworks offers many of the same functionalities, you can see a (bi
 Weights and Bias (wandb), as it support everything we need in this course. Additionally, it is an excellent tool for
 collaboration and sharing of results.
 
-## Exercises
+## ❔ Exercises
 
 1. Start by creating an account at [wandb](https://wandb.ai/site). I recommend using your github account but feel
    free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
