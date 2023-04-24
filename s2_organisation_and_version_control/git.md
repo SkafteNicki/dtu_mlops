@@ -30,6 +30,18 @@ this into your own projects depends, but you are at least expected to be familia
 
 ## Initial config
 
+!!! quote "What does Git stand for?"
+
+    The name "git" was given by Linus Torvalds when he wrote the very first version. He described the tool as
+    "the stupid content tracker" and the name as (depending on your mood):
+
+    * Random three-letter combination that is pronounceable, and not actually used by any common UNIX command. The fact
+        that it is a mispronunciation of "get" may or may not be relevant.
+    * Stupid. Contemptible and Despicable. simple. Take your pick from the dictionary of slang.
+    * "Global information tracker": you're in a good mood, and it actually works for you.
+        Angels sing, and a light suddenly fills the room.
+    * "Goddamn idiotic truckload of sh*t": when it breaks
+
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure
     that your installation is working by writing `git help` in a terminal and it should show you the help message for
     git.
@@ -110,6 +122,8 @@ working together on the same project.
         updated in your repository.
 
     6. You can always use the command `git status` to check where you are in the process of making a commit.
+
+    7. Also checkout the `git log` command, which will show you the history of commits that you have made.
 
 2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
     messing with your working code. Creating a new branch can be done using:

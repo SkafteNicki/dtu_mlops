@@ -142,6 +142,19 @@ Other courses with content similar to this:
 * [MLOps Zoomcamp](https://github.com/DataTalksClub/mlops-zoomcamp). MLOps online course that includes many of the same
   topics.
 
+## 👨‍🏫 Contributing
+
+If you want to contribute to the course, we are happy to have you! Anything from fixing typos to adding new content is
+welcome. For building the course material locally, it is a simple two step process:
+
+```bash
+pip install -r requirements.txt
+mkdocs serve
+```
+
+Which will start a local server that you can access at `localhost:8000` and will automatically update when you make
+changes to the course material. When you have something that you want to contribute, please make a pull request.
+
 ## License
 
 I highly value open-source, and the content of this course is therefore free to use under the Apache 2.0 license.
