@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="figures/mlops.png" width="1000">
+  <img src="figures/mlops_cycle.png" width="1000">
 </p>
 
 ## ℹ️ Course information

@@ -8,10 +8,10 @@
 
 What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
 CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
-introduced in the codebase it will be catched early on. If you look at the [MLOps pipeline](../figures/mlops.png),
-CI is one of cornerstones of operations part. However, it should be notes that applying CI does not magically secure
-that your code does not break. CI is only as strong as the tests that are automatically executed. CI simply structures
-and automates this.
+introduced in the codebase it will be catched early on. If you look at the
+[MLOps cyclepipeline](../figures/mlops-loop-en.jpg), CI is one of cornerstones of operations part. However, it
+should be notes that applying CI does not magically secure that your code does not break. CI is only as strong as the
+tests that are automatically executed. CI simply structures and automates this.
 
 !!! quote
     *Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.*

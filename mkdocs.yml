@@ -7,7 +7,7 @@ theme:
   language: en
   name: material
   favicon: figures/favicon.png
-  # logo: figures/mlops.png
+  logo: figures/mlops_cycle.png
   icon:
     repo: fontawesome/brands/github
   palette:

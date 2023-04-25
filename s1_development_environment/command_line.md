@@ -154,3 +154,6 @@ command line.
 This ends the module on the command line. If you are still not comfortable working with the command line, fear not as
 we are going to use it extensively throughout the course. If you want to spend additional time on this topic, we highly
 recommend that you [watch this video](https://www.youtube.com/watch?v=oxuRxtrO2Ag) on how to use the command line.
+
+If you are interested in personalizing your terminal, you can check out the [starship](https://starship.rs/) project,
+that allows you to customize your terminal with a lot of different options.
