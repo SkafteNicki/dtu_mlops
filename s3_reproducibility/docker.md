@@ -31,7 +31,7 @@ we try to start our program on a single machine or a 1000 machines at once.
 Docker has three main concepts: **docker file**, **docker image** and **docker container**:
 
 <figure markdown>
-    ![Image](../figures/docker_structure.png){width="800" }
+![Image](../figures/docker_structure.png){ width="800" }
 </figure>
 
 * A **docker file** is a basic text document that contains all the commands a user could call on the command line to

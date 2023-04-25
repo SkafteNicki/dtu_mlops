@@ -37,10 +37,10 @@ Lets take a look at how a github workflow file is organized:
     run when the workflow is executed.
 
 <figure markdown>
-    ![Image](../figures/actions.png){ width="1000" }
-    <figcaption>
-    <a href=" https://madewithml.com/courses/mlops/cicd/#github-actions"> Image credit </a>
-    </figcaption>
+![Image](../figures/actions.png){ width="1000" }
+<figcaption>
+<a href=" https://madewithml.com/courses/mlops/cicd/#github-actions"> Image credit </a>
+</figcaption>
 </figure>
 
 ### ❔ Exercises

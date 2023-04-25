@@ -62,7 +62,7 @@ and also transfer times such as `memcpy` (where we are copying data between devi
 It can even analyze your code and give recommendations.
 
 <figure markdown>
-    ![Image](../figures/pytorch_profiler.png){width="700" }
+![Image](../figures/pytorch_profiler.png){ width="700" }
 </figure>
 
 Using the profiler can be as simple as wrapping the code that you want to profile with the `torch.profiler.profile`

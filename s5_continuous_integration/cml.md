@@ -38,10 +38,10 @@ same process that we go through as in the other continues integration sessions: 
 after the run is done.
 
 <figure markdown>
-    ![Image](../figures/cml.jpeg){ width="1000" }
-    <figcaption>
-    <a href="https://towardsdatascience.com/continuous-machine-learning-e1ffb847b8da"> Image credit </a>
-    </figcaption>
+![Image](../figures/cml.jpeg){ width="1000" }
+<figcaption>
+<a href="https://towardsdatascience.com/continuous-machine-learning-e1ffb847b8da"> Image credit </a>
+</figcaption>
 </figure>
 
 ## ❔ Exercises

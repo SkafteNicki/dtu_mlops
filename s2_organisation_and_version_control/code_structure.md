@@ -163,4 +163,3 @@ outdated template. If you ever end up in this situation, we highly recommend to 
 [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make projects but update
 existing ones as template evolves. Cruft additionally also has template validation capabilities to ensure projects
 match the latest version of a template.
-

@@ -89,7 +89,7 @@ nav:
     - s4_debugging_and_logging/README.md
     - M11 - Debugging: s4_debugging_and_logging/debugging.md
     - M12 - Profiling: s4_debugging_and_logging/profiling.md
-    - M13 - Good Coding practice: s4_debugging_and_logging/logging.md
+    - M13 - Logging: s4_debugging_and_logging/logging.md
     - M14 - Boilerplate: s4_debugging_and_logging/boilerplate.md
   - S5 - Continues Integration ✔️:
     - s5_continuous_integration/README.md
