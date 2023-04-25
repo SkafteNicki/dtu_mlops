@@ -1,6 +1,12 @@
+# Documentation
 mkdocs-material>=9.1.6
 mkdocs-glightbox>=0.3.2
 mkdocs-material-extensions
 pymdown-extensions>=1.1.1
 mkdocs-same-dir>=0.1.2
 mkdocs-git-revision-date-localized-plugin>=1.2.0
+
+# Linting of python code
+ruff<=0.0.263
+isort<=5.9.3
+black<=23.3.0

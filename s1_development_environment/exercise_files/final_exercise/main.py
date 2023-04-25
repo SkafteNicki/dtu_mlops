@@ -1,11 +1,8 @@
-import argparse
-import sys
-
-import torch
 import click
+import torch
+from model import MyAwesomeModel
 
 from data import mnist
-from model import MyAwesomeModel
 
 
 @click.group()
@@ -14,7 +11,7 @@ def cli():
 
 
 @click.command()
-@click.option("--lr", default=1e-3, help='learning rate to use for training')
+@click.option("--lr", default=1e-3, help="learning rate to use for training")
 def train(lr):
     print("Training day and night")
     print(lr)
@@ -41,5 +38,3 @@ cli.add_command(evaluate)
 
 if __name__ == "__main__":
     cli()
-
-  

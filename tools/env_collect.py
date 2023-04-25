@@ -3,10 +3,10 @@
 # https://raw.githubusercontent.com/Lightning-AI/lightning/master/requirements/collect_env_details.py
 import os
 import platform
+import subprocess
 import sys
 
 import pkg_resources
-import subprocess
 
 sys.path += [os.path.abspath(".."), os.path.abspath("")]
 
@@ -30,11 +30,12 @@ def info_cuda():
     """Get CUDA information."""
     try:
         info = subprocess.check_output("nvidia-smi").decode("utf-8")
-    except:
+    except FileNotFoundError:
         info = "No CUDA device found"
-    info = info.replace('\n',f'\n{LEVEL_OFFSET}')
+    info = info.replace("\n", f"\n{LEVEL_OFFSET}")
     info = LEVEL_OFFSET + info
     return info
+
 
 def info_packages() -> dict:
     """Get name and version of all installed packages."""
@@ -67,7 +68,7 @@ def main() -> None:
 
     lines = nice_print(details)
     text = os.linesep.join(lines)
-    text += "\n * CUDA:\n"""
+    text += "\n * CUDA:\n"
     text += str(info_cuda())
     print(f"Current environment \n\n {text}")
 

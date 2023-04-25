@@ -3,7 +3,8 @@ from torch import nn
 from torchvision import models
 
 # TODO: add more
-backbones = ['resnet18']
+backbones = ["resnet18"]
+
 
 class EnsembleModel(nn.Module):
     def __init__(self):
@@ -12,6 +13,5 @@ class EnsembleModel(nn.Module):
 
     def forward(self, x: torch.Tensor):
         res = [bb(x) for bb in self.backbones]
-        
+
         # todo: combine the output in res
-        

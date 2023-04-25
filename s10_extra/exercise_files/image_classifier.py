@@ -1,17 +1,16 @@
 # Adjusted version of
 # https://github.com/Lightning-AI/lightning/blob/master/examples/pl_basics/backbone_image_classifier.py
 import torch
-from torch.nn import functional as F
-from torch.utils.data import DataLoader, random_split
-
 from pytorch_lightning import LightningDataModule, LightningModule
 from pytorch_lightning.cli import LightningCLI
 from pytorch_lightning.demos.mnist_datamodule import MNIST
+from torch.nn import functional as F
+from torch.utils.data import DataLoader, random_split
 from torchvision import transforms
 
 
 class LitClassifier(LightningModule):
-    def __init__(self, hidden_dim: int= 128, learning_rate: float = 0.0001):
+    def __init__(self, hidden_dim: int = 128, learning_rate: float = 0.0001):
         super().__init__()
         self.save_hyperparameters()
         self.l1 = torch.nn.Linear(28 * 28, hidden_dim)
@@ -68,7 +67,13 @@ class MyDataModule(LightningDataModule):
 
 
 def cli_main():
-    cli = LightningCLI(LitClassifier, MyDataModule, seed_everything_default=1234, save_config_overwrite=True, run=False)
+    cli = LightningCLI(
+        LitClassifier,
+        MyDataModule,
+        seed_everything_default=1234,
+        save_config_overwrite=True,
+        run=False,
+    )
     cli.trainer.fit(cli.model, datamodule=cli.datamodule)
     cli.trainer.test(ckpt_path="best", datamodule=cli.datamodule)
 
