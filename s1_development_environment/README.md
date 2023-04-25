@@ -18,3 +18,12 @@ The reason we are starting here is that many students are missing very basic ski
 expected to be picked up by yourself. This session will only cover the most basic skills to get you started on your
 development journey. If you wish to learn more about basic computer science skills in general, we highly recommend that
 you check out [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) course from MIT.
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand the basics of the command line
+    * Being able to create reproducible virtual environments
+    * Can use a modern IDE / editor for code development
+    * Can write and run a Python program implementing a simple deep learning model

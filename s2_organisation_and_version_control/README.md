@@ -20,9 +20,20 @@ The topics in this session will focus on:
 
 <figure markdown>
 ![Image](../figures/wtf.jpeg){ width="700" }
-<figcaption> <a href="https://the-tech-lead.com/2020/07/19/good-code-bad-code/"> Image credit </a> </figcaption>
+<figcaption>
+<a href="https://the-tech-lead.com/2020/07/19/good-code-bad-code/"> Image credit </a>
+</figcaption>
 </figure>
 
 Some exercises in this course are very loosely stated (including the exercises today). You are expected to seek out
 information before you ask for help (Google is your friend!) as you will both learn more for trying to solve the
 problems yourself, and it is more realistic of how the "real world" works.
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand the basics of the command line
+    * Being able to create reproducible virtual environments
+    * Can use a modern IDE / editor for code development
+    * Can write and run a Python program implementing a simple deep learning model
