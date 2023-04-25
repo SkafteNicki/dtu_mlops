@@ -2,11 +2,12 @@
 # pip install click
 # pip install markdown
 
+import re
+import warnings
+from functools import partial
+
 import click
 import markdown
-import warnings
-import re
-from functools import partial
 
 
 class TeacherWarning(UserWarning):
@@ -116,9 +117,7 @@ def check():
         partial(length_constraints, min=50, max=200),
     ]
     if len(answers) != 27:
-        raise ValueError(
-            "Number of answers are different from the expected 27. Have you filled out every field?"
-        )
+        raise ValueError("Number of answers are different from the expected 27. Have you filled out every field?")
 
     for i, (ans, const) in enumerate(zip(answers, question_constrains), start=1):
         const(ans, i)

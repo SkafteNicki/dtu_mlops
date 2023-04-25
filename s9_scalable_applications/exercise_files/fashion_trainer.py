@@ -3,31 +3,31 @@ Credit to: https://www.kaggle.com/pankajj/fashion-mnist-with-pytorch-93-accuracy
 """
 import torch
 import torch.nn as nn
-
-from torchvision.datasets import FashionMNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
+from torchvision.datasets import FashionMNIST
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+
 def output_label(label):
     output_mapping = {
-                 0: "T-shirt/Top",
-                 1: "Trouser",
-                 2: "Pullover",
-                 3: "Dress",
-                 4: "Coat",
-                 5: "Sandal",
-                 6: "Shirt",
-                 7: "Sneaker",
-                 8: "Bag",
-                 9: "Ankle Boot"
-                 }
-    input = (label.item() if type(label) == torch.Tensor else label)
+        0: "T-shirt/Top",
+        1: "Trouser",
+        2: "Pullover",
+        3: "Dress",
+        4: "Coat",
+        5: "Sandal",
+        6: "Shirt",
+        7: "Sneaker",
+        8: "Bag",
+        9: "Ankle Boot",
+    }
+    input = label.item() if type(label) == torch.Tensor else label
     return output_mapping[input]
 
-class FashionCNN(nn.Module):
 
+class FashionCNN(nn.Module):
     def __init__(self):
         super().__init__()
 
@@ -35,17 +35,17 @@ class FashionCNN(nn.Module):
             nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
             nn.BatchNorm2d(32),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2)
+            nn.MaxPool2d(kernel_size=2, stride=2),
         )
 
         self.layer2 = nn.Sequential(
             nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3),
             nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.MaxPool2d(2)
+            nn.MaxPool2d(2),
         )
 
-        self.fc1 = nn.Linear(in_features=64*6*6, out_features=600)
+        self.fc1 = nn.Linear(in_features=64 * 6 * 6, out_features=600)
         self.drop = nn.Dropout2d(0.25)
         self.fc2 = nn.Linear(in_features=600, out_features=120)
         self.fc3 = nn.Linear(in_features=120, out_features=10)
@@ -61,9 +61,20 @@ class FashionCNN(nn.Module):
 
         return out
 
+
 def train_and_test():
-    train_set = FashionMNIST('', train=True, download=True, transform=transforms.Compose([transforms.ToTensor()]))
-    test_set = FashionMNIST('', train=False, download=True, transform=transforms.Compose([transforms.ToTensor()]))
+    train_set = FashionMNIST(
+        "",
+        train=True,
+        download=True,
+        transform=transforms.Compose([transforms.ToTensor()]),
+    )
+    test_set = FashionMNIST(
+        "",
+        train=False,
+        download=True,
+        transform=transforms.Compose([transforms.ToTensor()]),
+    )
 
     train_loader = DataLoader(train_set, batch_size=100)
     test_loader = DataLoader(test_set, batch_size=100)
@@ -99,7 +110,7 @@ def train_and_test():
             # Initializing a gradient as 0 so there is no mixing of gradient among the batches
             optimizer.zero_grad()
 
-            #Propagating the error backward
+            # Propagating the error backward
             loss.backward()
 
             # Optimizing the parameters
@@ -107,7 +118,7 @@ def train_and_test():
 
             # Testing the model
             count = epoch * len(train_loader) + batch_idx
-            if not (count % 50):    # It's same as "if count % 50 == 0"
+            if not (count % 50):  # It's same as "if count % 50 == 0"
                 total = 0
                 correct = 0
 
@@ -132,8 +143,8 @@ def train_and_test():
             if not (count % 500):
                 print("Iteration: {}, Loss: {}, Accuracy: {}%".format(count, loss.data, accuracy))
 
-    class_correct = [0. for _ in range(10)]
-    total_correct = [0. for _ in range(10)]
+    class_correct = [0.0 for _ in range(10)]
+    total_correct = [0.0 for _ in range(10)]
 
     with torch.no_grad():
         for images, labels in test_loader:
@@ -149,6 +160,7 @@ def train_and_test():
 
     for i in range(10):
         print("Accuracy of {}: {:.2f}%".format(output_label(i), class_correct[i] * 100 / total_correct[i]))
+
 
 if __name__ == "__main__":
     train_and_test()
