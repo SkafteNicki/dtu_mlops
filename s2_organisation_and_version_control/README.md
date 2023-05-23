@@ -28,3 +28,12 @@ The topics in this session will focus on:
 Some exercises in this course are very loosely stated (including the exercises today). You are expected to seek out
 information before you ask for help (Google is your friend!) as you will both learn more for trying to solve the
 problems yourself, and it is more realistic of how the "real world" works.
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand the basics of version control and can use `git` to track changes to your code
+    * Knowledge on how to package python code into a library and how organize your code for reuse
+    * Understand different coding practices and how to use them to improve the quality of your code
+    * Can use `dvc` to version control data

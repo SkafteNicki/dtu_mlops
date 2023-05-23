@@ -35,7 +35,6 @@ as *automatization* of processes. The *X* then covers that the process we need t
 automatize steps in the pipeline, depends on where we are in the pipeline e.g. the tools needed to
 do continuous integration is different from the tools need to do continuous delivery.
 
-\
 In this session we are going to focus on *continuous integration (CI)*. As indicated in the image above, CI usually
 takes care of the first part of the developer pipeline that has to do with the code base, code building and code
 testing. In particular, in this module we are going to take a closer look at these questions:

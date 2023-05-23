@@ -175,6 +175,7 @@ it contains excellent tutorials.
     version control it, store it online and make it easy for other to download. Feel free to experiment with this using
     your own model checkpoints.
 
+
 Thats all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc`
 offers such more than just data version control, so if you want to deep dive into `dvc` we recommend their

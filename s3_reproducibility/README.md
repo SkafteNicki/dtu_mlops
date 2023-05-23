@@ -35,3 +35,11 @@ learning agent being responsible for medical diagnoses. It is s very clear that 
 agent give us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
 because without we cannot be sure that the exact same agent deployed at two different hospitals will actually give
 the same diagnosis (given the same input).
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * To understand the importance of reproducibility in computer science
+    * To be able to use `docker` to create a reproducible containers
+    * Understand different ways of configuring your code and how to use `hydra` to integrate with config files

@@ -214,6 +214,19 @@ The following exercises should be applied to your MNIST repository
         to get a code coverage for. Figure out how to configure `coverage` to exclude
         some files.
 
+## Knowledge check
+
+??? question "Knowledge question 1"
+
+    Assume you have a code coverage of 100%, would you expect that no bugs are present in your code?
+
+    ??? success "Solution"
+
+        No, code coverage is not a guarantee that your code is bug free. It is just a measure of how much many lines
+        of code that are actually run when your tests are executed. It is that there is some corner case that is not
+        covered by your tests and will result in a bug. However, having a high code coverage is a good indicator that
+        you actually have tested your code.
+
 That covers the basic of writing unittests for python code. We want to note that `pytest` of course is not the only
 framework for doing this. Python actually have an build in framework called
 [unittest](https://docs.python.org/3/library/unittest.html) for doing this also (but `pytest` offers a bit more

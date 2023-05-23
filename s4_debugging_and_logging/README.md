@@ -29,3 +29,12 @@ help you overcome each and everyone of these three important topics.
 
 As the final topic for today we are going to learn about how we can *minimize* boilerplate and focus on coding what
 actually matters for our project instead of all the boilerplate to get it working.
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand the basics of debugging and how to use a debugger to find bugs in your code
+    * Can use a profiler to identify bottlenecks in your code
+    * Familiar with an experiment logging framework for tracking experiments and hyperparameters of your code
+    * Be able to use `pytorch-lightning` to minimize boilerplate code and structure deep learning models

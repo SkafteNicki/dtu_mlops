@@ -18,25 +18,25 @@ To invoke the build in python debugger you can either:
 
 * Set a trace directly with the python debugger by calling
 
-  ```python
-  import pdb
-  pdb.set_trace()
-  ```
+    ```python
+    import pdb
+    pdb.set_trace()
+    ```
 
-  anywhere you want to stop the code. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`)
-  to step through the code.
+    anywhere you want to stop the code. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`)
+    to step through the code.
 
 * If you are using an editor, then you can insert inline breakpoints (in VS code this can be done by pressing `F9`)
-  and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
-  your code). The editor should then offer some interface to allow you step through your code. Here is a guide to
-  using the build in debugger [in VScode](https://code.visualstudio.com/docs/python/debugging#_basic-debugging).
+    and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
+    your code). The editor should then offer some interface to allow you step through your code. Here is a guide to
+    using the build in debugger [in VScode](https://code.visualstudio.com/docs/python/debugging#_basic-debugging).
 
 * Additionally, if your program is stopping on an error and you automatically want to start the debugger where it
-  happens, then you can simply launch the program like this from the terminal
+    happens, then you can simply launch the program like this from the terminal
 
-  ```bash
-  python -m pdb -c continue my_script.py
-  ```
+    ```bash
+    python -m pdb -c continue my_script.py
+    ```
 
 ## ❔ Exercises
 
