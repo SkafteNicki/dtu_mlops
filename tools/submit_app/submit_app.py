@@ -8,12 +8,16 @@ import streamlit as st
 from dotenv import load_dotenv
 from dropbox.exceptions import ApiError, AuthError
 
-load_dotenv()
+try:  # load credentials from secrets.toml file (for streamlit community cloud deployment)
+    DROPBOX_TOKEN = st.secrets["DROPBOX_TOKEN"]
+    DROPBOX_APP_KEY = st.secrets["DROPBOX_APP_KEY"]
+    DROPBOX_APP_SECRET = st.secrets["DROPBOX_APP_SECRET"]
+except FileNotFoundError:  # load credentials from .env file
+    load_dotenv()
+    DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
+    DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
+    DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
 
-DEBUG = False
-DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
-DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
-DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
 DEFAULT_EMAIL = "sXXXXXX@student.dtu.dk"
 
 def send_to_dropbox_and_get_group_nb(
@@ -182,15 +186,6 @@ def main():
                     return
 
                 st.write("Group information submitted!")
-
-                if DEBUG:
-                    st.write(f"Student 1: {student1}")
-                    st.write(f"Student 2: {student2}")
-                    st.write(f"Student 3: {student3}")
-                    st.write(f"Student 4: {student4}")
-                    st.write(f"Student 5: {student5}")
-                    st.write(f"Github Repo: {github_repo}")
-
                 st.header("Your group number is: " + str(group_nb))
                 st.write("Remember to write this down!")
             else:
