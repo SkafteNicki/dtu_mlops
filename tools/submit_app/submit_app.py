@@ -8,15 +8,17 @@ import streamlit as st
 from dotenv import load_dotenv
 from dropbox.exceptions import ApiError, AuthError
 
-try:  # load credentials from secrets.toml file (for streamlit community cloud deployment)
+if st.secrets.load_if_toml_exists():
     DROPBOX_TOKEN = st.secrets["DROPBOX_TOKEN"]
     DROPBOX_APP_KEY = st.secrets["DROPBOX_APP_KEY"]
     DROPBOX_APP_SECRET = st.secrets["DROPBOX_APP_SECRET"]
-except FileNotFoundError:  # load credentials from .env file
+    DROPBOX_REFRESH_TOKEN = st.secrets["DROPBOX_REFRESH_TOKEN"]
+else:  # load credentials from .env file
     load_dotenv()
     DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
     DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
     DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
+    DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
 
 DEFAULT_EMAIL = "sXXXXXX@student.dtu.dk"
 
@@ -35,6 +37,7 @@ def send_to_dropbox_and_get_group_nb(
         oauth2_access_token=DROPBOX_TOKEN,
         app_key=DROPBOX_APP_KEY,
         app_secret=DROPBOX_APP_SECRET,
+        oauth2_refresh_token=DROPBOX_REFRESH_TOKEN,
     ) as dbx:
         try:
             dbx.users_get_current_account()
