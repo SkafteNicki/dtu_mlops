@@ -207,6 +207,8 @@ def main(out_folder="student_repos", download_content: bool = False):
                 num_docker_files = len(docker_files)
                 workflow_files = [c for c in content if c['path'].startswith(".github/workflows")]
                 num_workflow_files = len(workflow_files)
+                has_requirement_file = len([c for c in content if c['name'] == "requirements.txt"]) > 0
+                has_makefile = len([c for c in content if c['name'] == "Makefile"]) > 0
             else:
                 num_contributors = None
                 num_prs = None
@@ -215,7 +217,8 @@ def main(out_folder="student_repos", download_content: bool = False):
                 contributions_per_contributor = None
                 num_docker_files = None
                 num_workflow_files = None
-
+                has_requirement_file = None
+                has_makefile = None
 
             write_to_file(
                 "repo_data.csv",
@@ -229,6 +232,8 @@ def main(out_folder="student_repos", download_content: bool = False):
                     average_commit_message_length,
                     num_docker_files,
                     num_workflow_files,
+                    has_requirement_file,
+                    has_makefile,
                 ]
             )
         upload_data("repo_data.csv")
