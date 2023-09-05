@@ -1,12 +1,13 @@
+import csv
+import datetime
 import os
 import sys
-import csv
+from typing import List
+
 import dropbox
+import requests
 from dotenv import load_dotenv
 from dropbox.exceptions import AuthError
-import requests
-from typing import List
-import datetime
 
 load_dotenv()
 DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
@@ -80,14 +81,18 @@ def reformat_repo(repo: str):
     split = repo.split("/")
     return f"{split[-2]}/{split[-1]}"
 
+
 def get_default_branch_name(repo: str) -> str:
     response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers)
     return response.json()["default_branch"]
 
+
 def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
-    """Recursively download content from a github repo
+    """
+    Recursively download content from a github repo.
 
     Args:
+    ----
         branch (str): branch name
         url (str): base url
         repo (str): repo name
@@ -103,6 +108,7 @@ def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
             path = file["path"]
             os.system(f"cd {current_path} & curl -s -OL https://raw.githubusercontent.com/{repo}/{branch}/{path}")
 
+
 def get_content_recursive(url):
     all_content = [ ]
     content = requests.get(url, headers=headers).json()
@@ -113,10 +119,12 @@ def get_content_recursive(url):
             all_content.append(c)
     return all_content
 
+
 def write_to_file(filename, row, mode="a"):
     with open(filename, mode=mode, newline='') as f:
         writer = csv.writer(f, delimiter=",")
         writer.writerow(row)
+
 
 def main(out_folder="student_repos", download_content: bool = False):
     download_data("latest_info.csv")
@@ -167,7 +175,7 @@ def main(out_folder="student_repos", download_content: bool = False):
                 commit_messages = [c["commit"]["message"] for c in commits]
                 average_commit_message_length_to_main = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
-                merged_prs = [p['number'] for p in prs if p['merged_at'] != None]
+                merged_prs = [p['number'] for p in prs if p['merged_at'] is not None]
                 for pr_num in merged_prs:
                     pr_commits = requests.get(
                         f"https://api.github.com/repos/{repo}/pulls/{pr_num}/commits",
