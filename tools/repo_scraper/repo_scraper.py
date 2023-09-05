@@ -150,6 +150,8 @@ def main(out_folder="student_repos", download_content: bool = False):
                 "average_commit_message_length",
                 "num_docker_files",
                 "num_workflow_files",
+                "has_requirement_file",
+                "has_makefile",
             ],
             mode="w"
         )

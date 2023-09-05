@@ -66,6 +66,8 @@ def main():
             "average_commit_message_length",
             "num_docker_files",
             "num_workflow_files",
+            "has_requirement_file",
+            "has_makefile",
         ]
     ]
 
@@ -84,6 +86,8 @@ def main():
             "average_commit_message_length": "Average commit message length (all)",
             "num_docker_files": "Number of docker files",
             "num_workflow_files": "Number of workflow files",
+            "has_requirement_file": "Has requirement file",
+            "has_makefile": "Has makefile",
         },
         hide_index=True,
     )
