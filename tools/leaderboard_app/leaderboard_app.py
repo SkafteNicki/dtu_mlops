@@ -8,13 +8,18 @@ from dropbox.exceptions import AuthError
 from dotenv import load_dotenv
 st.set_page_config(layout="wide")
 
-load_dotenv()
-DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
-DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
-DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
-DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
+if st.secrets.load_if_toml_exists():
+    DROPBOX_TOKEN = st.secrets["DROPBOX_TOKEN"]
+    DROPBOX_APP_KEY = st.secrets["DROPBOX_APP_KEY"]
+    DROPBOX_APP_SECRET = st.secrets["DROPBOX_APP_SECRET"]
+    DROPBOX_REFRESH_TOKEN = st.secrets["DROPBOX_REFRESH_TOKEN"]
+else:  # load credentials from .env file
+    load_dotenv()
+    DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
+    DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
+    DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
+    DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
+
 
 def download_data(filename: str) -> None:
     with dropbox.Dropbox(
