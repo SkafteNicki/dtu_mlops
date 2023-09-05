@@ -24,6 +24,7 @@ else:
 
 
 def process_data(data: List[List[str]]):
+    """Process the data from the csv file."""
     # remove empty emails
     new_data = [ ]
     for group in data:
@@ -33,6 +34,7 @@ def process_data(data: List[List[str]]):
 
 
 def load_data(filename: str) -> List[List[str]]:
+    """Load the data from the csv file."""
     with open("latest_info.csv", "r") as f:
         csv_reader = csv.reader(f, delimiter=",")
         content = [ ]
@@ -45,6 +47,7 @@ def load_data(filename: str) -> List[List[str]]:
 
 
 def download_data(filename: str) -> None:
+    """Download specific file from dropbox."""
     with dropbox.Dropbox(
         oauth2_access_token=DROPBOX_TOKEN,
         app_key=DROPBOX_APP_KEY,
@@ -59,6 +62,7 @@ def download_data(filename: str) -> None:
         dbx.files_download_to_file(filename, f"/{filename}")
 
 def upload_data(filename: str) -> None:
+    """Upload specific file to dropbox."""
     with dropbox.Dropbox(
         oauth2_access_token=DROPBOX_TOKEN,
         app_key=DROPBOX_APP_KEY,
@@ -78,27 +82,20 @@ def upload_data(filename: str) -> None:
 
 
 def reformat_repo(repo: str):
+    """Extract from the url the user id and repository name only."""
     split = repo.split("/")
     return f"{split[-2]}/{split[-1]}"
 
 
 def get_default_branch_name(repo: str) -> str:
-    response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers)
+    """Get the default branch name of a github repo."""
+    response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=100)
     return response.json()["default_branch"]
 
 
 def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
-    """
-    Recursively download content from a github repo.
-
-    Args:
-    ----
-        branch (str): branch name
-        url (str): base url
-        repo (str): repo name
-        current_path (str): current path
-    """
-    response = requests.get(url, headers=headers)
+    """Recursively download content from a github repo."""
+    response = requests.get(url, headers=headers, timeout=100)
     for file in response.json():
         if file["type"] == "dir":
             folder = file["name"]
@@ -110,6 +107,7 @@ def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
 
 
 def get_content_recursive(url):
+    """Extract all content from a github repo recursively."""
     all_content = [ ]
     content = requests.get(url, headers=headers).json()
     for c in content:
@@ -121,12 +119,14 @@ def get_content_recursive(url):
 
 
 def write_to_file(filename, row, mode="a"):
+    """Write to a local csv file."""
     with open(filename, mode=mode, newline='') as f:
         writer = csv.writer(f, delimiter=",")
         writer.writerow(row)
 
 
 def main(out_folder="student_repos", download_content: bool = False):
+    """Extract group statistics from github."""
     download_data("latest_info.csv")
     formatted_data = load_data("latest_info.csv")
 
@@ -155,22 +155,31 @@ def main(out_folder="student_repos", download_content: bool = False):
         )
 
         for group_nb, num_students, repo in formatted_data:
+            print(f"Processing group {group_nb}/{len(formatted_data)}")
             repo = reformat_repo(repo)
-            exists = requests.get(f"https://api.github.com/repos/{repo}", headers=headers)
+            exists = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=100)
             if exists.status_code == 200:
-                contributors = requests.get(f"https://api.github.com/repos/{repo}/contributors", headers=headers).json()
-                contributors = {c['login']: {"contributions": c['contributions'], "commits_pr": 0} for c in contributors}
+                contributors = requests.get(
+                    f"https://api.github.com/repos/{repo}/contributors", headers=headers, timeout=100
+                ).json()
+                contributors = {
+                    c['login']: {"contributions": c['contributions'], "commits_pr": 0} for c in contributors
+                }
                 num_contributors = len(contributors)
 
                 prs = requests.get(
-                    f"https://api.github.com/repos/{repo}/pulls", headers=headers, params={"state": "all", "per_page": 100}
+                    f"https://api.github.com/repos/{repo}/pulls",
+                    headers=headers,
+                    params={"state": "all", "per_page": 100},
+                    timeout=100,
                 ).json()
                 num_prs = len(prs)
 
                 commits = requests.get(
                     f"https://api.github.com/repos/{repo}/commits",
                     headers=headers,
-                    params={"state": "all", "per_page": 100}
+                    params={"state": "all", "per_page": 100},
+                    timeout=100,
                 ).json()
                 commit_messages = [c["commit"]["message"] for c in commits]
                 average_commit_message_length_to_main = sum([len(c) for c in commit_messages]) / len(commit_messages)
@@ -180,7 +189,8 @@ def main(out_folder="student_repos", download_content: bool = False):
                     pr_commits = requests.get(
                         f"https://api.github.com/repos/{repo}/pulls/{pr_num}/commits",
                         headers=headers,
-                        params={"state": "all", "per_page": 100}
+                        params={"state": "all", "per_page": 100},
+                        timeout=100,
                     ).json()
                     commit_messages += [c["commit"]["message"] for c in pr_commits]
                     for comm in pr_commits:

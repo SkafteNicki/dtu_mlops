@@ -24,6 +24,7 @@ else:  # load credentials from .env file
 
 
 def download_data(filename: str) -> None:
+    """Download data from dropbox."""
     with dropbox.Dropbox(
         oauth2_access_token=DROPBOX_TOKEN,
         app_key=DROPBOX_APP_KEY,

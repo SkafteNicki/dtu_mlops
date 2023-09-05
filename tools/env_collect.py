@@ -47,6 +47,7 @@ def info_packages() -> dict:
 
 
 def nice_print(details: dict, level: int = 0) -> list:
+    """Print details in a nice way."""
     lines = []
     for k in details:
         key = f"* {k}:" if level == 0 else f"- {k}:"
@@ -64,6 +65,7 @@ def nice_print(details: dict, level: int = 0) -> list:
 
 
 def main() -> None:
+    """Print all information about the current environment and system."""
     details = {"System": info_system(), "Packages": info_packages()}
 
     lines = nice_print(details)
