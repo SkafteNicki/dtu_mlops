@@ -2,9 +2,9 @@ name: Run repo scraper
 
 on:
   push:
-    branches: [main]
+    branches: [main,deployments]
   pull_request:
-    branches: [main]
+    branches: [main,deployments]
 
 jobs:
   build:
