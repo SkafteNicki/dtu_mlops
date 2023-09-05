@@ -21,5 +21,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/repo_scraper/requirements.txt
       - name: Run repo scraper
+        env:
+          DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
+          DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
+          DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
+          DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           python tools/repo_scraper/repo_scraper.py
+
