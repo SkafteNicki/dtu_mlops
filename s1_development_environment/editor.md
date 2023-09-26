@@ -33,7 +33,7 @@ Below you see an overview of the vs code interface
 The main components of VS code are:
 
 * The action bar: VS code is not an editor meant for a single language and can do many things. One of the core reasons
-    that VC code have become so popular is that custom plug-ins called **extensions** can be installed to add
+    that VS code have become so popular is that custom plug-ins called **extensions** can be installed to add
     functionality to VS code. It is in the action bar that you can navigate between these different applications
     when you have installed them.
 
@@ -78,7 +78,7 @@ following exercises are just to get you started but you can find many more tutor
     Click it and change the python environment to the one you actually want to use.
 
 3. One of the most useful tools in VSCode is the ability to navigate a hole project using the build-in
-    `Explorer`. To really take advantage of the VC code you need to make sure what you are working on is a project.
+    `Explorer`. To really take advantage of the VS code you need to make sure what you are working on is a project.
     Create a folder called `hello` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
     select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
     button and create a file called `hello.py`.
