@@ -3,6 +3,7 @@ import datetime
 import os
 import sys
 from typing import List
+from pathlib import Path
 
 import dropbox
 import requests
@@ -125,7 +126,7 @@ def write_to_file(filename, row, mode="a"):
         writer.writerow(row)
 
 
-def main(out_folder="student_repos", download_content: bool = False):
+def main(out_folder="student_repos", download_content: bool = True):
     """Extract group statistics from github."""
     download_data("latest_info.csv")
     formatted_data = load_data("latest_info.csv")
@@ -134,8 +135,31 @@ def main(out_folder="student_repos", download_content: bool = False):
     os.makedirs(out_folder, exist_ok=True)
 
     if download_content:
+        # clone repos
         for group_nb, _, repo in formatted_data:
-            os.system(f"cd {out_folder} && git clone {repo} && {move_command} {repo.split('/')[-1]} group_{group_nb}")
+            print(f"Processing group {group_nb}/{len(formatted_data)}")
+            os.system(f"cd {out_folder} && git clone {repo}")
+
+        # rename repos to student_repos
+        for group_nb, _, repo in formatted_data:
+            os.system(f"{move_command} {repo.split('/')[-1]} group_{group_nb}")
+
+        folders = os.listdir("student_repos")
+        for group_nb, _, _ in formatted_data:
+            if f"group_{group_nb}" not in folders:
+                continue
+
+            path = Path(f"{out_folder}/group_{group_nb}")
+            repo_size = sum([f.stat().st_size for f in path.glob('**/*') if f.is_file()]) / 10 ** 6  # in MB
+
+            if f"{out_folder}/group_{group_nb}/README.md" not in os.listdir(f"{out_folder}/group_{group_nb}"):
+                with open(f"{out_folder}/group_{group_nb}/README.md", "r") as f:
+                    content = f.read()
+                num_words_approx = len(content.split(" "))
+
+            if f"{out_folder}/group_{group_nb}/reports/README.md" not in os.listdir(f"{out_folder}/group_{group_nb}/reports"):
+                # check report
+                pass
 
     else:
         write_to_file(
