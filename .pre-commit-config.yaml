@@ -14,3 +14,9 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-case-conflict
       - id: detect-private-key
+
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+        name: Format code

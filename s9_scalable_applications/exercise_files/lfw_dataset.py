@@ -10,6 +10,7 @@ from torchvision import transforms
 
 class LFWDataset(Dataset):
     """Initialize LFW dataset."""
+
     def __init__(self, path_to_folder: str, transform) -> None:
         # TODO: fill out with what you need
         self.transform = transform

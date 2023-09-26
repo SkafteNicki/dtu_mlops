@@ -25,6 +25,7 @@ def read_item(item_id: int):
 
 class ItemEnum(Enum):
     """Item enum."""
+
     alexnet = "alexnet"
     resnet = "resnet"
     lenet = "lenet"
@@ -73,12 +74,14 @@ def contains_email(data: str):
 
 class DomainEnum(Enum):
     """Domain enum."""
+
     gmail = "gmail"
     hotmail = "hotmail"
 
 
 class Item(BaseModel):
     """Item model."""
+
     email: str
     domain: DomainEnum
 

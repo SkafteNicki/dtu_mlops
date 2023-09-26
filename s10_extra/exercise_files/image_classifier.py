@@ -11,6 +11,7 @@ from torchvision import transforms
 
 class LitClassifier(LightningModule):
     """Basic MNIST classifier."""
+
     def __init__(self, hidden_dim: int = 128, learning_rate: float = 0.0001):
         super().__init__()
         self.save_hyperparameters()
@@ -53,6 +54,7 @@ class LitClassifier(LightningModule):
 
 class MyDataModule(LightningDataModule):
     """Data module for MNIST."""
+
     def __init__(self, batch_size: int = 32):
         super().__init__()
         dataset = MNIST("Datasets", train=True, download=True, transform=transforms.ToTensor())

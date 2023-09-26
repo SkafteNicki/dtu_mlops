@@ -28,6 +28,7 @@ def output_label(label):
 
 class FashionCNN(nn.Module):
     """Basic CNN model for fashion MNIST."""
+
     def __init__(self):
         super().__init__()
 

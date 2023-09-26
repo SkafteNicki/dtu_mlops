@@ -83,7 +83,11 @@ def main(out_folder):
             # download content
             get_content(branch, url, repo, current_path)
         except Exception:
-            response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=10,)
+            response = requests.get(
+                f"https://api.github.com/repos/{repo}",
+                headers=headers,
+                timeout=10,
+            )
             print(f"{group_nb} did not succeed with response {response}")
 
     for group_nb, n_students, repo in tqdm.tqdm(student_info):

@@ -3,6 +3,7 @@ from torch import nn
 
 class LeNet(nn.Module):
     """LeNet implementation."""
+
     def __init__(self):
         super().__init__()
         # 1 input image channel, 6 output channels, 3x3 square conv kernel
