@@ -1,6 +1,6 @@
 """
 Adapted from
-https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb
+https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """

@@ -1,7 +1,8 @@
 """
 Basic script to scrape student repos and check a couple of properties.
+
 Requires a student_info.txt file with the following format:
-    group_nb\tn_students\trepo_url
+    group_nb,n_students,repo_url
 For example:
     2	4	https://github.com/<user>/<repo-name>
 And a github token in a token.txt file.
@@ -32,7 +33,7 @@ table = PrettyTable(
 
 
 def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
-    """Recursively download content from a github repo
+    """Recursively download content from a github repo.
 
     Args:
         branch (str): branch name
@@ -40,7 +41,7 @@ def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
         repo (str): repo name
         current_path (str): current path
     """
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=10)
     for file in response.json():
         if file["type"] == "dir":
             folder = file["name"]
@@ -52,13 +53,15 @@ def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
 
 
 def default_branch(repo):
-    response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers)
+    """Get default branch of a repo."""
+    response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=10)
     return response.json()["default_branch"]
 
 
 @click.command()
 @click.option("--out_folder", default="student_repos")
 def main(out_folder):
+    """Run scraper."""
     with open("student_info.txt", "r") as f:
         content = f.readlines()
     student_info = [c.split("\t") for c in content]
@@ -80,18 +83,21 @@ def main(out_folder):
             # download content
             get_content(branch, url, repo, current_path)
         except Exception:
-            response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers)
-            print(f"{group_nb} did not succed with reponse {response}")
+            response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=10,)
+            print(f"{group_nb} did not succeed with response {response}")
 
     for group_nb, n_students, repo in tqdm.tqdm(student_info):
         files = os.listdir(f"{group_nb}")
         nb_img_files = len(os.listdir(f"{group_nb}/figures")) if os.path.exists(f"{group_nb}/figures") else 0
-        contributors = requests.get(f"https://api.github.com/repos/{repo}/contributors", headers=headers).json()
+        contributors = requests.get(
+            f"https://api.github.com/repos/{repo}/contributors", headers=headers, timeout=10
+        ).json()
         commits = [c["contributions"] for c in contributors]
         prs = len(
             requests.get(
                 f"https://api.github.com/repos/{repo}/pulls",
                 params={"state": "all", "per_page": 100},
+                timeout=10,
             ).json()
         )
 

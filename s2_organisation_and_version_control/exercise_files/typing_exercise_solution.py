@@ -15,11 +15,10 @@ class Network(nn.Module):
     ) -> None:
         """Builds a feedforward network with arbitrary hidden layers.
 
-        Arguments
-        ---------
-        input_size: integer, size of the input layer
-        output_size: integer, size of the output layer
-        hidden_layers: list of integers, the sizes of the hidden layers
+        Arguments:
+            input_size: integer, size of the input layer
+            output_size: integer, size of the output layer
+            hidden_layers: list of integers, the sizes of the hidden layers
 
         """
         super().__init__()
@@ -35,8 +34,7 @@ class Network(nn.Module):
         self.dropout = nn.Dropout(p=drop_p)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass through the network, returns the output logits"""
-
+        """Forward pass through the network, returns the output logits."""
         for each in self.hidden_layers:
             x = F.relu(each(x))
             x = self.dropout(x)

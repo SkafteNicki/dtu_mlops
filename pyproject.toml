@@ -1,9 +1,29 @@
 [tool.ruff]
 line-length = 120
-ignore = ["F821", "F841"]
+select = ["E", "W", "F", "I", "D", "N", "S", "A", "B"]
+ignore = [
+    "F821",
+    "F841",
+    "D100",
+    "D107",
+    "D211",
+    "D212",
+    "S301",
+    "S311",
+    "S603",
+    "S605",
+    "S607",
+    "B008",
+]
+
+[tool.ruff.pydocstyle]
+convention = "google"
 
 [tool.isort]
 profile = "black"
 
 [tool.black]
 line-length = 120
+
+[tool.codespell]
+skip = "*.pdf"

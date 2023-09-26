@@ -1,8 +1,8 @@
-import torch.nn.functional as F
 from torch import nn
 
 
 class LeNet(nn.Module):
+    """LeNet implementation."""
     def __init__(self):
         super().__init__()
         # 1 input image channel, 6 output channels, 3x3 square conv kernel
@@ -13,11 +13,12 @@ class LeNet(nn.Module):
         self.fc3 = nn.Linear(84, 10)
 
     def forward(self, x):
-        x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
-        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        """Forward pass of the network."""
+        x = nn.functional.max_pool2d(nn.functional.relu(self.conv1(x)), (2, 2))
+        x = nn.functional.max_pool2d(nn.functional.relu(self.conv2(x)), 2)
         x = x.view(-1, int(x.nelement() / x.shape[0]))
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
+        x = nn.functional.relu(self.fc1(x))
+        x = nn.functional.relu(self.fc2(x))
         x = self.fc3(x)
         return x
 

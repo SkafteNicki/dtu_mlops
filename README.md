@@ -20,8 +20,8 @@
 * Type of assessment: weekly project updates + final oral examination/presentation
 * Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or
   experience with the following topics:
-    * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.)
-    * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
+    * General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)
+    * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)
     * Coding in [PyTorch](https://pytorch.org/). The first day we provide a number of exercises in PyTorch to
         get everyone's skills up-to-date as fast as possible.
 

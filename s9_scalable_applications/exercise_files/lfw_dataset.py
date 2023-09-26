@@ -1,6 +1,4 @@
-"""
-LFW dataloading
-"""
+"""LFW dataloading."""
 import argparse
 import time
 
@@ -11,14 +9,17 @@ from torchvision import transforms
 
 
 class LFWDataset(Dataset):
+    """Initialize LFW dataset."""
     def __init__(self, path_to_folder: str, transform) -> None:
         # TODO: fill out with what you need
         self.transform = transform
 
     def __len__(self):
+        """Return length of dataset."""
         return None  # TODO: fill out
 
     def __getitem__(self, index: int) -> torch.Tensor:
+        """Get item from dataset."""
         # TODO: fill out
         return self.transform(img)
 
@@ -51,7 +52,7 @@ if __name__ == "__main__":
         res = []
         for _ in range(5):
             start = time.time()
-            for batch_idx, batch in enumerate(dataloader):
+            for batch_idx, _batch in enumerate(dataloader):
                 if batch_idx > args.batches_to_check:
                     break
             end = time.time()

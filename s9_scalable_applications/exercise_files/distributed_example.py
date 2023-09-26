@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 
 import torch
 import torch.distributed as dist
-from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.nn.parallel import DistributedDataParallel
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.distributed import DistributedSampler
 from transformers import BertForMaskedLM
@@ -15,18 +15,20 @@ NUM_EPOCHS = 3
 
 
 class YourDataset(Dataset):
+    """Implement your dataset here."""
     def __init__(self):
         pass
 
 
 def main():
+    """Main function for running the distributed example."""
     parser = ArgumentParser("DDP usage example")
     # you need this argument in your scripts for DDP to work
     parser.add_argument("--local_rank", type=int, default=-1, metavar="N", help="Local process rank.")
     args = parser.parse_args()
 
     # keep track of whether the current process is the `master` process
-    # (totally optional, but I find it useful for data laoding, logging, etc.)
+    # (totally optional, but I find it useful for data loading, logging, etc.)
     args.is_master = args.local_rank == 0
 
     # set the device
@@ -48,7 +50,7 @@ def main():
     model = model.to(args.device)
 
     # initialize distributed data parallel (DDP)
-    model = DDP(model, device_ids=[args.local_rank], output_device=args.local_rank)
+    model = DistributedDataParallel(model, device_ids=[args.local_rank], output_device=args.local_rank)
 
     # initialize your dataset
     dataset = YourDataset()
@@ -60,14 +62,14 @@ def main():
     dataloader = DataLoader(dataset=dataset, sampler=sampler, batch_size=BATCH_SIZE)
 
     # start your training!
-    for epoch in range(NUM_EPOCHS):
+    for _ in range(NUM_EPOCHS):
         # put model in train mode
         model.train()
 
         # let all processes sync up before starting with a new epoch of training
         dist.barrier()
 
-        for step, batch in enumerate(dataloader):
+        for _, batch in enumerate(dataloader):
             # send batch to device
             batch = tuple(t.to(args.device) for t in batch)
 

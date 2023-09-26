@@ -28,7 +28,7 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 | ![Git](figures/icons/git.png){ width="50" } | For version control of our code we use **Git** (in complement with Github) that allows multiple developers to work together on a shared codebase |
 | ![Pytest](figures/icons/pytest.png){ width="50" } | We can use **Pytest** to write unit tests for our code, to make sure that new changes to the code does break the code base |
 | ![Linting](figures/icons/pep8.png){ width="50" } | For linting our code and keeping a consistent coding style we can use tools such as **Pylint** and **Flake8** that checks our code for common mistakes and style issues |
-| ![Actions](figures/icons/actions.png){ width="50" } | For running our unit tests and other checks on our code in a continues manner e.g. after we commit and push our code we can use **Github actions** that automatize this process |
+| ![Actions](figures/icons/actions.png){ width="50" } | For running our unit tests and other checks on our code in a continues manner e.g. after we commit and push our code we can use **Github actions** that automate this process |
 | ![Build](figures/icons/build.png){ width="50" } | Using **Cloud build** we can automate the process of building our docker images and pushing them to our container registry |
 | ![Registry](figures/icons/registry.png){ width="50" } | **Container registry** is a service that allows us to store our docker images for later use by other services |
 | ![Bucket](figures/icons/bucket.png){ width="50" } | For storing our data and trained models we can use **Cloud storage** that provides a scalable and secure storage solution |

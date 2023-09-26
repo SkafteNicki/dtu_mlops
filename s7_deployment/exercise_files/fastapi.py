@@ -13,15 +13,18 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
+    """Simple root endpoint."""
     return {"Hello": "World"}
 
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int):
+    """Simple function to get an item by id."""
     return {"item_id": item_id}
 
 
 class ItemEnum(Enum):
+    """Item enum."""
     alexnet = "alexnet"
     resnet = "resnet"
     lenet = "lenet"
@@ -29,11 +32,13 @@ class ItemEnum(Enum):
 
 @app.get("/restric_items/{item_id}")
 def read_item(item_id: ItemEnum):  # noqa: F811
+    """Simple function to get an item by id."""
     return {"item_id": item_id}
 
 
 @app.get("/query_items")
 def read_item(item_id: int):  # noqa: F811
+    """Simple function to get an item by id."""
     return {"item_id": item_id}
 
 
@@ -42,6 +47,7 @@ database = {"username": [], "password": []}
 
 @app.post("/login/")
 def login(username: str, password: str):
+    """Simple function to save a login."""
     username_db = database["username"]
     password_db = database["password"]
     if username not in username_db and password not in password_db:
@@ -54,6 +60,7 @@ def login(username: str, password: str):
 
 @app.get("/text_model/")
 def contains_email(data: str):
+    """Simple function to check if an email is valid."""
     regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
     response = {
         "input": data,
@@ -65,17 +72,20 @@ def contains_email(data: str):
 
 
 class DomainEnum(Enum):
+    """Domain enum."""
     gmail = "gmail"
     hotmail = "hotmail"
 
 
 class Item(BaseModel):
+    """Item model."""
     email: str
     domain: DomainEnum
 
 
 @app.post("/text_model/")
 def contains_email_domain(data: Item):
+    """Simple function to check if an email is valid."""
     if data.domain is DomainEnum.gmail:
         regex = r"\b[A-Za-z0-9._%+-]+@gmail+\.[A-Z|a-z]{2,}\b"
     if data.domain is DomainEnum.hotmail:
@@ -91,6 +101,7 @@ def contains_email_domain(data: Item):
 
 @app.post("/cv_model/")
 async def cv_model(data: UploadFile = File(...), h: Optional[int] = 28, w: Optional[int] = 28):
+    """Simple function using open-cv to resize an image."""
     with open("image.jpg", "wb") as image:
         content = await data.read()
         image.write(content)
