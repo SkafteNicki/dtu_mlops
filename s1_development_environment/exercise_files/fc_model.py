@@ -1,18 +1,18 @@
 import torch
-import torch.nn.functional as F
 from torch import nn
 
 
 class Network(nn.Module):
+    """Builds a feedforward network with arbitrary hidden layers.
+
+    Arguments:
+        input_size: integer, size of the input layer
+        output_size: integer, size of the output layer
+        hidden_layers: list of integers, the sizes of the hidden layers
+
+    """
+
     def __init__(self, input_size, output_size, hidden_layers, drop_p=0.5):
-        """Builds a feedforward network with arbitrary hidden layers.
-
-        Arguments:
-            input_size: integer, size of the input layer
-            output_size: integer, size of the output layer
-            hidden_layers: list of integers, the sizes of the hidden layers
-
-        """
         super().__init__()
         # Input to a hidden layer
         self.hidden_layers = nn.ModuleList([nn.Linear(input_size, hidden_layers[0])])
@@ -28,17 +28,15 @@ class Network(nn.Module):
     def forward(self, x):
         """Forward pass through the network, returns the output logits."""
         for each in self.hidden_layers:
-            x = F.relu(each(x))
+            x = nn.functional.relu(each(x))
             x = self.dropout(x)
         x = self.output(x)
 
-        return F.log_softmax(x, dim=1)
+        return nn.functional.log_softmax(x, dim=1)
 
 
 def validation(model, testloader, criterion):
-    """
-    Validate the model prediction on the testdata
-    by calculating the sum of mean loss and mean accuracy for each test batch.
+    """Validate the model on the testdata by calculating the sum of mean loss and mean accuracy for each test batch.
 
     Arguments:
         model: torch network
@@ -65,6 +63,7 @@ def validation(model, testloader, criterion):
 
 
 def train(model, trainloader, testloader, criterion, optimizer=None, epochs=5, print_every=40):
+    """Train model."""
     if optimizer is None:
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-2)
     steps = 0

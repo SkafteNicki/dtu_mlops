@@ -14,6 +14,7 @@ ignore = [
     "S605",
     "S607",
     "B008",
+    "B028",
 ]
 
 [tool.ruff.pydocstyle]

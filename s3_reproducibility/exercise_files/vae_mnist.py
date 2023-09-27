@@ -1,6 +1,4 @@
-"""
-Adapted from
-https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
+"""Adapted from https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
@@ -43,10 +41,10 @@ model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
 
 
 def loss_function(x, x_hat, mean, log_var):
+    """Elbo loss function."""
     reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction="sum")
-    KLD = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
-
-    return reproduction_loss + KLD
+    kld = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
+    return reproduction_loss + kld
 
 
 optimizer = Adam(model.parameters(), lr=lr)
@@ -57,6 +55,8 @@ model.train()
 for epoch in range(epochs):
     overall_loss = 0
     for batch_idx, (x, _) in enumerate(train_loader):
+        if batch_idx % 100 == 0:
+            print(batch_idx)
         x = x.view(batch_size, x_dim)
         x = x.to(DEVICE)
 
@@ -79,6 +79,8 @@ torch.save(model, f"{os.getcwd()}/trained_model.pt")
 model.eval()
 with torch.no_grad():
     for batch_idx, (x, _) in enumerate(test_loader):
+        if batch_idx % 100 == 0:
+            print(batch_idx)
         x = x.view(batch_size, x_dim)
         x = x.to(DEVICE)
         x_hat, _, _ = model(x)

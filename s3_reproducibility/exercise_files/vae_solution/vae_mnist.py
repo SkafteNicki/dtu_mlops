@@ -1,6 +1,4 @@
-"""
-Adapted from
-https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
+"""Adapted from https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
@@ -22,10 +20,11 @@ log = logging.getLogger(__name__)
 
 @hydra.main(config_path="config", config_name="default_config.yaml")
 def train(config):
+    """Train VAE on MNIST."""
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     hparams = config.experiment
     torch.manual_seed(hparams["seed"])
-    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # Data loading
     mnist_transform = transforms.Compose([transforms.ToTensor()])
@@ -47,14 +46,14 @@ def train(config):
         output_dim=hparams["x_dim"],
     )
 
-    model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
+    model = Model(encoder=encoder, decoder=decoder).to(device)
 
     from torch.optim import Adam
 
     def loss_function(x, x_hat, mean, log_var):
         reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction="sum")
-        KLD = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
-        return reproduction_loss + KLD
+        kld = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
+        return reproduction_loss + kld
 
     optimizer = Adam(model.parameters(), lr=hparams["lr"])
 
@@ -63,8 +62,10 @@ def train(config):
     for epoch in range(hparams["n_epochs"]):
         overall_loss = 0
         for batch_idx, (x, _) in enumerate(train_loader):
+            if batch_idx % 100 == 0:
+                print(batch_idx)
             x = x.view(hparams["batch_size"], hparams["x_dim"])
-            x = x.to(DEVICE)
+            x = x.to(device)
 
             optimizer.zero_grad()
 
@@ -85,8 +86,10 @@ def train(config):
     model.eval()
     with torch.no_grad():
         for batch_idx, (x, _) in enumerate(test_loader):
+            if batch_idx % 100 == 0:
+                print(batch_idx)
             x = x.view(hparams["batch_size"], hparams["x_dim"])
-            x = x.to(DEVICE)
+            x = x.to(device)
             x_hat, _, _ = model(x)
             break
 
@@ -95,7 +98,7 @@ def train(config):
 
     # Generate samples
     with torch.no_grad():
-        noise = torch.randn(hparams["batch_size"], hparams["latent_dim"]).to(DEVICE)
+        noise = torch.randn(hparams["batch_size"], hparams["latent_dim"]).to(device)
         generated_images = decoder(noise)
 
     save_image(generated_images.view(hparams["batch_size"], 1, 28, 28), "generated_sample.png")

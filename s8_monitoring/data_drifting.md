@@ -217,7 +217,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
     2. (Optional) For text a common approach is to extra some higher level embedding such as the very classical
         [GLOVE](https://nlp.stanford.edu/projects/glove/) embedding. Try following
-        [this tutorial](https://github.com/evidentlyai/evidently/blob/main/examples/how_to_questions/how_to_run_drift_report_for_text_encoders.ipynb)
+        [this tutorial](https://github.com/evidentlyai/evidently/blob/main/examples/how_to_questions/how_to_run_calculations_over_text_data.ipynb)
         to understand how drift detection is done on text.
 
     3. Lets instead take a deep learning based approach to doing this. Lets consider the

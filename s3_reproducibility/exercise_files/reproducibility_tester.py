@@ -15,4 +15,5 @@ if __name__ == "__main__":
     model2 = torch.load(f"{exp2}/trained_model.pt")
 
     for p1, p2 in zip(model1.parameters(), model2.parameters()):
-        assert torch.allclose(p1, p2), "encountered a difference in parameters, your script is not fully reproducible"
+        if not torch.allclose(p1, p2):
+            raise RuntimeError("encountered a difference in parameters, your script is not fully reproducible")
