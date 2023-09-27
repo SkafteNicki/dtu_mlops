@@ -8,9 +8,9 @@
 </p>
 
 Today is all about reproducibility - one of those concepts that everyone agrees is very important and something should
-be done about, but reality is that it is very hard to secure full reproducibility. The last sessions have already
+be done about, but reality is that it is very hard to secure full reproducibility. The last session have already
 touched a bit on how tools like `conda` and code organization can help make code more reproducible. Today we are going
-all the way securing that our scripts and our compute environment is fully reproducible.
+all the way securing that our scripts and our compute environment are fully reproducible.
 
 ## Why does reproducibility matter
 Reproducibility is closely related to the scientific method:
