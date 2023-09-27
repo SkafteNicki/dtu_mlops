@@ -13,8 +13,8 @@ because
 * You need to run it often to make sure to catch bugs early on
 * If you want to have high code coverage of your code base, you will need many tests that takes a long time to run
 
-For these reasons we want to automatize the testing, such that it done every time we push to our repository. If we
-combine this with only pushing to branches and then only merging these branches whenever all automatized testing have
+For these reasons we want to automate the testing, such that it done every time we push to our repository. If we
+combine this with only pushing to branches and then only merging these branches whenever all automated testing have
 passed, our code should be fairly safe against unwanted bugs (assuming your tests are well covering your code).
 
 ## Github actions
@@ -28,7 +28,7 @@ Lets take a look at how a github workflow file is organized:
 
 * Initially we start by giving the workflow a `name`
 * Next we specify on what events the workflow should be triggered. This includes both the action
-    (pull request, push ect) and on what branches is should activate
+    (pull request, push etc) and on what branches is should activate
 * Next we list the jobs that we want to do. Jobs are by default executed in parallel but can
     also be dependent on each other
 * In the `runs-on` we can specify which operation system we want the workflow to run on. We also
@@ -124,7 +124,7 @@ Lets take a look at how a github workflow file is organized:
 
     2. To your main/master branch add the following rules:
 
-        * Atleast one person needs to approve any PR
+        * At least one person needs to approve any PR
         * All your workflows has to pass
         * All conversations needs to be resolved
 

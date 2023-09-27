@@ -53,7 +53,7 @@ def check():
 
     answers.append(per_question[-1])
     answers = answers[1:]  # remove first section
-    answers = [ans.strip("\n") for ans in answers]
+    answers = [answer.strip("\n") for answer in answers]
 
     def no_constraints(answer, index):
         pass
@@ -124,8 +124,8 @@ def check():
     if len(answers) != 27:
         raise ValueError("Number of answers are different from the expected 27. Have you filled out every field?")
 
-    for i, (ans, const) in enumerate(zip(answers, question_constrains), start=1):
-        const(ans, i)
+    for i, (answer, const) in enumerate(zip(answers, question_constrains), start=1):
+        const(answer, i)
 
 
 if __name__ == "__main__":

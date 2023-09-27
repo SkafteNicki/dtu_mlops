@@ -7,7 +7,7 @@
 !!! info "Core Module"
 
 Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
-for this is that we need a new abstraction layer ontop of our applications that are not python specific. While Python
+for this is that we need a new abstraction layer on top of our applications that are not python specific. While Python
 is the defacto language for machine learning, we cannot expect everybody else to use it and in particular we cannot
 expect network protocols (both locally and external) to be able to communicate with our python programs out of the box.
 For this reason we need to understand requests, in particular HTTP requests and how to create APIs that can interact
@@ -16,7 +16,7 @@ with those requests.
 ## Requests
 
 When we are talking about requests, we are essentially talking about the communication method used in client-server
-types of architechtures. As shown in the image below, in this architechture the client (user) is going to send
+types of architectures. As shown in the image below, in this architecture the client (user) is going to send
 *requests* to a server (our machine learning application) and the server will give a *response*. For example the user
 may send a request of getting the class of a specific image, which our application will do and then send back the
 response in terms of a label.
@@ -96,7 +96,7 @@ We are going to do a couple of exercises on sending requests using
     client to the server or vice-versa. Try looking at the `response.content` attribute. What is the type of this
     attribute?
 
-5. You should hopefully observe that the `.content` atttribute is of type `bytes`. It is important to note that this is
+5. You should hopefully observe that the `.content` attribute is of type `bytes`. It is important to note that this is
     the standard way of sending payloads to encode them into `byte` objects. To get a more human readable version of
     the response, we can convert to [JSON](https://www.json.org/json-en.html) format
 
@@ -145,7 +145,7 @@ We are going to do a couple of exercises on sending requests using
     response = requests.post('https://httpbin.org/post', data = pload)
     ```
 
-    Investigate the response (this is an artifical example, because we actually does not control the server).
+    Investigate the response (this is an artificial example, because we actually does not control the server).
 
 9. Finally, we should also know that requests can be send directly from the command line using the `curl` command.
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do directly from
@@ -165,7 +165,7 @@ We are going to do a couple of exercises on sending requests using
 
     3. Try to redo some of the exercise yourself using `curl`.
 
-That ends the intro session on `requests`. Do not worry if you are still not completly comfortable with sending
+That ends the intro session on `requests`. Do not worry if you are still not completely comfortable with sending
 requests, we are going to return do how we do it in practise when we have actually created our own API. If you want to
 learn more about the `requests` package you can checkout [this tutorial](https://realpython.com/python-requests/) and
 if you want to see more example on how to use `curl` you can checkout
@@ -173,7 +173,7 @@ if you want to see more example on how to use `curl` you can checkout
 
 ## Creating APIs
 
-Requests are all about being on the client side of our client-server architechture. We are now going to move on to the
+Requests are all about being on the client side of our client-server architecture. We are now going to move on to the
 server side where we will be learning about writing the APIs that requests can interact with. An application programming
 interface (API) is essentially the way of the developer (you) telling a user how to use the application that you have
 created. The API is an abstraction layer that allows the user to interact with our application in the way we want them
@@ -191,9 +191,9 @@ and we could go on. However, there may be functionality that github is not inter
 they may therefore choose not to have endpoints for specific features.
 
 The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
-contrains that a particular API needs to fullfill to be considered RESTful. You can read more about what the six
+constraints that a particular API needs to fulfill to be considered RESTful. You can read more about what the six
 guiding principals behind REST API is [on this page](https://restfulapi.net/) but one of the most important to have in
-mind is that the client-server architechture needs to be stateless. This means that whenever a request is send to the
+mind is that the client-server architecture needs to be stateless. This means that whenever a request is send to the
 server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
 information from previous requests.
 
@@ -217,7 +217,7 @@ you can look through for help.
     pip install fastapi
     ```
 
-    This contais the functions, modules, and variables we are going to need to define our interface.
+    This contains the functions, modules, and variables we are going to need to define our interface.
 
 2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
 
@@ -283,7 +283,7 @@ you can look through for help.
 
     1. Lets start by changing the root function to include a bit more info. In particular we are also interested in
         returning the status code so the end user can easily read that. Default status codes are included in the
-        [http](https://docs.python.org/3/library/http.html) build-in python package:
+        [http](https://docs.python.org/3/library/http.html) built-in python package:
 
         ```python
         from http import HTTPStatus
@@ -321,7 +321,7 @@ you can look through for help.
 
         Add this API, reload and execute both a valid parameter and a non-valid parameter.
 
-    3. In contrast to path parameters we have query parameters. In the requests exersices we saw an example of this
+    3. In contrast to path parameters we have query parameters. In the requests exercises we saw an example of this
         where we were calling <https://api.github.com/search/code> with the query `'q': 'requests+language:python'`.
         Any parameter in FastAPI that is not a path parameter, will be considered a query parameter:
 
@@ -415,7 +415,7 @@ you can look through for help.
         ```
 
         A couple of new things are going on here: we use the specialized `UploadFile` and `File` bodies in our input
-        definition. Addtionally, we added the `async`/`await` keywords. Figure out what everything does and try to run
+        definition. Additionally, we added the `async`/`await` keywords. Figure out what everything does and try to run
         the application (you can use any image file you like).
 
     4. The above application actually does not do anything. Lets add [opencv](https://pypi.org/project/opencv-python/)
@@ -452,7 +452,7 @@ you can look through for help.
     ```
 
     returns a list of strings like `['a cat laying on a couch with a stuffed animal']` (try this yourself). Create a
-    FastAPI application that can do inference using this model e.g. it should take in an image, preferrably an optional
+    FastAPI application that can do inference using this model e.g. it should take in an image, preferably an optional
     `json` object for configuring some of the hyperparameters (like `max_length`) and should return a string
     containing the generated caption.
 
@@ -490,7 +490,7 @@ you can look through for help.
     application. For the following you can take whatever previous FastAPI application as the base application for the
     container
 
-    1. Start by creating a `requirement.txt` file for you application. You will atleast need `fastapi` and `uvicorn` in
+    1. Start by creating a `requirement.txt` file for you application. You will at least need `fastapi` and `uvicorn` in
         the file and we as always recommend that you are specific about the version you want to use:
 
         ```txt

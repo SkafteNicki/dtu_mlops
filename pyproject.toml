@@ -27,4 +27,4 @@ line-length = 120
 exclude = "(.eggs|.git|.hg|.mypy_cache|.venv|_build|buck-out|build|dist)"
 
 [tool.codespell]
-skip = "*.pdf"
+skip = "*.pdf,*.ipynb"

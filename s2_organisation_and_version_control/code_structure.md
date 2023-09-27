@@ -58,7 +58,7 @@ run a file I recommend always doing this from the root directory e.g.
 ```bash
 python src/data/make_dataset.py data/raw data/processed
 python src/models/train_model.py <arguments>
-ect...
+etc...
 ```
 
 in this way paths (for saving and loading files) are always relative to the root.
@@ -157,7 +157,7 @@ in this way paths (for saving and loading files) are always relative to the root
 
 That ends the module on code structure and `cookiecutter`. We again want to stress the point that `cookiecutter` is
 just one template for organizing your code. What often happens in a team is that multiple templates are needed in
-different stages of the development phase or for different product types because they share commen structure, while
+different stages of the development phase or for different product types because they share common structure, while
 still having some specifics. Keeping templates up-to-date then becomes critical such that no team member is using an
 outdated template. If you ever end up in this situation, we highly recommend to checkout
 [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make projects but update

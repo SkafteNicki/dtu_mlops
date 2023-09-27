@@ -43,7 +43,7 @@ def validation(model, testloader, criterion):
     Arguments:
         model: torch network
         testloader: torch.utils.data.DataLoader, dataloader of test set
-        criterion: loss funtion
+        criterion: loss function
     """
     accuracy = 0
     test_loss = 0

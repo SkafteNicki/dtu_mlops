@@ -27,7 +27,7 @@ Tier, the larger applications it is possible to run.
 ## Cluster architectures
 
 In very general terms, cluster can come as two different kind of systems: supercomputers and LSF
-(Load Sharing Facility). A supercomputer (as shown below) is organized into different modules, that are seperated by
+(Load Sharing Facility). A supercomputer (as shown below) is organized into different modules, that are separated by
 network link. When you login to a supercomputer you will meet the front end which contains all the software needed to
 run computations. When you submit a job it will get sent to the backend modules which in most cases includes: general
 compute modules (CPU), acceleration modules (GPU), a memory module (RAM) and finally a storage module (HDD). Depending
@@ -36,7 +36,7 @@ important but in physics simulation the general compute module / storage model i
 
 <figure markdown>
   ![Image](../figures/meluxina_overview.png){ width="800" }
-  <figcaption> Overview of the Meluxina supercomputer thats part of EuroHPC.
+  <figcaption> Overview of the Meluxina supercomputer that's part of EuroHPC.
   <a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
   </figcaption>
 </figure>
@@ -48,7 +48,7 @@ better to run on a LSF system if you are only requesting resources that can be h
 is better to run on a supercomputer if you have a resource intensive application that requires many devices to
 communicate with each others.
 
-Regardless of cluster architechtures, on the software side of HPC, the most important part is whats called the
+Regardless of cluster architectures, on the software side of HPC, the most important part is what's called the
 *HPC scheduler*. Without a HPC scheduler an HPC cluster would just be a bunch of servers with different jobs
 interfering with each other. The problem is when you have a large collection of resources and a large collection of
 users, you cannot rely on the users just running their applications without interfering with each other. A HPC scheduler
@@ -113,7 +113,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 
         using this [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt).
 
-3. Thats all the setup needed. You would need to go through the creating of environment and installation of requirements
+3. That's all the setup needed. You would need to go through the creating of environment and installation of requirements
     whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
     jobs on the cluster. We are now ready to submit the our first job to the cluster:
 
@@ -135,7 +135,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
         bsub < jobscript.sh
         ```
 
-        You can check the status of your script by running the `bstat` command. Hopefully, the job should go trough
+        You can check the status of your script by running the `bstat` command. Hopefully, the job should go through
         really quickly. Take a look at the output file, it should be called something like `gpu_*.out`. Also take a
         look at the `gpu_*.err` file. Does both files look as they should?
 
@@ -173,7 +173,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
             --trainer.accelerator 'gpu' --trainer.devices 1  --trainer.max_epochs 5
         ```
 
-        which will run the image classifier script (change it if you are runnning something else).
+        which will run the image classifier script (change it if you are running something else).
 
     3. Finally submit the job:
 

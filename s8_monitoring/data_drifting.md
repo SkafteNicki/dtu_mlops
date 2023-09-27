@@ -281,7 +281,7 @@ should actually respond to feature beginning to drift and when it is probably fi
 application what kind of rules that should be implemented. Additionally, the tools presented here are also in no way
 complete and are especially limited in one way: they are only considering the marginal distribution of data. Every
 analysis that we done have been on the distribution per feature (the marginal distribution), however as the image below
-show it is possible for data to have drifted to another distribution with the marginal being approximatively the same.
+show it is possible for data to have drifted to another distribution with the marginal being approximately the same.
 
 <figure markdown>
 ![Image](../figures/data_drift_marginals.png){width="500"}

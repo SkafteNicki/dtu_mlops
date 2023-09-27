@@ -32,7 +32,7 @@ to the end of the pipeline.
 This is where *continuous X* comes into play. The word *continuous* here refer to the fact that the
 pipeline should *continuously* be updated as we make code changes. You can also choose to think of this
 as *automatization* of processes. The *X* then covers that the process we need to go through to
-automatize steps in the pipeline, depends on where we are in the pipeline e.g. the tools needed to
+automate steps in the pipeline, depends on where we are in the pipeline e.g. the tools needed to
 do continuous integration is different from the tools need to do continuous delivery.
 
 In this session we are going to focus on *continuous integration (CI)*. As indicated in the image above, CI usually
@@ -40,7 +40,7 @@ takes care of the first part of the developer pipeline that has to do with the c
 testing. In particular, in this module we are going to take a closer look at these questions:
 
 * How to write unittests for our applications
-* How to automatize tests being run on code changes
+* How to automate tests being run on code changes
 * How to secure we do not commit code that does not follow our code standards
-* How we can automatize building of docker images
-* How we can automatize training of our machine learning pipeline
+* How we can automate building of docker images
+* How we can automate training of our machine learning pipeline

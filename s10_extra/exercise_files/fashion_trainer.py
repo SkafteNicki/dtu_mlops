@@ -102,7 +102,7 @@ def train_and_test():
 
     for epoch in range(num_epochs):
         for batch_idx, (images, labels) in enumerate(train_loader):
-            # Transfering images and labels to GPU if available
+            # Transferring images and labels to GPU if available
             images, labels = images.to(device), labels.to(device)
 
             # Forward pass

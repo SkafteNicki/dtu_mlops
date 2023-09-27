@@ -11,7 +11,7 @@
 To understand what good coding practice is, it is important to understand what it is *not*:
 
 * Making sure your code run fast
-* Making sure that you use a specific coding paradigm (object orientated programming ect.)
+* Making sure that you use a specific coding paradigm (object orientated programming etc.)
 * Making sure to only use few dependencies
 
 Instead good coding practices really comes down to two topics: documentation and styling.
@@ -150,7 +150,7 @@ max-line-length = 100
 
 In addition to writing documentation and following a specific styling, in python we have a third way of improving the
 quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier
-programming languages like `c`, `c++` ect. where [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/)
+programming languages like `c`, `c++` etc. where [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/)
 needed to be explicit stated for variables:
 
 ```cpp
@@ -198,7 +198,7 @@ different.
 
 <!-- markdownlint-restore -->
 
-Finally, since this is a very generic function it also works on `numpy` arrays ect. we can always default to the `Any`
+Finally, since this is a very generic function it also works on `numpy` arrays etc. we can always default to the `Any`
 type if we are not sure about all the specific types that a function can take
 
 ```python

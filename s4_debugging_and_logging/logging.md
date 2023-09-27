@@ -60,7 +60,7 @@ collaboration and sharing of results.
    logged.
 
 6. Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
-   cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image` ect. depending
+   cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image` etc. depending
    on what you choose to log.
 
 7. Finally, lets create a report that you can share. Click the **Create report** button and include some of the
@@ -104,7 +104,7 @@ collaboration and sharing of results.
        please take a look at the script being copied into the image and afterwards build the docker image.
 
     3. When we want to run the image, what we need to do is including a environment variables that contains the API key
-       we generated. This will then autheticate the docker container with the wandb server:
+       we generated. This will then authenticate the docker container with the wandb server:
 
        ```bash
        docker run -e WANDB_API_KEY=<your-api-key> wandb:latest

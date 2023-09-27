@@ -22,7 +22,7 @@ To really get reproducibility we need to also capture also system level componen
 * software dependencies (other than python packages)
 
 Docker provides this kind of system-level reproducibility by creating isolated programs dependencies. In addition to
-docker providing reproducibility, one of the key features are also scaleability which is important when we later on
+docker providing reproducibility, one of the key features are also scalability which is important when we later on
 are going to discuss deployment. Because docker is system-level reproducible, it does not (conceptually) matter if
 we try to start our program on a single machine or a 1000 machines at once.
 
@@ -229,7 +229,7 @@ beneficial for you to download.
     ??? warning "MAC M1/M2 users"
 
         There is a good chance that it docker build will not work out of the box for you, because M1/M2 chips use
-        another build architechture. Thus you need to specify the platform that you want to build for. This can be
+        another build architecture. Thus you need to specify the platform that you want to build for. This can be
         done by adding the following to your `FROM` statement:
 
         ```docker
@@ -335,7 +335,7 @@ beneficial for you to download.
         docker pull nvidia/cuda:11.0.3-base-ubuntu20.04
         ```
 
-        but it may differ based on what cuda vision you have. You can find all the different offical Nvidia images
+        but it may differ based on what cuda vision you have. You can find all the different official Nvidia images
         [here](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
         inside a container based on the image you just pulled. It should look something like this:
 

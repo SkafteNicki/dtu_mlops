@@ -98,5 +98,5 @@ this will make sure that the file is automatically executed whenever we run `git
 
 7. Finally, figure out how to disable `pre-commit` again.
 
-That was all about how `pre-commit` can be used to automatize tasks. If you want to deep dive more into the topic you
+That was all about how `pre-commit` can be used to automate tasks. If you want to deep dive more into the topic you
 can checkout this [page](https://pre-commit.com/#python) on how to define your own `pre-commit` hooks.

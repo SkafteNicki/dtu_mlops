@@ -8,7 +8,7 @@
 
 What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
 CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
-introduced in the codebase it will be catched early on. If you look at the
+introduced in the codebase it will be caught early on. If you look at the
 [MLOps cyclepipeline](../figures/mlops-loop-en.jpg), CI is one of cornerstones of operations part. However, it
 should be notes that applying CI does not magically secure that your code does not break. CI is only as strong as the
 tests that are automatically executed. CI simply structures and automates this.
@@ -34,7 +34,7 @@ important but we are not going to focus on it in this course.
 
 ## Pytest
 
-Before we can begin to automatize testing of our code base we of course need to write the tests first. It is both a hard
+Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
 and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
 for writing tests. We are going to use `pytest`.
 
@@ -234,5 +234,5 @@ features). Another open-source framework that you could choose to checkout is
 [hypothesis](https://github.com/HypothesisWorks/hypothesis) that can really help catch errors in corner cases of your
 code. In addition to writing unittests it is also highly recommended to test code that you include in your
 docstring belonging to your functions and modulus to make sure that any code there is in your documentation is also
-correct. For such testing we can highly recommend using pythons build-in framework
+correct. For such testing we can highly recommend using pythons built-in framework
 [doctest](https://docs.python.org/3/library/doctest.html).

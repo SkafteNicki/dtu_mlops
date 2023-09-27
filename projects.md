@@ -21,7 +21,7 @@ all the awesome packages that exist to extend the functionality of Pytorch. For 
 choose between one of three such frameworks which will serve as the basis of your project. The three frameworks are:
 
 * [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models). PyTorch Image Models (also known as TIMM)
-  is the absolutly most used computer vision package (maybe except for `torchvision`). It contains models, scripts and
+  is the absolutely most used computer vision package (maybe except for `torchvision`). It contains models, scripts and
   pre trained for a lot of state-of-the-art image models within computer vision.
 
 * [Transformers](https://github.com/huggingface/transformers). The Transformers repository from the Huggingface group

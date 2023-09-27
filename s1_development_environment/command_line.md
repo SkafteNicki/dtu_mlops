@@ -35,7 +35,7 @@ As already stated, it is essentially just a big text interface to interact with 
 when trying to execute a command, there are several parts to it:
 
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
-    are in, followed by some kind of sign: `$`, `>`, `:` are the usual onces. It can also contain other information,
+    are in, followed by some kind of sign: `$`, `>`, `:` are the usual ones. It can also contain other information,
     such as in the case of the above image it is also showing the current `conda` environment.
 2. The **command** is the actual command you want to execute. For example, `ls` or `cd`
 3. The **options** are additional arguments that you can pass to the command. For example, `ls -l` or `cd ..`.

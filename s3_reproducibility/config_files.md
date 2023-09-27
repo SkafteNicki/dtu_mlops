@@ -46,7 +46,7 @@ an [argument parser](https://docs.python.org/3/library/argparse.html) e.g. run e
 python train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
 ```
 
-This at least solves the problem with configurability. However, we again can end up with loosing experiments if we are
+This at least solves the problem with configurability. However, we again can end up with losing experiments if we are
 not careful.
 
 What we really want is some way to easy configure our experiments where the hyperparameters are systematically saved

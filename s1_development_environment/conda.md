@@ -1,6 +1,6 @@
 ![Logo](../figures/icons/conda.png){ align=right width="130"}
 
-# Conda and virtual enviroments
+# Conda and virtual environments
 
 ---
 

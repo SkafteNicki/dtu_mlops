@@ -161,7 +161,7 @@ service in GCP for deploying containers.
 
         afterwards check you container registry to check that you have successfully pushed the image.
 
-2. Next go to `Cloud Run` in the cloud consol an enable the service
+2. Next go to `Cloud Run` in the cloud console an enable the service
 
 3. Click the `Create Service` button which should bring you to a page similar to the one below
 

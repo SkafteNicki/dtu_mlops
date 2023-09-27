@@ -40,7 +40,7 @@ The main components of VS code are:
 * The side bar: The side bar has different functionality depending on what extension that you have open.
     In most cases, the side bar will just contain the file explorer.
 
-* The editor: This where you code is. VS code supports a number of layouts in the editor (one column, two column ect.).
+* The editor: This where you code is. VS code supports a number of layouts in the editor (one column, two column etc.).
     You can make a custom layout by dragging a file to where you want the layout to split.
 
 * The panel: The panel contains a terminal for you to interact with. This can quickly be used to try out code by
@@ -77,10 +77,10 @@ following exercises are just to get you started but you can find many more tutor
     which indicates that you are using the stock python installation, instead of the one you have created using `conda`.
     Click it and change the python environment to the one you actually want to use.
 
-3. One of the most useful tools in VSCode is the ability to navigate a hole project using the build-in
+3. One of the most useful tools in VSCode is the ability to navigate a hole project using the built-in
     `Explorer`. To really take advantage of the VS code you need to make sure what you are working on is a project.
     Create a folder called `hello` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
-    select `Open Folder`). You should end up with a completly clean workspace (as shown below). Click the `New file`
+    select `Open Folder`). You should end up with a completely clean workspace (as shown below). Click the `New file`
     button and create a file called `hello.py`.
 
     <figure markdown>
@@ -102,7 +102,7 @@ following exercises are just to get you started but you can find many more tutor
     * Select some code and right click, choosing to run in a interactive window (where you can interact with the results
         like in a jupyter notebook)
 
-Thats, the basic of using VScode. We recommend highly that you revisit
+That's, the basic of using VScode. We recommend highly that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
 as debugging and version control which VScode can help with.
 

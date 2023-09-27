@@ -150,7 +150,7 @@ it contains excellent tutorials.
     than your standard code) to make sure that the two commands indeed downloads both your code and data.
 
 10. Lets look about the process of updating our data. Remember the important aspect of version control is that we do not
-    need to store explicit files called `data_v1.pt`, `data_v2.pt` ect. but just have a single `data.pt` that where we
+    need to store explicit files called `data_v1.pt`, `data_v2.pt` etc. but just have a single `data.pt` that where we
     can always checkout earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from this
     repository to your MNIST code. This contains 3 extra datafiles with 15000 additional observations. Rerun your data
     pipeline so these gets incorporated into the files in your `processed` folder.
@@ -175,7 +175,7 @@ it contains excellent tutorials.
     version control it, store it online and make it easy for other to download. Feel free to experiment with this using
     your own model checkpoints.
 
-Thats all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
+That's all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc`
 offers such more than just data version control, so if you want to deep dive into `dvc` we recommend their
 [pipeline](https://dvc.org/doc/user-guide/project-structure/pipelines-files) feature and how this can be used to setup

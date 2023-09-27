@@ -382,7 +382,7 @@ parts of our pipeline.
         docker push gcr.io/<project-id>/gcp_vm_tester
         ```
 
-        confirm by going to the container registry in the cloud consol and check that the image has been correctly
+        confirm by going to the container registry in the cloud console and check that the image has been correctly
         pushed.
 
     3. Lets then create a VM with that particular docker image. Instead of using `gcloud compute instances create` we
@@ -403,7 +403,7 @@ parts of our pipeline.
 
 3. We are now moving on to the final way to train our code, using `Vertex AI` service.
 
-    1. Start by enabling it by searching for `Vertex AI` in the cloud consol and go to the service
+    1. Start by enabling it by searching for `Vertex AI` in the cloud console and go to the service
 
     2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker containers
         that contains everything to run our code. Thus the only command that we actually need to use is
