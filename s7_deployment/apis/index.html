@@ -1817,14 +1817,14 @@
 <p class="admonition-title">Core Module</p>
 </div>
 <p>Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
-for this is that we need a new abstraction layer ontop of our applications that are not python specific. While Python
+for this is that we need a new abstraction layer on top of our applications that are not python specific. While Python
 is the defacto language for machine learning, we cannot expect everybody else to use it and in particular we cannot
 expect network protocols (both locally and external) to be able to communicate with our python programs out of the box.
 For this reason we need to understand requests, in particular HTTP requests and how to create APIs that can interact
 with those requests.</p>
 <h2 id="requests">Requests</h2>
 <p>When we are talking about requests, we are essentially talking about the communication method used in client-server
-types of architechtures. As shown in the image below, in this architechture the client (user) is going to send
+types of architectures. As shown in the image below, in this architecture the client (user) is going to send
 <em>requests</em> to a server (our machine learning application) and the server will give a <em>response</em>. For example the user
 may send a request of getting the class of a specific image, which our application will do and then send back the
 response in terms of a label.</p>
@@ -1892,7 +1892,7 @@ client to the server or vice-versa. Try looking at the <code>response.content</c
 attribute?</p>
 </li>
 <li>
-<p>You should hopefully observe that the <code>.content</code> atttribute is of type <code>bytes</code>. It is important to note that this is
+<p>You should hopefully observe that the <code>.content</code> attribute is of type <code>bytes</code>. It is important to note that this is
     the standard way of sending payloads to encode them into <code>byte</code> objects. To get a more human readable version of
     the response, we can convert to <a href="https://www.json.org/json-en.html">JSON</a> format</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1930,7 +1930,7 @@ in this case we would need to convert from bytes to an image:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">pload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span><span class="p">:</span><span class="s1">&#39;Olivia&#39;</span><span class="p">,</span><span class="s1">&#39;password&#39;</span><span class="p">:</span><span class="s1">&#39;123&#39;</span><span class="p">}</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/post&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pload</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Investigate the response (this is an artifical example, because we actually does not control the server).</p>
+<p>Investigate the response (this is an artificial example, because we actually does not control the server).</p>
 </li>
 <li>
 <p>Finally, we should also know that requests can be send directly from the command line using the <code>curl</code> command.
@@ -1954,13 +1954,13 @@ in this case we would need to convert from bytes to an image:</p>
 </ol>
 </li>
 </ol>
-<p>That ends the intro session on <code>requests</code>. Do not worry if you are still not completly comfortable with sending
+<p>That ends the intro session on <code>requests</code>. Do not worry if you are still not completely comfortable with sending
 requests, we are going to return do how we do it in practise when we have actually created our own API. If you want to
 learn more about the <code>requests</code> package you can checkout <a href="https://realpython.com/python-requests/">this tutorial</a> and
 if you want to see more example on how to use <code>curl</code> you can checkout
 <a href="https://gist.github.com/subfuzion/08c5d85437d5d4f00e58">this page</a></p>
 <h2 id="creating-apis">Creating APIs</h2>
-<p>Requests are all about being on the client side of our client-server architechture. We are now going to move on to the
+<p>Requests are all about being on the client side of our client-server architecture. We are now going to move on to the
 server side where we will be learning about writing the APIs that requests can interact with. An application programming
 interface (API) is essentially the way of the developer (you) telling a user how to use the application that you have
 created. The API is an abstraction layer that allows the user to interact with our application in the way we want them
@@ -1976,9 +1976,9 @@ functions:</p>
 <p>and we could go on. However, there may be functionality that github is not interested in users having access to and
 they may therefore choose not to have endpoints for specific features.</p>
 <p>The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
-contrains that a particular API needs to fullfill to be considered RESTful. You can read more about what the six
+constraints that a particular API needs to fulfill to be considered RESTful. You can read more about what the six
 guiding principals behind REST API is <a href="https://restfulapi.net/">on this page</a> but one of the most important to have in
-mind is that the client-server architechture needs to be stateless. This means that whenever a request is send to the
+mind is that the client-server architecture needs to be stateless. This means that whenever a request is send to the
 server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
 information from previous requests.</p>
 <p>To implement APIs in practise we are going to use <a href="https://fastapi.tiangolo.com/">FastAPI</a>. FastAPI is a
@@ -1997,7 +1997,7 @@ you can look through for help.</p>
 <p>Install FastAPI</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>fastapi
 </span></code></pre></div>
-<p>This contais the functions, modules, and variables we are going to need to define our interface.</p>
+<p>This contains the functions, modules, and variables we are going to need to define our interface.</p>
 </li>
 <li>
 <p>Additionally, also install <code>uvicorn</code> which is a package for defining low level server applications.</p>
@@ -2065,7 +2065,7 @@ will give info on when and how your application is being invoked.</p>
 <li>
 <p>Lets start by changing the root function to include a bit more info. In particular we are also interested in
     returning the status code so the end user can easily read that. Default status codes are included in the
-    <a href="https://docs.python.org/3/library/http.html">http</a> build-in python package:</p>
+    <a href="https://docs.python.org/3/library/http.html">http</a> built-in python package:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
@@ -2099,7 +2099,7 @@ initialized the app with the <code>--reload</code> argument.</p>
 <p>Add this API, reload and execute both a valid parameter and a non-valid parameter.</p>
 </li>
 <li>
-<p>In contrast to path parameters we have query parameters. In the requests exersices we saw an example of this
+<p>In contrast to path parameters we have query parameters. In the requests exercises we saw an example of this
     where we were calling <a href="https://api.github.com/search/code">https://api.github.com/search/code</a> with the query <code>'q': 'requests+language:python'</code>.
     Any parameter in FastAPI that is not a path parameter, will be considered a query parameter:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/query_items&quot;</span><span class="p">)</span>
@@ -2183,7 +2183,7 @@ application to check if the email and domain also matches. Hint: take a look at
 </span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>    <span class="k">return</span> <span class="n">response</span>
 </span></code></pre></div>
 <p>A couple of new things are going on here: we use the specialized <code>UploadFile</code> and <code>File</code> bodies in our input
-definition. Addtionally, we added the <code>async</code>/<code>await</code> keywords. Figure out what everything does and try to run
+definition. Additionally, we added the <code>async</code>/<code>await</code> keywords. Figure out what everything does and try to run
 the application (you can use any image file you like).</p>
 </li>
 <li>
@@ -2216,7 +2216,7 @@ get a file back with the resized image.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">predict_step</span><span class="p">([</span><span class="s1">&#39;s7_deployment/exercise_files/my_cat.jpg&#39;</span><span class="p">])</span>
 </span></code></pre></div>
 <p>returns a list of strings like <code>['a cat laying on a couch with a stuffed animal']</code> (try this yourself). Create a
-FastAPI application that can do inference using this model e.g. it should take in an image, preferrably an optional
+FastAPI application that can do inference using this model e.g. it should take in an image, preferably an optional
 <code>json</code> object for configuring some of the hyperparameters (like <code>max_length</code>) and should return a string
 containing the generated caption.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">VisionEncoderDecoderModel</span><span class="p">,</span> <span class="n">ViTFeatureExtractor</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
@@ -2254,7 +2254,7 @@ containing the generated caption.</p>
     container</p>
 <ol>
 <li>
-<p>Start by creating a <code>requirement.txt</code> file for you application. You will atleast need <code>fastapi</code> and <code>uvicorn</code> in
+<p>Start by creating a <code>requirement.txt</code> file for you application. You will at least need <code>fastapi</code> and <code>uvicorn</code> in
     the file and we as always recommend that you are specific about the version you want to use:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>fastapi&gt;=0.68.0,&lt;0.69.0
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>uvicorn&gt;=0.15.0,&lt;0.16.0
@@ -2335,7 +2335,7 @@ In particular
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
       
         <br>
         Created:

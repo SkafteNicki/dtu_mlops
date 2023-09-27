@@ -1893,9 +1893,9 @@ actual training, automizing everything that you do not want to worry about.</p>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">()</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">traier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Thats is essentially all that you need to specify in lightning to have a working model. The trainer object does not
+<p>That's is essentially all that you need to specify in lightning to have a working model. The trainer object does not
 have methods that you need to implement yourself, but it have a bunch of arguments that can be used to control how many
-epochs that you want to train, if you want to run on gpu ect. To get the training of our model to work we just need to
+epochs that you want to train, if you want to run on gpu etc. To get the training of our model to work we just need to
 specify how our data should be feed into the lighning framework.</p>
 <h3 id="data">Data</h3>
 <p>For organizing our code that has to do with data in <code>Lightning</code> we essentially have three different options. However,
@@ -1914,7 +1914,7 @@ all three assume that we are using <code>torch.utils.data.DataLoader</code> for 
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span></code></pre></div>
 <ol>
-<li>Maybe even simplier, we can directly feed such dataloaders in the <code>fit</code> method of the <code>Trainer</code> object:</li>
+<li>Maybe even simpler, we can directly feed such dataloaders in the <code>fit</code> method of the <code>Trainer</code> object:</li>
 </ol>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val_dataloader</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">trainer</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="p">)</span>
@@ -1932,9 +1932,9 @@ use one of the
 <a href="https://pytorch-lightning.readthedocs.io/en/latest/extensions/callbacks.html#built-in-callbacks">build in callbacks</a>.
 Of particular interest are <code>ModelCheckpoint</code> and <code>EarlyStopping</code> callbacks:</p>
 <ul>
-<li>The <code>ModelCheckpoint</code> makes sure to save checkpoints of you model. This is in pricipal not hard to do yourself, but
+<li>The <code>ModelCheckpoint</code> makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
   the <code>ModelCheckpoint</code> callback offers additional functionality by saving checkpoints only when some metric improves,
-  or only save the best <code>K</code> performing models ect.</li>
+  or only save the best <code>K</code> performing models etc.</li>
 </ul>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">checkpoint_callback</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span>
@@ -1964,7 +1964,7 @@ implement our model in <code>lightning</code> to begin with, is that to truly un
 framework to do some of the heavy lifting you need to have gone through some of implementation troubles yourself.</p>
 <ol>
 <li>
-<p>Convert your corrupted MNIST model into a <code>LightningModule</code>. You can either choose to completly override your old
+<p>Convert your corrupted MNIST model into a <code>LightningModule</code>. You can either choose to completely override your old
    model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
    the rest of lightning:</p>
 </li>
@@ -2058,7 +2058,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
    <a href="https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision">precision</a> flag in the <code>Trainer</code>.</p>
 </li>
 <li>
-<p>(Optional) Lightning also have build-in support for profiling. Checkout how to do this using the
+<p>(Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
     <a href="https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html">profiler</a> argument in
     the <code>Trainer</code> object.</p>
 </li>
@@ -2095,7 +2095,7 @@ want to highlight other frameworks in the lightning ecosystem:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
       
         <br>
         Created:

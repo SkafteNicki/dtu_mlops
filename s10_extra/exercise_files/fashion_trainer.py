@@ -1,6 +1,4 @@
-"""
-Credit to: https://www.kaggle.com/pankajj/fashion-mnist-with-pytorch-93-accuracy
-"""
+"""Credit to: https://www.kaggle.com/pankajj/fashion-mnist-with-pytorch-93-accuracy."""
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
@@ -11,6 +9,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def output_label(label):
+    """Convert output label to corresponding text label."""
     output_mapping = {
         0: "T-shirt/Top",
         1: "Trouser",
@@ -23,11 +22,13 @@ def output_label(label):
         8: "Bag",
         9: "Ankle Boot",
     }
-    input = label.item() if type(label) == torch.Tensor else label
-    return output_mapping[input]
+    label = label.item() if type(label) == torch.Tensor else label
+    return output_mapping[label]
 
 
 class FashionCNN(nn.Module):
+    """Basic CNN model for fashion MNIST."""
+
     def __init__(self):
         super(FashionCNN, self).__init__()
 
@@ -51,6 +52,7 @@ class FashionCNN(nn.Module):
         self.fc3 = nn.Linear(in_features=120, out_features=10)
 
     def forward(self, x):
+        """Forward pass of the network."""
         out = self.layer1(x)
         out = self.layer2(out)
         out = out.view(out.size(0), -1)
@@ -63,6 +65,7 @@ class FashionCNN(nn.Module):
 
 
 def train_and_test():
+    """Train and test the model."""
     train_set = FashionMNIST(
         "",
         train=True,
@@ -99,7 +102,7 @@ def train_and_test():
 
     for epoch in range(num_epochs):
         for batch_idx, (images, labels) in enumerate(train_loader):
-            # Transfering images and labels to GPU if available
+            # Transferring images and labels to GPU if available
             images, labels = images.to(device), labels.to(device)
 
             # Forward pass

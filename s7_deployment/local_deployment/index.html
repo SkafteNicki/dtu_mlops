@@ -1872,7 +1872,7 @@ not work for you then trace can be used which is more general.</p>
 </span></code></pre></div>
 <p>Hint: use <a href="https://pytorch.org/docs/stable/generated/torch.topk.html">torch.topk</a>.</p>
 <ol>
-<li>Finally, try benchmarking the non-scripted model against the scripted model. I recommend using the build-in
+<li>Finally, try benchmarking the non-scripted model against the scripted model. I recommend using the built-in
    benchmarker in Pytorch: <code>torch.utils.benchmark.Timer</code>, which you can read more about how to use
    <a href="https://pytorch.org/tutorials/recipes/recipes/benchmark.html">here</a>. Do you see a increase in performance of the
    scripted model compared to the non-scriptet model. If so, what is the percentage increase in efficiency?</li>
@@ -1889,7 +1889,7 @@ services for packaging and serving multiple Pytorch at the same time.</p>
 <!-- markdownlint-restore -->
 
 <p>Before we go into details of Torchmetrics, an important question is why we need such an abstraction on top of our
-developed model. Why cant we just do:</p>
+developed model. Why can't we just do:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>inference.py<span class="w"> </span>--my_model<span class="w"> </span>model_checkpoint.pt<span class="w"> </span>--new_datapoint<span class="w"> </span>img.png
 </span></code></pre></div>
 <p>If we where never going to do anything else than just calling the model ourself then it is probably not worth adding
@@ -1988,7 +1988,7 @@ requests as this will be very important in the next module when we will try to d
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
       
         <br>
         Created:

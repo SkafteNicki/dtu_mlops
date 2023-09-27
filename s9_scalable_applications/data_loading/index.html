@@ -1828,7 +1828,7 @@ is easy to parallelize data loading if you are using their dataset/dataloader in
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">dataloader</span> <span class="o">=</span> <span class="n">Dataloader</span><span class="p">(</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">dataset</span><span class="p">,</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span>  <span class="c1"># this is the number of threds we want to parallize workload over</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span>  <span class="c1"># this is the number of threads we want to parallelize workload over</span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Lets take a deep dive into what happens when we request a batch from our dataloader e.g. <code>next(dataloader)</code>. First we
@@ -1898,7 +1898,7 @@ workers along the x-axis and the timing along the y-axis. The errorbars should c
 over the 5 runs. HINT: if it is taking too long to evaluate, measure the time over less batches (set the
 <code>-batches_to_check</code> flag). Also if you are not seeing an improvement, try increasing the batch size (since data
 loading is parallelized per batch).</p>
-<p>For certain machines like the Mac with M1 chipset it is nessesary to set the <code>multiprocessing_context</code> flag in the
+<p>For certain machines like the Mac with M1 chipset it is necessary to set the <code>multiprocessing_context</code> flag in the
 dataloder to <code>"fork"</code>. This essentially tells the dataloader how the worker nodes should be created.</p>
 </li>
 <li>
@@ -1928,7 +1928,7 @@ loading in Pytorch work and performance benchmarks.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
       
         <br>
         Created:

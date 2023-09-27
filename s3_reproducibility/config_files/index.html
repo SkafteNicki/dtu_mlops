@@ -1818,7 +1818,7 @@ hyperparameter configuration for some experiments may be lost. Alright, with thi
 an <a href="https://docs.python.org/3/library/argparse.html">argument parser</a> e.g. run experiments like this</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--batch_size<span class="w"> </span><span class="m">256</span><span class="w"> </span>--learning_rate<span class="w"> </span>1e-4<span class="w"> </span>--other_hp<span class="w"> </span><span class="m">12345</span>
 </span></code></pre></div>
-<p>This at least solves the problem with configurability. However, we again can end up with loosing experiments if we are
+<p>This at least solves the problem with configurability. However, we again can end up with losing experiments if we are
 not careful.</p>
 <p>What we really want is some way to easy configure our experiments where the hyperparameters are systematically saved
 with the experiment. For this we turn our attention to <a href="https://hydra.cc/">Hydra</a>, a configuration tool that is based
@@ -1969,7 +1969,7 @@ that we may try.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
       
         <br>
         Created:
