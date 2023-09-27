@@ -5,6 +5,7 @@ from torch.autograd import Variable
 
 
 def test_network(net, trainloader):
+    """Test a network on the test set."""
     criterion = nn.MSELoss()
     optimizer = optim.Adam(net.parameters(), lr=0.001)
 

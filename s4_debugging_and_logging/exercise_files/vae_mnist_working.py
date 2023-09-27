@@ -1,6 +1,4 @@
-"""
-Adapted from
-https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
+"""Adapted from https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
@@ -35,6 +33,8 @@ test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=Fa
 
 
 class Encoder(nn.Module):
+    """Gaussian MLP Encoder."""
+
     def __init__(self, input_dim, hidden_dim, latent_dim):
         super(Encoder, self).__init__()
 
@@ -44,6 +44,7 @@ class Encoder(nn.Module):
         self.training = True
 
     def forward(self, x):
+        """Forward pass."""
         h_ = torch.relu(self.FC_input(x))
         mean = self.FC_mean(h_)
         log_var = self.FC_var(h_)
@@ -58,6 +59,7 @@ class Encoder(nn.Module):
         mean,
         std,
     ):
+        """Reparameterization trick."""
         epsilon = torch.randn_like(std)
 
         z = mean + std * epsilon
@@ -66,26 +68,32 @@ class Encoder(nn.Module):
 
 
 class Decoder(nn.Module):
+    """Bernoulli MLP Decoder."""
+
     def __init__(self, latent_dim, hidden_dim, output_dim):
         super(Decoder, self).__init__()
         self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
         self.FC_output = nn.Linear(hidden_dim, output_dim)
 
     def forward(self, x):
+        """Forward pass."""
         h = torch.relu(self.FC_hidden(x))
         x_hat = torch.sigmoid(self.FC_output(h))
         return x_hat
 
 
 class Model(nn.Module):
-    def __init__(self, Encoder, Decoder):
+    """VAE Model."""
+
+    def __init__(self, encoder, decoder):
         super(Model, self).__init__()
-        self.Encoder = Encoder
-        self.Decoder = Decoder
+        self.encoder = encoder
+        self.decoder = decoder
 
     def forward(self, x):
-        z, mean, log_var = self.Encoder(x)
-        x_hat = self.Decoder(z)
+        """Forward pass."""
+        z, mean, log_var = self.encoder(x)
+        x_hat = self.decoder(z)
 
         return x_hat, mean, log_var
 
@@ -93,17 +101,17 @@ class Model(nn.Module):
 encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
 decoder = Decoder(latent_dim=latent_dim, hidden_dim=hidden_dim, output_dim=x_dim)
 
-model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
+model = Model(encoder=encoder, decoder=decoder).to(DEVICE)
 
 
 BCE_loss = nn.BCELoss()
 
 
 def loss_function(x, x_hat, mean, log_var):
+    """Reconstruction + KL divergence losses summed over all elements and batch."""
     reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction="sum")
-    KLD = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
-
-    return reproduction_loss + KLD
+    kld = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
+    return reproduction_loss + kld
 
 
 optimizer = Adam(model.parameters(), lr=lr)
@@ -114,6 +122,8 @@ model.train()
 for epoch in range(epochs):
     overall_loss = 0
     for batch_idx, (x, _) in enumerate(train_loader):
+        if batch_idx % 100 == 0:
+            print(batch_idx)
         x = x.view(batch_size, x_dim)
         x = x.to(DEVICE)
 
@@ -139,6 +149,8 @@ print("Finish!!")
 model.eval()
 with torch.no_grad():
     for batch_idx, (x, _) in enumerate(test_loader):
+        if batch_idx % 100 == 0:
+            print(batch_idx)
         x = x.view(batch_size, x_dim)
         x = x.to(DEVICE)
         x_hat, _, _ = model(x)
