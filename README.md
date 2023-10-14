@@ -80,7 +80,7 @@ is where create an automatic pipeline that makes sure that whenever we make chan
 automatically incorporated into our model, such that we do not slow down production. Equally important is also the
 ongoing monitoring of already deployed models to make sure that they behave exactly as we specified them.
 
-It is important to note that the three steps are in fact a *cycle*, meaning that we you have successfully deployed a
+It is important to note that the three steps are in fact a *cycle*, meaning that when you have successfully deployed a
 machine learning model that is not the end of it. Your initial requirements may change, forcing you to revisit the
 design phase. Some new algorithm may show promising results, so you revisit the model development phase to implement
 this. And finally, you may try to cut the cost of running your model in production, making you revisit the operations
