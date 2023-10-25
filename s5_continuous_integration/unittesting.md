@@ -214,7 +214,7 @@ The following exercises should be applied to your MNIST repository
         to get a code coverage for. Figure out how to configure `coverage` to exclude
         some files.
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 

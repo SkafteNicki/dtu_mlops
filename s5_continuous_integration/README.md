@@ -37,10 +37,21 @@ do continuous integration is different from the tools need to do continuous deli
 
 In this session we are going to focus on *continuous integration (CI)*. As indicated in the image above, CI usually
 takes care of the first part of the developer pipeline that has to do with the code base, code building and code
-testing. In particular, in this module we are going to take a closer look at these questions:
+testing. This is paramount to step in automatization as we would rather catch bugs in the beginning of our pipeline
+than in the end.
 
 * How to write unittests for our applications
 * How to automate tests being run on code changes
 * How to secure we do not commit code that does not follow our code standards
 * How we can automate building of docker images
 * How we can automate training of our machine learning pipeline
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Being able to write unittests that covers both data and model in your ML pipeline
+    * Know how to implement CI using Github actions such that tests are automatically executed on code changes
+    * Can use pre-commit to secure that code that are not up to standard does not get committed
+    * Know how to implement CI for continues building of containers
+    * Basic knowledge how machine learning processes can be implemented in a continues way

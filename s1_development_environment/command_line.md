@@ -115,7 +115,7 @@ command line.
 
     3. Try to Google how to write a simple for-loop that executes the python script 10 times in a row.
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 

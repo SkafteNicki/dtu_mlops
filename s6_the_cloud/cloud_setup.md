@@ -183,7 +183,7 @@ Finally, we want to note that a quota increase is sometimes not allowed within 2
 request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
 services some more to make sure you are not a bot that wants to mine crypto.
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 
