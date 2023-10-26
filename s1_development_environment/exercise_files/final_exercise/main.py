@@ -27,7 +27,7 @@ def train(lr):
 @click.argument("model_checkpoint")
 def evaluate(model_checkpoint):
     """Evaluate a trained model."""
-    print("Evaluating until hitting the ceiling")
+    print("Evaluating like my life dependends on it")
     print(model_checkpoint)
 
     # TODO: Implement evaluation logic here
