@@ -7,8 +7,8 @@
 !!! info "Core Module"
 
 <figure markdown>
-  ![Image](../figures/terminal_power.jpg){ width="500" }
-  <figcaption> <a href="https://twitter.com/rorypreddy/status/1257336536477171712"> Image credit </a> </figcaption>
+![Image](../figures/terminal_power.jpg){ width="500" }
+<figcaption> <a href="https://twitter.com/rorypreddy/status/1257336536477171712"> Image credit </a> </figcaption>
 </figure>
 
 Contrary to popular belief, the command line (also commonly known as the *terminal*) is not a mythical being that has
@@ -155,5 +155,5 @@ This ends the module on the command line. If you are still not comfortable worki
 we are going to use it extensively throughout the course. If you want to spend additional time on this topic, we highly
 recommend that you [watch this video](https://www.youtube.com/watch?v=oxuRxtrO2Ag) on how to use the command line.
 
-If you are interested in personalizing your terminal, you can check out the [starship](https://starship.rs/) project,
-that allows you to customize your terminal with a lot of different options.
+If you are interested in personalizing your command line, you can check out the [starship](https://starship.rs/)
+project, that allows you to customize your command line with a lot of different options.

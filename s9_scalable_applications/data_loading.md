@@ -140,7 +140,7 @@ datafiles (.jpg) at runtime.
     python lfw_dataset.py -visualize_batch
     ```
 
-    Hint: this [tutorial](https://pytorch.org/vision/stable/auto_examples/plot_visualization_utils.html#sphx-glr-auto-examples-plot-visualization-utils-py).
+    Hint: this [tutorial](https://pytorch.org/vision/stable/auto_examples/others/plot_visualization_utils.html).
 
 5. Experiment how the number of workers influences the performance. We have already provide code that will pass over 100
     batches from the dataset 5 times and calculate how long time it took, which you can play around with by calling
