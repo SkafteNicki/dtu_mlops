@@ -379,11 +379,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../s1_development_environment/conda/" class="md-nav__link">
+      <a href="../s1_development_environment/package_manager/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    M2 - Conda
+    M2 - Package Manager
   </span>
   
 
@@ -1716,7 +1716,8 @@ automate steps in the pipeline, depends on where we are in the pipeline e.g. the
 do continuous integration is different from the tools need to do continuous delivery.</p>
 <p>In this session we are going to focus on <em>continuous integration (CI)</em>. As indicated in the image above, CI usually
 takes care of the first part of the developer pipeline that has to do with the code base, code building and code
-testing. In particular, in this module we are going to take a closer look at these questions:</p>
+testing. This is paramount to step in automatization as we would rather catch bugs in the beginning of our pipeline
+than in the end.</p>
 <ul>
 <li>How to write unittests for our applications</li>
 <li>How to automate tests being run on code changes</li>
@@ -1724,13 +1725,24 @@ testing. In particular, in this module we are going to take a closer look at the
 <li>How we can automate building of docker images</li>
 <li>How we can automate training of our machine learning pipeline</li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Learning objectives</p>
+<p>The learning objectives of this session are:</p>
+<ul>
+<li>Being able to write unittests that covers both data and model in your ML pipeline</li>
+<li>Know how to implement CI using Github actions such that tests are automatically executed on code changes</li>
+<li>Can use pre-commit to secure that code that are not up to standard does not get committed</li>
+<li>Know how to implement CI for continues building of containers</li>
+<li>Basic knowledge how machine learning processes can be implemented in a continues way</li>
+</ul>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2023</span>
       
         <br>
         Created:

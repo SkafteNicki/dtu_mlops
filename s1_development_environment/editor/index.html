@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../conda/">
+        <link rel="prev" href="../package_manager/">
       
       
         <link rel="next" href="../deep_learning_software/">
@@ -381,11 +381,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../conda/" class="md-nav__link">
+      <a href="../package_manager/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    M2 - Conda
+    M2 - Package Manager
   </span>
   
 
@@ -1796,8 +1796,8 @@ a suboptimal workflow. Therefore, to for truly getting "work done" you will need
 </tr>
 </tbody>
 </table>
-<p>We highly recommend Visual studio (vs) code if you do not already have a editor installed
-(or just want to try something new.). We therefore put additional effort into explaining vs code.</p>
+<p>We highly recommend Visual studio (VS) code if you do not already have a editor installed (or just want to try
+something new.). We therefore put additional effort into explaining VS code.</p>
 <p>Below you see an overview of the vs code interface</p>
 <figure>
 <p><a class="glightbox" href="../../figures/vscode.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/vscode.PNG" width="700" /></a></p>
@@ -1807,7 +1807,7 @@ a suboptimal workflow. Therefore, to for truly getting "work done" you will need
 <ul>
 <li>
 <p>The action bar: VS code is not an editor meant for a single language and can do many things. One of the core reasons
-    that VS code have become so popular is that custom plug-ins called <strong>extensions</strong> can be installed to add
+    that VS code have become so popular is that custom plug-ins called <em>extensions</em> can be installed to add
     functionality to VS code. It is in the action bar that you can navigate between these different applications
     when you have installed them.</p>
 </li>
@@ -1829,11 +1829,16 @@ a suboptimal workflow. Therefore, to for truly getting "work done" you will need
 </li>
 </ul>
 <h2 id="exercises">❔ Exercises</h2>
-<p>Start by downloading and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
-on the files that you created in the final exercise in the last lecture.</p>
-<p>The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
-if using another editor. In the <code>exercise_files</code> folder belonging to this session we have put cheat sheets for vs code
-(one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in vs code. The
+<p>The overall goal of the exercises, is that you should start familiarizing yourself with the editor that you have
+chosen. If you are already an expert in one of them, feel free to skip the rest. You should at least be able to:</p>
+<ul>
+<li>Create a new file</li>
+<li>Run a python script</li>
+<li>Change the python environment</li>
+</ul>
+<p>The instructions below are specific to Visual studio code but we recommend that you try to answer the questions
+if using another editor. In the <code>exercise_files</code> folder belonging to this session we have put cheat sheets for VS code
+(one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in VS code. The
 following exercises are just to get you started but you can find many more tutorials
 <a href="https://code.visualstudio.com/docs/python/python-tutorial">here</a>.</p>
 <ol>
@@ -1842,9 +1847,13 @@ following exercises are just to get you started but you can find many more tutor
     extensions. In the <code>action bar</code> go to the <code>extension</code> tap and search for <code>python</code> in the marketplace. For here
     we highly recommend installing the following packages:</p>
 <ul>
-<li><code>Python</code>: general python support</li>
-<li><code>Python Test Explorer for Visual Studio Code</code>: support for testing of python code (we get to that in a later lecture)</li>
-<li><code>Jupyter</code>: support for jupyter notebooks directly in VSCode</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python</a>: general python support for VS code</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance">Pylance</a>: language server for
+    python that provides better code completion and type checking</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter">Jupyter</a>: support for jupyter notebooks
+    directly in VSCode</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager">Python Environment Manager</a>:
+    allows for easy management of virtual environments</li>
 </ul>
 </li>
 <li>
@@ -1856,9 +1865,9 @@ following exercises are just to get you started but you can find many more tutor
 Click it and change the python environment to the one you actually want to use.</p>
 </li>
 <li>
-<p>One of the most useful tools in VSCode is the ability to navigate a hole project using the built-in
+<p>One of the most useful tools in VS Code is the ability to navigate a hole project using the built-in
     <code>Explorer</code>. To really take advantage of the VS code you need to make sure what you are working on is a project.
-    Create a folder called <code>hello</code> (somewhere on your laptop) and open it in VScode (Click <code>File</code> in the menu and then
+    Create a folder called <code>hello</code> (somewhere on your laptop) and open it in VS Code (Click <code>File</code> in the menu and then
     select <code>Open Folder</code>). You should end up with a completely clean workspace (as shown below). Click the <code>New file</code>
     button and create a file called <code>hello.py</code>.</p>
 <p><figure markdown>
@@ -1881,9 +1890,9 @@ have chosen and finally run your script. In addition to clicking the <code>run</
 </ul>
 </li>
 </ol>
-<p>That's, the basic of using VScode. We recommend highly that you revisit
+<p>That's, the basic of using VS code. We recommend highly that you revisit
 <a href="https://code.visualstudio.com/docs/python/python-tutorial">this tutorial</a> during the course when we get to topics such
-as debugging and version control which VScode can help with.</p>
+as debugging and version control which VS code can help with.</p>
 <h2 id="a-note-on-jupyter-notebooks-in-production-environments">A note on jupyter notebooks in production environments</h2>
 <p>As already stated jupyter notebooks are great for development as they allow developers to easily test our new ideas.
 However, they often lead to pain points when models actually needs to be deployed. We highly recommend reading section
@@ -1893,9 +1902,9 @@ opinions to jupyter notebooks that exist within the developer community.</p>
 <code>nbconvert</code> and can be installed with</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>conda<span class="w"> </span>install<span class="w"> </span>nbconvert<span class="w"> </span><span class="c1"># or pip install nbconvert</span>
 </span></code></pre></div>
-<p>You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install
-instructions <a href="https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert">here</a>).
-After this, converting a notebook to a <code>.py</code> script is a simple as:</p>
+<p>You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
+<a href="https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert">here</a>). After this, converting a
+notebook to a <code>.py</code> script is a simple as:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--to<span class="o">=</span>script<span class="w"> </span>my_notebook.ipynb
 </span></code></pre></div>
 <p>which will produce a similar named script called <code>my_notebook.py</code>. We highly recommend that you stick to developing
@@ -1907,7 +1916,7 @@ in your toolbox.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2023</span>
       
         <br>
         Created:
@@ -1937,7 +1946,7 @@ in your toolbox.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../conda/" class="md-footer__link md-footer__link--prev" aria-label="Previous: M2 - Conda">
+          <a href="../package_manager/" class="md-footer__link md-footer__link--prev" aria-label="Previous: M2 - Package Manager">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1947,7 +1956,7 @@ in your toolbox.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                M2 - Conda
+                M2 - Package Manager
               </div>
             </div>
           </a>

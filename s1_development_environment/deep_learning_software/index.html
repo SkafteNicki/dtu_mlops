@@ -381,11 +381,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../conda/" class="md-nav__link">
+      <a href="../package_manager/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    M2 - Conda
+    M2 - Package Manager
   </span>
   
 
@@ -480,6 +480,19 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    🧠 Knowledge check
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Knowledge check">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#final-exercise" class="md-nav__link">
@@ -1754,6 +1767,19 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    🧠 Knowledge check
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Knowledge check">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#final-exercise" class="md-nav__link">
     Final exercise
@@ -1791,7 +1817,7 @@
 <p class="admonition-title">Core Module</p>
 </div>
 <p>Deep learning have since its
-<a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">revolution back in 2012,</a>
+<a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">revolution back in 2012</a>
 transformed our lives. From Google Translate to driverless cars
 to personal assistants to protein engineering, deep learning is transforming nearly every sector of our economy and
 or lives. However, it did not take long before people realized that deep learning is not as simple beast to tame
@@ -1845,7 +1871,9 @@ the text in small "exercise" blocks:</p>
 </figure>
 <p>If you need a fresh up on any deep learning topic in general throughout the course, we recommend to find the relevant
 chapter in the <a href="https://www.deeplearningbook.org/">deep learning</a> book by Ian Goodfellow,
-Yoshua Bengio and Aaron Courville (can also be found in the literature folder).</p>
+Yoshua Bengio and Aaron Courville (can also be found in the literature folder). It is absolutely not necessary to be
+good at deep learning to pass this course as the focus on all the software needed to get deep learning models into
+production. However, it is important to have a basic understanding of the concepts.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <!-- markdownlint-disable -->
 <p><a class="md-button" href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files">Exercise files</a></p>
@@ -1853,99 +1881,107 @@ Yoshua Bengio and Aaron Courville (can also be found in the literature folder).<
 
 <ol>
 <li>
-<p>Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material)</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>jupyter<span class="w"> </span>notebook<span class="w"> </span>s1_development_environment/exercise_files/
-</span></code></pre></div>
+<p>Start a jupyter notebook session in your terminal (assuming you are standing in the root of the course material).
+    Alternatively you should be able to open the notebooks directly in your code editor. For VS code users you can read
+    more about how to work with jupyter notebooks in VS code
+    <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">here</a></p>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb">Tensors in Pytorch</a>
     notebook. It focuses on basic manipulation of Pytorch tensors. You can pass this notebook if you are comfortable
     doing this.</p>
-<ol>
-<li>(Bonus exercise): Efficiently write a function that calculates the pairwise squared distance
-    between an <code>[N,d]</code> tensor and <code>[M,d]</code> tensor. You should use the following identity:
-    $||a-b||^2 = ||a||^2 + ||b||^2 - 2<a,b>$. Hint: you need to use broadcasting.</li>
-</ol>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb">Neural Networks in Pytorch</a>
     notebook. It focuses on building a very simple neural network using the Pytorch <code>nn.Module</code> interface.</p>
-<ol>
-<li>(Bonus exercise): One layer that arguably is missing in Pytorch is for doing reshapes.
-    It is of course possible to do this directly to tensors, but sometimes it is great to
-    have it directly in a <code>nn.Sequential</code> module. Write a <code>Reshape</code> layer which <code>__init__</code>
-    takes a variable number arguments e.g. <code>Reshape(2)</code> or <code>Reshape(2,3)</code> and the forward
-    takes a single input <code>x</code> where the reshape is applied to all other dimensions than the
-    batch dimension.</li>
-</ol>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/3_Training_Neural_Networks.ipynb">Training Neural Networks</a>
     notebook. It focuses on how to write a simple training loop for training a neural network.</p>
-<ol>
-<li>
-<p>(Bonus exercise): A working training loop in Pytorch should have these three function calls:
-    <code>optimizer.zero_grad()</code>, <code>loss.backward()</code>, <code>optimizer.step()</code>. Explain what would happen
-    in the training loop (or implement it) if you forgot each of the function calls.</p>
-</li>
-<li>
-<p>(Bonus exercise): Many state-of-the-art results depend on the concept of learning rate schedulers.
-    In short a learning rate scheduler go in and either statically or dynamically changes the learning
-    rate of your optimizer, such that training speed is either increased or decreased. Implement a
-    <a href="https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate">learning rate scheduler</a>
-    in the notebook.</p>
-</li>
-</ol>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/4_Fashion_MNIST.ipynb">Fashion MNIST</a>
     notebook, that summaries concepts learned in the notebook 2 and 3 on building a neural network for classifying the
     <a href="https://github.com/zalandoresearch/fashion-mnist">Fashion MNIST</a> dataset.</p>
-<ol>
-<li>(Bonus exercise): The exercise focuses on the Fashion MNIST dataset but should without much
-    work be able to train on multiple datasets. Implement a variable <code>dataset</code> that can take the
-    values <code>mnist</code>, <code>fashionmnist</code> and <code>cifar</code> and train a model on the respective dataset.</li>
-</ol>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/5_Inference_and_Validation.ipynb">Inference and Validation</a>
     notebook. This notebook adds important concepts on how to do inference and validation on our neural network.</p>
-<ol>
-<li>(Bonus exercise): The exercise shows how dropout can be used to prevent overfitting. However, today it
-    is often used to get uncertainty estimates of the network predictions using
-    <a href="http://proceedings.mlr.press/v48/gal16.pdf">Monte Carlo Dropout</a>. Implement monte carlo dropout such that we at
-    inference time gets different predictions for the same input (HINT: do not set the network in evaluation mode).
-    Construct a histogram of class prediction for a single image using 100 monte carlo dropout samples.</li>
-</ol>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/6_Saving_and_Loading_Models.ipynb">Saving_and_Loading_Models</a>
     notebook. This notebook addresses how to save and load model weights. This is important if you want to share a
     model with someone else.</p>
-<ol>
-<li>(Bonus exercise): Being able to save and load weights are important for the concept of early stopping. In
-    short, early stopping monitors some metric (often on the validation set) and then will stop the training
-    and save a checkpoint when this metric has not improved for <code>N</code> steps. Implement early stopping in one of
-    the previous notebooks.</li>
-</ol>
 </li>
 </ol>
+<h2 id="knowledge-check">🧠 Knowledge check</h2>
+<details class="question">
+<summary>Knowledge question 1</summary>
+<p>If tensor <code>a</code> has shape <code>[N, d]</code> and tensor <code>b</code> has shape <code>[M, d]</code> how can we calculate the pairwise distance
+between rows in <code>a</code> and <code>b</code> without using a for loop?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>We can take advantage of <a href="https://pytorch.org/docs/stable/notes/broadcasting.html">broadcasting</a> to do this</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># shape [N, M]</span>
+</span></code></pre></div>
+</details>
+</details>
+<details class="question">
+<summary>Knowledge question 2</summary>
+<p>What should be the size of <code>S</code> for an input image of size 1x28x28, and how many parameters does the neural network
+then have?</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">neural_net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<p>Since both convolutions have a kernel size of 3, stride 1 (default value) and no padding that means that we lose
+2 pixels in each dimension, because the kernel can not be centered on the edge pixels. Therefore, the output
+of the first convolution would be 32x26x26. The output of the second convolution would be 64x24x24. The size of
+<code>S</code> must therefore be <code>64 * 24 * 24 = 36864</code>. The number of parameters in a convolutional layer is
+<code>kernel_size * kernel_size * in_channels * out_channels + out_channels</code> (last term is the bias) and the number
+of parameters in a linear layer is <code>in_features * out_features + out_features</code> (last term is the bias).
+Therefore, the total number of parameters in the network is
+<code>3*3*1*32 + 32 + 3*3*32*64 + 64 + 36864*10 + 10 = 387,466</code>, which could be calculated by running:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">sum</span><span class="p">([</span><span class="n">prod</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">neural_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">()])</span>
+</span></code></pre></div>
+</details>
+</details>
+<details class="question">
+<summary>Knowledge question 3</summary>
+<p>A working training loop in Pytorch should have these three function calls: <code>optimizer.zero_grad()</code>,
+<code>loss.backward()</code>, <code>optimizer.step()</code>. Explain what would happen in the training loop (or implement it) if you
+forgot each of the function calls.</p>
+<details class="success">
+<summary>Solution</summary>
+<p><code>optimizer.zero_grad()</code> is in charge of zeroring the gradient. If this is not done, then gradients would
+accumulate over the steps leading to exploding gradients. <code>loss.backward()</code> is in charge of calculating the
+gradients. If this is not done, then the gradients would not be calculated and the optimizer would not be able
+to update the weights. <code>optimizer.step()</code> is in charge of updating the weights. If this is not done, then the
+weights would not be updated and the model would not learn anything.</p>
+</details>
+</details>
 <h3 id="final-exercise">Final exercise</h3>
 <p>As the final exercise we will develop a simple baseline model which we will continue to develop on during the course.
 For this exercise we provide the data in the <code>data/corruptedmnist</code> folder. Do <strong>NOT</strong> use the data in the
 <code>corruptedmnist_v2</code> folder as that is intended for another exercise. As the name suggest this is a (subsampled)
-corrupted version of regular mnist. Your overall task is the following:</p>
+corrupted version of regular <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST</a>. Your overall task is the following:</p>
 <blockquote>
-<p><strong>Implement a mnist neural network that achieves at least 85 % accuracy on the test set.</strong></p>
+<p><strong>Implement a MNIST neural network that achieves at least 85 % accuracy on the test set.</strong></p>
 </blockquote>
-<p>Before any training can start, you should identify what corruption that we have applied to the mnist dataset to
-create the corrupted version. This should give you a clue about what network architecture to use.</p>
+<p>Before any training can start, you should identify what corruption that we have applied to the MNIST dataset to
+create the corrupted version. This can help you identify what kind of neural network to use to get good performance, but
+any network should really be able to achieve this.</p>
 <p>One key point of this course is trying to stay organized. Spending time now organizing your code, will save time
 in the future as you start to add more and more features. As subgoals, please fulfill the following exercises</p>
 <ol>
@@ -1953,25 +1989,24 @@ in the future as you start to add more and more features. As subgoals, please fu
 <p>Implement your model in a script called <code>model.py</code></p>
 </li>
 <li>
-<p>Implement your data setup in a script called <code>data.py</code>. Hint: The data can be loaded using
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.load.html">np.load</a>.</p>
+<p>Implement your data setup in a script called <code>data.py</code>. The data was saved using <code>torch.save</code>, so to load it you
+    should use <code>torch.load</code>.</p>
 </li>
 <li>
 <p>Implement training and evaluation of your model in <code>main.py</code> script. The <code>main.py</code> script should be able to
     take an additional subcommands indicating if the model should train or evaluate. It will look something like this:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>train<span class="w"> </span>--lr<span class="w"> </span>1e-4
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>evaluate<span class="w"> </span>trained_model.pt
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>train<span class="w"> </span>--lr<span class="w"> </span>1e-4
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>evaluate<span class="w"> </span>trained_model.pt
 </span></code></pre></div>
 <p>which can be implemented in various ways.</p>
 </li>
 </ol>
-<p>To start you off, a very barebone version of each script is provided in the <code>final_exercise</code> folder. We have already
+<p>To start you off, a very basic version of each script is provided in the <code>final_exercise</code> folder. We have already
 implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
 interested in how this is done you can checkout this optional module on defining
 <a href="../../s10_extra/cli/">command line interfaces (CLI)</a>. We additionally also provide an <code>requirements.py</code> with
 suggestion to what packages are necessary to complete the exercise.</p>
-<p>\
-As documentation that your model is actually working, when running in the <code>train</code> command the script needs to
+<p>As documentation that your model is actually working, when running in the <code>train</code> command the script needs to
 produce a single plot with the training curve (training step vs training loss). When the <code>evaluate</code> command is run,
 it should write the test set accuracy to the terminal.</p>
 <p>It is part of the exercise to not implement in notebooks as code development in the real life happens in script.
@@ -1988,7 +2023,7 @@ you have created.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2023</span>
       
         <br>
         Created:
