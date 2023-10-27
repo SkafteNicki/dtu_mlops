@@ -20,8 +20,8 @@ Many opinions exist on this matter, but for simplicity we recommend getting star
 | Visual studio code | <https://code.visualstudio.com/>     | Support for multiple languages with fairly easy setup                 |
 | PyCharm            | <https://www.jetbrains.com/pycharm/> | IDE for python professionals. Will take a bit of time getting used to |
 
-We highly recommend Visual studio (vs) code if you do not already have a editor installed
-(or just want to try something new.). We therefore put additional effort into explaining vs code.
+We highly recommend Visual studio (VS) code if you do not already have a editor installed (or just want to try
+something new.). We therefore put additional effort into explaining VS code.
 
 Below you see an overview of the vs code interface
 
@@ -33,7 +33,7 @@ Below you see an overview of the vs code interface
 The main components of VS code are:
 
 * The action bar: VS code is not an editor meant for a single language and can do many things. One of the core reasons
-    that VS code have become so popular is that custom plug-ins called **extensions** can be installed to add
+    that VS code have become so popular is that custom plug-ins called *extensions* can be installed to add
     functionality to VS code. It is in the action bar that you can navigate between these different applications
     when you have installed them.
 
@@ -51,12 +51,16 @@ The main components of VS code are:
 
 ## ❔ Exercises
 
-Start by downloading and install one of the editors / IDE and make yourself familiar with it e.g. try out the editor
-on the files that you created in the final exercise in the last lecture.
+The overall goal of the exercises, is that you should start familiarizing yourself with the editor that you have
+chosen. If you are already an expert in one of them, feel free to skip the rest. You should at least be able to:
 
-The remaining of the exercises are specific to Visual studio code but we recommend that you try to answer the questions
-if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for vs code
-(one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in vs code. The
+* Create a new file
+* Run a python script
+* Change the python environment
+
+The instructions below are specific to Visual studio code but we recommend that you try to answer the questions
+if using another editor. In the `exercise_files` folder belonging to this session we have put cheat sheets for VS code
+(one for Windows and one for Mac/Linux), that can give you an easy overview of the different macros in VS code. The
 following exercises are just to get you started but you can find many more tutorials
 [here](https://code.visualstudio.com/docs/python/python-tutorial).
 
@@ -64,9 +68,13 @@ following exercises are just to get you started but you can find many more tutor
     extensions. In the `action bar` go to the `extension` tap and search for `python` in the marketplace. For here
     we highly recommend installing the following packages:
 
-    * `Python`: general python support
-    * `Python Test Explorer for Visual Studio Code`: support for testing of python code (we get to that in a later lecture)
-    * `Jupyter`: support for jupyter notebooks directly in VSCode
+    * [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python): general python support for VS code
+    * [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance): language server for
+        python that provides better code completion and type checking
+    * [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter): support for jupyter notebooks
+        directly in VSCode
+    * [Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager):
+        allows for easy management of virtual environments
 
 2. If you install the `Python` package you should see something like this in your status bar:
 
@@ -77,9 +85,9 @@ following exercises are just to get you started but you can find many more tutor
     which indicates that you are using the stock python installation, instead of the one you have created using `conda`.
     Click it and change the python environment to the one you actually want to use.
 
-3. One of the most useful tools in VSCode is the ability to navigate a hole project using the built-in
+3. One of the most useful tools in VS Code is the ability to navigate a hole project using the built-in
     `Explorer`. To really take advantage of the VS code you need to make sure what you are working on is a project.
-    Create a folder called `hello` (somewhere on your laptop) and open it in VScode (Click `File` in the menu and then
+    Create a folder called `hello` (somewhere on your laptop) and open it in VS Code (Click `File` in the menu and then
     select `Open Folder`). You should end up with a completely clean workspace (as shown below). Click the `New file`
     button and create a file called `hello.py`.
 
@@ -102,9 +110,9 @@ following exercises are just to get you started but you can find many more tutor
     * Select some code and right click, choosing to run in a interactive window (where you can interact with the results
         like in a jupyter notebook)
 
-That's, the basic of using VScode. We recommend highly that you revisit
+That's, the basic of using VS code. We recommend highly that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
-as debugging and version control which VScode can help with.
+as debugging and version control which VS code can help with.
 
 ## A note on jupyter notebooks in production environments
 
@@ -120,9 +128,9 @@ All this said there at least exist one simple tool to make notebooks work better
 conda install nbconvert # or pip install nbconvert
 ```
 
-You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install
-instructions [here](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)).
-After this, converting a notebook to a `.py` script is a simple as:
+You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
+[here](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After this, converting a
+notebook to a `.py` script is a simple as:
 
 ```bash
 jupyter nbconvert --to=script my_notebook.ipynb

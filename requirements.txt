@@ -1,5 +1,5 @@
 # Documentation
-mkdocs-material>=9.1.6
+mkdocs-material>=9.4.6
 mkdocs-glightbox>=0.3.2
 mkdocs-material-extensions
 pymdown-extensions>=1.1.1

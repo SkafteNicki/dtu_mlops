@@ -398,7 +398,7 @@ beneficial for you to download.
         try doing this to one of your docker files, build the image and run the container. Remember to check that your
         application is using GPU by printing `torch.cuda.is_available()`.
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 

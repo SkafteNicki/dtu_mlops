@@ -153,7 +153,7 @@ in this way paths (for saving and loading files) are always relative to the root
 13. Make sure to update the `README.md` file with a short description on how your scripts should be run
 
 14. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
-    code (see [this set of exercises](../s1_development_environment/conda.md) for help)
+    code (see [this set of exercises](../s1_development_environment/package_manager.md) for help)
 
 That ends the module on code structure and `cookiecutter`. We again want to stress the point that `cookiecutter` is
 just one template for organizing your code. What often happens in a team is that multiple templates are needed in

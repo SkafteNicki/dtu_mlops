@@ -44,3 +44,13 @@ Todays exercises are about getting to know how to work with the cloud. If you ar
 deep dive into some topics, I can recommend watching this
 [series of videos](https://www.youtube.com/watch?v=4D3X6Xl5c_Y&list=PLIivdWyY5sqKh1gDR0WpP9iIOY00IE0xL)
 or going through the [general docs](https://cloud.google.com/docs).
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * In general being familiar with the Google SDK working
+    * Being able to start different compute instances and work with them
+    * Know how to setup continues integration workflows for building of docker images
+    * Knowledge about how to store data and containers/artifacts in cloud buckets
+    * Being able to train simple deep learning models using a combination of services

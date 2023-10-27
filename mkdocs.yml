@@ -49,6 +49,7 @@ markdown_extensions:
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.superfences
 
 plugins:
   - search
@@ -72,7 +73,7 @@ nav:
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
-    - M2 - Conda: s1_development_environment/conda.md
+    - M2 - Package Manager: s1_development_environment/package_manager.md
     - M3 - Editor: s1_development_environment/editor.md
     - M4 - Deep Learning Software: s1_development_environment/deep_learning_software.md
   - S2 - Organisation and Version Control 📁:

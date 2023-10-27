@@ -41,5 +41,5 @@ the same diagnosis (given the same input).
     The learning objectives of this session are:
 
     * To understand the importance of reproducibility in computer science
-    * To be able to use `docker` to create a reproducible containers
+    * To be able to use `docker` to create a reproducible containers, including how to build them from scratch
     * Understand different ways of configuring your code and how to use `hydra` to integrate with config files

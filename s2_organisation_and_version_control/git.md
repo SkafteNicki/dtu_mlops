@@ -218,7 +218,7 @@ working together on the same project.
     familiar with these features (here is a tutorial for
     [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 
