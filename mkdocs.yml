@@ -28,6 +28,7 @@ theme:
     - navigation.instant
     - navigation.indexes
     - content.code.copy
+    - content.code.annotate
     - navigation.footer
     - search.suggest
     - search.highlight
@@ -50,6 +51,9 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
   - search

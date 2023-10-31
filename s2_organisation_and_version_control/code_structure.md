@@ -48,6 +48,84 @@ definition a template is *guide* to make something. Therefore, not all parts of 
 project at hand. Your job is to pick the parts from the template that is useful for organizing your data science.
 project.
 
+## Making a python package
+
+Before we get started with the exercises, there is another topic that is important to discuss and that is how to create
+python packages. Have you ever though about when you are running `pip` what actually happens after the code is
+downloaded
+
+We are not going to create just a selection of script and hope that they talk to each others.
+
+
+=== "pyproject.toml"
+
+    `pyproject.toml` is the new standardized way of describing project metadata in a declaratively way, introduced in
+    [PEP 621](https://peps.python.org/pep-0621/). It is written [toml format](https://toml.io/en/) which is easy to
+    read.
+
+    ```toml
+    [build-system]
+    requires = ["setuptools", "wheel"]
+    build-backend = "setuptools.build_meta"
+
+    [project]
+    name = "my-package-name"
+    version = "0.1.0"
+    authors = [{name = "EM", email = "me@em.com"}]
+    description = "Something cool here."
+    ```
+
+    if you want to be compatible with the old way of doing package in python, you can simply add a file called
+    `setup.py` that includes the following code
+
+    ```python
+    from setuptools import setup
+    setup()
+    ```
+
+
+
+=== "setup.py + setup.cfg"
+
+    `setup.py` is the original way to describe
+
+    ```python
+    from setuptools import setup
+
+    setup(
+        name="my-package-name",
+        version="0.1.0",
+        author="EM",
+        description="Something cool here."
+        # ...
+    )
+    ```
+
+    ```toml
+    [metadata]
+    name = my-package-name
+    version = 0.1.0
+    author = EM
+    description = "Something cool here."
+    # ...
+    ```
+
+Regardless of what way you one chooses to go around the question of build systems and meta data, after creating the
+above files the correct way to install them would be the same
+
+```bash
+pip install .
+# or in developer mode
+pip install -e . # (1)!
+```
+
+1. :man_raising_hand: The `-e` is short for `--editable` mode also called
+    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously
+    iterating on our package this is the preferred way to install our package, because that means that we do not have
+    to run `pip install` everytime we make a change. Essentially, in developer mode changes in the Python source code
+    can immediately take place without requiring a new installation.
+
+
 ## ❔ Exercises
 
 After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on taking the
