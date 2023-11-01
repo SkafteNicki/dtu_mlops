@@ -188,7 +188,13 @@ functions:
 * <https://api.github.com/repos/OWNER/REPO/actions/workflows>: check the status of workflows for a given repository
 
 and we could go on. However, there may be functionality that github is not interested in users having access to and
-they may therefore choose not to have endpoints for specific features.
+they may therefore choose not to have endpoints for specific features (1).
+{ .annotate }
+
+1. :man_raising_hand: Many companies provide public APIs to interact with their services/data. For a general list of
+    public APIs you can checkout this [page](https://github.com/public-apis/public-apis). For the Danes out there, you
+    can checkout [this list](https://github.com/mauran/API-Danmark) of public and private APIs from Danish companies
+    and organisations.
 
 The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
 constraints that a particular API needs to fulfill to be considered RESTful. You can read more about what the six

@@ -16,7 +16,7 @@ working in large groups that the difference in how different people organize and
 The topics in this session will focus on:
 
 * Version control for helping tracking and managing changes to your code and data
-* Coding practices for staying organized in lar
+* Coding practices for staying organized in large projects
 
 <figure markdown>
 ![Image](../figures/wtf.jpeg){ width="700" }
