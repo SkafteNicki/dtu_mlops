@@ -32,6 +32,18 @@ very easy to isolate which part of the code that broke after an update to the co
 base would be through [integration testing](https://en.wikipedia.org/wiki/Integration_testing) which is equally
 important but we are not going to focus on it in this course.
 
+Unittests (and integration tests) are not a unique concept to MLOps, but is a core concept from DevOps. However, it is
+important to note that testing of machine learning based system are much more difficult than traditional systems. The
+reason for this is that machine learning systems depends on *data*, that influences the state of our system. For this
+reason, we not only need unittests and integration tests of our code, we also need data testing, infrastructure testing
+and more monitoring to check that we stay within the data distribution we are training on (more on this in
+[module M25 on data drifting](../s8_monitoring/data_drifting.md)). This added complexity is illustrated in the figure
+below.
+
+<figure markdown>
+  ![Image](../figures/system_difference.drawio.png){ width="1000" }
+</figure>
+
 ## Pytest
 
 Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
@@ -214,7 +226,7 @@ The following exercises should be applied to your MNIST repository
         to get a code coverage for. Figure out how to configure `coverage` to exclude
         some files.
 
-## 🧠 Knowledge check
+### 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 

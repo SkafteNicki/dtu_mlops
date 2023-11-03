@@ -190,10 +190,10 @@ Lets take a look at how a github workflow file is organized:
 
 ## Auto linter
 
-In [this module](../s2_organisation_and_version_control/good_coding_practice.md) of the course
-you where introduced to a couple of good coding practices such as being consistent with how your
-python packages are sorted and that your code follows certain standards. In this set of exercises
-we will setup github workflows that will automatically test for this.
+In [module M6 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
+(optional module) of the course you where introduced to a couple of good coding practices such as being consistent with
+how your python packages are sorted and that your code follows certain standards. In this set of exercises we will setup
+github workflows that will automatically test for this.
 
 ### ❔ Exercises
 

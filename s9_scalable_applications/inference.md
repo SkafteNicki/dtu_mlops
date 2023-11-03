@@ -201,7 +201,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     prune.random_unstructured(module_1, name="weight", amount=0.3)  # (1)!
     ```
 
-    1. :man_raising_hand: You can read about the prune method 
+    1. :man_raising_hand: You can read about the prune method
         [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
 
     Try printing the `named_parameters`, `named_buffers` before and after the module is pruned. Can you explain the
