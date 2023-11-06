@@ -72,8 +72,11 @@ command line.
 1. Start by opening a terminal.
 
 2. To navigate inside a terminal, we rely on the `cd` command and `pwd` command. Make sure you know how to go back and
-    forth in your file system. HINT: try [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) to
-    save some time.
+    forth in your file system. (1)
+    { .annotate }
+
+    1. :man_raising_hand: Your terminal should support
+        [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) which can help finish commands for you!
 
 3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
