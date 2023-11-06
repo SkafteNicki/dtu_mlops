@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.35e1ed30.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4b4a2bd9.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
@@ -1774,51 +1774,49 @@ collaboration and sharing of results.</p>
 <ol>
 <li>
 <p>Start by creating an account at <a href="https://wandb.ai/site">wandb</a>. I recommend using your github account but feel
-   free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
-   use (HINT: if you forgot to copy the API key, you can find it under settings).</p>
+    free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
+    use (HINT: if you forgot to copy the API key, you can find it under settings).</p>
 </li>
 <li>
 <p>Next install wandb on your laptop</p>
-</li>
-</ol>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>wandb
 </span></code></pre></div>
-<ol>
-<li>Now connect to your wandb account</li>
-</ol>
+</li>
+<li>
+<p>Now connect to your wandb account</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>wandb<span class="w"> </span>login
 </span></code></pre></div>
 <p>you will be asked to provide the 40 length API key. The connection should be remain open to the wandb server
-   even when you close the terminal, such that you do not have to login each time. If using <code>wandb</code> in a notebook
-   you need to manually close the connection using <code>wandb.finish()</code>.</p>
-<ol>
+even when you close the terminal, such that you do not have to login each time. If using <code>wandb</code> in a notebook
+you need to manually close the connection using <code>wandb.finish()</code>.</p>
+</li>
 <li>
 <p>With it all setup we are now ready to incorporate <code>wandb</code> into our code. The interface is fairly simple, and
-   this <a href="https://docs.wandb.ai/guides/integrations/pytorch">guide</a> should give enough hints to get you through
-   the exercise. (HINT: the two methods you need to call are <code>wandb.init</code> and <code>wandb.log</code>). To start with, logging
-   the training loss of your model will be enough.</p>
+    this <a href="https://docs.wandb.ai/guides/integrations/pytorch">guide</a> should give enough hints to get you through
+    the exercise. (HINT: the two methods you need to call are <code>wandb.init</code> and <code>wandb.log</code>). To start with, logging
+    the training loss of your model will be enough.</p>
 </li>
 <li>
 <p>After running your model, checkout the webpage. Hopefully you should be able to see at least one run with something
-   logged.</p>
+    logged.</p>
 </li>
 <li>
 <p>Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
-   cases the logging is still going to use <code>wandb.log</code> but you need extra calls to <code>wandb.Image</code> etc. depending
-   on what you choose to log.</p>
+    cases the logging is still going to use <code>wandb.log</code> but you need extra calls to <code>wandb.Image</code> etc. depending
+    on what you choose to log.</p>
 </li>
 <li>
 <p>Finally, lets create a report that you can share. Click the <strong>Create report</strong> button and include some of the
-   graphs/plots/images that you have generated in the report.</p>
+    graphs/plots/images that you have generated in the report.</p>
 </li>
 <li>
 <p>To make sure that you have completed todays exercises, make the report shareable by clicking the <em>Share</em> button
-   and create <em>view-only-link</em>. Send the link to my email <code>nsde@dtu.dk</code>, so I can checkout your awesome work 😃</p>
+    and create <em>view-only-link</em>. Send the link to my email <code>nsde@dtu.dk</code>, so I can checkout your awesome work 😃</p>
 </li>
 <li>
 <p>When calling <code>wandb.init</code> you have two arguments called <code>project</code> and <code>entity</code>. Make sure that you understand these
-   and try them out. It will come in handy for your group work as they essentially allows multiple users to upload their
-   own runs to the same project in <code>wandb</code>.</p>
+    and try them out. It will come in handy for your group work as they essentially allows multiple users to upload their
+    own runs to the same project in <code>wandb</code>.</p>
 </li>
 <li>
 <p>Wandb also comes with build in feature for doing <a href="https://docs.wandb.ai/guides/sweeps">hyperparameter sweeping</a>
@@ -1835,14 +1833,12 @@ collaboration and sharing of results.</p>
 <ol>
 <li>
 <p>First we need to generate an authentication key, or more precise an API key. This is in general the way any
-   service (like a docker container) can authenticate. Start by going <a href="https://wandb.ai/home">https://wandb.ai/home</a>, click your profile
-   icon in the upper right corner and then go to settings. Scroll down to the danger zone and generate a new API
-   key and finally copy it.</p>
+    service (like a docker container) can authenticate. Start by going <a href="https://wandb.ai/home">https://wandb.ai/home</a>, click your profile
+    icon in the upper right corner and then go to settings. Scroll down to the danger zone and generate a new API
+    key and finally copy it.</p>
 </li>
 <li>
 <p>Next create a new docker file called <code>wandb.docker</code> and add the following code</p>
-</li>
-</ol>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
@@ -1852,13 +1848,15 @@ collaboration and sharing of results.</p>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wandb_tester.py&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>please take a look at the script being copied into the image and afterwards build the docker image.</p>
-<ol>
-<li>When we want to run the image, what we need to do is including a environment variables that contains the API key
-   we generated. This will then authenticate the docker container with the wandb server:</li>
-</ol>
+</li>
+<li>
+<p>When we want to run the image, what we need to do is including a environment variables that contains the API key
+    we generated. This will then authenticate the docker container with the wandb server:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="nv">WANDB_API_KEY</span><span class="o">=</span>&lt;your-api-key&gt;<span class="w"> </span>wandb:latest
 </span></code></pre></div>
 <p>Try running it an confirm that the results are uploaded to the wandb server.</p>
+</li>
+</ol>
 </li>
 <li>
 <p>Feel free to experiment more with <code>wandb</code> as it is a great tool for logging, organizing and sharing experiments.</p>
@@ -1871,8 +1869,7 @@ log metrics. In our opinion <code>wandb</code> just offers a better experience w
 We want to stress that the combination of tools presented in this course may not be the best for all your future
 projects, and we recommend finding a setup that fits you. That said, each framework provide specific features
 that the others does not.</p>
-<p>\
-Finally, we want to note that we during the course really try to showcase a lot of open source frameworks, Wandb is not
+<p>Finally, we want to note that we during the course really try to showcase a lot of open source frameworks, Wandb is not
 one. It is free to use for personal usage (with a few restrictions) but for enterprise it does require a license. If you
 are eager to only work with open-source tools we highly recommend trying out <a href="https://mlflow.org/">MLFlow</a> which offers
 the same overall functionalities as Wandb.</p>
@@ -1882,7 +1879,7 @@ the same overall functionalities as Wandb.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 6, 2023</span>
       
         <br>
         Created:
@@ -2006,7 +2003,7 @@ the same overall functionalities as Wandb.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "content.code.copy", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.81fa17fe.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
