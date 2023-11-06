@@ -26,42 +26,69 @@ or maintain
     Brian Foote and Joseph Yoder, Big Ball of Mud. Fourth Conference on Patterns Languages of Programs
     (PLoP '97/EuroPLoP '97) Monticello, Illinois, September 1997
 
-We are here going to focus on the organization of data science projects e.g. where some kind of data is involved. The
-key to modern machine learning/deep learning is without a doubt the vast amounts of data that we have access to today.
-It is therefore not unreasonable that data should influence our choice of code structure.
+We are here going to focus on the organization of data science projects and machine learning projects. The core
+difference this kind of projects introduces compared to more traditional systems, is *data*. The key to modern machine
+learning is without a doubt the vast amounts of data that we have access to today. It is therefore not unreasonable that
+data should influence our choice of code structure. If we had another kind of application, then the layout of our
+codebase should probably be different.
 
-We are in this course going to use the `cookie-cutter` approach. We are not going to argue that `cookie-cutter` is
-better than other approaches to code organization, we are just focusing on that it is **standardized** way of creating
-project structures. By standardized we mean, that if two persons are both using `cookie-cutter` the layout of their
-code does follow some specific rules, making one able to faster get understand the other persons code. Code organization
-is therefore not only to make the code easier for you to maintain but also for others to read and understand.
+## Cookiecutter
 
-Below is seen the default code structure of cookie-cutter for data science projects.
+We are in this course going to use the tool [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html), 
+which is tool for creating projects from *project templates*. A project template is in short ust a overall structure of 
+how you want your folders, files etc. to be organised from the beginning. In particular for this course we are going to 
+be using the [cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science). We are not 
+going to argue that this template is better than everyother template, we are just focusing that it is a **standardized** 
+way of creating project structures for data science projects. By standardized we mean, that if two persons are both 
+using `cookiecutter` with the same template, the layout of their code does follow some specific rules, making one able 
+to faster get understand the other persons code. Code organization is therefore not only to make the code easier for 
+you to maintain but also for others to read and understand.
+
+Below is seen the default code structure of cookiecutter for data science projects.
 
 <figure markdown>
   ![Image](../figures/cookie_cutter.png){ width="1000" }
   <figcaption> <a href="https://github.com/drivendata/cookiecutter-data-science"> Image credit </a> </figcaption>
 </figure>
 
-What is important to keep in mind when using a template such as cookie-cutter, is that it exactly is a template. By
+What is important to keep in mind when using a template, is that it exactly is a template. By
 definition a template is *guide* to make something. Therefore, not all parts of an template may be important for your
 project at hand. Your job is to pick the parts from the template that is useful for organizing your data science.
 project.
 
 ## Making a python package
 
-Before we get started with the exercises, there is another topic that is important to discuss and that is how to create
-python packages. Have you ever though about when you are running `pip` what actually happens after the code is
-downloaded
+Before we get started with the exercises, there is another topic that is important to discuss and that is how 
+to create python packages. Python is the dominant language for machine learning and data science currently. The
+reason we want to have some itu
+
+
+The hole idea
+
+
+
+Whenever you run `pip install`, `pip` is in charge of both downloading the package you want but also
+in charge of *installing* it. For `pip` to be able to install a package it needs instructions on what part of the code
+it should install. The first file you should have encount
+
+In Python the `__init__.py` file is used to mark a directory as a Python package. Therefore as a bare minimum a python
+package should look something like this
+
+```txt
+├── src
+│   ├── __init__.py
+│   ├── file1.py
+│   ├── file2.py 
+├── pyproject.toml
+```
 
 We are not going to create just a selection of script and hope that they talk to each others.
-
 
 === "pyproject.toml"
 
     `pyproject.toml` is the new standardized way of describing project metadata in a declaratively way, introduced in
     [PEP 621](https://peps.python.org/pep-0621/). It is written [toml format](https://toml.io/en/) which is easy to
-    read.
+    read. At the very least your `pyproject.toml` file should include the `[build-system]` and `[project]` sections:
 
     ```toml
     [build-system]
@@ -75,6 +102,11 @@ We are not going to create just a selection of script and hope that they talk to
     description = "Something cool here."
     ```
 
+    the `[build-section]` informs `pip`/`python` that to build this python project it needs the two packages
+    `setuptools` and `wheels` and that it should call the `setuptools.build_meta` function to actually build the
+    project. The `[project]` section essentially tells what the 
+
+
     if you want to be compatible with the old way of doing package in python, you can simply add a file called
     `setup.py` that includes the following code
 
@@ -82,8 +114,6 @@ We are not going to create just a selection of script and hope that they talk to
     from setuptools import setup
     setup()
     ```
-
-
 
 === "setup.py + setup.cfg"
 
@@ -110,6 +140,9 @@ We are not going to create just a selection of script and hope that they talk to
     # ...
     ```
 
+https://setuptools.pypa.io/en/latest/build_meta.html
+
+
 Regardless of what way you one chooses to go around the question of build systems and meta data, after creating the
 above files the correct way to install them would be the same
 
@@ -122,11 +155,11 @@ pip install -e . # (1)!
 1. :man_raising_hand: The `-e` is short for `--editable` mode also called
     [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously
     iterating on our package this is the preferred way to install our package, because that means that we do not have
-    to run `pip install` everytime we make a change. Essentially, in developer mode changes in the Python source code
+    to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.
 
 
-## ❔ Exercises
+### ❔ Exercises
 
 After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on taking the
 simple CNN MNIST classifier from yesterdays exercise and force it into this structure. You are not required to fill out
@@ -232,6 +265,20 @@ in this way paths (for saving and loading files) are always relative to the root
 
 14. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
     code (see [this set of exercises](../s1_development_environment/package_manager.md) for help)
+
+## 🧠 Knowledge check
+
+??? question "Knowledge question 1"
+
+    If tensor `a` has shape `[N, d]` and tensor `b` has shape `[M, d]` how can we calculate the pairwise distance
+    between rows in `a` and `b` without using a for loop?
+
+    ??? success "Solution"
+
+        We can take advantage of [broadcasting](https://pytorch.org/docs/stable/notes/broadcasting.html) to do this
+
+
+
 
 That ends the module on code structure and `cookiecutter`. We again want to stress the point that `cookiecutter` is
 just one template for organizing your code. What often happens in a team is that multiple templates are needed in
