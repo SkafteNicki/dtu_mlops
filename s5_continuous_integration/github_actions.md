@@ -229,8 +229,12 @@ we will setup github workflows that will automatically test for this.
     to get passing, so this exercise formally only requires you to get `isort` and `flake8`
     passing.
 
-This ends the module on Github workflows. If you have not already stumbled across this feature, if you try to create
-a workflow file directly in Github you may encounter the following page
+This ends the module on Github workflows. If you are more interested in this topic you can checkout module
+[M31 on documentation](../s10_extra/documentation.md) which first including locally building some documentation for your
+project and afterwards use Github actions for deploying it to Github Pages.
+
+If you have not already stumbled across this feature, if you try to create a workflow file directly in Github you may
+encounter the following page
 
 ![action](../figures/github_workflows.PNG)
 
