@@ -164,8 +164,8 @@ working together on the same project.
     4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
-    5. Go online to the original repository and go the `Pull requests` tab. Find `compare` button and
-       choose the to compare the `master branch` of the original repo with the branch that you just created
+    5. Go online to the original repository and go to the `Pull requests` tab. Find `compare` button and
+       choose the button to compare the `master branch` of the original repo with the branch that you just created
        in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
     6. Write a bit about the changes you have made and click `Create pull request` :)
