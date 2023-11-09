@@ -226,7 +226,6 @@ your project code is installed in your environment such that it can be imported 
         The `:::` indicator tells mkdocs that it should look for the corresponding function/module and then render it
         on the given page. Thus, if you have a function/module located in another location change the paths accordingly.
 
-
     4. Make sure that the documentation correctly includes your function and module on the given page.
 
     5. (Optional) Include more functions/modules in your documentation.
@@ -244,7 +243,6 @@ your project code is installed in your environment such that it can be imported 
     ```
 
     this should result in a `site` folder that contains the actual HTML code for documentation.
-
 
 ## Publish your documentation
 
@@ -296,10 +294,10 @@ Before getting started with this set of exercises you should have completed
     Before continuing, make sure you understand what the different steps of the workflow does and especially we
     recommend looking at the documentation of the `mkdocs gh-deploy` command.
 
-3. Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
+2. Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
     a branch called `gh-pages`. If the action does not succeeds, then figure out what is wrong and fix it!
 
-2. After confirming that our action is working, you need to configure Github to actually publish the content being
+3. After confirming that our action is working, you need to configure Github to actually publish the content being
     build by Github Actions. Do the following:
 
     * Go to the Settings tab and then the Pages subsection
@@ -313,7 +311,7 @@ Before getting started with this set of exercises you should have completed
     This should then start deploying your site to `https://<your-username>.github.io/<your-reponame>/`. If it does not
     do this you may need to recommit and trigger the github actions build again.
 
-3. Make sure your documentation is published and looks as it should.
+4. Make sure your documentation is published and looks as it should.
 
 This ends the module on technical documentation. We cannot stress enough how important it is to write proper
 documentation for larger projects that need to be maintained over a longer time. It is often a iterative process, but
