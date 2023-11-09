@@ -1995,8 +1995,14 @@ functions:</p>
 <li><a href="https://api.github.com/search/code">https://api.github.com/search/code</a>: search through github for repositories</li>
 <li><a href="https://api.github.com/repos/OWNER/REPO/actions/workflows">https://api.github.com/repos/OWNER/REPO/actions/workflows</a>: check the status of workflows for a given repository</li>
 </ul>
-<p>and we could go on. However, there may be functionality that github is not interested in users having access to and
-they may therefore choose not to have endpoints for specific features.</p>
+<p class="annotate">and we could go on. However, there may be functionality that github is not interested in users having access to and
+they may therefore choose not to have endpoints for specific features (1).</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Many companies provide public APIs to interact with their services/data. For a general list of
+    public APIs you can checkout this <a href="https://github.com/public-apis/public-apis">page</a>. For the Danes out there, you
+    can checkout <a href="https://github.com/mauran/API-Danmark">this list</a> of public and private APIs from Danish companies
+    and organisations.</li>
+</ol>
 <p>The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
 constraints that a particular API needs to fulfill to be considered RESTful. You can read more about what the six
 guiding principals behind REST API is <a href="https://restfulapi.net/">on this page</a> but one of the most important to have in
@@ -2325,6 +2331,14 @@ extra arguments regarding the ports we allow.</p>
 </li>
 </ol>
 </li>
+<li>
+<p>(Optional) In module <a href="../../s5_continuous_integration/unittesting/">M15 on unittesting</a> you learned how to write
+    unittest for your data pipeline and model. It should come as no surprise that the same can also be done for your
+    API. Doing so should be able to tell you if your API is working as you expect it to do. The only complication
+    regarding APIs is that you need a server doing testing, and we cannot use <code>uvicorn</code> for this. Checkout this
+    <a href="https://fastapi.tiangolo.com/tutorial/testing/">page</a> on how to test <code>FastAPI</code> application, and add a file called
+    <code>test_api.py</code> to your <code>tests</code> folder with appropriate tests for your API.</p>
+</li>
 </ol>
 <p>This ends the module on APIs. If you want to go further in this direction we highly recommend that you checkout
 <a href="https://github.com/bentoml/BentoML">bentoml</a> that is an API standard that focuses solely on creating easy to understand
@@ -2357,7 +2371,7 @@ In particular
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2023</span>
       
         <br>
         Created:
