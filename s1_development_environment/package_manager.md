@@ -90,6 +90,8 @@ In the course we do not care about which package manager you use, but we do care
 familiar with one package manager, then skip this exercise and continue to use that. The best recommendation that I can
 give regarding package managers in general is to find one you like and then stick with it. A lot of time can be wasted
 on trying to find the perfect package manager, but in the end they all do the same with some minor differences.
+Checkout [this blogpost](https://alpopkes.com/posts/python/packaging_tools/) if you want a fairly up-to-date evaluation
+of the different environment management and packinging tools that exist in the python ecosystem.
 
 If you are not familiar with any package managers, then we recommend that you use `conda` and `pip` for this course. You
 probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
