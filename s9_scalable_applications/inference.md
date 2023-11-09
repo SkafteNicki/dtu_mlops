@@ -198,12 +198,14 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 3. Try to prune the weights of the first convolutional layer by calling
 
     ```python
-    prune.random_unstructured(module_1, name="weight", amount=0.3)
+    prune.random_unstructured(module_1, name="weight", amount=0.3)  # (1)!
     ```
 
+    1. :man_raising_hand: You can read about the prune method
+        [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
+
     Try printing the `named_parameters`, `named_buffers` before and after the module is pruned. Can you explain the
-    difference and what is the connection to the `module_1.weight` attribute. Hint: You can read about the prune
-    method [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
+    difference and what is the connection to the `module_1.weight` attribute.
 
 4. Try pruning the bias of the same module this time using the `l1_unstructured` function from the pruning module. Again
     check the  `named_parameters`, `named_buffers` argument to make sure you understand the difference between L1 pruning

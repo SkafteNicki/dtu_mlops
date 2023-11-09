@@ -114,7 +114,14 @@ working together on the same project.
 
     2. Move/copy the three files from yesterday into the repository (and any other that you made)
 
-    3. Add the files to a commit by using `git add` command
+    3. Add the files to a commit by using `git add` command (1)
+       { .annotate }
+
+        1. :man_raising_hand: Writing good commit message is a skill in itself. A commit message should be short but
+            informative about the work you are trying to commit. Try to practise writing good commit messages
+            throughout the course. You can see
+            [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
+
 
     4. Commit the files using `git commit`
 
