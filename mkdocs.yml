@@ -124,8 +124,9 @@ nav:
   - S10 - Extra 🔥:
     - s10_extra/README.md
     - M30 - Command Line Interfaces: s10_extra/cli.md
-    - M31 - Hyperparameter optimization: s10_extra/hyperparameters.md
-    - M32 - High Performance Clusters: s10_extra/high_performance_clusters.md
+    - M31 - Documentation: s10_extra/documentation.md
+    - M32 - Hyperparameter optimization: s10_extra/hyperparameters.md
+    - M33 - High Performance Clusters: s10_extra/high_performance_clusters.md
   - Summary: overview.md
   - Projects: projects.md
   - Challenges: challenges.md
