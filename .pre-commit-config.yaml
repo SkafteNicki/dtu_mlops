@@ -15,20 +15,19 @@ repos:
       - id: check-case-conflict
       - id: detect-private-key
 
-  - repo: https://github.com/psf/black
-    rev: 23.7.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.3
     hooks:
-      - id: black
-        name: Format code
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.3
+    hooks:
+      - id: ruff-format
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.5
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.291
-    hooks:
-      - id: ruff
-        args: ["--fix"]
