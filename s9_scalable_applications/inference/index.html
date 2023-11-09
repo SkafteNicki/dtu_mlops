@@ -2114,11 +2114,14 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 </li>
 <li>
 <p>Try to prune the weights of the first convolutional layer by calling</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">prune</span><span class="o">.</span><span class="n">random_unstructured</span><span class="p">(</span><span class="n">module_1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">prune</span><span class="o">.</span><span class="n">random_unstructured</span><span class="p">(</span><span class="n">module_1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># (1)!</span>
 </span></code></pre></div>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You can read about the prune method
+    <a href="https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured">here</a>.</li>
+</ol>
 <p>Try printing the <code>named_parameters</code>, <code>named_buffers</code> before and after the module is pruned. Can you explain the
-difference and what is the connection to the <code>module_1.weight</code> attribute. Hint: You can read about the prune
-method <a href="https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured">here</a>.</p>
+difference and what is the connection to the <code>module_1.weight</code> attribute.</p>
 </li>
 <li>
 <p>Try pruning the bias of the same module this time using the <code>l1_unstructured</code> function from the pruning module. Again
@@ -2309,7 +2312,7 @@ finish because it involves training multiple networks and therefore involve some
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2023</span>
       
         <br>
         Created:
