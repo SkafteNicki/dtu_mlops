@@ -100,7 +100,7 @@ documentation in mkdocs I recommend looking at [this page](https://www.mkdocs.or
 ## Exercises
 
 In this set of exercises we assume that you have completed
-[module M6 on code structure](s2_organisation_and_version_control\code_structure.md) and therefore have a repository
+[module M6 on code structure](s2_organisation_and_version_control/code_structure.md) and therefore have a repository
 that at least contains the following:
 
 ```txt
