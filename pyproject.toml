@@ -21,12 +21,5 @@ ignore = [
 [tool.ruff.pydocstyle]
 convention = "google"
 
-[tool.isort]
-profile = "black"
-
-[tool.black]
-line-length = 120
-exclude = "(.eggs|.git|.hg|.mypy_cache|.venv|_build|buck-out|build|dist)"
-
 [tool.codespell]
 skip = "*.pdf,*.ipynb"
