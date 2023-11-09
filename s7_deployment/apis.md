@@ -188,7 +188,13 @@ functions:
 * <https://api.github.com/repos/OWNER/REPO/actions/workflows>: check the status of workflows for a given repository
 
 and we could go on. However, there may be functionality that github is not interested in users having access to and
-they may therefore choose not to have endpoints for specific features.
+they may therefore choose not to have endpoints for specific features (1).
+{ .annotate }
+
+1. :man_raising_hand: Many companies provide public APIs to interact with their services/data. For a general list of
+    public APIs you can checkout this [page](https://github.com/public-apis/public-apis). For the Danes out there, you
+    can checkout [this list](https://github.com/mauran/API-Danmark) of public and private APIs from Danish companies
+    and organisations.
 
 The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
 constraints that a particular API needs to fulfill to be considered RESTful. You can read more about what the six
@@ -544,6 +550,13 @@ you can look through for help.
 
     5. Check that everything is working by going to the corresponding localhost page
         <http://localhost/items/5?q=somequery>
+
+9. (Optional) In module [M15 on unittesting](../s5_continuous_integration/unittesting.md) you learned how to write
+    unittest for your data pipeline and model. It should come as no surprise that the same can also be done for your
+    API. Doing so should be able to tell you if your API is working as you expect it to do. The only complication
+    regarding APIs is that you need a server doing testing, and we cannot use `uvicorn` for this. Checkout this
+    [page](https://fastapi.tiangolo.com/tutorial/testing/) on how to test `FastAPI` application, and add a file called
+    `test_api.py` to your `tests` folder with appropriate tests for your API.
 
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you checkout
 [bentoml](https://github.com/bentoml/BentoML) that is an API standard that focuses solely on creating easy to understand
