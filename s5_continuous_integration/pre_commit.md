@@ -92,7 +92,7 @@ this will make sure that the file is automatically executed whenever we run `git
 
     to do this.
 
-5.  Try to commit your recently created `.pre-commit-config.yaml` file. You will likely not do anything, because
+5. Try to commit your recently created `.pre-commit-config.yaml` file. You will likely not do anything, because
     `pre-commit` only check files that are being committed. Instead try to run
 
     ```bash
