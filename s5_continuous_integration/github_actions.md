@@ -18,6 +18,7 @@ combine this with only pushing to branches and then only merging these branches 
 passed, our code should be fairly safe against unwanted bugs (assuming your tests are well covering your code).
 
 ## Github actions
+
 Github actions are the CI solution that Github provides. Each of your repositories gets 2,000 minutes
 of free testing per month which should be more than enough for the scope of this course (and probably
 all personal projects you do). Getting Github actions setup in a repository may seem complicated at
@@ -188,57 +189,36 @@ Lets take a look at how a github workflow file is organized:
     4. Finally, add the changes, commit, push and confirm that everything works as expected. You should now be able to
         run unit tests that depends on your input data.
 
-## Auto linter
+11. In [module M6 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
+    (optional module) of the course you where introduced to a couple of good coding practices such as being consistent
+    with your coding style, how your Python packages are sorted and that your code follows certain standards. All this
+    was done using the `ruff` framework. In this set of exercises we will setup github workflows that will automatically
+    test for this.
 
-In [module M6 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
-(optional module) of the course you where introduced to a couple of good coding practices such as being consistent with
-how your python packages are sorted and that your code follows certain standards. In this set of exercises we will setup
-github workflows that will automatically test for this.
+    1. Create a new workflow file called `codecheck.yml`, that implements the following three steps
 
-### ❔ Exercises
+        * Setup python environment
 
-1. Create a new workflow file called `isort.yml`, that implements the following three steps
+        * Installs `ruff`
 
-    * Setup python environment
+        * Runs `ruff check` and `ruff format` on the repository
 
-    * Installs `isort`
+        (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
 
-    * Runs `isort` on the repository
+    2. In addition to `ruff` we also used `mypy` in those set of exercies for checking if the typing we added to our
+        code was good enough. Add another step to the `codecheck.yml` file which runs `mypy` on your repository.
 
-    (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
-
-2. Create a new workflow file called `flake8.yml`, that implements the following three steps
-
-    * Setup python environment
-
-    * Installs `flake8`
-
-    * Runs `flake8` on the repository
-
-    (HINT: You should be able to just change the last steps of the `tests.yml` workflow file)
-
-3. Create a new workflow file  called `mypy.yml`, that implements the following three steps
-
-    * Setup python environment
-
-    * Installs `mypy`
-
-    * Runs `mypy` on the repository
-
-4. Try to make sure that all tests are passing on repository. Especially `mypy` can be hard
-    to get passing, so this exercise formally only requires you to get `isort` and `flake8`
-    passing.
+    3. Try to make sure that all steps are passing on repository. Especially `mypy` can be hard to get passing, so this
+        exercise formally only requires you to get `ruff` passing.
 
 This ends the module on Github workflows. If you are more interested in this topic you can checkout module
 [M31 on documentation](../s10_extra/documentation.md) which first including locally building some documentation for your
-project and afterwards use Github actions for deploying it to Github Pages.
-
-If you have not already stumbled across this feature, if you try to create a workflow file directly in Github you may
-encounter the following page
+project and afterwards use Github actions for deploying it to Github Pages. Additionally, Github also have a lot of
+templates already for running a lot CI tasks. If you try to create a workflow file directly in Github you may encounter
+the following page
 
 ![action](../figures/github_workflows.PNG)
 
-Github comes with many templates for writing actions file for whatever you may need, to make sure you have a good
-starting point. We highly recommend checking this out if you want to write any other kind of CI pipeline in
-Github actions. Additionally we can also recommend [this repository](https://github.com/sdras/awesome-actions) that
-have an list of awesome actions.
+We highly recommend checking this out if you want to write any other kind of CI pipeline in Github actions.
+Finally, we can also recommend [this repository](https://github.com/sdras/awesome-actions) that have an list of
+awesome actions.
