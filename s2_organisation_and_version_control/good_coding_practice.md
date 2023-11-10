@@ -8,13 +8,18 @@
     *Code is read more often than it is written.* <br> <br>
     Guido Van Rossum (author of Python)
 
-To understand what good coding practice is, it is important to understand what it is *not*:
+It is hard to define exactly what good coding practises are. But the above quote by Guido does hint at what it could be,
+namely that it has to do with how others observe and persive your code. In general, good coding practice is about making
+sure that you code is easy to read and understand, not only by others but also by your future self. The key concept to
+keep in mind with we are talking about good coding practice is *consistency*. In many cases it does not matter exactly
+how you choose to style your code etc., the important part is that you are consistent about it.
 
-* Making sure your code run fast
-* Making sure that you use a specific coding paradigm (object orientated programming etc.)
-* Making sure to only use few dependencies
-
-Instead good coding practices really comes down to two topics: documentation and styling.
+<figure markdown>
+![Image](../figures/understand_code_joke.jpg){ width="500" }
+<figcaption>
+<a href="https://www.reddit.com/r/ProgrammerHumor/comments/8pdebc/only_god_and_i_knew/"> Image credit </a>
+</figcaption>
+</figure>
 
 ## Documentation
 
@@ -26,12 +31,12 @@ It is key to remember that good documentation saves more time, than it takes to 
 The problem with documentation is that there is no right or wrong way to do it. You can end up doing:
 
 * Under documentation: You document information that is clearly visible from the code and not the complex
-  parts that are actually hard to understand.
+    parts that are actually hard to understand.
 
 * Over documentation: Writing too much documentation will have the opposite effect on most people than
-  what you want: there is too much to read, so people will skip it.
+    what you want: there is too much to read, so people will skip it.
 
-Here is a good rule of thump for inline comments
+Writing good documentation is a skill that takes time to train, so lets try to do it.
 
 !!! quote
     *Code tells you how; Comments tell you why.* <br> <br>
@@ -40,8 +45,20 @@ Here is a good rule of thump for inline comments
 ### ❔ Exercises
 
 1. Go over the most complicated file in your project. Be critical and add comments where the logic
-    behind the code is not easily understandable. Hint: In deep learning we often work with tensors that
-    change shape constantly. It is always a good idea to add comments where a tensor undergoes some reshaping.
+    behind the code is not easily understandable. (1)
+    { .annotate }
+
+    1. :man_raising_hand: In deep learning we often work with multi-dimensional tensors that constantly changes shape
+        after each operation. It is good practise to annotate with comments when tensors undergoes some reshaping.
+        In the following example we compute the pairwise euclidean distance between two tensors using broadcasting
+        which results in multiple shape operations.
+
+        ```python
+        x = torch.randn(5, 10)  # N x D
+        y = torch.randn(7, 10)  # M x D
+        xy = x.unsqueeze(1) - y.unsqueeze(0)  # (N x 1 x D) - (1 x M x D) = (N x M x D)
+        pairwise_euc_dist = xy.abs().pow(2.0).sum(dim=-1)  # N x M
+        ```
 
 2. Add [docstrings](https://www.python.org/dev/peps/pep-0257/) to at least two python function/methods.
     You can see [here (example 5)](https://www.programiz.com/python-programming/docstrings) a good example
@@ -60,91 +77,86 @@ The question then remains what styling you should use. This is where [Pep8](http
 comes into play, which is the  official style guide for python. It is essentially contains what is considered
 "good practice" and "bad practice" when coding python.
 
-One way to check if your code is pep8 compliant is to use
-[flake8](https://flake8.pycqa.org/en/latest/).
+The many years the most commonly used tool to check if you code is PEP8 compliant is to use
+[flake8](https://flake8.pycqa.org/en/latest/). However, we are in this course going to be using
+[ruff](https://github.com/astral-sh/ruff) that are quickly gaining popularity due to how fast it is and how quickly the
+developers are adding new features. (1)
+{ .annotate }
+
+1. :man_raising_hand: both `flake8` and `ruff` is what is called a
+    [linter or lint tool](https://en.wikipedia.org/wiki/Lint_(software)), which is any kind of static code analyze
+    program that is used to flag programming errors, bugs, and styling errors.
 
 ### ❔ Exercises
 
-1. Install flake8
+1. Install `ruff`
 
     ```bash
-    pip install flake8
+    pip install ruff
     ```
 
-2. run flake8 on your project
+2. Run `ruff` on your project or part of your project
 
     ```bash
-    flake8 .
+    ruff check .  # Lint all files in the current directory (and any subdirectories)
+    ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
     ```
 
-    are you pep8 compliant or are you a normal mortal?
+    are you PEP8 compliant or are you a normal mortal?
 
-You could go and fix all the small errors that `flake8` is giving. However, in practice large projects instead relies
-on some kind of code formatter, that will automatically format your code for you to be pep8 compliant.
-Some of the biggest are:
+You could go and fix all the small errors that `ruff` is giving. However, in practice large projects instead relies
+on some kind of code formatter, that will automatically format your code for you to be PEP8 compliant. Some of the
+biggest formatters for the longest time in Python have been [black](https://github.com/psf/black) and
+[yapf](https://github.com/google/yapf), but we are going to use `ruff` which also have a build in formatter that should
+be a drop-in replacement for `black`.
 
-* [black](https://github.com/psf/black)
-* [yapf](https://github.com/google/yapf)
-
-It is important to note, that code formatting is in general not about following a specific code style, but rather that
-all users follow the same.
-
-1. Install a code formatter of your own choice (I recommend `black`) and let it format at least one of the script in
-    your codebase. You can also try to play around with the different formatters to find out which formatter you like
-    the most
-
-One aspect not covered by `pep8` is how `import` statements in python should be organized. If you are like most
-people, you place your `import` statements at the top of the file and they are ordered simply by when you needed them.
-For this reason `import` statements is something we also want to take care of, but do not want to deal with ourself.
-
-1. Install [isort](https://github.com/PyCQA/isort) the standard for sorting imports
+1. Try to use `ruff format` to format your code
 
     ```bash
-    pip install isort
+    ruff format .  # Format all files in the current directory.
+    ruff format /path/to/file.py  # Format a single file.
     ```
 
-2. run isort on your project
+By default `ruff` will apply a selection of rules when we are either checking it or formatting it. However, many more
+rules can be activated through [configuration](https://docs.astral.sh/ruff/configuration/).  If you have completed
+module [M6 on code structure](code_structure.md) you will have encountered the `pyproject.toml` file, which can store
+both build instructions about our package but also configuration of developer tools. Lets try to configure `ruff` using
+the `pyproject.toml` file.
 
-    ```bash
-    isort .
+1. One aspect that is not covered by PEP8 is how `import` statements in Python should be organized. If you are like
+    most people, you place your `import` statements at the top of the file and they are ordered simply by when you
+    needed them. A better practice is to introduce some clear structure in our imports. In older versions of this course
+    we have used [isort](https://github.com/PyCQA/isort) to do the job, but we are here going to configure `ruff` to do
+    the job. In your `pyproject.toml` file add the following lines
+
+    ```toml
+    [tool.ruff]
+    select = ["I"]
     ```
 
-    and check how the imports were sorted.
+    and try re-running `ruff check` and `ruff format`. Hopefully this should reorganize your imports to follow common
+    practice. (1)
+    { .annotate }
 
-Finally, we can also configure `black`, `isort` etc. to our specific needs. All the different frameworks can be
-configured directly from the command line. For example the recommended line length in `pep8` is 79 characters, which by
-many is considered very restrictive. If we wanted tell `flake8` and `black` to only error and correct code with a line
-length above 100 we could run the following commands
+    1. :man_raising_hand: the common practise is to first list built-in python packages (like `os`) in one block,
+        followed by third-party dependencies (like `torch`) in a second block and finally imports from your own package
+        in a third block. Each block is then put in alphabetical order.
 
-```bash
-# the . indicates that
-flake8 . --max-line-length 100
-black . --line-length 100
-```
+2. One PEP8 styling rule that is often diverged from is the recommended line length of 79 characters, which by many
+    (including myself) is considered very restrictive. If you code consist of multiple levels of indentation, you can
+    quikly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters
+    which seems to be the sweet spot of how many characters fits in a coding window on a laptop.
+    Add the line
 
-While this is nice, it is much better to put such configurations into special python configuration files. The two
-commonly used are [setup.cfg](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html) and
-[pyproject.toml](https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/). For example, when you run
-`flake8` it will automatically look for a `setup.cfg` file in the current folder and apply those configs. The
-corresponding `setup.cfg` file to the command above would be
+    ```toml
+    line-length=120
+    ```
 
-```yaml
-[flake8]
-exclude = venv
-ignore = W503 # W503: Line break occurred before binary operator
-max-line-length = 100
-```
+    under the `[tool.ruff]` section in the `pyproject.toml` file and rerun `ruff check` and `ruff format` on your code.
 
-1. Add the above code snippet to a file named `setup.cfg` in your project. Add a line with a length longer than the
-    standard 79 characters but below 100 and run `flake8` again to check that you get no error.
-
-2. To make sure that your formatter still does not try to format to 79 character length, add a `pyproject.toml` file to
-    your project where you customize the rules for the different formatters. For `black` you can look at this
-    [page](https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html) on how to configure the file
-    Again create a line above 79 but below 100 characters and check that it is not being formatted.
-
-3. (Optional) Experiment further with the customization of `flake8`, `black` etc. Especially it may be worth looking
-    into the `include` and `exclude` keywords for specifying which files should actually be formatted.
+3. Experiment yourself with further configuration of `ruff`. In particular we recommend adding more
+    [rules](https://docs.astral.sh/ruff/rules/) and looking `[tool.ruff.pydocstyle]` configuration to indicate how you
+    have styled your documentation.
 
 ## Typing
 
@@ -186,8 +198,6 @@ different.
         return x+y
     ```
 
-
-
 === "python >=3.10"
 
     ```python
@@ -223,7 +233,7 @@ help us at all. Therefore, use `Any` only when necessary.
     from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
     ```
 
-    for it to work. Hint: [here](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
+    for it to work. This [cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
     typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
 
 2. [mypy](https://mypy.readthedocs.io/en/stable/index.html) is what is called a static type checker. If you are using
@@ -242,3 +252,57 @@ help us at all. Therefore, use `Any` only when necessary.
 
     If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your
     types are incompatible.
+
+## 🧠 Knowledge check
+
+??? question "Knowledge question 1"
+
+    According to PEP8 what is wrong with the following code?
+
+    ```python
+    class myclass(nn.Module):
+        def TrainNetwork(self, X, y):
+            ...
+    ```
+
+    ??? success "Solution"
+
+        According to PEP8 classes should follow the CapWords convention, meaning that the first letter in each word of
+        the class name should be capitalized. Thus `myclass` should therefore be `MyClass`. On the other hand, functions
+        and methods should be full lowercase with words separated by underscore. Thus `TrainNetwork` should be
+        `train_network`.
+
+??? question "Knowledge question 2"
+
+    What would be the of argument `x` for a function `def f(x):` if it should support the following input
+
+    ```python
+    x1 = [1, 2, 3, 4]
+    x2 = (1, 2, 3, 4)
+    x3 = None
+    x4 = {1: "1", 2: "2", 3: "3", 4: "4"}
+    ```
+
+    ??? success "Solution"
+
+        The easy solution would be to do `def f(x : Any)`. But instead we could also go with:
+
+        ```python
+        def f(x: None | Tuple[int, ...] | List[int] | Dict[int, str]):
+        ```
+
+        alternatively, we could also do
+
+        ```python
+        def f(x: None | Iterable[int]):
+        ```
+
+        because both `list`, `tuple` and `dict` are iterables and therefore can be covered by one type
+        (in this specific case).
+
+This ends the module on coding style. We again want to emphazize that a good coding style is more about having a
+consistent style than strictly following PEP8. A good example of this is Google, that have their own
+[style guide for Python](https://google.github.io/styleguide/pyguide.html). This guide does not match PEP8 exactly, but
+it makes sure that different teams within google that are working on different projects are still to a large degree
+following the same style and therefore if a project is handed from one team to another then at least that will not be a
+problem.

@@ -78,25 +78,46 @@ this will make sure that the file is automatically executed whenever we run `git
 2. Next create the sample file
 
     ```bash
-    pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
+    pre-commit sample-config > .pre-commit-config.yaml
     ```
 
 3. The sample file already contains 4 hooks. Make sure you understand what each do and if you need them at all.
 
-4. The base repo <https://github.com/pre-commit/pre-commit-hooks> also have a hook for configuring `flake8` to run.
-    Add this to the config file and make sure it works as expected e.g. make something that is not `flake8` compliant
-    and then try to commit that change.
+4. `pre-commit` works by hooking into the `git commit` command, running whenever that command is run. For this to work,
+    we need to install the hooks into `git commit`. Run
 
-5. Running `black` or `yapf` is not part of the base repo, however it is still possible to include this as pre-commit
-    hooks. Google how to do it, include one of them and then test out that it actually works.
+    ```bash
+    pre-commit install
+    ```
 
-6. Make sure that you also can do commits without running `pre-commit` e.g.
+    to do this.
+
+5. Try to commit your recently created `.pre-commit-config.yaml` file. You will likely not do anything, because
+    `pre-commit` only check files that are being committed. Instead try to run
+
+    ```bash
+    pre-commit run --all-files
+    ```
+
+    that will check every file in your repository.
+
+6. Try adding at least another check from the [base repository](https://github.com/pre-commit/pre-commit-hooks) to your
+    `.pre-commit-config.yaml` file.
+
+7. If you have completed the optional module
+    [M7 on good coding practice](../s2_organisation_and_version_control/good_coding_practice.md) you will have learned
+    about the linter `ruff`. `ruff` comes with its own [pre-commit hook](https://github.com/astral-sh/ruff-pre-commit).
+    Try adding that to your `.pre-commit-config.yaml` file and see what happens when you try to commit files.
+
+8. (Optional) Add more hooks to your `.pre-commit-config.yaml`.
+
+9. Sometimes you are in a hurry, so make sure that you also can do commits without running `pre-commit` e.g.
 
     ```bash
     git commit -m <message> --no-verify
     ```
 
-7. Finally, figure out how to disable `pre-commit` again.
+10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
 
 That was all about how `pre-commit` can be used to automate tasks. If you want to deep dive more into the topic you
 can checkout this [page](https://pre-commit.com/#python) on how to define your own `pre-commit` hooks.
