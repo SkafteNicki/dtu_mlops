@@ -967,15 +967,15 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
     🧠 Knowledge check
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1776,15 +1776,15 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
     🧠 Knowledge check
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1836,6 +1836,16 @@ unit you can therefore think a function, module or in general any object. By wri
 very easy to isolate which part of the code that broke after an update to the code base. Another way to test your code
 base would be through <a href="https://en.wikipedia.org/wiki/Integration_testing">integration testing</a> which is equally
 important but we are not going to focus on it in this course.</p>
+<p>Unittests (and integration tests) are not a unique concept to MLOps, but is a core concept from DevOps. However, it is
+important to note that testing of machine learning based system are much more difficult than traditional systems. The
+reason for this is that machine learning systems depends on <em>data</em>, that influences the state of our system. For this
+reason, we not only need unittests and integration tests of our code, we also need data testing, infrastructure testing
+and more monitoring to check that we stay within the data distribution we are training on (more on this in
+<a href="../../s8_monitoring/data_drifting/">module M25 on data drifting</a>). This added complexity is illustrated in the figure
+below.</p>
+<figure>
+<p><a class="glightbox" href="../../figures/system_difference.drawio.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/system_difference.drawio.png" width="1000" /></a></p>
+</figure>
 <h2 id="pytest">Pytest</h2>
 <p>Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
 and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
@@ -2002,7 +2012,7 @@ be 5000.</p>
 </ol>
 </li>
 </ol>
-<h2 id="knowledge-check">🧠 Knowledge check</h2>
+<h3 id="knowledge-check">🧠 Knowledge check</h3>
 <details class="question">
 <summary>Knowledge question 1</summary>
 <p>Assume you have a code coverage of 100%, would you expect that no bugs are present in your code?</p>
@@ -2029,7 +2039,7 @@ correct. For such testing we can highly recommend using pythons built-in framewo
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
       
         <br>
         Created:
