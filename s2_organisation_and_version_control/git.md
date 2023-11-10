@@ -122,7 +122,6 @@ working together on the same project.
             throughout the course. You can see
             [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
 
-
     4. Commit the files using `git commit`
 
     5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been

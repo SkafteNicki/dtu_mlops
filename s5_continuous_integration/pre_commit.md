@@ -117,7 +117,7 @@ this will make sure that the file is automatically executed whenever we run `git
     git commit -m <message> --no-verify
     ```
 
-7. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
+10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
 
 That was all about how `pre-commit` can be used to automate tasks. If you want to deep dive more into the topic you
 can checkout this [page](https://pre-commit.com/#python) on how to define your own `pre-commit` hooks.
