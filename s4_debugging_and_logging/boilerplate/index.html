@@ -1871,8 +1871,7 @@ find a solution to.</p>
 seem irritating that you need to comply to someone else code structure, however there is a good reason for that. The
 idea is that you can focus on what really matters (your task, model architecture etc.) and do not have to worry about
 the actual boilerplate that comes with it.</p>
-<p>\
-The most popular high-level (training) frameworks within the <code>Pytorch</code> ecosystem are:</p>
+<p>The most popular high-level (training) frameworks within the <code>Pytorch</code> ecosystem are:</p>
 <ul>
 <li><a href="https://github.com/fastai/fastai">fast.ai</a></li>
 <li><a href="https://github.com/pytorch/ignite">Ignite</a></li>
@@ -1895,7 +1894,7 @@ requires two more methods implemented:</p>
 <ul>
 <li>
 <p><code>training_step</code>: should contain your actual training code e.g. given a batch of data this should return the loss
-  that you want to optimize</p>
+    that you want to optimize</p>
 </li>
 <li>
 <p><code>configure_optimizers</code>: should return the optimizer that you want to use</p>
@@ -1923,9 +1922,9 @@ specify how our data should be feed into the lighning framework.</p>
 <p>For organizing our code that has to do with data in <code>Lightning</code> we essentially have three different options. However,
 all three assume that we are using <code>torch.utils.data.DataLoader</code> for the dataloading.</p>
 <ol>
-<li>If we already have a <code>train_dataloader</code> and possible also a <code>val_dataloader</code> and <code>test_dataloader</code> defined we can
-   simply add them to our <code>LightningModule</code> using the similar named methods:</li>
-</ol>
+<li>
+<p>If we already have a <code>train_dataloader</code> and possible also a <code>val_dataloader</code> and <code>test_dataloader</code> defined we can
+    simply add them to our <code>LightningModule</code> using the similar named methods:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span> <span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -1935,16 +1934,18 @@ all three assume that we are using <code>torch.utils.data.DataLoader</code> for 
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">def</span> <span class="nf">test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span></code></pre></div>
-<ol>
-<li>Maybe even simpler, we can directly feed such dataloaders in the <code>fit</code> method of the <code>Trainer</code> object:</li>
-</ol>
+</li>
+<li>
+<p>Maybe even simpler, we can directly feed such dataloaders in the <code>fit</code> method of the <code>Trainer</code> object:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val_dataloader</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">trainer</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="p">)</span>
 </span></code></pre></div>
-<ol>
-<li>Finally, <code>Lightning</code> also have the <code>LightningDataModule</code> that organizes data loading into a single structure, see
-   this <a href="https://pytorch-lightning.readthedocs.io/en/latest/data/datamodule.html">page</a> for more info. Putting
-   data loading into a <code>DataModule</code> makes sense as it is then can be reused between projects.</li>
+</li>
+<li>
+<p>Finally, <code>Lightning</code> also have the <code>LightningDataModule</code> that organizes data loading into a single structure, see
+    this <a href="https://pytorch-lightning.readthedocs.io/en/latest/data/datamodule.html">page</a> for more info. Putting
+    data loading into a <code>DataModule</code> makes sense as it is then can be reused between projects.</p>
+</li>
 </ol>
 <h3 id="callbacks">Callbacks</h3>
 <p>Callbacks is one way to add additional functionality to your model, that strictly speaking is not already part of your
@@ -1954,28 +1955,30 @@ use one of the
 <a href="https://pytorch-lightning.readthedocs.io/en/latest/extensions/callbacks.html#built-in-callbacks">build in callbacks</a>.
 Of particular interest are <code>ModelCheckpoint</code> and <code>EarlyStopping</code> callbacks:</p>
 <ul>
-<li>The <code>ModelCheckpoint</code> makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
-  the <code>ModelCheckpoint</code> callback offers additional functionality by saving checkpoints only when some metric improves,
-  or only save the best <code>K</code> performing models etc.</li>
-</ul>
+<li>
+<p>The <code>ModelCheckpoint</code> makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
+    the <code>ModelCheckpoint</code> callback offers additional functionality by saving checkpoints only when some metric improves,
+    or only save the best <code>K</code> performing models etc.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">checkpoint_callback</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  <span class="n">dirpath</span><span class="o">=</span><span class="s2">&quot;./models&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">dirpath</span><span class="o">=</span><span class="s2">&quot;./models&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callbacks</span><span class="p">])</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span></code></pre></div>
-<ul>
-<li>The <code>EarlyStopping</code> callback can help you prevent overfitting by automatically stopping the training if a certain
-  value is not improving anymore:</li>
-</ul>
+</li>
+<li>
+<p>The <code>EarlyStopping</code> callback can help you prevent overfitting by automatically stopping the training if a certain
+    value is not improving anymore:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">early_stopping_callback</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping_callback</span><span class="p">])</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span></code></pre></div>
+</li>
+</ul>
 <p>Multiple callbacks can be used by passing them all in a list e.g.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callbacks</span><span class="p">,</span> <span class="n">early_stopping_callback</span><span class="p">])</span>
 </span></code></pre></div>
@@ -1986,40 +1989,52 @@ implement our model in <code>lightning</code> to begin with, is that to truly un
 framework to do some of the heavy lifting you need to have gone through some of implementation troubles yourself.</p>
 <ol>
 <li>
-<p>Convert your corrupted MNIST model into a <code>LightningModule</code>. You can either choose to completely override your old
-   model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
-   the rest of lightning:</p>
+<p>Install pytorch lightning:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pytorch-lightning<span class="w"> </span><span class="c1"># (1)!</span>
+</span></code></pre></div>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You may also install it as <code>pip install lightning</code> which includes more than just the
+    <code>Pytorch Lightning</code> package. This also includes <code>Lightning Fabric</code> and <code>Lightning Apps</code> which you can read more
+    about <a href="https://lightning.ai/docs/fabric/stable/">here</a> and <a href="https://lightning.ai/docs/app/stable/">here</a>.</li>
+</ol>
 </li>
 <li>
+<p>Convert your corrupted MNIST model into a <code>LightningModule</code>. You can either choose to completely override your old
+    model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
+    the rest of lightning:</p>
+<ul>
+<li>
 <p>The <code>training_step</code> method. This function should contain essentially what goes into a single
-   training step and should return the loss at the end</p>
+    training step and should return the loss at the end</p>
 </li>
 <li>
 <p>The <code>configure_optimizers</code> method</p>
 </li>
-</ol>
+</ul>
 <p>Please read the <a href="https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html">documentation</a>
-   for more info.</p>
-<ol>
+for more info.</p>
+</li>
 <li>
 <p>Make sure your data is formatted such that it can be loaded using the <code>torch.utils.data.DataLoader</code> object.</p>
 </li>
 <li>
 <p>Instantiate a <code>Trainer</code> object. It is recommended to take a look at the
-   <a href="https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags">trainer arguments</a> (there
-   are many of them) and maybe adjust some of them:</p>
-</li>
+    <a href="https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags">trainer arguments</a> (there
+    are many of them) and maybe adjust some of them:</p>
+<ol>
 <li>
 <p>Investigate what the <code>default_root_dir</code> flag does</p>
 </li>
 <li>
 <p>As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
-      changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
-      should train for.</p>
+    changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
+    should train for.</p>
 </li>
 <li>
 <p>To start with we also want to limit the amount of training data to 20% of its original size. which
-      trainer flag do you need to set for this to work?</p>
+    trainer flag do you need to set for this to work?</p>
+</li>
+</ol>
 </li>
 <li>
 <p>Try fitting your model: <code>trainer.fit(model)</code></p>
@@ -2029,55 +2044,57 @@ framework to do some of the heavy lifting you need to have gone through some of 
 </li>
 <li>
 <p>The privous module was all about logging in <code>wandb</code>, so the question is naturally how does <code>lightning</code> support this.
-   Lightning does not only support <code>wandb</code>, but also many
-   <a href="https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html">others</a>. Common for all of them, is that
-   logging just need to happen through the <code>self.log</code> method in your <code>LightningModule</code>:</p>
-</li>
+    Lightning does not only support <code>wandb</code>, but also many
+    <a href="https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html">others</a>. Common for all of them, is that
+    logging just need to happen through the <code>self.log</code> method in your <code>LightningModule</code>:</p>
+<ol>
 <li>
 <p>Add <code>self.log</code> to your `LightningModule. Should look something like this:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;train_loss&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;train_acc&#39;</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">return</span> <span class="n">loss</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;train_loss&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;train_acc&#39;</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">return</span> <span class="n">loss</span>
 </span></code></pre></div>
 </li>
 <li>
 <p>Add the <code>wandb</code> logger to your trainer</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">WandbLogger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;dtu_mlops&quot;</span><span class="p">))</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">WandbLogger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;dtu_mlops&quot;</span><span class="p">))</span>
 </span></code></pre></div>
 <p>and try to train the model. Confirm that you are seeing the scalars appearing in your <code>wandb</code> portal.</p>
 </li>
 <li>
 <p><code>self.log</code> does sadly only support logging scalar tensors. Luckily, for logging other quantities we
-      can still access the standard <code>wandb.log</code> through our model</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="o">...</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="c1"># self.logger.experiment is the same as wandb.log</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s1">&#39;logits&#39;</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histrogram</span><span class="p">(</span><span class="n">preds</span><span class="p">)})</span>
+    can still access the standard <code>wandb.log</code> through our model</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="o">...</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="c1"># self.logger.experiment is the same as wandb.log</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s1">&#39;logits&#39;</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histrogram</span><span class="p">(</span><span class="n">preds</span><span class="p">)})</span>
 </span></code></pre></div>
 <p>try doing this, by logging something else than scalar tensors.</p>
 </li>
+</ol>
+</li>
 <li>
 <p>Finally, we maybe also want to do some validation or testing. In lightning we just need to add the <code>validation_step</code>
-   and <code>test_step</code> to our lightning module and supply the respective data in form of a separate dataloader. Try to at
-   least implement one of them.</p>
+    and <code>test_step</code> to our lightning module and supply the respective data in form of a separate dataloader. Try to at
+    least implement one of them.</p>
 </li>
 <li>
 <p>(Optional, requires GPU) One of the big advantages of using <code>lightning</code> is that you no more need to deal with device
-   placement e.g. called <code>.to('cuda')</code> everywhere. If you have a GPU, try to set the <code>gpus</code> flag in the trainer. If you
-   do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.</p>
+    placement e.g. called <code>.to('cuda')</code> everywhere. If you have a GPU, try to set the <code>gpus</code> flag in the trainer. If you
+    do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.</p>
 </li>
 <li>
 <p>(Optional) As default Pytorch uses <code>float32</code> for representing floating point numbers. However, research have shown
-   that neural network training is very robust towards a decrease in precision. The great benefit going from <code>float32</code>
-   to <code>float16</code> is that we get approximately half the
-   <a href="https://www.khronos.org/opengl/wiki/Small_Float_Formats">memory consumption</a>. Try out half-precision training in
-   Pytorch lightning. You can enable this by setting the
-   <a href="https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision">precision</a> flag in the <code>Trainer</code>.</p>
+    that neural network training is very robust towards a decrease in precision. The great benefit going from <code>float32</code>
+    to <code>float16</code> is that we get approximately half the
+    <a href="https://www.khronos.org/opengl/wiki/Small_Float_Formats">memory consumption</a>. Try out half-precision training in
+    Pytorch lightning. You can enable this by setting the
+    <a href="https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision">precision</a> flag in the <code>Trainer</code>.</p>
 </li>
 <li>
 <p>(Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
@@ -2105,11 +2122,11 @@ the different tutorials in the documentation that covers more advanced models an
 want to highlight other frameworks in the lightning ecosystem:</p>
 <ul>
 <li><a href="https://torchmetrics.readthedocs.io/en/latest/">Torchmetrics</a>: collection of machine learning metrics written
-  in Pytorch</li>
+    in Pytorch</li>
 <li><a href="https://lightning-flash.readthedocs.io/en/latest/">lightning flash</a>: High-level framework for fast prototyping,
-  baselining, finetuning with a even simpler interface than lightning</li>
+    baselining, finetuning with a even simpler interface than lightning</li>
 <li><a href="https://lightning-bolts.readthedocs.io/en/latest/">lightning-bolts</a>: Collection of SOTA pretrained models, model
-  components, callbacks, losses and datasets for testing out ideas as fast a possible</li>
+    components, callbacks, losses and datasets for testing out ideas as fast a possible</li>
 </ul>
 
   <hr>
@@ -2117,7 +2134,7 @@ want to highlight other frameworks in the lightning ecosystem:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 15, 2023</span>
       
         <br>
         Created:
