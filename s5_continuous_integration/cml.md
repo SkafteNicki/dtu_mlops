@@ -104,7 +104,7 @@ after the run is done.
               cml-send-comment report.md
     ```
 
-    Nearly everything in the workflow file should look familar, except the last two lines.
+    Nearly everything in the workflow file should look familiar, except the last two lines.
 
 3. Try pushing the workflow file to your github repository and make sure that it completes.
     If it does not, you may need to adjust the workflow file slightly.

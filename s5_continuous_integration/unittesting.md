@@ -8,7 +8,7 @@
 
 What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
 CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
-introduced in the codebase it will be catched early on. If you look at the
+introduced in the codebase it will be caught early on. If you look at the
 [MLOps cyclepipeline](../figures/mlops-loop-en.jpg), CI is one of cornerstones of operations part. However, it
 should be notes that applying CI does not magically secure that your code does not break. CI is only as strong as the
 tests that are automatically executed. CI simply structures and automates this.
@@ -32,9 +32,21 @@ very easy to isolate which part of the code that broke after an update to the co
 base would be through [integration testing](https://en.wikipedia.org/wiki/Integration_testing) which is equally
 important but we are not going to focus on it in this course.
 
+Unittests (and integration tests) are not a unique concept to MLOps, but is a core concept from DevOps. However, it is
+important to note that testing of machine learning based system are much more difficult than traditional systems. The
+reason for this is that machine learning systems depends on *data*, that influences the state of our system. For this
+reason, we not only need unittests and integration tests of our code, we also need data testing, infrastructure testing
+and more monitoring to check that we stay within the data distribution we are training on (more on this in
+[module M25 on data drifting](../s8_monitoring/data_drifting.md)). This added complexity is illustrated in the figure
+below.
+
+<figure markdown>
+  ![Image](../figures/system_difference.drawio.png){ width="1000" }
+</figure>
+
 ## Pytest
 
-Before we can begin to automatize testing of our code base we of course need to write the tests first. It is both a hard
+Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
 and tedious task to do but arguable the most important aspects of CI. Python offers a couple of different libraries
 for writing tests. We are going to use `pytest`.
 
@@ -214,7 +226,7 @@ The following exercises should be applied to your MNIST repository
         to get a code coverage for. Figure out how to configure `coverage` to exclude
         some files.
 
-## Knowledge check
+### 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 
@@ -234,5 +246,5 @@ features). Another open-source framework that you could choose to checkout is
 [hypothesis](https://github.com/HypothesisWorks/hypothesis) that can really help catch errors in corner cases of your
 code. In addition to writing unittests it is also highly recommended to test code that you include in your
 docstring belonging to your functions and modulus to make sure that any code there is in your documentation is also
-correct. For such testing we can highly recommend using pythons build-in framework
+correct. For such testing we can highly recommend using pythons built-in framework
 [doctest](https://docs.python.org/3/library/doctest.html).

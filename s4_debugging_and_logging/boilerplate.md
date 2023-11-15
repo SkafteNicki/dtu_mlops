@@ -78,9 +78,9 @@ trainer = Trainer()
 traier.fit(model)
 ```
 
-Thats is essentially all that you need to specify in lightning to have a working model. The trainer object does not
+That's is essentially all that you need to specify in lightning to have a working model. The trainer object does not
 have methods that you need to implement yourself, but it have a bunch of arguments that can be used to control how many
-epochs that you want to train, if you want to run on gpu ect. To get the training of our model to work we just need to
+epochs that you want to train, if you want to run on gpu etc. To get the training of our model to work we just need to
 specify how our data should be feed into the lighning framework.
 
 ### Data
@@ -102,7 +102,7 @@ all three assume that we are using `torch.utils.data.DataLoader` for the dataloa
        return DataLoader(...)
    ```
 
-2. Maybe even simplier, we can directly feed such dataloaders in the `fit` method of the `Trainer` object:
+2. Maybe even simpler, we can directly feed such dataloaders in the `fit` method of the `Trainer` object:
 
    ```python
    trainer.fit(model, train_dataloader, val_dataloader)
@@ -122,9 +122,9 @@ use one of the
 [build in callbacks](https://pytorch-lightning.readthedocs.io/en/latest/extensions/callbacks.html#built-in-callbacks).
 Of particular interest are `ModelCheckpoint` and `EarlyStopping` callbacks:
 
-* The `ModelCheckpoint` makes sure to save checkpoints of you model. This is in pricipal not hard to do yourself, but
+* The `ModelCheckpoint` makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
   the `ModelCheckpoint` callback offers additional functionality by saving checkpoints only when some metric improves,
-  or only save the best `K` performing models ect.
+  or only save the best `K` performing models etc.
 
   ```python
   model = MyModel()
@@ -160,7 +160,7 @@ lightning standard, such that we can take advantage of all the tricks the framew
 implement our model in `lightning` to begin with, is that to truly understand why it is beneficially to use a high-level
 framework to do some of the heavy lifting you need to have gone through some of implementation troubles yourself.
 
-1. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completly override your old
+1. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely override your old
    model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
    the rest of lightning:
 
@@ -244,7 +244,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
    Pytorch lightning. You can enable this by setting the
    [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
 
-10. (Optional) Lightning also have build-in support for profiling. Checkout how to do this using the
+10. (Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
     [profiler](https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in
     the `Trainer` object.
 

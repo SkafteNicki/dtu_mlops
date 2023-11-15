@@ -8,7 +8,7 @@ The Github Actions we learned about in [M16](github_actions.md) are an powerful 
 than simply running our tests tests that we write for our application. In this module we are going to look at how we can
 use it for continuously building docker images. As you have already seen docker building can take a couple of minutes
 to build each time we do changes to our code base. For this reason we really just want to build a new image every time
-we do a commit of our code. Thus, it should come as no surprise that we can also automatize the building process and
+we do a commit of our code. Thus, it should come as no surprise that we can also automate the building process and
 furthermore we can take advantage of online compute power to parallelize the process.
 
 As discussed in the initial module on [docker](../s3_reproducibility/docker.md),
@@ -76,7 +76,7 @@ not store our data in Github, we cannot copy it during the build process.
 6. Upload the workflow to your github repository and check that it is being executed. If everything you should be able
    to see the the build docker image in your container repository in docker hub.
 
-7. Make sure that you can execute `docker pull` locally to pull down the image that you just continuesly build
+7. Make sure that you can execute `docker pull` locally to pull down the image that you just continuously build
 
 8. (Optional) To test that the container works directly in github you can also try to include an additional
    step that actually runs the container.

@@ -114,7 +114,13 @@ working together on the same project.
 
     2. Move/copy the three files from yesterday into the repository (and any other that you made)
 
-    3. Add the files to a commit by using `git add` command
+    3. Add the files to a commit by using `git add` command (1)
+       { .annotate }
+
+        1. :man_raising_hand: Writing good commit message is a skill in itself. A commit message should be short but
+            informative about the work you are trying to commit. Try to practise writing good commit messages
+            throughout the course. You can see
+            [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
 
     4. Commit the files using `git commit`
 
@@ -142,7 +148,7 @@ working together on the same project.
     I am continuously updating/changing some of the material during the course and I therefore recommend that you
     each day before the lecture do a `git pull` on your local copy
 
-4. Git may seems like a waste of time when solutions like dropbox, google drive ect exist, and it is
+4. Git may seem like a waste of time when solutions like dropbox, google drive etc exist, and it is
     not completely untrue when you are only one or two working on a project. However, these file management
     systems falls short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:
@@ -164,8 +170,8 @@ working together on the same project.
     4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
        When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
-    5. Go online to the original repository and go the `Pull requests` tab. Find `compare` botton and
-       choose the to compare the `master branch` of the original repo with the branch that you just created
+    5. Go online to the original repository and go to the `Pull requests` tab. Find `compare` button and
+       choose the button to compare the `master branch` of the original repo with the branch that you just created
        in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
     6. Write a bit about the changes you have made and click `Create pull request` :)
@@ -206,7 +212,7 @@ working together on the same project.
         >>>>>>> master
         ```
 
-        this should be interpret as: everything thats between `<<<<<<<` and `=======` are the changes made by your
+        this should be interpret as: everything that's between `<<<<<<<` and `=======` are the changes made by your
         local commit and everything between `=======` and `>>>>>>>` are the changes you are trying to pull. To fix
         the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
         remove the identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
@@ -218,7 +224,7 @@ working together on the same project.
     familiar with these features (here is a tutorial for
     [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 
@@ -270,7 +276,7 @@ That covers the basics of git to get you started. In the exercise folder you can
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of Github:
 in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
 IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
-Github has an build-in editor that can simply be enabled by changing any URL from
+Github has an built-in editor that can simply be enabled by changing any URL from
 
 ```bash
 https://github.com/username/repository

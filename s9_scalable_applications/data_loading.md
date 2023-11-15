@@ -71,7 +71,7 @@ dataset = MyDataset()
 dataloader = Dataloader(
     dataset,
     batch_size=8,
-    num_workers=4  # this is the number of threds we want to parallize workload over
+    num_workers=4  # this is the number of threads we want to parallelize workload over
 )
 ```
 
@@ -140,7 +140,7 @@ datafiles (.jpg) at runtime.
     python lfw_dataset.py -visualize_batch
     ```
 
-    Hint: this [tutorial](https://pytorch.org/vision/stable/auto_examples/plot_visualization_utils.html#sphx-glr-auto-examples-plot-visualization-utils-py).
+    Hint: this [tutorial](https://pytorch.org/vision/stable/auto_examples/others/plot_visualization_utils.html).
 
 5. Experiment how the number of workers influences the performance. We have already provide code that will pass over 100
     batches from the dataset 5 times and calculate how long time it took, which you can play around with by calling
@@ -155,7 +155,7 @@ datafiles (.jpg) at runtime.
     `-batches_to_check` flag). Also if you are not seeing an improvement, try increasing the batch size (since data
     loading is parallelized per batch).
 
-    For certain machines like the Mac with M1 chipset it is nessesary to set the `multiprocessing_context` flag in the
+    For certain machines like the Mac with M1 chipset it is necessary to set the `multiprocessing_context` flag in the
     dataloder to `"fork"`. This essentially tells the dataloader how the worker nodes should be created.
 
 6. Retry the experiment where you change the data augmentation to be more complex:

@@ -4,13 +4,13 @@
 
 The course is organised into *exercise* (2/3 of the course) days and *project* days (1/3 of the course).
 
-*Exercise* days start at 9:00 in the morning with an lecture (15-30 min) that will give some context about atleast one
+*Exercise* days start at 9:00 in the morning with an lecture (15-30 min) that will give some context about at least one
 of the topics of that day. Additionally, previous days exercises may shortly be touched upon. The remaining of the day
 will be spend on solving exercises either individually or in small groups. For some people the exercises may be fast to
 do and for others it will take the hole day. We will provide help throughout the day. We will try to answer questions
 on slack but help with be priorities to students physically on campus.
 
-*Project* days are intended for project work and you are therefore responsable for making an agreement with your group
+*Project* days are intended for project work and you are therefore responsible for making an agreement with your group
 when and where you are going to work. The first project days there will be a lecture at 9:00 with project information.
 Other project days we may also start the day with an external lecture, which we highly recommend that you participate
 in. During each project day we will have office hours where you can ask questions for the project.
@@ -22,7 +22,7 @@ Legend: 📝 Slides, 🎥 Recording.
 
 ## Week 1
 
-In the first week you will be introduced to a number of development practises for organising and developing code,
+In the first week you will be introduced to a number of development practices for organizing and developing code,
 especially with a focus on making everything reproducible.
 
 Date | Day       | Presentation topic                                                 | Frameworks                           | Format
@@ -57,7 +57,7 @@ important topic if we ever want our applications to be used by many people at th
 Date | Day       | Presentation topic                                                | Frameworks                          | Format
 -----|-----------|-------------------------------------------------------------------|-------------------------------------|----------
 16/1 | Monday    | Monitoring (Guest lecture) <br> [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz | Exercises
-17/1 | Tuesday   | Scalable applications <br> [📝](slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1_QLJD_yTkQmE2-_b-oMeDro1WU8KBeP3/view?usp=share_link) | Pytorch, Lightning                  | Exercises
+17/1 | Tuesday   | Scalable applications <br> [📝](slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1g7Y1Y-FrgR7WNc8FWyBD27dQ7h7HOKuJ/view?usp=share_link) | Pytorch, Lightning                  | Exercises
 18/1 | Wednesday | -                                                                 | -                                   | Projects
 19/1 | Thursday  | -                                                                 | -                                   | Projects
 20/1 | Friday    | -                                                                 | -                                   | Exam

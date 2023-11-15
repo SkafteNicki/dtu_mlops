@@ -15,7 +15,7 @@ that datapoint. At a high-level, model predictions depends on three things:
 
 * The codebase that implements the models prediction method
 * The model weights which contains an actual instance of the model
-* Code dependencies nessesary for running the codebase.
+* Code dependencies necessary for running the codebase.
 
 We have already in module [M9 on Docker](../s3_reproducibility/docker.md) touch on how to take care of all
 these things. Containers makes it easy to link a codebase, model weights and code dependencies into a single object.

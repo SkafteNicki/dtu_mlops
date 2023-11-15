@@ -35,6 +35,8 @@ actually matters for our project instead of all the boilerplate to get it workin
     The learning objectives of this session are:
 
     * Understand the basics of debugging and how to use a debugger to find bugs in your code
-    * Can use a profiler to identify bottlenecks in your code
-    * Familiar with an experiment logging framework for tracking experiments and hyperparameters of your code
-    * Be able to use `pytorch-lightning` to minimize boilerplate code and structure deep learning models
+    * Can use a profiler to identify bottlenecks in your code and from those profiles optimize the runtime of your
+        programs
+    * Familiar with an experiment logging framework for tracking experiments and hyperparameters of your code to make it
+        reproducible
+    * Be able to use `pytorch-lightning` framework to minimize boilerplate code and structure deep learning models

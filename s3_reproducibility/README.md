@@ -30,7 +30,7 @@ of making sure that machine learning is **trustworthy**.
   <figcaption> <a href="https://towardsdatascience.com/reproducible-machine-learning-cf1841606805"> Image credit </a> </figcaption>
 </figure>
 
-Trustworthy ML is basically the idea that machine learning agents *can* be trusted. Take the example of an machine
+Trustworthy ML is basically the idea that machine learning agents *can* be trusted. Take the example of a machine
 learning agent being responsible for medical diagnoses. It is s very clear that we need to be able to trust that the
 agent give us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
 because without we cannot be sure that the exact same agent deployed at two different hospitals will actually give
@@ -41,5 +41,5 @@ the same diagnosis (given the same input).
     The learning objectives of this session are:
 
     * To understand the importance of reproducibility in computer science
-    * To be able to use `docker` to create a reproducible containers
+    * To be able to use `docker` to create a reproducible containers, including how to build them from scratch
     * Understand different ways of configuring your code and how to use `hydra` to integrate with config files

@@ -60,6 +60,7 @@ else:
     import optuna
 
     def objective(trial):
+        """Objective function for Optuna to optimize."""
         # fill in this. Given a trial it should
         # 1. suggest a set of hyperparameters (HINT: use trial.suggest_discrete_uniform )
         # 2. train a random forest using the hyperparameters

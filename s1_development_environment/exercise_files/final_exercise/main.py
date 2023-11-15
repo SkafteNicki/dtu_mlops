@@ -7,12 +7,14 @@ from data import mnist
 
 @click.group()
 def cli():
+    """Command line interface."""
     pass
 
 
 @click.command()
 @click.option("--lr", default=1e-3, help="learning rate to use for training")
 def train(lr):
+    """Train a model on MNIST."""
     print("Training day and night")
     print(lr)
 
@@ -24,7 +26,8 @@ def train(lr):
 @click.command()
 @click.argument("model_checkpoint")
 def evaluate(model_checkpoint):
-    print("Evaluating until hitting the ceiling")
+    """Evaluate a trained model."""
+    print("Evaluating like my life dependends on it")
     print(model_checkpoint)
 
     # TODO: Implement evaluation logic here

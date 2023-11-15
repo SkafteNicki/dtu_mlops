@@ -41,8 +41,8 @@ architectures (conv) are more efficient than transformer (vit) for the same para
 
 As dissed in this
 [blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413)
-the largest increase in inference speed you will see (given some speficic hardware) is choosing an efficient model
-architechture. In the exercises below we are going to investigate the inference speed of different architechtures.
+the largest increase in inference speed you will see (given some specific hardware) is choosing an efficient model
+architectures. In the exercises below we are going to investigate the inference speed of different architectures.
 
 1. Start by checking out this
     [table](https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights)
@@ -198,12 +198,14 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 3. Try to prune the weights of the first convolutional layer by calling
 
     ```python
-    prune.random_unstructured(module_1, name="weight", amount=0.3)
+    prune.random_unstructured(module_1, name="weight", amount=0.3)  # (1)!
     ```
 
+    1. :man_raising_hand: You can read about the prune method
+        [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
+
     Try printing the `named_parameters`, `named_buffers` before and after the module is pruned. Can you explain the
-    difference and what is the connection to the `module_1.weight` attribute. Hint: You can read about the prune
-    method [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
+    difference and what is the connection to the `module_1.weight` attribute.
 
 4. Try pruning the bias of the same module this time using the `l1_unstructured` function from the pruning module. Again
     check the  `named_parameters`, `named_buffers` argument to make sure you understand the difference between L1 pruning
@@ -307,13 +309,13 @@ in sparse networks.
 ## Knowledge distillation
 
 Knowledge distillation is somewhat similar to pruning, in the sense that it tries to find a smaller model that can
-perform equally well as a large model, however it does so in a completly different way. Knowledge distillation is a
+perform equally well as a large model, however it does so in a completely different way. Knowledge distillation is a
 *model compression* technique that builds on the work of
 [Bucila et al.](https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf) in which we try do distill/compress the
 knowledge of a large complex model (also called the teacher model) into a simpler model (also called the student model).
 
 The best known example of this is the [DistilBERT model](https://arxiv.org/abs/1910.01108). The DistilBERT model is a
-smaller version of the large natural-language procession model Bert, which achives 97% of the performance of Bert while
+smaller version of the large natural-language procession model Bert, which achieves 97% of the performance of Bert while
 only containing 40% of the weights and being 60% faster. You can see in the figure below how it is much smaller in size
 compared to other models developed at the same time.
 
@@ -323,7 +325,7 @@ compared to other models developed at the same time.
 </figure>
 
 Knowledge distillation works by assuming we have a big teacher that is already performing well that we want to compress.
-By runnning our training set through our large model we get a softmax distribution for each and every training sample.
+By running our training set through our large model we get a softmax distribution for each and every training sample.
 The goal of the students, is to both match the original labels of the training data but also match the softmax
 distribution of the teacher model. The intuition behind doing this, is that teacher model needs to be more complex to
 learn the complex inter-class relasionship from just (one-hot) labels. The student on the other hand gets directly feed
@@ -337,7 +339,7 @@ the same capasity to learn the same as the teacher.
 
 ### ❔ Exercises
 
-Lets try implementing model distillation ourself. We are going to see if we can achive this on the
+Lets try implementing model distillation ourself. We are going to see if we can achieve this on the
 [cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that exercise below can take quite long time to
 finish because it involves training multiple networks and therefore involve some waiting.
 

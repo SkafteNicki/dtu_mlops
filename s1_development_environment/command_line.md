@@ -7,8 +7,8 @@
 !!! info "Core Module"
 
 <figure markdown>
-  ![Image](../figures/terminal_power.jpg){ width="500" }
-  <figcaption> <a href="https://twitter.com/rorypreddy/status/1257336536477171712"> Image credit </a> </figcaption>
+![Image](../figures/terminal_power.jpg){ width="500" }
+<figcaption> <a href="https://twitter.com/rorypreddy/status/1257336536477171712"> Image credit </a> </figcaption>
 </figure>
 
 Contrary to popular belief, the command line (also commonly known as the *terminal*) is not a mythical being that has
@@ -35,7 +35,7 @@ As already stated, it is essentially just a big text interface to interact with 
 when trying to execute a command, there are several parts to it:
 
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
-    are in, followed by some kind of sign: `$`, `>`, `:` are the usual onces. It can also contain other information,
+    are in, followed by some kind of sign: `$`, `>`, `:` are the usual ones. It can also contain other information,
     such as in the case of the above image it is also showing the current `conda` environment.
 2. The **command** is the actual command you want to execute. For example, `ls` or `cd`
 3. The **options** are additional arguments that you can pass to the command. For example, `ls -l` or `cd ..`.
@@ -72,8 +72,11 @@ command line.
 1. Start by opening a terminal.
 
 2. To navigate inside a terminal, we rely on the `cd` command and `pwd` command. Make sure you know how to go back and
-    forth in your file system. HINT: try [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) to
-    save some time.
+    forth in your file system. (1)
+    { .annotate }
+
+    1. :man_raising_hand: Your terminal should support
+        [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) which can help finish commands for you!
 
 3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
@@ -115,7 +118,7 @@ command line.
 
     3. Try to Google how to write a simple for-loop that executes the python script 10 times in a row.
 
-## Knowledge check
+## 🧠 Knowledge check
 
 ??? question "Knowledge question 1"
 
@@ -155,5 +158,5 @@ This ends the module on the command line. If you are still not comfortable worki
 we are going to use it extensively throughout the course. If you want to spend additional time on this topic, we highly
 recommend that you [watch this video](https://www.youtube.com/watch?v=oxuRxtrO2Ag) on how to use the command line.
 
-If you are interested in personalizing your terminal, you can check out the [starship](https://starship.rs/) project,
-that allows you to customize your terminal with a lot of different options.
+If you are interested in personalizing your command line, you can check out the [starship](https://starship.rs/)
+project, that allows you to customize your command line with a lot of different options.

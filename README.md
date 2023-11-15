@@ -20,8 +20,8 @@
 * Type of assessment: weekly project updates + final oral examination/presentation
 * Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or
   experience with the following topics:
-    * General understanding of machine learning (datasets, probability, classifiers, overfitting ect.)
-    * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders ect.)
+    * General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)
+    * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)
     * Coding in [PyTorch](https://pytorch.org/). The first day we provide a number of exercises in PyTorch to
         get everyone's skills up-to-date as fast as possible.
 
@@ -80,7 +80,7 @@ is where create an automatic pipeline that makes sure that whenever we make chan
 automatically incorporated into our model, such that we do not slow down production. Equally important is also the
 ongoing monitoring of already deployed models to make sure that they behave exactly as we specified them.
 
-It is important to note that the three steps are in fact a *cycle*, meaning that we you have successfully deployed a
+It is important to note that the three steps are in fact a *cycle*, meaning that when you have successfully deployed a
 machine learning model that is not the end of it. Your initial requirements may change, forcing you to revisit the
 design phase. Some new algorithm may show promising results, so you revisit the model development phase to implement
 this. And finally, you may try to cut the cost of running your model in production, making you revisit the operations

@@ -115,7 +115,7 @@ rest to a "recommended value".
 
     4. If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
         we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
-        [build-in pruners](https://optuna.readthedocs.io/en/stable/reference/pruners.html) in Optuna. Implement
+        [built-in pruners](https://optuna.readthedocs.io/en/stable/reference/pruners.html) in Optuna. Implement
         pruning in the script. I recommend using either the `MedianPruner` or the `ProcentilePruner`.
 
     5. Re-run the study using pruning with a large number of trials (`n_trials>50`)
@@ -182,6 +182,6 @@ rest to a "recommended value".
 
     6. Finally, make sure that you can access the results
 
-Thats all on how to do hyperparameter optimization in a scalable way. If you feel like it you can try to apply these
+That's all on how to do hyperparameter optimization in a scalable way. If you feel like it you can try to apply these
 techniques on the ongoing corrupted MNIST example, where you are free to choose what hyperparameters that you want
 to use.

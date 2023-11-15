@@ -43,7 +43,7 @@ metric/telemetry. We commonly run into what is referred to the
 [goldielock problem](https://en.wikipedia.org/wiki/Goldilocks_principle) where we want just the *right amount* of alerts
 however it is more often the case that we either have
 
-* Too many alerts, such that they become irrelevant and the really important onces are overseen, often referred to as
+* Too many alerts, such that they become irrelevant and the really important ones are overseen, often referred to as
   alert fatigue
 * Or alternatively, we have too little alerts and problems that should have triggered an alert is not dealt with when
   they happen which can have unforeseen consequences.

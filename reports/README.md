@@ -144,7 +144,7 @@ end of the project.
 >
 > Example:
 > *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a*
-> *complete copy of our development enviroment, one would have to run the following commands*
+> *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
 

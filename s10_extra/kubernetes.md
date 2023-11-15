@@ -7,7 +7,7 @@
 !!! danger
     Module is still under development
 
-## Kubernetes architechture
+## Kubernetes architecture
 
 <figure markdown>
   ![Image](../figures/components_of_kubernetes.png){ width="800" }

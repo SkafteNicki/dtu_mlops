@@ -68,7 +68,7 @@ We are here going to look at `torch.jit.script` for compiling our code.
 
    Hint: use [torch.topk](https://pytorch.org/docs/stable/generated/torch.topk.html).
 
-4. Finally, try benchmarking the non-scripted model against the scripted model. I recommend using the build-in
+4. Finally, try benchmarking the non-scripted model against the scripted model. I recommend using the built-in
    benchmarker in Pytorch: `torch.utils.benchmark.Timer`, which you can read more about how to use
    [here](https://pytorch.org/tutorials/recipes/recipes/benchmark.html). Do you see a increase in performance of the
    scripted model compared to the non-scriptet model. If so, what is the percentage increase in efficiency?
@@ -86,7 +86,7 @@ services for packaging and serving multiple Pytorch at the same time.
 <!-- markdownlint-restore -->
 
 Before we go into details of Torchmetrics, an important question is why we need such an abstraction on top of our
-developed model. Why cant we just do:
+developed model. Why can't we just do:
 
 ```bash
 python inference.py --my_model model_checkpoint.pt --new_datapoint img.png
