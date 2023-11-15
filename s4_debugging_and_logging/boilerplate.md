@@ -26,7 +26,6 @@ seem irritating that you need to comply to someone else code structure, however 
 idea is that you can focus on what really matters (your task, model architecture etc.) and do not have to worry about
 the actual boilerplate that comes with it.
 
-\
 The most popular high-level (training) frameworks within the `Pytorch` ecosystem are:
 
 * [fast.ai](https://github.com/fastai/fastai)
@@ -53,14 +52,14 @@ the standard `__init__` and `forward` methods that need to be implemented in a `
 requires two more methods implemented:
 
 * `training_step`: should contain your actual training code e.g. given a batch of data this should return the loss
-  that you want to optimize
+    that you want to optimize
 
 * `configure_optimizers`: should return the optimizer that you want to use
 
 Below is shown these two methods added to standard MNIST classifier
 
 <figure markdown>
-  ![Image](../figures/lightning.png){width="700" }
+![Image](../figures/lightning.png){width="700" }
 </figure>
 
 Compared to a standard `nn.Module`, the additional methods in the `LightningModule` basically specifies exactly how you
@@ -89,29 +88,29 @@ For organizing our code that has to do with data in `Lightning` we essentially h
 all three assume that we are using `torch.utils.data.DataLoader` for the dataloading.
 
 1. If we already have a `train_dataloader` and possible also a `val_dataloader` and `test_dataloader` defined we can
-   simply add them to our `LightningModule` using the similar named methods:
+    simply add them to our `LightningModule` using the similar named methods:
 
-   ```python
-   def train_dataloader(self):
-       return DataLoader(...)
+    ```python
+    def train_dataloader(self):
+        return DataLoader(...)
 
-   def val_dataloader(self):
-       return DataLoader(...)
+    def val_dataloader(self):
+        return DataLoader(...)
 
-   def test_dataloader(self):
-       return DataLoader(...)
-   ```
+    def test_dataloader(self):
+        return DataLoader(...)
+    ```
 
 2. Maybe even simpler, we can directly feed such dataloaders in the `fit` method of the `Trainer` object:
 
-   ```python
-   trainer.fit(model, train_dataloader, val_dataloader)
-   trainer.test(model, test_dataloader)
-   ```
+    ```python
+    trainer.fit(model, train_dataloader, val_dataloader)
+    trainer.test(model, test_dataloader)
+    ```
 
 3. Finally, `Lightning` also have the `LightningDataModule` that organizes data loading into a single structure, see
-   this [page](https://pytorch-lightning.readthedocs.io/en/latest/data/datamodule.html) for more info. Putting
-   data loading into a `DataModule` makes sense as it is then can be reused between projects.
+    this [page](https://pytorch-lightning.readthedocs.io/en/latest/data/datamodule.html) for more info. Putting
+    data loading into a `DataModule` makes sense as it is then can be reused between projects.
 
 ### Callbacks
 
@@ -123,29 +122,29 @@ use one of the
 Of particular interest are `ModelCheckpoint` and `EarlyStopping` callbacks:
 
 * The `ModelCheckpoint` makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
-  the `ModelCheckpoint` callback offers additional functionality by saving checkpoints only when some metric improves,
-  or only save the best `K` performing models etc.
+    the `ModelCheckpoint` callback offers additional functionality by saving checkpoints only when some metric improves,
+    or only save the best `K` performing models etc.
 
-  ```python
-  model = MyModel()
-  checkpoint_callback = ModelCheckpoint(
-    dirpath="./models", monitor="val_loss", mode="min"
-  )
-  trainer = Trainer(callbacks=[checkpoint_callbacks])
-  trainer.fit(model)
-  ```
+    ```python
+    model = MyModel()
+    checkpoint_callback = ModelCheckpoint(
+        dirpath="./models", monitor="val_loss", mode="min"
+    )
+    trainer = Trainer(callbacks=[checkpoint_callbacks])
+    trainer.fit(model)
+    ```
 
 * The `EarlyStopping` callback can help you prevent overfitting by automatically stopping the training if a certain
-  value is not improving anymore:
+    value is not improving anymore:
 
-  ```python
-  model = MyModel()
-  early_stopping_callback = EarlyStopping(
-    monitor="val_loss", patience=3, verbose=True, mode="min"
-  )
-  trainer = Trainer(callbacks=[early_stopping_callback])
-  trainer.fit(model)
-  ```
+    ```python
+    model = MyModel()
+    early_stopping_callback = EarlyStopping(
+        monitor="val_loss", patience=3, verbose=True, mode="min"
+    )
+    trainer = Trainer(callbacks=[early_stopping_callback])
+    trainer.fit(model)
+    ```
 
 Multiple callbacks can be used by passing them all in a list e.g.
 
@@ -160,89 +159,99 @@ lightning standard, such that we can take advantage of all the tricks the framew
 implement our model in `lightning` to begin with, is that to truly understand why it is beneficially to use a high-level
 framework to do some of the heavy lifting you need to have gone through some of implementation troubles yourself.
 
+1. Install pytorch lightning:
+
+    ```bash
+    pip install pytorch-lightning # (1)!
+    ```
+
+    1. :man_raising_hand: You may also install it as `pip install lightning` which includes more than just the
+        `Pytorch Lightning` package. This also includes `Lightning Fabric` and `Lightning Apps` which you can read more
+        about [here](https://lightning.ai/docs/fabric/stable/) and [here](https://lightning.ai/docs/app/stable/).
+
 1. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely override your old
-   model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
-   the rest of lightning:
+    model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
+    the rest of lightning:
 
-   * The `training_step` method. This function should contain essentially what goes into a single
-   training step and should return the loss at the end
+    * The `training_step` method. This function should contain essentially what goes into a single
+        training step and should return the loss at the end
 
-   * The `configure_optimizers` method
+    * The `configure_optimizers` method
 
-   Please read the [documentation](https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html)
-   for more info.
+    Please read the [documentation](https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html)
+    for more info.
 
 2. Make sure your data is formatted such that it can be loaded using the `torch.utils.data.DataLoader` object.
 
 3. Instantiate a `Trainer` object. It is recommended to take a look at the
-   [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags) (there
-   are many of them) and maybe adjust some of them:
+    [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags) (there
+    are many of them) and maybe adjust some of them:
 
-   1. Investigate what the `default_root_dir` flag does
+    1. Investigate what the `default_root_dir` flag does
 
-   2. As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
-      changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
-      should train for.
+    2. As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
+        changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
+        should train for.
 
-   3. To start with we also want to limit the amount of training data to 20% of its original size. which
-      trainer flag do you need to set for this to work?
+    3. To start with we also want to limit the amount of training data to 20% of its original size. which
+        trainer flag do you need to set for this to work?
 
 4. Try fitting your model: `trainer.fit(model)`
 
 5. Now try adding some `callbacks` to your trainer.
 
 6. The privous module was all about logging in `wandb`, so the question is naturally how does `lightning` support this.
-   Lightning does not only support `wandb`, but also many
-   [others](https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html). Common for all of them, is that
-   logging just need to happen through the `self.log` method in your `LightningModule`:
+    Lightning does not only support `wandb`, but also many
+    [others](https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html). Common for all of them, is that
+    logging just need to happen through the `self.log` method in your `LightningModule`:
 
-   1. Add `self.log` to your `LightningModule. Should look something like this:
+    1. Add `self.log` to your `LightningModule. Should look something like this:
 
-      ```python
-      def training_step(self, batch, batch_idx):
-          data, target = batch
-          preds = self(data)
-          loss = self.criterion(preds, target)
-          acc = (target == preds.argmax(dim=-1)).float().mean()
-          self.log('train_loss', loss)
-          self.log('train_acc', acc)
-          return loss
-      ```
+        ```python
+        def training_step(self, batch, batch_idx):
+            data, target = batch
+            preds = self(data)
+            loss = self.criterion(preds, target)
+            acc = (target == preds.argmax(dim=-1)).float().mean()
+            self.log('train_loss', loss)
+            self.log('train_acc', acc)
+            return loss
+        ```
 
-   2. Add the `wandb` logger to your trainer
+    2. Add the `wandb` logger to your trainer
 
-      ```python
-      trainer = Trainer(logger=pl.loggers.WandbLogger(project="dtu_mlops"))
-      ```
+        ```python
+        trainer = Trainer(logger=pl.loggers.WandbLogger(project="dtu_mlops"))
+        ```
 
-      and try to train the model. Confirm that you are seeing the scalars appearing in your `wandb` portal.
+        and try to train the model. Confirm that you are seeing the scalars appearing in your `wandb` portal.
 
-   3. `self.log` does sadly only support logging scalar tensors. Luckily, for logging other quantities we
-      can still access the standard `wandb.log` through our model
+    3. `self.log` does sadly only support logging scalar tensors. Luckily, for logging other quantities we
+        can still access the standard `wandb.log` through our model
 
-      ```python
-      def training_step(self, batch, batch_idx):
-          ...
-          # self.logger.experiment is the same as wandb.log
-          self.logger.experiment.log({'logits': wandb.Histrogram(preds)})
-      ```
+        ```python
+        def training_step(self, batch, batch_idx):
+            ...
+            # self.logger.experiment is the same as wandb.log
+            self.logger.experiment.log({'logits': wandb.Histrogram(preds)})
+        ```
 
-      try doing this, by logging something else than scalar tensors.
+        try doing this, by logging something else than scalar tensors.
 
 7. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step`
-   and `test_step` to our lightning module and supply the respective data in form of a separate dataloader. Try to at
-   least implement one of them.
+    and `test_step` to our lightning module and supply the respective data in form of a separate dataloader. Try to at
+    least implement one of them.
 
 8. (Optional, requires GPU) One of the big advantages of using `lightning` is that you no more need to deal with device
-   placement e.g. called `.to('cuda')` everywhere. If you have a GPU, try to set the `gpus` flag in the trainer. If you
-   do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.
+    placement e.g. called `.to('cuda')` everywhere. If you have a GPU, try to set the `gpus` flag in the trainer. If you
+    do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.
 
 9. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, research have shown
-   that neural network training is very robust towards a decrease in precision. The great benefit going from `float32`
-   to `float16` is that we get approximately half the
-   [memory consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training in
-   Pytorch lightning. You can enable this by setting the
-   [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
+    that neural network training is very robust towards a decrease in precision. The great benefit going from `float32`
+    to `float16` is that we get approximately half the
+    [memory consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training in
+    Pytorch lightning. You can enable this by setting the
+    [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
 
 10. (Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
     [profiler](https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in
@@ -266,8 +275,8 @@ the different tutorials in the documentation that covers more advanced models an
 want to highlight other frameworks in the lightning ecosystem:
 
 * [Torchmetrics](https://torchmetrics.readthedocs.io/en/latest/): collection of machine learning metrics written
-  in Pytorch
+    in Pytorch
 * [lightning flash](https://lightning-flash.readthedocs.io/en/latest/): High-level framework for fast prototyping,
-  baselining, finetuning with a even simpler interface than lightning
+    baselining, finetuning with a even simpler interface than lightning
 * [lightning-bolts](https://lightning-bolts.readthedocs.io/en/latest/): Collection of SOTA pretrained models, model
-  components, callbacks, losses and datasets for testing out ideas as fast a possible
+    components, callbacks, losses and datasets for testing out ideas as fast a possible
