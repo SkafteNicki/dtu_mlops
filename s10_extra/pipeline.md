@@ -21,3 +21,11 @@ Directed Acyclic Graph (DAG)
     ```bash
     pip install prefect
     ```
+
+2. Start a local Prefect server instance in your virtual environment.
+
+    ```bash
+    prefect server start
+    ```
+
+3. The great thing about Prefect is that the orchestration tasks and flows are written in pure Python.

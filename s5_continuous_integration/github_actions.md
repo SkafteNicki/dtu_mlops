@@ -219,6 +219,6 @@ the following page
 
 ![action](../figures/github_workflows.PNG)
 
-We highly recommend checking this out if you want to write any other kind of CI pipeline in Github actions.
-Finally, we can also recommend [this repository](https://github.com/sdras/awesome-actions) that have an list of
-awesome actions.
+We highly recommend checking this out if you want to write any other kind of CI pipeline in Github actions. We can also
+recommend [this repository](https://github.com/sdras/awesome-actions) that have an list of awesome actions and checkout
+the [act](https://github.com/nektos/act) repository which is a tool for running your GitHub Actions locally!
