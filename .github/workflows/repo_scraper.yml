@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main,deployments]
   schedule:
-    - cron: "0 0 * * *"  # run once everyday
+    - cron: "0 0 * * *"  # Run at the end of every day
   workflow_dispatch: {}  # maual executions
 
 jobs:

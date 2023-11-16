@@ -1,3 +1,9 @@
+"""Simple submission streamlit application.
+
+Run locally with (from root folder)
+    streamlit run tools/submit_app/submit_app.py
+"""
+
 import csv
 import datetime
 import os
@@ -21,6 +27,7 @@ else:  # load credentials from .env file
     DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
 
 DEFAULT_EMAIL = "sXXXXXX@student.dtu.dk"
+
 
 def send_to_dropbox_and_get_group_nb(
     github_repo: str,
@@ -52,14 +59,14 @@ def send_to_dropbox_and_get_group_nb(
             start_over = True
 
         if start_over:
-            with open("info.csv", "w", newline='') as f:
+            with open("info.csv", "w", newline="") as f:
                 csv_writer = csv.writer(f, delimiter=",")
                 csv_writer.writerow(fields)
             file_to_upload = "info.csv"
         else:
             with open("latest_info.csv", "r") as f:
                 csv_reader = csv.reader(f, delimiter=",")
-                content = [ ]
+                content = []
                 for row in csv_reader:
                     print(row)
                     content.append(row)
@@ -70,7 +77,7 @@ def send_to_dropbox_and_get_group_nb(
 
                 new_group_nb = group_nb + 1
 
-            with open("latest_info.csv", "a", newline='') as f:
+            with open("latest_info.csv", "a", newline="") as f:
                 csv_writer = csv.writer(f, delimiter=",")
                 csv_writer.writerow([new_group_nb, student1, student2, student3, student4, student5, github_repo])
             file_to_upload = "latest_info.csv"
@@ -88,7 +95,6 @@ def send_to_dropbox_and_get_group_nb(
             )
 
         return new_group_nb
-
 
 
 def validate_text_input(
@@ -118,8 +124,7 @@ def validate_text_input(
 
 def main():
     """Streamlit application submission form."""
-    with st.columns([1,8,1])[1]:
-
+    with st.columns([1, 8, 1])[1]:
         st.title("DTU course 02476 MLOps")
         st.header("Group Information")
 
@@ -175,11 +180,11 @@ def main():
                 try:
                     group_nb = send_to_dropbox_and_get_group_nb(
                         github_repo,
-                        student1 = student1 if student1 != DEFAULT_EMAIL else "",
-                        student2 = student2 if student2 != DEFAULT_EMAIL else "",
-                        student3 = student3 if student3 != DEFAULT_EMAIL else "",
-                        student4 = student4 if student4 != DEFAULT_EMAIL else "",
-                        student5 = student5 if student5 != DEFAULT_EMAIL else "",
+                        student1=student1 if student1 != DEFAULT_EMAIL else "",
+                        student2=student2 if student2 != DEFAULT_EMAIL else "",
+                        student3=student3 if student3 != DEFAULT_EMAIL else "",
+                        student4=student4 if student4 != DEFAULT_EMAIL else "",
+                        student5=student5 if student5 != DEFAULT_EMAIL else "",
                     )
                 except:  # noqa: E722
                     st.error(
@@ -193,6 +198,7 @@ def main():
                 st.write("Remember to write this down!")
             else:
                 pass
+
 
 if __name__ == "__main__":
     main()
