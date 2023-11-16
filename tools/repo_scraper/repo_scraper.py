@@ -259,9 +259,10 @@ def main(
 
             using_dvc = ".dvc" in os.listdir(f"{out_folder}/group_{group_nb}")
 
-            report_dir = os.listdir(f"{out_folder}/group_{group_nb}/reports")
-            if "README.md" in report_dir and "report.py" in report_dir:
-                os.system(f"cd {out_folder}/group_{group_nb}/reports && python report.py check")
+            if "reports" in os.listdir(f"{out_folder}/group_{group_nb}"):
+                report_dir = os.listdir(f"{out_folder}/group_{group_nb}/reports")
+                if "README.md" in report_dir and "report.py" in report_dir:
+                    os.system(f"cd {out_folder}/group_{group_nb}/reports && python report.py check")
         else:
             repo_size = None
             readme_size = None
