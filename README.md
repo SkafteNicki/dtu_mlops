@@ -14,11 +14,11 @@
     * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
     * Professor [Søren Hauberg](http://www2.compute.dtu.dk/~sohau/), <sohau@dtu.dk>
 * 5 ECTS (European Credit Transfer System), corresponding to 140 hours of work
-* 3 week period of January 2023
-* Master course
+* 3 week period of January
+* Master level course
 * Grade: Pass/not passed
-* Type of assessment: weekly project updates + final oral examination/presentation
-* Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/2021-2022/02456) or
+* Type of assessment: oral presentation + project report
+* Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/02456) or
   experience with the following topics:
     * General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)
     * Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)
@@ -44,7 +44,7 @@ We highly recommend that when going through the material that you use the
 [homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
 [Github pages](https://pages.github.com/) version of this repository that is more nicely
 rendered, that also includes some special HTML magic provided by
-[just the docs](https://github.com/just-the-docs/just-the-docs).
+[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
 The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
 corresponds to full day of work if you are following the course, meaning approx 9 hours of work. Each session (**S**)
@@ -165,6 +165,6 @@ If you use parts of this course in your own work, please cite using:
     author       = {Nicki Skafte Detlefsen},
     title        = {Machine Learning Operations},
     howpublished = {\url{https://github.com/SkafteNicki/dtu_mlops}},
-    year         = {2022}
+    year         = {2023}
 }
 ```
