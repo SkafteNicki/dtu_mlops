@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.78cf6014.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
@@ -698,28 +698,36 @@
       
         <li class="md-nav__item">
   <a href="#docker-overview" class="md-nav__link">
-    Docker overview
+    <span class="md-ellipsis">
+      Docker overview
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#docker-sharing" class="md-nav__link">
-    Docker sharing
+    <span class="md-ellipsis">
+      Docker sharing
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
-    ❔ Exercises
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
-    🧠 Knowledge check
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
   </a>
   
 </li>
@@ -1764,28 +1772,36 @@
       
         <li class="md-nav__item">
   <a href="#docker-overview" class="md-nav__link">
-    Docker overview
+    <span class="md-ellipsis">
+      Docker overview
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#docker-sharing" class="md-nav__link">
-    Docker sharing
+    <span class="md-ellipsis">
+      Docker sharing
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
-    ❔ Exercises
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
-    🧠 Knowledge check
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
   </a>
   
 </li>
@@ -2159,26 +2175,37 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 </li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
-<details class="question">
-<summary>Knowledge question 1</summary>
+<ol>
+<li>
 <p>What is the difference between a docker image and a docker container?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>A docker image is a template for a docker container. A docker container is a running instance of a docker
 image. A docker image is a static file, while a docker container is a running process.</p>
 </details>
+</li>
+<li>
+<p>What are the 3 steps involved in containerizing an application?</p>
+<details class="success">
+<summary>Solution</summary>
+<ol>
+<li>Write a Dockerfile that includes your app (including the commands to run it) and its dependencies</li>
+<li>Build the image using the Dockefile you wrote</li>
+<li>Run the container using the image you've built</li>
+</ol>
 </details>
-<details class="question">
-<summary>Knowledge question 2</summary>
+</li>
+<li>
 <p>What advantage is there to running your application inside a docker container instead of running the application
-directly on your machine?</p>
+    directly on your machine?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Running inside a docker container gives you a consistent and independent environment for your application.
 This means that you can be sure that your application will run the same way on your machine as it will on
 another machine. Thus, docker gives the ability to abstract away the differences between different machines.</p>
 </details>
-</details>
+</li>
+</ol>
 <p>The covers the absolute minimum you should know about docker to get a working image and container. That said, if you are
 actively going to be using docker in the near future, one thing to consider is the image size. Even these simple images
 that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the image size for
@@ -2192,7 +2219,7 @@ desktop that lets you explore in depth your docker images.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 17, 2023</span>
       
         <br>
         Created:
@@ -2316,7 +2343,7 @@ desktop that lets you explore in depth your docker images.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "content.code.copy", "content.code.annotate", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>

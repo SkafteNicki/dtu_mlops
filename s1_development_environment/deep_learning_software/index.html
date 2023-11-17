@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.78cf6014.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
@@ -468,7 +468,9 @@
       
         <li class="md-nav__item">
   <a href="#software-landscape-for-deep-learning" class="md-nav__link">
-    Software landscape for Deep Learning
+    <span class="md-ellipsis">
+      Software landscape for Deep Learning
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Software landscape for Deep Learning">
@@ -476,7 +478,9 @@
         
           <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
-    ❔ Exercises
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
   </a>
   
 </li>
@@ -488,7 +492,9 @@
       
         <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
-    🧠 Knowledge check
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="🧠 Knowledge check">
@@ -496,7 +502,9 @@
         
           <li class="md-nav__item">
   <a href="#final-exercise" class="md-nav__link">
-    Final exercise
+    <span class="md-ellipsis">
+      Final exercise
+    </span>
   </a>
   
 </li>
@@ -1776,7 +1784,9 @@
       
         <li class="md-nav__item">
   <a href="#software-landscape-for-deep-learning" class="md-nav__link">
-    Software landscape for Deep Learning
+    <span class="md-ellipsis">
+      Software landscape for Deep Learning
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Software landscape for Deep Learning">
@@ -1784,7 +1794,9 @@
         
           <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
-    ❔ Exercises
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
   </a>
   
 </li>
@@ -1796,7 +1808,9 @@
       
         <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
-    🧠 Knowledge check
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="🧠 Knowledge check">
@@ -1804,7 +1818,9 @@
         
           <li class="md-nav__item">
   <a href="#final-exercise" class="md-nav__link">
-    Final exercise
+    <span class="md-ellipsis">
+      Final exercise
+    </span>
   </a>
   
 </li>
@@ -1943,10 +1959,10 @@ production. However, it is important to have a basic understanding of the concep
 </li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
-<details class="question">
-<summary>Knowledge question 1</summary>
+<ol>
+<li>
 <p>If tensor <code>a</code> has shape <code>[N, d]</code> and tensor <code>b</code> has shape <code>[M, d]</code> how can we calculate the pairwise distance
-between rows in <code>a</code> and <code>b</code> without using a for loop?</p>
+    between rows in <code>a</code> and <code>b</code> without using a for loop?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>We can take advantage of <a href="https://pytorch.org/docs/stable/notes/broadcasting.html">broadcasting</a> to do this</p>
@@ -1955,11 +1971,10 @@ between rows in <code>a</code> and <code>b</code> without using a for loop?</p>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># shape [N, M]</span>
 </span></code></pre></div>
 </details>
-</details>
-<details class="question">
-<summary>Knowledge question 2</summary>
+</li>
+<li>
 <p>What should be the size of <code>S</code> for an input image of size 1x28x28, and how many parameters does the neural network
-then have?</p>
+    then have?</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">neural_net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -1978,12 +1993,11 @@ Therefore, the total number of parameters in the network is
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">sum</span><span class="p">([</span><span class="n">prod</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">neural_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">()])</span>
 </span></code></pre></div>
 </details>
-</details>
-<details class="question">
-<summary>Knowledge question 3</summary>
+</li>
+<li>
 <p>A working training loop in Pytorch should have these three function calls: <code>optimizer.zero_grad()</code>,
-<code>loss.backward()</code>, <code>optimizer.step()</code>. Explain what would happen in the training loop (or implement it) if you
-forgot each of the function calls.</p>
+    <code>loss.backward()</code>, <code>optimizer.step()</code>. Explain what would happen in the training loop (or implement it) if you
+    forgot each of the function calls.</p>
 <details class="success">
 <summary>Solution</summary>
 <p><code>optimizer.zero_grad()</code> is in charge of zeroring the gradient. If this is not done, then gradients would
@@ -1992,7 +2006,8 @@ gradients. If this is not done, then the gradients would not be calculated and t
 to update the weights. <code>optimizer.step()</code> is in charge of updating the weights. If this is not done, then the
 weights would not be updated and the model would not learn anything.</p>
 </details>
-</details>
+</li>
+</ol>
 <h3 id="final-exercise">Final exercise</h3>
 <p>As the final exercise we will develop a simple baseline model which we will continue to develop on during the course.
 For this exercise we provide the data in the <code>data/corruptedmnist</code> folder. Do <strong>NOT</strong> use the data in the
@@ -2045,7 +2060,7 @@ you have created.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 17, 2023</span>
       
         <br>
         Created:
@@ -2169,7 +2184,7 @@ you have created.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "content.code.copy", "content.code.annotate", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
