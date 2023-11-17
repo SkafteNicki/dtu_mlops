@@ -10,6 +10,7 @@ import os
 import shutil
 import sys
 from pathlib import Path
+from subprocess import PIPE, Popen
 from typing import List
 
 import dropbox
@@ -131,7 +132,7 @@ def write_to_file(filename, row, mode="a"):
 
 def main(
     out_folder: str = "student_repos",
-    timeout_clone: str = "1m",
+    timeout_clone: str = "2m",
 ):
     """Extract group statistics from github."""
     print("Getting the repository information")
@@ -169,8 +170,10 @@ def main(
             "num_contributors",
             "num_prs",
             "average_commit_message_length_to_main",
+            "latest_commit",
             "average_commit_message_length",
             "contributions_per_contributor",
+            "total_commits",
             "num_docker_files",
             "num_workflow_files",
             "has_requirement_file",
@@ -179,6 +182,7 @@ def main(
             "repo_size",
             "readme_size",
             "using_dvc",
+            "warnings_raised",
         ],
         mode="w",
     )
@@ -211,6 +215,7 @@ def main(
             ).json()
             commit_messages = [c["commit"]["message"] for c in commits]
             average_commit_message_length_to_main = sum([len(c) for c in commit_messages]) / len(commit_messages)
+            latest_commit = commits[0]["commit"]["author"]["date"]
 
             merged_prs = [p["number"] for p in prs if p["merged_at"] is not None]
             for pr_num in merged_prs:
@@ -227,6 +232,7 @@ def main(
             average_commit_message_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
             contributions_per_contributor = [c["contributions"] + c["commits_pr"] for c in contributors.values()]
+            total_commits = sum(contributions_per_contributor)
 
             content = get_content_recursive(f"https://api.github.com/repos/{repo}/contents")
             docker_files = [c for c in content if c["name"] == "Dockerfile" or ".dockerfile" in c["name"]]
@@ -240,8 +246,10 @@ def main(
             num_contributors = None
             num_prs = None
             average_commit_message_length_to_main = None
+            latest_commit = None
             average_commit_message_length = None
             contributions_per_contributor = None
+            total_commits = None
             num_docker_files = None
             num_workflow_files = None
             has_requirement_file = None
@@ -259,14 +267,24 @@ def main(
 
             using_dvc = ".dvc" in os.listdir(f"{out_folder}/group_{group_nb}")
 
+            warnings_raised = None
             if "reports" in os.listdir(f"{out_folder}/group_{group_nb}"):
                 report_dir = os.listdir(f"{out_folder}/group_{group_nb}/reports")
                 if "README.md" in report_dir and "report.py" in report_dir:
-                    os.system(f"cd {out_folder}/group_{group_nb}/reports && python report.py check")
+                    p = Popen(
+                        ["python", "report.py", "check"],
+                        cwd=f"{out_folder}/group_{group_nb}/reports",
+                        stdout=PIPE,
+                        stderr=PIPE,
+                        stdin=PIPE,
+                    )
+                    output = p.stderr.read()
+                    warnings_raised = len(output.decode("utf-8").split("\n")[:-1:2])
         else:
             repo_size = None
             readme_size = None
             using_dvc = None
+            warnings_raised = None
 
         write_to_file(
             "repo_data.csv",
@@ -276,8 +294,10 @@ def main(
                 num_contributors,
                 num_prs,
                 average_commit_message_length_to_main,
+                latest_commit,
                 average_commit_message_length,
                 contributions_per_contributor,
+                total_commits,
                 num_docker_files,
                 num_workflow_files,
                 has_requirement_file,
@@ -286,6 +306,7 @@ def main(
                 repo_size,
                 readme_size,
                 using_dvc,
+                warnings_raised,
             ],
             mode="a",
         )

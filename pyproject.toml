@@ -17,6 +17,7 @@ ignore = [
     "B028",
     "B905", # `zip()` without an explicit `strict=` parameter
 ]
+exclude=["student_repos/"]
 
 [tool.ruff.pydocstyle]
 convention = "google"

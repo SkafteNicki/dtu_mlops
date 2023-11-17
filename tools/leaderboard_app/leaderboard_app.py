@@ -1,6 +1,13 @@
+r"""Basic streamlit leaderboard app for showing data from scraped github repos.
+
+Run with:
+    streamlit run tools\leaderboard_app\leaderboard_app.py
+"""
+
 import ast
 import os
 import sys
+from datetime import datetime
 
 import dropbox
 import pandas as pd
@@ -45,16 +52,18 @@ def main():
 
     df = pd.read_csv("latest_repo_data.csv")
 
-    # convert columns
-    df['total_commits'] = df['contributions_per_contributor'].apply(
-        lambda x: sum(ast.literal_eval(x)) if pd.notnull(x) else x
-    )
-    df['contributions_per_contributor'] = df['contributions_per_contributor'].apply(
+    # convert to column
+    df["contributions_per_contributor"] = df["contributions_per_contributor"].apply(
         lambda x: ast.literal_eval(x) if pd.notnull(x) else x
+    )
+    df["warnings_raised"] = df["warnings_raised"].apply(lambda x: 27 - x if pd.notnull(x) else x)
+    f = "%Y-%m-%dT%H:%M:%SZ"
+    df["latest_commit"] = df["latest_commit"].apply(
+        lambda x: datetime.strptime(x, f) if pd.notnull(x) else x,
     )
 
     # remove columns that are not needed
-    df = df[
+    df1 = df[
         [
             "group_nb",
             "num_students",
@@ -64,33 +73,77 @@ def main():
             "num_prs",
             "average_commit_message_length_to_main",
             "average_commit_message_length",
+            "latest_commit",
+        ]
+    ]
+
+    df2 = df[
+        [
+            "group_nb",
             "num_docker_files",
             "num_workflow_files",
             "has_requirement_file",
             "has_makefile",
+            "has_cloudbuild",
+            "repo_size",
+            "readme_size",
+            "using_dvc",
+            "warnings_raised",
         ]
     ]
 
-
     st.title("Group Github Stats")
+    st.text(
+        """
+        Below is shown automatic scraped data for all groups in the course. None of these stats directly contribute
+        towards you passing the course or not. Instead they can inform how you are doing in comparison to other groups,
+        and it can indirectly inform the us about how well you are using version control for collaborating on your
+        project.
+        """
+    )
+
+    st.header("Base statistics")
     st.dataframe(
-        df,
+        df1,
         column_config={
             "group_nb": "Group Number",
-            "num_students": "Number of Students",
-            "num_contributors": "Number of Contributors",
+            "num_students": "Students",
+            "num_contributors": "Contributors",
             "total_commits": "Total Commits",
             "contributions_per_contributor": st.column_config.BarChartColumn("Contributions distribution"),
             "num_prs": "Number of Pull Requests",
-            "average_commit_message_length_to_main": "Average commit message length (main)",
-            "average_commit_message_length": "Average commit message length (all)",
-            "num_docker_files": "Number of docker files",
-            "num_workflow_files": "Number of workflow files",
-            "has_requirement_file": "Has requirement file",
-            "has_makefile": "Has makefile",
+            "average_commit_message_length_to_main": "ACML* (main)",
+            "average_commit_message_length": "ACML* (all)",
+            "latest_commit": st.column_config.DatetimeColumn("Latest commit"),
         },
         hide_index=True,
     )
+    st.text("*ACML = Average Commit Message Length")
+
+    st.header("Content statistics")
+    st.dataframe(
+        df2,
+        column_config={
+            "group_nb": "Group Number",
+            "num_docker_files": "Docker files",
+            "num_workflow_files": "Workflow files",
+            "has_requirement_file": "Requirement file",
+            "has_makefile": "Makefile",
+            "has_cloudbuild": "Cloudbuild",
+            "repo_size": "Repository size",
+            "readme_size": "Readme size",
+            "using_dvc": "Using dvc",
+            "warnings_raised": st.column_config.ProgressColumn(
+                "Report completion",
+                help="Number of questions answered in exam report",
+                format="%d",
+                min_value=0,
+                max_value=27,
+            ),
+        },
+        hide_index=True,
+    )
+
 
 if __name__ == "__main__":
     main()
