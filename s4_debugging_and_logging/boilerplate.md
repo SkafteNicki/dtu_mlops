@@ -169,7 +169,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
         `Pytorch Lightning` package. This also includes `Lightning Fabric` and `Lightning Apps` which you can read more
         about [here](https://lightning.ai/docs/fabric/stable/) and [here](https://lightning.ai/docs/app/stable/).
 
-1. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely override your old
+2. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely override your old
     model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
     the rest of lightning:
 
@@ -181,9 +181,9 @@ framework to do some of the heavy lifting you need to have gone through some of 
     Please read the [documentation](https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html)
     for more info.
 
-2. Make sure your data is formatted such that it can be loaded using the `torch.utils.data.DataLoader` object.
+3. Make sure your data is formatted such that it can be loaded using the `torch.utils.data.DataLoader` object.
 
-3. Instantiate a `Trainer` object. It is recommended to take a look at the
+4. Instantiate a `Trainer` object. It is recommended to take a look at the
     [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags) (there
     are many of them) and maybe adjust some of them:
 
@@ -196,11 +196,11 @@ framework to do some of the heavy lifting you need to have gone through some of 
     3. To start with we also want to limit the amount of training data to 20% of its original size. which
         trainer flag do you need to set for this to work?
 
-4. Try fitting your model: `trainer.fit(model)`
+5. Try fitting your model: `trainer.fit(model)`
 
-5. Now try adding some `callbacks` to your trainer.
+6. Now try adding some `callbacks` to your trainer.
 
-6. The privous module was all about logging in `wandb`, so the question is naturally how does `lightning` support this.
+7. The privous module was all about logging in `wandb`, so the question is naturally how does `lightning` support this.
     Lightning does not only support `wandb`, but also many
     [others](https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html). Common for all of them, is that
     logging just need to happen through the `self.log` method in your `LightningModule`:
@@ -238,26 +238,26 @@ framework to do some of the heavy lifting you need to have gone through some of 
 
         try doing this, by logging something else than scalar tensors.
 
-7. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step`
+8. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step`
     and `test_step` to our lightning module and supply the respective data in form of a separate dataloader. Try to at
     least implement one of them.
 
-8. (Optional, requires GPU) One of the big advantages of using `lightning` is that you no more need to deal with device
+9. (Optional, requires GPU) One of the big advantages of using `lightning` is that you no more need to deal with device
     placement e.g. called `.to('cuda')` everywhere. If you have a GPU, try to set the `gpus` flag in the trainer. If you
     do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.
 
-9. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, research have shown
+10. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, research have shown
     that neural network training is very robust towards a decrease in precision. The great benefit going from `float32`
     to `float16` is that we get approximately half the
     [memory consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training in
     Pytorch lightning. You can enable this by setting the
     [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
 
-10. (Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
+11. (Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
     [profiler](https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in
     the `Trainer` object.
 
-11. (Optional) Another great feature of Lightning is that the allow for easily defining command line interfaces through
+12. (Optional) Another great feature of Lightning is that the allow for easily defining command line interfaces through
     the [Lightning CLI](https://pytorch-lightning.readthedocs.io/en/stable/cli/lightning_cli.html) feature. The
     Lightning CLI is essentially a drop in replacement for defining command line interfaces (covered in
     [this module](../s10_extra/cli.md)) and can also replace the need for config files (covered in
@@ -265,7 +265,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
     Lightning framework. We highly recommend checking out the feature and that you try to refactor your code such that
     you do not need to call `trainer.fit` anymore but it is instead directly controlled from the Lightning CLI.
 
-12. Free exercise: Experiment with what the lightning framework is capable of. Either try out more of the trainer flags,
+13. Free exercise: Experiment with what the lightning framework is capable of. Either try out more of the trainer flags,
     some of the other callbacks, or maybe look into some of the other methods that can be implemented in your lightning
     module. Only your imagination is the limit!
 
