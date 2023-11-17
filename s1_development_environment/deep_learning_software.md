@@ -110,9 +110,7 @@ production. However, it is important to have a basic understanding of the concep
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    If tensor `a` has shape `[N, d]` and tensor `b` has shape `[M, d]` how can we calculate the pairwise distance
+1. If tensor `a` has shape `[N, d]` and tensor `b` has shape `[M, d]` how can we calculate the pairwise distance
     between rows in `a` and `b` without using a for loop?
 
     ??? success "Solution"
@@ -125,9 +123,7 @@ production. However, it is important to have a basic understanding of the concep
         dist = torch.sum((a.unsqueeze(1) - b.unsqueeze(0))**2, dim=2)  # shape [N, M]
         ```
 
-??? question "Knowledge question 2"
-
-    What should be the size of `S` for an input image of size 1x28x28, and how many parameters does the neural network
+2. What should be the size of `S` for an input image of size 1x28x28, and how many parameters does the neural network
     then have?
 
     ```python
@@ -152,9 +148,7 @@ production. However, it is important to have a basic understanding of the concep
         sum([prod(p.shape) for p in neural_net.parameters()])
         ```
 
-??? question "Knowledge question 3"
-
-    A working training loop in Pytorch should have these three function calls: `optimizer.zero_grad()`,
+3. A working training loop in Pytorch should have these three function calls: `optimizer.zero_grad()`,
     `loss.backward()`, `optimizer.step()`. Explain what would happen in the training loop (or implement it) if you
     forgot each of the function calls.
 

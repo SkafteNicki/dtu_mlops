@@ -226,17 +226,13 @@ working together on the same project.
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    How do you know if a certain directory is a git repository?
+1. How do you know if a certain directory is a git repository?
 
     ??? success "Solution"
 
         You can check if there is a ".git" directory. Alternative you can use the `git status` command.
 
-??? question "Knowledge question 2"
-
-    Explain what the file `gitignore` is used for?
+2. Explain what the file `gitignore` is used for?
 
     ??? success "Solution"
 
@@ -244,9 +240,7 @@ working together on the same project.
         useful for files that are not part of the codebase, but are needed for the code to run (e.g. data files)
         or files that contain sensitive information (e.g. `.env` files that contain API keys and passwords).
 
-??? question "Knowledge question 3"
-
-    You have two branches - *main* and *devel*. What sequence of commands would you need to execute to make sure that
+3. You have two branches - *main* and *devel*. What sequence of commands would you need to execute to make sure that
     *devel* is in sync with *main*?
 
     ??? success "Solution"
@@ -258,9 +252,7 @@ working together on the same project.
         git merge main
         ```
 
-??? question "Knowledge question 4"
-
-    What best practices are you familiar with regarding version control?
+4. What best practices are you familiar with regarding version control?
 
     ??? success "Solution"
 

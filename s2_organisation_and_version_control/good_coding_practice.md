@@ -255,9 +255,7 @@ help us at all. Therefore, use `Any` only when necessary.
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    According to PEP8 what is wrong with the following code?
+1. According to PEP8 what is wrong with the following code?
 
     ```python
     class myclass(nn.Module):
@@ -272,9 +270,7 @@ help us at all. Therefore, use `Any` only when necessary.
         and methods should be full lowercase with words separated by underscore. Thus `TrainNetwork` should be
         `train_network`.
 
-??? question "Knowledge question 2"
-
-    What would be the of argument `x` for a function `def f(x):` if it should support the following input
+2. What would be the of argument `x` for a function `def f(x):` if it should support the following input
 
     ```python
     x1 = [1, 2, 3, 4]

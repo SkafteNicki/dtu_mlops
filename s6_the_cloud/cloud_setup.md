@@ -185,9 +185,7 @@ services some more to make sure you are not a bot that wants to mine crypto.
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    What considerations to take when choosing an GCP region for running a new application?
+1. What considerations to take when choosing an GCP region for running a new application?
 
     ??? success "Solution"
 

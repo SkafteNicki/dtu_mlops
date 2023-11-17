@@ -151,3 +151,8 @@ Gemfile.lock
 
 # js
 node_modules/
+
+# local stuff
+latest_info.csv
+latest_repo_data.csv
+repo_data.csv

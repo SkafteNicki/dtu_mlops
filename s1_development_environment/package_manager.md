@@ -220,9 +220,7 @@ in the exercise folder.
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    Try executing the command
+1. Try executing the command
 
     ```bash
     pip install "pytest < 4.6" pytest-cov==2.12.1

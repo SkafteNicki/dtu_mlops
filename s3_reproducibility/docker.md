@@ -400,18 +400,22 @@ beneficial for you to download.
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    What is the difference between a docker image and a docker container?
+1. What is the difference between a docker image and a docker container?
 
     ??? success "Solution"
 
         A docker image is a template for a docker container. A docker container is a running instance of a docker
         image. A docker image is a static file, while a docker container is a running process.
 
-??? question "Knowledge question 2"
+2. What are the 3 steps involved in containerizing an application?
 
-    What advantage is there to running your application inside a docker container instead of running the application
+    ??? success "Solution"
+
+        1. Write a Dockerfile that includes your app (including the commands to run it) and its dependencies
+        2. Build the image using the Dockefile you wrote
+        3. Run the container using the image you've built
+
+3. What advantage is there to running your application inside a docker container instead of running the application
     directly on your machine?
 
     ??? success "Solution"

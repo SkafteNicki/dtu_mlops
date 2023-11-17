@@ -120,9 +120,7 @@ command line.
 
 ## 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    Here is one command from later in the course when we are going to work in the cloud
+1. Here is one command from later in the course when we are going to work in the cloud
 
     ```bash
     gcloud compute instances create-with-container instance-1 \
@@ -142,9 +140,7 @@ command line.
         `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute` and `create-with-contrainer`
         is a subcommand to `instances`
 
-??? question "Knowledge question 2"
-
-    Two common arguments that nearly all commands have is the `-h` and `-v` options. What does each of them do?
+2. Two common arguments that nearly all commands have is the `-h` and `-v` options. What does each of them do?
 
     ??? success "Solution"
 

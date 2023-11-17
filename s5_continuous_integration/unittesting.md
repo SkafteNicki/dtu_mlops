@@ -228,9 +228,7 @@ The following exercises should be applied to your MNIST repository
 
 ### 🧠 Knowledge check
 
-??? question "Knowledge question 1"
-
-    Assume you have a code coverage of 100%, would you expect that no bugs are present in your code?
+1. Assume you have a code coverage of 100%, would you expect that no bugs are present in your code?
 
     ??? success "Solution"
 
