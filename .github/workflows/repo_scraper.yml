@@ -2,9 +2,9 @@ name: Run repo scraper
 
 on:
   push:
-    branches: [main,deployments]
+    branches: [main]
   pull_request:
-    branches: [main,deployments]
+    branches: [main]
   schedule:
     - cron: "0 0 * * *"  # Run at the end of every day
   workflow_dispatch: {}  # maual executions
