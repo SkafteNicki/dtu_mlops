@@ -154,7 +154,8 @@ Lets take a look at how a github workflow file is organized:
         Find the file. The content should look similar to this (only some fields are shown):
 
         ```json
-        {"access_token": ...,
+        {
+            "access_token": ...,
             "client_id": ...,
             "client_secret": ...,
             "refresh_token": ...,
@@ -175,12 +176,11 @@ Lets take a look at how a github workflow file is organized:
     3. Afterwards, add the following code to your workflow file:
 
         ```yaml
-       - uses: iterative/setup-dvc@v1
-
-       - name: Get data
-         run: dvc pull
-         env:
-            GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+        - uses: iterative/setup-dvc@v1
+        - name: Get data
+            run: dvc pull
+            env:
+                GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         ```
 
         that runs `dvc pull` using the secret authentication file. For help you can visit this
@@ -210,6 +210,57 @@ Lets take a look at how a github workflow file is organized:
 
     3. Try to make sure that all steps are passing on repository. Especially `mypy` can be hard to get passing, so this
         exercise formally only requires you to get `ruff` passing.
+
+## 🧠 Knowledge check
+
+1. When working with Github actions you will often encounter the following 4 concepts:
+
+    * Workflow
+    * Runner
+    * Job
+    * Action
+
+    Try to define them with your own words.
+
+    ??? success "Solution"
+
+        * Workflow: A `yaml` file that defines the instructions to execute on specific events. Needs to be placed in
+            the `.github/workflows` folder.
+        * Runner: Workflows need to run somewhere. The environment that the workflow is being executed on is called the
+            runner. Most commonly the runner is hosted by Github but can also hosted by yourself.
+        * Job: A series of steps which are executed on the same runner. A workflow must include at least one job,
+            but often contains many.
+        * Action: A action is the smallest unit in a workflow. Jobs often consist of multiple actions that are
+            executed sequentially.
+
+2. The `on` attribute specify upon which events the workflow will be triggered. Assume you have set the `on` attribute
+    to the following:
+
+    ```yaml
+    on:
+        push:
+            branches: [main]
+        pull_request:
+            branches: [main]
+        schedule:
+            - cron: "0 0 * * *"
+        workflow_dispatch: {}
+    ```
+
+    What 4 events would trigger the execution of that action?
+
+    ??? success "Solution"
+
+        1. Direct push to branch `main` would trigger it
+        2. Any pull request opened that will merge into `main` would trigger it
+        3. At the end of the day the action would trigger
+        4. The trigger can be executed by manually triggering it through the Github UI, example shown below
+
+            <figure markdown>
+            ![Image](../figures/github_actions_workflow_dispatch.png){ width="800" }
+            </figure>
+
+
 
 This ends the module on Github workflows. If you are more interested in this topic you can checkout module
 [M31 on documentation](../s10_extra/documentation.md) which first including locally building some documentation for your
