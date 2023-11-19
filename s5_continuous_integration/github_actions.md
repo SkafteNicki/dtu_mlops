@@ -260,8 +260,6 @@ Lets take a look at how a github workflow file is organized:
             ![Image](../figures/github_actions_workflow_dispatch.png){ width="800" }
             </figure>
 
-
-
 This ends the module on Github workflows. If you are more interested in this topic you can checkout module
 [M31 on documentation](../s10_extra/documentation.md) which first including locally building some documentation for your
 project and afterwards use Github actions for deploying it to Github Pages. Additionally, Github also have a lot of
