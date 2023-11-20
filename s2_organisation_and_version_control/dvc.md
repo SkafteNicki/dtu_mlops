@@ -17,9 +17,20 @@ more data that you feed them, we are seeing models today that are being trained 
 
 Because this is a important concept there exist a couple of frameworks that have specialized in versioning data such as
 [dvc](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Hub](https://www.activeloop.ai/),
-[Modelstore](https://modelstore.readthedocs.io/en/latest/) and [ModelDB](https://github.com/VertaAI/modeldb/). We are
-here going to use `dvc` provided by [iterative.ai](https://iterative.ai/) as they also provide tools for automatizing
-machine learning, which we are going to focus on later.
+[Modelstore](https://modelstore.readthedocs.io/en/latest/) and [ModelDB](https://github.com/VertaAI/modeldb/).
+Regardless of what framework, they all implement somewhat the same concept: instead of storing the actual data files
+or in general storing any large *artifacts* files we instead store a pointer to these large flies. We then version
+control the point instead of the artifact.
+
+<figure markdown>
+![Image](../figures/git_artifact.png){ width="700" }
+<figcaption>
+<a href="https://madewithml.com/courses/mlops/versioning/"> Image credit </a>
+</figcaption>
+</figure>
+
+We are in this course going to use `dvc` provided by [iterative.ai](https://iterative.ai/) as they also provide tools
+for automatizing machine learning, which we are going to focus on later.
 
 ## DVC: What is it?
 
