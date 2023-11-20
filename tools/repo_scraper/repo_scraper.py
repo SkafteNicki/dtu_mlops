@@ -260,10 +260,12 @@ def main(
             path = Path(f"{out_folder}/group_{group_nb}")
             repo_size = sum([f.stat().st_size for f in path.glob("**/*") if f.is_file()]) / 1_048_576  # in MB
 
-            if f"{out_folder}/group_{group_nb}/README.md" not in os.listdir(f"{out_folder}/group_{group_nb}"):
+            if "README.md" in os.listdir(f"{out_folder}/group_{group_nb}"):
                 with open(f"{out_folder}/group_{group_nb}/README.md", "r") as f:
                     content = f.read()
                 readme_size = len(content.split(" "))
+            else:
+                readme_size = None
 
             using_dvc = ".dvc" in os.listdir(f"{out_folder}/group_{group_nb}")
 
