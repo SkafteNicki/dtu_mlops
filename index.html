@@ -1904,15 +1904,15 @@
 </ul>
 </li>
 <li>5 ECTS (European Credit Transfer System), corresponding to 140 hours of work</li>
-<li>3 week period of January</li>
+<li>3 week period in January</li>
 <li>Master level course</li>
 <li>Grade: Pass/not passed</li>
 <li>Type of assessment: oral presentation + project report</li>
 <li>Recommended prerequisites: DTU course <a href="https://kurser.dtu.dk/course/02456">02456 (Deep Learning)</a> or
   experience with the following topics:<ul>
 <li>General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)</li>
-<li>Basic knowledge about deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)</li>
-<li>Coding in <a href="https://pytorch.org/">PyTorch</a>. The first day we provide a number of exercises in PyTorch to
+<li>Basic knowledge of deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)</li>
+<li>Coding in <a href="https://pytorch.org/">PyTorch</a>. The first day we provide some exercises in PyTorch to
     get everyone's skills up-to-date as fast as possible.</li>
 </ul>
 </li>
@@ -1921,19 +1921,20 @@
 <p>Start by cloning or downloading this repository</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/SkafteNicki/dtu_mlops
 </span></code></pre></div>
-<p>If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all
-exercise material for this course and lectures. Additionally, you should join our
+<p>If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all the exercise
+material for this course and lectures. Additionally, you should join our
 <a href="https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw">Slack channel</a>
-which we use for communication. Link may be expired, write to <a href="mailto:skaftenicki@gmail.com">me</a>.</p>
+which we use for communication. The link may be expired, write to <a href="mailto:skaftenicki@gmail.com">me</a>.</p>
 <h2 id="course-organization">📂 Course organization</h2>
-<p>We highly recommend that when going through the material that you use the
+<p>We highly recommend that when going through the material you use the
 <a href="https://skaftenicki.github.io/dtu_mlops/">homepage</a> which is the corresponding
 <a href="https://pages.github.com/">Github pages</a> version of this repository that is more nicely
 rendered, that also includes some special HTML magic provided by
 <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>.</p>
 <p>The course is divided into sessions, denoted by capital <strong>S</strong>, and modules, denoted by capital <strong>M</strong>. A session
-corresponds to full day of work if you are following the course, meaning approx 9 hours of work. Each session (<strong>S</strong>)
-corresponds to topic within MLOps and consist of multiple modules (<strong>M</strong>) that each covers an tool within the session.</p>
+corresponds to a full day of work if you are following the course, meaning approximately 9 hours of work. Each session
+(<strong>S</strong>) corresponds to a topic within MLOps and consists of multiple modules (<strong>M</strong>) that each cover a tool within the
+session.</p>
 <p>Importantly we differ between core modules and optional modules. Core modules will be marked by</p>
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
@@ -1941,36 +1942,36 @@ corresponds to topic within MLOps and consist of multiple modules (<strong>M</st
 <p>at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.</p>
 <h2 id="mlops-what-is-it">🆒 MLOps: What is it?</h2>
-<p>Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particular
-deep learning has become a technology that is widely available. The term itself is a compound of "machine learning"
+<p>Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particularly
+deep learning has become a widely available technology. The term itself is a compound of "machine learning"
 and "operations" and covers everything that has to do with the management of the production ML lifecycle.</p>
 <p>The lifecycle of production ML can largely be divided into three phases:</p>
 <ol>
 <li>
-<p>Design: The initial phase starts with a investigation of the problem. Based on this analysis, a number of
-requirements can be prioritized of what we want our future model to actually do. Since machine learning requires
-data to be trained, we also investigate in this step what data we have and if we need to source it in some other way.</p>
+<p>Design: The initial phase starts with an investigation of the problem. Based on this analysis, several requirements
+    can be prioritized for what we want our future model to do. Since machine learning requires
+    data to be trained, we also investigate in this step what data we have and if we need to source it in some other way.</p>
 </li>
 <li>
-<p>Model development: Based on the design phase we can actually begin to conjurer some machine learning algorithm to
-solve our problems. As always, the initial step often involve doing some data analysis to make sure that our model
-is actually learning the signal that we want it to learn. Secondly, is the machine learning engineering phase, where
-the particular model architecture is chosen. Finally, we also need to do validation and testing to make sure that
-our model is generalizing well.</p>
+<p>Model development: Based on the design phase we can begin to conjure some machine learning algorithms to solve our
+    problems. As always, the initial step often involves doing some data analysis to make sure that our model is
+    learning the signal that we want it to learn. Secondly, is the machine learning engineering phase, where the
+    particular model architecture is chosen. Finally, we also need to do validation and testing to make sure that
+    our model is generalizing well.</p>
 </li>
 <li>
-<p>Operations: Based on the model development phase, we now have a model and we actual want to use. The operations
-is where create an automatic pipeline that makes sure that whenever we make changes to our codebase they gets
-automatically incorporated into our model, such that we do not slow down production. Equally important is also the
-ongoing monitoring of already deployed models to make sure that they behave exactly as we specified them.</p>
+<p>Operations: Based on the model development phase, we now have a model that we want to use. The operations are where
+    create an automatic pipeline that makes sure that whenever we make changes to our codebase they get automatically
+    incorporated into our model, such that we do not slow down production. Equally important is the ongoing monitoring
+    of already deployed models to make sure that they behave exactly as we specified them.</p>
 </li>
 </ol>
-<p>It is important to note that the three steps are in fact a <em>cycle</em>, meaning that when you have successfully deployed a
+<p>It is important to note that the three steps are a <em>cycle</em>, meaning that when you have successfully deployed a
 machine learning model that is not the end of it. Your initial requirements may change, forcing you to revisit the
-design phase. Some new algorithm may show promising results, so you revisit the model development phase to implement
-this. And finally, you may try to cut the cost of running your model in production, making you revisit the operations
-phase, trying to optimize some steps.</p>
-<p>The focus in this course is particular on the <strong>Operations</strong> part of MLOps as this is what many data scientist are
+design phase. Some new algorithms may show promising results, so you revisit the model development phase to implement
+this. Finally, you may try to cut the cost of running your model in production, making you revisit the operations phase,
+and trying to optimize some steps.</p>
+<p>The focus in this course is particularly on the <strong>Operations</strong> part of MLOps as this is what many data scientists are
 missing in their toolbox to take all the knowledge they have about data processing and model development into a
 production setting.</p>
 <h2 id="learning-objectives">❔ Learning objectives</h2>
@@ -1983,15 +1984,15 @@ scale machine learning models.</p>
 </blockquote>
 <p>This includes:</p>
 <ul>
-<li>Organize code in a efficient way for easy maintainability and shareability</li>
+<li>Organize code in an efficient way for easy maintainability and shareability</li>
 <li>Understand the importance of reproducibility and how to create reproducible containerized applications and experiments</li>
 <li>Cable of using version control to efficiently collaborate on code development</li>
 <li>Knowledge of continuous integration (CI) and continuous machine learning (CML) for automating code development</li>
 <li>Being able to debug, profile, visualize and monitor multiple experiments to assess model performance</li>
-<li>Cable of using online cloud based computing services to scale experiments</li>
+<li>Cable of using online cloud-based computing services to scale experiments</li>
 <li>Demonstrate knowledge about different distributed training paradigms within  machine learning and how to apply them</li>
 <li>Deploy machine learning models, both locally and in the cloud</li>
-<li>Conduct a research project in collaboration with follow students using the frameworks taught in the course</li>
+<li>Conduct a research project in collaboration with fellow students using the frameworks taught in the course</li>
 <li>Have lots of fun and share memes! :)</li>
 </ul>
 <h2 id="references">📓 References</h2>
@@ -1999,51 +2000,51 @@ scale machine learning models.</p>
 <ul>
 <li>
 <p><a href="https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f">Ref 1</a>
-  Introduction blog post for those that have never heard about MLOps and want to get an overview.</p>
+    Introduction blog post for those who have never heard about MLOps and want to get an overview.</p>
 </li>
 <li>
 <p><a href="https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning">Ref 2</a>
-  Great document from Google about the different levels of MLOps.</p>
+    Great document from Google about the different levels of MLOps.</p>
 </li>
 <li>
 <p><a href="https://ml-ops.org/content/mlops-principles">Ref 3</a>
-  Another introduction to the principles of MLOps and the different stages of MLOps.</p>
+    Another introduction to the principles of MLOps and the different stages of MLOps.</p>
 </li>
 <li>
 <p><a href="https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf">Ref 4</a>
-  Great paper about the technical depth in machine learning.</p>
+    Great paper about the technical depth in machine learning.</p>
 </li>
 <li>
 <p><a href="https://arxiv.org/abs/2209.09125">Ref 5</a>
-  Interview study that uncovers many of the pain points that ML engineers go through when doing MLOps.</p>
+    Interview study that uncovers many of the pain points that ML engineers go through when doing MLOps.</p>
 </li>
 </ul>
 <p>Other courses with content similar to this:</p>
 <ul>
 <li>
 <p><a href="https://madewithml.com">Made with ML</a>. Great online MLOps course that also covers additional topics on the
-  foundations of working with ML.</p>
+    foundations of working with ML.</p>
 </li>
 <li>
-<p><a href="https://fullstackdeeplearning.com/">Full stack deep learning</a>. Another MLOps online course the does through the hole
-  developer pipeline.</p>
+<p><a href="https://fullstackdeeplearning.com/">Full stack deep learning</a>. Another MLOps online course going through the whole
+    developer pipeline.</p>
 </li>
 <li>
 <p><a href="https://github.com/DataTalksClub/mlops-zoomcamp">MLOps Zoomcamp</a>. MLOps online course that includes many of the same
-  topics.</p>
+    topics.</p>
 </li>
 </ul>
 <h2 id="contributing">👨‍🏫 Contributing</h2>
 <p>If you want to contribute to the course, we are happy to have you! Anything from fixing typos to adding new content is
-welcome. For building the course material locally, it is a simple two step process:</p>
+welcome. For building the course material locally, it is a simple two-step process:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>mkdocs<span class="w"> </span>serve
 </span></code></pre></div>
 <p>Which will start a local server that you can access at <code>localhost:8000</code> and will automatically update when you make
 changes to the course material. When you have something that you want to contribute, please make a pull request.</p>
 <h2 id="license">❕ License</h2>
-<p>I highly value open-source, and the content of this course is therefore free to use under the Apache 2.0 license.
-If you use parts of this course in your own work, please cite using:</p>
+<p>I highly value open source, and the content of this course is therefore free to use under the Apache 2.0 license.
+If you use parts of this course in your work, please cite using:</p>
 <div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nc">@misc</span><span class="p">{</span><span class="nl">skafte_mlops</span><span class="p">,</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="na">author</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="s">{Nicki Skafte Detlefsen}</span><span class="p">,</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="na">title</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="s">{Machine Learning Operations}</span><span class="p">,</span>
@@ -2057,7 +2058,7 @@ If you use parts of this course in your own work, please cite using:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2023</span>
       
         <br>
         Created:
