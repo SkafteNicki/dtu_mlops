@@ -11,8 +11,10 @@
 ## ℹ️ Course information
 
 * Course responsible
-    * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
-    * Professor [Søren Hauberg](http://www2.compute.dtu.dk/~sohau/), <sohau@dtu.dk>
+
+  * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
+  * Professor [Søren Hauberg](http://www2.compute.dtu.dk/~sohau/), <sohau@dtu.dk>
+
 * 5 ECTS (European Credit Transfer System), corresponding to 140 hours of work
 * 3 week period in January
 * Master level course
@@ -20,10 +22,11 @@
 * Type of assessment: oral presentation + project report
 * Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/02456) or
   experience with the following topics:
-    * General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)
-    * Basic knowledge of deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)
-    * Coding in [PyTorch](https://pytorch.org/). The first day we provide some exercises in PyTorch to
-        get everyone's skills up-to-date as fast as possible.
+
+  * General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)
+  * Basic knowledge of deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)
+  * Coding in [PyTorch](https://pytorch.org/). The first day we provide some exercises in PyTorch to
+    get everyone's skills up-to-date as fast as possible.
 
 ## 💻 Course setup
 
@@ -36,7 +39,7 @@ git clone https://github.com/SkafteNicki/dtu_mlops
 If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all the exercise
 material for this course and lectures. Additionally, you should join our
 [Slack channel](https://join.slack.com/t/dtumlops/shared_invite/zt-1j1zx8t4h-nTbUPibR9xCz58erDyyikw)
-which we use for communication. The link may be expired, write to [me](mailto:skaftenicki@gmail.com).
+which we use for communication. The link may be expired, write to [me](mailto:nsde@dtu.com).
 
 ## 📂 Course organization
 

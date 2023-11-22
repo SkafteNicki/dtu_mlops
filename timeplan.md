@@ -23,7 +23,7 @@ Legend: 📝 Slides, 🎥 Recording.
 !!! note
 
     Current dates listed below are for January 2024 version of the course. The lectures and recordings are currently
-    from January 2024 version of the course. Please note that for January 2024, the first week starts on a Tuesday and
+    from January 2023 version of the course. Please note that for January 2024, the first week starts on a Tuesday and
     ends on a Saturday.
 
 ## Week 1
