@@ -1812,15 +1812,15 @@
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
 </div>
-<p>In this module we are going to return to version control. However, this time we are going to focus on version control
-of data. The reason we need to separate between standandard version control and data version control comes down to one
+<p>In this module, we are going to return to version control. However, this time we are going to focus on version control
+of data. The reason we need to separate between standard version control and data version control comes down to one
 problem: size.</p>
 <p>Classic version control was developed to keep track of code files, which all are simple text files. Even a codebase that
-contains 1000+ files with million lines of codes can probably be stored in less than a single gigabyte (GB). On the
-other hand, the size of data can be drastically bigger. As most machine learning algorithms only gets better with the
+contains 1000+ files with millions of lines of code can probably be stored in less than a single gigabyte (GB). On the
+other hand, the size of data can be drastically bigger. As most machine learning algorithms only get better with the
 more data that you feed them, we are seeing models today that are being trained on petabytes of data (1.000.000 GB).</p>
-<p>Because this is a important concept there exist a couple of frameworks that have specialized in versioning data such as
-<a href="https://dvc.org/">dvc</a>, <a href="https://dagshub.com/">DAGsHub</a>, <a href="https://www.activeloop.ai/">Hub</a>,
+<p>Because this is an important concept there exist a couple of frameworks that have specialized in versioning data such as
+<a href="https://dvc.org/">DVC</a>, <a href="https://dagshub.com/">DAGsHub</a>, <a href="https://www.activeloop.ai/">Hub</a>,
 <a href="https://modelstore.readthedocs.io/en/latest/">Modelstore</a> and <a href="https://github.com/VertaAI/modeldb/">ModelDB</a>.
 Regardless of what framework, they all implement somewhat the same concept: instead of storing the actual data files
 or in general storing any large <em>artifacts</em> files we instead store a pointer to these large flies. We then version
@@ -1831,14 +1831,14 @@ control the point instead of the artifact.</p>
 <a href="https://madewithml.com/courses/mlops/versioning/"> Image credit </a>
 </figcaption>
 </figure>
-<p>We are in this course going to use <code>dvc</code> provided by <a href="https://iterative.ai/">iterative.ai</a> as they also provide tools
+<p>We are in this course going to use <code>DVC</code> provided by <a href="https://iterative.ai/">iterative.ai</a> as they also provide tools
 for automatizing machine learning, which we are going to focus on later.</p>
 <h2 id="dvc-what-is-it">DVC: What is it?</h2>
 <p>DVC (Data Version Control) is simply an extension of <code>git</code> to not only take versioning data but also models and
-experiments in general. But how does it deal with these large data files? Essentially, <code>dvc</code> will just keep track of a
-small <em>metafile</em> that will then point to some remote location where you original data is store. <em>metafiles</em> essentially
-works as placeholders for your datafiles. Your large datafiles are then stored in some remote location such as Google
-drive or an <code>S3</code> bucket from Amazon.</p>
+experiments in general. But how does it deal with these large data files? Essentially, <code>DVC</code> will just keep track of a
+small <em>metafile</em> that will then point to some remote location where your original data is stored. Metafiles
+essentially work as placeholders for your data files. Your large data files are then stored in some remote location such
+as Google Drive or an <code>S3</code> bucket from Amazon.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/dvc.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dvc.png" width="700" /></a>
   </p>
@@ -1847,20 +1847,20 @@ drive or an <code>S3</code> bucket from Amazon.</p>
   </figcaption>
 </figure>
 <p>As the figure shows, we now have two remote locations: one for code and one for data. We use <code>git pull/push</code> for the
-code and <code>dvc pull/push</code> for the data. The key concept is the connection between the data file <code>model.pkl</code> that is
-fairly large and its respective <em>metafile</em> <code>model.pkl.dvc</code> that is very small. The large file is stored in the data
-remote and the metafile is stored in code remote.</p>
+code and <code>dvc pull/push</code> for the data. The key concept is the connection between the data file <code>model.pkl</code> which is
+fairly large and its respective <em>metafile</em> <code>model.pkl.dvc</code> which is very small. The large file is stored in the data
+remote and the metafile is stored in the code remote.</p>
 <h2 id="exercises">❔ Exercises</h2>
-<p>If in doubt about some of the exercises, we recommend checking out the <a href="https://dvc.org/doc">documentation for dvc</a> as
+<p>If in doubt about some of the exercises, we recommend checking out the <a href="https://dvc.org/doc">documentation for DVC</a> as
 it contains excellent tutorials.</p>
 <ol>
 <li>
-<p>For these exercises we are going to use <a href="https://www.google.com/intl/da/drive/">Google drive</a> as remote storage
+<p>For these exercises, we are going to use Google <a href="https://www.google.com/intl/da/drive/">drive</a> as a remote storage
     solution for our data. If you do not already have a Google account, please create one (we are going to use it again
     in later exercises). Please make sure that you at least have 1GB of free space.</p>
 </li>
 <li>
-<p>Next, install dvc and the Google drive extension</p>
+<p>Next, install DVC and the Google Drive extension</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>dvc
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;dvc[gdrive]&quot;</span>
 </span></code></pre></div>
@@ -1882,7 +1882,7 @@ you follow the instructions <a href="https://github.com/libgit2/pygit2/blob/mast
 These files should be committed using standard <code>git</code> to your repository.</p>
 </li>
 <li>
-<p>Go to your Google drive and create a new folder called <code>dtu_mlops_data</code>. Then copy the unique identifier
+<p>Go to your Google Drive and create a new folder called <code>dtu_mlops_data</code>. Then copy the unique identifier
     belonging to that folder as shown in the figure below</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/google_drive.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/google_drive.PNG" width="1000" /></a>
@@ -1892,7 +1892,7 @@ These files should be committed using standard <code>git</code> to your reposito
 </span></code></pre></div>
 </li>
 <li>
-<p>Check the content of the file <code>.dvc/config</code>. Does it contain a pointer to your remote storage? Afterwards make sure
+<p>Check the content of the file <code>.dvc/config</code>. Does it contain a pointer to your remote storage? Afterwards, make sure
     to add this file to the next commit we are going to make:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>add<span class="w"> </span>.dvc/config
 </span></code></pre></div>
@@ -1900,14 +1900,14 @@ These files should be committed using standard <code>git</code> to your reposito
 <li>
 <p>Call the <code>dvc add</code> command on your data files exactly like you would add a file with <code>git</code> (you do not need to
     add every file by itself as you can directly add the <code>data/</code> folder). Doing this should create a human-readable
-    file with the extension <code>.dvc</code>. This is the <em>metafile</em>  as explained earlier that will serve as a placeholder for
-    your data. If you are on Windows and this step fail you may need to install <code>pywin32</code>. At the same time the <code>data/</code>
+    file with the extension <code>.dvc</code>. This is the <em>metafile</em> as explained earlier that will serve as a placeholder for
+    your data. If you are on Windows and this step fails you may need to install <code>pywin32</code>. At the same time, the <code>data</code>
     folder should have been added to the <code>.gitignore</code> file that marks which files should not be tracked by git. Confirm
     that this is correct.</p>
 </li>
 <li>
 <p>Now we are going to add, commit and tag the <em>metafiles</em> so we can restore to this stage later on. Commit and tag
-    the files, should look something like this:</p>
+    the files, which should look something like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>add<span class="w"> </span>data.dvc<span class="w"> </span>.gitignore
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;First datasets, containing 25000 images&quot;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;v1.0&quot;</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;data v1.0&quot;</span>
@@ -1915,11 +1915,11 @@ These files should be committed using standard <code>git</code> to your reposito
 </li>
 <li>
 <p>Finally, push your data to the remote storage using <code>dvc push</code>. You will be asked to authenticate, which involves
-    copy-pasting the code in the link prompted. Checkout your Google drive folder. You will see that the data is not
-    in a recognizable format anymore due to the way that <code>dvc</code> packs and tracks the data. The boring details is that
+    copy-pasting the code in the link prompted. Check out your Google Drive folder. You will see that the data is not
+    in a recognizable format anymore due to the way that <code>dvc</code> packs and tracks the data. The boring detail is that
     <code>dvc</code> converts the data into <a href="https://en.wikipedia.org/wiki/Content-addressable_storage">content-addressable storage</a>
-    which makes data much faster to get. Finally, make sure that your data is not stored in your github repository.</p>
-<p>After authenticating the first time, dvc should be setup without having to authenticate again. If you for some
+    which makes data much faster to get. Finally, make sure that your data is not stored in your Github repository.</p>
+<p>After authenticating the first time, <code>DVC</code> should be setup without having to authenticate again. If you for some
 reason encounter that dvc fails to authenticate, you can try to reset the authentication. Locate the file
 <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code> where <code>$CACHE_HOME</code> depends on your operating system:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">Windows</label></div>
@@ -1946,7 +1946,7 @@ This is the typical location, but it may vary depending on what distro you are r
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>dvc<span class="w"> </span>pull
 </span></code></pre></div>
 <p>(assuming that you give them access right to the folder in your drive). Try doing this (in some other location
-than your standard code) to make sure that the two commands indeed downloads both your code and data.</p>
+than your standard code) to make sure that the two commands indeed download both your code and data.</p>
 </li>
 <li>
 <p>Lets look about the process of updating our data. Remember the important aspect of version control is that we do not
@@ -1957,8 +1957,8 @@ than your standard code) to make sure that the two commands indeed downloads bot
 </li>
 <li>
 <p>Redo the above steps, adding the new data using <code>dvc</code>, committing and tagging the metafiles e.g. the following
-    commands should be executed (with appropriate input):
-    <code>dvc add -&gt; git add -&gt; git commit -&gt; git tag -&gt; dvc push -&gt; git push</code>.</p>
+    commands should be executed (with appropriate input):</p>
+<p><code>dvc add -&gt; git add -&gt; git commit -&gt; git tag -&gt; dvc push -&gt; git push</code>.</p>
 </li>
 <li>
 <p>Lets say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
@@ -1966,14 +1966,14 @@ than your standard code) to make sure that the two commands indeed downloads bot
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>v1.0
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>dvc<span class="w"> </span>checkout
 </span></code></pre></div>
-<p>confirm that you have reverted back to the original data.</p>
+<p>confirm that you have reverted to the original data.</p>
 </li>
 <li>
 <p>(Optional) Finally, it is important to note that <code>dvc</code> is not only intended to be used to store data files but also
-    any other large files such as trained model weights (with billion of parameters these can be quite large). For
-    example if we always stored out best performing model in a file called <code>best_model.ckpt</code> then we can use <code>dvc</code> to
-    version control it, store it online and make it easy for other to download. Feel free to experiment with this using
-    your own model checkpoints.</p>
+    any other large files such as trained model weights (with billions of parameters these can be quite large). For
+    example, if we always store our best-performing model in a file called <code>best_model.ckpt</code> then we can use <code>dvc</code> to
+    version control it, store it online and make it easy for others to download. Feel free to experiment with this using
+    your model checkpoints.</p>
 </li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
@@ -2002,17 +2002,17 @@ Alternatively you can you the <code>dvc status</code> command.</p>
 </ol>
 <p>That's all for today. With the combined power of <code>git</code> and <code>dvc</code> we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that <code>dvc</code>
-offers such more than just data version control, so if you want to deep dive into <code>dvc</code> we recommend their
+offers more than just data version control, so if you want to deep dive into <code>dvc</code> we recommend their
 <a href="https://dvc.org/doc/user-guide/project-structure/pipelines-files">pipeline</a> feature and how this can be used to setup
 version controlled <a href="https://dvc.org/doc/command-reference/exp">experiments</a>. Note that we are going to revisit <code>dvc</code>
-later for a more permanent (and large scale) storage solution.</p>
+later for a more permanent (and large-scale) storage solution.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2023</span>
       
         <br>
         Created:

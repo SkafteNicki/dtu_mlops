@@ -1805,57 +1805,55 @@ not store our data in Github, we cannot copy it during the build process.</p>
 </li>
 <li>
 <p>Next, within Docker Hub create an access token by going to <code>Settings -&gt; Security</code>. Click the <code>New Access Token</code>
-   button and give it a name that you recognize.</p>
+    button and give it a name that you recognize.</p>
 </li>
 <li>
 <p>Copy the newly created access token and head over to your Github repository online. Go to
-   <code>Settings -&gt; Secrets -&gt; Actions</code> and click the <code>New repository secret</code>. Copy over the access token and give
-   it the name <code>DOCKER_HUB_TOKEN</code>. Additionally, add two other secrets <code>DOCKER_HUB_USERNAME</code> and <code>DOCKER_HUB_REPOSITORY</code>
-   that contains your docker username and docker repository name respectively.</p>
+    <code>Settings -&gt; Secrets -&gt; Actions</code> and click the <code>New repository secret</code>. Copy over the access token and give
+    it the name <code>DOCKER_HUB_TOKEN</code>. Additionally, add two other secrets <code>DOCKER_HUB_USERNAME</code> and <code>DOCKER_HUB_REPOSITORY</code>
+    that contains your docker username and docker repository name respectively.</p>
 </li>
 <li>
 <p>Next we are going to construct the actual Github actions workflow file:</p>
-</li>
-</ol>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Docker Image CI</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">on</span><span class="p">:</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">master</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">master</span><span class="w"> </span><span class="p p-Indicator">]</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">jobs</span><span class="p">:</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build the Docker image</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">run</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="no">echo &quot;${{ secrets.DOCKER_HUB_TOKEN }}&quot; | docker login \</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">          </span><span class="no">-u &quot;${{ secrets.DOCKER_HUB_USERNAME }}&quot; --password-stdin docker.io</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">            </span><span class="no">-u &quot;${{ secrets.DOCKER_HUB_USERNAME }}&quot; --password-stdin docker.io</span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="no">docker build . --file Dockerfile \</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">          </span><span class="no">--tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">            </span><span class="no">--tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA</span>
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="no">docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA</span>
 </span></code></pre></div>
 <p>The first part of the workflow file should look somewhat recognizable. However, the last three lines are where
-   all the magic happens. Carefully go through them and figure out what they do. If you want some help you can looking
-   at the help page for <code>docker login</code>, <code>docker build</code> and <code>docker push</code>.</p>
-<ol>
+all the magic happens. Carefully go through them and figure out what they do. If you want some help you can looking
+at the help page for <code>docker login</code>, <code>docker build</code> and <code>docker push</code>.</p>
+</li>
 <li>
 <p>Upload the workflow to your github repository and check that it is being executed. If everything you should be able
-   to see the the build docker image in your container repository in docker hub.</p>
+    to see the the build docker image in your container repository in docker hub.</p>
 </li>
 <li>
 <p>Make sure that you can execute <code>docker pull</code> locally to pull down the image that you just continuously build</p>
 </li>
 <li>
 <p>(Optional) To test that the container works directly in github you can also try to include an additional
-   step that actually runs the container.</p>
+    step that actually runs the container.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run container</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="no">docker run ...</span>
+</span></code></pre></div>
 </li>
 </ol>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run container</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">      </span><span class="no">docker run ...</span>
-</span></code></pre></div>
 <p>That ends the session on continues docker building. We are going to revisit this topic after introducing the basic
 concepts of working in the cloud, as it will make our life easier in the long run when we get to continues deployment
 (CD) that our containers are stored the same place where we are going to run them. For completeness it is worth
@@ -1867,7 +1865,7 @@ called <a href="https://docs.docker.com/docker-hub/builds/">build rules</a>.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2023</span>
       
         <br>
         Created:
