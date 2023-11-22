@@ -15,17 +15,18 @@ Contrary to popular belief, the command line (also commonly known as the *termin
 existed since the dawn of time. Instead, it was created at a time when it was not given that your computer had a
 graphical interface that you could interact with. Think of it as a text interface to your computer.
 
-It is a well-known concept to users of linux, however MAC and (especially) Windows users not so much. Having a basic
-understanding of how to use a command line can really help improve your workflow. The reason that the command line is an
+The terminal is a well-known concept to users of Linux, however, MAC and (especially) Windows users often do not need
+and therefore encounter it. Having a basic
+understanding of how to use a command line can help improve your workflow. The reason that the command line is an
 important tool to get to know, is that doing any kind of MLOps will require us to be able to interact with many
-different tools, many which does not have a graphical interface. Additionally, when we get to working in the cloud
+different tools, many of which do not have a graphical interface. Additionally, when we get to working in the cloud
 later in the course, you will be forced to interact with the command line.
 
 Note if you already are a terminal wizard then feel free to skip the exercises below. They are very elementary.
 
 ## The anatomy of the command line
 
-Regardless of operating system, all command lines looks more or less the same:
+Regardless of the operating system, all command lines look more or less the same:
 
 <figure markdown>
 ![Image](../figures/terminal.PNG){ width="800" }
@@ -36,7 +37,7 @@ when trying to execute a command, there are several parts to it:
 
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
     are in, followed by some kind of sign: `$`, `>`, `:` are the usual ones. It can also contain other information,
-    such as in the case of the above image it is also showing the current `conda` environment.
+    such as in the case of the above image which also shows the current `conda` environment.
 2. The **command** is the actual command you want to execute. For example, `ls` or `cd`
 3. The **options** are additional arguments that you can pass to the command. For example, `ls -l` or `cd ..`.
 4. The **arguments** are the actual arguments that you pass to the command. For example, `ls -l figures` or `cd ..`.
@@ -63,7 +64,7 @@ command line.
     (as administrator) Windows Command Prompt. You can in general complete all exercises in the course from a normal
     Windows Command Prompt, but some are easier to do if you run from WSL.
 
-    If you decide to run in WSL you need to remember that you now have two different systems, and install a package
+    If you decide to run in WSL you need to remember that you now have two different systems, and installing a package
     on one system does not mean that it is installed on the other. For example, if you install `pip` in WSL, you
     need to install it again in Windows if you want to use it there.
 
@@ -81,10 +82,10 @@ command line.
 3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
 
-4. Make sure to familiar yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also familiarize
-    yourself with the `>` operator. You are probably going to use some of them throughout the course or in your future
-    career. For Windows users these commands may be named something else, e.g. `where` command on Windows corresponds
-    to `which`.
+4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also, ¨
+    familiarize yourself with the `>` operator. You are probably going to use some of them throughout the course or in
+    your future career. For Windows users, these commands may be named something else, e.g. `where` command on Windows
+    corresponds to `which`.
 
 5. It is also significant that you know how to edit a file through the terminal. Most systems should have the
     `nano` editor installed, else try to figure out which one is installed in your system.
@@ -103,7 +104,7 @@ command line.
     4. Afterward, try to edit the file through the terminal (change `Hello world` to something else)
 
 6. All terminals come with their own programming language. The most common system is called `bash`. It can come in handy
-    being able to write simple programs in bash. For example, one case is that you want to execute multiple python
+    being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
     programs sequentially, which can be done through a bash script.
 
     1. Write a bash script (in `nano`) and try executing it:
@@ -114,9 +115,9 @@ command line.
         echo Hello World!
         ```
 
-    2. Change the bash script to call your python program you just wrote.
+    2. Change the bash script to call the Python program you just wrote.
 
-    3. Try to Google how to write a simple for-loop that executes the python script 10 times in a row.
+    3. Try to Google how to write a simple for-loop that executes the Python script 10 times in a row.
 
 ## 🧠 Knowledge check
 
@@ -137,10 +138,10 @@ command line.
         * The arguments are `instance-1`.
 
         The tricky part of this example is that commands can have subcommands, which are also commands. In this case
-        `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute` and `create-with-contrainer`
+        `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute` and `create-with-container`
         is a subcommand to `instances`
 
-2. Two common arguments that nearly all commands have is the `-h` and `-v` options. What does each of them do?
+2. Two common arguments that nearly all commands have are the `-`h` and `-v` options. What does each of them do?
 
     ??? success "Solution"
 
@@ -155,4 +156,4 @@ we are going to use it extensively throughout the course. If you want to spend a
 recommend that you [watch this video](https://www.youtube.com/watch?v=oxuRxtrO2Ag) on how to use the command line.
 
 If you are interested in personalizing your command line, you can check out the [starship](https://starship.rs/)
-project, that allows you to customize your command line with a lot of different options.
+project, which allows you to customize your command line with a lot of different options.
