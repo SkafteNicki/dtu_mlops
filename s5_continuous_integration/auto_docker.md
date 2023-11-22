@@ -39,53 +39,53 @@ not store our data in Github, we cannot copy it during the build process.
 2. Start by creating a [Docker Hub account](https://hub.docker.com/)
 
 3. Next, within Docker Hub create an access token by going to `Settings -> Security`. Click the `New Access Token`
-   button and give it a name that you recognize.
+    button and give it a name that you recognize.
 
 4. Copy the newly created access token and head over to your Github repository online. Go to
-   `Settings -> Secrets -> Actions` and click the `New repository secret`. Copy over the access token and give
-   it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and `DOCKER_HUB_REPOSITORY`
-   that contains your docker username and docker repository name respectively.
+    `Settings -> Secrets -> Actions` and click the `New repository secret`. Copy over the access token and give
+    it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and `DOCKER_HUB_REPOSITORY`
+    that contains your docker username and docker repository name respectively.
 
 5. Next we are going to construct the actual Github actions workflow file:
 
-   ```yaml
-   name: Docker Image CI
+    ```yaml
+    name: Docker Image CI
 
-   on:
-     push:
-       branches: [ master ]
+    on:
+        push:
+            branches: [ master ]
 
-   jobs:
-     build:
-       runs-on: ubuntu-latest
-       steps:
-       - uses: actions/checkout@v2
-       - name: Build the Docker image
-         run: |
-           echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
-             -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
-           docker build . --file Dockerfile \
-             --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
-           docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
-   ```
+    jobs:
+        build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Build the Docker image
+            run: |
+            echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
+                -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
+            docker build . --file Dockerfile \
+                --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+            docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+    ```
 
-   The first part of the workflow file should look somewhat recognizable. However, the last three lines are where
-   all the magic happens. Carefully go through them and figure out what they do. If you want some help you can looking
-   at the help page for `docker login`, `docker build` and `docker push`.
+    The first part of the workflow file should look somewhat recognizable. However, the last three lines are where
+    all the magic happens. Carefully go through them and figure out what they do. If you want some help you can looking
+    at the help page for `docker login`, `docker build` and `docker push`.
 
 6. Upload the workflow to your github repository and check that it is being executed. If everything you should be able
-   to see the the build docker image in your container repository in docker hub.
+    to see the the build docker image in your container repository in docker hub.
 
 7. Make sure that you can execute `docker pull` locally to pull down the image that you just continuously build
 
 8. (Optional) To test that the container works directly in github you can also try to include an additional
-   step that actually runs the container.
+    step that actually runs the container.
 
-   ```yaml
-     - name: Run container
-       run: |
-         docker run ...
-   ```
+    ```yaml
+        - name: Run container
+          run: |
+            docker run ...
+    ```
 
 That ends the session on continues docker building. We are going to revisit this topic after introducing the basic
 concepts of working in the cloud, as it will make our life easier in the long run when we get to continues deployment
