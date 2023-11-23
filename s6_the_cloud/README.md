@@ -53,4 +53,4 @@ or going through the [general docs](https://cloud.google.com/docs).
     * Being able to start different compute instances and work with them
     * Know how to setup continues integration workflows for building of docker images
     * Knowledge about how to store data and containers/artifacts in cloud buckets
-    * Being able to train simple deep learning models using a combination of services
+    * Being able to train simple Deep Learning models using a combination of cloud services

@@ -36,3 +36,11 @@ drifted away from the distribution of data your model was trained on. Such monit
 learning applications and needs to be handled separately.
 
 We are in this session going to see examples of both kinds of monitoring.
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand the concepts of data drifting in machine learning applications
+    * Can detect data drifting using the `evidently` framework
+    * Understand the importance of different system level monitoring and can conceptually implement it

@@ -29,3 +29,13 @@ that framework, but may require you do seek out how to specifically to it.
 
 If you manage to complete all modules in this session, feel free to checkout the *extra* module on scalable
 [hyperparameter optimization](../s10_extra/hyperparameters.md).
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand how data loading during training can be parallelized and have experimented with it
+    * Understand the different paradigms for distributed training and can run multi-gpu experiments using the
+      framework `pytorch-lightning`
+    * Knowledge of different ways, including quantization, pruning, architecture tuning etc. to improve inference
+      speed

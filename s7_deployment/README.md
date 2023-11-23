@@ -23,3 +23,12 @@ contained such that people can just execute without looking (too hard) at the co
 
 In this session we try to look at methods specialized towards deployment of models on your local machine and
 also how to deploy services in the cloud.
+
+!!! tip "Learning objectives"
+
+    The learning objectives of this session are:
+
+    * Understand the basics of requests and APIs
+    * Can create custom APIs using the framework `fastapi` and run it locally
+    * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
+      serverless containers
