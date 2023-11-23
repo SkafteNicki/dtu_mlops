@@ -46,6 +46,14 @@ course day.
 
 Look at the bottom of this [page](projects.md). Details will be updated as we get closer to the exam date.
 
+## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
+
+We can give a grade on the Danish
+[7-point grading](https://eng.uvm.dk/general--themes-and-projects/7-point-grading-scale) scale for foreign students who
+need it, where their home university does not accept pass/no-pass. You need to contact the course responsible
+[Nicki](mailto:nsde@dtu.com) within the first week of the course to request this. Secondly, make sure to also inform us
+about doing the oral part of the exam because we need to ask you additional questions to be able to give an exact grade.
+
 ## I am a EuroTEQ student, any special rules for me ❔
 
 You will be allowed to attend the oral part of the exam online and we will provide a special Slack channel for you,
