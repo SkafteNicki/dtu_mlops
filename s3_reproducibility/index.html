@@ -1748,36 +1748,42 @@
 </p>
 
 <p>Today is all about reproducibility - one of those concepts that everyone agrees is very important and something should
-be done about, but reality is that it is very hard to secure full reproducibility. The last sessions have already
+be done about, but the reality is that it is very hard to secure full reproducibility. The last sessions have already
 touched a bit on how tools like <code>conda</code> and code organization can help make code more reproducible. Today we are going
-all the way securing that our scripts and our compute environment is fully reproducible.</p>
+all the way to ensure that our scripts and our computing environment are fully reproducible.</p>
 <h2 id="why-does-reproducibility-matter">Why does reproducibility matter</h2>
 <p>Reproducibility is closely related to the scientific method:</p>
 <blockquote>
 <p>Observe -&gt; Question -&gt; Hypotheses -&gt; Experiment -&gt; Conclude -&gt; Result -&gt; Observe -&gt; ...</p>
 </blockquote>
-<p>Not having reproducible experiments essentially break the cycle at between doing experiments and making conclusions.
-If experiments are not reproducible, then we do not expect that others can arrive at the same conclusion as ourself.
+<p>Not having reproducible experiments essentially breaks the cycle between doing experiments and making conclusions.
+If experiments are not reproducible, then we do not expect that others will arrive at the same conclusion as ourselves.
 As machine learning experiments are fundamentally the same as doing chemical experiments in a laboratory, we should be
-equally careful making sure our environments are reproducible (think of your laptop as your laboratory).</p>
-<p>Secondly, if we focus on why reproducibility matters especially to machine learning, it is part of the bigger challenge
+equally careful in making sure our environments are reproducible (think of your laptop as your laboratory).</p>
+<p>Secondly, if we focus on why reproducibility matters especially in machine learning, it is part of the bigger challenge
 of making sure that machine learning is <strong>trustworthy</strong>.</p>
 <figure>
-<p><a class="glightbox" href="../figures/trustworthy_ml.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../figures/trustworthy_ml.png" width="600" /></a>
-  </p>
-<figcaption> <a href="https://towardsdatascience.com/reproducible-machine-learning-cf1841606805"> Image credit </a> </figcaption>
+<p><a class="glightbox" href="../figures/trustworthy_ml.drawio.png.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../figures/trustworthy_ml.drawio.png.png" width="600" /></a></p>
+<figcaption>
+Many different aspects are needed if trustworthy machine learning is ever going to be a reality. We need robustness of
+our pipelines so we can trust that they do not fail under heavy load. We need integrity to make sure that pipelines are
+deployed if they are of high quality. We explainability to make sure that we understand what our machine learning models
+are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can be
+reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
+populations. Figure inspired by this [paper](https://arxiv.org/abs/2209.06529).
+</figcaption>
 </figure>
-<p>Trustworthy ML is basically the idea that machine learning agents <em>can</em> be trusted. Take the example of a machine
+<p>Trustworthy ML is the idea that machine learning agents <em>can</em> be trusted. Take the example of a machine
 learning agent being responsible for medical diagnoses. It is s very clear that we need to be able to trust that the
-agent give us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
-because without we cannot be sure that the exact same agent deployed at two different hospitals will actually give
-the same diagnosis (given the same input).</p>
+agent gives us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
+because without we cannot be sure that the same agent deployed at two different hospitals will give the same
+diagnosis (given the same input).</p>
 <div class="admonition tip">
 <p class="admonition-title">Learning objectives</p>
 <p>The learning objectives of this session are:</p>
 <ul>
 <li>To understand the importance of reproducibility in computer science</li>
-<li>To be able to use <code>docker</code> to create a reproducible containers, including how to build them from scratch</li>
+<li>To be able to use <code>docker</code> to create a reproducible container, including how to build them from scratch</li>
 <li>Understand different ways of configuring your code and how to use <code>hydra</code> to integrate with config files</li>
 </ul>
 </div>
@@ -1787,7 +1793,7 @@ the same diagnosis (given the same input).</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2023</span>
       
         <br>
         Created:
