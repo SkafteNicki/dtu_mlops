@@ -32,20 +32,20 @@ to the end of the pipeline.
 This is where *continuous X* comes into play. The word *continuous* here refers to the fact that the
 pipeline should *continuously* be updated as we make code changes. You can also choose to think of this as the
 *automatization* of processes. The *X* then covers that the process we need to go through to
-automate steps in the pipeline, depends on where we are in the pipeline e.g. the tools needed to
-do continuous integration is different from the tools need to do continuous delivery.
+automate steps in the pipeline depends on where we are in the pipeline e.g. the tools needed to
+do continuous integration are different from the tools needed to do continuous delivery.
 
-In this session we are going to focus on *continuous integration (CI)*. As indicated in the image above, CI usually
-takes care of the first part of the developer pipeline that has to do with the code base, code building and code
-testing. This is paramount to step in automatization as we would rather catch bugs in the beginning of our pipeline
+In this session, we are going to focus on *continuous integration (CI)*. As indicated in the image above, CI usually
+takes care of the first part of the developer pipeline which has to do with the code base, code building and code
+testing. This is paramount to step in automatization as we would rather catch bugs at the beginning of our pipeline
 than in the end.
 
 !!! tip "Learning objectives"
 
     The learning objectives of this session are:
 
-    * Being able to write unittests that covers both data and model in your ML pipeline
+    * Being able to write unit tests that cover both data and models in your ML pipeline
     * Know how to implement CI using Github actions such that tests are automatically executed on code changes
-    * Can use pre-commit to secure that code that are not up to standard does not get committed
-    * Know how to implement CI for continues building of containers
-    * Basic knowledge how machine learning processes can be implemented in a continues way
+    * Can use pre-commit to secure that code that is not up to standard does not get committed
+    * Know how to implement CI for continuous building of containers
+    * Basic knowledge of how machine learning processes can be implemented in a continuous way

@@ -9,8 +9,8 @@
   <img src="../figures/icons/lightning.png" width="130">
 </p>
 
-Today we are initially going to go other three different topics that are all fundamentally necessary for any data
-scientist/devops engineer:
+Today we are initially going to go over three different topics that are all fundamentally necessary for any data
+scientist or DevOps engineer:
 
 * Debugging
 * Profiling
