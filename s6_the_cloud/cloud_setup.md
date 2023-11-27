@@ -196,3 +196,26 @@ services some more to make sure you are not a bot that wants to mine crypto.
         * Compliance: some countries has strict rules that requires user info to be stored inside a particular region
             eg. EU has GDPR rules that requires all user data to be stored in the EU
         * Pricing: some regions may have different pricing than others
+
+2. The 3 major cloud providers all have the same services, but they are called something different depending on the
+    provider. What are the corresponding names of these GCP services in AWS and Azure?
+
+    * Compute Engine
+    * Cloud storage
+    * Cloud functions
+    * Cloud run
+    * Cloud build
+    * Vertex AI
+
+    It is important to know these correspondences to navigate blogpost etc. about MLOps on the internet.
+
+    ??? success "Solution"
+
+        GCP | AWS | Azure
+        ----|-----|------
+        Compute Engine  | Elastic Compute Cloud (EC2) | Virtual Machines
+        Cloud storage   | Simple Storage Service (S3) | Blob Storage
+        Cloud functions | Lambda | Functions Serverless Compute
+        Cloud run       | App Runner, Fargate, Lambda | Container Apps, Container Instances
+        Cloud build     | CodeBuild | DevOps
+        Vertex AI       | SageMaker | AI Platform
