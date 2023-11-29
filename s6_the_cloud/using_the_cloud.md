@@ -179,16 +179,18 @@ If you ever end up with credential issues when working with your data, we in gen
 store data in a bucket that is public accessible e.g. no authentication needed. You can read more about how to make your
 buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
 
-## Container registry
+## Artifact registry
 
-You should hopefully at this point have seen the strength of using containers e.g. Docker. They allow us to
-specify exactly the software that we want to run inside our VMs. However, you should already have run into
-two problems with docker
+You should hopefully at this point have seen the strength of using containers to create reproducible environments. They
+allow us to specify exactly the software that we want to run inside our VMs. However, you should already have run into
+two problems with containers
 
 * Building process can take a lot of time
 * Docker images can be large
 
-For this reason we want to move both the building process and the storage of images to the cloud.
+For this reason we want to move both the building process and the storage of images to the cloud. In GCP the service
+for this is called [Artifact registry](https://cloud.google.com/artifact-registry), formerly known as Container
+registry.
 
 ### ❔ Exercises
 
@@ -198,11 +200,11 @@ that the building process do not take too long. You are more than free to **fork
 script that does image classification using sklearn. The docker images for this application are therefore going
 to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.
 
-1. Start by enabling the service: `Google Container Registry API` and `Google Cloud Build API`. This can be
+1. Start by enabling the service: `Google Artifact Registry API` and `Google Cloud Build API`. This can be
     done through the web side (by searching for the services) or can also be enabled from the terminal:
 
     ```bash
-    gcloud services enable containerregistry.googleapis.com
+    gcloud services enable artifactregistry.googleapis.com
     gcloud services enable cloudbuild.googleapis.com
     ```
 
@@ -262,7 +264,7 @@ to be substantially faster to build and smaller in size than the images we are u
     `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
     [documentation](https://cloud.google.com/build/docs/locations).
 
-8. If/when your build is successful, navigate to the `Container Registry` page. You should
+8. If/when your build is successful, navigate to the `Artifact Registry` page. You should
     hopefully find that the image you just build was pushed here. Congrats!
 
 9. Finally, to to pull your image down to your laptop
