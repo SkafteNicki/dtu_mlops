@@ -93,7 +93,7 @@ beneficial for you to download.
     docker run hello-world
     ```
 
-   which should give the message
+    which should give the message
 
     ```bash
     Hello from Docker!

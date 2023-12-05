@@ -20,8 +20,8 @@ or hexascale machines, Tier 1 are National centers of supercomputers, and Tier 
 Tier, the larger applications it is possible to run.
 
 <figure markdown>
-  ![Image](../figures/hpc_tiers.png){ width="800" }
-  <figcaption> <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
+![Image](../figures/hpc_tiers.png){ width="800" }
+<figcaption> <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
 </figure>
 
 ## Cluster architectures
@@ -35,10 +35,10 @@ on your application you may need one module more than another. For example in de
 important but in physics simulation the general compute module / storage model is probably more important.
 
 <figure markdown>
-  ![Image](../figures/meluxina_overview.png){ width="800" }
-  <figcaption> Overview of the Meluxina supercomputer that's part of EuroHPC.
-  <a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
-  </figcaption>
+![Image](../figures/meluxina_overview.png){ width="800" }
+<figcaption> Overview of the Meluxina supercomputer that's part of EuroHPC.
+<a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
+</figcaption>
 </figure>
 
 Alternatively, LSF are a network of computers where each computer has its own CPU, GPU, RAM etc. and the individual
@@ -81,7 +81,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
     to setup the environment necessary for our computations. If you have accessed the cluster through graphical interface
     start by opening a terminal.
 
-   1. Lets start by setting up conda for controlling our dependencies. If you have not already worked with `conda`,
+    1. Lets start by setting up conda for controlling our dependencies. If you have not already worked with `conda`,
         please checkout module
         [M2 on package managers and virtual environments](../s1_development_environment/package_manager.md). In general
         you should be able to setup (mini)conda through these two commands:
@@ -91,7 +91,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
         sh Miniconda3-latest-Linux-x86_64.sh
         ```
 
-   2. Close the terminal and open a new for the installation to complete. Type `conda` in the terminal to check that
+    2. Close the terminal and open a new for the installation to complete. Type `conda` in the terminal to check that
         everything is fine. Go ahead and create a new environment that we can install dependencies in
 
         ```bash
@@ -100,12 +100,12 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 
         and activate it.
 
-   3. Copy over any files you need. For the image classifier script you need the
+    3. Copy over any files you need. For the image classifier script you need the
         [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt)
         and the actual
         [application](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier.py).
 
-   4. Next, install all the requirements you need. If you want to run the image classifier script you can run this
+    4. Next, install all the requirements you need. If you want to run the image classifier script you can run this
         command in the terminal
 
         ```bash
@@ -118,19 +118,19 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
     whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
     jobs on the cluster. We are now ready to submit the our first job to the cluster:
 
-   1. Start by checking the statistics for the different clusters. Try to use both the `qstat` command which should give
+    1. Start by checking the statistics for the different clusters. Try to use both the `qstat` command which should give
         an overview of the different cluster, number of running jobs and number of pending jobs. For many system you can
         also try the much more user friendly command `classstat` command.
 
-   2. Figure out which queue you want to use. For the sake of the exercises it needs to be one with GPU support. For
+    2. Figure out which queue you want to use. For the sake of the exercises it needs to be one with GPU support. For
         DTU students, any queue that starts with `gpu` are GPU accelerated.
 
-   3. Now we are going to develop a bash script for submitting our job. We have provided an example of such
+    3. Now we are going to develop a bash script for submitting our job. We have provided an example of such
         [scripts](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/jobscript.sh). Take a
         careful look and go each line and make sure you understand it. Afterwards, change it to your needs
         (queue and student email).
 
-   4. Try to submit the script:
+    4. Try to submit the script:
 
         ```bash
         bsub < jobscript.sh
