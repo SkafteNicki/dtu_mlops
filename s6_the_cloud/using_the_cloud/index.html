@@ -1213,13 +1213,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#container-registry" class="md-nav__link">
+  <a href="#artifact-registry" class="md-nav__link">
     <span class="md-ellipsis">
-      Container registry
+      Artifact registry
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Container registry">
+    <nav class="md-nav" aria-label="Artifact registry">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1927,13 +1927,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#container-registry" class="md-nav__link">
+  <a href="#artifact-registry" class="md-nav__link">
     <span class="md-ellipsis">
-      Container registry
+      Artifact registry
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Container registry">
+    <nav class="md-nav" aria-label="Artifact registry">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2159,15 +2159,17 @@ offered through <code>gcp</code>.</p>
 <p>If you ever end up with credential issues when working with your data, we in general recommend for this course that you
 store data in a bucket that is public accessible e.g. no authentication needed. You can read more about how to make your
 buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">here</a>.</p>
-<h2 id="container-registry">Container registry</h2>
-<p>You should hopefully at this point have seen the strength of using containers e.g. Docker. They allow us to
-specify exactly the software that we want to run inside our VMs. However, you should already have run into
-two problems with docker</p>
+<h2 id="artifact-registry">Artifact registry</h2>
+<p>You should hopefully at this point have seen the strength of using containers to create reproducible environments. They
+allow us to specify exactly the software that we want to run inside our VMs. However, you should already have run into
+two problems with containers</p>
 <ul>
 <li>Building process can take a lot of time</li>
 <li>Docker images can be large</li>
 </ul>
-<p>For this reason we want to move both the building process and the storage of images to the cloud.</p>
+<p>For this reason we want to move both the building process and the storage of images to the cloud. In GCP the service
+for this is called <a href="https://cloud.google.com/artifact-registry">Artifact registry</a>, formerly known as Container
+registry.</p>
 <h3 id="exercises_2">❔ Exercises</h3>
 <p>For the purpose of these exercise I recommend that you start out with a dummy version of some code to make sure
 that the building process do not take too long. You are more than free to <strong>fork</strong>
@@ -2176,9 +2178,9 @@ script that does image classification using sklearn. The docker images for this 
 to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.</p>
 <ol>
 <li>
-<p>Start by enabling the service: <code>Google Container Registry API</code> and <code>Google Cloud Build API</code>. This can be
+<p>Start by enabling the service: <code>Google Artifact Registry API</code> and <code>Google Cloud Build API</code>. This can be
     done through the web side (by searching for the services) or can also be enabled from the terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>containerregistry.googleapis.com
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>artifactregistry.googleapis.com
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
 </span></code></pre></div>
 </li>
@@ -2237,7 +2239,7 @@ to configure it to run in one of these regions:
 <a href="https://cloud.google.com/build/docs/locations">documentation</a>.</p>
 </li>
 <li>
-<p>If/when your build is successful, navigate to the <code>Container Registry</code> page. You should
+<p>If/when your build is successful, navigate to the <code>Artifact Registry</code> page. You should
     hopefully find that the image you just build was pushed here. Congrats!</p>
 </li>
 <li>
@@ -2431,7 +2433,7 @@ more of the services offered in GCP, in particular for deploying the models that
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2023</span>
       
         <br>
         Created:

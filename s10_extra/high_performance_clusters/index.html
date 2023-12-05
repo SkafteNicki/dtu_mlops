@@ -1865,8 +1865,7 @@ different tiers of HPC. In Europe, HPC are often categorized such that Tier-0 ar
 or hexascale machines, Tier 1 are National centers of supercomputers, and Tier 2 are Regional centers. The lower the
 Tier, the larger applications it is possible to run.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/hpc_tiers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/hpc_tiers.png" width="800" /></a>
-  </p>
+<p><a class="glightbox" href="../../figures/hpc_tiers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/hpc_tiers.png" width="800" /></a></p>
 <figcaption> <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
 </figure>
 <h2 id="cluster-architectures">Cluster architectures</h2>
@@ -1878,11 +1877,10 @@ compute modules (CPU), acceleration modules (GPU), a memory module (RAM) and fin
 on your application you may need one module more than another. For example in deep learning the acceleration module is
 important but in physics simulation the general compute module / storage model is probably more important.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/meluxina_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/meluxina_overview.png" width="800" /></a>
-  </p>
+<p><a class="glightbox" href="../../figures/meluxina_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/meluxina_overview.png" width="800" /></a></p>
 <figcaption> Overview of the Meluxina supercomputer that's part of EuroHPC.
-  <a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
-  </figcaption>
+<a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
+</figcaption>
 </figure>
 <p>Alternatively, LSF are a network of computers where each computer has its own CPU, GPU, RAM etc. and the individual
 computes (or nodes) are then connected by network. The important different between a supercomputer and as LSF systems
@@ -1920,74 +1918,67 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 <p>When you have access to the cluster we are going to start with the setup phase. In the setup phase we are going
     to setup the environment necessary for our computations. If you have accessed the cluster through graphical interface
     start by opening a terminal.</p>
-</li>
+<ol>
 <li>
 <p>Lets start by setting up conda for controlling our dependencies. If you have not already worked with <code>conda</code>,
-        please checkout module
-        <a href="../../s1_development_environment/package_manager/">M2 on package managers and virtual environments</a>. In general
-        you should be able to setup (mini)conda through these two commands:</p>
-<div class="language-text highlight"><pre><span></span><code>```bash
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
-```
-</code></pre></div>
+    please checkout module
+    <a href="../../s1_development_environment/package_manager/">M2 on package managers and virtual environments</a>. In general
+    you should be able to setup (mini)conda through these two commands:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>wget<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sh<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
+</span></code></pre></div>
 </li>
 <li>
 <p>Close the terminal and open a new for the installation to complete. Type <code>conda</code> in the terminal to check that
-        everything is fine. Go ahead and create a new environment that we can install dependencies in</p>
-<div class="language-text highlight"><pre><span></span><code>```bash
-conda create -n &quot;hpc_env&quot; python=3.10 --no-default-packages
-```
-
-and activate it.
-</code></pre></div>
+    everything is fine. Go ahead and create a new environment that we can install dependencies in</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hpc_env&quot;</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>--no-default-packages
+</span></code></pre></div>
+<p>and activate it.</p>
 </li>
 <li>
 <p>Copy over any files you need. For the image classifier script you need the
-        <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt">requirements file</a>
-        and the actual
-        <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier.py">application</a>.</p>
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt">requirements file</a>
+    and the actual
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier.py">application</a>.</p>
 </li>
 <li>
 <p>Next, install all the requirements you need. If you want to run the image classifier script you can run this
-        command in the terminal</p>
-<div class="language-text highlight"><pre><span></span><code>```bash
-pip install -r image_classifier_requirements.txt
-```
-
-using this [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt).
-</code></pre></div>
+    command in the terminal</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>image_classifier_requirements.txt
+</span></code></pre></div>
+<p>using this <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt">requirements file</a>.</p>
+</li>
+</ol>
 </li>
 <li>
 <p>That's all the setup needed. You would need to go through the creating of environment and installation of requirements
     whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
     jobs on the cluster. We are now ready to submit the our first job to the cluster:</p>
-</li>
+<ol>
 <li>
 <p>Start by checking the statistics for the different clusters. Try to use both the <code>qstat</code> command which should give
-        an overview of the different cluster, number of running jobs and number of pending jobs. For many system you can
-        also try the much more user friendly command <code>classstat</code> command.</p>
+    an overview of the different cluster, number of running jobs and number of pending jobs. For many system you can
+    also try the much more user friendly command <code>classstat</code> command.</p>
 </li>
 <li>
 <p>Figure out which queue you want to use. For the sake of the exercises it needs to be one with GPU support. For
-        DTU students, any queue that starts with <code>gpu</code> are GPU accelerated.</p>
+    DTU students, any queue that starts with <code>gpu</code> are GPU accelerated.</p>
 </li>
 <li>
 <p>Now we are going to develop a bash script for submitting our job. We have provided an example of such
-        <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/jobscript.sh">scripts</a>. Take a
-        careful look and go each line and make sure you understand it. Afterwards, change it to your needs
-        (queue and student email).</p>
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/jobscript.sh">scripts</a>. Take a
+    careful look and go each line and make sure you understand it. Afterwards, change it to your needs
+    (queue and student email).</p>
 </li>
 <li>
 <p>Try to submit the script:</p>
-<div class="language-text highlight"><pre><span></span><code>```bash
-bsub &lt; jobscript.sh
-```
-
-You can check the status of your script by running the `bstat` command. Hopefully, the job should go through
-really quickly. Take a look at the output file, it should be called something like `gpu_*.out`. Also take a
-look at the `gpu_*.err` file. Does both files look as they should?
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>bsub<span class="w"> </span>&lt;<span class="w"> </span>jobscript.sh
+</span></code></pre></div>
+<p>You can check the status of your script by running the <code>bstat</code> command. Hopefully, the job should go through
+really quickly. Take a look at the output file, it should be called something like <code>gpu_*.out</code>. Also take a
+look at the <code>gpu_*.err</code> file. Does both files look as they should?</p>
+</li>
+</ol>
 </li>
 <li>
 <p>Lets now try to run our application on the cluster. To do that we need to take care of two things:</p>
@@ -2039,7 +2030,7 @@ provided image classifier script then the correct version is <code>CUDA/11.7</co
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 5, 2023</span>
       
         <br>
         Created:
