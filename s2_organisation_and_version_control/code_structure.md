@@ -298,6 +298,52 @@ in this way paths (for saving and loading files) are always relative to the root
 13. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
     code (see [this set of exercises](../s1_development_environment/package_manager.md) for help)
 
+14. (Optional) Lets say that you are not satisfied with the template I have recommended that you use, which is
+    completely fine. What should you then do? You should ofcause create your own template! This is actually not that
+    hard to do.
+
+    1. Just for a starting point I would recommend that you fork either the
+        [mlops template](https://github.com/SkafteNicki/mlops_template) which you have already been using or
+        alternatively fork the [data science template](https://github.com/drivendata/cookiecutter-data-science)
+        template.
+
+    2. After forking the template, clone it down locally and lets start modifying it. The first step is changing
+        the `cookiecutter.json` file. For the mlops template it looks like this:
+
+        ```json
+        {
+            "project_name": "project_name",
+            "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+            "author_name": "Your name (or your organization/company/team)",
+            "description": "A short description of the project.",
+            "python_version_number": "3.10",
+            "open_source_license": ["No license file", "MIT", "BSD-3-Clause"]
+        }
+        ```
+
+        simply add a new line to the json file with the name of the variable you want to add and the default value you
+        want it to have.
+
+    3. The actual template is located in the `{{ cookiecutter.project_name }}` folder. `cookiecutter` works by replacing
+        everywhere that it sees `{{ cookiecutter.<variable_name> }}` with the value of the variable. Therefore, if you
+        want to add a new file to the template, just add it to the `{{ cookiecutter.project_name }}` folder and make
+        sure to add the `{{ cookiecutter.<variable_name> }}` where you want the variable to be replaced.
+
+    4. After you have made the changes you want to the template, you should test it locally. Just run
+
+        ```bash
+        cookiecutter . -f --no-input
+        ```
+
+        and it should create a new folder using the default values of the `cookiecutter.json` file.
+
+    5. Finally, make sure to push any changes you made to the template to GitHub, such that you in the future can use it
+        by simply running
+
+        ```bash
+        cookiecutter https://github.com/<username>/<my_template_repo>
+        ```
+
 That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
