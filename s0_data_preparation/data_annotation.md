@@ -9,6 +9,8 @@
 In this module we are going to look at [label studio](https://github.com/HumanSignal/label-studio) that is a completely
 open source annotation tool for all kinds of data.
 
+## ❔ Exercises
+
 1. Start with install label studio
 
     ```bash
@@ -32,3 +34,5 @@ and the following code to get a random dog image
 ```python
 x = 2
 ```
+
+## 🧠 Knowledge check

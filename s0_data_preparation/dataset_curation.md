@@ -13,3 +13,7 @@ splitting
 [dataset evaluation](https://dcai.csail.mit.edu/lectures/data-centric-evaluation/)
 
 bias of selection
+
+## ❔ Exercises
+
+## 🧠 Knowledge check
