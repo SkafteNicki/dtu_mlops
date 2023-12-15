@@ -33,11 +33,11 @@ especially with a focus on making everything reproducible.
 
 Date | Day       | Presentation topic                                                 | Frameworks                           | Format
 -----|-----------|--------------------------------------------------------------------|--------------------------------------|-----------
-2/1  | Tuesday    | Deep learning software <br> [📝](slides/Deep%20Learning%20software.pdf) [🎥](https://drive.google.com/file/d/1v0vEWhpFESLIpDz_buyaQIopUwiO-qP4/view?usp=share_link)| Terminal, Conda, IDE, Pytorch        | Exercises
-3/1  | Wednesday   | MLOps: what is it? <br> [📝](slides/What%20is%20MLOps.pdf) [🎥](https://drive.google.com/file/d/1YIQszJZK9jkBfaQjvbdNFZB6UkEXw0_7/view?usp=share_link)             | Git, CookieCutter, Pep8, DVC         | Exercises
-4/1  | Thursday | Reproducibility <br> [📝](slides/Reproducibility.pdf) [🎥](https://drive.google.com/file/d/186y1ndv9NMUrL7A9v05G6Jnow4Qg20Hp/view?usp=share_link)                  | Docker, Hydra                        | Exercises
-5/1  | Friday  | Debugging <br> [📝](slides/Debugging%20ML%20Code.pdf) [🎥](https://drive.google.com/file/d/1DeW3UI62jrq42av1uN0-yV5FRNTdeKYz/view?usp=share_link)                  | Debugger, Profiler, Wandb, Lightning | Exercises
-6/1  | Saturday    | Pytorch ecosystem <br> [📝](slides/Projects.pdf) [🎥](https://drive.google.com/file/d/1gH0mhUJqA8itDf2gIgYltcEpFCFuCUg-/view?usp=share_link)                       | -                                    | Projects
+2/1  | Tuesday    | Deep learning software <br> [📝](slides/Deep%20Learning%20software.pdf) [🎥](https://drive.google.com/file/d/1v0vEWhpFESLIpDz_buyaQIopUwiO-qP4/view?usp=share_link)| Terminal, Conda, IDE, Pytorch        | [Exercises](s1_development_environment/README.md)
+3/1  | Wednesday   | MLOps: what is it? <br> [📝](slides/What%20is%20MLOps.pdf) [🎥](https://drive.google.com/file/d/1YIQszJZK9jkBfaQjvbdNFZB6UkEXw0_7/view?usp=share_link)             | Git, CookieCutter, Pep8, DVC         | [Exercises](s2_organisation_and_version_control/README.md)
+4/1  | Thursday | Reproducibility <br> [📝](slides/Reproducibility.pdf) [🎥](https://drive.google.com/file/d/186y1ndv9NMUrL7A9v05G6Jnow4Qg20Hp/view?usp=share_link)                  | Docker, Hydra                        | [Exercises](s3_reproducibility/README.md)
+5/1  | Friday  | Debugging <br> [📝](slides/Debugging%20ML%20Code.pdf) [🎥](https://drive.google.com/file/d/1DeW3UI62jrq42av1uN0-yV5FRNTdeKYz/view?usp=share_link)                  | Debugger, Profiler, Wandb, Lightning | [Exercises](s4_debugging_and_logging/README.md)
+6/1  | Saturday    | Pytorch ecosystem <br> [📝](slides/Projects.pdf) [🎥](https://drive.google.com/file/d/1gH0mhUJqA8itDf2gIgYltcEpFCFuCUg-/view?usp=share_link)                       | -                                    | [Projects](projects.md)
 
 ## Week 2
 
@@ -47,11 +47,11 @@ different services to help develop a full machine learning pipeline.
 
 Date | Day       | Presentation topic                                              | Frameworks                                        | Format
 -----|-----------|-----------------------------------------------------------------|---------------------------------------------------|-----------
-8/1  | Monday    | Continuous Integration <br> [📝](slides/Continues%20Integration.pdf) [🎥](https://drive.google.com/file/d/1KN1j0BI3oWPJPXe1zY_4bxVvruNn7R6O/view?usp=share_link)| Pytest, Github actions, Pre-commit, CML           | Exercises
-9/1 | Tuesday   | The Cloud <br> [📝](slides/Cloud%20Intro.pdf) [🎥](https://drive.google.com/file/d/1EF60Z_pGlsy1I5UWI01RSUtt3Ef1a_o6/view?usp=share_link)                        | GCP Engine, Bucket, Container registry, Vertex AI | Exercises
-10/1 | Wednesday | Deployment <br> [📝](slides/Deployment.pdf) [🎥](https://drive.google.com/file/d/1MbZyaN_ia_VC9Na894NdMLodj4TbAirJ/view?usp=share_link)                         | FastAPI, Torchservce, GCP Functions, Run          | Exercises
-11/1 | Thursday  | Guest lecture <br> [🎥](https://drive.google.com/file/d/1Qg0LnSINe8epdR7q8sQbMsrXKJenTuDT/view?usp=share_link)                                                  | -                                                 | Projects
-12/1 | Friday    | Guest lecture <br> [🎥](https://drive.google.com/file/d/1fGq9VSx0WUj3X7kpKP2y5avMbW-jw6K7/view?usp=share_link)                                                  | -                                                 | Projects
+8/1  | Monday    | Continuous Integration <br> [📝](slides/Continues%20Integration.pdf) [🎥](https://drive.google.com/file/d/1KN1j0BI3oWPJPXe1zY_4bxVvruNn7R6O/view?usp=share_link)| Pytest, Github actions, Pre-commit, CML           | [Exercises](s5_continuous_integration/README.md)
+9/1 | Tuesday   | The Cloud <br> [📝](slides/Cloud%20Intro.pdf) [🎥](https://drive.google.com/file/d/1EF60Z_pGlsy1I5UWI01RSUtt3Ef1a_o6/view?usp=share_link)                        | GCP Engine, Bucket, Container registry, Vertex AI | [Exercises](s6_the_cloud/README.md)
+10/1 | Wednesday | Deployment <br> [📝](slides/Deployment.pdf) [🎥](https://drive.google.com/file/d/1MbZyaN_ia_VC9Na894NdMLodj4TbAirJ/view?usp=share_link)                         | FastAPI, Torchservce, GCP Functions, Run          | [Exercises](s7_deployment/README.md)
+11/1 | Thursday  | Guest lecture <br> [🎥](https://drive.google.com/file/d/1Qg0LnSINe8epdR7q8sQbMsrXKJenTuDT/view?usp=share_link)                                                  | -                                                 | [Projects](projects.md)
+12/1 | Friday    | Guest lecture <br> [🎥](https://drive.google.com/file/d/1fGq9VSx0WUj3X7kpKP2y5avMbW-jw6K7/view?usp=share_link)                                                  | -                                                 | [Projects](projects.md)
 
 ## Week 3
 
@@ -62,8 +62,8 @@ important topic if we ever want our applications to be used by many people at th
 
 Date | Day       | Presentation topic                                                | Frameworks                          | Format
 -----|-----------|-------------------------------------------------------------------|-------------------------------------|----------
-15/1 | Monday    | Monitoring (Guest lecture) <br> [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz | Exercises
-16/1 | Tuesday   | Scalable applications <br> [📝](slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1g7Y1Y-FrgR7WNc8FWyBD27dQ7h7HOKuJ/view?usp=share_link) | Pytorch, Lightning                  | Exercises
-17/1 | Wednesday | -                                                                 | -                                   | Projects
-18/1 | Thursday  | -                                                                 | -                                   | Projects
+15/1 | Monday    | Monitoring (Guest lecture) <br> [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz |  [Exercises](s8_monitoring/README.md)
+16/1 | Tuesday   | Scalable applications <br> [📝](slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1g7Y1Y-FrgR7WNc8FWyBD27dQ7h7HOKuJ/view?usp=share_link) | Pytorch, Lightning                  | [Exercises](s9_scalable_applications/README.md)
+17/1 | Wednesday | -                                                                 | -                                   | [Projects](projects.md)
+18/1 | Thursday  | -                                                                 | -                                   | [Projects](projects.md)
 19/1 | Friday    | -                                                                 | -                                   | Exam
