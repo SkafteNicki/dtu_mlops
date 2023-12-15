@@ -23,4 +23,4 @@ exclude=["student_repos/"]
 convention = "google"
 
 [tool.codespell]
-skip = "*.pdf,*.ipynb,*.drawio"
+skip = "*.pdf,*.ipynb,*.drawio,*.json"

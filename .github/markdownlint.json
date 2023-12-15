@@ -3,10 +3,11 @@
         "line_length": 120,
         "tables": false
     },
-    "MD022": false,
-    "MD024": false,
-    "MD025": false,
-    "MD033": false,
-    "MD041": false,
-    "MD046": false
+    "MD022": false, // MD022 - Headings should be surrounded by blank lines
+    "MD024": false, // MD024 - Multiple headings with the same content
+    "MD025": false, // MD025 - Multiple top-level headings in the same document
+    "MD033": false, // MD033 - Inline HTML
+    "MD041": false, // MD041 - First line in file should be a top level heading
+    "MD045": false, // MD045 - Images should have alternate text (alt text)
+    "MD046": false  // MD046 - Code block style
 }

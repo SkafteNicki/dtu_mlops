@@ -425,12 +425,12 @@ beneficial for you to download.
         another machine. Thus, docker gives the ability to abstract away the differences between different machines.
 
 The covers the absolute minimum you should know about docker to get a working image and container. If you want to really
-deep dive into this topic you can find a copy of the *Docker Cookbook* by Sébastien Goasguen in the litterature folder.
+deep dive into this topic you can find a copy of the *Docker Cookbook* by Sébastien Goasguen in the literature folder.
 
-If you are actively going to be using docker in the near future, one thing to consider is the image size. Even these 
-simple images that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the 
-image size for you or your end user. If you have time you can read 
-[this article](https://devopscube.com/reduce-docker-image-size/) on different approaches to reduce image size. 
+If you are actively going to be using docker in the near future, one thing to consider is the image size. Even these
+simple images that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the
+image size for you or your end user. If you have time you can read
+[this article](https://devopscube.com/reduce-docker-image-size/) on different approaches to reduce image size.
 Additionally, you can take a look at the
 [dive-in extension](https://www.docker.com/blog/reduce-your-image-size-with-the-dive-in-docker-extension/) for docker
 desktop that lets you explore in depth your docker images.

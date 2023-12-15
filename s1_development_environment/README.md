@@ -3,10 +3,10 @@
 [Slides](../slides/Deep%20Learning%20software.pdf){ .md-button }
 
 <p align="center">
-  <img src="../figures/icons/terminal.png" width="130">
-  <img src="../figures/icons/conda.png" width="130">
-  <img src="../figures/icons/vscode.png" width="130">
-  <img src="../figures/icons/pytorch.png" width="130">
+<img src="../figures/icons/terminal.png" width="130">
+<img src="../figures/icons/conda.png" width="130">
+<img src="../figures/icons/vscode.png" width="130">
+<img src="../figures/icons/pytorch.png" width="130">
 </p>
 
 Today we start our journey into the world of machine learning operations (MLOps). However, before we can really get

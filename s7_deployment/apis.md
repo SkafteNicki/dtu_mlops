@@ -84,7 +84,7 @@ We are going to do a couple of exercises on sending requests using
         print('Not Found.')
     ```
 
-4. Next, try to call the following
+3. Next, try to call the following
 
     ```python
     response=requests.get("https://api.github.com/repos/SkafteNicki/dtu_mlops")
@@ -94,7 +94,7 @@ We are going to do a couple of exercises on sending requests using
     client to the server or vice-versa. Try looking at the `response.content` attribute. What is the type of this
     attribute?
 
-5. You should hopefully observe that the `.content` attribute is of type `bytes`. It is important to note that this is
+4. You should hopefully observe that the `.content` attribute is of type `bytes`. It is important to note that this is
     the standard way of sending payloads to encode them into `byte` objects. To get a more human-readable version of
     the response, we can convert it to [JSON](https://www.json.org/json-en.html) format
 
@@ -105,7 +105,7 @@ We are going to do a couple of exercises on sending requests using
     Important to remember that a JSON object in Python is just a nested dictionary if you ever want to iterate over the
     object in some way.
 
-6. When we use the GET method we can additionally provide a `params` argument, that specifies what we want the server
+5. When we use the GET method we can additionally provide a `params` argument, that specifies what we want the server
     to send back for a specific request URL:
 
     ```python
@@ -118,7 +118,7 @@ We are going to do a couple of exercises on sending requests using
     Before looking at `reponse.json()` can you explain what the code does? You can try looking at this
     [page](https://docs.github.com/en/rest/search?apiVersion=2022-11-28) for help.
 
-7. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
+6. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
     Say that we want to download an image, which we can do in the following way
 
     ```python
@@ -134,7 +134,7 @@ We are going to do a couple of exercises on sending requests using
         f.write(response.content)
     ```
 
-8. The `get` method is the most useful method because it allows us to get data from the server. However, as stated in
+7. The `get` method is the most useful method because it allows us to get data from the server. However, as stated in
     the beginning multiple request methods exist, for example, the POST method for sending data to the server. Try
     executing:
 
@@ -145,7 +145,7 @@ We are going to do a couple of exercises on sending requests using
 
     Investigate the response (this is an artificial example because we do not control the server).
 
-9. Finally, we should also know that requests can be sent directly from the command line using the `curl` command.
+8. Finally, we should also know that requests can be sent directly from the command line using the `curl` command.
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do it from a
     script.
 
@@ -554,9 +554,8 @@ you can look through for help.
     tests for your data pipeline and model. It should come as no surprise that the same can also be done for your
     API. Doing so should be able to tell you if your API is working as you expect it to do. The only complication
     regarding APIs is that you need a server to do testing, and we cannot use `uvicorn` for this. Check out this
-    [page](https://fastapi.tiangolo.com/tutorial/testing/)](https://fastapi.tiangolo.com/tutorial/testing/) on how to
-    test `FastAPI` application, and add a file called `test_api.py` to your `tests` folder with appropriate tests for
-    your API.
+    [page](https://fastapi.tiangolo.com/tutorial/testing/) on how to test `FastAPI` application, and add a file
+    called `test_api.py` to your `tests` folder with appropriate tests for your API.
 
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you check out
 [bentoml](https://github.com/bentoml/BentoML) which is an API standard that focuses solely on creating
