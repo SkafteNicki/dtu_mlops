@@ -46,6 +46,12 @@ course day.
 
 Look at the bottom of this [page](projects.md). Details will be updated as we get closer to the exam date.
 
+## Can I use ChatGPT or similar tools for the exercises, project, exam report (coding + writing) ❔
+
+Yes, yes, and yes, but remember that its a tool and you need to validate the output before using it. We would prefer
+for the exam report that you formulate the answers in your own words because it is intended for you do describe what
+you have been doing in your project.
+
 ## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
 
 We can give a grade on the Danish
