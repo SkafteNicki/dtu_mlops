@@ -18,6 +18,9 @@
         },
         {
             "pattern": "^https://api.github.*"
+        },
+        {
+            "pattern": "^https://twitter.com.*"
         }
     ],
     "aliveStatusCodes": [
