@@ -424,6 +424,17 @@ beneficial for you to download.
         This means that you can be sure that your application will run the same way on your machine as it will on
         another machine. Thus, docker gives the ability to abstract away the differences between different machines.
 
+4. A docker container is build from a series of layers that are stacked on top of each others. This should be clear if
+    you look at the output when building a docker image. What is the advantage of this?
+
+    ??? success "Solution"
+
+        The advantage is efficiency and reusability. When a change is made to a docker image, only the layer(s) that are
+        changed needs to be updated. For example, if you update the application code in your docker image, which usually
+        is the last layer, then only that layer needs to be rebuild, making the process much faster. Additionally, if
+        you have multiple docker images that share the same base image, then the base image only needs to be downloaded
+        once.
+
 The covers the absolute minimum you should know about docker to get a working image and container. If you want to really
 deep dive into this topic you can find a copy of the *Docker Cookbook* by Sébastien Goasguen in the literature folder.
 

@@ -153,26 +153,27 @@ working together on the same project.
     systems falls short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:
 
-    1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
-       just choose the repository belonging to the course. Now fork the project by clicking the *Fork* button.
+    1. Go online and find a project you do not own, where you can improve the code. You can either look at this
+        [page](https://goodfirstissue.dev/) of good issues to get started with or for simplicity you can just choose
+        the repository belonging to the course. Now fork the project by clicking the *Fork* button.
 
-       ![forking](../figures/forking.PNG)
+        ![forking](../figures/forking.PNG)
 
-       This will create a local copy of the repository which you have complete writing access to. Note that
-       code updates to the original repository does not update code in your local repository.
+        This will create a local copy of the repository which you have complete writing access to. Note that
+        code updates to the original repository does not update code in your local repository.
 
     2. Clone your local fork of the project using `git clone`.
 
     3. As default your local repository will be on the `main branch` (HINT: you can check this with the
-       `git status` command). It is good practice to make a new branch when working on some changes. Use
-       the `git branch` command followed by the `git checkout` command to create a new branch.
+        `git status` command). It is good practice to make a new branch when working on some changes. Use
+        the `git branch` command followed by the `git checkout` command to create a new branch.
 
     4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
-       When you have made the changes, do the standard git cycle: `add -> commit -> push`
+        When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
     5. Go online to the original repository and go to the `Pull requests` tab. Find `compare` button and
-       choose the button to compare the `master branch` of the original repo with the branch that you just created
-       in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
+        choose the button to compare the `master branch` of the original repo with the branch that you just created
+        in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
     6. Write a bit about the changes you have made and click `Create pull request` :)
 

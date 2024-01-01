@@ -73,7 +73,7 @@ dependencies, with some of the most popular being:
 * [conda](https://docs.conda.io/en/latest/)
 * [pipenv](https://pipenv.pypa.io/en/latest/)
 * [poetry](https://python-poetry.org/)
-* [pipx](https://pypa.github.io/pipx/)
+* [pipx](https://pipx.pypa.io/stable/)
 * [hatch](https://hatch.pypa.io/latest/)
 * [pdm](https://pdm.fming.dev/latest/)
 
