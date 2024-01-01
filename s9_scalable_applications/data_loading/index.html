@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1848,7 +1848,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/pytorch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130" /></a></p>
 <h1 id="distributed-data-loading">Distributed Data Loading</h1>
 <hr />
 <div class="admonition info">
@@ -1861,7 +1861,7 @@ improve if more was added. However, as deep learning models have become deeper a
 data hungry performance seems to be ever increasing or at least not reaching a pleatau in the same way as for
 traditional machine learning.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/ml_data.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ml_data.png" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/ml_data.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ml_data.png" width="500" /></a></p>
 <figcaption> <a href="https://www.codesofinterest.com/2017/04/how-deep-should-deep-learning-be.html"> Image credit </a> </figcaption>
 </figure>
 <p>As we are trying to feed more and more data into our models and obvious first question to ask is how to do this in a
@@ -1878,7 +1878,7 @@ at what is going on behind the scene when we use Pytorch to parallelize data loa
 <p>Before we talk distributed applications it is important to understand the physical  layout of a standard CPU (the
 brain of your computer).</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_layout.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_layout.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_layout.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_layout.PNG" width="500" /></a></p>
 </figure>
 <p>Most modern CPUs is a single chip that consist of multiple <em>cores</em>. Each core can further be divided into <em>threads</em>.
 In most laptops the core count is 4 and commonly 2 threads per code. This means that the common laptop have 8 threads.
@@ -1914,18 +1914,18 @@ must understand that we have a thread that plays the role of the <em>main</em> a
 we request 4) are called <em>workers</em>. When the dataloader is created, we create this structure and make sure that all
 threads have a copy of our dataset definition so each can call the <code>__getitem__</code> method.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_data_loading1.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading1.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_data_loading1.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading1.PNG" width="500" /></a></p>
 </figure>
 <p>Then comes the actual part where we request a batch for data. Assume that we have a batch size of 8 and we do not do
 any shuffeling. In this step the master thread then distributes the list of requested data points (<code>[0,1,2,3,4,5,6,7]</code>)
 to the four worker threads. With 8 indices and 4 workers, each worker will receive 2 indices.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_data_loading2.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading2.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_data_loading2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading2.PNG" width="500" /></a></p>
 </figure>
 <p>Each worker thread then calls <code>__getitem__</code> method for all the indices it has received. When all processes are done, the
 loaded images datapoints gets send back to the master thread collected into a single structure/tensor.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_data_loading3.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading3.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_data_loading3.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading3.PNG" width="500" /></a></p>
 </figure>
 <p>Each arrow is corresponds to a communication between two threads, which is not a free operations. In total to get a
 single batch (not counting the initial startup cost) in this example we need to do 8 communication operations. This may
@@ -1999,7 +1999,7 @@ using multiple workers because the data augmentation is also executed in paralle
 <p>This ends the module on distributed data loading in Pytorch. If you want to go into more details we highly recommend
 that you read <a href="https://arxiv.org/pdf/2211.04908.pdf">this paper</a> that goes into great details on analyzing on how data
 loading in Pytorch work and performance benchmarks.
-<a class="glightbox" href="../../figures/icons/lightning.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/lightning.png" width="130" /></a></p>
+<a class="glightbox" href="../../figures/icons/lightning.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/lightning.png" width="130" /></a></p>
 
 
 

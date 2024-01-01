@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1872,7 +1872,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/git.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/git.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/git.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/git.png" width="130" /></a></p>
 <h1 id="git">Git</h1>
 <hr />
 <div class="admonition info">
@@ -1893,7 +1893,7 @@ hosting repositories but that does not mean that they are the only one providing
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+github.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git.png" width="400" /></a></p>
+<p><a class="glightbox" href="../../figures/git.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git.png" width="400" /></a></p>
 <figcaption> <a href="https://xkcd.com/1597/"> Image credit </a> </figcaption>
 </figure>
 <h2 id="initial-config">Initial config</h2>
@@ -1931,7 +1931,7 @@ this into your own projects depends, but you are at least expected to be familia
 <h2 id="git-overview">Git overview</h2>
 <p>The most simple way to think of version control, is that it is just nodes with lines connecting them</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
 </figure>
 <p>Each node, which we call a <em>commit</em> is uniquely identified by a hash string. Each node, stores what our code
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
@@ -1939,7 +1939,7 @@ revert to a specific point in time.</p>
 <p>The commits are made up of local changes that we make to our code. A basic workflow for
 adding commits are seen below</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
 </figure>
 <p>Assuming that we have made some changes to our local <em>working directory</em> and that we
 want to get these updates to be online in the <em>remote repository</em> we have to do the following steps:</p>
@@ -1960,7 +1960,7 @@ want to get these updates to be online in the <em>remote repository</em> we have
 </ul>
 <p>Of course, the real power of version control is the ability to make branches, as in the image below</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_branches.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branches.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/git_branches.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branches.png" width="1000" /></a></p>
 <figcaption>
 <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </figcaption>
@@ -1984,7 +1984,7 @@ working together on the same project.</p>
 <li>
 <p class="annotate">Add the files to a commit by using <code>git add</code> command (1)</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing good commit message is a skill in itself. A commit message should be short but
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing good commit message is a skill in itself. A commit message should be short but
     informative about the work you are trying to commit. Try to practise writing good commit messages
     throughout the course. You can see
     <a href="https://github.com/joelparkerhenderson/git-commit-message">this guideline</a> for help.</li>
@@ -2027,29 +2027,30 @@ is not present on the main branch.</p>
     systems falls short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:</p>
 <ol>
-<li>Go online and find a project you do not own, where you can improve the code. For simplicity you can
-   just choose the repository belonging to the course. Now fork the project by clicking the <em>Fork</em> button.</li>
-</ol>
-<p><a class="glightbox" href="../../figures/forking.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="forking" src="../../figures/forking.PNG" /></a></p>
+<li>
+<p>Go online and find a project you do not own, where you can improve the code. You can either look at this
+    <a href="https://goodfirstissue.dev/">page</a> of good issues to get started with or for simplicity you can just choose
+    the repository belonging to the course. Now fork the project by clicking the <em>Fork</em> button.</p>
+<p><a class="glightbox" href="../../figures/forking.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="forking" src="../../figures/forking.PNG" /></a></p>
 <p>This will create a local copy of the repository which you have complete writing access to. Note that
-   code updates to the original repository does not update code in your local repository.</p>
-<ol>
+code updates to the original repository does not update code in your local repository.</p>
+</li>
 <li>
 <p>Clone your local fork of the project using <code>git clone</code>.</p>
 </li>
 <li>
 <p>As default your local repository will be on the <code>main branch</code> (HINT: you can check this with the
-   <code>git status</code> command). It is good practice to make a new branch when working on some changes. Use
-   the <code>git branch</code> command followed by the <code>git checkout</code> command to create a new branch.</p>
+    <code>git status</code> command). It is good practice to make a new branch when working on some changes. Use
+    the <code>git branch</code> command followed by the <code>git checkout</code> command to create a new branch.</p>
 </li>
 <li>
 <p>You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
-   When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code></p>
+    When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code></p>
 </li>
 <li>
 <p>Go online to the original repository and go to the <code>Pull requests</code> tab. Find <code>compare</code> button and
-   choose the button to compare the <code>master branch</code> of the original repo with the branch that you just created
-   in your own repository. Check the diff on the page to make sure that it contains the changes you have made.</p>
+    choose the button to compare the <code>master branch</code> of the original repo with the branch that you just created
+    in your own repository. Check the diff on the page to make sure that it contains the changes you have made.</p>
 </li>
 <li>
 <p>Write a bit about the changes you have made and click <code>Create pull request</code> :)</p>
@@ -2077,7 +2078,7 @@ is not present on the main branch.</p>
     your choosing and click the edit button (see image below) and make some change to the file. For example, if
     you choose a python file you can just import some random packages at the top of the file. Commit the change.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/git_edit.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_edit.PNG" width="1000" /></a>
+<a class="glightbox" href="../../figures/git_edit.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_edit.PNG" width="1000" /></a>
 </figure></p>
 </li>
 <li>
@@ -2190,7 +2191,7 @@ Github has an built-in editor that can simply be enabled by changing any URL fro
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 17, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 1, 2024</span>
   </span>
 
     

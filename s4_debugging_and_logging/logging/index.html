@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1896,7 +1896,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/w%26b.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/w%26b.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/w%26b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/w%26b.png" width="130" /></a></p>
 <h1 id="logging">Logging</h1>
 <hr />
 <div class="admonition info">
@@ -1966,7 +1966,7 @@ And it makes sense that not all things logged, should be available to all stakeh
 probably always wants the highest level of logging, whereas users of the our code need less info and we may want to
 differentiate this based on users.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/logging_level.drawio.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/logging_level.drawio.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/logging_level.drawio.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/logging_level.drawio.png" width="800" /></a></p>
 </figure>
 <p>It is also important to understand the different between logging and error handling. Error handling
 Python is done using <code>raise</code> statements and <code>try/catch</code> like:</p>
@@ -2007,7 +2007,7 @@ If you need help for the exercises you can find a simple solution script
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;There is something terribly wrong and process may terminate.&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The built-in variable <code>__name__</code> always contains the record of the script or module that is
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The built-in variable <code>__name__</code> always contains the record of the script or module that is
     currently being run. Therefore if we initialize our logger base using this variable, it will always be unique
     to our application and not conflict with logger setup by any third-party package.</li>
 </ol>
@@ -2062,12 +2062,12 @@ that?</p>
 </span></code></pre></div>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#formatter-objects">formatter</a> section
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#formatter-objects">formatter</a> section
     determines how logs should be formatted. Here we define two separate formatters, called <code>minimal</code> and
     <code>detailed</code> which we can use in the next part of the code.</p>
 </li>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#handler-objects">handlers</a> is in
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#handler-objects">handlers</a> is in
     charge of what should happen to different level of logging. <code>console</code> uses the <code>minimal</code> format we defined
     and sens logs to the <code>stdout</code> stream for messages of level <code>DEBUG</code> and higher. The <code>info</code> handler uses
     the <code>detailed</code> format and sends messages of level <code>INFO</code> and higher to a separate <code>info.log</code> file. The
@@ -2093,7 +2093,7 @@ logger.</p>
 </span></code></pre></div>
 <p>and try re-running the script. Hopefully you should see something buitiful in your terminal like this:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/rich_terminal_logging.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/rich_terminal_logging.png" width="700" /></a>
+<a class="glightbox" href="../../figures/rich_terminal_logging.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/rich_terminal_logging.png" width="700" /></a>
 </figure></p>
 </li>
 <li>
@@ -2129,7 +2129,7 @@ important when you want to compare performance between different runs.</p>
 Weights and Bias (wandb), as it support everything we need in this course. Additionally, it is an excellent tool for
 collaboration and sharing of results.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/wandb_example.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_example.png" width="700" /></a></p>
+<p><a class="glightbox" href="../../figures/wandb_example.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_example.png" width="700" /></a></p>
 <figcaption>
 Using the Weights and Bias (wandb) dashboard we can quickly get an overview and compare many runs over different
 metrics. This allows for better iteration of models and training procedure.

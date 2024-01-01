@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1818,7 +1818,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/evidentlyai.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/evidentlyai.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/evidentlyai.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/evidentlyai.png" width="130" /></a></p>
 <h1 id="data-drifting">Data drifting</h1>
 <hr />
 <p>Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
@@ -1827,7 +1827,7 @@ this means that the model is receiving input that is outside of the scope that i
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
 two years</p>
 <figure>
-<p><a class="glightbox" href="../../figures/data_drift.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_drift.png" width="700" /></a></p>
+<p><a class="glightbox" href="../../figures/data_drift.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_drift.png" width="700" /></a></p>
 <figcaption>
 <a href="https://www.picsellia.com/post/what-is-data-drift-and-how-to-detect-it-with-mlops"> Image credit </a>
 </figcaption>
@@ -1838,7 +1838,7 @@ essentially have no control over. That really only leaves you with one option: r
 input features and deploy that model to production. This process is probably going to repeat over the lifetime of your
 application if you want to keep it up-to-date with the real world.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/retrain_model.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/retrain_model.png" width="700" /></a></p>
+<p><a class="glightbox" href="../../figures/retrain_model.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/retrain_model.png" width="700" /></a></p>
 <figcaption>
 <a href="https://www.evidentlyai.com/blog/machine-learning-monitoring-data-and-concept-drift"> Image credit </a>
 </figcaption>
@@ -2090,7 +2090,7 @@ complete and are especially limited in one way: they are only considering the ma
 analysis that we done have been on the distribution per feature (the marginal distribution), however as the image below
 show it is possible for data to have drifted to another distribution with the marginal being approximately the same.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/data_drift_marginals.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_drift_marginals.png" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/data_drift_marginals.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_drift_marginals.png" width="500" /></a></p>
 </figure>
 <p>There are methods such as <a href="https://jmlr.csail.mit.edu/papers/v13/gretton12a.html">Maximum Mean Discrepancy (MMD) tests</a>
 that are able to do testing on multivariate distributions, which you are free to dive into. In this course we will just

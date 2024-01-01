@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1872,14 +1872,14 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/docker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/docker.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/docker.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/docker.png" width="130" /></a></p>
 <h1 id="docker">Docker</h1>
 <hr />
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
 </div>
 <figure>
-<p><a class="glightbox" href="../../figures/docker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker.png" width="400" /></a></p>
+<p><a class="glightbox" href="../../figures/docker.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker.png" width="400" /></a></p>
 <figcaption>
 <a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a>
 </figcaption>
@@ -1899,7 +1899,7 @@ we try to start our program on a single machine or a 1000 machines at once.</p>
 <h2 id="docker-overview">Docker overview</h2>
 <p>Docker has three main concepts: <strong>docker file</strong>, <strong>docker image</strong> and <strong>docker container</strong>:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/docker_structure.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_structure.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/docker_structure.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_structure.png" width="800" /></a></p>
 </figure>
 <ul>
 <li>
@@ -1933,7 +1933,7 @@ your own container.</p>
 </li>
 </ul>
 <figure>
-<p><a class="glightbox" href="../../figures/docker_share.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_share.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/docker_share.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_share.png" width="1000" /></a></p>
 <figcaption> <a href="https://www.ravirajag.dev/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 <h2 id="exercises">❔ Exercises</h2>
@@ -2086,7 +2086,7 @@ important to remember) indicates which dockerfile that we want to run (except if
 the <code>-t trainer:latest</code> is the respective name and tag that we se afterwards when running <code>docker images</code> (see image
 below). Please note that building a docker image can take a couple of minutes.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/docker_output.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_output.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/docker_output.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_output.PNG" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -2176,7 +2176,7 @@ inside a container based on the image you just pulled. It should look something 
 </span></code></pre></div>
 <p>and should show an image like below:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/nvidia_smi.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/nvidia_smi.PNG" width="600" /></a>
+<a class="glightbox" href="../../figures/nvidia_smi.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/nvidia_smi.PNG" width="600" /></a>
 </figure></p>
 <p>If it does not work, try redoing the steps.</p>
 </li>
@@ -2249,6 +2249,18 @@ This means that you can be sure that your application will run the same way on y
 another machine. Thus, docker gives the ability to abstract away the differences between different machines.</p>
 </details>
 </li>
+<li>
+<p>A docker container is build from a series of layers that are stacked on top of each others. This should be clear if
+    you look at the output when building a docker image. What is the advantage of this?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The advantage is efficiency and reusability. When a change is made to a docker image, only the layer(s) that are
+changed needs to be updated. For example, if you update the application code in your docker image, which usually
+is the last layer, then only that layer needs to be rebuild, making the process much faster. Additionally, if
+you have multiple docker images that share the same base image, then the base image only needs to be downloaded
+once.</p>
+</details>
+</li>
 </ol>
 <p>The covers the absolute minimum you should know about docker to get a working image and container. If you want to really
 deep dive into this topic you can find a copy of the <em>Docker Cookbook</em> by Sébastien Goasguen in the literature folder.</p>
@@ -2281,7 +2293,7 @@ desktop that lets you explore in depth your docker images.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 15, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 1, 2024</span>
   </span>
 
     

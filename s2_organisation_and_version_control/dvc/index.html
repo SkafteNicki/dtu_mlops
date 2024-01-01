@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1854,7 +1854,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/dvc.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/dvc.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/dvc.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/dvc.png" width="130" /></a></p>
 <h1 id="data-version-control">Data Version Control</h1>
 <hr />
 <div class="admonition info">
@@ -1874,7 +1874,7 @@ Regardless of what framework, they all implement somewhat the same concept: inst
 or in general storing any large <em>artifacts</em> files we instead store a pointer to these large flies. We then version
 control the point instead of the artifact.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_artifact.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_artifact.png" width="700" /></a></p>
+<p><a class="glightbox" href="../../figures/git_artifact.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_artifact.png" width="700" /></a></p>
 <figcaption>
 <a href="https://madewithml.com/courses/mlops/versioning/"> Image credit </a>
 </figcaption>
@@ -1888,7 +1888,7 @@ small <em>metafile</em> that will then point to some remote location where your 
 essentially work as placeholders for your data files. Your large data files are then stored in some remote location such
 as Google Drive or an <code>S3</code> bucket from Amazon.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/dvc.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dvc.png" width="700" /></a>
+<p><a class="glightbox" href="../../figures/dvc.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dvc.png" width="700" /></a>
   </p>
 <figcaption>
   <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
@@ -1933,7 +1933,7 @@ These files should be committed using standard <code>git</code> to your reposito
 <p>Go to your Google Drive and create a new folder called <code>dtu_mlops_data</code>. Then copy the unique identifier
     belonging to that folder as shown in the figure below</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/google_drive.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/google_drive.PNG" width="1000" /></a>
+<a class="glightbox" href="../../figures/google_drive.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/google_drive.PNG" width="1000" /></a>
 </figure></p>
 <p>Using this identifier, add it as a remote storage</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>storage<span class="w"> </span>gdrive://&lt;your_identifier&gt;

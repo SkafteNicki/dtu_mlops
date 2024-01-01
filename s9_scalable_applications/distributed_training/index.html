@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1896,7 +1896,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/lightning.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/lightning.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/lightning.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/lightning.png" width="130" /></a></p>
 <h1 id="distributed-training">Distributed Training</h1>
 <hr />
 <p>In this module we are going to look at distributed training. Distributed training is one of the key ingredients
@@ -1931,7 +1931,7 @@ going to investigate it a bit since it offers the most simple form of distribute
 pipeline.</p>
 <p>In the figure below is shown both the <em>forward</em> and <em>backward</em> step in the data parallel paradigm</p>
 <figure>
-<p><a class="glightbox" href="../../figures/data_parallel.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_parallel.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/data_parallel.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_parallel.png" width="1000" /></a></p>
 </figure>
 <p>The steps are the following:</p>
 <ul>
@@ -2007,7 +2007,7 @@ playing around with the batch size, and see if data parallel is more beneficial 
 the model needs to replicated on each pass (because it is destroyed in the end), which requires a large transfer
 of data. This is the main problem that distributed data parallel tries to solve.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/distributed_data_parallel.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/distributed_data_parallel.png" width="8000" /></a></p>
+<p><a class="glightbox" href="../../figures/distributed_data_parallel.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/distributed_data_parallel.png" width="8000" /></a></p>
 </figure>
 <p>The two key difference between distributed data parallel and data parallel that we move the model update
 (the gradient step) to happen on each device in parallel instead of only on the main device. This has the consequence

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1992,7 +1992,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/pytorch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130" /></a></p>
 <h1 id="scalable-inference">Scalable Inference</h1>
 <hr />
 <p>Inference is task of applying our trained model to some new and unseen data, often called <em>prediction</em>. Thus, scaling
@@ -2018,7 +2018,7 @@ architecture. The general trend is that the number of images that can be process
 inverse proportional to the number of parameters (x-axis). However, we in general see that convolutional base
 architectures (conv) are more efficient than transformer (vit) for the same parameter budget.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/infer_param_count.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/infer_param_count.jpg" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/infer_param_count.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/infer_param_count.jpg" width="800" /></a></p>
 <figcaption> <a href="https://twitter.com/wightmanr/status/1453060491970953217"> Image credit </a> </figcaption>
 </figure>
 <h3 id="exercises">❔ Exercises</h3>
@@ -2089,7 +2089,7 @@ architectures. In the exercises below we are going to investigate the inference 
 <p>Quantization is a technique where all computations are performed with integers instead of floats.
 We are essentially taking all continuous signals and converting them into discretized signals.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/quantization.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quantization.png" width="300" /></a></p>
+<p><a class="glightbox" href="../../figures/quantization.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quantization.png" width="300" /></a></p>
 <figcaption> <a href="https://arxiv.org/abs/1910.01108v4"> Image credit </a> </figcaption>
 </figure>
 <p>As discussed in this
@@ -2125,7 +2125,7 @@ figure below shows all the conversations that we need to make to our standard in
 computations in quantized format.</p>
 <!-- markdownlint-disable -->
 <figure>
-<p><a class="glightbox" href="../../figures/quantization_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quantization_overview.png" width="600" /></a></p>
+<p><a class="glightbox" href="../../figures/quantization_overview.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quantization_overview.png" width="600" /></a></p>
 <figcaption>
 <a href="https://devblog.pytorchlightning.ai/how-to-train-edge-optimized-speech-recognition-models-with-pytorch-lightning-part-2-quantization-2eaa676b1512"> Image credit </a>
 </figcaption>
@@ -2177,7 +2177,7 @@ important but the general rule that the importance of a weight is proportional t
 makes intuitively sense, since weights in all linear operations (fully connected or convolutional) are always
 multiplied onto the incoming value, thus a small weight means a small outgoing activation.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/pruning.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pruning.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/pruning.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pruning.png" width="800" /></a></p>
 <figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
 </figure>
 <h3 id="exercises_2">❔ Exercises</h3>
@@ -2197,7 +2197,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">prune</span><span class="o">.</span><span class="n">random_unstructured</span><span class="p">(</span><span class="n">module_1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># (1)!</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You can read about the prune method
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You can read about the prune method
     <a href="https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured">here</a>.</li>
 </ol>
 <p>Try printing the <code>named_parameters</code>, <code>named_buffers</code> before and after the module is pruned. Can you explain the
@@ -2312,7 +2312,7 @@ smaller version of the large natural-language procession model Bert, which achie
 only containing 40% of the weights and being 60% faster. You can see in the figure below how it is much smaller in size
 compared to other models developed at the same time.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/distill.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/distill.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/distill.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/distill.png" width="800" /></a></p>
 <figcaption> <a href="https://arxiv.org/pdf/1910.01108.pdf"> Image credit </a> </figcaption>
 </figure>
 <p>Knowledge distillation works by assuming we have a big teacher that is already performing well that we want to compress.
@@ -2323,7 +2323,7 @@ learn the complex inter-class relasionship from just (one-hot) labels. The stude
 with softmax distributions from the teacher that explicit encodes this inter-class relasionship and thus does not need
 the same capasity to learn the same as the teacher.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/knowledge_distillation.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/knowledge_distillation.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/knowledge_distillation.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/knowledge_distillation.png" width="800" /></a></p>
 <figcaption> <a href="https://deeplearningsystems.ai/#ch06/"> Image credit </a> </figcaption>
 </figure>
 <h3 id="exercises_3">❔ Exercises</h3>
