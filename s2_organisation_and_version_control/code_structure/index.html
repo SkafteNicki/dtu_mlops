@@ -1913,7 +1913,7 @@ focusing on some of the special files you will need for your Python projects.</p
 <p>The first file you may or may not know is the <code>__init__.py</code> file. In Python the <code>__init__.py</code> file is used to mark a
 directory as a Python package. Therefore as a bare minimum, any Python package should look something like this:
 package should look something like this</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>├── src
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>├── src/
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│   ├── __init__.py
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── file1.py
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── file2.py
@@ -2016,15 +2016,15 @@ the same</p>
     to run <code>pip install</code> every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.</li>
 </ol>
-<p>after running this your code should be available to import as <code>from src import ...</code> like any other Python package you
-use. This is the most essential you need to know about creating Python packages.</p>
+<p>after running this your code should be available to import as <code>from project_name import ...</code> like any other Python
+package you use. This is the most essential you need to know about creating Python packages.</p>
 <h2 id="exercises">❔ Exercises</h2>
 <p>After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on taking the
 simple CNN MNIST classifier from yesterdays exercise and force it into this structure. You are not required to fill out
 every folder and file in the project structure, but try to at least follow the steps in exercises. Whenever you need to
 run a file I recommend always doing this from the root directory e.g.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>src/data/make_dataset.py<span class="w"> </span>data/raw<span class="w"> </span>data/processed
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python<span class="w"> </span>src/models/train_model.py<span class="w"> </span>&lt;arguments&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>&lt;project_name&gt;/data/make_dataset.py<span class="w"> </span>data/raw<span class="w"> </span>data/processed
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python<span class="w"> </span>&lt;project_name&gt;/models/train_model.py<span class="w"> </span>&lt;arguments&gt;
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>etc...
 </span></code></pre></div>
 <p>in this way paths (for saving and loading files) are always relative to the root.</p>
@@ -2041,6 +2041,15 @@ run a file I recommend always doing this from the root directory e.g.</p>
 <li>If you feel like the template can be improve in some way, feel free to either open a issue with the proposed
     improvement or directly send a pull request to the repository 😄.</li>
 </ol>
+<p>You do this by running the cookiecutter command using the template url.</p>
+<details class="note">
+<summary>Flat-layout vs src-layout</summary>
+<p>There are two common choices on how layout your source directory. The first is called <em>src-layout</em>
+where the source code is always place in a <code>src/&lt;project_name&gt;</code> folder and the second is called <em>flat-layout</em>
+where the source code is place is just placed in a <code>&lt;project_name&gt;</code> folder. The template we are using in this
+course is using the flat-layout, but there are
+<a href="https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/">pros and cons</a> for both.</p>
+</details>
 </li>
 <li>
 <p>After having created your new project, the first step is to also create a corresponding virtual environment and
@@ -2050,10 +2059,10 @@ run a file I recommend always doing this from the root directory e.g.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Start by filling out the <code>src/data/make_dataset.py</code> file. When this file runs, it should take the raw data e.g. the
-    corrupted MNIST files from yesterday which now should be located in a <code>data/raw</code> folder and process them into a
-    single tensor, normalize the tensor and save this intermediate representation to the <code>data/processed</code> folder. By
-    normalization here we refer to making sure the images have mean 0 and standard deviation 1.</p>
+<p>Start by filling out the <code>&lt;project_name&gt;/data/make_dataset.py</code> file. When this file runs, it should take the raw
+    data e.g. the corrupted MNIST files from yesterday which now should be located in a <code>data/raw</code> folder and process
+    them into a single tensor, normalize the tensor and save this intermediate representation to the <code>data/processed</code>
+    folder. By normalization here we refer to making sure the images have mean 0 and standard deviation 1.</p>
 </li>
 <li>
 <p>This template comes with a <code>Makefile</code> that can be used to easily define common operations in a project. You do not
@@ -2076,9 +2085,9 @@ more about how to write <code>Makefile</code>s then this is an excellent
 <a href="https://youtu.be/F6DZdvbRZQQ?si=9qg-XUva-l-9Tl21">video</a>.</p>
 </li>
 <li>
-<p>Put your model file (<code>model.py</code>) into <code>src/models</code> folder together and insert the relevant code from the <code>main.py</code>
-    file into the <code>train_model.py</code> file. Make sure that whenever a model is trained and it is saved, that it gets saved
-    to the <code>models</code> folder (preferably in sub-folders).</p>
+<p>Put your model file (<code>model.py</code>) into <code>&lt;project_name&gt;/models</code> folder together and insert the relevant code from the
+    <code>main.py</code> file into the <code>train_model.py</code> file. Make sure that whenever a model is trained and it is saved, that it
+    gets saved to the <code>models</code> folder (preferably in sub-folders).</p>
 </li>
 <li>
 <p>When you run <code>train_model.py</code>, make sure that some statistics/visualizations from the trained models gets saved to
@@ -2091,16 +2100,17 @@ more about how to write <code>Makefile</code>s then this is an excellent
 </span></code></pre></div>
 </li>
 <li>
-<p>Fill out the newly created <code>src/models/predict_model.py</code> file, such that it takes a pre-trained model file and
-    creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
-    images that gets loaded in or a <code>numpy</code> or <code>pickle</code> file with already loaded images e.g. something like this</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>src/models/predict_model.py<span class="w"> </span><span class="se">\</span>
+<p>Fill out the newly created <code>&lt;project_name&gt;/models/predict_model.py</code> file, such that it takes a pre-trained model file
+    and creates prediction for some data. Recommended interface is that users can give this file either a folder with
+    raw images that gets loaded in or a <code>numpy</code> or <code>pickle</code> file with already loaded images e.g. something like this</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>&lt;project_name&gt;/models/predict_model.py<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span>models/my_trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># file containing a pretrained model</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>data/example_images.npy<span class="w">  </span><span class="c1"># file containing just 10 images for prediction</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>Fill out the file <code>src/visualization/visualize.py</code> with this (as minimum, feel free to add more visualizations)</p>
+<p>Fill out the file <code>&lt;project_name&gt;/visualization/visualize.py</code> with this (as minimum, feel free to add more
+    visualizations)</p>
 <ul>
 <li>Loads a pre-trained network</li>
 <li>Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
