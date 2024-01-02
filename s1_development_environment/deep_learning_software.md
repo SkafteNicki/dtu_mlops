@@ -194,7 +194,7 @@ in the future as you start to add more and more features. As subgoals, please fu
 To start you off, a very basic version of each script is provided in the `final_exercise` folder. We have already
 implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
 interested in how this is done you can checkout this optional module on defining
-[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide an `requirements.py` with
+[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide an `requirements.txt` with
 suggestion to what packages are necessary to complete the exercise.
 
 As documentation that your model is actually working, when running in the `train` command the script needs to

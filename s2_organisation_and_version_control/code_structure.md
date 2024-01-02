@@ -253,7 +253,7 @@ in this way paths (for saving and loading files) are always relative to the root
     ```bash
     make data  # runs the make_dataset.py file, try it!
     make clean  # clean __pycache__ files
-    make requirements  # install everything in the requirements.py file
+    make requirements  # install everything in the requirements.txt file
     ```
 
     ??? note "Windows users"
