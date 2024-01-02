@@ -21,6 +21,9 @@
         },
         {
             "pattern": "^https://twitter.com.*"
+        },
+        {
+            "pattern": "^https://reddit.com.*"
         }
     ],
     "aliveStatusCodes": [
