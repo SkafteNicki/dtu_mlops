@@ -107,6 +107,13 @@ command line.
     being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
     programs sequentially, which can be done through a bash script.
 
+    ??? note "Windows users"
+
+        Bash is not part of Windows, so you need to run this part through WSL. If you did not install WSL, you can
+        skip this part or as an alternative do the exercises in
+        [Powershell](https://learn.microsoft.com/en-us/training/modules/script-with-powershell/) which is the native
+        Windows scripting language (not recommended).
+
     1. Write a bash script (in `nano`) and try executing it:
 
         ```bash

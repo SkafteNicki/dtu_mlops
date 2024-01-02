@@ -70,7 +70,7 @@ directory as a Python package. Therefore as a bare minimum, any Python package s
 package should look something like this
 
 ```txt
-├── src
+├── src/
 │   ├── __init__.py
 │   ├── file1.py
 │   ├── file2.py
@@ -192,8 +192,8 @@ pip install -e . # (1)!
     to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.
 
-after running this your code should be available to import as `from src import ...` like any other Python package you
-use. This is the most essential you need to know about creating Python packages.
+after running this your code should be available to import as `from project_name import ...` like any other Python
+package you use. This is the most essential you need to know about creating Python packages.
 
 ## ❔ Exercises
 
@@ -203,8 +203,8 @@ every folder and file in the project structure, but try to at least follow the s
 run a file I recommend always doing this from the root directory e.g.
 
 ```bash
-python src/data/make_dataset.py data/raw data/processed
-python src/models/train_model.py <arguments>
+python <project_name>/data/make_dataset.py data/raw data/processed
+python <project_name>/models/train_model.py <arguments>
 etc...
 ```
 
@@ -223,6 +223,16 @@ in this way paths (for saving and loading files) are always relative to the root
     1. If you feel like the template can be improve in some way, feel free to either open a issue with the proposed
         improvement or directly send a pull request to the repository 😄.
 
+    You do this by running the cookiecutter command using the template url.
+
+    ??? note "Flat-layout vs src-layout"
+
+        There are two common choices on how layout your source directory. The first is called *src-layout*
+        where the source code is always place in a `src/<project_name>` folder and the second is called *flat-layout*
+        where the source code is place is just placed in a `<project_name>` folder. The template we are using in this
+        course is using the flat-layout, but there are
+        [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) for both.
+
 3. After having created your new project, the first step is to also create a corresponding virtual environment and
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that else create
     a new. Then install the project in that environment
@@ -231,10 +241,10 @@ in this way paths (for saving and loading files) are always relative to the root
     pip install -e .
     ```
 
-4. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data e.g. the
-    corrupted MNIST files from yesterday which now should be located in a `data/raw` folder and process them into a
-    single tensor, normalize the tensor and save this intermediate representation to the `data/processed` folder. By
-    normalization here we refer to making sure the images have mean 0 and standard deviation 1.
+4. Start by filling out the `<project_name>/data/make_dataset.py` file. When this file runs, it should take the raw
+    data e.g. the corrupted MNIST files from yesterday which now should be located in a `data/raw` folder and process
+    them into a single tensor, normalize the tensor and save this intermediate representation to the `data/processed`
+    folder. By normalization here we refer to making sure the images have mean 0 and standard deviation 1.
 
 5. This template comes with a `Makefile` that can be used to easily define common operations in a project. You do not
     have to understand the complete file but try taking a look at it. In particular the following commands may come in
@@ -258,9 +268,9 @@ in this way paths (for saving and loading files) are always relative to the root
     more about how to write `Makefile`s then this is an excellent
     [video](https://youtu.be/F6DZdvbRZQQ?si=9qg-XUva-l-9Tl21).
 
-6. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py`
-    file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved
-    to the `models` folder (preferably in sub-folders).
+6. Put your model file (`model.py`) into `<project_name>/models` folder together and insert the relevant code from the
+    `main.py` file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it
+    gets saved to the `models` folder (preferably in sub-folders).
 
 7. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to
     the `reports/figures/` folder. This could be a simple `.png` of the training curve.
@@ -272,17 +282,18 @@ in this way paths (for saving and loading files) are always relative to the root
     make train
     ```
 
-9. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
-    creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
-    images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
+9. Fill out the newly created `<project_name>/models/predict_model.py` file, such that it takes a pre-trained model file
+    and creates prediction for some data. Recommended interface is that users can give this file either a folder with
+    raw images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
 
     ```bash
-    python src/models/predict_model.py \
+    python <project_name>/models/predict_model.py \
         models/my_trained_model.pt \  # file containing a pretrained model
         data/example_images.npy  # file containing just 10 images for prediction
     ```
 
-10. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
+10. Fill out the file `<project_name>/visualization/visualize.py` with this (as minimum, feel free to add more
+    visualizations)
     * Loads a pre-trained network
     * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
         features just before the final classification layer
