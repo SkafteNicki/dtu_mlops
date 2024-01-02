@@ -231,10 +231,10 @@ in this way paths (for saving and loading files) are always relative to the root
     pip install -e .
     ```
 
-4. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data files in
-    `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this
-    intermediate representation to the `data/processed` folder. By normalization here we refer to making sure the
-    images have mean 0 and standard deviation 1.
+4. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data e.g. the
+    corrupted MNIST files from yesterday which now should be located in a `data/raw` folder and process them into a
+    single tensor, normalize the tensor and save this intermediate representation to the `data/processed` folder. By
+    normalization here we refer to making sure the images have mean 0 and standard deviation 1.
 
 5. This template comes with a `Makefile` that can be used to easily define common operations in a project. You do not
     have to understand the complete file but try taking a look at it. In particular the following commands may come in
