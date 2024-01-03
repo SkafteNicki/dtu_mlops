@@ -20,7 +20,7 @@ def train(lr):
 
     # TODO: Implement training loop here
     model = MyAwesomeModel()
-    train_set, _ = mnist()
+    trainloader, _ = mnist()
 
 
 @click.command()
@@ -32,7 +32,7 @@ def evaluate(model_checkpoint):
 
     # TODO: Implement evaluation logic here
     model = torch.load(model_checkpoint)
-    _, test_set = mnist()
+    _, testloader = mnist()
 
 
 cli.add_command(train)
