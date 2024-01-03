@@ -1,6 +1,10 @@
 # Getting started - Setting up a development environment
-# This is another change (locally)
 
+# This is the final change
+
+
+# This is the final change 
+098e4bd8aca788fb15dc87cac86a2b1b33128ef1
 [Slides](../slides/DeepLearningSoftware.pdf){ .md-button }
 
 <p align="center">
