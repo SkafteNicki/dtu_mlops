@@ -119,7 +119,7 @@ production. However, it is important to have a basic understanding of the concep
 
         ```python
         a = torch.randn(N, d)
-        b = torch.randn(N, d)
+        b = torch.randn(M, d)
         dist = torch.sum((a.unsqueeze(1) - b.unsqueeze(0))**2, dim=2)  # shape [N, M]
         ```
 
