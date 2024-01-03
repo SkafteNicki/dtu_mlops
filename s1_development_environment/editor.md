@@ -85,7 +85,7 @@ following exercises are just to get you started but you can find many more tutor
     which indicates that you are using the stock python installation, instead of the one you have created using `conda`.
     Click it and change the python environment to the one you actually want to use.
 
-3. One of the most useful tools in VS Code is the ability to navigate a hole project using the built-in
+3. One of the most useful tools in VS Code is the ability to navigate a whole project using the built-in
     `Explorer`. To really take advantage of the VS code you need to make sure what you are working on is a project.
     Create a folder called `hello` (somewhere on your laptop) and open it in VS Code (Click `File` in the menu and then
     select `Open Folder`). You should end up with a completely clean workspace (as shown below). Click the `New file`
