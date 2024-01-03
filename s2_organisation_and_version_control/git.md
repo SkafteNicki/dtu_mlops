@@ -84,7 +84,7 @@ want to get these updates to be online in the *remote repository* we have to do 
     hash to the code yet, and we can therefore still overwrite it.
 
 * To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally
-    add a note to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
+    add a node to the graph. It is important again, that we have not pushed the commit to the online *repository* yet.
 
 * Finally, we want others to be able to use the changes that we made. We do a simple `git push` and our
     commit gets online
