@@ -148,14 +148,14 @@ command line.
         `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute` and `create-with-container`
         is a subcommand to `instances`
 
-2. Two common arguments that nearly all commands have are the `-`h` and `-v` options. What does each of them do?
+2. Two common arguments that nearly all commands have are the `-h` and `-V` options. What does each of them do?
 
     ??? success "Solution"
 
         The `-h` (or `--help`) option prints the help message for the command, including subcommands and arguments.
         Try it out by executing `python -h`.
         <br> <br>
-        The `-v` (or `--version`) option prints the version of the installed program.
+        The `-V` (or `--version`) option prints the version of the installed program.
         Try it out by executing `python --version`.
 
 This ends the module on the command line. If you are still not comfortable working with the command line, fear not as
