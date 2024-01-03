@@ -117,7 +117,7 @@ as debugging and version control which VS code can help with.
 ## A note on jupyter notebooks in production environments
 
 As already stated jupyter notebooks are great for development as they allow developers to easily test our new ideas.
-However, they often lead to pain points when models actually needs to be deployed. We highly recommend reading section
+However, they often lead to pain points when models actually need to be deployed. We highly recommend reading section
 5.1.1 of [this paper](https://arxiv.org/abs/2209.09125) by Shankar et al. that in more detail discuss the strong
 opinions to jupyter notebooks that exist within the developer community.
 
