@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+### Hej med dig jeg hedder Kaj
 
 
 class Network(nn.Module):
