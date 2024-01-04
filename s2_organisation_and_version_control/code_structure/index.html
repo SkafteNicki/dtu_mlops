@@ -610,6 +610,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1836,6 +1845,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2178,6 +2196,41 @@ want it to have.</p>
 </ol>
 </li>
 </ol>
+<h2 id="knowledge-check">🧠 Knowledge check</h2>
+<ol>
+<li>
+<p>Starting from complete scratch, what is the steps needed to create a new github repository and push a specific
+    template to it as the very first commit.</p>
+<details class="success">
+<summary>Solution</summary>
+<ol>
+<li>
+<p>Create a completly barebone repository, either using the GitHub UI or if you have the github cli installed
+    (not <code>git</code>) you can run</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public<span class="w"> </span>--confirm
+</span></code></pre></div>
+</li>
+<li>
+<p>Run <code>cookiecutter</code> with the template you want to use</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cookiecutter<span class="w"> </span>&lt;template&gt;
+</span></code></pre></div>
+<p>The name of the folder created by <code>cookiecutter</code> should be the same as <repo_name> you just used.</p>
+</li>
+<li>
+<p>Run the following sequence of commands</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;project_name&gt;
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>git<span class="w"> </span>init
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;repo_name&gt;
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</span></code></pre></div>
+</li>
+</ol>
+<p>Thats it. The template should now have been pushed to the repository as the first commit.</p>
+</details>
+</li>
+</ol>
 <p>That ends the module on code structure and <code>cookiecutter</code>. We again want to stress the point of using <code>cookiecutter</code>
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
@@ -2208,7 +2261,7 @@ ensure projects match the latest version of a template.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 2, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 4, 2024</span>
   </span>
 
     
