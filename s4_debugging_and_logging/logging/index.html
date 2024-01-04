@@ -1991,7 +1991,7 @@ If you need help for the exercises you can find a simple solution script
 <ol>
 <li>
 <p>As logging is a built-in module in Python, nothing needs to be installed. Instead start a new file called
-    <code>logging.py</code> and start out with the following code:</p>
+    <code>my_logger.py</code> and start out with the following code:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">logging</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span> <span class="nn">sys</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
@@ -2087,7 +2087,7 @@ logger.</p>
 <li>
 <p>Finally, lets try to add a little bit of style and color to our logging. For this we can use the great package
     <a href="https://github.com/Textualize/rich">rich</a> which is a great package for <em>rich</em> text and beautiful formatting in
-    terminals. Install <code>rich</code> and add the following line to your <code>logger.py</code>
+    terminals. Install <code>rich</code> and add the following line to your <code>my_logger.py</code>
     script:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RichHandler</span><span class="p">(</span><span class="n">markup</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># set rich handler</span>
 </span></code></pre></div>
@@ -2260,7 +2260,7 @@ the same overall functionalities as Wandb.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 4, 2024</span>
   </span>
 
     

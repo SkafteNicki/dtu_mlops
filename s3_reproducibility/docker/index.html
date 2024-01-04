@@ -2043,8 +2043,8 @@ machine looks like.</p>
 <li>
 <p>Lets copy over our application (the essential parts) from our computer to the container:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>requirements.txt
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">COPY</span><span class="w"> </span>setup.py<span class="w"> </span>setup.py
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">COPY</span><span class="w"> </span>src/<span class="w"> </span>src/
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>pyproject.toml
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">COPY</span><span class="w"> </span>&lt;project-name&gt;/<span class="w"> </span>&lt;project-name&gt;/
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">COPY</span><span class="w"> </span>data/<span class="w"> </span>data/
 </span></code></pre></div>
 <p>Remember that we only want the essential parts to keep our docker image as small as possible. Why do we need
@@ -2053,15 +2053,19 @@ each of these files/folders to run training in our docker container?</p>
 <li>
 <p>Lets set the working directory in our container and add commands that install the dependencies:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>--no-cache-dir
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--no-cache-dir<span class="w"> </span>#<span class="o">(</span><span class="m">1</span><span class="o">)</span>
 </span></code></pre></div>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
+    installs the dependencies. Just remember to also copy over the <code>Makefile</code> into the docker image.</li>
+</ol>
 <p>the <code>--no-cache-dir</code> is quite important. Can you explain what it does and why it is important in relation to
 docker.</p>
 </li>
 <li>
 <p>Finally, we are going to name our training script as the <em>entrypoint</em> for our docker image. The <em>entrypoint</em> is
     the application that we want to run when the image is being executed:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;src/models/train_model.py&quot;</span><span class="p">]</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;project_name&gt;/models/train_model.py&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>the <code>"u"</code> here makes sure that any output from our script e.g. any <code>print(...)</code> statements gets redirected to
 our terminal. If not included you would need to use <code>docker logs</code> to inspect your run.</p>
@@ -2136,10 +2140,10 @@ for help.</p>
 </li>
 <li>
 <p>With training done we also need to write an application for prediction. Create a new docker image called
-    <code>predict.dockerfile</code>. This file should call your <code>src/models/predict_model.py</code> script instead. This image will
-    need some trained model weights to work. Feel free to either includes these during the build process or mount them
-    afterwards. When you When you created the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if you
-    are passing in the model checkpoint and prediction data as arguments to your script, your <code>docker run</code> probably
+    <code>predict.dockerfile</code>. This file should call your <code>&lt;project_name&gt;/models/predict_model.py</code> script instead. This image
+    will need some trained model weights to work. Feel free to either includes these during the build process or mount
+    them afterwards. When you When you created the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
+    you are passing in the model checkpoint and prediction data as arguments to your script, your <code>docker run</code> probably
     need to look something like</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>predict<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/trained_model.pt:/models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount trained model file</span>
@@ -2293,7 +2297,7 @@ desktop that lets you explore in depth your docker images.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 1, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 4, 2024</span>
   </span>
 
     
