@@ -355,6 +355,42 @@ in this way paths (for saving and loading files) are always relative to the root
         cookiecutter https://github.com/<username>/<my_template_repo>
         ```
 
+## 🧠 Knowledge check
+
+1. Starting from complete scratch, what is the steps needed to create a new github repository and push a specific
+    template to it as the very first commit.
+
+    ??? success "Solution"
+
+        1. Create a completly barebone repository, either using the GitHub UI or if you have the github cli installed
+            (not `git`) you can run
+
+            ```bash
+            gh repo create <repo_name> --public --confirm
+            ```
+
+        2. Run `cookiecutter` with the template you want to use
+
+            ```bash
+            cookiecutter <template>
+            ```
+
+            The name of the folder created by `cookiecutter` should be the same as <repo_name> you just used.
+
+        3. Run the following sequence of commands
+
+            ```bash
+            cd <project_name>
+            git init
+            git add .
+            git commit -m "Initial commit"
+            git remote add origin https://github.com/<username>/<repo_name>
+            git push origin master
+            ```
+
+        Thats it. The template should now have been pushed to the repository as the first commit.
+
+
 That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
