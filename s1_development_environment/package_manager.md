@@ -43,6 +43,7 @@ the same environment, in this case the global environment. Instead if we did som
     source env/bin/activate  # activate that virtual environment
     pip install torch==2.0  # install new torch version into the virtual environment belonging to project B
     cd ../project_A  # move back to project A
+    source env/bin/activate  # activate the virtual environment belonging to project A
     python main.py  # succeed in executing main script from project A
     ```
 
