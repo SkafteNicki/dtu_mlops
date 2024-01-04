@@ -6,7 +6,7 @@
 ---
 
 With docker we can make sure that our compute environment is reproducible, but that does not mean that all our
-experiments magically becomes reproducible. There are other factors that are important for creating reproducible
+experiments magically become reproducible. There are other factors that are important for creating reproducible
 experiments.
 
 In [this paper](https://arxiv.org/abs/1909.06674) (highly recommended read) the authors tried to reproduce the results
@@ -110,7 +110,7 @@ look online for your answers before looking at the solution. Remember: its not a
 
 3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
     into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
-    completely reproducible (HINT: the weights of any neural network is initialized at random).
+    completely reproducible (HINT: the weights of any neural network are initialized at random).
 
 4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found
 
