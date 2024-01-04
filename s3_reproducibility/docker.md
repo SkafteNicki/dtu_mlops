@@ -192,8 +192,8 @@ beneficial for you to download.
 
         ```docker
         COPY requirements.txt requirements.txt
-        COPY setup.py setup.py
-        COPY src/ src/
+        COPY pyproject.toml pyproject.toml
+        COPY <project-name>/ <project-name>/
         COPY data/ data/
         ```
 
@@ -204,8 +204,11 @@ beneficial for you to download.
 
         ```docker
         WORKDIR /
-        RUN pip install -r requirements.txt --no-cache-dir
+        RUN pip install . --no-cache-dir #(1)
         ```
+
+        1. :man_raising_hand: As an alternative you can use `RUN make requirements` if you have a `Makefile` that
+            installs the dependencies. Just remember to also copy over the `Makefile` into the docker image.
 
         the `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to
         docker.
@@ -214,7 +217,7 @@ beneficial for you to download.
         the application that we want to run when the image is being executed:
 
         ```docker
-        ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
+        ENTRYPOINT ["python", "-u", "<project_name>/models/train_model.py"]
         ```
 
         the `"u"` here makes sure that any output from our script e.g. any `print(...)` statements gets redirected to
@@ -300,10 +303,10 @@ beneficial for you to download.
         for help.
 
 17. With training done we also need to write an application for prediction. Create a new docker image called
-    `predict.dockerfile`. This file should call your `src/models/predict_model.py` script instead. This image will
-    need some trained model weights to work. Feel free to either includes these during the build process or mount them
-    afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if you
-    are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably
+    `predict.dockerfile`. This file should call your `<project_name>/models/predict_model.py` script instead. This image
+    will need some trained model weights to work. Feel free to either includes these during the build process or mount
+    them afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if
+    you are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably
     need to look something like
 
     ```bash

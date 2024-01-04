@@ -101,7 +101,7 @@ If you need help for the exercises you can find a simple solution script
 [here](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files).
 
 1. As logging is a built-in module in Python, nothing needs to be installed. Instead start a new file called
-    `logging.py` and start out with the following code:
+    `my_logger.py` and start out with the following code:
 
     ```python
     import logging
@@ -192,7 +192,7 @@ If you need help for the exercises you can find a simple solution script
 
 3. Finally, lets try to add a little bit of style and color to our logging. For this we can use the great package
     [rich](https://github.com/Textualize/rich) which is a great package for *rich* text and beautiful formatting in
-    terminals. Install `rich` and add the following line to your `logger.py`
+    terminals. Install `rich` and add the following line to your `my_logger.py`
     script:
 
     ```python
