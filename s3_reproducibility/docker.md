@@ -53,7 +53,7 @@ your own container.
 The whole point of using docker is that sharing applications becomes much easier. In general, we have two options
 
 * After creating the `Dockerfile` we can simply commit it to github (its just a text file) and then ask other users
-    to simple build the image by themselves.
+    to simply build the image by themselves.
 
 * After building the image ourself, we can choose to upload it to a *image registry* such as
     [Docker Hub](https://hub.docker.com/) where other can get our image by simply running `docker pull`, making them
@@ -154,7 +154,7 @@ beneficial for you to download.
     this can be a great way to investigate what the filesystem of our virtual
     machine looks like.
 
-8. As you may have already notice by now, each time we execute `docker run` we
+8. As you may have already noticed by now, each time we execute `docker run` we
     can still see small remnants of the containers using `docker ps -a`. These
     stray containers can end up take a lot of disk space. To remove them, use
     `docker rm` where you provide the container id that you want to delete
