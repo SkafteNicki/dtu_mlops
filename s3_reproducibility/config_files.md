@@ -6,14 +6,14 @@
 ---
 
 With docker we can make sure that our compute environment is reproducible, but that does not mean that all our
-experiments magically becomes reproducible. There are other factors that are important for creating reproducible
+experiments magically become reproducible. There are other factors that are important for creating reproducible
 experiments.
 
 In [this paper](https://arxiv.org/abs/1909.06674) (highly recommended read) the authors tried to reproduce the results
 of 255 papers and tried to figure out which factors where significant to succeed. One of those factors were
 "Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameter that
 was used to run the experiments. It should come as no surprise that this can be a determining factor for
-reproducibility, however it is not given that hyperparameters is always well specified.
+reproducibility, however it is not given that hyperparameters are always well specified.
 
 ## Configure experiments
 
@@ -49,7 +49,7 @@ python train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
 This at least solves the problem with configurability. However, we again can end up with losing experiments if we are
 not careful.
 
-What we really want is some way to easy configure our experiments where the hyperparameters are systematically saved
+What we really want is some way to easily configure our experiments where the hyperparameters are systematically saved
 with the experiment. For this we turn our attention to [Hydra](https://hydra.cc/), a configuration tool that is based
 around writing config files to keep track of hyperparameters. Hydra operates on top of
 [OmegaConf](https://github.com/omry/omegaconf) which is a `yaml` based hierarchical configuration system.
@@ -100,9 +100,9 @@ everything gets correctly logged such that you would be able to exactly report t
 configured. In the provided script, the hyperparameters are hardcoded into the code and your job will be to separate
 them out into a configuration file.
 
-Note that we provide an solution (in the `vae_solution` folder) that can help you get through the exercise, but try to
+Note that we provide a solution (in the `vae_solution` folder) that can help you get through the exercise, but try to
 look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
-
+s
 1. Start by install hydra: `pip install hydra-core --upgrade`
 
 2. Next take a look at the `vae_mnist.py` and `model.py` file and understand what is going on. It is a model we will
@@ -110,7 +110,7 @@ look online for your answers before looking at the solution. Remember: its not a
 
 3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
     into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
-    completely reproducible (HINT: the weights of any neural network is initialized at random).
+    completely reproducible (HINT: the weights of any neural network are initialized at random).
 
 4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found
 

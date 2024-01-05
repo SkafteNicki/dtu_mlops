@@ -82,7 +82,7 @@ command line.
 3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
 
-4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also, ¨
+4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also, 
     familiarize yourself with the `>` operator. You are probably going to use some of them throughout the course or in
     your future career. For Windows users, these commands may be named something else, e.g. `where` command on Windows
     corresponds to `which`.

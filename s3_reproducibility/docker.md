@@ -53,7 +53,7 @@ your own container.
 The whole point of using docker is that sharing applications becomes much easier. In general, we have two options
 
 * After creating the `Dockerfile` we can simply commit it to github (its just a text file) and then ask other users
-    to simple build the image by themselves.
+    to simply build the image by themselves.
 
 * After building the image ourself, we can choose to upload it to a *image registry* such as
     [Docker Hub](https://hub.docker.com/) where other can get our image by simply running `docker pull`, making them
@@ -68,7 +68,7 @@ The whole point of using docker is that sharing applications becomes much easier
 
 In the following exercises we guide you how to build a docker file for your MNIST repository that will make the
 training and prediction a self contained application. Please make sure that you somewhat understand each step and do
-not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g.
+not just copy of the exercise. Also note that you probably need to execute the exercise from an elevated terminal e.g.
 with administrative privilege.
 
 The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
@@ -154,7 +154,7 @@ beneficial for you to download.
     this can be a great way to investigate what the filesystem of our virtual
     machine looks like.
 
-8. As you may have already notice by now, each time we execute `docker run` we
+8. As you may have already noticed by now, each time we execute `docker run` we
     can still see small remnants of the containers using `docker ps -a`. These
     stray containers can end up take a lot of disk space. To remove them, use
     `docker rm` where you provide the container id that you want to delete
@@ -249,7 +249,7 @@ beneficial for you to download.
 
     please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is
     important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and
-    the `-t trainer:latest` is the respective name and tag that we se afterwards when running `docker images` (see image
+    the `-t trainer:latest` is the respective name and tag that we see afterwards when running `docker images` (see image
     below). Please note that building a docker image can take a couple of minutes.
 
     <figure markdown>
@@ -311,7 +311,7 @@ beneficial for you to download.
 17. With training done we also need to write an application for prediction. Create a new docker image called
     `predict.dockerfile`. This file should call your `<project_name>/models/predict_model.py` script instead. This image
     will need some trained model weights to work. Feel free to either includes these during the build process or mount
-    them afterwards. When you When you created the file try to `build` and `run` it to confirm that it works. Hint: if
+    them afterwards. When you created the file try to `build` and `run` it to confirm that it works. Hint: if
     you are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably
     need to look something like
 

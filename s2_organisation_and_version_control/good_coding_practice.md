@@ -183,7 +183,7 @@ def add2(x: int, y: int) -> int:
 ```
 
 here we mark that both `x` and `y` are integers and using the arrow notation `->` we mark that the output type is also
-a integer. Assuming that we are also going to use the function for floats and `torch.Tensor`s we could improve the
+an integer. Assuming that we are also going to use the function for floats and `torch.Tensor`s we could improve the
 typing by specifying a *union* of types. Depending on the version of python you are using the syntax for this can be
 different.
 

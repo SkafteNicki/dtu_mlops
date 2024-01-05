@@ -30,7 +30,7 @@ of making sure that machine learning is **trustworthy**.
 <figcaption>
 Many different aspects are needed if trustworthy machine learning is ever going to be a reality. We need robustness of
 our pipelines so we can trust that they do not fail under heavy load. We need integrity to make sure that pipelines are
-deployed if they are of high quality. We explainability to make sure that we understand what our machine learning models
+deployed if they are of high quality. We need explainability to make sure that we understand what our machine learning models
 are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can be
 reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
 populations. Figure inspired by this<a href="https://arxiv.org/abs/2209.06529"> paper</a>.
