@@ -1,6 +1,6 @@
 # Reproducibility
 
-[Slides](../slides/Reproducibility.pdf){ .md-button }
+[Slides](../slides/ReproducibilityAndSoftware.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/docker.png" width="130">
