@@ -1,6 +1,6 @@
 # Debugging, Profiling, Logging and Boilerplate
 
-[Slides](../slides/Debugging%20ML%20Code.pdf){ .md-button }
+[Slides](../slides/DebuggingML.pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/debugger.png" width="130">

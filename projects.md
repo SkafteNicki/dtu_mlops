@@ -18,7 +18,7 @@ some examples
 
 2. [Translating from English to German](https://github.com/MikkelGodsk/dtu_mlops_exam_project)
 
-3. [Classification of scientific](https://github.com/eyhl/group5-pyg-dtu-mlops)
+3. [Classification of scientific papers](https://github.com/eyhl/group5-pyg-dtu-mlops)
 
 4. [Classification of rice types from images](https://github.com/Snirpurin/MLOPS_group3)
 

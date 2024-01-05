@@ -41,7 +41,7 @@ We won't go into a longer discussion on what framework is the best, as it is poi
 have been around for the longest and therefore have bigger communities and feature sets at this point in time.
 They both very similar in the sense that they both have features directed against research and production.
 JAX is kind of the new kid on the block, that in many ways improve on Pytorch and Tensorflow, but is still
-not as mature as the other frameworks. As the frameworks uses different kind programming principles
+not as mature as the other frameworks. As the frameworks use different kind programming principles
 (object oriented vs. functional programming), comparing them is essentially meaningless.
 
 In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the

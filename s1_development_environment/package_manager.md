@@ -15,7 +15,7 @@ we need a way to install third-party packages and this is where
 You have probably already used `pip` for the longest time, which is the default package manager for python. `pip` is
 great for beginners but it is missing one essential feature that you will need as a developer or data scientist:
 *virtual environments*. Virtual environments are an essential way to make sure that the dependencies of different
-projects does not cross-contaminate each other. As an naive example, consider project A that requires `torch==1.3.0` and
+projects do not cross-contaminate each other. As an naive example, consider project A that requires `torch==1.3.0` and
 project B that requires `torch==2.0`, then doing
 
 ```bash
@@ -43,6 +43,7 @@ the same environment, in this case the global environment. Instead if we did som
     source env/bin/activate  # activate that virtual environment
     pip install torch==2.0  # install new torch version into the virtual environment belonging to project B
     cd ../project_A  # move back to project A
+    source env/bin/activate  # activate the virtual environment belonging to project A
     python main.py  # succeed in executing main script from project A
     ```
 
@@ -164,7 +165,7 @@ in the exercise folder.
     system variable to
     [point to the conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
 
-2. If you have successfully install conda, then you should be able to execute the `conda` command in a terminal.
+2. If you have successfully installed conda, then you should be able to execute the `conda` command in a terminal.
 
     <figure markdown>
     ![Image](../figures/conda_activate.PNG){ width="700" }
