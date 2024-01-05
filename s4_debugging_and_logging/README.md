@@ -16,7 +16,7 @@ scientist or DevOps engineer:
 * Profiling
 * Logging
 
-All three topics can be characterized by something you probably already is familiar with. Since you started programming,
+All three topics can be characterized by something you probably already are familiar with. Since you started programming,
 you have done debugging as nobody can write perfect code in the first try. Similarly, while you have not directly
 profiled your code, I bet that you at some point have had some very slow code and optimized it to run faster.
 Identifying and improving is the fundamentals of profiling code. Finally, logging is a very broad term and basically
