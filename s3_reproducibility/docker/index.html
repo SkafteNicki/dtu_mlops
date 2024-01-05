@@ -1924,7 +1924,7 @@ your own container.</p>
 <ul>
 <li>
 <p>After creating the <code>Dockerfile</code> we can simply commit it to github (its just a text file) and then ask other users
-    to simple build the image by themselves.</p>
+    to simply build the image by themselves.</p>
 </li>
 <li>
 <p>After building the image ourself, we can choose to upload it to a <em>image registry</em> such as
@@ -1939,7 +1939,7 @@ your own container.</p>
 <h2 id="exercises">❔ Exercises</h2>
 <p>In the following exercises we guide you how to build a docker file for your MNIST repository that will make the
 training and prediction a self contained application. Please make sure that you somewhat understand each step and do
-not just copy of the exercise. Also note that you probably need to execute the exercise from a elevated terminal e.g.
+not just copy of the exercise. Also note that you probably need to execute the exercise from an elevated terminal e.g.
 with administrative privilege.</p>
 <p>The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
 production setting view. For example we often want to keep the size of docker image as small as possible, which we are
@@ -2008,7 +2008,7 @@ start a virtual machine, execute a command and kill it afterwards.</p>
 machine looks like.</p>
 </li>
 <li>
-<p>As you may have already notice by now, each time we execute <code>docker run</code> we
+<p>As you may have already noticed by now, each time we execute <code>docker run</code> we
     can still see small remnants of the containers using <code>docker ps -a</code>. These
     stray containers can end up take a lot of disk space. To remove them, use
     <code>docker rm</code> where you provide the container id that you want to delete</p>
@@ -2093,7 +2093,7 @@ done by adding the following to your <code>FROM</code> statement:</p>
 </details>
 <p>please note here we are providing two extra arguments to <code>docker build</code>. The <code>-f train.dockerfile .</code> (the dot is
 important to remember) indicates which dockerfile that we want to run (except if you named it just <code>Dockerfile</code>) and
-the <code>-t trainer:latest</code> is the respective name and tag that we se afterwards when running <code>docker images</code> (see image
+the <code>-t trainer:latest</code> is the respective name and tag that we see afterwards when running <code>docker images</code> (see image
 below). Please note that building a docker image can take a couple of minutes.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/docker_output.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_output.PNG" width="800" /></a>
@@ -2148,7 +2148,7 @@ for help.</p>
 <p>With training done we also need to write an application for prediction. Create a new docker image called
     <code>predict.dockerfile</code>. This file should call your <code>&lt;project_name&gt;/models/predict_model.py</code> script instead. This image
     will need some trained model weights to work. Feel free to either includes these during the build process or mount
-    them afterwards. When you When you created the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
+    them afterwards. When you created the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
     you are passing in the model checkpoint and prediction data as arguments to your script, your <code>docker run</code> probably
     need to look something like</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>predict<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>

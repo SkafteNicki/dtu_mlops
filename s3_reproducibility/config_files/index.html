@@ -1870,13 +1870,13 @@
 <h1 id="config-files">Config files</h1>
 <hr />
 <p>With docker we can make sure that our compute environment is reproducible, but that does not mean that all our
-experiments magically becomes reproducible. There are other factors that are important for creating reproducible
+experiments magically become reproducible. There are other factors that are important for creating reproducible
 experiments.</p>
 <p>In <a href="https://arxiv.org/abs/1909.06674">this paper</a> (highly recommended read) the authors tried to reproduce the results
 of 255 papers and tried to figure out which factors where significant to succeed. One of those factors were
 "Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameter that
 was used to run the experiments. It should come as no surprise that this can be a determining factor for
-reproducibility, however it is not given that hyperparameters is always well specified.</p>
+reproducibility, however it is not given that hyperparameters are always well specified.</p>
 <h2 id="configure-experiments">Configure experiments</h2>
 <p>There is really no way around it: deep learning contains <em>a lot</em> of hyperparameters. In general, a <em>hyperparameter</em> is
 any parameter that affects the learning process (e.g. the weights of a neural network are not hyperparameters because
@@ -1902,7 +1902,7 @@ an <a href="https://docs.python.org/3/library/argparse.html">argument parser</a>
 </span></code></pre></div>
 <p>This at least solves the problem with configurability. However, we again can end up with losing experiments if we are
 not careful.</p>
-<p>What we really want is some way to easy configure our experiments where the hyperparameters are systematically saved
+<p>What we really want is some way to easily configure our experiments where the hyperparameters are systematically saved
 with the experiment. For this we turn our attention to <a href="https://hydra.cc/">Hydra</a>, a configuration tool that is based
 around writing config files to keep track of hyperparameters. Hydra operates on top of
 <a href="https://github.com/omry/omegaconf">OmegaConf</a> which is a <code>yaml</code> based hierarchical configuration system.</p>
@@ -1939,12 +1939,11 @@ the model. In this way it is easier to do version control of the configuration b
 everything gets correctly logged such that you would be able to exactly report to others how each experiment was
 configured. In the provided script, the hyperparameters are hardcoded into the code and your job will be to separate
 them out into a configuration file.</p>
-<p>Note that we provide an solution (in the <code>vae_solution</code> folder) that can help you get through the exercise, but try to
-look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.</p>
+<p>Note that we provide a solution (in the <code>vae_solution</code> folder) that can help you get through the exercise, but try to
+look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
+s
+1. Start by install hydra: <code>pip install hydra-core --upgrade</code></p>
 <ol>
-<li>
-<p>Start by install hydra: <code>pip install hydra-core --upgrade</code></p>
-</li>
 <li>
 <p>Next take a look at the <code>vae_mnist.py</code> and <code>model.py</code> file and understand what is going on. It is a model we will
     revisit during the course.</p>
@@ -1952,7 +1951,7 @@ look online for your answers before looking at the solution. Remember: its not a
 <li>
 <p>Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
     into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
-    completely reproducible (HINT: the weights of any neural network is initialized at random).</p>
+    completely reproducible (HINT: the weights of any neural network are initialized at random).</p>
 </li>
 <li>
 <p>Write a configuration file <code>config.yaml</code> where you write down the hyperparameters that you have found</p>
@@ -2067,7 +2066,7 @@ that we may try.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2024</span>
   </span>
 
     

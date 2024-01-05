@@ -1924,7 +1924,7 @@ code easier for you to maintain but also for others to read and understand.</p>
 is to pick the parts from the template that is useful for organizing your machine learning project and add the parts
 that are missing.</p>
 <h2 id="python-projects">Python projects</h2>
-<p>While the same template in principal could be used regardless of what language we where using for our machine learning
+<p>While the same template in principal could be used regardless of what language we were using for our machine learning
 or data science application, there are certain considerations to take into account based on what language we are using.
 Python is the dominant language for machine learning and data science currently, which is why we in this section is
 focusing on some of the special files you will need for your Python projects.</p>
@@ -1965,7 +1965,7 @@ read. At the very least your <code>pyproject.toml</code> file should include the
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">[tool.setuptools.dynamic]</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;requirements.txt&quot;</span><span class="p">]}</span>
 </span></code></pre></div>
-<p>the <code>[build-section]</code> informs <code>pip</code>/<code>python</code> that to build this Python project it needs the two packages
+<p>the <code>[build-system]</code> informs <code>pip</code>/<code>python</code> that to build this Python project it needs the two packages
 <code>setuptools</code> and <code>wheels</code> and that it should call the
 <a href="https://setuptools.pypa.io/en/latest/build_meta.html">setuptools.build_meta</a> function to actually build the
 project. The <code>[project]</code> section essentially contains metadata regarding the package, what its called etc. if we
@@ -1987,7 +1987,7 @@ headers:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[ruff]</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">ruff_option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">...</span>
 </span></code></pre></div>
-<p>To read more about how specify <code>pyproject.toml</code> this
+<p>To read more about how to specify <code>pyproject.toml</code> this
 <a href="https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata">page</a>
 is a good place to start.</p>
 </div>
@@ -2088,7 +2088,7 @@ course is using the flat-layout, but there are
     handy</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>make<span class="w"> </span>data<span class="w">  </span><span class="c1"># runs the make_dataset.py file, try it!</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>make<span class="w"> </span>clean<span class="w">  </span><span class="c1"># clean __pycache__ files</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>make<span class="w"> </span>requirements<span class="w">  </span><span class="c1"># install everything in the requirements.py file</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>make<span class="w"> </span>requirements<span class="w">  </span><span class="c1"># install everything in the requirements.txt file</span>
 </span></code></pre></div>
 <details class="note">
 <summary>Windows users</summary>
@@ -2261,7 +2261,7 @@ ensure projects match the latest version of a template.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 4, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2024</span>
   </span>
 
     
