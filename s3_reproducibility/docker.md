@@ -200,15 +200,21 @@ beneficial for you to download.
         Remember that we only want the essential parts to keep our docker image as small as possible. Why do we need
         each of these files/folders to run training in our docker container?
 
-    2. Lets set the working directory in our container and add commands that install the dependencies:
+    2. Lets set the working directory in our container and add commands that install the dependencies (1):
+        { .annotate }
 
-        ```docker
-        WORKDIR /
-        RUN pip install . --no-cache-dir #(1)
-        ```
+        1. :man_raising_hand: We split the the installation into two steps, such that docker can cache our project
+            dependencies separately from our application code. This means that if we change our application code, we do
+            not need to reinstall all the dependencies. This is a common strategy for docker images.
 
-        1. :man_raising_hand: As an alternative you can use `RUN make requirements` if you have a `Makefile` that
+            :man_raising_hand: As an alternative you can use `RUN make requirements` if you have a `Makefile` that
             installs the dependencies. Just remember to also copy over the `Makefile` into the docker image.
+
+        ```dockerfile
+        WORKDIR /
+        RUN pip install -r requirements.txt --no-cache-dir
+        RUN pip install . --no-deps --no-cache-dir
+        ```
 
         the `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to
         docker.
@@ -217,7 +223,7 @@ beneficial for you to download.
         the application that we want to run when the image is being executed:
 
         ```docker
-        ENTRYPOINT ["python", "-u", "<project_name>/models/train_model.py"]
+        ENTRYPOINT ["python", "-u", "<project_name>/train_model.py"]
         ```
 
         the `"u"` here makes sure that any output from our script e.g. any `print(...)` statements gets redirected to
