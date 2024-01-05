@@ -96,7 +96,7 @@ nav:
     - M12 - Profiling: s4_debugging_and_logging/profiling.md
     - M13 - Logging: s4_debugging_and_logging/logging.md
     - M14 - Boilerplate: s4_debugging_and_logging/boilerplate.md
-  - S5 - Continues Integration ✔️:
+  - S5 - Continuous Integration ✔️:
     - s5_continuous_integration/README.md
     - M15 - Unittesting: s5_continuous_integration/unittesting.md
     - M16 - Github Actions: s5_continuous_integration/github_actions.md
