@@ -1,10 +1,5 @@
 # Getting started - Setting up a development environment
 
-# This is the final change
-
-
-# This is the final change 
-098e4bd8aca788fb15dc87cac86a2b1b33128ef1
 [Slides](../slides/DeepLearningSoftware.pdf){ .md-button }
 
 <p align="center">
@@ -13,8 +8,6 @@
 <img src="../figures/icons/vscode.png" width="130">
 <img src="../figures/icons/pytorch.png" width="130">
 </p>
-
-
 
 Today we start our journey into the world of machine learning operations (MLOps). However, before we can really get
 started, we need to make sure that you have a basic understanding of a couple of topics, as we will be using these
