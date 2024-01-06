@@ -41,7 +41,7 @@ We won't go into a longer discussion on what framework is the best, as it is poi
 have been around for the longest and therefore have bigger communities and feature sets at this point in time.
 They both very similar in the sense that they both have features directed against research and production.
 JAX is kind of the new kid on the block, that in many ways improve on Pytorch and Tensorflow, but is still
-not as mature as the other frameworks. As the frameworks uses different kind programming principles
+not as mature as the other frameworks. As the frameworks use different kind programming principles
 (object oriented vs. functional programming), comparing them is essentially meaningless.
 
 In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the
@@ -194,7 +194,7 @@ in the future as you start to add more and more features. As subgoals, please fu
 To start you off, a very basic version of each script is provided in the `final_exercise` folder. We have already
 implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
 interested in how this is done you can checkout this optional module on defining
-[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide an `requirements.py` with
+[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide an `requirements.txt` with
 suggestion to what packages are necessary to complete the exercise.
 
 As documentation that your model is actually working, when running in the `train` command the script needs to

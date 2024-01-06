@@ -29,7 +29,7 @@ that not all students have gained knowledge about deep learning models before th
 basics of how to code in PyTorch in one of the
 [first modules](s1_development_environment/deep_learning_software.md) of the course to get everyone up to speed.
 
-## I be missing X days of the course, will that be a problem ❔
+## I will be missing X days of the course, will that be a problem ❔
 
 Depends. The course is fairly intensive, with most students working from 9-17 every day. If you already know that you
 will be missing X days of the course, then I highly recommend that you go through some of the first sessions before

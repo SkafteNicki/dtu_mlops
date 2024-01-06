@@ -12,8 +12,8 @@ from torchvision.utils import save_image
 
 # Model Hyperparameters
 dataset_path = "datasets"
-cuda = torch.cuda.is_available()
-DEVICE = torch.device("cuda" if cuda else "cpu")
+device_name = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
+DEVICE = torch.device(device_name)
 batch_size = 100
 x_dim = 784
 hidden_dim = 400
