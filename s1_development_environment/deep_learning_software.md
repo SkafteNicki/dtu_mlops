@@ -49,7 +49,6 @@ framework that we use for our day to day research life. Additionally, as of righ
 the [dominating framework](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/) for published
 models, research papers and [competition winners](https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w)
 
-\
 The intention behind this set of exercises is to bring everyone's Pytorch skills up-to-date. If you already
 are a Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
 The exercises are in large part taken directly from the
@@ -119,7 +118,7 @@ production. However, it is important to have a basic understanding of the concep
 
         ```python
         a = torch.randn(N, d)
-        b = torch.randn(N, d)
+        b = torch.randn(M, d)
         dist = torch.sum((a.unsqueeze(1) - b.unsqueeze(0))**2, dim=2)  # shape [N, M]
         ```
 
@@ -194,7 +193,7 @@ in the future as you start to add more and more features. As subgoals, please fu
 To start you off, a very basic version of each script is provided in the `final_exercise` folder. We have already
 implemented some logic, especially to make sure you can easily run different subcommands in for step 4. If you are
 interested in how this is done you can checkout this optional module on defining
-[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide an `requirements.py` with
+[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide an `requirements.txt` with
 suggestion to what packages are necessary to complete the exercise.
 
 As documentation that your model is actually working, when running in the `train` command the script needs to
