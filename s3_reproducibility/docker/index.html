@@ -2106,11 +2106,30 @@ below). Please note that building a docker image can take a couple of minutes.</
 </span></code></pre></div>
 <p>you should hopefully see your training starting. Please note that we can start as many containers that we want at
 the same time by giving them all different names using the <code>--name</code> tag.</p>
+<ol>
+<li>
+<p>If you already have a completed run then you can use</p>
+<p>If you've fucked up building your docker image, you of course have to build it again after changing your dockerfile.
+Therefore, instead of watching pip suffer through downloading torch the 20th time, you can reuse the cache from last
+time the docker image was built. To do this, replace the line in your dockerfile that installs your requirements with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>RUN<span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>cache,target<span class="o">=</span>~/pip/.cache<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>--no-cache-dir
+</span></code></pre></div>
+<p>And then preface your next build command with</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>build<span class="w"> </span>...
+</span></code></pre></div>
+<p>Linux users can simply run</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span>
+</span></code></pre></div>
+<p>This way, as long as you don't make any changes to the requirements file, it should vastly cut down on the time required
+to build your images again.</p>
+</li>
+</ol>
 </li>
 <li>
 <p>Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start
     the image in interactive mode:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span><span class="o">{</span>image_name<span class="o">}</span>:<span class="o">{</span>image_name<span class="o">}</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span><span class="o">{</span>image_name<span class="o">}</span>:<span class="o">{</span>image_name<span class="o">}</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -2120,11 +2139,11 @@ the same time by giving them all different names using the <code>--name</code> t
 <ol>
 <li>
 <p>If you already have a completed run then you can use</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>cp
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>cp
 </span></code></pre></div>
 <p>to copy the files between your container and laptop. For example to copy a file called <code>trained_model.pt</code> from a
 folder you would do:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docker<span class="w"> </span>cp<span class="w"> </span><span class="o">{</span>container_name<span class="o">}</span>:<span class="o">{</span>dir_path<span class="o">}</span>/<span class="o">{</span>file_name<span class="o">}</span><span class="w"> </span><span class="o">{</span>local_dir_path<span class="o">}</span>/<span class="o">{</span>local_file_name<span class="o">}</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>docker<span class="w"> </span>cp<span class="w"> </span><span class="o">{</span>container_name<span class="o">}</span>:<span class="o">{</span>dir_path<span class="o">}</span>/<span class="o">{</span>file_name<span class="o">}</span><span class="w"> </span><span class="o">{</span>local_dir_path<span class="o">}</span>/<span class="o">{</span>local_file_name<span class="o">}</span>
 </span></code></pre></div>
 <p>Try this out.</p>
 </li>
@@ -2133,7 +2152,7 @@ folder you would do:</p>
     container. This can be done with the <code>-v</code> option for the <code>docker run</code> command. For example, if we want to
     automatically get the <code>trained_model.pt</code> file after running our training script we could simply execute the
     container as</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span><span class="o">{</span>container_name<span class="o">}</span><span class="w"> </span>-v<span class="w"> </span>%cd%/models:/models/<span class="w"> </span>trainer:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span><span class="o">{</span>container_name<span class="o">}</span><span class="w"> </span>-v<span class="w"> </span>%cd%/models:/models/<span class="w"> </span>trainer:latest
 </span></code></pre></div>
 <p>this command mounts our local <code>models</code> folder as a corresponding <code>models</code> folder in the container. Any file save
 by the container to this folder will be synchronized back to our host machine. Try this out! Note if you have
@@ -2151,12 +2170,12 @@ for help.</p>
     them afterwards. When you created the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
     you are passing in the model checkpoint and prediction data as arguments to your script, your <code>docker run</code> probably
     need to look something like</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>predict<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/trained_model.pt:/models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount trained model file</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/data/example_images.npy:/example_images.npy<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount data we want to predict on</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span>predict:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">    </span>../../models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># argument to script, path relative to script location in container</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">    </span>../../example_images.npy
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>predict<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/trained_model.pt:/models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount trained model file</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/data/example_images.npy:/example_images.npy<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount data we want to predict on</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span>predict:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span>../../models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># argument to script, path relative to script location in container</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span>../../example_images.npy
 </span></code></pre></div>
 </li>
 <li>
@@ -2177,12 +2196,12 @@ for help.</p>
 <li>
 <p>To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
     the correct image:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04
 </span></code></pre></div>
 <p>but it may differ based on what cuda vision you have. You can find all the different official Nvidia images
 <a href="https://hub.docker.com/r/nvidia/cuda">here</a>. After pulling the image, try running the <code>nvidia-smi</code> command
 inside a container based on the image you just pulled. It should look something like this:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04<span class="w"> </span>nvidia-smi
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04<span class="w"> </span>nvidia-smi
 </span></code></pre></div>
 <p>and should show an image like below:</p>
 <p><figure markdown>
@@ -2197,7 +2216,7 @@ inside a container based on the image you just pulled. It should look something 
     through their <a href="https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc">NGC Catalog</a>.
     The containers that have to do with Pytorch can be seen
     <a href="https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html">here</a>. Try pulling the latest:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
 </span></code></pre></div>
 <p>It may take some time, because the NGC images includes a lot of other software for optimizing Pytorch
 applications. It may be possible for you to find other images for running GPU accelerated applications that have
@@ -2205,22 +2224,22 @@ a smaller memory footprint, but NGC are the recommend and supported way.</p>
 </li>
 <li>
 <p>Lets test that this container work:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
 </span></code></pre></div>
 <p>this should run the container in interactive mode attached to your current terminal. Try opening <code>python</code> in
 the container and try writing:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">import</span> <span class="nn">torch</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span>
 </span></code></pre></div>
 <p>which hopefully should return <code>True</code>.</p>
 </li>
 <li>
 <p>Finally, we need to incorporate all this into our already developed docker files for our application. This is
     also fairly easy as we just need to change our <code>FROM</code> statement in the beginning of our docker file:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.7-slim</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.7-slim</span>
 </span></code></pre></div>
 <p>change to</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">FROM</span><span class="w">  </span><span class="s">nvcr.io/nvidia/pytorch:22.07-py3</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">FROM</span><span class="w">  </span><span class="s">nvcr.io/nvidia/pytorch:22.07-py3</span>
 </span></code></pre></div>
 <p>try doing this to one of your docker files, build the image and run the container. Remember to check that your
 application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
@@ -2247,20 +2266,20 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 <li>
 <p>Create a <code>.devcontainer</code> folder in your project root and create a <code>Dockerfile</code> inside it. We keep this file very
     barebone for now, so lets just define a base installation of python:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim-buster</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim-buster</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
 </span></code></pre></div>
 </li>
 <li>
 <p>Create a <code>devcontainer.json</code> file in the <code>.devcontainer</code> folder. This file should look something like this:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="p">{</span>
-</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_working_env&quot;</span><span class="p">,</span>
-</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dockerfile&quot;</span><span class="p">,</span>
-</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pip install -r requirements.txt&quot;</span>
-</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="p">{</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_working_env&quot;</span><span class="p">,</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dockerfile&quot;</span><span class="p">,</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pip install -r requirements.txt&quot;</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>this file tells VS code that we want to use the <code>Dockerfile</code> that we just created and that we want to install
 our python dependencies after the container has been created.</p>
