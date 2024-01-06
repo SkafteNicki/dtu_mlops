@@ -1,6 +1,3 @@
-# SOME CHANGES MADE FROM GITHUB UI
-
-
 import matplotlib.pyplot as plt
 import numpy as np
 
