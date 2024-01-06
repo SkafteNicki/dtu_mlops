@@ -241,7 +241,7 @@ in this way paths (for saving and loading files) are always relative to the root
     ```
 
 4. Start by filling out the `<project_name>/data/make_dataset.py` file. When this file runs, it should take the raw
-    data e.g. the corrupted MNIST files from yesterday which now should be located in a `data/raw` folder and process
+    data e.g. the corrupted MNIST files from yesterday (`../data/corruptmnist`) which now should be located in a `data/raw` folder and process
     them into a single tensor, normalize the tensor and save this intermediate representation to the `data/processed`
     folder. By normalization here we refer to making sure the images have mean 0 and standard deviation 1.
 
