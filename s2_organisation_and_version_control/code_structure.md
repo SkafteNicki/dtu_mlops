@@ -222,7 +222,19 @@ in this way paths (for saving and loading files) are always relative to the root
     1. If you feel like the template can be improve in some way, feel free to either open a issue with the proposed
         improvement or directly send a pull request to the repository 😄.
 
-    You do this by running the cookiecutter command using the template url.
+    You do this by running the cookiecutter command using the template url:
+
+    ```bash
+    cookiecutter <url-to-template>
+    ```
+
+    !!! note "Valid project names"
+
+        When asked for a project name you should follow the
+        [PEP8](https://peps.python.org/pep-0008/#package-and-module-names) guidelines for naming packages. This means
+        that the name should be all lowercase and if you want to separate words, you should use underscores. For example
+        `my_project` is a valid name, while `MyProject` is not. Additionally, the packaage name cannot start with a
+        number.
 
     ??? note "Flat-layout vs src-layout"
 
