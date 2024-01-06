@@ -6,6 +6,7 @@ Approximately 1/3 of the course time is dedicated to doing project work. The pro
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
 project. The overall goals with the project is:
 
+* Being able to work in a group on a larger project
 * To formulate a project within the provided guidelines
 * Apply the material though in the course to the problem
 * Present your findings
@@ -21,6 +22,11 @@ some examples
 3. [Classification of scientific papers](https://github.com/eyhl/group5-pyg-dtu-mlops)
 
 4. [Classification of rice types from images](https://github.com/Snirpurin/MLOPS_group3)
+
+We hope most students will be able to form groups by themselves. Expected group size is between 3 and 5. If you are not
+able to form a group, please make sure to post in the `#looking-for-group` channel on Slack or make sure to be present
+on the 4th day of the course (the day before the project work starts) where we will help students that have not found a
+group yet.
 
 ## Open-source tools
 

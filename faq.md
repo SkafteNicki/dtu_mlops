@@ -36,6 +36,12 @@ will be missing X days of the course, then I highly recommend that you go throug
 the course starts to give yourself a bit of breathing room. If you are not able to do so, please be aware that an
 additional effort may be needed from you to keep up with your fellow students.
 
+## How many should we be in a group for the projects ❔
+
+Between 3 and 5. The projects are designed to be done in groups meaning that we intentionally make them too big for
+one person to do alone. Luckily, a lot of the work that you need to do can be done in parallel, so it is not as bad
+as it sounds.
+
 ## When will the exam take place ❔
 
 The oral part of the exam, which is a small project demo, always falls on the last day of the course. For January 2024,
