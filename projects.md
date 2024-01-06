@@ -6,6 +6,7 @@ Approximately 1/3 of the course time is dedicated to doing project work. The pro
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
 project. The overall goals with the project is:
 
+* Being able to work in a group on a larger project
 * To formulate a project within the provided guidelines
 * Apply the material though in the course to the problem
 * Present your findings
@@ -22,6 +23,11 @@ some examples
 
 4. [Classification of rice types from images](https://github.com/Snirpurin/MLOPS_group3)
 
+We hope most students will be able to form groups by themselves. Expected group size is between 3 and 5. If you are not
+able to form a group, please make sure to post in the `#looking-for-group` channel on Slack or make sure to be present
+on the 4th day of the course (the day before the project work starts) where we will help students that have not found a
+group yet.
+
 ## Open-source tools
 
 We strive to keep the tools thought in this course as open-source as possible. The great thing about the open-source
@@ -33,28 +39,28 @@ If you have no idea what framework to include, the [Pytorch ecosystem](https://p
 for finding open-source frameworks that can help you accelerate your own projects where Pytorch is the backengine. All
 tools in the ecosystem should work greatly together with Pytorch. However, it is important to note that the ecosystem is
 not a complete list of all the awesome packages that exist to extend the functionality of Pytorch. If you are still
-missing inspiration for frameworks to use, we highly recommend these three that has been used in previous years of the
+missing inspiration for frameworks to use, we highly recommend these three that have been used in previous years of the
 course:
 
 * [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models). PyTorch Image Models (also known as TIMM)
-  is the absolutely most used computer vision package (maybe except for `torchvision`). It contains models, scripts and
-  pre trained for a lot of state-of-the-art image models within computer vision.
+    is the absolutely most used computer vision package (maybe except for `torchvision`). It contains models, scripts and
+    pre trained for a lot of state-of-the-art image models within computer vision.
 
 * [Transformers](https://github.com/huggingface/transformers). The Transformers repository from the Huggingface group
-  focuses on state-of-the-art Natural Language Processing (NLP). It provides many pre-trained model to perform tasks on
-  texts such as classification, information extraction, question answering, summarization, translation, text generation,
-  etc in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.
+    focuses on state-of-the-art Natural Language Processing (NLP). It provides many pre-trained model to perform tasks on
+    texts such as classification, information extraction, question answering, summarization, translation, text generation,
+    etc in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.
 
 * [Pytorch-Geometric](https://github.com/rusty1s/pytorch_geometric). PyTorch Geometric (PyG) is a geometric deep
-  learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
-  geometric deep learning, from a variety of published papers.
+    learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
+    geometric deep learning, from a variety of published papers.
 
 ## Project days
 
 Each project day is fully dedicated to project work, except for maybe external inspirational lectures in the morning.
 The group decides exactly where they want to work on the project, how they want to work on the project, how do
 distribute the workload etc. We actually encourage strongly to parallelize work during the project, because there are a
-lot of tasks to do, but it it is important that all group members at least have some understanding of the hole project.
+lot of tasks to do, but it it is important that all group members at least have some understanding of the whole project.
 
 Remember that the focus of the project work is not to demonstrate that you can work with the biggest and baddest deep
 learning model, but instead that you show that you can incorporate the tools that are taught throughout the course in a
@@ -69,8 +75,8 @@ smaller project and then add complexity along the way if you have time.
 The first project days is all about getting started on the projects and formulating exactly what you want to work on
 as a group.
 
-1. Start by brainstorm projects! Try to figure out exactly what you want to work with and begin to investigate what
-    what third party package that can support the project.
+1. Start by brainstorming projects! Try to figure out exactly what you want to work with and begin to investigate what
+    third party package that can support the project.
 
 2. When you have come up with an idea, write a project description. The description is the delivery for today and should
     be at least 300 words. Try to answer the following questions in the description:
@@ -91,7 +97,7 @@ as a group.
 The project description will serve as an guideline for us at the exam that you have somewhat reached the goals that you
 set out to do. By the end of the day, you should commit your project description to the `README.md` file belonging
 to your project repository. If you filled out the ML canvas, feel free to include that as part of the `README.md` file.
-Also remember to commit whatwever you have done on the project until now. When you have done this, go to DTU Learn and
+Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn and
 hand-in (as a group) the *link to your github repository* as an assignment.
 
 We will briefly (before next Monday) look over your github repository and project description to check that everything
@@ -146,9 +152,9 @@ point on the checklist for the exam.
 * [ ] Write one or multiple configurations files for your experiments
 * [ ] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
-      you can optimize your code
+    you can optimize your code
 * [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
-      consider running a hyperparameter optimization sweep.
+    consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2

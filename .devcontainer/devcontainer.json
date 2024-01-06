@@ -1,0 +1,5 @@
+{
+    "name": "my_working_env",
+    "dockerFile": "Dockerfile",
+    "postCreateCommand": "pip install -r requirements.txt"
+}
