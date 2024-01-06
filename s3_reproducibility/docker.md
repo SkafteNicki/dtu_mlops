@@ -237,15 +237,25 @@ beneficial for you to download.
 
     ??? warning "MAC M1/M2 users"
 
-        There is a good chance that it docker build will not work out of the box for you, because M1/M2 chips use
-        another build architecture. Thus you need to specify the platform that you want to build for. This can be
-        done by adding the following to your `FROM` statement:
+        In general docker images are build for a specific platform. For example, if you are using a Mac with a M1/M2
+        chip then you are running on a ARM architecture. If you are using a Windows or Linux machine then you are
+        running on a AMD64 architecture. This is important to know when building docker images. Thus, docker images
+        you build may not work on other platforms than the one you build it on. You can specify which platform you want
+        to build for by adding the `--platform` argument to the `docker build` command:
 
-        ```docker
-        FROM --platform=linux/amd64 python:3.9-slim
+        ```bash
+        docker build --platform linux/amd64 -f train.dockerfile . -t trainer:latest
         ```
 
-        and in you build step you need to add `--platform linux/amd64` to the command.
+        and also when running the image:
+
+        ```bash
+        docker run --platform linux/amd64 trainer:latest
+        ```
+
+        Do not that this will significantly increase the build and run time of your docker image when running locally,
+        because docker will need to emulate the other platform. In general for the exercises today, you should not need
+        to specify the platform, but be aware of this if you are building docker images on your own.
 
     please note here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot is
     important to remember) indicates which dockerfile that we want to run (except if you named it just `Dockerfile`) and
@@ -266,32 +276,21 @@ beneficial for you to download.
     you should hopefully see your training starting. Please note that we can start as many containers that we want at
     the same time by giving them all different names using the `--name` tag.
 
-    1. If you already have a completed run then you can use
-
-        If you've fucked up building your docker image, you of course have to build it again after changing your dockerfile.
-        Therefore, instead of watching pip suffer through downloading torch the 20th time, you can reuse the cache from last
-        time the docker image was built. To do this, replace the line in your dockerfile that installs your requirements with:
-        
-        ```bash
-        RUN --mount=type=cache,target=~/pip/.cache \
-        pip install -r requirements.txt --no-cache-dir
-        ```
-
-        And then preface your next build command with
+    1. You are most likely going to re-build your docker image multiple times, either due to an implementation error
+        or the addition of new functionality. Therefore, instead of watching pip suffer through downloading `torch` for
+        the 20th time, you can reuse the cache from last time the docker image was build. To do this, replace the line
+        in your dockerfile that installs your requirements with:
 
         ```bash
-        DOCKER_BUILDKIT=1 build ...
+        RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
         ```
 
-        Linux users can simply run
+        which mounts your local pip cache to the docker image. For building the image you need to have enabled the
+        [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature. If you have docker
+        version v23.0 or later (you can check this by running `docker version`) then this is enabled by default. Else
+        you need to enable it by setting the environment variable `DOCKER_BUILDKIT=1` before building the image.
 
-        ```bash
-        export DOCKER_BUILDKIT=1
-        ```
-
-        This way, as long as you don't make any changes to the requirements file, it should vastly cut down on the time required
-        to build your images again.
-
+        Try changing your dockerfile and re-building the image. You should see that the build process is much faster.
 
 15. Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start
     the image in interactive mode:
