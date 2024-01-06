@@ -2058,7 +2058,17 @@ run a file I recommend always doing this from the root directory e.g.</p>
 <li>If you feel like the template can be improve in some way, feel free to either open a issue with the proposed
     improvement or directly send a pull request to the repository 😄.</li>
 </ol>
-<p>You do this by running the cookiecutter command using the template url.</p>
+<p>You do this by running the cookiecutter command using the template url:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cookiecutter<span class="w"> </span>&lt;url-to-template&gt;
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Valid project names</p>
+<p>When asked for a project name you should follow the
+<a href="https://peps.python.org/pep-0008/#package-and-module-names">PEP8</a> guidelines for naming packages. This means
+that the name should be all lowercase and if you want to separate words, you should use underscores. For example
+<code>my_project</code> is a valid name, while <code>MyProject</code> is not. Additionally, the packaage name cannot start with a
+number.</p>
+</div>
 <details class="note">
 <summary>Flat-layout vs src-layout</summary>
 <p>There are two common choices on how layout your source directory. The first is called <em>src-layout</em>
@@ -2072,7 +2082,7 @@ course is using the flat-layout, but there are
 <p>After having created your new project, the first step is to also create a corresponding virtual environment and
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that else create
     a new. Then install the project in that environment</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span></code></pre></div>
 </li>
 <li>
@@ -2086,9 +2096,9 @@ course is using the flat-layout, but there are
 <p>This template comes with a <code>Makefile</code> that can be used to easily define common operations in a project. You do not
     have to understand the complete file but try taking a look at it. In particular the following commands may come in
     handy</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>make<span class="w"> </span>data<span class="w">  </span><span class="c1"># runs the make_dataset.py file, try it!</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>make<span class="w"> </span>clean<span class="w">  </span><span class="c1"># clean __pycache__ files</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>make<span class="w"> </span>requirements<span class="w">  </span><span class="c1"># install everything in the requirements.txt file</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>make<span class="w"> </span>data<span class="w">  </span><span class="c1"># runs the make_dataset.py file, try it!</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>make<span class="w"> </span>clean<span class="w">  </span><span class="c1"># clean __pycache__ files</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>make<span class="w"> </span>requirements<span class="w">  </span><span class="c1"># install everything in the requirements.txt file</span>
 </span></code></pre></div>
 <details class="note">
 <summary>Windows users</summary>
@@ -2114,16 +2124,16 @@ more about how to write <code>Makefile</code>s then this is an excellent
 <li>
 <p>(Optional) Can you figure out a way to add a <code>train</code> command to the <code>Makefile</code> such that training can be started
     using</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>make<span class="w"> </span>train
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>make<span class="w"> </span>train
 </span></code></pre></div>
 </li>
 <li>
 <p>Fill out the newly created <code>&lt;project_name&gt;/models/predict_model.py</code> file, such that it takes a pre-trained model file
     and creates prediction for some data. Recommended interface is that users can give this file either a folder with
     raw images that gets loaded in or a <code>numpy</code> or <code>pickle</code> file with already loaded images e.g. something like this</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>&lt;project_name&gt;/models/predict_model.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span>models/my_trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># file containing a pretrained model</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>data/example_images.npy<span class="w">  </span><span class="c1"># file containing just 10 images for prediction</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>&lt;project_name&gt;/models/predict_model.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span>models/my_trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># file containing a pretrained model</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>data/example_images.npy<span class="w">  </span><span class="c1"># file containing just 10 images for prediction</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -2163,14 +2173,14 @@ more about how to write <code>Makefile</code>s then this is an excellent
 <li>
 <p>After forking the template, clone it down locally and lets start modifying it. The first step is changing
     the <code>cookiecutter.json</code> file. For the mlops template it looks like this:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project_name&quot;</span><span class="p">,</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">&quot;repo_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{{ cookiecutter.project_name.lower().replace(&#39; &#39;, &#39;_&#39;) }}&quot;</span><span class="p">,</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">&quot;author_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your name (or your organization/company/team)&quot;</span><span class="p">,</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A short description of the project.&quot;</span><span class="p">,</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">&quot;python_version_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.10&quot;</span><span class="p">,</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">&quot;open_source_license&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;No license file&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;BSD-3-Clause&quot;</span><span class="p">]</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project_name&quot;</span><span class="p">,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">&quot;repo_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{{ cookiecutter.project_name.lower().replace(&#39; &#39;, &#39;_&#39;) }}&quot;</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">&quot;author_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your name (or your organization/company/team)&quot;</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A short description of the project.&quot;</span><span class="p">,</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nt">&quot;python_version_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.10&quot;</span><span class="p">,</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">&quot;open_source_license&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;No license file&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;BSD-3-Clause&quot;</span><span class="p">]</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>simply add a new line to the json file with the name of the variable you want to add and the default value you
 want it to have.</p>
@@ -2183,14 +2193,14 @@ want it to have.</p>
 </li>
 <li>
 <p>After you have made the changes you want to the template, you should test it locally. Just run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>cookiecutter<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>--no-input
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cookiecutter<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>--no-input
 </span></code></pre></div>
 <p>and it should create a new folder using the default values of the <code>cookiecutter.json</code> file.</p>
 </li>
 <li>
 <p>Finally, make sure to push any changes you made to the template to GitHub, such that you in the future can use it
     by simply running</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cookiecutter<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;my_template_repo&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cookiecutter<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;my_template_repo&gt;
 </span></code></pre></div>
 </li>
 </ol>
@@ -2207,23 +2217,23 @@ want it to have.</p>
 <li>
 <p>Create a completely barebone repository, either using the GitHub UI or if you have the github cli installed
     (not <code>git</code>) you can run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public<span class="w"> </span>--confirm
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public<span class="w"> </span>--confirm
 </span></code></pre></div>
 </li>
 <li>
 <p>Run <code>cookiecutter</code> with the template you want to use</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cookiecutter<span class="w"> </span>&lt;template&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>cookiecutter<span class="w"> </span>&lt;template&gt;
 </span></code></pre></div>
 <p>The name of the folder created by <code>cookiecutter</code> should be the same as <repo_name> you just used.</p>
 </li>
 <li>
 <p>Run the following sequence of commands</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;project_name&gt;
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>git<span class="w"> </span>init
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;repo_name&gt;
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;project_name&gt;
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>git<span class="w"> </span>init
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;repo_name&gt;
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
 </span></code></pre></div>
 </li>
 </ol>
