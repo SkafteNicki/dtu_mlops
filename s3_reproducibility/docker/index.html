@@ -2227,6 +2227,59 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 </li>
 </ol>
 </li>
+<li>
+<p>(Optional) Another way you can use dockerfiles in your day to day work is for Dev-containers. Developer containers
+    allows you to develop code directly inside a container, making sure that your code is running in the same
+    environment as it will when deployed. This is especially useful if you are working on a project that has a lot of
+    dependencies that are hard to install on your local machine. Setup instructions for VS code and Pycharm can be found
+    here (should be simple since we have already installed docker):</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/devcontainers/containers">VS code</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/connect-to-devcontainer.html#create_dev_container_inside_ide">Pycharm</a></li>
+</ul>
+<p>We focus on the VS code setup here.</p>
+<ol>
+<li>
+<p>First install the
+    <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers">Remote - Containers</a>
+    extension.</p>
+</li>
+<li>
+<p>Create a <code>.devcontainer</code> folder in your project root and create a <code>Dockerfile</code> inside it. We keep this file very
+    barebone for now, so lets just define a base installation of python:</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim-buster</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span></code></pre></div>
+</li>
+<li>
+<p>Create a <code>devcontainer.json</code> file in the <code>.devcontainer</code> folder. This file should look something like this:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="p">{</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_working_env&quot;</span><span class="p">,</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dockerfile&quot;</span><span class="p">,</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pip install -r requirements.txt&quot;</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>this file tells VS code that we want to use the <code>Dockerfile</code> that we just created and that we want to install
+our python dependencies after the container has been created.</p>
+</li>
+<li>
+<p>After creating these files, you should be able to open the command palette in VS code (F1) and search for the
+    option <code>Remote-Containers: Reopen in Container</code> or <code>Remote-Containers: Rebuild and Reopen in Container</code>. Choose
+    either of these options.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/dev_container.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dev_container.png" width="600" /></a>
+</figure></p>
+<p>This will start a new VS code instance inside a docker container. You should be able to see this in the bottom
+left corner of your VS code window. You should also be able to see that the python interpreter has changed to
+the one inside the container.</p>
+<p>You are now ready to start developing inside the container. Try opening a terminal and run <code>python</code> and
+<code>import torch</code> to confirm that everything is working.</p>
+</li>
+</ol>
+</li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
@@ -2303,7 +2356,7 @@ desktop that lets you explore in depth your docker images.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 6, 2024</span>
   </span>
 
     
