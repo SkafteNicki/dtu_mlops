@@ -2089,9 +2089,9 @@ logger.</p>
     <a href="https://github.com/Textualize/rich">rich</a> which is a great package for <em>rich</em> text and beautiful formatting in
     terminals. Install <code>rich</code> and add the following line to your <code>my_logger.py</code>
     script:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RichHandler</span><span class="p">(</span><span class="n">markup</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># set rich handler</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">logger</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RichHandler</span><span class="p">(</span><span class="n">markup</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># set rich handler</span>
 </span></code></pre></div>
-<p>and try re-running the script. Hopefully you should see something buitiful in your terminal like this:</p>
+<p>and try re-running the script. Hopefully you should see something beautiful in your terminal like this:</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/rich_terminal_logging.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/rich_terminal_logging.png" width="700" /></a>
 </figure></p>
