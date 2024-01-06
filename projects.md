@@ -37,17 +37,17 @@ missing inspiration for frameworks to use, we highly recommend these three that 
 course:
 
 * [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models). PyTorch Image Models (also known as TIMM)
-  is the absolutely most used computer vision package (maybe except for `torchvision`). It contains models, scripts and
-  pre trained for a lot of state-of-the-art image models within computer vision.
+    is the absolutely most used computer vision package (maybe except for `torchvision`). It contains models, scripts and
+    pre trained for a lot of state-of-the-art image models within computer vision.
 
 * [Transformers](https://github.com/huggingface/transformers). The Transformers repository from the Huggingface group
-  focuses on state-of-the-art Natural Language Processing (NLP). It provides many pre-trained model to perform tasks on
-  texts such as classification, information extraction, question answering, summarization, translation, text generation,
-  etc in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.
+    focuses on state-of-the-art Natural Language Processing (NLP). It provides many pre-trained model to perform tasks on
+    texts such as classification, information extraction, question answering, summarization, translation, text generation,
+    etc in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.
 
 * [Pytorch-Geometric](https://github.com/rusty1s/pytorch_geometric). PyTorch Geometric (PyG) is a geometric deep
-  learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
-  geometric deep learning, from a variety of published papers.
+    learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
+    geometric deep learning, from a variety of published papers.
 
 ## Project days
 
@@ -69,7 +69,8 @@ smaller project and then add complexity along the way if you have time.
 The first project days is all about getting started on the projects and formulating exactly what you want to work on
 as a group.
 
-1. Start by brainstorming projects! Try to figure out exactly what you want to work with and begin to investigate what third party package that can support the project.
+1. Start by brainstorming projects! Try to figure out exactly what you want to work with and begin to investigate what
+    third party package that can support the project.
 
 2. When you have come up with an idea, write a project description. The description is the delivery for today and should
     be at least 300 words. Try to answer the following questions in the description:
@@ -145,9 +146,9 @@ point on the checklist for the exam.
 * [ ] Write one or multiple configurations files for your experiments
 * [ ] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
-      you can optimize your code
+    you can optimize your code
 * [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
-      consider running a hyperparameter optimization sweep.
+    consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
