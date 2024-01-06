@@ -162,8 +162,8 @@ production. However, it is important to have a basic understanding of the concep
 ### Final exercise
 
 As the final exercise we will develop a simple baseline model which we will continue to develop on during the course.
-For this exercise we provide the data in the `data/corruptedmnist` folder. Do **NOT** use the data in the
-`corruptedmnist_v2` folder as that is intended for another exercise. As the name suggest this is a (subsampled)
+For this exercise we provide the data in the `data/corruptmnist` folder. Do **NOT** use the data in the
+`corruptmnist_v2` folder as that is intended for another exercise. As the name suggest this is a (subsampled)
 corrupted version of regular [MNIST](https://en.wikipedia.org/wiki/MNIST_database). Your overall task is the following:
 
 > **Implement a MNIST neural network that achieves at least 85 % accuracy on the test set.**
