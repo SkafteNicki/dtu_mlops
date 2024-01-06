@@ -29,12 +29,18 @@ that not all students have gained knowledge about deep learning models before th
 basics of how to code in PyTorch in one of the
 [first modules](s1_development_environment/deep_learning_software.md) of the course to get everyone up to speed.
 
-## I be missing X days of the course, will that be a problem ❔
+## I will be missing X days of the course, will that be a problem ❔
 
 Depends. The course is fairly intensive, with most students working from 9-17 every day. If you already know that you
 will be missing X days of the course, then I highly recommend that you go through some of the first sessions before
 the course starts to give yourself a bit of breathing room. If you are not able to do so, please be aware that an
 additional effort may be needed from you to keep up with your fellow students.
+
+## How many should we be in a group for the projects ❔
+
+Between 3 and 5. The projects are designed to be done in groups meaning that we intentionally make them too big for
+one person to do alone. Luckily, a lot of the work that you need to do can be done in parallel, so it is not as bad
+as it sounds.
 
 ## When will the exam take place ❔
 
