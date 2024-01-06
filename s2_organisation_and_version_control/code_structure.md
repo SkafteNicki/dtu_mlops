@@ -310,7 +310,7 @@ in this way paths (for saving and loading files) are always relative to the root
     code (see [this set of exercises](../s1_development_environment/package_manager.md) for help)
 
 14. (Optional) Lets say that you are not satisfied with the template I have recommended that you use, which is
-    completely fine. What should you then do? You should ofcause create your own template! This is actually not that
+    completely fine. What should you then do? You should of course create your own template! This is actually not that
     hard to do.
 
     1. Just for a starting point I would recommend that you fork either the
