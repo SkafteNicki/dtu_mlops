@@ -6,21 +6,21 @@
 
 !!! info "Core Module"
 
-Deep learning have since its
+Deep learning has since its
 [revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
 transformed our lives. From Google Translate to driverless cars
 to personal assistants to protein engineering, deep learning is transforming nearly every sector of our economy and
-or lives. However, it did not take long before people realized that deep learning is not as simple beast to tame
-and it comes with its own kind of problems, especially if you want to use it in a production setting. In particular
+our lives. However, it did not take long before people realized that deep learning is not a simple beast to tame
+and it comes with its own kinds of problems, especially if you want to use it in a production setting. In particular
 the concept of [technical debt](https://research.google/pubs/pub43146/) was invented to indicate the significant
-maintenance costs at an system level that it takes to run machine learning in production. MLOps should very much
+maintenance costs at a system level that it takes to run machine learning in production. MLOps should very much
 be seen as the response to the concept of technical debt, namely that we should develop methods, processes and tools
 (with inspiration from classical DevOps) to counter the problems we run into when working with deep learning models.
 
 It is important to note that all the concepts and tools that have been developed for MLOps can absolutely be used
 together with more classical machine learning models (think K-nearest neighbor, Random forest etc.), however
 deep learning comes with its own set of problems which mostly have to do with the sheer size of the data and models
-we are working with. For these reason, we are focusing on working with deep learning models in this course
+we are working with. For these reasons, we are focusing on working with deep learning models in this course.
 
 ## Software landscape for Deep Learning
 
@@ -37,25 +37,24 @@ frameworks (listed in order of when they were published):
 
 * [JAX](https://github.com/google/jax)
 
-We won't go into a longer discussion on what framework is the best, as it is pointless. Pytorch and Tensorflow
+We won't go into a longer discussion on which framework is best, as it is pointless. Pytorch and Tensorflow
 have been around for the longest and therefore have bigger communities and feature sets at this point in time.
-They both very similar in the sense that they both have features directed against research and production.
-JAX is kind of the new kid on the block, that in many ways improve on Pytorch and Tensorflow, but is still
-not as mature as the other frameworks. As the frameworks use different kind programming principles
+They are both very similar in the sense that they both have features directed against research and production.
+JAX is kind of the new kid on the block, which in many ways improves on Pytorch and Tensorflow, but is still
+not as mature as the other frameworks. As the frameworks use different kind of programming principles
 (object oriented vs. functional programming), comparing them is essentially meaningless.
 
 In this course we have chosen to work with Pytorch, because we find it a bit more intuitive and it is the
-framework that we use for our day to day research life. Additionally, as of right now it is the absolutely
+framework that we use for our day to day research life. Additionally, as of right now it is absolutely
 the [dominating framework](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/) for published
 models, research papers and [competition winners](https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w)
 
-\
-The intention behind this set of exercises is to bring everyones Pytorch skills up-to-date. If you already
-are Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
+The intention behind this set of exercises is to bring everyone's Pytorch skills up-to-date. If you already
+are a Pytorch-Jedi feel free to pass the first set of exercises, but I recommend that you still complete it.
 The exercises are in large part taken directly from the
 [deep learning course at udacity](https://github.com/udacity/deep-learning-v2-pytorch).
 Note that these exercises are given as notebooks, which is the last time we are going to use them actively in course.
-Instead after this set of exercises we are going to focus on writing code in python scripts.
+Instead, after this set of exercises, we are going to focus on writing code in python scripts.
 
 The notebooks contains a lot of explaining text. The exercises that you are supposed to fill out are inlined in
 the text in small "exercise" blocks:
@@ -64,10 +63,10 @@ the text in small "exercise" blocks:
   ![Image](../figures/exercise.PNG){width="1000"}
 </figure>
 
-If you need a fresh up on any deep learning topic in general throughout the course, we recommend to find the relevant
+If you need a fresh-up on any deep learning topic in general throughout the course, we recommend to find the relevant
 chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow,
 Yoshua Bengio and Aaron Courville (can also be found in the literature folder). It is absolutely not necessary to be
-good at deep learning to pass this course as the focus on all the software needed to get deep learning models into
+good at deep learning to pass this course as the focus is on all the software needed to get deep learning models into
 production. However, it is important to have a basic understanding of the concepts.
 
 ### ❔ Exercises
