@@ -266,6 +266,33 @@ beneficial for you to download.
     you should hopefully see your training starting. Please note that we can start as many containers that we want at
     the same time by giving them all different names using the `--name` tag.
 
+    1. If you already have a completed run then you can use
+
+        If you've fucked up building your docker image, you of course have to build it again after changing your dockerfile.
+        Therefore, instead of watching pip suffer through downloading torch the 20th time, you can reuse the cache from last
+        time the docker image was built. To do this, replace the line in your dockerfile that installs your requirements with:
+        
+        ```bash
+        RUN --mount=type=cache,target=~/pip/.cache \
+        pip install -r requirements.txt --no-cache-dir
+        ```
+
+        And then preface your next build command with
+
+        ```bash
+        DOCKER_BUILDKIT=1 build ...
+        ```
+
+        Linux users can simply run
+
+        ```bash
+        export DOCKER_BUILDKIT=1
+        ```
+
+        This way, as long as you don't make any changes to the requirements file, it should vastly cut down on the time required
+        to build your images again.
+
+
 15. Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start
     the image in interactive mode:
 
