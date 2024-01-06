@@ -1,8 +1,13 @@
 ![Logo](../figures/icons/kubernetes.png){ align=right width="130"}
 
+!!! danger
+    Module is still under development
+
 # Kubernetes
 
-Kubernetes, also known as K8s, is an open-source platform designed to automate the deployment, scaling, and operation of application containers across clusters of hosts. It provides the framework to run distributed systems resiliently, handling scaling and failover for your applications, providing deployment patterns, and more.
+Kubernetes, also known as K8s, is an open-source platform designed to automate the deployment, scaling, and operation of
+application containers across clusters of hosts. It provides the framework to run distributed systems resiliently,
+handling scaling and failover for your applications, providing deployment patterns, and more.
 
 ## What is Kubernetes?
 
@@ -23,11 +28,15 @@ Kubernetes makes it easier to deploy and manage containerized applications at sc
 
 ## Kubernetes Architecture
 
-Kubernetes follows a client-server architecture. At a high level, it consists of a Control Plane (master) and Nodes (workers).
+Kubernetes follows a client-server architecture. At a high level, it consists of a Control Plane (master) and Nodes
+(workers).
 
 <figure markdown>
-  ![Kubernetes Architecture](../figures/components_of_kubernetes.png){ width="800" }
-  <figcaption>Overview of Kubernetes Architecture. Image Credit: <a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Official Documentation</a></figcaption>
+![Kubernetes Architecture](../figures/components_of_kubernetes.png){ width="800" }
+<figcaption>
+Overview of Kubernetes Architecture.
+Image Credit: <a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Official Documentation</a>
+</figcaption>
 </figure>
 
 ### Control Plane Components
@@ -46,7 +55,8 @@ Kubernetes follows a client-server architecture. At a high level, it consists of
 
 ## Minikube: Local Kubernetes Environment
 
-Minikube is a tool that allows you to run Kubernetes locally. It runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
+Minikube is a tool that allows you to run Kubernetes locally. It runs a single-node Kubernetes cluster inside a VM on
+your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 
 ### Installing Minikube
 
@@ -58,13 +68,15 @@ Minikube is a tool that allows you to run Kubernetes locally. It runs a single-n
 
 1. Install Minikube following the steps above.
 2. Validate the installation by typing `minikube` in a terminal.
-3. Ensure that [kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/), the command-line tool for Kubernetes, is correctly installed by typing `kubectl` in a terminal.
+3. Ensure that [kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/), the command-line tool for Kubernetes,
+is correctly installed by typing `kubectl` in a terminal.
 
 ---
 
 ## Yatai: Model Serving Platform for Kubernetes
 
-[Yatai](https://github.com/bentoml/Yatai) is a model serving platform, making it easier to deploy machine learning models in Kubernetes environments.
+[Yatai](https://github.com/bentoml/Yatai) is a model serving platform, making it easier to deploy machine learning
+models in Kubernetes environments.
 
 ### What is Yatai?
 
@@ -83,8 +95,3 @@ Yatai simplifies the deployment, management, and scaling of machine learning mod
 - [Interactive Tutorials](https://kubernetes.io/docs/tutorials/)
 - [Community Forums](https://discuss.kubernetes.io/)
 - ...
-
----
-
-!!! danger
-Module is still under development
