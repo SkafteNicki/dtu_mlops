@@ -1,5 +1,4 @@
 import torch
-print("HELLO")
 
 def mnist():
     """Return train and test dataloaders for MNIST."""
