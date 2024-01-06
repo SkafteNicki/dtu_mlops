@@ -109,7 +109,7 @@ If you need help for the exercises you can find a simple solution script
 
     # Create super basic logger
     logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-    logger = logget.getLogger(__name__) # (1)
+    logger = logging.getLogger(__name__) # (1)
 
     # Logging levels (from lowest to highest priority)
     logger.debug("Used for debugging your code.")
