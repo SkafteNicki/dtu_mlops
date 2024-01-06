@@ -1737,23 +1737,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kubernetes-architecture" class="md-nav__link">
+  <a href="#what-is-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Kubernetes architecture
+      What is Kubernetes?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is Kubernetes?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#brief-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Brief History
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#minikube" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#core-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Minikube
+      Core Functions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Minikube">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Concepts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kubernetes Architecture">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-plane-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Plane Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#minikube-local-kubernetes-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minikube: Local Kubernetes Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Minikube: Local Kubernetes Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-minikube" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Minikube
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
@@ -1770,9 +1845,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#yatai" class="md-nav__link">
+  <a href="#yatai-model-serving-platform-for-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Yatai
+      Yatai: Model Serving Platform for Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Yatai: Model Serving Platform for Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-yatai" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Yatai?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-with-yatai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started with Yatai
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
     </span>
   </a>
   
@@ -1798,36 +1906,77 @@
 
 <p><a class="glightbox" href="../../figures/icons/kubernetes.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/kubernetes.png" width="130" /></a></p>
 <h1 id="kubernetes">Kubernetes</h1>
+<p>Kubernetes, also known as K8s, is an open-source platform designed to automate the deployment, scaling, and operation of application containers across clusters of hosts. It provides the framework to run distributed systems resiliently, handling scaling and failover for your applications, providing deployment patterns, and more.</p>
+<h2 id="what-is-kubernetes">What is Kubernetes?</h2>
+<h3 id="brief-history">Brief History</h3>
+<p>Kubernetes was originally developed by Google and is now maintained by the Cloud Native Computing Foundation.</p>
+<h3 id="core-functions">Core Functions</h3>
+<p>Kubernetes makes it easier to deploy and manage containerized applications at scale.</p>
+<h3 id="key-concepts">Key Concepts</h3>
+<ul>
+<li><strong>Pods</strong></li>
+<li><strong>Nodes</strong></li>
+<li><strong>Clusters</strong></li>
+<li>...</li>
+</ul>
+<hr />
+<h2 id="kubernetes-architecture">Kubernetes Architecture</h2>
+<p>Kubernetes follows a client-server architecture. At a high level, it consists of a Control Plane (master) and Nodes (workers).</p>
+<figure>
+<p><a class="glightbox" href="../../figures/components_of_kubernetes.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Kubernetes Architecture" src="../../figures/components_of_kubernetes.png" width="800" /></a>
+  </p>
+<figcaption>Overview of Kubernetes Architecture. Image Credit: <a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Official Documentation</a></figcaption>
+</figure>
+<h3 id="control-plane-components">Control Plane Components</h3>
+<ul>
+<li><strong>API Server</strong>: The frontend for Kubernetes.</li>
+<li><strong>etcd</strong>: Consistent and highly-available key value store.</li>
+<li>...</li>
+</ul>
+<h3 id="node-components">Node Components</h3>
+<ul>
+<li><strong>Kubelet</strong>: An agent that runs on each node.</li>
+<li><strong>Container Runtime</strong>: The software responsible for running containers.</li>
+<li>...</li>
+</ul>
+<hr />
+<h2 id="minikube-local-kubernetes-environment">Minikube: Local Kubernetes Environment</h2>
+<p>Minikube is a tool that allows you to run Kubernetes locally. It runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.</p>
+<h3 id="installing-minikube">Installing Minikube</h3>
+<ol>
+<li><strong>System Requirements</strong>: Ensure your system meets the minimum requirements.</li>
+<li><strong>Download and Install</strong>: Visit <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube's official installation guide</a>.</li>
+<li><strong>Start Minikube</strong>: Run <code>minikube start</code>.</li>
+</ol>
+<h3 id="exercises">❔ Exercises</h3>
+<ol>
+<li>Install Minikube following the steps above.</li>
+<li>Validate the installation by typing <code>minikube</code> in a terminal.</li>
+<li>Ensure that <a href="https://kubernetes.io/docs/reference/kubectl/kubectl/">kubectl</a>, the command-line tool for Kubernetes, is correctly installed by typing <code>kubectl</code> in a terminal.</li>
+</ol>
+<hr />
+<h2 id="yatai-model-serving-platform-for-kubernetes">Yatai: Model Serving Platform for Kubernetes</h2>
+<p><a href="https://github.com/bentoml/Yatai">Yatai</a> is a model serving platform, making it easier to deploy machine learning models in Kubernetes environments.</p>
+<h3 id="what-is-yatai">What is Yatai?</h3>
+<p>Yatai simplifies the deployment, management, and scaling of machine learning models in Kubernetes.</p>
+<h3 id="getting-started-with-yatai">Getting Started with Yatai</h3>
+<ol>
+<li><strong>Installation</strong>: Steps to install Yatai in your Kubernetes cluster.</li>
+<li><strong>Basic Usage</strong>: How to deploy your first model using Yatai.</li>
+</ol>
+<hr />
+<h2 id="additional-resources">Additional Resources</h2>
+<ul>
+<li><a href="https://kubernetes.io/docs/">Official Kubernetes Documentation</a></li>
+<li><a href="https://kubernetes.io/docs/tutorials/">Interactive Tutorials</a></li>
+<li><a href="https://discuss.kubernetes.io/">Community Forums</a></li>
+<li>...</li>
+</ul>
 <hr />
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Module is still under development</p>
 </div>
-<h2 id="kubernetes-architecture">Kubernetes architecture</h2>
-<figure>
-<p><a class="glightbox" href="../../figures/components_of_kubernetes.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/components_of_kubernetes.png" width="800" /></a>
-  </p>
-<figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
-</figure>
-<h2 id="minikube">Minikube</h2>
-<h3 id="exercises">❔ Exercises</h3>
-<ol>
-<li>
-<p>Install <a href="https://minikube.sigs.k8s.io/docs/start/">minikube</a></p>
-</li>
-<li>
-<p>Make sure that minikube is correctly installed by typing</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>minikube
-</span></code></pre></div>
-<p>in a terminal. Additionally, also check that <a href="https://kubernetes.io/docs/reference/kubectl/kubectl/">kubectl</a> (the
-command line tool for kubernetes, its a dependency of minikube) is correctly installed by typing</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>kubectl
-</span></code></pre></div>
-<p>in a terminal.</p>
-</li>
-</ol>
-<h2 id="yatai">Yatai</h2>
-<p><a href="https://github.com/bentoml/Yatai">yatai</a></p>
+<p>Module is still under development</p>
 
 
 
@@ -1850,7 +1999,7 @@ command line tool for kubernetes, its a dependency of minikube) is correctly ins
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 6, 2024</span>
   </span>
 
     
