@@ -101,8 +101,8 @@ nav:
     - M15 - Unittesting: s5_continuous_integration/unittesting.md
     - M16 - Github Actions: s5_continuous_integration/github_actions.md
     - M17 - Pre commit: s5_continuous_integration/pre_commit.md
-    - M18 - Continues Containers: s5_continuous_integration/auto_docker.md
-    - M19 - Continues Machine Learning: s5_continuous_integration/cml.md
+    - M18 - Continuous Containers: s5_continuous_integration/auto_docker.md
+    - M19 - Continuous Machine Learning: s5_continuous_integration/cml.md
   - S6 - The cloud 🌐:
     - s6_the_cloud/README.md
     - M20 - Cloud Setup: s6_the_cloud/cloud_setup.md
