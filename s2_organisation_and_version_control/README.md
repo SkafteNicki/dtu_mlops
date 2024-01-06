@@ -1,6 +1,6 @@
 # Getting started with MLOps - Organization and version control
 
-[Slides](../slides/What%20is%20MLOps.pdf){ .md-button }
+[Slides](../slides/IntroToMLOps.pdf).pdf){ .md-button }
 
 <p align="center">
   <img src="../figures/icons/git.png" width="130">
