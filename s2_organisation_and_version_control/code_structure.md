@@ -41,10 +41,10 @@ custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The temp
 [cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) template that has been
 used for a couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
 
-We are not going to argue that this template is better than everyother template, we are just focusing that it is a
+We are not going to argue that this template is better than every other template, we are just focusing on that it is a
 **standardized** way of creating project structures for machine learning projects. By standardized we mean, that if two
 persons are both using `cookiecutter` with the same template, the layout of their code does follow some specific rules,
-making one able to faster get understand the other persons code. Code organization is therefore not only to make the
+enabling one to faster understand the other person's code. Code organization is therefore not only to make the
 code easier for you to maintain but also for others to read and understand.
 
 Below is seen the default code structure of cookiecutter for data science projects.
@@ -62,12 +62,11 @@ that are missing.
 
 While the same template in principal could be used regardless of what language we were using for our machine learning
 or data science application, there are certain considerations to take into account based on what language we are using.
-Python is the dominant language for machine learning and data science currently, which is why we in this section is
+Python is the dominant language for machine learning and data science currently, which is why we in this section are
 focusing on some of the special files you will need for your Python projects.
 
 The first file you may or may not know is the `__init__.py` file. In Python the `__init__.py` file is used to mark a
 directory as a Python package. Therefore as a bare minimum, any Python package should look something like this:
-package should look something like this
 
 ```txt
 ├── src/
