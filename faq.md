@@ -56,7 +56,7 @@ Look at the bottom of this [page](projects.md). Details will be updated as we ge
 
 Yes, yes, and yes, but remember that its a tool and you need to validate the output before using it. We would prefer
 for the exam report that you formulate the answers in your own words because it is intended for you do describe what
-you have been doing in your project.
+you have been doing in your project. *The I in LLM stands for intelligence.*
 
 ## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
 
