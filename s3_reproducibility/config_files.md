@@ -102,7 +102,7 @@ them out into a configuration file.
 
 Note that we provide a solution (in the `vae_solution` folder) that can help you get through the exercise, but try to
 look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
-s
+
 1. Start by install hydra: `pip install hydra-core --upgrade`
 
 2. Next take a look at the `vae_mnist.py` and `model.py` file and understand what is going on. It is a model we will

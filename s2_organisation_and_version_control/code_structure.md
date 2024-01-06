@@ -362,7 +362,7 @@ in this way paths (for saving and loading files) are always relative to the root
 
     ??? success "Solution"
 
-        1. Create a completly barebone repository, either using the GitHub UI or if you have the github cli installed
+        1. Create a completely barebone repository, either using the GitHub UI or if you have the github cli installed
             (not `git`) you can run
 
             ```bash
@@ -388,8 +388,7 @@ in this way paths (for saving and loading files) are always relative to the root
             git push origin master
             ```
 
-        Thats it. The template should now have been pushed to the repository as the first commit.
-
+        That's it. The template should now have been pushed to the repository as the first commit.
 
 That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often
