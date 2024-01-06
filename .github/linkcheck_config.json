@@ -23,7 +23,7 @@
             "pattern": "^https://twitter.com.*"
         },
         {
-            "pattern": "^https://reddit.com.*"
+            "pattern": "^https://www.reddit.com.*"
         }
     ],
     "aliveStatusCodes": [
