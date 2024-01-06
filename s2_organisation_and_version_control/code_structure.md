@@ -60,7 +60,7 @@ that are missing.
 
 ## Python projects
 
-While the same template in principal could be used regardless of what language we where using for our machine learning
+While the same template in principal could be used regardless of what language we were using for our machine learning
 or data science application, there are certain considerations to take into account based on what language we are using.
 Python is the dominant language for machine learning and data science currently, which is why we in this section is
 focusing on some of the special files you will need for your Python projects.
@@ -70,7 +70,7 @@ directory as a Python package. Therefore as a bare minimum, any Python package s
 package should look something like this
 
 ```txt
-├── src
+├── src/
 │   ├── __init__.py
 │   ├── file1.py
 │   ├── file2.py
@@ -109,7 +109,7 @@ a lot of projects using `setup.py + setup.cfg` so it is good to at least know ab
     dependencies = {file = ["requirements.txt"]}
     ```
 
-    the `[build-section]` informs `pip`/`python` that to build this Python project it needs the two packages
+    the `[build-system]` informs `pip`/`python` that to build this Python project it needs the two packages
     `setuptools` and `wheels` and that it should call the
     [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) function to actually build the
     project. The `[project]` section essentially contains metadata regarding the package, what its called etc. if we
@@ -138,7 +138,7 @@ a lot of projects using `setup.py + setup.cfg` so it is good to at least know ab
     ruff_option = ...
     ```
 
-    To read more about how specify `pyproject.toml` this
+    To read more about how to specify `pyproject.toml` this
     [page](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata)
     is a good place to start.
 
@@ -192,8 +192,8 @@ pip install -e . # (1)!
     to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.
 
-after running this your code should be available to import as `from src import ...` like any other Python package you
-use. This is the most essential you need to know about creating Python packages.
+after running this your code should be available to import as `from project_name import ...` like any other Python
+package you use. This is the most essential you need to know about creating Python packages.
 
 ## ❔ Exercises
 
@@ -203,8 +203,8 @@ every folder and file in the project structure, but try to at least follow the s
 run a file I recommend always doing this from the root directory e.g.
 
 ```bash
-python src/data/make_dataset.py data/raw data/processed
-python src/models/train_model.py <arguments>
+python <project_name>/data/make_dataset.py data/raw data/processed
+python <project_name>/models/train_model.py <arguments>
 etc...
 ```
 
@@ -223,6 +223,16 @@ in this way paths (for saving and loading files) are always relative to the root
     1. If you feel like the template can be improve in some way, feel free to either open a issue with the proposed
         improvement or directly send a pull request to the repository 😄.
 
+    You do this by running the cookiecutter command using the template url.
+
+    ??? note "Flat-layout vs src-layout"
+
+        There are two common choices on how layout your source directory. The first is called *src-layout*
+        where the source code is always place in a `src/<project_name>` folder and the second is called *flat-layout*
+        where the source code is place is just placed in a `<project_name>` folder. The template we are using in this
+        course is using the flat-layout, but there are
+        [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) for both.
+
 3. After having created your new project, the first step is to also create a corresponding virtual environment and
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that else create
     a new. Then install the project in that environment
@@ -231,10 +241,10 @@ in this way paths (for saving and loading files) are always relative to the root
     pip install -e .
     ```
 
-4. Start by filling out the `src/data/make_dataset.py` file. When this file runs, it should take the raw data files in
-    `data/raw` (the files that we have provided) process them into a single tensor, normalize the tensor and save this
-    intermediate representation to the `data/processed` folder. By normalization here we refer to making sure the
-    images have mean 0 and standard deviation 1.
+4. Start by filling out the `<project_name>/data/make_dataset.py` file. When this file runs, it should take the raw
+    data e.g. the corrupted MNIST files from yesterday which now should be located in a `data/raw` folder and process
+    them into a single tensor, normalize the tensor and save this intermediate representation to the `data/processed`
+    folder. By normalization here we refer to making sure the images have mean 0 and standard deviation 1.
 
 5. This template comes with a `Makefile` that can be used to easily define common operations in a project. You do not
     have to understand the complete file but try taking a look at it. In particular the following commands may come in
@@ -243,7 +253,7 @@ in this way paths (for saving and loading files) are always relative to the root
     ```bash
     make data  # runs the make_dataset.py file, try it!
     make clean  # clean __pycache__ files
-    make requirements  # install everything in the requirements.py file
+    make requirements  # install everything in the requirements.txt file
     ```
 
     ??? note "Windows users"
@@ -258,9 +268,9 @@ in this way paths (for saving and loading files) are always relative to the root
     more about how to write `Makefile`s then this is an excellent
     [video](https://youtu.be/F6DZdvbRZQQ?si=9qg-XUva-l-9Tl21).
 
-6. Put your model file (`model.py`) into `src/models` folder together and insert the relevant code from the `main.py`
-    file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it gets saved
-    to the `models` folder (preferably in sub-folders).
+6. Put your model file (`model.py`) into `<project_name>/models` folder together and insert the relevant code from the
+    `main.py` file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it
+    gets saved to the `models` folder (preferably in sub-folders).
 
 7. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to
     the `reports/figures/` folder. This could be a simple `.png` of the training curve.
@@ -272,17 +282,18 @@ in this way paths (for saving and loading files) are always relative to the root
     make train
     ```
 
-9. Fill out the newly created `src/models/predict_model.py` file, such that it takes a pre-trained model file and
-    creates prediction for some data. Recommended interface is that users can give this file either a folder with raw
-    images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
+9. Fill out the newly created `<project_name>/models/predict_model.py` file, such that it takes a pre-trained model file
+    and creates prediction for some data. Recommended interface is that users can give this file either a folder with
+    raw images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
 
     ```bash
-    python src/models/predict_model.py \
+    python <project_name>/models/predict_model.py \
         models/my_trained_model.pt \  # file containing a pretrained model
         data/example_images.npy  # file containing just 10 images for prediction
     ```
 
-10. Fill out the file `src/visualization/visualize.py` with this (as minimum, feel free to add more visualizations)
+10. Fill out the file `<project_name>/visualization/visualize.py` with this (as minimum, feel free to add more
+    visualizations)
     * Loads a pre-trained network
     * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
         features just before the final classification layer
@@ -343,6 +354,41 @@ in this way paths (for saving and loading files) are always relative to the root
         ```bash
         cookiecutter https://github.com/<username>/<my_template_repo>
         ```
+
+## 🧠 Knowledge check
+
+1. Starting from complete scratch, what is the steps needed to create a new github repository and push a specific
+    template to it as the very first commit.
+
+    ??? success "Solution"
+
+        1. Create a completely barebone repository, either using the GitHub UI or if you have the github cli installed
+            (not `git`) you can run
+
+            ```bash
+            gh repo create <repo_name> --public --confirm
+            ```
+
+        2. Run `cookiecutter` with the template you want to use
+
+            ```bash
+            cookiecutter <template>
+            ```
+
+            The name of the folder created by `cookiecutter` should be the same as <repo_name> you just used.
+
+        3. Run the following sequence of commands
+
+            ```bash
+            cd <project_name>
+            git init
+            git add .
+            git commit -m "Initial commit"
+            git remote add origin https://github.com/<username>/<repo_name>
+            git push origin master
+            ```
+
+        That's it. The template should now have been pushed to the repository as the first commit.
 
 That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often

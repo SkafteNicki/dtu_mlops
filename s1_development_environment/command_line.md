@@ -82,7 +82,7 @@ command line.
 3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
 
-4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also, ¨
+4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also,
     familiarize yourself with the `>` operator. You are probably going to use some of them throughout the course or in
     your future career. For Windows users, these commands may be named something else, e.g. `where` command on Windows
     corresponds to `which`.
@@ -106,6 +106,13 @@ command line.
 6. All terminals come with their own programming language. The most common system is called `bash`. It can come in handy
     being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
     programs sequentially, which can be done through a bash script.
+
+    ??? note "Windows users"
+
+        Bash is not part of Windows, so you need to run this part through WSL. If you did not install WSL, you can
+        skip this part or as an alternative do the exercises in
+        [Powershell](https://learn.microsoft.com/en-us/training/modules/script-with-powershell/) which is the native
+        Windows scripting language (not recommended).
 
     1. Write a bash script (in `nano`) and try executing it:
 
