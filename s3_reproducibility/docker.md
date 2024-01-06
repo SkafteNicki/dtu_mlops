@@ -407,6 +407,60 @@ beneficial for you to download.
         try doing this to one of your docker files, build the image and run the container. Remember to check that your
         application is using GPU by printing `torch.cuda.is_available()`.
 
+19. (Optional) Another way you can use dockerfiles in your day to day work is for Dev-containers. Developer containers
+    allows you to develop code directly inside a container, making sure that your code is running in the same
+    environment as it will when deployed. This is especially useful if you are working on a project that has a lot of
+    dependencies that are hard to install on your local machine. Setup instructions for VS code and Pycharm can be found
+    here (should be simple since we have already installed docker):
+
+    * [VS code](https://code.visualstudio.com/docs/devcontainers/containers)
+    * [Pycharm](https://www.jetbrains.com/help/pycharm/connect-to-devcontainer.html#create_dev_container_inside_ide)
+
+    We focus on the VS code setup here.
+
+    1. First install the
+        [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+        extension.
+
+    2. Create a `.devcontainer` folder in your project root and create a `Dockerfile` inside it. We keep this file very
+        barebone for now, so lets just define a base installation of python:
+
+        ```docker
+        FROM python:3.11-slim-buster
+
+        RUN apt update && \
+            apt install --no-install-recommends -y build-essential gcc && \
+            apt clean && rm -rf /var/lib/apt/lists/*
+        ```
+
+    3. Create a `devcontainer.json` file in the `.devcontainer` folder. This file should look something like this:
+
+        ```json
+        {
+            "name": "my_working_env",
+            "dockerFile": "Dockerfile",
+            "postCreateCommand": "pip install -r requirements.txt"
+        }
+        ```
+
+        this file tells VS code that we want to use the `Dockerfile` that we just created and that we want to install
+        our python dependencies after the container has been created.
+
+    4. After creating these files, you should be able to open the command palette in VS code (F1) and search for the
+        option `Remote-Containers: Reopen in Container` or `Remote-Containers: Rebuild and Reopen in Container`. Choose
+        either of these options.
+
+        <figure markdown>
+        ![Image](../figures/dev_container.png){ width="600" }
+        </figure>
+
+        This will start a new VS code instance inside a docker container. You should be able to see this in the bottom
+        left corner of your VS code window. You should also be able to see that the python interpreter has changed to
+        the one inside the container.
+
+        You are now ready to start developing inside the container. Try opening a terminal and run `python` and
+        `import torch` to confirm that everything is working.
+
 ## 🧠 Knowledge check
 
 1. What is the difference between a docker image and a docker container?
