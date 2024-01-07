@@ -67,7 +67,7 @@ If you need a fresh-up on any deep learning topic in general throughout the cour
 chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow,
 Yoshua Bengio and Aaron Courville (can also be found in the literature folder). It is absolutely not necessary to be
 good at deep learning to pass this course as the focus is on all the software needed to get deep learning models into
-production. However, it is important to have a basic understanding of the concepts.
+production. However, it's important to have a basic understanding of the concepts.
 
 ### ❔ Exercises
 
