@@ -61,6 +61,9 @@ plugins:
   - same-dir
   - git-revision-date-localized:
       enable_creation_date: true
+  - exclude:
+      glob:
+        - student_repos/*
 
 extra:
   social:

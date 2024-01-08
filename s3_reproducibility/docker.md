@@ -266,6 +266,17 @@ beneficial for you to download.
     ![Image](../figures/docker_output.PNG){width="800" }
     </figure>
 
+    ??? warning "Docker images and space"
+
+        Docker images can take up a lot of space on your computer. Especially, the docker images we are trying to build
+        because Pytorch is huge dependency. If you are running low on space, you can try to
+
+        ```bash
+        docker system prune
+        ```
+
+        alternatively you can manually delete images using `docker rmi {image_name}:{image_tag}`.
+
 14. Try running `docker images` and confirm that you get output similar to the one above. If you succeeds with this,
     then try running the docker image
 

@@ -180,6 +180,14 @@ in the future as you start to add more and more features. As subgoals, please fu
 2. Implement your data setup in a script called `data.py`. The data was saved using `torch.save`, so to load it you
     should use `torch.load`.
 
+    !!! warning "Saving the model"
+
+        When saving the model, you should use `torch.save(model.state_dict(), "model.pt")` and when loading the model
+        you should use `model.load_state_dict(torch.load("model.pt"))`. If you do `torch.save(model, "model.pt")` this
+        can lead to problems when loading the model later on, as it will try to not only save the model weights but
+        also the model definition. This can lead to problems if you change the model definition later on (which you
+        most likely is going to do).
+
 3. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to
     take an additional subcommands indicating if the model should train or evaluate. It will look something like this:
 
