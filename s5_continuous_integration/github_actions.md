@@ -178,9 +178,9 @@ Lets take a look at how a github workflow file is organized:
         ```yaml
         - uses: iterative/setup-dvc@v1
         - name: Get data
-            run: dvc pull
-            env:
-                GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+          run: dvc pull
+          env:
+            GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         ```
 
         that runs `dvc pull` using the secret authentication file. For help you can visit this
@@ -239,11 +239,11 @@ Lets take a look at how a github workflow file is organized:
     ```yaml
     on:
         push:
-            branches: [main]
+          branches: [main]
         pull_request:
-            branches: [main]
+          branches: [main]
         schedule:
-            - cron: "0 0 * * *"
+          - cron: "0 0 * * *"
         workflow_dispatch: {}
     ```
 
