@@ -117,7 +117,7 @@ The following exercises should be applied to your MNIST repository
             assert that all labels are represented
         ```
 
-        where `N_train` should be either 25000 or 40000 depending on if you are just the first
+        where `N_train` should be either 30.000 or 50.000 depending on if you are just the first
         subset of the corrupted MNIST data or also including the second subset. `N_test` should
         be 5000.
 
