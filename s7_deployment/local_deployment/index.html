@@ -1927,50 +1927,51 @@ not work for you then trace can be used which is more general.</p>
 <p>The major reasons why we want to compile our models with <code>torch.jit</code> are:</p>
 <ul>
 <li>Scriptet code can be invoked in its own interpreter, which is basically a restricted Python interpreter.
-  This interpreter does not acquire the Global Interpreter Lock (GIL), and so many requests can be processed on the
-  same instance simultaneously.</li>
+    This interpreter does not acquire the Global Interpreter Lock (GIL), and so many requests can be processed on the
+    same instance simultaneously.</li>
 <li>This scriptet format allows us to save the whole model to disk and load it into another environment, such as in a
-  server written in a language other than Python</li>
+    server written in a language other than Python</li>
 <li>Scriptet code gives us a representation in which we can do compiler optimizations on the code to provide
-  more efficient execution</li>
+    more efficient execution</li>
 <li>Scriptet code allows us to interface with many backend/device runtimes that require a broader view of the
-  program than individual operators.</li>
+    program than individual operators.</li>
 </ul>
 <h3 id="exercises">❔ Exercises</h3>
 <p>We are here going to look at <code>torch.jit.script</code> for compiling our code.</p>
 <ol>
 <li>
 <p>To see the difference in the this exercises, we start out with a large model. Download one of the large image
-   classification models from <code>torchvision</code> such as <code>ResNet-152</code>. For the purpose of the exercise it does not matter
-   if you work with a random initialized model or a pretrained version.</p>
+    classification models from <code>torchvision</code> such as <code>ResNet-152</code>. For the purpose of the exercise it does not matter
+    if you work with a random initialized model or a pretrained version.</p>
 </li>
 <li>
 <p>Next try to script the model using <code>torch.jit.script</code>. You can find the documentation
-   <a href="https://pytorch.org/docs/stable/generated/torch.jit.script.html#torch.jit.script">here</a>.</p>
+    <a href="https://pytorch.org/docs/stable/generated/torch.jit.script.html#torch.jit.script">here</a>.</p>
 </li>
 <li>
 <p>Just to confirm that by compiling our model using <code>torch.jit.script</code> did not change the output of our model, try
-   checking that the output of the scripted model corresponds to the output of the non-scripted model. You can do this
-   on a single random datapoint, and you should check that the top-5 prediced classes are the same</p>
-</li>
-</ol>
+    checking that the output of the scripted model corresponds to the output of the non-scripted model. You can do this
+    on a single random datapoint, and you should check that the top-5 prediced classes are the same</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">unscripted_top5_indices</span><span class="p">,</span> <span class="n">scripted_top5_indices</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Hint: use <a href="https://pytorch.org/docs/stable/generated/torch.topk.html">torch.topk</a>.</p>
-<ol>
-<li>Finally, try benchmarking the non-scripted model against the scripted model. I recommend using the built-in
-   benchmarker in Pytorch: <code>torch.utils.benchmark.Timer</code>, which you can read more about how to use
-   <a href="https://pytorch.org/tutorials/recipes/recipes/benchmark.html">here</a>. Do you see a increase in performance of the
-   scripted model compared to the non-scriptet model. If so, what is the percentage increase in efficiency?</li>
+</li>
+<li>
+<p>Finally, try benchmarking the non-scripted model against the scripted model. I recommend using the built-in
+    benchmarker in Pytorch: <code>torch.utils.benchmark.Timer</code>, which you can read more about how to use
+    <a href="https://pytorch.org/tutorials/recipes/recipes/benchmark.html">here</a>. Do you see a increase in performance of the
+    scripted model compared to the non-scriptet model. If so, what is the percentage increase in efficiency?</p>
+</li>
 </ol>
 <h2 id="torchserve">Torchserve</h2>
 <p>For locally deploying our model we are going to look at Torchserve. Torchserve (illustrated below) is a combined
 services for packaging and serving multiple Pytorch at the same time.</p>
 <!-- markdownlint-disable -->
 <figure>
-<p><a class="glightbox" href="../../figures/torchserve.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/torchserve.png" width="1000" /></a>
-  </p>
-<figcaption> <a href="https://aws.amazon.com/blogs/machine-learning/deploying-pytorch-models-for-inference-at-scale-using-torchserve/"> Image credit </a> </figcaption>
+<p><a class="glightbox" href="../../figures/torchserve.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/torchserve.png" width="1000" /></a></p>
+<figcaption>
+<a href="https://aws.amazon.com/blogs/machine-learning/deploying-pytorch-models-for-inference-at-scale-using-torchserve/"> Image credit </a>
+</figcaption>
 </figure>
 <!-- markdownlint-restore -->
 
@@ -2000,30 +2001,28 @@ on <a href="https://www.image-net.org/">ImageNet</a>. Additional documentation c
 <ol>
 <li>
 <p>Install <code>torchserve</code> and its dependencies. There are separate instructions on the
-   <a href="https://github.com/pytorch/serve">homepage</a> depending on you are using Windows, WSL or Linux/MAC.</p>
+    <a href="https://github.com/pytorch/serve">homepage</a> depending on you are using Windows, WSL or Linux/MAC.</p>
 </li>
 <li>
 <p>Create a folder called <code>model_store</code>. This is where we will store the model that we are going to deploy</p>
 </li>
 <li>
 <p>Try to run the <code>torchserve --model-store model_store</code> command. If the service starts with no errors, you
-   have installed it correctly and can continue the exercise. Else it is Googling time!</p>
+    have installed it correctly and can continue the exercise. Else it is Googling time!</p>
 </li>
 <li>
 <p>Next lets create a model we can serve. If you have done the previous exercises on compiling using scripting, we
-   highly recommend to initialize and save such model</p>
-</li>
-</ol>
+    highly recommend to initialize and save such model</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">ResnetFromTorchVision</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">script_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">script_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;deployable_model.pt&#39;</span><span class="p">)</span>
 </span></code></pre></div>
-<ol>
-<li>Call the model archiver. We have provided a file called <code>index_to_name.json</code> that maps from predicted class
-   indices to interpretable class name e.g. <code>1-&gt;"goldfish"</code>. This file should be provided as the <code>extra-files</code>
-   argument such that the deployed model automatically outputs the class name. Note that this files of course
-   only works for models trained on imagenet.</li>
-</ol>
+</li>
+<li>
+<p>Call the model archiver. We have provided a file called <code>index_to_name.json</code> that maps from predicted class
+    indices to interpretable class name e.g. <code>1-&gt;"goldfish"</code>. This file should be provided as the <code>extra-files</code>
+    argument such that the deployed model automatically outputs the class name. Note that this files of course
+    only works for models trained on imagenet.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>torch-model-archiver<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span>--model-name<span class="w"> </span>my_fancy_model
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span>--version<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="se">\</span>
@@ -2032,14 +2031,14 @@ on <a href="https://www.image-net.org/">ImageNet</a>. Additional documentation c
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span>--extra-files<span class="w"> </span>index_to_name.json
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span>--handler<span class="w"> </span>image_classifier
 </span></code></pre></div>
-<ol>
+</li>
 <li>
 <p>Checkout the <code>model_store</code> folder. Has the model archiver correctly created a model (with <code>.mar</code> extension)
-   inside the folder?</p>
+    inside the folder?</p>
 </li>
 <li>
 <p>Finally, we are going to deploy our model and use it:</p>
-</li>
+<ol>
 <li>
 <p>Start serving your model in one terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>torchserve<span class="w"> </span>--start<span class="w"> </span>--ncs<span class="w"> </span>--model-store<span class="w"> </span>model_store<span class="w"> </span>--models<span class="w"> </span><span class="nv">my_fancy_model</span><span class="o">=</span>my_fancy_model.mar
@@ -2047,25 +2046,27 @@ on <a href="https://www.image-net.org/">ImageNet</a>. Additional documentation c
 </li>
 <li>
 <p>Next, pick a image that you want to do inference on. It can be any image that you want but try to pick
-      one that actually contains an object from the set of imagenet classes. I have also provided a image of
-      my own cat in the <code>my_cat.jpg</code> file.</p>
+    one that actually contains an object from the set of imagenet classes. I have also provided a image of
+    my own cat in the <code>my_cat.jpg</code> file.</p>
 </li>
 <li>
 <p>Open another terminal, which we are going to use for inference. The easiest way to do inference is using
-      <code>curl</code> directly in the terminal but you are also free to experiment with the <code>requests</code> API directly in
-      python. Using <code>curl</code> should look something like this</p>
+    <code>curl</code> directly in the terminal but you are also free to experiment with the <code>requests</code> API directly in
+    python. Using <code>curl</code> should look something like this</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>http://127.0.0.1:8080/predictions/my_fancy_model<span class="w"> </span>-T<span class="w"> </span>my_image.jpg
 </span></code></pre></div>
 </li>
+</ol>
+</li>
 <li>
 <p>Torchserve supports serving multiple models, not just one. Create a new vision model (either another resnet model
-   or something similar), script it, save it, archive it in the save model store folder and then re-run torchserve
-   like this</p>
-</li>
-</ol>
+    or something similar), script it, save it, archive it in the save model store folder and then re-run torchserve
+    like this</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>torchserve<span class="w"> </span>--start<span class="w"> </span>--ncs<span class="w"> </span>--model-store<span class="w"> </span>model_store<span class="w"> </span>--models<span class="w"> </span>all
 </span></code></pre></div>
 <p>Make sure that you can do inference with both models by calling <code>curl</code>.</p>
+</li>
+</ol>
 <p>That ends the module on local deployment. Hopefully in this phase you have gained a bit experience with sending HTTP
 requests as this will be very important in the next module when we will try to deploy the models in the cloud.</p>
 
@@ -2090,7 +2091,7 @@ requests as this will be very important in the next module when we will try to d
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2024</span>
   </span>
 
     
