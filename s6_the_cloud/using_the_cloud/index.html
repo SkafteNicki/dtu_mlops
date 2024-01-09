@@ -2126,10 +2126,12 @@ offered through <code>gcp</code>.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp5.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp5.PNG" width="800" /></a>
 </figure></p>
-<p>Give the bucket an unique name, set it to a region close by and make it of size 20 GB as seen in the image.</p>
+<p>Give the bucket an unique name, set it to a region close by and importantly remember to enable <em>Object versioning</em>
+under the last tab. Finally click <code>Create</code>.</p>
 </li>
 <li>
-<p>After creating the storage, you should be able to see it if you type</p>
+<p>After creating the storage, you should be able to see it online and you should be able to see it if you type in your
+    local terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gsutil<span class="w"> </span>ls
 </span></code></pre></div>
 <p><code>gsutil</code> is an additional command to <code>gcloud</code>, that provides more command line options.</p>
@@ -2144,11 +2146,18 @@ offered through <code>gcp</code>.</p>
     from our Google drive to our newly created Google cloud storage.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>remote_storage<span class="w"> </span>&lt;output-from-gsutils&gt;
 </span></code></pre></div>
+<p>In addition we are also going to modify the remote to support object versioning (called <code>version_aware</code> in <code>dvc</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>remote_storage<span class="w"> </span>version_aware<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<p>This will change the default way that <code>dvc</code> handles data. Instead of just storing the latest version of the data as
+<a href="https://dvc.org/doc/user-guide/project-structure/internal-files#structure-of-the-cache-directory">content-addressable storage</a>
+it will now store the data as it looks in our local repository, which allows us to not only use <code>dvc</code> to download
+our data.</p>
 </li>
 <li>
 <p>The above command will change the <code>.dvc/config</code> file. <code>git add</code> and <code>git commit</code> the changes to that file.
     Finally, push data to the cloud</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>dvc<span class="w"> </span>push
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>dvc<span class="w"> </span>push
 </span></code></pre></div>
 </li>
 <li>
@@ -2156,9 +2165,31 @@ offered through <code>gcp</code>.</p>
     is to delete the <code>.dvc/cache</code> folder that should be locally on your laptop and afterwards do a <code>dvc pull</code>.</p>
 </li>
 </ol>
-<p>If you ever end up with credential issues when working with your data, we in general recommend for this course that you
-store data in a bucket that is public accessible e.g. no authentication needed. You can read more about how to make your
-buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">here</a>.</p>
+<p>This setup should work when trying to access the data from your laptop, which we authenticated in the previous module.
+However, how can you access the data from a virtual machine, inside a docker container or from a different laptop? We
+in general recommend two ways:</p>
+<ul>
+<li>
+<p>You can make the bucket public accessible e.g. no authentication needed. That means that anyone with the url to the
+    data can access it. This is the easiest way to do it, but also the least secure. You can read more about how to make
+    your buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">here</a>.</p>
+</li>
+<li>
+<p>You can create a <a href="https://cloud.google.com/iam/docs/service-account-overview">service account</a> which is a more secure
+    way of accessing data. A service account is essentially a second user which you can give access to specific
+    services. You can read more about how to create a service account
+    <a href="https://cloud.google.com/iam/docs/creating-managing-service-accounts">here</a>. Once you have created a service
+    account you can give it access to a specific bucket by going to the <code>Permissions</code> tab of the bucket and add the
+    service account as a member.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_bucket_permission.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_bucket_permission.png" width="800" /></a>
+</figure></p>
+<p>If you need to authenticate your service account from a VM, you can do it by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>activate-service-account<span class="w"> </span>--key-file<span class="o">=</span>&lt;key-file&gt;
+</span></code></pre></div>
+<p>where the <code>&lt;key-file</code> is the json file that you downloaded when you created the service account (DO NOT SHARE THIS).</p>
+</li>
+</ul>
 <h2 id="artifact-registry">Artifact registry</h2>
 <p>You should hopefully at this point have seen the strength of using containers to create reproducible environments. They
 allow us to specify exactly the software that we want to run inside our VMs. However, you should already have run into
@@ -2180,18 +2211,18 @@ to be substantially faster to build and smaller in size than the images we are u
 <li>
 <p>Start by enabling the service: <code>Google Artifact Registry API</code> and <code>Google Cloud Build API</code>. This can be
     done through the web side (by searching for the services) or can also be enabled from the terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>artifactregistry.googleapis.com
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>artifactregistry.googleapis.com
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
 </span></code></pre></div>
 </li>
 <li>
 <p>Google cloud building can in principal work out of the box with docker files. However, the recommended way
     is to add specialized <code>cloudbuild.yaml</code> files. They should look something like this:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/&lt;project-id&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/&lt;project-id&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">]</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/&lt;project-id&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/&lt;project-id&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">]</span>
 </span></code></pre></div>
 <p>which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
 that should be used and the arguments for that service. In the above example we are calling the same service
@@ -2244,13 +2275,13 @@ to configure it to run in one of these regions:
 </li>
 <li>
 <p>Finally, to to pull your image down to your laptop</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>gcr.io/&lt;project-id&gt;/&lt;image_name&gt;:&lt;image_tag&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>gcr.io/&lt;project-id&gt;/&lt;image_name&gt;:&lt;image_tag&gt;
 </span></code></pre></div>
 <p>you will need to authenticate <code>docker</code> with <code>gcp</code> first. Instructions can be found
 <a href="https://cloud.google.com/container-registry/docs/advanced-authentication">here</a>, but
 the following command should hopefully be enough to make <code>docker</code> and <code>gcp</code> talk to
 each other:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>configure-docker
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>configure-docker
 </span></code></pre></div>
 <p>Note: To do this you need to have <code>docker</code> actively running in the background, as any
 other time you want to use <code>docker</code>.</p>
@@ -2286,31 +2317,31 @@ parts of our pipeline.</p>
 <li>
 <p>Start by creating a appropriate VM. If you want to start a VM that have Pytorch pre-installed with only CPU
     support you can run the following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-cpu<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-cpu<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release
 </span></code></pre></div>
 <p>alternatively, if you have access to GPU in your GCP account you could start a VM in the following way</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west4-a<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-gpu<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-v100,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;install-nvidia-driver=True&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west4-a<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-gpu<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-v100,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;install-nvidia-driver=True&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE
 </span></code></pre></div>
 </li>
 <li>
 <p>Next login into your newly created VM. You can either open an <code>ssh</code> terminal in the cloud console or run the
     following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>gcloud<span class="w"> </span>beta<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>&lt;instance-name&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>gcloud<span class="w"> </span>beta<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>&lt;instance-name&gt;
 </span></code></pre></div>
 </li>
 <li>
 <p>It is recommend to always check that the VM we get is actually what we asked for. In this case the VM should have
     Pytorch pre-installed so lets check for that by running</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
 </span></code></pre></div>
 <p>Additionally, if you have a VM with GPU support also try running the <code>nvidia-smi</code> command.</p>
 </li>
@@ -2328,8 +2359,8 @@ parts of our pipeline.</p>
 <ol>
 <li>
 <p>Lets for simplicity just create a very small docker image (called <code>gcp_vm_tester.dockerfile</code>) that you can use</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">gcr.io/deeplearning-platform-release/pytorch-cpu</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">gcr.io/deeplearning-platform-release/pytorch-cpu</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
 </span></code></pre></div>
 <p>this basically just extends the base Pytorch image to also install matplotlib. The important part about the docker
 images that we want to use here is that they should not have an <code>ENTRYPOINT</code> at the end, because we do not want
@@ -2337,11 +2368,11 @@ the docker container to actually run our scripts, just install dependencies on s
 </li>
 <li>
 <p>Lets build docker and manually push it to our container repository in gcp. Build with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>gcp_vm_tester.dockerfile.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_vm_tester:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>gcp_vm_tester.dockerfile.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_vm_tester:latest
 </span></code></pre></div>
 <p>and then push with</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>tester<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>docker<span class="w"> </span>push<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>tester<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>docker<span class="w"> </span>push<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
 </span></code></pre></div>
 <p>confirm by going to the container registry in the cloud console and check that the image has been correctly
 pushed.</p>
@@ -2349,15 +2380,15 @@ pushed.</p>
 <li>
 <p>Lets then create a VM with that particular docker image. Instead of using <code>gcloud compute instances create</code> we
     are now using the <code>gcloud compute instances create-with-container</code> command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create-with-container<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span>--container-image<span class="o">=</span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create-with-container<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>--container-image<span class="o">=</span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b
 </span></code></pre></div>
 </li>
 <li>
 <p>Confirm that everything works by accessing your newly created VM and run both of these commands</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import matplotlib; print(matplotlib.__version__)&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import matplotlib; print(matplotlib.__version__)&quot;</span>
 </span></code></pre></div>
 </li>
 </ol>
@@ -2372,32 +2403,32 @@ pushed.</p>
 <p>The way we are going to use Vertex AI is to create custom jobs because we have already developed docker containers
     that contains everything to run our code. Thus the only command that we actually need to use is
     <code>gcloud ai custom-jobs create</code> command. An example here would be:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gcloud<span class="w"> </span>ai<span class="w"> </span>custom-jobs<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>--region<span class="o">=</span>europe-west1<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>--display-name<span class="o">=</span>test-run<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span>--config<span class="o">=</span>config.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>gcloud<span class="w"> </span>ai<span class="w"> </span>custom-jobs<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span>--region<span class="o">=</span>europe-west1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span>--display-name<span class="o">=</span>test-run<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span>--config<span class="o">=</span>config.yaml
 </span></code></pre></div>
 <p>Essentially, this command combines everything into one command: it first creates a VM with the specs specified by
 a configuration file, then loads a container specified again in the configuration file and finally it runs
 everything. A example of a config file could be:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># config_cpu.yaml</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># config_cpu.yaml</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
 </span></code></pre></div>
 <p>if you only want to run on CPU and another example for GPU:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># config_gpu.yaml</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-standard-8</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">        </span><span class="nt">acceleratorType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NVIDIA_TESLA_T4</span>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">        </span><span class="nt">acceleratorCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># config_gpu.yaml</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-standard-8</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">        </span><span class="nt">acceleratorType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NVIDIA_TESLA_T4</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">        </span><span class="nt">acceleratorCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
 </span></code></pre></div>
 <p>you can read more about the configuration formatting
 <a href="https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec">here</a>
@@ -2421,6 +2452,19 @@ and <a href="https://cloud.google.com/vertex-ai/docs/training/create-custom-job#
 <a class="glightbox" href="../../figures/gcp_vertex_job.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_job.PNG" width="800" /></a>
 </figure></p>
 <p>Check it out.</p>
+</li>
+<li>
+<p>During custom training we do not necessarily need to use <code>dvc</code> for downloading our data. A more efficient way is
+    to use cloud storage as a <a href="https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system">mounted file system</a>.
+    This allows us to access data directly from the cloud storage without having to download it first. All our
+    training jobs are automatically mounted a <code>gcs</code> folder in the root directory. Try to access the data from your
+    training script:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># loading from a bucket using mounted file system</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;/gcs/&lt;my-bucket-name&gt;/data.pt&#39;</span><span class="p">)</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="c1"># writing to a bucket using mounted file system</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;/gcs/&lt;my-bucket-name&gt;/data.pt&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>is should speed up the training process a bit.</p>
 </li>
 </ol>
 </li>
@@ -2449,7 +2493,7 @@ more of the services offered in GCP, in particular for deploying the models that
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2024</span>
   </span>
 
     
