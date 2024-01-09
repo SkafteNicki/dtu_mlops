@@ -142,9 +142,11 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     ![Image](../figures/gcp5.PNG){ width="800" }
     </figure>
 
-    Give the bucket an unique name, set it to a region close by and make it of size 20 GB as seen in the image.
+    Give the bucket an unique name, set it to a region close by and importantly remember to enable *Object versioning*
+    under the last tab. Finally click `Create`.
 
-2. After creating the storage, you should be able to see it if you type
+2. After creating the storage, you should be able to see it online and you should be able to see it if you type in your
+    local terminal:
 
     ```bash
     gsutil ls
@@ -165,6 +167,17 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     dvc remote add -d remote_storage <output-from-gsutils>
     ```
 
+    In addition we are also going to modify the remote to support object versioning (called `version_aware` in `dvc`):
+
+    ```bash
+    dvc remote modify remote_storage version_aware true
+    ```
+
+    This will change the default way that `dvc` handles data. Instead of just storing the latest version of the data as
+    [content-addressable storage](https://dvc.org/doc/user-guide/project-structure/internal-files#structure-of-the-cache-directory)
+    it will now store the data as it looks in our local repository, which allows us to not only use `dvc` to download
+    our data.
+
 5. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file.
     Finally, push data to the cloud
 
@@ -175,9 +188,32 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
     is to delete the `.dvc/cache` folder that should be locally on your laptop and afterwards do a `dvc pull`.
 
-If you ever end up with credential issues when working with your data, we in general recommend for this course that you
-store data in a bucket that is public accessible e.g. no authentication needed. You can read more about how to make your
-buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
+This setup should work when trying to access the data from your laptop, which we authenticated in the previous module.
+However, how can you access the data from a virtual machine, inside a docker container or from a different laptop? We
+in general recommend two ways:
+
+* You can make the bucket public accessible e.g. no authentication needed. That means that anyone with the url to the
+    data can access it. This is the easiest way to do it, but also the least secure. You can read more about how to make
+    your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
+
+* You can create a [service account](https://cloud.google.com/iam/docs/service-account-overview) which is a more secure
+    way of accessing data. A service account is essentially a second user which you can give access to specific
+    services. You can read more about how to create a service account
+    [here](https://cloud.google.com/iam/docs/creating-managing-service-accounts). Once you have created a service
+    account you can give it access to a specific bucket by going to the `Permissions` tab of the bucket and add the
+    service account as a member.
+
+    <figure markdown>
+    ![Image](../figures/gcp_bucket_permission.png){ width="800" }
+    </figure>
+
+    If you need to authenticate your service account from a VM, you can do it by running the following command:
+
+    ```bash
+    gcloud auth activate-service-account --key-file=<key-file>
+    ```
+
+    where the `<key-file` is the json file that you downloaded when you created the service account (DO NOT SHARE THIS).
 
 ## Artifact registry
 
@@ -470,6 +506,21 @@ parts of our pipeline.
         </figure>
 
         Check it out.
+
+    5. During custom training we do not necessarily need to use `dvc` for downloading our data. A more efficient way is
+        to use cloud storage as a [mounted file system](https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system).
+        This allows us to access data directly from the cloud storage without having to download it first. All our
+        training jobs are automatically mounted a `gcs` folder in the root directory. Try to access the data from your
+        training script:
+
+        ```python
+        # loading from a bucket using mounted file system
+        data = torch.load('/gcs/<my-bucket-name>/data.pt')
+        # writing to a bucket using mounted file system
+        torch.save(data, '/gcs/<my-bucket-name>/data.pt')
+        ```
+
+        is should speed up the training process a bit.
 
 This ends the session on how to use Google cloud services for now. In a future session we are going to investigate a bit
 more of the services offered in GCP, in particular for deploying the models that we have just trained.
