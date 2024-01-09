@@ -38,7 +38,7 @@ populations. Figure inspired by this<a href="https://arxiv.org/abs/2209.06529"> 
 </figure>
 
 Trustworthy ML is the idea that machine learning agents *can* be trusted. Take the example of a machine
-learning agent being responsible for medical diagnoses. It is s very clear that we need to be able to trust that the
+learning agent being responsible for medical diagnoses. It is very clear that we need to be able to trust that the
 agent gives us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
 because without we cannot be sure that the same agent deployed at two different hospitals will give the same
 diagnosis (given the same input).
