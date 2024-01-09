@@ -114,20 +114,7 @@ As the first step we are going to get you setup with some Google cloud credits.
 
         this should work without any errors.
 
-    5. Finally, we need some additional commands for `gcloud` which are part of the `beta` component.
-        Install with:
-
-        ```bash
-        gcloud components install beta
-        ```
-
-        You can get a list of all install components using
-
-        ```bash
-        gcloud components list
-        ```
-
-    6. (Optional) If you are using VSCode you can also download the relevant
+    5. (Optional) If you are using VSCode you can also download the relevant
         [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
         called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar.
 
