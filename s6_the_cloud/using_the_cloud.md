@@ -393,7 +393,8 @@ parts of our pipeline.
         need to do the same setup step you have done on your own machine: clone your github, install dependencies,
         download data, run code. Try doing this to make sure you can train a model.
 
-2. The last step in the previous exercise involves a lot of setup that would be necessary to do every time we create a
+2. (Optional, may not work as intended) The last step in the previous exercise involves a lot of setup that would be
+    necessary to do every time we create a
     new VM, making horizontal scaling of experiments cumbersome. However, we have already developed docker images that
     can take care of most of the setup.
 
