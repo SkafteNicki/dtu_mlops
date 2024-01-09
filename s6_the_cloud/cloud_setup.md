@@ -204,11 +204,11 @@ services some more to make sure you are not a bot that wants to mine crypto.
 
     ??? success "Solution"
 
-        GCP | AWS | Azure
-        ----|-----|------
+        GCP             | AWS                         | Azure
+        ----------------|-----------------------------|------
         Compute Engine  | Elastic Compute Cloud (EC2) | Virtual Machines
         Cloud storage   | Simple Storage Service (S3) | Blob Storage
-        Cloud functions | Lambda | Functions Serverless Compute
+        Cloud functions | Lambda                      | Functions Serverless Compute
         Cloud run       | App Runner, Fargate, Lambda | Container Apps, Container Instances
-        Cloud build     | CodeBuild | DevOps
-        Vertex AI       | SageMaker | AI Platform
+        Cloud build     | CodeBuild                   | DevOps
+        Vertex AI       | SageMaker                   | AI Platform

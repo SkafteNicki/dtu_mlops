@@ -91,7 +91,7 @@ We are now going to start actually using the cloud.
         gcloud compute instances create <instance_name> \
             --zone=<zone> \
             --image-family=<image-family> \
-            --image-project=deeplearning-platform-release \
+            --image-project=deeplearning-platform-release
         ```
 
         You can find more info [here](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on what

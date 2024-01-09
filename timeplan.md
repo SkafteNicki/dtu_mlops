@@ -50,8 +50,8 @@ Date | Day       | Presentation topic                                           
 8/1  | Monday    | Continuous Integration <br> [📝](slides/ContinuousIntegration.pdf) [🎥](https://drive.google.com/file/d/1KN1j0BI3oWPJPXe1zY_4bxVvruNn7R6O/view?usp=share_link)| Pytest, Github actions, Pre-commit, CML           | [Exercises](s5_continuous_integration/README.md)
 9/1 | Tuesday   | The Cloud <br> [📝](slides/Cloud%20Intro.pdf) [🎥](https://drive.google.com/file/d/1EF60Z_pGlsy1I5UWI01RSUtt3Ef1a_o6/view?usp=share_link)                        | GCP Engine, Bucket, Container registry, Vertex AI | [Exercises](s6_the_cloud/README.md)
 10/1 | Wednesday | Deployment <br> [📝](slides/Deployment.pdf) [🎥](https://drive.google.com/file/d/1MbZyaN_ia_VC9Na894NdMLodj4TbAirJ/view?usp=share_link)                         | FastAPI, Torchservce, GCP Functions, Run          | [Exercises](s7_deployment/README.md)
-11/1 | Thursday  | Guest lecture <br> [🎥](https://drive.google.com/file/d/1Qg0LnSINe8epdR7q8sQbMsrXKJenTuDT/view?usp=share_link)                                                  | -                                                 | [Projects](projects.md)
-12/1 | Friday    | Guest lecture <br> [🎥](https://drive.google.com/file/d/1fGq9VSx0WUj3X7kpKP2y5avMbW-jw6K7/view?usp=share_link)                                                  | -                                                 | [Projects](projects.md)
+11/1 | Thursday  | No lecture <br> [🎥](https://drive.google.com/file/d/1Qg0LnSINe8epdR7q8sQbMsrXKJenTuDT/view?usp=share_link)                                                  | -                                                 | [Projects](projects.md)
+12/1 | Friday    | No lecture <br> [🎥](https://drive.google.com/file/d/1fGq9VSx0WUj3X7kpKP2y5avMbW-jw6K7/view?usp=share_link)                                                  | -                                                 | [Projects](projects.md)
 
 ## Week 3
 
