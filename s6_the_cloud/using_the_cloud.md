@@ -94,8 +94,9 @@ We are now going to start actually using the cloud.
             --image-project=deeplearning-platform-release \
         ```
 
-        Hint: you can find relevant image families
-        [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
+        You can find more info [here](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on what
+        `<image-family>` should have as value and what extra argument you need to add if you want to run on GPU (if you
+        have access).
 
     3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
         both a python installation and Pytorch is also installed. Hint: you also have the possibility
