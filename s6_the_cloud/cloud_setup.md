@@ -177,7 +177,13 @@ sometimes changes). We will in the exercises below try to increase it.
     </figure>
 
 If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
-go to this page and see what you are actually allowed to use currently and try to increase it.
+go to this page and see what you are actually allowed to use currently and try to increase it. For example, when you
+get to training machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
+need to ask for quota increase for that service as well.
+
+<figure markdown>
+![Image](../figures/gcp_quotas.png){ width="1000" }
+</figure>
 
 Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
 request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
