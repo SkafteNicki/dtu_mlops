@@ -91,7 +91,11 @@ We are now going to start actually using the cloud.
         gcloud compute instances create <instance_name> \
             --zone=<zone> \
             --image-family=<image-family> \
-            --image-project=deeplearning-platform-release
+            --image-project=deeplearning-platform-release \
+            # add these arguments if you want to run on GPU
+            --accelerator="type=nvidia-tesla-K80,count=1" \
+            --maintenance-policy TERMINATE \
+            --metadata="install-nvidia-driver=True" \
         ```
 
         You can find more info [here](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on what
@@ -477,12 +481,17 @@ parts of our pipeline.
         workerPoolSpecs:
             machineSpec:
                 machineType: n1-standard-8
-                acceleratorType: NVIDIA_TESLA_T4
+                acceleratorType: NVIDIA_TESLA_T4 #(1)!
                 acceleratorCount: 1
             replicaCount: 1
             containerSpec:
                 imageUri: gcr.io/<project-id>/<docker-img>
         ```
+
+        1. In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have quota for allocating
+            this type of GPU in the Vertex AI service. You can check how to request quota in the last exercise of the
+            [previous module](cloud_setup.md). Remember that it is not enough to just request quota for the GPU, the
+            request need to by approved by Google before you can use it.
 
         you can read more about the configuration formatting
         [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
