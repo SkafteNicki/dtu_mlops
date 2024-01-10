@@ -59,7 +59,7 @@ We are now going to start actually using the cloud.
 5. You can start a terminal directly by typing:
 
     ```bash
-    gcloud beta compute ssh --zone <zone> <name> --project <project-id>
+    gcloud compute ssh --zone <zone> <name> --project <project-id>
     ```
 
     You can always see the exact command that you need to run to `ssh` to an VM by selecting the
