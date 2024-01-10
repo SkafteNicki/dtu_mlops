@@ -416,7 +416,7 @@ parts of our pipeline.
     2. Lets build docker and manually push it to our container repository in gcp. Build with:
 
         ```bash
-        docker build -f gcp_vm_tester.dockerfile.dockerfile . -t gcp_vm_tester:latest
+        docker build -f gcp_vm_tester.dockerfile . -t gcp_vm_tester:latest
         ```
 
         and then push with
@@ -434,7 +434,7 @@ parts of our pipeline.
 
         ```bash
         gcloud compute instances create-with-container <instance-name> \
-            --container-image=gcr.io/<project-id>/gcp_vm_tester
+            --container-image=gcr.io/<project-id>/gcp_vm_tester \
             --zone europe-west1-b
         ```
 
