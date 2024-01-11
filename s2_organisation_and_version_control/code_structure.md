@@ -47,7 +47,7 @@ persons are both using `cookiecutter` with the same template, the layout of thei
 enabling one to faster understand the other person's code. Code organization is therefore not only to make the
 code easier for you to maintain but also for others to read and understand.
 
-Below is seen the default code structure of cookiecutter for data science projects.
+Shown below is the default code structure of cookiecutter for data science projects.
 
 <figure markdown>
 ![Image](../figures/cookie_cutter.png){ width="1000" }
