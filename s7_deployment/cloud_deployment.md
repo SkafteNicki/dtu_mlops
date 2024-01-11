@@ -214,26 +214,34 @@ service in GCP for deploying containers.
     steps:
     # Build the container image
     - name: 'gcr.io/cloud-builders/docker'
-      args: ['build', '-t', 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA', '.']
+      args: ['build', '-t', 'gcr.io/$PROJECT_ID/<container-name>:lates', '.'] #(1)!
     # Push the container image to Container Registry
     - name: 'gcr.io/cloud-builders/docker'
-      args: ['push', 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA']
+      args: ['push', 'gcr.io/$PROJECT_ID/<container-name>:latest']
     # Deploy container image to Cloud Run
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       entrypoint: gcloud
       args:
       - 'run'
       - 'deploy'
-      - 'SERVICE-NAME'
+      - '<service-name>'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/<container-name>:latest'
       - '--region'
-      - 'REGION'
-    images:
-      - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
+      - '<region>'
     ```
 
-    where you need to replace `SERVICE-NAME` and `REGION` with the appropriate values. Afterwards you need to setup a
+    1. This line assume you are standing in the root of your repository and is trying to build the docker image
+        specified in a file called `Dockerfile` and tag it with the name `gcr.io/$PROJECT_ID/my_deployment:latest`.
+        Therefore if you want to point to another dockerfile you need to add `-f` option to the command. For example
+        if you want to point to a `my_app/my_serving_app.dockerfile` you need to change the line to
+
+        ```yaml
+        args: ['build', '-f', 'my_app/my_serving_app.dockerfile', '-t', 'gcr.io/$PROJECT_ID/my_deployment:lates', '.']
+        ```
+
+    where you need to replace `<container-name>` with the name of your container, `<service-name>` with the name of the
+    service you want to deploy and `<region>` with the region you want to deploy to. Afterwards you need to setup a
     trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
     works by making a change to your application and pushing it to github and see if the application is updated
     continuously. For help you can look [here](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
