@@ -1153,13 +1153,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quotas" class="md-nav__link">
+  <a href="#iam-and-quotas" class="md-nav__link">
     <span class="md-ellipsis">
-      Quotas
+      IAM and Quotas
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quotas">
+    <nav class="md-nav" aria-label="IAM and Quotas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1834,13 +1834,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quotas" class="md-nav__link">
+  <a href="#iam-and-quotas" class="md-nav__link">
     <span class="md-ellipsis">
-      Quotas
+      IAM and Quotas
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quotas">
+    <nav class="md-nav" aria-label="IAM and Quotas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1934,7 +1934,7 @@ is being created. The notification bell is good way to make sure how the process
 throughout the course.</p>
 </li>
 <li>
-<p>Finally, for setup we are going to install <code>gcloud</code>. <code>gcloud</code> is the command line interface for working with
+<p>For setup we are going to install <code>gcloud</code>. <code>gcloud</code> is the command line interface for working with
     our Google cloud account. Nearly everything that we can do through the web interface we can also do through
     the <code>gcloud</code> interface. Follow the installation instructions <a href="https://cloud.google.com/sdk/docs/install">here</a>
     for your specific OS.</p>
@@ -1984,20 +1984,39 @@ Afterwards, also run this command:</p>
 </li>
 </ol>
 </li>
+<li>
+<p>Finally, we need to activate a couple of
+    <a href="https://cloud.google.com/api-gateway/docs/configure-dev-env#prerequisites">developer APIs</a> that are not activated
+    by default. In a terminal write</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>apigateway.googleapis.com
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicemanagement.googleapis.com
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicecontrol.googleapis.com
+</span></code></pre></div>
+<p>you can always check which services are enabled by typing</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span>list
+</span></code></pre></div>
+</li>
 </ol>
 <p>After following these step your laptop should hopefully be setup for using <code>gcp</code> locally. You are now ready to use their
 services, both locally on your laptop and in the cloud console.</p>
-<h2 id="quotas">Quotas</h2>
+<h2 id="iam-and-quotas">IAM and Quotas</h2>
 <p>A big part of using the cloud in a bigger organisation has to do with Admin and quotas. Admin here in general refers
 to the different roles that users of GCP and quotas refers to the amount of resources that a given user has access to.
 For example one employee, lets say a data scientist, may only be granted access to certain GCP services that have to do
 with development and training of machine learning model, with <code>X</code> amounts of GPUs available to use to make sure that the
 employee does not spend too much money. Another employee, a devops engineer, probably do not need access to the same
 services and not necessarily the same resources.</p>
-<p>In this course we are not going to focus too much on this aspect but it is important to know about. What we are going
-to go through is how to increase the quotas for how many GPUs you have available. By default any free accounts in GCP
-(or accounts using teaching credits) the default quota for GPUs that you can use is either 0 or 1 (their policies
-sometimes changes). We will in the exercises below try to increase it.</p>
+<p>In this course we are not going to focus too much on this aspect but it is important to know that it exists. One feature
+you are going to need for doing the project is how to share a project with other people. This is done through the IAM
+(Identities and Access Management) page. Simply click the <code>Grant Access</code> button, search for the email of the person you
+want to share the project with and give them either <code>Viewer</code>, <code>Editor</code> or <code>Owner</code> access, depending on what you want
+them to be able to do. The figure below shows how to do this.</p>
+<figure>
+<p><a class="glightbox" href="../../figures/gcp_iam_group.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_iam_group.png" width="1000" /></a></p>
+</figure>
+<p>What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
+project. By default any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that you
+can use is either 0 or 1 (their policies sometimes changes). We will in the exercises below try to increase it.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
 <li>
@@ -2055,6 +2074,8 @@ services some more to make sure you are not a bot that wants to mine crypto.</p>
 <p>A series of factors may influence your choice of region, including:</p>
 <ul>
 <li>Services availability in the region, not all services are available in all regions</li>
+<li>Resource availability: <a href="https://cloud.google.com/compute/docs/gpus/gpu-regions-zones">some regions</a> have more
+    GPUs available than others</li>
 <li>Reduced latency: if your application is running in the same region as your users, the latency will be lower</li>
 <li>Compliance: some countries has strict rules that requires user info to be stored inside a particular region
     eg. EU has GDPR rules that requires all user data to be stored in the EU</li>
@@ -2142,7 +2163,7 @@ services some more to make sure you are not a bot that wants to mine crypto.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2024</span>
   </span>
 
     
