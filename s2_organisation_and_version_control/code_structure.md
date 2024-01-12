@@ -54,7 +54,7 @@ Shown below is the default code structure of cookiecutter for data science proje
 </figure>
 
 What is important to keep in mind when using a template, is that it exactly is a template. By definition a template is
-*guide* to make something. Therefore, not all parts of an template may be important for your project at hand. Your job
+a *guide* to make something. Therefore, not all parts of a template may be important for your project at hand. Your job
 is to pick the parts from the template that is useful for organizing your machine learning project and add the parts
 that are missing.
 
@@ -88,7 +88,7 @@ a lot of projects using `setup.py + setup.cfg` so it is good to at least know ab
 === "pyproject.toml"
 
     `pyproject.toml` is the new standardized way of describing project metadata in a declaratively way, introduced in
-    [PEP 621](https://peps.python.org/pep-0621/). It is written [toml format](https://toml.io/en/) which is easy to
+    [PEP 621](https://peps.python.org/pep-0621/). It is written in [toml format](https://toml.io/en/) which is easy to
     read. At the very least your `pyproject.toml` file should include the `[build-system]` and `[project]` sections:
 
     ```toml
