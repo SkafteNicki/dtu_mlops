@@ -7,7 +7,7 @@ from pathlib import Path
 
 ## NEW! Set up LOGS_DIR
 ## REMEMBER TO ADD A RAW STRING "r" BEFORE ADDING THE DIC LOCATION, TO AVOID ISSUES WITH EXCAPE CHARACTERS
-LOGS_DIR = Path(r"D:\DTU\Study\2024Jan\MLOps\dtu_mlops\dtu_mlops\s4_debugging_and_logging\exercise_files")
+LOGS_DIR = Path(r"D:\DTU\Study\2024Jan\MLOps\dtu_mlops\dtu_mlops\s4_debugging_and_logging\exercise_files\LOGS_DIR")
 LOGS_DIR.mkdir(exist_ok=True)
 
 logging_config = {
