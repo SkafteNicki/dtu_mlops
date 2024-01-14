@@ -156,9 +156,6 @@ def main(
         folder_name = repo.split("/")[-1]
         if clone_succes:
             os.system(f"cd {out_folder} && cp -r {folder_name} group_{group_nb} && rm -rf {folder_name}")
-            if folder_name in os.listdir(out_folder):  # copy may fail
-                shutil.rmtree(f"{out_folder}/{folder_name}")
-                clone_succes = False
         else:
             if folder_name in os.listdir(out_folder):
                 shutil.rmtree(f"{out_folder}/{folder_name}")
