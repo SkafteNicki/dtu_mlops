@@ -1400,11 +1400,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#local-instrumentator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local instrumentator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local instrumentator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
     <span class="md-ellipsis">
       ❔ Exercises
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1419,7 +1458,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises_1" class="md-nav__link">
+  <a href="#exercises_2" class="md-nav__link">
     <span class="md-ellipsis">
       ❔ Exercises
     </span>
@@ -1816,11 +1855,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#local-instrumentator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local instrumentator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local instrumentator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
     <span class="md-ellipsis">
       ❔ Exercises
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1835,7 +1913,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises_1" class="md-nav__link">
+  <a href="#exercises_2" class="md-nav__link">
     <span class="md-ellipsis">
       ❔ Exercises
     </span>
@@ -1866,8 +1944,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/signoz.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/signoz.png" width="130" /></a>
-<a class="glightbox" href="../../figures/icons/opentelemetry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/opentelemetry.png" width="130" /></a>
+<p><a class="glightbox" href="../../figures/icons/prometheus.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/prometheus.png" width="130" /></a>
 <a class="glightbox" href="../../figures/icons/monitoring.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/monitoring.png" width="130" /></a></p>
 <h1 id="monitoring">Monitoring</h1>
 <hr />
@@ -1876,23 +1953,130 @@ with here is called <em>telemetry</em>. Telemetry in general refer to any automa
 data from our application. It could be numbers such as:</p>
 <ul>
 <li>The number of requests are our application receiving per minute/hour/day. This number is of interest because it is
-  directly proportional to the running cost of application.</li>
+    directly proportional to the running cost of application.</li>
 <li>The amount of time (on average) our application runs per request. The number is of interest because it most likely is
-  the core contributor to the latency that our users are experience (which we want to be low).</li>
+    the core contributor to the latency that our users are experience (which we want to be low).</li>
 <li>...</li>
 </ul>
-<h2 id="exercises">❔ Exercises</h2>
-<p>The exercise here is simply to follow the instructions in this repository:</p>
-<p><a href="https://github.com/duarteocarmo/dtu-mlops-monitoring">https://github.com/duarteocarmo/dtu-mlops-monitoring</a></p>
-<p>by <a href="https://duarteocarmo.com/">Duarte Carmo</a>. The repository goes over the steps to setup an simple application that
-uses FastAPI to implement a application and <a href="https://opentelemetry.io/">opentelemetry</a> to extract relevant telemetry
-data that is then visualized through <a href="https://signoz.io/">Signoz</a>. Importantly you should try to take a look at the
-implemented <a href="https://github.com/duarteocarmo/dtu-mlops-monitoring/blob/master/src/api/main.py">application</a> to see how
-opentelemetry is integrated into a FastAPI application.</p>
-<p>If you manage to get the done with the steps in the repository we recommend that you can try to deploy this to GCP
-by following <a href="https://signoz.io/docs/install/kubernetes/gcp/">these steps</a>. However, we do not really recommend it as
-it requires setting up a Kubernetes cluster (because we are running multiple docker containers) which is not part of
-the curriculum in this course</p>
+<p>In general there are three different kinds of telemetry we are interested in:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metrics</td>
+<td>Metrics are quantitative measurements of the system. They are usually numbers that are aggregated over a period of time. E.g. the number of requests per minute.</td>
+<td>The number of requests per minute.</td>
+<td>Metrics are used to get an overview of the system. They are often used to create dashboards that can be used to get an overview of the system.</td>
+</tr>
+<tr>
+<td>Logs</td>
+<td>Logs are textual or structured records generated by applications. They provide a detailed account of events, errors, warnings, and informational messages that occur during the operation of the system.</td>
+<td>System logs, error logs</td>
+<td>Logs are essential for diagnosing issues, debugging, and auditing. They provide a detailed history of what happened in a system, making it easier to trace the root cause of problems and track the behavior of components over time.</td>
+</tr>
+<tr>
+<td>Traces</td>
+<td>Traces are detailed records of specific transactions or events as they move through a system. A trace typically includes information about the sequence of operations, timing, and dependencies between different components.</td>
+<td>Distributed tracing in microservices architecture</td>
+<td>Traces help in understanding the flow of a request or a transaction across different components. They are valuable for identifying bottlenecks, understanding latency, and troubleshooting issues related to the flow of data or control.</td>
+</tr>
+</tbody>
+</table>
+<p>We are mainly going to focus in this module on metrics.</p>
+<h2 id="local-instrumentator">Local instrumentator</h2>
+<p>Before we look into the cloud lets at least conceptually understand how a given instance of a app can expose values that
+we may be interested in monitoring.</p>
+<p>The standard framework for exposing metrics is called <a href="https://prometheus.io/">prometheus</a>. Prometheus is a time series
+database that is designed to store metrics. It is also designed to be very easy to instrument applications with and it
+is designed to scale to large amounts of data. The way prometheus works is that it exposes a <code>/metrics</code> endpoint that
+can be queried to get the current state of the metrics. The metrics are exposed in a format called <a href="https://prometheus.io/docs/instrumenting/exposition_formats/">prometheus text
+format</a>.</p>
+<h3 id="exercises">❔ Exercises</h3>
+<ol>
+<li>
+<p>Start by installing <code>prometheus-fastapi-instrumentator</code> in python</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>prometheus-fastapi-instrumentator
+</span></code></pre></div>
+<p>this will allow us to easily instrument our FastAPI application with prometheus.</p>
+</li>
+<li>
+<p>Create a simple FastAPI application in a file called <code>app.py</code>. You can reuse any application from the previous
+    <a href="../../s7_deployment/apis/">module on APIs</a>. To that file now add the following code:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">prometheus_fastapi_instrumentator</span> <span class="kn">import</span> <span class="n">Instrumentator</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># your app code here</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">Instrumentator</span><span class="p">()</span><span class="o">.</span><span class="n">instrument</span><span class="p">(</span><span class="n">app</span><span class="p">)</span><span class="o">.</span><span class="n">expose</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This will instrument your application with prometheus and expose the metrics on the <code>/metrics</code> endpoint.</p>
+</li>
+<li>
+<p>Run the app using <code>uvicorn</code> server. Make sure that the app exposes the endpoints you expect it too exposes, but make
+    sure you also checkout the <code>/metrics</code> endpoint.</p>
+</li>
+<li>
+<p>The metric endpoint exposes multiple <code>/metrics</code>. Metrics always looks like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># TYPE key &lt;type&gt;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>key value
+</span></code></pre></div>
+<p>e.g. it is essentially a ditionary of key-value pairs with the added functionality of a <code>&lt;type&gt;</code>. Look at this
+<a href="https://prometheus.io/docs/concepts/metric_types/">page</a> over the different types prometheus metrics can have and
+try to understand the different metrics being exposed.</p>
+</li>
+<li>
+<p>Look at the <a href="https://prometheus.io/docs/instrumenting/exposition_formats/">documentation</a> for the
+    <code>prometheus-fastapi-instrumentator</code> and try to add at least one more metric to your application. Rerun the
+    application and confirm that the new metric is being exposed.</p>
+</li>
+</ol>
+<h2 id="cloud-monitoring">Cloud monitoring</h2>
+<p>Any cloud system with respect for itself will have some kind of monitoring system. GCP has a
+service called <a href="https://cloud.google.com/monitoring">Monitoring</a> that is designed to monitor all the different services.
+By default it will monitor a lot of metrics out-of-box. However, the question is if we want to monitor more than the
+default metrics. The complexity that comes with doing monitoring in the cloud is that we need more than one container.
+We at least need one container actually running the application that is also exposing the <code>/metrics</code> endpoint and then
+we need a another container that is collecting the metrics from the first container and storing them in a database. To
+implement such system of containers that need to talk to each others we in general need to use a container orchestration
+system such as <a href="https://kubernetes.io/">Kubernetes</a>. This is out of scope for this course, but we can use a feature
+of <code>Cloud Run</code> called <code>sidecar containers</code> to achieve the same effect. A sidecar container is a container that is
+running alongside the main container and can be used to do things such as collecting metrics.</p>
+<figure>
+<p><a class="glightbox" href="../../figures/gcp_run_monitoring.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_monitoring.png" width="800" /></a></p>
+</figure>
+<h3 id="exercises_1">❔ Exercises</h3>
+<ol>
+<li>
+<p>Overall we recommend that you just become familiar with the monitoring tab for your cloud run service (see image)
+    above. Try to invoke your service a couple of times and see what happens to the metrics over time.</p>
+<ol>
+<li>(Optional) If you really want to load test your application we recommend checking out the tool
+    <a href="https://locust.io/">locust</a>. Locust is a Python based load testing tool that can be used to simulate many
+    users accessing your application at the same time.</li>
+</ol>
+</li>
+<li>
+<p>Try creating a service level objective (SLO). In short a <a href="https://sre.google/sre-book/service-level-objectives/">SLO</a>
+    is a target for how well your application should be performing. Click the <code>Create SLO</code> button and fill it out with
+    what you consider to be a good SLO for your application.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_run_slo.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_slo.png" width="800" /></a>
+</figure></p>
+</li>
+<li>
+<p>(Optional) To expose our own metrics we need to setup a sidecar container. To do this follow the instructions
+    <a href="https://cloud.google.com/stackdriver/docs/managed-prometheus/cloudrun-sidecar#default-configuration">here</a>. We have
+    setup a simple example that uses fastapi and prometheus that you can find
+    <a href="https://github.com/SkafteNicki/gcp_monitoring_test">here</a>. After you have correctly setup the sidecar container you
+    should be able to see the metrics in the monitoring tab.</p>
+</li>
+</ol>
 <h2 id="alert-systems">Alert systems</h2>
 <p>A core problem within monitoring is alert systems. The alert system is in charge of sending out alerts to relevant
 people when some telemetry or metric we are tracking is not behaving as it should. Alert systems are a subjective
@@ -1902,13 +2086,13 @@ metric/telemetry. We commonly run into what is referred to the
 however it is more often the case that we either have</p>
 <ul>
 <li>Too many alerts, such that they become irrelevant and the really important ones are overseen, often referred to as
-  alert fatigue</li>
+    alert fatigue</li>
 <li>Or alternatively, we have too little alerts and problems that should have triggered an alert is not dealt with when
-  they happen which can have unforeseen consequences.</li>
+    they happen which can have unforeseen consequences.</li>
 </ul>
 <p>Therefore, setting up proper alert systems can be as challenging as setting up the systems for actually the metrics we
 want to trigger alerts.</p>
-<h3 id="exercises_1">❔ Exercises</h3>
+<h3 id="exercises_2">❔ Exercises</h3>
 <p>We are in this exercise going to look at how we can setup automatic alerting such that we get an message every time one
 of our applications are not behaving as expected.</p>
 <ol>
@@ -1937,13 +2121,13 @@ of our applications are not behaving as expected.</p>
 <p>When the alert is setup you need to trigger it. If you setup the condition as the image above you just need to
     invoke the cloud function many times. Here is a small code snippet that you can execute on your laptop to call a
     cloud function many time (you need to change the url and payload depending on your function):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">time</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">requests</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://us-central1-dtumlops-335110.cloudfunctions.net/function-2&#39;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello, General Kenobi&#39;</span><span class="p">}</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span> <span class="nn">requests</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://us-central1-dtumlops-335110.cloudfunctions.net/function-2&#39;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello, General Kenobi&#39;</span><span class="p">}</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -1972,7 +2156,7 @@ of our applications are not behaving as expected.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2024</span>
   </span>
 
     
