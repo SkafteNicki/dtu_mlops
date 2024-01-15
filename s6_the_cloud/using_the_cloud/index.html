@@ -2385,10 +2385,10 @@ the docker container to actually run our scripts, just install dependencies on s
 </li>
 <li>
 <p>Lets build docker and manually push it to our container repository in gcp. Build with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>gcp_vm_tester.dockerfile.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_vm_tester:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>gcp_vm_tester.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_vm_tester:latest
 </span></code></pre></div>
 <p>and then push with</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>tester<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>gcp_vm_tester<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>docker<span class="w"> </span>push<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
 </span></code></pre></div>
 <p>confirm by going to the container registry in the cloud console and check that the image has been correctly
@@ -2516,7 +2516,7 @@ more of the services offered in GCP, in particular for deploying the models that
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2024</span>
   </span>
 
     
