@@ -208,12 +208,20 @@ def main(
             ).json()
             num_prs = len(prs)
 
-            commits = requests.get(
-                f"https://api.github.com/repos/{repo}/commits",
-                headers=headers,
-                params={"state": "all", "per_page": 100},
-                timeout=100,
-            ).json()
+            commits = []
+            page_counter = 1
+            while True:
+                commits_page = requests.get(
+                    f"https://api.github.com/repos/{repo}/commits",
+                    headers=headers,
+                    params={"state": "all", "per_page": 100},
+                    timeout=100,
+                ).json()
+                if len(commits_page) == 0:
+                    break
+                commits += commits_page
+
+            num_commits_to_main = len(commits)
             commit_messages = [c["commit"]["message"] for c in commits]
             average_commit_message_length_to_main = sum([len(c) for c in commit_messages]) / len(commit_messages)
             latest_commit = commits[0]["commit"]["author"]["date"]
@@ -246,6 +254,7 @@ def main(
         else:
             num_contributors = None
             num_prs = None
+            num_commits_to_main = None
             average_commit_message_length_to_main = None
             latest_commit = None
             average_commit_message_length = None
@@ -296,6 +305,7 @@ def main(
                 num_students,
                 num_contributors,
                 num_prs,
+                num_commits_to_main,
                 average_commit_message_length_to_main,
                 latest_commit,
                 average_commit_message_length,
