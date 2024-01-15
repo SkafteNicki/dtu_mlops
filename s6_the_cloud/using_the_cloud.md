@@ -428,13 +428,13 @@ parts of our pipeline.
     2. Lets build docker and manually push it to our container repository in gcp. Build with:
 
         ```bash
-        docker build -f gcp_vm_tester.dockerfile.dockerfile . -t gcp_vm_tester:latest
+        docker build -f gcp_vm_tester.dockerfile . -t gcp_vm_tester:latest
         ```
 
         and then push with
 
         ```bash
-        docker tag tester gcr.io/<project-id>/gcp_vm_tester
+        docker tag gcp_vm_tester gcr.io/<project-id>/gcp_vm_tester
         docker push gcr.io/<project-id>/gcp_vm_tester
         ```
 
