@@ -112,7 +112,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     ```python
     import pandas as pd
     from sklearn import datasets
-    reference_data = datasets.load_iris(as_frame='auto').frame
+    reference_data = datasets.load_iris(as_frame=True).frame
     current_data = pd.read_csv('prediction_database.csv')
     ```
 
