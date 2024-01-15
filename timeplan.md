@@ -62,7 +62,7 @@ important topic if we ever want our applications to be used by many people at th
 
 Date | Day       | Presentation topic                                                | Frameworks                          | Format
 -----|-----------|-------------------------------------------------------------------|-------------------------------------|----------
-15/1 | Monday    | Monitoring (Guest lecture) <br> [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz |  [Exercises](s8_monitoring/README.md)
+15/1 | Monday    | Monitoring <br>  [📝](slides/Monitoring.pdf) [🎥](https://drive.google.com/file/d/1ks2Wx-XPEJWxF7aWrbDgXQ2_BLdQSm6l/view?usp=share_link)                                        | Evidently AI, OpenTelemetry, Signoz |  [Exercises](s8_monitoring/README.md)
 16/1 | Tuesday   | Scalable applications <br> [📝](slides/Distributed%20applications.pdf) [🎥](https://drive.google.com/file/d/1g7Y1Y-FrgR7WNc8FWyBD27dQ7h7HOKuJ/view?usp=share_link) | Pytorch, Lightning                  | [Exercises](s9_scalable_applications/README.md)
 17/1 | Wednesday | -                                                                 | -                                   | [Projects](projects.md)
 18/1 | Thursday  | -                                                                 | -                                   | [Projects](projects.md)
