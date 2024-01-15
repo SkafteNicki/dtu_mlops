@@ -8,7 +8,7 @@ from evidently.test_preset import DataStabilityTestPreset
 from evidently.test_suite import TestSuite
 from sklearn import datasets
 
-iris_frame = datasets.load_iris(as_frame="auto").frame
+iris_frame = datasets.load_iris(as_frame=True).frame
 
 data_drift_report = Report(
     metrics=[
