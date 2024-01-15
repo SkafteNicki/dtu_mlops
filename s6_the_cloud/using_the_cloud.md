@@ -446,7 +446,7 @@ parts of our pipeline.
 
         ```bash
         gcloud compute instances create-with-container <instance-name> \
-            --container-image=gcr.io/<project-id>/gcp_vm_tester
+            --container-image=gcr.io/<project-id>/gcp_vm_tester \
             --zone europe-west1-b
         ```
 
