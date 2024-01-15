@@ -72,7 +72,7 @@ async def iris_inference_v2(
 @app.get("/iris_monitoring/", response_class=HTMLResponse)
 async def iris_monitoring():
     """Simple get request method that returns a monitoring report."""
-    iris_frame = datasets.load_iris(as_frame="auto").frame
+    iris_frame = datasets.load_iris(as_frame=True).frame
 
     data_drift_report = Report(
         metrics=[
