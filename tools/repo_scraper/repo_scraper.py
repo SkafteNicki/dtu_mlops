@@ -214,11 +214,12 @@ def main(
                 commits_page = requests.get(
                     f"https://api.github.com/repos/{repo}/commits",
                     headers=headers,
-                    params={"state": "all", "per_page": 100},
+                    params={"state": "all", "page": page_counter, "per_page": 100},
                     timeout=100,
                 ).json()
                 if len(commits_page) == 0:
                     break
+                page_counter += 1
                 commits += commits_page
 
             num_commits_to_main = len(commits)
