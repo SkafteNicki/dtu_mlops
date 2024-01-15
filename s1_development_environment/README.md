@@ -23,7 +23,7 @@ you check out [The Missing Semester of Your CS Education](https://missing.csail.
 
     The learning objectives of this session are:
 
-    * Understand the basics of the command line
-    * Being able to create reproducible virtual environments
-    * Can use a modern IDE / editor for code development
-    * Can write and run a Python program implementing a simple deep learning model
+    * Understand the basics of the command line.
+    * Being able to create reproducible virtual environments.
+    * Able to use a modern IDE / editor for code development
+    * Write and run a Python program, implementing a simple deep learning model
