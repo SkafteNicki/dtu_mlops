@@ -23,7 +23,7 @@ DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
 DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
 DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
 DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
-GH_TOKEN = os.getenv("GH_TOKEN")
+GH_TOKEN = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
 headers = {"Authorization": f"Bearer {GH_TOKEN}"}
 
 
@@ -154,12 +154,12 @@ def main(
         out = os.system(f"cd {out_folder} && timeout -v {timeout_clone} git clone -q {repo}")
         clone_succes = out == 0
         folder_name = repo.split("/")[-1]
-        data.append(clone_succes)
         if clone_succes:
             os.system(f"cd {out_folder} && cp -r {folder_name} group_{group_nb} && rm -rf {folder_name}")
         else:
             if folder_name in os.listdir(out_folder):
                 shutil.rmtree(f"{out_folder}/{folder_name}")
+        data.append(clone_succes)
 
     # create file for data
     write_to_file(
@@ -208,12 +208,21 @@ def main(
             ).json()
             num_prs = len(prs)
 
-            commits = requests.get(
-                f"https://api.github.com/repos/{repo}/commits",
-                headers=headers,
-                params={"state": "all", "per_page": 100},
-                timeout=100,
-            ).json()
+            commits = []
+            page_counter = 1
+            while True:
+                commits_page = requests.get(
+                    f"https://api.github.com/repos/{repo}/commits",
+                    headers=headers,
+                    params={"state": "all", "page": page_counter, "per_page": 100},
+                    timeout=100,
+                ).json()
+                if len(commits_page) == 0:
+                    break
+                page_counter += 1
+                commits += commits_page
+
+            num_commits_to_main = len(commits)
             commit_messages = [c["commit"]["message"] for c in commits]
             average_commit_message_length_to_main = sum([len(c) for c in commit_messages]) / len(commit_messages)
             latest_commit = commits[0]["commit"]["author"]["date"]
@@ -246,6 +255,7 @@ def main(
         else:
             num_contributors = None
             num_prs = None
+            num_commits_to_main = None
             average_commit_message_length_to_main = None
             latest_commit = None
             average_commit_message_length = None
@@ -296,6 +306,7 @@ def main(
                 num_students,
                 num_contributors,
                 num_prs,
+                num_commits_to_main,
                 average_commit_message_length_to_main,
                 latest_commit,
                 average_commit_message_length,

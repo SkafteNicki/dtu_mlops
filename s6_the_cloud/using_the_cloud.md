@@ -16,6 +16,7 @@ There are many reasons why one to use virtual machines:
 
 * Virtual machines allow you to scale your operations, essentially giving you access to infinitely many individual
     computers
+
 * Virtual machines allow you to use large scale hardware. For example if you are developing an deep learning model on
     your laptop and want to know the inference time for a specific hardware configuration, you can just create a virtual
     machine with those specs and run your model.
@@ -118,6 +119,17 @@ We are now going to start actually using the cloud.
     </figure>
 
     Try out launching this and run some of the commands from the previous exercises.
+
+!!! warning "Stopping VMs"
+
+    If you are not careful you can end up wasting a lot of credits on virtual machines that you are not using. VMs are
+    charged by the minute, so even if you are not using them you are still paying for them. Therefore, it is important
+    that you remember to stop your VMs when you are not using them. You can do this by either clicking the `Stop` button
+    in the VM overview page or by running the following command:
+
+    ```bash
+    gcloud compute instances stop <instance-name>
+    ```
 
 ## Data storage
 Another big part of cloud computing is storage of data. There are many reason that you want to store your

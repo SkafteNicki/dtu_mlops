@@ -498,6 +498,71 @@ beneficial for you to download.
         You are now ready to start developing inside the container. Try opening a terminal and run `python` and
         `import torch` to confirm that everything is working.
 
+20. (Optional) In [M8 on Data version control](../s2_organisation_and_version_control/dvc.md) you learned about the
+    framework `dvc` for version controlling data. A neutral question at this point would then be how to incorporate
+    `dvc` into our docker image. We need to do two things:
+
+    * Make sure that `dvc` have all the correct files to pull data from our remote storage
+    * Make sure that `dvc` have the correct credentials to pull data from our remote storage
+
+    We are going to assume that `dvc` (and any `dvc` extension needed) is part of your `requirement.txt` file and that
+    it is already being installed in a `RUN pip install -r requirements.txt` command in your dockerfile. If not, then
+    you need to add it.
+
+    1. Add the following lines to your dockerfile
+
+        ```dockerfile
+        RUN dvc init --no-scm
+        COPY .dvc/config .dvc/config
+        COPY *.dvc *.dvc
+        RUN dvc config core.no_scm true
+        RUN dvc pull
+        ```
+
+        The first line initialize `dvc` in the docker image. The `--no-scm` option is needed because normally `dvc` can
+        only be initialized inside a git repository, but this option allows to initialize `dvc` without being in one.
+        The second and third line copies over the `dvc` config file and the `dvc` metadate files that are needed to pull
+        data from your remote storage. The last line pulls the data.
+
+    2. If your data is not public, we need to provide credentials in some way to pull the data. We are for now going to
+        do it in a not-so-secure way. When `dvc` first connected to your drive a credential file was created. This file
+        is located in `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME`.
+
+        === "macOS"
+            ```~/Library/Caches```
+
+        === "Linux"
+            ```~/.cache``` <br>
+            This is the typical location, but it may vary depending on what distro you are running
+
+        === "Windows"
+            ```{user}/AppData/Local```
+
+        Find the file. The content should look similar to this (only some fields are shown):
+
+        ```json
+        {
+            "access_token": ...,
+            "client_id": ...,
+            "client_secret": ...,
+            "refresh_token": ...,
+            ...
+        }
+        ```
+
+        We are going to copy the file into our docker image. This of course is not a secure way of doing it, but it is
+        the easiest way to get started. As long as you are not sharing your docker image with anyone else, then it is
+        fine. Add the following lines to your dockerfile before the `RUN dvc pull` command:
+
+        ```dockerfile
+        COPY <path_to_default.json> default.json
+        dvc remote modify myremote --local gdrive_service_account_json_file_path default.json
+        ````
+
+        where `<path_to_default.json>` is the path to the `default.json` file that you just found. The last line tells
+        `dvc` to use the `default.json` file as the credentials for pulling data from your remote storage. You can
+        confirm that this works by running `dvc pull` in your docker image.
+
 ## 🧠 Knowledge check
 
 1. What is the difference between a docker image and a docker container?

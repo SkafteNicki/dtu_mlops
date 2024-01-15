@@ -53,7 +53,7 @@ As the first step we are going to get you setup with some Google cloud credits.
     is being created. The notification bell is good way to make sure how the processes you are running are doing
     throughout the course.
 
-5. Finally, for setup we are going to install `gcloud`. `gcloud` is the command line interface for working with
+5. For setup we are going to install `gcloud`. `gcloud` is the command line interface for working with
     our Google cloud account. Nearly everything that we can do through the web interface we can also do through
     the `gcloud` interface. Follow the installation instructions [here](https://cloud.google.com/sdk/docs/install)
     for your specific OS.
@@ -118,10 +118,26 @@ As the first step we are going to get you setup with some Google cloud credits.
         [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
         called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar.
 
+6. Finally, we need to activate a couple of
+    [developer APIs](https://cloud.google.com/api-gateway/docs/configure-dev-env#prerequisites) that are not activated
+    by default. In a terminal write
+
+    ```bash
+    gcloud services enable apigateway.googleapis.com
+    gcloud services enable servicemanagement.googleapis.com
+    gcloud services enable servicecontrol.googleapis.com
+    ```
+
+    you can always check which services are enabled by typing
+
+    ```bash
+    gcloud services list
+    ```
+
 After following these step your laptop should hopefully be setup for using `gcp` locally. You are now ready to use their
 services, both locally on your laptop and in the cloud console.
 
-## Quotas
+## IAM and Quotas
 
 A big part of using the cloud in a bigger organisation has to do with Admin and quotas. Admin here in general refers
 to the different roles that users of GCP and quotas refers to the amount of resources that a given user has access to.
@@ -130,10 +146,19 @@ with development and training of machine learning model, with `X` amounts of GPU
 employee does not spend too much money. Another employee, a devops engineer, probably do not need access to the same
 services and not necessarily the same resources.
 
-In this course we are not going to focus too much on this aspect but it is important to know about. What we are going
-to go through is how to increase the quotas for how many GPUs you have available. By default any free accounts in GCP
-(or accounts using teaching credits) the default quota for GPUs that you can use is either 0 or 1 (their policies
-sometimes changes). We will in the exercises below try to increase it.
+In this course we are not going to focus too much on this aspect but it is important to know that it exists. One feature
+you are going to need for doing the project is how to share a project with other people. This is done through the IAM
+(Identities and Access Management) page. Simply click the `Grant Access` button, search for the email of the person you
+want to share the project with and give them either `Viewer`, `Editor` or `Owner` access, depending on what you want
+them to be able to do. The figure below shows how to do this.
+
+<figure markdown>
+![Image](../figures/gcp_iam_group.png){ width="1000" }
+</figure>
+
+What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
+project. By default any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that you
+can use is either 0 or 1 (their policies sometimes changes). We will in the exercises below try to increase it.
 
 ### ❔ Exercises
 
@@ -185,6 +210,8 @@ services some more to make sure you are not a bot that wants to mine crypto.
         A series of factors may influence your choice of region, including:
 
         * Services availability in the region, not all services are available in all regions
+        * Resource availability: [some regions](https://cloud.google.com/compute/docs/gpus/gpu-regions-zones) have more
+            GPUs available than others
         * Reduced latency: if your application is running in the same region as your users, the latency will be lower
         * Compliance: some countries has strict rules that requires user info to be stored inside a particular region
             eg. EU has GDPR rules that requires all user data to be stored in the EU
