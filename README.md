@@ -130,7 +130,7 @@ Additional reading resources (in no particular order):
     Another introduction to the principles of MLOps and the different stages of MLOps.
 
 * [Ref 4](https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf)
-    Great paper about the technical depth in machine learning.
+    Great paper about the technical dept in machine learning.
 
 * [Ref 5](https://arxiv.org/abs/2209.09125)
     Interview study that uncovers many of the pain points that ML engineers go through when doing MLOps.

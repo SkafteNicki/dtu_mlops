@@ -35,7 +35,7 @@ codebase should probably be different.
 ## Cookiecutter
 
 We are in this course going to use the tool [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html),
-which is tool for creating projects from *project templates*. A project template is in short just na overall structure of
+which is tool for creating projects from *project templates*. A project template is in short just an overall structure of
 how you want your folders, files etc. to be organised from the beginning. For this course we are going to be using a
 custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The template is essentially a fork of the
 [cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) template that has been
@@ -47,14 +47,14 @@ persons are both using `cookiecutter` with the same template, the layout of thei
 enabling one to faster understand the other person's code. Code organization is therefore not only to make the
 code easier for you to maintain but also for others to read and understand.
 
-Below is seen the default code structure of cookiecutter for data science projects.
+Shown below is the default code structure of cookiecutter for data science projects.
 
 <figure markdown>
 ![Image](../figures/cookie_cutter.png){ width="1000" }
 </figure>
 
 What is important to keep in mind when using a template, is that it exactly is a template. By definition a template is
-*guide* to make something. Therefore, not all parts of an template may be important for your project at hand. Your job
+a *guide* to make something. Therefore, not all parts of a template may be important for your project at hand. Your job
 is to pick the parts from the template that is useful for organizing your machine learning project and add the parts
 that are missing.
 
@@ -88,7 +88,7 @@ a lot of projects using `setup.py + setup.cfg` so it is good to at least know ab
 === "pyproject.toml"
 
     `pyproject.toml` is the new standardized way of describing project metadata in a declaratively way, introduced in
-    [PEP 621](https://peps.python.org/pep-0621/). It is written [toml format](https://toml.io/en/) which is easy to
+    [PEP 621](https://peps.python.org/pep-0621/). It is written in [toml format](https://toml.io/en/) which is easy to
     read. At the very least your `pyproject.toml` file should include the `[build-system]` and `[project]` sections:
 
     ```toml

@@ -60,7 +60,7 @@ We are now going to start actually using the cloud.
 5. You can start a terminal directly by typing:
 
     ```bash
-    gcloud beta compute ssh --zone <zone> <name> --project <project-id>
+    gcloud compute ssh --zone <zone> <name> --project <project-id>
     ```
 
     You can always see the exact command that you need to run to `ssh` to an VM by selecting the
@@ -174,7 +174,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 3. Next we need the Google storage extension for `dvc`
 
     ```bash
-    pip install dvc[gs]
+    pip install "dvc[gs]"
     ```
 
 4. Now in your MNIST repository where you have already configured dvc, we are going to change the storage
@@ -428,13 +428,13 @@ parts of our pipeline.
     2. Lets build docker and manually push it to our container repository in gcp. Build with:
 
         ```bash
-        docker build -f gcp_vm_tester.dockerfile.dockerfile . -t gcp_vm_tester:latest
+        docker build -f gcp_vm_tester.dockerfile . -t gcp_vm_tester:latest
         ```
 
         and then push with
 
         ```bash
-        docker tag tester gcr.io/<project-id>/gcp_vm_tester
+        docker tag gcp_vm_tester gcr.io/<project-id>/gcp_vm_tester
         docker push gcr.io/<project-id>/gcp_vm_tester
         ```
 
@@ -446,7 +446,7 @@ parts of our pipeline.
 
         ```bash
         gcloud compute instances create-with-container <instance-name> \
-            --container-image=gcr.io/<project-id>/gcp_vm_tester
+            --container-image=gcr.io/<project-id>/gcp_vm_tester \
             --zone europe-west1-b
         ```
 

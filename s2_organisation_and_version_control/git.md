@@ -160,7 +160,7 @@ working together on the same project.
         ![forking](../figures/forking.PNG)
 
         This will create a local copy of the repository which you have complete writing access to. Note that
-        code updates to the original repository does not update code in your local repository.
+        code updates to the original repository do not update code in your local repository.
 
     2. Clone your local fork of the project using `git clone`.
 
