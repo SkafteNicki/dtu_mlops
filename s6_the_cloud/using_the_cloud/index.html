@@ -2398,7 +2398,7 @@ pushed.</p>
 <p>Lets then create a VM with that particular docker image. Instead of using <code>gcloud compute instances create</code> we
     are now using the <code>gcloud compute instances create-with-container</code> command</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create-with-container<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span>--container-image<span class="o">=</span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span>--container-image<span class="o">=</span>gcr.io/&lt;project-id&gt;/gcp_vm_tester<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b
 </span></code></pre></div>
 </li>
