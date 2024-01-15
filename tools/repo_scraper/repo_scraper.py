@@ -169,6 +169,7 @@ def main(
             "num_students",
             "num_contributors",
             "num_prs",
+            "num_commits_to_main",
             "average_commit_message_length_to_main",
             "latest_commit",
             "average_commit_message_length",
