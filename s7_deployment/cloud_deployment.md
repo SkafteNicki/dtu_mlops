@@ -214,7 +214,7 @@ service in GCP for deploying containers.
     steps:
     # Build the container image
     - name: 'gcr.io/cloud-builders/docker'
-      args: ['build', '-t', 'gcr.io/$PROJECT_ID/<container-name>:lates', '.'] #(1)!
+      args: ['build', '-t', 'gcr.io/$PROJECT_ID/<container-name>:latest', '.'] #(1)!
     # Push the container image to Container Registry
     - name: 'gcr.io/cloud-builders/docker'
       args: ['push', 'gcr.io/$PROJECT_ID/<container-name>:latest']
