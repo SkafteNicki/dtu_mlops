@@ -23,7 +23,7 @@ DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
 DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
 DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
 DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
-GH_TOKEN = os.getenv("GH_TOKEN")
+GH_TOKEN = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
 headers = {"Authorization": f"Bearer {GH_TOKEN}"}
 
 
