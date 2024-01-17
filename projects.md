@@ -194,7 +194,7 @@ For the written part of the exam we provide an template folder called
 [reports](https://github.com/SkafteNicki/dtu_mlops/tree/main/reports). As the first task you should copy the folder and
 all its content to your project repository. Then, you jobs is to fill out the `README.md` file which contains the report
 template. The file itself contains instructions on how to fill it out and instructions on using the included `report.py`
-file. You will hand-in the template by simple including it in your project repository. By midnight on the 20/1 we will
+file. You will hand-in the template by simple including it in your project repository. By midnight on the 19/1 we will
 scrape it automatically, and changes after this point are therefore not registered.
 
 For the oral part of the exam you will be given a time slot where you have to show up for 5-7 min and give a very short

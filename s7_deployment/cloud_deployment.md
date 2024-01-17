@@ -182,6 +182,39 @@ service in GCP for deploying containers.
 
     Finally, click the create button and wait for the service to be deployed (may take some time).
 
+    !!! warning "Common problems"
+
+        If you get an error saying
+        *The user-provided container failed to start and listen on the port defined by the PORT environment variable.*
+        there are two common reasons for this:
+
+        1. You need to add an `EXPOSE` statement in your docker container:
+
+            ```dockerfile
+            EXPOSE 8080
+            CMD exec uvicorn my_application:app --port 8080 --workers 1 main:app
+            ```
+
+            and make sure that your application is also listening on that port. If you hard code the port in your
+            application (as in above code) it is best to set it 8080 which is the default port for cloud run.
+            Alternatively, a better approach is to set it to the `$PORT` environment variable which is set by cloud run
+            and can be accessed in your application:
+
+            ```dockerfile
+            EXPOSE $PORT
+            CMD exec uvicorn my_application:app --port $PORT --workers 1 main:app
+            ```
+
+            If you do this, and then want to run locally you can run it as:
+
+            ```bash
+            docker run -p 8080:8080 -e PORT=8080 <image-name>:<image-tag>
+            ```
+
+        2. If you are serving a large machine learning model, it may also be that your deployed container is running
+            out of memory. You can try to increase the memory of the container by going to the *Edit container* and
+            the *Resources* tab and increase the memory.
+
 4. If you manage to deploy the service you should see a image like this:
 
     <figure markdown>
