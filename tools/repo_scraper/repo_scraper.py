@@ -116,6 +116,8 @@ def get_content_recursive(url):
     all_content = []
     content = requests.get(url, headers=headers, timeout=10).json()
     for c in content:
+        if "type" not in c:
+            continue
         if c["type"] == "dir":
             all_content += get_content_recursive(f"{url}/{c['name']}")
         else:
