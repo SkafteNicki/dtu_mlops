@@ -245,7 +245,11 @@ def main(
                 ).json()
                 commit_messages += [c["commit"]["message"] for c in pr_commits]
                 for comm in pr_commits:
-                    if comm["committer"] is not None and comm["committer"]["login"] in contributors:
+                    if (
+                        comm["committer"] is not None
+                        and "login" in comm["committer"]
+                        and comm["committer"]["login"] in contributors
+                    ):
                         contributors[comm["committer"]["login"]]["commits_pr"] += 1
             average_commit_message_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
