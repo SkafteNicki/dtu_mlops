@@ -201,12 +201,19 @@ def main(
             contributors = {c["login"]: {"contributions": c["contributions"], "commits_pr": 0} for c in contributors}
             num_contributors = len(contributors)
 
-            prs = requests.get(
-                f"https://api.github.com/repos/{repo}/pulls",
-                headers=headers,
-                params={"state": "all", "per_page": 100},
-                timeout=100,
-            ).json()
+            prs = []
+            page_counter = 1
+            while True:
+                prs_page = requests.get(
+                    f"https://api.github.com/repos/{repo}/pulls",
+                    headers=headers,
+                    params={"state": "all", "per_page": 100},
+                    timeout=100,
+                ).json()
+                if len(prs_page) == 0:
+                    break
+                page_counter += 1
+                prs += prs_page
             num_prs = len(prs)
 
             commits = []
