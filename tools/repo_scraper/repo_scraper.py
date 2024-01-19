@@ -207,7 +207,7 @@ def main(
                 prs_page = requests.get(
                     f"https://api.github.com/repos/{repo}/pulls",
                     headers=headers,
-                    params={"state": "all", "per_page": 100},
+                    params={"state": "all", "page": page_counter, "per_page": 100},
                     timeout=100,
                 ).json()
                 if len(prs_page) == 0:
