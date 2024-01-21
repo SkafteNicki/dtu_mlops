@@ -7,7 +7,7 @@ The course is organised into *exercise* (2/3 of the course) days and *project* d
 *Exercise* days start at 9:00 in the morning with an lecture (15-30 min) that will give some context about at least one
 of the topics of that day. Additionally, previous days exercises may shortly be touched upon. The remaining of the day
 will be spend on solving exercises either individually or in small groups. For some people the exercises may be fast to
-do and for others it will take the hole day. We will provide help throughout the day. We will try to answer questions
+do and for others it will take the whole day. We will provide help throughout the day. We will try to answer questions
 on slack but help with be priorities to students physically on campus.
 
 *Project* days are intended for project work and you are therefore responsible for making an agreement with your group
