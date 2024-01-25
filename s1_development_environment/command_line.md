@@ -126,6 +126,46 @@ command line.
 
     3. Try to Google how to write a simple for-loop that executes the Python script 10 times in a row.
 
+7. A trick you may need throughout this course is setting *environment variables*. An environment variable is just a
+    dynamic-named value that may alter the way running processes behave on a computer. The syntax for setting an
+    environment variable depends on your operating system:
+
+    === "Windows"
+
+        ```bash
+        set MY_VAR=hello
+        echo %MY_VAR%
+        ```
+    === "Linux/Mac"
+
+        ```bash
+        export MY_VAR=hello
+        echo $MY_VAR
+        ```
+
+    1. Try to set an environment variable and print it out.
+
+    2. To use an environment variable in a Python program, you can use the `os.environ` function from the `os` module.
+        Write a Python program that prints out the environment variable you just set.
+
+    3. If you have a collection of environment variables, these can be stored in a file called `.env`. The file is
+        formatted as follows:
+
+        ```bash
+        MY_VAR=hello
+        MY_OTHER_VAR=world
+        ```
+
+        To load the environment variables from the file, you can use the `python-dotenv` package. Install it with
+        `pip install python-dotenv` and then try to load the environment variables from the file and print them out.
+
+        ```python
+        from dotenv import load_dotenv
+        load_dotenv()
+        import os
+        print(os.environ["MY_VAR"])
+        ```
+
 ## 🧠 Knowledge check
 
 1. Here is one command from later in the course when we are going to work in the cloud
