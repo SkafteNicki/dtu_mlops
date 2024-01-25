@@ -1860,7 +1860,7 @@
 </div>
 <p>Python is a great programming language and this is mostly due to its vast ecosystem of packages. No matter what you want
 to do, there is probably a package that can get you started. Just try to remember when the last time you wrote a program
-only using the <a href="https://docs.python.org/3/library/index.html">python standard library</a>? Probably never. For this reason,
+only using the <a href="https://docs.python.org/3/library/index.html">Python standard library</a>. Probably never. For this reason,
 we need a way to install third-party packages and this is where
 <a href="https://en.wikipedia.org/wiki/Package_manager">package managers</a> come into play.</p>
 <p>You have probably already used <code>pip</code> for the longest time, which is the default package manager for Python. <code>pip</code> is
@@ -1876,36 +1876,36 @@ project B that requires <code>torch==2.0</code>, then doing</p>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python<span class="w"> </span>main.py<span class="w">  </span><span class="c1"># try executing main script from project A</span>
 </span></code></pre></div>
 <p>will mean that even though we are executing the main script from project A's folder, it will use <code>torch==2.0</code> instead of
-<code>torch==1.3.0</code> because that is the last version we installed, because in both cases <code>pip</code> will install the package into
-the same environment, in this case the global environment. Instead, if we did something like:</p>
+<code>torch==1.3.0</code> because that is the last version we installed because in both cases <code>pip</code> will install the package into
+the same environment, in this case, the global environment. Instead, if we did something like:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Unix/macOS</label><label for="__tabbed_1_2">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>project_A<span class="w">  </span><span class="c1"># move to project A</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env<span class="w">  </span><span class="c1"># create a virtual environment in project A</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">source</span><span class="w"> </span>env/bin/activate<span class="w">  </span><span class="c1"># activate that virtual environment</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.3.0<span class="w">  </span><span class="c1"># install old torch version into the virtual environment belonging to project A</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.3.0<span class="w">  </span><span class="c1"># Install the old torch version into the virtual environment belonging to project A</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">cd</span><span class="w"> </span>../project_B<span class="w">  </span><span class="c1"># move to project B</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env<span class="w">  </span><span class="c1"># create a virtual environment in project B</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nb">source</span><span class="w"> </span>env/bin/activate<span class="w">  </span><span class="c1"># activate that virtual environment</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.0<span class="w">  </span><span class="c1"># install new torch version into the virtual environment belonging to project B</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nb">cd</span><span class="w"> </span>../project_A<span class="w">  </span><span class="c1"># move back to project A</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">source</span><span class="w"> </span>env/bin/activate<span class="w">  </span><span class="c1"># activate the virtual environment belonging to project A</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>python<span class="w"> </span>main.py<span class="w">  </span><span class="c1"># succeed in executing main script from project A</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.0<span class="w">  </span><span class="c1"># Install new torch version into the virtual environment belonging to project B</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nb">cd</span><span class="w"> </span>../project_A<span class="w">  </span><span class="c1"># Move back to project A</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">source</span><span class="w"> </span>env/bin/activate<span class="w">  </span><span class="c1"># Activate the virtual environment belonging to project A</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>python<span class="w"> </span>main.py<span class="w">  </span><span class="c1"># Succeed in executing the main script from project A</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>project_A<span class="w">  </span><span class="c1"># move to project A</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env<span class="w">  </span><span class="c1"># create a virtual environment in project A</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>.<span class="se">\e</span>nv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">  </span><span class="c1"># activate that virtual environment</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.3.0<span class="w">  </span><span class="c1"># install old torch version into the virtual environment belonging to project A</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">cd</span><span class="w"> </span>../project_B<span class="w">  </span><span class="c1"># move to project B</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env<span class="w">  </span><span class="c1"># create a virtual environment in project B</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>.<span class="se">\e</span>nv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">  </span><span class="c1"># activate that virtual environment</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.0<span class="w">  </span><span class="c1"># install new torch version into the virtual environment belonging to project B</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">cd</span><span class="w"> </span>../project_A<span class="w">  </span><span class="c1"># move back to project A</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>.<span class="se">\e</span>nv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">  </span><span class="c1"># activate the virtual environment belonging to project A</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>python<span class="w"> </span>main.py<span class="w">  </span><span class="c1"># succeed in executing main script from project A</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>project_A<span class="w">  </span><span class="c1"># Move to project A</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env<span class="w">  </span><span class="c1"># Create a virtual environment in project A</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>.<span class="se">\e</span>nv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">  </span><span class="c1"># Activate that virtual environment</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.3.0<span class="w">  </span><span class="c1"># Install the old torch version into the virtual environment belonging to project A</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">cd</span><span class="w"> </span>../project_B<span class="w">  </span><span class="c1"># Move to project B</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env<span class="w">  </span><span class="c1"># Create a virtual environment in project B</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>.<span class="se">\e</span>nv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">  </span><span class="c1"># Activate that virtual environment</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.0<span class="w">  </span><span class="c1"># Install new torch version into the virtual environment belonging to project B</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">cd</span><span class="w"> </span>../project_A<span class="w">  </span><span class="c1"># Move back to project A</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>.<span class="se">\e</span>nv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">  </span><span class="c1"># Activate the virtual environment belonging to project A</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>python<span class="w"> </span>main.py<span class="w">  </span><span class="c1"># Succeed in executing the main script from project A</span>
 </span></code></pre></div>
 </div>
 </div>
@@ -1926,7 +1926,7 @@ dependencies, with some of the most popular being:</p>
 <li><a href="https://pdm.fming.dev/latest/">pdm</a></li>
 </ul>
 <p>with more being created every year (<a href="https://github.com/mitsuhiko/rye">rye</a> is looking like an interesting project). This
-is considered a problem in the Python community, because it means that there is no standard way of managing
+is considered a problem in the Python community because it means that there is no standard way of managing
 dependencies like in other languages like <code>npm</code> for <code>node.js</code> or <code>cargo</code> for <code>rust</code>.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/standards.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/standards.png" width="700" /></a></p>
@@ -1936,8 +1936,8 @@ dependencies like in other languages like <code>npm</code> for <code>node.js</co
 familiar with one package manager, then skip this exercise and continue to use that. The best recommendation that I can
 give regarding package managers, in general, is to find one you like and then stick with it. A lot of time can be wasted
 on trying to find the perfect package manager, but in the end, they all do the same with some minor differences.
-Checkout <a href="https://alpopkes.com/posts/python/packaging_tools/">this blog post</a> if you want a fairly up-to-date evaluation
-of the different environment management and packaging tools that exist in the Python ecosystem.</p>
+Check out <a href="https://alpopkes.com/posts/python/packaging_tools/">this blog post</a> if you want a fairly up-to-date
+evaluation of the different environment management and packaging tools that exist in the Python ecosystem.</p>
 <p>If you are not familiar with any package managers, then we recommend that you use <code>conda</code> and <code>pip</code> for this course. You
 probably already have <a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda</a> installed
 on your laptop, which is great. What conda does especially well, is that it allows you to create virtual environments
@@ -2001,7 +2001,7 @@ in the exercise folder.</p>
 <a class="glightbox" href="../../figures/conda_activate.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/conda_activate.PNG" width="700" /></a>
 </figure></p>
 <p>Conda will always tell you what environment you are currently in, indicated by the <code>(env_name)</code> in the prompt. By
-default it will always start in the <code>(base)</code> environment.</p>
+default, it will always start in the <code>(base)</code> environment.</p>
 </li>
 <li>
 <p>Try creating a new virtual environment. Make sure that it is called <code>my_enviroment</code> and that it installs version
@@ -2029,8 +2029,8 @@ of different Python version support <a href="https://devguide.python.org/version
 </li>
 <li>
 <p>The <code>enviroment.yaml</code> file you have created is one way to secure <em>reproducibility</em> between users because
-    anyone should be able to get an exact copy of you environment if they have your <code>enviroment.yaml</code> file.
-    Try creating a new environment directly from you <code>enviroment.yaml</code> file and check that the packages being
+    anyone should be able to get an exact copy of your environment if they have your <code>enviroment.yaml</code> file.
+    Try creating a new environment directly from your <code>enviroment.yaml</code> file and check that the packages being
     installed exactly match what you originally had.</p>
 </li>
 </ol>
@@ -2042,10 +2042,9 @@ of different Python version support <a href="https://devguide.python.org/version
 </li>
 <li>
 <p>If you look through the requirements that both <code>pip</code> and <code>conda</code> produce then you will see that it
-    is often filled with a lot more packages than what you are actually using in your project. What you are
-    really interested in are the packages that you import in your code: <code>from package import module</code>.
-    One way to get around this is to use the package <code>pipreqs</code>, which will automatically scan your project
-    and create a requirements file specific to that.
+    is often filled with a lot more packages than what you are using in your project. What you are interested in are the
+    packages that you import in your code: <code>from package import module</code>. One way to get around this is to use the
+    package <code>pipreqs</code>, which will automatically scan your project and create a requirements file specific to that.
     Let's try it out:</p>
 <ol>
 <li>
@@ -2070,16 +2069,16 @@ of different Python version support <a href="https://devguide.python.org/version
 <p>based on the error message you get, what would be a compatible way to install these?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>As <code>pytess-cov==2.12.1</code> requires a version of <code>pytest</code> newer than <code>4.6</code>, we can simply change the command to be:</p>
+<p>As <code>pytest-cov==2.12.1</code> requires a version of <code>pytest</code> newer than <code>4.6</code>, we can simply change the command to be:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &gt;= 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
-<p>but there of course exists other solutions as well.</p>
+<p>but there of course exist other solutions as well.</p>
 </details>
 </li>
 </ol>
 <p>This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
 to construct requirements files automatically, sometimes it is just easier to manually sit down and create the files as you
-in that way secure that only the most necessary requirements are installed when creating a new environment.</p>
+in that way ensure that only the most necessary requirements are installed when creating a new environment.</p>
 
 
 
@@ -2102,7 +2101,7 @@ in that way secure that only the most necessary requirements are installed when 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 25, 2024</span>
   </span>
 
     

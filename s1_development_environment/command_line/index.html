@@ -1865,12 +1865,11 @@
 <p>Contrary to popular belief, the command line (also commonly known as the <em>terminal</em>) is not a mythical being that has
 existed since the dawn of time. Instead, it was created at a time when it was not given that your computer had a
 graphical interface that you could interact with. Think of it as a text interface to your computer.</p>
-<p>The terminal is a well-known concept to users of Linux, however, MAC and (especially) Windows users often do not need
-and therefore encounter it. Having a basic
-understanding of how to use a command line can help improve your workflow. The reason that the command line is an
-important tool to get to know, is that doing any kind of MLOps will require us to be able to interact with many
-different tools, many of which do not have a graphical interface. Additionally, when we get to working in the cloud
-later in the course, you will be forced to interact with the command line.</p>
+<p>The terminal is a well-known concept to users of Linux; however, MAC and (especially) Windows users often do not need it
+and therefore encounter it. Having a basic understanding of how to use a command line can help improve your workflow.
+The reason that the command line is an important tool to get to know is that doing any kind of MLOps will require us to
+be able to interact with many different tools, many of which do not have a graphical interface. Additionally, when we
+get to working in the cloud later in the course, you will be forced to interact with the command line.</p>
 <p>Note if you already are a terminal wizard then feel free to skip the exercises below. They are very elementary.</p>
 <h2 id="the-anatomy-of-the-command-line">The anatomy of the command line</h2>
 <p>Regardless of the operating system, all command lines look more or less the same:</p>
@@ -1883,7 +1882,7 @@ when trying to execute a command, there are several parts to it:</p>
 <li>The <strong>prompt</strong> is the part where you type your commands. It usually contains the name of the current directory you
     are in, followed by some kind of sign: <code>$</code>, <code>&gt;</code>, <code>:</code> are the usual ones. It can also contain other information,
     such as in the case of the above image which also shows the current <code>conda</code> environment.</li>
-<li>The <strong>command</strong> is the actual command you want to execute. For example, <code>ls</code> or <code>cd</code></li>
+<li>The <strong>command</strong> is the actual command you want to execute. For example, <code>ls</code> or <code>cd</code>.</li>
 <li>The <strong>options</strong> are additional arguments that you can pass to the command. For example, <code>ls -l</code> or <code>cd ..</code>.</li>
 <li>The <strong>arguments</strong> are the actual arguments that you pass to the command. For example, <code>ls -l figures</code> or <code>cd ..</code>.</li>
 </ol>
@@ -1904,7 +1903,7 @@ on your Windows machine. Please follow this
 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">guide</a>. Remember to run commands from an elevated
 (as administrator) Windows Command Prompt. You can in general complete all exercises in the course from a normal
 Windows Command Prompt, but some are easier to do if you run from WSL.</p>
-<p>If you decide to run in WSL you need to remember that you now have two different systems, and installing a package
+<p>If you decide to run in WSL, you need to remember that you now have two different systems, and installing a package
 on one system does not mean that it is installed on the other. For example, if you install <code>pip</code> in WSL, you
 need to install it again in Windows if you want to use it there.</p>
 <p>If you decide to not run in WSL, please always work in a Windows Command Prompt and not Powershell.</p>
@@ -1926,17 +1925,17 @@ need to install it again in Windows if you want to use it there.</p>
     it with the additional option <code>-l</code>. What does it show?</p>
 </li>
 <li>
-<p>Make sure to familiarize yourself with the <code>which</code>, <code>echo</code>, <code>cat</code>, <code>wget</code>, <code>less</code> and <code>top</code> commands. Also,
+<p>Make sure to familiarize yourself with the <code>which</code>, <code>echo</code>, <code>cat</code>, <code>wget</code>, <code>less</code>, and <code>top</code> commands. Also,
     familiarize yourself with the <code>&gt;</code> operator. You are probably going to use some of them throughout the course or in
-    your future career. For Windows users, these commands may be named something else, e.g. <code>where</code> command on Windows
+    your future career. For Windows users, these commands may be named something else, e.g., <code>where</code> command on Windows
     corresponds to <code>which</code>.</p>
 </li>
 <li>
 <p>It is also significant that you know how to edit a file through the terminal. Most systems should have the
-    <code>nano</code> editor installed, else try to figure out which one is installed in your system.</p>
+    <code>nano</code> editor installed; else, try to figure out which one is installed on your system.</p>
 <ol>
 <li>
-<p>Type <code>nano</code> in the terminal</p>
+<p>Type <code>nano</code> in the terminal.</p>
 </li>
 <li>
 <p>Write the following text in the script</p>
@@ -1945,16 +1944,16 @@ need to install it again in Windows if you want to use it there.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Save the script and try to execute it</p>
+<p>Save the script and try to execute it.</p>
 </li>
 <li>
-<p>Afterward, try to edit the file through the terminal (change <code>Hello world</code> to something else)</p>
+<p>Afterward, try to edit the file through the terminal (change <code>Hello world</code> to something else).</p>
 </li>
 </ol>
 </li>
 <li>
-<p>All terminals come with their own programming language. The most common system is called <code>bash</code>. It can come in handy
-    being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
+<p>All terminals come with a programming language. The most common system is called <code>bash</code>, which can come in handy
+    when being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
     programs sequentially, which can be done through a bash script.</p>
 <details class="note">
 <summary>Windows users</summary>
@@ -1981,7 +1980,7 @@ Windows scripting language (not recommended).</p>
 </li>
 <li>
 <p>A trick you may need throughout this course is setting <em>environment variables</em>. An environment variable is just a
-    dynamic-named value that may alter the way running processes behave on a computer. The syntax for setting an
+    dynamically named value that may alter the way running processes behave on a computer. The syntax for setting an
     environment variable depends on your operating system:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows</label><label for="__tabbed_1_2">Linux/Mac</label></div>
 <div class="tabbed-content">
@@ -2030,7 +2029,7 @@ Windows scripting language (not recommended).</p>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span>--container-image<span class="o">=</span>gcr.io/&lt;project-id&gt;/gcp_vm_tester
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span>--zone<span class="o">=</span>europe-west1-b
 </span></code></pre></div>
-<p>Identify the command, options and arguments.</p>
+<p>Identify the command, options, and arguments.</p>
 <details class="success">
 <summary>Solution</summary>
 <ul>
@@ -2038,9 +2037,9 @@ Windows scripting language (not recommended).</p>
 <li>The options are <code>--container-image=gcr.io/&lt;project-id&gt;/gcp_vm_tester</code> and <code>--zone=europe-west1-b</code>.</li>
 <li>The arguments are <code>instance-1</code>.</li>
 </ul>
-<p>The tricky part of this example is that commands can have subcommands, which are also commands. In this case
-<code>compute</code> is a subcommand to <code>gcloud</code>, <code>instances</code> is a subcommand to <code>compute</code> and <code>create-with-container</code>
-is a subcommand to <code>instances</code></p>
+<p>The tricky part of this example is that commands can have subcommands, which are also commands. In this case,
+<code>compute</code> is a subcommand to <code>gcloud</code>, <code>instances</code> is a subcommand to <code>compute</code>, and <code>create-with-container</code>
+is a subcommand to <code>instances</code>.</p>
 </details>
 </li>
 <li>
