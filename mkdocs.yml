@@ -119,6 +119,13 @@ nav:
     - s8_monitoring/README.md
     - M25 - Data Drifting: s8_monitoring/data_drifting.md
     - M26 - System Monitoring: s8_monitoring/monitoring.md
+  - S9 - Advance deployment ⚠️:
+    - s9_advanced_deployment/README.md
+    - M27 - Frontend: s9_advanced_deployment/frontend.md
+    #- M28 - API Testing: s9_advanced_deployment/api_testing.md
+    - M29 - ONNX: s9_advanced_deployment/onnx.md
+    - M30 - Kubernetes: s9_advanced_deployment/kubernetes.md
+    
   - S9 - Scalable applications ⚖️:
     - s9_scalable_applications/README.md
     - M27 - Distributed Data Loading: s9_scalable_applications/data_loading.md
