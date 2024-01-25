@@ -8,7 +8,7 @@
 
 Python is a great programming language and this is mostly due to its vast ecosystem of packages. No matter what you want
 to do, there is probably a package that can get you started. Just try to remember when the last time you wrote a program
-only using the [python standard library](https://docs.python.org/3/library/index.html)? Probably never. For this reason,
+only using the [Python standard library](https://docs.python.org/3/library/index.html). Probably never. For this reason,
 we need a way to install third-party packages and this is where
 [package managers](https://en.wikipedia.org/wiki/Package_manager) come into play.
 
@@ -28,8 +28,8 @@ python main.py  # try executing main script from project A
 ```
 
 will mean that even though we are executing the main script from project A's folder, it will use `torch==2.0` instead of
-`torch==1.3.0` because that is the last version we installed, because in both cases `pip` will install the package into
-the same environment, in this case the global environment. Instead, if we did something like:
+`torch==1.3.0` because that is the last version we installed because in both cases `pip` will install the package into
+the same environment, in this case, the global environment. Instead, if we did something like:
 
 === "Unix/macOS"
 
@@ -37,30 +37,30 @@ the same environment, in this case the global environment. Instead, if we did so
     cd project_A  # move to project A
     python -m venv env  # create a virtual environment in project A
     source env/bin/activate  # activate that virtual environment
-    pip install torch==1.3.0  # install old torch version into the virtual environment belonging to project A
+    pip install torch==1.3.0  # Install the old torch version into the virtual environment belonging to project A
     cd ../project_B  # move to project B
     python -m venv env  # create a virtual environment in project B
     source env/bin/activate  # activate that virtual environment
-    pip install torch==2.0  # install new torch version into the virtual environment belonging to project B
-    cd ../project_A  # move back to project A
-    source env/bin/activate  # activate the virtual environment belonging to project A
-    python main.py  # succeed in executing main script from project A
+    pip install torch==2.0  # Install new torch version into the virtual environment belonging to project B
+    cd ../project_A  # Move back to project A
+    source env/bin/activate  # Activate the virtual environment belonging to project A
+    python main.py  # Succeed in executing the main script from project A
     ```
 
 === "Windows"
 
     ```bash
-    cd project_A  # move to project A
-    python -m venv env  # create a virtual environment in project A
-    .\env\Scripts\activate  # activate that virtual environment
-    pip install torch==1.3.0  # install old torch version into the virtual environment belonging to project A
-    cd ../project_B  # move to project B
-    python -m venv env  # create a virtual environment in project B
-    .\env\Scripts\activate  # activate that virtual environment
-    pip install torch==2.0  # install new torch version into the virtual environment belonging to project B
-    cd ../project_A  # move back to project A
-    .\env\Scripts\activate  # activate the virtual environment belonging to project A
-    python main.py  # succeed in executing main script from project A
+    cd project_A  # Move to project A
+    python -m venv env  # Create a virtual environment in project A
+    .\env\Scripts\activate  # Activate that virtual environment
+    pip install torch==1.3.0  # Install the old torch version into the virtual environment belonging to project A
+    cd ../project_B  # Move to project B
+    python -m venv env  # Create a virtual environment in project B
+    .\env\Scripts\activate  # Activate that virtual environment
+    pip install torch==2.0  # Install new torch version into the virtual environment belonging to project B
+    cd ../project_A  # Move back to project A
+    .\env\Scripts\activate  # Activate the virtual environment belonging to project A
+    python main.py  # Succeed in executing the main script from project A
     ```
 
 then we would be sure that `torch==1.3.0` is used when executing `main.py` in project A because we are using two
@@ -80,7 +80,7 @@ dependencies, with some of the most popular being:
 * [pdm](https://pdm.fming.dev/latest/)
 
 with more being created every year ([rye](https://github.com/mitsuhiko/rye) is looking like an interesting project). This
-is considered a problem in the Python community, because it means that there is no standard way of managing
+is considered a problem in the Python community because it means that there is no standard way of managing
 dependencies like in other languages like `npm` for `node.js` or `cargo` for `rust`.
 
 <figure markdown>
@@ -92,8 +92,8 @@ In the course, we do not care about which package manager you use, but we do car
 familiar with one package manager, then skip this exercise and continue to use that. The best recommendation that I can
 give regarding package managers, in general, is to find one you like and then stick with it. A lot of time can be wasted
 on trying to find the perfect package manager, but in the end, they all do the same with some minor differences.
-Checkout [this blog post](https://alpopkes.com/posts/python/packaging_tools/) if you want a fairly up-to-date evaluation
-of the different environment management and packaging tools that exist in the Python ecosystem.
+Check out [this blog post](https://alpopkes.com/posts/python/packaging_tools/) if you want a fairly up-to-date
+evaluation of the different environment management and packaging tools that exist in the Python ecosystem.
 
 If you are not familiar with any package managers, then we recommend that you use `conda` and `pip` for this course. You
 probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
@@ -173,7 +173,7 @@ in the exercise folder.
     </figure>
 
     Conda will always tell you what environment you are currently in, indicated by the `(env_name)` in the prompt. By
-    default it will always start in the `(base)` environment.
+    default, it will always start in the `(base)` environment.
 
 3. Try creating a new virtual environment. Make sure that it is called `my_enviroment` and that it installs version
    3.11 of Python. What command should you execute to do this?
@@ -195,8 +195,8 @@ in the exercise folder.
     2. Inspect the file to see what is in it.
 
     3. The `enviroment.yaml` file you have created is one way to secure *reproducibility* between users because
-        anyone should be able to get an exact copy of you environment if they have your `enviroment.yaml` file.
-        Try creating a new environment directly from you `enviroment.yaml` file and check that the packages being
+        anyone should be able to get an exact copy of your environment if they have your `enviroment.yaml` file.
+        Try creating a new environment directly from your `enviroment.yaml` file and check that the packages being
         installed exactly match what you originally had.
 
 6. As the introduction states, it is fairly safe to use `pip` inside `conda` today. What is the corresponding `pip`
@@ -204,10 +204,9 @@ in the exercise folder.
     file?
 
 7. If you look through the requirements that both `pip` and `conda` produce then you will see that it
-    is often filled with a lot more packages than what you are actually using in your project. What you are
-    really interested in are the packages that you import in your code: `from package import module`.
-    One way to get around this is to use the package `pipreqs`, which will automatically scan your project
-    and create a requirements file specific to that.
+    is often filled with a lot more packages than what you are using in your project. What you are interested in are the
+    packages that you import in your code: `from package import module`. One way to get around this is to use the
+    package `pipreqs`, which will automatically scan your project and create a requirements file specific to that.
     Let's try it out:
 
     1. Install `pipreqs`:
@@ -232,14 +231,14 @@ in the exercise folder.
 
     ??? success "Solution"
 
-        As `pytess-cov==2.12.1` requires a version of `pytest` newer than `4.6`, we can simply change the command to be:
+        As `pytest-cov==2.12.1` requires a version of `pytest` newer than `4.6`, we can simply change the command to be:
 
         ```bash
         pip install "pytest >= 4.6" pytest-cov==2.12.1
         ```
 
-        but there of course exists other solutions as well.
+        but there of course exist other solutions as well.
 
 This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
 to construct requirements files automatically, sometimes it is just easier to manually sit down and create the files as you
-in that way secure that only the most necessary requirements are installed when creating a new environment.
+in that way ensure that only the most necessary requirements are installed when creating a new environment.
