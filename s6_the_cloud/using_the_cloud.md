@@ -4,25 +4,24 @@
 
 !!! info "Core Module"
 
-In this set of exercises we are going to get more familiar with the using some of the resources that
-the Google cloud project offers.
+In this set of exercises, we are going to get more familiar with using some of the resources that GCP offers.
 
 ## Compute
 
 The most basic service of any cloud provider is the ability to create and run virtual machines.
-In `gcp` this service is called [Compute Engine API](https://cloud.google.com/compute/docs/reference/rest/v1).
+In GCP this service is called [Compute Engine API](https://cloud.google.com/compute/docs/reference/rest/v1).
 A virtual machine allows you to essentially run an operating system that behaves like a completely separate computer.
 There are many reasons why one to use virtual machines:
 
 * Virtual machines allow you to scale your operations, essentially giving you access to infinitely many individual
     computers
 
-* Virtual machines allow you to use large scale hardware. For example if you are developing an deep learning model on
+* Virtual machines allow you to use large-scale hardware. For example, if you are developing a deep learning model on
     your laptop and want to know the inference time for a specific hardware configuration, you can just create a virtual
     machine with those specs and run your model.
 
 * Virtual machines allow you to run processes in the "background". If you want to train a model for a week or more, you
-    do not want to do this on your own laptop as you cannot really move it or do anything with while it is training.
+    do not want to do this on your laptop as you cannot move it or do anything with it while it is training.
     Virtual machines allow you to just launch a job and forget about it (at least until you run out of credit).
 
 <figure markdown>
@@ -33,21 +32,21 @@ There are many reasons why one to use virtual machines:
 
 We are now going to start actually using the cloud.
 
-1. Click on the `Compute Engine` tab in sidebar on the homepage of `gcp`.
+1. Click on the `Compute Engine` tab in the sidebar on the homepage of `gcp`.
 
-2. Try to `Create instance`. You will see the following image below.
+2. Click the `Create instance` button. You will see the following image below.
 
     <figure markdown>
     ![Image](../figures/gcp4.PNG){ width="800"  }
     </figure>
 
-    Give it a meaningful name, set the location to some location that is closer to where you actually is (to reduce
-    latency). Finally try to adjust the the configuration a bit. What two factors are effecting the price of the compute
-    unit?
+    Give it a meaningful name, and set the location to some location that is closer to where you are (to reduce
+    latency). Finally, try to adjust the configuration a bit. What two factors are affecting the price of the
+    compute unit?
 
-3. After figuring this out, create a `e2-medium` instance (leave rest configured as default). Before clicking the
-    `Create` button make sure to check the `Equavalent Command Line` button. You should see a very long command that you
-    could have typed instead to do the exact same.
+3. After figuring this out, create a `e2-medium` instance (leave the rest configured as default). Before clicking the
+    `Create` button make sure to check the `Equivalent code` button. You should see a very long command that you
+    could have typed in the terminal that would create a VM similar to configuring it through the UI.
 
 4. Now in a local terminal type:
 
@@ -63,19 +62,19 @@ We are now going to start actually using the cloud.
     gcloud compute ssh --zone <zone> <name> --project <project-id>
     ```
 
-    You can always see the exact command that you need to run to `ssh` to an VM by selecting the
+    You can always see the exact command that you need to run to `ssh` to a VM by selecting the
     `View gcloud command` option in the Compute Engine overview (see image below).
 
     <figure markdown>
     ![Image](../figures/gcp_ssh_command.png){ width="800"  }
     </figure>
 
-6. While logged into the instance, check if Python and Pytorch is installed?
+6. While logged into the instance, check if Python and Pytorch are installed.
     You should see that neither is installed. The VM we have only specified what
     compute resources it should have, and not what software should be in it. We
-    can fix this by starting VMs based on specific docker images (its all coming together).
+    can fix this by starting VMs based on specific docker images (it's all coming together).
 
-    1. `gcp` Comes with a number of ready-to-go images for doing deep learning.
+    1. `gcp` Comes with several ready-to-go images for doing deep learning.
         More info can be found [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
         Try, running this line:
 
@@ -85,8 +84,8 @@ We are now going to start actually using the cloud.
 
         what does the output show?
 
-    2. Next, start (in the terminal) a new instance using a Pytorch image. The
-        command for doing it should look something like this:
+    2. Next, start (in the terminal) a new instance using a Pytorch image. The command for doing it should look
+        something like this:
 
         ```bash
         gcloud compute instances create <instance_name> \
@@ -104,7 +103,7 @@ We are now going to start actually using the cloud.
         have access).
 
     3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
-        both a python installation and Pytorch is also installed. Hint: you also have the possibility
+        both a Python installation and Pytorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
 
         <figure markdown>
@@ -125,42 +124,40 @@ We are now going to start actually using the cloud.
     If you are not careful you can end up wasting a lot of credits on virtual machines that you are not using. VMs are
     charged by the minute, so even if you are not using them you are still paying for them. Therefore, it is important
     that you remember to stop your VMs when you are not using them. You can do this by either clicking the `Stop` button
-    in the VM overview page or by running the following command:
+    on the VM overview page or by running the following command:
 
     ```bash
     gcloud compute instances stop <instance-name>
     ```
 
 ## Data storage
-Another big part of cloud computing is storage of data. There are many reason that you want to store your
+Another big part of cloud computing is the storage of data. There are many reasons that you want to store your
 data in the cloud including:
 
 * Easily being able to share
 * Easily expand as you need more
-* Data is stored multiple locations, making sure that it is not lost in case of an emergency
+* Data is stored in multiple locations, making sure that it is not lost in case of an emergency
 
-Cloud storage is luckily also very cheap. Google cloud only takes around $0.026 per GB per month.
-This means that around 1 TB of data would cost you $26 which is more than what the same amount of
-data would cost on Goggle Drive, but the storage in Google cloud is much more focused on enterprise
-where you have a need for accessing data through an API.
+Cloud storage is luckily also very cheap. Google Cloud only takes around $0.026 per GB per month. This means that
+around 1 TB of data would cost you $26 which is more than what the same amount of data would cost on Google Drive, but
+the storage in Google Cloud is much more focused on enterprise usage such that you can access the data through code.
 
 ### ❔ Exercises
-When we did the exercise on data version control, we made `dvc` work together with our own Google
-drive to storage data. However, a big limitation of this is that we need to authentic each time we
-try to either push or pull the data. The reason is that we need to use an API instead which is
-offered through `gcp`.
+When we did the exercise on data version control, we made `dvc` work together with our own Google Drive to store data.
+However, a big limitation of this is that we need to authenticate each time we try to either push or pull the data. The
+reason is that we need to use an API instead which is offered through `gcp`.
 
 We are going to follow the instructions from this [page](https://dvc.org/doc/user-guide/setup-google-drive-remote)
 
-1. Lets start by creating a data storage. On the GCP startpage, in the sidebar, click on the `Cloud Storage`.
+1. Let's start by creating a data storage. On the GCP start page, in the sidebar, click on the `Cloud Storage`.
     On the next page click the `Create bucket`:
 
     <figure markdown>
     ![Image](../figures/gcp5.PNG){ width="800" }
     </figure>
 
-    Give the bucket an unique name, set it to a region close by and importantly remember to enable *Object versioning*
-    under the last tab. Finally click `Create`.
+    Give the bucket a unique name, set it to a region close by and importantly remember to enable *Object versioning*
+    under the last tab. Finally, click `Create``.
 
 2. After creating the storage, you should be able to see it online and you should be able to see it if you type in your
     local terminal:
@@ -174,17 +171,17 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 3. Next we need the Google storage extension for `dvc`
 
     ```bash
-    pip install "dvc[gs]"
+    pip install dvc-gs
     ```
 
 4. Now in your MNIST repository where you have already configured dvc, we are going to change the storage
-    from our Google drive to our newly created Google cloud storage.
+    from our Google Drive to our newly created Google Cloud storage.
 
     ```bash
     dvc remote add -d remote_storage <output-from-gsutils>
     ```
 
-    In addition we are also going to modify the remote to support object versioning (called `version_aware` in `dvc`):
+    In addition, we are also going to modify the remote to support object versioning (called `version_aware` in `dvc`):
 
     ```bash
     dvc remote modify remote_storage version_aware true
@@ -203,21 +200,21 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     ```
 
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
-    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterwards do a `dvc pull`.
+    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterward do a `dvc pull`.
 
 This setup should work when trying to access the data from your laptop, which we authenticated in the previous module.
 However, how can you access the data from a virtual machine, inside a docker container or from a different laptop? We
 in general recommend two ways:
 
-* You can make the bucket public accessible e.g. no authentication needed. That means that anyone with the url to the
-    data can access it. This is the easiest way to do it, but also the least secure. You can read more about how to make
-    your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
+* You can make the bucket publicly accessible e.g. no authentication is needed. That means that anyone with the URL to
+    the data can access it. This is the easiest way to do it, but also the least secure. You can read more about how to
+    make your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
 
 * You can create a [service account](https://cloud.google.com/iam/docs/service-account-overview) which is a more secure
-    way of accessing data. A service account is essentially a second user which you can give access to specific
+    way of accessing data. A service account is essentially a second user to which you can give access to specific
     services. You can read more about how to create a service account
     [here](https://cloud.google.com/iam/docs/creating-managing-service-accounts). Once you have created a service
-    account you can give it access to a specific bucket by going to the `Permissions` tab of the bucket and add the
+    account you can give it access to a specific bucket by going to the `Permissions` tab of the bucket and adding the
     service account as a member.
 
     <figure markdown>
@@ -241,9 +238,17 @@ two problems with containers
 * Building process can take a lot of time
 * Docker images can be large
 
-For this reason we want to move both the building process and the storage of images to the cloud. In GCP the service
-for this is called [Artifact registry](https://cloud.google.com/artifact-registry), formerly known as Container
-registry.
+For this reason we want to move both the building process and the storage of images to the cloud. In GCP the two
+services that we are going to use for this is called [Cloud Build](https://cloud.google.com/build) for building the
+containers in the cloud and [Artifact registry](https://cloud.google.com/artifact-registry) for storing the images
+afterwards.
+
+??? warning "Artifact registry vs Container registry"
+
+    Prior to May 2024 the default way of storing docker images in GCP was through the `Container registry`. However,
+    services in GCP are constantly being updated and improved. Therefore, the `Container registry` was replaced by the
+    `Artifact registry` which is generalized registry for not only storing docker images but also other types of
+    packages content like Python packages.
 
 ### ❔ Exercises
 
@@ -261,15 +266,56 @@ to be substantially faster to build and smaller in size than the images we are u
     gcloud services enable cloudbuild.googleapis.com
     ```
 
-2. Google cloud building can in principal work out of the box with docker files. However, the recommended way
-    is to add specialized `cloudbuild.yaml` files. They should look something like this:
+2. First step is creating an artifact repository in the cloud. You can either do this through the UI or using gcloud
+    in the command line.
+
+    === "UI"
+
+        Find the `Artifact Registry` service (search for it in the search bar) and click on it. From there click on the
+        `Create repository` button. You should see the following page:
+
+        <figure markdown>
+        ![Image](../figures/artifact_registry.png){ width="800" }
+        </figure>
+
+        Give the repository a name, make sure to set the format to `Docker`, specify the region and finally click
+        `Create`. You should now see the repository in the list of repositories.
+
+    === "Command line"
+
+        ```bash
+        gcloud artifacts repositories create <registry-name> \
+            --repository-format=docker \
+            --location=europe-west1 \
+            --description="My docker registry"
+        ```
+
+        where you need to replace `<repo-name>` with a name of your choice. You can read more about the command
+        [here](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create).
+
+    Whenever we in the future want to push or pull to this artifact repository we can refer to it using this url:
+
+    ```txt
+    <region>-docker.pkg.dev/<project-id>/<registry-name>
+    ```
+
+    for example `europe-west1-docker.pkg.dev/dtumlops-335110/container-registry` would be a valid url (this is the one
+    I created).
+
+3. We are now ready to build our containers in the cloud. In principal GCP cloud build works out of the box with docker
+    files. However, the recommended way is to add specialized `cloudbuild.yaml` files. You can think of the
+    `cloudbuild.yaml` file as the corresponding file in GCP as workflow files are in github actions, which you learned
+    about in this [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
+    a list of steps that should be executed to do something, but the syntax of cause differs a bit.
+
+    For building docker images the syntax is as follows:
 
     ```yaml
     steps:
         - name: 'gcr.io/cloud-builders/docker'
-            args: ['build', '-t', 'gcr.io/<project-id>/<image-name>', '.']
+            args: ['build', '-t', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>', '.']
         - name: 'gcr.io/cloud-builders/docker'
-            args: ['push', 'gcr.io/<project-id>/<image-name>']
+            args: ['push', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>']
     ```
 
     which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
@@ -277,7 +323,7 @@ to be substantially faster to build and smaller in size than the images we are u
     (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
     repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
 
-3. From the `gcp` homepage, navigate to the triggers panel:
+4. From the `gcp` homepage, navigate to the triggers panel:
 
     <figure markdown>
     ![Image](../figures/gcp_trigger_1.png){ width="800"  }
@@ -285,7 +331,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
     Click on the manage repositories.
 
-4. From there, click the `Connect Repository` and go through the steps of authenticating your github profile with
+5. From there, click the `Connect Repository` and go through the steps of authenticating your github profile with
     `gcp` and choose the repository that you want to setup build triggers. For now, skip the
     `Create a trigger (optional)` part by pressing `Done` in the end.
 
@@ -293,7 +339,7 @@ to be substantially faster to build and smaller in size than the images we are u
     ![Image](../figures/gcp_trigger_2.png){ width="800"  }
     </figure>
 
-5. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
+6. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
 
     * Give a name
     * Event: choose `Push to branch`
@@ -303,9 +349,9 @@ to be substantially faster to build and smaller in size than the images we are u
 
     Finally click the `Create` button and the trigger should show up on the triggers page.
 
-6. To activate the trigger, push some code to the chosen repository.
+7. To activate the trigger, push some code to the chosen repository.
 
-7. Go to the `Cloud Build` page and you should see the image being build and pushed.
+8. Go to the `Cloud Build` page and you should see the image being build and pushed.
 
     <figure markdown>
     ![Image](../figures/gcp_build.png){ width="800"  }
@@ -317,13 +363,13 @@ to be substantially faster to build and smaller in size than the images we are u
     `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
     [documentation](https://cloud.google.com/build/docs/locations).
 
-8. If/when your build is successful, navigate to the `Artifact Registry` page. You should
+9. If/when your build is successful, navigate to the `Artifact Registry` page. You should
     hopefully find that the image you just build was pushed here. Congrats!
 
-9. Finally, to to pull your image down to your laptop
+10. Finally, to to pull your image down to your laptop
 
     ```bash
-    docker pull gcr.io/<project-id>/<image_name>:<image_tag>
+    docker pull <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
     ```
 
     you will need to authenticate `docker` with `gcp` first. Instructions can be found
@@ -338,7 +384,7 @@ to be substantially faster to build and smaller in size than the images we are u
     Note: To do this you need to have `docker` actively running in the background, as any
     other time you want to use `docker`.
 
-10. Automatization through the cloud is in general the way to go, but sometimes you may
+11. Automatization through the cloud is in general the way to go, but sometimes you may
     want to manually create images and push them to the registry. Figure out how to push
     an image to your `Container Registry`. For simplicity you can just push the `busybox`
     image you downloaded during the initial docker exercises. This
@@ -405,64 +451,16 @@ parts of our pipeline.
 
         Additionally, if you have a VM with GPU support also try running the `nvidia-smi` command.
 
-    4. When you have logged in to the VM, it works as your own machine. Therefore to run some training code you would
-        need to do the same setup step you have done on your own machine: clone your github, install dependencies,
+    4. When you have logged in to the VM, it works as your machine. Therefore to run some training code you would
+        need to do the same setup step you have done on your machine: clone your Github, install dependencies,
         download data, run code. Try doing this to make sure you can train a model.
 
-2. (Optional, may not work as intended) The last step in the previous exercise involves a lot of setup that would be
-    necessary to do every time we create a
-    new VM, making horizontal scaling of experiments cumbersome. However, we have already developed docker images that
-    can take care of most of the setup.
-
-    1. Lets for simplicity just create a very small docker image (called `gcp_vm_tester.dockerfile`) that you can use
-
-        ```dockerfile
-        FROM gcr.io/deeplearning-platform-release/pytorch-cpu
-        RUN pip install matplotlib
-        ```
-
-        this basically just extends the base Pytorch image to also install matplotlib. The important part about the docker
-        images that we want to use here is that they should not have an `ENTRYPOINT` at the end, because we do not want
-        the docker container to actually run our scripts, just install dependencies on startup.
-
-    2. Lets build docker and manually push it to our container repository in gcp. Build with:
-
-        ```bash
-        docker build -f gcp_vm_tester.dockerfile . -t gcp_vm_tester:latest
-        ```
-
-        and then push with
-
-        ```bash
-        docker tag gcp_vm_tester gcr.io/<project-id>/gcp_vm_tester
-        docker push gcr.io/<project-id>/gcp_vm_tester
-        ```
-
-        confirm by going to the container registry in the cloud console and check that the image has been correctly
-        pushed.
-
-    3. Lets then create a VM with that particular docker image. Instead of using `gcloud compute instances create` we
-        are now using the `gcloud compute instances create-with-container` command
-
-        ```bash
-        gcloud compute instances create-with-container <instance-name> \
-            --container-image=gcr.io/<project-id>/gcp_vm_tester \
-            --zone europe-west1-b
-        ```
-
-    4. Confirm that everything works by accessing your newly created VM and run both of these commands
-
-        ```bash
-        python -c "import torch; print(torch.__version__)"
-        python -c "import matplotlib; print(matplotlib.__version__)"
-        ```
-
-3. We are now moving on to the final way to train our code, using `Vertex AI` service.
+2. We are now moving on to the final way to train our code, using `Vertex AI` service.
 
     1. Start by enabling it by searching for `Vertex AI` in the cloud console and go to the service
 
     2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker containers
-        that contains everything to run our code. Thus the only command that we actually need to use is
+        that contains everything to run our code. Thus the only command that we need to use is
         `gcloud ai custom-jobs create` command. An example here would be:
 
         ```bash

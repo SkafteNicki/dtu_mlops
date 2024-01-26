@@ -65,7 +65,7 @@ it contains excellent tutorials.
 
     ```bash
     pip install dvc
-    pip install "dvc[gdrive]"
+    pip install dvc-gdrive
     ```
 
     If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
@@ -75,7 +75,7 @@ it contains excellent tutorials.
 
     ```bash
     pip install -U pip
-    pip install -U ”dvc[gdrive]”
+    pip install -U dvc-gdrive
     ```
 
     If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
