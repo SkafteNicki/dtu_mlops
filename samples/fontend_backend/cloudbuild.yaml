@@ -1,0 +1,53 @@
+steps:
+  # Build and push backend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/backend-image', 'backend']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/backend-image']
+
+  # Deploy backend image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'backend-service'
+      - '--image=gcr.io/$PROJECT_ID/backend-image'
+      - '--platform=managed'
+      - '--region=your-region'  # Replace with your desired region
+      - '--allow-unauthenticated'
+
+  # Save backend service URL to a file
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'services'
+      - 'describe'
+      - 'backend-service'
+      - '--platform=managed'
+      - '--region=your-region'  # Replace with your desired region
+      - '--format=value(status.url)'
+    id: 'get-backend-url'
+  - name: 'gcr.io/cloud-builders/cat'
+    args: ['output.txt']
+    id: 'save-backend-url'
+
+  # Build and push frontend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/frontend-image', 'frontend']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/frontend-image']
+
+  # Deploy frontend image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'frontend-service'
+      - '--image=gcr.io/$PROJECT_ID/frontend-image'
+      - '--platform=managed'
+      - '--region=your-region'  # Replace with your desired region
+      - '--allow-unauthenticated'
+      - '--set-env-vars=BACKEND_URL=$(_BACKEND_URL)'  # Pass backend URL to frontend as an environment variable
+
+substitutions:
+  _BACKEND_URL: '$(cat output.txt)'
