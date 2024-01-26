@@ -4,9 +4,8 @@
 
 <p align="center">
   <img src="../figures/icons/fastapi.png" width="130">
-  <img src="../figures/icons/pytorch.png" width="130">
-  <img src="../figures/icons/functions.png" width="130">
   <img src="../figures/icons/run.png" width="130">
+  <img src="../figures/icons/locust.png" width="130">
 </p>
 
 Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
