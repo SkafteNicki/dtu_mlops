@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.6">
     
     
       
@@ -711,7 +711,7 @@
         <li class="md-nav__item">
   <a href="#docker-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker overview
+      Docker Overview
     </span>
   </a>
   
@@ -720,7 +720,7 @@
         <li class="md-nav__item">
   <a href="#docker-sharing" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker sharing
+      Docker Sharing
     </span>
   </a>
   
@@ -1819,7 +1819,7 @@
         <li class="md-nav__item">
   <a href="#docker-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker overview
+      Docker Overview
     </span>
   </a>
   
@@ -1828,7 +1828,7 @@
         <li class="md-nav__item">
   <a href="#docker-sharing" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker sharing
+      Docker Sharing
     </span>
   </a>
   
@@ -1882,52 +1882,52 @@
 <a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a>
 </figcaption>
 </figure>
-<p>While the above picture may seem silly at first, it is actually pretty close to how <a href="https://www.docker.com/">docker</a>
-came to existence. A big part of creating a MLOps pipeline, is that you are able to <strong>reproduce</strong> it. Reproducibility
-goes beyond versioning our code with <code>git</code> and using <code>conda</code> environment to keep track of our python installations.
-To really get reproducibility we need to also capture also system level components like</p>
+<p>While the above picture may seem silly at first, it is actually pretty close to how <a href="https://www.docker.com/">Docker</a>
+came into existence. A big part of creating an MLOps pipeline is being able to <strong>reproduce</strong> it. Reproducibility
+goes beyond versioning our code with <code>git</code> and using <code>conda</code> environments to keep track of our Python installations.
+To truly achieve reproducibility, we need to capture system-level components such as:</p>
 <ul>
-<li>operating system</li>
-<li>software dependencies (other than python packages)</li>
+<li>Operating system</li>
+<li>Software dependencies (other than Python packages)</li>
 </ul>
-<p>Docker provides this kind of system-level reproducibility by creating isolated programs dependencies. In addition to
-docker providing reproducibility, one of the key features are also scalability which is important when we later on
-are going to discuss deployment. Because docker is system-level reproducible, it does not (conceptually) matter if
-we try to start our program on a single machine or a 1000 machines at once.</p>
-<h2 id="docker-overview">Docker overview</h2>
-<p>Docker has three main concepts: <strong>docker file</strong>, <strong>docker image</strong> and <strong>docker container</strong>:</p>
+<p>Docker provides this kind of system-level reproducibility by creating isolated program dependencies. In addition to
+providing reproducibility, one of the key features of Docker is scalability, which is important when we later discuss
+deployment. Because Docker ensures system-level reproducibility, it does not (conceptually) matter whether we try to
+start our program on a single machine or on 1000 machines at once.</p>
+<h2 id="docker-overview">Docker Overview</h2>
+<p>Docker has three main concepts: <strong>Dockerfile</strong>, <strong>Docker image</strong>, and <strong>Docker container</strong>:</p>
 <figure>
 <p><a class="glightbox" href="../../figures/docker_structure.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_structure.png" width="800" /></a></p>
 </figure>
 <ul>
 <li>
-<p>A <strong>docker file</strong> is a basic text document that contains all the commands a user could call on the command line to
-    run an application. This includes installing dependencies, pulling data from online storage, setting up code and
-    what commands that you want to run (e.g. <code>python train.py</code>)</p>
+<p>A <strong>Dockerfile</strong> is a basic text document that contains all the commands a user could call on the command line to
+    run an application. This includes installing dependencies, pulling data from online storage, setting up code, and
+    specifying commands to run (e.g., <code>python train.py</code>).</p>
 </li>
 <li>
-<p>Running, or more correctly <em>building</em> a docker file will create a <strong>docker image</strong>. An image is a lightweight,
+<p>Running, or more correctly, <em>building</em> a Dockerfile will create a <strong>Docker image</strong>. An image is a lightweight,
     standalone/containerized, executable package of software that includes everything (application code, libraries,
-    tools, dependencies etc.) necessary to make an application run.</p>
+    tools, dependencies, etc.) necessary to make an application run.</p>
 </li>
 <li>
-<p>Actually <em>running</em> an image will create a <strong>docker container</strong>. This means that the same image can be launched
+<p>Actually <em>running</em> an image will create a <strong>Docker container</strong>. This means that the same image can be launched
     multiple times, creating multiple containers.</p>
 </li>
 </ul>
-<p>The exercises today will focus on how to construct the actual docker file, as this is the first step to constructing
+<p>The exercises today will focus on how to construct the actual Dockerfile, as this is the first step to constructing
 your own container.</p>
-<h2 id="docker-sharing">Docker sharing</h2>
-<p>The whole point of using docker is that sharing applications becomes much easier. In general, we have two options</p>
+<h2 id="docker-sharing">Docker Sharing</h2>
+<p>The whole point of using Docker is that sharing applications becomes much easier. In general, we have two options:</p>
 <ul>
 <li>
-<p>After creating the <code>Dockerfile</code> we can simply commit it to github (its just a text file) and then ask other users
-    to simply build the image by themselves.</p>
+<p>After creating the <code>Dockerfile</code>, we can simply commit it to GitHub (it's just a text file) and then ask other users
+    to simply build the image themselves.</p>
 </li>
 <li>
-<p>After building the image ourself, we can choose to upload it to a <em>image registry</em> such as
-    <a href="https://hub.docker.com/">Docker Hub</a> where other can get our image by simply running <code>docker pull</code>, making them
-    able to instantaneous running it as a container, as shown in the figure below</p>
+<p>After building the image ourselves, we can choose to upload it to an <em>image registry</em> such as
+    <a href="https://hub.docker.com/">Docker Hub</a>, where others can get our image by simply running <code>docker pull</code>, making them
+    able to instantaneously run it as a container, as shown in the figure below:</p>
 </li>
 </ul>
 <figure>
@@ -1935,25 +1935,25 @@ your own container.</p>
 <figcaption> <a href="https://www.ravirajag.dev/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 <h2 id="exercises">❔ Exercises</h2>
-<p>In the following exercises we guide you how to build a docker file for your MNIST repository that will make the
-training and prediction a self contained application. Please make sure that you somewhat understand each step and do
-not just copy of the exercise. Also note that you probably need to execute the exercise from an elevated terminal e.g.
+<p>In the following exercises, we guide you on how to build a docker file for your MNIST repository that will make the
+training and prediction a self-contained application. Please make sure that you somewhat understand each step and do
+not just copy the exercise. Also, note that you probably need to execute the exercise from an elevated terminal e.g.
 with administrative privilege.</p>
 <p>The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
-production setting view. For example we often want to keep the size of docker image as small as possible, which we are
-not focusing on for these exercises.</p>
-<p>If you are using <code>VScode</code> then we recommend install the
-<a href="https://code.visualstudio.com/docs/containers/overview">docker VScode extension</a> for easy getting an overview of
-which images have been build and which are running. Additionally the extension named <em>Dev Containers</em> may also be
+production setting view. For example, we often want to keep the size of the docker image as small as possible, which we
+are not focusing on for these exercises.</p>
+<p>If you are using <code>VScode</code> then we recommend installing the
+<a href="https://code.visualstudio.com/docs/containers/overview">VScode docker extension</a> for easy getting an overview of
+which images have been building and which are running. Additionally, the extension named <em>Dev Containers</em> may also be
 beneficial for you to download.</p>
 <ol>
 <li>
-<p>Start by <a href="https://docs.docker.com/get-docker/">installing docker</a>. How much trouble that you need to go through
-    depends on your operating system. For Windows and Mac we recommend they install <em>Docker desktop</em>, which comes with
-    a graphical user interface (GUI) for quickly viewing docker images and docker containers currently build/in-use.
-    Windows users that have not installed WSL yet are going to have to do it now (as docker need it as backend for
+<p>Start by <a href="https://docs.docker.com/get-docker/">installing docker</a>. How much trouble you need to go through
+    depends on your operating system. For Windows and Mac, we recommend they install <em>Docker Desktop</em>, which comes with
+    a graphical user interface (GUI) for quickly viewing docker images and docker containers currently built/in use.
+    Windows users that have not installed WSL yet are going to have to do it now (as docker needs it as a backend for
     starting virtual machines) but you do not need to install docker in WSL. After installing docker we recommend that
-    you restart you laptop.</p>
+    you restart your laptop.</p>
 </li>
 <li>
 <p>Try running the following to confirm that your installation is working:</p>
@@ -1965,189 +1965,186 @@ beneficial for you to download.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Next lets try to download a image from docker hub. Download the <code>busybox</code> image:</p>
+<p>Next, let's try to download an image from Docker Hub. Download the <code>busybox</code> image:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>busybox
 </span></code></pre></div>
-<p>which is an very small (1-5Mb) containerized application that contains the
-most essential GNU fileutils, shellutils etc.</p>
+<p>which is a very small (1-5Mb) containerized application that contains the most essential GNU file utilities,
+shell utilities, etc.</p>
 </li>
 <li>
 <p>After pulling the image, write</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>images
 </span></code></pre></div>
-<p>which should show you all images that are available. You should see the
-<code>busybox</code> image that we just downloaded.</p>
+<p>which should show you all available images. You should see the <code>busybox</code> image that we just downloaded.</p>
 </li>
 <li>
-<p>Lets try to run this image</p>
+<p>Let's try to run this image</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox
 </span></code></pre></div>
-<p>you will get that nothing happens! The reason for that is we did that not
-provide any commands to <code>docker run</code>. We essentially just ask it to start
-the <code>busybox</code> virtual machine, do nothing and then close it again. Now, try
-again this time with</p>
+<p>You will see that nothing happens! The reason for that is we did not provide any commands to <code>docker run</code>. We
+essentially just ask it to start the <code>busybox</code> virtual machine, do nothing, and then close it again. Now, try
+again, this time with</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello from busybox&quot;</span>
 </span></code></pre></div>
-<p>Note how fast this process is. In just a few seconds, Docker is able to
-start a virtual machine, execute a command and kill it afterwards.</p>
+<p>Note how fast this process is. In just a few seconds, Docker is able to start a virtual machine, execute a command,
+and kill it afterward.</p>
 </li>
 <li>
 <p>Try running</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>ps
 </span></code></pre></div>
-<p>what does this command do? What if you add <code>-a</code> to the end?</p>
+<p>What does this command do? What if you add <code>-a</code> to the end?</p>
 </li>
 <li>
-<p>If we wanted to run multiple commands within the virtual machine, we can
-    start it in <em>interactive mode</em></p>
+<p>If we want to run multiple commands within the virtual machine, we can start it in <em>interactive mode</em></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>busybox
 </span></code></pre></div>
-<p>this can be a great way to investigate what the filesystem of our virtual
-machine looks like.</p>
+<p>This can be a great way to investigate what the filesystem of our virtual machine looks like.</p>
 </li>
 <li>
-<p>As you may have already noticed by now, each time we execute <code>docker run</code> we
-    can still see small remnants of the containers using <code>docker ps -a</code>. These
-    stray containers can end up take a lot of disk space. To remove them, use
-    <code>docker rm</code> where you provide the container id that you want to delete</p>
+<p>As you may have already noticed by now, each time we execute <code>docker run</code>, we can still see small remnants of the
+    containers using <code>docker ps -a</code>. These stray containers can end up taking up a lot of disk space. To remove them,
+    use <code>docker rm</code> where you provide the container ID that you want to delete</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>&lt;container_id&gt;
 </span></code></pre></div>
 </li>
 <li>
-<p>Lets, now move on to trying to construct an docker file ourself for our
-    MNIST project. Create a file called <code>trainer.dockerfile</code>. The intention is that we want to develop one dockerfile
-    for running our training script and one for doing predictions.</p>
+<p>Let's now move on to trying to construct a Dockerfile ourselves for our MNIST project. Create a file called
+    <code>trainer.dockerfile</code>. The intention is that we want to develop one Dockerfile for running our training script and
+    one for doing predictions.</p>
 </li>
 <li>
-<p>Instead of starting from scratch we nearly always want to start from some base image. For this exercise we are
+<p>Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we are
     going to start from a simple <code>python</code> image. Add the following to your <code>Dockerfile</code></p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c"># Base image</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9-slim</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>Next we are going to install some essentials in our image. The essentials more or less consist of a python
-    installation. These instructions may seem familiar if you are using linux:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c"># install python</span>
+<p>Next, we are going to install some essentials in our image. The essentials more or less consist of a Python
+    installation. These instructions may seem familiar if you are using Linux:</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c"># Install Python</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
 </span></code></pre></div>
 </li>
 <li>
-<p>The previous two steps are common for any docker application where you want to run python. All the remaining steps
-    are application specific (to some degree):</p>
+<p>The previous two steps are common for any Docker application where you want to run Python. All the remaining steps
+    are application-specific (to some degree):</p>
 <ol>
 <li>
-<p>Lets copy over our application (the essential parts) from our computer to the container:</p>
+<p>Let's copy over our application (the essential parts) from our computer to the container:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>requirements.txt
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>pyproject.toml
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">COPY</span><span class="w"> </span>&lt;project-name&gt;/<span class="w"> </span>&lt;project-name&gt;/
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">COPY</span><span class="w"> </span>data/<span class="w"> </span>data/
 </span></code></pre></div>
-<p>Remember that we only want the essential parts to keep our docker image as small as possible. Why do we need
-each of these files/folders to run training in our docker container?</p>
+<p>Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
+each of these files/folders to run training in our Docker container?</p>
 </li>
 <li>
-<p class="annotate">Lets set the working directory in our container and add commands that install the dependencies (1):</p>
+<p class="annotate">Let's set the working directory in our container and add commands that install the dependencies (1):</p>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> We split the the installation into two steps, such that docker can cache our project
-    dependencies separately from our application code. This means that if we change our application code, we do
-    not need to reinstall all the dependencies. This is a common strategy for docker images.</p>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
-installs the dependencies. Just remember to also copy over the <code>Makefile</code> into the docker image.</p>
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> We split the installation into two steps so that Docker can cache our project dependencies
+    separately from our application code. This means that if we change our application code, we do not need to
+    reinstall all the dependencies. This is a common strategy for Docker images.</p>
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative, you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
+installs the dependencies. Just remember to also copy over the <code>Makefile</code> into the Docker image.</p>
 </li>
 </ol>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>--no-cache-dir
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--no-deps<span class="w"> </span>--no-cache-dir
 </span></code></pre></div>
-<p>the <code>--no-cache-dir</code> is quite important. Can you explain what it does and why it is important in relation to
-docker.</p>
+<p>The <code>--no-cache-dir</code> is quite important. Can you explain what it does and why it is important in relation to
+Docker?</p>
 </li>
 <li>
-<p>Finally, we are going to name our training script as the <em>entrypoint</em> for our docker image. The <em>entrypoint</em> is
+<p>Finally, we are going to name our training script as the <em>entrypoint</em> for our Docker image. The <em>entrypoint</em> is
     the application that we want to run when the image is being executed:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;project_name&gt;/train_model.py&quot;</span><span class="p">]</span>
 </span></code></pre></div>
-<p>the <code>"u"</code> here makes sure that any output from our script e.g. any <code>print(...)</code> statements gets redirected to
-our terminal. If not included you would need to use <code>docker logs</code> to inspect your run.</p>
+<p>The <code>"u"</code> here makes sure that any output from our script, e.g., any <code>print(...)</code> statements, gets redirected to
+our terminal. If not included, you would need to use <code>docker logs</code> to inspect your run.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>We are now ready to building our docker file into a docker image</p>
+<p>We are now ready to build our Dockerfile into a Docker image.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>trainer.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>trainer:latest
 </span></code></pre></div>
 <details class="warning">
 <summary>MAC M1/M2 users</summary>
-<p>In general docker images are build for a specific platform. For example, if you are using a Mac with a M1/M2
-chip then you are running on a ARM architecture. If you are using a Windows or Linux machine then you are
-running on a AMD64 architecture. This is important to know when building docker images. Thus, docker images
-you build may not work on other platforms than the one you build it on. You can specify which platform you want
+<p>In general, Docker images are built for a specific platform. For example, if you are using a Mac with an M1/M2
+chip, then you are running on an ARM architecture. If you are using a Windows or Linux machine, then you are
+running on an AMD64 architecture. This is important to know when building Docker images. Thus, Docker images
+you build may not work on other platforms than the ones you build on. You can specify which platform you want
 to build for by adding the <code>--platform</code> argument to the <code>docker build</code> command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>-f<span class="w"> </span>train.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>trainer:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>-f<span class="w"> </span>trainer.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>trainer:latest
 </span></code></pre></div>
 <p>and also when running the image:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>trainer:latest
 </span></code></pre></div>
-<p>Do not that this will significantly increase the build and run time of your docker image when running locally,
-because docker will need to emulate the other platform. In general for the exercises today, you should not need
-to specify the platform, but be aware of this if you are building docker images on your own.</p>
+<p>Note that this will significantly increase the build and run time of your Docker image when running locally,
+because Docker will need to emulate the other platform. In general, for the exercises today, you should not need
+to specify the platform, but be aware of this if you are building Docker images on your own.</p>
 </details>
-<p>please note here we are providing two extra arguments to <code>docker build</code>. The <code>-f train.dockerfile .</code> (the dot is
-important to remember) indicates which dockerfile that we want to run (except if you named it just <code>Dockerfile</code>) and
-the <code>-t trainer:latest</code> is the respective name and tag that we see afterwards when running <code>docker images</code> (see image
-below). Please note that building a docker image can take a couple of minutes.</p>
+<p>Please note that here we are providing two extra arguments to <code>docker build</code>. The <code>-f trainer.dockerfile .</code> (the dot
+is important to remember) indicates which Dockerfile we want to run (except if you named it just <code>Dockerfile</code>) and
+the <code>-t trainer:latest</code> is the respective name and tag that we see afterward when running <code>docker images</code> (see
+image below). Please note that building a Docker image can take a couple of minutes.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/docker_output.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_output.PNG" width="800" /></a>
 </figure></p>
 <details class="warning">
 <summary>Docker images and space</summary>
-<p>Docker images can take up a lot of space on your computer. Especially, the docker images we are trying to build
-because Pytorch is huge dependency. If you are running low on space, you can try to</p>
+<p>Docker images can take up a lot of space on your computer, especially the Docker images we are trying to build
+because PyTorch is a huge dependency. If you are running low on space, you can try to</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker<span class="w"> </span>system<span class="w"> </span>prune
 </span></code></pre></div>
-<p>alternatively you can manually delete images using <code>docker rmi {image_name}:{image_tag}</code>.</p>
+<p>Alternatively, you can manually delete images using <code>docker rmi {image_name}:{image_tag}</code>.</p>
 </details>
 </li>
 <li>
-<p>Try running <code>docker images</code> and confirm that you get output similar to the one above. If you succeeds with this,
+<p>Try running <code>docker images</code> and confirm that you get output similar to the one above. If you succeed with this,
     then try running the docker image</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>experiment1<span class="w"> </span>trainer:latest
 </span></code></pre></div>
-<p>you should hopefully see your training starting. Please note that we can start as many containers that we want at
+<p>you should hopefully see your training starting. Please note that we can start as many containers as we want at
 the same time by giving them all different names using the <code>--name</code> tag.</p>
 <ol>
 <li>
-<p>You are most likely going to re-build your docker image multiple times, either due to an implementation error
+<p>You are most likely going to rebuild your Docker image multiple times, either due to an implementation error
     or the addition of new functionality. Therefore, instead of watching pip suffer through downloading <code>torch</code> for
-    the 20th time, you can reuse the cache from last time the docker image was build. To do this, replace the line
-    in your dockerfile that installs your requirements with:</p>
+    the 20th time, you can reuse the cache from the last time the Docker image was built. To do this, replace the line
+    in your Dockerfile that installs your requirements with:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>RUN<span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>cache,target<span class="o">=</span>~/pip/.cache<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>--no-cache-dir
 </span></code></pre></div>
-<p>which mounts your local pip cache to the docker image. For building the image you need to have enabled the
-<a href="https://docs.docker.com/develop/develop-images/build_enhancements/">BuildKit</a> feature. If you have docker
-version v23.0 or later (you can check this by running <code>docker version</code>) then this is enabled by default. Else
-you need to enable it by setting the environment variable <code>DOCKER_BUILDKIT=1</code> before building the image.</p>
-<p>Try changing your dockerfile and re-building the image. You should see that the build process is much faster.</p>
+<p>which mounts your local pip cache to the Docker image. For building the image, you need to have enabled the
+<a href="https://docs.docker.com/develop/develop-images/build_enhancements/">BuildKit</a> feature. If you have Docker
+version v23.0 or later (you can check this by running <code>docker version</code>), then this is enabled by default.
+Otherwise, you need to enable it by setting the environment variable <code>DOCKER_BUILDKIT=1</code> before building the
+image.</p>
+<p>Try changing your Dockerfile and rebuilding the image. You should see that the build process is much faster.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>Remember, if you ever are in doubt how files are organized inside a docker image you always have the option to start
-    the image in interactive mode:</p>
+<p>Remember, if you ever are in doubt about how files are organized inside a Docker image, you always have the option
+    to start the image in interactive mode:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span><span class="o">{</span>image_name<span class="o">}</span>:<span class="o">{</span>image_name<span class="o">}</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>When your training has completed you will notice that any files that is created when running your training script is
-    not present on your laptop (for example if your script is saving the trained model to file). This is because the
-    files were created inside your container (which is its own little machine). To get the files you have two options:</p>
+<p>When your training has completed you will notice that any files that are created when running your training script
+    are not present on your laptop (for example if your script is saving the trained model to a file). This is because
+    the files were created inside your container (which is a separate little machine). To get the files you have two
+    options:</p>
 <ol>
 <li>
-<p>If you already have a completed run then you can use</p>
+<p>If you already have a completed run then you can use it</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>cp
 </span></code></pre></div>
 <p>to copy the files between your container and laptop. For example to copy a file called <code>trained_model.pt</code> from a
@@ -2166,7 +2163,7 @@ folder you would do:</p>
 <p>this command mounts our local <code>models</code> folder as a corresponding <code>models</code> folder in the container. Any file save
 by the container to this folder will be synchronized back to our host machine. Try this out! Note if you have
 multiple files/folders that you want to mount (if in doubt about file organization in the container try to do
-the next exercise first). Also note that the <code>%cd%</code> need to change depending on your OS, see this
+the next exercise first). Also note that the <code>%cd%</code> needs to change depending on your OS, see this
 <a href="https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10">page</a>
 for help.</p>
 </li>
@@ -2175,10 +2172,10 @@ for help.</p>
 <li>
 <p>With training done we also need to write an application for prediction. Create a new docker image called
     <code>predict.dockerfile</code>. This file should call your <code>&lt;project_name&gt;/models/predict_model.py</code> script instead. This image
-    will need some trained model weights to work. Feel free to either includes these during the build process or mount
-    them afterwards. When you created the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
+    will need some trained model weights to work. Feel free to either include these during the build process or mount
+    them afterwards. When you create the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
     you are passing in the model checkpoint and prediction data as arguments to your script, your <code>docker run</code> probably
-    need to look something like</p>
+    needs to look something like</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>predict<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/trained_model.pt:/models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount trained model file</span>
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/data/example_images.npy:/example_images.npy<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount data we want to predict on</span>
@@ -2188,14 +2185,14 @@ for help.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>(Optional, requires GPU support) By default a virtual machine created by docker only have access to your <code>cpu</code> and
-    not your <code>gpu</code>. While you do not necessarily have a laptop with a GPU that supports training of neural network
+<p>(Optional, requires GPU support) By default, a virtual machine created by docker only has access to your <code>cpu</code> and
+    not your <code>gpu</code>. While you do not necessarily have a laptop with a GPU that supports the training of neural networks
     (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage
-    of a GPU if you were to run this on a machine in the future that have a GPU (e.g. in the cloud). It does take a bit
+    of a GPU if you were to run this on a machine in the future that has a GPU (e.g. in the cloud). It does take a bit
     more work, but many of the steps will be similar to building a normal docker image.</p>
 <ol>
 <li>
-<p>There are three prerequisites for working with Nvidia GPU accelerated docker containers. First you need to have
+<p>There are three prerequisites for working with Nvidia GPU-accelerated docker containers. First, you need to have
     the Docker Engine installed (already taken care of), have Nvidia GPU with updated GPU drivers and finally have
     the <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker">Nvidia container toolkit</a>
     installed. The last part you not likely have not installed and needs to do. Some distros of Linux have known
@@ -2207,7 +2204,7 @@ for help.</p>
     the correct image:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04
 </span></code></pre></div>
-<p>but it may differ based on what cuda vision you have. You can find all the different official Nvidia images
+<p>but it may differ based on what Cuda vision you have. You can find all the different official Nvidia images
 <a href="https://hub.docker.com/r/nvidia/cuda">here</a>. After pulling the image, try running the <code>nvidia-smi</code> command
 inside a container based on the image you just pulled. It should look something like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04<span class="w"> </span>nvidia-smi
@@ -2219,20 +2216,20 @@ inside a container based on the image you just pulled. It should look something 
 <p>If it does not work, try redoing the steps.</p>
 </li>
 <li>
-<p>We should hopefully have a working setup now for running Nvidia accelerated docker containers. Next step is to
-    get Pytorch inside of our container, such that our Pytorch implementation also correctly identify the GPU.
-    Luckily for us Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
+<p>We should hopefully have a working setup now for running Nvidia accelerated docker containers. The next step is
+    to get Pytorch inside our container, such that our Pytorch implementation also correctly identifies the GPU.
+    Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
     through their <a href="https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc">NGC Catalog</a>.
     The containers that have to do with Pytorch can be seen
     <a href="https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html">here</a>. Try pulling the latest:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
 </span></code></pre></div>
-<p>It may take some time, because the NGC images includes a lot of other software for optimizing Pytorch
-applications. It may be possible for you to find other images for running GPU accelerated applications that have
-a smaller memory footprint, but NGC are the recommend and supported way.</p>
+<p>It may take some time because the NGC images include a lot of other software for optimizing Pytorch
+applications. It may be possible for you to find other images for running GPU-accelerated applications that have
+a smaller memory footprint, but NGC is the recommended and supported way.</p>
 </li>
 <li>
-<p>Lets test that this container work:</p>
+<p>Let's test that this container works:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
 </span></code></pre></div>
 <p>this should run the container in interactive mode attached to your current terminal. Try opening <code>python</code> in
@@ -2244,7 +2241,7 @@ the container and try writing:</p>
 </li>
 <li>
 <p>Finally, we need to incorporate all this into our already developed docker files for our application. This is
-    also fairly easy as we just need to change our <code>FROM</code> statement in the beginning of our docker file:</p>
+    also fairly easy as we just need to change our <code>FROM</code> statement at the beginning of our docker file:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.7-slim</span>
 </span></code></pre></div>
 <p>change to</p>
@@ -2256,25 +2253,25 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 </ol>
 </li>
 <li>
-<p>(Optional) Another way you can use dockerfiles in your day to day work is for Dev-containers. Developer containers
-    allows you to develop code directly inside a container, making sure that your code is running in the same
+<p>(Optional) Another way you can use Dockerfiles in your day-to-day work is for Dev-containers. Developer containers
+    allow you to develop code directly inside a container, making sure that your code is running in the same
     environment as it will when deployed. This is especially useful if you are working on a project that has a lot of
-    dependencies that are hard to install on your local machine. Setup instructions for VS code and Pycharm can be found
-    here (should be simple since we have already installed docker):</p>
+    dependencies that are hard to install on your local machine. Setup instructions for VS Code and PyCharm can be found
+    here (should be simple since we have already installed Docker):</p>
 <ul>
-<li><a href="https://code.visualstudio.com/docs/devcontainers/containers">VS code</a></li>
-<li><a href="https://www.jetbrains.com/help/pycharm/connect-to-devcontainer.html#create_dev_container_inside_ide">Pycharm</a></li>
+<li><a href="https://code.visualstudio.com/docs/devcontainers/containers">VS Code</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/connect-to-devcontainer.html#create_dev_container_inside_ide">PyCharm</a></li>
 </ul>
-<p>We focus on the VS code setup here.</p>
+<p>We will focus on the VS Code setup here.</p>
 <ol>
 <li>
-<p>First install the
+<p>First, install the
     <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers">Remote - Containers</a>
     extension.</p>
 </li>
 <li>
-<p>Create a <code>.devcontainer</code> folder in your project root and create a <code>Dockerfile</code> inside it. We keep this file very
-    barebone for now, so lets just define a base installation of python:</p>
+<p>Create a <code>.devcontainer</code> folder in your project root and create a <code>Dockerfile</code> inside it. We will keep this file very
+    barebones for now, so let's just define a base installation of Python:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim-buster</span>
 </span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
@@ -2290,18 +2287,18 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 </span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pip install -r requirements.txt&quot;</span>
 </span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>this file tells VS code that we want to use the <code>Dockerfile</code> that we just created and that we want to install
-our python dependencies after the container has been created.</p>
+<p>This file tells VS Code that we want to use the <code>Dockerfile</code> that we just created and that we want to install
+our Python dependencies after the container has been created.</p>
 </li>
 <li>
-<p>After creating these files, you should be able to open the command palette in VS code (F1) and search for the
+<p>After creating these files, you should be able to open the command palette in VS Code (F1) and search for the
     option <code>Remote-Containers: Reopen in Container</code> or <code>Remote-Containers: Rebuild and Reopen in Container</code>. Choose
     either of these options.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/dev_container.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dev_container.png" width="600" /></a>
 </figure></p>
-<p>This will start a new VS code instance inside a docker container. You should be able to see this in the bottom
-left corner of your VS code window. You should also be able to see that the python interpreter has changed to
+<p>This will start a new VS Code instance inside a Docker container. You should be able to see this in the bottom
+left corner of your VS Code window. You should also be able to see that the Python interpreter has changed to
 the one inside the container.</p>
 <p>You are now ready to start developing inside the container. Try opening a terminal and run <code>python</code> and
 <code>import torch</code> to confirm that everything is working.</p>
@@ -2313,29 +2310,29 @@ the one inside the container.</p>
     framework <code>dvc</code> for version controlling data. A neutral question at this point would then be how to incorporate
     <code>dvc</code> into our docker image. We need to do two things:</p>
 <ul>
-<li>Make sure that <code>dvc</code> have all the correct files to pull data from our remote storage</li>
-<li>Make sure that <code>dvc</code> have the correct credentials to pull data from our remote storage</li>
+<li>Make sure that <code>dvc</code> has all the correct files to pull data from our remote storage</li>
+<li>Make sure that <code>dvc</code> has the correct credentials to pull data from our remote storage</li>
 </ul>
-<p>We are going to assume that <code>dvc</code> (and any <code>dvc</code> extension needed) is part of your <code>requirement.txt</code> file and that
-it is already being installed in a <code>RUN pip install -r requirements.txt</code> command in your dockerfile. If not, then
+<p>We are going to assume that <code>dvc</code> (and any <code>dvc</code> extension needed) is part of your <code>requirements.txt</code> file and that
+it is already being installed in a <code>RUN pip install -r requirements.txt</code> command in your Dockerfile. If not, then
 you need to add it.</p>
 <ol>
 <li>
-<p>Add the following lines to your dockerfile</p>
+<p>Add the following lines to your Dockerfile</p>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">RUN</span><span class="w"> </span>dvc<span class="w"> </span>init<span class="w"> </span>--no-scm
 </span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="k">COPY</span><span class="w"> </span>.dvc/config<span class="w"> </span>.dvc/config
 </span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="k">COPY</span><span class="w"> </span>*.dvc<span class="w"> </span>*.dvc
 </span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="k">RUN</span><span class="w"> </span>dvc<span class="w"> </span>config<span class="w"> </span>core.no_scm<span class="w"> </span>true
 </span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="k">RUN</span><span class="w"> </span>dvc<span class="w"> </span>pull
 </span></code></pre></div>
-<p>The first line initialize <code>dvc</code> in the docker image. The <code>--no-scm</code> option is needed because normally <code>dvc</code> can
-only be initialized inside a git repository, but this option allows to initialize <code>dvc</code> without being in one.
-The second and third line copies over the <code>dvc</code> config file and the <code>dvc</code> metadate files that are needed to pull
+<p>The first line initializes <code>dvc</code> in the Docker image. The <code>--no-scm</code> option is needed because normally <code>dvc</code> can
+only be initialized inside a git repository, but this option allows initializing <code>dvc</code> without being in one.
+The second and third lines copy over the <code>dvc</code> config file and the <code>dvc</code> metadata files that are needed to pull
 data from your remote storage. The last line pulls the data.</p>
 </li>
 <li>
 <p>If your data is not public, we need to provide credentials in some way to pull the data. We are for now going to
-    do it in a not-so-secure way. When <code>dvc</code> first connected to your drive a credential file was created. This file
+    do it in a not-so-secure way. When <code>dvc</code> first connected to your drive, a credential file was created. This file
     is located in <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code> where <code>$CACHE_HOME</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">Windows</label></div>
 <div class="tabbed-content">
@@ -2344,7 +2341,7 @@ data from your remote storage. The last line pulls the data.</p>
 </div>
 <div class="tabbed-block">
 <p><code>~/.cache</code> <br>
-This is the typical location, but it may vary depending on what distro you are running</p>
+This is the typical location, but it may vary depending on what distro you are running.</p>
 </div>
 <div class="tabbed-block">
 <p><code>{user}/AppData/Local</code></p>
@@ -2360,16 +2357,15 @@ This is the typical location, but it may vary depending on what distro you are r
 </span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="w">    </span><span class="err">...</span>
 </span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>We are going to copy the file into our docker image. This of course is not a secure way of doing it, but it is
-the easiest way to get started. As long as you are not sharing your docker image with anyone else, then it is
-fine. Add the following lines to your dockerfile before the <code>RUN dvc pull</code> command:</p>
-<p>```dockerfile
-COPY <path_to_default.json> default.json
-dvc remote modify myremote --local gdrive_service_account_json_file_path default.json
-````</p>
+<p>We are going to copy the file into our Docker image. This, of course, is not a secure way of doing it, but it is
+the easiest way to get started. As long as you are not sharing your Docker image with anyone else, then it is
+fine. Add the following lines to your Dockerfile before the <code>RUN dvc pull</code> command:</p>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">COPY</span><span class="w"> </span>&lt;path_to_default.json&gt;<span class="w"> </span>default.json
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>--local<span class="w"> </span>gdrive_service_account_json_file_path<span class="w"> </span>default.json
+</span></code></pre></div>
 <p>where <code>&lt;path_to_default.json&gt;</code> is the path to the <code>default.json</code> file that you just found. The last line tells
 <code>dvc</code> to use the <code>default.json</code> file as the credentials for pulling data from your remote storage. You can
-confirm that this works by running <code>dvc pull</code> in your docker image.</p>
+confirm that this works by running <code>dvc pull</code> in your Docker image.</p>
 </li>
 </ol>
 </li>
@@ -2380,8 +2376,8 @@ confirm that this works by running <code>dvc pull</code> in your docker image.</
 <p>What is the difference between a docker image and a docker container?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>A docker image is a template for a docker container. A docker container is a running instance of a docker
-image. A docker image is a static file, while a docker container is a running process.</p>
+<p>A Docker image is a template for a Docker container. A Docker container is a running instance of a Docker
+image. A Docker image is a static file, while a Docker container is a running process.</p>
 </details>
 </li>
 <li>
@@ -2389,44 +2385,44 @@ image. A docker image is a static file, while a docker container is a running pr
 <details class="success">
 <summary>Solution</summary>
 <ol>
-<li>Write a Dockerfile that includes your app (including the commands to run it) and its dependencies</li>
-<li>Build the image using the Dockefile you wrote</li>
-<li>Run the container using the image you've built</li>
+<li>Write a Dockerfile that includes your app (including the commands to run it) and its dependencies.</li>
+<li>Build the image using the Dockerfile you wrote.</li>
+<li>Run the container using the image you've built.</li>
 </ol>
 </details>
 </li>
 <li>
-<p>What advantage is there to running your application inside a docker container instead of running the application
+<p>What advantage is there to running your application inside a Docker container instead of running the application
     directly on your machine?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Running inside a docker container gives you a consistent and independent environment for your application.
+<p>Running inside a Docker container gives you a consistent and independent environment for your application.
 This means that you can be sure that your application will run the same way on your machine as it will on
-another machine. Thus, docker gives the ability to abstract away the differences between different machines.</p>
+another machine. Thus, Docker gives the ability to abstract away the differences between different machines.</p>
 </details>
 </li>
 <li>
-<p>A docker container is build from a series of layers that are stacked on top of each others. This should be clear if
-    you look at the output when building a docker image. What is the advantage of this?</p>
+<p>A Docker container is built from a series of layers that are stacked on top of each other. This should be clear if
+    you look at the output when building a Docker image. What is the advantage of this?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The advantage is efficiency and reusability. When a change is made to a docker image, only the layer(s) that are
-changed needs to be updated. For example, if you update the application code in your docker image, which usually
-is the last layer, then only that layer needs to be rebuild, making the process much faster. Additionally, if
-you have multiple docker images that share the same base image, then the base image only needs to be downloaded
+<p>The advantage is efficiency and reusability. When a change is made to a Docker image, only the layer(s) that are
+changed need to be updated. For example, if you update the application code in your Docker image, which usually
+is the last layer, then only that layer needs to be rebuilt, making the process much faster. Additionally, if
+you have multiple Docker images that share the same base image, then the base image only needs to be downloaded
 once.</p>
 </details>
 </li>
 </ol>
-<p>The covers the absolute minimum you should know about docker to get a working image and container. If you want to really
-deep dive into this topic you can find a copy of the <em>Docker Cookbook</em> by Sébastien Goasguen in the literature folder.</p>
-<p>If you are actively going to be using docker in the near future, one thing to consider is the image size. Even these
-simple images that we have build still takes up GB in size. A number of optimizations steps can be taken to reduce the
-image size for you or your end user. If you have time you can read
-<a href="https://devopscube.com/reduce-docker-image-size/">this article</a> on different approaches to reduce image size.
+<p>This covers the absolute minimum you should know about Docker to get a working image and container. If you want to really
+deep dive into this topic, you can find a copy of the <em>Docker Cookbook</em> by Sébastien Goasguen in the literature folder.</p>
+<p>If you are actively going to be using Docker in the future, one thing to consider is the image size. Even these
+simple images that we have built still take up GB in size. Several optimization steps can be taken to reduce the
+image size for you or your end user. If you have time, you can read
+<a href="https://devopscube.com/reduce-docker-image-size/">this article</a> on different approaches to reducing image size.
 Additionally, you can take a look at the
-<a href="https://www.docker.com/blog/reduce-your-image-size-with-the-dive-in-docker-extension/">dive-in extension</a> for docker
-desktop that lets you explore in depth your docker images.</p>
+<a href="https://www.docker.com/blog/reduce-your-image-size-with-the-dive-in-docker-extension/">dive-in extension</a> for Docker
+Desktop that lets you explore in depth your Docker images.</p>
 
 
 
@@ -2449,7 +2445,7 @@ desktop that lets you explore in depth your docker images.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 28, 2024</span>
   </span>
 
     
@@ -2582,7 +2578,7 @@ desktop that lets you explore in depth your docker images.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "content.code.copy", "content.code.annotate", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c18c5fb9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e1c3ead8.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
