@@ -48,6 +48,25 @@ where you replace `<name>` and `<region>` with the name of your service and the 
 
 API testing is a type of software testing that involves testing application programming interfaces (APIs) directly and
 
+In these exercise we are going to assume that we want to test an API written in FastAPI (see this
+[module](../s7_deployment/apis.md)). If the API is written in a different framework then how to write the tests may
+change.
+
+1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
+
+    ```bash
+    pip install httpx
+    ```
+
+2. If you have already done the module on [unittesting](../s5_continuous_integration/unittesting.md) then you should
+    already have a `tests/` folder. If not then create one. Inside the `tests/` folder create a file called 
+    `test_apis.py` and write the following code:
+
+    ```python
+    from fastapi.testclient import TestClient
+    from app.main import app
+    client = TestClient(app)
+    ``````
 
 
 ## Load testing

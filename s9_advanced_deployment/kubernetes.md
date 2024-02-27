@@ -24,7 +24,6 @@ Kubernetes makes it easier to deploy and manage containerized applications at sc
 - **Clusters**
 - ...
 
----
 
 ## Kubernetes Architecture
 
@@ -95,3 +94,7 @@ Yatai simplifies the deployment, management, and scaling of machine learning mod
 - [Interactive Tutorials](https://kubernetes.io/docs/tutorials/)
 - [Community Forums](https://discuss.kubernetes.io/)
 - ...
+
+
+
+## 🧠 Knowledge check

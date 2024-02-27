@@ -37,15 +37,21 @@ you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two
 Pytorch and Tensorflow. In this module we are going to look at the Triton Inference Server.
 
 
+
+
 ## Torch script
 
+If you have already completed the privious module on [ONNX](onnx.md) then you are already familiar with the concept of
+converting a model to a format that is more suitable for deployment. 
 
 
 ## Triton inference server
 
 > Triton Inference Server is an open source inference serving software that streamlines AI inferencing.
 
-
+At the core of the triton inference server is the concept of a model repository. This is a directory where you place
+your models and a configuration file that tells the server how to load the model. The server supports many different
+model formats:
 
 === "Torchserve"
 
@@ -53,8 +59,12 @@ Pytorch and Tensorflow. In this module we are going to look at the Triton Infere
     <model-repository-path>/
         <model-name>/
             config.pbtxt
-            1/
+            <version-number>/
                 model.pt
+            <version-number>/
+                model.pt
+        <model-name>/
+            ...
     ```
 
 === "ONNX"
@@ -66,8 +76,39 @@ Pytorch and Tensorflow. In this module we are going to look at the Triton Infere
     <model-repository-path>/
         <model-name>/
             config.pbtxt
-            1/
+            <version-number>/
                 model.onnx
+            <version-number>/
+                model.onnx
+        <model-name>/
+            ...
     ```
 
+Regardless of format, the overall structure is the same: the inference server can serve multiple models at the same time
+and therefore each model has its own directory. Inside each model directory there is a `config.pbtxt` file that tells the
+server how to load the model. The `config.pbtxt` file is a protobuf file that contains the following information:
+
+* `name`: the name of the model
+* `platform`: the platform that the model is running on (e.g. `onnxruntime_onnx`)
+* `max_batch_size`: the maximum batch size that the model can handle
+* `input`: the input tensor names and shapes
+* `output`: the output tensor names and shapes
+* `version_policy`: the version policy for the model (e.g. `latest`)
+* `dynamic_batching`: whether dynamic batching is enabled
+* `optimization`: whether the model is optimized for inference
+
+
 ## ❔ Exercises
+
+1. Installing triton inference server on your local machine can be a real hassel. The good new is that triton inference
+    server is available as a docker container. 
+
+    1.1. Install docker on your local machine.
+
+    1.2. Pull the triton inference server docker container from the [Nvidia docker hub](https://ngc.nvidia.com/catalog/containers/nvidia:tritonserver).
+
+    1.3. Run the triton inference server container on your local machine.
+
+2. Assuming that you have already done the module on [using the cloud](../s)
+
+## 🧠 Knowledge check

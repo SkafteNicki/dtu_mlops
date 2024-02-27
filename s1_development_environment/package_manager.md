@@ -69,7 +69,7 @@ which is the built-in Python module for creating virtual environments. `venv+pip
 but when working on multiple projects it can quickly become a hassle to manage all the different
 virtual environments yourself, remembering which Python version to use, which packages to install and so on.
 
-For this reason, a number of package managers have been created that can help you manage your virtual environments and
+For this reason, several package managers have been created that can help you manage your virtual environments and
 dependencies, with some of the most popular being:
 
 * [conda](https://docs.conda.io/en/latest/)
