@@ -133,8 +133,9 @@ nav:
     # - M34 - Designing Pipelines: s10_extra/design.md
     # - M35 - Frontend: s10_extra/frontend.md
     # - M36 - Sharing models - ONNX format: s10_extra/onnx.md
-    # - M37 - Pipeline orchestration: s10_extra/pipeline.md
+    # - M37 - Workflow orchestration: s10_extra/orchestration.md
     # - M38 - Kubernetes: s10_extra/kubernetes.md
+    # - M39 - Infrastructure as code: infrastructure_as_code.md
   - Summary: overview.md
   - Projects: projects.md
   # - Challenges: challenges.md
