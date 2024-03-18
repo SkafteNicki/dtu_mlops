@@ -219,7 +219,7 @@ pip install torch_tb_profiler
         `model = models.resnet34()` instead. Load up both runs and try to look at the `diff` between them.
 
 7. As an final exercise, try to use the profiler on the `vae_mnist_working.py` file from the previous module on
-    debugging, where you profile a hole training run (not only the forward pass). What is the bottleneck during the
+    debugging, where you profile a whole training run (not only the forward pass). What is the bottleneck during the
     training? Is it still the forward pass or is it something else? Can you improve the code somehow based on the
     information from the profiler.
 

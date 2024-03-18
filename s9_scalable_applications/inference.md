@@ -211,7 +211,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     check the  `named_parameters`, `named_buffers` argument to make sure you understand the difference between L1 pruning
     and unstructured pruning.
 
-5. Instead of pruning only a single module in the model lets try pruning the hole model. To do this we just need to
+5. Instead of pruning only a single module in the model lets try pruning the whole model. To do this we just need to
     iterate over all `named_modules` in the model like this:
 
     ```python
@@ -378,7 +378,7 @@ finish because it involves training multiple networks and therefore involve some
     # tensor([[ 3.3682, -0.3160, -0.2798, -0.5006, -0.5529, -0.5625, -0.6144, -0.4671, 0.2807, -0.3066]])
     ```
 
-    Repeat this process for the hole training dataset and store the result somewhere.
+    Repeat this process for the whole training dataset and store the result somewhere.
 
 5. Implement a simple convolutional model. You can create a custom one yourself or use a small one from `torchvision`.
 
