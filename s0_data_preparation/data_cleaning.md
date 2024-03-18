@@ -15,6 +15,11 @@ automatically detection label errors in your dataset.
 
     ```bash
     pip install cleanlab
+    pip install cleanlab[image]
     ```
+
+    the second line installs additional dependencies for dealing with detection of errors in image datasets.
+
+2. We are going to try to detect 
 
 ## 🧠 Knowledge check

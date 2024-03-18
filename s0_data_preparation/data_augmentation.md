@@ -24,7 +24,7 @@ samples. We will be focusing
 
 | Tool | Type of data | Description |
 | --- | --- | --- |
-| torchvision | Images | |
+| albuminations | Images | |
 | nlpaug | Text | |
 | audiomentations | Audio | |
 | tableaug | Tabular data | |
