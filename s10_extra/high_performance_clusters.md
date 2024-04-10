@@ -21,7 +21,7 @@ Tier, the larger applications it is possible to run.
 
 <figure markdown>
 ![Image](../figures/hpc_tiers.png){ width="800" }
-<figcaption> <a href="https://www.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
+<figcaption> <a href="https://gl.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
 </figure>
 
 ## Cluster architectures
