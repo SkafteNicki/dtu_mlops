@@ -17,7 +17,7 @@ For a full explanation please see this [page](https://git-scm.com/book/en/v2/Get
 
 Secondly, it is important to note that GitHub is not git! GitHub is the dominating player when it comes to
 hosting repositories but that does not mean that they are the only one providing free repository hosting
-(see [bitbucket](https://bitbucket.org/product/) or [gitlab](https://about.gitlab.com/)) for some other examples).
+(see [bitbucket](https://bitbucket.org/product/) or [gitlab](https://about.gitlab.com/)) for some other examples.
 
 That said we will be using git and GitHub throughout this course. It is a requirement for passing this course that
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
@@ -101,7 +101,7 @@ Of course, the real power of version control is the ability to make branches, as
 Each branch can contain code that are not present on other branches. This is useful when you are many developers
 working together on the same project.
 
-## ❔ Exercises
+### ❔ Exercises
 
 1. In your GitHub account create an repository, where the intention is that you upload the code from the final
     exercise from yesterday

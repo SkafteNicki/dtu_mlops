@@ -8,9 +8,9 @@ Hyperparameter optimization is not a new idea within machine learning but have s
 the uprise of deep learning. This can mainly be contributed to the following:
 
 * Trying to beat state-of-the-art often comes down to very small differences in performance, and hyperparameter
-  optimization can help squeeze out a bit more
+    optimization can help squeeze out a bit more
 * Deep learning models are in general not that robust towards the choice of hyparameter so choosing the wrong set
-  may lead to a model that does not work
+    may lead to a model that does not work
 
 However the problem with doing hyperparameter optimization of a deep learning models is that it can take over a
 week to train a single model. In most cases we therefore cannot do a full grid search of all hyperparameter

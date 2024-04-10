@@ -106,9 +106,9 @@ nav:
     - M14 - Boilerplate: s4_debugging_and_logging/boilerplate.md
   - S5 - Continuous Integration ✔️:
     - s5_continuous_integration/README.md
-    - M15 - Unittesting: s5_continuous_integration/unittesting.md
+    - M15 - Unit testing: s5_continuous_integration/unittesting.md
     - M16 - Github Actions: s5_continuous_integration/github_actions.md
-    - M17 - Pre commit: s5_continuous_integration/pre_commit.md
+    - M17 - Pre-commit: s5_continuous_integration/pre_commit.md
     - M18 - Continuous Containers: s5_continuous_integration/auto_docker.md
     - M19 - Continuous Machine Learning: s5_continuous_integration/cml.md
   - S6 - The cloud 🌐:

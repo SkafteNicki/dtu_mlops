@@ -1,3 +1,6 @@
+![Logo](../figures/icons/engine.png){ align=right width="130"}
+![Logo](../figures/icons/bucket.png){ align=right width="130"}
+
 # Using the cloud
 
 ---
