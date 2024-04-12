@@ -921,7 +921,7 @@
         
   
   <span class="md-ellipsis">
-    M15 - Unittesting
+    M15 - Unit testing
   </span>
   
 
@@ -963,7 +963,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Pre commit
+    M17 - Pre-commit
   </span>
   
 
@@ -1762,11 +1762,20 @@
 
 <h1 id="reproducibility">Reproducibility</h1>
 <p><a class="md-button" href="../slides/ReproducibilityAndSoftware.pdf">Slides</a></p>
-<p align="center">
-  <a class="glightbox" href="../figures/icons/docker.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/docker.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/hydra.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/hydra.png" width="130"></a>
-</p>
-
+<div class="grid cards">
+<ul>
+<li>
+<p><a class="glightbox" href="../figures/icons/docker.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/docker.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to create reproducible computing environments using <code>docker</code> and how to use them to run your code.</p>
+<p><a href="docker/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M9: Docker</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/hydra.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/hydra.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to use <code>hydra</code> to manage configuration files and how to integrate it with your code.</p>
+<p><a href="config_files/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M10: Config Files</a></p>
+</li>
+</ul>
+</div>
 <p>Today is all about reproducibility - one of those concepts that everyone agrees is very important and something should
 be done about, but the reality is that it is very hard to secure full reproducibility. The last sessions have already
 touched a bit on how tools like <code>conda</code> and code organization can help make code more reproducible. Today we are going
@@ -1787,9 +1796,9 @@ of making sure that machine learning is <strong>trustworthy</strong>.</p>
 <figcaption>
 Many different aspects are needed if trustworthy machine learning is ever going to be a reality. We need robustness of
 our pipelines so we can trust that they do not fail under heavy load. We need integrity to make sure that pipelines are
-deployed if they are of high quality. We need explainability to make sure that we understand what our machine learning models
-are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can be
-reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
+deployed if they are of high quality. We need explainability to make sure that we understand what our machine learning
+models are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can
+be reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
 populations. Figure inspired by this<a href="https://arxiv.org/abs/2209.06529"> paper</a>.
 </figcaption>
 </figure>
@@ -1829,7 +1838,7 @@ diagnosis (given the same input).</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     

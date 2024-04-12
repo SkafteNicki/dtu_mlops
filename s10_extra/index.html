@@ -919,7 +919,7 @@
         
   
   <span class="md-ellipsis">
-    M15 - Unittesting
+    M15 - Unit testing
   </span>
   
 
@@ -961,7 +961,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Pre commit
+    M17 - Pre-commit
   </span>
   
 
@@ -1746,12 +1746,30 @@
 <h1 id="extra-learning-modules">Extra learning modules</h1>
 <p>All modules listed here are not part of the core course, but expands on some of the other topics.
 Some of them may still be under construction and may in the future be moved into other sessions.</p>
-<p align="center">
-  <a class="glightbox" href="../figures/icons/click.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/click.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/material.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/material.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/optuna.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/optuna.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/pbs.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/pbs.png" width="130"></a>
-</p>
+<div class="grid cards">
+<ul>
+<li>
+<p><a class="glightbox" href="../figures/icons/click.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/click.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to setup a simple command line interface for your application</p>
+<p><a href="click.md"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M30: Command Line Interfaces</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/material.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/material.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to setup a simple documentation system for your application</p>
+<p><a href="documentation/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M31: Documentation</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/optuna.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/optuna.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to do hyperparameter optimization using Optuna</p>
+<p><a href="hyperparameters/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M32: Hyperparameter Optimization</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/pbs.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/pbs.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to use HPC systems that uses PBS to do job scheduling</p>
+<p><a href="pbs.md"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M33: High Performance Clusters</a></p>
+</li>
+</ul>
+</div>
 
 
 
@@ -1774,7 +1792,7 @@ Some of them may still be under construction and may in the future be moved into
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     

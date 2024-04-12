@@ -919,7 +919,7 @@
         
   
   <span class="md-ellipsis">
-    M15 - Unittesting
+    M15 - Unit testing
   </span>
   
 
@@ -961,7 +961,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Pre commit
+    M17 - Pre-commit
   </span>
   
 
@@ -1745,18 +1745,24 @@
 
 <h1 id="cloud-computing">Cloud computing</h1>
 <p><a class="md-button" href="../slides/Cloud%20Intro.pdf">Slides</a></p>
-<p align="center">
-  <a class="glightbox" href="../figures/icons/engine.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/engine.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/bucket.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/bucket.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/build.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/build.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/registry.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/vertex.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/vertex.png" width="130"></a>
-</p>
-
-<p>Running computations locally is often sufficient when only playing around with code in initial phase of
-development. However, to really scale your experiments you will need more computing power than what your
-standard laptop/desktop can offer. You probably already have experience with running on a local cluster
-or similar but todays topic is about utilizing cloud computing.</p>
+<div class="grid cards">
+<ul>
+<li>
+<p><a class="glightbox" href="../figures/icons/gcp.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/gcp.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to get started with Google Cloud Platform and how to interact with the SDK.</p>
+<p><a href="cloud_setup/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M20: Cloud Setup</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/gcp.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/gcp.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to use different GCP services to support your machine learning pipeline.</p>
+<p><a href="using_the_cloud/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M21: Cloud Services</a></p>
+</li>
+</ul>
+</div>
+<p>Running computations locally is often sufficient when only playing around with code in the initial phase of development.
+However, to scale your experiments you will need more computing power than what your standard laptop/desktop can offer.
+You probably already have experience with running on a local cluster or similar but today's topic is about utilizing
+cloud computing.</p>
 <!-- markdownlint-disable -->
 <figure>
 <p><a class="glightbox" href="../figures/cloud_computing.jpeg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../figures/cloud_computing.jpeg" width="600" /></a></p>
@@ -1766,22 +1772,22 @@ or similar but todays topic is about utilizing cloud computing.</p>
 </figure>
 <!-- markdownlint-restore -->
 
-<p>There exist a <a href="https://github.com/zszazi/Deep-learning-in-cloud">numerous</a> amount of cloud compute providers
-with some of the biggest being:</p>
+<p>There exist <a href="https://github.com/zszazi/Deep-learning-in-cloud">numerous</a> amount of cloud computing providers with some
+of the biggest being:</p>
 <ul>
 <li>Azure</li>
 <li>AWS</li>
 <li>Google Cloud project</li>
-<li>Alibaba cloud</li>
+<li>Alibaba Cloud</li>
 </ul>
-<p>The all have slight advantages and disadvantages over each others. In this course we are going to focus on
-Google cloud, because they have been kindly enough to sponsor $50 of cloud credit to each student. If you
-happen to run out of credit, you can also get some free credit for a limited amount of time when you
-signup with a new account. What's important to note is that all these different cloud providers all have the same set of
-services, and that learning how to use the services of one cloud provider in many cases translate to also know how to
-use the same services at another cloud provider. The services are called something different and can have a bit of
-a different interface/interaction pattern but in the end it does not really matter.</p>
-<p>Todays exercises are about getting to know how to work with the cloud. If you are in doubt about anything or want to
+<p>They all have slight advantages and disadvantages over each other. In this course, we are going to focus on Google
+Cloud, because they have been kind enough to sponsor $50 of cloud credit to each student. If you happen to run out of
+credit, you can also get some free credit for a limited amount of time when you sign up with a new account. What's
+important to note is that all these different cloud providers all have the same set of services and that learning how to
+use the services of one cloud provider in many cases translates to also knowing how to use the same services at another
+cloud provider. The services are called something different and can have a bit of a different interface/interaction
+pattern but in the end, it does not matter.</p>
+<p>Today's exercises are about getting to know how to work with the cloud. If you are in doubt about anything or want to
 deep dive into some topics, I can recommend watching this
 <a href="https://www.youtube.com/watch?v=4D3X6Xl5c_Y&amp;list=PLIivdWyY5sqKh1gDR0WpP9iIOY00IE0xL">series of videos</a>
 or going through the <a href="https://cloud.google.com/docs">general docs</a>.</p>
@@ -1791,9 +1797,9 @@ or going through the <a href="https://cloud.google.com/docs">general docs</a>.</
 <ul>
 <li>In general being familiar with the Google SDK working</li>
 <li>Being able to start different compute instances and work with them</li>
-<li>Know how to setup continues integration workflows for building of docker images</li>
+<li>Know how to do continuous integration workflows for the building of docker images</li>
 <li>Knowledge about how to store data and containers/artifacts in cloud buckets</li>
-<li>Being able to train simple Deep Learning models using a combination of cloud services</li>
+<li>Being able to train simple deep-learning models using a combination of cloud services</li>
 </ul>
 </div>
 
@@ -1818,7 +1824,7 @@ or going through the <a href="https://cloud.google.com/docs">general docs</a>.</
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     

@@ -20,7 +20,7 @@
     
     
       
-        <title>Getting started - Setting up a development environment - DTU-MLOps</title>
+        <title>Setting up a development environment - DTU-MLOps</title>
       
     
     
@@ -81,7 +81,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#getting-started-setting-up-a-development-environment" class="md-skip">
+        <a href="#setting-up-a-development-environment" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Getting started - Setting up a development environment
+              Setting up a development environment
             
           </span>
         </div>
@@ -921,7 +921,7 @@
         
   
   <span class="md-ellipsis">
-    M15 - Unittesting
+    M15 - Unit testing
   </span>
   
 
@@ -963,7 +963,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Pre commit
+    M17 - Pre-commit
   </span>
   
 
@@ -1743,17 +1743,35 @@
   
 
 
-<h1 id="getting-started-setting-up-a-development-environment">Getting started - Setting up a development environment</h1>
+<h1 id="setting-up-a-development-environment">Setting up a development environment</h1>
 <p><a class="md-button" href="../slides/DeepLearningSoftware.pdf">Slides</a></p>
-<p align="center">
-<a class="glightbox" href="../figures/icons/terminal.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/terminal.png" width="130"></a>
-<a class="glightbox" href="../figures/icons/conda.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/conda.png" width="130"></a>
-<a class="glightbox" href="../figures/icons/vscode.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/vscode.png" width="130"></a>
-<a class="glightbox" href="../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/pytorch.png" width="130"></a>
-</p>
-
-<p>Today we start our journey into the world of machine learning operations (MLOps). However, before we can really get
-started, we need to make sure that you have a basic understanding of a couple of topics, as we will be using these
+<div class="grid cards">
+<ul>
+<li>
+<p><a class="glightbox" href="../figures/icons/terminal.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/terminal.png" style="height:100px;width:100px" /></a></p>
+<p>Learn the basics of the command line, and how to use it to navigate your file system and run programs.</p>
+<p><a href="command_line/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M1: Command line</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/conda.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/conda.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how package managers work in Python and how to create reproducible virtual environments using
+<code>conda</code> and <code>pip</code>.</p>
+<p><a href="package_manager/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M2: Package Manager</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/vscode.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/vscode.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to use a modern editor for code development.</p>
+<p><a href="editor/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M3: Editor</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/pytorch.png" style="height:100px;width:100px" /></a></p>
+<p>Refresh your Pytorch skills and implement a simple deep-learning model.</p>
+<p><a href="deep_learning_software/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M4: Deep Learning Software</a></p>
+</li>
+</ul>
+</div>
+<p>Today we start our journey into the world of machine learning operations (MLOps). However, before we can get started, we
+need to make sure that you have a basic understanding of a couple of topics, as we will be using these
 throughout the course. In particular, today is all about getting set up with a proper development environment that can
 support your journey. Most of you probably already have experience with these topics, and it will be mostly repetition.</p>
 <p>The reason we are starting here is that many students are missing very basic skills that are never taught but are just
@@ -1766,8 +1784,8 @@ you check out <a href="https://missing.csail.mit.edu/">The Missing Semester of Y
 <ul>
 <li>Understand the basics of the command line.</li>
 <li>Being able to create reproducible virtual environments.</li>
-<li>Able to use a modern IDE / editor for code development</li>
-<li>Write and run a Python program, implementing a simple deep learning model</li>
+<li>Able to use a modern editor for code development</li>
+<li>Write and run a Python program, implementing a simple deep-learning model</li>
 </ul>
 </div>
 
@@ -1792,7 +1810,7 @@ you check out <a href="https://missing.csail.mit.edu/">The Missing Semester of Y
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     

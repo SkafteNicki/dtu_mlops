@@ -20,7 +20,7 @@
     
     
       
-        <title>08. Model deployment - DTU-MLOps</title>
+        <title>Model deployment - DTU-MLOps</title>
       
     
     
@@ -81,7 +81,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#08-model-deployment" class="md-skip">
+        <a href="#model-deployment" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              08. Model deployment
+              Model deployment
             
           </span>
         </div>
@@ -919,7 +919,7 @@
         
   
   <span class="md-ellipsis">
-    M15 - Unittesting
+    M15 - Unit testing
   </span>
   
 
@@ -961,7 +961,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Pre commit
+    M17 - Pre-commit
   </span>
   
 
@@ -1743,20 +1743,32 @@
   
 
 
-<h1 id="08-model-deployment">08. Model deployment</h1>
+<h1 id="model-deployment">Model deployment</h1>
 <p><a class="md-button" href="../slides/Deployment.pdf">Slides</a></p>
-<p align="center">
-  <a class="glightbox" href="../figures/icons/fastapi.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/fastapi.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/pytorch.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/functions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/functions.png" width="130"></a>
-  <a class="glightbox" href="../figures/icons/run.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../figures/icons/run.png" width="130"></a>
-</p>
-
-<p>Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
-world. One way to do this is of course to just place all your code in a github repository, upload a file with
+<div class="grid cards">
+<ul>
+<li>
+<p><a class="glightbox" href="../figures/icons/fastapi.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/fastapi.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to use requests works and how to create custom APIs</p>
+<p><a href="apis/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M22: Requests and APIs</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/pytorch.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to use <code>torchserve</code> for serving PyTorch models</p>
+<p><a href="local_deployment/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M23: Local Deployment</a></p>
+</li>
+<li>
+<p><a class="glightbox" href="../figures/icons/run.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/run.png" style="height:100px;width:100px" /></a></p>
+<p>Learn how to deploy custom APIs using serverless functions and serverless containers in the cloud</p>
+<p><a href="cloud_deployment/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M24: Cloud Deployment</a></p>
+</li>
+</ul>
+</div>
+<p>Let's say that you have spent 1000 GPU hours and trained the most awesome model that you want to share with the
+world. One way to do this is, of course, to just place all your code in a Github repository, upload a file with
 the trained model weights to your favorite online storage (assuming it is too big for github to handle) and
 ask people to just download your code and the weights to run the code by themselves. This is a fine approach in a small
-research setting, but in production you need to be able to <strong>deploy</strong> the model to an environment that is fully
+research setting, but in production, you need to be able to <strong>deploy</strong> the model to an environment that is fully
 contained such that people can just execute without looking (too hard) at the code.</p>
 <figure>
 <p><a class="glightbox" href="../figures/deployment.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../figures/deployment.jpg" width="600" /></a>
@@ -1797,7 +1809,7 @@ also how to deploy services in the cloud.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     
