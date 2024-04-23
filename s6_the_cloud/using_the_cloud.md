@@ -248,7 +248,7 @@ afterwards.
 
 ??? warning "Artifact registry vs Container registry"
 
-    Prior to May 2024 the default way of storing docker images in GCP was through the `Container registry`. However,
+    Prior to May 2023 the default way of storing docker images in GCP was through the `Container registry`. However,
     services in GCP are constantly being updated and improved. Therefore, the `Container registry` was replaced by the
     `Artifact registry` which is generalized registry for not only storing docker images but also other types of
     packages content like Python packages.
