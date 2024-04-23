@@ -217,7 +217,8 @@ code you are currently writing and in general it just has access to a larger con
     </figure>
 
 6. (Optional) Just to investigate the difference between using Github Copilot and ChatGPT, try to redo the previous
-    exercises using ChatGPT. What are the main differences between the two tools?{ .annotate }
+    exercises using ChatGPT. What are the main differences between the two tools? (1)
+    { .annotate }
 
     1. :man_raising_hand: Remember that ChatGPT is a general AI model, meaning that it was trained to be good at many
         different tasks, whereas GitHub Copilot (which uses OpenAI's Codex model under the hood) was specifically

@@ -1,6 +1,6 @@
 # Extra learning modules
 
-All modules listed here are not part of the core course, but expands on some of the other topics.
+All modules listed here are not part of the core course but expand on some of the other topics.
 Some of them may still be under construction and may in the future be moved into other sessions.
 
 <div class="grid cards" markdown>
@@ -9,7 +9,7 @@ Some of them may still be under construction and may in the future be moved into
 
     Learn how to setup a simple command line interface for your application
 
-    [:octicons-arrow-right-24: M30: Command Line Interfaces](click.md)
+    [:octicons-arrow-right-24: M30: Command Line Interfaces](cli.md)
 
 - ![](../figures/icons/material.png){align=right : style="height:100px;width:100px"}
 
@@ -25,8 +25,8 @@ Some of them may still be under construction and may in the future be moved into
 
 - ![](../figures/icons/pbs.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to use HPC systems that uses PBS to do job scheduling
+    Learn how to use HPC systems that use PBS to do job scheduling
 
-    [:octicons-arrow-right-24: M33: High Performance Clusters](pbs.md)
+    [:octicons-arrow-right-24: M33: High Performance Clusters](high_performance_clusters.md)
 
 </div>
