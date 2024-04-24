@@ -150,7 +150,7 @@ If you want to contribute to the course, we are happy to have you! Anything from
 welcome. For building the course material locally, it is a simple two-step process:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_dev.txt
 mkdocs serve
 ```
 
