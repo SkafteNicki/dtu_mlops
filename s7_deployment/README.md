@@ -1,19 +1,34 @@
-# 08. Model deployment
+# Model deployment
 
 [Slides](../slides/Deployment.pdf){ .md-button }
 
-<p align="center">
-  <img src="../figures/icons/fastapi.png" width="130">
-  <img src="../figures/icons/pytorch.png" width="130">
-  <img src="../figures/icons/functions.png" width="130">
-  <img src="../figures/icons/run.png" width="130">
-</p>
+<div class="grid cards" markdown>
 
-Lets say that you have spend 1000 GPU hours and trained the most awesome model that you want to share with the
-world. One way to do this is of course to just place all your code in a github repository, upload a file with
+- ![](../figures/icons/fastapi.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use requests works and how to create custom APIs
+
+    [:octicons-arrow-right-24: M22: Requests and APIs](apis.md)
+
+- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use `torchserve` for serving PyTorch models
+
+    [:octicons-arrow-right-24: M23: Local Deployment](local_deployment.md)
+
+- ![](../figures/icons/run.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to deploy custom APIs using serverless functions and serverless containers in the cloud
+
+    [:octicons-arrow-right-24: M24: Cloud Deployment](cloud_deployment.md)
+
+</div>
+
+Let's say that you have spent 1000 GPU hours and trained the most awesome model that you want to share with the
+world. One way to do this is, of course, to just place all your code in a Github repository, upload a file with
 the trained model weights to your favorite online storage (assuming it is too big for github to handle) and
 ask people to just download your code and the weights to run the code by themselves. This is a fine approach in a small
-research setting, but in production you need to be able to **deploy** the model to an environment that is fully
+research setting, but in production, you need to be able to **deploy** the model to an environment that is fully
 contained such that people can just execute without looking (too hard) at the code.
 
 <figure markdown>

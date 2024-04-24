@@ -1,11 +1,22 @@
 # Reproducibility
 
-[Slides](../slides/Reproducibility.pdf){ .md-button }
+[Slides](../slides/ReproducibilityAndSoftware.pdf){ .md-button }
 
-<p align="center">
-  <img src="../figures/icons/docker.png" width="130">
-  <img src="../figures/icons/hydra.png" width="130">
-</p>
+<div class="grid cards" markdown>
+
+- ![](../figures/icons/docker.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to create reproducible computing environments using `docker` and how to use them to run your code.
+
+    [:octicons-arrow-right-24: M9: Docker](docker.md)
+
+- ![](../figures/icons/hydra.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use `hydra` to manage configuration files and how to integrate it with your code.
+
+    [:octicons-arrow-right-24: M10: Config Files](config_files.md)
+
+</div>
 
 Today is all about reproducibility - one of those concepts that everyone agrees is very important and something should
 be done about, but the reality is that it is very hard to secure full reproducibility. The last sessions have already
@@ -30,15 +41,15 @@ of making sure that machine learning is **trustworthy**.
 <figcaption>
 Many different aspects are needed if trustworthy machine learning is ever going to be a reality. We need robustness of
 our pipelines so we can trust that they do not fail under heavy load. We need integrity to make sure that pipelines are
-deployed if they are of high quality. We explainability to make sure that we understand what our machine learning models
-are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can be
-reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
+deployed if they are of high quality. We need explainability to make sure that we understand what our machine learning
+models are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can
+be reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
 populations. Figure inspired by this<a href="https://arxiv.org/abs/2209.06529"> paper</a>.
 </figcaption>
 </figure>
 
 Trustworthy ML is the idea that machine learning agents *can* be trusted. Take the example of a machine
-learning agent being responsible for medical diagnoses. It is s very clear that we need to be able to trust that the
+learning agent being responsible for medical diagnoses. It is very clear that we need to be able to trust that the
 agent gives us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
 because without we cannot be sure that the same agent deployed at two different hospitals will give the same
 diagnosis (given the same input).

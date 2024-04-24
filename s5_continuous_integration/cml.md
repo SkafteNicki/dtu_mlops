@@ -71,7 +71,7 @@ after the run is done.
     with open("classification_report.txt", 'w') as outfile:
         outfile.write(report)
     confmat = confusion_matrix(target, preds)
-    disp = ConfusionMatrixDisplay(cm = confmat, )
+    disp = ConfusionMatrixDisplay(confusion_matrix = confmat)
     plt.savefig('confusion_matrix.png')
     ```
 

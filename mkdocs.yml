@@ -2,6 +2,8 @@ site_name: DTU-MLOps
 docs_dir: .
 site_dir: ../site
 repo_url: https://github.com/SkafteNicki/dtu_mlops
+edit_uri: edit/main/
+copyright: Copyright &copy; 2021 - 2024 Nicki Skafte Detlefsen
 
 theme:
   language: en
@@ -10,6 +12,8 @@ theme:
   logo: figures/mlops_cycle.png
   icon:
     repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -17,7 +21,6 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-
     # Palette toggle for dark mode
     - scheme: slate
       primary: indigo
@@ -27,9 +30,11 @@ theme:
   features:
     - navigation.instant
     - navigation.indexes
+    - navigation.footer
     - content.code.copy
     - content.code.annotate
-    - navigation.footer
+    - content.action.edit
+    - content.action.view
     - search.suggest
     - search.highlight
 
@@ -61,6 +66,9 @@ plugins:
   - same-dir
   - git-revision-date-localized:
       enable_creation_date: true
+  - exclude:
+      glob:
+        - student_repos/*
 
 extra:
   social:
@@ -101,13 +109,13 @@ nav:
     - M12 - Profiling: s4_debugging_and_logging/profiling.md
     - M13 - Logging: s4_debugging_and_logging/logging.md
     - M14 - Boilerplate: s4_debugging_and_logging/boilerplate.md
-  - S5 - Continues Integration ✔️:
+  - S5 - Continuous Integration ✔️:
     - s5_continuous_integration/README.md
-    - M15 - Unittesting: s5_continuous_integration/unittesting.md
+    - M15 - Unit testing: s5_continuous_integration/unittesting.md
     - M16 - Github Actions: s5_continuous_integration/github_actions.md
-    - M17 - Pre commit: s5_continuous_integration/pre_commit.md
-    - M18 - Continues Containers: s5_continuous_integration/auto_docker.md
-    - M19 - Continues Machine Learning: s5_continuous_integration/cml.md
+    - M17 - Pre-commit: s5_continuous_integration/pre_commit.md
+    - M18 - Continuous Containers: s5_continuous_integration/auto_docker.md
+    - M19 - Continuous Machine Learning: s5_continuous_integration/cml.md
   - S6 - The cloud 🌐:
     - s6_the_cloud/README.md
     - M20 - Cloud Setup: s6_the_cloud/cloud_setup.md
@@ -135,8 +143,9 @@ nav:
     # - M34 - Designing Pipelines: s10_extra/design.md
     # - M35 - Frontend: s10_extra/frontend.md
     # - M36 - Sharing models - ONNX format: s10_extra/onnx.md
-    # - M37 - Pipeline orchestration: s10_extra/pipeline.md
+    # - M37 - Workflow orchestration: s10_extra/orchestration.md
     # - M38 - Kubernetes: s10_extra/kubernetes.md
+    # - M39 - Infrastructure as code: infrastructure_as_code.md
   - Summary: overview.md
   - Projects: projects.md
   # - Challenges: challenges.md

@@ -15,13 +15,13 @@ This is the reason that **version control** exist. Simply stated, it is a way to
 
 For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
-Secondly, it is important to note that Github is not git! Github is the dominating player when it comes to
+Secondly, it is important to note that GitHub is not git! GitHub is the dominating player when it comes to
 hosting repositories but that does not mean that they are the only one providing free repository hosting
-(see [bitbucket](https://bitbucket.org/product/) or [gitlab](https://about.gitlab.com/)) for some other examples).
+(see [bitbucket](https://bitbucket.org/product/) or [gitlab](https://about.gitlab.com/)) for some other examples.
 
-That said we will be using git and Github throughout this course. It is a requirement for passing this course that
+That said we will be using git and GitHub throughout this course. It is a requirement for passing this course that
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
-this into your own projects depends, but you are at least expected to be familiar with git+github.
+this into your own projects depends, but you are at least expected to be familiar with git+GitHub.
 
 <figure markdown>
 ![Image](../figures/git.png){ width="400" }
@@ -46,9 +46,9 @@ this into your own projects depends, but you are at least expected to be familia
     that your installation is working by writing `git help` in a terminal and it should show you the help message for
     git.
 
-2. Create a [github](https://github.com/) account if you do not already have one.
+2. Create a [GitHub](https://github.com/) account if you do not already have one.
 
-3. To make sure that we do not have to type in our github username every time that we want to do some changes,
+3. To make sure that we do not have to type in our GitHub username every time that we want to do some changes,
     we can once and for all set them on our local machine
 
     ```bash
@@ -101,9 +101,9 @@ Of course, the real power of version control is the ability to make branches, as
 Each branch can contain code that are not present on other branches. This is useful when you are many developers
 working together on the same project.
 
-## ❔ Exercises
+### ❔ Exercises
 
-1. In your github account create an repository, where the intention is that you upload the code from the final
+1. In your GitHub account create an repository, where the intention is that you upload the code from the final
     exercise from yesterday
 
     1. After creating the repository, clone it to your computer
@@ -153,26 +153,27 @@ working together on the same project.
     systems falls short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:
 
-    1. Go online and find a project you do not own, where you can improve the code. For simplicity you can
-       just choose the repository belonging to the course. Now fork the project by clicking the *Fork* button.
+    1. Go online and find a project you do not own, where you can improve the code. You can either look at this
+        [page](https://goodfirstissue.dev/) of good issues to get started with or for simplicity you can just choose
+        the repository belonging to the course. Now fork the project by clicking the *Fork* button.
 
-       ![forking](../figures/forking.PNG)
+        ![forking](../figures/forking.PNG)
 
-       This will create a local copy of the repository which you have complete writing access to. Note that
-       code updates to the original repository does not update code in your local repository.
+        This will create a local copy of the repository which you have complete writing access to. Note that
+        code updates to the original repository do not update code in your local repository.
 
     2. Clone your local fork of the project using `git clone`.
 
     3. As default your local repository will be on the `main branch` (HINT: you can check this with the
-       `git status` command). It is good practice to make a new branch when working on some changes. Use
-       the `git branch` command followed by the `git checkout` command to create a new branch.
+        `git status` command). It is good practice to make a new branch when working on some changes. Use
+        the `git branch` command followed by the `git checkout` command to create a new branch.
 
     4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
-       When you have made the changes, do the standard git cycle: `add -> commit -> push`
+        When you have made the changes, do the standard git cycle: `add -> commit -> push`
 
     5. Go online to the original repository and go to the `Pull requests` tab. Find `compare` button and
-       choose the button to compare the `master branch` of the original repo with the branch that you just created
-       in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
+        choose the button to compare the `master branch` of the original repo with the branch that you just created
+        in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
 
     6. Write a bit about the changes you have made and click `Create pull request` :)
 
@@ -265,10 +266,10 @@ working together on the same project.
 
 That covers the basics of git to get you started. In the exercise folder you can find a
 [git cheat sheet](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf)
-with the most useful commands for future reference. Finally, we want to point out another awesome feature of Github:
+with the most useful commands for future reference. Finally, we want to point out another awesome feature of GitHub:
 in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
 IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
-Github has an built-in editor that can simply be enabled by changing any URL from
+GitHub has an built-in editor that can simply be enabled by changing any URL from
 
 ```bash
 https://github.com/username/repository

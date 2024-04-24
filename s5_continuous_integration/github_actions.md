@@ -87,11 +87,9 @@ Lets take a look at how a github workflow file is organized:
 7. As the workflow is currently setup, github actions will destroy every downloaded package
     when the workflow has been executed. To improve this we can take advantage of `caching`:
 
-    1. Figure out how to implement `caching` in your workflow file. Hint: checkout this guide
-        [page](https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows) .
-        If you need help, you can check out [this small repository](https://github.com/SkafteNicki/gh_tester) where
-        I have setup a simple caching vs non-caching experiment with all the requirements that are installed throughout
-        this course.
+    1. Figure out how to implement `caching` in your workflow file. You can find a guide
+        [here](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows) and
+        [here](https://github.com/actions/setup-python#caching-packages-dependencies).
 
     2. When you have implemented a caching system go to `Actions->Caches` in your repository and make sure that they
         are correctly added. It should look something like the image below
@@ -178,9 +176,9 @@ Lets take a look at how a github workflow file is organized:
         ```yaml
         - uses: iterative/setup-dvc@v1
         - name: Get data
-            run: dvc pull
-            env:
-                GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+          run: dvc pull
+          env:
+            GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         ```
 
         that runs `dvc pull` using the secret authentication file. For help you can visit this
@@ -239,11 +237,11 @@ Lets take a look at how a github workflow file is organized:
     ```yaml
     on:
         push:
-            branches: [main]
+          branches: [main]
         pull_request:
-            branches: [main]
+          branches: [main]
         schedule:
-            - cron: "0 0 * * *"
+          - cron: "0 0 * * *"
         workflow_dispatch: {}
     ```
 

@@ -47,7 +47,7 @@ get started with and is sufficient.
 
 Mkdocs by default does not include many features and for that reason we are directly going to dive into using the
 [material for mkdocs theme](https://github.com/squidfunk/mkdocs-material) that provides a lot of nice customization
-to create professional static sites. In fact, this hole course is written in mkdocs using the material theme.
+to create professional static sites. In fact, this whole course is written in mkdocs using the material theme.
 
 ## Mkdocs
 
@@ -144,7 +144,7 @@ your project code is installed in your environment such that it can be imported 
     mkdocs serve # (1)!
     ```
 
-    1. :man_raising_hand: `mkdocs serve` will automatically rebuild the hole site whenever you save a file inside the
+    1. :man_raising_hand: `mkdocs serve` will automatically rebuild the whole site whenever you save a file inside the
         `docs` folder. This is not a problem if you have a fairly small site with not that many pages (or elements), but
         can take a long time for large sites. Consider running with the `--dirty` option for only re-building the site
         for files that have been changed.

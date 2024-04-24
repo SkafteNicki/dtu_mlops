@@ -1,4 +1,3 @@
-
 ![Logo](../figures/icons/functions.png){ align=right width="130"}
 ![Logo](../figures/icons/run.png){ align=right width="130"}
 
@@ -182,6 +181,39 @@ service in GCP for deploying containers.
 
     Finally, click the create button and wait for the service to be deployed (may take some time).
 
+    !!! warning "Common problems"
+
+        If you get an error saying
+        *The user-provided container failed to start and listen on the port defined by the PORT environment variable.*
+        there are two common reasons for this:
+
+        1. You need to add an `EXPOSE` statement in your docker container:
+
+            ```dockerfile
+            EXPOSE 8080
+            CMD exec uvicorn my_application:app --port 8080 --workers 1 main:app
+            ```
+
+            and make sure that your application is also listening on that port. If you hard code the port in your
+            application (as in above code) it is best to set it 8080 which is the default port for cloud run.
+            Alternatively, a better approach is to set it to the `$PORT` environment variable which is set by cloud run
+            and can be accessed in your application:
+
+            ```dockerfile
+            EXPOSE $PORT
+            CMD exec uvicorn my_application:app --port $PORT --workers 1 main:app
+            ```
+
+            If you do this, and then want to run locally you can run it as:
+
+            ```bash
+            docker run -p 8080:8080 -e PORT=8080 <image-name>:<image-tag>
+            ```
+
+        2. If you are serving a large machine learning model, it may also be that your deployed container is running
+            out of memory. You can try to increase the memory of the container by going to the *Edit container* and
+            the *Resources* tab and increase the memory.
+
 4. If you manage to deploy the service you should see a image like this:
 
     <figure markdown>
@@ -191,7 +223,7 @@ service in GCP for deploying containers.
     You can now access you application by clicking url. This will access the root of your application, so you may need
     to add `/` or `/<path>` to the url depending on how the app works.
 
-5. (Optional) Everything we just did to deploy an container can be reproduced using the following command:
+5. Everything we just did to deploy an container can be reproduced using the following command:
 
     ```bash
     gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
@@ -206,8 +238,46 @@ service in GCP for deploying containers.
 
     feel free to experiment doing the deployment from the command line.
 
-6. As an final exercise, we recommend redoing the above deployment steps with your own developed MNIST code such that
-    you get more experience with deploying a machine learning application.
+6. Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
+    in a continues manner by using `cloudbuild.yaml` file we learned about in the previous section. We just need to add
+    a new step to the file. We provide an example
+
+    ```yaml
+    steps:
+    # Build the container image
+    - name: 'gcr.io/cloud-builders/docker'
+      args: ['build', '-t', 'gcr.io/$PROJECT_ID/<container-name>:latest', '.'] #(1)!
+    # Push the container image to Container Registry
+    - name: 'gcr.io/cloud-builders/docker'
+      args: ['push', 'gcr.io/$PROJECT_ID/<container-name>:latest']
+    # Deploy container image to Cloud Run
+    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+      entrypoint: gcloud
+      args:
+      - 'run'
+      - 'deploy'
+      - '<service-name>'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/<container-name>:latest'
+      - '--region'
+      - '<region>'
+    ```
+
+    1. This line assume you are standing in the root of your repository and is trying to build the docker image
+        specified in a file called `Dockerfile` and tag it with the name `gcr.io/$PROJECT_ID/my_deployment:latest`.
+        Therefore if you want to point to another dockerfile you need to add `-f` option to the command. For example
+        if you want to point to a `my_app/my_serving_app.dockerfile` you need to change the line to
+
+        ```yaml
+        args: ['build', '-f', 'my_app/my_serving_app.dockerfile', '-t', 'gcr.io/$PROJECT_ID/my_deployment:lates', '.']
+        ```
+
+    where you need to replace `<container-name>` with the name of your container, `<service-name>` with the name of the
+    service you want to deploy and `<region>` with the region you want to deploy to. Afterwards you need to setup a
+    trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
+    works by making a change to your application and pushing it to github and see if the application is updated
+    continuously. For help you can look [here](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
+    for help. If you succeeded, congratulations you have now setup a continues deployment pipeline.
 
 That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In
 both sections we have explicitly chosen to work with *serverless* deployments. But what if you wanted to do the
@@ -215,5 +285,5 @@ opposite e.g. being the one in charge of the management of the cluster that hand
 really interested in taking deployment to the next level should get started on *kubernetes* which is the de-facto
 open-source container orchestration platform that is being used in production environments. If you want to deep dive we
 recommend starting [here](https://cloud.google.com/ai-platform/pipelines/docs) which describes how to make pipelines
-that are a necessary component before you start to [create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster)
-your own kubernetes cluster.
+that are a necessary component before you start to
+[create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own kubernetes cluster.

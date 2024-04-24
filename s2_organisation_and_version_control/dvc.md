@@ -65,7 +65,7 @@ it contains excellent tutorials.
 
     ```bash
     pip install dvc
-    pip install "dvc[gdrive]"
+    pip install dvc-gdrive
     ```
 
     If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
@@ -75,7 +75,7 @@ it contains excellent tutorials.
 
     ```bash
     pip install -U pip
-    pip install -U ”dvc[gdrive]”
+    pip install -U dvc-gdrive
     ```
 
     If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
@@ -186,6 +186,17 @@ it contains excellent tutorials.
     example, if we always store our best-performing model in a file called `best_model.ckpt` then we can use `dvc` to
     version control it, store it online and make it easy for others to download. Feel free to experiment with this using
     your model checkpoints.
+
+In general `dvc` is a great framework for version-controlling data and models. However, it is important to note that it
+does have some performance issue when dealing with datasets that consist of many files. Therefore, if you are ever
+working with a dataset that consists of many small files, it can be a
+[good idea to](https://fizzylogic.nl/2023/01/13/did-you-know-dvc-doesn-t-handle-large-datasets-neither-did-we-and-here-s-how-we-fixed-it):
+
+* zip files into a single archive and then version control the archive. The `zip` archive should be placed in a
+    `data/raw` folder and then unzipped in the `data/processed` folder.
+
+* If possible turn your data into 1D arrays, then it can be stored in a single file such as `.parquet` or `.csv`.
+    This is especially useful for tabular data. Then you can version control the single file instead of the many files.
 
 ## 🧠 Knowledge check
 

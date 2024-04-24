@@ -101,7 +101,7 @@ If you need help for the exercises you can find a simple solution script
 [here](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files).
 
 1. As logging is a built-in module in Python, nothing needs to be installed. Instead start a new file called
-    `logging.py` and start out with the following code:
+    `my_logger.py` and start out with the following code:
 
     ```python
     import logging
@@ -109,7 +109,7 @@ If you need help for the exercises you can find a simple solution script
 
     # Create super basic logger
     logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-    logger = logget.getLogger(__name__) # (1)
+    logger = logging.getLogger(__name__) # (1)
 
     # Logging levels (from lowest to highest priority)
     logger.debug("Used for debugging your code.")
@@ -192,14 +192,14 @@ If you need help for the exercises you can find a simple solution script
 
 3. Finally, lets try to add a little bit of style and color to our logging. For this we can use the great package
     [rich](https://github.com/Textualize/rich) which is a great package for *rich* text and beautiful formatting in
-    terminals. Install `rich` and add the following line to your `logger.py`
+    terminals. Install `rich` and add the following line to your `my_logger.py`
     script:
 
     ```python
-    logger.handlers[0] = RichHandler(markup=True)  # set rich handler
+    logger.root.handlers[0] = RichHandler(markup=True)  # set rich handler
     ```
 
-    and try re-running the script. Hopefully you should see something buitiful in your terminal like this:
+    and try re-running the script. Hopefully you should see something beautiful in your terminal like this:
 
     <figure markdown>
     ![Image](../figures/rich_terminal_logging.png){ width="700" }

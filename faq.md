@@ -29,12 +29,18 @@ that not all students have gained knowledge about deep learning models before th
 basics of how to code in PyTorch in one of the
 [first modules](s1_development_environment/deep_learning_software.md) of the course to get everyone up to speed.
 
-## I be missing X days of the course, will that be a problem ❔
+## I will be missing X days of the course, will that be a problem ❔
 
 Depends. The course is fairly intensive, with most students working from 9-17 every day. If you already know that you
 will be missing X days of the course, then I highly recommend that you go through some of the first sessions before
 the course starts to give yourself a bit of breathing room. If you are not able to do so, please be aware that an
 additional effort may be needed from you to keep up with your fellow students.
+
+## How many should we be in a group for the projects ❔
+
+Between 3 and 5. The projects are designed to be done in groups meaning that we intentionally make them too big for
+one person to do alone. Luckily, a lot of the work that you need to do can be done in parallel, so it is not as bad
+as it sounds.
 
 ## When will the exam take place ❔
 
@@ -46,10 +52,16 @@ course day.
 
 Look at the bottom of this [page](projects.md). Details will be updated as we get closer to the exam date.
 
+## Can I use ChatGPT or similar tools for the exercises, project, exam report (coding + writing) ❔
+
+Yes, yes, and yes, but remember that its a tool and you need to validate the output before using it. We would prefer
+for the exam report that you formulate the answers in your own words because it is intended for you do describe what
+you have been doing in your project. *The I in LLM stands for intelligence.*
+
 ## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
 
 We can give a grade on the Danish
-[7-point grading](https://eng.uvm.dk/general--themes-and-projects/7-point-grading-scale) scale for foreign students who
+[7-point grading](https://ufm.dk/en/education/the-danish-education-system/grading-system) scale for foreign students who
 need it, where their home university does not accept pass/no-pass. You need to contact the course responsible
 [Nicki](mailto:nsde@dtu.com) within the first week of the course to request this. Secondly, make sure to also inform us
 about it during the oral part of the exam because we need to ask you additional questions to be able to give an exact
