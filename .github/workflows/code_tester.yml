@@ -1,4 +1,4 @@
-name: Deploy docs
+name: Code tester
 
 on:
   push:
@@ -31,5 +31,3 @@ jobs:
           pip install -r requirements_exercises.txt
       - name: Run script
         run: python ${{ matrix.scripts }}
-
-
