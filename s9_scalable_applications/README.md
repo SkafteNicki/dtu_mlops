@@ -2,19 +2,36 @@
 
 [Slides](../slides/ScalingApplications.pdf){ .md-button }
 
-<p align="center">
-  <img src="../figures/icons/pytorch.png" width="130">
-  <img src="../figures/icons/lightning.png" width="130">
-</p>
+<div class="grid cards" markdown>
+
+- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to setup distributed data loading in your Pytorch application
+
+    [:octicons-arrow-right-24: M27: Distributed Data Loading](data_loading.md)
+
+- ![](../figures/icons/lightning.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to do distributed training in Pytorch using `pytorch-lightning`
+
+    [:octicons-arrow-right-24: M28: Distributed Training](distributed_training.md)
+
+- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to setup a prometheus monitoring system for your application
+
+    [:octicons-arrow-right-24: M29: Scalable Inference](inference.md)
+
+</div>
 
 This module is all about scaling the applications that we are building. We are here going to use a very narrow
-definition of *scaling* namely that we want our applications to run faster, however one should note that in general
+definition of *scaling* namely that we want our applications to run faster, however, one should note that in general
 *scaling* is a much broader term. There are many different ways to scale your applications and we are going to look at
-three of these related to different tasks machine learning algorithms:
+three of these related to different tasks in machine learning algorithms:
 
-* Scaling data loading
-* Scaling training
-* Scaling inference
+- Scaling data loading
+- Scaling training
+- Scaling inference
 
 We are going to approach the term *scaling* from two different angles that both should result in your application
 running faster. The first approach is levering multiple devices, such as using multiple CPU cores or parallelizing

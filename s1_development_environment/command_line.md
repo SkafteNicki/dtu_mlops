@@ -15,12 +15,11 @@ Contrary to popular belief, the command line (also commonly known as the *termin
 existed since the dawn of time. Instead, it was created at a time when it was not given that your computer had a
 graphical interface that you could interact with. Think of it as a text interface to your computer.
 
-The terminal is a well-known concept to users of Linux, however, MAC and (especially) Windows users often do not need
-and therefore encounter it. Having a basic
-understanding of how to use a command line can help improve your workflow. The reason that the command line is an
-important tool to get to know, is that doing any kind of MLOps will require us to be able to interact with many
-different tools, many of which do not have a graphical interface. Additionally, when we get to working in the cloud
-later in the course, you will be forced to interact with the command line.
+The terminal is a well-known concept to users of Linux; however, MAC and (especially) Windows users often do not need it
+and therefore encounter it. Having a basic understanding of how to use a command line can help improve your workflow.
+The reason that the command line is an important tool to get to know is that doing any kind of MLOps will require us to
+be able to interact with many different tools, many of which do not have a graphical interface. Additionally, when we
+get to working in the cloud later in the course, you will be forced to interact with the command line.
 
 Note if you already are a terminal wizard then feel free to skip the exercises below. They are very elementary.
 
@@ -38,7 +37,7 @@ when trying to execute a command, there are several parts to it:
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
     are in, followed by some kind of sign: `$`, `>`, `:` are the usual ones. It can also contain other information,
     such as in the case of the above image which also shows the current `conda` environment.
-2. The **command** is the actual command you want to execute. For example, `ls` or `cd`
+2. The **command** is the actual command you want to execute. For example, `ls` or `cd`.
 3. The **options** are additional arguments that you can pass to the command. For example, `ls -l` or `cd ..`.
 4. The **arguments** are the actual arguments that you pass to the command. For example, `ls -l figures` or `cd ..`.
 
@@ -64,7 +63,7 @@ command line.
     (as administrator) Windows Command Prompt. You can in general complete all exercises in the course from a normal
     Windows Command Prompt, but some are easier to do if you run from WSL.
 
-    If you decide to run in WSL you need to remember that you now have two different systems, and installing a package
+    If you decide to run in WSL, you need to remember that you now have two different systems, and installing a package
     on one system does not mean that it is installed on the other. For example, if you install `pip` in WSL, you
     need to install it again in Windows if you want to use it there.
 
@@ -82,15 +81,15 @@ command line.
 3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
 
-4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less` and `top` commands. Also,
+4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less`, and `top` commands. Also,
     familiarize yourself with the `>` operator. You are probably going to use some of them throughout the course or in
-    your future career. For Windows users, these commands may be named something else, e.g. `where` command on Windows
+    your future career. For Windows users, these commands may be named something else, e.g., `where` command on Windows
     corresponds to `which`.
 
 5. It is also significant that you know how to edit a file through the terminal. Most systems should have the
-    `nano` editor installed, else try to figure out which one is installed in your system.
+    `nano` editor installed; else, try to figure out which one is installed on your system.
 
-    1. Type `nano` in the terminal
+    1. Type `nano` in the terminal.
 
     2. Write the following text in the script
 
@@ -99,12 +98,12 @@ command line.
             print("Hello world!")
         ```
 
-    3. Save the script and try to execute it
+    3. Save the script and try to execute it.
 
-    4. Afterward, try to edit the file through the terminal (change `Hello world` to something else)
+    4. Afterward, try to edit the file through the terminal (change `Hello world` to something else).
 
-6. All terminals come with their own programming language. The most common system is called `bash`. It can come in handy
-    being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
+6. All terminals come with a programming language. The most common system is called `bash`, which can come in handy
+    when being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
     programs sequentially, which can be done through a bash script.
 
     ??? note "Windows users"
@@ -127,7 +126,7 @@ command line.
     3. Try to Google how to write a simple for-loop that executes the Python script 10 times in a row.
 
 7. A trick you may need throughout this course is setting *environment variables*. An environment variable is just a
-    dynamic-named value that may alter the way running processes behave on a computer. The syntax for setting an
+    dynamically named value that may alter the way running processes behave on a computer. The syntax for setting an
     environment variable depends on your operating system:
 
     === "Windows"
@@ -176,7 +175,7 @@ command line.
         --zone=europe-west1-b
     ```
 
-    Identify the command, options and arguments.
+    Identify the command, options, and arguments.
 
     ??? success "Solution"
 
@@ -184,9 +183,9 @@ command line.
         * The options are `--container-image=gcr.io/<project-id>/gcp_vm_tester` and `--zone=europe-west1-b`.
         * The arguments are `instance-1`.
 
-        The tricky part of this example is that commands can have subcommands, which are also commands. In this case
-        `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute` and `create-with-container`
-        is a subcommand to `instances`
+        The tricky part of this example is that commands can have subcommands, which are also commands. In this case,
+        `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute`, and `create-with-container`
+        is a subcommand to `instances`.
 
 2. Two common arguments that nearly all commands have are the `-h` and `-V` options. What does each of them do?
 

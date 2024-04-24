@@ -19,13 +19,13 @@ you get done with exercises early I highly recommend that you deep dive more int
 
 ## ❔ Exercises
 
-As the first step we are going to get you setup with some Google cloud credits.
+As the first step, we are going to get you setup with some Google Cloud credits.
 
 1. Go to <https://learn.inside.dtu.dk>. Go to this course. Find the recent message where there should be a download
     link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there are a
     limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits
     whenever you signup with a new account. NOTE that you need to provide a credit card for this so make
-    sure to closely monitor your credit use so you do not end spending more than the free credit.
+    sure to closely monitor your credit use so you do not end up spending more than the free credit.
 
 2. Login to the homepage of gcp. It should look like this:
 
@@ -100,13 +100,13 @@ As the first step we are going to get you setup with some Google cloud credits.
         gcloud projects list
         ```
 
-    4. Next install the Google cloud python API:
+    4. Next install the Google Cloud Python API:
 
         ```bash
         pip install --upgrade google-api-python-client
         ```
 
-        Make sure that the python interface is also installed. In a python terminal type
+        Make sure that the Python interface is also installed. In a Python terminal type
 
         ```python
         import googleapiclient
@@ -139,31 +139,31 @@ services, both locally on your laptop and in the cloud console.
 
 ## IAM and Quotas
 
-A big part of using the cloud in a bigger organisation has to do with Admin and quotas. Admin here in general refers
+A big part of using the cloud in a bigger organization has to do with Admin and quotas. Admin here in general refers
 to the different roles that users of GCP and quotas refers to the amount of resources that a given user has access to.
-For example one employee, lets say a data scientist, may only be granted access to certain GCP services that have to do
-with development and training of machine learning model, with `X` amounts of GPUs available to use to make sure that the
-employee does not spend too much money. Another employee, a devops engineer, probably do not need access to the same
-services and not necessarily the same resources.
+For example, one employee, let's say a data scientist, may only be granted access to certain GCP services that have to
+do with the development and training of machine learning models, with `X` amounts of GPUs available to use to make sure
+that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not need access to
+the same services and not necessarily the same resources.
 
-In this course we are not going to focus too much on this aspect but it is important to know that it exists. One feature
-you are going to need for doing the project is how to share a project with other people. This is done through the IAM
-(Identities and Access Management) page. Simply click the `Grant Access` button, search for the email of the person you
-want to share the project with and give them either `Viewer`, `Editor` or `Owner` access, depending on what you want
-them to be able to do. The figure below shows how to do this.
+In this course, we are not going to focus too much on this aspect but it is important to know that it exists. One
+feature you are going to need for doing the project is how to share a project with other people. This is done through
+the IAM (Identities and Access Management) page. Simply click the `Grant Access` button, search for the email of the
+person you want to share the project with and give them either `Viewer`, `Editor` or `Owner` access, depending on what
+you want them to be able to do. The figure below shows how to do this.
 
 <figure markdown>
 ![Image](../figures/gcp_iam_group.png){ width="1000" }
 </figure>
 
 What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
-project. By default any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that you
-can use is either 0 or 1 (their policies sometimes changes). We will in the exercises below try to increase it.
+project. By default, any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that you
+can use is either 0 or 1 (their policies sometimes change). We will in the exercises below try to increase it.
 
 ### ❔ Exercises
 
 1. Start by enabling the `Compute Engine` service. Simply search for it in the top search bar. It should bring you
-    to the a page where you can enable the service (may take some time). We are going to look more into this service
+    to a page where you can enable the service (may take some time). We are going to look more into this service
     in the next module.
 
 2. Next go to the `IAM & Admin` page, again search for it in the top search bar. The remaining steps are illustrated
@@ -174,13 +174,13 @@ can use is either 0 or 1 (their policies sometimes changes). We will in the exer
     2. In the search field search for `GPUs (all regions)` (needs to match exactly, the search field is case sensitive),
         such that you get the same quota as in the image.
 
-    3. In the limit you can see what your current quota for the number of GPUs you can use are. Additional, to the
-        right of the limit you can see the current usage. It is worth checking in on if you are ever in doubt if a job
+    3. In the limit, you can see what your current quota for the number of GPUs you can use is. Additionally, to the
+        right of the limit, you can see the current usage. It is worth checking in on if you are ever in doubt if a job
         is running on GPU or not.
 
-    4. Click the quota and afterwards the `Edit qoutas` button.
+    4. Click the quota and afterward the `Edit` quotas button.
 
-    5. In the pop-op window, increase your limit to either 1 or 2.
+    5. In the pop-up window, increase your limit to either 1 or 2.
 
     6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request
 
@@ -191,7 +191,7 @@ can use is either 0 or 1 (their policies sometimes changes). We will in the exer
 If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
 go to this page and see what you are actually allowed to use currently and try to increase it. For example, when you
 get to training machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
-need to ask for quota increase for that service as well.
+need to ask for a quota increase for that service as well.
 
 <figure markdown>
 ![Image](../figures/gcp_quotas.png){ width="1000" }
@@ -213,8 +213,8 @@ services some more to make sure you are not a bot that wants to mine crypto.
         * Resource availability: [some regions](https://cloud.google.com/compute/docs/gpus/gpu-regions-zones) have more
             GPUs available than others
         * Reduced latency: if your application is running in the same region as your users, the latency will be lower
-        * Compliance: some countries has strict rules that requires user info to be stored inside a particular region
-            eg. EU has GDPR rules that requires all user data to be stored in the EU
+        * Compliance: some countries have strict rules that require user info to be stored inside a particular region
+            eg. EU has GDPR rules that require all user data to be stored in the EU
         * Pricing: some regions may have different pricing than others
 
 2. The 3 major cloud providers all have the same services, but they are called something different depending on the

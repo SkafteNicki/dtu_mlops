@@ -61,7 +61,7 @@ you have been doing in your project. *The I in LLM stands for intelligence.*
 ## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
 
 We can give a grade on the Danish
-[7-point grading](https://eng.uvm.dk/general--themes-and-projects/7-point-grading-scale) scale for foreign students who
+[7-point grading](https://ufm.dk/en/education/the-danish-education-system/grading-system) scale for foreign students who
 need it, where their home university does not accept pass/no-pass. You need to contact the course responsible
 [Nicki](mailto:nsde@dtu.com) within the first week of the course to request this. Secondly, make sure to also inform us
 about it during the oral part of the exam because we need to ask you additional questions to be able to give an exact
