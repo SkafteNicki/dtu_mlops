@@ -1,10 +1,27 @@
 # 09. Advance Model Deployment
 
-<p align="center">
-  <img src="../figures/icons/streamlit.png" width="130">
-  <img src="../figures/icons/onnx.png" width="130">
-  <img src="../figures/icons/kubernetes.png" width="130">
-</p>
+<div class="grid cards" markdown>
+
+- ![](../figures/icons/onnx.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use requests works and how to create custom APIs
+
+    [:octicons-arrow-right-24: M22: Requests and APIs](apis.md)
+
+- ![](../figures/icons/kubernetes.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use `torchserve` for serving PyTorch models
+
+    [:octicons-arrow-right-24: M23: Local Deployment](local_deployment.md)
+
+- ![](../figures/icons/tensorrt.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to deploy custom APIs using serverless functions and serverless containers in the cloud
+
+    [:octicons-arrow-right-24: M24: Cloud Deployment](cloud_deployment.md)
+
+</div>
+
 
 This module is still under development.
 

@@ -1,4 +1,4 @@
-![Logo](../figures/icons/kubernetes.png){ align=right width="130"}
+![Logo](../figures/icons/streamlit.png){ align=right width="130"}
 
 # Frontend
 
@@ -59,8 +59,8 @@ which can be found in the `samples/frontend_backend` folder.
     and run `streamlit hello` afterwards to check that everything works as expected.
 
 2. Lets start by creating the frontend application in a `frontend.py` file. You can use essentially any frontend you
-    want, but we will be using a simple streamlit application that we have created in the `samples/frontend_backend/frontend`
-    folder.
+    want, but we will be using a simple streamlit application that we have created in the 
+    `samples/frontend_backend/frontend`.
 
     You can find help in the [streamlit documentation](https://docs.streamlit.io/library/api-reference)
 
