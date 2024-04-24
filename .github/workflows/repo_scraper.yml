@@ -1,10 +1,10 @@
 name: Run repo scraper
 
 on:
-  push:
-    branches: [main]
-  schedule:
-    - cron: "0 0 * * *"  # Run at the end of every day
+  #push:
+  #  branches: [main]
+  #schedule:
+  #  - cron: "0 0 * * *"  # Run at the end of every day
   workflow_dispatch: {}  # manual executions
 
 jobs:

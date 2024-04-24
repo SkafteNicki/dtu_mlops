@@ -2,21 +2,44 @@
 
 [Slides](../slides/ContinuousIntegration.pdf){ .md-button }
 
-<p align="center">
-  <img src="../figures/icons/pytest.png" width="130">
-  <img src="../figures/icons/actions.png" width="130">
-  <img src="../figures/icons/precommit.png" width="130">
-  <img src="../figures/icons/dockerhub.png" width="130">
-  <img src="../figures/icons/cml.png" width="130">
-</p>
+<div class="grid cards" markdown>
+
+- ![](../figures/icons/pytest.png){align=right : style="height:100px;width:100px"}
+    Learn how to write unit tests that cover both data and models in your ML pipeline.
+
+    [:octicons-arrow-right-24: M15: Unit testing](unittesting.md)
+
+- ![](../figures/icons/actions.png){align=right : style="height:100px;width:100px"}
+    Learn how to implement CI using Github actions such that tests are automatically executed on code changes.
+
+    [:octicons-arrow-right-24: M16: Github Actions](github_actions.md)
+
+- ![](../figures/icons/precommit.png){align=right : style="height:100px;width:100px"}
+    Learn how to use pre-commit to ensure that code that is not up to standard does not get committed.
+
+    [:octicons-arrow-right-24: M17: Pre-commit](pre_commit.md)
+
+- ![](../figures/icons/dockerhub.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to implement CI for continuous building of containers.
+
+    [:octicons-arrow-right-24: M18: Continuous Containers](auto_docker.md)
+
+- ![](../figures/icons/cml.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to implement continuous machine learning pipelines in Github actions.
+
+    [:octicons-arrow-right-24: M19: Continuous Machine Learning](cml.md)
+
+</div>
 
 Continues integration is a sub-discipline of the general field of *Continues X*. Continuous X is one of the core
 elements of modern DevOps, and by extension MLOps. Continuous X assumes that we have a (long) developer pipeline
 (see image below) where we want to make some changes to our code e.g:
 
-* Update our training data or data processing
-* Update our model architecture
-* Something else...
+- Update our training data or data processing
+- Update our model architecture
+- Something else...
 
 Basically, any code change we will expect will have a influence on the final result. The problem with
 doing changes to the start of our pipeline is that we want the change to propagate all the way through

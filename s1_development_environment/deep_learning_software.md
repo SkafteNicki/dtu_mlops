@@ -209,8 +209,8 @@ in the future as you start to add more and more features. As subgoals, please fu
         </figure>
 
         you will get an error message saying that you need to select a command to run e.g. `main.py` either needs the
-        `train` or `evaluate` command. This can be fixed by adding a `lunch.json` to a specialized `.vscode` folder in
-        the root of the project. The `lunch.json` file should look something like this:
+        `train` or `evaluate` command. This can be fixed by adding a `launch.json` to a specialized `.vscode` folder in
+        the root of the project. The `launch.json` file should look something like this:
 
         ```json
         {
@@ -235,7 +235,7 @@ in the future as you start to add more and more features. As subgoals, please fu
 
         This will inform VS code that then we execute the current file (in this case `main.py`) we want to run it with
         the `train` command and additionally pass the `--lr` argument with the value `1e-4`. You can read more about
-        creating a `lunch.json` file [here](https://code.visualstudio.com/docs/python/debugging). If you want to have
+        creating a `launch.json` file [here](https://code.visualstudio.com/docs/python/debugging). If you want to have
         multiple configurations you can add them to the `configurations` list as additional dictionaries.
 
 To start you off, a very basic version of each script is provided in the `final_exercise` folder. We have already

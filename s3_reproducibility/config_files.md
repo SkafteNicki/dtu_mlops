@@ -72,7 +72,7 @@ config = OmegaConf.load('config.yaml')
 
 # accessing in two different ways
 dl = DataLoader(dataset, batch_size=config.hyperparameters.batch_size)
-optimizer = torch.optim.Adam(model.parameters(), lr=config['hyperparameters']['lr'])
+optimizer = torch.optim.Adam(model.parameters(), lr=config['hyperparameters']['learning_rate'])
 ```
 
 or using `hydra` for loading the configuration
