@@ -8,7 +8,7 @@ on:
   workflow_dispatch: {}  # manual executions
 
 jobs:
-  build:
+  scrape:
     runs-on: ubuntu-latest
 
     steps:

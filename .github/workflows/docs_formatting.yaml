@@ -9,7 +9,7 @@ on:
     - cron: "0 13 * * 1"  # run every Monday at 13:00 UTC
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
