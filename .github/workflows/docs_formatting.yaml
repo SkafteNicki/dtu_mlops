@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint:
+    name: Check Markdown formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
