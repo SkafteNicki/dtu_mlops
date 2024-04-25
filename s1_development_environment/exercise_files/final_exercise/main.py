@@ -2,8 +2,6 @@ import click
 import torch
 from model import MyAwesomeModel
 
-from data import mnist
-
 
 @click.group()
 def cli():
@@ -20,7 +18,7 @@ def train(lr):
 
     # TODO: Implement training loop here
     model = MyAwesomeModel()
-    train_set, _ = mnist()
+    train_set, _ = corrupt_mnist()
 
 
 @click.command()
@@ -32,7 +30,7 @@ def evaluate(model_checkpoint):
 
     # TODO: Implement evaluation logic here
     model = torch.load(model_checkpoint)
-    _, test_set = mnist()
+    _, test_set = corrupt_mnist()
 
 
 cli.add_command(train)
