@@ -67,7 +67,7 @@ want to optimize your model.
 
 ### Trainer
 
-The second component to lightning is the `Trainer` object. As the name suggest, the `Trainer object takes care of the
+The second component to lightning is the `Trainer` object. As the name suggest, the `Trainer` object takes care of the
 actual training, automizing everything that you do not want to worry about.
 
 ```python

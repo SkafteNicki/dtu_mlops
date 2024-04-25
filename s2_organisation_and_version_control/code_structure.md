@@ -258,6 +258,12 @@ in this way paths (for saving and loading files) are always relative to the root
     representation to the `data/processed` folder. By normalization here we refer to making sure the images have mean 0
     and standard deviation 1.
 
+    ??? success "Solution"
+
+        ```python linenums="1" title="make_dataset.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/make_dataset_solution.py"
+        ```
+
 5. This template comes with a `Makefile` that can be used to easily define common operations in a project. You do not
     have to understand the complete file but try taking a look at it. In particular the following commands may come in
     handy
@@ -294,6 +300,13 @@ in this way paths (for saving and loading files) are always relative to the root
     make train
     ```
 
+    ??? success "Solution"
+
+        ```makefile
+        train:
+            python <project_name>/models/train_model.py
+        ```
+
 9. Fill out the newly created `<project_name>/models/predict_model.py` file, such that it takes a pre-trained model file
     and creates prediction for some data. Recommended interface is that users can give this file either a folder with
     raw images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
@@ -313,6 +326,18 @@ in this way paths (for saving and loading files) are always relative to the root
         [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
         reduction.
     * Save the visualization to a file in the `reports/figures/` folder.
+
+    ??? success "Solution"
+
+        The solution here depends a bit on the choice of model. However, in most cases your
+        last layer in the model will be a fully connected layer, which we assume is named `fc`. The easiest way to get
+        the features before this layer is to replace the layer with `torch.nn.Identity` which essentially does nothing
+        (see highlighted line below). Alternatively, if you implemented everything in a `torch.nn.Sequential` you can
+        just remove the last layer from the `Sequential` object: `model = model[:-1]`.
+
+        ```python linenums="1" hl_lines="23" title="visualize.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/visualize_solution.py"
+        ```
 
 11. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
 

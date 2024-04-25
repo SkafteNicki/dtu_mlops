@@ -236,6 +236,18 @@ help us at all. Therefore, use `Any` only when necessary.
     for it to work. This [cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
     typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
 
+    ??? example "`typing_exercise.py`"
+
+        ```python linenums="1" title="typing_exercise.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typing_exercise.py"
+        ```
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="typing_exercise_solution.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typing_exercise_solution.py"
+        ```
+
 2. [mypy](https://mypy.readthedocs.io/en/stable/index.html) is what is called a static type checker. If you are using
     typing in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code,
     but it scans it and checks that the types you have given are compatible. Install `mypy`
