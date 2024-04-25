@@ -35,7 +35,7 @@ three of these related to different tasks in machine learning algorithms:
 
 We are going to approach the term *scaling* from two different angles that both should result in your application
 running faster. The first approach is levering multiple devices, such as using multiple CPU cores or parallelizing
-training across multiple GPUs. The second approach is more analytical, were we are actually going to look at how we can
+training across multiple GPUs. The second approach is more analytical, were we are going to look at how we can
 design smaller/faster model architectures that runs faster.
 
 It should be noted that this module is specific to working with Pytorch applications. In particular we are going to see

@@ -7,11 +7,12 @@
 !!! info "Core Module"
 
 What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
-CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
-introduced in the codebase it will be caught early on. If you look at the
-[MLOps cycle](../figures/mlops-loop-en.jpg), CI is one of the cornerstones of the operations part. However, it should be
-noted that applying CI does not magically secure that your code does not break. CI is only as strong as the
-tests that are automatically executed. CI simply structures and automates this.
+Continuous integration should ensure that whenever a codebase is updated it is automatically tested such that if bugs
+have been introduced in the codebase it will be caught early on. If you look at the
+[MLOps cycle](../figures/mlops-loop-en.jpg), continuous integration is one of the cornerstones of the operations part.
+However, it should be noted that applying continuous integration does not magically secure that your code does not
+break. Continuous integration is only as strong as the tests that are automatically executed.
+Continuous integration simply structures and automates this.
 
 !!! quote
     *Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.*
@@ -41,20 +42,20 @@ and more monitoring to check that we stay within the data distribution we are tr
 below.
 
 <figure markdown>
-  ![Image](../figures/system_difference.drawio.png){ width="1000" }
+![Image](../figures/system_difference.drawio.png){ width="1000" }
 </figure>
 
 ## Pytest
 
 Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
-and tedious task to do but arguably the most important aspect of CI. Python offers a couple of different libraries
-for writing tests. We are going to use `pytest`.
+and tedious task to do but arguably the most important aspect of continuous integration. Python offers a couple of
+different libraries for writing tests. We are going to use `pytest`.
 
 ### ❔ Exercises
 
 The following exercises should be applied to your MNIST repository
 
-1. The first part of doing CI is writing the unit tests. We do not expect you to cover every part
+1. The first part of doing continuous integration is writing the unit tests. We do not expect you to cover every part
     of the code you have developed but try to at least write tests that cover two files. Start by
     creating a `tests` folder.
 
@@ -75,9 +76,9 @@ The following exercises should be applied to your MNIST repository
     pytest tests/
     ```
 
-    When you implement a test you need to follow two standards, for `pytest` to be able to find your tests. First any
-    files created (except `__init__.py`) should always start with `test_*.py`. Secondly, any test implemented needs to be
-    wrapped into its own function that again needs to start with `test_`:
+    When you implement a test you need to follow two standards, for `pytest` to be able to find your tests. First, any
+    files created (except `__init__.py`) should always start with `test_*.py`. Secondly, any test implemented needs to
+    be wrapped into a function that again needs to start with `test_*`:
 
     ```python
     # this will be found and executed by pytest
@@ -133,8 +134,9 @@ The following exercises should be applied to your MNIST repository
         of the input given to it (see code below) to make sure it corresponds to what you are expecting. Not
         implementing such errors would still result in Pytorch failing at a later point due to shape errors, however,
         these custom errors will probably make more sense to the end user. Implement at least one raised error or
-        warning somewhere in your code and use either `pytest.raises` or `pytest.warns` to check that they are correctly
-        raised/warned. As inspiration, the following implements `ValueError` in code belonging to the model:
+        warning somewhere in your code and use either `#!python pytest.raises` or `#!python pytest.warns` to check that
+        they are correctly raised/warned. As inspiration, the following implements `#!python ValueError` in code
+        belonging to the model:
 
         ```python
         # src/models/model.py
@@ -154,8 +156,8 @@ The following exercises should be applied to your MNIST repository
                 model(torch.randn(1,2,3))
         ```
 
-    6. A test is only as good as the error message it gives, and by default, `assert` will only report that the check
-        failed. However, we can help ourselves and others by adding strings after `assert` like
+    6. A test is only as good as the error message it gives, and by default, `#!python assert` will only report that the
+        check failed. However, we can help ourselves and others by adding strings after `#!python assert` like
 
         ```python
         assert len(train_dataset) == N_train, "Dataset did not have the correct number of samples"
@@ -165,8 +167,8 @@ The following exercises should be applied to your MNIST repository
 
     7. The tests that involve checking anything that has to do with our data, will of course fail
         if the data is not present. To future-proof our code, we can take advantage of the
-        `pytest.mark.skipif` decorator. Use this decorator to skip your data tests if the corresponding
-        data files does not exist. It should look something like this
+        `#!python pytest.mark.skipif` decorator. Use this decorator to skip your data tests if the corresponding
+        data files do not exist. It should look something like this
 
         ```python
         import os.path
@@ -180,12 +182,12 @@ The following exercises should be applied to your MNIST repository
 5. After writing the different tests, make sure that they are passing locally.
 
 6. We often want to check a function/module for various input arguments. In this case, you could write the same test
-    over and over again for the different input, but `pytest` also has built-in support for this with the use of the
+    over and over again for different inputs, but `pytest` also has built-in support for this with the use of the
     [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html). Implement a parametrized
     test and make sure that it runs for different inputs.
 
 7. There is no way of measuring how good the test you have written is. However, what we can measure is the
-    *code coverage*. Code coverage refers to the percentage of your codebase that actually gets run when all your
+    *code coverage*. Code coverage refers to the percentage of your codebase that gets run when all your
     tests are executed. Having a high coverage at least means that all your code will run when executed.
 
     1. Install coverage
@@ -217,9 +219,8 @@ The following exercises should be applied to your MNIST repository
     4. Finally, try to increase the coverage by writing a new test that runs some
         of the lines in your codebase that are not covered yet.
 
-    5. Often `coverage` reports the code coverage on files that we actually do not want
-        to get a code coverage for. Figure out how to configure `coverage` to exclude
-        some files.
+    5. Often `coverage` reports the code coverage on files that we do not want to get a code coverage for. Figure out
+        how to configure `coverage` to exclude some files.
 
 ### 🧠 Knowledge check
 

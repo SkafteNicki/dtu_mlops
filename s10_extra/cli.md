@@ -4,7 +4,7 @@
 
 ---
 
-If you have worked with Python  for some time you are probably familiar with the `argparse` package, which allows you
+If you have worked with Python for some time you are probably familiar with the `argparse` package, which allows you
 to directly pass in additional arguments to your script in the terminal
 
 ```bash

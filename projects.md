@@ -59,7 +59,7 @@ course:
 
 Each project day is fully dedicated to project work, except for maybe external inspirational lectures in the morning.
 The group decides exactly where they want to work on the project, how they want to work on the project, how do
-distribute the workload etc. We actually encourage strongly to parallelize work during the project, because there are a
+distribute the workload etc. We encourage strongly to parallelize work during the project, because there are a
 lot of tasks to do, but it it is important that all group members at least have some understanding of the whole project.
 
 Remember that the focus of the project work is not to demonstrate that you can work with the biggest and baddest deep

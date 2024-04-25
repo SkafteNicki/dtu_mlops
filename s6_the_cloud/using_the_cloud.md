@@ -307,7 +307,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
 3. We are now ready to build our containers in the cloud. In principal GCP cloud build works out of the box with docker
     files. However, the recommended way is to add specialized `cloudbuild.yaml` files. You can think of the
-    `cloudbuild.yaml` file as the corresponding file in GCP as workflow files are in github actions, which you learned
+    `cloudbuild.yaml` file as the corresponding file in GCP as workflow files are in GitHub actions, which you learned
     about in this [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
     a list of steps that should be executed to do something, but the syntax of cause differs a bit.
 
@@ -334,7 +334,7 @@ to be substantially faster to build and smaller in size than the images we are u
 
     Click on the manage repositories.
 
-5. From there, click the `Connect Repository` and go through the steps of authenticating your github profile with
+5. From there, click the `Connect Repository` and go through the steps of authenticating your GitHub profile with
     `gcp` and choose the repository that you want to setup build triggers. For now, skip the
     `Create a trigger (optional)` part by pressing `Done` in the end.
 

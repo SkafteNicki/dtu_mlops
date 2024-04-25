@@ -49,7 +49,7 @@ not store our data in Github, we cannot copy it during the build process.
 5. Next we are going to construct the actual Github actions workflow file:
 
     ```yaml
-    name: Docker Image CI
+    name: Docker Image continuous integration
 
     on:
         push:
@@ -73,12 +73,12 @@ not store our data in Github, we cannot copy it during the build process.
     all the magic happens. Carefully go through them and figure out what they do. If you want some help you can looking
     at the help page for `docker login`, `docker build` and `docker push`.
 
-6. Upload the workflow to your github repository and check that it is being executed. If everything you should be able
+6. Upload the workflow to your GitHub repository and check that it is being executed. If everything you should be able
     to see the the build docker image in your container repository in docker hub.
 
 7. Make sure that you can execute `docker pull` locally to pull down the image that you just continuously build
 
-8. (Optional) To test that the container works directly in github you can also try to include an additional
+8. (Optional) To test that the container works directly in GitHub you can also try to include an additional
     step that actually runs the container.
 
     ```yaml
@@ -87,8 +87,8 @@ not store our data in Github, we cannot copy it during the build process.
             docker run ...
     ```
 
-That ends the session on continues docker building. We are going to revisit this topic after introducing the basic
-concepts of working in the cloud, as it will make our life easier in the long run when we get to continues deployment
+That ends the session on continuous docker building. We are going to revisit this topic after introducing the basic
+concepts of working in the cloud, as it will make our life easier in the long run when we get to continuous deployment
 (CD) that our containers are stored the same place where we are going to run them. For completeness it is worth
-mentioning that docker hub also offers the possibility of building your images in a continues way, by specifying so
+mentioning that docker hub also offers the possibility of building your images in a continuous way, by specifying so
 called [build rules](https://docs.docker.com/docker-hub/builds/).

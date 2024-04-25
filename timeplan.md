@@ -59,7 +59,7 @@ Date | Day       | Presentation topic                                           
 ## Week 3
 
 For the final week we look into advance topics such as monitoring and scaling of applications. Monitoring is especially
-important for the longivity for the applications that we develop, that we actually can deploy them either
+important for the longivity for the applications that we develop, that we can deploy them either
 locally or in the cloud and that we have the tools to monitor how they behave over time. Scaling of applications is an
 important topic if we ever want our applications to be used by many people at the same time.
 

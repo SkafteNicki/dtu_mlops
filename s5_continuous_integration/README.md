@@ -10,7 +10,8 @@
     [:octicons-arrow-right-24: M15: Unit testing](unittesting.md)
 
 - ![](../figures/icons/actions.png){align=right : style="height:100px;width:100px"}
-    Learn how to implement CI using Github actions such that tests are automatically executed on code changes.
+    Learn how to implement continuous integration using Github actions such that tests are automatically executed on
+    code changes.
 
     [:octicons-arrow-right-24: M16: Github Actions](github_actions.md)
 
@@ -21,7 +22,7 @@
 
 - ![](../figures/icons/dockerhub.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to implement CI for continuous building of containers.
+    Learn how to implement continuous integration for continuous building of containers.
 
     [:octicons-arrow-right-24: M18: Continuous Containers](auto_docker.md)
 
@@ -58,17 +59,18 @@ pipeline should *continuously* be updated as we make code changes. You can also 
 automate steps in the pipeline depends on where we are in the pipeline e.g. the tools needed to
 do continuous integration are different from the tools needed to do continuous delivery.
 
-In this session, we are going to focus on *continuous integration (CI)*. As indicated in the image above, CI usually
-takes care of the first part of the developer pipeline which has to do with the code base, code building and code
-testing. This is paramount to step in automatization as we would rather catch bugs at the beginning of our pipeline
-than in the end.
+In this session, we are going to focus on *continuous integration (CI)*. As indicated in the image above, continuous
+integration usually takes care of the first part of the developer pipeline which has to do with the code base, code
+building and code testing. This is paramount to step in automatization as we would rather catch bugs at the beginning
+of our pipeline than in the end.
 
 !!! tip "Learning objectives"
 
     The learning objectives of this session are:
 
     * Being able to write unit tests that cover both data and models in your ML pipeline
-    * Know how to implement CI using Github actions such that tests are automatically executed on code changes
+    * Know how to implement continuous integration using Github actions such that tests are automatically executed on
+        code changes
     * Can use pre-commit to secure that code that is not up to standard does not get committed
-    * Know how to implement CI for continuous building of containers
+    * Know how to implement continuous integration for continuous building of containers
     * Basic knowledge of how machine learning processes can be implemented in a continuous way

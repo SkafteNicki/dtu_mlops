@@ -19,7 +19,7 @@ and many more. We are in this module going to focus on setting up a very basic d
 automatically help you document the API of your code. For this reason we recommend that before continuning with this
 module that you have completed
 [module M7 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
-or have similar experience with writing docstrings for Python  functions and classes.
+or have similar experience with writing docstrings for Python functions and classes.
 
 There are different systems for writing documentation. In fact there is a lot to choose from:
 
@@ -51,7 +51,7 @@ to create professional static sites. In fact, this whole course is written in mk
 
 ## Mkdocs
 
-The core file when using mkdocs is the `mkdocs.yml` file, which is the configuration file for the project:
+The core file when using mkdocs is the `mkdocs.yaml` file, which is the configuration file for the project:
 
 ```yaml
 site_name: Documentation of my project
@@ -110,7 +110,7 @@ that at least contains the following:
 │   │
 │   ├── index.md       <- Homepage for your documentation
 │   │
-│   ├── mkdocs.yml     <- Configuration file for mkdocs
+│   ├── mkdocs.yaml     <- Configuration file for mkdocs
 │   │
 │   └── source/        <- Source directory for documentation files
 │
@@ -289,7 +289,7 @@ Before getting started with this set of exercises you should have completed
     ```
 
     1. :man_raising_hand: It is important to give `write` premissions to this actions because it is not only reading
-        your code but it will actually also push code.
+        your code but it will also push code.
 
     Before continuing, make sure you understand what the different steps of the workflow does and especially we
     recommend looking at the documentation of the `mkdocs gh-deploy` command.
@@ -297,7 +297,7 @@ Before getting started with this set of exercises you should have completed
 2. Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
     a branch called `gh-pages`. If the action does not succeeds, then figure out what is wrong and fix it!
 
-3. After confirming that our action is working, you need to configure Github to actually publish the content being
+3. After confirming that our action is working, you need to configure Github to publish the content being
     build by Github Actions. Do the following:
 
     * Go to the Settings tab and then the Pages subsection

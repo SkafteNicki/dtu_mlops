@@ -239,7 +239,7 @@ service in GCP for deploying containers.
     feel free to experiment doing the deployment from the command line.
 
 6. Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
-    in a continues manner by using `cloudbuild.yaml` file we learned about in the previous section. We just need to add
+    in a continuous manner by using `cloudbuild.yaml` file we learned about in the previous section. We just need to add
     a new step to the file. We provide an example
 
     ```yaml
@@ -277,7 +277,7 @@ service in GCP for deploying containers.
     trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
     works by making a change to your application and pushing it to GitHub and see if the application is updated
     continuously. For help you can look [here](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
-    for help. If you succeeded, congratulations you have now setup a continues deployment pipeline.
+    for help. If you succeeded, congratulations you have now setup a continuous deployment pipeline.
 
 That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In
 both sections we have explicitly chosen to work with *serverless* deployments. But what if you wanted to do the

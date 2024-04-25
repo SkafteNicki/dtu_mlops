@@ -63,7 +63,7 @@ hyperparameters:
   learning_rate: 1e-4
 ```
 
-with the corresponding python code for loading the file
+with the corresponding Python code for loading the file
 
 ```python
 from omegaconf import OmegaConf

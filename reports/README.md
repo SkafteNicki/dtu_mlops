@@ -10,9 +10,9 @@ like:
 
 ```--- question 1 fill here ---```
 
-where you instead should add your answers. Any other changes may have unwanted consequences when your report is auto
-generated in the end of the course. For questions where you are asked to include images, start by adding the image to
-the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
+where you instead should add your answers. Any other changes may have unwanted consequences when your report is
+auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
+to the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
 
 ```markdown
 ![my_image](figures/<image>.<extension>)
@@ -26,9 +26,9 @@ Running:
 python report.py html
 ```
 
-will generate an `.html` page of your report. After deadline for answering this template, we will autoscrape
+will generate a `.html` page of your report. After the deadline for answering this template, we will auto-scrape
 everything in this `reports` folder and then use this utility to generate an `.html` page that will be your serve
-as your final handin.
+as your final hand-in.
 
 Running
 
@@ -36,22 +36,24 @@ Running
 python report.py check
 ```
 
-will check your answers in this template against the constrains listed for each question e.g. is your answer too
-short, too long, have you included an image when asked to.
+will check your answers in this template against the constraints listed for each question e.g. is your answer too
+short, too long, or have you included an image when asked to.
 
-For both functions to work it is important that you do not rename anything. The script have two dependencies that can
-be installed with `pip install click markdown`.
+For both functions to work you mustn't rename anything. The script has two dependencies that can be installed with
+
+```bash
+pip install click markdown
+```
 
 ## Overall project checklist
 
-The checklist is *exhaustic* which means that it includes everything that you could possible do on the project in
-relation the curricilum in this course. Therefore, we do not expect at all that you have checked of all boxes at the
-end of the project.
+The checklist is *exhaustive* which means that it includes everything that you could do on the project included in the
+curriculum in this course. Therefore, we do not expect at all that you have checked all boxes at the end of the project.
 
 ### Week 1
 
 * [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
+* [ ] Make sure that all team members have write access to the GitHub repository
 * [ ] Create a dedicated environment for you project to keep track of your packages
 * [ ] Create the initial file structure using cookiecutter
 * [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
@@ -75,7 +77,7 @@ end of the project.
 * [ ] Write unit tests related to the data part of your code
 * [ ] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
+* [ ] Get some continuous integration running on the GitHub repository
 * [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
@@ -242,15 +244,16 @@ end of the project.
 
 ### Question 11
 
-> **Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test**
-> **multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of**
-> **your github actions workflow.**
+> **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
+> **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
+> **to insert a link to one of your GitHub actions workflow.**
 >
 > Recommended answer length: 200-300 words.
 >
 > Example:
-> *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
-> *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
+> *We have organized our continuous integration into 3 separate files: one for doing ..., one for running ... testing*
+> *and one for running ... . In particular for our ..., we used ... .An example of a triggered workflow can be seen*
+> *here: <weblink>*
 >
 > Answer:
 
@@ -269,7 +272,7 @@ end of the project.
 > Recommended answer length: 50-100 words.
 >
 > Example:
-> *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
+> *We used a simple argparser, that worked in the following way: Python  my_script.py --lr 1e-3 --batch_size 25*
 >
 > Answer:
 
