@@ -1864,11 +1864,12 @@
 <p class="admonition-title">Core Module</p>
 </div>
 <p>What often comes to mind for many developers, when discussing continuous integration (CI) is code testing.
-CI should secure that whenever a codebase is updated it is automatically tested such that if bugs have been
-introduced in the codebase it will be caught early on. If you look at the
-<a href="../../figures/mlops-loop-en.jpg">MLOps cycle</a>, CI is one of the cornerstones of the operations part. However, it should be
-noted that applying CI does not magically secure that your code does not break. CI is only as strong as the
-tests that are automatically executed. CI simply structures and automates this.</p>
+Continuous integration should ensure that whenever a codebase is updated it is automatically tested such that if bugs
+have been introduced in the codebase it will be caught early on. If you look at the
+<a href="../../figures/mlops-loop-en.jpg">MLOps cycle</a>, continuous integration is one of the cornerstones of the operations part.
+However, it should be noted that applying continuous integration does not magically secure that your code does not
+break. Continuous integration is only as strong as the tests that are automatically executed.
+Continuous integration simply structures and automates this.</p>
 <div class="admonition quote">
 <p class="admonition-title">Quote</p>
 <p><em>Continuous Integration doesn’t get rid of bugs, but it does make them dramatically easier to find and remove.</em>
@@ -1899,13 +1900,13 @@ below.</p>
 </figure>
 <h2 id="pytest">Pytest</h2>
 <p>Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
-and tedious task to do but arguably the most important aspect of CI. Python offers a couple of different libraries
-for writing tests. We are going to use <code>pytest</code>.</p>
+and tedious task to do but arguably the most important aspect of continuous integration. Python offers a couple of
+different libraries for writing tests. We are going to use <code>pytest</code>.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <p>The following exercises should be applied to your MNIST repository</p>
 <ol>
 <li>
-<p>The first part of doing CI is writing the unit tests. We do not expect you to cover every part
+<p>The first part of doing continuous integration is writing the unit tests. We do not expect you to cover every part
     of the code you have developed but try to at least write tests that cover two files. Start by
     creating a <code>tests</code> folder.</p>
 </li>
@@ -1924,9 +1925,9 @@ for writing tests. We are going to use <code>pytest</code>.</p>
     passing by typing in a terminal</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pytest<span class="w"> </span>tests/
 </span></code></pre></div>
-<p>When you implement a test you need to follow two standards, for <code>pytest</code> to be able to find your tests. First any
-files created (except <code>__init__.py</code>) should always start with <code>test_*.py</code>. Secondly, any test implemented needs to be
-wrapped into its own function that again needs to start with <code>test_</code>:</p>
+<p>When you implement a test you need to follow two standards, for <code>pytest</code> to be able to find your tests. First, any
+files created (except <code>__init__.py</code>) should always start with <code>test_*.py</code>. Secondly, any test implemented needs to
+be wrapped into a function that again needs to start with <code>test_*</code>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># this will be found and executed by pytest</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">def</span> <span class="nf">test_something</span><span class="p">():</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="o">...</span>
@@ -1976,8 +1977,9 @@ be 5000.</p>
     of the input given to it (see code below) to make sure it corresponds to what you are expecting. Not
     implementing such errors would still result in Pytorch failing at a later point due to shape errors, however,
     these custom errors will probably make more sense to the end user. Implement at least one raised error or
-    warning somewhere in your code and use either <code>pytest.raises</code> or <code>pytest.warns</code> to check that they are correctly
-    raised/warned. As inspiration, the following implements <code>ValueError</code> in code belonging to the model:</p>
+    warning somewhere in your code and use either <code class="language-python highlight"><span class="n">pytest</span><span class="o">.</span><span class="n">raises</span></code> or <code class="language-python highlight"><span class="n">pytest</span><span class="o">.</span><span class="n">warns</span></code> to check that
+    they are correctly raised/warned. As inspiration, the following implements <code class="language-python highlight"><span class="ne">ValueError</span></code> in code
+    belonging to the model:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># src/models/model.py</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
@@ -1993,8 +1995,8 @@ be 5000.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>A test is only as good as the error message it gives, and by default, <code>assert</code> will only report that the check
-    failed. However, we can help ourselves and others by adding strings after <code>assert</code> like</p>
+<p>A test is only as good as the error message it gives, and by default, <code class="language-python highlight"><span class="k">assert</span></code> will only report that the
+    check failed. However, we can help ourselves and others by adding strings after <code class="language-python highlight"><span class="k">assert</span></code> like</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span> <span class="o">==</span> <span class="n">N_train</span><span class="p">,</span> <span class="s2">&quot;Dataset did not have the correct number of samples&quot;</span>
 </span></code></pre></div>
 <p>Add such comments to the assert statements you just did.</p>
@@ -2002,8 +2004,8 @@ be 5000.</p>
 <li>
 <p>The tests that involve checking anything that has to do with our data, will of course fail
     if the data is not present. To future-proof our code, we can take advantage of the
-    <code>pytest.mark.skipif</code> decorator. Use this decorator to skip your data tests if the corresponding
-    data files does not exist. It should look something like this</p>
+    <code class="language-python highlight"><span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span></code> decorator. Use this decorator to skip your data tests if the corresponding
+    data files do not exist. It should look something like this</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span> <span class="nn">os.path</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Data files not found&quot;</span><span class="p">)</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">def</span> <span class="nf">test_something_about_data</span><span class="p">():</span>
@@ -2018,13 +2020,13 @@ be 5000.</p>
 </li>
 <li>
 <p>We often want to check a function/module for various input arguments. In this case, you could write the same test
-    over and over again for the different input, but <code>pytest</code> also has built-in support for this with the use of the
+    over and over again for different inputs, but <code>pytest</code> also has built-in support for this with the use of the
     <a href="https://docs.pytest.org/en/6.2.x/parametrize.html">pytest.mark.parametrize decorator</a>. Implement a parametrized
     test and make sure that it runs for different inputs.</p>
 </li>
 <li>
 <p>There is no way of measuring how good the test you have written is. However, what we can measure is the
-    <em>code coverage</em>. Code coverage refers to the percentage of your codebase that actually gets run when all your
+    <em>code coverage</em>. Code coverage refers to the percentage of your codebase that gets run when all your
     tests are executed. Having a high coverage at least means that all your code will run when executed.</p>
 <ol>
 <li>
@@ -2051,9 +2053,8 @@ be 5000.</p>
     of the lines in your codebase that are not covered yet.</p>
 </li>
 <li>
-<p>Often <code>coverage</code> reports the code coverage on files that we actually do not want
-    to get a code coverage for. Figure out how to configure <code>coverage</code> to exclude
-    some files.</p>
+<p>Often <code>coverage</code> reports the code coverage on files that we do not want to get a code coverage for. Figure out
+    how to configure <code>coverage</code> to exclude some files.</p>
 </li>
 </ol>
 </li>
@@ -2134,7 +2135,7 @@ correct. For such testing, we can highly recommend using Python built-in framewo
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 8, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     

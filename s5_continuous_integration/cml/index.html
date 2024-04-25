@@ -1817,8 +1817,8 @@ have its roots in DevOps and not MLOps. While the test that we have written and 
 previous session have be around machine learning, everything we have done translate to completely to how it would be
 done if we had developed any other application did not include machine learning.</p>
 <p>In this session, we are now gonna change gear and look at <strong>continuous machine learning</strong> (CML). As the name may suggest
-we are now focusing on automatizing actual machine learning processes. You may ask why we need continues integration
-principals baked into machine learning pipelines? The reason is the same as with any continues integration, namely that
+we are now focusing on automatizing actual machine learning processes. You may ask why we need continuous integration
+principals baked into machine learning pipelines? The reason is the same as with any continuous integration, namely that
 we have a bunch of checks that we want our newly trained model to pass before we trust it. Writing <code>unittests</code> secures
 that our code is not broken, but there are other failure modes of a machine learning pipeline that should be checked
 before the model is ready for deployment:</p>
@@ -1827,7 +1827,7 @@ before the model is ready for deployment:</p>
 <li>Did my model converge at all?</li>
 <li>Did it reach a certain threshold at all?</li>
 </ul>
-<p>Answering these questions in a continues way are possible through continuous machine learning. For this session, we are
+<p>Answering these questions in a continuous way are possible through continuous machine learning. For this session, we are
 going to use <code>cml</code> by <a href="https://iterative.ai/">iterative.ai</a> for this session. Strictly speaking, using the
 <code>cml</code> framework is not a necessary component for doing continuous machine learning but it streamlined way of doing this
 and offers tools to easily get a report about how a specific run performed. If we where just interested in trigging
@@ -1836,7 +1836,7 @@ model training every time we do a <code>git push</code> we essentially just need
 </span></code></pre></div>
 <p>to any of our workflow files.</p>
 <p>The figure below describes the overall process using the <code>cml</code> framework. It should be clear that it is the very
-same process that we go through as in the other continues integration sessions: <code>push code</code> -&gt; <code>trigger github actions</code>
+same process that we go through as in the other continuous integration sessions: <code>push code</code> -&gt; <code>trigger GitHub actions</code>
 -&gt; <code>do stuff</code>. The new part in this session is that we want an report of the finding of the automated run to appear
 after the run is done.</p>
 <figure>
@@ -1905,7 +1905,7 @@ after the run is done.</p>
 <p>Nearly everything in the workflow file should look familiar, except the last two lines.</p>
 </li>
 <li>
-<p>Try pushing the workflow file to your github repository and make sure that it completes.
+<p>Try pushing the workflow file to your GitHub repository and make sure that it completes.
     If it does not, you may need to adjust the workflow file slightly.</p>
 </li>
 <li>
@@ -1919,7 +1919,7 @@ after the run is done.</p>
     <a href="https://cml.dev/doc/cml-with-dvc">here</a> is a great starting point.</p>
 </li>
 </ol>
-<p>The ends the session on continues machine learning. If you have not already noticed, one limitation of using github
+<p>The ends the session on continuous machine learning. If you have not already noticed, one limitation of using github
 actions is that their default runners e.g. <code>runs-on: [ubuntu-latest]</code> are only CPU machines (see
 <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources">hardware config</a>
 . As we all know, modern machine learning more or less requires hardware acceleration (=GPUs) to train within
@@ -1948,7 +1948,7 @@ experiment with setting up <a href="https://github.com/iterative/cml#advanced-se
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     

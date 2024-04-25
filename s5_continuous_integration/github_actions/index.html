@@ -986,11 +986,11 @@
         <li class="md-nav__item">
   <a href="#github-actions_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Github actions
+      GitHub actions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Github actions">
+    <nav class="md-nav" aria-label="GitHub actions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1796,11 +1796,11 @@
         <li class="md-nav__item">
   <a href="#github-actions_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Github actions
+      GitHub actions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Github actions">
+    <nav class="md-nav" aria-label="GitHub actions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1858,37 +1858,36 @@
 
 
 <p><a class="glightbox" href="../../figures/icons/actions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/actions.png" width="130" /></a></p>
-<h1 id="github-actions">Github actions</h1>
+<h1 id="github-actions">GitHub actions</h1>
 <hr />
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
 </div>
-<p>With the tests established in the previous module we are now ready to move on to actually implementing some continuous
-integration in our pipeline. As you probably have already realized testing your code locally may take cumbersome to do,
+<p>With the tests established in the previous module, we are now ready to move on to implementing some continuous
+integration in our pipeline. As you probably have already realized testing your code locally may be cumbersome to do,
 because</p>
 <ul>
 <li>You need to run it often to make sure to catch bugs early on</li>
-<li>If you want to have high code coverage of your code base, you will need many tests that takes a long time to run</li>
+<li>If you want to have high code coverage of your code base, you will need many tests that take a long time to run</li>
 </ul>
-<p>For these reasons we want to automate the testing, such that it done every time we push to our repository. If we
-combine this with only pushing to branches and then only merging these branches whenever all automated testing have
+<p>For these reasons, we want to automate the testing, such that it is done every time we push to our repository. If we
+combine this with only pushing to branches and then only merging these branches whenever all automated testing has
 passed, our code should be fairly safe against unwanted bugs (assuming your tests are well covering your code).</p>
-<h2 id="github-actions_1">Github actions</h2>
-<p>Github actions are the CI solution that Github provides. Each of your repositories gets 2,000 minutes
-of free testing per month which should be more than enough for the scope of this course (and probably
-all personal projects you do). Getting Github actions setup in a repository may seem complicated at
+<h2 id="github-actions_1">GitHub actions</h2>
+<p>GitHub actions are the continuous integration solution that GitHub provides. Each of your repositories gets 2,000
+minutes of free testing per month which should be more than enough for the scope of this course (and probably
+all personal projects you do). Getting GitHub actions set up in a repository may seem complicated at
 first, but workflow files that you create for one repository can more or less be reused for any
 other repository that you have.</p>
-<p>Lets take a look at how a github workflow file is organized:</p>
+<p>Let's take a look at how a GitHub workflow file is organized:</p>
 <ul>
-<li>Initially we start by giving the workflow a <code>name</code></li>
-<li>Next we specify on what events the workflow should be triggered. This includes both the action
-    (pull request, push etc) and on what branches is should activate</li>
-<li>Next we list the jobs that we want to do. Jobs are by default executed in parallel but can
+<li>Initially, we start by giving the workflow a <code>name</code></li>
+<li>Next, we specify what events the workflow should be triggered. This includes both the action
+    (pull request, push etc) and on what branches it should activate</li>
+<li>Next, we list the jobs that we want to do. Jobs are by default executed in parallel but can
     also be dependent on each other</li>
-<li>In the <code>runs-on</code> we can specify which operation system we want the workflow to run on. We also
-    have the possibility to specify multiple.</li>
-<li>Finally we have the <code>steps</code>. This is where we specify the actual commands that should be
+<li>In the <code>runs-on</code>, we can specify which operation system we want the workflow to run on.</li>
+<li>Finally, we have the <code>steps</code>. This is where we specify the actual commands that should be
     run when the workflow is executed.</li>
 </ul>
 <figure>
@@ -1900,59 +1899,56 @@ other repository that you have.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
-<p>Start by creating a <code>.github</code> folder in the root of your repository.
-    Add a sub-folder to that called <code>workflows</code>.</p>
+<p>Start by creating a <code>.github</code> folder in the root of your repository. Add a sub-folder to that called <code>workflows</code>.</p>
 </li>
 <li>
-<p>Go over this <a href="https://docs.github.com/en/actions/guides/building-and-testing-python">page</a>
-    that explains how to do automated testing of python code in github actions. You do not have
+<p>Go over this <a href="https://docs.github.com/en/actions/guides/building-and-testing-python">page</a> that explains how to do
+    automated testing of Python code in GitHub actions. You do not have
     to understand everything, but at least get a feeling of what a workflow file should look like.</p>
 </li>
 <li>
-<p>We have provided a workflow file called <code>tests.yml</code> that should run your tests for you. Place
-    this file in the <code>.github/workflows/</code> folder. The workflow file consist of three steps</p>
+<p>We have provided a workflow file called <code>tests.yaml</code> that should run your tests for you. Place
+    this file in the <code>.github/workflows/</code> folder. The workflow file consists of three steps</p>
 <ul>
 <li>
-<p>First a python environment is setup (in this case python 3.8)</p>
+<p>First, a Python environment is initiated (in this case Python 3.8)</p>
 </li>
 <li>
 <p>Next all dependencies required to run the test are installed</p>
 </li>
 <li>
-<p>Finally, <code>pytest</code> is called and test will be run</p>
+<p>Finally, <code>pytest</code> is called and our tests will be run</p>
 </li>
 </ul>
 </li>
 <li>
-<p>For the script to work you need to define the <code>requirements.txt</code> and <code>requirements_tests.txt</code>.
-    The first file should contain all packages required to run your code. The second file is all
-    <em>additional</em>  packages required to run the tests. In your simple case it may very well be that
-    the second file is empty, however sometimes additional packages are used for testing that are
-    not strictly required for the scripts to run.</p>
+<p>For the script to work you need to define the <code>requirements.txt</code> and <code>requirements_tests.txt</code>. The first file should
+    contain all packages required to run your code. The second file contains all <em>additional</em> packages required to run
+    the tests. In your simple case, it may very well be that the second file is empty, however, sometimes additional
+    packages are used for testing that are not strictly required for the scripts to run.</p>
 </li>
 <li>
-<p>Finally, try pushing the changes to your repository. Hopefully your tests should just start,
-    and you will after sometime see a green check mark next to hash of the commit. Also try to
-    checkout the <em>Actions</em>  tap where you can see the history of actions run.</p>
+<p>Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and you will after some
+    time see a green check mark next to the hash of the commit. Also, try to inspect the <em>Actions</em> tap where you can see
+    the history of actions run.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/action.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/action.PNG" width="1000" /></a>
 </figure></p>
 </li>
 <li>
-<p>Normally we develop code one operating system and just hope that it will work on other operating
-    systems. However, CI enables us to automatically test on other systems than ourself.</p>
+<p>Normally we develop code on only one operating system and just hope that it will work on other operating systems.
+    However, continuous integration enables us to automatically test on other systems than the one we are using.</p>
 <ol>
 <li>
-<p>The provided <code>tests.yml</code> only runs on one operating system. Which one?</p>
+<p>The provided <code>tests.yaml</code> only runs on one operating system. Which one?</p>
 </li>
 <li>
-<p>Alter the file (or write a new) that executes the test on the two other main operating
-    systems that exist.</p>
+<p>Alter the file such that it executes the test on the two other main operating systems that exist.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>As the workflow is currently setup, github actions will destroy every downloaded package
+<p>As the workflow is currently implemented, GitHub actions will destroy every downloaded package
     when the workflow has been executed. To improve this we can take advantage of <code>caching</code>:</p>
 <ol>
 <li>
@@ -1980,44 +1976,67 @@ other repository that you have.</p>
     on how to do it.</p>
 </li>
 <li>
-<p>As stated in the introduction, ideally we want to only push our code to branches, such that our workflows run
-    before we actually merge code into our codebase. We can directly prevent bad behavior by adding <em>branch
-    protection rules</em> to our repository. Take the image below as an example from one of my own PRs:</p>
-<p><figure markdown>
-<a class="glightbox" href="../../figures/ci_pull_request.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ci_pull_request.PNG" width="1000" /></a>
-</figure></p>
-<p>In this example, the PR cannot be merge to the <em>main</em> branch before the following is fulfilled: At least 2 reviewers
-with write access have approved the PR, all Github actions marked as <em>Required</em> are passing and all conversations
-needs to be resolved. Since not all important tests are passing, further changes are necessary. We want to
-implement something similar. Do the following:</p>
+<p>With different checks in place, it is a good time to learn about <em>branch protection rules</em>. A branch
+    protection rule is essentially some kind of guarding that prevents you from merging code into a branch before
+    certain conditions are met. In this exercise, we will create a branch protection rule that requires all checks to
+    pass before merging code into the main branch.</p>
 <ol>
 <li>
-<p>On your Github repository of choice, go to <code>Settings -&gt; Branches -&gt; Add branch protection rule</code>:</p>
+<p>Start by going into your <code>Settings -&gt; Rules -&gt; Rulesets</code> and create a new <em>branch</em> ruleset. See the image below.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/branch_protection_rules1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/branch_protection_rules1.png" width="800" /></a>
+</figure></p>
 </li>
 <li>
-<p>To your main/master branch add the following rules:</p>
+<p>In the ruleset start by giving it a name and then set the target branches to be <code>Default branch</code>. This means that
+    the ruleset will be applied to your master/main branch. As shown in the image below, two rules may be
+    particularly beneficial when you later start working with other people:</p>
+<ul>
+<li>
+<p>The first rule to consider is <em>Require a pull request before merging</em>. As the name suggests this rule
+    requires that changes that are to be merged into the main branch must be done through a pull request. This
+    is a good practice as it allows for code review and testing before the code is merged into the main branch.
+    Additionally, this opens the option to specify that the code must be reviewed (or at least approved) by
+    a certain number of people.</p>
+</li>
+<li>
+<p>The second rule to consider is <em>Require status checks to pass</em>. This rule makes sure that our workflows
+    are passing before we can merge code into the main branch. You can select which workflows are required, as
+    some may be nice to have passing but not strictly needed.</p>
+</li>
+</ul>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/branch_protection_rules2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/branch_protection_rules2.png" width="800" /></a>
+</figure></p>
+<p>Finally, if you think the rules are a bit too restrictive you can always add that the repository admin e.g. you
+can bypass the rules by adding <code>Repository admin</code> to the bypass list. Implement the following rules:</p>
 <ul>
 <li>At least one person needs to approve any PR</li>
-<li>All your workflows has to pass</li>
-<li>All conversations needs to be resolved</li>
+<li>All your workflows need to pass</li>
+<li>All conversations need to be resolved</li>
 </ul>
 </li>
 <li>
-<p>To test that everything works, try creating a PR (possibly with a small bug) and see that your main/master
-    branch is protected</p>
+<p>If you have created the rules correctly you should see something like the image below when you try to merge a
+    pull request. In this case, all three checks are required to pass before the code can be merged. Additionally,
+    a single reviewer is required to approve the code. A bypass rule is also setup for the repository admin.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/branch_protection_rules3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/branch_protection_rules3.png" width="800" /></a>
+</figure></p>
 </li>
 </ol>
 </li>
 <li>
 <p>One problem you may have encountered is running your tests that have to do with your data, with the core problem
-    being that your data is actually not stored in github (assuming you have done module
-    <a href="../../s2_organisation_and_version_control/dvc/">M8 - DVC</a>) and therefore cannot be tested. However, it is possible
-    for us to download data while running our CI. Lets try to setup that:</p>
+    being that your data is not stored in GitHub (assuming you have done module
+    <a href="../../s2_organisation_and_version_control/dvc/">M8 - DVC</a>) and therefore cannot be tested. However, we can download
+    data while running our continuous integration. Let's try to create that:</p>
 <ol>
 <li>
-<p>The first problem is that we need our CI needs to be able to authenticate with the our storage solution. We can
-    take advantage of an authentication file that is created the first time we push with DVC. It is located in
-    <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code> where <code>$CACHE_HOME</code> depends on your operating system:</p>
+<p>The first problem is that we need our continuous integration pipeline to be able to authenticate with our storage
+    solution. We can take advantage of an authentication file that is created the first time we push with DVC. It is
+    located in <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code> where <code>$CACHE_HOME</code> depends on your
+    operating system:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2043,17 +2062,17 @@ This is the typical location, but it may vary depending on what distro you are r
 </span></code></pre></div>
 </li>
 <li>
-<p>The content of that file is should be treated as an password an not shared with the world and the relevant
-    question is therefore how to use this info in <em>public</em> repository. The answer is github <em>secrets</em>, where we can
-    store information, access it in our workflow files and it is still not public. Navigate to the secrets option
-    (as shown below) and create a secret with the name <code>GDRIVE_CREDENTIALS_DATA</code> that contains the content of the
-    file you found in the previous exercise.</p>
+<p>The content of that file should be treated as a password and not shared with the world and the relevant
+    question is therefore how to use this info in a <em>public</em> repository. The answer is GitHub <em>secrets</em>, where we
+    can store information, and access it in our workflow files and it is still not public. Navigate to the secrets
+    option (as shown below) and create a secret with the name <code>GDRIVE_CREDENTIALS_DATA</code> that contains the content
+    of the file you found in the previous exercise.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/github_secrets.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_secrets.PNG" width="1000" /></a>
 </figure></p>
 </li>
 <li>
-<p>Afterwards, add the following code to your workflow file:</p>
+<p>Afterward, add the following code to your workflow file:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iterative/setup-dvc@v1</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Get data</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dvc pull</span>
@@ -2065,22 +2084,22 @@ This is the typical location, but it may vary depending on what distro you are r
 </li>
 <li>
 <p>Finally, add the changes, commit, push and confirm that everything works as expected. You should now be able to
-    run unit tests that depends on your input data.</p>
+    run unit tests that depend on your input data.</p>
 </li>
 </ol>
 </li>
 <li>
 <p>In <a href="../../s2_organisation_and_version_control/good_coding_practice/">module M6 on good coding practices</a>
-    (optional module) of the course you where introduced to a couple of good coding practices such as being consistent
+    (optional module) of the course you were introduced to a couple of good coding practices such as being consistent
     with your coding style, how your Python packages are sorted and that your code follows certain standards. All this
-    was done using the <code>ruff</code> framework. In this set of exercises we will setup github workflows that will automatically
-    test for this.</p>
+    was done using the <code>ruff</code> framework. In this set of exercises, we will create GitHub workflows that will
+    automatically test for this.</p>
 <ol>
 <li>
-<p>Create a new workflow file called <code>codecheck.yml</code>, that implements the following three steps</p>
+<p>Create a new workflow file called <code>codecheck.yaml</code>, that implements the following three steps</p>
 <ul>
 <li>
-<p>Setup python environment</p>
+<p>Setup Python environment</p>
 </li>
 <li>
 <p>Installs <code>ruff</code></p>
@@ -2089,46 +2108,45 @@ This is the typical location, but it may vary depending on what distro you are r
 <p>Runs <code>ruff check</code> and <code>ruff format</code> on the repository</p>
 </li>
 </ul>
-<p>(HINT: You should be able to just change the last steps of the <code>tests.yml</code> workflow file)</p>
+<p>(HINT: You should be able to just change the last steps of the <code>tests.yaml</code> workflow file)</p>
 </li>
 <li>
-<p>In addition to <code>ruff</code> we also used <code>mypy</code> in those set of exercies for checking if the typing we added to our
-    code was good enough. Add another step to the <code>codecheck.yml</code> file which runs <code>mypy</code> on your repository.</p>
+<p>In addition to <code>ruff</code> we also used <code>mypy</code> in those sets of exercises for checking if the typing we added to our
+    code was good enough. Add another step to the <code>codecheck.yaml</code> file which runs <code>mypy</code> on your repository.
+.yaml</p>
 </li>
-<li>
-<p>Try to make sure that all steps are passing on repository. Especially <code>mypy</code> can be hard to get passing, so this
-    exercise formally only requires you to get <code>ruff</code> passing.</p>
-</li>
+<li>Try to make sure that all steps are passed on repository. Especially <code>mypy</code> can be hard to get a passing, so this
+    exercise formally only requires you to get <code>ruff</code> passing.</li>
 </ol>
 </li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
-<p>When working with Github actions you will often encounter the following 4 concepts:</p>
+<p>When working with GitHub actions you will often encounter the following 4 concepts:</p>
 <ul>
 <li>Workflow</li>
 <li>Runner</li>
 <li>Job</li>
 <li>Action</li>
 </ul>
-<p>Try to define them with your own words.</p>
+<p>Try to define them in your own words.</p>
 <details class="success">
 <summary>Solution</summary>
 <ul>
-<li>Workflow: A <code>yaml</code> file that defines the instructions to execute on specific events. Needs to be placed in
+<li>Workflow: A <code>yaml</code> file that defines the instructions to be executed on specific events. Needs to be placed in
     the <code>.github/workflows</code> folder.</li>
 <li>Runner: Workflows need to run somewhere. The environment that the workflow is being executed on is called the
-    runner. Most commonly the runner is hosted by Github but can also hosted by yourself.</li>
-<li>Job: A series of steps which are executed on the same runner. A workflow must include at least one job,
-    but often contains many.</li>
-<li>Action: A action is the smallest unit in a workflow. Jobs often consist of multiple actions that are
+    runner. Most commonly the runner is hosted by GitHub but can also hosted by yourself.</li>
+<li>Job: A series of steps that are executed on the same runner. A workflow must include at least one job but
+    often contains many.</li>
+<li>Action: An action is the smallest unit in a workflow. Jobs often consist of multiple actions that are
     executed sequentially.</li>
 </ul>
 </details>
 </li>
 <li>
-<p>The <code>on</code> attribute specify upon which events the workflow will be triggered. Assume you have set the <code>on</code> attribute
+<p>The <code>on</code> attribute specifies upon which events the workflow will be triggered. Assume you have set the <code>on</code> attribute
     to the following:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">on</span><span class="p">:</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">push</span><span class="p">:</span>
@@ -2144,10 +2162,10 @@ This is the typical location, but it may vary depending on what distro you are r
 <summary>Solution</summary>
 <ol>
 <li>Direct push to branch <code>main</code> would trigger it</li>
-<li>Any pull request opened that will merge into <code>main</code> would trigger it</li>
-<li>At the end of the day the action would trigger</li>
+<li>Any pull request opened that will merge into <code>main</code> will trigger it</li>
+<li>At the end of the day the action would trigger, see <a href="https://en.wikipedia.org/wiki/Cron">cron</a> for more info</li>
 <li>
-<p>The trigger can be executed by manually triggering it through the Github UI, example shown below</p>
+<p>The trigger can be executed by manually triggering it through the GitHub UI, for example, shown below</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/github_actions_workflow_dispatch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_actions_workflow_dispatch.png" width="800" /></a>
 </figure></p>
@@ -2156,15 +2174,16 @@ This is the typical location, but it may vary depending on what distro you are r
 </details>
 </li>
 </ol>
-<p>This ends the module on Github workflows. If you are more interested in this topic you can checkout module
-<a href="../../s10_extra/documentation/">M31 on documentation</a> which first including locally building some documentation for your
-project and afterwards use Github actions for deploying it to Github Pages. Additionally, Github also have a lot of
-templates already for running a lot CI tasks. If you try to create a workflow file directly in Github you may encounter
-the following page</p>
+<p>This ends the module on GitHub workflows. If you are more interested in this topic you can check out module
+<a href="../../s10_extra/documentation/">M31 on documentation</a> which first includes locally building some documentation for your
+project and afterwards use GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
+templates already for running different continuous integration tasks. If you try to create a workflow file directly in
+GitHub you may encounter the following page</p>
 <p><a class="glightbox" href="../../figures/github_workflows.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="action" src="../../figures/github_workflows.PNG" /></a></p>
-<p>We highly recommend checking this out if you want to write any other kind of CI pipeline in Github actions. We can also
-recommend <a href="https://github.com/sdras/awesome-actions">this repository</a> that have an list of awesome actions and checkout
-the <a href="https://github.com/nektos/act">act</a> repository which is a tool for running your GitHub Actions locally!</p>
+<p>We highly recommend checking this out if you want to write any other kind of continuous integration pipeline in GitHub
+actions. We can also recommend this <a href="https://github.com/sdras/awesome-actions">repository</a> that has a list of awesome
+actions and check out the <a href="https://github.com/nektos/act">act</a> repository which is a tool for running your GitHub
+Actions locally!</p>
 
 
 
@@ -2187,7 +2206,7 @@ the <a href="https://github.com/nektos/act">act</a> repository which is a tool f
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     

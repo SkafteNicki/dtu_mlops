@@ -1895,7 +1895,7 @@
 <p class="admonition-title">Core Module</p>
 </div>
 <p>We are now returning to using the cloud. In <a href="../../s6_the_cloud/using_the_cloud/">this module</a> you should have
-gone through the steps of having your code in your github repository to automatically build into a docker
+gone through the steps of having your code in your GitHub repository to automatically build into a docker
 container, store that, store data and pull it all together to make a training run. After the training is
 completed you should hopefully have a file stored in the cloud with your trained model weights.</p>
 <p>Todays exercises will be about serving those model weights to an end user. We focus on two different ways
@@ -1999,7 +1999,7 @@ do you have to manage the server. Everything is magically taken care of behind t
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="k">return</span> <span class="s1">&#39;No input data received&#39;</span>
 </span></code></pre></div>
 <p>Some notes:
-* For locally testing the above code you will need to install the <code>google-cloud-storage</code> python package
+* For locally testing the above code you will need to install the <code>google-cloud-storage</code> Python package
 * Remember to change the <code>Entry point</code>
 * Remember to also fill out the <code>requirements.txt</code> file. You need at least two packages to run the application
     with <code>google-cloud-storage</code> being one of them.
@@ -2120,7 +2120,7 @@ to add <code>/</code> or <code>/&lt;path&gt;</code> to the url depending on how 
 </li>
 <li>
 <p>Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
-    in a continues manner by using <code>cloudbuild.yaml</code> file we learned about in the previous section. We just need to add
+    in a continuous manner by using <code>cloudbuild.yaml</code> file we learned about in the previous section. We just need to add
     a new step to the file. We provide an example</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># Build the container image</span>
@@ -2154,9 +2154,9 @@ to add <code>/</code> or <code>/&lt;path&gt;</code> to the url depending on how 
 <p>where you need to replace <code>&lt;container-name&gt;</code> with the name of your container, <code>&lt;service-name&gt;</code> with the name of the
 service you want to deploy and <code>&lt;region&gt;</code> with the region you want to deploy to. Afterwards you need to setup a
 trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
-works by making a change to your application and pushing it to github and see if the application is updated
+works by making a change to your application and pushing it to GitHub and see if the application is updated
 continuously. For help you can look <a href="https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run">here</a>
-for help. If you succeeded, congratulations you have now setup a continues deployment pipeline.</p>
+for help. If you succeeded, congratulations you have now setup a continuous deployment pipeline.</p>
 </li>
 </ol>
 <p>That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In
@@ -2189,7 +2189,7 @@ that are a necessary component before you start to
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     

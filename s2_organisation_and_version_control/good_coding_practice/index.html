@@ -2014,14 +2014,14 @@ Jeff Atwood</p>
 </ol>
 </li>
 <li>
-<p>Add <a href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> to at least two python function/methods.
+<p>Add <a href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> to at least two Python function/methods.
     You can see <a href="https://www.programiz.com/python-programming/docstrings">here (example 5)</a> a good example
     how to use identifiable keywords such as <code>Parameters</code>, <code>Args</code>, <code>Returns</code> which standardizes the way of
     writing docstrings.</p>
 </li>
 </ol>
 <h2 id="styling">Styling</h2>
-<p>While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
+<p>While Python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Maybe even more troubling is that you
 will often see that your own style of coding changes as you become more and more experienced. This kind of
 difference in coding style is not that important to take care of when you are working on a personal project,
@@ -2084,7 +2084,7 @@ the <code>pyproject.toml</code> file.</p>
 <p class="annotate">and try re-running <code>ruff check</code> and <code>ruff format</code>. Hopefully this should reorganize your imports to follow common
 practice. (1)</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> the common practise is to first list built-in python packages (like <code>os</code>) in one block,
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> the common practise is to first list built-in Python packages (like <code>os</code>) in one block,
     followed by third-party dependencies (like <code>torch</code>) in a second block and finally imports from your own package
     in a third block. Each block is then put in alphabetical order.</li>
 </ol>
@@ -2106,7 +2106,7 @@ practice. (1)</p>
 </li>
 </ol>
 <h2 id="typing">Typing</h2>
-<p>In addition to writing documentation and following a specific styling, in python we have a third way of improving the
+<p>In addition to writing documentation and following a specific styling, in Python we have a third way of improving the
 quality of our code: <a href="https://docs.python.org/3/library/typing.html">through typing</a>. Typing goes back to the earlier
 programming languages like <code>c</code>, <code>c++</code> etc. where <a href="https://www.scaler.com/topics/cpp/data-types-in-cpp/">data types</a>
 needed to be explicit stated for variables:</p>
@@ -2116,15 +2116,15 @@ needed to be explicit stated for variables:</p>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello World! &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">();</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>This is not required by python but it can really improve the readability of code, that you can directly read from the
-code what the expected types of input arguments and returns are. In python the <code>:</code> character have been reserved for
+<p>This is not required by Python but it can really improve the readability of code, that you can directly read from the
+code what the expected types of input arguments and returns are. In Python the <code>:</code> character have been reserved for
 type hints. Here is one example of adding typing to a function:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span> <span class="nf">add2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
 </span></code></pre></div>
 <p>here we mark that both <code>x</code> and <code>y</code> are integers and using the arrow notation <code>-&gt;</code> we mark that the output type is also
 an integer. Assuming that we are also going to use the function for floats and <code>torch.Tensor</code>s we could improve the
-typing by specifying a <em>union</em> of types. Depending on the version of python you are using the syntax for this can be
+typing by specifying a <em>union</em> of types. Depending on the version of Python you are using the syntax for this can be
 different.</p>
 <!-- markdownlint-disable -->
 
@@ -2248,7 +2248,7 @@ problem.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     

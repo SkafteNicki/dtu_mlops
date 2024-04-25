@@ -2133,33 +2133,33 @@
 <p>This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
 like:</p>
 <p><code>--- question 1 fill here ---</code></p>
-<p>where you instead should add your answers. Any other changes may have unwanted consequences when your report is auto
-generated in the end of the course. For questions where you are asked to include images, start by adding the image to
-the <code>figures</code> subfolder (please only use <code>.png</code>, <code>.jpg</code> or <code>.jpeg</code>) and then add the following code in your answer:</p>
+<p>where you instead should add your answers. Any other changes may have unwanted consequences when your report is
+auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
+to the <code>figures</code> subfolder (please only use <code>.png</code>, <code>.jpg</code> or <code>.jpeg</code>) and then add the following code in your answer:</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>![<span class="nt">my_image</span>](<span class="na">figures/&lt;image&gt;.&lt;extension&gt;</span>)
 </span></code></pre></div>
 <p>In addition to this markdown file, we also provide the <code>report.py</code> script that provides two utility functions:</p>
 <p>Running:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>report.py<span class="w"> </span>html
 </span></code></pre></div>
-<p>will generate an <code>.html</code> page of your report. After deadline for answering this template, we will autoscrape
+<p>will generate a <code>.html</code> page of your report. After the deadline for answering this template, we will auto-scrape
 everything in this <code>reports</code> folder and then use this utility to generate an <code>.html</code> page that will be your serve
-as your final handin.</p>
+as your final hand-in.</p>
 <p>Running</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>report.py<span class="w"> </span>check
 </span></code></pre></div>
-<p>will check your answers in this template against the constrains listed for each question e.g. is your answer too
-short, too long, have you included an image when asked to.</p>
-<p>For both functions to work it is important that you do not rename anything. The script have two dependencies that can
-be installed with <code>pip install click markdown</code>.</p>
+<p>will check your answers in this template against the constraints listed for each question e.g. is your answer too
+short, too long, or have you included an image when asked to.</p>
+<p>For both functions to work you mustn't rename anything. The script has two dependencies that can be installed with</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>click<span class="w"> </span>markdown
+</span></code></pre></div>
 <h2 id="overall-project-checklist">Overall project checklist</h2>
-<p>The checklist is <em>exhaustic</em> which means that it includes everything that you could possible do on the project in
-relation the curricilum in this course. Therefore, we do not expect at all that you have checked of all boxes at the
-end of the project.</p>
+<p>The checklist is <em>exhaustive</em> which means that it includes everything that you could do on the project included in the
+curriculum in this course. Therefore, we do not expect at all that you have checked all boxes at the end of the project.</p>
 <h3 id="week-1">Week 1</h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a git repository</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make sure that all team members have write access to the github repository</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make sure that all team members have write access to the GitHub repository</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a dedicated environment for you project to keep track of your packages</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create the initial file structure using cookiecutter</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fill out the <code>make_dataset.py</code> file such that it downloads whatever data you need and</li>
@@ -2183,7 +2183,7 @@ end of the project.</p>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write unit tests related to the data part of your code</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write unit tests related to model construction and or model training</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Calculate the coverage.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get some continuous integration running on the github repository</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get some continuous integration running on the GitHub repository</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a trigger workflow for automatically building your docker images</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get your model training in GCP using either the Engine or Vertex AI</li>
@@ -2316,13 +2316,14 @@ corporate and increase the quality of your code.</p>
 <p>--- question 10 fill here ---</p>
 <h3 id="question-11">Question 11</h3>
 <blockquote>
-<p><strong>Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test</strong>
-<strong>multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of</strong>
-<strong>your github actions workflow.</strong></p>
+<p><strong>Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,</strong>
+<strong>linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free</strong>
+<strong>to insert a link to one of your GitHub actions workflow.</strong></p>
 <p>Recommended answer length: 200-300 words.</p>
 <p>Example:
-<em>We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running</em>
-<em>... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink></em></p>
+<em>We have organized our continuous integration into 3 separate files: one for doing ..., one for running ... testing</em>
+<em>and one for running ... . In particular for our ..., we used ... .An example of a triggered workflow can be seen</em>
+<em>here: <weblink></em></p>
 <p>Answer:</p>
 </blockquote>
 <p>--- question 11 fill here ---</p>
@@ -2337,7 +2338,7 @@ especially the reproducibility of your experiments.</p>
 <strong>run a experiment.</strong></p>
 <p>Recommended answer length: 50-100 words.</p>
 <p>Example:
-<em>We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25</em></p>
+<em>We used a simple argparser, that worked in the following way: Python  my_script.py --lr 1e-3 --batch_size 25</em></p>
 <p>Answer:</p>
 </blockquote>
 <p>--- question 12 fill here ---</p>
@@ -2526,7 +2527,7 @@ especially the reproducibility of your experiments.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 1, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     

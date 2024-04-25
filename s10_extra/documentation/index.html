@@ -1892,7 +1892,7 @@ abandon using it because it was missing documentation such that we could get sta
 automatically help you document the API of your code. For this reason we recommend that before continuning with this
 module that you have completed
 <a href="../../s2_organisation_and_version_control/good_coding_practice/">module M7 on good coding practices</a>
-or have similar experience with writing docstrings for python functions and classes.</p>
+or have similar experience with writing docstrings for Python functions and classes.</p>
 <p>There are different systems for writing documentation. In fact there is a lot to choose from:</p>
 <ul>
 <li><a href="https://www.mkdocs.org/">MkDocs</a></li>
@@ -1919,7 +1919,7 @@ get started with and is sufficient.</p>
 <a href="https://github.com/squidfunk/mkdocs-material">material for mkdocs theme</a> that provides a lot of nice customization
 to create professional static sites. In fact, this whole course is written in mkdocs using the material theme.</p>
 <h2 id="mkdocs">Mkdocs</h2>
-<p>The core file when using mkdocs is the <code>mkdocs.yml</code> file, which is the configuration file for the project:</p>
+<p>The core file when using mkdocs is the <code>mkdocs.yaml</code> file, which is the configuration file for the project:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Documentation of my project</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">site_author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Jane Doe</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">docs_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="w"> </span><span class="c1"># (1)!</span>
@@ -1977,7 +1977,7 @@ that at least contains the following:</p>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   │
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── index.md       &lt;- Homepage for your documentation
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   │
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── mkdocs.yml     &lt;- Configuration file for mkdocs
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── mkdocs.yaml     &lt;- Configuration file for mkdocs
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   │
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   └── source/        &lt;- Source directory for documentation files
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│
@@ -1993,10 +1993,10 @@ that at least contains the following:</p>
 </span></code></pre></div>
 <p>It is not important exactly what is in the <code>src</code> folder for the exercises, but we are going to refer to the above
 structure in the exercises, so adjust accordingly if you diviate from this. Additionally, we are going to assume that
-your project code is installed in your environment such that it can be imported as normal python code.</p>
+your project code is installed in your environment such that it can be imported as normal Python code.</p>
 <ol>
 <li>
-<p>We are going to need two python packages to get started: <a href="https://pypi.org/project/mkdocs/">mkdocs</a> and
+<p>We are going to need two Python packages to get started: <a href="https://pypi.org/project/mkdocs/">mkdocs</a> and
     <a href="https://pypi.org/project/mkdocs-material/">material for mkdocs</a>. Install with</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;mkdocs-material &gt;= 4.8.0&quot;</span><span class="w"> </span><span class="c1"># (1)!</span>
 </span></code></pre></div>
@@ -2111,7 +2111,7 @@ you build in the last exercise. There are many places to host your documentation
 and are already hosting your code through Github, then a good option is <a href="https://pages.github.com/">Github Pages</a>.
 Github pages is free to use for your public projects.</p>
 <p>Before getting started with this set of exercises you should have completed
-<a href="../../s5_continuous_integration/github_actions/">module M16 on github actions</a> so you already know about workflow files.</p>
+<a href="../../s5_continuous_integration/github_actions/">module M16 on GitHub actions</a> so you already know about workflow files.</p>
 <h3 id="exercises_1">Exercises</h3>
 <ol>
 <li>
@@ -2146,7 +2146,7 @@ Github pages is free to use for your public projects.</p>
 </span></code></pre></div>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> It is important to give <code>write</code> premissions to this actions because it is not only reading
-    your code but it will actually also push code.</li>
+    your code but it will also push code.</li>
 </ol>
 <p>Before continuing, make sure you understand what the different steps of the workflow does and especially we
 recommend looking at the documentation of the <code>mkdocs gh-deploy</code> command.</p>
@@ -2156,7 +2156,7 @@ recommend looking at the documentation of the <code>mkdocs gh-deploy</code> comm
     a branch called <code>gh-pages</code>. If the action does not succeeds, then figure out what is wrong and fix it!</p>
 </li>
 <li>
-<p>After confirming that our action is working, you need to configure Github to actually publish the content being
+<p>After confirming that our action is working, you need to configure Github to publish the content being
     build by Github Actions. Do the following:</p>
 <ul>
 <li>Go to the Settings tab and then the Pages subsection</li>
@@ -2167,7 +2167,7 @@ recommend looking at the documentation of the <code>mkdocs gh-deploy</code> comm
     <a class="glightbox" href="../../figures/github_pages.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_pages.png" width="700" /></a>
 </figure></p>
 <p>This should then start deploying your site to <code>https://&lt;your-username&gt;.github.io/&lt;your-reponame&gt;/</code>. If it does not
-do this you may need to recommit and trigger the github actions build again.</p>
+do this you may need to recommit and trigger the GitHub actions build again.</p>
 </li>
 <li>
 <p>Make sure your documentation is published and looks as it should.</p>
@@ -2198,7 +2198,7 @@ it is often best to do it while writing the code.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 23, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
   </span>
 
     
