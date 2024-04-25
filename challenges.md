@@ -16,9 +16,9 @@ services that `gcp` offers. You are also free to continue work on your project.
     can probably help.
 
 * In the lectures we setup cloud build to automatically build a docker
-    container for training whenever we pushed code to our github repository.
+    container for training whenever we pushed code to our GitHub repository.
     However, we also setup CI testing in github. If tests are failing on
-    github the building of the docker image is still being done, essentially
+    GitHub the building of the docker image is still being done, essentially
     wasting our precious cloud credit. Setup a system so cloud building only
     commence when all tests are passing.
 

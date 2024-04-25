@@ -98,9 +98,9 @@ The project description will serve as an guideline for us at the exam that you h
 set out to do. By the end of the day, you should commit your project description to the `README.md` file belonging
 to your project repository. If you filled out the ML canvas, feel free to include that as part of the `README.md` file.
 Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn and
-hand-in (as a group) the *link to your github repository* as an assignment.
+hand-in (as a group) the *link to your GitHub repository* as an assignment.
 
-We will briefly (before next Monday) look over your github repository and project description to check that everything
+We will briefly (before next Monday) look over your GitHub repository and project description to check that everything
 is fine. If we have any questions/concerns we will contact you.
 
 ### Day 2
@@ -138,7 +138,7 @@ point on the checklist for the exam.
 ### Week 1
 
 * [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
+* [ ] Make sure that all team members have write access to the GitHub repository
 * [ ] Create a dedicated environment for you project to keep track of your packages
 * [ ] Create the initial file structure using cookiecutter
 * [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
@@ -162,7 +162,7 @@ point on the checklist for the exam.
 * [ ] Write unit tests related to the data part of your code
 * [ ] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
+* [ ] Get some continuous integration running on the GitHub repository
 * [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
@@ -200,5 +200,5 @@ scrape it automatically, and changes after this point are therefore not register
 For the oral part of the exam you will be given a time slot where you have to show up for 5-7 min and give a very short
 demo of your project. What we are interested in seeing is essentially a live demo of your deployed application/project.
 We will possibly also ask questions regarding the overall curriculum of the course. Importantly, you should have your
-deployed application, the github repository with your project code, W&B account and your GCP account ready before
+deployed application, the GitHub repository with your project code, W&B account and your GCP account ready before
 you enter the exam so we can quickly jump around. We will send out an the time slots during the last week.

@@ -147,7 +147,7 @@ rest to a "recommended value".
         mysql -u root -e "CREATE DATABASE IF NOT EXISTS example"
         ```
 
-        you can also do this directly in python when calling the `create_study` command by also setting the
+        you can also do this directly in Python when calling the `create_study` command by also setting the
         `storage` and `load_if_exists=True` flags.
 
     3. Now we are going to create a Optuna study in our database

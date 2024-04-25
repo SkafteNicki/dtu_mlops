@@ -4,7 +4,7 @@
 
 ---
 
-If you have worked with python for some time you are probably familiar with the `argparse` package, which allows you
+If you have worked with Python  for some time you are probably familiar with the `argparse` package, which allows you
 to directly pass in additional arguments to your script in the terminal
 
 ```bash
@@ -42,7 +42,7 @@ mention [Typer](https://typer.tiangolo.com/).
     pip install click
     ```
 
-2. Create a new python file `greetings.py` and add the following code:
+2. Create a new Python  file `greetings.py` and add the following code:
 
     ```python
     import click

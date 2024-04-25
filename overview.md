@@ -17,7 +17,7 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 |-----------|-------------|
 | ![Pytorch](figures/icons/pytorch.png){ width="50" } | **Pytorch** is the backbone of our code, it provides the computational engine and the data structures that we need to define our data structures. |
 | ![Pytorch Lightning](figures/icons/lightning.png){ width="50" } | **Pytorch lightning** is a framework that provides a high-level interface to Pytorch. It provides a lot of functionality that we need to train our models, such as logging, checkpointing, early stopping, etc. such that we do not have to implement it ourselves. It also allows us to scale our models to multiple GPUs and multiple nodes. |
-| ![Conda](figures/icons/conda.png){ width="50" } | We control the dependencies and python interpreter using **Conda** that enables us to construct reproducible virtual environments |
+| ![Conda](figures/icons/conda.png){ width="50" } | We control the dependencies and Python  interpreter using **Conda** that enables us to construct reproducible virtual environments |
 | ![Hydra](figures/icons/hydra.png){ width="50" } | For configuring our experiments we use **Hydra** that allows us to define a hierarchical configuration structure config files |
 | ![Wandb](figures/icons/w&b.png){ width="50" } | Using **Weights and Bias** allows us to track and log any values and hyperparameters for our experiments |
 | ![Profiler](figures/icons/profiler.png){ width="50" } | Whenever we run into performance bottlenecks with our code we can use the **Profiler** to find the cause of the bottleneck |
@@ -35,7 +35,7 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 | ![Engine](figures/icons/engine.png){ width="50" } | For general compute tasks we can use **Compute engine** that provides a scalable and secure compute solution |
 | ![Vertex](figures/icons/vertex.png){ width="50" } | For training our experiments in a easy and scalable manner we can use **Vertex AI** |
 | ![FastAPI](figures/icons/fastapi.png){ width="50" } | For creating a REST API for our model we can use **FastAPI** that provides a high-level interface for creating APIs |
-| ![Functions](figures/icons/functions.png){ width="50" } | For simple deployments of our code we can use **Cloud functions** that allows us to run our code in response to events through simple python functions |
+| ![Functions](figures/icons/functions.png){ width="50" } | For simple deployments of our code we can use **Cloud functions** that allows us to run our code in response to events through simple Python  functions |
 | ![Run](figures/icons/run.png){ width="50" } | For more complex deployments of our code we can use **Cloud run** that allows us to run our code in response to events through docker containers |
 | ![Monitor](figures/icons/monitoring.png){ width="50" } | **Cloud monitoring** gives us the tools to keep track of important logs and errors from the other cloud services |
 | ![Evidently](figures/icons/evidentlyai.png){ width="50" } | For monitoring our deployed model is experiencing any drift we can use **Evidently AI** that provides a framework and dashboard for monitoring drift |

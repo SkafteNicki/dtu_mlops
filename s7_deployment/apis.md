@@ -177,7 +177,7 @@ interface (API) is essentially the way for the developer (you) tells a user how 
 created. The API is an abstraction layer that allows the user to interact with our application in the way we want them
 to interact with it, without the user even having to look at the code.
 
-We can take the API from github as an example <https://api.github.com>. This API allows any user to retrieve, integrate
+We can take the API from GitHub as an example <https://api.github.com>. This API allows any user to retrieve, integrate
 and send data to Github without ever having to visit their webpage. The API exposes multiple endpoints that have various
 functions:
 
@@ -287,7 +287,7 @@ you can look through for help.
 
     1. Lets start by changing the root function to include a bit more info. In particular we are also interested in
         returning the status code so the end user can easily read that. Default status codes are included in the
-        [http](https://docs.python.org/3/library/http.html) built-in python package:
+        [http](https://docs.python.org/3/library/http.html) built-in Python package:
 
         ```python
         from http import HTTPStatus

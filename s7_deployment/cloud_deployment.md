@@ -8,7 +8,7 @@
 !!! info "Core Module"
 
 We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md) you should have
-gone through the steps of having your code in your github repository to automatically build into a docker
+gone through the steps of having your code in your GitHub repository to automatically build into a docker
 container, store that, store data and pull it all together to make a training run. After the training is
 completed you should hopefully have a file stored in the cloud with your trained model weights.
 
@@ -112,7 +112,7 @@ do you have to manage the server. Everything is magically taken care of behind t
         ```
 
         Some notes:
-        * For locally testing the above code you will need to install the `google-cloud-storage` python package
+        * For locally testing the above code you will need to install the `google-cloud-storage` Python package
         * Remember to change the `Entry point`
         * Remember to also fill out the `requirements.txt` file. You need at least two packages to run the application
             with `google-cloud-storage` being one of them.
@@ -275,7 +275,7 @@ service in GCP for deploying containers.
     where you need to replace `<container-name>` with the name of your container, `<service-name>` with the name of the
     service you want to deploy and `<region>` with the region you want to deploy to. Afterwards you need to setup a
     trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
-    works by making a change to your application and pushing it to github and see if the application is updated
+    works by making a change to your application and pushing it to GitHub and see if the application is updated
     continuously. For help you can look [here](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
     for help. If you succeeded, congratulations you have now setup a continues deployment pipeline.
 

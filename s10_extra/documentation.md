@@ -19,7 +19,7 @@ and many more. We are in this module going to focus on setting up a very basic d
 automatically help you document the API of your code. For this reason we recommend that before continuning with this
 module that you have completed
 [module M7 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
-or have similar experience with writing docstrings for python functions and classes.
+or have similar experience with writing docstrings for Python  functions and classes.
 
 There are different systems for writing documentation. In fact there is a lot to choose from:
 
@@ -127,9 +127,9 @@ that at least contains the following:
 
 It is not important exactly what is in the `src` folder for the exercises, but we are going to refer to the above
 structure in the exercises, so adjust accordingly if you diviate from this. Additionally, we are going to assume that
-your project code is installed in your environment such that it can be imported as normal python code.
+your project code is installed in your environment such that it can be imported as normal Python code.
 
-1. We are going to need two python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
+1. We are going to need two Python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
     [material for mkdocs](https://pypi.org/project/mkdocs-material/). Install with
 
     ```bash
@@ -252,7 +252,7 @@ and are already hosting your code through Github, then a good option is [Github 
 Github pages is free to use for your public projects.
 
 Before getting started with this set of exercises you should have completed
-[module M16 on github actions](../s5_continuous_integration/github_actions.md) so you already know about workflow files.
+[module M16 on GitHub actions](../s5_continuous_integration/github_actions.md) so you already know about workflow files.
 
 ### Exercises
 
@@ -309,7 +309,7 @@ Before getting started with this set of exercises you should have completed
     </figure>
 
     This should then start deploying your site to `https://<your-username>.github.io/<your-reponame>/`. If it does not
-    do this you may need to recommit and trigger the github actions build again.
+    do this you may need to recommit and trigger the GitHub actions build again.
 
 4. Make sure your documentation is published and looks as it should.
 

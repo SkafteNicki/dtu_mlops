@@ -93,13 +93,13 @@ def reformat_repo(repo: str):
 
 
 def get_default_branch_name(repo: str) -> str:
-    """Get the default branch name of a github repo."""
+    """Get the default branch name of a GitHub repo."""
     response = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=100)
     return response.json()["default_branch"]
 
 
 def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
-    """Recursively download content from a github repo."""
+    """Recursively download content from a GitHub repo."""
     response = requests.get(url, headers=headers, timeout=100)
     for file in response.json():
         if file["type"] == "dir":
@@ -112,7 +112,7 @@ def get_content(branch: str, url: str, repo: str, current_path: str) -> None:
 
 
 def get_content_recursive(url):
-    """Extract all content from a github repo recursively."""
+    """Extract all content from a GitHub repo recursively."""
     all_content = []
     content = requests.get(url, headers=headers, timeout=10).json()
     for c in content:
