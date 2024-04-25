@@ -10,8 +10,8 @@ previous session have be around machine learning, everything we have done transl
 done if we had developed any other application did not include machine learning.
 
 In this session, we are now gonna change gear and look at **continuous machine learning** (CML). As the name may suggest
-we are now focusing on automatizing actual machine learning processes. You may ask why we need continues integration
-principals baked into machine learning pipelines? The reason is the same as with any continues integration, namely that
+we are now focusing on automatizing actual machine learning processes. You may ask why we need continuous integration
+principals baked into machine learning pipelines? The reason is the same as with any continuous integration, namely that
 we have a bunch of checks that we want our newly trained model to pass before we trust it. Writing `unittests` secures
 that our code is not broken, but there are other failure modes of a machine learning pipeline that should be checked
 before the model is ready for deployment:
@@ -20,7 +20,7 @@ before the model is ready for deployment:
 * Did my model converge at all?
 * Did it reach a certain threshold at all?
 
-Answering these questions in a continues way are possible through continuous machine learning. For this session, we are
+Answering these questions in a continuous way are possible through continuous machine learning. For this session, we are
 going to use `cml` by [iterative.ai](https://iterative.ai/) for this session. Strictly speaking, using the
 `cml` framework is not a necessary component for doing continuous machine learning but it streamlined way of doing this
 and offers tools to easily get a report about how a specific run performed. If we where just interested in trigging
@@ -33,7 +33,7 @@ run: python train.py
 to any of our workflow files.
 
 The figure below describes the overall process using the `cml` framework. It should be clear that it is the very
-same process that we go through as in the other continues integration sessions: `push code` -> `trigger github actions`
+same process that we go through as in the other continuous integration sessions: `push code` -> `trigger GitHub actions`
 -> `do stuff`. The new part in this session is that we want an report of the finding of the automated run to appear
 after the run is done.
 
@@ -106,7 +106,7 @@ after the run is done.
 
     Nearly everything in the workflow file should look familiar, except the last two lines.
 
-3. Try pushing the workflow file to your github repository and make sure that it completes.
+3. Try pushing the workflow file to your GitHub repository and make sure that it completes.
     If it does not, you may need to adjust the workflow file slightly.
 
 4. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k)
@@ -117,7 +117,7 @@ after the run is done.
     that these features can interact with each other. If you want to deep dive into this,
     [here](https://cml.dev/doc/cml-with-dvc) is a great starting point.
 
-The ends the session on continues machine learning. If you have not already noticed, one limitation of using github
+The ends the session on continuous machine learning. If you have not already noticed, one limitation of using github
 actions is that their default runners e.g. `runs-on: [ubuntu-latest]` are only CPU machines (see
 [hardware config](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
 . As we all know, modern machine learning more or less requires hardware acceleration (=GPUs) to train within

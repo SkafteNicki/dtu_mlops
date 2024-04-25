@@ -106,7 +106,7 @@ def validate_text_input(
     Checks:
     - not all student emails are default
     - at least three student emails
-    - github repo is valid
+    - GitHub repo is valid
     """
     emails = [student1, student2, student3, student4, student5]
     if all([email == DEFAULT_EMAIL for email in emails]):
@@ -117,7 +117,7 @@ def validate_text_input(
         st.error("Please enter at least three student emails! Minimum group size is 3.")
         return False
     if "https://github.com/" not in github_repo:
-        st.error("Please enter a valid github repo!")
+        st.error("Please enter a valid GitHub repo!")
         return False
     return True
 

@@ -369,12 +369,12 @@ in this way paths (for saving and loading files) are always relative to the root
 
 ## 🧠 Knowledge check
 
-1. Starting from complete scratch, what is the steps needed to create a new github repository and push a specific
+1. Starting from complete scratch, what is the steps needed to create a new GitHub repository and push a specific
     template to it as the very first commit.
 
     ??? success "Solution"
 
-        1. Create a completely barebone repository, either using the GitHub UI or if you have the github cli installed
+        1. Create a completely barebone repository, either using the GitHub UI or if you have the GitHub cli installed
             (not `git`) you can run
 
             ```bash

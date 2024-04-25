@@ -14,9 +14,9 @@ way of debugging when dealing with a very large codebase. You should therefore f
   ![Image](../figures/debug.jpg){width="700" }
 </figure>
 
-To invoke the build in python debugger you can either:
+To invoke the build in Python debugger you can either:
 
-* Set a trace directly with the python debugger by calling
+* Set a trace directly with the Python debugger by calling
 
     ```python
     import pdb

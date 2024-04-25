@@ -1,4 +1,4 @@
-r"""Basic streamlit leaderboard app for showing data from scraped github repos.
+r"""Basic streamlit leaderboard app for showing data from scraped GitHub repos.
 
 Run with:
     streamlit run tools\leaderboard_app\leaderboard_app.py
@@ -47,7 +47,7 @@ def download_data(filename: str) -> None:
 
 
 def main():
-    """Streamlit application for showing group github stats."""
+    """Streamlit application for showing group GitHub stats."""
     download_data("latest_repo_data.csv")
 
     df = pd.read_csv("latest_repo_data.csv")
