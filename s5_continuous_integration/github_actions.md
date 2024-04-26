@@ -60,6 +60,14 @@ Let's take a look at how a GitHub workflow file is organized:
 
     * Finally, `pytest` is called and our tests will be run
 
+    Go over the file and try to understand the overall structure and syntax of the file.
+
+    ??? example "`tests.yaml`"
+
+        ```python linenums="1" title="tests.yaml"
+        --8<-- "s5_continuous_integration/exercise_files/tests.yaml"
+        ```
+
 4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. The first file should
     contain all packages required to run your code. The second file contains all *additional* packages required to run
     the tests. In your simple case, it may very well be that the second file is empty, however, sometimes additional
@@ -78,7 +86,46 @@ Let's take a look at how a GitHub workflow file is organized:
 
     1. The provided `tests.yaml` only runs on one operating system. Which one?
 
-    1. Alter the file such that it executes the test on the two other main operating systems that exist.
+    2. Alter the file such that it executes the test on the two other main operating systems that exist.
+
+        ??? success "Solution"
+
+            We can "parametrize" of script to run on different operating systems by using the `strategy` attribute. This
+            attribute allows us to define a matrix of values that the workflow will run on. The following code will run
+            the tests on `ubuntu-latest`, `windows-latest`, and `macos-latest`:
+
+            ```yaml linenums="1" title="tests.yaml"
+            jobs:
+              build:
+                runs-on: ${{ matrix.os }}
+                strategy:
+                  matrix:
+                    os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+            ```
+
+    3. Can you also figure out how to run the tests using different Python versions?
+
+        ??? success "Solution"
+
+            Just add another line to the `strategy` attribute that specifies the Python version and use the value in the
+            setup Python action. The following code will run the tests on Python versions
+
+            ```yaml linenums="1" title="tests.yaml"
+            jobs:
+              build:
+                runs-on: ${{ matrix.os }}
+                strategy:
+                  matrix:
+                    os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                    python-version: [3.10, 3.11, 3.12]
+                        uses: actions/setup-python@v5
+                steps:
+                - uses: actions/checkout@v4
+                - name: Set up Python
+                  uses: actions/setup-python@v5
+                  with:
+                    python-version: ${{ matrix.python-version }}
+            ```
 
 7. As the workflow is currently implemented, GitHub actions will destroy every downloaded package
     when the workflow has been executed. To improve this we can take advantage of `caching`:
@@ -86,6 +133,18 @@ Let's take a look at how a GitHub workflow file is organized:
     1. Figure out how to implement `caching` in your workflow file. You can find a guide
         [here](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows) and
         [here](https://github.com/actions/setup-python#caching-packages-dependencies).
+
+        ??? success "Solution"
+
+            ```yaml linenums="1" title="tests.yaml"
+            steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.10'
+                cache: 'pip' # caching pip dependencies
+            - run: pip install -r requirements.txt
+            ```
 
     2. When you have implemented a caching system go to `Actions->Caches` in your repository and make sure that they
         are correctly added. It should look something like the image below
@@ -222,7 +281,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     2. In addition to `ruff` we also used `mypy` in those sets of exercises for checking if the typing we added to our
         code was good enough. Add another step to the `codecheck.yaml` file which runs `mypy` on your repository.
-.yaml
+
     3. Try to make sure that all steps are passed on repository. Especially `mypy` can be hard to get a passing, so this
         exercise formally only requires you to get `ruff` passing.
 
