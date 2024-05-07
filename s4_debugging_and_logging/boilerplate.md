@@ -41,7 +41,7 @@ course.
 
 ## Pytorch Lightning
 
-In general we refer to the [documentation](https://pytorch-lightning.readthedocs.io/en/stable/) from Pytorch lightning
+In general we refer to the [documentation](https://lightning.ai/docs/pytorch/stable/) from Pytorch lightning
 if in doubt about how to format your code for doing specific tasks. We are here going to explain the key concepts of
 the API that you need to understand to use the framework, starting with the `LightningModule` and the `Trainer`.
 
@@ -109,7 +109,7 @@ all three assume that we are using `torch.utils.data.DataLoader` for the dataloa
     ```
 
 3. Finally, `Lightning` also have the `LightningDataModule` that organizes data loading into a single structure, see
-    this [page](https://pytorch-lightning.readthedocs.io/en/latest/data/datamodule.html) for more info. Putting
+    this [page](https://lightning.ai/docs/pytorch/latest/data/datamodule.html) for more info. Putting
     data loading into a `DataModule` makes sense as it is then can be reused between projects.
 
 ### Callbacks
@@ -118,7 +118,7 @@ Callbacks is one way to add additional functionality to your model, that strictl
 model. Callbacks should therefore be seen as self-contained feature that can be reused between projects. You have the
 option to implement callbacks yourself (by inheriting from the `pytorch_lightning.callbacks.Callback` base class) or
 use one of the
-[build in callbacks](https://pytorch-lightning.readthedocs.io/en/latest/extensions/callbacks.html#built-in-callbacks).
+[build in callbacks](https://lightning.ai/docs/pytorch/latest/extensions/callbacks.html#built-in-callbacks).
 Of particular interest are `ModelCheckpoint` and `EarlyStopping` callbacks:
 
 * The `ModelCheckpoint` makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
@@ -178,13 +178,19 @@ framework to do some of the heavy lifting you need to have gone through some of 
 
     * The `configure_optimizers` method
 
-    Please read the [documentation](https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html)
+    Please read the [documentation](https://lightning.ai/docs/pytorch/latest/common/lightning_module.html)
     for more info.
+
+    ??? success "Solution"
+
+        ```python linenums="1" hl_lines="23" title="lightning.py"
+        --8<-- "s4_debugging_and_logging/exercise_files/lightning_solution.py"
+        ```
 
 3. Make sure your data is formatted such that it can be loaded using the `torch.utils.data.DataLoader` object.
 
 4. Instantiate a `Trainer` object. It is recommended to take a look at the
-    [trainer arguments](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-flags) (there
+    [trainer arguments](https://lightning.ai/docs/pytorch/latest/common/trainer.html#trainer-flags) (there
     are many of them) and maybe adjust some of them:
 
     1. Investigate what the `default_root_dir` flag does
@@ -193,16 +199,51 @@ framework to do some of the heavy lifting you need to have gone through some of 
         changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
         should train for.
 
+        ??? success "Solution"
+
+            Setting the `max_epochs` will accomplish this.
+
+            ```python
+            trainer = Trainer(max_epochs=10)
+            ```
+
+            Additionally, you may consider instead setting the `max_steps` flag to limit based on the number of steps or
+            `max_time` to limit based on time. Similarly, the flags `min_epochs`, `min_steps` and `min_time` can be used
+            to set the minimum number of epochs, steps or time.
+
     3. To start with we also want to limit the amount of training data to 20% of its original size. which
         trainer flag do you need to set for this to work?
+
+        ??? success "Solution"
+
+            Setting the `limit_train_batches` flag will accomplish this.
+
+            ```python
+            trainer = Trainer(limit_train_batches=0.2)
+            ```
+
+            Similarly, you can also set the `limit_val_batches` and `limit_test_batches` flags to limit the validation
+            and test data.
 
 5. Try fitting your model: `trainer.fit(model)`
 
 6. Now try adding some `callbacks` to your trainer.
 
+    ??? success "Solution"
+
+        ```python
+        early_stopping_callback = EarlyStopping(
+            monitor="val_loss", patience=3, verbose=True, mode="min"
+        )
+        checkpoint_callback = ModelCheckpoint(
+            dirpath="./models", monitor="val_loss", mode="min"
+        )
+        trainer = Trainer(callbacks=[early_stopping_callback, checkpoint_callback])
+        ```
+
 7. The privous module was all about logging in `wandb`, so the question is naturally how does `lightning` support this.
     Lightning does not only support `wandb`, but also many
-    [others](https://pytorch-lightning.readthedocs.io/en/latest/extensions/logging.html). Common for all of them, is that
+    [others](https://lightning.ai/docs/pytorch/latest/extensions/logging.html). Common for all of them, is that
     logging just need to happen through the `self.log` method in your `LightningModule`:
 
     1. Add `self.log` to your `LightningModule. Should look something like this:
@@ -242,23 +283,71 @@ framework to do some of the heavy lifting you need to have gone through some of 
     and `test_step` to our lightning module and supply the respective data in form of a separate dataloader. Try to at
     least implement one of them.
 
+    ??? success "Solution"
+
+        Both validation and test steps can be implemented in the same way as the training step:
+
+        ```python
+        def validation_step(self, batch) -> None:
+            data, target = batch
+            preds = self(data)
+            loss = self.criterion(preds, target)
+            acc = (target == preds.argmax(dim=-1)).float().mean()
+            self.log('val_loss', loss, on_epoch=True)
+            self.log('val_acc', acc, on_epoch=True)
+        ```
+
+        two things to take note of here is that we are setting the `on_epoch` flag to `True` in the `self.log` method.
+        This is because we want to log the validation loss and accuracy only once per epoch. Additionally, we are not
+        returning anything from the `validation_step` method, because we do not optimize over the loss.
+
 9. (Optional, requires GPU) One of the big advantages of using `lightning` is that you no more need to deal with device
     placement e.g. called `.to('cuda')` everywhere. If you have a GPU, try to set the `gpus` flag in the trainer. If you
     do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.
+
+    ??? success "Solution"
+
+        The two arguments `accelerator` and `devices` can be used to specify which devices to run on and how many to run
+        on. For example, to run on a single GPU you can do
+
+        ```python
+        trainer = Trainer(accelerator="gpu", devices=1)
+        ```
+
+        as an alternative the accelerator can just be set to `#!python accelerator="auto"` to automatically detect the
+        best available device.
 
 10. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, research have shown
     that neural network training is very robust towards a decrease in precision. The great benefit going from `float32`
     to `float16` is that we get approximately half the
     [memory consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training in
     Pytorch lightning. You can enable this by setting the
-    [precision](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#precision) flag in the `Trainer`.
+    [precision](https://lightning.ai/docs/pytorch/latest/common/trainer.html#precision) flag in the `Trainer`.
+
+    ??? success "Solution"
+
+        Lightning supports four different types of mixed precision training (16-bit and 16-bit bfloat) and two types of:
+
+        ```python
+        # 16-bit mixed precision (model weights remain in torch.float32)
+        trainer = Trainer(precision="16-mixed", devices=1)
+
+        # 16-bit bfloat mixed precision (model weights remain in torch.float32)
+        trainer = Trainer(precision="bf16-mixed", devices=1)
+
+        # 16-bit precision (model weights get cast to torch.float16)
+        trainer = Trainer(precision="16-true", devices=1)
+
+        # 16-bit bfloat precision (model weights get cast to torch.bfloat16)
+        trainer = Trainer(precision="bf16-true", devices=1)
+        ```
 
 11. (Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
-    [profiler](https://pytorch-lightning.readthedocs.io/en/latest/tuning/profiler.html) argument in
+    [profiler](https://lightning.ai/docs/pytorch/latest/tuning/profiler_basic.html) argument in
     the `Trainer` object.
 
 12. (Optional) Another great feature of Lightning is that the allow for easily defining command line interfaces through
-    the [Lightning CLI](https://pytorch-lightning.readthedocs.io/en/stable/cli/lightning_cli.html) feature. The
+    the [Lightning CLI](https://lightning.ai/docs/pytorch/stable/cli/lightning_cli.html) feature. The
     Lightning CLI is essentially a drop in replacement for defining command line interfaces (covered in
     [this module](../s10_extra/cli.md)) and can also replace the need for config files (covered in
     [this module](../s3_reproducibility/config_files.md)) for securing reproducibility when working inside the
