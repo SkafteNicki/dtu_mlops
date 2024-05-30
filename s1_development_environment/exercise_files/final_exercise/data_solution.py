@@ -2,10 +2,12 @@ import matplotlib.pyplot as plt  # only needed for plotting
 import torch
 from mpl_toolkits.axes_grid1 import ImageGrid  # only needed for plotting
 
+from typing import Tuple
+
 DATA_PATH = "data/corruptmnist"
 
 
-def corrupt_mnist() -> tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+def corrupt_mnist() -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """Return train and test dataloaders for corrupt MNIST."""
     train_images, train_target = [], []
     for i in range(5):
@@ -41,7 +43,7 @@ def show_image_and_target(images: torch.Tensor, target: torch.Tensor) -> None:
 
 
 if __name__ == "__main__":
-    train_set, test_set = mnist()
+    train_set, test_set = corrupt_mnist()
     print(f"Size of training set: {len(train_set)}")
     print(f"Size of test set: {len(test_set)}")
     print(f"Shape of a training point {(train_set[0][0].shape, train_set[0][1].shape)}")
