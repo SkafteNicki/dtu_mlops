@@ -2,6 +2,8 @@ import click
 import torch
 from model import MyAwesomeModel
 
+from data_solution import corrupt_mnist
+
 
 @click.group()
 def cli():
