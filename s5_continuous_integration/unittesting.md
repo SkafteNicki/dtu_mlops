@@ -96,7 +96,7 @@ The following exercises should be applied to your MNIST repository
         import os
         _TEST_ROOT = os.path.dirname(__file__)  # root of test folder
         _PROJECT_ROOT = os.path.dirname(_TEST_ROOT)  # root of project
-        _PATH_DATA = os.path.join(_PROJECT_ROOT, "Data")  # root of data
+        _PATH_DATA = os.path.join(_PROJECT_ROOT, "data")  # root of data
         ```
 
         these can help you refer to your data files during testing. For example, in another test file, I could write
@@ -122,12 +122,43 @@ The following exercises should be applied to your MNIST repository
         subset of the corrupted MNIST data or also including the second subset. `N_test` should
         be 5000.
 
-    3. Model testing: In a file called `tests/test_model.py` implement at least a test that
-        checks for a given input with shape *X* that the output of the model has shape *Y*.
+        ??? success "Solution"
 
-    4. Training testing: In a file called `tests/test_training.py` implement at least one
-        test that asserts something about your training script. You are here given free hands on
-        what should be tested but try to test something that risks being broken when developing the code.
+            ```python
+            from my_project.data import corrupt_mnist
+
+            def test_data():
+                train, test = corrupt_mnist()
+                assert len(train) == 30000
+                assert len(test) == 5000
+                for dataset in [train, test]:
+                    for x, y in dataset:
+                        assert x.shape == (1, 28, 28)
+                        assert y in range(10)
+                train_targets = torch.unique(train.tensors[1])
+                assert (train_targets == torch.arange(0,10)).all()
+                test_targets = torch.unique(test.tensors[1])
+                assert (test_targets == torch.arange(0,10)).all()
+            ```
+
+    3. Model testing: In a file called `tests/test_model.py` implement at least a test that checks for a given input
+        with shape *X* that the output of the model has shape *Y*.
+
+        ??? success "Solution"
+
+            ```python
+            from my_project.model import MyAwesomeModel
+
+            def test_model():
+                model = MyAwesomeModel()
+                x = torch.randn(1, 1, 28, 28)
+                y = model(x)
+                assert y.shape == (1, 10)
+            ```
+
+    4. Training testing: In a file called `tests/test_training.py` implement at least one test that asserts something
+        about your training script. You are here given free hands on what should be tested but try to test something
+        that risks being broken when developing the code.
 
     5. Good code raises errors and gives out warnings in appropriate places. This is often in
         the case of some invalid combination of input to your script. For example, your model could check for the size
@@ -147,14 +178,22 @@ The following exercises should be applied to your MNIST repository
                 raise ValueError('Expected each sample to have shape [1, 28, 28]')
         ```
 
-        which would be captured by a test looking something like this:
+        ??? success "Solution"
 
-        ```python
-        # tests/test_model.py
-        def test_error_on_wrong_shape():
-            with pytest.raises(ValueError, match='Expected input to a 4D tensor')
-                model(torch.randn(1,2,3))
-        ```
+            The above example would be captured by a test looking something like this:
+
+            ```python
+            # tests/test_model.py
+            import pytest
+            from my_project.model import MyAwesomeModel
+
+            def test_error_on_wrong_shape():
+                model = MyAwesomeModel()
+                with pytest.raises(ValueError, match='Expected input to a 4D tensor')
+                    model(torch.randn(1,2,3))
+                with pytest.raises(ValueError, match='Expected each sample to have shape [1, 28, 28]')
+                    model(torch.randn(1,1,28,29))
+            ```
 
     6. A test is only as good as the error message it gives, and by default, `#!python assert` will only report that the
         check failed. However, we can help ourselves and others by adding strings after `#!python assert` like
@@ -163,7 +202,7 @@ The following exercises should be applied to your MNIST repository
         assert len(train_dataset) == N_train, "Dataset did not have the correct number of samples"
         ```
 
-        Add such comments to the assert statements you just did.
+        Add such comments to the assert statements you just did in the previous exercises.
 
     7. The tests that involve checking anything that has to do with our data, will of course fail
         if the data is not present. To future-proof our code, we can take advantage of the
@@ -185,6 +224,17 @@ The following exercises should be applied to your MNIST repository
     over and over again for different inputs, but `pytest` also has built-in support for this with the use of the
     [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html). Implement a parametrized
     test and make sure that it runs for different inputs.
+
+    ??? success "Solution"
+
+        ```python
+        @pytest.mark.parametrize("batch_size", [32, 64])
+        def test_model(batch_size: int) -> None:
+            model = MyModel()
+            x = torch.randn(batch_size, 1, 28, 28)
+            y = model(x)
+            assert y.shape == (batch_size, 10)
+        ```
 
 7. There is no way of measuring how good the test you have written is. However, what we can measure is the
     *code coverage*. Code coverage refers to the percentage of your codebase that gets run when all your
@@ -253,7 +303,6 @@ The following exercises should be applied to your MNIST repository
                 pytest.skip("Test requires cuda")
             model = MyModelClass2(network_size, add_dropout).to(device)
             ...
-
     ```
 
     how many tests are executed when running the above code?
