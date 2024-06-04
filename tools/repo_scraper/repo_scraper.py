@@ -154,14 +154,14 @@ def main(
         group_nb, _, repo = data
         print(f"Cloning group {group_nb}, {index}/{len(formatted_data)}")
         out = os.system(f"cd {out_folder} && timeout -v {timeout_clone} git clone -q {repo}")
-        clone_succes = out == 0
+        clone_success = out == 0
         folder_name = repo.split("/")[-1]
-        if clone_succes:
+        if clone_success:
             os.system(f"cd {out_folder} && cp -r {folder_name} group_{group_nb} && rm -rf {folder_name}")
         else:
             if folder_name in os.listdir(out_folder):
                 shutil.rmtree(f"{out_folder}/{folder_name}")
-        data.append(clone_succes)
+        data.append(clone_success)
 
     # create file for data
     write_to_file(
@@ -192,7 +192,7 @@ def main(
 
     # extract info through API
     print("====== Extracting info through API ======")
-    for index, (group_nb, num_students, repo, clone_succes) in enumerate(formatted_data):
+    for index, (group_nb, num_students, repo, clone_success) in enumerate(formatted_data):
         print(f"Processing group {group_nb}, {index}/{len(formatted_data)}")
         repo = reformat_repo(repo)
         exists = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=100)
@@ -281,7 +281,7 @@ def main(
             has_makefile = None
             has_cloudbuild = None
 
-        if clone_succes:
+        if clone_success:
             path = Path(f"{out_folder}/group_{group_nb}")
             repo_size = sum([f.stat().st_size for f in path.glob("**/*") if f.is_file()]) / 1_048_576  # in MB
 

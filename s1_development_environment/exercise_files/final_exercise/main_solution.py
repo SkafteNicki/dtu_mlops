@@ -63,7 +63,7 @@ def train(lr, batch_size, epochs) -> None:
 @click.argument("model_checkpoint")
 def evaluate(model_checkpoint) -> None:
     """Evaluate a trained model."""
-    print("Evaluating like my life dependends on it")
+    print("Evaluating like my life depended on it")
     print(model_checkpoint)
 
     model = MyAwesomeModel().to(DEVICE)
