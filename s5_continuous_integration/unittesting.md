@@ -269,8 +269,26 @@ The following exercises should be applied to your MNIST repository
     4. Finally, try to increase the coverage by writing a new test that runs some
         of the lines in your codebase that are not covered yet.
 
-    5. Often `coverage` reports the code coverage on files that we do not want to get a code coverage for. Figure out
-        how to configure `coverage` to exclude some files.
+    5. Often `coverage` reports the code coverage on files that we do not want to get a code coverage for, for example
+        your test file. Figure out how to configure `coverage` to exclude some files.
+
+        ??? success "Solution"
+
+            You need to set the `omit` option. This can either be done when running `coverage run` or `coverage report`
+            such as:
+
+            ```bash
+            coverage run --omit="tests/*" -m pytest tests/
+            # or
+            coverage report --omit="tests/*"
+            ```
+
+            As an alternative you can specify this in your `pyproject.toml` file:
+
+            ```toml
+            [tool.coverage.run]
+            omit = ["tests/*"]
+            ```
 
 ### 🧠 Knowledge check
 
