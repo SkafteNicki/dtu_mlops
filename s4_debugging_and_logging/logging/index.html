@@ -2129,58 +2129,843 @@ metrics. This allows for better iteration of models and training procedure.
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
 <li>
-<p>Start by creating an account at <a href="https://wandb.ai/site">wandb</a>. I recommend using your github account but feel
+<p>Start by creating an account at <a href="https://wandb.ai/site">wandb</a>. I recommend using your GitHub account but feel
     free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
-    use (HINT: if you forgot to copy the API key, you can find it under settings).</p>
+    use (HINT: if you forgot to copy the API key, you can find it under settings), but make sure that you do not share
+    it with anyone or leak it in any way.</p>
+<details class="tip">
+<summary>.env file</summary>
+<p>A good place to store not only your wandb API key but also other sensitive information is in a <code>.env</code> file.
+This file should be added to your <code>.gitignore</code> file to make sure that it is not uploaded to your repository.
+You can then load the variables in the <code>.env</code> file using the <code>python-dotenv</code> package. For more information
+see this <a href="https://pypi.org/project/python-dotenv/">page</a>.</p>
+<p><div class="language-text highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">.env</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>WANDB_API_KEY=your-api-key
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>WANDB_PROJECT=my_project
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>WANDB_ENTITY=my_entity
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>...
+</span></code></pre></div></td></tr></table></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">load_from_env_file.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">load_dotenv</span><span class="p">()</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="kn">import</span> <span class="nn">os</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WANDB_API_KEY&quot;</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div></p>
+</details>
 </li>
 <li>
 <p>Next install wandb on your laptop</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>wandb
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>wandb
 </span></code></pre></div>
 </li>
 <li>
 <p>Now connect to your wandb account</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>wandb<span class="w"> </span>login
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>wandb<span class="w"> </span>login
 </span></code></pre></div>
 <p>you will be asked to provide the 40 length API key. The connection should be remain open to the wandb server
 even when you close the terminal, such that you do not have to login each time. If using <code>wandb</code> in a notebook
 you need to manually close the connection using <code>wandb.finish()</code>.</p>
 </li>
 <li>
-<p>With it all setup we are now ready to incorporate <code>wandb</code> into our code. The interface is fairly simple, and
-    this <a href="https://docs.wandb.ai/guides/integrations/pytorch">guide</a> should give enough hints to get you through
-    the exercise. (HINT: the two methods you need to call are <code>wandb.init</code> and <code>wandb.log</code>). To start with, logging
-    the training loss of your model will be enough.</p>
-</li>
+<p>We are now ready for incorporating <code>wandb</code> into our code. We are going to continue development on our corrupt MNIST
+    codebase from the previous sessions. For help, we recommend looking at this
+    <a href="https://docs.wandb.ai/quickstart">quickstart</a> and this <a href="https://docs.wandb.ai/guides/integrations/pytorch">guide</a>
+    for Pytorch applications. You first job is to alter your training script to include <code>wandb</code> logging, at least for
+    the training loss.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">train.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span>
+<span class="normal"><a href="#__codelineno-10-18">18</a></span>
+<span class="normal"><a href="#__codelineno-10-19">19</a></span>
+<span class="normal"><a href="#__codelineno-10-20">20</a></span>
+<span class="normal"><a href="#__codelineno-10-21">21</a></span>
+<span class="normal"><a href="#__codelineno-10-22">22</a></span>
+<span class="normal"><a href="#__codelineno-10-23">23</a></span>
+<span class="normal"><a href="#__codelineno-10-24">24</a></span>
+<span class="normal"><a href="#__codelineno-10-25">25</a></span>
+<span class="normal"><a href="#__codelineno-10-26">26</a></span>
+<span class="normal"><a href="#__codelineno-10-27">27</a></span>
+<span class="normal"><a href="#__codelineno-10-28">28</a></span>
+<span class="normal"><a href="#__codelineno-10-29">29</a></span>
+<span class="normal"><a href="#__codelineno-10-30">30</a></span>
+<span class="normal"><a href="#__codelineno-10-31">31</a></span>
+<span class="normal"><a href="#__codelineno-10-32">32</a></span>
+<span class="normal"><a href="#__codelineno-10-33">33</a></span>
+<span class="normal"><a href="#__codelineno-10-34">34</a></span>
+<span class="normal"><a href="#__codelineno-10-35">35</a></span>
+<span class="normal"><a href="#__codelineno-10-36">36</a></span>
+<span class="normal"><a href="#__codelineno-10-37">37</a></span>
+<span class="normal"><a href="#__codelineno-10-38">38</a></span>
+<span class="normal"><a href="#__codelineno-10-39">39</a></span>
+<span class="normal"><a href="#__codelineno-10-40">40</a></span>
+<span class="normal"><a href="#__codelineno-10-41">41</a></span>
+<span class="normal"><a href="#__codelineno-10-42">42</a></span>
+<span class="normal"><a href="#__codelineno-10-43">43</a></span>
+<span class="normal"><a href="#__codelineno-10-44">44</a></span>
+<span class="normal"><a href="#__codelineno-10-45">45</a></span>
+<span class="normal"><a href="#__codelineno-10-46">46</a></span>
+<span class="normal"><a href="#__codelineno-10-47">47</a></span>
+<span class="normal"><a href="#__codelineno-10-48">48</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">click</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="kn">import</span> <span class="nn">wandb</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="kn">from</span> <span class="nn">my_project.data</span> <span class="kn">import</span> <span class="n">corrupt_mnist</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="kn">from</span> <span class="nn">my_project.model</span> <span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--lr&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Learning rate&quot;</span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Batch size&quot;</span><span class="p">)</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--epochs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of epochs&quot;</span><span class="p">)</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model on MNIST.&quot;&quot;&quot;</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training day and night&quot;</span><span class="p">)</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lr</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">epochs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a>    <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a>        <span class="n">project</span><span class="o">=</span><span class="s2">&quot;corrupt_mnist&quot;</span><span class="p">,</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a>        <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">batch_size</span><span class="p">,</span> <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="n">epochs</span><span class="p">},</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a>    <span class="p">)</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25"></a>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26"></a>    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27"></a>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28"></a>    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30"></a>
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34"></a>            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36"></a>            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40"></a>            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41"></a>            <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;train_loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&quot;train_accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">})</span>
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a>
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45"></a>
+</span><span id="__span-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46"></a>
+</span><span id="__span-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48"></a>    <span class="n">train</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+<ol>
 <li>
-<p>After running your model, checkout the webpage. Hopefully you should be able to see at least one run with something
-    logged.</p>
+<p>After running your model, checkout the webpage. Hopefully you should be able to see at least one run with
+    something logged.</p>
 </li>
 <li>
 <p>Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
     cases the logging is still going to use <code>wandb.log</code> but you need extra calls to <code>wandb.Image</code> etc. depending
     on what you choose to log.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>In this solution we log the input images to the model every 100 step. Additionally, we also log a histogram
+of the gradients to inspect if the model is converging. Finally, we create a ROC curve which is a matplotlib
+figure and log that as well.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">train.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span>
+<span class="normal"><a href="#__codelineno-11-19">19</a></span>
+<span class="normal"><a href="#__codelineno-11-20">20</a></span>
+<span class="normal"><a href="#__codelineno-11-21">21</a></span>
+<span class="normal"><a href="#__codelineno-11-22">22</a></span>
+<span class="normal"><a href="#__codelineno-11-23">23</a></span>
+<span class="normal"><a href="#__codelineno-11-24">24</a></span>
+<span class="normal"><a href="#__codelineno-11-25">25</a></span>
+<span class="normal"><a href="#__codelineno-11-26">26</a></span>
+<span class="normal"><a href="#__codelineno-11-27">27</a></span>
+<span class="normal"><a href="#__codelineno-11-28">28</a></span>
+<span class="normal"><a href="#__codelineno-11-29">29</a></span>
+<span class="normal"><a href="#__codelineno-11-30">30</a></span>
+<span class="normal"><a href="#__codelineno-11-31">31</a></span>
+<span class="normal"><a href="#__codelineno-11-32">32</a></span>
+<span class="normal"><a href="#__codelineno-11-33">33</a></span>
+<span class="normal"><a href="#__codelineno-11-34">34</a></span>
+<span class="normal"><a href="#__codelineno-11-35">35</a></span>
+<span class="normal"><a href="#__codelineno-11-36">36</a></span>
+<span class="normal"><a href="#__codelineno-11-37">37</a></span>
+<span class="normal"><a href="#__codelineno-11-38">38</a></span>
+<span class="normal"><a href="#__codelineno-11-39">39</a></span>
+<span class="normal"><a href="#__codelineno-11-40">40</a></span>
+<span class="normal"><a href="#__codelineno-11-41">41</a></span>
+<span class="normal"><a href="#__codelineno-11-42">42</a></span>
+<span class="normal"><a href="#__codelineno-11-43">43</a></span>
+<span class="normal"><a href="#__codelineno-11-44">44</a></span>
+<span class="normal"><a href="#__codelineno-11-45">45</a></span>
+<span class="normal"><a href="#__codelineno-11-46">46</a></span>
+<span class="normal"><a href="#__codelineno-11-47">47</a></span>
+<span class="normal"><a href="#__codelineno-11-48">48</a></span>
+<span class="normal"><a href="#__codelineno-11-49">49</a></span>
+<span class="normal"><a href="#__codelineno-11-50">50</a></span>
+<span class="normal"><a href="#__codelineno-11-51">51</a></span>
+<span class="normal"><a href="#__codelineno-11-52">52</a></span>
+<span class="normal"><a href="#__codelineno-11-53">53</a></span>
+<span class="normal"><a href="#__codelineno-11-54">54</a></span>
+<span class="normal"><a href="#__codelineno-11-55">55</a></span>
+<span class="normal"><a href="#__codelineno-11-56">56</a></span>
+<span class="normal"><a href="#__codelineno-11-57">57</a></span>
+<span class="normal"><a href="#__codelineno-11-58">58</a></span>
+<span class="normal"><a href="#__codelineno-11-59">59</a></span>
+<span class="normal"><a href="#__codelineno-11-60">60</a></span>
+<span class="normal"><a href="#__codelineno-11-61">61</a></span>
+<span class="normal"><a href="#__codelineno-11-62">62</a></span>
+<span class="normal"><a href="#__codelineno-11-63">63</a></span>
+<span class="normal"><a href="#__codelineno-11-64">64</a></span>
+<span class="normal"><a href="#__codelineno-11-65">65</a></span>
+<span class="normal"><a href="#__codelineno-11-66">66</a></span>
+<span class="normal"><a href="#__codelineno-11-67">67</a></span>
+<span class="normal"><a href="#__codelineno-11-68">68</a></span>
+<span class="normal"><a href="#__codelineno-11-69">69</a></span>
+<span class="normal"><a href="#__codelineno-11-70">70</a></span>
+<span class="normal"><a href="#__codelineno-11-71">71</a></span>
+<span class="normal"><a href="#__codelineno-11-72">72</a></span>
+<span class="normal"><a href="#__codelineno-11-73">73</a></span>
+<span class="normal"><a href="#__codelineno-11-74">74</a></span>
+<span class="normal"><a href="#__codelineno-11-75">75</a></span>
+<span class="normal"><a href="#__codelineno-11-76">76</a></span>
+<span class="normal"><a href="#__codelineno-11-77">77</a></span>
+<span class="normal"><a href="#__codelineno-11-78">78</a></span>
+<span class="normal"><a href="#__codelineno-11-79">79</a></span>
+<span class="normal"><a href="#__codelineno-11-80">80</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kn">import</span> <span class="nn">click</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="kn">import</span> <span class="nn">wandb</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="kn">from</span> <span class="nn">my_project.data</span> <span class="kn">import</span> <span class="n">corrupt_mnist</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="kn">from</span> <span class="nn">my_project.model</span> <span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">RocCurveDisplay</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--lr&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Learning rate&quot;</span><span class="p">)</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Batch size&quot;</span><span class="p">)</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--epochs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of epochs&quot;</span><span class="p">)</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model on MNIST.&quot;&quot;&quot;</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training day and night&quot;</span><span class="p">)</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lr</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">epochs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a>    <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a>        <span class="n">project</span><span class="o">=</span><span class="s2">&quot;corrupt_mnist&quot;</span><span class="p">,</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a>        <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">batch_size</span><span class="p">,</span> <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="n">epochs</span><span class="p">},</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a>    <span class="p">)</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a>    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a>    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32"></a>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35"></a>
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36"></a>        <span class="n">preds</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38"></a>            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40"></a>            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44"></a>            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45"></a>            <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;train_loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&quot;train_accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">})</span>
+</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46"></a>
+</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47"></a>            <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>
+</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48"></a>            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>
+</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49"></a>
+</span><span id="__span-11-50"><a id="__codelineno-11-50" name="__codelineno-11-50"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-11-51"><a id="__codelineno-11-51" name="__codelineno-11-51"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-11-52"><a id="__codelineno-11-52" name="__codelineno-11-52"></a>
+</span><span id="__span-11-53"><a id="__codelineno-11-53" name="__codelineno-11-53"></a>                <span class="c1"># add a plot of the input images</span>
+</span><span id="__span-11-54"><a id="__codelineno-11-54" name="__codelineno-11-54"></a>                <span class="n">images</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">img</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Input images&quot;</span><span class="p">)</span>
+</span><span id="__span-11-55"><a id="__codelineno-11-55" name="__codelineno-11-55"></a>                <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="n">images</span><span class="p">})</span>
+</span><span id="__span-11-56"><a id="__codelineno-11-56" name="__codelineno-11-56"></a>
+</span><span id="__span-11-57"><a id="__codelineno-11-57" name="__codelineno-11-57"></a>                <span class="c1"># add a plot of histogram of the gradients</span>
+</span><span id="__span-11-58"><a id="__codelineno-11-58" name="__codelineno-11-58"></a>                <span class="n">grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-11-59"><a id="__codelineno-11-59" name="__codelineno-11-59"></a>                <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;gradients&quot;</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">grads</span><span class="p">)})</span>
+</span><span id="__span-11-60"><a id="__codelineno-11-60" name="__codelineno-11-60"></a>
+</span><span id="__span-11-61"><a id="__codelineno-11-61" name="__codelineno-11-61"></a>        <span class="c1"># add a custom matplotlib plot of the ROC curves</span>
+</span><span id="__span-11-62"><a id="__codelineno-11-62" name="__codelineno-11-62"></a>        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-11-63"><a id="__codelineno-11-63" name="__codelineno-11-63"></a>        <span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-11-64"><a id="__codelineno-11-64" name="__codelineno-11-64"></a>
+</span><span id="__span-11-65"><a id="__codelineno-11-65" name="__codelineno-11-65"></a>        <span class="k">for</span> <span class="n">class_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-11-66"><a id="__codelineno-11-66" name="__codelineno-11-66"></a>            <span class="n">one_hot</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+</span><span id="__span-11-67"><a id="__codelineno-11-67" name="__codelineno-11-67"></a>            <span class="n">one_hot</span><span class="p">[</span><span class="n">targets</span> <span class="o">==</span> <span class="n">class_id</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-11-68"><a id="__codelineno-11-68" name="__codelineno-11-68"></a>            <span class="n">_</span> <span class="o">=</span> <span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
+</span><span id="__span-11-69"><a id="__codelineno-11-69" name="__codelineno-11-69"></a>                <span class="n">one_hot</span><span class="p">,</span>
+</span><span id="__span-11-70"><a id="__codelineno-11-70" name="__codelineno-11-70"></a>                <span class="n">preds</span><span class="p">[:,</span> <span class="n">class_id</span><span class="p">],</span>
+</span><span id="__span-11-71"><a id="__codelineno-11-71" name="__codelineno-11-71"></a>                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;ROC curve for </span><span class="si">{</span><span class="n">class_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-11-72"><a id="__codelineno-11-72" name="__codelineno-11-72"></a>                <span class="n">plot_chance_level</span><span class="o">=</span><span class="p">(</span><span class="n">class_id</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
+</span><span id="__span-11-73"><a id="__codelineno-11-73" name="__codelineno-11-73"></a>            <span class="p">)</span>
+</span><span id="__span-11-74"><a id="__codelineno-11-74" name="__codelineno-11-74"></a>
+</span><span id="__span-11-75"><a id="__codelineno-11-75" name="__codelineno-11-75"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">plot</span><span class="p">({</span><span class="s2">&quot;roc&quot;</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
+</span><span id="__span-11-76"><a id="__codelineno-11-76" name="__codelineno-11-76"></a>        <span class="c1"># alternative: wandb.log({&quot;roc&quot;: wandb.plot.roc_curve(targets, preds)})</span>
+</span><span id="__span-11-77"><a id="__codelineno-11-77" name="__codelineno-11-77"></a>
+</span><span id="__span-11-78"><a id="__codelineno-11-78" name="__codelineno-11-78"></a>
+</span><span id="__span-11-79"><a id="__codelineno-11-79" name="__codelineno-11-79"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-11-80"><a id="__codelineno-11-80" name="__codelineno-11-80"></a>    <span class="n">train</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
 </li>
 <li>
-<p>Finally, lets create a report that you can share. Click the <strong>Create report</strong> button and include some of the
-    graphs/plots/images that you have generated in the report.</p>
+<p>Finally, we want to log the model itself. This is done by saving the model as an artifact and then logging the
+    artifact. You can read much more about what artifacts are <a href="https://docs.wandb.ai/guides/artifacts">here</a> but
+    they are essentially one or more files logged together with runs that can be versioned and equipped with
+    metadata. Log the model after training and see if you can find it in the wandb dashboard.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>In this solution we have added the calculating of final training metrics and when we then log the model
+we add these as metadata to the artifact.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">train.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span>
+<span class="normal"><a href="#__codelineno-12-16">16</a></span>
+<span class="normal"><a href="#__codelineno-12-17">17</a></span>
+<span class="normal"><a href="#__codelineno-12-18">18</a></span>
+<span class="normal"><a href="#__codelineno-12-19">19</a></span>
+<span class="normal"><a href="#__codelineno-12-20">20</a></span>
+<span class="normal"><a href="#__codelineno-12-21">21</a></span>
+<span class="normal"><a href="#__codelineno-12-22">22</a></span>
+<span class="normal"><a href="#__codelineno-12-23">23</a></span>
+<span class="normal"><a href="#__codelineno-12-24">24</a></span>
+<span class="normal"><a href="#__codelineno-12-25">25</a></span>
+<span class="normal"><a href="#__codelineno-12-26">26</a></span>
+<span class="normal"><a href="#__codelineno-12-27">27</a></span>
+<span class="normal"><a href="#__codelineno-12-28">28</a></span>
+<span class="normal"><a href="#__codelineno-12-29">29</a></span>
+<span class="normal"><a href="#__codelineno-12-30">30</a></span>
+<span class="normal"><a href="#__codelineno-12-31">31</a></span>
+<span class="normal"><a href="#__codelineno-12-32">32</a></span>
+<span class="normal"><a href="#__codelineno-12-33">33</a></span>
+<span class="normal"><a href="#__codelineno-12-34">34</a></span>
+<span class="normal"><a href="#__codelineno-12-35">35</a></span>
+<span class="normal"><a href="#__codelineno-12-36">36</a></span>
+<span class="normal"><a href="#__codelineno-12-37">37</a></span>
+<span class="normal"><a href="#__codelineno-12-38">38</a></span>
+<span class="normal"><a href="#__codelineno-12-39">39</a></span>
+<span class="normal"><a href="#__codelineno-12-40">40</a></span>
+<span class="normal"><a href="#__codelineno-12-41">41</a></span>
+<span class="normal"><a href="#__codelineno-12-42">42</a></span>
+<span class="normal"><a href="#__codelineno-12-43">43</a></span>
+<span class="normal"><a href="#__codelineno-12-44">44</a></span>
+<span class="normal"><a href="#__codelineno-12-45">45</a></span>
+<span class="normal"><a href="#__codelineno-12-46">46</a></span>
+<span class="normal"><a href="#__codelineno-12-47">47</a></span>
+<span class="normal"><a href="#__codelineno-12-48">48</a></span>
+<span class="normal"><a href="#__codelineno-12-49">49</a></span>
+<span class="normal"><a href="#__codelineno-12-50">50</a></span>
+<span class="normal"><a href="#__codelineno-12-51">51</a></span>
+<span class="normal"><a href="#__codelineno-12-52">52</a></span>
+<span class="normal"><a href="#__codelineno-12-53">53</a></span>
+<span class="normal"><a href="#__codelineno-12-54">54</a></span>
+<span class="normal"><a href="#__codelineno-12-55">55</a></span>
+<span class="normal"><a href="#__codelineno-12-56">56</a></span>
+<span class="normal"><a href="#__codelineno-12-57">57</a></span>
+<span class="normal"><a href="#__codelineno-12-58">58</a></span>
+<span class="normal"><a href="#__codelineno-12-59">59</a></span>
+<span class="normal"><a href="#__codelineno-12-60">60</a></span>
+<span class="normal"><a href="#__codelineno-12-61">61</a></span>
+<span class="normal"><a href="#__codelineno-12-62">62</a></span>
+<span class="normal"><a href="#__codelineno-12-63">63</a></span>
+<span class="normal"><a href="#__codelineno-12-64">64</a></span>
+<span class="normal"><a href="#__codelineno-12-65">65</a></span>
+<span class="normal"><a href="#__codelineno-12-66">66</a></span>
+<span class="normal"><a href="#__codelineno-12-67">67</a></span>
+<span class="normal"><a href="#__codelineno-12-68">68</a></span>
+<span class="normal"><a href="#__codelineno-12-69">69</a></span>
+<span class="normal"><a href="#__codelineno-12-70">70</a></span>
+<span class="normal"><a href="#__codelineno-12-71">71</a></span>
+<span class="normal"><a href="#__codelineno-12-72">72</a></span>
+<span class="normal"><a href="#__codelineno-12-73">73</a></span>
+<span class="normal"><a href="#__codelineno-12-74">74</a></span>
+<span class="normal"><a href="#__codelineno-12-75">75</a></span>
+<span class="normal"><a href="#__codelineno-12-76">76</a></span>
+<span class="normal"><a href="#__codelineno-12-77">77</a></span>
+<span class="normal"><a href="#__codelineno-12-78">78</a></span>
+<span class="normal"><a href="#__codelineno-12-79">79</a></span>
+<span class="normal"><a href="#__codelineno-12-80">80</a></span>
+<span class="normal"><a href="#__codelineno-12-81">81</a></span>
+<span class="normal"><a href="#__codelineno-12-82">82</a></span>
+<span class="normal"><a href="#__codelineno-12-83">83</a></span>
+<span class="normal"><a href="#__codelineno-12-84">84</a></span>
+<span class="normal"><a href="#__codelineno-12-85">85</a></span>
+<span class="normal"><a href="#__codelineno-12-86">86</a></span>
+<span class="normal"><a href="#__codelineno-12-87">87</a></span>
+<span class="normal"><a href="#__codelineno-12-88">88</a></span>
+<span class="normal"><a href="#__codelineno-12-89">89</a></span>
+<span class="normal"><a href="#__codelineno-12-90">90</a></span>
+<span class="normal"><a href="#__codelineno-12-91">91</a></span>
+<span class="normal"><a href="#__codelineno-12-92">92</a></span>
+<span class="normal"><a href="#__codelineno-12-93">93</a></span>
+<span class="normal"><a href="#__codelineno-12-94">94</a></span>
+<span class="normal"><a href="#__codelineno-12-95">95</a></span>
+<span class="normal"><a href="#__codelineno-12-96">96</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kn">import</span> <span class="nn">click</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="kn">import</span> <span class="nn">wandb</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="kn">from</span> <span class="nn">my_project.data</span> <span class="kn">import</span> <span class="n">corrupt_mnist</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="kn">from</span> <span class="nn">my_project.model</span> <span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">RocCurveDisplay</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--lr&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Learning rate&quot;</span><span class="p">)</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Batch size&quot;</span><span class="p">)</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--epochs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of epochs&quot;</span><span class="p">)</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model on MNIST.&quot;&quot;&quot;</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training day and night&quot;</span><span class="p">)</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lr</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">epochs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20"></a>    <span class="n">run</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21"></a>        <span class="n">project</span><span class="o">=</span><span class="s2">&quot;corrupt_mnist&quot;</span><span class="p">,</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22"></a>        <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">batch_size</span><span class="p">,</span> <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="n">epochs</span><span class="p">},</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23"></a>    <span class="p">)</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24"></a>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27"></a>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28"></a>    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29"></a>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30"></a>    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32"></a>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35"></a>
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36"></a>        <span class="n">preds</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38"></a>            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40"></a>            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44"></a>            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45"></a>            <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;train_loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&quot;train_accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">})</span>
+</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46"></a>
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47"></a>            <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>
+</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48"></a>            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>
+</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49"></a>
+</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-12-51"><a id="__codelineno-12-51" name="__codelineno-12-51"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-12-52"><a id="__codelineno-12-52" name="__codelineno-12-52"></a>
+</span><span id="__span-12-53"><a id="__codelineno-12-53" name="__codelineno-12-53"></a>                <span class="c1"># add a plot of the input images</span>
+</span><span id="__span-12-54"><a id="__codelineno-12-54" name="__codelineno-12-54"></a>                <span class="n">images</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">img</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Input images&quot;</span><span class="p">)</span>
+</span><span id="__span-12-55"><a id="__codelineno-12-55" name="__codelineno-12-55"></a>                <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="n">images</span><span class="p">})</span>
+</span><span id="__span-12-56"><a id="__codelineno-12-56" name="__codelineno-12-56"></a>
+</span><span id="__span-12-57"><a id="__codelineno-12-57" name="__codelineno-12-57"></a>                <span class="c1"># add a plot of histogram of the gradients</span>
+</span><span id="__span-12-58"><a id="__codelineno-12-58" name="__codelineno-12-58"></a>                <span class="n">grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-12-59"><a id="__codelineno-12-59" name="__codelineno-12-59"></a>                <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;gradients&quot;</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">grads</span><span class="p">)})</span>
+</span><span id="__span-12-60"><a id="__codelineno-12-60" name="__codelineno-12-60"></a>
+</span><span id="__span-12-61"><a id="__codelineno-12-61" name="__codelineno-12-61"></a>        <span class="c1"># add a custom matplotlib plot of the ROC curves</span>
+</span><span id="__span-12-62"><a id="__codelineno-12-62" name="__codelineno-12-62"></a>        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-12-63"><a id="__codelineno-12-63" name="__codelineno-12-63"></a>        <span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-12-64"><a id="__codelineno-12-64" name="__codelineno-12-64"></a>
+</span><span id="__span-12-65"><a id="__codelineno-12-65" name="__codelineno-12-65"></a>        <span class="k">for</span> <span class="n">class_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-12-66"><a id="__codelineno-12-66" name="__codelineno-12-66"></a>            <span class="n">one_hot</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+</span><span id="__span-12-67"><a id="__codelineno-12-67" name="__codelineno-12-67"></a>            <span class="n">one_hot</span><span class="p">[</span><span class="n">targets</span> <span class="o">==</span> <span class="n">class_id</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-12-68"><a id="__codelineno-12-68" name="__codelineno-12-68"></a>            <span class="n">_</span> <span class="o">=</span> <span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
+</span><span id="__span-12-69"><a id="__codelineno-12-69" name="__codelineno-12-69"></a>                <span class="n">one_hot</span><span class="p">,</span>
+</span><span id="__span-12-70"><a id="__codelineno-12-70" name="__codelineno-12-70"></a>                <span class="n">preds</span><span class="p">[:,</span> <span class="n">class_id</span><span class="p">],</span>
+</span><span id="__span-12-71"><a id="__codelineno-12-71" name="__codelineno-12-71"></a>                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;ROC curve for </span><span class="si">{</span><span class="n">class_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-12-72"><a id="__codelineno-12-72" name="__codelineno-12-72"></a>                <span class="n">plot_chance_level</span><span class="o">=</span><span class="p">(</span><span class="n">class_id</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
+</span><span id="__span-12-73"><a id="__codelineno-12-73" name="__codelineno-12-73"></a>            <span class="p">)</span>
+</span><span id="__span-12-74"><a id="__codelineno-12-74" name="__codelineno-12-74"></a>
+</span><span id="__span-12-75"><a id="__codelineno-12-75" name="__codelineno-12-75"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">plot</span><span class="p">({</span><span class="s2">&quot;roc&quot;</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
+</span><span id="__span-12-76"><a id="__codelineno-12-76" name="__codelineno-12-76"></a>        <span class="c1"># alternative: wandb.log({&quot;roc&quot;: wandb.plot.roc_curve(targets, preds)})</span>
+</span><span id="__span-12-77"><a id="__codelineno-12-77" name="__codelineno-12-77"></a>
+</span><span id="__span-12-78"><a id="__codelineno-12-78" name="__codelineno-12-78"></a>    <span class="n">final_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</span><span id="__span-12-79"><a id="__codelineno-12-79" name="__codelineno-12-79"></a>    <span class="n">final_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
+</span><span id="__span-12-80"><a id="__codelineno-12-80" name="__codelineno-12-80"></a>    <span class="n">final_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
+</span><span id="__span-12-81"><a id="__codelineno-12-81" name="__codelineno-12-81"></a>    <span class="n">final_f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
+</span><span id="__span-12-82"><a id="__codelineno-12-82" name="__codelineno-12-82"></a>
+</span><span id="__span-12-83"><a id="__codelineno-12-83" name="__codelineno-12-83"></a>    <span class="c1"># first we save the model to a file then log it as an artifact</span>
+</span><span id="__span-12-84"><a id="__codelineno-12-84" name="__codelineno-12-84"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;model.pth&quot;</span><span class="p">)</span>
+</span><span id="__span-12-85"><a id="__codelineno-12-85" name="__codelineno-12-85"></a>    <span class="n">artifact</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Artifact</span><span class="p">(</span>
+</span><span id="__span-12-86"><a id="__codelineno-12-86" name="__codelineno-12-86"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;corrupt_mnist_model&quot;</span><span class="p">,</span>
+</span><span id="__span-12-87"><a id="__codelineno-12-87" name="__codelineno-12-87"></a>        <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">,</span>
+</span><span id="__span-12-88"><a id="__codelineno-12-88" name="__codelineno-12-88"></a>        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A model trained to classify corrupt MNIST images&quot;</span><span class="p">,</span>
+</span><span id="__span-12-89"><a id="__codelineno-12-89" name="__codelineno-12-89"></a>        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">final_accuracy</span><span class="p">,</span> <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">final_precision</span><span class="p">,</span> <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">final_recall</span><span class="p">,</span> <span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="n">final_f1</span><span class="p">},</span>
+</span><span id="__span-12-90"><a id="__codelineno-12-90" name="__codelineno-12-90"></a>    <span class="p">)</span>
+</span><span id="__span-12-91"><a id="__codelineno-12-91" name="__codelineno-12-91"></a>    <span class="n">artifact</span><span class="o">.</span><span class="n">add_file</span><span class="p">(</span><span class="s2">&quot;model.pth&quot;</span><span class="p">)</span>
+</span><span id="__span-12-92"><a id="__codelineno-12-92" name="__codelineno-12-92"></a>    <span class="n">run</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+</span><span id="__span-12-93"><a id="__codelineno-12-93" name="__codelineno-12-93"></a>
+</span><span id="__span-12-94"><a id="__codelineno-12-94" name="__codelineno-12-94"></a>
+</span><span id="__span-12-95"><a id="__codelineno-12-95" name="__codelineno-12-95"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-12-96"><a id="__codelineno-12-96" name="__codelineno-12-96"></a>    <span class="n">train</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+<p>After running the script you should be able to see the logged artifact in the wandb dashboard.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/wandb_artifact.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_artifact.png" width="600" /></a>
+</figure></p>
+</details>
+</li>
+</ol>
 </li>
 <li>
-<p>To make sure that you have completed todays exercises, make the report shareable by clicking the <em>Share</em> button
-    and create <em>view-only-link</em>. Send the link to my email <code>nsde@dtu.dk</code>, so I can checkout your awesome work 😃</p>
+<p>Weights and bias was created with collaboration in mind and lets therefore share our results with others.</p>
+<ol>
+<li>
+<p>Lets create a report that you can share. Click the <strong>Create report</strong> button (upper right corner when you are in
+    a project workspace) and include some of the graphs/plots/images that you have generated in the report.</p>
 </li>
 <li>
-<p>When calling <code>wandb.init</code> you have two arguments called <code>project</code> and <code>entity</code>. Make sure that you understand these
-    and try them out. It will come in handy for your group work as they essentially allows multiple users to upload their
-    own runs to the same project in <code>wandb</code>.</p>
+<p>Make the report shareable by clicking the <em>Share</em> button and create <em>view-only-link</em>. Send a link to your report
+    to a group member, fellow student or a friend. In the worst case that you have no one else to share with you can
+    send a link to my email <code>nsde@dtu.dk</code>, so I can checkout your awesome work 😃</p>
+</li>
+</ol>
+</li>
+<li>
+<p>When calling <code>wandb.init</code> you can provide many additional argument. Some of the most important are</p>
+<ul>
+<li><code>project</code></li>
+<li><code>entity</code></li>
+<li><code>job_type</code></li>
+</ul>
+<p>Make sure you understand what these arguments do and try them out. It will come in handy for your group work as they
+essentially allows multiple users to upload their own runs to the same project in <code>wandb</code>.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Relevant documentation can be found <a href="https://docs.wandb.ai/ref/python/init">here</a>. The <code>project</code> indicates what
+project all experiments and artifacts are logged to. We want to keep this the same for all group members. The
+<code>entity</code> is the username of the person or team who owns the project, which should also be the same for all group
+members. The job type is important if you have different jobs that log to the same project. A common example is
+one script that trains a model and another that evaluates it. By setting the job type you can easily filter the
+runs in the wandb dashboard.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/wandb_job_type.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_job_type.png" width="600" /></a>
+</figure></p>
+</details>
 </li>
 <li>
 <p>Wandb also comes with build in feature for doing <a href="https://docs.wandb.ai/guides/sweeps">hyperparameter sweeping</a>
     which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
     sweep in Wandb. You at least need to create a new file called <code>sweep.yaml</code> and make sure that you call <code>wandb.log</code>
-    in your code on an appropriate value. Note: if you want <code>hydra</code> and <code>wandb</code> to work together you will need to change
-    the <code>command</code> config in your <code>sweep.yaml</code> file, see this
-    <a href="https://docs.wandb.ai/guides/sweeps/define-sweep-configuration">page</a>.</p>
+    in your code on an appropriate value.</p>
+<ol>
+<li>
+<p>Start by creating a <code>sweep.yaml</code> file. Relevant documentation can be found
+    <a href="https://docs.wandb.ai/guides/sweeps/define-sweep-configuration">here</a>. We recommend placing the file in a
+    <code>configs</code> folder in your project.</p>
+<details class="success">
+<summary>Solution</summary>
+<p class="annotate">The <code>sweep.yaml</code> file will depend on kind of hyperparameters your model accepts as arguments and how they
+are passed to the model. For this solution we assume that the model accepts the hyperparameters <code>lr</code>,
+<code>batch_size</code> and <code>epochs</code> and that they are passed as <code>--args</code> (with hyphens) (1) e.g. this would be how we
+run the script</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If the script you want to run hyperparameter sweeping is configured using
+    <a href="../../s3_reproducibility/config_files/">hydra</a> then you will need to change the default <code>command</code> config
+    in your <code>sweep.yaml</code> file. This is because <code>wandb</code> uses <code>--args</code> to pass hyperparameters to the script,
+    whereas <code>hydra</code> uses <code>args</code> (without the hyphen). See this
+    <a href="https://docs.wandb.ai/guides/sweeps/define-sweep-configuration">page</a> for more information.</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--lr<span class="o">=</span><span class="m">0</span>.01<span class="w"> </span>--batch_size<span class="o">=</span><span class="m">32</span><span class="w"> </span>--epochs<span class="o">=</span><span class="m">10</span>
+</span></code></pre></div>
+<p>The <code>sweep.yaml</code> could then look like this:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">program</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">train.py</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sweepdemo</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_project</span><span class="w">  </span><span class="c1"># change this</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_entity</span><span class="w">  </span><span class="c1"># change this</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nt">metric</span><span class="p">:</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation_loss</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nt">parameters</span><span class="p">:</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log_uniform</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">        </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">16</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">32</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">64</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="nt">epochs</span><span class="p">:</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">        </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="nt">run_cap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>Afterwards, you need to create a sweep using the <code>wandb sweep</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>wandb<span class="w"> </span>sweep<span class="w"> </span>configs/sweep.yaml
+</span></code></pre></div>
+<p>this will output a sweep id that you need to use in the next step.</p>
+</li>
+<li>
+<p>Finally, you need to run the sweep using the <code>wandb agent</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>wandb<span class="w"> </span>agent<span class="w"> </span>&lt;sweep_id&gt;
+</span></code></pre></div>
+<p>where <code>&lt;sweep_id&gt;</code> is the id of the sweep you just created. You can find the id in the output of the
+<code>wandb sweep</code> command. The reason that we first lunch the sweep and then the agent is that we can have multiple
+agents running at the same time, parallelizing the search for the best hyperparameters. Try this out by opening
+a new terminal and running the <code>wandb agent</code> command again (with the same <code>&lt;sweep_id&gt;</code>).</p>
+</li>
+<li>
+<p>Inspect the sweep results in the wandb dashboard. You should see multiple new runs under the project you are
+    logging the sweep to, corresponding to the different hyperparameters you tried. Make sure you understand the
+    results and can answer what hyperparameters gave the best results and what hyperparameters had the largest
+    impact on the results.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>In the sweep dashboard you should see something like this:</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/wandb_sweep.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_sweep.png" width="600" /></a>
+</figure></p>
+<p>Importantly you can:</p>
+<ol>
+<li>Sort the runs based on what metric you are interested in, thereby quickly finding the best runs.</li>
+<li>Look at the parallel coordinates plot to see if there are any tendencies in the hyperparameters that
+    gives the best results.</li>
+<li>Look at the importance/correlation plot to see what hyperparameters have the largest impact on the
+    results.</li>
+</ol>
+</details>
+</li>
+</ol>
+</li>
+<li>
+<p>Next we need to understand the model registry, which will be very important later on when we get to the deployment
+    of our models. The model registry is a centralized place for storing and versioning models. Importantly, any model
+    in the registry is immutable, meaning that once a model is uploaded it cannot be changed. This is important for
+    reproducibility and traceability of models.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/model_registry.png" width="600" /></a>
+<figcaption>
+The model registry is in general a repository of a teams trained models where ML practitioners publish candidates
+for production and share them with others. Figure from <a href="https://docs.wandb.ai/guides/model_registry">wandb</a>.
+</figure></p>
+<ol>
+<li>
+<p>The model registry builds on the artifact registry in wandb. Any model that is uploaded to the model registry is
+    stored as an artifact. This means that we first need to log our trained models as artifacts before we can
+    register them in the model registry. Make sure you have logged at least one model as an artifact before
+    continuing.</p>
+</li>
+<li>
+<p>Next lets create a registry. Go to the model registry tab (left pane, visible from your homepage) and then click
+    the <code>New Registered Model</code> button. Fill out the form and create the registry.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/wandb_model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_model_registry.png" width="600" /></a>
+</figure></p>
+</li>
+<li>
+<p>When then need to link our artifact to the model registry we just created. We can do this in two ways: either
+    through the web interface or through the <code>wandb</code> API. In the web interface, go to the artifact you want to link
+    to the model registry and click the <code>Link to registry</code> button (upper right corner). If you want to use the
+    API you need to call the <a href="https://docs.wandb.ai/ref/python/artifact#link">link method</a> on a artifact object.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>To use the API, create a new script called <code>link_to_registry.py</code> and add the following code:</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">link_to_registry.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="kn">import</span> <span class="nn">wandb</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">()</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="n">artifact_path</span> <span class="o">=</span> <span class="s2">&quot;&lt;entity&gt;/&lt;project&gt;/&lt;artifact_name&gt;:&lt;version&gt;&quot;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">artifact_path</span><span class="p">)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="n">artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="s2">&quot;&lt;entity&gt;/model-registry/&lt;my_registry_name&gt;&quot;</span><span class="p">)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="n">artifact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+<p>In the code <code>&lt;entity&gt;</code>, <code>&lt;project&gt;</code>, <code>&lt;artifact_name&gt;</code>, <code>&lt;version&gt;</code> and <code>&lt;my_registry_name&gt;</code> should be
+replaced with the appropriate values.</p>
+</details>
+</li>
+<li>
+<p>We are now ready to consume our model, which can be done by downloading the artifact from the model registry. In
+    this case we use the wandb API to download the artifact.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span> <span class="nn">wandb</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">run</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">artifact</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">use_artifact</span><span class="p">(</span><span class="s1">&#39;&lt;entity&gt;/model-registry/&lt;my_registry_name&gt;:&lt;version&gt;&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">)</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">artifact_dir</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;&lt;artifact_dir&gt;&quot;</span><span class="p">)</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;&lt;artifact_dir&gt;/model.ckpt&quot;</span><span class="p">))</span>
+</span></code></pre></div>
+<p>Try running this code with the appropriate values for <code>&lt;entity&gt;</code>, <code>&lt;my_registry_name&gt;</code>, <code>&lt;version&gt;</code> and
+<code>&lt;artifact_dir&gt;</code>. Make sure that you can load the model and that it is the same as the one you trained.</p>
+</li>
+<li>
+<p>Each model in the registry have at least one alias, which is the version of the model. The most recently added
+    model also receives the alias <code>latest</code>. Aliases are great for indicating where in workflow a model is, e.g. if
+    it is a candidate for production or if it is a model that is still being developed. Try adding an alias to one
+    of your models in the registry.</p>
+</li>
+<li>
+<p>(Optional) A model always corresponds to an artifact, and artifacts can contain metadata that we can use to
+    automate the process of registering models. We could for example imaging that we at the end of each week run
+    a script that registers the best model from the week. Try creating a small script using the <code>wandb</code> API that
+    goes over a collection of artifacts and registers the best one.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">auto_register_best_model.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-19-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-19-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-19-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-19-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-19-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-19-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-19-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-19-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-19-10">10</a></span>
+<span class="normal"><a href="#__codelineno-19-11">11</a></span>
+<span class="normal"><a href="#__codelineno-19-12">12</a></span>
+<span class="normal"><a href="#__codelineno-19-13">13</a></span>
+<span class="normal"><a href="#__codelineno-19-14">14</a></span>
+<span class="normal"><a href="#__codelineno-19-15">15</a></span>
+<span class="normal"><a href="#__codelineno-19-16">16</a></span>
+<span class="normal"><a href="#__codelineno-19-17">17</a></span>
+<span class="normal"><a href="#__codelineno-19-18">18</a></span>
+<span class="normal"><a href="#__codelineno-19-19">19</a></span>
+<span class="normal"><a href="#__codelineno-19-20">20</a></span>
+<span class="normal"><a href="#__codelineno-19-21">21</a></span>
+<span class="normal"><a href="#__codelineno-19-22">22</a></span>
+<span class="normal"><a href="#__codelineno-19-23">23</a></span>
+<span class="normal"><a href="#__codelineno-19-24">24</a></span>
+<span class="normal"><a href="#__codelineno-19-25">25</a></span>
+<span class="normal"><a href="#__codelineno-19-26">26</a></span>
+<span class="normal"><a href="#__codelineno-19-27">27</a></span>
+<span class="normal"><a href="#__codelineno-19-28">28</a></span>
+<span class="normal"><a href="#__codelineno-19-29">29</a></span>
+<span class="normal"><a href="#__codelineno-19-30">30</a></span>
+<span class="normal"><a href="#__codelineno-19-31">31</a></span>
+<span class="normal"><a href="#__codelineno-19-32">32</a></span>
+<span class="normal"><a href="#__codelineno-19-33">33</a></span>
+<span class="normal"><a href="#__codelineno-19-34">34</a></span>
+<span class="normal"><a href="#__codelineno-19-35">35</a></span>
+<span class="normal"><a href="#__codelineno-19-36">36</a></span>
+<span class="normal"><a href="#__codelineno-19-37">37</a></span>
+<span class="normal"><a href="#__codelineno-19-38">38</a></span>
+<span class="normal"><a href="#__codelineno-19-39">39</a></span>
+<span class="normal"><a href="#__codelineno-19-40">40</a></span>
+<span class="normal"><a href="#__codelineno-19-41">41</a></span>
+<span class="normal"><a href="#__codelineno-19-42">42</a></span>
+<span class="normal"><a href="#__codelineno-19-43">43</a></span>
+<span class="normal"><a href="#__codelineno-19-44">44</a></span>
+<span class="normal"><a href="#__codelineno-19-45">45</a></span>
+<span class="normal"><a href="#__codelineno-19-46">46</a></span>
+<span class="normal"><a href="#__codelineno-19-47">47</a></span>
+<span class="normal"><a href="#__codelineno-19-48">48</a></span>
+<span class="normal"><a href="#__codelineno-19-49">49</a></span>
+<span class="normal"><a href="#__codelineno-19-50">50</a></span>
+<span class="normal"><a href="#__codelineno-19-51">51</a></span>
+<span class="normal"><a href="#__codelineno-19-52">52</a></span>
+<span class="normal"><a href="#__codelineno-19-53">53</a></span>
+<span class="normal"><a href="#__codelineno-19-54">54</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="kn">import</span> <span class="nn">logging</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="kn">import</span> <span class="nn">operator</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="kn">import</span> <span class="nn">os</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="kn">import</span> <span class="nn">click</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="kn">import</span> <span class="nn">wandb</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8"></a>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="n">load_dotenv</span><span class="p">()</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11"></a>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12"></a>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;model-name&quot;</span><span class="p">)</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--metric_name&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Name of the metric to choose the best model from.&quot;</span><span class="p">)</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--higher-is-better&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Whether higher metric values are better.&quot;</span><span class="p">)</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17"></a><span class="k">def</span> <span class="nf">stage_best_model_to_registry</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">higher_is_better</span><span class="p">):</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="sd">    Stage the best model to the model registry.</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20"></a>
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21"></a><span class="sd">    Args:</span>
+</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22"></a><span class="sd">        model_name: Name of the model to be registered.</span>
+</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23"></a><span class="sd">        metric_name: Name of the metric to choose the best model from.</span>
+</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24"></a><span class="sd">        higher_is_better: Whether higher metric values are better.</span>
+</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25"></a>
+</span><span id="__span-19-26"><a id="__codelineno-19-26" name="__codelineno-19-26"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-19-27"><a id="__codelineno-19-27" name="__codelineno-19-27"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
+</span><span id="__span-19-28"><a id="__codelineno-19-28" name="__codelineno-19-28"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WANDB_API_KEY&quot;</span><span class="p">),</span>
+</span><span id="__span-19-29"><a id="__codelineno-19-29" name="__codelineno-19-29"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;entity&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WANDB_ENTITY&quot;</span><span class="p">),</span> <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WANDB_PROJECT&quot;</span><span class="p">)},</span>
+</span><span id="__span-19-30"><a id="__codelineno-19-30" name="__codelineno-19-30"></a>    <span class="p">)</span>
+</span><span id="__span-19-31"><a id="__codelineno-19-31" name="__codelineno-19-31"></a>    <span class="n">artifact_collection</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact_collection</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
+</span><span id="__span-19-32"><a id="__codelineno-19-32" name="__codelineno-19-32"></a>
+</span><span id="__span-19-33"><a id="__codelineno-19-33" name="__codelineno-19-33"></a>    <span class="n">best_metric</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">higher_is_better</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+</span><span id="__span-19-34"><a id="__codelineno-19-34" name="__codelineno-19-34"></a>    <span class="n">compare_op</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span> <span class="k">if</span> <span class="n">higher_is_better</span> <span class="k">else</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span>
+</span><span id="__span-19-35"><a id="__codelineno-19-35" name="__codelineno-19-35"></a>    <span class="n">best_artifact</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-19-36"><a id="__codelineno-19-36" name="__codelineno-19-36"></a>    <span class="k">for</span> <span class="n">artifact</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">artifact_collection</span><span class="o">.</span><span class="n">artifacts</span><span class="p">()):</span>
+</span><span id="__span-19-37"><a id="__codelineno-19-37" name="__codelineno-19-37"></a>        <span class="k">if</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span> <span class="ow">and</span> <span class="n">compare_op</span><span class="p">(</span><span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">metric_name</span><span class="p">],</span> <span class="n">best_metric</span><span class="p">):</span>
+</span><span id="__span-19-38"><a id="__codelineno-19-38" name="__codelineno-19-38"></a>            <span class="n">best_metric</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span>
+</span><span id="__span-19-39"><a id="__codelineno-19-39" name="__codelineno-19-39"></a>            <span class="n">best_artifact</span> <span class="o">=</span> <span class="n">artifact</span>
+</span><span id="__span-19-40"><a id="__codelineno-19-40" name="__codelineno-19-40"></a>
+</span><span id="__span-19-41"><a id="__codelineno-19-41" name="__codelineno-19-41"></a>    <span class="k">if</span> <span class="n">best_artifact</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-19-42"><a id="__codelineno-19-42" name="__codelineno-19-42"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No model found in registry.&quot;</span><span class="p">)</span>
+</span><span id="__span-19-43"><a id="__codelineno-19-43" name="__codelineno-19-43"></a>        <span class="k">return</span>
+</span><span id="__span-19-44"><a id="__codelineno-19-44" name="__codelineno-19-44"></a>
+</span><span id="__span-19-45"><a id="__codelineno-19-45" name="__codelineno-19-45"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best model found in registry: </span><span class="si">{</span><span class="n">best_artifact</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">best_metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-19-46"><a id="__codelineno-19-46" name="__codelineno-19-46"></a>    <span class="n">best_artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
+</span><span id="__span-19-47"><a id="__codelineno-19-47" name="__codelineno-19-47"></a>        <span class="n">target_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;WANDB_ENTITY&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">/model-registry/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="s2">&quot;staging&quot;</span><span class="p">]</span>
+</span><span id="__span-19-48"><a id="__codelineno-19-48" name="__codelineno-19-48"></a>    <span class="p">)</span>
+</span><span id="__span-19-49"><a id="__codelineno-19-49" name="__codelineno-19-49"></a>    <span class="n">best_artifact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span><span id="__span-19-50"><a id="__codelineno-19-50" name="__codelineno-19-50"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Model staged to registry.&quot;</span><span class="p">)</span>
+</span><span id="__span-19-51"><a id="__codelineno-19-51" name="__codelineno-19-51"></a>
+</span><span id="__span-19-52"><a id="__codelineno-19-52" name="__codelineno-19-52"></a>
+</span><span id="__span-19-53"><a id="__codelineno-19-53" name="__codelineno-19-53"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-19-54"><a id="__codelineno-19-54" name="__codelineno-19-54"></a>    <span class="n">stage_best_model_to_registry</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+</ol>
 </li>
 <li>
 <p>In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
@@ -2195,22 +2980,26 @@ you need to manually close the connection using <code>wandb.finish()</code>.</p>
 </li>
 <li>
 <p>Next create a new docker file called <code>wandb.docker</code> and add the following code</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>wandb
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">COPY</span><span class="w"> </span>s4_debugging_and_logging/exercise_files/wandb_tester.py<span class="w"> </span>wandb_tester.py
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wandb_tester.py&quot;</span><span class="p">]</span>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.10-slim</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>wandb
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">COPY</span><span class="w"> </span>s4_debugging_and_logging/exercise_files/wandb_tester.py<span class="w"> </span>wandb_tester.py
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wandb_tester.py&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>please take a look at the script being copied into the image and afterwards build the docker image.</p>
 </li>
 <li>
 <p>When we want to run the image, what we need to do is including a environment variables that contains the API key
     we generated. This will then authenticate the docker container with the wandb server:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="nv">WANDB_API_KEY</span><span class="o">=</span>&lt;your-api-key&gt;<span class="w"> </span>wandb:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="nv">WANDB_API_KEY</span><span class="o">=</span>&lt;your-api-key&gt;<span class="w"> </span>wandb:latest
 </span></code></pre></div>
-<p>Try running it an confirm that the results are uploaded to the wandb server.</p>
+<p class="annotate">Try running it an confirm that the results are uploaded to the wandb server (1).</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you have stored the API key in a <code>.env</code> file you can use the <code>--env-file</code> flag instead
+    of <code>-e</code> to load the environment variables from the file e.g. <code>docker run --env-file .env wandb:latest</code>.</li>
+</ol>
 </li>
 </ol>
 </li>
@@ -2219,7 +3008,7 @@ you need to manually close the connection using <code>wandb.finish()</code>.</p>
 </li>
 </ol>
 <p>That is the module on logging. Please note that at this point in the course you will begin to see some overlap between
-the different frameworks. While we mainly used <code>hydra</code> for configuring our python scripts it can also be used to save
+the different frameworks. While we mainly used <code>hydra</code> for configuring our Python scripts it can also be used to save
 metrics and hyperparameters similar to how <code>wandb</code> can. Similar arguments holds for <code>dvc</code> which can also be used to
 log metrics. In our opinion <code>wandb</code> just offers a better experience when interacting with the results after logging.
 We want to stress that the combination of tools presented in this course may not be the best for all your future
@@ -2251,7 +3040,7 @@ the same overall functionalities as Wandb.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 6, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 4, 2024</span>
   </span>
 
     
