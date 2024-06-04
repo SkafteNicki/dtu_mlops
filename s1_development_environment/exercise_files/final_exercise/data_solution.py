@@ -1,8 +1,8 @@
+from typing import Tuple
+
 import matplotlib.pyplot as plt  # only needed for plotting
 import torch
 from mpl_toolkits.axes_grid1 import ImageGrid  # only needed for plotting
-
-from typing import Tuple
 
 DATA_PATH = "data/corruptmnist"
 

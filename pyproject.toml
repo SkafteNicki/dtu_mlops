@@ -1,5 +1,7 @@
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint]
 select = ["E", "W", "F", "I", "D", "N", "S", "A", "B"]
 ignore = [
     "F821",
@@ -15,12 +17,19 @@ ignore = [
     "S607",
     "B008",
     "B028",
-    "B905", # `zip()` without an explicit `strict=` parameter
+    "B905",
 ]
 exclude=["student_repos/"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.codespell]
 skip = "*.pdf,*.ipynb,*.drawio,*.json"
+
+[tool.typos.default.extend-identifiers]
+arange = "arange"
+
+[tool.typos.default.extend-words]
+Ue = "Ue"
+Hashi = "Hashi"

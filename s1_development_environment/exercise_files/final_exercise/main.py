@@ -1,8 +1,7 @@
 import click
 import torch
-from model import MyAwesomeModel
-
 from data_solution import corrupt_mnist
+from model import MyAwesomeModel
 
 
 @click.group()
@@ -27,7 +26,7 @@ def train(lr):
 @click.argument("model_checkpoint")
 def evaluate(model_checkpoint):
     """Evaluate a trained model."""
-    print("Evaluating like my life dependends on it")
+    print("Evaluating like my life depends on it")
     print(model_checkpoint)
 
     # TODO: Implement evaluation logic here
