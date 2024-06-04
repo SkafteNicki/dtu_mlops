@@ -130,6 +130,31 @@ creating this kind of diagram, but feel free to use any tool you like. Else you 
 project, checking of as many bullet points as possible. Finally, you should also prepare yourself for the exam
 tomorrow.
 
+## Project hints
+
+Below are listed some hints to prevent you from getting stuck during the project work with problems that previous groups
+have encountered.
+
+### Data
+
+* Start out small! We recommend that you start out with less than 1GB of data. If the dataset you want to work with is
+    larger, then subsample it. You can use dvc to version control your data and only download the full dataset when you
+    are ready to train the model.
+
+* Be aware of many smaller files. `DVC` does not handle many small files well, and can take a long time to download. If
+    you have many small files, consider zipping them together and then unzip them at runtime.
+
+* You do not need to use `DVC` for everything regarding data. You workflow is to just use `DVC` for version controlling
+    the data, but when you need to get it you can just download it from the source. For example if you are storing your
+    data in a GCP bucket, you can use the `gsutil` command to download the data.
+
+### Modelling
+
+* Again, start out small! Start with a simple model and then add complexity as you go along. It is better to have a
+    simple model that works than a complex model that does not work.
+
+* Try fine-tuning a pre-trained model. This is often much faster than training a model from scratch.
+
 ## Project checklist
 
 Please note that all the lists are *exhaustive* meaning that I do not expect you to have completed very

@@ -60,9 +60,9 @@ architectures. In the exercises below we are going to investigate the inference 
     import time
     from torchvision import models
 
-    m1 = models.ModelArchitechture1()
-    m2 = models.ModelArchitechture2()
-    m3 = models.ModelArchitechture3()
+    m1 = models.ModelArchitecture1()
+    m2 = models.ModelArchitecture2()
+    m3 = models.ModelArchitecture3()
 
     input = torch.randn(100, 3, 256, 256)
 

@@ -16,7 +16,7 @@ Technical documentation or code documentation can be many things:
 * Code examples of how to use certain functionality
 
 and many more. We are in this module going to focus on setting up a very basic documentation system that will
-automatically help you document the API of your code. For this reason we recommend that before continuning with this
+automatically help you document the API of your code. For this reason we recommend that before continuing with this
 module that you have completed
 [module M7 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
 or have similar experience with writing docstrings for Python functions and classes.
@@ -288,7 +288,7 @@ Before getting started with this set of exercises you should have completed
             - run: mkdocs gh-deploy --force
     ```
 
-    1. :man_raising_hand: It is important to give `write` premissions to this actions because it is not only reading
+    1. :man_raising_hand: It is important to give `write` permissions to this actions because it is not only reading
         your code but it will also push code.
 
     Before continuing, make sure you understand what the different steps of the workflow does and especially we

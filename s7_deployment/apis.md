@@ -115,7 +115,7 @@ We are going to do a couple of exercises on sending requests using
     )
     ```
 
-    Before looking at `reponse.json()` can you explain what the code does? You can try looking at this
+    Before looking at `response.json()` can you explain what the code does? You can try looking at this
     [page](https://docs.github.com/en/rest/search?apiVersion=2022-11-28) for help.
 
 6. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.

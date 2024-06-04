@@ -2,6 +2,7 @@
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
+
 import logging
 import os
 
