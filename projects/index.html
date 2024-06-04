@@ -1780,30 +1780,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Project hints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modelling" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modelling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1995,30 +1971,6 @@
       Project hints
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Project hints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modelling" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modelling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2243,24 +2195,29 @@ tomorrow.</p>
 <h2 id="project-hints">Project hints</h2>
 <p>Below are listed some hints to prevent you from getting stuck during the project work with problems that previous groups
 have encountered.</p>
-<h3 id="data">Data</h3>
+<div class="admonition tip">
+<p class="admonition-title">Data</p>
 <ul>
 <li>
-<p>Start out small! We recommend that you start out with less than 1GB of data. If the dataset you want to work with is
-    larger, then subsample it. You can use dvc to version control your data and only download the full dataset when you
-    are ready to train the model.</p>
+<p>Start out small! We recommend that you start out with less than 1GB of data. If the dataset you want to work with
+    is larger, then subsample it. You can use dvc to version control your data and only download the full dataset
+    when you are ready to train the model.</p>
 </li>
 <li>
-<p>Be aware of many smaller files. <code>DVC</code> does not handle many small files well, and can take a long time to download. If
-    you have many small files, consider zipping them together and then unzip them at runtime.</p>
+<p>Be aware of many smaller files. <code>DVC</code> does not handle many small files well, and can take a long time to download.
+    If you have many small files, consider zipping them together and then unzip them at runtime.</p>
 </li>
 <li>
-<p>You do not need to use <code>DVC</code> for everything regarding data. You workflow is to just use <code>DVC</code> for version controlling
-    the data, but when you need to get it you can just download it from the source. For example if you are storing your
-    data in a GCP bucket, you can use the <code>gsutil</code> command to download the data.</p>
+<p>You do not need to use <code>DVC</code> for everything regarding data. You workflow is to just use <code>DVC</code> for version
+    controlling the data, but when you need to get it you can just download it from the source. For example if you
+    are storing your data in a GCP bucket, you can use the <code>gsutil</code> command to download the data or directly
+    accessing the it using the
+    <a href="https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system">cloud storage file system</a></p>
 </li>
 </ul>
-<h3 id="modelling">Modelling</h3>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Modelling</p>
 <ul>
 <li>
 <p>Again, start out small! Start with a simple model and then add complexity as you go along. It is better to have a
@@ -2270,6 +2227,7 @@ have encountered.</p>
 <p>Try fine-tuning a pre-trained model. This is often much faster than training a model from scratch.</p>
 </li>
 </ul>
+</div>
 <h2 id="project-checklist">Project checklist</h2>
 <p>Please note that all the lists are <em>exhaustive</em> meaning that I do not expect you to have completed very
 point on the checklist for the exam.</p>
