@@ -95,7 +95,7 @@ We are now going to start actually using the cloud.
             --zone=<zone> \
             --image-family=<image-family> \
             --image-project=deeplearning-platform-release \
-            # add these arguments if you want to run on GPU
+            # add these arguments if you want to run on GPU and have the quota to do so
             --accelerator="type=nvidia-tesla-K80,count=1" \
             --maintenance-policy TERMINATE \
             --metadata="install-nvidia-driver=True" \
