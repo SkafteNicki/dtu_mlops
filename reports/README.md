@@ -459,7 +459,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 > Example:
 >
 > *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
-> *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
+> *Whenever we commit code and push to github, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
 

@@ -144,7 +144,7 @@ the `pyproject.toml` file.
 
 2. One PEP8 styling rule that is often diverged from is the recommended line length of 79 characters, which by many
     (including myself) is considered very restrictive. If you code consist of multiple levels of indentation, you can
-    quikly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters
+    quickly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters
     which seems to be the sweet spot of how many characters fits in a coding window on a laptop.
     Add the line
 
