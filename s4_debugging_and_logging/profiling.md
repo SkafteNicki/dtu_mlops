@@ -231,4 +231,4 @@ sometimes the cause of an computationally hotspot is a single line of code in a 
 non-sequential indexes is really expensive. For these cases
 [line_profiler and kernprof](https://github.com/pyutils/line_profiler) are excellent tools to have in your toolbox.
 Additionally, if you do not like cProfile we can also recommend [py-spy](https://github.com/benfred/py-spy) which is
-another open-source profiling tool for python programs.
+another open-source profiling tool for Python programs.

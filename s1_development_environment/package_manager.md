@@ -175,7 +175,7 @@ in the exercise folder.
     Conda will always tell you what environment you are currently in, indicated by the `(env_name)` in the prompt. By
     default, it will always start in the `(base)` environment.
 
-3. Try creating a new virtual environment. Make sure that it is called `my_enviroment` and that it installs version
+3. Try creating a new virtual environment. Make sure that it is called `my_environment` and that it installs version
    3.11 of Python. What command should you execute to do this?
 
     ??? warning "Use Python 3.8 or higher"
@@ -190,13 +190,13 @@ in the exercise folder.
 5. Which `conda` command gives you a list of the packages installed in the current environment?
 
     1. How do you easily export this list to a text file? Do this, and make sure you export it to
-        a file called `enviroment.yaml`, as conda uses another format by default than `pip`.
+        a file called `environment.yaml`, as conda uses another format by default than `pip`.
 
     2. Inspect the file to see what is in it.
 
-    3. The `enviroment.yaml` file you have created is one way to secure *reproducibility* between users because
-        anyone should be able to get an exact copy of your environment if they have your `enviroment.yaml` file.
-        Try creating a new environment directly from your `enviroment.yaml` file and check that the packages being
+    3. The `environment.yaml` file you have created is one way to secure *reproducibility* between users because
+        anyone should be able to get an exact copy of your environment if they have your `environment.yaml` file.
+        Try creating a new environment directly from your `environment.yaml` file and check that the packages being
         installed exactly match what you originally had.
 
 6. As the introduction states, it is fairly safe to use `pip` inside `conda` today. What is the corresponding `pip`

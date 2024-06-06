@@ -53,7 +53,7 @@ essentially increases the longivity of your model.
     the first package includes the basic building blocks for implementing generalized ONNX models and the second
     package is for running ONNX optimal on different hardware.
 
-2. As an test that your installation is working, try executing the following python code
+2. As an test that your installation is working, try executing the following Python code
 
     ```python
     import onnxruntime

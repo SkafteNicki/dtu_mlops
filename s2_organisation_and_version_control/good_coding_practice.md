@@ -60,14 +60,14 @@ Writing good documentation is a skill that takes time to train, so lets try to d
         pairwise_euc_dist = xy.abs().pow(2.0).sum(dim=-1)  # N x M
         ```
 
-2. Add [docstrings](https://www.python.org/dev/peps/pep-0257/) to at least two python function/methods.
+2. Add [docstrings](https://www.python.org/dev/peps/pep-0257/) to at least two Python function/methods.
     You can see [here (example 5)](https://www.programiz.com/python-programming/docstrings) a good example
     how to use identifiable keywords such as `Parameters`, `Args`, `Returns` which standardizes the way of
     writing docstrings.
 
 ## Styling
 
-While python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
+While Python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
 to secure that code from different users actually look like each other. Maybe even more troubling is that you
 will often see that your own style of coding changes as you become more and more experienced. This kind of
 difference in coding style is not that important to take care of when you are working on a personal project,
@@ -138,13 +138,13 @@ the `pyproject.toml` file.
     practice. (1)
     { .annotate }
 
-    1. :man_raising_hand: the common practise is to first list built-in python packages (like `os`) in one block,
+    1. :man_raising_hand: the common practise is to first list built-in Python packages (like `os`) in one block,
         followed by third-party dependencies (like `torch`) in a second block and finally imports from your own package
         in a third block. Each block is then put in alphabetical order.
 
 2. One PEP8 styling rule that is often diverged from is the recommended line length of 79 characters, which by many
     (including myself) is considered very restrictive. If you code consist of multiple levels of indentation, you can
-    quikly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters
+    quickly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters
     which seems to be the sweet spot of how many characters fits in a coding window on a laptop.
     Add the line
 
@@ -160,7 +160,7 @@ the `pyproject.toml` file.
 
 ## Typing
 
-In addition to writing documentation and following a specific styling, in python we have a third way of improving the
+In addition to writing documentation and following a specific styling, in Python we have a third way of improving the
 quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier
 programming languages like `c`, `c++` etc. where [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/)
 needed to be explicit stated for variables:
@@ -173,8 +173,8 @@ int main() {
 }
 ```
 
-This is not required by python but it can really improve the readability of code, that you can directly read from the
-code what the expected types of input arguments and returns are. In python the `:` character have been reserved for
+This is not required by Python but it can really improve the readability of code, that you can directly read from the
+code what the expected types of input arguments and returns are. In Python the `:` character have been reserved for
 type hints. Here is one example of adding typing to a function:
 
 ```python
@@ -184,7 +184,7 @@ def add2(x: int, y: int) -> int:
 
 here we mark that both `x` and `y` are integers and using the arrow notation `->` we mark that the output type is also
 an integer. Assuming that we are also going to use the function for floats and `torch.Tensor`s we could improve the
-typing by specifying a *union* of types. Depending on the version of python you are using the syntax for this can be
+typing by specifying a *union* of types. Depending on the version of Python you are using the syntax for this can be
 different.
 
 <!-- markdownlint-disable -->
@@ -235,6 +235,18 @@ help us at all. Therefore, use `Any` only when necessary.
 
     for it to work. This [cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
     typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
+
+    ??? example "`typing_exercise.py`"
+
+        ```python linenums="1" title="typing_exercise.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typing_exercise.py"
+        ```
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="typing_exercise_solution.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typing_exercise_solution.py"
+        ```
 
 2. [mypy](https://mypy.readthedocs.io/en/stable/index.html) is what is called a static type checker. If you are using
     typing in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code,

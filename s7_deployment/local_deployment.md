@@ -108,7 +108,7 @@ used one of those frameworks.
 
 Finally, the packaging part of Torchserve is necessary because we cannot give a Torchserve a raw file of trained model
 weights as these essentially is just a list of floats. We need a file that both contains the model definition and the
-trained weights, such that the model essentially becomes independent of the python interpreter.
+trained weights, such that the model essentially becomes independent of the Python interpreter.
 
 ### ❔ Exercises
 

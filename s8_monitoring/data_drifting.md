@@ -221,8 +221,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         to understand how drift detection is done on text.
 
     3. Lets instead take a deep learning based approach to doing this. Lets consider the
-        [CLIP](https://openai.com/blog/clip/) model, which is normally used to do image captioning. For our purpose this
-        is perfect because we can use the model to get abstract feature embeddings for both images and text:
+        [CLIP](https://arxiv.org/abs/2103.00020) model, which is normally used to do image captioning. For our purpose
+        this is perfect because we can use the model to get abstract feature embeddings for both images and text:
 
         ```python
         from PIL import Image

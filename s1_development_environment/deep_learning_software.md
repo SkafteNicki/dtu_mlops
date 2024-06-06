@@ -171,23 +171,66 @@ following:
 
 Before any training can start, you should identify the corruption that we have applied to the MNIST dataset to
 create the corrupted version. This can help you identify what kind of neural network to use to get good performance, but
-any network should really be able to achieve this.
+any network should be able to achieve this.
 
-One key point of this course is trying to stay organized. Spending time now organizing your code will save time
-in the future as you start to add more and more features. As subgoals, please fulfill the following exercises:
+One key point of this course is trying to stay organized. Spending time now organizing your code will save time in the
+future as you start to add more and more features. As subgoals, please fulfill the following exercises:
 
 1. Implement your model in a script called `model.py`.
+
+    ??? example "Starting point for `model.py`"
+
+        ```python linenums="1" title="model.py"
+        --8<-- "s1_development_environment/exercise_files/final_exercise/model.py"
+        ```
+
+    ??? success "Solution"
+
+        The provided solution implements a convolutional neural network with 3 convolutional layers and a single
+        fully connected layer. Because the MNIST dataset consists of images, we want an architecture that can take
+        advantage of the spatial information in the images.
+
+        ```python linenums="1" title="model.py"
+        --8<-- "s1_development_environment/exercise_files/final_exercise/model_solution.py"
+        ```
 
 2. Implement your data setup in a script called `data.py`. The data was saved using `torch.save`, so to load it you
     should use `torch.load`.
 
     !!! warning "Saving the model"
 
-        When saving the model, you should use `torch.save(model.state_dict(), "model.pt")`, and when loading the model,
-        you should use `model.load_state_dict(torch.load("model.pt"))`. If you do `torch.save(model, "model.pt")`, this
-        can lead to problems when loading the model later on, as it will try to not only save the model weights but
-        also the model definition. This can lead to problems if you change the model definition later on (which you
-        most likely are going to do).
+        When saving the model, you should use `#!python torch.save(model.state_dict(), "model.pt")`, and when loading
+        the model, you should use `#!python model.load_state_dict(torch.load("model.pt"))`. If you do
+        `#!python torch.save(model, "model.pt")`, this can lead to problems when loading the model later on, as it will
+        try to not only save the model weights but also the model definition. This can lead to problems if you change
+        the model definition later on (which you most likely are going to do).
+
+    ??? example "Starting point for `data.py`"
+
+        ```python linenums="1" title="model.py"
+        --8<-- "s1_development_environment/exercise_files/final_exercise/data.py"
+        ```
+
+    ??? success "Solution"
+
+        Data is stored in `.pt` files which can be loaded using `torch.load` (1). We iterate over the files, load them
+        and concatenate them into a single tensor. In particular, we have highlighted the use of `.unsqueeze` function.
+        Convolutional neural networks (which we propose as a solution) need the data to be in the shape `[N, C, H, W]`
+        where `N` is the number of samples, `C` is the number of channels, `H` is the height of the image and `W` is the
+        width of the image. The dataset is stored in the shape `[N, H, W]` and therefore we need to add a channel.
+        { .annotate }
+
+        1. :man_raising_hand: The `.pt` files are nothing else than a `.pickle` file in disguise. The
+            `torch.save/torch.load` function is essentially a wrapper around the `pickle` module in Python, which
+            produces serialized files. However, it is convention to use `.pt` to indicate that the file contains Pytorch
+            tensors.
+
+        We have additionally in the solution added functionality for plotting the images together with the labels for
+        inspection. Remember: all good machine learning starts with a good understanding of the data.
+
+        ```python linenums="1" hl_lines="17 18" title="model.py"
+        --8<-- "s1_development_environment/exercise_files/final_exercise/data_solution.py"
+        ```
 
 3. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to take
     additional subcommands indicating if the model should be trained or evaluated. It will look something like this:
@@ -197,9 +240,10 @@ in the future as you start to add more and more features. As subgoals, please fu
     python main.py evaluate trained_model.pt
     ```
 
-    which can be implemented in various ways.
+    which can be implemented in various ways. We provide you with a starting script that uses the `click` library to
+    define a command line interface (CLI), which you can learn more about in [this extra module](../s10_extra/cli.md).
 
-    ??? example "VS code and command line arguments"
+    ??? note "VS code and command line arguments"
 
         If you try to execute the above code in VS code using the debugger (F5) or the build run functionality in the
         upper right corner:
@@ -238,15 +282,26 @@ in the future as you start to add more and more features. As subgoals, please fu
         creating a `launch.json` file [here](https://code.visualstudio.com/docs/python/debugging). If you want to have
         multiple configurations you can add them to the `configurations` list as additional dictionaries.
 
-To start you off, a very basic version of each script is provided in the `final_exercise` folder. We have already
-implemented some logic, especially to make sure you can easily run different subcommands for step 4. If you are
-interested in how this is done, you can check out this optional module on defining
-[command line interfaces (CLI)](../s10_extra/cli.md). We additionally also provide a `requirements.txt` with
-suggestions for the necessary packages to complete the exercise.
+    ??? example "Starting point for `main.py`"
 
-As documentation that your model is working when running the `train` command, the script needs to produce a single plot
-with the training curve (training step vs training loss). When the `evaluate` command is run, it should write the test
-set accuracy to the terminal.
+        ```python linenums="1" title="main.py"
+        --8<-- "s1_development_environment/exercise_files/final_exercise/main.py"
+        ```
+
+    ??? success "Solution"
+
+        The solution implements a simple training loop and evaluation loop. Furthermore, we have added additional
+        hyperparameters that can be passed to the training loop. Highlighted in the solution are the different lines
+        where we take care that our model and data are moved to GPU (or Apple MPS accelerator if you have a newer Mac)
+        if available.
+
+        ```python linenums="1" hl_lines="8 26 38 69 78" title="main.py"
+        --8<-- "s1_development_environment/exercise_files/final_exercise/main_solution.py"
+        ```
+
+4. As documentation that your model is working when running the `train` command, the script needs to produce a single
+    plot with the training curve (training step vs training loss). When the `evaluate` command is run, it should write
+    the test set accuracy to the terminal.
 
 It is part of the exercise to not implement in notebooks, as code development in real life happens in scripts.
 As the model is simple to run (for now), you should be able to complete the exercise on your laptop,

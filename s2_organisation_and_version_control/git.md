@@ -192,7 +192,7 @@ working together on the same project.
 
     1. In your browser, open your favorite repository (it could be the one you just worked on), go to any file of
         your choosing and click the edit button (see image below) and make some change to the file. For example, if
-        you choose a python file you can just import some random packages at the top of the file. Commit the change.
+        you choose a Python file you can just import some random packages at the top of the file. Commit the change.
 
         <figure markdown>
         ![Image](../figures/git_edit.PNG){ width="1000" }
