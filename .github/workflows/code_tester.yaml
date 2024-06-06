@@ -15,7 +15,7 @@ jobs:
         folders: [
           {
             "name": "s1_development_environment",
-            "skip_files": ""
+            "skip_files": " "
           },
           {
             "name": "s2_organisation_and_version_control",
@@ -27,9 +27,11 @@ jobs:
           },
           {
             "name": "s4_debugging_and_logging",
-            "skip_files": ""
+            "skip_files": " "
           },
         ]
+
+    name: ${{ matrix.folders.name }}
 
     runs-on: ubuntu-latest
     steps:
