@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
     
     
       
@@ -181,7 +181,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -2204,17 +2204,10 @@ two problems with containers</p>
 <li>Building process can take a lot of time</li>
 <li>Docker images can be large</li>
 </ul>
-<p>For this reason we want to move both the building process and the storage of images to the cloud. In GCP the two
+<p>For this reason, we want to move both the building process and the storage of images to the cloud. In GCP the two
 services that we are going to use for this is called <a href="https://cloud.google.com/build">Cloud Build</a> for building the
 containers in the cloud and <a href="https://cloud.google.com/artifact-registry">Artifact registry</a> for storing the images
 afterwards.</p>
-<details class="warning">
-<summary>Artifact registry vs Container registry</summary>
-<p>Prior to May 2023 the default way of storing docker images in GCP was through the <code>Container registry</code>. However,
-services in GCP are constantly being updated and improved. Therefore, the <code>Container registry</code> was replaced by the
-<code>Artifact registry</code> which is generalized registry for not only storing docker images but also other types of
-packages content like Python packages.</p>
-</details>
 <h3 id="exercises_2">❔ Exercises</h3>
 <p>For the purpose of these exercise I recommend that you start out with a dummy version of some code to make sure
 that the building process do not take too long. You are more than free to <strong>fork</strong>
@@ -2264,16 +2257,19 @@ I created).</p>
 <p>We are now ready to build our containers in the cloud. In principal GCP cloud build works out of the box with docker
     files. However, the recommended way is to add specialized <code>cloudbuild.yaml</code> files. You can think of the
     <code>cloudbuild.yaml</code> file as the corresponding file in GCP as workflow files are in GitHub actions, which you learned
-    about in this <a href="../../s5_continuous_integration/github_actions/">module M16</a>. It is essentially a file that specifies
+    about in <a href="../../s5_continuous_integration/github_actions/">module M16</a>. It is essentially a file that specifies
     a list of steps that should be executed to do something, but the syntax of cause differs a bit.</p>
 <p>For building docker images the syntax is as follows:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Push</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">  </span><span class="nt">waitFor</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">image&#39;</span><span class="p p-Indicator">]</span>
 </span></code></pre></div>
-<p>which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
+<p>which essentially is a basic yaml file that contains a list of steps, where each step consists of the service
 that should be used and the arguments for that service. In the above example we are calling the same service
 (<code>cloud-builders/docker</code>) with different arguments (<code>build</code> and then <code>push</code>). Implement such a file in your
 repository. Hint: if you forked the repository then you at least need to change the <code>&lt;project-id&gt;</code>.</p>
@@ -2302,7 +2298,7 @@ repository. Hint: if you forked the repository then you at least need to change 
 <li>Branch: choose <code>^main$</code></li>
 <li>Configuration: choose either <code>Autodetected</code> or <code>Cloud build configuration file</code></li>
 </ul>
-<p>Finally click the <code>Create</code> button and the trigger should show up on the triggers page.</p>
+<p>Finally, click the <code>Create</code> button and the trigger should show up on the triggers page.</p>
 </li>
 <li>
 <p>To activate the trigger, push some code to the chosen repository.</p>
@@ -2312,8 +2308,8 @@ repository. Hint: if you forked the repository then you at least need to change 
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_build.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_build.png" width="800" /></a>
 </figure></p>
-<p>Try clicking on the build to checkout the build process and building summary. As you can see from the image, if a
-build is failing you will often find valuable info by looking at the build summary. If you build is failing try
+<p>Try clicking on the build to check out the build process and build summary. As you can see from the image, if a
+build is failing you will often find valuable info by looking at the build summary. If your build is failing try
 to configure it to run in one of these regions:
 <code>us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1</code> as specified in the
 <a href="https://cloud.google.com/build/docs/locations">documentation</a>.</p>
@@ -2336,12 +2332,10 @@ each other:</p>
 other time you want to use <code>docker</code>.</p>
 </li>
 <li>
-<p>Automatization through the cloud is in general the way to go, but sometimes you may
-    want to manually create images and push them to the registry. Figure out how to push
-    an image to your <code>Container Registry</code>. For simplicity you can just push the <code>busybox</code>
-    image you downloaded during the initial docker exercises. This
-    <a href="https://cloud.google.com/container-registry/docs/pushing-and-pulling">page</a> should help
-    you with exercise.</p>
+<p>Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
+    and push them to the registry. Figure out how to push an image to your <code>Artifact Registry</code>. For simplicity, you can
+    just push the <code>busybox</code> image you downloaded during the initial docker exercises. This
+    <a href="https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling">page</a> should help you with exercise.</p>
 </li>
 </ol>
 <h2 id="training">Training</h2>
@@ -2507,7 +2501,7 @@ more of the services offered in GCP, in particular for deploying the models that
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 4, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2024</span>
   </span>
 
     
@@ -2644,7 +2638,7 @@ more of the services offered in GCP, in particular for deploying the models that
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
