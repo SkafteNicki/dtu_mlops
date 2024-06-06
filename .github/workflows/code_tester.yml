@@ -11,23 +11,34 @@ jobs:
   test_scripts:
     strategy:
       matrix:
-        scripts: [
-          "s1_development_environment/exercise_files/fc_model.py",
-          "s1_development_environment/exercise_files/helper.py",
+        folders: [
+          "s1_development_environment",
         ]
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
+          python-version: 3.11
           cache: 'pip'
-      - name: Install dependencies
+          cache-dependency-path: setup.py
+
+      - name: Install requirements
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements_exercises.txt
+          pip list
+
+      - name: Extract relevant files
+        run: find ${{ matrix.folders }}/exercise_files -type f -name "*.py" > python_files.txt
+
       - name: Run script
-        run: python ${{ matrix.scripts }}
+        run: |
+          while IFS= read -r file; do
+            echo "Running $file"
+            python "$file"
+          done < python_files.txt
