@@ -13,6 +13,8 @@ jobs:
       matrix:
         folders: [
           "s1_development_environment",
+          "s2_organisation_and_version_control",
+          "s3_reproducibility",
         ]
 
     runs-on: ubuntu-latest
