@@ -1,2 +1,3 @@
 torch>=2.2
 matplotlib>=3.8.1
+click>=8.1.7
