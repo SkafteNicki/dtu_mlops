@@ -12,15 +12,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        folders:
-          - name: "s1_development_environment"
-            skip_files: ""
-          - name: "s2_organisation_and_version_control"
-            skip_files: "make_dataset_solution.py"
-          - name: "s3_reproducibility"
-            skip_files: "reproducibility_tester.py"
-          - name: "s4_debugging_and_logging"
-            skip_files: ""
+        folders: [
+          {
+            "name": "s1_development_environment",
+            "skip_files": ""
+          },
+          {
+            "name": "s2_organisation_and_version_control",
+            "skip_files": "make_dataset_solution.py"
+          },
+          {
+            "name": "s3_reproducibility",
+            "skip_files": "reproducibility_tester.py"
+          },
+          {
+            "name": "s4_debugging_and_logging",
+            "skip_files": ""
+          },
+        ]
 
     runs-on: ubuntu-latest
     steps:
@@ -42,8 +51,8 @@ jobs:
 
       - name: Extract relevant files
         run: |
-          skip_files="${{ matrix.skip_files }}"
-          find ${{ matrix.name }} -type f -name "*.py" | grep -vE "(^|/)($skip_files)" > python_files.txt
+          skip_files="${{ matrix.folders.skip_files }}"
+          find ${{ matrix.folders.name }} -type f -name "*.py" | grep -vE "(^|/)($skip_files)" > python_files.txt
 
       - name: Run script
         run: |
