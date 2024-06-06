@@ -10,6 +10,7 @@ on:
 jobs:
   test_scripts:
     strategy:
+      fail-fast: false
       matrix:
         folders: [
           "s1_development_environment",
@@ -41,6 +42,6 @@ jobs:
       - name: Run script
         run: |
           while IFS= read -r file; do
-            echo "Running $file"
+            echo "===== Running $file ====="
             python "$file"
           done < python_files.txt
