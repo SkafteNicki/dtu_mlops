@@ -279,6 +279,41 @@ Let's take a look at how a GitHub workflow file is organized:
 
         (HINT: You should be able to just change the last steps of the `tests.yaml` workflow file)
 
+        ??? success "Solution"
+
+            ```yaml linenums="1" title="codecheck.yaml"
+            name: Code formatting
+
+            on:
+              push:
+                branches:
+                - main
+              pull_request:
+                branches:
+                - main
+
+            jobs:
+              format:
+                  runs-on: ubuntu-latest
+                  steps:
+                  - name: Checkout code
+                    uses: actions/checkout@v4
+                  - name: Set up Python
+                    uses: actions/setup-python@v5
+                    with:
+                      python-version: 3.11
+                      cache: 'pip'
+                      cache-dependency-path: setup.py
+                  - name: Install dependencies
+                    run: |
+                      pip install ruff
+                      pip list
+                  - name: Ruff check
+                    run: ruff check .
+                  - name: Ruff format
+                    run: ruff format .
+            ```
+
     2. In addition to `ruff` we also used `mypy` in those sets of exercises for checking if the typing we added to our
         code was good enough. Add another step to the `codecheck.yaml` file which runs `mypy` on your repository.
 

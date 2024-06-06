@@ -241,17 +241,10 @@ two problems with containers
 * Building process can take a lot of time
 * Docker images can be large
 
-For this reason we want to move both the building process and the storage of images to the cloud. In GCP the two
+For this reason, we want to move both the building process and the storage of images to the cloud. In GCP the two
 services that we are going to use for this is called [Cloud Build](https://cloud.google.com/build) for building the
 containers in the cloud and [Artifact registry](https://cloud.google.com/artifact-registry) for storing the images
 afterwards.
-
-??? warning "Artifact registry vs Container registry"
-
-    Prior to May 2023 the default way of storing docker images in GCP was through the `Container registry`. However,
-    services in GCP are constantly being updated and improved. Therefore, the `Container registry` was replaced by the
-    `Artifact registry` which is generalized registry for not only storing docker images but also other types of
-    packages content like Python packages.
 
 ### ❔ Exercises
 
@@ -308,20 +301,23 @@ to be substantially faster to build and smaller in size than the images we are u
 3. We are now ready to build our containers in the cloud. In principal GCP cloud build works out of the box with docker
     files. However, the recommended way is to add specialized `cloudbuild.yaml` files. You can think of the
     `cloudbuild.yaml` file as the corresponding file in GCP as workflow files are in GitHub actions, which you learned
-    about in this [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
+    about in [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
     a list of steps that should be executed to do something, but the syntax of cause differs a bit.
 
     For building docker images the syntax is as follows:
 
     ```yaml
     steps:
-        - name: 'gcr.io/cloud-builders/docker'
-            args: ['build', '-t', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>', '.']
-        - name: 'gcr.io/cloud-builders/docker'
-            args: ['push', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>']
+    - name: 'gcr.io/cloud-builders/docker'
+      id: 'Build image'
+      args: ['build', '-t', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>', '.']
+    - name: 'gcr.io/cloud-builders/docker'
+      id: 'Push image'
+      args: ['push', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>']
+      waitFor: ['Build image']
     ```
 
-    which essentially is a basic yaml file that contains a list of steps, where each step consist of the service
+    which essentially is a basic yaml file that contains a list of steps, where each step consists of the service
     that should be used and the arguments for that service. In the above example we are calling the same service
     (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
     repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
@@ -350,7 +346,7 @@ to be substantially faster to build and smaller in size than the images we are u
     * Branch: choose `^main$`
     * Configuration: choose either `Autodetected` or `Cloud build configuration file`
 
-    Finally click the `Create` button and the trigger should show up on the triggers page.
+    Finally, click the `Create` button and the trigger should show up on the triggers page.
 
 7. To activate the trigger, push some code to the chosen repository.
 
@@ -360,8 +356,8 @@ to be substantially faster to build and smaller in size than the images we are u
     ![Image](../figures/gcp_build.png){ width="800"  }
     </figure>
 
-    Try clicking on the build to checkout the build process and building summary. As you can see from the image, if a
-    build is failing you will often find valuable info by looking at the build summary. If you build is failing try
+    Try clicking on the build to check out the build process and build summary. As you can see from the image, if a
+    build is failing you will often find valuable info by looking at the build summary. If your build is failing try
     to configure it to run in one of these regions:
     `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
     [documentation](https://cloud.google.com/build/docs/locations).
@@ -387,12 +383,10 @@ to be substantially faster to build and smaller in size than the images we are u
     Note: To do this you need to have `docker` actively running in the background, as any
     other time you want to use `docker`.
 
-11. Automatization through the cloud is in general the way to go, but sometimes you may
-    want to manually create images and push them to the registry. Figure out how to push
-    an image to your `Container Registry`. For simplicity you can just push the `busybox`
-    image you downloaded during the initial docker exercises. This
-    [page](https://cloud.google.com/container-registry/docs/pushing-and-pulling) should help
-    you with exercise.
+11. Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
+    and push them to the registry. Figure out how to push an image to your `Artifact Registry`. For simplicity, you can
+    just push the `busybox` image you downloaded during the initial docker exercises. This
+    [page](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling) should help you with exercise.
 
 ## Training
 

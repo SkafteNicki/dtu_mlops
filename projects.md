@@ -157,6 +157,12 @@ have encountered.
 
     * Try fine-tuning a pre-trained model. This is often much faster than training a model from scratch.
 
+!!! tip "Deployment"
+
+    * When getting around to deployment always start out by running your application locally first, then run it locally
+        inside a docker container and then finally try to deploy it in the cloud. This way you can catch errors early
+        and not waste time on debugging cloud deployment issues.
+
 ## Project checklist
 
 Please note that all the lists are *exhaustive* meaning that I do not expect you to have completed very
