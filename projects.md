@@ -59,7 +59,7 @@ course:
 
 Each project day is fully dedicated to project work, except for maybe external inspirational lectures in the morning.
 The group decides exactly where they want to work on the project, how they want to work on the project, how do
-distribute the workload etc. We actually encourage strongly to parallelize work during the project, because there are a
+distribute the workload etc. We encourage strongly to parallelize work during the project, because there are a
 lot of tasks to do, but it it is important that all group members at least have some understanding of the whole project.
 
 Remember that the focus of the project work is not to demonstrate that you can work with the biggest and baddest deep
@@ -98,9 +98,9 @@ The project description will serve as an guideline for us at the exam that you h
 set out to do. By the end of the day, you should commit your project description to the `README.md` file belonging
 to your project repository. If you filled out the ML canvas, feel free to include that as part of the `README.md` file.
 Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn and
-hand-in (as a group) the *link to your github repository* as an assignment.
+hand-in (as a group) the *link to your GitHub repository* as an assignment.
 
-We will briefly (before next Monday) look over your github repository and project description to check that everything
+We will briefly (before next Monday) look over your GitHub repository and project description to check that everything
 is fine. If we have any questions/concerns we will contact you.
 
 ### Day 2
@@ -130,6 +130,39 @@ creating this kind of diagram, but feel free to use any tool you like. Else you 
 project, checking of as many bullet points as possible. Finally, you should also prepare yourself for the exam
 tomorrow.
 
+## Project hints
+
+Below are listed some hints to prevent you from getting stuck during the project work with problems that previous groups
+have encountered.
+
+!!! tip "Data"
+
+    * Start out small! We recommend that you start out with less than 1GB of data. If the dataset you want to work with
+        is larger, then subsample it. You can use dvc to version control your data and only download the full dataset
+        when you are ready to train the model.
+
+    * Be aware of many smaller files. `DVC` does not handle many small files well, and can take a long time to download.
+        If you have many small files, consider zipping them together and then unzip them at runtime.
+
+    * You do not need to use `DVC` for everything regarding data. You workflow is to just use `DVC` for version
+        controlling the data, but when you need to get it you can just download it from the source. For example if you
+        are storing your data in a GCP bucket, you can use the `gsutil` command to download the data or directly
+        accessing the it using the
+        [cloud storage file system](https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system)
+
+!!! tip "Modelling"
+
+    * Again, start out small! Start with a simple model and then add complexity as you go along. It is better to have a
+        simple model that works than a complex model that does not work.
+
+    * Try fine-tuning a pre-trained model. This is often much faster than training a model from scratch.
+
+!!! tip "Deployment"
+
+    * When getting around to deployment always start out by running your application locally first, then run it locally
+        inside a docker container and then finally try to deploy it in the cloud. This way you can catch errors early
+        and not waste time on debugging cloud deployment issues.
+
 ## Project checklist
 
 Please note that all the lists are *exhaustive* meaning that I do not expect you to have completed very
@@ -138,7 +171,7 @@ point on the checklist for the exam.
 ### Week 1
 
 * [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
+* [ ] Make sure that all team members have write access to the GitHub repository
 * [ ] Create a dedicated environment for you project to keep track of your packages
 * [ ] Create the initial file structure using cookiecutter
 * [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
@@ -162,7 +195,7 @@ point on the checklist for the exam.
 * [ ] Write unit tests related to the data part of your code
 * [ ] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
+* [ ] Get some continuous integration running on the GitHub repository
 * [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
@@ -200,5 +233,5 @@ scrape it automatically, and changes after this point are therefore not register
 For the oral part of the exam you will be given a time slot where you have to show up for 5-7 min and give a very short
 demo of your project. What we are interested in seeing is essentially a live demo of your deployed application/project.
 We will possibly also ask questions regarding the overall curriculum of the course. Importantly, you should have your
-deployed application, the github repository with your project code, W&B account and your GCP account ready before
+deployed application, the GitHub repository with your project code, W&B account and your GCP account ready before
 you enter the exam so we can quickly jump around. We will send out an the time slots during the last week.

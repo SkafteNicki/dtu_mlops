@@ -59,6 +59,25 @@ Importantly we differ between core modules and optional modules. Core modules wi
 at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
 You are highly recommended to still do the optional modules.
 
+Additionally, be aware of the following icons throughout the course material:
+
+* This icon can be expanded to show code belonging to a given exercise
+
+    ??? example
+
+        I will contain code for an exercise.
+
+* This icon can be expanded to show a solution for a given exercise
+
+    ??? success "Solution"
+
+        I will present a solution to the exercise.
+
+* This icon (1) can be expanded to show a hint or a note for a given exercise
+    { .annotate }
+
+    1. :man_raising_hand: I am a hint or note
+
 ## 🆒 MLOps: What is it?
 
 Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particularly

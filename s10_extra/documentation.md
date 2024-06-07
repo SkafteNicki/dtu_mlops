@@ -16,10 +16,10 @@ Technical documentation or code documentation can be many things:
 * Code examples of how to use certain functionality
 
 and many more. We are in this module going to focus on setting up a very basic documentation system that will
-automatically help you document the API of your code. For this reason we recommend that before continuning with this
+automatically help you document the API of your code. For this reason we recommend that before continuing with this
 module that you have completed
 [module M7 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
-or have similar experience with writing docstrings for python functions and classes.
+or have similar experience with writing docstrings for Python functions and classes.
 
 There are different systems for writing documentation. In fact there is a lot to choose from:
 
@@ -51,7 +51,7 @@ to create professional static sites. In fact, this whole course is written in mk
 
 ## Mkdocs
 
-The core file when using mkdocs is the `mkdocs.yml` file, which is the configuration file for the project:
+The core file when using mkdocs is the `mkdocs.yaml` file, which is the configuration file for the project:
 
 ```yaml
 site_name: Documentation of my project
@@ -110,7 +110,7 @@ that at least contains the following:
 │   │
 │   ├── index.md       <- Homepage for your documentation
 │   │
-│   ├── mkdocs.yml     <- Configuration file for mkdocs
+│   ├── mkdocs.yaml     <- Configuration file for mkdocs
 │   │
 │   └── source/        <- Source directory for documentation files
 │
@@ -127,9 +127,9 @@ that at least contains the following:
 
 It is not important exactly what is in the `src` folder for the exercises, but we are going to refer to the above
 structure in the exercises, so adjust accordingly if you diviate from this. Additionally, we are going to assume that
-your project code is installed in your environment such that it can be imported as normal python code.
+your project code is installed in your environment such that it can be imported as normal Python code.
 
-1. We are going to need two python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
+1. We are going to need two Python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
     [material for mkdocs](https://pypi.org/project/mkdocs-material/). Install with
 
     ```bash
@@ -252,7 +252,7 @@ and are already hosting your code through Github, then a good option is [Github 
 Github pages is free to use for your public projects.
 
 Before getting started with this set of exercises you should have completed
-[module M16 on github actions](../s5_continuous_integration/github_actions.md) so you already know about workflow files.
+[module M16 on GitHub actions](../s5_continuous_integration/github_actions.md) so you already know about workflow files.
 
 ### Exercises
 
@@ -288,8 +288,8 @@ Before getting started with this set of exercises you should have completed
             - run: mkdocs gh-deploy --force
     ```
 
-    1. :man_raising_hand: It is important to give `write` premissions to this actions because it is not only reading
-        your code but it will actually also push code.
+    1. :man_raising_hand: It is important to give `write` permissions to this actions because it is not only reading
+        your code but it will also push code.
 
     Before continuing, make sure you understand what the different steps of the workflow does and especially we
     recommend looking at the documentation of the `mkdocs gh-deploy` command.
@@ -297,7 +297,7 @@ Before getting started with this set of exercises you should have completed
 2. Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
     a branch called `gh-pages`. If the action does not succeeds, then figure out what is wrong and fix it!
 
-3. After confirming that our action is working, you need to configure Github to actually publish the content being
+3. After confirming that our action is working, you need to configure Github to publish the content being
     build by Github Actions. Do the following:
 
     * Go to the Settings tab and then the Pages subsection
@@ -309,7 +309,7 @@ Before getting started with this set of exercises you should have completed
     </figure>
 
     This should then start deploying your site to `https://<your-username>.github.io/<your-reponame>/`. If it does not
-    do this you may need to recommit and trigger the github actions build again.
+    do this you may need to recommit and trigger the GitHub actions build again.
 
 4. Make sure your documentation is published and looks as it should.
 
