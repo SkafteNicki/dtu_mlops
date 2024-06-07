@@ -19,7 +19,7 @@ jobs:
           },
           {
             "name": "s2_organisation_and_version_control",
-            "skip_files": "make_dataset_solution.py visualize_solution.py"
+            "skip_files": "make_dataset_solution.py|visualize_solution.py"
           },
           {
             "name": "s3_reproducibility",
@@ -54,7 +54,9 @@ jobs:
       - name: Extract relevant files
         run: |
           skip_files="${{ matrix.folders.skip_files }}"
-          find ${{ matrix.folders.name }} -type f -name "*.py" | grep -vE "(^|/)($skip_files)" > python_files.txt
+          find ${{ matrix.folders.name }} -type f -name "*.py" | grep -vE $skip_files > python_files.txt
+          echo "===== Files to run ====="
+          cat python_files.txt
 
       - name: Run script
         run: |
