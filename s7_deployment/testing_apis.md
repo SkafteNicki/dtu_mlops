@@ -1,16 +1,13 @@
-![Logo](../figures/icons/functions.png){ align=right width="130"}
-![Logo](../figures/icons/run.png){ align=right width="130"}
+![Logo](../figures/icons/locust.png){ align=right width="130"}
 
-# Testing APIs
-
----
+# API testing
 
 !!! info "Core Module"
 
 The is in general two things that we want to test when we are working with APIs:
 
-* Does the API work as intended? e.g. for a given input, does it return the expected output?
-* Can the API handle the expected load? e.g. if we send 1000 requests per second, does it crash?
+    Does the API work as intended? e.g. for a given input, does it return the expected output?
+    Can the API handle the expected load? e.g. if we send 1000 requests per second, does it crash?
 
 In this module we go over how to do each of them:
 
@@ -49,13 +46,34 @@ where you replace `<name>` and `<region>` with the name of your service and the 
 
 ### ❔ Exercises
 
-```python
-from bentoml.testing.server import host_bento
-```
+API testing is a type of software testing that involves testing application programming interfaces (APIs) directly and
 
-## Testing for load
+In these exercise we are going to assume that we want to test an API written in FastAPI (see this
+[module](../s7_deployment/apis.md)). If the API is written in a different framework then how to write the tests may
+change.
 
-Something about load testing
+1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
+
+    ```bash
+    pip install httpx
+    ```
+
+2. If you have already done the module on [unittesting](../s5_continuous_integration/unittesting.md) then you should
+    already have a `tests/` folder. If not then create one. Inside the `tests/` folder create a file called
+    `test_apis.py` and write the following code:
+
+    ```python
+    from fastapi.testclient import TestClient
+    from app.main import app
+    client = TestClient(app)
+    ``````
+
+
+## Load testing
+
+The locust framework is a tool for load testing (the name is a reference to a locust be a swarm of bugs invading your
+application). It is a python framework that allows you to write tests that simulate users interacting with your
+application. It is very easy to get started with and it is very easy to integrate with your CI/CD pipeline.
 
 ### ❔ Exercises
 
@@ -64,6 +82,24 @@ Something about load testing
     ```bash
     pip install locust
     ```
+
+2. Lets start out simply by load testing a fastapi hallo world application:
+
+    ```
+    import uvicorn
+    from fastapi import FastAPI
+
+    app = FastAPI()
+
+    @app.get('/hello')
+    def hello():
+        return 'Hello World'
+
+    if __name__ == '__main__':
+        uvicorn.run(app)
+    ```
+
+
 
 2. Read this [guide](https://docs.locust.io/en/stable/writing-a-locustfile.html) that explains how to write a
     `locustfile.py`. Afterwards, try writing a `locustfile.py` for your application:
