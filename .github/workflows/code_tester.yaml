@@ -19,7 +19,7 @@ jobs:
           },
           {
             "name": "s2_organisation_and_version_control",
-            "skip_files": "make_dataset_solution.py"
+            "skip_files": "make_dataset_solution.py visualize_solution.py"
           },
           {
             "name": "s3_reproducibility",
