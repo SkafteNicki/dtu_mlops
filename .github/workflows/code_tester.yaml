@@ -27,7 +27,7 @@ jobs:
           },
           {
             "name": "s4_debugging_and_logging",
-            "skip_files": "-"
+            "skip_files": "weights_and_bias_solution.py weights_and_bias_solution2.py weights_and_bias_solution3.py"
           },
         ]
 
