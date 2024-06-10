@@ -45,19 +45,18 @@ In these exercises we go through the process of setting up a backend using `fast
 containerizing both applications and then deploying them to the cloud. We have already created an example of this
 which can be found in the `samples/frontend_backend` folder.
 
-1. Start by installing `streamlit`
-
-    ```bash
-    pip install streamlit
-    ```
-
-    and run `streamlit hello` afterwards to check that everything works as expected.
-
-2. Lets start by creating the backend application in a `backend.py` file. You can use essentially any backend you want,
+1. Lets start by creating the backend application in a `backend.py` file. You can use essentially any backend you want,
     but we will be using a simple imagenet classifier that we have created in the `samples/frontend_backend/backend`
     folder.
 
-    1. Create a new file called `backend.py` and copy the code from the imagenet classifier into it. 
+    1. Create a new file called `backend.py` and implement a FastAPI interface with a single `/predict` endpoint that
+        takes a image as input and returns the predicted class (and probabilities) of the image.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="backend.py"
+            --8<-- "samples/frontend_backend/backend.py"
+            ```
 
     2. Run the backend using `uvicorn`
 
@@ -65,79 +64,79 @@ which can be found in the `samples/frontend_backend` folder.
         uvicorn backend:app --reload
         ```
 
-    3. Test the backend by sending a request to the `/predict` endpoint
+    3. Test the backend by sending a request to the `/predict` endpoint, preferably using `curl` command
 
-        ```bash
-        curl -X 'POST' \
-          'http://
-            localhost:8000/predict' \
-            -H 'accept: application/json' \
-            -H 'Content-Type: application/json' \
-            -d '{
-            "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pleiades_large.jpg"
-            }'
-        ```
+        ??? success "Solution"
 
-    4. Containerize the backend into a file called `backend.dockerfile`.
+            In this example we are sending a request to the `/predict` endpoint with a file called `my_cat.jpg`. The response "tabby cat".
 
-        ```dockerfile
-        FROM python:3.8-slim
+            ```bash
+	        curl -X 'POST' \
+  		        'http://127.0.0.1:8000/classify/' \
+  		        -H 'accept: application/json' \
+  		        -H 'Content-Type: multipart/form-data' \
+  		        -F 'file=@my_cat.jpg;type=image/jpeg'
+            ```
 
-        WORKDIR /app
+    4. Create a `requirements_backend.txt` file with the dependencies needed for the backend.
 
-        COPY requirements.txt .
+        ??? success "Solution"
 
-        RUN pip install --no-cache-dir -r requirements.txt
+            ```plaintext linenums="1" title="requirements_backend.txt"
+            --8<-- "samples/frontend_backend/requirements_backend.txt"
+            ```
 
-        COPY backend.py .
+    5. Containerize the backend into a file called `backend.dockerfile`.
 
-        CMD ["uvicorn", "backend:app", "--host"]
-        ```
+        ??? success "Solution"
 
-    5. Build the backend image
+            ```dockerfile linenums="1" title="backend.dockerfile"
+            --8<-- "samples/frontend_backend/backend.dockerfile"
+            ```
+
+    6. Build the backend image
 
         ```bash
         docker build -t backend -f backend.dockerfile .
         ```
 
-    6. Run the backend image
+    7. Recheck that the backend works by running the image in a container
 
         ```bash
-        docker run -p 8000:8000 backend
+        docker run -p --rm 8000:8000 backend
         ```
 
-    7. Test the backend by sending a request to the `/predict` endpoint
-
-        ```bash
-        curl -X 'POST' \
-          'http://
-            localhost:8000/predict' \
-            -H 'accept: application/json' \
-            -H 'Content-Type: application/json' \
-            -d '{
-            "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pleiades_large.jpg"
-            }'
-        ```
+        and test that it works by sending a request to the `/predict` endpoint.
 
     8. Deploy the backend to Cloud run using the `gcloud` command
 
-        ```bash
-        gcloud builds submit --tag gcr.io/PROJECT_ID/backend
-        gcloud run deploy --image gcr.io/PROJECT_ID/backend --platform managed
-        ```
+        ??? success "Solution"
 
-    9. Test the backend by sending a request to the `/predict` endpoint
+            Assuming that we have created an artifact registry called `frontend_backend` we can deploy the backend to 
+            Cloud Run using the following commands:
 
-        ```bash
-        curl -X 'POST' \
-          'https://
-            PROJECT_ID.REGION.r.appspot.com/predict' \
-            -H 'accept: application/json' \
-            -H 'Content-Type: application/json' \
-            -d '{
-            "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pleiades_large.jpg"
-            }'
-        ```
+            ```bash
+            docker tag backend:latest <region>-docker.pkg.dev/<project>/frontend-backend/backend:latest
+            docker push <region>.pkg.dev/<project>/frontend-backend/backend:latest            
+            gcloud run deploy backend \
+		        --image=europe-west1-docker.pkg.dev/my-personal-mlops-project/frontend-backend/backend:latest \
+		        --platform=managed \
+		        --region=europe-west1
+            ```
+
+            where `<region>` and `<project>` should be replaced with the appropriate values.
+
+    9. Finally, test that the deployed backend works as expected by sending a request to the `/predict` endpoint
+
+        ??? success "Solution"
+
+            ```bash
+            curl -X 'POST' \
+  		        'https://backend-<random_string>.a.run.app/predict/' \
+  		        -H 'accept: application/json' \
+  		        -H 'Content-Type: multipart/form-data' \
+  		        -F 'file=@my_cat.jpg;type=image/jpeg'
+            ```
 
 3. With the backend taken care of lets now write our frontend. Our frontend just needs to be a "nice" interface to our
     backend. Its main functionality will be to send a request to the backend and display the result.
@@ -223,4 +222,17 @@ which can be found in the `samples/frontend_backend` folder.
     which is covered in [this module](../s7_deployment/testing_apis.md) and run it against your frontend. Make sure
     that it can handle the load you expect it to handle.
 
-This ends the exercises for this module
+## 🧠 Knowledge check
+
+1. We have created seperate requirements files for the frontend and the backend. Why is this a good idea?
+
+    ??? success "Solution"
+
+        This is a good idea because the frontend and the backend may have different dependencies. By having seperate
+        requirements files we can make sure that we only install the dependencies that are needed for the specific
+        application. This also has the positive side effect that we can keep the docker images smaller. For example,
+        the frontend does not need the `torch` library which is huge and only needed for the backend.
+
+This ends the exercises for this module.
+
+
