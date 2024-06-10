@@ -136,8 +136,8 @@ nav:
     - M32 - Documentation: s10_extra/documentation.md
     - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
-    # - M35 - Designing Pipelines: s10_extra/design.md
-    # - M36 - Frontend: s10_extra/frontend.md
+    - M35 - Frontend: s10_extra/frontend.md
+    # - M36 - Designing Pipelines: s10_extra/design.md
     # - M37 - Sharing models - ONNX format: s10_extra/onnx.md
     # - M38 - Workflow orchestration: s10_extra/orchestration.md
     # - M39 - Kubernetes: s10_extra/kubernetes.md

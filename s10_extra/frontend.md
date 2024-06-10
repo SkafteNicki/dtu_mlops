@@ -14,7 +14,7 @@ is the part that will be running our heavy machine learning model. In general di
 are the pattern that is used in [microservice architectures](https://martinfowler.com/articles/microservices.html).
 
 <figure markdown>
-![](../figures/different_architechtures.png){ width="800" }
+![Image](../figures/different_architechtures.png){ width="800" }
 <figcaption>
 In monollithic applications everything the user may be requesting of our application is handled by a single process/
 container. In microservice architectures the application is split into smaller pieces that can be scaled independently.
@@ -57,7 +57,7 @@ which can be found in the `samples/frontend_backend` folder.
     but we will be using a simple imagenet classifier that we have created in the `samples/frontend_backend/backend`
     folder.
 
-    1. Create a new file called `backend.py` and copy the code from the imagenet classifier into it.
+    1. Create a new file called `backend.py` and copy the code from the imagenet classifier into it. 
 
     2. Run the backend using `uvicorn`
 
@@ -146,9 +146,15 @@ which can be found in the `samples/frontend_backend` folder.
     1. Create a new file called `frontend.py` and copy the code from the frontend in the `samples/frontend_backend/frontend`
         folder. You can choose to use any frontend you want, but we will be using `streamlit`.
 
-    2. We need to make sure that the frontend knows where the backend is located.
+    2. We need to make sure that the frontend knows where the backend is located, and we want that to happen 
+        automatically so we do not have to hardcode the URL into our frontend. We can do this by using the 
+        Python SDK for Google Cloud Run. The following code snippet shows how to get the URL of the backend service:
 
         ```python
+        from google.cloud import run_v2
+        import streamlit as st
+
+        @st.cache_resource  # (1)!
         def get_backend_url():
             """Get the URL of the backend service."""
             parent = "projects/my-personal-mlops-project/locations/europe-west1"
@@ -158,10 +164,13 @@ which can be found in the `samples/frontend_backend` folder.
                 if service.name.split("/")[-1] == "production-model":
                     return service.uri
 
-            BACKEND = get_backend_url()
-            if BACKEND is None:
-                raise ValueError("Backend service not found")
-            ```
+        BACKEND = get_backend_url()
+        if BACKEND is None:
+            raise ValueError("Backend service not found")
+        ```
+
+        1. :man_raising_hand: The `st.cache_resource` is a decorator that tells `streamlit` to cache the result of the
+            function. This is useful if the function is expensive to run and we want to avoid running it multiple times.
 
     2. Run the frontend using `streamlit`
 
