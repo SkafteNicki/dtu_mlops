@@ -200,7 +200,7 @@ which can be found in the `samples/frontend_backend` folder.
             function. This is useful if the function is expensive to run and we want to avoid running it multiple times.
 
         Add the above code snippet to the top of your `frontend.py` file and replace `<project>` and `<region>` with the
-        appropriate values.
+        appropriate values. You will need to install `pip install google-cloud-run` to be able to use the code snippet.
 
     4. Run the frontend using `streamlit`
 
@@ -208,7 +208,15 @@ which can be found in the `samples/frontend_backend` folder.
         streamlit run frontend.py
         ```
 
-    5. Containerize the frontend into a file called `frontend.dockerfile`.
+    5. Create a `requirements_frontend.txt` file with the dependencies needed for the frontend.
+
+        ??? success "Solution"
+
+            ```plaintext linenums="1" title="requirements_frontend.txt"
+            --8<-- "samples/frontend_backend/requirements_frontend.txt"
+            ```
+
+    6. Containerize the frontend into a file called `frontend.dockerfile`.
 
         ??? success "Solution"
 
@@ -216,13 +224,13 @@ which can be found in the `samples/frontend_backend` folder.
             --8<-- "samples/frontend_backend/frontend.dockerfile"
             ```
 
-    6. Build the frontend image
+    7. Build the frontend image
 
         ```bash
         docker build -t frontend:latest -f frontend.dockerfile .
         ```
 
-    7. Run the frontend image
+    8. Run the frontend image
 
         ```bash
         docker run --rm -p 8001:8001 -e "PORT=8001" backend
@@ -230,7 +238,7 @@ which can be found in the `samples/frontend_backend` folder.
 
         and check in your web browser that the frontend works as expected.
 
-    8. Deploy the frontend to Cloud run using the `gcloud` command
+    9. Deploy the frontend to Cloud run using the `gcloud` command
 
         ??? success "Solution"
 
@@ -247,7 +255,7 @@ which can be found in the `samples/frontend_backend` folder.
                 --platform=managed \
             ```
 
-    9. Test that frontend works as expected by opening the URL of the deployed frontend in your web browser.
+    10. Test that frontend works as expected by opening the URL of the deployed frontend in your web browser.
 
 3. (Optional) If you have gotten this far you have successfully created a frontend and a backend and deployed them to
     the cloud. Finally, it may be worth it to load test your application to see how it performs under load. Write a
