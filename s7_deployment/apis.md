@@ -201,7 +201,7 @@ mind is that the client-server architecture needs to be stateless. This means th
 server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
 information from previous requests.
 
-To implement APIs in practise we are going to use [FastAPI](https://fastapi.tiangolo.com/). FastAPI is a
+To implement APIs in practice we are going to use [FastAPI](https://fastapi.tiangolo.com/). FastAPI is a
 *modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints*.
 FastAPI is only one of many frameworks for defining APIs, however, compared to other frameworks such as
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) and [django](https://www.djangoproject.com/) it offers a sweet
@@ -447,7 +447,33 @@ you can look through for help.
         Figure out where to add them to the code and try running the application one more time to see that you get a
         file back with the resized image.
 
-7. (Optional) Let's try to figure out how to use FastAPI in a machine learning context. Below is a script that downloads
+7. A common pattern in most applications is that we want some code to run on startup and some code to run on shutdown.
+    FastAPI allows us to do this by controlling the *lifespan* of our application. This is done by implementing the
+    `lifespan` function. Look at the [documentation](https://fastapi.tiangolo.com/advanced/events/) for lifespan events
+    and implement a small application that prints `Hello` on startup and `Goodbye` on shutdown.
+
+    ??? success "Solution"
+
+        Here is a simple example that will print `Hello` on startup and `Goodbye` on shutdown.
+
+        ```python
+        from contextlib import asynccontextmanager
+        from fastapi import FastAPI
+
+        @asynccontextmanager
+        async def lifespan(app: FastAPI):
+            print("Hello")
+            yield
+            print("Goodbye")
+
+        app = FastAPI(lifespan=lifespan)
+
+        @app.get("/")
+        def read_root():
+            return {"Hello": "World"}
+        ```
+
+8. Let's try to figure out how to use FastAPI in a Machine learning context. Below is a script that downloads
     a `VisionEncoderDecoder` from
     [huggingface](https://huggingface.co/docs/transformers/model_doc/vision-encoder-decoder#transformers.VisionEncoderDecoderModel)
     . The model can be used to create captions for a given image. Thus calling
@@ -457,40 +483,51 @@ you can look through for help.
     ```
 
     returns a list of strings like `['a cat laying on a couch with a stuffed animal']` (try this yourself). Create a
-    FastAPI application that can do inference using this model e.g. it should take in an image, preferably an optional
-    `json` object for configuring some of the hyperparameters (like `max_length`) and should return a string
-    containing the generated caption.
+    FastAPI application that can do inference using this model e.g. it should take in an image, preferably some optional
+    hyperparameters (like `max_length`) and should return a string (or list of strings) containing the generated
+    caption.
 
-    ```python
-    from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
-    import torch
-    from PIL import Image
+    !!! example "simple ML application"
 
-    model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-    feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-    tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+        ```python
+        from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
+        import torch
+        from PIL import Image
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
+        model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+        feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+        tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
 
-    gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
-    def predict_step(image_paths):
-        images = []
-        for image_path in image_paths:
-            i_image = Image.open(image_path)
-            if i_image.mode != "RGB":
-                i_image = i_image.convert(mode="RGB")
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model.to(device)
 
-            images.append(i_image)
-        pixel_values = feature_extractor(images=images, return_tensors="pt").pixel_values
-        pixel_values = pixel_values.to(device)
-        output_ids = model.generate(pixel_values, **gen_kwargs)
-        preds = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
-        preds = [pred.strip() for pred in preds]
-        return preds
-    ```
+        gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
+        def predict_step(image_paths):
+            images = []
+            for image_path in image_paths:
+                i_image = Image.open(image_path)
+                if i_image.mode != "RGB":
+                    i_image = i_image.convert(mode="RGB")
 
-8. As the final step, we want to figure out how to include our FastAPI application in a docker container as it will help
+                images.append(i_image)
+            pixel_values = feature_extractor(images=images, return_tensors="pt").pixel_values
+            pixel_values = pixel_values.to(device)
+            output_ids = model.generate(pixel_values, **gen_kwargs)
+            preds = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+            preds = [pred.strip() for pred in preds]
+            return preds
+
+        if __name__ == "__main__":
+            print(predict_step(['s7_deployment/exercise_files/my_cat.jpg']))
+        ```
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="ml_app.py"
+        --8<-- "s7_deployment/exercise_files/ml_app.py"
+        ```
+
+9. As the final step, we want to figure out how to include our FastAPI application in a docker container as it will help
     us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
     application. For the following set of exercises you can take whatever previous FastAPI application as the base
     application for the container
@@ -549,13 +586,6 @@ you can look through for help.
 
     5. Check that everything is working by going to the corresponding localhost page
         <http://localhost/items/5?q=somequery>
-
-9. (Optional) In module [M15 on unittesting](../s5_continuous_integration/unittesting.md) you learned how to write unit
-    tests for your data pipeline and model. It should come as no surprise that the same can also be done for your
-    API. Doing so should be able to tell you if your API is working as you expect it to do. The only complication
-    regarding APIs is that you need a server to do testing, and we cannot use `uvicorn` for this. Check out this
-    [page](https://fastapi.tiangolo.com/tutorial/testing/) on how to test `FastAPI` application, and add a file
-    called `test_api.py` to your `tests` folder with appropriate tests for your API.
 
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you check out
 [bentoml](https://github.com/bentoml/BentoML) which is an API standard that focuses solely on creating

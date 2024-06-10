@@ -81,6 +81,20 @@ to change.
     make sure to always `#!python assert` that the status code is what you expect and that the response is what you
     expect. Add such tests for all the endpoints in your API.
 
+    ??? note "Application with lifespans"
+
+        If you have an application with lifespan events e.g. you have implemented the `lifespan` function in your
+        FastAPI application, you need to instead use the `TestClient` in a `with` statement. This is because the
+        `TestClient` will close the connection to the application after the test is done. Here is an example:
+
+        ```python
+        def test_read_root(model):
+            with TestClient(app) as client:
+                response = client.get("/")
+                assert response.status_code == 200
+                assert response.json() == {"message": "Welcome to the MNIST model inference API!"}
+        ```
+
 4. To run the tests, you can use the following command:
 
     ```bash
