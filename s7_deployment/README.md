@@ -22,6 +22,12 @@
 
     [:octicons-arrow-right-24: M24: Cloud Deployment](cloud_deployment.md)
 
+- ![](../figures/icons/locust.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to test APIs for functionality and load
+
+    [:octicons-arrow-right-24: M25: API testing](testing_apis.md)
+
 </div>
 
 Let's say that you have spent 1000 GPU hours and trained the most awesome model that you want to share with the
