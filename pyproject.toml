@@ -26,6 +26,7 @@ convention = "google"
 
 [tool.codespell]
 skip = "*.pdf,*.ipynb,*.drawio,*.json"
+ignore-words-list = ["instanciate"]
 
 [tool.typos.default.extend-identifiers]
 arange = "arange"

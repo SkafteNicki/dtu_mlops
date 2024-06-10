@@ -103,7 +103,13 @@ them out into a configuration file.
 Note that we provide a solution (in the `vae_solution` folder) that can help you get through the exercise, but try to
 look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
 
-1. Start by install hydra: `pip install hydra-core --upgrade`
+1. Start by installing hydra:
+
+    ```bash
+    pip install hydra-core
+    ```
+
+    Remember to add it to your `requirements.txt` file.
 
 2. Next take a look at the `vae_mnist.py` and `model.py` file and understand what is going on. It is a model we will
     revisit during the course.
@@ -111,6 +117,13 @@ look online for your answers before looking at the solution. Remember: its not a
 3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
     into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
     completely reproducible (HINT: the weights of any neural network are initialized at random).
+
+    ??? success "Solution"
+
+        From the top of the file `batch_size`, `x_dim`, `hidden_dim` can be found as hyperparameters. Looking through
+        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` or the optimzer, `epochs` in the
+        training loop also are hyperparameters. Finally, the `seed` is not included in the script but is needed to make
+        the script fully reproducible e.g. `torch.manual_seed(seed)`.
 
 4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found
 
@@ -165,7 +178,7 @@ look online for your answers before looking at the solution. Remember: its not a
     Note: for the script to work, the weights should be saved to a file called `trained_model.pt` (this is the default
     of the `vae_mnist.py` script, so only relevant if you have changed the saving of the weights)
 
-11. Finally, make a new experiment using a new configuration file where you have changed a hyperparameter of your own
+11. Make a new experiment using a new configuration file where you have changed a hyperparameter of your own
     choice. You are not allowed to change the configuration file in the script but should instead be able to provide it
     as an argument when launching the script e.g. something like
 
@@ -183,6 +196,41 @@ look online for your answers before looking at the solution. Remember: its not a
     |     |--exp2.yaml
     |--my_app.py
     ```
+
+12. Finally, a awesome feature of hydra is the
+    [instantiate](https://hydra.cc/docs/advanced/instantiate_objects/overview/) feature. This allows you to define a
+    configuration file that can be used to directly instantiating objects in python. Try to create a configuration file
+    that can be used to instantiating the `Adam` optimizer in the `vae_mnist.py` script.
+
+    ??? success "Solution"
+
+        The configuration file could look like this
+
+        ```yaml
+        optimizer:
+          _target_: torch.optim.Adam
+          lr: 1e-3
+          betas: [0.9, 0.999]
+          eps: 1e-8
+          weight_decay: 0
+        ```
+
+        and the python code to load the configuration file and instantiate the optimizer could look like this
+
+        ```python
+        import hydra
+        import torch.optim as optim
+
+        @hydra.main(config_name="adam.yaml")
+        def main(cfg):
+            optimizer = hydra.utils.instantiate(cfg.optimizer)
+            print(optimizer)
+
+        if __name__ == "__main__":
+            main()
+        ```
+
+        This will print the optimizer object that is created from the configuration file.
 
 ### Final exercise
 

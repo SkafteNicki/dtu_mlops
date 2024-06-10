@@ -21,10 +21,6 @@ DEVICE = torch.device("cuda" if cuda else "cpu")
 batch_size = 100
 x_dim = 784
 hidden_dim = 400
-latent_dim = 20
-lr = 1e-3
-epochs = 20
-
 
 # Data loading
 mnist_transform = transforms.Compose([transforms.ToTensor()])
@@ -35,8 +31,8 @@ test_dataset = MNIST(dataset_path, transform=mnist_transform, train=False, downl
 train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
-encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
-decoder = Decoder(latent_dim=latent_dim, hidden_dim=hidden_dim, output_dim=x_dim)
+encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=20)
+decoder = Decoder(latent_dim=20, hidden_dim=hidden_dim, output_dim=x_dim)
 
 model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
 
@@ -48,12 +44,12 @@ def loss_function(x, x_hat, mean, log_var):
     return reproduction_loss + kld
 
 
-optimizer = Adam(model.parameters(), lr=lr)
+optimizer = Adam(model.parameters(), lr=1e-3)
 
 
 print("Start training VAE...")
 model.train()
-for epoch in range(epochs):
+for epoch in range(20):
     overall_loss = 0
     for batch_idx, (x, _) in enumerate(train_loader):
         if batch_idx % 100 == 0:
@@ -92,7 +88,7 @@ save_image(x_hat.view(batch_size, 1, 28, 28), "reconstructions.png")
 
 # Generate samples
 with torch.no_grad():
-    noise = torch.randn(batch_size, latent_dim).to(DEVICE)
+    noise = torch.randn(batch_size, 20).to(DEVICE)
     generated_images = decoder(noise)
 
 save_image(generated_images.view(batch_size, 1, 28, 28), "generated_sample.png")
