@@ -1,15 +1,12 @@
-name: Deploy docs
+name: Check docs
 
 on:
-  push:
+  pull_request:
     branches: [main]
 
-permissions:
-  contents: write
-
 jobs:
-  deploy:
-    name: Deploy docs
+  check:
+    name: Check docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,4 +25,10 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Deploy docs
-        run: mkdocs gh-deploy --force
+        run: mkdocs build -d build --strict
+
+      - name: Upload docs
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: build
