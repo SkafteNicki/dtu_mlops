@@ -271,21 +271,27 @@ Before getting started with this set of exercises you should have completed
         contents: write # (1)
 
     jobs:
-    deploy:
+      deploy:
+        name: Deploy docs
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-              with:
-                fetch-depth: 0
-            - uses: actions/setup-python@v4
-              with:
-                python-version: 3.10
-            - uses: actions/cache@v2
-              with:
-                key: ${{ github.ref }}
-                path: .cache
-            - run: pip install -r requirements.txt
-            - run: mkdocs gh-deploy --force
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: 3.11
+            cache: 'pip'
+            cache-dependency-path: setup.py
+
+        - name: Install dependencies
+          run: pip install -r requirements.txt
+
+        - name: Deploy docs
+          run: mkdocs gh-deploy --force
     ```
 
     1. :man_raising_hand: It is important to give `write` permissions to this actions because it is not only reading
