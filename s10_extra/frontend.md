@@ -20,7 +20,7 @@ In monollithic applications everything the user may be requesting of our applica
 container. In microservice architectures the application is split into smaller pieces that can be scaled independently.
 This also leads to easier maintainability and faster development.
 <a
-href="https://www.researchgate.net/figure/Comparison-between-monolithic-and-microservices-architectures-for-an-application-that_fig5_355361563">
+href="https://www.researchgate.net/publication/355361563/figure/fig5/AS:11431281160893008@1684895373070/Comparison-between-monolithic-and-microservices-architectures-for-an-application-that.png">
 Image Credit.
 </a>
 </figcaption>
