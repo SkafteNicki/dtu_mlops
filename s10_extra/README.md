@@ -29,4 +29,10 @@ Some of them may still be under construction and may in the future be moved into
 
     [:octicons-arrow-right-24: M34: High Performance Clusters](high_performance_clusters.md)
 
+- ![](../figures/icons/streamlit.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to create a frontend for your application using Streamlit
+
+    [:octicons-arrow-right-24: M35: Frontend](frontend.md)
+
 </div>
