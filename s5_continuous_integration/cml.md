@@ -37,11 +37,11 @@ machine learning operations. The model is divided into five stages:
 
 ## ❔ Exercises
 
-In the following exercises, we are going to look at two different cases where we can use continuous machine learning. The
-first one is a simple case where we are automatically going to trigger the training of a model whenever we make changes 
-to our data. This is a very common use case in machine learning where we have a data pipeline that is continuously
-updating our data. The second case is connected to staging and deploying models. In this case, we are going to look at
-how we can automatically do further processing of our model whenever we push a new model to our repository.
+In the following exercises, we are going to look at two different cases where we can use continuous machine learning. 
+The first one is a simple case where we are automatically going to trigger the training of a model whenever we make 
+changes to our data. This is a very common use case in machine learning where we have a data pipeline that is 
+continuously updating our data. The second case is connected to staging and deploying models. In this case, we are going 
+to look at how we can automatically do further processing of our model whenever we push a new model to our repository.
 
 1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
     which is a framework that is built on top of GitHub actions. The figure below describes the overall process using 
@@ -108,94 +108,192 @@ how we can automatically do further processing of our model whenever we push a n
     4. The next step is to implement steps in our workflow that does something when data changes. This is the reason
         why we created the `dataset_statistics` function. Implement a workflow that:
 
+    4. Now let's try to activate the workflow. 
+
+2. For the second set of exercises, we are going to look at how to automatically run further testing of our models
+    whenever we add them to our model registry. For that reason, do not continue with this set of exercises before you
+    have completed the exercises on the model registry in [this module](../s4_debugging_and_logging/logging.md).
+
+    <figure markdown>
+    ![Image](../figures/model_registry.png){ width="600" }
+    <figcaption>
+    The model registry is in general a repository of a team's trained models where ML practitioners publish candidates
+    for production and share them with others. Figure from [wandb](https://docs.wandb.ai/guides/model_registry).
+    </figure>
+
+    1. The first step is in our weights and bias account to create a team. Some of these more advanced features are only
+        available for teams, however every user is allowed to create one team for free. Go to your weights and bias 
+        account and create a team (the option should be on the left side of the UI). Give a team name and select W&B 
+        cloud storage.
+
+    2. Now we need to generate a personal access token that can link our weights and bias account to our GitHub account.
+        Go to [this page](https://github.com/settings/personal-access-tokens/new) and generate a new token. You can also
+        find the page by clicking your profile icon in the upper right corner of Github and selecting
+        `Settings`, then `Developer settings`, then `Personal access tokens` and finally choose either 
+        `Tokens (classic)` or `Fine-grained tokens` (which is the safer option, which is also what the link points to).
+
+        <figure markdown>
+        ![Image](figures/personal_access_token.jpg){ width="500" }
+        </figure>
+
+        give it a name, set what repositories it should have access to and select the permissions you want it to have. 
+        In our case if you choose to create `Fine-grained token` then it needs access to the `contents:write` 
+        permission. If you choose `Tokens (classic)` then it needs access to the `repo` permission. After you have 
+        created the token, copy it and save it somewhere safe.
+
+    3. Go to the settings of your newly created team: <https://wandb.ai/<teamname>/settings> and scroll down to the
+        `Team secrets` section. Here add the token you just created as a secret with the name `GITHUB_ACTIONS_TOKEN`.
+        WANDB will now be able to use this token to trigger actions in your repository.
+
+    4. On the same settings page, scroll down to the `Webhooks` settings. Click the `New webhook` button in fill in the
+        following information:
+
+        * Name: `github_actions_dispatch`
+        * URL: `https://api.github.com/repos/<owner>/<repo>/dispatches`
+        * Access token: `GITHUB_ACTIONS_TOKEN`
+        * Secret: leave empty
+
+        You here need to replace `<owner>` and `<repo>` with your own information. The `/dispatches` endpoint is a
+        special endpoint that all Github actions workflows can listen to. Thus, if you ever want to setup a webhook in
+        some other framework that should trigger a Github action, you can use this endpoint.
+
+    6. Next, navigate to your model registry. It should hopefully contain at least one registry with at least one model
+        registered. If not, go back to the previous module and do that.
         
+    7. When you have a model in your registry, click on the `View details` button. Then click the `New automation` 
+        button. On the first page, select that you want to trigger the automation when an alias is added to a model
+        version, set that alias to `staging` and select the action type to be `Webhook`. On the next page, select the
+        `github_actions_dispatch` webhook that you just created and add this as the payload:
+
+        ```json
+        {
+            "event_type": "staged_model",
+            "client_payload": 
+            {
+                "event_author": "${event_author}",
+                "artifact_version": "${artifact_version}",
+                "artifact_version_string": "${artifact_version_string}",
+                "artifact_collection_name": "${artifact_collection_name}",
+                "project_name": "${project_name}",
+                "entity_name": "${entity_name}"
+            }
+        }
+        ```
+
+        Finally, on the next page give the automation a name and click `Create automation`.
+
+        <figure markdown>
+        ![Image](figures/wandb_automation.jpg){ width="500" }
+        </figure>
+
+        Make sure you understand overall what is happening here.
+
+        ??? success "Solution"
+
+            The automation is set up to trigger a webhook whenever the alias `staging` is added to a model version. The
+            webhook is set up to trigger a Github action workflow that listens to the `/dispatches` endpoint and has
+            the event type `staged_model`. The payload that is sent to the webhook contains information about the model
+            that was staged.
+
+    8. We are now ready to create the `Github actions workflow` that listens to the `/dispatches` endpoint and triggers
+        whenever a model is staged. Create a new workflow file (called `stage_model.yaml`) and make sure it only
+        activates on the `staged_model` event. Hint: relevant 
+        [documentation](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+
+        ??? success "Solution"
+
+            ```yaml
+            name: Check staged model
+
+            on:
+              repository_dispatch:
+                types: staged_model
+            ```
+
+    9. Next, we need to implement the steps in our workflow that do something when a model is staged. The payload that
+        is sent to the webhook contains information about the model that was staged. Implement a workflow that:
+
+        1. Identifies the model that was staged
+        2. Sets an environment variable with the model name
+        3. Outputs the model name
+
+        ??? success "Solution"
+
+            ```yaml
+            jobs:
+              identify_event:
+                runs-on: ubuntu-latest
+                outputs:
+                  model_name: ${{ steps.set_output.outputs.model_name }}
+                steps:
+                  - name: Check event type
+                    run: |
+                      echo "Event type: repository_dispatch"
+                      echo "Payload Data: ${{ toJson(github.event.client_payload) }}"
+                      
+                  - name: Setting model environment variable and output
+                    id: set_output
+                    run: |
+                      echo "model_name=${{ github.event.client_payload.artifact_version_string }}" >> $GITHUB_OUTPUT
+            ```
+
+    10. Let's now add another job that does something to the model. In this case, we are going to download the model and
+        run some performance tests on it to check that it is fast enough for deployment. Therefore, implement the
+        following steps:
+
+        1. Downloads the model
+        2. Runs a test on the model
+
+        We here provide a simple test that you can use to test the model. The test is a simple script that loads the
+        model and runs it on a random input. If the model runs without errors, we consider it a success.
+
+        ```python linenums="1" title="test_model.py"
+        import wandb
+        import os
+        
+        def load_model(artifact):
+            api = wandb.Api(os.
+
+        def test_model_speed():
+            model_artifact = os.getenv("MODEL_NAME")
+            model = load_model(model_artifact)
+        ```
+
+        ??? success "Solution"
+
+            ```yaml
+            jobs:
+              identify_event:
+                ...
+              test_model:
+                runs-on: ubuntu-latest
+                needs: identify_event
+                env:
+                  MODEL_NAME: ${{ needs.identify_event.outputs.model_name }}
+                steps:
+                - name: Echo model name
+                  run: |
+                    echo "Model name: $MODEL_NAME"
+                - name: Checkout code
+                  uses: actions/checkout@v4
+
+                - name: Set up Python
+                  uses: actions/setup-python@v5
+                  with:
+                    python-version: 3.11
+                    cache: 'pip'
+                    cache-dependency-path: setup.py
+                
+                - name: Install dependencies
+                  run: |
+                    pip install -r requirements.txt
+                    pip list
+
+                - name: Test model
+                  run: |
+                    pytest tests/performancetests/test_model.py
+
+            ```
 
 
-
-
-    4. Now lets try to activate the workflow. 
-
-
-
-
-
-## ❔ Exercises
-
-1. We are first going to revisit our `train.py` script. If we want `cml` to automatically be able
-    to report the performance of our trained model to us after it is trained, we need to give it some
-    statistics to work with. Below is some psedo-code that computes the accuracy and the confusion
-    matrix of our trained model. Create an copy of your training script (call it `train_cml.py`) and
-    make sure your script is also producing an classification report and confusion matrix as in the
-    pseudo-code.
-
-    ```python
-    # assume we have a trained model
-    import matplotlib.pyplot as plt
-    from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
-    preds, target = [], []
-    for batch in train_dataloader:
-        x, y = batch
-        probs = model(x)
-        preds.append(probs.argmax(dim=-1))
-        target.append(y.detach())
-
-    target = torch.cat(target, dim=0)
-    preds = torch.cat(preds, dim=0)
-
-    report = classification_report(target, preds)
-    with open("classification_report.txt", 'w') as outfile:
-        outfile.write(report)
-    confmat = confusion_matrix(target, preds)
-    disp = ConfusionMatrixDisplay(confusion_matrix = confmat)
-    plt.savefig('confusion_matrix.png')
-    ```
-
-2. Similar to what we have looked at until now, automation happens using *github workflow* files.
-    The main difference from continuous integration we have looked on until now, is that we are actually
-    going to *train* our model whenever we do a `git push`. Copy the following code into a new workflow
-    (called `cml.yaml`) and add that file to the folder were you keep your workflow files.
-
-    ```yaml
-    name: train-my-model
-    on: [push]
-    jobs:
-      run:
-        runs-on: [ubuntu-latest]
-        steps:
-          - uses: actions/checkout@v2
-          - uses: iterative/setup-cml@v1
-          - name: Train model
-            run: |
-              pip install -r requirements.txt  # install dependencies
-              python train.py  # run training
-          - name: Write report
-            env:
-              # this authenticates that the right permissions are in place
-              REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            run: |
-              # send all information to report.md that will be reported to us when the workflow finish
-              cat classification_report.txt >> report.md
-              cml-publish confusion_matrix.png --md >> report.md
-              cml-send-comment report.md
-    ```
-
-    Nearly everything in the workflow file should look familiar, except the last two lines.
-
-3. Try pushing the workflow file to your GitHub repository and make sure that it completes.
-    If it does not, you may need to adjust the workflow file slightly.
-
-4. Send yourself a pull-request. I recommend seeing [this](https://www.youtube.com/watch?v=xwyJexAnt9k)
-    very short video on how to send yourself a pull-request with a small change. If you workflow file is
-    executed correctly you should see `github-actions` commenting with a performance report on your PR.
-
-5. (Optional) `cml` is offered by the same people behind `dvc` and it should therefore come as no surprise
-    that these features can interact with each other. If you want to deep dive into this,
-    [here](https://cml.dev/doc/cml-with-dvc) is a great starting point.
-
-The ends the session on continuous machine learning. If you have not already noticed, one limitation of using github
-actions is that their default runners e.g. `runs-on: [ubuntu-latest]` are only CPU machines (see
-[hardware config](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
-. As we all know, modern machine learning more or less requires hardware acceleration (=GPUs) to train within
-reasonable time. Luckily for us `cml` also integrated with large cloud provides and I therefore recommend that
-after doing through the modules on [cloud computing](../s6_the_cloud/README.md) that you return to this exercise and
-experiment with setting up [self-hosted runners](https://github.com/iterative/cml#advanced-setup).
+### 🧠 Knowledge check
