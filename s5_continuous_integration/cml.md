@@ -13,36 +13,111 @@ In this session, we are now gonna change gear and look at **continuous machine l
 we are now focusing on automatizing actual machine learning processes. You may ask why we need continuous integration
 principals baked into machine learning pipelines? The reason is the same as with any continuous integration, namely that
 we have a bunch of checks that we want our newly trained model to pass before we trust it. Writing `unittests` secures
-that our code is not broken, but there are other failure modes of a machine learning pipeline that should be checked
-before the model is ready for deployment:
+that our code is not broken, but other failure modes of a machine learning pipeline should be checked before the model 
+is ready for deployment:
 
 * Did I train on the correct data?
 * Did my model converge at all?
 * Did it reach a certain threshold at all?
 
-Answering these questions in a continuous way are possible through continuous machine learning. For this session, we are
-going to use `cml` by [iterative.ai](https://iterative.ai/) for this session. Strictly speaking, using the
-`cml` framework is not a necessary component for doing continuous machine learning but it streamlined way of doing this
-and offers tools to easily get a report about how a specific run performed. If we where just interested in trigging
-model training every time we do a `git push` we essentially just need to include
+## MLOps maturity model
 
-```yaml
-run: python train.py
-```
-
-to any of our workflow files.
-
-The figure below describes the overall process using the `cml` framework. It should be clear that it is the very
-same process that we go through as in the other continuous integration sessions: `push code` -> `trigger GitHub actions`
--> `do stuff`. The new part in this session is that we want an report of the finding of the automated run to appear
-after the run is done.
+Before getting started with the exercises, let's first take a look at the MLOps maturity model that will help us clarify
+what we are aiming for. The maturity model is a way of understanding how mature an organization is in terms of their
+machine learning operations. The model is divided into five stages:
 
 <figure markdown>
-![Image](../figures/cml.jpeg){ width="1000" }
+![Image](../figures/mlops_maturity_model.png){ width="1000" }
 <figcaption>
-<a href="https://towardsdatascience.com/continuous-machine-learning-e1ffb847b8da"> Image credit </a>
+<a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/mlops-maturity-model"> Image credit </a> 
 </figcaption>
 </figure>
+
+
+
+## ❔ Exercises
+
+In the following exercises, we are going to look at two different cases where we can use continuous machine learning. The
+first one is a simple case where we are automatically going to trigger the training of a model whenever we make changes 
+to our data. This is a very common use case in machine learning where we have a data pipeline that is continuously
+updating our data. The second case is connected to staging and deploying models. In this case, we are going to look at
+how we can automatically do further processing of our model whenever we push a new model to our repository.
+
+1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
+    which is a framework that is built on top of GitHub actions. The figure below describes the overall process using 
+    the `cml` framework. It should be clear that it is the very same process that we go through as in the other 
+    continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this session 
+    that we are only going to trigger whenever data changes.
+
+    <figure markdown>
+    ![Image](../figures/cml.jpeg){ width="1000" }
+    <figcaption>
+    <a href="https://towardsdatascience.com/continuous-machine-learning-e1ffb847b8da"> Image credit </a>
+    </figcaption>
+    </figure>
+
+    1. If you have not already created a dataset class for the corrupted Mnist data, start by doing that. Essentially,
+        it is a class that should inherit from `torch.utils.data.Dataset` and should have a `__getitem__` and `__len__`
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="dataset.py"
+            --8<-- "s5_continuous_integration/exercise_files/dataset.py"
+            ```
+
+    2. Then lets create a function that can report basic statistics such as the number of training samples, number of
+        test samples, a distribution of the classes in the dataset. This function should be called `dataset_statistics`
+        and should take the dataset as input.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="dataset.py"
+            --8<-- "s5_continuous_integration/exercise_files/dataset.py"
+            ```	
+
+    3. Next, we are going to implement a Github actions workflow that only activates when we make changes to our data.
+        Create a new workflow file (call it `cml_data.yaml`) and make sure it only activates on push/pull-request events
+        when `data/` changes. Relevant 
+        [documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore)
+
+        ??? success "Solution"
+
+            The secret is to use the `paths` keyword in the workflow file. We here specify that the workflow should only
+            trigger when the `.dvc` folder or any file with the `.dvc` extension changes, which is the case when we
+            update our data and call `dvc add data/`.
+
+            ```yaml
+            
+            name: DVC Workflow
+
+            on:
+            push:
+                branches:
+                - main
+                paths:
+                - '**/*.dvc'
+                - '.dvc/**'
+            pull_request:
+                branches:
+                - main
+                paths:
+                - '**/*.dvc'
+                - '.dvc/**'
+            ```
+
+    4. The next step is to implement steps in our workflow that does something when data changes. This is the reason
+        why we created the `dataset_statistics` function. Implement a workflow that:
+
+        
+
+
+
+
+    4. Now lets try to activate the workflow. 
+
+
+
+
 
 ## ❔ Exercises
 
