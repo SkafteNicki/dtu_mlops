@@ -132,7 +132,7 @@ to look at how we can automatically do further processing of our model whenever 
         `Tokens (classic)` or `Fine-grained tokens` (which is the safer option, which is also what the link points to).
 
         <figure markdown>
-        ![Image](figures/personal_access_token.jpg){ width="500" }
+        ![Image](../figures/personal_access_token.jpg){ width="500" }
         </figure>
 
         give it a name, set what repositories it should have access to and select the permissions you want it to have.
@@ -182,7 +182,7 @@ to look at how we can automatically do further processing of our model whenever 
         Finally, on the next page give the automation a name and click `Create automation`.
 
         <figure markdown>
-        ![Image](figures/wandb_automation.jpg){ width="500" }
+        ![Image](../figures/wandb_automation.jpg){ width="500" }
         </figure>
 
         Make sure you understand overall what is happening here.
