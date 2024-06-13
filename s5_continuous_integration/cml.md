@@ -4,27 +4,33 @@
 
 ---
 
-The continuous integration we have looked at until now is what we can consider "classical" continuous integration, that
-have its roots in DevOps and not MLOps. While the test that we have written and the containers ww have developed in the
-previous session have be around machine learning, everything we have done translate to completely to how it would be
-done if we had developed any other application did not include machine learning.
+The continuous integration we have looked at until now is what we can consider "classical" continuous integration, which
+has its roots in DevOps and not MLOps. While the test that we have written and the containers we have developed in the
+previous session have been about machine learning, everything we have done translates completely to how it would be
+done if we had developed any other application that did not include machine learning.
 
-In this session, we are now gonna change gear and look at **continuous machine learning** (CML). As the name may suggest
-we are now focusing on automatizing actual machine learning processes. You may ask why we need continuous integration
-principals baked into machine learning pipelines? The reason is the same as with any continuous integration, namely that
-we have a bunch of checks that we want our newly trained model to pass before we trust it. Writing `unittests` secures
-that our code is not broken, but other failure modes of a machine learning pipeline should be checked before the model
-is ready for deployment:
+In this session, we are now gonna change gears and look at **continuous machine learning** (CML). As the name may
+suggest we are now focusing on automatizing actual machine learning processes. The reason for doing this is the same
+as with continuous integration, namely that we often have a bunch of checks that we want our newly trained model to pass
+before we trust it to be ready for deployment. Writing unit tests secures that the code that we use for training our
+model is not broken, but there exist other failure modes of a machine learning pipeline:
 
 * Did I train on the correct data?
 * Did my model converge at all?
-* Did it reach a certain threshold at all?
+* Did a metric that I care about improve?
+* Did I overfit?
+* Did I underfit?
+* ...
+
+All these questions are questions that we can answer by writing tests that are specific to machine learning. In this
+session, we are going to look at how we can begin to use [Github Actions](github_actions.md) to automate these tests.
 
 ## MLOps maturity model
 
-Before getting started with the exercises, let's first take a look at the MLOps maturity model that will help us clarify
-what we are aiming for. The maturity model is a way of understanding how mature an organization is in terms of their
-machine learning operations. The model is divided into five stages:
+Before getting started with the exercises, let's first take a side step and look at what is called the MLOps maturity
+model. The reason here is to get a better understanding of when continuous machine learning is relevant. The main idea
+behind the MLOps maturity model is to help organizations understand where they are in their machine learning operations
+journey and what the next logical steps are. The model is divided into five stages:
 
 <figure markdown>
 ![Image](../figures/mlops_maturity_model.png){ width="1000" }
@@ -33,13 +39,44 @@ machine learning operations. The model is divided into five stages:
 </figcaption>
 </figure>
 
+`Level 0`
+
+: At this level, organizations are doing machine learning in an ad-hoc manner. There is no standardization, no version
+    control, no testing, and no monitoring.
+
+`Level 1`
+
+: At this level, organizations have started to implement DevOps practices in their machine learning workflows. They have
+    started to use version control and maybe come with basic continuous integration practices.
+
+`Level 2`
+
+: At this level, organizations have started to standardize the training process and tackle the problem of creating
+    reproducible experiments. Centralization of model artifacts and metadata is common at this level. They have started
+    to implement model versioning and model registry practices.
+
+`Level 3`
+
+: At this level, organizations have started to implement continuous integration and continuous deployment practices.
+    They have started to automate the testing of their models and have started to monitor their models in production.
+
+`Level 4`
+
+: At this level, organizations have started to implement continuous machine learning practices. They have started to
+    automate the training, evaluation, and deployment of their models. They have started to implement automated
+    retraining and model updates.
+
+The MLOps maturity model tells us that continuous machine learning is the highest form of maturity in MLOps. It is the
+stage where we have automated the entire machine learning pipeline and the cases we will be going through in the
+exercises are therefore some of the last steps in the MLOps maturity model.
+
 ## ❔ Exercises
 
 In the following exercises, we are going to look at two different cases where we can use continuous machine learning.
-The first one is a simple case where we are automatically going to trigger some workflow (like training of a model) 
-whenever we make changes to our data. This is a very common use case in machine learning where we have a data pipeline 
-that is continuously updating our data. The second case is connected to staging and deploying models. In this case, we 
-are going to look at how we can automatically do further processing of our model whenever we push a new model to our 
+The first one is a simple case where we are automatically going to trigger some workflow (like training of a model)
+whenever we make changes to our data. This is a very common use case in machine learning where we have a data pipeline
+that is continuously updating our data. The second case is connected to staging and deploying models. In this case, we
+are going to look at how we can automatically do further processing of our model whenever we push a new model to our
 repository.
 
 1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
@@ -64,9 +101,9 @@ repository.
             --8<-- "s5_continuous_integration/exercise_files/dataset.py"
             ```
 
-    2. Then lets create a function that can report basic statistics such as the number of training samples, number of
-        test samples, a distribution of the classes in the dataset. This function should be called `calculate`
-        and should take the dataset as input.
+    2. Then let's create a function that can report basic statistics such as the number of training samples, the number
+        of test samples and generate figures of sample images in the dataset and distribution of the classes in the
+        dataset. This function should be called `dataset_statistics` and should take a path to the dataset as input.
 
         ??? success "Solution"
 
@@ -74,7 +111,7 @@ repository.
             --8<-- "s5_continuous_integration/exercise_files/dataset_statistics.py"
             ```
 
-    3. Next, we are going to implement a Github actions workflow that only activates when we make changes to our data.
+    3. Next, we are going to implement a GitHub actions workflow that only activates when we make changes to our data.
         Create a new workflow file (call it `cml_data.yaml`) and make sure it only activates on push/pull-request events
         when `data/` changes. Relevant
         [documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore)
@@ -98,23 +135,28 @@ repository.
                 - '.dvc/**'
             ```
 
-    4. The next step is to implement steps in our workflow that does something when data changes. This is the reason
+    4. The next step is to implement steps in our workflow that do something when data changes. This is the reason
         why we created the `dataset_statistics` function. Implement a workflow that:
 
-        1. Checks out the code
+        1. Check-out the code
         2. Setups Python
         3. Installs dependencies
-        4. Runs the `dataset_statistics` function
+        4. Downloads the data
+        5. Runs the `dataset_statistics` function on the data
 
         ??? success "Solution"
 
+            This solution assumes that data is stored in GCP bucket and that the credentials are stored in a secret
+            called `GCP_SA_KEY`. If this is not the case for you, you need to adjust the workflow accordingly with
+            the correct way to pull the data.
+
             ```yaml
             jobs:
-              dataset_statistics:
+              run_data_checker:
                 runs-on: ubuntu-latest
                 steps:
                 - name: Checkout code
-                  uses: actions/checkout@v4
+                  uses: actions/checkout@v2
 
                 - name: Set up Python
                   uses: actions/setup-python@v5
@@ -125,40 +167,80 @@ repository.
 
                 - name: Install dependencies
                   run: |
-                    pip install -r requirements.txt
+                    make dev_requirements
                     pip list
 
-                - name: Download data
-                  run: |
-                    dvc pull
-                    ls data/
+                - name: Auth with GCP
+                  uses: google-github-actions/auth@v2
+                  with:
+                    credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-                - name: Run dataset statistics
+                - name: Pull data
+                  run: |
+                    dvc pull --no-run-cache
+
+                - name: Check data statistics
                   run: |
                     python dataset_statistics.py
             ```
 
-    5. Now let's try to activate the workflow.
+    5. Let's make sure that the workflow works as expected for now. Create a new branch and either add or remove a file
+        in the `data/` folder. Then run
 
-    6. Lets now add the cml framework such that we can comment the results of the `dataset_statistics` function in the
-        pull request automatically. Look at the 
-        [getting started guide](https://github.com/iterative/cml#getting-started) for help on how to do this.
+        ```bash
+        dvc add data/
+        git add data.dvc
+        git commit -m "Update data"
+        git push
+        ```
+
+        to commit the changes to data. Open a pull request with the branch and make sure that the workflow activates
+        and runs as expected.
+
+    6. Lets now add the `cml` framework such that we can comment the results of the `dataset_statistics` function in the
+        pull request automatically. Look at the
+        [getting started guide](https://github.com/iterative/cml#getting-started) for help on how to do this. You will
+        need write all the content of the `dataset_statistics` function to a file called `report.md` and then use the
+        `cml comment create` command to create a comment in the pull request with the content of the file.
 
         ??? success "Solution"
-            
+
             ```yaml
             jobs:
               dataset_statistics:
                 runs-on: ubuntu-latest
                 steps:
                 # ...all the previous steps
-                - name: Run dataset statistics & report
+                - name: Check data statistics & generate report
+                run: |
+                  python src/example_mlops/data.py > data_statistics.md
+                  echo '![](./mnist_images.png "MNIST images")' >> data_statistics.md
+                  echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
+                  echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
+
+                - name: Setup cml
+                  uses: iterative/setup-cml@v2
+
+                - name: Comment on PR
+                  env:
+                    REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   run: |
-                    python dataset_statistics.py > Report.md
-                    echo "![](./train_label_distribution.png)" >> Report.md
-                    echo "![](./test_label_distribution.png)" >> Report.md
-                    cml comment create report.md
+                    cml comment create data_statistics.md --watermark-title="Data Checker" # (1)!
             ```
+
+            1. :man_raising_hand: The `--watermark-title` flag is used to watermark the comment created by `cml`. It is
+                to make sure that no new comments are created every time the workflow runs.
+
+    7. Make sure that the workflow works as expected. You should see a comment created by `github-actions (bot)` like
+        this if you have done everything correctly:
+
+        <figure markdown>
+        ![Image](../figures/cml_pr_comment.png){ width="600" }
+        </figure>
+
+    8. (Optional) Feel free to add more checks to the workflow. For example, you could add a check that runs a small
+        baseline model on the updated data and checks that the model converges. This is a very common sanity check that
+        is done in machine learning pipelines.
 
 2. For the second set of exercises, we are going to look at how to automatically run further testing of our models
     whenever we add them to our model registry. For that reason, do not continue with this set of exercises before you
@@ -191,7 +273,7 @@ repository.
         permission. If you choose `Tokens (classic)` then it needs access to the `repo` permission. After you have
         created the token, copy it and save it somewhere safe.
 
-    3. Go to the settings of your newly created team: <https://wandb.ai/<teamname>/settings> and scroll down to the
+    3. Go to the settings of your newly created team: <https://wandb.ai/teamname/settings> and scroll down to the
         `Team secrets` section. Here add the token you just created as a secret with the name `GITHUB_ACTIONS_TOKEN`.
         WANDB will now be able to use this token to trigger actions in your repository.
 
@@ -327,7 +409,6 @@ repository.
                 end = time.time()
                 assert end - start < 1
             ```
-
 
     10. Let's now add another job that calls the script we just wrote. It needs to:
 
@@ -479,7 +560,7 @@ repository.
 
 3. (Optional) If you have got this far, consider combining principles from the two exercises. Here is an idea: we use
     the workflow from the second exercise to trigger a workflow that checks a staged model for performance. We then
-    use the `cml` framework to automatically create a pull request e.g. use `cml pr create` instead of 
+    use the `cml` framework to automatically create a pull request e.g. use `cml pr create` instead of
     `cml comment create` to create a pull request with the results of the performance test. Then if we are happy with
     the performance, we can then approve that pull request and the production alias is added to the model. This is a
     better workflow because it allows for human intervention before the model is deployed.
@@ -487,17 +568,29 @@ repository.
 ### 🧠 Knowledge check
 
 1. What is the difference between continuous integration and continuous machine learning?
-    
+
     ??? success "Solution"
 
         There are three key differences between continuous integration and continuous machine learning:
 
-        * Scope: CI focuses on integrating and testing software code, while CML encompasses the entire lifecycle of 
+        * Scope: CI focuses on integrating and testing software code, while CML encompasses the entire lifecycle of
             machine learning models, including data handling, model training, evaluation, deployment, and monitoring.
-        * Automation Focus: CI automates code testing and integration, whereas CML automates the training, evaluation, 
+        * Automation Focus: CI automates code testing and integration, whereas CML automates the training, evaluation,
             deployment, and monitoring of machine learning models.
-        * Feedback Mechanisms: CI primarily uses automated tests to provide feedback on code quality. CML uses 
+        * Feedback Mechanisms: CI primarily uses automated tests to provide feedback on code quality. CML uses
             performance metrics from deployed models to provide feedback and trigger retraining or model updates.
+
+2. Imaging you get hired in the pharmasuitical industri being asked to develop a machine learning pipeline that can
+    automatically sort out which drugs are safe and which are not. What level of the MLOps maturity model would you
+    strive to reach?
+
+    ??? success "Solution"
+
+        There is really no right or wrong answer here, but in most cases we would actually not aim for level 4. The
+        reason is that the consequences of a bad model in this case can be severe. Therefore, we would probably not want
+        automated retraining and model updates, which is what level 4 is about. Instead, we would probably aim for level
+        3 where we have automated testing and monitoring of our models but there is still human oversight in the
+        process.
 
 This ends the module on continuous machine learning. As we have hopefully convinced you, it is only the imagination that
 sets the limits for what you can use Github actions for in your machine learning pipeline. However, we do want to stress
@@ -505,6 +598,6 @@ that it is important that human oversight is always present in the process. Auto
 replace human judgement. This is especially true in machine learning where the consequences of a bad model can be
 severe if it is used in critical decision making.
 
-Finally, if you have completed the exercises on [using the cloud](../s6_the_cloud/using_the_cloud.md) consider checking 
-out the [cml runner lunch](https://cml.dev/doc/ref/runner#--cloud) command that allows you to run your workflows on 
+Finally, if you have completed the exercises on [using the cloud](../s6_the_cloud/using_the_cloud.md) consider checking
+out the [cml runner lunch](https://cml.dev/doc/ref/runner#--cloud) command that allows you to run your workflows on
 cloud resources instead of the GitHub actions runners.
