@@ -65,13 +65,13 @@ to look at how we can automatically do further processing of our model whenever 
             ```
 
     2. Then lets create a function that can report basic statistics such as the number of training samples, number of
-        test samples, a distribution of the classes in the dataset. This function should be called `dataset_statistics`
+        test samples, a distribution of the classes in the dataset. This function should be called `calculate`
         and should take the dataset as input.
 
         ??? success "Solution"
 
             ```python linenums="1" title="dataset.py"
-            --8<-- "s5_continuous_integration/exercise_files/dataset.py"
+            --8<-- "s5_continuous_integration/exercise_files/dataset_statistics.py"
             ```
 
     3. Next, we are going to implement a Github actions workflow that only activates when we make changes to our data.
@@ -107,6 +107,44 @@ to look at how we can automatically do further processing of our model whenever 
     4. The next step is to implement steps in our workflow that does something when data changes. This is the reason
         why we created the `dataset_statistics` function. Implement a workflow that:
 
+        1. Checks out the code
+        2. Setups Python
+        3. Installs dependencies
+        4. Runs the `dataset_statistics` function
+
+        ??? success "Solution"
+
+            ```yaml
+            jobs:
+              dataset_statistics:
+                runs-on: ubuntu-latest
+                steps:
+                - name: Checkout code
+                  uses: actions/checkout@v4
+
+                - name: Set up Python
+                  uses: actions/setup-python@v5
+                  with:
+                    python-version: 3.11
+                    cache: 'pip'
+                    cache-dependency-path: setup.py
+
+                - name: Install dependencies
+                  run: |
+                    pip install -r requirements.txt
+                    pip list
+
+                - name: Download data
+                  run: |
+                    dvc pull data/
+                    ls data/
+
+                - name: Run dataset statistics
+                  run: |
+                    python dataset_statistics.py
+            ```
+
+
     4. Now let's try to activate the workflow.
 
 2. For the second set of exercises, we are going to look at how to automatically run further testing of our models
@@ -132,7 +170,7 @@ to look at how we can automatically do further processing of our model whenever 
         `Tokens (classic)` or `Fine-grained tokens` (which is the safer option, which is also what the link points to).
 
         <figure markdown>
-        ![Image](../figures/personal_access_token.jpg){ width="500" }
+        ![Image](../figures/personal_access_token.png){ width="500" }
         </figure>
 
         give it a name, set what repositories it should have access to and select the permissions you want it to have.
@@ -182,7 +220,7 @@ to look at how we can automatically do further processing of our model whenever 
         Finally, on the next page give the automation a name and click `Create automation`.
 
         <figure markdown>
-        ![Image](../figures/wandb_automation.jpg){ width="500" }
+        ![Image](../figures/wandb_automation.png){ width="500" }
         </figure>
 
         Make sure you understand overall what is happening here.
