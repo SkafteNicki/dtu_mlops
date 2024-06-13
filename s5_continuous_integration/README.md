@@ -20,17 +20,11 @@
 
     [:octicons-arrow-right-24: M17: Pre-commit](pre_commit.md)
 
-- ![](../figures/icons/dockerhub.png){align=right : style="height:100px;width:100px"}
-
-    Learn how to implement continuous integration for continuous building of containers.
-
-    [:octicons-arrow-right-24: M18: Continuous Containers](auto_docker.md)
-
 - ![](../figures/icons/cml.png){align=right : style="height:100px;width:100px"}
 
     Learn how to implement continuous machine learning pipelines in Github actions.
 
-    [:octicons-arrow-right-24: M19: Continuous Machine Learning](cml.md)
+    [:octicons-arrow-right-24: M18: Continuous Machine Learning](cml.md)
 
 </div>
 

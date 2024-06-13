@@ -320,6 +320,75 @@ Let's take a look at how a GitHub workflow file is organized:
     3. Try to make sure that all steps are passed on repository. Especially `mypy` can be hard to get a passing, so this
         exercise formally only requires you to get `ruff` passing.
 
+12. (Optional) As you have probably already experienced in module [M9 on docker](../s3_reproducibility/docker.md) it can
+    be cumbersome to build docker images, sometimes taking a couple of minutes to build each time we make changes to our
+    code base. For this reason, we just want to build a new image every time we commit our code because that should mark
+    that we believe the code to be working at that point. Thus, let's automate the process of building our docker images
+    using Github actions. Do note that in a [future module](../s6_the_cloud/using_the_cloud.md) will look at how to
+    build containers using cloud providers, and this exercise is therefore very much optional.
+
+    1. Start by making sure you have a dockerfile in your repository. If you do not have one, you can use the following
+        simple dockerfile:
+
+        ```dockerfile
+        FROM busybox
+        CMD echo "Howdy cowboy"
+        ```
+
+    2. Push the dockerfile to your repository
+
+    3. Next, create a [Docker Hub account](https://hub.docker.com/)
+
+    4. Within Docker Hub create an access token by going to `Settings -> Security`. Click the `New Access Token` button
+        and give it a name that you recognize.
+
+    5. Copy the newly created access token and head over to your GitHub repository online. Go to
+        `Settings -> Secrets -> Actions` and click the `New repository secret`. Copy over the access token and give
+        it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and
+        `DOCKER_HUB_REPOSITORY` that contain your docker username and docker repository name respectively.
+
+    6. Next, we are going to construct the actual Github actions workflow file
+
+        ```yaml
+        name: Docker Image continuous integration
+
+        on:
+          push:
+            branches: [ master ]
+
+        jobs:
+            build:
+            runs-on: ubuntu-latest
+            steps:
+            - uses: actions/checkout@v2
+            - name: Build the Docker image
+              run: |
+                echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
+                  -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
+                docker build . --file Dockerfile \
+                  --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+                docker push \
+                  docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+        ```
+
+        The first part of the workflow file should look somewhat recognizable. However, the last three lines are where
+        all the magic happens. Carefully go through them and figure out what they do. If you want some help you can look
+        at the help page for `docker login`, `docker build` and `docker push`.
+
+    7. Upload the workflow to your GitHub repository and check that it is being executed. If everything works you should
+        be able to see the build docker image in your container repository in the docker hub.
+
+    8. Make sure that you can execute `docker pull` locally to pull down the image that you just continuously build
+
+    9. (Optional) To test that the container works directly in GitHub you can also try to include an additional
+        step that runs the container.
+
+        ```yaml
+            - name: Run container
+              run: |
+                docker run ...
+        ```
+
 ## 🧠 Knowledge check
 
 1. When working with GitHub actions you will often encounter the following 4 concepts:

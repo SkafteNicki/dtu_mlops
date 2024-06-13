@@ -8,13 +8,13 @@
 
     Learn how to detect data drifting using the `evidently` framework
 
-    [:octicons-arrow-right-24: M26: Data Drifting](data_drifting.md)
+    [:octicons-arrow-right-24: M25: Data Drifting](data_drifting.md)
 
 - ![](../figures/icons/prometheus.png){align=right : style="height:100px;width:100px"}
 
     Learn how to setup a prometheus monitoring system for your application
 
-    [:octicons-arrow-right-24: M27: System Monitoring](monitoring.md)
+    [:octicons-arrow-right-24: M26: System Monitoring](monitoring.md)
 
 </div>
 
