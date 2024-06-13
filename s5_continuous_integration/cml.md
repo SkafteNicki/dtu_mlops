@@ -33,14 +33,14 @@ machine learning operations. The model is divided into five stages:
 </figcaption>
 </figure>
 
-
 ## ❔ Exercises
 
 In the following exercises, we are going to look at two different cases where we can use continuous machine learning.
-The first one is a simple case where we are automatically going to trigger the training of a model whenever we make
-changes to our data. This is a very common use case in machine learning where we have a data pipeline that is
-continuously updating our data. The second case is connected to staging and deploying models. In this case, we are going
-to look at how we can automatically do further processing of our model whenever we push a new model to our repository.
+The first one is a simple case where we are automatically going to trigger some workflow (like training of a model) 
+whenever we make changes to our data. This is a very common use case in machine learning where we have a data pipeline 
+that is continuously updating our data. The second case is connected to staging and deploying models. In this case, we 
+are going to look at how we can automatically do further processing of our model whenever we push a new model to our 
+repository.
 
 1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
     which is a framework that is built on top of GitHub actions. The figure below describes the overall process using
@@ -90,13 +90,7 @@ to look at how we can automatically do further processing of our model whenever 
             name: DVC Workflow
 
             on:
-            push:
-                branches:
-                - main
-                paths:
-                - '**/*.dvc'
-                - '.dvc/**'
-            pull_request:
+              pull_request:
                 branches:
                 - main
                 paths:
@@ -136,7 +130,7 @@ to look at how we can automatically do further processing of our model whenever 
 
                 - name: Download data
                   run: |
-                    dvc pull data/
+                    dvc pull
                     ls data/
 
                 - name: Run dataset statistics
@@ -144,8 +138,27 @@ to look at how we can automatically do further processing of our model whenever 
                     python dataset_statistics.py
             ```
 
+    5. Now let's try to activate the workflow.
 
-    4. Now let's try to activate the workflow.
+    6. Lets now add the cml framework such that we can comment the results of the `dataset_statistics` function in the
+        pull request automatically. Look at the 
+        [getting started guide](https://github.com/iterative/cml#getting-started) for help on how to do this.
+
+        ??? success "Solution"
+            
+            ```yaml
+            jobs:
+              dataset_statistics:
+                runs-on: ubuntu-latest
+                steps:
+                # ...all the previous steps
+                - name: Run dataset statistics & report
+                  run: |
+                    python dataset_statistics.py > Report.md
+                    echo "![](./train_label_distribution.png)" >> Report.md
+                    echo "![](./test_label_distribution.png)" >> Report.md
+                    cml comment create report.md
+            ```
 
 2. For the second set of exercises, we are going to look at how to automatically run further testing of our models
     whenever we add them to our model registry. For that reason, do not continue with this set of exercises before you
@@ -464,4 +477,34 @@ to look at how we can automatically do further processing of our model whenever 
         model is too large for deployment, runs some further evaluation scripts, or checks if the model is robust to
         adversarial attacks. Only the imagination sets the limits here.
 
+3. (Optional) If you have got this far, consider combining principles from the two exercises. Here is an idea: we use
+    the workflow from the second exercise to trigger a workflow that checks a staged model for performance. We then
+    use the `cml` framework to automatically create a pull request e.g. use `cml pr create` instead of 
+    `cml comment create` to create a pull request with the results of the performance test. Then if we are happy with
+    the performance, we can then approve that pull request and the production alias is added to the model. This is a
+    better workflow because it allows for human intervention before the model is deployed.
+
 ### 🧠 Knowledge check
+
+1. What is the difference between continuous integration and continuous machine learning?
+    
+    ??? success "Solution"
+
+        There are three key differences between continuous integration and continuous machine learning:
+
+        * Scope: CI focuses on integrating and testing software code, while CML encompasses the entire lifecycle of 
+            machine learning models, including data handling, model training, evaluation, deployment, and monitoring.
+        * Automation Focus: CI automates code testing and integration, whereas CML automates the training, evaluation, 
+            deployment, and monitoring of machine learning models.
+        * Feedback Mechanisms: CI primarily uses automated tests to provide feedback on code quality. CML uses 
+            performance metrics from deployed models to provide feedback and trigger retraining or model updates.
+
+This ends the module on continuous machine learning. As we have hopefully convinced you, it is only the imagination that
+sets the limits for what you can use Github actions for in your machine learning pipeline. However, we do want to stress
+that it is important that human oversight is always present in the process. Automation is great, but it should never
+replace human judgement. This is especially true in machine learning where the consequences of a bad model can be
+severe if it is used in critical decision making.
+
+Finally, if you have completed the exercises on [using the cloud](../s6_the_cloud/using_the_cloud.md) consider checking 
+out the [cml runner lunch](https://cml.dev/doc/ref/runner#--cloud) command that allows you to run your workflows on 
+cloud resources instead of the GitHub actions runners.
