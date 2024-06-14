@@ -8,6 +8,7 @@ CURRENT_DIR := $(shell cd)
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
+
 docs:
 	mkdocs serve --dirty
 
@@ -23,3 +24,10 @@ linkcheck:
 		-v $(CURRENT_DIR):/github/workspace \
 		linkcheck \
 		"no" "no" "/github/workspace/.github/linkcheck_config.json" "/github/workspace" "-1" "no" "master" ".md" " "
+
+diagrams:
+	docker pull rlespinasse/drawio-export
+	docker run -it -v $(CURRENT_DIR):/data rlespinasse/drawio-export \
+		figures/diagrams/ -f png --on-changes --remove-page-suffix --output ../
+	docker run -it -v $(CURRENT_DIR):/data rlespinasse/drawio-export \
+		figures/diagrams/mlops_canvas.drawio -f pdf --on-changes --remove-page-suffix --output ../..
