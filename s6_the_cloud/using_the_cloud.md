@@ -33,25 +33,31 @@ There are many reasons why one to use virtual machines:
 
 ### ❔ Exercises
 
-We are now going to start actually using the cloud.
+We are now going to start using the cloud.
 
-1. Click on the `Compute Engine` tab in the sidebar on the homepage of `gcp`.
+1. Click on the `Compute Engine` tab in the sidebar on the homepage of GCP.
 
-2. Click the `Create instance` button. You will see the following image below.
+2. Click the `Create Instance` button. You will see the following image below.
 
     <figure markdown>
     ![Image](../figures/gcp4.PNG){ width="800"  }
     </figure>
 
-    Give it a meaningful name, and set the location to some location that is closer to where you are (to reduce
-    latency). Finally, try to adjust the configuration a bit. What two factors are affecting the price of the
-    compute unit?
+    Give the virtual machine a meaningful name, and set the location to some location that is closer to where you are
+    (to reduce latency, we recommend `europe-west-1`). Finally, try to adjust the configuration a bit. Can you find
+    at least two settings that alter the price of the virtual machine?
+
+    ??? success "Solution"
+
+        In general, the price of a virtual machine is determined by the class of hardware attached to it. Higher class
+        CPUs and GPUs means higher prices. Additionally, the amount of memory and disk space also affects the price.
+        Finally, to location of the virtual machine also affects the price.
 
 3. After figuring this out, create a `e2-medium` instance (leave the rest configured as default). Before clicking the
     `Create` button make sure to check the `Equivalent code` button. You should see a very long command that you
     could have typed in the terminal that would create a VM similar to configuring it through the UI.
 
-4. Now in a local terminal type:
+4. After creating the virtual machine, in a local terminal type:
 
     ```bash
     gcloud compute instances list
@@ -77,7 +83,7 @@ We are now going to start actually using the cloud.
     compute resources it should have, and not what software should be in it. We
     can fix this by starting VMs based on specific docker images (it's all coming together).
 
-    1. `gcp` Comes with several ready-to-go images for doing deep learning.
+    1. GCP comes with several ready-to-go images for doing deep learning.
         More info can be found [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
         Try, running this line:
 
@@ -86,6 +92,12 @@ We are now going to start actually using the cloud.
         ```
 
         what does the output show?
+
+        ??? success "Solution"
+
+            The output should show a list of images that are available for you to use. The images are essentially
+            docker images that contain a specific software stack. The software stack is often a specific version of
+            Python, Pytorch, Tensorflow, etc. The images are maintained by Google and are updated regularly.
 
     2. Next, start (in the terminal) a new instance using a Pytorch image. The command for doing it should look
         something like this:
@@ -105,6 +117,30 @@ We are now going to start actually using the cloud.
         `<image-family>` should have as value and what extra argument you need to add if you want to run on GPU (if you
         have access).
 
+        ??? success "Solution"
+
+            The command should look something like this:
+
+            === "CPU"
+
+                ```bash
+                gcloud compute instances create my_instance \
+                    --zone=europe-west1-b \
+                    --image-family=pytorch-latest-cpu \
+                    --image-project=deeplearning-platform-release
+                ```
+
+            === "GPU"
+
+                ```bash
+                gcloud compute instances create my_instance \
+                    --zone=europe-west1-b \
+                    --image-family=pytorch-latest-gpu \
+                    --image-project=deeplearning-platform-release \
+                    --accelerator="type=nvidia-tesla-K80,count=1" \
+                    --maintenance-policy TERMINATE
+                ```
+
     3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
         both a Python installation and Pytorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
@@ -113,8 +149,8 @@ We are now going to start actually using the cloud.
         ![Image](../figures/gcp_vm_browser.png){ width="800" }
         </figure>
 
-7. Finally, everything that you have done locally can also be achieved through the web
-    terminal, which of course comes pre-installed with the `gcloud` command etc.
+7. Everything that you have done locally can also be achieved through the web terminal, which of course comes
+    pre-installed with the `gcloud` command etc.
 
     <figure markdown>
     ![Image](../figures/gcp_terminal.png){ width="800"  }
@@ -122,18 +158,30 @@ We are now going to start actually using the cloud.
 
     Try out launching this and run some of the commands from the previous exercises.
 
-!!! warning "Stopping VMs"
-
-    If you are not careful you can end up wasting a lot of credits on virtual machines that you are not using. VMs are
-    charged by the minute, so even if you are not using them you are still paying for them. Therefore, it is important
-    that you remember to stop your VMs when you are not using them. You can do this by either clicking the `Stop` button
-    on the VM overview page or by running the following command:
+8. Finally, we want to make sure that we do not forget to stop our VMs. VMs are charged by the minute, so even if you
+    are not using them you are still paying for them. Therefore, you must remember to stop your VMs when you are not
+    using them. You can do this by either clicking the `Stop` button on the VM overview page or by running the following
+    command:
 
     ```bash
     gcloud compute instances stop <instance-name>
     ```
 
+    GCP also has the option to suspend the VMs, can you describe what the difference is between stopping and suspending
+    a VM?
+
+    ??? success "Solution"
+
+        [Suspended instances](https://cloud.google.com/compute/docs/instances/suspend-resume-instance) preserve the
+        guest OS memory, device state, and application state. You will not be charged for a suspended VM but will be
+        charged for the storage of the aforementioned states.
+        [Stopped instances](https://cloud.google.com/compute/docs/instances/stop-start-instance#stop-vm) do not
+        preserve any of the states and you will be charged for the storage of the disk. However, in both cases if the
+        VM instances have resources attached to them, such as static IPs and persistent disks, which are charged until
+        they are deleted.
+
 ## Data storage
+
 Another big part of cloud computing is the storage of data. There are many reasons that you want to store your
 data in the cloud including:
 
@@ -146,9 +194,10 @@ around 1 TB of data would cost you $26 which is more than what the same amount o
 the storage in Google Cloud is much more focused on enterprise usage such that you can access the data through code.
 
 ### ❔ Exercises
+
 When we did the exercise on data version control, we made `dvc` work together with our own Google Drive to store data.
 However, a big limitation of this is that we need to authenticate each time we try to either push or pull the data. The
-reason is that we need to use an API instead which is offered through `gcp`.
+reason is that we need to use an API instead which is offered through GCP.
 
 We are going to follow the instructions from this [page](https://dvc.org/doc/user-guide/setup-google-drive-remote)
 
@@ -169,7 +218,13 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     gsutil ls
     ```
 
-    `gsutil` is an additional command to `gcloud`, that provides more command line options.
+    [gsutil](https://cloud.google.com/storage/docs/gsutil) is a command line tool that allows you to create, upload,
+    download, list, move, rename and delete objects in the cloud storage. For example, you can upload a file to the
+    cloud storage by running:
+
+    ```bash
+    gsutil cp <file> gs://<bucket-name>
+    ```
 
 3. Next we need the Google storage extension for `dvc`
 
@@ -177,7 +232,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     pip install dvc-gs
     ```
 
-4. Now in your MNIST repository where you have already configured dvc, we are going to change the storage
+4. Now in your corrupt MNIST repository where you have already configured `dvc`, we are going to change the storage
     from our Google Drive to our newly created Google Cloud storage.
 
     ```bash
@@ -199,38 +254,43 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     Finally, push data to the cloud
 
     ```bash
-    dvc push
+    dvc push --no-run-cache  # (1)!
     ```
+
+    1. :man_raising_hand: The `--no-run-cache` flag is used to avoid pushing the cache file to the cloud, which is not
+        supported by the Google Cloud storage.
 
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
-    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterward do a `dvc pull`.
-
-This setup should work when trying to access the data from your laptop, which we authenticated in the previous module.
-However, how can you access the data from a virtual machine, inside a docker container or from a different laptop? We
-in general recommend two ways:
-
-* You can make the bucket publicly accessible e.g. no authentication is needed. That means that anyone with the URL to
-    the data can access it. This is the easiest way to do it, but also the least secure. You can read more about how to
-    make your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
-
-* You can create a [service account](https://cloud.google.com/iam/docs/service-account-overview) which is a more secure
-    way of accessing data. A service account is essentially a second user to which you can give access to specific
-    services. You can read more about how to create a service account
-    [here](https://cloud.google.com/iam/docs/creating-managing-service-accounts). Once you have created a service
-    account you can give it access to a specific bucket by going to the `Permissions` tab of the bucket and adding the
-    service account as a member.
-
-    <figure markdown>
-    ![Image](../figures/gcp_bucket_permission.png){ width="800" }
-    </figure>
-
-    If you need to authenticate your service account from a VM, you can do it by running the following command:
+    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterward do a
 
     ```bash
-    gcloud auth activate-service-account --key-file=<key-file>
+    dvc pull --no-run-cache
     ```
 
-    where the `<key-file` is the json file that you downloaded when you created the service account (DO NOT SHARE THIS).
+This setup should work when trying to access the data from your laptop, which we authenticated in the previous
+module. However, how can you access the data from a virtual machine, inside a docker container or from a different
+laptop? We in general recommend two ways:
+
+* You can make the bucket publicly accessible e.g. no authentication is needed. That means that anyone with the URL
+    to the data can access it. This is the easiest way to do it, but also the least secure. You can read more about
+    how to make your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
+
+* You can use the service account that you created in the previous module to authenticate the VM. This is the most
+    secure way to do it, but also the most complicated. You first need to give the service account the correct
+    permissions. Then you need to authenticate using the service account. In `dvc` this is done by setting the
+    environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path of
+
+    === "Linux/MacOS"
+
+        ```bash
+        export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/credentials.json"
+        ```
+
+    === "Windows"
+
+        ```bash
+        set GOOGLE_APPLICATION_CREDENTIALS="C:\path\to\your\credentials.json"
+        ```
 
 ## Artifact registry
 
@@ -238,32 +298,50 @@ You should hopefully at this point have seen the strength of using containers to
 allow us to specify exactly the software that we want to run inside our VMs. However, you should already have run into
 two problems with containers
 
-* Building process can take a lot of time
+* The building process can take a lot of time
 * Docker images can be large
 
 For this reason, we want to move both the building process and the storage of images to the cloud. In GCP the two
-services that we are going to use for this is called [Cloud Build](https://cloud.google.com/build) for building the
+services that we are going to use for this are called [Cloud Build](https://cloud.google.com/build) for building the
 containers in the cloud and [Artifact registry](https://cloud.google.com/artifact-registry) for storing the images
-afterwards.
+afterward.
 
 ### ❔ Exercises
 
-For the purpose of these exercise I recommend that you start out with a dummy version of some code to make sure
-that the building process do not take too long. You are more than free to **fork**
-[this repository](https://github.com/SkafteNicki/gcp_docker_example). The repository contains a simple python
-script that does image classification using sklearn. The docker images for this application are therefore going
-to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.
+In these exercises, I recommend that you start with a dummy version of some code to make sure that the building process
+does not take too long. Below is a simple Python script that does image classification using Sklearn, together with
+the corresponding `requirements.txt` file and `Dockerfile`.
+
+??? example "Python script"
+
+    ```python linenums="1" title="main.py"
+    --8<-- "s6_the_cloud/exercise_files/main.py
+    ```
+
+??? example "requirements.txt"
+
+    ```txt
+    --8<-- "s6_the_cloud/exercise_files/requirements.txt
+    ```
+
+??? example "Dockerfile"
+
+    ```dockerfile
+    --8<-- "s6_the_cloud/exercise_files/Dockerfile
+    ```
+The docker images for this application are therefore going to be substantially faster to build and smaller in size than
+the images we are used to that use Pytorch.
 
 1. Start by enabling the service: `Google Artifact Registry API` and `Google Cloud Build API`. This can be
-    done through the web side (by searching for the services) or can also be enabled from the terminal:
+    done through the web site (by searching for the services) or can also be enabled from the terminal:
 
     ```bash
     gcloud services enable artifactregistry.googleapis.com
     gcloud services enable cloudbuild.googleapis.com
     ```
 
-2. First step is creating an artifact repository in the cloud. You can either do this through the UI or using gcloud
-    in the command line.
+2. The first step is creating an artifact repository in the cloud. You can either do this through the UI or using
+    `gcloud` in the command line.
 
     === "UI"
 
@@ -274,8 +352,10 @@ to be substantially faster to build and smaller in size than the images we are u
         ![Image](../figures/artifact_registry.png){ width="800" }
         </figure>
 
-        Give the repository a name, make sure to set the format to `Docker`, specify the region and finally click
-        `Create`. You should now see the repository in the list of repositories.
+        Give the repository a name, make sure to set the format to `Docker` and specify the region. At the bottom of the
+        page you can optionally add a cleanup policy. We recommend that you add one to keep costs down. Give the policy
+        a name and choose the `Keep most recent versions` option and set the keep count to `5`. Click `Create` and you
+        should now see the repository in the list of repositories.
 
     === "Command line"
 
@@ -286,23 +366,47 @@ to be substantially faster to build and smaller in size than the images we are u
             --description="My docker registry"
         ```
 
-        where you need to replace `<repo-name>` with a name of your choice. You can read more about the command
-        [here](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create).
+        where you need to replace `<registry-name>` with a name of your choice. You can read more about the command
+        [here](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create). We recommend that after
+        creating the repository that you update it with a cleanup policy to keep costs down. You can do this by running:
 
-    Whenever we in the future want to push or pull to this artifact repository we can refer to it using this url:
+        ```bash
+        gcloud artifacts repositories set-cleanup-policies REPOSITORY
+            --project=<project-id>
+            --location=<region>
+            --policy=policy.yaml
+        ```
+
+        where the `policy.yaml` file should look something like this:
+
+        ```json
+        [
+            {
+                "name": "keep-minimum-versions",
+                "action": {"type": "Keep"},
+                "mostRecentVersions": {
+                    "keepCount": 5
+                }
+            }
+        ]
+        ```
+        and you can read more about the command
+        [here](https://cloud.google.com/artifact-registry/docs/repositories/cleanup-policy).
+
+    Whenever we in the future want to push or pull to this artifact repository we can refer to it using this URL:
 
     ```txt
     <region>-docker.pkg.dev/<project-id>/<registry-name>
     ```
 
-    for example `europe-west1-docker.pkg.dev/dtumlops-335110/container-registry` would be a valid url (this is the one
+    for example, `europe-west1-docker.pkg.dev/dtumlops-335110/container-registry` would be a valid URL (this is the one
     I created).
 
-3. We are now ready to build our containers in the cloud. In principal GCP cloud build works out of the box with docker
+3. We are now ready to build our containers in the cloud. In principle, GCP cloud build works out of the box with docker
     files. However, the recommended way is to add specialized `cloudbuild.yaml` files. You can think of the
     `cloudbuild.yaml` file as the corresponding file in GCP as workflow files are in GitHub actions, which you learned
     about in [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
-    a list of steps that should be executed to do something, but the syntax of cause differs a bit.
+    a list of steps that should be executed to do something, but the syntax is different.
 
     For building docker images the syntax is as follows:
 
@@ -317,12 +421,12 @@ to be substantially faster to build and smaller in size than the images we are u
       waitFor: ['Build image']
     ```
 
-    which essentially is a basic yaml file that contains a list of steps, where each step consists of the service
-    that should be used and the arguments for that service. In the above example we are calling the same service
+    which essentially is a basic YAML file that contains a list of steps, where each step consists of the service
+    that should be used and the arguments for that service. In the above example, we are calling the same service
     (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
     repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
 
-4. From the `gcp` homepage, navigate to the triggers panel:
+4. From the GCP homepage, navigate to the triggers panel:
 
     <figure markdown>
     ![Image](../figures/gcp_trigger_1.png){ width="800"  }
@@ -331,7 +435,7 @@ to be substantially faster to build and smaller in size than the images we are u
     Click on the manage repositories.
 
 5. From there, click the `Connect Repository` and go through the steps of authenticating your GitHub profile with
-    `gcp` and choose the repository that you want to setup build triggers. For now, skip the
+    GCP and choose the repository that you want to setup build triggers. For now, skip the
     `Create a trigger (optional)` part by pressing `Done` in the end.
 
     <figure markdown>
@@ -362,8 +466,8 @@ to be substantially faster to build and smaller in size than the images we are u
     `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
     [documentation](https://cloud.google.com/build/docs/locations).
 
-9. If/when your build is successful, navigate to the `Artifact Registry` page. You should
-    hopefully find that the image you just build was pushed here. Congrats!
+9. If/when your build is successful, navigate to the `Artifact Registry` page. You should hopefully find that the image
+    you just built was pushed here. Congrats!
 
 10. Finally, to to pull your image down to your laptop
 
@@ -371,10 +475,9 @@ to be substantially faster to build and smaller in size than the images we are u
     docker pull <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
     ```
 
-    you will need to authenticate `docker` with `gcp` first. Instructions can be found
-    [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but
-    the following command should hopefully be enough to make `docker` and `gcp` talk to
-    each other:
+    you will need to authenticate `docker` with GCP first. Instructions can be found
+    [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but the following command should
+    hopefully be enough to make `docker` and GCP talk to each other:
 
     ```bash
     gcloud auth configure-docker
@@ -388,14 +491,160 @@ to be substantially faster to build and smaller in size than the images we are u
     just push the `busybox` image you downloaded during the initial docker exercises. This
     [page](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling) should help you with exercise.
 
+    ??? success "Solution"
+
+        Pushing to a repository is similar to pulling. Assuming that you have already built a image called `busybox` you
+        can push it to the repository by running:
+
+        ```bash
+        docker tag busybox <region>-docker.pkg.dev/<project-id>/<registry-name>/busybox:latest
+        docker push <region>-docker.pkg.dev/<project-id>/<registry-name>/busybox:latest
+        ```
+
+        where you need to replace `<region>`, `<project-id>` and `<registry-name>` with your own values.
+
+12. Another way of triggering cloud build is to directly use the `gcloud` command. This can be useful if you want to
+    trigger the build locally or from a different service. How would you trigger the build from the command line?
+
+    ??? success "Solution"
+
+        You can trigger a build by running the following command:
+
+        ```bash
+        gcloud builds submit --config=cloudbuild.yaml .
+        ```
+
+        This command will submit a build to the cloud build service using the configuration file `cloudbuild.yaml` in
+        the current directory.
+
+13. (Optional) Instead of using the built-in trigger in GCP, another way to activate the build-on code changes is to
+    integrate with Github Actions. This has the benefit that we can make the build process depend on other steps in the
+    pipeline. For example, in the image below we have conditioned the build to only run if tests are passing on
+    all operating systems. Lets try to implement this.
+
+    <figure markdown>
+    ![Image](../figures/github_actions_job_dependency.png){ width="800"  }
+    </figure>
+
+    1. Start by adding a new secret to Github with the name `GCLOUD_SERVICE_KEY` and the value of the service account
+        key that you created in the previous module. This is needed to authenticate the Github action with GCP.
+
+    2. We assume that you already have a workflow file that runs some unit tests:
+
+        ```yaml
+        name: Unit tests & build
+
+        on:
+          push:
+            branches: [main]
+          pull_request:
+            branches: [main]
+
+        jobs:
+          test:
+        ```
+
+        we now want to add a job that triggers the build process in GCP. How can you make the `build` job depend on
+        the `test` job? Hint: Relevant
+        [documentation](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow).
+
+        ??? success "Solution"
+
+            You can make the `build` job depend on the `test` job by adding the `needs` keyword to the `build` job:
+
+            ```yaml
+            name: Unit tests & build
+
+            on:
+              push:
+                branches: [main]
+              pull_request:
+                branches: [main]
+
+            jobs:
+              test:
+                ...
+              build:
+                needs: test
+                ...
+            ```
+
+    3. Additionally, we probably only want to build the image if the job is running on our main branch e.g. not part
+        of a pull request. How can you make the `build` job only run on the main branch?
+
+        ??? success "Solution"
+
+            ```yaml
+            name: Unit tests & build
+
+            on:
+              push:
+                branches: [main]
+              pull_request:
+                branches: [main]
+
+            jobs:
+              test:
+                ...
+              build:
+                needs: test
+                if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+                ...
+            ```
+
+    4. Finally, we need to add the steps to submit the build job to GCP. You need four steps:
+
+        * Checkout the code
+        * Authenticate with GCP
+        * Setup gcloud
+        * Submit the build
+
+        How can you do this? Hint: For the first two steps these two Github actions can be useful:
+        [auth](https://github.com/google-github-actions/auth) and
+        [setup-gcloud](https://github.com/google-github-actions/setup-gcloud).
+
+        ??? success "Solution"
+
+            ```yaml
+            name: Unit tests & build
+
+            on:
+              push:
+                branches: [main]
+              pull_request:
+                branches: [main]
+
+            jobs:
+              test:
+                ...
+              build:
+                needs: test
+                if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+                runs-on: ubuntu-latest
+                steps:
+                - name: Checkout code
+                  uses: actions/checkout@v4
+
+                - name: Auth with GCP
+                  uses: google-github-actions/auth@v2
+                  with:
+                    credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+                - name: Set up Cloud SDK
+                  uses: google-github-actions/setup-gcloud@v2
+
+                - name: Submit build
+                  run: gcloud builds submit --config cloudbuild_containers.yaml
+            ```
+
 ## Training
 
-As our final step in our journey through different GCP services in this module we are going to look at training of our
-models. This is one of the important tasks that GCP can help us with because we can always rent more hardware as long
-as we have credits, meaning that we can both scale horizontal (run more experiments) and vertical (run longer
+As the final step in our journey through different GCP services in this module, we are going to look at the training of
+our models. This is one of the important tasks that GCP can help us with because we can always rent more hardware as
+long as we have credits, meaning that we can both scale horizontally (run more experiments) and vertically (run longer
 experiments).
 
-We are going to checkout two ways of running our experiments. First we are going to return to the Compute Engine service
+We are going to check out two ways of running our experiments. First we are going to return to the Compute Engine service
 because it gives the most simple form of scaling of experiments. That is: we create a VM with a appropriate docker
 image, we start it and login to the VM and we run our experiments. It is possible for most people to run a couple of
 experiments in parallel this way. However, what if there was an abstract layer that automatically created VM for us,
