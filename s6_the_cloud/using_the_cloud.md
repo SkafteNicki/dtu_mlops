@@ -315,19 +315,19 @@ the corresponding `requirements.txt` file and `Dockerfile`.
 ??? example "Python script"
 
     ```python linenums="1" title="main.py"
-    --8<-- "s6_the_cloud/exercise_files/main.py
+    --8<-- "s6_the_cloud/exercise_files/main.py"
     ```
 
 ??? example "requirements.txt"
 
-    ```txt
-    --8<-- "s6_the_cloud/exercise_files/requirements.txt
+    ```txt linenums="1" title="requirements.txt"
+    --8<-- "s6_the_cloud/exercise_files/requirements.txt"
     ```
 
 ??? example "Dockerfile"
 
-    ```dockerfile
-    --8<-- "s6_the_cloud/exercise_files/Dockerfile
+    ```dockerfile linenums="1" title="Dockerfile"
+    --8<-- "s6_the_cloud/exercise_files/Dockerfile"
     ```
 The docker images for this application are therefore going to be substantially faster to build and smaller in size than
 the images we are used to that use Pytorch.
@@ -408,25 +408,52 @@ the images we are used to that use Pytorch.
     about in [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
     a list of steps that should be executed to do something, but the syntax is different.
 
-    For building docker images the syntax is as follows:
+    Look at the documentation [https://cloud.google.com/artifact-registry/docs/configure-cloud-build] on how to write
+    a `cloudbuild.yaml` file for building and pushing a docker image to the artifact registry. Try to implement such a
+    file in your repository.
 
-    ```yaml
-    steps:
-    - name: 'gcr.io/cloud-builders/docker'
-      id: 'Build image'
-      args: ['build', '-t', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>', '.']
-    - name: 'gcr.io/cloud-builders/docker'
-      id: 'Push image'
-      args: ['push', '<region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>']
-      waitFor: ['Build image']
-    ```
+    ??? success "Solution"
 
-    which essentially is a basic YAML file that contains a list of steps, where each step consists of the service
-    that should be used and the arguments for that service. In the above example, we are calling the same service
-    (`cloud-builders/docker`) with different arguments (`build` and then `push`). Implement such a file in your
-    repository. Hint: if you forked the repository then you at least need to change the `<project-id>`.
+        For building docker images the syntax is as follows:
 
-4. From the GCP homepage, navigate to the triggers panel:
+        ```yaml
+        steps:
+        - name: 'gcr.io/cloud-builders/docker'
+          args: [
+            'build',
+            '.',
+            '-t',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>',
+            '-f',
+            '<path-to-dockerfile>'
+          ]
+        images:
+        - 'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
+        ```
+
+        where you need to replace `<registry-name>`, `<image-name>` and `<path-to-dockerfile>` with your own values.
+        You can hopefully recognize the syntax from the docker exercises. In this example, we are calling the
+        `cloud-builders/docker` service with the `build` argument and then the arguments for the build command. The
+        `images` field specifies the image that should be pushed to the artifact registry.
+
+4. You can now try to trigger the `cloudbuild.yaml` file from your local machine. What `gcloud` command would you use
+    to do this?
+
+    ??? success "Solution"
+
+        You can trigger a build by running the following command:
+
+        ```bash
+        gcloud builds submit --config=cloudbuild.yaml .
+        ```
+
+        This command will submit a build to the cloud build service using the configuration file `cloudbuild.yaml` in
+        the current directory.
+
+5. Instead of relying on manually submitting builds, we can setup the building process as continues integration such
+    that it is triggered every time we push code to the repository. This is done by setting up a
+    [trigger](https://cloud.google.com/build/docs/triggers) in the GCP console. From the GCP homepage, navigate to the
+    triggers panel:
 
     <figure markdown>
     ![Image](../figures/gcp_trigger_1.png){ width="800"  }
@@ -434,42 +461,42 @@ the images we are used to that use Pytorch.
 
     Click on the manage repositories.
 
-5. From there, click the `Connect Repository` and go through the steps of authenticating your GitHub profile with
-    GCP and choose the repository that you want to setup build triggers. For now, skip the
-    `Create a trigger (optional)` part by pressing `Done` in the end.
+    1. From there, click the `Connect Repository` and go through the steps of authenticating your GitHub profile with
+        GCP and choose the repository that you want to setup build triggers. For now, skip the
+        `Create a trigger (optional)` part by pressing `Done` in the end.
 
-    <figure markdown>
-    ![Image](../figures/gcp_trigger_2.png){ width="800"  }
-    </figure>
+        <figure markdown>
+        ![Image](../figures/gcp_trigger_2.png){ width="800"  }
+        </figure>
 
-6. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
+    2. Navigate back to the `Triggers` homepage and click `Create trigger`. Set the following:
 
-    * Give a name
-    * Event: choose `Push to branch`
-    * Source: choose the repository you just connected
-    * Branch: choose `^main$`
-    * Configuration: choose either `Autodetected` or `Cloud build configuration file`
+        * Give a name
+        * Event: choose `Push to branch`
+        * Source: choose the repository you just connected
+        * Branch: choose `^main$`
+        * Configuration: choose either `Autodetected` or `Cloud build configuration file`
 
-    Finally, click the `Create` button and the trigger should show up on the triggers page.
+        Finally, click the `Create` button and the trigger should show up on the triggers page.
 
-7. To activate the trigger, push some code to the chosen repository.
+    3. To activate the trigger, push some code to the chosen repository.
 
-8. Go to the `Cloud Build` page and you should see the image being build and pushed.
+    4. Go to the `Cloud Build` page and you should see the image being build and pushed.
 
-    <figure markdown>
-    ![Image](../figures/gcp_build.png){ width="800"  }
-    </figure>
+        <figure markdown>
+        ![Image](../figures/gcp_build.png){ width="800"  }
+        </figure>
 
-    Try clicking on the build to check out the build process and build summary. As you can see from the image, if a
-    build is failing you will often find valuable info by looking at the build summary. If your build is failing try
-    to configure it to run in one of these regions:
-    `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
-    [documentation](https://cloud.google.com/build/docs/locations).
+        Try clicking on the build to check out the build process and build summary. As you can see from the image, if a
+        build is failing you will often find valuable info by looking at the build summary. If your build is failing try
+        to configure it to run in one of these regions:
+        `us-central1, us-west2, europe-west1, asia-east1, australia-southeast1, southamerica-east1` as specified in the
+        [documentation](https://cloud.google.com/build/docs/locations).
 
-9. If/when your build is successful, navigate to the `Artifact Registry` page. You should hopefully find that the image
-    you just built was pushed here. Congrats!
+    5. If/when your build is successful, navigate to the `Artifact Registry` page. You should hopefully find that the
+        image you just built was pushed here. Congrats!
 
-10. Finally, to to pull your image down to your laptop
+6. Make sure that you can pull your image down to your laptop
 
     ```bash
     docker pull <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
@@ -486,7 +513,7 @@ the images we are used to that use Pytorch.
     Note: To do this you need to have `docker` actively running in the background, as any
     other time you want to use `docker`.
 
-11. Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
+7. Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
     and push them to the registry. Figure out how to push an image to your `Artifact Registry`. For simplicity, you can
     just push the `busybox` image you downloaded during the initial docker exercises. This
     [page](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling) should help you with exercise.
@@ -503,21 +530,7 @@ the images we are used to that use Pytorch.
 
         where you need to replace `<region>`, `<project-id>` and `<registry-name>` with your own values.
 
-12. Another way of triggering cloud build is to directly use the `gcloud` command. This can be useful if you want to
-    trigger the build locally or from a different service. How would you trigger the build from the command line?
-
-    ??? success "Solution"
-
-        You can trigger a build by running the following command:
-
-        ```bash
-        gcloud builds submit --config=cloudbuild.yaml .
-        ```
-
-        This command will submit a build to the cloud build service using the configuration file `cloudbuild.yaml` in
-        the current directory.
-
-13. (Optional) Instead of using the built-in trigger in GCP, another way to activate the build-on code changes is to
+8. (Optional) Instead of using the built-in trigger in GCP, another way to activate the build-on code changes is to
     integrate with Github Actions. This has the benefit that we can make the build process depend on other steps in the
     pipeline. For example, in the image below we have conditioned the build to only run if tests are passing on
     all operating systems. Lets try to implement this.
