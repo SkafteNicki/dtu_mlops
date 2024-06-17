@@ -408,7 +408,7 @@ the images we are used to that use Pytorch.
     about in [module M16](../s5_continuous_integration/github_actions.md). It is essentially a file that specifies
     a list of steps that should be executed to do something, but the syntax is different.
 
-    Look at the documentation [https://cloud.google.com/artifact-registry/docs/configure-cloud-build] on how to write
+    Look at the [documentation](https://cloud.google.com/artifact-registry/docs/configure-cloud-build) on how to write
     a `cloudbuild.yaml` file for building and pushing a docker image to the artifact registry. Try to implement such a
     file in your repository.
 
@@ -714,12 +714,14 @@ parts of our pipeline.
         need to do the same setup step you have done on your machine: clone your Github, install dependencies,
         download data, run code. Try doing this to make sure you can train a model.
 
-2. We are now moving on to the final way to train our code, using `Vertex AI` service.
+2. The above exercises should hopefully have convinced you that it can be hard to scale experiments using the Compute
+    Engine service. The reason being that you need to manually start, setup and stop a separate VM for each experiment.
+    Instead lets try to use the Vertex AI service to train our models.
 
     1. Start by enabling it by searching for `Vertex AI` in the cloud console and go to the service
 
-    2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker containers
-        that contains everything to run our code. Thus the only command that we need to use is
+    2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker
+        containers that contains everything to run our code. Thus the only command that we need to use is
         `gcloud ai custom-jobs create` command. An example here would be:
 
         ```bash
@@ -729,38 +731,40 @@ parts of our pipeline.
             --config=config.yaml
         ```
 
-        Essentially, this command combines everything into one command: it first creates a VM with the specs specified by
-        a configuration file, then loads a container specified again in the configuration file and finally it runs
+        Essentially, this command combines everything into one command: it first creates a VM with the specs specified
+        by a configuration file, then loads a container specified again in the configuration file and finally it runs
         everything. A example of a config file could be:
 
-        ```yaml
-        # config_cpu.yaml
-        workerPoolSpecs:
-            machineSpec:
-                machineType: n1-highmem-2
-            replicaCount: 1
-            containerSpec:
-                imageUri: gcr.io/<project-id>/<docker-img>
-        ```
+        === "CPU"
 
-        if you only want to run on CPU and another example for GPU:
+            ```yaml
+            # config_cpu.yaml
+            workerPoolSpecs:
+                machineSpec:
+                    machineType: n1-highmem-2
+                replicaCount: 1
+                containerSpec:
+                    imageUri: gcr.io/<project-id>/<docker-img>
+            ```
 
-        ```yaml
-        # config_gpu.yaml
-        workerPoolSpecs:
-            machineSpec:
-                machineType: n1-standard-8
-                acceleratorType: NVIDIA_TESLA_T4 #(1)!
-                acceleratorCount: 1
-            replicaCount: 1
-            containerSpec:
-                imageUri: gcr.io/<project-id>/<docker-img>
-        ```
+        === "GPU"
 
-        1. In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have quota for allocating
-            this type of GPU in the Vertex AI service. You can check how to request quota in the last exercise of the
-            [previous module](cloud_setup.md). Remember that it is not enough to just request quota for the GPU, the
-            request need to by approved by Google before you can use it.
+            ```yaml
+            # config_gpu.yaml
+            workerPoolSpecs:
+                machineSpec:
+                    machineType: n1-standard-8
+                    acceleratorType: NVIDIA_TESLA_T4 #(1)!
+                    acceleratorCount: 1
+                replicaCount: 1
+                containerSpec:
+                    imageUri: gcr.io/<project-id>/<docker-img>
+            ```
+
+            1. In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have quota for
+                allocating this type of GPU in the Vertex AI service. You can check how to request quota in the last
+                exercise of the [previous module](cloud_setup.md). Remember that it is not enough to just request quota
+                for the GPU, the request need to by approved by Google before you can use it.
 
         you can read more about the configuration formatting
         [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
@@ -801,6 +805,29 @@ parts of our pipeline.
         ```
 
         is should speed up the training process a bit.
+
+    6. Your code may depend on environment variables like for authenticating with weights and bias during training.
+        These can also be specified in the configuration file. How would you do this?
+
+        ??? success "Solution"
+
+            You can specify environment variables in the configuration file by adding the `env` field to the
+            `containerSpec` field. For example, if you want to specify the `WANDB_API_KEY` you can do it like this:
+
+            ```yaml
+            workerPoolSpecs:
+                machineSpec:
+                    machineType: n1-highmem-2
+                replicaCount: 1
+                containerSpec:
+                    imageUri: gcr.io/<project-id>/<docker-img>
+                    env:
+                    - name: WANDB_API_KEY
+                      value: <your-wandb-api-key>
+            ```
+
+            You of cause need to replace `<your-wandb-api-key>` with your actual key. Also remember that this file
+            now contains a secret and should be treated as such.
 
 This ends the session on how to use Google cloud services for now. In a future session we are going to investigate a bit
 more of the services offered in GCP, in particular for deploying the models that we have just trained.
