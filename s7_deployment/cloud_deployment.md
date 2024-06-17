@@ -7,24 +7,35 @@
 
 !!! info "Core Module"
 
-We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md) you should have
-gone through the steps of having your code in your GitHub repository to automatically build into a docker
-container, store that, store data and pull it all together to make a training run. After the training is
-completed you should hopefully have a file stored in the cloud with your trained model weights.
+We are now returning to using the cloud. In [this module](../s6_the_cloud/using_the_cloud.md), you should have gone
+through the steps of having your code in your GitHub repository to automatically build into a docker container, store
+that, store data and pull it all together to make a training run. After the training is completed you should hopefully
+have a file stored in the cloud with your trained model weights.
 
-Todays exercises will be about serving those model weights to an end user. We focus on two different ways
-of deploying our model, `Google cloud functions` and `Google Vertex AI endpoints`.
+Today's exercises will be about serving those model weights to an end user. We focus on two different ways
+of deploying our model: [Google cloud functions](https://cloud.google.com/functions/docs) and
+[Google cloud run](https://cloud.google.com/run/docs). Both services are serverless, meaning that you do not have to
+manage the server that runs your code.
+
+<figure markdown>
+![Image](../figures/gcp_deployment_options.png){ width="1000" }
+<figcaption>
+GCP in general has 5 core deployment options. We are going to focus on Cloud Functions and Cloud Run, which are two
+of the serverless options. In contrast to these two, you have the option to deploy to Kubernetes Engine and Compute
+Engine which are more traditional ways of deploying your code. Here you have to manage the underlying infrastructure.
+</figcaption>
+</figure>
 
 ## Cloud Functions
 
-Cloud functions are the easiest way to get started with deployment because they are what is called *serverless*.
-For serverless deployment we still need a server to do the actual workload, however the core concept is that **you**
-do you have to manage the server. Everything is magically taken care of behind the scene.
+Google Cloud Functions, is the most simple way that we can deploy our code to the cloud. As stated above, it is a
+serverless service, meaning that you do not have to worry about the underlying infrastructure. You just write your code
+and deploy it. The service is great for small applications that can be encapsulated in **a single script**.
 
 ### ❔ Exercises
 
 1. Go to the start page of `Cloud Functions`. Can be found in the sidebar on the homepage or you can just
-   search for it. Activate the service if not already active.
+    search for it. Activate the service if not already active.
 
 2. Click the `Create Function` button which should take you to a screen like the image below. Give it a name,
     set the server region to somewhere close by and change the authentication policy to

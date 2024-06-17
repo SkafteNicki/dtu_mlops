@@ -120,7 +120,7 @@ of your project.
 We have now entered the final week of the course and the second last project day. You are most likely continuing with
 bullet points from week 2, but should hopefully begin to look at the bullet points from week 3 today. These are in
 general much more complex, so we recommend looking at them until you have completed most from week 2. We also recommend
-that you being to fill our [report template](reports/README.md).
+that you being to fill our [report template](https://github.com/SkafteNicki/dtu_mlops/blob/main/reports/README.md).
 
 ### Day 5
 

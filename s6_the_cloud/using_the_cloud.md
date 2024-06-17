@@ -826,8 +826,8 @@ parts of our pipeline.
                       value: <your-wandb-api-key>
             ```
 
-            You of cause need to replace `<your-wandb-api-key>` with your actual key. Also remember that this file
+            You need to replace `<your-wandb-api-key>` with your actual key. Also, remember that this file
             now contains a secret and should be treated as such.
 
-This ends the session on how to use Google cloud services for now. In a future session we are going to investigate a bit
-more of the services offered in GCP, in particular for deploying the models that we have just trained.
+This ends the session on how to use Google Cloud services for now. In a future session, we are going to investigate a
+bit more of the services offered in GCP, in particular for deploying the models that we have just trained.

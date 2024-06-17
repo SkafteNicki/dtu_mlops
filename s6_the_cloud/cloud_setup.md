@@ -8,18 +8,18 @@ Google Cloud Platform (GCP) is the cloud service provided by Google. The key con
 provider, is the idea of near-infinite resources. Without the cloud, it simply is not feasible to do many modern
 deep learning and machine learning tasks because they cannot be scaled locally.
 
-The image below shows a subset of [all the different services](https://cloud.google.com/products) that the Google Cloud
-platform offers. The ones marked in red are the ones we are going to investigate in this course. Therefore, if
-you get done with exercises early I highly recommend that you deep dive more into the Google cloud platform.
+The image below shows [all the different services](https://cloud.google.com/products) that the Google Cloud platform
+offers. We are going to be working with around 10 of these services throughout the course. Therefore, if you get done
+with exercises early I highly recommend that you deep dive more into the Google cloud platform.
 
 <figure markdown>
-![Image](../figures/gcp_services_summary.png){ width="800"  }
-<figcaption> <a href="https://www.pintonista.com/google-cloud-platform-intro/"> Image credit </a> </figcaption>
+![Image](../figures/gcp_services.png){ width="1000"  }
+<figcaption> <a href="https://github.com/priyankavergadia/google-cloud-4-words"> Image credit </a> </figcaption>
 </figure>
 
 ## ❔ Exercises
 
-As the first step, we are going to get you setup with some Google Cloud credits.
+As the first step, we are going to get you some Google Cloud credits.
 
 1. Go to <https://learn.inside.dtu.dk>. Go to this course. Find the recent message where there should be a download
     link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there are a
