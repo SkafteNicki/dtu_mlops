@@ -24,10 +24,10 @@ As the first step, we are going to get you some Google Cloud credits.
 1. Go to <https://learn.inside.dtu.dk>. Go to this course. Find the recent message where there should be a download
     link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there are a
     limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits
-    whenever you signup with a new account. NOTE that you need to provide a credit card for this so make
+    whenever you sign up with a new account. NOTE that you need to provide a credit card for this so make
     sure to closely monitor your credit use so you do not end up spending more than the free credit.
 
-2. Login to the homepage of GCP. It should look like this:
+2. Log in to the homepage of GCP. It should look like this:
 
     <figure markdown>
     ![Image](../figures/gcp1.PNG){ width="800"  }
@@ -54,7 +54,7 @@ As the first step, we are going to get you some Google Cloud credits.
     throughout the course.
 
 5. Next, it local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud SDK.
-    `gcloud` is the command line interface for working with our Google cloud account. Nearly everything that we can do
+    `gcloud` is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the `gcloud` interface. Follow the installation instructions
     [here](https://cloud.google.com/sdk/docs/install) for your specific OS.
 

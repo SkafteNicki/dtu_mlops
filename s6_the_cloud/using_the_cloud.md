@@ -167,19 +167,6 @@ We are now going to start using the cloud.
     gcloud compute instances stop <instance-name>
     ```
 
-    GCP also has the option to suspend the VMs, can you describe what the difference is between stopping and suspending
-    a VM?
-
-    ??? success "Solution"
-
-        [Suspended instances](https://cloud.google.com/compute/docs/instances/suspend-resume-instance) preserve the
-        guest OS memory, device state, and application state. You will not be charged for a suspended VM but will be
-        charged for the storage of the aforementioned states.
-        [Stopped instances](https://cloud.google.com/compute/docs/instances/stop-start-instance#stop-vm) do not
-        preserve any of the states and you will be charged for the storage of the disk. However, in both cases if the
-        VM instances have resources attached to them, such as static IPs and persistent disks, which are charged until
-        they are deleted.
-
 ## Data storage
 
 Another big part of cloud computing is the storage of data. There are many reasons that you want to store your
@@ -657,22 +644,22 @@ our models. This is one of the important tasks that GCP can help us with because
 long as we have credits, meaning that we can both scale horizontally (run more experiments) and vertically (run longer
 experiments).
 
-We are going to check out two ways of running our experiments. First we are going to return to the Compute Engine service
-because it gives the most simple form of scaling of experiments. That is: we create a VM with a appropriate docker
-image, we start it and login to the VM and we run our experiments. It is possible for most people to run a couple of
-experiments in parallel this way. However, what if there was an abstract layer that automatically created VM for us,
-lunched our experiments and the close the VM afterwards?
+We are going to check out two ways of running our experiments. First, we are going to return to the Compute Engine
+service because it gives the most simple form of scaling of experiments. That is: we create a VM with an appropriate
+docker image, start it, log into the VM and run our experiments. Most people can run a couple of experiments in parallel
+this way. However, what if there was an abstract layer that automatically created VM for us, launched our experiments
+and then closed the VM afterwards?
 
-This is where Vertex AI service comes into play. This is a dedicated service for handling ML models in GCP in the cloud.
-Vertex AI is in principal and end-to-end service that can take care of everything machine learning related in the cloud.
-In this course we are primarily focused on just the training of our models, and then use other services for different
-parts of our pipeline.
+This is where [Vertex AI](https://cloud.google.com/vertex-ai/docs) service comes into play. This is a dedicated service
+for handling ML models in GCP in the cloud. Vertex AI is in principal and end-to-end service that can take care of
+everything machine learning related in the cloud. In this course, we are primarily focused on just the training of our
+models, and then use other services for different parts of our pipeline.
 
 ### ❔ Exercises
 
-1. Lets start by see how we could train a model using Pytorch using the Compute Engine service:
+1. Let's start by going through how we could train a model using Pytorch using the Compute Engine service:
 
-    1. Start by creating a appropriate VM. If you want to start a VM that have Pytorch pre-installed with only CPU
+    1. Start by creating an appropriate VM. If you want to start a VM that has Pytorch pre-installed with only CPU
         support you can run the following command
 
         ```bash
@@ -701,8 +688,8 @@ parts of our pipeline.
         gcloud beta compute ssh <instance-name>
         ```
 
-    3. It is recommend to always check that the VM we get is actually what we asked for. In this case the VM should have
-        Pytorch pre-installed so lets check for that by running
+    3. It is recommended to always check that the VM we get is actually what we asked for. In this case, the VM should
+        have Pytorch pre-installed so let's check for that by running
 
         ```bash
         python -c "import torch; print(torch.__version__)"
@@ -712,28 +699,36 @@ parts of our pipeline.
 
     4. When you have logged in to the VM, it works as your machine. Therefore to run some training code you would
         need to do the same setup step you have done on your machine: clone your Github, install dependencies,
-        download data, run code. Try doing this to make sure you can train a model.
+        download data, and run code. Try doing this to make sure you can train a model.
 
 2. The above exercises should hopefully have convinced you that it can be hard to scale experiments using the Compute
-    Engine service. The reason being that you need to manually start, setup and stop a separate VM for each experiment.
-    Instead lets try to use the Vertex AI service to train our models.
+    Engine service. The reason is that you need to manually start, setup and stop a separate VM for each experiment.
+    Instead, let's try to use the Vertex AI service to train our models.
 
-    1. Start by enabling it by searching for `Vertex AI` in the cloud console and go to the service
+    1. Start by enabling it by searching for `Vertex AI` in the cloud console by going to the service or alternatively
+        by running the following command:
+
+        ```bash
+        gcloud services enable aiplatform.googleapis.com
+        ```
 
     2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker
-        containers that contains everything to run our code. Thus the only command that we need to use is
+        containers that contain everything to run our code. Thus the only command that we need to use is
         `gcloud ai custom-jobs create` command. An example here would be:
 
         ```bash
         gcloud ai custom-jobs create \
             --region=europe-west1 \
             --display-name=test-run \
-            --config=config.yaml
+            --config=config.yaml \
+            # these are the arguments that are passed to the container, only needed if you want to change defaults
+            --command 'python src/my_project/train.py' \
+            --args '["--epochs", "10"]'
         ```
 
         Essentially, this command combines everything into one command: it first creates a VM with the specs specified
         by a configuration file, then loads a container specified again in the configuration file and finally it runs
-        everything. A example of a config file could be:
+        everything. An example of a config file could be:
 
         === "CPU"
 
@@ -770,29 +765,30 @@ parts of our pipeline.
         [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
         and the different types of machines
         [here](https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types). Try to execute a job
-        using the `gcloud ai custom-jobs create` command. For additional documentation you can checkout
+        using the `gcloud ai custom-jobs create` command. For additional documentation you can look at
         [the documentation on the command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create)
         and [this page](https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging) and
         [this page](https://cloud.google.com/vertex-ai/docs/training/configure-compute)
 
-    3. Assuming you manage to lunch a job, you should see an output like this:
+    3. Assuming you manage to launch a job, you should see an output like this:
 
         <figure markdown>
         ![Image](../figures/gcp_vertex_custom.PNG){ width="800"  }
         </figure>
 
-        To executing the commands that is outputted to look at both the status and the progress of your job.
+        Try executing the commands that are outputted to look at both the status and the progress of your job.
 
-    4. In addition you can also visit the `Custom Jobs` tab in `training` part of Vertex AI
+    4. In addition, you can also visit the `Custom Jobs` tab in `training` part of Vertex AI
 
         <figure markdown>
         ![Image](../figures/gcp_vertex_job.PNG){ width="800"  }
         </figure>
 
-        Check it out.
+        You will need to select the specific region that you submitted your job to see the job.
 
-    5. During custom training we do not necessarily need to use `dvc` for downloading our data. A more efficient way is
-        to use cloud storage as a [mounted file system](https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system).
+    5. During custom training, we do not necessarily need to use `dvc` for downloading our data. A more efficient way is
+        to use cloud storage as a
+        [mounted file system](https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system).
         This allows us to access data directly from the cloud storage without having to download it first. All our
         training jobs are automatically mounted a `gcs` folder in the root directory. Try to access the data from your
         training script:
@@ -806,8 +802,8 @@ parts of our pipeline.
 
         is should speed up the training process a bit.
 
-    6. Your code may depend on environment variables like for authenticating with weights and bias during training.
-        These can also be specified in the configuration file. How would you do this?
+    6. Your code may depend on environment variables for authenticating, for example with weights and bias during
+        training. These can also be specified in the configuration file. How would you do this?
 
         ??? success "Solution"
 
@@ -828,6 +824,172 @@ parts of our pipeline.
 
             You need to replace `<your-wandb-api-key>` with your actual key. Also, remember that this file
             now contains a secret and should be treated as such.
+
+    7. Try to execute multiple jobs with different configurations e.g. change the `--args` field in the `gcloud ai
+        custom-jobs create` command at the same time. This should hopefully show you how easy it is to scale experiments
+        using the Vertex AI service.
+
+## Secrets management
+
+Similar to Github Actions, GCP also has a secrets store that can be used to keep secrets safe. This is called the
+[Secret Manager](https://cloud.google.com/secret-manager/docs) in GCP. By using the Secret Manager, we get the option
+to inject secrets into our code without having to store them in the code itself.
+
+### ❔ Exercises
+
+1. Let's look at the example from before where we have a config file like this for custom Vertex AI jobs:
+
+    ```yaml
+    workerPoolSpecs:
+        machineSpec:
+            machineType: n1-highmem-2
+        replicaCount: 1
+        containerSpec:
+            imageUri: gcr.io/<project-id>/<docker-img>
+            env:
+            - name: WANDB_API_KEY
+                value: $WANDB_API_KEY
+    ```
+
+    we do not want to store the `WANDB_API_KEY` in the config file, rather we would like to store it in the Secret
+    Manager and inject it right before the job starts. Let's figure out how to do that.
+
+    1. Start by enabling the secrets manager API by running the following command:
+
+        ```bash
+        gcloud services enable secretmanager.googleapis.com
+        ```
+
+    2. Next, go to the secrets manager in the cloud console and create a new secret. You just need to give it a name, a
+        value and leave the rest as default. Add one or more secrets like the image below.
+
+        <figure markdown>
+        ![Image](../figures/gcp_secrets_manager.png){ width="800"  }
+        </figure>
+
+    3. We are going to inject the secrets into our training job by using cloudbuild. Create new cloudbuild file called
+        `vertex_ai_train.yaml` and add the following content:
+
+        ```yaml linenums="1" title="vertex_ai_train.yaml"
+        steps:
+        - name: "alpine"
+          id: "Replace values in the training config"
+          entrypoint: "sh"
+          args:
+            - '-c'
+            - |
+              apk add --no-cache gettext
+              envsubst < config.yaml > config.yaml.tmp
+              mv config.yaml.tmp config.yaml
+          secretEnv: ['WANDB_API_KEY']
+
+        - name: 'alpine'
+          id: "Show config"
+          waitFor: ['Replace values in the training config']
+          entrypoint: "sh"
+          args:
+            - '-c'
+            - |
+            cat config.yaml
+
+        - name: 'gcr.io/cloud-builders/gcloud'
+          id: 'Train on vertex AI'
+          waitFor: ['Replace values in the training config']
+          args: [
+            'ai',
+            'custom-jobs',
+            'create',
+            '--region',
+            'europe-west1',
+            '--display-name',
+            'example-mlops-job',
+            '--config',
+            '${_VERTEX_TRAIN_CONFIG}',
+          ]
+        availableSecrets:
+          secretManager:
+          - versionName: projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest
+            env: 'WANDB_API_KEY'
+        ```
+
+        Slowly go through the file and try to understand what each step does.
+
+        ??? success "Solution"
+
+            There are two parts to using secrets in cloud build. First, there is the `availableSecrets` field that
+            specifies what secrets from the Secret Manager should be injected into the build. In this case, we are
+            injecting the `WANDB_API_KEY` and setting it as an environment variable. The second part is the `secretEnv`
+            field in the first step. This field specifies which secrets should be available in the first step.
+            The steps are then doing:
+
+            1. The first step call the [envsubst](https://www.baeldung.com/linux/envsubst-command) command which is a
+                general Linux command that replaces environment variables in a file. In this case, it replaces the
+                `$WANDB_API_KEY` with the actual value of the secret. We then save the file as `config.yaml.tmp` and
+                rename it back to `config.yaml`.
+
+            2. The second step is just to show that the replacement was successful. This is mostly for debugging
+                purposes and can be removed.
+
+            3. The third step is the actual training job. It waits for the first step to finish before running.
+
+    4. Finally, try to trigger the build:
+
+        ```bash
+        gcloud builds submit --config=vertex_ai_train.yaml
+        ```
+
+        and check that the `WANDB_API_KEY` is correctly injected into the `config.yaml` file.
+
+## 🧠 Knowledge check
+
+1. In Compute Engine, we have the option to either stop or suspend the VMs, can you describe what the difference is?
+
+    ??? success "Solution"
+
+        [Suspended instances](https://cloud.google.com/compute/docs/instances/suspend-resume-instance) preserve the
+        guest OS memory, device state, and application state. You will not be charged for a suspended VM but will be
+        charged for the storage of the aforementioned states.
+        [Stopped instances](https://cloud.google.com/compute/docs/instances/stop-start-instance#stop-vm) do not
+        preserve any of the states and you will be charged for the storage of the disk. However, in both cases if the
+        VM instances have resources attached to them, such as static IPs and persistent disks, which are charged until
+        they are deleted.
+
+2. As seen in the exercises, a `cloudbuild.yaml` file often contains multiple steps. How would you make steps dependent
+    on each other e.g. one step can only run if another step has finished? And how would you make steps execute
+    concurrently?
+
+    ??? success "Solution"
+
+        In both cases the solution is the `waitFor` field. If you want a step to wait for another step to finish you
+        you need to give the first step an id and then specify that id in the `waitFor` field of the second step.
+
+        ```yaml
+        steps:
+        - name: 'alpine'
+          id: 'step1'
+          entrypoint: 'sh'
+          args: ['-c', 'echo "Hello World"']
+        - name: 'alpine'
+          id: 'step2'
+          entrypoint: 'sh'
+          args: ['-c', 'echo "Hello World 2"']
+          waitFor: ['step1']
+        ```
+
+        If you want steps to run concurrently you can set the `waitFor` field to `['-']`:
+
+        ```yaml
+        steps:
+        - name: 'alpine'
+          id: 'step1'
+          entrypoint: 'sh'
+          args: ['-c', 'echo "Hello World"']
+        - name: 'alpine'
+          id: 'step2'
+          entrypoint: 'sh'
+          args: ['-c', 'echo "Hello World 2"']
+          waitFor: ['-']
+        ```
 
 This ends the session on how to use Google Cloud services for now. In a future session, we are going to investigate a
 bit more of the services offered in GCP, in particular for deploying the models that we have just trained.
