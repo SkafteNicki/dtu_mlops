@@ -34,25 +34,46 @@ and deploy it. The service is great for small applications that can be encapsula
 
 ### ❔ Exercises
 
-1. Go to the start page of `Cloud Functions`. Can be found in the sidebar on the homepage or you can just
-    search for it. Activate the service if not already active.
+1. Go to the start page of `Cloud Functions`. Can be found in the sidebar on the homepage or you can just search for it.
+    Activate the service in the cloud console or use the following command:
 
-2. Click the `Create Function` button which should take you to a screen like the image below. Give it a name,
-    set the server region to somewhere close by and change the authentication policy to
+    ```bash
+    gcloud services enable cloudfunctions.googleapis.com
+    ```
+
+2. Click the `Create Function` button which should take you to a screen like the image below. Make sure it is a 2nd
+    Gen function, give it a name, set the server region to somewhere close by and change the authentication policy to
     `Allow unauthenticated invocations` so we can access it directly from a browser. Remember to note down the
-    *URL* of the service somewhere.
+
     <figure markdown>
     ![Image](../figures/gcp_cloud_functions.png){ width="500" }
     </figure>
 
-3. On the next page, for `Runtime` pick the `Python 3.9` option. This will make the inline editor show both
-    a `main.py` and `requirements.py` file. Look over them. Click the `Deploy` button in the lower left corner.
+3. On the next page, for `Runtime` pick the `Python 3.11` option (or newer). This will make the inline editor show both
+    a `main.py` and `requirements.py` file. Look over them and try to understand what they do. Especially, take a
+    look at the [functions-framework](https://github.com/GoogleCloudPlatform/functions-framework-python) which is a
+    needed requirement of any Cloud function.
 
-4. Afterwards you should see a green check mark beside your function meaning that it is deployed. Click the
-    `Test function` button which will take you to the testing page.
+    <figure markdown>
+    ![Image](../figures/gcp_functions_code.png){ width="500" }
+    </figure>
+
+    After you have looked over the files, click the `Deploy` button.
+
+    ??? success "Solution"
+
+        The `functions-framework` is a lightweight, open-source framework for turning Python functions into HTTP
+        functions. Any function that you deploy to Cloud Functions must be wrapped in the `@functions_framework.http`
+        decorator.
+
+4. Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by going to
+    the `Testing` tab.
+
     <figure markdown>
     ![Image](../figures/gcp_test_function.png){ width="800" }
     </figure>
+
+    1.
 
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
     therefore just send an empty request by clicking the `Test The Function` button. Does the function return
@@ -61,92 +82,161 @@ and deploy it. The service is great for small applications that can be encapsula
     1. What should the `Triggering event` look like in the testing prompt for the program to respond with
 
         ```txt
-        Good day to you sir!
+        Hallo General Kenobi!
         ```
 
         Try it out.
 
-    2. Click on the metrics tab. Identify what each panel is showing.
+        ??? success "Solution"
 
-    3. Go to the trigger tab and go to the url for the application.
+            The default triggering event is a JSON object with a key `name` and a value. Therefore the triggering event
+            should look like this:
 
-    4. Checkout the logs tab. You should see that your application have already been invoked multiple times. Also try
+            ```json
+            {
+                "name": "General Kenobi"
+            }
+            ```
+
+    2. Go to the trigger tab and go to the URL for the application. Execute the API a couple of times. How can you
+        change the URL to make the application respond with the same output as above?
+
+        ??? success "Solution"
+
+            You can change the URL to include a query parameter `name` with the value `General Kenobi`. For example
+
+            ```txt
+            https://us-central1-my-personal-mlops-project.cloudfunctions.net/function-3?name=General%20Kanobi
+            ```
+
+            where you would need to replace everything before the `?` with your URL.
+
+    3. Click on the metrics tab. You should hopefully see it being populated with a few datapoints. Identify what each
+        panel is showing.
+
+        ??? success "Solution"
+
+            *  Invocations/Second: The number of times the function is invoked per second
+            *  Execution time (ms): The time it takes for the function to execute in milliseconds
+            *  Memory usage (MB): The memory usage of the function in MB
+            *  Instance count (instances): The number of instances that are running the function
+
+    4. Check out the logs tab. You should see that your application has already been invoked multiple times. Also, try
         to execute this command in a terminal:
 
         ```bash
         gcloud functions logs read
         ```
 
-6. Next, we are going to create an application that actually takes some input so we can try to send it requests.
-    We provide a very simple
-    [sklearn_cloud_function.py script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py)
-    to get started.
+6. Next, we are going to create our own application that takes some input so we can try to send it requests. We provide
+    a very simple script to get started.
 
-    1. Figure out what the script does and run the script. This should create a file with trained model.
+    !!! example "Simple script"
 
-    2. Next create a storage bucket and upload the model file to the bucket. You can either do this through the
-        webpage or run the following commands:
+        ```python linenums="1" title="sklearn_cloud_functions.py"
+        --8<-- "s7_deployment/exercise_files/sklearn_cloud_functions.py"
+        ```
+
+    1. Figure out what the script does and run the script. This should create a file with a trained model.
+
+        ??? success "Solution"
+
+            The file trains a simple KNN model on the iris dataset and saves it to a file called `model.pkl`.
+
+    2. Next, create a storage bucket and upload the model file to the bucket. Try to do this using the `gsutil` command
+        and check afterward that the file is in the bucket.
+
+        ??? success "Solution"
+
+            ```bash
+            gsutil mb gs://<bucket-name>  # mb stands for make bucket
+            gsutil cp <file-name> gs://<bucket-name>  # cp stands for copy
+            ```
+
+    3. Create a new cloud function with the same initial settings as the first one, e.g. `Python 3.11` and `HTTP`. Then
+        implement in the `main.py` file code that:
+
+        * Loads the model from the bucket
+        * Takes a request with a list of integers as input
+        * Returns the prediction of the model
+
+        In addition to writing the `main.py` file, you also need to fill out the `requirements.txt` file. You need at
+        least three packages to run the application. Remember to also change the `Entry point` to the name of your
+        function. If your deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you identify
+        why.
+
+        ??? success "Solution"
+
+            The main script should look something like this:
+
+            ```python linenums="1" title="main.py"
+            --8<-- "s7_deployment/exercise_files/sklearn_main_function.py"
+            ```
+
+            And, the requirement file should look like this:
+
+            ```txt
+            --8<-- "s7_deployment/exercise_files/sklearn_function_main_requirements.txt"
+            ```
+
+            importantly make sure that you are using the same version of `scikit-learn` as you used when you trained the
+            model. Else when trying to load the model you will most likely get an error.
+
+    4. When you have successfully deployed the model, try to make predictions with it. What should the request
+        look like?
+
+        ??? success "Solution"
+
+            It depends on how exactly you have chosen to implement the `main.py`. But for the provided solution, the
+            payload should look like this:
+
+            ```json
+            {
+                "data": [1, 2, 3, 4]
+            }
+            ```
+
+            with the corresponding `curl` command:
+
+            ```bash
+            curl -X POST \
+                https://your-cloud-function-url/knn_classifier \
+                -H "Content-Type: application/json" \
+                -d '{"input_data": [5.1, 3.5, 1.4, 0.2]}'
+            ```
+
+7. Let's try to figure out how to do the above deployment using `gcloud` instead of the console UI. The relevant command
+    is [gcloud functions deploy](https://cloud.google.com/functions/docs/create-deploy-http-python). For this function
+    to work you will need to put the `main.py` and `requirements.txt` in a separate folder. Try to execute the command
+    to successfully deploy the function.
+
+    ??? success "Solution"
 
         ```bash
-        gsutil mb gs://<bucket-name>  # mb stands for make bucket
-        gsutil cp <file-name> gs://<bucket-name>  # cp stands for copy
+        gcloud functions deploy <func-name> \
+            --gen2 --runtime python311 --trigger-http --source <folder> --entry-point knn_classifier
         ```
 
-        check that the file is in the bucket.
+        where you need to replace `<func-name>` with the name of your function and `<folder>` with the path to the
+        folder containing the `main.py` and `requirements.txt` files.
 
-    3. Create a new cloud function with the same initial settings as the first one. Choose also the `Python 3.9`
-        but this time change code to something that can actually use the model we just uploaded. Here is a code
-        snippet to help you:
-
-        ```python
-        from google.cloud import storage
-        import pickle
-
-        BUCKET_NAME = ...
-        MODEL_FILE = ...
-
-        client = storage.Client()
-        bucket = client.get_bucket(BUCKET_NAME)
-        blob = bucket.get_blob(MODEL_FILE)
-        my_model = pickle.loads(blob.download_as_string())
-
-        def knn_classifier(request):
-            """ will to stuff to your request """
-            request_json = request.get_json()
-            if request_json and 'input_data' in request_json:
-                data = request_json['input_data']
-                input_data = list(map(int, data.split(',')))
-                prediction = my_model.predict([input_data])
-                return f'Belongs to class: {prediction}'
-            else:
-                return 'No input data received'
-        ```
-
-        Some notes:
-        * For locally testing the above code you will need to install the `google-cloud-storage` Python package
-        * Remember to change the `Entry point`
-        * Remember to also fill out the `requirements.txt` file. You need at least two packages to run the application
-            with `google-cloud-storage` being one of them.
-        * If you deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you identify why.
-
-    4. When you have successfully deployed the model, try to make predictions with it.
-
-7. You can finally try to redo the exercises deploying a Pytorch application. You will essentially
-    need to go through the same steps as the sklearn example, including uploading a trained model
-    to a storage, write a cloud function that loads it and return some output. You are free to choose
-    whatever Pytorch model you want.
+8. (Optional) You can finally try to redo the exercises by deploying a Pytorch application. You will essentially
+    need to go through the same steps as the sklearn example, including uploading a trained model to storage and
+    writing a cloud function that loads it and returns some output. You are free to choose whatever Pytorch model you
+    want.
 
 ## Cloud Run
 
 Cloud functions are great for simple deployments, that can be encapsulated in a single script with only simple
-requirements. However, they do not really scale with more advance applications that may depend on multiple programming
-languages. We are already familiar with how we can deal with this through containers and Cloud Run is the corresponding
-service in GCP for deploying containers.
+requirements. However, they do not scale with more advanced applications that may depend on multiple programming
+languages. We are already familiar with how we can deal with this through containers and
+[Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run) is the corresponding service in GCP for
+deploying containers.
 
 ### ❔ Exercises
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
-    from: first a small FastAPI app consisting of this
+    from: first is a small FastAPI app consisting of this
     [.py file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.py)
     and this
     [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.dockerfile)
