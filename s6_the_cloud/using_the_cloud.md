@@ -406,6 +406,7 @@ the images we are used to that use Pytorch.
         ```yaml
         steps:
         - name: 'gcr.io/cloud-builders/docker'
+          id: 'Build container image'
           args: [
             'build',
             '.',
@@ -414,14 +415,17 @@ the images we are used to that use Pytorch.
             '-f',
             '<path-to-dockerfile>'
           ]
-        images:
-        - 'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Push container image'
+          args: [
+            'push',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
+          ]
         ```
 
         where you need to replace `<registry-name>`, `<image-name>` and `<path-to-dockerfile>` with your own values.
         You can hopefully recognize the syntax from the docker exercises. In this example, we are calling the
-        `cloud-builders/docker` service with the `build` argument and then the arguments for the build command. The
-        `images` field specifies the image that should be pushed to the artifact registry.
+        `cloud-builders/docker` service with both the `build` and `push` arguments.
 
 4. You can now try to trigger the `cloudbuild.yaml` file from your local machine. What `gcloud` command would you use
     to do this?
@@ -490,15 +494,15 @@ the images we are used to that use Pytorch.
     ```
 
     you will need to authenticate `docker` with GCP first. Instructions can be found
-    [here](https://cloud.google.com/container-registry/docs/advanced-authentication), but the following command should
-    hopefully be enough to make `docker` and GCP talk to each other:
+    [here](https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper), but the following
+    command should hopefully be enough to make `docker` and GCP talk to each other:
 
     ```bash
-    gcloud auth configure-docker
+    gcloud auth configure-docker <region-docker.pkg.dev>
     ```
 
-    Note: To do this you need to have `docker` actively running in the background, as any
-    other time you want to use `docker`.
+    where you need to replace `<region>` with the region you are using. Do note you need to have `docker` actively
+    running in the background, as any other time you want to use `docker`.
 
 7. Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
     and push them to the registry. Figure out how to push an image to your `Artifact Registry`. For simplicity, you can
