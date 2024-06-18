@@ -37,16 +37,16 @@ of the biggest being:
 
 - Azure
 - AWS
-- Google Cloud project
+- Google Cloud Platform (GCP)
 - Alibaba Cloud
 
 They all have slight advantages and disadvantages over each other. In this course, we are going to focus on Google
-Cloud, because they have been kind enough to sponsor $50 of cloud credit to each student. If you happen to run out of
-credit, you can also get some free credit for a limited amount of time when you sign up with a new account. What's
-important to note is that all these different cloud providers all have the same set of services and that learning how to
-use the services of one cloud provider in many cases translates to also knowing how to use the same services at another
-cloud provider. The services are called something different and can have a bit of a different interface/interaction
-pattern but in the end, it does not matter.
+Cloud platform, because they have been kind enough to sponsor $50 of cloud credit to each student. If you happen to run
+out of credit, you can also get some free credit for a limited amount of time when you sign up with a new account.
+What's important to note is that all these different cloud providers all have the same set of services and that learning
+how to use the services of one cloud provider in many cases translates to also knowing how to use the same services at
+another cloud provider. The services are called something different and can have a bit of a different
+interface/interaction pattern but in the end, it does not matter.
 
 Today's exercises are about getting to know how to work with the cloud. If you are in doubt about anything or want to
 deep dive into some topics, I can recommend watching this

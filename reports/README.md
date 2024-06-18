@@ -383,7 +383,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 
 ### Question 20
 
-> **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
+> **Upload one image of your GCP artifact registry, such that we can see the different images that you have stored.**
 > **You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:

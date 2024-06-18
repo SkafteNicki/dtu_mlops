@@ -51,7 +51,7 @@ different services to help develop a full machine learning pipeline.
 Date | Day       | Presentation topic                                              | Frameworks                                        | Format
 -----|-----------|-----------------------------------------------------------------|---------------------------------------------------|-----------
 8/1  | Monday    | [Continuous Integration📝](slides/ContinuousIntegration.pdf)| Pytest, Github actions, Pre-commit, CML           | [Exercises](s5_continuous_integration/README.md)
-9/1 | Tuesday    | [The Cloud📝](slides/Cloud%20Intro.pdf)                    | GCP Engine, Bucket, Container registry, Vertex AI | [Exercises](s6_the_cloud/README.md)
+9/1 | Tuesday    | [The Cloud📝](slides/Cloud%20Intro.pdf)                    | GCP Engine, Bucket, Artifact registry, Vertex AI | [Exercises](s6_the_cloud/README.md)
 10/1 | Wednesday | [Deployment📝](slides/Deployment.pdf)                      | FastAPI, Torchserve, GCP Functions, GCP Run          | [Exercises](s7_deployment/README.md)
 11/1 | Thursday  | No lecture                                                   | -                                                 | [Projects](projects.md)
 12/1 | Friday    | No lecture                                               | -                                                 | [Projects](projects.md)

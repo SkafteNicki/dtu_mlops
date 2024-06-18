@@ -69,6 +69,15 @@ plugins:
   - exclude:
       glob:
         - student_repos/*
+        - challenges.md
+        - reports\README.md
+        - s10_extra\design.md
+        - s10_extra\infrastructure_as_code.md
+        - s10_extra\kubernetes.md
+        - s10_extra\onnx.md
+        - s10_extra\orchestration.md
+        - samples\README.md
+        - tools\README.md
 
 extra:
   social:
