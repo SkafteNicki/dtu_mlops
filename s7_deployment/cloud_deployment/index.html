@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -1304,6 +1304,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1879,6 +1888,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1917,41 +1935,65 @@
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
 </div>
-<p>We are now returning to using the cloud. In <a href="../../s6_the_cloud/using_the_cloud/">this module</a> you should have
-gone through the steps of having your code in your GitHub repository to automatically build into a docker
-container, store that, store data and pull it all together to make a training run. After the training is
-completed you should hopefully have a file stored in the cloud with your trained model weights.</p>
-<p>Todays exercises will be about serving those model weights to an end user. We focus on two different ways
-of deploying our model, <code>Google cloud functions</code> and <code>Google Vertex AI endpoints</code>.</p>
+<p>We are now returning to using the cloud. In <a href="../../s6_the_cloud/using_the_cloud/">this module</a>, you should have gone
+through the steps of having your code in your GitHub repository to automatically build into a docker container, store
+that, store data and pull it all together to make a training run. After the training is completed you should hopefully
+have a file stored in the cloud with your trained model weights.</p>
+<p>Today's exercises will be about serving those model weights to an end user. We focus on two different ways
+of deploying our model: <a href="https://cloud.google.com/functions/docs">Google cloud functions</a> and
+<a href="https://cloud.google.com/run/docs">Google cloud run</a>. Both services are serverless, meaning that you do not have to
+manage the server that runs your code.</p>
+<figure>
+<p><a class="glightbox" href="../../figures/gcp_deployment_options.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_deployment_options.png" width="1000" /></a></p>
+<figcaption>
+GCP in general has 5 core deployment options. We are going to focus on Cloud Functions and Cloud Run, which are two
+of the serverless options. In contrast to these two, you have the option to deploy to Kubernetes Engine and Compute
+Engine which are more traditional ways of deploying your code. Here you have to manage the underlying infrastructure.
+</figcaption>
+</figure>
 <h2 id="cloud-functions">Cloud Functions</h2>
-<p>Cloud functions are the easiest way to get started with deployment because they are what is called <em>serverless</em>.
-For serverless deployment we still need a server to do the actual workload, however the core concept is that <strong>you</strong>
-do you have to manage the server. Everything is magically taken care of behind the scene.</p>
+<p>Google Cloud Functions, is the most simple way that we can deploy our code to the cloud. As stated above, it is a
+serverless service, meaning that you do not have to worry about the underlying infrastructure. You just write your code
+and deploy it. The service is great for small applications that can be encapsulated in <strong>a single script</strong>.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
-<p>Go to the start page of <code>Cloud Functions</code>. Can be found in the sidebar on the homepage or you can just
-   search for it. Activate the service if not already active.</p>
+<p>Go to the start page of <code>Cloud Functions</code>. Can be found in the sidebar on the homepage or you can just search for it.
+    Activate the service in the cloud console or use the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudfunctions.googleapis.com
+</span></code></pre></div>
 </li>
 <li>
-<p>Click the <code>Create Function</code> button which should take you to a screen like the image below. Give it a name,
-    set the server region to somewhere close by and change the authentication policy to
-    <code>Allow unauthenticated invocations</code> so we can access it directly from a browser. Remember to note down the
-    <em>URL</em> of the service somewhere.
-    <figure markdown>
-    <a class="glightbox" href="../../figures/gcp_cloud_functions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_cloud_functions.png" width="500" /></a>
-    </figure></p>
+<p>Click the <code>Create Function</code> button which should take you to a screen like the image below. Make sure it is a 2nd
+    Gen function, give it a name, set the server region to somewhere close by and change the authentication policy to
+    <code>Allow unauthenticated invocations</code> so we can access it directly from a browser. Remember to note down the</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_cloud_functions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_cloud_functions.png" width="500" /></a>
+</figure></p>
 </li>
 <li>
-<p>On the next page, for <code>Runtime</code> pick the <code>Python 3.9</code> option. This will make the inline editor show both
-    a <code>main.py</code> and <code>requirements.py</code> file. Look over them. Click the <code>Deploy</code> button in the lower left corner.</p>
+<p>On the next page, for <code>Runtime</code> pick the <code>Python 3.11</code> option (or newer). This will make the inline editor show both
+    a <code>main.py</code> and <code>requirements.py</code> file. Look over them and try to understand what they do. Especially, take a
+    look at the <a href="https://github.com/GoogleCloudPlatform/functions-framework-python">functions-framework</a> which is a
+    needed requirement of any Cloud function.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_functions_code.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_functions_code.png" width="500" /></a>
+</figure></p>
+<p>After you have looked over the files, click the <code>Deploy</code> button.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The <code>functions-framework</code> is a lightweight, open-source framework for turning Python functions into HTTP
+functions. Any function that you deploy to Cloud Functions must be wrapped in the <code>@functions_framework.http</code>
+decorator.</p>
+</details>
 </li>
 <li>
-<p>Afterwards you should see a green check mark beside your function meaning that it is deployed. Click the
-    <code>Test function</code> button which will take you to the testing page.
-    <figure markdown>
-    <a class="glightbox" href="../../figures/gcp_test_function.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_test_function.png" width="800" /></a>
-    </figure></p>
+<p>Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by going to
+    the <code>Testing</code> tab.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_test_function.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_test_function.png" width="800" /></a>
+</figure></p>
+<p>1.</p>
 </li>
 <li>
 <p>If you know what the application does, it should come as no surprise that it can run without any input. We
@@ -1960,138 +2002,423 @@ do you have to manage the server. Everything is magically taken care of behind t
 <ol>
 <li>
 <p>What should the <code>Triggering event</code> look like in the testing prompt for the program to respond with</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Good day to you sir!
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Hallo General Kenobi!
 </span></code></pre></div>
 <p>Try it out.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The default triggering event is a JSON object with a key <code>name</code> and a value. Therefore the triggering event
+should look like this:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;General Kenobi&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
 </li>
 <li>
-<p>Click on the metrics tab. Identify what each panel is showing.</p>
+<p>Go to the trigger tab and go to the URL for the application. Execute the API a couple of times. How can you
+    change the URL to make the application respond with the same output as above?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You can change the URL to include a query parameter <code>name</code> with the value <code>General Kenobi</code>. For example</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>https://us-central1-my-personal-mlops-project.cloudfunctions.net/function-3?name=General%20Kanobi
+</span></code></pre></div>
+<p>where you would need to replace everything before the <code>?</code> with your URL.</p>
+</details>
 </li>
 <li>
-<p>Go to the trigger tab and go to the url for the application.</p>
+<p>Click on the metrics tab. You should hopefully see it being populated with a few data points. Identify what each
+    panel is showing.</p>
+<details class="success">
+<summary>Solution</summary>
+<ul>
+<li>Invocations/Second: The number of times the function is invoked per second</li>
+<li>Execution time (ms): The time it takes for the function to execute in milliseconds</li>
+<li>Memory usage (MB): The memory usage of the function in MB</li>
+<li>Instance count (instances): The number of instances that are running the function</li>
+</ul>
+</details>
 </li>
 <li>
-<p>Checkout the logs tab. You should see that your application have already been invoked multiple times. Also try
+<p>Check out the logs tab. You should see that your application has already been invoked multiple times. Also, try
     to execute this command in a terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gcloud<span class="w"> </span>functions<span class="w"> </span>logs<span class="w"> </span><span class="nb">read</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>functions<span class="w"> </span>logs<span class="w"> </span><span class="nb">read</span>
 </span></code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Next, we are going to create an application that actually takes some input so we can try to send it requests.
-    We provide a very simple
-    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py">sklearn_cloud_function.py script</a>
-    to get started.</p>
+<p>Next, we are going to create our own application that takes some input so we can try to send it requests. We provide
+    a very simple script to get started.</p>
+<div class="admonition example">
+<p class="admonition-title">Simple script</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sklearn_cloud_functions.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span>
+<span class="normal"><a href="#__codelineno-5-26">26</a></span>
+<span class="normal"><a href="#__codelineno-5-27">27</a></span>
+<span class="normal"><a href="#__codelineno-5-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Load data</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="kn">import</span> <span class="nn">pickle</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="n">iris_x</span><span class="p">,</span> <span class="n">iris_y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="c1"># Split iris data in train and test data</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="c1"># A random permutation, to split the data randomly</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_x</span><span class="p">))</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="n">iris_x_train</span> <span class="o">=</span> <span class="n">iris_x</span><span class="p">[</span><span class="n">indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">10</span><span class="p">]]</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="n">iris_y_train</span> <span class="o">=</span> <span class="n">iris_y</span><span class="p">[</span><span class="n">indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">10</span><span class="p">]]</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="n">iris_x_test</span> <span class="o">=</span> <span class="n">iris_x</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]]</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="n">iris_y_test</span> <span class="o">=</span> <span class="n">iris_y</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]]</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="c1"># Create and fit a nearest-neighbor classifier</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris_x_train</span><span class="p">,</span> <span class="n">iris_y_train</span><span class="p">)</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">iris_x_test</span><span class="p">)</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24"></a>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="c1"># save model</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26"></a>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;model.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28"></a>    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">knn</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
 <ol>
 <li>
-<p>Figure out what the script does and run the script. This should create a file with trained model.</p>
+<p>Figure out what the script does and run the script. This should create a file with a trained model.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The file trains a simple KNN model on the iris dataset and saves it to a file called <code>model.pkl</code>.</p>
+</details>
 </li>
 <li>
-<p>Next create a storage bucket and upload the model file to the bucket. You can either do this through the
-    webpage or run the following commands:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gsutil<span class="w"> </span>mb<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># mb stands for make bucket</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>gsutil<span class="w"> </span>cp<span class="w"> </span>&lt;file-name&gt;<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># cp stands for copy</span>
+<p>Next, create a storage bucket and upload the model file to the bucket. Try to do this using the <code>gsutil</code> command
+    and check afterward that the file is in the bucket.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gsutil<span class="w"> </span>mb<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># mb stands for make bucket</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gsutil<span class="w"> </span>cp<span class="w"> </span>&lt;file-name&gt;<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># cp stands for copy</span>
 </span></code></pre></div>
-<p>check that the file is in the bucket.</p>
+</details>
 </li>
 <li>
-<p>Create a new cloud function with the same initial settings as the first one. Choose also the <code>Python 3.9</code>
-    but this time change code to something that can actually use the model we just uploaded. Here is a code
-    snippet to help you:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">google.cloud</span> <span class="kn">import</span> <span class="n">storage</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span> <span class="nn">pickle</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">BUCKET_NAME</span> <span class="o">=</span> <span class="o">...</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">MODEL_FILE</span> <span class="o">=</span> <span class="o">...</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">client</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">bucket</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_bucket</span><span class="p">(</span><span class="n">BUCKET_NAME</span><span class="p">)</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">blob</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">get_blob</span><span class="p">(</span><span class="n">MODEL_FILE</span><span class="p">)</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">my_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">blob</span><span class="o">.</span><span class="n">download_as_string</span><span class="p">())</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">def</span> <span class="nf">knn_classifier</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; will to stuff to your request &quot;&quot;&quot;</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">request_json</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="k">if</span> <span class="n">request_json</span> <span class="ow">and</span> <span class="s1">&#39;input_data&#39;</span> <span class="ow">in</span> <span class="n">request_json</span><span class="p">:</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">request_json</span><span class="p">[</span><span class="s1">&#39;input_data&#39;</span><span class="p">]</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="n">input_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        <span class="n">prediction</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">input_data</span><span class="p">])</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Belongs to class: </span><span class="si">{</span><span class="n">prediction</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="k">return</span> <span class="s1">&#39;No input data received&#39;</span>
+<p>Create a new cloud function with the same initial settings as the first one, e.g. <code>Python 3.11</code> and <code>HTTP</code>. Then
+    implement in the <code>main.py</code> file code that:</p>
+<ul>
+<li>Loads the model from the bucket</li>
+<li>Takes a request with a list of integers as input</li>
+<li>Returns the prediction of the model</li>
+</ul>
+<p>In addition to writing the <code>main.py</code> file, you also need to fill out the <code>requirements.txt</code> file. You need at
+least three packages to run the application. Remember to also change the <code>Entry point</code> to the name of your
+function. If your deployment fails, try to go to the <code>Logs Explorer</code> page in <code>gcp</code> which can help you identify
+why.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The main script should look something like this:</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span>
+<span class="normal"><a href="#__codelineno-7-24">24</a></span>
+<span class="normal"><a href="#__codelineno-7-25">25</a></span>
+<span class="normal"><a href="#__codelineno-7-26">26</a></span>
+<span class="normal"><a href="#__codelineno-7-27">27</a></span>
+<span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kn">import</span> <span class="nn">pickle</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="kn">import</span> <span class="nn">functions_framework</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="kn">from</span> <span class="nn">google.cloud</span> <span class="kn">import</span> <span class="n">storage</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="n">BUCKET_NAME</span> <span class="o">=</span> <span class="s2">&quot;my_sklearn_model_bucket&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="n">MODEL_FILE</span> <span class="o">=</span> <span class="s2">&quot;model.pkl&quot;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="n">client</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="n">bucket</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_bucket</span><span class="p">(</span><span class="n">BUCKET_NAME</span><span class="p">)</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="n">blob</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">get_blob</span><span class="p">(</span><span class="n">MODEL_FILE</span><span class="p">)</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="n">my_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">blob</span><span class="o">.</span><span class="n">download_as_string</span><span class="p">())</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="nd">@functions_framework</span><span class="o">.</span><span class="n">http</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="k">def</span> <span class="nf">knn_classifier</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple knn classifier function for iris prediction.&quot;&quot;&quot;</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a>    <span class="n">request_json</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a>    <span class="k">if</span> <span class="n">request_json</span> <span class="ow">and</span> <span class="s2">&quot;input_data&quot;</span> <span class="ow">in</span> <span class="n">request_json</span><span class="p">:</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a>        <span class="n">input_data</span> <span class="o">=</span> <span class="n">request_json</span><span class="p">[</span><span class="s2">&quot;input_data&quot;</span><span class="p">]</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>        <span class="n">input_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">in_data</span><span class="p">)</span> <span class="k">for</span> <span class="n">in_data</span> <span class="ow">in</span> <span class="n">input_data</span><span class="p">]</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a>        <span class="n">input_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_data</span><span class="p">]</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>            <span class="n">prediction</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a>            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">tolist</span><span class="p">()}</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;No input data provided.&quot;</span><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>And, the requirement file should look like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>functions-framework&gt;=3.7.0
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>google-cloud-storage&gt;=2.14.0
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>scikit-learn&gt;=1.4.0
 </span></code></pre></div>
-<p>Some notes:
-* For locally testing the above code you will need to install the <code>google-cloud-storage</code> Python package
-* Remember to change the <code>Entry point</code>
-* Remember to also fill out the <code>requirements.txt</code> file. You need at least two packages to run the application
-    with <code>google-cloud-storage</code> being one of them.
-* If you deployment fails, try to go to the <code>Logs Explorer</code> page in <code>gcp</code> which can help you identify why.</p>
+<p>importantly make sure that you are using the same version of <code>scikit-learn</code> as you used when you trained the
+model. Else when trying to load the model you will most likely get an error.</p>
+</details>
 </li>
 <li>
-<p>When you have successfully deployed the model, try to make predictions with it.</p>
+<p>When you have successfully deployed the model, try to make predictions with it. What should the request
+    look like?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>It depends on how exactly you have chosen to implement the <code>main.py</code>. But for the provided solution, the
+payload should look like this:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>with the corresponding <code>curl</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span>https://your-cloud-function-url/knn_classifier<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;input_data&quot;: [5.1, 3.5, 1.4, 0.2]}&#39;</span>
+</span></code></pre></div>
+</details>
 </li>
 </ol>
 </li>
 <li>
-<p>You can finally try to redo the exercises deploying a Pytorch application. You will essentially
-    need to go through the same steps as the sklearn example, including uploading a trained model
-    to a storage, write a cloud function that loads it and return some output. You are free to choose
-    whatever Pytorch model you want.</p>
+<p>Let's try to figure out how to do the above deployment using <code>gcloud</code> instead of the console UI. The relevant command
+    is <a href="https://cloud.google.com/functions/docs/create-deploy-http-python">gcloud functions deploy</a>. For this function
+    to work you will need to put the <code>main.py</code> and <code>requirements.txt</code> in a separate folder. Try to execute the command
+    to successfully deploy the function.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>functions<span class="w"> </span>deploy<span class="w"> </span>&lt;func-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span>--gen2<span class="w"> </span>--runtime<span class="w"> </span>python311<span class="w"> </span>--trigger-http<span class="w"> </span>--source<span class="w"> </span>&lt;folder&gt;<span class="w"> </span>--entry-point<span class="w"> </span>knn_classifier
+</span></code></pre></div>
+<p>where you need to replace <code>&lt;func-name&gt;</code> with the name of your function and <code>&lt;folder&gt;</code> with the path to the
+folder containing the <code>main.py</code> and <code>requirements.txt</code> files.</p>
+</details>
+</li>
+<li>
+<p>(Optional) You can finally try to redo the exercises by deploying a Pytorch application. You will essentially
+    need to go through the same steps as the sklearn example, including uploading a trained model to storage and
+    writing a cloud function that loads it and returns some output. You are free to choose whatever Pytorch model you
+    want.</p>
 </li>
 </ol>
 <h2 id="cloud-run">Cloud Run</h2>
 <p>Cloud functions are great for simple deployments, that can be encapsulated in a single script with only simple
-requirements. However, they do not really scale with more advance applications that may depend on multiple programming
-languages. We are already familiar with how we can deal with this through containers and Cloud Run is the corresponding
-service in GCP for deploying containers.</p>
+requirements. However, they do not scale with more advanced applications that may depend on multiple programming
+languages. We are already familiar with how we can deal with this through containers and
+<a href="https://cloud.google.com/run/docs/overview/what-is-cloud-run">Cloud Run</a> is the corresponding service in GCP for
+deploying containers.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
 <li>
 <p>We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
-    from: first a small FastAPI app consisting of this
-    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.py">.py file</a>
-    and this
-    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.dockerfile">dockerfile</a>
-    . Secondly a small <a href="https://streamlit.io/">streamlit</a> application consisting of just this
-    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/streamlit_app.dockerfile">dockerfile</a>
-    . You are free to choose which application to work with.</p>
+    from: first is a small FastAPI app consisting of a single Python script and a docker file. The second is a small
+    Streamlit app (which you can learn more about in <a href="../../s10_extra/frontend/">this module</a>) consisting of a single
+    docker file. You can choose which one you want to work with.</p>
+<details class="example">
+<summary>Simple Fastapi app</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">simple_fastapi_app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="k">def</span> <span class="nf">read_root</span><span class="p">():</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Root endpoint.&quot;&quot;&quot;</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an item by id.&quot;&quot;&quot;</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">simple_fastapi_app.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span>
+<span class="normal"><a href="#__codelineno-13-13">13</a></span>
+<span class="normal"><a href="#__codelineno-13-14">14</a></span>
+<span class="normal"><a href="#__codelineno-13-15">15</a></span>
+<span class="normal"><a href="#__codelineno-13-16">16</a></span>
+<span class="normal"><a href="#__codelineno-13-17">17</a></span>
+<span class="normal"><a href="#__codelineno-13-18">18</a></span>
+<span class="normal"><a href="#__codelineno-13-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9-slim</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">    </span>software-properties-common<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pydantic
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>uvicorn
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a><span class="k">COPY</span><span class="w"> </span>simple_fastapi_app.py<span class="w"> </span>simple_fastapi_app.py
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>simple_fastapi_app:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+<details class="example">
+<summary>Simple Streamlit app</summary>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">streamlit_app.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9-slim</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">    </span>software-properties-common<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="k">RUN</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/streamlit/streamlit-example.git<span class="w"> </span>.
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="k">RUN</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;streamlit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;streamlit_app.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--server.port=$PORT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--server.address=0.0.0.0&quot;</span><span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
 <ol>
 <li>
 <p>Start by going over the files belonging to your choice app and understand what it does.</p>
 </li>
 <li>
-<p>Next build the docker image belonging to the app</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>&lt;dockerfile&gt;<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_test_app:latest
+<p>Next, build the docker image belonging to the app</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>&lt;dockerfile&gt;<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_test_app:latest
 </span></code></pre></div>
 </li>
 <li>
-<p>Next tag and push the image to your container registry</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>gcp_test_app<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_test_app
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>docker<span class="w"> </span>push<span class="w"> </span>gcr.io/&lt;project-id&gt;/gcp_test_app
+<p>Next tag and push the image to your artifact registry</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>gcp_test_app<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/gcp_test_app:latest
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>docker<span class="w"> </span>push<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/gcp_test_app:latest
 </span></code></pre></div>
-<p>afterwards check you container registry to check that you have successfully pushed the image.</p>
+<p>Afterward check your artifact registry contains the pushed image.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>Next go to <code>Cloud Run</code> in the cloud console an enable the service</p>
+<p>Next ,go to <code>Cloud Run</code> in the cloud console and enable the service or use the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>run.googleapis.com
+</span></code></pre></div>
 </li>
 <li>
 <p>Click the <code>Create Service</code> button which should bring you to a page similar to the one below</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_run.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run.PNG" width="1000" /></a>
 </figure></p>
-<p>Do the following:
-* Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
-    future you probably want to choose the <em>Continuously deploy new revision from a source repository</em> such that a new
-    version is always deployed when a new container is build.
-* Hereafter, give the service a name and select the region. We recommend do choose a region close to you, however
-    it does not really matter that much for our use case
-* Set the authentication method to <em>Allow unauthenticated invocations</em> such that we can call it without
-    providing credentials. In the future you may only set that authenticated invocations are allowed.
-* Expand the <em>Container, Connections, Security</em> tab and edit the port such that it matches the port exposed in your
-    chosen application.</p>
+<p>Do the following:</p>
+<ul>
+<li>
+<p>Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
+    future, you probably want to choose the <em>Continuously deploy new revision from a source repository</em> such that
+    a new version is always deployed when a new container is built.</p>
+</li>
+<li>
+<p>Hereafter, give the service a name and select the region. We recommend choosing a region close to you.</p>
+</li>
+<li>
+<p>Set the authentication method to <em>Allow unauthenticated invocations</em> such that we can call it without
+    providing credentials. In the future, you may only set that authenticated invocations are allowed.</p>
+</li>
+<li>
+<p>Expand the <em>Container, Connections, Security</em> tab and edit the port such that it matches the port exposed in your
+    chosen application. If your docker file exposes the env variable <code>$PORT</code> you can set the port to anything.</p>
+</li>
+</ul>
 <p>Finally, click the create button and wait for the service to be deployed (may take some time).</p>
 <div class="admonition warning">
 <p class="admonition-title">Common problems</p>
@@ -2101,95 +2428,177 @@ there are two common reasons for this:</p>
 <ol>
 <li>
 <p>You need to add an <code>EXPOSE</code> statement in your docker container:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>my_application:app<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span><span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span><span class="w"> </span>main:app
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>my_application:app<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span><span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span><span class="w"> </span>main:app
 </span></code></pre></div>
 <p>and make sure that your application is also listening on that port. If you hard code the port in your
-application (as in above code) it is best to set it 8080 which is the default port for cloud run.
+application (as in the above code) it is best to set it 8080 which is the default port for cloud run.
 Alternatively, a better approach is to set it to the <code>$PORT</code> environment variable which is set by cloud run
 and can be accessed in your application:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>my_application:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span><span class="w"> </span>main:app
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>my_application:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span><span class="w"> </span>main:app
 </span></code></pre></div>
-<p>If you do this, and then want to run locally you can run it as:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-e<span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">8080</span><span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;
+<p>If you do this and then want to run locally you can run it as:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-e<span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">8080</span><span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;
 </span></code></pre></div>
 </li>
 <li>
-<p>If you are serving a large machine learning model, it may also be that your deployed container is running
+<p>If you are serving a large machine-learning model, it may also be that your deployed container is running
     out of memory. You can try to increase the memory of the container by going to the <em>Edit container</em> and
-    the <em>Resources</em> tab and increase the memory.</p>
+    the <em>Resources</em> tab and increasing the memory.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
-<p>If you manage to deploy the service you should see a image like this:</p>
+<p>If you manage to deploy the service you should see an image like this:</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_run2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run2.PNG" width="1000" /></a>
 </figure></p>
-<p>You can now access you application by clicking url. This will access the root of your application, so you may need
-to add <code>/</code> or <code>/&lt;path&gt;</code> to the url depending on how the app works.</p>
+<p>You can now access your application by clicking the URL. This will access the root of your application, so you may
+need to add <code>/</code> or <code>/&lt;path&gt;</code> to the URL depending on how the app works.</p>
 </li>
 <li>
-<p>Everything we just did to deploy an container can be reproduced using the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span><span class="nv">$APP</span><span class="w"> </span>--image<span class="w"> </span><span class="nv">$TAG</span><span class="w"> </span>--platform<span class="w"> </span>managed<span class="w"> </span>--region<span class="w"> </span><span class="nv">$REGION</span><span class="w"> </span>--allow-unauthenticated
+<p>Everything we just did in the console UI we can also do with the
+    <a href="https://cloud.google.com/sdk/gcloud/reference/run/deploy">gcloud run deploy</a>. How would you do that?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The command should look something like this</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>--image<span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;<span class="w"> </span>--platform<span class="w"> </span>managed<span class="w"> </span>--region<span class="w"> </span>&lt;region&gt;<span class="w"> </span>--allow-unauthenticated
 </span></code></pre></div>
-<p>and checked using these two commands</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>list
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>describe<span class="w"> </span><span class="nv">$APP</span><span class="w"> </span>--region<span class="w"> </span><span class="nv">$REGION</span>
+<p>where you need to replace <code>&lt;service-name&gt;</code> with the name of your service, <code>&lt;image-name&gt;</code> with the name of your
+image and <code>&lt;region&gt;</code> with the region you want to deploy to. The <code>--allow-unauthenticated</code> flag is optional but
+is needed if you want to access the service without providing credentials.</p>
+</details>
+</li>
+<li>
+<p>After deploying using the command line, make sure that the service is up and running by using these two commands</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>list
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>describe<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span>--region<span class="w"> </span>&lt;region&gt;
 </span></code></pre></div>
-<p>feel free to experiment doing the deployment from the command line.</p>
 </li>
 <li>
 <p>Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
-    in a continuous manner by using <code>cloudbuild.yaml</code> file we learned about in the previous section. We just need to add
-    a new step to the file. We provide an example</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># Build the container image</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/$PROJECT_ID/&lt;container-name&gt;:latest&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1">#(1)!</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Push the container image to Container Registry</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/$PROJECT_ID/&lt;container-name&gt;:latest&#39;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Deploy container image to Cloud Run</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/google.com/cloudsdktool/cloud-sdk&#39;</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcloud</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;run&#39;</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;deploy&#39;</span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;&lt;service-name&gt;&#39;</span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;--image&#39;</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;gcr.io/$PROJECT_ID/&lt;container-name&gt;:latest&#39;</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;--region&#39;</span>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;&#39;</span>
+    continuously by using <code>cloudbuild.yaml</code> file we learned about in the previous section. This is called
+    <a href="https://resources.github.com/devops/fundamentals/ci-cd/deployment">continuous deployment</a>, and it is a way to
+    automate the deployment process.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/continuous_x.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/continuous_x.png" width="1000" /></a>
+<figcaption>
+<a href="https://faun.pub/most-popular-ci-cd-pipelines-and-tools-ccfdce429867"> Image credit </a>
+</figcaption>
+</figure></p>
+<p>Let's revise the <code>cloudbuild.yaml</code> file from the artifact registry exercises in
+<a href="../../s6_the_cloud/using_the_cloud/">this module</a> which will build and push a specified docker image.</p>
+<div class="admonition example">
+<p class="admonition-title">cloudbuild.yaml</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">cloudbuild.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-23-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-23-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-23-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-23-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-23-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-23-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-23-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-23-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-23-10">10</a></span>
+<span class="normal"><a href="#__codelineno-23-11">11</a></span>
+<span class="normal"><a href="#__codelineno-23-12">12</a></span>
+<span class="normal"><a href="#__codelineno-23-13">13</a></span>
+<span class="normal"><a href="#__codelineno-23-14">14</a></span>
+<span class="normal"><a href="#__codelineno-23-15">15</a></span>
+<span class="normal"><a href="#__codelineno-23-16">16</a></span>
+<span class="normal"><a href="#__codelineno-23-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="w">    </span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="w">    </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7"></a><span class="w">    </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="w">    </span><span class="s">&#39;-f&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10"></a><span class="w">    </span><span class="s">&#39;&lt;path-to-dockerfile&gt;&#39;</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Push</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15"></a><span class="w">    </span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<p>Add a third step to the <code>cloudbuild.yaml</code> file that deploys the container image to Cloud Run. The relevant service
+you need to use is called <code>'gcr.io/cloud-builders/gcloud'</code> and the command is <code>'gcloud run deploy'</code>. Afterwards,
+reuse the trigger you created in the previous module or create a new one to build and deploy the container image
+continuously. Confirm that this works by making a change to your application and pushing it to GitHub and see if
+the application is updated continuously.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The full <code>cloudbuild.yaml</code> file should look like this:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">    </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">    </span><span class="s">&#39;-f&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">    </span><span class="s">&#39;&lt;path-to-dockerfile&gt;&#39;</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Push</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="w">    </span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/gcloud&#39;</span>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Deploy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cloud</span><span class="nv"> </span><span class="s">Run&#39;</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="w">    </span><span class="s">&#39;run&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a><span class="w">    </span><span class="s">&#39;deploy&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a><span class="w">    </span><span class="s">&#39;&lt;service-name&gt;&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a><span class="w">    </span><span class="s">&#39;--image&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26" href="#__codelineno-24-26"></a><span class="w">    </span><span class="s">&#39;--region&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-27"><a id="__codelineno-24-27" name="__codelineno-24-27" href="#__codelineno-24-27"></a><span class="w">    </span><span class="s">&#39;europe-west1&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a><span class="w">    </span><span class="s">&#39;--platform&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a><span class="w">    </span><span class="s">&#39;managed&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-30"><a id="__codelineno-24-30" name="__codelineno-24-30" href="#__codelineno-24-30"></a><span class="w">  </span><span class="p p-Indicator">]</span>
 </span></code></pre></div>
+</details>
+</li>
+</ol>
+<h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
-<p>This line assume you are standing in the root of your repository and is trying to build the docker image
-    specified in a file called <code>Dockerfile</code> and tag it with the name <code>gcr.io/$PROJECT_ID/my_deployment:latest</code>.
-    Therefore if you want to point to another dockerfile you need to add <code>-f</code> option to the command. For example
-    if you want to point to a <code>my_app/my_serving_app.dockerfile</code> you need to change the line to</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-f&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;my_app/my_serving_app.dockerfile&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;gcr.io/$PROJECT_ID/my_deployment:lates&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span>
+<p>In the previous module <a href="../../s6_the_cloud/using_the_cloud/">on using the cloud</a> you learned about the Secrets
+    Manager in GCP. How can you use this service in combination with Cloud Run?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>In the cloud console, secrets can be set in the <em>Container(s), Volumes, Networking, Security</em> tab under the
+<em>Variables &amp; Secrets</em> section, see image below.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_run_secrets.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_secrets.png" width="500" /></a>
+</figure></p>
+<p>In the <code>gcloud</code> command, you can set the secret by using the <code>--update-secrets</code> flag.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span>--image<span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;<span class="w"> </span>--platform<span class="w"> </span>managed<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span>--region<span class="w"> </span>&lt;region&gt;<span class="w"> </span>--allow-unauthenticated<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span>--update-secrets<span class="w"> </span>&lt;secret-name&gt;<span class="o">=</span>&lt;secret-version&gt;
 </span></code></pre></div>
+</details>
 </li>
 </ol>
-<p>where you need to replace <code>&lt;container-name&gt;</code> with the name of your container, <code>&lt;service-name&gt;</code> with the name of the
-service you want to deploy and <code>&lt;region&gt;</code> with the region you want to deploy to. Afterwards you need to setup a
-trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
-works by making a change to your application and pushing it to GitHub and see if the application is updated
-continuously. For help you can look <a href="https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run">here</a>
-for help. If you succeeded, congratulations you have now setup a continuous deployment pipeline.</p>
-</li>
-</ol>
-<p>That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In
-both sections we have explicitly chosen to work with <em>serverless</em> deployments. But what if you wanted to do the
+<p>That ends the exercises on deployment. The exercises above are just a small taste of what deployment has to offer. In
+both sections, we have explicitly chosen to work with <em>serverless</em> deployments. But what if you wanted to do the
 opposite e.g. being the one in charge of the management of the cluster that handles the deployed services? If you are
-really interested in taking deployment to the next level should get started on <em>kubernetes</em> which is the de-facto
+interested in taking deployment to the next level should get started on <em>Kubernetes</em> which is the de-facto
 open-source container orchestration platform that is being used in production environments. If you want to deep dive we
 recommend starting <a href="https://cloud.google.com/ai-platform/pipelines/docs">here</a> which describes how to make pipelines
 that are a necessary component before you start to
-<a href="https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster">create</a> your own kubernetes cluster.</p>
+<a href="https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster">create</a> your own Kubernetes cluster.</p>
 
 
 
@@ -2212,7 +2621,7 @@ that are a necessary component before you start to
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 18, 2024</span>
   </span>
 
     

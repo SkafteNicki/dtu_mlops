@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -1223,6 +1223,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1975,6 +2008,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2039,19 +2105,25 @@ There are many reasons why one to use virtual machines:</p>
 <p><a class="glightbox" href="../../figures/gcp_compute_engine.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_compute_engine.png" width="800" /></a></p>
 </figure>
 <h3 id="exercises">❔ Exercises</h3>
-<p>We are now going to start actually using the cloud.</p>
+<p>We are now going to start using the cloud.</p>
 <ol>
 <li>
-<p>Click on the <code>Compute Engine</code> tab in the sidebar on the homepage of <code>gcp</code>.</p>
+<p>Click on the <code>Compute Engine</code> tab in the sidebar on the homepage of GCP.</p>
 </li>
 <li>
-<p>Click the <code>Create instance</code> button. You will see the following image below.</p>
+<p>Click the <code>Create Instance</code> button. You will see the following image below.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp4.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp4.PNG" width="800" /></a>
 </figure></p>
-<p>Give it a meaningful name, and set the location to some location that is closer to where you are (to reduce
-latency). Finally, try to adjust the configuration a bit. What two factors are affecting the price of the
-compute unit?</p>
+<p>Give the virtual machine a meaningful name, and set the location to some location that is closer to where you are
+(to reduce latency, we recommend <code>europe-west-1</code>). Finally, try to adjust the configuration a bit. Can you find
+at least two settings that alter the price of the virtual machine?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>In general, the price of a virtual machine is determined by the class of hardware attached to it. Higher class
+CPUs and GPUs means higher prices. Additionally, the amount of memory and disk space also affects the price.
+Finally, to location of the virtual machine also affects the price.</p>
+</details>
 </li>
 <li>
 <p>After figuring this out, create a <code>e2-medium</code> instance (leave the rest configured as default). Before clicking the
@@ -2059,7 +2131,7 @@ compute unit?</p>
     could have typed in the terminal that would create a VM similar to configuring it through the UI.</p>
 </li>
 <li>
-<p>Now in a local terminal type:</p>
+<p>After creating the virtual machine, in a local terminal type:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>list
 </span></code></pre></div>
 <p>you should hopefully see the instance you have just created.</p>
@@ -2081,12 +2153,18 @@ compute unit?</p>
     can fix this by starting VMs based on specific docker images (it's all coming together).</p>
 <ol>
 <li>
-<p><code>gcp</code> Comes with several ready-to-go images for doing deep learning.
+<p>GCP comes with several ready-to-go images for doing deep learning.
     More info can be found <a href="https://cloud.google.com/deep-learning-containers/docs/choosing-container">here</a>.
     Try, running this line:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gcloud<span class="w"> </span>container<span class="w"> </span>images<span class="w"> </span>list<span class="w"> </span>--repository<span class="o">=</span><span class="s2">&quot;gcr.io/deeplearning-platform-release&quot;</span>
 </span></code></pre></div>
 <p>what does the output show?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The output should show a list of images that are available for you to use. The images are essentially
+docker images that contain a specific software stack. The software stack is often a specific version of
+Python, Pytorch, Tensorflow, etc. The images are maintained by Google and are updated regularly.</p>
+</details>
 </li>
 <li>
 <p>Next, start (in the terminal) a new instance using a Pytorch image. The command for doing it should look
@@ -2103,6 +2181,30 @@ compute unit?</p>
 <p>You can find more info <a href="https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance">here</a> on what
 <code>&lt;image-family&gt;</code> should have as value and what extra argument you need to add if you want to run on GPU (if you
 have access).</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The command should look something like this:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">CPU</label><label for="__tabbed_1_2">GPU</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>my_instance<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>--zone<span class="o">=</span>europe-west1-b<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-cpu<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>my_instance<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>--zone<span class="o">=</span>europe-west1-b<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-gpu<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-K80,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</details>
 </li>
 <li>
 <p><code>ssh</code> to the VM as one of the previous exercises. Confirm that the container indeed contains
@@ -2115,23 +2217,22 @@ have access).</p>
 </ol>
 </li>
 <li>
-<p>Finally, everything that you have done locally can also be achieved through the web
-    terminal, which of course comes pre-installed with the <code>gcloud</code> command etc.</p>
+<p>Everything that you have done locally can also be achieved through the web terminal, which of course comes
+    pre-installed with the <code>gcloud</code> command etc.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_terminal.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_terminal.png" width="800" /></a>
 </figure></p>
 <p>Try out launching this and run some of the commands from the previous exercises.</p>
 </li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Stopping VMs</p>
-<p>If you are not careful you can end up wasting a lot of credits on virtual machines that you are not using. VMs are
-charged by the minute, so even if you are not using them you are still paying for them. Therefore, it is important
-that you remember to stop your VMs when you are not using them. You can do this by either clicking the <code>Stop</code> button
-on the VM overview page or by running the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>stop<span class="w"> </span>&lt;instance-name&gt;
+<li>
+<p>Finally, we want to make sure that we do not forget to stop our VMs. VMs are charged by the minute, so even if you
+    are not using them you are still paying for them. Therefore, you must remember to stop your VMs when you are not
+    using them. You can do this by either clicking the <code>Stop</code> button on the VM overview page or by running the following
+    command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>stop<span class="w"> </span>&lt;instance-name&gt;
 </span></code></pre></div>
-</div>
+</li>
+</ol>
 <h2 id="data-storage">Data storage</h2>
 <p>Another big part of cloud computing is the storage of data. There are many reasons that you want to store your
 data in the cloud including:</p>
@@ -2146,7 +2247,7 @@ the storage in Google Cloud is much more focused on enterprise usage such that y
 <h3 id="exercises_1">❔ Exercises</h3>
 <p>When we did the exercise on data version control, we made <code>dvc</code> work together with our own Google Drive to store data.
 However, a big limitation of this is that we need to authenticate each time we try to either push or pull the data. The
-reason is that we need to use an API instead which is offered through <code>gcp</code>.</p>
+reason is that we need to use an API instead which is offered through GCP.</p>
 <p>We are going to follow the instructions from this <a href="https://dvc.org/doc/user-guide/setup-google-drive-remote">page</a></p>
 <ol>
 <li>
@@ -2161,22 +2262,26 @@ under the last tab. Finally, click `Create``.</p>
 <li>
 <p>After creating the storage, you should be able to see it online and you should be able to see it if you type in your
     local terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gsutil<span class="w"> </span>ls
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>gsutil<span class="w"> </span>ls
 </span></code></pre></div>
-<p><code>gsutil</code> is an additional command to <code>gcloud</code>, that provides more command line options.</p>
+<p><a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a> is a command line tool that allows you to create, upload,
+download, list, move, rename and delete objects in the cloud storage. For example, you can upload a file to the
+cloud storage by running:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gsutil<span class="w"> </span>cp<span class="w"> </span>&lt;file&gt;<span class="w"> </span>gs://&lt;bucket-name&gt;
+</span></code></pre></div>
 </li>
 <li>
 <p>Next we need the Google storage extension for <code>dvc</code></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>dvc-gs
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pip<span class="w"> </span>install<span class="w"> </span>dvc-gs
 </span></code></pre></div>
 </li>
 <li>
-<p>Now in your MNIST repository where you have already configured dvc, we are going to change the storage
+<p>Now in your corrupt MNIST repository where you have already configured <code>dvc</code>, we are going to change the storage
     from our Google Drive to our newly created Google Cloud storage.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>remote_storage<span class="w"> </span>&lt;output-from-gsutils&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>remote_storage<span class="w"> </span>&lt;output-from-gsutils&gt;
 </span></code></pre></div>
 <p>In addition, we are also going to modify the remote to support object versioning (called <code>version_aware</code> in <code>dvc</code>):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>remote_storage<span class="w"> </span>version_aware<span class="w"> </span><span class="nb">true</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>remote_storage<span class="w"> </span>version_aware<span class="w"> </span><span class="nb">true</span>
 </span></code></pre></div>
 <p>This will change the default way that <code>dvc</code> handles data. Instead of just storing the latest version of the data as
 <a href="https://dvc.org/doc/user-guide/project-structure/internal-files#structure-of-the-cache-directory">content-addressable storage</a>
@@ -2186,37 +2291,46 @@ our data.</p>
 <li>
 <p>The above command will change the <code>.dvc/config</code> file. <code>git add</code> and <code>git commit</code> the changes to that file.
     Finally, push data to the cloud</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dvc<span class="w"> </span>push
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>dvc<span class="w"> </span>push<span class="w"> </span>--no-run-cache<span class="w">  </span><span class="c1"># (1)!</span>
 </span></code></pre></div>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>--no-run-cache</code> flag is used to avoid pushing the cache file to the cloud, which is not
+    supported by the Google Cloud storage.</li>
+</ol>
 </li>
 <li>
 <p>Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
-    is to delete the <code>.dvc/cache</code> folder that should be locally on your laptop and afterward do a <code>dvc pull</code>.</p>
+    is to delete the <code>.dvc/cache</code> folder that should be locally on your laptop and afterward do a</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>dvc<span class="w"> </span>pull<span class="w"> </span>--no-run-cache
+</span></code></pre></div>
 </li>
 </ol>
-<p>This setup should work when trying to access the data from your laptop, which we authenticated in the previous module.
-However, how can you access the data from a virtual machine, inside a docker container or from a different laptop? We
-in general recommend two ways:</p>
+<p>This setup should work when trying to access the data from your laptop, which we authenticated in the previous
+module. However, how can you access the data from a virtual machine, inside a docker container or from a different
+laptop? We in general recommend two ways:</p>
 <ul>
 <li>
-<p>You can make the bucket publicly accessible e.g. no authentication is needed. That means that anyone with the URL to
-    the data can access it. This is the easiest way to do it, but also the least secure. You can read more about how to
-    make your buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">here</a>.</p>
+<p>You can make the bucket publicly accessible e.g. no authentication is needed. That means that anyone with the URL
+    to the data can access it. This is the easiest way to do it, but also the least secure. You can read more about
+    how to make your buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">here</a>.</p>
 </li>
 <li>
-<p>You can create a <a href="https://cloud.google.com/iam/docs/service-account-overview">service account</a> which is a more secure
-    way of accessing data. A service account is essentially a second user to which you can give access to specific
-    services. You can read more about how to create a service account
-    <a href="https://cloud.google.com/iam/docs/creating-managing-service-accounts">here</a>. Once you have created a service
-    account you can give it access to a specific bucket by going to the <code>Permissions</code> tab of the bucket and adding the
-    service account as a member.</p>
-<p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_bucket_permission.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_bucket_permission.png" width="800" /></a>
-</figure></p>
-<p>If you need to authenticate your service account from a VM, you can do it by running the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>activate-service-account<span class="w"> </span>--key-file<span class="o">=</span>&lt;key-file&gt;
+<p>You can use the service account that you created in the previous module to authenticate the VM. This is the most
+    secure way to do it, but also the most complicated. You first need to give the service account the correct
+    permissions. Then you need to authenticate using the service account. In <code>dvc</code> this is done by setting the
+    environment variable <code>GOOGLE_APPLICATION_CREDENTIALS</code> to the path of</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Linux/MacOS</label><label for="__tabbed_2_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=</span><span class="s2">&quot;/path/to/your/credentials.json&quot;</span>
 </span></code></pre></div>
-<p>where the <code>&lt;key-file</code> is the json file that you downloaded when you created the service account (DO NOT SHARE THIS).</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">set</span><span class="w"> </span><span class="nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=</span><span class="s2">&quot;C:\path\to\your\credentials.json&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 </ul>
 <h2 id="artifact-registry">Artifact registry</h2>
@@ -2224,31 +2338,114 @@ in general recommend two ways:</p>
 allow us to specify exactly the software that we want to run inside our VMs. However, you should already have run into
 two problems with containers</p>
 <ul>
-<li>Building process can take a lot of time</li>
+<li>The building process can take a lot of time</li>
 <li>Docker images can be large</li>
 </ul>
 <p>For this reason, we want to move both the building process and the storage of images to the cloud. In GCP the two
-services that we are going to use for this is called <a href="https://cloud.google.com/build">Cloud Build</a> for building the
+services that we are going to use for this are called <a href="https://cloud.google.com/build">Cloud Build</a> for building the
 containers in the cloud and <a href="https://cloud.google.com/artifact-registry">Artifact registry</a> for storing the images
-afterwards.</p>
+afterward.</p>
 <h3 id="exercises_2">❔ Exercises</h3>
-<p>For the purpose of these exercise I recommend that you start out with a dummy version of some code to make sure
-that the building process do not take too long. You are more than free to <strong>fork</strong>
-<a href="https://github.com/SkafteNicki/gcp_docker_example">this repository</a>. The repository contains a simple python
-script that does image classification using sklearn. The docker images for this application are therefore going
-to be substantially faster to build and smaller in size than the images we are used to that uses Pytorch.</p>
+<p>In these exercises, I recommend that you start with a dummy version of some code to make sure that the building process
+does not take too long. Below is a simple Python script that does image classification using Sklearn, together with
+the corresponding <code>requirements.txt</code> file and <code>Dockerfile</code>.</p>
+<details class="example">
+<summary>Python script</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span>
+<span class="normal"><a href="#__codelineno-16-15">15</a></span>
+<span class="normal"><a href="#__codelineno-16-16">16</a></span>
+<span class="normal"><a href="#__codelineno-16-17">17</a></span>
+<span class="normal"><a href="#__codelineno-16-18">18</a></span>
+<span class="normal"><a href="#__codelineno-16-19">19</a></span>
+<span class="normal"><a href="#__codelineno-16-20">20</a></span>
+<span class="normal"><a href="#__codelineno-16-21">21</a></span>
+<span class="normal"><a href="#__codelineno-16-22">22</a></span>
+<span class="normal"><a href="#__codelineno-16-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">svm</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a>    <span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a>    <span class="c1"># flatten the images</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a>    <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a>    <span class="c1"># Create a classifier: a support vector classifier</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a>    <span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a>    <span class="c1"># Split data into 50% train and 50% test subsets</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a>    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a>    <span class="c1"># Learn the digits on the train subset</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a>    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a>    <span class="c1"># Predict the value of the digit on the test subset</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a>    <span class="n">predicted</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classification report for classifier </span><span class="si">{</span><span class="n">clf</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">predicted</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+<details class="example">
+<summary>requirements.txt</summary>
+<div class="language-text highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">requirements.txt</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a>scikit-learn&gt;=1.0
+</span></code></pre></div></td></tr></table></div>
+</details>
+<details class="example">
+<summary>Dockerfile</summary>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-18-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-18-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-18-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-18-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-18-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-18-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-18-10">10</a></span>
+<span class="normal"><a href="#__codelineno-18-11">11</a></span>
+<span class="normal"><a href="#__codelineno-18-12">12</a></span>
+<span class="normal"><a href="#__codelineno-18-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="c"># install python</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>requirements.txt
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="k">COPY</span><span class="w"> </span>main.py<span class="w"> </span>main.py
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>--no-cache-dir
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12"></a>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main.py&quot;</span><span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+<p>The docker images for this application are therefore going to be substantially faster to build and smaller in size than
+the images we are used to that use Pytorch.</p>
 <ol>
 <li>
 <p>Start by enabling the service: <code>Google Artifact Registry API</code> and <code>Google Cloud Build API</code>. This can be
-    done through the web side (by searching for the services) or can also be enabled from the terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>artifactregistry.googleapis.com
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
+    done through the web site (by searching for the services) or can also be enabled from the terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>artifactregistry.googleapis.com
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
 </span></code></pre></div>
 </li>
 <li>
-<p>First step is creating an artifact repository in the cloud. You can either do this through the UI or using gcloud
-    in the command line.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">UI</label><label for="__tabbed_1_2">Command line</label></div>
+<p>The first step is creating an artifact repository in the cloud. You can either do this through the UI or using
+    <code>gcloud</code> in the command line.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">UI</label><label for="__tabbed_3_2">Command line</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Find the <code>Artifact Registry</code> service (search for it in the search bar) and click on it. From there click on the
@@ -2256,57 +2453,107 @@ to be substantially faster to build and smaller in size than the images we are u
 <p><figure markdown>
 <a class="glightbox" href="../../figures/artifact_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/artifact_registry.png" width="800" /></a>
 </figure></p>
-<p>Give the repository a name, make sure to set the format to <code>Docker</code>, specify the region and finally click
-<code>Create</code>. You should now see the repository in the list of repositories.</p>
+<p>Give the repository a name, make sure to set the format to <code>Docker</code> and specify the region. At the bottom of the
+page you can optionally add a cleanup policy. We recommend that you add one to keep costs down. Give the policy
+a name and choose the <code>Keep most recent versions</code> option and set the keep count to <code>5</code>. Click <code>Create</code> and you
+should now see the repository in the list of repositories.</p>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>gcloud<span class="w"> </span>artifacts<span class="w"> </span>repositories<span class="w"> </span>create<span class="w"> </span>&lt;registry-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span>--repository-format<span class="o">=</span>docker<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>--location<span class="o">=</span>europe-west1<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span>--description<span class="o">=</span><span class="s2">&quot;My docker registry&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>gcloud<span class="w"> </span>artifacts<span class="w"> </span>repositories<span class="w"> </span>create<span class="w"> </span>&lt;registry-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span>--repository-format<span class="o">=</span>docker<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span>--location<span class="o">=</span>europe-west1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span>--description<span class="o">=</span><span class="s2">&quot;My docker registry&quot;</span>
 </span></code></pre></div>
-<p>where you need to replace <code>&lt;repo-name&gt;</code> with a name of your choice. You can read more about the command
-<a href="https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create">here</a>.</p>
-</div>
-</div>
-</div>
-<p>Whenever we in the future want to push or pull to this artifact repository we can refer to it using this url:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;
+<p>where you need to replace <code>&lt;registry-name&gt;</code> with a name of your choice. You can read more about the command
+<a href="https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create">here</a>. We recommend that after
+creating the repository that you update it with a cleanup policy to keep costs down. You can do this by running:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gcloud<span class="w"> </span>artifacts<span class="w"> </span>repositories<span class="w"> </span>set-cleanup-policies<span class="w"> </span>REPOSITORY
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>--project<span class="o">=</span>&lt;project-id&gt;
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>--location<span class="o">=</span>&lt;region&gt;
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span>--policy<span class="o">=</span>policy.yaml
 </span></code></pre></div>
-<p>for example <code>europe-west1-docker.pkg.dev/dtumlops-335110/container-registry</code> would be a valid url (this is the one
+<p>where the <code>policy.yaml</code> file should look something like this:</p>
+<p><div class="language-json highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">[</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keep-minimum-versions&quot;</span><span class="p">,</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Keep&quot;</span><span class="p">},</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">        </span><span class="nt">&quot;mostRecentVersions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">            </span><span class="nt">&quot;keepCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="p">]</span>
+</span></code></pre></div>
+and you can read more about the command
+<a href="https://cloud.google.com/artifact-registry/docs/repositories/cleanup-policy">here</a>.</p>
+</div>
+</div>
+</div>
+<p>Whenever we in the future want to push or pull to this artifact repository we can refer to it using this URL:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;
+</span></code></pre></div>
+<p>for example, <code>europe-west1-docker.pkg.dev/dtumlops-335110/container-registry</code> would be a valid URL (this is the one
 I created).</p>
 </li>
 <li>
-<p>We are now ready to build our containers in the cloud. In principal GCP cloud build works out of the box with docker
+<p>We are now ready to build our containers in the cloud. In principle, GCP cloud build works out of the box with docker
     files. However, the recommended way is to add specialized <code>cloudbuild.yaml</code> files. You can think of the
     <code>cloudbuild.yaml</code> file as the corresponding file in GCP as workflow files are in GitHub actions, which you learned
     about in <a href="../../s5_continuous_integration/github_actions/">module M16</a>. It is essentially a file that specifies
-    a list of steps that should be executed to do something, but the syntax of cause differs a bit.</p>
+    a list of steps that should be executed to do something, but the syntax is different.</p>
+<p>Look at the <a href="https://cloud.google.com/artifact-registry/docs/configure-cloud-build">documentation</a> on how to write
+a <code>cloudbuild.yaml</code> file for building and pushing a docker image to the artifact registry. Try to implement such a
+file in your repository.</p>
+<details class="success">
+<summary>Solution</summary>
 <p>For building docker images the syntax is as follows:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">image&#39;</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Push</span><span class="nv"> </span><span class="s">image&#39;</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;&#39;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">  </span><span class="nt">waitFor</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">image&#39;</span><span class="p p-Indicator">]</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="s">&#39;.&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">    </span><span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">    </span><span class="s">&#39;-f&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">    </span><span class="s">&#39;&lt;path-to-dockerfile&gt;&#39;</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Push</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="w">    </span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="w">  </span><span class="p p-Indicator">]</span>
 </span></code></pre></div>
-<p>which essentially is a basic yaml file that contains a list of steps, where each step consists of the service
-that should be used and the arguments for that service. In the above example we are calling the same service
-(<code>cloud-builders/docker</code>) with different arguments (<code>build</code> and then <code>push</code>). Implement such a file in your
-repository. Hint: if you forked the repository then you at least need to change the <code>&lt;project-id&gt;</code>.</p>
+<p>where you need to replace <code>&lt;registry-name&gt;</code>, <code>&lt;image-name&gt;</code> and <code>&lt;path-to-dockerfile&gt;</code> with your own values.
+You can hopefully recognize the syntax from the docker exercises. In this example, we are calling the
+<code>cloud-builders/docker</code> service with both the <code>build</code> and <code>push</code> arguments.</p>
+</details>
 </li>
 <li>
-<p>From the <code>gcp</code> homepage, navigate to the triggers panel:</p>
+<p>You can now try to trigger the <code>cloudbuild.yaml</code> file from your local machine. What <code>gcloud</code> command would you use
+    to do this?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You can trigger a build by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>--config<span class="o">=</span>cloudbuild.yaml<span class="w"> </span>.
+</span></code></pre></div>
+<p>This command will submit a build to the cloud build service using the configuration file <code>cloudbuild.yaml</code> in
+the current directory.</p>
+</details>
+</li>
+<li>
+<p>Instead of relying on manually submitting builds, we can setup the building process as continues integration such
+    that it is triggered every time we push code to the repository. This is done by setting up a
+    <a href="https://cloud.google.com/build/docs/triggers">trigger</a> in the GCP console. From the GCP homepage, navigate to the
+    triggers panel:</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_trigger_1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_trigger_1.png" width="800" /></a>
 </figure></p>
 <p>Click on the manage repositories.</p>
-</li>
+<ol>
 <li>
 <p>From there, click the <code>Connect Repository</code> and go through the steps of authenticating your GitHub profile with
-    <code>gcp</code> and choose the repository that you want to setup build triggers. For now, skip the
+    GCP and choose the repository that you want to setup build triggers. For now, skip the
     <code>Create a trigger (optional)</code> part by pressing <code>Done</code> in the end.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_trigger_2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_trigger_2.png" width="800" /></a>
@@ -2338,170 +2585,538 @@ to configure it to run in one of these regions:
 <a href="https://cloud.google.com/build/docs/locations">documentation</a>.</p>
 </li>
 <li>
-<p>If/when your build is successful, navigate to the <code>Artifact Registry</code> page. You should
-    hopefully find that the image you just build was pushed here. Congrats!</p>
+<p>If/when your build is successful, navigate to the <code>Artifact Registry</code> page. You should hopefully find that the
+    image you just built was pushed here. Congrats!</p>
+</li>
+</ol>
 </li>
 <li>
-<p>Finally, to to pull your image down to your laptop</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;
+<p>Make sure that you can pull your image down to your laptop</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;
 </span></code></pre></div>
-<p>you will need to authenticate <code>docker</code> with <code>gcp</code> first. Instructions can be found
-<a href="https://cloud.google.com/container-registry/docs/advanced-authentication">here</a>, but
-the following command should hopefully be enough to make <code>docker</code> and <code>gcp</code> talk to
-each other:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>configure-docker
+<p>you will need to authenticate <code>docker</code> with GCP first. Instructions can be found
+<a href="https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper">here</a>, but the following
+command should hopefully be enough to make <code>docker</code> and GCP talk to each other:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>configure-docker<span class="w"> </span>&lt;region-docker.pkg.dev&gt;
 </span></code></pre></div>
-<p>Note: To do this you need to have <code>docker</code> actively running in the background, as any
-other time you want to use <code>docker</code>.</p>
+<p>where you need to replace <code>&lt;region&gt;</code> with the region you are using. Do note you need to have <code>docker</code> actively
+running in the background, as any other time you want to use <code>docker</code>.</p>
 </li>
 <li>
 <p>Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
     and push them to the registry. Figure out how to push an image to your <code>Artifact Registry</code>. For simplicity, you can
     just push the <code>busybox</code> image you downloaded during the initial docker exercises. This
     <a href="https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling">page</a> should help you with exercise.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Pushing to a repository is similar to pulling. Assuming that you have already built a image called <code>busybox</code> you
+can push it to the repository by running:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>busybox<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/busybox:latest
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>docker<span class="w"> </span>push<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/busybox:latest
+</span></code></pre></div>
+<p>where you need to replace <code>&lt;region&gt;</code>, <code>&lt;project-id&gt;</code> and <code>&lt;registry-name&gt;</code> with your own values.</p>
+</details>
+</li>
+<li>
+<p>(Optional) Instead of using the built-in trigger in GCP, another way to activate the build-on code changes is to
+    integrate with Github Actions. This has the benefit that we can make the build process depend on other steps in the
+    pipeline. For example, in the image below we have conditioned the build to only run if tests are passing on
+    all operating systems. Lets try to implement this.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/github_actions_job_dependency.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_actions_job_dependency.png" width="800" /></a>
+</figure></p>
+<ol>
+<li>
+<p>Start by adding a new secret to Github with the name <code>GCLOUD_SERVICE_KEY</code> and the value of the service account
+    key that you created in the previous module. This is needed to authenticate the Github action with GCP.</p>
+</li>
+<li>
+<p>We assume that you already have a workflow file that runs some unit tests:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unit tests &amp; build</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+</span></code></pre></div>
+<p>we now want to add a job that triggers the build process in GCP. How can you make the <code>build</code> job depend on
+the <code>test</code> job? Hint: Relevant
+<a href="https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow">documentation</a>.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You can make the <code>build</code> job depend on the <code>test</code> job by adding the <code>needs</code> keyword to the <code>build</code> job:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unit tests &amp; build</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a><span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>Additionally, we probably only want to build the image if the job is running on our main branch e.g. not part
+    of a pull request. How can you make the <code>build</code> job only run on the main branch?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unit tests &amp; build</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ github.event_name == &#39;push&#39; &amp;&amp; github.ref == &#39;refs/heads/main&#39; }}</span>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>Finally, we need to add the steps to submit the build job to GCP. You need four steps:</p>
+<ul>
+<li>Checkout the code</li>
+<li>Authenticate with GCP</li>
+<li>Setup gcloud</li>
+<li>Submit the build</li>
+</ul>
+<p>How can you do this? Hint: For the first two steps these two Github actions can be useful:
+<a href="https://github.com/google-github-actions/auth">auth</a> and
+<a href="https://github.com/google-github-actions/setup-gcloud">setup-gcloud</a>.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unit tests &amp; build</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ github.event_name == &#39;push&#39; &amp;&amp; github.ref == &#39;refs/heads/main&#39; }}</span>
+</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-32-17"><a id="__codelineno-32-17" name="__codelineno-32-17" href="#__codelineno-32-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
+</span><span id="__span-32-18"><a id="__codelineno-32-18" name="__codelineno-32-18" href="#__codelineno-32-18"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+</span><span id="__span-32-19"><a id="__codelineno-32-19" name="__codelineno-32-19" href="#__codelineno-32-19"></a>
+</span><span id="__span-32-20"><a id="__codelineno-32-20" name="__codelineno-32-20" href="#__codelineno-32-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Auth with GCP</span>
+</span><span id="__span-32-21"><a id="__codelineno-32-21" name="__codelineno-32-21" href="#__codelineno-32-21"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google-github-actions/auth@v2</span>
+</span><span id="__span-32-22"><a id="__codelineno-32-22" name="__codelineno-32-22" href="#__codelineno-32-22"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-32-23"><a id="__codelineno-32-23" name="__codelineno-32-23" href="#__codelineno-32-23"></a><span class="w">        </span><span class="nt">credentials_json</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GCLOUD_SERVICE_KEY }}</span>
+</span><span id="__span-32-24"><a id="__codelineno-32-24" name="__codelineno-32-24" href="#__codelineno-32-24"></a>
+</span><span id="__span-32-25"><a id="__codelineno-32-25" name="__codelineno-32-25" href="#__codelineno-32-25"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Cloud SDK</span>
+</span><span id="__span-32-26"><a id="__codelineno-32-26" name="__codelineno-32-26" href="#__codelineno-32-26"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google-github-actions/setup-gcloud@v2</span>
+</span><span id="__span-32-27"><a id="__codelineno-32-27" name="__codelineno-32-27" href="#__codelineno-32-27"></a>
+</span><span id="__span-32-28"><a id="__codelineno-32-28" name="__codelineno-32-28" href="#__codelineno-32-28"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Submit build</span>
+</span><span id="__span-32-29"><a id="__codelineno-32-29" name="__codelineno-32-29" href="#__codelineno-32-29"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcloud builds submit --config cloudbuild_containers.yaml</span>
+</span></code></pre></div>
+</details>
+</li>
+</ol>
 </li>
 </ol>
 <h2 id="training">Training</h2>
-<p>As our final step in our journey through different GCP services in this module we are going to look at training of our
-models. This is one of the important tasks that GCP can help us with because we can always rent more hardware as long
-as we have credits, meaning that we can both scale horizontal (run more experiments) and vertical (run longer
+<p>As the final step in our journey through different GCP services in this module, we are going to look at the training of
+our models. This is one of the important tasks that GCP can help us with because we can always rent more hardware as
+long as we have credits, meaning that we can both scale horizontally (run more experiments) and vertically (run longer
 experiments).</p>
-<p>We are going to checkout two ways of running our experiments. First we are going to return to the Compute Engine service
-because it gives the most simple form of scaling of experiments. That is: we create a VM with a appropriate docker
-image, we start it and login to the VM and we run our experiments. It is possible for most people to run a couple of
-experiments in parallel this way. However, what if there was an abstract layer that automatically created VM for us,
-lunched our experiments and the close the VM afterwards?</p>
-<p>This is where Vertex AI service comes into play. This is a dedicated service for handling ML models in GCP in the cloud.
-Vertex AI is in principal and end-to-end service that can take care of everything machine learning related in the cloud.
-In this course we are primarily focused on just the training of our models, and then use other services for different
-parts of our pipeline.</p>
+<p>We are going to check out two ways of running our experiments. First, we are going to return to the Compute Engine
+service because it gives the most simple form of scaling of experiments. That is: we create a VM with an appropriate
+docker image, start it, log into the VM and run our experiments. Most people can run a couple of experiments in parallel
+this way. However, what if there was an abstract layer that automatically created VM for us, launched our experiments
+and then closed the VM afterwards?</p>
+<p>This is where <a href="https://cloud.google.com/vertex-ai/docs">Vertex AI</a> service comes into play. This is a dedicated service
+for handling ML models in GCP in the cloud. Vertex AI is in principal and end-to-end service that can take care of
+everything machine learning related in the cloud. In this course, we are primarily focused on just the training of our
+models, and then use other services for different parts of our pipeline.</p>
 <h3 id="exercises_3">❔ Exercises</h3>
 <ol>
 <li>
-<p>Lets start by see how we could train a model using Pytorch using the Compute Engine service:</p>
+<p>Let's start by going through how we could train a model using Pytorch using the Compute Engine service:</p>
 <ol>
 <li>
-<p>Start by creating a appropriate VM. If you want to start a VM that have Pytorch pre-installed with only CPU
+<p>Start by creating an appropriate VM. If you want to start a VM that has Pytorch pre-installed with only CPU
     support you can run the following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-cpu<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west1-b<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-cpu<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release
 </span></code></pre></div>
 <p>alternatively, if you have access to GPU in your GCP account you could start a VM in the following way</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west4-a<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-gpu<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-v100,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;install-nvidia-driver=True&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;instance-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west4-a<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-gpu<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-v100,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;install-nvidia-driver=True&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE
 </span></code></pre></div>
 </li>
 <li>
 <p>Next login into your newly created VM. You can either open an <code>ssh</code> terminal in the cloud console or run the
     following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>gcloud<span class="w"> </span>beta<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>&lt;instance-name&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>gcloud<span class="w"> </span>beta<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>&lt;instance-name&gt;
 </span></code></pre></div>
 </li>
 <li>
-<p>It is recommend to always check that the VM we get is actually what we asked for. In this case the VM should have
-    Pytorch pre-installed so lets check for that by running</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
+<p>It is recommended to always check that the VM we get is actually what we asked for. In this case, the VM should
+    have Pytorch pre-installed so let's check for that by running</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
 </span></code></pre></div>
 <p>Additionally, if you have a VM with GPU support also try running the <code>nvidia-smi</code> command.</p>
 </li>
 <li>
 <p>When you have logged in to the VM, it works as your machine. Therefore to run some training code you would
     need to do the same setup step you have done on your machine: clone your Github, install dependencies,
-    download data, run code. Try doing this to make sure you can train a model.</p>
+    download data, and run code. Try doing this to make sure you can train a model.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>We are now moving on to the final way to train our code, using <code>Vertex AI</code> service.</p>
+<p>The above exercises should hopefully have convinced you that it can be hard to scale experiments using the Compute
+    Engine service. The reason is that you need to manually start, setup and stop a separate VM for each experiment.
+    Instead, let's try to use the Vertex AI service to train our models.</p>
 <ol>
 <li>
-<p>Start by enabling it by searching for <code>Vertex AI</code> in the cloud console and go to the service</p>
+<p>Start by enabling it by searching for <code>Vertex AI</code> in the cloud console by going to the service or alternatively
+    by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>aiplatform.googleapis.com
+</span></code></pre></div>
 </li>
 <li>
-<p>The way we are going to use Vertex AI is to create custom jobs because we have already developed docker containers
-    that contains everything to run our code. Thus the only command that we need to use is
+<p>The way we are going to use Vertex AI is to create custom jobs because we have already developed docker
+    containers that contain everything to run our code. Thus the only command that we need to use is
     <code>gcloud ai custom-jobs create</code> command. An example here would be:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gcloud<span class="w"> </span>ai<span class="w"> </span>custom-jobs<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>--region<span class="o">=</span>europe-west1<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>--display-name<span class="o">=</span>test-run<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span>--config<span class="o">=</span>config.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>gcloud<span class="w"> </span>ai<span class="w"> </span>custom-jobs<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span>--region<span class="o">=</span>europe-west1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span>--display-name<span class="o">=</span>test-run<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span>--config<span class="o">=</span>config.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">    </span><span class="c1"># these are the arguments that are passed to the container, only needed if you want to change defaults</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">    </span>--command<span class="w"> </span><span class="s1">&#39;python src/my_project/train.py&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="w">    </span>--args<span class="w"> </span><span class="s1">&#39;[&quot;--epochs&quot;, &quot;10&quot;]&#39;</span>
 </span></code></pre></div>
-<p>Essentially, this command combines everything into one command: it first creates a VM with the specs specified by
-a configuration file, then loads a container specified again in the configuration file and finally it runs
-everything. A example of a config file could be:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># config_cpu.yaml</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+<p>Essentially, this command combines everything into one command: it first creates a VM with the specs specified
+by a configuration file, then loads a container specified again in the configuration file and finally it runs
+everything. An example of a config file could be:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">CPU</label><label for="__tabbed_4_2">GPU</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># config_cpu.yaml</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
 </span></code></pre></div>
-<p>if you only want to run on CPU and another example for GPU:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># config_gpu.yaml</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-standard-8</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">        </span><span class="nt">acceleratorType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NVIDIA_TESLA_T4</span><span class="w"> </span><span class="c1">#(1)!</span>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">        </span><span class="nt">acceleratorCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+</div>
+<div class="tabbed-block">
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># config_gpu.yaml</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-standard-8</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">        </span><span class="nt">acceleratorType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NVIDIA_TESLA_T4</span><span class="w"> </span><span class="c1">#(1)!</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">        </span><span class="nt">acceleratorCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
+</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
 </span></code></pre></div>
 <ol>
-<li>In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have quota for allocating
-    this type of GPU in the Vertex AI service. You can check how to request quota in the last exercise of the
-    <a href="../cloud_setup/">previous module</a>. Remember that it is not enough to just request quota for the GPU, the
-    request need to by approved by Google before you can use it.</li>
+<li>In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have quota for
+    allocating this type of GPU in the Vertex AI service. You can check how to request quota in the last
+    exercise of the <a href="../cloud_setup/">previous module</a>. Remember that it is not enough to just request quota
+    for the GPU, the request need to by approved by Google before you can use it.</li>
 </ol>
+</div>
+</div>
+</div>
 <p>you can read more about the configuration formatting
 <a href="https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec">here</a>
 and the different types of machines
 <a href="https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types">here</a>. Try to execute a job
-using the <code>gcloud ai custom-jobs create</code> command. For additional documentation you can checkout
+using the <code>gcloud ai custom-jobs create</code> command. For additional documentation you can look at
 <a href="https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create">the documentation on the command</a>
 and <a href="https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging">this page</a> and
 <a href="https://cloud.google.com/vertex-ai/docs/training/configure-compute">this page</a></p>
 </li>
 <li>
-<p>Assuming you manage to lunch a job, you should see an output like this:</p>
+<p>Assuming you manage to launch a job, you should see an output like this:</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_vertex_custom.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_custom.PNG" width="800" /></a>
 </figure></p>
-<p>To executing the commands that is outputted to look at both the status and the progress of your job.</p>
+<p>Try executing the commands that are outputted to look at both the status and the progress of your job.</p>
 </li>
 <li>
-<p>In addition you can also visit the <code>Custom Jobs</code> tab in <code>training</code> part of Vertex AI</p>
+<p>In addition, you can also visit the <code>Custom Jobs</code> tab in <code>training</code> part of Vertex AI</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_vertex_job.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_job.PNG" width="800" /></a>
 </figure></p>
-<p>Check it out.</p>
+<p>You will need to select the specific region that you submitted your job to see the job.</p>
 </li>
 <li>
-<p>During custom training we do not necessarily need to use <code>dvc</code> for downloading our data. A more efficient way is
-    to use cloud storage as a <a href="https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system">mounted file system</a>.
+<p>During custom training, we do not necessarily need to use <code>dvc</code> for downloading our data. A more efficient way is
+    to use cloud storage as a
+    <a href="https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system">mounted file system</a>.
     This allows us to access data directly from the cloud storage without having to download it first. All our
     training jobs are automatically mounted a <code>gcs</code> folder in the root directory. Try to access the data from your
     training script:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># loading from a bucket using mounted file system</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;/gcs/&lt;my-bucket-name&gt;/data.pt&#39;</span><span class="p">)</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="c1"># writing to a bucket using mounted file system</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;/gcs/&lt;my-bucket-name&gt;/data.pt&#39;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># loading from a bucket using mounted file system</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;/gcs/&lt;my-bucket-name&gt;/data.pt&#39;</span><span class="p">)</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="c1"># writing to a bucket using mounted file system</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;/gcs/&lt;my-bucket-name&gt;/data.pt&#39;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>is should speed up the training process a bit.</p>
 </li>
+<li>
+<p>Your code may depend on environment variables for authenticating, for example with weights and bias during
+    training. These can also be specified in the configuration file. How would you do this?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You can specify environment variables in the configuration file by adding the <code>env</code> field to the
+<code>containerSpec</code> field. For example, if you want to specify the <code>WANDB_API_KEY</code> you can do it like this:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WANDB_API_KEY</span>
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-wandb-api-key&gt;</span>
+</span></code></pre></div>
+<p>You need to replace <code>&lt;your-wandb-api-key&gt;</code> with your actual key. Also, remember that this file
+now contains a secret and should be treated as such.</p>
+</details>
+</li>
+<li>
+<p>Try to execute multiple jobs with different configurations e.g. change the <code>--args</code> field in the <code>gcloud ai
+    custom-jobs create</code> command at the same time. This should hopefully show you how easy it is to scale experiments
+    using the Vertex AI service.</p>
+</li>
 </ol>
 </li>
 </ol>
-<p>This ends the session on how to use Google cloud services for now. In a future session we are going to investigate a bit
-more of the services offered in GCP, in particular for deploying the models that we have just trained.</p>
+<h2 id="secrets-management">Secrets management</h2>
+<p>Similar to Github Actions, GCP also has a secrets store that can be used to keep secrets safe. This is called the
+<a href="https://cloud.google.com/secret-manager/docs">Secret Manager</a> in GCP. By using the Secret Manager, we get the option
+to inject secrets into our code without having to store them in the code itself.</p>
+<h3 id="exercises_4">❔ Exercises</h3>
+<ol>
+<li>
+<p>Let's look at the example from before where we have a config file like this for custom Vertex AI jobs:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WANDB_API_KEY</span>
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$WANDB_API_KEY</span>
+</span></code></pre></div>
+<p>we do not want to store the <code>WANDB_API_KEY</code> in the config file, rather we would like to store it in the Secret
+Manager and inject it right before the job starts. Let's figure out how to do that.</p>
+<ol>
+<li>
+<p>Start by enabling the secrets manager API by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>secretmanager.googleapis.com
+</span></code></pre></div>
+</li>
+<li>
+<p>Next, go to the secrets manager in the cloud console and create a new secret. You just need to give it a name, a
+    value and leave the rest as default. Add one or more secrets like the image below.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/gcp_secrets_manager.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_secrets_manager.png" width="800" /></a>
+</figure></p>
+</li>
+<li>
+<p>We are going to inject the secrets into our training job by using cloudbuild. Create new cloudbuild file called
+    <code>vertex_ai_train.yaml</code> and add the following content:</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">vertex_ai_train.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-45-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-45-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-45-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-45-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-45-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-45-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-45-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-45-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-45-10">10</a></span>
+<span class="normal"><a href="#__codelineno-45-11">11</a></span>
+<span class="normal"><a href="#__codelineno-45-12">12</a></span>
+<span class="normal"><a href="#__codelineno-45-13">13</a></span>
+<span class="normal"><a href="#__codelineno-45-14">14</a></span>
+<span class="normal"><a href="#__codelineno-45-15">15</a></span>
+<span class="normal"><a href="#__codelineno-45-16">16</a></span>
+<span class="normal"><a href="#__codelineno-45-17">17</a></span>
+<span class="normal"><a href="#__codelineno-45-18">18</a></span>
+<span class="normal"><a href="#__codelineno-45-19">19</a></span>
+<span class="normal"><a href="#__codelineno-45-20">20</a></span>
+<span class="normal"><a href="#__codelineno-45-21">21</a></span>
+<span class="normal"><a href="#__codelineno-45-22">22</a></span>
+<span class="normal"><a href="#__codelineno-45-23">23</a></span>
+<span class="normal"><a href="#__codelineno-45-24">24</a></span>
+<span class="normal"><a href="#__codelineno-45-25">25</a></span>
+<span class="normal"><a href="#__codelineno-45-26">26</a></span>
+<span class="normal"><a href="#__codelineno-45-27">27</a></span>
+<span class="normal"><a href="#__codelineno-45-28">28</a></span>
+<span class="normal"><a href="#__codelineno-45-29">29</a></span>
+<span class="normal"><a href="#__codelineno-45-30">30</a></span>
+<span class="normal"><a href="#__codelineno-45-31">31</a></span>
+<span class="normal"><a href="#__codelineno-45-32">32</a></span>
+<span class="normal"><a href="#__codelineno-45-33">33</a></span>
+<span class="normal"><a href="#__codelineno-45-34">34</a></span>
+<span class="normal"><a href="#__codelineno-45-35">35</a></span>
+<span class="normal"><a href="#__codelineno-45-36">36</a></span>
+<span class="normal"><a href="#__codelineno-45-37">37</a></span>
+<span class="normal"><a href="#__codelineno-45-38">38</a></span>
+<span class="normal"><a href="#__codelineno-45-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alpine&quot;</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Replace</span><span class="nv"> </span><span class="s">values</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">training</span><span class="nv"> </span><span class="s">config&quot;</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sh&quot;</span>
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span>
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;-c&#39;</span>
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8"></a><span class="w">      </span><span class="no">apk add --no-cache gettext</span>
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9"></a><span class="w">      </span><span class="no">envsubst &lt; config.yaml &gt; config.yaml.tmp</span>
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10"></a><span class="w">      </span><span class="no">mv config.yaml.tmp config.yaml</span>
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11"></a><span class="w">  </span><span class="nt">secretEnv</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;WANDB_API_KEY&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12"></a>
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;alpine&#39;</span>
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Show</span><span class="nv"> </span><span class="s">config&quot;</span>
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15"></a><span class="w">  </span><span class="nt">waitFor</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;Replace</span><span class="nv"> </span><span class="s">values</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">training</span><span class="nv"> </span><span class="s">config&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sh&quot;</span>
+</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span>
+</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;-c&#39;</span>
+</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">cat config.yaml</span>
+</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21"></a>
+</span><span id="__span-45-22"><a id="__codelineno-45-22" name="__codelineno-45-22"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/gcloud&#39;</span>
+</span><span id="__span-45-23"><a id="__codelineno-45-23" name="__codelineno-45-23"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Train</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">vertex</span><span class="nv"> </span><span class="s">AI&#39;</span>
+</span><span id="__span-45-24"><a id="__codelineno-45-24" name="__codelineno-45-24"></a><span class="w">  </span><span class="nt">waitFor</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;Replace</span><span class="nv"> </span><span class="s">values</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">training</span><span class="nv"> </span><span class="s">config&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-45-25"><a id="__codelineno-45-25" name="__codelineno-45-25"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+</span><span id="__span-45-26"><a id="__codelineno-45-26" name="__codelineno-45-26"></a><span class="w">    </span><span class="s">&#39;ai&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-27"><a id="__codelineno-45-27" name="__codelineno-45-27"></a><span class="w">    </span><span class="s">&#39;custom-jobs&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-28"><a id="__codelineno-45-28" name="__codelineno-45-28"></a><span class="w">    </span><span class="s">&#39;create&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-29"><a id="__codelineno-45-29" name="__codelineno-45-29"></a><span class="w">    </span><span class="s">&#39;--region&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-30"><a id="__codelineno-45-30" name="__codelineno-45-30"></a><span class="w">    </span><span class="s">&#39;europe-west1&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-31"><a id="__codelineno-45-31" name="__codelineno-45-31"></a><span class="w">    </span><span class="s">&#39;--display-name&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-32"><a id="__codelineno-45-32" name="__codelineno-45-32"></a><span class="w">    </span><span class="s">&#39;example-mlops-job&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-33"><a id="__codelineno-45-33" name="__codelineno-45-33"></a><span class="w">    </span><span class="s">&#39;--config&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-34"><a id="__codelineno-45-34" name="__codelineno-45-34"></a><span class="w">    </span><span class="s">&#39;${_VERTEX_TRAIN_CONFIG}&#39;</span><span class="p p-Indicator">,</span>
+</span><span id="__span-45-35"><a id="__codelineno-45-35" name="__codelineno-45-35"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-45-36"><a id="__codelineno-45-36" name="__codelineno-45-36"></a><span class="nt">availableSecrets</span><span class="p">:</span>
+</span><span id="__span-45-37"><a id="__codelineno-45-37" name="__codelineno-45-37"></a><span class="w">  </span><span class="nt">secretManager</span><span class="p">:</span>
+</span><span id="__span-45-38"><a id="__codelineno-45-38" name="__codelineno-45-38"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">versionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest</span>
+</span><span id="__span-45-39"><a id="__codelineno-45-39" name="__codelineno-45-39"></a><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;WANDB_API_KEY&#39;</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Slowly go through the file and try to understand what each step does.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>There are two parts to using secrets in cloud build. First, there is the <code>availableSecrets</code> field that
+specifies what secrets from the Secret Manager should be injected into the build. In this case, we are
+injecting the <code>WANDB_API_KEY</code> and setting it as an environment variable. The second part is the <code>secretEnv</code>
+field in the first step. This field specifies which secrets should be available in the first step.
+The steps are then doing:</p>
+<ol>
+<li>
+<p>The first step call the <a href="https://www.baeldung.com/linux/envsubst-command">envsubst</a> command which is a
+    general Linux command that replaces environment variables in a file. In this case, it replaces the
+    <code>$WANDB_API_KEY</code> with the actual value of the secret. We then save the file as <code>config.yaml.tmp</code> and
+    rename it back to <code>config.yaml</code>.</p>
+</li>
+<li>
+<p>The second step is just to show that the replacement was successful. This is mostly for debugging
+    purposes and can be removed.</p>
+</li>
+<li>
+<p>The third step is the actual training job. It waits for the first step to finish before running.</p>
+</li>
+</ol>
+</details>
+</li>
+<li>
+<p>Finally, try to trigger the build:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>--config<span class="o">=</span>vertex_ai_train.yaml
+</span></code></pre></div>
+<p>and check that the <code>WANDB_API_KEY</code> is correctly injected into the <code>config.yaml</code> file.</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="knowledge-check">🧠 Knowledge check</h2>
+<ol>
+<li>
+<p>In Compute Engine, we have the option to either stop or suspend the VMs, can you describe what the difference is?</p>
+<details class="success">
+<summary>Solution</summary>
+<p><a href="https://cloud.google.com/compute/docs/instances/suspend-resume-instance">Suspended instances</a> preserve the
+guest OS memory, device state, and application state. You will not be charged for a suspended VM but will be
+charged for the storage of the aforementioned states.
+<a href="https://cloud.google.com/compute/docs/instances/stop-start-instance#stop-vm">Stopped instances</a> do not
+preserve any of the states and you will be charged for the storage of the disk. However, in both cases if the
+VM instances have resources attached to them, such as static IPs and persistent disks, which are charged until
+they are deleted.</p>
+</details>
+</li>
+<li>
+<p>As seen in the exercises, a <code>cloudbuild.yaml</code> file often contains multiple steps. How would you make steps dependent
+    on each other e.g. one step can only run if another step has finished? And how would you make steps execute
+    concurrently?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>In both cases the solution is the <code>waitFor</code> field. If you want a step to wait for another step to finish you
+you need to give the first step an id and then specify that id in the <code>waitFor</code> field of the second step.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;alpine&#39;</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;step1&#39;</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sh&#39;</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;-c&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;echo</span><span class="nv"> </span><span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">World&quot;&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;alpine&#39;</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;step2&#39;</span>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sh&#39;</span>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;-c&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;echo</span><span class="nv"> </span><span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">World</span><span class="nv"> </span><span class="s">2&quot;&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="w">  </span><span class="nt">waitFor</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;step1&#39;</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+<p>If you want steps to run concurrently you can set the <code>waitFor</code> field to <code>['-']</code>:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;alpine&#39;</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;step1&#39;</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sh&#39;</span>
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;-c&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;echo</span><span class="nv"> </span><span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">World&quot;&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;alpine&#39;</span>
+</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;step2&#39;</span>
+</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sh&#39;</span>
+</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;-c&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;echo</span><span class="nv"> </span><span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">World</span><span class="nv"> </span><span class="s">2&quot;&#39;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="w">  </span><span class="nt">waitFor</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;-&#39;</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+</details>
+</li>
+</ol>
+<p>This ends the session on how to use Google Cloud services for now. In a future session, we are going to investigate a
+bit more of the services offered in GCP, in particular for deploying the models that we have just trained.</p>
 
 
 
@@ -2524,7 +3139,7 @@ more of the services offered in GCP, in particular for deploying the models that
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 18, 2024</span>
   </span>
 
     

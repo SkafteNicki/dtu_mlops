@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-EXPOSE 8501
+EXPOSE $PORT
 
 WORKDIR /app
 
@@ -14,4 +14,4 @@ RUN git clone https://github.com/streamlit/streamlit-example.git .
 
 RUN pip3 install -r requirements.txt
 
-ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=$PORT", "--server.address=0.0.0.0"]
