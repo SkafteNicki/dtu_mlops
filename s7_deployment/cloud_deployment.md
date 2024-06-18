@@ -111,7 +111,7 @@ and deploy it. The service is great for small applications that can be encapsula
 
             where you would need to replace everything before the `?` with your URL.
 
-    3. Click on the metrics tab. You should hopefully see it being populated with a few datapoints. Identify what each
+    3. Click on the metrics tab. You should hopefully see it being populated with a few data points. Identify what each
         panel is showing.
 
         ??? success "Solution"
@@ -236,32 +236,48 @@ deploying containers.
 ### ❔ Exercises
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
-    from: first is a small FastAPI app consisting of this
-    [.py file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.py)
-    and this
-    [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/simple_fastapi_app.dockerfile)
-    . Secondly a small [streamlit](https://streamlit.io/) application consisting of just this
-    [dockerfile](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/streamlit_app.dockerfile)
-    . You are free to choose which application to work with.
+    from: first is a small FastAPI app consisting of a single Python script and a docker file. The second is a small
+    Streamlit app (which you can learn more about in [this module](../s10_extra/frontend.md)) consisting of a single
+    docker file. You can choose which one you want to work with.
+
+    ??? example "Simple Fastapi app"
+
+        ```python linenums="1" title="simple_fastapi_app.py"
+        --8<-- "s7_deployment/exercise_files/simple_fastapi_app.py"
+        ```
+
+        ```dockerfile linenums="1" title="simple_fastapi_app.dockerfile"
+        --8<-- "s7_deployment/exercise_files/simple_fastapi_app.dockerfile"
+        ```
+
+    ??? example "Simple Streamlit app"
+
+        ```dockerfile linenums="1" title="streamlit_app.dockerfile"
+        --8<-- "s7_deployment/exercise_files/streamlit_app.dockerfile"
+        ```
 
     1. Start by going over the files belonging to your choice app and understand what it does.
 
-    2. Next build the docker image belonging to the app
+    2. Next, build the docker image belonging to the app
 
         ```bash
         docker build -f <dockerfile> . -t gcp_test_app:latest
         ```
 
-    3. Next tag and push the image to your container registry
+    3. Next tag and push the image to your artifact registry
 
         ```bash
-        docker tag gcp_test_app gcr.io/<project-id>/gcp_test_app
-        docker push gcr.io/<project-id>/gcp_test_app
+        docker tag gcp_test_app <region>-docker.pkg.dev/<project-id>/<registry-name>/gcp_test_app:latest
+        docker push <region>-docker.pkg.dev/<project-id>/<registry-name>/gcp_test_app:latest
         ```
 
-        afterwards check you container registry to check that you have successfully pushed the image.
+        Afterward check your artifact registry contains the pushed image.
 
-2. Next go to `Cloud Run` in the cloud console an enable the service
+2. Next ,go to `Cloud Run` in the cloud console and enable the service or use the following command:
+
+    ```bash
+    gcloud services enable run.googleapis.com
+    ```
 
 3. Click the `Create Service` button which should bring you to a page similar to the one below
 
@@ -270,15 +286,18 @@ deploying containers.
     </figure>
 
     Do the following:
+
     * Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
-        future you probably want to choose the *Continuously deploy new revision from a source repository* such that a new
-        version is always deployed when a new container is build.
-    * Hereafter, give the service a name and select the region. We recommend do choose a region close to you, however
-        it does not really matter that much for our use case
+        future, you probably want to choose the *Continuously deploy new revision from a source repository* such that
+        a new version is always deployed when a new container is built.
+
+    * Hereafter, give the service a name and select the region. We recommend choosing a region close to you.
+
     * Set the authentication method to *Allow unauthenticated invocations* such that we can call it without
-        providing credentials. In the future you may only set that authenticated invocations are allowed.
+        providing credentials. In the future, you may only set that authenticated invocations are allowed.
+
     * Expand the *Container, Connections, Security* tab and edit the port such that it matches the port exposed in your
-        chosen application.
+        chosen application. If your docker file exposes the env variable `$PORT` you can set the port to anything.
 
     Finally, click the create button and wait for the service to be deployed (may take some time).
 
@@ -296,7 +315,7 @@ deploying containers.
             ```
 
             and make sure that your application is also listening on that port. If you hard code the port in your
-            application (as in above code) it is best to set it 8080 which is the default port for cloud run.
+            application (as in the above code) it is best to set it 8080 which is the default port for cloud run.
             Alternatively, a better approach is to set it to the `$PORT` environment variable which is set by cloud run
             and can be accessed in your application:
 
@@ -305,86 +324,156 @@ deploying containers.
             CMD exec uvicorn my_application:app --port $PORT --workers 1 main:app
             ```
 
-            If you do this, and then want to run locally you can run it as:
+            If you do this and then want to run locally you can run it as:
 
             ```bash
             docker run -p 8080:8080 -e PORT=8080 <image-name>:<image-tag>
             ```
 
-        2. If you are serving a large machine learning model, it may also be that your deployed container is running
+        2. If you are serving a large machine-learning model, it may also be that your deployed container is running
             out of memory. You can try to increase the memory of the container by going to the *Edit container* and
-            the *Resources* tab and increase the memory.
+            the *Resources* tab and increasing the memory.
 
-4. If you manage to deploy the service you should see a image like this:
+4. If you manage to deploy the service you should see an image like this:
 
     <figure markdown>
     ![Image](../figures/gcp_run2.PNG){ width="1000" }
     </figure>
 
-    You can now access you application by clicking url. This will access the root of your application, so you may need
-    to add `/` or `/<path>` to the url depending on how the app works.
+    You can now access your application by clicking the URL. This will access the root of your application, so you may
+    need to add `/` or `/<path>` to the URL depending on how the app works.
 
-5. Everything we just did to deploy an container can be reproduced using the following command:
+5. Everything we just did in the console UI we can also do with the
+    [gcloud run deploy](https://cloud.google.com/sdk/gcloud/reference/run/deploy). How would you do that?
 
-    ```bash
-    gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
-    ```
+    ??? success "Solution"
 
-    and checked using these two commands
+        The command should look something like this
+
+        ```bash
+        gcloud run deploy <service-name> \
+            --image <image-name>:<image-tag> --platform managed --region <region> --allow-unauthenticated
+        ```
+
+        where you need to replace `<service-name>` with the name of your service, `<image-name>` with the name of your
+        image and `<region>` with the region you want to deploy to. The `--allow-unauthenticated` flag is optional but
+        is needed if you want to access the service without providing credentials.
+
+6. After deploying using the command line, make sure that the service is up and running by using these two commands
 
     ```bash
     gcloud run services list
-    gcloud run services describe $APP --region $REGION
+    gcloud run services describe <service-name> --region <region>
     ```
 
-    feel free to experiment doing the deployment from the command line.
+7. Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
+    continuously by using `cloudbuild.yaml` file we learned about in the previous section. This is called
+    [continuous deployment](https://resources.github.com/devops/fundamentals/ci-cd/deployment), and it is a way to
+    automate the deployment process.
 
-6. Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
-    in a continuous manner by using `cloudbuild.yaml` file we learned about in the previous section. We just need to add
-    a new step to the file. We provide an example
+    <figure markdown>
+    ![Image](../figures/continuous_x.png){ width="1000" }
+    <figcaption>
+    <a href="https://faun.pub/most-popular-ci-cd-pipelines-and-tools-ccfdce429867"> Image credit </a>
+    </figcaption>
+    </figure>
 
-    ```yaml
-    steps:
-    # Build the container image
-    - name: 'gcr.io/cloud-builders/docker'
-      args: ['build', '-t', 'gcr.io/$PROJECT_ID/<container-name>:latest', '.'] #(1)!
-    # Push the container image to Container Registry
-    - name: 'gcr.io/cloud-builders/docker'
-      args: ['push', 'gcr.io/$PROJECT_ID/<container-name>:latest']
-    # Deploy container image to Cloud Run
-    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-      entrypoint: gcloud
-      args:
-      - 'run'
-      - 'deploy'
-      - '<service-name>'
-      - '--image'
-      - 'gcr.io/$PROJECT_ID/<container-name>:latest'
-      - '--region'
-      - '<region>'
-    ```
+    Let's revise the `cloudbuild.yaml` file from the artifact registry exercises in
+    [this module](../s6_the_cloud/using_the_cloud.md) which will build and push a specified docker image.
 
-    1. This line assume you are standing in the root of your repository and is trying to build the docker image
-        specified in a file called `Dockerfile` and tag it with the name `gcr.io/$PROJECT_ID/my_deployment:latest`.
-        Therefore if you want to point to another dockerfile you need to add `-f` option to the command. For example
-        if you want to point to a `my_app/my_serving_app.dockerfile` you need to change the line to
+    !!! example "cloudbuild.yaml"
 
-        ```yaml
-        args: ['build', '-f', 'my_app/my_serving_app.dockerfile', '-t', 'gcr.io/$PROJECT_ID/my_deployment:lates', '.']
+        ```yaml linenums="1" title="cloudbuild.yaml"
+        steps:
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Build container image'
+          args: [
+            'build',
+            '.',
+            '-t',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>',
+            '-f',
+            '<path-to-dockerfile>'
+          ]
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Push container image'
+          args: [
+            'push',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
+          ]
         ```
 
-    where you need to replace `<container-name>` with the name of your container, `<service-name>` with the name of the
-    service you want to deploy and `<region>` with the region you want to deploy to. Afterwards you need to setup a
-    trigger (or reuse the one you already have) to build the container and deploy it to cloud run. Confirm that this
-    works by making a change to your application and pushing it to GitHub and see if the application is updated
-    continuously. For help you can look [here](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
-    for help. If you succeeded, congratulations you have now setup a continuous deployment pipeline.
+    Add a third step to the `cloudbuild.yaml` file that deploys the container image to Cloud Run. The relevant service
+    you need to use is called `'gcr.io/cloud-builders/gcloud'` and the command is `'gcloud run deploy'`. Afterwards,
+    reuse the trigger you created in the previous module or create a new one to build and deploy the container image
+    continuously. Confirm that this works by making a change to your application and pushing it to GitHub and see if
+    the application is updated continuously.
 
-That ends the exercises on deployment. The exercises above is just a small taste of what deployment has to offer. In
-both sections we have explicitly chosen to work with *serverless* deployments. But what if you wanted to do the
+    ??? success "Solution"
+
+        The full `cloudbuild.yaml` file should look like this:
+
+        ```yaml
+        steps:
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Build container image'
+          args: [
+            'build',
+            '.',
+            '-t',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>',
+            '-f',
+            '<path-to-dockerfile>'
+          ]
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Push container image'
+          args: [
+            'push',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
+          ]
+        - name: 'gcr.io/cloud-builders/gcloud'
+          id: 'Deploy to Cloud Run'
+          args: [
+            'run',
+            'deploy',
+            '<service-name>',
+            '--image',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>',
+            '--region',
+            'europe-west1',
+            '--platform',
+            'managed',
+          ]
+        ```
+
+## 🧠 Knowledge check
+
+1. In the previous module [on using the cloud](../s6_the_cloud/using_the_cloud.md) you learned about the Secrets
+    Manager in GCP. How can you use this service in combination with Cloud Run?
+
+    ??? success "Solution"
+
+        In the cloud console, secrets can be set in the *Container(s), Volumes, Networking, Security* tab under the
+        *Variables & Secrets* section, see image below.
+
+        <figure markdown>
+        ![Image](../figures/gcp_run_secrets.png){ width="500" }
+        </figure>
+
+        In the `gcloud` command, you can set the secret by using the `--update-secrets` flag.
+
+        ```bash
+        gcloud run deploy <service-name> \
+            --image <image-name>:<image-tag> --platform managed \
+            --region <region> --allow-unauthenticated \
+            --update-secrets <secret-name>=<secret-version>
+        ```
+
+That ends the exercises on deployment. The exercises above are just a small taste of what deployment has to offer. In
+both sections, we have explicitly chosen to work with *serverless* deployments. But what if you wanted to do the
 opposite e.g. being the one in charge of the management of the cluster that handles the deployed services? If you are
-really interested in taking deployment to the next level should get started on *kubernetes* which is the de-facto
+interested in taking deployment to the next level should get started on *Kubernetes* which is the de-facto
 open-source container orchestration platform that is being used in production environments. If you want to deep dive we
 recommend starting [here](https://cloud.google.com/ai-platform/pipelines/docs) which describes how to make pipelines
 that are a necessary component before you start to
-[create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own kubernetes cluster.
+[create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own Kubernetes cluster.
