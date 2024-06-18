@@ -269,7 +269,7 @@ very easy to integrate with your CI/CD pipeline.
               --headless -u 100 -r 10 --run-time 10m --host=$DEPLOYED_MODEL_URL --csv=/locust/results
 
         - name: Upload locust results
-          uses: actions/upload-artifact@v2
+          uses: actions/upload-artifact@v4
           with:
             name: locust-results
             path: /locust
