@@ -38,19 +38,20 @@ essentially increases the longivity of your model.
 
 ## ❔ Exercises
 
-1. Start by installing ONNX:
+1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command
 
     ```bash
     pip install onnx onnxruntime onnxscript
     ```
 
-    the first package includes the basic building blocks for implementing generalized ONNX models and the second
-    package is for running ONNX optimal on different hardware.
+    the first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
+    and the third package contains a new experimental package that is designed to make it easier to export models to 
+    ONNX.
 
-2. export
+2. Lets export a model to ONNX. The following code snippets shows how to export a Pytorch model to ONNX.
 
 
-    === "Pytorch"
+    === "Pytorch < 2.0"
         ```python
         import torch
         import torchvision
@@ -63,6 +64,12 @@ essentially increases the longivity of your model.
         dummy_input = torch.randn(1, 3, 224, 224)
         torch.onnx.export(model, dummy_input, "resnet18.onnx")
         ```
+
+    === "Pytorch > 2.0"
+
+        ```python
+        import torch
+
 
     === "Pytorch-lightning"
         ```python
@@ -88,9 +95,15 @@ essentially increases the longivity of your model.
         torch.onnx.export(model, dummy_input, "resnet18.onnx")
         ```
 
-    !!! note "Export"
+    !!! note "What is exported?"
 
-        There is a new package called `onnxscript` that is currently in beta. This package is designed to make it
+        When a Pytorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
+        means that it is the only method we have access to when we load the model later. Therefore, make sure that the
+        `forward` method of your model is implemented in a way that it can be used for inference.
+
+    Export any model of your choice to ONNX. 
+
+2. To get a better understanding of what is actually exported 
 
 2. As an test that your installation is working, try executing the following Python code
 
@@ -119,6 +132,9 @@ essentially increases the longivity of your model.
     ort_session.run(output_names, batch)
 
     ```
+
+5. Converting a model to ONNX often speeds up the computations 
+
 
 6. As you have probably relised in the exercises [on docker](../s3_reproducibility/docker.md), it can take a long time
     to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
@@ -180,7 +196,34 @@ essentially increases the longivity of your model.
 
 ## 🧠 Knowledge check
 
-1. 
+1. How would you export a `scikit-learn` model to ONNX? What method is exported when you export `scikit-learn` model to 
+    ONNX?
 
+    ??? success "Solution"
+
+        It is possible to export a `scikit-learn` model to ONNX using the `sklearn-onnx` package. The following code
+        snippet shows how to export a `scikit-learn` model to ONNX.
+
+        ```python
+        from sklearn.ensemble import RandomForestClassifier
+        from skl2onnx import to_onnx
+        model = RandomForestClassifier(n_estimators=2)
+        dummy_input = np.random.randn(1, 4)
+        onx = to_onnx(model, dummy_input)
+        with open("model.onnx", "wb") as f:
+            f.write(onx.SerializeToString())
+        ```
+
+        The method that is exported when you export a `scikit-learn` model to ONNX is the `predict` method.
+
+2. In your own words, describe what the concept of *computational graph* means?
+
+    ??? success "Solution"
+
+        A computational graph is a way to represent the mathematical operations that are performed in a model. It is 
+        essentially a graph where the nodes are the operations and the edges are the data that is passed between them.
+        The computational graph normally represents the forward pass of the model and is the reason that we can easily
+        backpropagate through the model to train it, because the graph contains all the necessary information to
+        calculate the gradients of the model.
 
 This ends the module on tools specifically designed for serving machine learning models.
