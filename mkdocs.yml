@@ -89,7 +89,7 @@ extra:
 
 nav:
   - Home: README.md
-  - Timeplan: timeplan.md
+  - Timeplan: pages/timeplan.md
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
@@ -149,7 +149,6 @@ nav:
     # - M37 - Workflow orchestration: s10_extra/orchestration.md
     # - M38 - Kubernetes: s10_extra/kubernetes.md
     # - M39 - Infrastructure as code: infrastructure_as_code.md
-  - Summary: overview.md
-  - Projects: projects.md
-  # - Challenges: challenges.md
-  - FAQ: faq.md
+  - Summary: pages/overview.md
+  - Projects: pages/projects.md
+  - FAQ: pages/faq.md
