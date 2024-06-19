@@ -46,18 +46,58 @@ essentially increases the longivity of your model.
 1. Start by installing ONNX:
 
     ```bash
-    pip install onnx
-    pip install onnxruntime
+    pip install onnx onnxruntime onnxscript
     ```
 
     the first package includes the basic building blocks for implementing generalized ONNX models and the second
     package is for running ONNX optimal on different hardware.
 
+2. export
+
+
+    === "Pytorch"
+        ```python
+        import torch
+        import torchvision
+        import onnx
+        import onnxruntime
+
+        model = torchvision.models.resnet18(pretrained=True)
+        model.eval()
+
+        dummy_input = torch.randn(1, 3, 224, 224)
+        torch.onnx.export(model, dummy_input, "resnet18.onnx")
+        ```
+
+    === "Pytorch-lightning"
+        ```python
+        import torch
+        import torchvision
+        import pytorch_lightning as pl
+        import onnx
+        import onnxruntime
+
+        class LitModel(pl.LightningModule):
+            def __init__(self):
+                super().__init__()
+                self.model = torchvision.models.resnet18(pretrained=True)
+                self.model.eval()
+
+            def forward(self, x):
+                return self.model(x)
+
+        model = LitModel()
+        model.eval()
+
+        dummy_input = torch.randn(1, 3, 224, 224)
+        torch.onnx.export(model, dummy_input, "resnet18.onnx")
+        ```
+
 2. As an test that your installation is working, try executing the following Python code
 
     ```python
     import onnxruntime
-    onnxruntime.get_all_providers()
+    print(onnxruntime.get_all_providers())
     ```
 
     these providers are *translation layers* that are implemented ONNX, such that the same ONNX model can run on
@@ -68,3 +108,35 @@ essentially increases the longivity of your model.
    model because it consist only of core ONNX operations. We are here going to use the open-source tool
    [netron](https://github.com/lutzroeder/netron) for visualization. You can either choose to download the program
    or just run it in your [webbrowser](https://netron.app/).
+
+4. fafa
+
+    ```python
+    import onnxruntime as ort
+    ort_session = ort.InferenceSession(<path-to-model>)
+    input_names = [i.name for i in ort_session.get_inputs()]
+    output_names = [i.name for i in ort_session.get_outputs()]
+    batch = {input_names[0]: np.random.randn(1, 3, 224, 224).astype(np.float32)}
+    ort_session.run(output_names, batch)
+
+    ```
+
+5. Turn this into a class
+
+    ```
+
+6. Time the docker builds using the time command
+
+    ```bash
+    time docker build -t <image-name> .
+    ```
+
+    how much faster is it to build the docker image with the ONNX model compared to the Pytorch model?
+
+6. Find out the size of the two docker images. It can be done in the terminal by running the `docker images` command.
+
+    ```
+    docker images | grep <image-name> | awk "{print $7, $8}"
+    ```
+
+    how much smaller is the ONNX model compared to the Pytorch model?
