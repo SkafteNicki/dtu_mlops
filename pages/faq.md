@@ -2,6 +2,11 @@
 
 For further questions, please contact [Nicki](mailto:nsde@dtu.com).
 
+## When is the next time the course is running ❔
+
+The course always runs in January, during the 3-week period at DTU. The exact dates can be found in the
+[academic calendar](https://www.dtu.dk/english/education/student-guide/studying-at-dtu/academic-calendar).
+
 ## Is it possible to attend the course fully online ❔
 
 Mostly yes. All exercises are provided online and lectures will be recorded and streamed. However, do note that
@@ -27,7 +32,7 @@ Additionally, we recommend basic knowledge about deep learning and how to code i
 corresponding to the curriculum covered in [02456](https://kurser.dtu.dk/course/02456). From prior experience, we know
 that not all students have gained knowledge about deep learning models before this course, and we will be covering the
 basics of how to code in PyTorch in one of the
-[first modules](s1_development_environment/deep_learning_software.md) of the course to get everyone up to speed.
+[first modules](../s1_development_environment/deep_learning_software.md) of the course to get everyone up to speed.
 
 ## I will be missing X days of the course, will that be a problem ❔
 

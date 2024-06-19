@@ -1,6 +1,6 @@
 # Timeplan
 
-[Slides](slides/IntroToTheCourse.pdf){ .md-button }
+[Slides](../slides/IntroToTheCourse.pdf){ .md-button }
 
 The course is organised into *exercise* (2/3 of the course) days and *project* days (1/3 of the course).
 
@@ -36,11 +36,11 @@ especially with a focus on making everything reproducible.
 
 Date | Day       | Presentation topic                                                 | Frameworks                           | Format
 -----|-----------|--------------------------------------------------------------------|--------------------------------------|-----------
-2/1  | Tuesday    | [Deep learning software📝](slides/DeepLearningSoftware.pdf) | Terminal, Conda, IDE, Pytorch        | [Exercises](s1_development_environment/README.md)
-3/1  | Wednesday   | [MLOps: what is it?📝](slides/IntroToMLOps.pdf)  | Git, CookieCutter, Pep8, DVC         | [Exercises](s2_organisation_and_version_control/README.md)
-4/1  | Thursday | [Reproducibility📝](slides/ReproducibilityAndSoftware.pdf) | Docker, Hydra                        | [Exercises](s3_reproducibility/README.md)
-5/1  | Friday  | [Debugging📝](slides/DebuggingML.pdf) | Debugger, Profiler, Wandb, Lightning | [Exercises](s4_debugging_and_logging/README.md)
-6/1  | Saturday    | [Project work📝](slides/Projects.pdf) | -                                    | [Projects](projects.md)
+2/1  | Tuesday    | [Deep learning software📝](../slides/DeepLearningSoftware.pdf) | Terminal, Conda, IDE, Pytorch        | [Exercises](../s1_development_environment/README.md)
+3/1  | Wednesday   | [MLOps: what is it?📝](../slides/IntroToMLOps.pdf)  | Git, CookieCutter, Pep8, DVC         | [Exercises](../s2_organisation_and_version_control/README.md)
+4/1  | Thursday | [Reproducibility📝](../slides/ReproducibilityAndSoftware.pdf) | Docker, Hydra                        | [Exercises](../s3_reproducibility/README.md)
+5/1  | Friday  | [Debugging📝](../slides/DebuggingML.pdf) | Debugger, Profiler, Wandb, Lightning | [Exercises](../s4_debugging_and_logging/README.md)
+6/1  | Saturday    | [Project work📝](../slides/Projects.pdf) | -                                    | [Projects](projects.md)
 
 ## Week 2
 
@@ -50,9 +50,9 @@ different services to help develop a full machine learning pipeline.
 
 Date | Day       | Presentation topic                                              | Frameworks                                        | Format
 -----|-----------|-----------------------------------------------------------------|---------------------------------------------------|-----------
-8/1  | Monday    | [Continuous Integration📝](slides/ContinuousIntegration.pdf)| Pytest, Github actions, Pre-commit, CML           | [Exercises](s5_continuous_integration/README.md)
-9/1 | Tuesday    | [The Cloud📝](slides/Cloud%20Intro.pdf)                    | GCP Engine, Bucket, Artifact registry, Vertex AI | [Exercises](s6_the_cloud/README.md)
-10/1 | Wednesday | [Deployment📝](slides/Deployment.pdf)                      | FastAPI, Torchserve, GCP Functions, GCP Run          | [Exercises](s7_deployment/README.md)
+8/1  | Monday    | [Continuous Integration📝](../slides/ContinuousIntegration.pdf)| Pytest, Github actions, Pre-commit, CML           | [Exercises](../s5_continuous_integration/README.md)
+9/1 | Tuesday    | [The Cloud📝](../slides/Cloud%20Intro.pdf)                    | GCP Engine, Bucket, Artifact registry, Vertex AI | [Exercises](../s6_the_cloud/README.md)
+10/1 | Wednesday | [Deployment📝](../slides/Deployment.pdf)                      | FastAPI, Torchserve, GCP Functions, GCP Run          | [Exercises](../s7_deployment/README.md)
 11/1 | Thursday  | No lecture                                                   | -                                                 | [Projects](projects.md)
 12/1 | Friday    | No lecture                                               | -                                                 | [Projects](projects.md)
 
@@ -65,8 +65,8 @@ important topic if we ever want our applications to be used by many people at th
 
 Date | Day       | Presentation topic                                                | Frameworks                          | Format
 -----|-----------|-------------------------------------------------------------------|-------------------------------------|----------
-15/1 | Monday    | [Monitoring📝](slides/Monitoring.pdf)                      | Evidently AI, Prometheus, GCP Monitoring |  [Exercises](s8_monitoring/README.md)
-16/1 | Tuesday   | [Scalable applications📝](slides/ScalingApplications.pdf)   | Pytorch, Lightning                  | [Exercises](s9_scalable_applications/README.md)
+15/1 | Monday    | [Monitoring📝](../slides/Monitoring.pdf)                      | Evidently AI, Prometheus, GCP Monitoring |  [Exercises](../s8_monitoring/README.md)
+16/1 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf)   | Pytorch, Lightning                  | [Exercises](../s9_scalable_applications/README.md)
 17/1 | Wednesday | -                                                                 | -                                   | [Projects](projects.md)
 18/1 | Thursday  | -                                                                 | -                                   | [Projects](projects.md)
 19/1 | Friday    | -                                                                 | -                                   | Exam
