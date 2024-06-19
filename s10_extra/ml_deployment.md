@@ -88,6 +88,10 @@ essentially increases the longivity of your model.
         torch.onnx.export(model, dummy_input, "resnet18.onnx")
         ```
 
+    !!! note "Export"
+
+        There is a new package called `onnxscript` that is currently in beta. This package is designed to make it
+
 2. As an test that your installation is working, try executing the following Python code
 
     ```python
@@ -116,35 +120,67 @@ essentially increases the longivity of your model.
 
     ```
 
-6. Time the docker builds using the time command
+6. As you have probably relised in the exercises [on docker](../s3_reproducibility/docker.md), it can take a long time
+    to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
+    is that Pytorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
+    framework. This kind of makes sense, because Pytorch is a framework that primarily was designed for developing e.g.
+    training models, while ONNX is a framework that is designed for serving models. Let's try to quantify this.
 
-    ```bash
-    time docker build -t <image-name> .
-    ```
+    1. Construct a dockerfile that builds a docker image with Pytorch as a depdendency. The dockerfile does actually
+        not need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
+        image that takes a [build arg](https://docs.docker.com/build/guide/build-args/) at build time that specifies
+        if the image should be built with CUDA support or not.
 
-    how much faster is it to build the docker image with the ONNX model compared to the Pytorch model?
+        ??? success "Solution"
 
-    ??? success "Solution"
+            The dockerfile for the Pytorch image could look something like this
 
-        On my own laptop running these two commands 
+            ```dockerfile linenums="1" title="inference_pytorch.dockerfile"
+            --8<-- "s10_extra/exercise_files/inference_pytorch.dockerfile"
+            ```
 
-        ```bash
-        time docker build -t pytorch_inference_cuda:latest . -f s10_extra/exercise_files/inference_pytorch.dockerfile \
-            --no-cache --build-arg CUDA=true
-        time docker build -t pytorch_inference:latest . -f s10_extra/exercise_files/inference_pytorch.dockerfile \
-            --no-cache --build-arg CUDA=
-        time docker build -t onnx_inference_cuda:latest . -f s10_extra/exercise_files/inference_onnx.dockerfile \
-            --no-cache --build-arg CUDA=true
-        time docker build -t onnx_inference:latest . -f s10_extra/exercise_files/inference_onnx.dockerfile \
-            --no-cache --build-arg CUDA=
-        ```
+            and the dockerfile for the ONNX image could look something like this
 
-        I got respectively 
+            ```dockerfile linenums="1" title="inference_onnx.dockerfile"
+            --8<-- "s10_extra/exercise_files/inference_onnx.dockerfile"
+            ```
 
-6. Find out the size of the two docker images. It can be done in the terminal by running the `docker images` command.
+    2. Build both containers and measure the time it takes to build them. How much faster is it to build the ONNX
+        container compared to the Pytorch container?
 
-    ```
-    docker images | grep <image-name> | awk "{print $7, $8}"
-    ```
+        ??? success "Solution"
 
-    how much smaller is the ONNX model compared to the Pytorch model?
+            On unix/linux you can use the [time](https://linuxize.com/post/linux-time-command/) command to measure
+            the time it takes to build the containers. Building both images, with and without CUDA support, can be done
+            with the following commands
+
+            ```bash
+            time docker build . -t pytorch_inference_cuda:latest -f inference_pytorch.dockerfile \
+                --no-cache --build-arg CUDA=true
+            time docker build . -t pytorch_inference:latest -f inference_pytorch.dockerfile \
+                --no-cache --build-arg CUDA=
+            time docker build . -t onnx_inference_cuda:latest -f inference_onnx.dockerfile \
+                --no-cache --build-arg CUDA=true
+            time docker build . -t onnx_inference:latest -f inference_onnx.dockerfile \
+                --no-cache --build-arg CUDA=
+            ```
+
+            the `--no-cache` flag is used to ensure that the build process is not cached and ensure a fair comparison.
+            On my laptop this respectively took `5m1s`, `1m4s`, `0m4s`, `0m50s` meaning that the ONNX
+            container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the Pytorch container.
+
+    3. Find out the size of the two docker images. It can be done in the terminal by running the `docker images` 
+        command. How much smaller is the ONNX model compared to the Pytorch model?
+
+        ??? success "Solution"
+
+            As of writing the docker image containing the Pytorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
+            In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
+            respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the Pytorch image.
+
+## 🧠 Knowledge check
+
+1. 
+
+
+This ends the module on tools specifically designed for serving machine learning models.

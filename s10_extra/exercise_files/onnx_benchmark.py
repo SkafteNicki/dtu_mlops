@@ -22,6 +22,7 @@ model = torchvision.models.resnet18()
 model.eval()
 
 if sys.platform == "win32":
+    # Windows doesn't support the new TorchDynamo-based ONNX Exporter
     torch.onnx.export(
         model, torch.randn(1, 3, 224, 224), "resnet18.onnx",
         dynamic_axes={"input.1": {0: "batch_size", 2: "height", 3: "width"}})
