@@ -69,7 +69,6 @@ plugins:
   - exclude:
       glob:
         - student_repos/*
-        - challenges.md
         - reports\README.md
         - s10_extra\design.md
         - s10_extra\infrastructure_as_code.md
