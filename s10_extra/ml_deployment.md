@@ -116,10 +116,6 @@ essentially increases the longivity of your model.
 
     ```
 
-5. Turn this into a class
-
-    ```
-
 6. Time the docker builds using the time command
 
     ```bash
@@ -127,6 +123,23 @@ essentially increases the longivity of your model.
     ```
 
     how much faster is it to build the docker image with the ONNX model compared to the Pytorch model?
+
+    ??? success "Solution"
+
+        On my own laptop running these two commands 
+
+        ```bash
+        time docker build -t pytorch_inference_cuda:latest . -f s10_extra/exercise_files/inference_pytorch.dockerfile \
+            --no-cache --build-arg CUDA=true
+        time docker build -t pytorch_inference:latest . -f s10_extra/exercise_files/inference_pytorch.dockerfile \
+            --no-cache --build-arg CUDA=
+        time docker build -t onnx_inference_cuda:latest . -f s10_extra/exercise_files/inference_onnx.dockerfile \
+            --no-cache --build-arg CUDA=true
+        time docker build -t onnx_inference:latest . -f s10_extra/exercise_files/inference_onnx.dockerfile \
+            --no-cache --build-arg CUDA=
+        ```
+
+        I got respectively 
 
 6. Find out the size of the two docker images. It can be done in the terminal by running the `docker images` command.
 

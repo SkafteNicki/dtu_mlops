@@ -4,11 +4,9 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir onnxruntime
-
-COPY inference.py /app/inference.py
-COPY model.onnx /app/model.onnx
-
-WORKDIR /app
-
-CMD ["python", "inference.py"]
+RUN echo "CUDA is set to: ${CUDA}" && \
+    if [ -n "$CUDA" ]; then \
+        pip install onnxruntime-gpu; \
+    else \
+        pip install onnxruntime; \
+    fi
