@@ -4,11 +4,6 @@
 
 ---
 
-!!! danger
-    Module is still under development
-
-# Model packaging
-
 Whenever we want to serve an machine learning model, what we are actually interested in is doing *predictions* e.g.
 given a new datapoint we pass it through our model (forward pass) and the returned value is the predicted value of
 that datapoint. At a high-level, model predictions depends on three things:
