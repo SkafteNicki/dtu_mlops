@@ -1,6 +1,6 @@
 ![Logo](../figures/icons/onnx.png){ align=right width="130"}
 
-# Onnx
+# Deployment of Machine Learning Models
 
 ---
 
@@ -36,6 +36,11 @@ an developer friendly framework, however it has historically been slow to run in
 such as [Caffe2](https://caffe2.ai/). ONNX allow you to mix-and-match frameworks based on different usecases, and
 essentially increases the longivity of your model.
 
+Do note that one limitation of the ONNX format is that is is based on ProtoBuf, which is a binary format. A protobuf
+file can have a maximum size of 2GB, which means that the ONNX format is not enough for very large models. However,
+through the use of [external data](https://onnxruntime.ai/docs/tutorials/web/large-models.html) it is possible to
+circumvent this limitation.
+
 ## ❔ Exercises
 
 1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command
@@ -45,33 +50,52 @@ essentially increases the longivity of your model.
     ```
 
     the first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
-    and the third package contains a new experimental package that is designed to make it easier to export models to 
+    and the third package contains a new experimental package that is designed to make it easier to export models to
     ONNX.
 
-2. Lets export a model to ONNX. The following code snippets shows how to export a Pytorch model to ONNX.
+2. Let's start out with converting a model to ONNX. The following code snippets shows how to export a Pytorch model to
+    ONNX.
 
+    === "Pytorch => 2.0"
 
-    === "Pytorch < 2.0"
         ```python
         import torch
         import torchvision
-        import onnx
-        import onnxruntime
 
-        model = torchvision.models.resnet18(pretrained=True)
+        model = torchvision.models.resnet18(weights=None)
         model.eval()
 
         dummy_input = torch.randn(1, 3, 224, 224)
-        torch.onnx.export(model, dummy_input, "resnet18.onnx")
+        onnx_model = torch.onnx.dynamo_export(
+            model=model,
+            model_args=(dummy_input,),
+            export_options=torch.onnx.ExportOptions(dynamic_shapes=True),
+        )
+        onnx_model.save("resnet18.onnx")
         ```
 
-    === "Pytorch > 2.0"
+    === "Pytorch < 2.0 or Windows"
 
         ```python
         import torch
+        import torchvision
 
+        model = torchvision.models.resnet18(weights=None)
+        model.eval()
+
+        dummy_input = torch.randn(1, 3, 224, 224)
+        torch.onnx.export(
+            model=model,
+            args=(dummy_input,),
+            f="resnet18.onnx",
+            input_names=["input"],
+            output_names=["output"],
+            dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}}
+        )
+        ```
 
     === "Pytorch-lightning"
+
         ```python
         import torch
         import torchvision
@@ -92,8 +116,16 @@ essentially increases the longivity of your model.
         model.eval()
 
         dummy_input = torch.randn(1, 3, 224, 224)
-        torch.onnx.export(model, dummy_input, "resnet18.onnx")
+        model.to_onnx(
+            file_path="resnet18.onnx",
+            input_sample=dummy_input,
+            input_names=["input"],
+            output_names=["output"],
+            dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}}
+        )
         ```
+
+    Export a model of your own choice to ONNX or just try to export the `resnet18` model as shown in the examples above.
 
     !!! note "What is exported?"
 
@@ -101,48 +133,136 @@ essentially increases the longivity of your model.
         means that it is the only method we have access to when we load the model later. Therefore, make sure that the
         `forward` method of your model is implemented in a way that it can be used for inference.
 
-    Export any model of your choice to ONNX. 
+3. Check that the model was correctly exported by loading it using the `onnx` package and afterwards check the graph
+    of model using the following code:
 
-2. To get a better understanding of what is actually exported 
+    ```python
+    import onnx
+    model = onnx.load("resnet18.onnx")
+    onnx.checker.check_model(model)
+    print(onnx.helper.printable_graph(model.graph))
+    ```
 
-2. As an test that your installation is working, try executing the following Python code
+4. To get a better understanding of what is actually exported, lets try to visualize the computational graph of the
+    model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
+    try it out directly in [webbrowser](https://netron.app/) or you can install it locally using `pip install netron`
+    and then run it using `netron resnet18.onnx`.
+
+5. After converting a model to ONNX format we can use the [ONNX Runtime](https://onnxruntime.ai/docs/) to run it.
+    The benefit of this is that ONNX Runtime is able to optimize the computational graph of the model, which can lead
+    to faster inference times. Lets try to look into that.
+
+    1. Figure out how to run a model using the ONNX Runtime. Relevant
+        [documentation](https://onnxruntime.ai/docs/get-started/with-python.html).
+
+        ??? success "Solution"
+
+            To use the ONNX runtime to run a model, we first need to start a inference session, then extract input
+            output names of our model and finally run the model. The following code snippet shows how to do this.
+
+            ```python
+            import onnxruntime as rt
+            ort_session = rt.InferenceSession("<path-to-model>")
+            input_names = [i.name for i in ort_session.get_inputs()]
+            output_names = [i.name for i in ort_session.get_outputs()]
+            batch = {input_names[0]: np.random.randn(1, 3, 224, 224).astype(np.float32)}
+            out = ort_session.run(output_names, batch)
+            ```
+
+    2. Let's experiment with performance of ONNX vs. Pytorch. Implement a benchmark that measures the time it takes to
+        run a model using Pytorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
+        have implemented a timing decorator that you can use to measure the time it takes to run a function.
+
+        ```python
+        from statistics import mean, stdev
+        import time
+        def timing_decorator(func, function_repeat: int = 10, timing_repeat: int = 5):
+            """ Decorator that times the execution of a function. """
+            def wrapper(*args, **kwargs):
+                timing_results = []
+                for _ in range(timing_repeat):
+                    start_time = time.time()
+                    for _ in range(function_repeat):
+                        result = func(*args, **kwargs)
+                    end_time = time.time()
+                    elapsed_time = end_time - start_time
+                    timing_results.append(elapsed_time)
+                print(f"Avg +- Stddev: {mean(timing_results):0.3f} +- {stdev(timing_results):0.3f} seconds")
+                return result
+            return wrapper
+        ```
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="onnx_benchmark.py"
+            --8<-- "s10_extra/exercise_files/onnx_benchmark.py"
+            ```
+
+    3. To get a better understanding of why running the model using the ONNX runtime is usually faster lets try to see
+        what happens to the computational graph. By default the ONNX Runtime will apply these optimization in *online*
+        mode, meaning that the optimizations are applied when the model is loaded. However, it is also possible to apply
+        the optimizations in *offline* mode, such that the optimized model is saved to disk. Below is an example of how
+        to do this.
+
+        ```python
+        import onnxruntime as rt
+        sess_options = rt.SessionOptions()
+
+        # Set graph optimization level
+        sess_options.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
+
+        # To enable model serialization after graph optimization set this
+        sess_options.optimized_model_filepath = "optimized_model.onnx>"
+
+        session = rt.InferenceSession("<model_path>", sess_options)
+        ```
+
+        Try to apply the optimizations in offline mode and use `netron` to visualize both the original and optimized
+        model side by side. Can you see any differences?
+
+        ??? success "Solution"
+
+            You should hopefully see that the optimized model consist of fewer nodes and edges than the original model.
+            These nodes are often called fused nodes, because they are the result of multiple nodes being fused
+            together. In the image below we have visualized the first part of the computational graph of a resnet18
+            model, before and after optimization.
+
+            <figure markdown>
+            ![Image](../figures/onnx_optimization.png){ width="600" }
+            </figure>
+
+6. As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engine.
+    You can check all providers and all the available providers by running the following code
 
     ```python
     import onnxruntime
     print(onnxruntime.get_all_providers())
+    print(onnxruntime.get_available_providers())
     ```
 
-    these providers are *translation layers* that are implemented ONNX, such that the same ONNX model can run on
-    completely different hardware. Can you identify at least two of the providers that are necessary for running
-    standard Pytorch code on CPU and GPU? Can you identify others
+    Can you figure out how to set which provide the ONNX runtime should use?
 
-3. One big advantage of having a standardized format, is that we can easily visualize the computational graph of our
-   model because it consist only of core ONNX operations. We are here going to use the open-source tool
-   [netron](https://github.com/lutzroeder/netron) for visualization. You can either choose to download the program
-   or just run it in your [webbrowser](https://netron.app/).
+    ??? success "Solution"
 
-4. fafa
+        The provider that the ONNX runtime should use can be set by passing the `providers` argument to the
+        `InferenceSession` class. A list should be provided, which prioritizes the providers in the order they are
+        listed.
 
-    ```python
-    import onnxruntime as ort
-    ort_session = ort.InferenceSession(<path-to-model>)
-    input_names = [i.name for i in ort_session.get_inputs()]
-    output_names = [i.name for i in ort_session.get_outputs()]
-    batch = {input_names[0]: np.random.randn(1, 3, 224, 224).astype(np.float32)}
-    ort_session.run(output_names, batch)
+        ```python
+        import onnxruntime as rt
+        provider_list = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+        ort_session = rt.InferenceSession("<path-to-model>", providers=provider_list)
+        ```
 
-    ```
+        In this case we will prefer CUDA Execution Provider over CPU Execution Provider if both are available.
 
-5. Converting a model to ONNX often speeds up the computations 
-
-
-6. As you have probably relised in the exercises [on docker](../s3_reproducibility/docker.md), it can take a long time
+7. As you have probably realised in the exercises [on docker](../s3_reproducibility/docker.md), it can take a long time
     to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
     is that Pytorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
     framework. This kind of makes sense, because Pytorch is a framework that primarily was designed for developing e.g.
     training models, while ONNX is a framework that is designed for serving models. Let's try to quantify this.
 
-    1. Construct a dockerfile that builds a docker image with Pytorch as a depdendency. The dockerfile does actually
+    1. Construct a dockerfile that builds a docker image with Pytorch as a dependency. The dockerfile does actually
         not need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
         image that takes a [build arg](https://docs.docker.com/build/guide/build-args/) at build time that specifies
         if the image should be built with CUDA support or not.
@@ -185,7 +305,7 @@ essentially increases the longivity of your model.
             On my laptop this respectively took `5m1s`, `1m4s`, `0m4s`, `0m50s` meaning that the ONNX
             container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the Pytorch container.
 
-    3. Find out the size of the two docker images. It can be done in the terminal by running the `docker images` 
+    3. Find out the size of the two docker images. It can be done in the terminal by running the `docker images`
         command. How much smaller is the ONNX model compared to the Pytorch model?
 
         ??? success "Solution"
@@ -194,9 +314,12 @@ essentially increases the longivity of your model.
             In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
             respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the Pytorch image.
 
+8. (Optional) Assuming you have completed the module on [FastAPI](../s7_deployment/apis.md) try creating a small
+    FastAPI application that serves a model using the ONNX runtime.
+
 ## 🧠 Knowledge check
 
-1. How would you export a `scikit-learn` model to ONNX? What method is exported when you export `scikit-learn` model to 
+1. How would you export a `scikit-learn` model to ONNX? What method is exported when you export `scikit-learn` model to
     ONNX?
 
     ??? success "Solution"
@@ -220,10 +343,20 @@ essentially increases the longivity of your model.
 
     ??? success "Solution"
 
-        A computational graph is a way to represent the mathematical operations that are performed in a model. It is 
+        A computational graph is a way to represent the mathematical operations that are performed in a model. It is
         essentially a graph where the nodes are the operations and the edges are the data that is passed between them.
         The computational graph normally represents the forward pass of the model and is the reason that we can easily
         backpropagate through the model to train it, because the graph contains all the necessary information to
         calculate the gradients of the model.
+
+3. In your own words, explain why fusing operations together in the computational graph often leads to better
+    performance?
+
+    ??? success "Solution"
+
+        Each time we want to do a computation, the data needs to be loaded from memory into the CPU/GPU. This is a
+        slow process and the more operations we have, the more times we need to load the data. By fusing operations
+        together, we can reduce the number of times we need to load the data, because we can do multiple operations
+        on the same data before we need to load new data.
 
 This ends the module on tools specifically designed for serving machine learning models.
