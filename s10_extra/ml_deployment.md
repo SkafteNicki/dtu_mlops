@@ -4,42 +4,81 @@
 
 ---
 
-Whenever we want to serve an machine learning model, what we are actually interested in is doing *predictions* e.g.
-given a new datapoint we pass it through our model (forward pass) and the returned value is the predicted value of
-that datapoint. At a high-level, model predictions depends on three things:
+In one of the [previous modules](../s7_deployment/apis.md) you learned about how to use
+[FastAPI](https://fastapi.tiangolo.com/) to create an API to interact with your machine learning models. FastAPI is a
+great framework, but it is a general framework meaning that it was not developed with machine learning applications in
+mind. This means that there are features which you may consider to be missing when considering running large scale
+machine learning models:
 
-* The codebase that implements the models prediction method
-* The model weights which contains an actual instance of the model
-* Code dependencies necessary for running the codebase.
+* Dynamic-batching: if you have a large number of requests coming in, you may want to process them in batches to
+    reduce the overhead of loading the model and running the inference. This is especially true if you are running your
+    model on a GPU, where the overhead of loading the model is significant.
 
-We have already in module [M9 on Docker](../s3_reproducibility/docker.md) touch on how to take care of all
-these things. Containers makes it easy to link a codebase, model weights and code dependencies into a single object.
-We in general can refer to this as *model packaging*, because as the name suggest, we are packaging our model into
-a format that is *independent* of the actual environment that we are trying to run the model in.
+* Async inference: FastAPi does support async requests but not no way to call the model asynchronously. This means that
+    if you have a large number of requests coming in, you will have to wait for the model to finish processing (because
+    the model is not async) before you can start processing the next request.
 
-However, containers is not the only way to do model packaging. If we put some light restrictions on the device we want
-run our model predictions on, we can achieve the same result using ONNX. The
-[Open Neural Network Exchange (ONNX)](https://onnx.ai/) is a standardized format for creating and sharing machine
-learning models. ONNX provides an [open source format](https://github.com/onnx/onnx) for machine learning models,
-both deep learning and traditional ML. It defines an extensible computation graph model, as well as definitions of
-built-in operators and standard data types.
+* Native GPU support: you can definitely run part of your application in FastAPI if you want to. But again it was not
+    build with machine learning in mind, so you will have to do some extra work to get it to work.
+
+It should come as no surprise that multiple frameworks have therefore sprung up that better supports deployment of
+machine learning algorithms:
+
+* [Cortex](https://github.com/cortexlabs/cortex)
+
+* [Bento ML](https://github.com/bentoml/bentoml)
+
+* [Ray Serve](https://docs.ray.io/en/master/serve/)
+
+* [Triton Inference Server](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html)
+
+* [OpenVINO](https://docs.openvino.ai/2024/index.html)
+
+* [Seldon-core](https://docs.seldon.io/projects/seldon-core/en/latest/)
+
+* [Torchserve](https://pytorch.org/serve/)
+
+* [Tensorflow serve](https://github.com/tensorflow/serving)
+
+The first 6 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
+you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two are backend specific to respective
+Pytorch and Tensorflow. In this module we are going to look at two of the frameworks, namely `Torchserve` because we
+have developed Pytorch applications i nthis course and `Triton Inference Server` because it is a very popular framework
+for deploying models on Nvidia GPUs (but we can still use it on CPU).
+
+But before we dive into these frameworks, we are going to look at a general way to package our machine learning models
+that should work with any of the above frameworks.
+
+## Model Packaging
+
+Whenever we want to serve an machine learning model, we in general need 3 things:
+
+* The computational graph of the model, e.g. how to pass data through the model to get a prediction.
+* The weights of the model, e.g. the parameters that the model has learned during training.
+* A computational backend that can run the model
+
+In the previous module on [Docker](../s3_reproducibility/docker.md) we learned how to package all of these things into
+a container. This is a great way to package a model, but it is not the only way. The core assumption we currently have
+made is that the computational backend is the same as the one we trained the model on. However, this does not need to
+be the case. As long as we can export our model and weights to a common format, we can run the model on any backend
+that supports this format.
+
+This is exactly what the [Open Neural Network Exchange (ONNX)](https://onnx.ai/) is designed to do. ONNX is a
+standardized format for creating and sharing machine learning models. It defines an extensible computation graph model,
+as well as definitions of built-in operators and standard data types. The idea behind ONNX is that a model trained with
+a specific framework on a specific device, lets say Pytorch on your local computer, can be exported and run with an
+entirely different framework and hardware easily. Learning how to export your models to ONNX is therefore a great way
+to increase the longivity of your models and not being locked into a specific framework for serving your models.
 
 <figure markdown>
-![Image](../figures/onnx.png){ width="600" }
-<figcaption> <a href="https://www.xenonstack.com/blog/onnx"> Image credit </a> </figcaption>
+![Image](../figures/onnx.png){ width="1000" }
+<figcaption>
+The ONNX format is designed to bridge the gap between development and deployment of machine learning models, by making
+it easy to export models between different frameworks and hardware. For example Pytorch is in general considered
+an developer friendly framework, however it has historically been slow to run inference with compared to a framework.
+<a href="https://medium.com/trueface-ai/two-benefits-of-the-onnx-library-for-ml-models-4b3e417df52e"> Image credit </a>
+</figcaption>
 </figure>
-
-As the above image indicates, the idea behind ONNX is that a model trained with a specific framework on a specific
-device, lets say Pytorch on your local computer, can be exported and run with an entirely different framework and
-hardware easily. For example, not all frameworks are created equally. For example Pytorch is in general considered
-an developer friendly framework, however it has historically been slow to run inference with compared to a framework
-such as [Caffe2](https://caffe2.ai/). ONNX allow you to mix-and-match frameworks based on different usecases, and
-essentially increases the longivity of your model.
-
-Do note that one limitation of the ONNX format is that is is based on ProtoBuf, which is a binary format. A protobuf
-file can have a maximum size of 2GB, which means that the ONNX format is not enough for very large models. However,
-through the use of [external data](https://onnxruntime.ai/docs/tutorials/web/large-models.html) it is possible to
-circumvent this limitation.
 
 ## ❔ Exercises
 
@@ -125,13 +164,18 @@ circumvent this limitation.
         )
         ```
 
-    Export a model of your own choice to ONNX or just try to export the `resnet18` model as shown in the examples above.
+    Export a model of your own choice to ONNX or just try to export the `resnet18` model as shown in the examples above,
+    and confirm that the model was exported by checking that the file exists. Can you figure out what is meant by
+    `dynamic_axes`?
 
-    !!! note "What is exported?"
+    ??? success "Solution"
 
-        When a Pytorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
-        means that it is the only method we have access to when we load the model later. Therefore, make sure that the
-        `forward` method of your model is implemented in a way that it can be used for inference.
+        The `dynamic_axes` argument is used to specify which axes of the input tensor that should be considered dynamic.
+        This is useful when the model can accept inputs of different sizes, e.g. when the model is used in a dynamic
+        batching scenario. In the example above we have specified that the first axis of the input tensor should be
+        considered dynamic, meaning that the model can accept inputs of different batch sizes. While it may be tempting
+        to specify all axes as dynamic, however this can lead to slower inference times, because the ONNX runtime will
+        not be able to optimize the computational graph as well.
 
 3. Check that the model was correctly exported by loading it using the `onnx` package and afterwards check the graph
     of model using the following code:
@@ -146,7 +190,13 @@ circumvent this limitation.
 4. To get a better understanding of what is actually exported, lets try to visualize the computational graph of the
     model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
     try it out directly in [webbrowser](https://netron.app/) or you can install it locally using `pip install netron`
-    and then run it using `netron resnet18.onnx`.
+    and then run it using `netron resnet18.onnx`. Can you figure out what method of the model is exported to ONNX?
+
+    ??? success "Solution"
+
+        When a Pytorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
+        means that it is the only method we have access to when we load the model later. Therefore, make sure that the
+        `forward` method of your model is implemented in a way that it can be used for inference.
 
 5. After converting a model to ONNX format we can use the [ONNX Runtime](https://onnxruntime.ai/docs/) to run it.
     The benefit of this is that ONNX Runtime is able to optimize the computational graph of the model, which can lead
@@ -316,6 +366,20 @@ circumvent this limitation.
 
 8. (Optional) Assuming you have completed the module on [FastAPI](../s7_deployment/apis.md) try creating a small
     FastAPI application that serves a model using the ONNX runtime.
+
+This completes the exercises on the ONNX format. Do note that one limitation of the ONNX format is that is is based on
+[ProtoBuf](https://protobuf.dev/), which is a binary format. A protobuf file can have a maximum size of 2GB, which means
+that the `.onnx` format is not enough for very large models. However, through the use of
+[external data](https://onnxruntime.ai/docs/tutorials/web/large-models.html) it is possible to circumvent this
+limitation.
+
+## Torchserve
+
+Text to come...
+
+## Triton Inference Server
+
+Text to come...
 
 ## 🧠 Knowledge check
 

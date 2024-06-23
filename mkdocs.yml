@@ -74,6 +74,7 @@ plugins:
         - s10_extra\infrastructure_as_code.md
         - s10_extra\kubernetes.md
         - s10_extra\orchestration.md
+        - s10_extra\calibration.md
         - samples\README.md
         - tools\README.md
 
