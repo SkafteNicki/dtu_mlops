@@ -10,23 +10,23 @@
 
     [:octicons-arrow-right-24: M21: Requests and APIs](apis.md)
 
-- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
-
-    Learn how to use `torchserve` for serving PyTorch models
-
-    [:octicons-arrow-right-24: M22: Local Deployment](local_deployment.md)
-
 - ![](../figures/icons/run.png){align=right : style="height:100px;width:100px"}
 
     Learn how to deploy custom APIs using serverless functions and serverless containers in the cloud
 
-    [:octicons-arrow-right-24: M23: Cloud Deployment](cloud_deployment.md)
+    [:octicons-arrow-right-24: M22: Cloud Deployment](cloud_deployment.md)
 
 - ![](../figures/icons/locust.png){align=right : style="height:100px;width:100px"}
 
     Learn how to test APIs for functionality and load
 
-    [:octicons-arrow-right-24: M24: API testing](testing_apis.md)
+    [:octicons-arrow-right-24: M23: API testing](testing_apis.md)
+
+- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
+
+    Learn about different ways to improve the deployment of machine learning models
+
+    [:octicons-arrow-right-24: M24: ML Deployment](ml_deployment.md)
 
 </div>
 
