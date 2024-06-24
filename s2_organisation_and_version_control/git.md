@@ -114,15 +114,15 @@ working together on the same project.
 
     2. Move/copy the three files from yesterday into the repository (and any other that you made)
 
-    3. Add the files to a commit by using `git add` command (1)
-       { .annotate }
+    3. Add the files to a commit by using `git add` command
+
+    4. Commit the files using `git commit` command where you use the `-m` argument to provide a commit message (1).
+        { .annotate }
 
         1. :man_raising_hand: Writing good commit message is a skill in itself. A commit message should be short but
             informative about the work you are trying to commit. Try to practise writing good commit messages
             throughout the course. You can see
             [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
-
-    4. Commit the files using `git commit`
 
     5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
         updated in your repository.
@@ -139,10 +139,15 @@ working together on the same project.
     git checkout -b <my_branch_name>
     ```
 
-    Afterwards, you can use `git checkout` to change between branches (remember to commit your work!)
+    Afterwards, you can use `git checkout` (1) to change between branches (remember to commit your work!)
     Try adding something (a file, a new line of code etc.) to the newly created branch, commit it and
     try changing back to master afterwards. You should hopefully see whatever you added on the branch
     is not present on the main branch.
+    { .annotate}
+
+    1. :man_raising_hand: The `git checkout` command is used for a lot of different things in git. It can be used to
+        change branches, to revert changes and to create new branches. An alternative is using `git switch` and
+        `git restore` which are more modern commands.
 
 3. If you do not already have a cloned version of this repository belonging to the course, make sure to make one!
     I am continuously updating/changing some of the material during the course and I therefore recommend that you
@@ -182,9 +187,23 @@ working together on the same project.
     [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork)
     , and set a remote upstream for the repository you just forked.
 
+    ??? success "Solution"
+
+        ```bash
+        git remote add upstream <url-to-original-repo>
+        ```
+
 6. After setting the upstream branch, we need to pull and merge any update. Take a look on this
     [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
     and figure out how to do this.
+
+    ??? success "Solution"
+
+        ```bash
+        git fetch upstream
+        git checkout main
+        git merge upstream/main
+        ```
 
 7. As a final exercise we want to simulate a *merge conflict*, which happens when two users try to commit changes
     to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be

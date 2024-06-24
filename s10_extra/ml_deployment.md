@@ -367,6 +367,14 @@ an developer friendly framework, however it has historically been slow to run in
 8. (Optional) Assuming you have completed the module on [FastAPI](../s7_deployment/apis.md) try creating a small
     FastAPI application that serves a model using the ONNX runtime.
 
+    ??? success "Solution"
+
+        Here is a simple example of how to create a FastAPI application that serves a model using the ONNX runtime.
+
+        ```python linenums="1" title="onnx_fastapi.py"
+        --8<-- "s10_extra/exercise_files/onnx_fastapi.py"
+        ```
+
 This completes the exercises on the ONNX format. Do note that one limitation of the ONNX format is that is is based on
 [ProtoBuf](https://protobuf.dev/), which is a binary format. A protobuf file can have a maximum size of 2GB, which means
 that the `.onnx` format is not enough for very large models. However, through the use of
