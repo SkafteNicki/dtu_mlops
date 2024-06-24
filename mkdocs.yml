@@ -128,7 +128,7 @@ nav:
     - M22 - Cloud Deployment: s7_deployment/cloud_deployment.md
     - M23 - API Testing: s7_deployment/testing_apis.md
     - M24 - ML deployment: s7_deployment/ml_deployment.md
-    - M25 - Frontend: s10_extra/frontend.md
+    - M25 - Frontend: s7_deployment/frontend.md
   - S8 - Monitoring 📊:
     - s8_monitoring/README.md
     - M26 - Data Drifting: s8_monitoring/data_drifting.md

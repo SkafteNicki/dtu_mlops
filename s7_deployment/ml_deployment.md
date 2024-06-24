@@ -439,9 +439,95 @@ Text to come...
 
 ## Triton Inference Server
 
-Text to come...
+> Triton Inference Server is an open source inference serving software that streamlines AI inferencing.
+
+At the core of the triton inference server is the concept of a model repository. This is a directory where you place
+your models and a configuration file that tells the server how to load the model. The server supports many different
+model formats:
+
+
+
+
+If you have completed the privious [module on ONNX](onnx.md) the you can just place the `.onnx` file in the model
+repository as triton-inference server also supports ONNX models.
+
+```txt
+<model-repository-path>/
+    <model-name>/
+        config.pbtxt
+        <version-number>/
+            model.onnx
+        <version-number>/
+            model.onnx
+    <model-name>/
+        ...
+```
+
+Regardless of format, the overall structure is the same: the inference server can serve multiple models at the same time
+and therefore each model has its own directory. Inside each model directory there is a `config.pbtxt` file that tells the
+server how to load the model. The `config.pbtxt` file is a protobuf file that contains the following information:
+
+* `name`: the name of the model
+* `platform`: the platform that the model is running on (e.g. `onnxruntime_onnx`)
+* `max_batch_size`: the maximum batch size that the model can handle
+* `input`: the input tensor names and shapes
+* `output`: the output tensor names and shapes
+* `version_policy`: the version policy for the model (e.g. `latest`)
+* `dynamic_batching`: whether dynamic batching is enabled
+* `optimization`: whether the model is optimized for inference
 
 ### ❔ Exercises
+
+1. define `config.pbtxt` 
+
+    ```txt
+    name: "text_detection"
+    backend: "onnxruntime"
+    max_batch_size : 256
+    input [
+    {
+        name: "input_images:0"
+        data_type: TYPE_FP32
+        dims: [ -1, -1, -1, 3 ]
+    }
+    ]
+    output [
+    {
+        name: "feature_fusion/Conv_7/Sigmoid:0"
+        data_type: TYPE_FP32
+        dims: [ -1, -1, -1, 1 ]
+    }
+    ]
+    output [
+    {
+        name: "feature_fusion/concat_3:0"
+        data_type: TYPE_FP32
+        dims: [ -1, -1, -1, 5 ]
+    }
+    ]
+    ```
+
+
+1. docker run -it --rm --net=host -v ${PWD}:/workspace/ nvcr.io/nvidia/tritonserver:<yy.mm>-py3-sdk bash
+
+2. You should be able to call it as any other requests but lets try out the client that comes with the triton server
+
+    ```bash
+    pip install tritonclient
+    ```
+    ```bash
+    triton-inference-server-client -m text_detection -i /workspace/input_images.npy -o /workspace/output_images.npy
+    ```
+
+    ```python
+    import tritonclient.grpc as grpcclient
+    import tritonclient.grpc.model_config_pb2 as mc
+    import tritonclient.http as httpclient
+
+    # Create a GRPC client
+    triton_client = grpcclient.InferenceServerClient(url="localhost:8001", verbose=True)
+    ```
+
 
 ## 🧠 Knowledge check
 
