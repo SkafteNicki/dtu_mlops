@@ -1,18 +1,16 @@
 
 # Calibration of ML models
 
+!!! danger
+    Module is still under development
+
 ---
-
-
-
 
 ## Methods
 
-
-
 ## ❔ Exercises
 
-1. 
+1. Implement a script
 
 2. Implement temperature scaling
 
@@ -32,6 +30,4 @@
 
 7. Implement it in a continues integration setup
 
-
 ## 🧠 Knowledge check
-

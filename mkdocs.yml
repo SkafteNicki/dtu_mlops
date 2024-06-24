@@ -73,8 +73,8 @@ plugins:
         - s10_extra\design.md
         - s10_extra\infrastructure_as_code.md
         - s10_extra\kubernetes.md
-        - s10_extra\onnx.md
         - s10_extra\orchestration.md
+        - s10_extra\calibration.md
         - samples\README.md
         - tools\README.md
 
@@ -144,8 +144,8 @@ nav:
     - M32 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M33 - High Performance Clusters: s10_extra/high_performance_clusters.md
     - M34 - Frontend: s10_extra/frontend.md
+    - M35 - ML deployment: s10_extra/ml_deployment.md
     # - M35 - Designing Pipelines: s10_extra/design.md
-    # - M36 - Sharing models - ONNX format: s10_extra/onnx.md
     # - M37 - Workflow orchestration: s10_extra/orchestration.md
     # - M38 - Kubernetes: s10_extra/kubernetes.md
     # - M39 - Infrastructure as code: infrastructure_as_code.md
