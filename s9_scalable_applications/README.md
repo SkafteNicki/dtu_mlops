@@ -8,19 +8,19 @@
 
     Learn how to setup distributed data loading in your Pytorch application
 
-    [:octicons-arrow-right-24: M27: Distributed Data Loading](data_loading.md)
+    [:octicons-arrow-right-24: M28: Distributed Data Loading](data_loading.md)
 
 - ![](../figures/icons/lightning.png){align=right : style="height:100px;width:100px"}
 
     Learn how to do distributed training in Pytorch using `pytorch-lightning`
 
-    [:octicons-arrow-right-24: M28: Distributed Training](distributed_training.md)
+    [:octicons-arrow-right-24: M29: Distributed Training](distributed_training.md)
 
 - ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to setup a prometheus monitoring system for your application
+    Learn how to do scalable inference in Pytorch
 
-    [:octicons-arrow-right-24: M29: Scalable Inference](inference.md)
+    [:octicons-arrow-right-24: M30: Scalable Inference](inference.md)
 
 </div>
 

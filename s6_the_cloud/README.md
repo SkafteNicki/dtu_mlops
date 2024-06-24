@@ -8,13 +8,13 @@
 
     Learn how to get started with Google Cloud Platform and how to interact with the SDK.
 
-    [:octicons-arrow-right-24: M19: Cloud Setup](cloud_setup.md)
+    [:octicons-arrow-right-24: M20: Cloud Setup](cloud_setup.md)
 
 - ![](../figures/icons/gcp.png){align=right : style="height:100px;width:100px"}
 
     Learn how to use different GCP services to support your machine learning pipeline.
 
-    [:octicons-arrow-right-24: M20: Cloud Services](using_the_cloud.md)
+    [:octicons-arrow-right-24: M21: Cloud Services](using_the_cloud.md)
 
 </div>
 
