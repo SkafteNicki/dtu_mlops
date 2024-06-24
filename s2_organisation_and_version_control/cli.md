@@ -4,14 +4,61 @@
 
 ---
 
-## Executable scripts
+As we already laid out in the very first [module](../s1_development_environment/command_line.md), the command line is a
+powerful tool for interacting with your computer. You should already now be familiar with running basic Python commands
+in the terminal:
+
+```bash
+python my_script.py
+```
+
+However, as your projects grow in size and complexity, you will often find yourself in need of more advanced ways of
+interacting with your code. This is where [command line interface](https://en.wikipedia.org/wiki/Command-line_interface)
+(CLI) comes into play. A CLI can be seen as a way for you to define the user interface of your application directly in
+the terminal. Thus, there is no right or wrong way of creating a CLI, it is all about what makes sense for your
+application.
+
+In this module we are going to look at three different ways of creating a CLI for your machine learning projects. They
+are all serving a bit different purposes and can therefore be combined in the same project. The three ways are:
+
+## Project scripts
+
+You might already be familiar with the concept of executable scripts. An executable script is a Python script that can
+be run directly from the terminal without having to call the Python interpreter. This has been possible for a long time
+in Python, by the inclusion of a so-called [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of
+the script. However, we are going to look at a specific way of creating executable scripts using the `setuptools`
+package.
+
+https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts
+
+
 
 
 ### ❔ Exercises
 
-https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts
+1. Start by creating a new Python file called `greetings.py`. Add the following code to the file
 
-## 
+    ```python
+    def hello(name: str = "World"):
+        print(f"Hello {name}!")
+    ```
+
+2. In your `pyproject.toml` file add the following lines
+
+    ```toml
+    [tool.poetry.scripts]
+    greetings = "greetings:hello"
+    ```
+
+3. Run the following command in the terminal
+
+    ```bash
+    poetry install
+    ```
+
+
+
+##
 
 If you have worked with Python for some time you are probably familiar with the `argparse` package, which allows you
 to directly pass in additional arguments to your script in the terminal
@@ -78,7 +125,7 @@ mention [Typer](https://typer.tiangolo.com/).
             app()
         ```
 
-3. Next lets create a CLI that has subcommands. Add the nessesary code such that the following lines can be executed
+3. Next lets create a CLI that has subcommands. Add the necessary code such that the following lines can be executed
 
     ```bash
     python greetings.py hello
@@ -134,7 +181,7 @@ mention [Typer](https://typer.tiangolo.com/).
         ```
 
 
-## 
+##
 
 The two sections above have shown you how to create a simple CLI for your Python scripts. However, when doing machine
 learning projects, you often have a lot of non-Python code that you would like to run from the terminal. This could be
@@ -153,7 +200,74 @@ How do we standardize the way we run these scripts? One way is to create a [Make
 
     remember to add the package to your `requirements.txt` file.
 
+2. Add a `tasks.py` file to your repository and try to just run
 
+    ```bash
+    invoke --list
+    ```
+
+3. Lets now try to add a task to the `tasks.py` file. Add the following code to the file
+
+    ```python
+    from invoke import task
+
+    @task
+    def hello(c):
+        print("Hello World!")
+    ```
+
+    and try to run the following command
+
+    ```bash
+    invoke hello
+    ```
+
+4. Lets try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Add the following code
+    to the `tasks.py` file
+
+    ```python
+    @task
+    def git(c, message):
+        c.run(f"git add .")
+        c.run(f"git commit -m '{message}'")
+        c.run(f"git push")
+    ```
+
+    and try to run the following command
+
+    ```bash
+    invoke git --message "My commit message"
+    ```
+
+5. Create also a command that simplifies the process of bootstrapping a `conda` environment and install the relevant dependencies of your project
+
+    ```python
+    @task
+    def conda(c):
+        c.run(f"conda env create -f environment.yml")
+        c.run(f"conda activate dtu_mlops")
+    ```
+
+    and try to run the following command
+
+    ```bash
+    invoke conda
+    ```
+
+6. Assuming you have completed the exercises on using `dvc` for version control of data try adding a task that
+    simplifies the process of running `dvc repro` for your project
+
+    ```python
+    @task
+    def dvc(c):
+        c.run(f"dvc repro")
+    ```
+
+    and try to run the following command
+
+    ```bash
+    invoke dvc
+    ```
 
 
 ## 🧠 Knowledge check
