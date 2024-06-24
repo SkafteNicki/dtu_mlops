@@ -4,6 +4,15 @@
 
 ---
 
+## Executable scripts
+
+
+### ❔ Exercises
+
+https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts
+
+## 
+
 If you have worked with Python for some time you are probably familiar with the `argparse` package, which allows you
 to directly pass in additional arguments to your script in the terminal
 
@@ -32,15 +41,124 @@ things, which we are not going to touch upon in this module. For completeness we
 the only package for doing this, and of other excellent frameworks for creating command line interfaces easily we can
 mention [Typer](https://typer.tiangolo.com/).
 
-## ❔ Exercises
+### ❔ Exercises
 
-[Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
-
-1. Install [click](https://click.palletsprojects.com/en/8.1.x/)
+1. Start by installing the `typer` package
 
     ```bash
-    pip install click
+    pip install typer
     ```
+
+    remember to add the package to your `requirements.txt` file.
+
+2. Create a new Python file called `greetings.py`. Use the typer package to create a command line interface such
+    that running the following lines
+
+    ```bash
+    python greetings.py
+    python greetings.py --count=3
+    python greetings.py --help
+    ```
+
+    executes and gives the expected output.
+
+    ??? success "Solution"
+
+        ```python
+        import typer
+
+        app = typer.Typer()
+
+        @app.command()
+        def hello(count: int = 1, name: str = "World"):
+            for x in range(count):
+                typer.echo(f"Hello {name}!")
+
+        if __name__ == "__main__":
+            app()
+        ```
+
+3. Next lets create a CLI that has subcommands. Add the nessesary code such that the following lines can be executed
+
+    ```bash
+    python greetings.py hello
+    python greetings.py howdy
+    ```
+
+    ??? success "Solution"
+
+        ```python
+        import typer
+
+        app = typer.Typer()
+
+        @app.command()
+        def hello(count: int = 1, name: str = "World"):
+            for x in range(count):
+                typer.echo(f"Hello {name}!")
+
+        @app.command()
+        def howdy(count: int = 1, name: str = "World"):
+            for x in range(count):
+                typer.echo(f"Howdy {name}!")
+
+        if __name__ == "__main__":
+            app()
+        ```
+
+5. As an final exercise we provide you with a script that is ready to run as it is, but your job will be do turn it
+    into a script with multiple subcommands, with multiple arguments for each subcommand.
+
+    1. Start by taking a look at the provided
+        [code](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/knn_iris.py). It is a simple
+        script that runs the K-nearest neighbour classification algorithm on the iris dataset and produces a plot of
+        the decision boundary.
+
+    2. Create a script that has the following subcommands with input arguments
+        * Subcommand `train`: Load data, train model and save. Should take a single argument `-o` that specifics
+            the filename the trained model should be saved to.
+        * Subcommand `infer`: Load trained model and runs prediction on input data. Should take two arguments: `-i` that
+            specifies which trained model to load and `-d` to specify a user defined datapoint to run inference on.
+        * Subcommand `plot`: Load trained model and constructs the decision boundary plot from the code. Should take two
+            arguments: `-i` that specifies a trained model to load and `-o` the file to write the generated plot to
+        * Subcommand `optim`: Load data, runs hyperparameter optimization and prints optimal parameters. Should at least
+            take a single argument that in some way adjust the hyperparameter optimization (free to choose how)
+
+        In the end we like the script to be callable in the following ways
+
+        ```bash
+        python main.py train -o 'model.ckpt'
+        python main.py infer -i 'model.ckpt' -d [[0,1]]
+        python main.py plot -i 'model.ckpt' -o 'generated_plot.png'
+        python main.py optim
+        ```
+
+
+## 
+
+The two sections above have shown you how to create a simple CLI for your Python scripts. However, when doing machine
+learning projects, you often have a lot of non-Python code that you would like to run from the terminal. This could be
+
+How do we standardize the way we run these scripts? One way is to create a [Makefile](https://makefiletutorial.com/)
+
+
+
+### ❔ Exercises
+
+1. Start by installing `invoke`
+
+    ```bash
+    pip install invoke
+    ```
+
+    remember to add the package to your `requirements.txt` file.
+
+
+
+
+## 🧠 Knowledge check
+
+
 
 2. Create a new Python  file `greetings.py` and add the following code:
 
