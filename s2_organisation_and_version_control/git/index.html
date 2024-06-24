@@ -2031,16 +2031,16 @@ working together on the same project.</p>
 <p>Move/copy the three files from yesterday into the repository (and any other that you made)</p>
 </li>
 <li>
-<p class="annotate">Add the files to a commit by using <code>git add</code> command (1)</p>
+<p>Add the files to a commit by using <code>git add</code> command</p>
+</li>
+<li>
+<p class="annotate">Commit the files using <code>git commit</code> command where you use the <code>-m</code> argument to provide a commit message (1).</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing good commit message is a skill in itself. A commit message should be short but
     informative about the work you are trying to commit. Try to practise writing good commit messages
     throughout the course. You can see
     <a href="https://github.com/joelparkerhenderson/git-commit-message">this guideline</a> for help.</li>
 </ol>
-</li>
-<li>
-<p>Commit the files using <code>git commit</code></p>
 </li>
 <li>
 <p>Finally push the files to your repository using <code>git push</code>. Make sure to check online that the files have been
@@ -2060,10 +2060,15 @@ working together on the same project.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># create a new branch</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;my_branch_name&gt;
 </span></code></pre></div>
-<p>Afterwards, you can use <code>git checkout</code> to change between branches (remember to commit your work!)
+<p class="annotate">Afterwards, you can use <code>git checkout</code> (1) to change between branches (remember to commit your work!)
 Try adding something (a file, a new line of code etc.) to the newly created branch, commit it and
 try changing back to master afterwards. You should hopefully see whatever you added on the branch
 is not present on the main branch.</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>git checkout</code> command is used for a lot of different things in git. It can be used to
+    change branches, to revert changes and to create new branches. An alternative is using <code>git switch</code> and
+    <code>git restore</code> which are more modern commands.</li>
+</ol>
 </li>
 <li>
 <p>If you do not already have a cloned version of this repository belonging to the course, make sure to make one!
@@ -2111,11 +2116,23 @@ code updates to the original repository do not update code in your local reposit
     mitigate this we can set what is called an <em>remote upstream</em>. Take a look on this
     <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork">page</a>
     , and set a remote upstream for the repository you just forked.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>&lt;url-to-original-repo&gt;
+</span></code></pre></div>
+</details>
 </li>
 <li>
 <p>After setting the upstream branch, we need to pull and merge any update. Take a look on this
     <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">page</a>
     and figure out how to do this.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+</span></code></pre></div>
+</details>
 </li>
 <li>
 <p>As a final exercise we want to simulate a <em>merge conflict</em>, which happens when two users try to commit changes
@@ -2137,12 +2154,12 @@ code updates to the original repository do not update code in your local reposit
 <li>
 <p>Now try to <code>git pull</code> the online changes. What should (hopefully) happen is that git will tell you that it found
     a merge conflict that needs to be resolved. Open the file and you should see something like this</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>this is some content to mess with
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>content to append
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>=======
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>totally different content to merge later
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>this is some content to mess with
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>content to append
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>=======
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>totally different content to merge later
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
 </span></code></pre></div>
 <p>this should be interpret as: everything that's between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
 local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
@@ -2184,10 +2201,10 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
     <em>devel</em> is in sync with <em>main</em>?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>pull
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
 </span></code></pre></div>
 </details>
 </li>
@@ -2212,10 +2229,10 @@ with the most useful commands for future reference. Finally, we want to point ou
 in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
 IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
 GitHub has an built-in editor that can simply be enabled by changing any URL from</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>https://github.com/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>https://github.com/username/repository
 </span></code></pre></div>
 <p>to</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>https://github.dev/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://github.dev/username/repository
 </span></code></pre></div>
 <p>Try it out on your newly created repository.</p>
 
@@ -2240,7 +2257,7 @@ GitHub has an built-in editor that can simply be enabled by changing any URL fro
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
   </span>
 
     
