@@ -80,7 +80,7 @@ an developer friendly framework, however it has historically been slow to run in
 </figcaption>
 </figure>
 
-## ❔ Exercises
+### ❔ Exercises
 
 1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command
 
@@ -385,9 +385,63 @@ limitation.
 
 Text to come...
 
+### ❔ Exercises
+
+1. You can choose to install `torchserve` and its additional dependencies locally with the following command
+
+    ```bash
+    pip install torchserve torch-model-archiver torch-workflow-archiver
+    ```
+
+    however, `torchserve` requires you to have Java installed on your system. For this reason we are going to go through
+    the exercises using docker, but you can try to install it locally if you want to. Else lets start by pulling the
+    relevant docker image:
+
+    ```bash
+    docker pull pytorch/torchserve:latest
+    ```
+
+2. Create a folder called `model_store`, where we are going to store our models. If you choose to install `torchserve`
+    locally you can check if the installation was successful by running the following command
+
+    ```bash
+    torchserve --model-store model_store
+    ```
+
+3. We are now going to reuse the `resnet18.onnx` file we created in the privious set of exercises. For `torchserve` to
+    work with the model we need to convert it to a `.mar` file. This can be done using the `torch-model-archiver` 
+    package.
+
+    ```bash
+    torch-model-archiver --model-name resnet18 \
+        --version 1.0 --model-file resnet18.onnx --serialized-file resnet18.mar --handler image_classifier
+    ```
+
+4. We can now start the `torchserve` server using the following command
+
+    ```bash
+    docker run --rm -it -p 8080:8080 -p 8081:8081 -v $(pwd)/model_store:/home/model-server/model-store \
+        pytorch/torchserve:latest
+    ```
+
+    The server should now be running and you can access the admin panel by going to `http://localhost:8081`. You can
+    also test the model by sending a request to `http://localhost:8080/predictions/resnet18` with a image as input.
+
+8. Torchserve supports serving multiple models, not just one. Create a new vision model (either another resnet model
+    or something similar), script it, save it, archive it in the save model store folder and then re-run torchserve
+    like this
+
+    ```bash
+    torchserve --start --ncs --model-store model_store --models all
+    ```
+
+    Make sure that you can do inference with both models by calling `curl`.
+
 ## Triton Inference Server
 
 Text to come...
+
+### ❔ Exercises
 
 ## 🧠 Knowledge check
 
