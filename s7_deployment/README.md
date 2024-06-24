@@ -22,11 +22,17 @@
 
     [:octicons-arrow-right-24: M23: API testing](testing_apis.md)
 
-- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
+- ![](../figures/icons/onnx.png){align=right : style="height:100px;width:100px"}
 
     Learn about different ways to improve the deployment of machine learning models
 
     [:octicons-arrow-right-24: M24: ML Deployment](ml_deployment.md)
+
+- ![](../figures/icons/streamlit.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to create a frontend for your application using Streamlit
+
+    [:octicons-arrow-right-24: M25: Frontend](frontend.md)
 
 </div>
 
@@ -52,4 +58,4 @@ also how to deploy services in the cloud.
     * Understand the basics of requests and APIs
     * Can create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
-      serverless containers
+        serverless containers
