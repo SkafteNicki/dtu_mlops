@@ -1,0 +1,2693 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../frontend/">
+      
+      
+        <link rel="next" href="../../pages/overview/">
+      
+      
+      <link rel="icon" href="../../figures/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>M35 - ML deployment - DTU-MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployment-of-machine-learning-models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DTU-MLOps" class="md-header__button md-logo" aria-label="DTU-MLOps" data-md-component="logo">
+      
+  <img src="../../figures/mlops_cycle.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DTU-MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              M35 - ML deployment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DTU-MLOps" class="md-nav__button md-logo" aria-label="DTU-MLOps" data-md-component="logo">
+      
+  <img src="../../figures/mlops_cycle.png" alt="logo">
+
+    </a>
+    DTU-MLOps
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SkafteNicki/dtu_mlops" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pages/timeplan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeplan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s1_development_environment/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S1 - Development Environment 💻
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            S1 - Development Environment 💻
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s1_development_environment/command_line/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M1 - The command line
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s1_development_environment/package_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M2 - Package Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s1_development_environment/editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M3 - Editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s1_development_environment/deep_learning_software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M4 - Deep Learning Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s2_organisation_and_version_control/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S2 - Organisation and Version Control 📁
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            S2 - Organisation and Version Control 📁
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s2_organisation_and_version_control/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M5 - Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s2_organisation_and_version_control/code_structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M6 - Code structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s2_organisation_and_version_control/good_coding_practice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M7 - Good coding practice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s2_organisation_and_version_control/dvc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M8 - Data version control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s3_reproducibility/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S3 - Reproduceability ♻️
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            S3 - Reproduceability ♻️
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s3_reproducibility/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M9 - Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s3_reproducibility/config_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M10 - Config Files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s4_debugging_and_logging/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S4 - Debugging, Profiling and Logging ⏱️
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            S4 - Debugging, Profiling and Logging ⏱️
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s4_debugging_and_logging/debugging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M11 - Debugging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s4_debugging_and_logging/profiling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M12 - Profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s4_debugging_and_logging/logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M13 - Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s4_debugging_and_logging/boilerplate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M14 - Boilerplate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s5_continuous_integration/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S5 - Continuous Integration ✔️
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            S5 - Continuous Integration ✔️
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s5_continuous_integration/unittesting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M15 - Unit testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s5_continuous_integration/github_actions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M16 - Github Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s5_continuous_integration/pre_commit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M17 - Pre-commit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s5_continuous_integration/cml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M18 - Continuous Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s6_the_cloud/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S6 - The cloud 🌐
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            S6 - The cloud 🌐
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s6_the_cloud/cloud_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M19 - Cloud Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s6_the_cloud/using_the_cloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M20 - Using the Cloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s7_deployment/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S7 - Deployment 📦
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            S7 - Deployment 📦
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/apis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M21 - Requests and APIs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/local_deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M22 - Local Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/cloud_deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M23 - Cloud Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/testing_apis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M24 - API Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s8_monitoring/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S8 - Monitoring 📊
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_10" id="__nav_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            S8 - Monitoring 📊
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s8_monitoring/data_drifting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M25 - Data Drifting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s8_monitoring/monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M26 - System Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../s9_scalable_applications/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S9 - Scalable applications ⚖️
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            S9 - Scalable applications ⚖️
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s9_scalable_applications/data_loading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M27 - Distributed Data Loading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s9_scalable_applications/distributed_training/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M28 - Distributed Training
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s9_scalable_applications/inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M29 - Scalable Inference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    S10 - Extra 🔥
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_12" id="__nav_12_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            S10 - Extra 🔥
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M30 - Command Line Interfaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M31 - Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hyperparameters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M32 - Hyperparameter optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../high_performance_clusters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M33 - High Performance Clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frontend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M34 - Frontend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    M35 - ML deployment
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    M35 - ML deployment
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#model-packaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Packaging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#torchserve" class="md-nav__link">
+    <span class="md-ellipsis">
+      Torchserve
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triton-inference-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triton Inference Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pages/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pages/projects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pages/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#model-packaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Packaging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#torchserve" class="md-nav__link">
+    <span class="md-ellipsis">
+      Torchserve
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triton-inference-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triton Inference Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/SkafteNicki/dtu_mlops/edit/main/s10_extra/ml_deployment.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/SkafteNicki/dtu_mlops/raw/main/s10_extra/ml_deployment.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/></svg>
+    </a>
+  
+
+
+<p><a class="glightbox" href="../../figures/icons/onnx.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/onnx.png" width="130" /></a></p>
+<h1 id="deployment-of-machine-learning-models">Deployment of Machine Learning Models</h1>
+<hr />
+<p>In one of the <a href="../../s7_deployment/apis/">previous modules</a> you learned about how to use
+<a href="https://fastapi.tiangolo.com/">FastAPI</a> to create an API to interact with your machine learning models. FastAPI is a
+great framework, but it is a general framework meaning that it was not developed with machine learning applications in
+mind. This means that there are features which you may consider to be missing when considering running large scale
+machine learning models:</p>
+<ul>
+<li>
+<p>Dynamic-batching: if you have a large number of requests coming in, you may want to process them in batches to
+    reduce the overhead of loading the model and running the inference. This is especially true if you are running your
+    model on a GPU, where the overhead of loading the model is significant.</p>
+</li>
+<li>
+<p>Async inference: FastAPi does support async requests but not no way to call the model asynchronously. This means that
+    if you have a large number of requests coming in, you will have to wait for the model to finish processing (because
+    the model is not async) before you can start processing the next request.</p>
+</li>
+<li>
+<p>Native GPU support: you can definitely run part of your application in FastAPI if you want to. But again it was not
+    build with machine learning in mind, so you will have to do some extra work to get it to work.</p>
+</li>
+</ul>
+<p>It should come as no surprise that multiple frameworks have therefore sprung up that better supports deployment of
+machine learning algorithms:</p>
+<ul>
+<li>
+<p><a href="https://github.com/cortexlabs/cortex">Cortex</a></p>
+</li>
+<li>
+<p><a href="https://github.com/bentoml/bentoml">Bento ML</a></p>
+</li>
+<li>
+<p><a href="https://docs.ray.io/en/master/serve/">Ray Serve</a></p>
+</li>
+<li>
+<p><a href="https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html">Triton Inference Server</a></p>
+</li>
+<li>
+<p><a href="https://docs.openvino.ai/2024/index.html">OpenVINO</a></p>
+</li>
+<li>
+<p><a href="https://docs.seldon.io/projects/seldon-core/en/latest/">Seldon-core</a></p>
+</li>
+<li>
+<p><a href="https://pytorch.org/serve/">Torchserve</a></p>
+</li>
+<li>
+<p><a href="https://github.com/tensorflow/serving">Tensorflow serve</a></p>
+</li>
+</ul>
+<p>The first 6 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
+you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two are backend specific to respective
+Pytorch and Tensorflow. In this module we are going to look at two of the frameworks, namely <code>Torchserve</code> because we
+have developed Pytorch applications i nthis course and <code>Triton Inference Server</code> because it is a very popular framework
+for deploying models on Nvidia GPUs (but we can still use it on CPU).</p>
+<p>But before we dive into these frameworks, we are going to look at a general way to package our machine learning models
+that should work with any of the above frameworks.</p>
+<h2 id="model-packaging">Model Packaging</h2>
+<p>Whenever we want to serve an machine learning model, we in general need 3 things:</p>
+<ul>
+<li>The computational graph of the model, e.g. how to pass data through the model to get a prediction.</li>
+<li>The weights of the model, e.g. the parameters that the model has learned during training.</li>
+<li>A computational backend that can run the model</li>
+</ul>
+<p>In the previous module on <a href="../../s3_reproducibility/docker/">Docker</a> we learned how to package all of these things into
+a container. This is a great way to package a model, but it is not the only way. The core assumption we currently have
+made is that the computational backend is the same as the one we trained the model on. However, this does not need to
+be the case. As long as we can export our model and weights to a common format, we can run the model on any backend
+that supports this format.</p>
+<p>This is exactly what the <a href="https://onnx.ai/">Open Neural Network Exchange (ONNX)</a> is designed to do. ONNX is a
+standardized format for creating and sharing machine learning models. It defines an extensible computation graph model,
+as well as definitions of built-in operators and standard data types. The idea behind ONNX is that a model trained with
+a specific framework on a specific device, lets say Pytorch on your local computer, can be exported and run with an
+entirely different framework and hardware easily. Learning how to export your models to ONNX is therefore a great way
+to increase the longivity of your models and not being locked into a specific framework for serving your models.</p>
+<figure>
+<p><a class="glightbox" href="../../figures/onnx.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/onnx.png" width="1000" /></a></p>
+<figcaption>
+The ONNX format is designed to bridge the gap between development and deployment of machine learning models, by making
+it easy to export models between different frameworks and hardware. For example Pytorch is in general considered
+an developer friendly framework, however it has historically been slow to run inference with compared to a framework.
+<a href="https://medium.com/trueface-ai/two-benefits-of-the-onnx-library-for-ml-models-4b3e417df52e"> Image credit </a>
+</figcaption>
+</figure>
+<h2 id="exercises">❔ Exercises</h2>
+<ol>
+<li>
+<p>Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>onnx<span class="w"> </span>onnxruntime<span class="w"> </span>onnxscript
+</span></code></pre></div>
+<p>the first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
+and the third package contains a new experimental package that is designed to make it easier to export models to
+ONNX.</p>
+</li>
+<li>
+<p>Let's start out with converting a model to ONNX. The following code snippets shows how to export a Pytorch model to
+    ONNX.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Pytorch =&gt; 2.0</label><label for="__tabbed_1_2">Pytorch &lt; 2.0 or Windows</label><label for="__tabbed_1_3">Pytorch-lightning</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span> <span class="nn">torchvision</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">onnx_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">model_args</span><span class="o">=</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">export_options</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">ExportOptions</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">onnx_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span> <span class="nn">torchvision</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">],</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">output_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">},</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">}}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span> <span class="nn">torchvision</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">import</span> <span class="nn">onnx</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">import</span> <span class="nn">onnxruntime</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">class</span> <span class="nc">LitModel</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">):</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="n">model</span> <span class="o">=</span> <span class="n">LitModel</span><span class="p">()</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="n">model</span><span class="o">.</span><span class="n">to_onnx</span><span class="p">(</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">,</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="n">input_sample</span><span class="o">=</span><span class="n">dummy_input</span><span class="p">,</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">],</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="n">output_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">},</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">}}</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>Export a model of your own choice to ONNX or just try to export the <code>resnet18</code> model as shown in the examples above,
+and confirm that the model was exported by checking that the file exists. Can you figure out what is meant by
+<code>dynamic_axes</code>?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The <code>dynamic_axes</code> argument is used to specify which axes of the input tensor that should be considered dynamic.
+This is useful when the model can accept inputs of different sizes, e.g. when the model is used in a dynamic
+batching scenario. In the example above we have specified that the first axis of the input tensor should be
+considered dynamic, meaning that the model can accept inputs of different batch sizes. While it may be tempting
+to specify all axes as dynamic, however this can lead to slower inference times, because the ONNX runtime will
+not be able to optimize the computational graph as well.</p>
+</details>
+</li>
+<li>
+<p>Check that the model was correctly exported by loading it using the <code>onnx</code> package and afterwards check the graph
+    of model using the following code:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">onnx</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">onnx</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">onnx</span><span class="o">.</span><span class="n">checker</span><span class="o">.</span><span class="n">check_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnx</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">printable_graph</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">graph</span><span class="p">))</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>To get a better understanding of what is actually exported, lets try to visualize the computational graph of the
+    model. This can be done using the open-source tool <a href="https://github.com/lutzroeder/netron">netron</a>. You can either
+    try it out directly in <a href="https://netron.app/">webbrowser</a> or you can install it locally using <code>pip install netron</code>
+    and then run it using <code>netron resnet18.onnx</code>. Can you figure out what method of the model is exported to ONNX?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>When a Pytorch model is exported to ONNX, it is only the <code>forward</code> method of the model that is exported. This
+means that it is the only method we have access to when we load the model later. Therefore, make sure that the
+<code>forward</code> method of your model is implemented in a way that it can be used for inference.</p>
+</details>
+</li>
+<li>
+<p>After converting a model to ONNX format we can use the <a href="https://onnxruntime.ai/docs/">ONNX Runtime</a> to run it.
+    The benefit of this is that ONNX Runtime is able to optimize the computational graph of the model, which can lead
+    to faster inference times. Lets try to look into that.</p>
+<ol>
+<li>
+<p>Figure out how to run a model using the ONNX Runtime. Relevant
+    <a href="https://onnxruntime.ai/docs/get-started/with-python.html">documentation</a>.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>To use the ONNX runtime to run a model, we first need to start a inference session, then extract input
+output names of our model and finally run the model. The following code snippet shows how to do this.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span> <span class="nn">onnxruntime</span> <span class="k">as</span> <span class="nn">rt</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;&lt;path-to-model&gt;&quot;</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">input_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">()]</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">output_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_outputs</span><span class="p">()]</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">input_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">out</span> <span class="o">=</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">output_names</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>Let's experiment with performance of ONNX vs. Pytorch. Implement a benchmark that measures the time it takes to
+    run a model using Pytorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
+    have implemented a timing decorator that you can use to measure the time it takes to run a function.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span> <span class="nf">timing_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">function_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">timing_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Decorator that times the execution of a function. &quot;&quot;&quot;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="n">timing_results</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">timing_repeat</span><span class="p">):</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">function_repeat</span><span class="p">):</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>                <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>            <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>            <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>            <span class="n">timing_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elapsed_time</span><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Avg +- Stddev: </span><span class="si">{</span><span class="n">mean</span><span class="p">(</span><span class="n">timing_results</span><span class="p">)</span><span class="si">:</span><span class="s2">0.3f</span><span class="si">}</span><span class="s2"> +- </span><span class="si">{</span><span class="n">stdev</span><span class="p">(</span><span class="n">timing_results</span><span class="p">)</span><span class="si">:</span><span class="s2">0.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="k">return</span> <span class="n">wrapper</span>
+</span></code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">onnx_benchmark.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span>
+<span class="normal"><a href="#__codelineno-7-24">24</a></span>
+<span class="normal"><a href="#__codelineno-7-25">25</a></span>
+<span class="normal"><a href="#__codelineno-7-26">26</a></span>
+<span class="normal"><a href="#__codelineno-7-27">27</a></span>
+<span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span>
+<span class="normal"><a href="#__codelineno-7-30">30</a></span>
+<span class="normal"><a href="#__codelineno-7-31">31</a></span>
+<span class="normal"><a href="#__codelineno-7-32">32</a></span>
+<span class="normal"><a href="#__codelineno-7-33">33</a></span>
+<span class="normal"><a href="#__codelineno-7-34">34</a></span>
+<span class="normal"><a href="#__codelineno-7-35">35</a></span>
+<span class="normal"><a href="#__codelineno-7-36">36</a></span>
+<span class="normal"><a href="#__codelineno-7-37">37</a></span>
+<span class="normal"><a href="#__codelineno-7-38">38</a></span>
+<span class="normal"><a href="#__codelineno-7-39">39</a></span>
+<span class="normal"><a href="#__codelineno-7-40">40</a></span>
+<span class="normal"><a href="#__codelineno-7-41">41</a></span>
+<span class="normal"><a href="#__codelineno-7-42">42</a></span>
+<span class="normal"><a href="#__codelineno-7-43">43</a></span>
+<span class="normal"><a href="#__codelineno-7-44">44</a></span>
+<span class="normal"><a href="#__codelineno-7-45">45</a></span>
+<span class="normal"><a href="#__codelineno-7-46">46</a></span>
+<span class="normal"><a href="#__codelineno-7-47">47</a></span>
+<span class="normal"><a href="#__codelineno-7-48">48</a></span>
+<span class="normal"><a href="#__codelineno-7-49">49</a></span>
+<span class="normal"><a href="#__codelineno-7-50">50</a></span>
+<span class="normal"><a href="#__codelineno-7-51">51</a></span>
+<span class="normal"><a href="#__codelineno-7-52">52</a></span>
+<span class="normal"><a href="#__codelineno-7-53">53</a></span>
+<span class="normal"><a href="#__codelineno-7-54">54</a></span>
+<span class="normal"><a href="#__codelineno-7-55">55</a></span>
+<span class="normal"><a href="#__codelineno-7-56">56</a></span>
+<span class="normal"><a href="#__codelineno-7-57">57</a></span>
+<span class="normal"><a href="#__codelineno-7-58">58</a></span>
+<span class="normal"><a href="#__codelineno-7-59">59</a></span>
+<span class="normal"><a href="#__codelineno-7-60">60</a></span>
+<span class="normal"><a href="#__codelineno-7-61">61</a></span>
+<span class="normal"><a href="#__codelineno-7-62">62</a></span>
+<span class="normal"><a href="#__codelineno-7-63">63</a></span>
+<span class="normal"><a href="#__codelineno-7-64">64</a></span>
+<span class="normal"><a href="#__codelineno-7-65">65</a></span>
+<span class="normal"><a href="#__codelineno-7-66">66</a></span>
+<span class="normal"><a href="#__codelineno-7-67">67</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kn">import</span> <span class="nn">sys</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="kn">import</span> <span class="nn">onnxruntime</span> <span class="k">as</span> <span class="nn">ort</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="kn">import</span> <span class="nn">torch</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="kn">import</span> <span class="nn">torchvision</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="k">def</span> <span class="nf">timing_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">function_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">timing_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator that times the execution of a function.&quot;&quot;&quot;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a>        <span class="n">timing_results</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">timing_repeat</span><span class="p">):</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a>            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a>            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">function_repeat</span><span class="p">):</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a>                <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a>            <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a>            <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>            <span class="n">timing_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elapsed_time</span><span class="p">)</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Avg +- Stddev: </span><span class="si">{</span><span class="n">mean</span><span class="p">(</span><span class="n">timing_results</span><span class="p">)</span><span class="si">:</span><span class="s2">0.3f</span><span class="si">}</span><span class="s2"> +- </span><span class="si">{</span><span class="n">stdev</span><span class="p">(</span><span class="n">timing_results</span><span class="p">)</span><span class="si">:</span><span class="s2">0.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a>        <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a><span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">()</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30"></a>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33"></a>    <span class="c1"># Windows doesn&#39;t support the new TorchDynamo-based ONNX Exporter</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35"></a>        <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36"></a>        <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span>
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37"></a>        <span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">,</span>
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38"></a>        <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input.1&quot;</span><span class="p">],</span>
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39"></a>        <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input.1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;width&quot;</span><span class="p">}},</span>
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40"></a>    <span class="p">)</span>
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41"></a>
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42"></a>    <span class="n">compiled_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43"></a>
+</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44"></a><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dummy_input</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">)</span>
+</span><span id="__span-7-46"><a id="__codelineno-7-46" name="__codelineno-7-46"></a>
+</span><span id="__span-7-47"><a id="__codelineno-7-47" name="__codelineno-7-47"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">ort</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;resnet18.onnx&quot;</span><span class="p">)</span>
+</span><span id="__span-7-48"><a id="__codelineno-7-48" name="__codelineno-7-48"></a>
+</span><span id="__span-7-49"><a id="__codelineno-7-49" name="__codelineno-7-49"></a>
+</span><span id="__span-7-50"><a id="__codelineno-7-50" name="__codelineno-7-50"></a><span class="nd">@timing_decorator</span>
+</span><span id="__span-7-51"><a id="__codelineno-7-51" name="__codelineno-7-51"></a><span class="k">def</span> <span class="nf">torch_predict</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+</span><span id="__span-7-52"><a id="__codelineno-7-52" name="__codelineno-7-52"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict using PyTorch model.&quot;&quot;&quot;</span>
+</span><span id="__span-7-53"><a id="__codelineno-7-53" name="__codelineno-7-53"></a>    <span class="n">model</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span id="__span-7-54"><a id="__codelineno-7-54" name="__codelineno-7-54"></a>
+</span><span id="__span-7-55"><a id="__codelineno-7-55" name="__codelineno-7-55"></a>
+</span><span id="__span-7-56"><a id="__codelineno-7-56" name="__codelineno-7-56"></a><span class="nd">@timing_decorator</span>
+</span><span id="__span-7-57"><a id="__codelineno-7-57" name="__codelineno-7-57"></a><span class="k">def</span> <span class="nf">onnx_predict</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+</span><span id="__span-7-58"><a id="__codelineno-7-58" name="__codelineno-7-58"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict using ONNX model.&quot;&quot;&quot;</span>
+</span><span id="__span-7-59"><a id="__codelineno-7-59" name="__codelineno-7-59"></a>    <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;input.1&quot;</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">()})</span>
+</span><span id="__span-7-60"><a id="__codelineno-7-60" name="__codelineno-7-60"></a>
+</span><span id="__span-7-61"><a id="__codelineno-7-61" name="__codelineno-7-61"></a>
+</span><span id="__span-7-62"><a id="__codelineno-7-62" name="__codelineno-7-62"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-7-63"><a id="__codelineno-7-63" name="__codelineno-7-63"></a>    <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">448</span><span class="p">,</span> <span class="mi">896</span><span class="p">]:</span>
+</span><span id="__span-7-64"><a id="__codelineno-7-64" name="__codelineno-7-64"></a>        <span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span><span id="__span-7-65"><a id="__codelineno-7-65" name="__codelineno-7-65"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image size: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-7-66"><a id="__codelineno-7-66" name="__codelineno-7-66"></a>        <span class="n">torch_predict</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
+</span><span id="__span-7-67"><a id="__codelineno-7-67" name="__codelineno-7-67"></a>        <span class="n">onnx_predict</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>To get a better understanding of why running the model using the ONNX runtime is usually faster lets try to see
+    what happens to the computational graph. By default the ONNX Runtime will apply these optimization in <em>online</em>
+    mode, meaning that the optimizations are applied when the model is loaded. However, it is also possible to apply
+    the optimizations in <em>offline</em> mode, such that the optimized model is saved to disk. Below is an example of how
+    to do this.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span> <span class="nn">onnxruntime</span> <span class="k">as</span> <span class="nn">rt</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">sess_options</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">SessionOptions</span><span class="p">()</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Set graph optimization level</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">sess_options</span><span class="o">.</span><span class="n">graph_optimization_level</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">GraphOptimizationLevel</span><span class="o">.</span><span class="n">ORT_ENABLE_EXTENDED</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># To enable model serialization after graph optimization set this</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">sess_options</span><span class="o">.</span><span class="n">optimized_model_filepath</span> <span class="o">=</span> <span class="s2">&quot;optimized_model.onnx&gt;&quot;</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="n">session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;&lt;model_path&gt;&quot;</span><span class="p">,</span> <span class="n">sess_options</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Try to apply the optimizations in offline mode and use <code>netron</code> to visualize both the original and optimized
+model side by side. Can you see any differences?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You should hopefully see that the optimized model consist of fewer nodes and edges than the original model.
+These nodes are often called fused nodes, because they are the result of multiple nodes being fused
+together. In the image below we have visualized the first part of the computational graph of a resnet18
+model, before and after optimization.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/onnx_optimization.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/onnx_optimization.png" width="600" /></a>
+</figure></p>
+</details>
+</li>
+</ol>
+</li>
+<li>
+<p>As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engine.
+    You can check all providers and all the available providers by running the following code</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span> <span class="nn">onnxruntime</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_all_providers</span><span class="p">())</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_available_providers</span><span class="p">())</span>
+</span></code></pre></div>
+<p>Can you figure out how to set which provide the ONNX runtime should use?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The provider that the ONNX runtime should use can be set by passing the <code>providers</code> argument to the
+<code>InferenceSession</code> class. A list should be provided, which prioritizes the providers in the order they are
+listed.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">onnxruntime</span> <span class="k">as</span> <span class="nn">rt</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">provider_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CUDAExecutionProvider&#39;</span><span class="p">,</span> <span class="s1">&#39;CPUExecutionProvider&#39;</span><span class="p">]</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;&lt;path-to-model&gt;&quot;</span><span class="p">,</span> <span class="n">providers</span><span class="o">=</span><span class="n">provider_list</span><span class="p">)</span>
+</span></code></pre></div>
+<p>In this case we will prefer CUDA Execution Provider over CPU Execution Provider if both are available.</p>
+</details>
+</li>
+<li>
+<p>As you have probably realised in the exercises <a href="../../s3_reproducibility/docker/">on docker</a>, it can take a long time
+    to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
+    is that Pytorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
+    framework. This kind of makes sense, because Pytorch is a framework that primarily was designed for developing e.g.
+    training models, while ONNX is a framework that is designed for serving models. Let's try to quantify this.</p>
+<ol>
+<li>
+<p>Construct a dockerfile that builds a docker image with Pytorch as a dependency. The dockerfile does actually
+    not need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
+    image that takes a <a href="https://docs.docker.com/build/guide/build-args/">build arg</a> at build time that specifies
+    if the image should be built with CUDA support or not.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The dockerfile for the Pytorch image could look something like this</p>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">inference_pytorch.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="k">ARG</span><span class="w"> </span>CUDA
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CUDA</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">    </span><span class="k">fi</span>
+</span></code></pre></div></td></tr></table></div>
+<p>and the dockerfile for the ONNX image could look something like this</p>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">inference_onnx.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CUDA</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime-gpu<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="w">    </span><span class="k">fi</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>Build both containers and measure the time it takes to build them. How much faster is it to build the ONNX
+    container compared to the Pytorch container?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>On unix/linux you can use the <a href="https://linuxize.com/post/linux-time-command/">time</a> command to measure
+the time it takes to build the containers. Building both images, with and without CUDA support, can be done
+with the following commands</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>pytorch_inference_cuda:latest<span class="w"> </span>-f<span class="w"> </span>inference_pytorch.dockerfile<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span><span class="nb">true</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>pytorch_inference:latest<span class="w"> </span>-f<span class="w"> </span>inference_pytorch.dockerfile<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>onnx_inference_cuda:latest<span class="w"> </span>-f<span class="w"> </span>inference_onnx.dockerfile<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span><span class="nb">true</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>onnx_inference:latest<span class="w"> </span>-f<span class="w"> </span>inference_onnx.dockerfile<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span>
+</span></code></pre></div>
+<p>the <code>--no-cache</code> flag is used to ensure that the build process is not cached and ensure a fair comparison.
+On my laptop this respectively took <code>5m1s</code>, <code>1m4s</code>, <code>0m4s</code>, <code>0m50s</code> meaning that the ONNX
+container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the Pytorch container.</p>
+</details>
+</li>
+<li>
+<p>Find out the size of the two docker images. It can be done in the terminal by running the <code>docker images</code>
+    command. How much smaller is the ONNX model compared to the Pytorch model?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>As of writing the docker image containing the Pytorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
+In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
+respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the Pytorch image.</p>
+</details>
+</li>
+</ol>
+</li>
+<li>
+<p>(Optional) Assuming you have completed the module on <a href="../../s7_deployment/apis/">FastAPI</a> try creating a small
+    FastAPI application that serves a model using the ONNX runtime.</p>
+</li>
+</ol>
+<p>This completes the exercises on the ONNX format. Do note that one limitation of the ONNX format is that is is based on
+<a href="https://protobuf.dev/">ProtoBuf</a>, which is a binary format. A protobuf file can have a maximum size of 2GB, which means
+that the <code>.onnx</code> format is not enough for very large models. However, through the use of
+<a href="https://onnxruntime.ai/docs/tutorials/web/large-models.html">external data</a> it is possible to circumvent this
+limitation.</p>
+<h2 id="torchserve">Torchserve</h2>
+<p>Text to come...</p>
+<h2 id="triton-inference-server">Triton Inference Server</h2>
+<p>Text to come...</p>
+<h2 id="knowledge-check">🧠 Knowledge check</h2>
+<ol>
+<li>
+<p>How would you export a <code>scikit-learn</code> model to ONNX? What method is exported when you export <code>scikit-learn</code> model to
+    ONNX?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>It is possible to export a <code>scikit-learn</code> model to ONNX using the <code>sklearn-onnx</code> package. The following code
+snippet shows how to export a <code>scikit-learn</code> model to ONNX.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">from</span> <span class="nn">skl2onnx</span> <span class="kn">import</span> <span class="n">to_onnx</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">dummy_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">onx</span> <span class="o">=</span> <span class="n">to_onnx</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dummy_input</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;model.onnx&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">onx</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+</span></code></pre></div>
+<p>The method that is exported when you export a <code>scikit-learn</code> model to ONNX is the <code>predict</code> method.</p>
+</details>
+</li>
+<li>
+<p>In your own words, describe what the concept of <em>computational graph</em> means?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>A computational graph is a way to represent the mathematical operations that are performed in a model. It is
+essentially a graph where the nodes are the operations and the edges are the data that is passed between them.
+The computational graph normally represents the forward pass of the model and is the reason that we can easily
+backpropagate through the model to train it, because the graph contains all the necessary information to
+calculate the gradients of the model.</p>
+</details>
+</li>
+<li>
+<p>In your own words, explain why fusing operations together in the computational graph often leads to better
+    performance?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Each time we want to do a computation, the data needs to be loaded from memory into the CPU/GPU. This is a
+slow process and the more operations we have, the more times we need to load the data. By fusing operations
+together, we can reduce the number of times we need to load the data, because we can do multiple operations
+on the same data before we need to load new data.</p>
+</details>
+</li>
+</ol>
+<p>This ends the module on tools specifically designed for serving machine learning models.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../frontend/" class="md-footer__link md-footer__link--prev" aria-label="Previous: M34 - Frontend">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                M34 - Frontend
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../pages/overview/" class="md-footer__link md-footer__link--next" aria-label="Next: Summary">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Summary
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 - 2024 Nicki Skafte Detlefsen
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:skaftenicki@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/SkafteNicki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/nicki-skafte-detlefsen/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
