@@ -44,7 +44,7 @@ The first 6 frameworks are backend agnostic, meaning that they are intended to w
 you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two are backend specific to respective
 Pytorch and Tensorflow. In this module we are going to look at two of the frameworks, namely `Torchserve` because we
 have developed Pytorch applications i nthis course and `Triton Inference Server` because it is a very popular framework
-for deploying models on Nvidia GPUs (but we can still use it on CPU).
+for deploying models on Nvidia GPUs (but we can still use it on CPU). We recommend that yo
 
 But before we dive into these frameworks, we are going to look at a general way to package our machine learning models
 that should work with any of the above frameworks.
@@ -447,47 +447,19 @@ can be seen in the image below. While you do not have to understand every part o
 
 3. We need to write a custom handler that tells `torchserve` how to use our model for inference. Take a look at this
     [documentation](https://pytorch.org/serve/custom_service.html) and write a custom handler in a file called 
-    `image_classifier.py` that can be used to serve the `resnet18` model we exported to ONNX in the previous exercises.
+    `onnx_handler.py` that can be used to serve the `resnet18` model we exported to ONNX in the previous exercises. Here
+    are some starting code to get you started.
+
+    ??? example "Starter code"
+
+        ```python linenums="1" title="onnx_handler.py"
+        --8<-- "s10_extra/exercise_files/onnx_handler_fillout.py"
+        ```
 
     ??? success "Solution"
 
-        ```python linenums="1" title="image_classifier.py"
-        # onnx_handler.py
-        from ts.torch_handler.base_handler import BaseHandler
-        import onnxruntime as ort
-        import numpy as np
-        import json
-
-        class ONNXHandler(BaseHandler):
-            def initialize(self, ctx):
-                # Initialize the model and any other required components
-                self.manifest = ctx.manifest
-                properties = ctx.system_properties
-                model_dir = properties.get("model_dir")
-                
-                # Load the ONNX model
-                model_path = f"{model_dir}/model.onnx"
-                self.session = ort.InferenceSession(model_path)
-                self.input_name = self.session.get_inputs()[0].name
-                self.output_name = self.session.get_outputs()[0].name
-
-            def preprocess(self, data):
-                # Preprocess the input data
-                input_data = data[0].get("body")
-                input_data = json.loads(input_data)
-                input_array = np.array(input_data, dtype=np.float32)
-                return input_array
-
-            def inference(self, input_array):
-                # Perform inference
-                ort_inputs = {self.input_name: input_array}
-                ort_outs = self.session.run([self.output_name], ort_inputs)
-                return ort_outs
-
-            def postprocess(self, inference_output):
-                # Postprocess the inference output
-                output_data = inference_output[0].tolist()
-                return [json.dumps(output_data)]
+        ```python linenums="1" title="onnx_handler.py"
+        --8<-- "s10_extra/exercise_files/onnx_handler.py"
         ```
 
 3. We are now going to reuse the `resnet18.onnx` file we created in the privious set of exercises. For `torchserve` to
@@ -495,8 +467,8 @@ can be seen in the image below. While you do not have to understand every part o
     package.
 
     ```bash
-    torch-model-archiver --model-name resnet18 \
-        --version 1.0 --model-file resnet18.onnx --serialized-file resnet18.mar --handler image_classifier
+    torch-model-archiver --model-name resnet18 --version 1.0 \
+        --model-file resnet18.onnx --serialized-file resnet18.mar --handler onnx_handler.py
     ```
 
 4. We can now start the `torchserve` server using the following command
