@@ -44,7 +44,7 @@ The first 6 frameworks are backend agnostic, meaning that they are intended to w
 you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two are backend specific to respective
 Pytorch and Tensorflow. In this module we are going to look at two of the frameworks, namely `Torchserve` because we
 have developed Pytorch applications i nthis course and `Triton Inference Server` because it is a very popular framework
-for deploying models on Nvidia GPUs (but we can still use it on CPU).
+for deploying models on Nvidia GPUs (but we can still use it on CPU). We recommend that yo
 
 But before we dive into these frameworks, we are going to look at a general way to package our machine learning models
 that should work with any of the above frameworks.
@@ -80,7 +80,7 @@ an developer friendly framework, however it has historically been slow to run in
 </figcaption>
 </figure>
 
-## ❔ Exercises
+### ❔ Exercises
 
 1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command
 
@@ -383,11 +383,205 @@ limitation.
 
 ## Torchserve
 
-Text to come...
+[Torchserve](https://pytorch.org/serve/) is the native model serving framework for Pytorch. It is designed to be a
+lightweight, flexible and easy to use framework for serving Pytorch models. The overall architechture of `torchserve`
+can be seen in the image below. While you do not have to understand every part of the architecture, overall note that:
+
+* Torchserve consist of a backend and a *frontend*. When a request is send through the inference API it is first send to
+    the frontend. The frontend can consist of multiple endpoints, serving multiple models. The frontends main task
+    is to route the request to the correct backend.
+* The specific *backend* that the request is routed to is determined by information in the request. The backend is
+    responsible for loading the model, running the inference and returning the result to the frontend.
+* The backend can run multiple models at the same time. The models are loaded from a common *model store*, which is
+    a directory on the server where the models are stored.
+* Finally, torchserve also consist of a management API, which can be used to manage the server, e.g. to start and stop
+    the server, to load and unload models and to get information about the server without having to shut it down.
+
+<figure markdown>
+![Image](../figures/torchserve.png){ width="1000" }
+<figcaption>
+<a href="https://pytorch.org/serve/"> Image credit </a>
+</figcaption>
+</figure>
+
+### ❔ Exercises
+
+1. You can install `torchserve` and its additional dependencies locally with the following command
+
+    ```bash
+    pip install torchserve torch-model-archiver torch-workflow-archiver
+    ```
+
+    however, `torchserve` requires you to have Java installed on your system. For this reason we are going to go through
+    the exercises using docker, but you can try to install it locally if you want to (we will need the 
+    `torch-model-archiver` in both cases). Else lets start by pulling the relevant docker image:
+
+    ```bash
+    docker pull pytorch/torchserve:latest
+    ```
+
+2. Create a folder called `model-store`, where we are going to store our models. If you choose to install `torchserve`
+    locally you can check if the installation was successful by running the following command
+
+    ```bash
+    torchserve --model-store model-store
+    ```
+
+    else try to run the docker image with the 
+    [following command](https://github.com/pytorch/serve/blob/master/docker/README.md)
+
+    ```bash
+    docker run --rm -it \
+        -p 127.0.0.1:8080:8080 \
+        -p 127.0.0.1:8081:8081 \
+        -p 127.0.0.1:8082:8082 \
+        -p 127.0.0.1:7070:7070 \
+        -p 127.0.0.1:7071:7071 \
+        pytorch/torchserve:latest
+    ```
+
+    TorchServe's Dockerfile configures ports 8080, 8081 , 8082, 7070 and 7071 to be exposed to the host by default. In
+    both cases you should be able to access the [admin panel](https://pytorch.org/serve/management_api.html) (which is 
+    served on port `8081`) by going to `http://localhost:8081/models`. Since we did not load any models yet, the admin 
+    panel should be empty.
+
+3. We need to write a custom handler that tells `torchserve` how to use our model for inference. Take a look at this
+    [documentation](https://pytorch.org/serve/custom_service.html) and write a custom handler in a file called 
+    `onnx_handler.py` that can be used to serve the `resnet18` model we exported to ONNX in the previous exercises. Here
+    are some starting code to get you started.
+
+    ??? example "Starter code"
+
+        ```python linenums="1" title="onnx_handler.py"
+        --8<-- "s10_extra/exercise_files/onnx_handler_fillout.py"
+        ```
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="onnx_handler.py"
+        --8<-- "s10_extra/exercise_files/onnx_handler.py"
+        ```
+
+3. We are now going to reuse the `resnet18.onnx` file we created in the privious set of exercises. For `torchserve` to
+    work with the model we need to convert it to a `.mar` file. This can be done using the `torch-model-archiver` 
+    package.
+
+    ```bash
+    torch-model-archiver --model-name resnet18 --version 1.0 \
+        --model-file resnet18.onnx --serialized-file resnet18.mar --handler onnx_handler.py
+    ```
+
+4. We can now start the `torchserve` server using the following command
+
+    ```bash
+    docker run --rm -it -p 8080:8080 -p 8081:8081 -v $(pwd)/model_store:/home/model-server/model-store \
+        pytorch/torchserve:latest
+    ```
+
+    The server should now be running and you can access the admin panel by going to `http://localhost:8081`. You can
+    also test the model by sending a request to `http://localhost:8080/predictions/resnet18` with a image as input.
+
+8. Torchserve supports serving multiple models, not just one. Create a new vision model (either another resnet model
+    or something similar), script it, save it, archive it in the save model store folder and then re-run torchserve
+    like this
+
+    ```bash
+    torchserve --start --ncs --model-store model_store --models all
+    ```
+
+    Make sure that you can do inference with both models by calling `curl`.
 
 ## Triton Inference Server
 
-Text to come...
+> Triton Inference Server is an open source inference serving software that streamlines AI inferencing.
+
+At the core of the triton inference server is the concept of a model repository. This is a directory where you place
+your models and a configuration file that tells the server how to load the model. The server supports many different
+model formats:
+
+
+
+
+If you have completed the privious [module on ONNX](onnx.md) the you can just place the `.onnx` file in the model
+repository as triton-inference server also supports ONNX models.
+
+```txt
+<model-repository-path>/
+    <model-name>/
+        config.pbtxt
+        <version-number>/
+            model.onnx
+        <version-number>/
+            model.onnx
+    <model-name>/
+        ...
+```
+
+Regardless of format, the overall structure is the same: the inference server can serve multiple models at the same time
+and therefore each model has its own directory. Inside each model directory there is a `config.pbtxt` file that tells the
+server how to load the model. The `config.pbtxt` file is a protobuf file that contains the following information:
+
+* `name`: the name of the model
+* `platform`: the platform that the model is running on (e.g. `onnxruntime_onnx`)
+* `max_batch_size`: the maximum batch size that the model can handle
+* `input`: the input tensor names and shapes
+* `output`: the output tensor names and shapes
+* `version_policy`: the version policy for the model (e.g. `latest`)
+* `dynamic_batching`: whether dynamic batching is enabled
+* `optimization`: whether the model is optimized for inference
+
+### ❔ Exercises
+
+1. define `config.pbtxt` 
+
+    ```txt
+    name: "text_detection"
+    backend: "onnxruntime"
+    max_batch_size : 256
+    input [
+    {
+        name: "input_images:0"
+        data_type: TYPE_FP32
+        dims: [ -1, -1, -1, 3 ]
+    }
+    ]
+    output [
+    {
+        name: "feature_fusion/Conv_7/Sigmoid:0"
+        data_type: TYPE_FP32
+        dims: [ -1, -1, -1, 1 ]
+    }
+    ]
+    output [
+    {
+        name: "feature_fusion/concat_3:0"
+        data_type: TYPE_FP32
+        dims: [ -1, -1, -1, 5 ]
+    }
+    ]
+    ```
+
+
+1. docker run -it --rm --net=host -v ${PWD}:/workspace/ nvcr.io/nvidia/tritonserver:<yy.mm>-py3-sdk bash
+
+2. You should be able to call it as any other requests but lets try out the client that comes with the triton server
+
+    ```bash
+    pip install tritonclient
+    ```
+    ```bash
+    triton-inference-server-client -m text_detection -i /workspace/input_images.npy -o /workspace/output_images.npy
+    ```
+
+    ```python
+    import tritonclient.grpc as grpcclient
+    import tritonclient.grpc.model_config_pb2 as mc
+    import tritonclient.http as httpclient
+
+    # Create a GRPC client
+    triton_client = grpcclient.InferenceServerClient(url="localhost:8001", verbose=True)
+    ```
+
 
 ## 🧠 Knowledge check
 
