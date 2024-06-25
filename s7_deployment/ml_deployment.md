@@ -383,30 +383,112 @@ limitation.
 
 ## Torchserve
 
-Text to come...
+[Torchserve](https://pytorch.org/serve/) is the native model serving framework for Pytorch. It is designed to be a
+lightweight, flexible and easy to use framework for serving Pytorch models. The overall architechture of `torchserve`
+can be seen in the image below. While you do not have to understand every part of the architecture, overall note that:
+
+* Torchserve consist of a backend and a *frontend*. When a request is send through the inference API it is first send to
+    the frontend. The frontend can consist of multiple endpoints, serving multiple models. The frontends main task
+    is to route the request to the correct backend.
+* The specific *backend* that the request is routed to is determined by information in the request. The backend is
+    responsible for loading the model, running the inference and returning the result to the frontend.
+* The backend can run multiple models at the same time. The models are loaded from a common *model store*, which is
+    a directory on the server where the models are stored.
+* Finally, torchserve also consist of a management API, which can be used to manage the server, e.g. to start and stop
+    the server, to load and unload models and to get information about the server without having to shut it down.
+
+<figure markdown>
+![Image](../figures/torchserve.png){ width="1000" }
+<figcaption>
+<a href="https://pytorch.org/serve/"> Image credit </a>
+</figcaption>
+</figure>
 
 ### ❔ Exercises
 
-1. You can choose to install `torchserve` and its additional dependencies locally with the following command
+1. You can install `torchserve` and its additional dependencies locally with the following command
 
     ```bash
     pip install torchserve torch-model-archiver torch-workflow-archiver
     ```
 
     however, `torchserve` requires you to have Java installed on your system. For this reason we are going to go through
-    the exercises using docker, but you can try to install it locally if you want to. Else lets start by pulling the
-    relevant docker image:
+    the exercises using docker, but you can try to install it locally if you want to (we will need the 
+    `torch-model-archiver` in both cases). Else lets start by pulling the relevant docker image:
 
     ```bash
     docker pull pytorch/torchserve:latest
     ```
 
-2. Create a folder called `model_store`, where we are going to store our models. If you choose to install `torchserve`
+2. Create a folder called `model-store`, where we are going to store our models. If you choose to install `torchserve`
     locally you can check if the installation was successful by running the following command
 
     ```bash
-    torchserve --model-store model_store
+    torchserve --model-store model-store
     ```
+
+    else try to run the docker image with the 
+    [following command](https://github.com/pytorch/serve/blob/master/docker/README.md)
+
+    ```bash
+    docker run --rm -it \
+        -p 127.0.0.1:8080:8080 \
+        -p 127.0.0.1:8081:8081 \
+        -p 127.0.0.1:8082:8082 \
+        -p 127.0.0.1:7070:7070 \
+        -p 127.0.0.1:7071:7071 \
+        pytorch/torchserve:latest
+    ```
+
+    TorchServe's Dockerfile configures ports 8080, 8081 , 8082, 7070 and 7071 to be exposed to the host by default. In
+    both cases you should be able to access the [admin panel](https://pytorch.org/serve/management_api.html) (which is 
+    served on port `8081`) by going to `http://localhost:8081/models`. Since we did not load any models yet, the admin 
+    panel should be empty.
+
+3. We need to write a custom handler that tells `torchserve` how to use our model for inference. Take a look at this
+    [documentation](https://pytorch.org/serve/custom_service.html) and write a custom handler in a file called 
+    `image_classifier.py` that can be used to serve the `resnet18` model we exported to ONNX in the previous exercises.
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="image_classifier.py"
+        # onnx_handler.py
+        from ts.torch_handler.base_handler import BaseHandler
+        import onnxruntime as ort
+        import numpy as np
+        import json
+
+        class ONNXHandler(BaseHandler):
+            def initialize(self, ctx):
+                # Initialize the model and any other required components
+                self.manifest = ctx.manifest
+                properties = ctx.system_properties
+                model_dir = properties.get("model_dir")
+                
+                # Load the ONNX model
+                model_path = f"{model_dir}/model.onnx"
+                self.session = ort.InferenceSession(model_path)
+                self.input_name = self.session.get_inputs()[0].name
+                self.output_name = self.session.get_outputs()[0].name
+
+            def preprocess(self, data):
+                # Preprocess the input data
+                input_data = data[0].get("body")
+                input_data = json.loads(input_data)
+                input_array = np.array(input_data, dtype=np.float32)
+                return input_array
+
+            def inference(self, input_array):
+                # Perform inference
+                ort_inputs = {self.input_name: input_array}
+                ort_outs = self.session.run([self.output_name], ort_inputs)
+                return ort_outs
+
+            def postprocess(self, inference_output):
+                # Postprocess the inference output
+                output_data = inference_output[0].tolist()
+                return [json.dumps(output_data)]
+        ```
 
 3. We are now going to reuse the `resnet18.onnx` file we created in the privious set of exercises. For `torchserve` to
     work with the model we need to convert it to a `.mar` file. This can be done using the `torch-model-archiver` 
