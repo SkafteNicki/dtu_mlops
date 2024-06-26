@@ -16,8 +16,8 @@ from torchvision.utils import save_image
 
 # Model Hyperparameters
 dataset_path = "~/datasets"
-cuda = True
-DEVICE = torch.device("cuda" if cuda else "cpu")
+device_name = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+DEVICE = torch.device(device_name)
 batch_size = 100
 x_dim = 784
 hidden_dim = 400
@@ -34,7 +34,7 @@ test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=Fa
 encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=20)
 decoder = Decoder(latent_dim=20, hidden_dim=hidden_dim, output_dim=x_dim)
 
-model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
+model = Model(encoder=encoder, decoder=decoder).to(DEVICE)
 
 
 def loss_function(x, x_hat, mean, log_var):

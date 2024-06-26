@@ -1,0 +1,66 @@
+name: Code tester
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+
+jobs:
+  test_scripts:
+    strategy:
+      fail-fast: false
+      matrix:
+        folders: [
+          {
+            "name": "s1_development_environment",
+            "skip_files": "-"
+          },
+          {
+            "name": "s2_organisation_and_version_control",
+            "skip_files": "make_dataset_solution.py|visualize_solution.py"
+          },
+          {
+            "name": "s3_reproducibility",
+            "skip_files": "reproducibility_tester.py"
+          },
+          {
+            "name": "s4_debugging_and_logging",
+            "skip_files": "weights_and_bias_solution.py weights_and_bias_solution2.py weights_and_bias_solution3.py"
+          },
+        ]
+
+    name: ${{ matrix.folders.name }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: 'pip'
+          cache-dependency-path: setup.py
+
+      - name: Install requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements_exercises.txt
+          pip list
+
+      - name: Extract relevant files
+        run: |
+          skip_files="${{ matrix.folders.skip_files }}"
+          find ${{ matrix.folders.name }} -type f -name "*.py" | grep -vE $skip_files > python_files.txt
+          echo "===== Files to run ====="
+          cat python_files.txt
+
+      - name: Run script
+        run: |
+          while IFS= read -r file; do
+            echo "===== Running $file ====="
+            python "$file"
+          done < python_files.txt
