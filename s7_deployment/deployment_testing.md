@@ -3,15 +3,15 @@
 # Deployment Testing
 
 In the module on [testing of APIs](testing_apis.md) we learned how to write integration tests for our APIs and how to
-run loadtests to see how our API behaves under different loads. In this module we are going to learn about a few 
+run loadtests to see how our API behaves under different loads. In this module we are going to learn about a few
 different deployment testing strategies that can be used to ensure that our application is working as expected *before*
 we deploy it to production. Deployment testing is designed to minimize risk, enhance performance, and ensure a smooth
 transition from development to production. Being able to choose and execute the correct deployment testing strategy is
 even more important within machine learning projects as we tend to update our models more frequently than traditional
 software projects, thus requiring more frequent deployments.
 
-In general we recommend you start out with reading this 
-[page](https://cloud.google.com/architecture/application-deployment-and-testing-strategies) from GCP on both application 
+In general we recommend you start out with reading this
+[page](https://cloud.google.com/architecture/application-deployment-and-testing-strategies) from GCP on both application
 deployment and testing strategies. It is a good read on the different metrics we can use to evaluate our deployment
 (down time, rollback duration, etc.) and the different deployment strategies we can use. In the following we are going
 to be looking at the three testing methods
@@ -22,34 +22,44 @@ to be looking at the three testing methods
 
 ## A/B testing
 
-In software development, [A/B testing](https://en.wikipedia.org/wiki/A/B_testing) is a method of comparing two versions 
-of a web page or application against each other to determine which one performs better. A/B testing is a form of 
+In software development, [A/B testing](https://en.wikipedia.org/wiki/A/B_testing) is a method of comparing two versions
+of a web page or application against each other to determine which one performs better. A/B testing is a form of
 statistical hypothesis testing with two variants
 
 <figure markdown>
 ![Image](../figures/a_b_testing_example.png)
-<figcaption> 
-In this case we are randomly A/B testing if the color and style of the `Learn more` button affects the click rate. In 
+<figcaption>
+In this case we are randomly A/B testing if the color and style of the `Learn more` button affects the click rate. In
 this hypothetical example, the green button has a 20% higher click rate than the blue button and is therefore the
 preferred choice for the final design.
-<a href="https://en.wikipedia.org/wiki/A/B_testing"> Image credit </a> 
+<a href="https://en.wikipedia.org/wiki/A/B_testing"> Image credit </a>
 </figcaption>
 </figure>
 
 
 <figure markdown>
 ![Image](../figures/a_b_testing.svg)
-<figcaption> 
-<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a> 
+<figcaption>
+<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a>
 </figcaption>
 </figure>
 
 [text](https://www.surveymonkey.com/mp/ab-testing-significance-calculator/)
 
+
+Assumed Distribution | Example case | Standard test
+-------------------- | ------------ | -------------
+Gaussian | Average revenue per user | t-test
+Binomial | Click-through rate | Fisher's exact test
+Poisson | Number of purchases | Chi-squared test
+Multinomial | User preferences | Chi-squared test
+Unknown | Time to purchase | Mann-Whitney U test
+
+
 ### ❔ Exercises
 
 In the exercises we are going to perform two different kinds of A/B testing. The first one is going to be a simple
-A/B test where we are going to test two different versions of the same service. The second 
+A/B test where we are going to test two different versions of the same service. The second
 
 1. There are a multiple ways to implement A/B testing.
 
@@ -98,8 +108,8 @@ A/B test where we are going to test two different versions of the same service. 
 
 <figure markdown>
 ![Image](../figures/canary_deployment.svg)
-<figcaption> 
-<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a> 
+<figcaption>
+<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a>
 </figcaption>
 </figure>
 
@@ -119,8 +129,8 @@ instructions to implement a canary deployment using Git branches and Cloud Build
 
 <figure markdown>
 ![Image](../figures/shadow_testing.svg)
-<figcaption> 
-<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a> 
+<figcaption>
+<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a>
 </figcaption>
 </figure>
 
@@ -154,7 +164,7 @@ instructions to implement a canary deployment using Git branches and Cloud Build
                 "response": response.json()
             }
         ```
-    
+
     2. Because the loadbalancer is just a simple Python script lets just deploy it to Cloud Functions instead of Cloud
         Run. Create a new Cloud Function and deploy the script.
 
