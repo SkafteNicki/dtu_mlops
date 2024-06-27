@@ -1,20 +1,57 @@
-![Logo](../figures/icons/cloudrun.png){ align=right width="130"}
+![Logo](../figures/icons/gcp.png){ align=right width="130"}
 
 # Deployment Testing
 
-https://cloud.google.com/architecture/application-deployment-and-testing-strategies
+In the module on [testing of APIs](testing_apis.md) we learned how to write integration tests for our APIs and how to
+run loadtests to see how our API behaves under different loads. In this module we are going to learn about a few 
+different deployment testing strategies that can be used to ensure that our application is working as expected *before*
+we deploy it to production. Deployment testing is designed to minimize risk, enhance performance, and ensure a smooth
+transition from development to production. Being able to choose and execute the correct deployment testing strategy is
+even more important within machine learning projects as we tend to update our models more frequently than traditional
+software projects, thus requiring more frequent deployments.
 
-The testing patterns discussed in this section are typically used to validate a service's reliability and stability over 
-a reasonable period under a realistic level of concurrency and load.
+In general we recommend you start out with reading this 
+[page](https://cloud.google.com/architecture/application-deployment-and-testing-strategies) from GCP on both application 
+deployment and testing strategies. It is a good read on the different metrics we can use to evaluate our deployment
+(down time, rollback duration, etc.) and the different deployment strategies we can use. In the following we are going
+to be looking at the three testing methods
 
-In today's dynamic software development landscape, ensuring seamless and reliable application deployment is crucial for maintaining user satisfaction and operational efficiency. This module will introduce you to various deployment testing patterns, each designed to minimize risk, enhance performance, and ensure a smooth transition from development to production. Whether you're aiming for zero downtime, incremental feature releases, or robust rollback capabilities, understanding these strategies will empower you to implement effective deployment workflows. Join us as we explore canary deployments, blue-green deployments, feature toggles, and more, equipping you with the knowledge to optimize your deployment processes and deliver high-quality software with confidence.
-
+* A/B testing
+* Canary deployment
+* Shadow deployment
 
 ## A/B testing
 
+In software development, [A/B testing](https://en.wikipedia.org/wiki/A/B_testing) is a method of comparing two versions 
+of a web page or application against each other to determine which one performs better. A/B testing is a form of 
+statistical hypothesis testing with two variants
+
+<figure markdown>
+![Image](../figures/a_b_testing_example.png)
+<figcaption> 
+In this case we are randomly A/B testing if the color and style of the `Learn more` button affects the click rate. In 
+this hypothetical example, the green button has a 20% higher click rate than the blue button and is therefore the
+preferred choice for the final design.
+<a href="https://en.wikipedia.org/wiki/A/B_testing"> Image credit </a> 
+</figcaption>
+</figure>
+
+
+<figure markdown>
+![Image](../figures/a_b_testing.svg)
+<figcaption> 
+<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a> 
+</figcaption>
+</figure>
+
+[text](https://www.surveymonkey.com/mp/ab-testing-significance-calculator/)
+
 ### ❔ Exercises
 
-1. Geolocation
+In the exercises we are going to perform two different kinds of A/B testing. The first one is going to be a simple
+A/B test where we are going to test two different versions of the same service. The second 
+
+1. There are a multiple ways to implement A/B testing.
 
     ```python
     from fastapi import FastAPI, Request, HTTPException
@@ -59,6 +96,14 @@ In today's dynamic software development landscape, ensuring seamless and reliabl
 
 ## Canary deployment
 
+<figure markdown>
+![Image](../figures/canary_deployment.svg)
+<figcaption> 
+<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a> 
+</figcaption>
+</figure>
+
+
 ### ❔ Exercises
 
 Follow [these](https://cloud.google.com/architecture/implementing-cloud-run-canary-deployments-git-branches-cloud-build)
@@ -71,6 +116,14 @@ instructions to implement a canary deployment using Git branches and Cloud Build
     ```
 
 ## Shadow deployment
+
+<figure markdown>
+![Image](../figures/shadow_testing.svg)
+<figcaption> 
+<a href="https://cloud.google.com/architecture/application-deployment-and-testing-strategies"> Image credit </a> 
+</figcaption>
+</figure>
+
 
 ### ❔ Exercises
 
@@ -122,3 +175,5 @@ instructions to implement a canary deployment using Git branches and Cloud Build
         A/B testing     | No             | No                               | Yes                                    | Short             | No                                     |
         Canary deployment | Yes           | Yes                              | Yes                                    | Short             | Yes                                    |
         Shadow deployment | Yes           | No                               | Yes                                    | Short             | Yes                                     |
+
+This ends the deployment testing module.
