@@ -6,6 +6,7 @@ pymdown-extensions>=1.1.1
 mkdocs-same-dir>=0.1.2
 mkdocs-git-revision-date-localized-plugin>=1.2.0
 mkdocs-exclude>=1.0.2
+mkdocs-plugin-inline-svg>=0.1.0
 
 # Developer stuff
 ruff>=0.4.7
