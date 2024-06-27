@@ -26,39 +26,72 @@ are all serving a bit different purposes and can therefore be combined in the sa
 You might already be familiar with the concept of executable scripts. An executable script is a Python script that can
 be run directly from the terminal without having to call the Python interpreter. This has been possible for a long time
 in Python, by the inclusion of a so-called [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of
-the script. However, we are going to look at a specific way of creating executable scripts using the `setuptools`
-package.
-
-https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts
-
-
-
+the script. However, we are going to look at a specific way of defining
+[executable scripts](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts)
+using the standard `pyproject.toml` file, which you should have learned about in this
+[module](code_structure.md).
 
 ### ❔ Exercises
 
-1. Start by creating a new Python file called `greetings.py`. Add the following code to the file
+1. We are going to assume that you have a training script in your project that you would like to be able to run from the
+    terminal directly without having to call the Python interpreter. Lets assume it is located like this
 
-    ```python
-    def hello(name: str = "World"):
-        print(f"Hello {name}!")
+    ```plaintext
+    src/
+    ├── my_project/
+    │   ├── __init__.py
+    │   ├── train.py
+    pyproject.toml
     ```
 
-2. In your `pyproject.toml` file add the following lines
+    In your `pyproject.toml` file add the following lines. You will need to alter the paths to match your project.
 
     ```toml
-    [tool.poetry.scripts]
-    greetings = "greetings:hello"
+    [project.scripts]
+    train = "my_project.train:main"
     ```
 
-3. Run the following command in the terminal
+    what do you think the `train = "my_project.train:main"` line do?
+
+    ??? success "Solution"
+
+        The line tells Python that we want to create an executable script called `train` that should run the `main`
+        function in the `train.py` file located in the `my_project` package.
+
+2. Now, all that is left to do is install the project again in editable mode
 
     ```bash
-    poetry install
+    pip install -e .
     ```
 
+    and you should now be able to run the following command in the terminal
 
+    ```bash
+    train
+    ```
 
-##
+    Try it out and see if it works.
+
+3. Add additional scripts to your `pyproject.toml` file that allows you to run other scripts in your project from the
+    terminal.
+
+    ??? success "Solution"
+
+        We assume that you also have a script called `evaluate.py` in the `my_project` package.
+
+        ```toml
+        [project.scripts]
+        train = "my_project.train:main"
+        evaluate = "my_project.evaluate:main"
+        ```
+
+That is all there really is to it. You can now run your scripts directly from the terminal without having to call the
+Python interpreter. Some good examples of Python packages that uses this approach are
+[numpy](https://github.com/numpy/numpy/blob/main/pyproject.toml#L43-L45),
+[pylint](https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L67-L71) and
+[kedro](https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L99-L100).
+
+## Command line arguments
 
 If you have worked with Python for some time you are probably familiar with the `argparse` package, which allows you
 to directly pass in additional arguments to your script in the terminal
@@ -67,26 +100,22 @@ to directly pass in additional arguments to your script in the terminal
 python my_script.py --arg1 val1 --arg2 val2
 ```
 
-`argparse` is a very simple way of constructing what is called a command line interfaces (CLI).
-[CLI](https://en.wikipedia.org/wiki/Command-line_interface) allows you to interact with your application directly in
-the terminal instead of having change things in your code. It is essentially a text-based user interface (UI) (in
-contrast to an graphical user interface (GUI) that we know from all our desktop applications).
-
-However, one limitation of `argparse` is the possibility of easily defining an CLI with subcommands. If we take `git`
-as an example, `git` is the main command but it has multiple subcommands: `push`, `pull`, `commit` etc. that all can
-take their own arguments. This kind of second CLI with subcommands is somewhat possible to do using only `argparse`,
-however it requires a bit of hacks.
+`argparse` is a very simple way of constructing what is called a command line interfaces. However, one limitation of
+`argparse` is the possibility of easily defining an CLI with subcommands. If we take `git` as an example, `git` is the
+main command but it has multiple subcommands: `push`, `pull`, `commit` etc. that all can take their own arguments. This
+kind of second CLI with subcommands is somewhat possible to do using only `argparse`, however it requires a bit of
+hacks.
 
 You could of course ask the question why we at all would like to have the possibility of defining such CLI. The main
 argument here is to give users of our code a single entrypoint to interact with our application instead of having
 multiple scripts. As long as all subcommands are proper documented, then our interface should be simple to interact
 with (again think `git` where each subcommand can be given the `-h` arg to get specific help).
 
-Instead of using `argparse` we are here going to look at the [click](https://click.palletsprojects.com/en/8.1.x/)
-package. `click` extends the functionalities of `argparse` to allow for easy definition of subcommands and many other
-things, which we are not going to touch upon in this module. For completeness we should also mention that `click` is not
-the only package for doing this, and of other excellent frameworks for creating command line interfaces easily we can
-mention [Typer](https://typer.tiangolo.com/).
+Instead of using `argparse` we are here going to look at the [yyper](https://typer.tiangolo.com/) package. `typer`
+extends the functionalities of `argparse` to allow for easy definition of subcommands and many other things, which we
+are not going to touch upon in this module. For completeness we should also mention that `typer` is not the only package
+for doing this, and of other excellent frameworks for creating command line interfaces easily we can mention
+[click](https://click.palletsprojects.com/en/8.1.x/).
 
 ### ❔ Exercises
 
@@ -180,15 +209,54 @@ mention [Typer](https://typer.tiangolo.com/).
         python main.py optim
         ```
 
+6. (Optional) Let's try to combine what we have learned until now. Try to make your `typer` cli into a executable
+    script using the `pyproject.toml` file.
+
+    ??? success "Solution"
+
+        ```toml
+        [project.scripts]
+        greetings = "greetings:app"
+        ```
+
+        and remember to install the project in editable mode
+
+        ```bash
+        pip install -e .
+        ```
+
+        and you should now be able to run the following command in the terminal
+
+        ```bash
+        greetings
+        ```
+
 
 ##
 
 The two sections above have shown you how to create a simple CLI for your Python scripts. However, when doing machine
-learning projects, you often have a lot of non-Python code that you would like to run from the terminal. This could be
+learning projects, you often have a lot of non-Python code that you would like to run from the terminal. Based on the
+learning modules you have already completed, you have already encountered a couple of CLI tools that are used in our
+projects:
 
-How do we standardize the way we run these scripts? One way is to create a [Makefile](https://makefiletutorial.com/)
+* [conda](../s1_development_environment/package_manager.md) for managing environments
+* [git](git.md) for version control of code
+* [dvc](dvc.md) for version control of data
 
+As we begin to move into the next couple of learning modules, we are going to encounter even more CLI tools that we need
+to interact with. Here is a example of long command that you might need to run in your project in the future
 
+```bash
+docker run -v $(pwd):/app -w /app --gpus all --rm -it my_image:latest python my_script.py --arg1 val1 --arg2 val2
+```
+
+This can be a lot to remember, and it can be easy to make mistakes. To help with this, we are going to look at the
+[invoke](http://www.pyinvoke.org/) package. `invoke` is a Python package that allows you to define tasks that can be
+run from the terminal. It is a bit like a more advanced version of the [Makefile](https://makefiletutorial.com/) that
+you might have encountered in other programming languages. Some good alternatives to `invoke` are
+[just](https://github.com/casey/just) and [task](https://github.com/go-task/task), but we have chosen to focus on
+`invoke` in this module because it can be installed as a Python package making installation across different systems
+easier.
 
 ### ❔ Exercises
 
@@ -213,6 +281,7 @@ How do we standardize the way we run these scripts? One way is to create a [Make
 
     @task
     def hello(c):
+        """ A simple hello world task """  # remember to add docstrings to your tasks, it will show up in the --list
         print("Hello World!")
     ```
 
@@ -222,24 +291,24 @@ How do we standardize the way we run these scripts? One way is to create a [Make
     invoke hello
     ```
 
-4. Lets try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Add the following code
-    to the `tasks.py` file
-
-    ```python
-    @task
-    def git(c, message):
-        c.run(f"git add .")
-        c.run(f"git commit -m '{message}'")
-        c.run(f"git push")
-    ```
-
-    and try to run the following command
+4. Lets try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Create a task such
+    that the following command can be run
 
     ```bash
     invoke git --message "My commit message"
     ```
 
-5. Create also a command that simplifies the process of bootstrapping a `conda` environment and install the relevant dependencies of your project
+    ??? success "Solution"
+        ```python
+        @task
+        def git(c, message):
+            c.run(f"git add .")
+            c.run(f"git commit -m '{message}'")
+            c.run(f"git push")
+        ```
+
+5. Create also a command that simplifies the process of bootstrapping a `conda` environment and install the relevant
+    dependencies of your project
 
     ```python
     @task
