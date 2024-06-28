@@ -28,7 +28,7 @@
 
     [:octicons-arrow-right-24: M8: Data Version Control](dvc.md)
 
-- ![](../figures/icons/click.png){align=right : style="height:100px;width:100px"}
+- ![](../figures/icons/typer.png){align=right : style="height:100px;width:100px"}
 
     Learn the different ways to setup command line interfaces for your applications.
 
