@@ -8,10 +8,17 @@ WINDOWS = os.name == "nt"
 
 @task
 def install(ctx):
-    """Create the environment for couse."""
+    """Create the environment for course."""
     ctx.run("conda create -n dtumlops python=3.11 pip --no-default-packages -y", echo=True, pty=not WINDOWS)
     ctx.run("conda activate dtumlops", echo=True, pty=not WINDOWS)
     ctx.run("pip install -r requirements.txt", echo=True, pty=not WINDOWS)
+
+
+@task
+def precommit(ctx):
+    """Install and run pre-commit checks."""
+    ctx.run("pre-commit install", echo=True, pty=not WINDOWS)
+    ctx.run("pre-commit run --all-files", echo=True, pty=not WINDOWS)
 
 
 @task
