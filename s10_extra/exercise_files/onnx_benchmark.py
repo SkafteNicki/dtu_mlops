@@ -28,19 +28,16 @@ def timing_decorator(func, function_repeat: int = 10, timing_repeat: int = 5):
 model = torchvision.models.resnet18()
 model.eval()
 
-
+dummy_input = torch.randn(1, 3, 224, 224)
 if sys.platform == "win32":
     # Windows doesn't support the new TorchDynamo-based ONNX Exporter
     torch.onnx.export(
         model,
-        torch.randn(1, 3, 224, 224),
+        dummy_input,
         "resnet18.onnx",
         input_names=["input.1"],
         dynamic_axes={"input.1": {0: "batch_size", 2: "height", 3: "width"}},
     )
-
-    compiled_model = torch.compile(model)
-
 else:
     torch.onnx.dynamo_export(model, dummy_input).save("resnet18.onnx")
 
