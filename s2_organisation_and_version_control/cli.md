@@ -1,4 +1,4 @@
-![Logo](../figures/icons/click.png){ align=right width="130"}
+![Logo](../figures/icons/typer.png){ align=right width="130"}
 
 # Command line interfaces
 
@@ -19,7 +19,9 @@ the terminal. Thus, there is no right or wrong way of creating a CLI, it is all 
 application.
 
 In this module we are going to look at three different ways of creating a CLI for your machine learning projects. They
-are all serving a bit different purposes and can therefore be combined in the same project. The three ways are:
+are all serving a bit different purposes and can therefore be combined in the same project. However, you will most
+likely also feel that they are overlapping in some areas. That is completely fine, and it is up to you to decide which
+one to use in which situation.
 
 ## Project scripts
 
@@ -127,22 +129,26 @@ for doing this, and of other excellent frameworks for creating command line inte
 
     remember to add the package to your `requirements.txt` file.
 
-2. Create a new Python file called `greetings.py`. Use the typer package to create a command line interface such
-    that running the following lines
+2. To get you started with `typer`, let's just create a simple hello world type of script. Create a new Python file
+    called `greetings.py` and use the `typer` package to create a command line interface such that running the
+    following lines
 
     ```bash
-    python greetings.py
-    python greetings.py --count=3
-    python greetings.py --help
+    python greetings.py            # should print "Hello World!"
+    python greetings.py --count=3  # should print "Hello World!" three times
+    python greetings.py --help     # should print the help message, informing the user of the possible arguments
     ```
 
-    executes and gives the expected output.
+    executes and gives the expected output. Relevant [documentation](https://typer.tiangolo.com/).
 
     ??? success "Solution"
 
+        Importantly for `typer` is that you need to provide
+        [type hints](https://typer.tiangolo.com/tutorial/#python-types) for the arguments. This is because `typer` needs
+        these to be able to work properly.
+
         ```python
         import typer
-
         app = typer.Typer()
 
         @app.command()
@@ -154,69 +160,79 @@ for doing this, and of other excellent frameworks for creating command line inte
             app()
         ```
 
-3. Next lets create a CLI that has subcommands. Add the necessary code such that the following lines can be executed
+3. Next, lets try on a bit harder example. Below is a simple script that trains a support vector machine on the iris
+    dataset.
+
+    !!! example "iris_classifier.py"
+
+        ```python linenums="1" title="iris_classifier.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise.py"
+        ```
+
+    Implement a CLI for the script such that the following commands can be run
 
     ```bash
-    python greetings.py hello
-    python greetings.py howdy
+    python iris_classifier.py train --output 'model.ckpt'  # should train the model and save it to 'model.ckpt'
+    python iris_classifier.py train -o 'model.ckpt'  # should be the same as above
     ```
 
     ??? success "Solution"
 
-        ```python
-        import typer
+        We are here making use of the
+        [short name option](https://typer.tiangolo.com/tutorial/options/name/#cli-option-short-names) in typer for
+        giving an shorter alias to the `--output` option.
 
-        app = typer.Typer()
-
-        @app.command()
-        def hello(count: int = 1, name: str = "World"):
-            for x in range(count):
-                typer.echo(f"Hello {name}!")
-
-        @app.command()
-        def howdy(count: int = 1, name: str = "World"):
-            for x in range(count):
-                typer.echo(f"Howdy {name}!")
-
-        if __name__ == "__main__":
-            app()
+        ```python linenums="1" title="iris_classifier.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution.py"
         ```
 
-5. As an final exercise we provide you with a script that is ready to run as it is, but your job will be do turn it
-    into a script with multiple subcommands, with multiple arguments for each subcommand.
+4. Next lets create a CLI that has more than a single command. Continue working in the basic machine learning
+    application from the previous exercise, but this time we want to define two separate commands
 
-    1. Start by taking a look at the provided
-        [code](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/knn_iris.py). It is a simple
-        script that runs the K-nearest neighbour classification algorithm on the iris dataset and produces a plot of
-        the decision boundary.
+    ```bash
+    python iris_classifier.py train --output 'model.ckpt'
+    python iris_classifier.py evaluate 'model.ckpt'
+    ```
 
-    2. Create a script that has the following subcommands with input arguments
-        * Subcommand `train`: Load data, train model and save. Should take a single argument `-o` that specifics
-            the filename the trained model should be saved to.
-        * Subcommand `infer`: Load trained model and runs prediction on input data. Should take two arguments: `-i` that
-            specifies which trained model to load and `-d` to specify a user defined datapoint to run inference on.
-        * Subcommand `plot`: Load trained model and constructs the decision boundary plot from the code. Should take two
-            arguments: `-i` that specifies a trained model to load and `-o` the file to write the generated plot to
-        * Subcommand `optim`: Load data, runs hyperparameter optimization and prints optimal parameters. Should at least
-            take a single argument that in some way adjust the hyperparameter optimization (free to choose how)
+    ??? success "Solution"
 
-        In the end we like the script to be callable in the following ways
+        The only key difference between the two is that in the `train` command we define the `output` argument to
+        to be an optional parameter e.g. we provide a default and for the `evaluate` command it is a required parameter.
 
-        ```bash
-        python main.py train -o 'model.ckpt'
-        python main.py infer -i 'model.ckpt' -d [[0,1]]
-        python main.py plot -i 'model.ckpt' -o 'generated_plot.png'
-        python main.py optim
+        ```python linenums="1" title="iris_classifier.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution2.py"
+        ```
+
+5. Finally, let's try to define subcommands for our subcommands e.g. something similar to how `git` has the subcommand
+    `remote` which in itself has multiple subcommands like `add`, `rename` etc. Continue on the simple machine
+    learning application from the previous exercises, but this time define a cli such that
+
+    ```bash
+    python iris_classifier.py train svm --kernel 'linear'
+    python iris_classifier.py train knn -k 5
+    ```
+
+    e.g the `train` command now has two subcommands for training different machine learning models (in this case SVM
+    and KNN) which each takes arguments that are unique to that model. Relevant
+    [documentation](https://typer.tiangolo.com/tutorial/subcommands/).
+
+    ??? success
+
+        ```python linenums="1" title="iris_classifier.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution3.py"
         ```
 
 6. (Optional) Let's try to combine what we have learned until now. Try to make your `typer` cli into a executable
-    script using the `pyproject.toml` file.
+    script using the `pyproject.toml` file and try it out!
 
     ??? success "Solution"
 
+        Assuming that our `iris_classifier.py` script from before is placed in `src/my_project` folder, we should just
+        add
+
         ```toml
         [project.scripts]
-        greetings = "greetings:app"
+        greetings = "src.my_project.iris_classifier:app"
         ```
 
         and remember to install the project in editable mode
@@ -228,11 +244,14 @@ for doing this, and of other excellent frameworks for creating command line inte
         and you should now be able to run the following command in the terminal
 
         ```bash
-        greetings
+        iris_classifier train knn
         ```
 
+This covers the basic of `typer` but feel free to deep dive into how the package can help you custimize your CLIs.
+Checkout [this page](https://typer.tiangolo.com/tutorial/printing/) on adding colors to your CLI or
+[this page](https://typer.tiangolo.com/tutorial/parameter-types/number/) on validating the inputs to your CLI.
 
-##
+## Non-Python code
 
 The two sections above have shown you how to create a simple CLI for your Python scripts. However, when doing machine
 learning projects, you often have a lot of non-Python code that you would like to run from the terminal. Based on the
@@ -250,8 +269,15 @@ to interact with. Here is a example of long command that you might need to run i
 docker run -v $(pwd):/app -w /app --gpus all --rm -it my_image:latest python my_script.py --arg1 val1 --arg2 val2
 ```
 
-This can be a lot to remember, and it can be easy to make mistakes. To help with this, we are going to look at the
-[invoke](http://www.pyinvoke.org/) package. `invoke` is a Python package that allows you to define tasks that can be
+This can be a lot to remember, and it can be easy to make mistakes. Instead it would be nice if we could just do
+
+```bash
+run my_command --arg1=val1 --arg2=val2
+```
+
+e.g. easier to remember because we have remove a lot of the hard-to-remember stuff, but we are still able to configure
+it to our liking. To help with this, we are going to look at the [invoke](http://www.pyinvoke.org/) package.
+`invoke` is a Python package that allows you to define tasks that can be
 run from the terminal. It is a bit like a more advanced version of the [Makefile](https://makefiletutorial.com/) that
 you might have encountered in other programming languages. Some good alternatives to `invoke` are
 [just](https://github.com/casey/just) and [task](https://github.com/go-task/task), but we have chosen to focus on
@@ -274,18 +300,25 @@ easier.
     invoke --list
     ```
 
-3. Lets now try to add a task to the `tasks.py` file. Add the following code to the file
+    which should work but inform you that no tasks are added yet.
+
+3. Let's now try to add a task to the `tasks.py` file. The way to do this with invoke is to import the `task`
+    decorator from `invoke` and then decorate a function with it:
 
     ```python
     from invoke import task
+    import os
 
     @task
-    def hello(c):
-        """ A simple hello world task """  # remember to add docstrings to your tasks, it will show up in the --list
-        print("Hello World!")
+    def python(ctx):
+        """ """
+        ctx.run("which python" if os.name != "nt" else "where python")
+
     ```
 
-    and try to run the following command
+    the first argument of any task-decorated function is the `ctx` context argument that implements the `run` method
+    for running any command as we run them in the terminal. In this case we have simply implemented a task that
+    returns the current Python interpreter but it works for all operating systems. Check that it works by running:
 
     ```bash
     invoke hello
@@ -298,122 +331,103 @@ easier.
     invoke git --message "My commit message"
     ```
 
+    Implement it and use the command to commit the taskfile you just created!
+
     ??? success "Solution"
+
         ```python
         @task
-        def git(c, message):
-            c.run(f"git add .")
-            c.run(f"git commit -m '{message}'")
-            c.run(f"git push")
+        def git(ctx, message):
+            ctx.run(f"git add .")
+            ctx.run(f"git commit -m '{message}'")
+            ctx.run(f"git push")
         ```
 
-5. Create also a command that simplifies the process of bootstrapping a `conda` environment and install the relevant
-    dependencies of your project
+5. As you have hopefully realized by now, the most important method in `invoke` is the `ctx.run` method which actually
+    run the commands you want to run in the terminal. This command takes multiple additional arguments. Try out the
+    arguments `warn`, `pty`, `echo` and explain in your own words what they do.
 
-    ```python
-    @task
-    def conda(c):
-        c.run(f"conda env create -f environment.yml")
-        c.run(f"conda activate dtu_mlops")
-    ```
+    ??? success "Solution"
 
-    and try to run the following command
+        * `warn`: If set to `True` the command will not raise an exception if the command fails. This can be useful if
+            you want to run multiple commands and you do not want the whole process to stop if one of the commands fail.
+        * `pty`: If set to `True` the command will be run in a pseudo-terminal. If you want to enable this or not,
+            depends on the command you are running.
+            [Here](https://www.pyinvoke.org/faq.html#why-is-my-command-behaving-differently-under-invoke-versus-being-run-by-hand)
+            is a good explanation of when/why you should use it.
+        * `echo`: If set to `True` the command will be printed to the terminal before it is run.
 
-    ```bash
-    invoke conda
-    ```
+6. Create a command that simplifies the process of bootstrapping a `conda` environment and install the relevant
+    dependencies of your project.
 
-6. Assuming you have completed the exercises on using `dvc` for version control of data try adding a task that
-    simplifies the process of running `dvc repro` for your project
+    ??? success "Solution"
 
-    ```python
-    @task
-    def dvc(c):
-        c.run(f"dvc repro")
-    ```
+        ```python
+        @task
+        def conda(ctx, name: str = "dtu_mlops"):
+            ctx.run(f"conda env create -f environment.yml", echo=True)
+            ctx.run(f"conda activate {name}", echo=True)
+            ctx.run(f"pip install -e .", echo=True)
+        ```
 
-    and try to run the following command
+        and try to run the following command
 
-    ```bash
-    invoke dvc
-    ```
+        ```bash
+        invoke conda
+        ```
 
+7. Assuming you have completed the exercises on using [dvc](dvc.md) for version control of data, lets also try to add
+    a task that simplifies the process of adding new data. This is the list of commands that need to be run to add new
+    data to a dvc repository: `dvc add`, `git add`, `git commit`, `git push`, `dvc push`. Try to implement a task
+    that simplifies this process. It needs to take two arguments for defining the folder to add and the commit message.
+
+    ??? success "Solution"
+
+        ```python
+        @task
+        def dvc(ctx, folder="data", message="Add new data"):
+            ctx.run(f"dvc add {folder}")
+            ctx.run(f"git add {folder}.dvc .gitignore")
+            ctx.run(f"git commit -m '{message}'")
+            ctx.run(f"git push")
+            ctx.run(f"dvc push")
+        ```
+
+        and try to run the following command
+
+        ```bash
+        invoke dvc --folder 'data' --message 'Add new data'
+        ```
+
+8. As the final exercise, lets try to combine every way of defining CLIs we have learned about in this module. Define
+    a task that does the following
+
+    * calls `dvc pull` to download the data
+    * calls a entrypoint `my_cli` with the subcommand `train` with the arguments `--output 'model.ckpt'`
+
+    ??? success "Solution"
+
+        ```python
+        from invoke import task
+
+        @task
+        def pull_data(ctx):
+            ctx.run("dvc pull")
+
+        @task(pull_data)
+        def train(ctx)
+            ctx.run("my_cli train")
+        ```
+
+That is all there is to it. You should now be able to define tasks that can be run from the terminal to simplify the
+process of running your code. We recommend that as you go through the learning modules in this course that you slowly
+start to add tasks to your `tasks.py` file that simplifies the process of running the code you are writing.
 
 ## 🧠 Knowledge check
 
+1. What is the purpose of a command line interface?
 
+    ??? success "Solution"
 
-2. Create a new Python  file `greetings.py` and add the following code:
-
-    ```python
-    import click
-
-    @click.command()
-    @click.option('--count', default=1, help='Number of greetings.')
-    @click.option('--name', prompt='Your name', help='The person to greet.')
-    def hello(count, name):
-        """Simple program that greets NAME for a total of COUNT times."""
-        for x in range(count):
-            click.echo(f"Hello {name}!")
-
-    if __name__ == '__main__':
-        hello()
-    ```
-
-    try running the program in the following ways
-
-    ```bash
-    python greetings.py
-    python greetings.py --count=3
-    python greetings.py --help
-    ```
-
-3. Make sure you understand what the `click.command()` decorator and `click.option` decorator does. You can find
-    the full API docs [here](https://click.palletsprojects.com/en/8.1.x/api/).
-
-4. As stated above, the power of using a tool like click is due to its ability to define subcommands. In `click` this
-    is done through the `click.group()` decorator. To the code example from above, add another command:
-
-    ```python
-    @click.command()
-    @click.option('--count', default=1, help='Number of greetings.')
-    @click.option('--name', prompt='Your name', help='The person to greet.')
-    def howdy(count, name):
-        for x in range(count):
-            click.echo(f"Howdy {name}!")
-    ```
-
-    and by using the `click.group()` decorator make these commands into subcommands such that you would be able to
-    call the script in the following way
-
-    ```bash
-    python greetings.py hello
-    python greetings.py howdy
-    ```
-
-5. As an final exercise we provide you with a script that is ready to run as it is, but your job will be do turn it
-    into a script with multiple subcommands, with multiple arguments for each subcommand.
-
-    1. Start by taking a look at the provided
-        [code](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/knn_iris.py). It is a simple
-        script that runs the K-nearest neighbour classification algorithm on the iris dataset and produces a plot of
-        the decision boundary.
-
-    2. Create a script that has the following subcommands with input arguments
-        * Subcommand `train`: Load data, train model and save. Should take a single argument `-o` that specifics
-            the filename the trained model should be saved to.
-        * Subcommand `infer`: Load trained model and runs prediction on input data. Should take two arguments: `-i` that
-            specifies which trained model to load and `-d` to specify a user defined datapoint to run inference on.
-        * Subcommand `plot`: Load trained model and constructs the decision boundary plot from the code. Should take two
-            arguments: `-i` that specifies a trained model to load and `-o` the file to write the generated plot to
-        * Subcommand `optim`: Load data, runs hyperparameter optimization and prints optimal parameters. Should at least
-            take a single argument that in some way adjust the hyperparameter optimization (free to choose how)
-
-        In the end we like the script to be callable in the following ways
-
-        ```bash
-        python main.py train -o 'model.ckpt'
-        python main.py infer -i 'model.ckpt' -d [[0,1]]
-        python main.py plot -i 'model.ckpt' -o 'generated_plot.png'
-        python main.py optim
-        ```
+        A command line interface is a way for you to define the user interface of your application directly in the
+        terminal. It allows you to interact with your code in a more advanced way than just running Python scripts.
