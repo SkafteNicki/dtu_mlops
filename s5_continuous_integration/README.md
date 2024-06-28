@@ -7,24 +7,24 @@
 - ![](../figures/icons/pytest.png){align=right : style="height:100px;width:100px"}
     Learn how to write unit tests that cover both data and models in your ML pipeline.
 
-    [:octicons-arrow-right-24: M15: Unit testing](unittesting.md)
+    [:octicons-arrow-right-24: M16: Unit testing](unittesting.md)
 
 - ![](../figures/icons/actions.png){align=right : style="height:100px;width:100px"}
     Learn how to implement continuous integration using Github actions such that tests are automatically executed on
     code changes.
 
-    [:octicons-arrow-right-24: M16: Github Actions](github_actions.md)
+    [:octicons-arrow-right-24: M17: Github Actions](github_actions.md)
 
 - ![](../figures/icons/precommit.png){align=right : style="height:100px;width:100px"}
     Learn how to use pre-commit to ensure that code that is not up to standard does not get committed.
 
-    [:octicons-arrow-right-24: M17: Pre-commit](pre_commit.md)
+    [:octicons-arrow-right-24: M18: Pre-commit](pre_commit.md)
 
 - ![](../figures/icons/cml.png){align=right : style="height:100px;width:100px"}
 
     Learn how to implement continuous machine learning pipelines in Github actions.
 
-    [:octicons-arrow-right-24: M18: Continuous Machine Learning](cml.md)
+    [:octicons-arrow-right-24: M19: Continuous Machine Learning](cml.md)
 
 </div>
 

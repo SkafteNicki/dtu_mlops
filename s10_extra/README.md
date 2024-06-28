@@ -5,12 +5,6 @@ Some of them may still be under construction and may in the future be moved into
 
 <div class="grid cards" markdown>
 
-- ![](../figures/icons/click.png){align=right : style="height:100px;width:100px"}
-
-    Learn how to setup a simple command line interface for your application
-
-    [:octicons-arrow-right-24: M30: Command Line Interfaces](cli.md)
-
 - ![](../figures/icons/material.png){align=right : style="height:100px;width:100px"}
 
     Learn how to setup a simple documentation system for your application

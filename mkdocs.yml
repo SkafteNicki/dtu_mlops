@@ -102,44 +102,44 @@ nav:
     - M6 - Code structure: s2_organisation_and_version_control/code_structure.md
     - M7 - Good coding practice: s2_organisation_and_version_control/good_coding_practice.md
     - M8 - Data version control: s2_organisation_and_version_control/dvc.md
+    - M9 - Command Line Interfaces: s2_organisation_and_version_control/cli.md
   - S3 - Reproduceability ♻️:
     - s3_reproducibility/README.md
-    - M9 - Docker: s3_reproducibility/docker.md
-    - M10 - Config Files: s3_reproducibility/config_files.md
+    - M10 - Docker: s3_reproducibility/docker.md
+    - M11 - Config Files: s3_reproducibility/config_files.md
   - S4 - Debugging, Profiling and Logging ⏱️:
     - s4_debugging_and_logging/README.md
-    - M11 - Debugging: s4_debugging_and_logging/debugging.md
-    - M12 - Profiling: s4_debugging_and_logging/profiling.md
-    - M13 - Logging: s4_debugging_and_logging/logging.md
-    - M14 - Boilerplate: s4_debugging_and_logging/boilerplate.md
+    - M12 - Debugging: s4_debugging_and_logging/debugging.md
+    - M13 - Profiling: s4_debugging_and_logging/profiling.md
+    - M14 - Logging: s4_debugging_and_logging/logging.md
+    - M15 - Boilerplate: s4_debugging_and_logging/boilerplate.md
   - S5 - Continuous Integration ✔️:
     - s5_continuous_integration/README.md
-    - M15 - Unit testing: s5_continuous_integration/unittesting.md
-    - M16 - Github Actions: s5_continuous_integration/github_actions.md
-    - M17 - Pre-commit: s5_continuous_integration/pre_commit.md
-    - M18 - Continuous Machine Learning: s5_continuous_integration/cml.md
+    - M16 - Unit testing: s5_continuous_integration/unittesting.md
+    - M17 - Github Actions: s5_continuous_integration/github_actions.md
+    - M18 - Pre-commit: s5_continuous_integration/pre_commit.md
+    - M19 - Continuous Machine Learning: s5_continuous_integration/cml.md
   - S6 - The cloud 🌐:
     - s6_the_cloud/README.md
-    - M19 - Cloud Setup: s6_the_cloud/cloud_setup.md
-    - M20 - Using the Cloud: s6_the_cloud/using_the_cloud.md
+    - M20 - Cloud Setup: s6_the_cloud/cloud_setup.md
+    - M21 - Using the Cloud: s6_the_cloud/using_the_cloud.md
   - S7 - Deployment 📦:
     - s7_deployment/README.md
-    - M21 - Requests and APIs: s7_deployment/apis.md
-    - M22 - Local Deployment: s7_deployment/local_deployment.md
-    - M23 - Cloud Deployment: s7_deployment/cloud_deployment.md
-    - M24 - API Testing: s7_deployment/testing_apis.md
+    - M22 - Requests and APIs: s7_deployment/apis.md
+    - M23 - Local Deployment: s7_deployment/local_deployment.md
+    - M24 - Cloud Deployment: s7_deployment/cloud_deployment.md
+    - M25 - API Testing: s7_deployment/testing_apis.md
   - S8 - Monitoring 📊:
     - s8_monitoring/README.md
-    - M25 - Data Drifting: s8_monitoring/data_drifting.md
-    - M26 - System Monitoring: s8_monitoring/monitoring.md
+    - M26 - Data Drifting: s8_monitoring/data_drifting.md
+    - M27 - System Monitoring: s8_monitoring/monitoring.md
   - S9 - Scalable applications ⚖️:
     - s9_scalable_applications/README.md
-    - M27 - Distributed Data Loading: s9_scalable_applications/data_loading.md
-    - M28 - Distributed Training: s9_scalable_applications/distributed_training.md
-    - M29 - Scalable Inference: s9_scalable_applications/inference.md
+    - M28 - Distributed Data Loading: s9_scalable_applications/data_loading.md
+    - M29 - Distributed Training: s9_scalable_applications/distributed_training.md
+    - M30 - Scalable Inference: s9_scalable_applications/inference.md
   - S10 - Extra 🔥:
     - s10_extra/README.md
-    - M30 - Command Line Interfaces: s10_extra/cli.md
     - M31 - Documentation: s10_extra/documentation.md
     - M32 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M33 - High Performance Clusters: s10_extra/high_performance_clusters.md
