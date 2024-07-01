@@ -21,7 +21,7 @@ def precommit(ctx):
     ctx.run("pre-commit run --all-files", echo=True, pty=not WINDOWS)
 
 
-@task
+@task(aliases=["mkdocs"])
 def docs(ctx):
     """Build the documentation."""
     ctx.run("mkdocs serve --dirty", echo=True, pty=not WINDOWS)
