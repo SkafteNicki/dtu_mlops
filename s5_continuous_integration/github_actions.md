@@ -86,7 +86,9 @@ Let's take a look at how a GitHub workflow file is organized:
 
     1. The provided `tests.yaml` only runs on one operating system. Which one?
 
-    2. Alter the file such that it executes the test on the two other main operating systems that exist.
+    2. Alter the file such that it executes the test on the two other main operating systems that exist. You can find
+        information on available operating systems also called *runners*
+        [here](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories)
 
         ??? success "Solution"
 
@@ -117,7 +119,7 @@ Let's take a look at how a GitHub workflow file is organized:
                 strategy:
                   matrix:
                     os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                    python-version: [3.10, 3.11, 3.12]
+                    python-version: ["3.10", "3.11", "3.12"]
 
                 steps:
                 - uses: actions/checkout@v4
@@ -125,6 +127,25 @@ Let's take a look at how a GitHub workflow file is organized:
                   uses: actions/setup-python@v5
                   with:
                     python-version: ${{ matrix.python-version }}
+            ```
+
+    4. If you push the changes above you will maybe see that whenever one of the tests in the matrix fails, it will
+        automatically cancel the other tests. This is for saving time and resources. However, sometimes you want all the
+        tests to run even if one fails. Can you figure out how to do that?
+
+        ??? success "Solution"
+
+            You can set the `fail-fast` attribute to `false` under the `strategy` attribute:
+
+            ```yaml linenums="1" title="tests.yaml"
+            jobs:
+              build:
+                runs-on: ${{ matrix.os }}
+                strategy:
+                  fail-fast: false
+                  matrix:
+                    os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                    python-version: ["3.10", "3.11", "3.12"]
             ```
 
 7. As the workflow is currently implemented, GitHub actions will destroy every downloaded package
@@ -141,7 +162,7 @@ Let's take a look at how a GitHub workflow file is organized:
             - uses: actions/checkout@v4
             - uses: actions/setup-python@v5
               with:
-                python-version: '3.10'
+                python-version: 3.11
                 cache: 'pip' # caching pip dependencies
             - run: pip install -r requirements.txt
             ```
