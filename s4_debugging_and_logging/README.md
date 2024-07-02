@@ -8,26 +8,26 @@
 
     Learn how to use the debugger in your editor to find bugs in your code.
 
-    [:octicons-arrow-right-24: M11: Debugging](debugging.md)
+    [:octicons-arrow-right-24: M12: Debugging](debugging.md)
 
 - ![](../figures/icons/profiler.png){align=right : style="height:100px;width:100px"}
 
     Learn how to use a profiler to identify bottlenecks in your code and from those profiles optimize the runtime of
     your programs.
 
-    [:octicons-arrow-right-24: M12: Profiling](profiling.md)
+    [:octicons-arrow-right-24: M13: Profiling](profiling.md)
 
 - ![](../figures/icons/w&b.png){align=right : style="height:100px;width:100px"}
 
     Learn how to systematically log experiments and hyperparameters to make your code reproducible.
 
-    [:octicons-arrow-right-24: M13: Logging](logging.md)
+    [:octicons-arrow-right-24: M14: Logging](logging.md)
 
 - ![](../figures/icons/lightning.png){align=right : style="height:100px;width:100px"}
 
     Learn how to use `pytorch-lightning` framework to minimize boilerplate code and structure deep learning models.
 
-    [:octicons-arrow-right-24: M14: Boilerplate](boilerplate.md)
+    [:octicons-arrow-right-24: M15: Boilerplate](boilerplate.md)
 
 </div>
 

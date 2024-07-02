@@ -185,12 +185,36 @@ in the exercise folder.
         because the latest version of Python is often not supported by all dependencies. You can always check the status
         of different Python version support [here](https://devguide.python.org/versions/).
 
+    ??? success "Solution"
+
+        ```bash
+        conda create --name my_environment python=3.11
+        ```
+
 4. Which `conda` command gives you a list of all the environments that you have created?
+
+    ??? success "Solution"
+
+        ```bash
+        conda env list
+        ```
 
 5. Which `conda` command gives you a list of the packages installed in the current environment?
 
+    ??? success "Solution"
+
+        ```bash
+        conda list
+        ```
+
     1. How do you easily export this list to a text file? Do this, and make sure you export it to
         a file called `environment.yaml`, as conda uses another format by default than `pip`.
+
+        ??? success "Solution"
+
+            ```bash
+            conda list --explicit > environment.yaml
+            ```
 
     2. Inspect the file to see what is in it.
 
@@ -199,9 +223,22 @@ in the exercise folder.
         Try creating a new environment directly from your `environment.yaml` file and check that the packages being
         installed exactly match what you originally had.
 
+        ??? success "Solution"
+
+            ```bash
+            conda env create --file environment.yaml
+            ```
+
 6. As the introduction states, it is fairly safe to use `pip` inside `conda` today. What is the corresponding `pip`
     command that gives you a list of all `pip` installed packages? And how do you export this to `requirements.txt`
     file?
+
+    ??? success "Solution"
+
+        ```bash
+        pip list # List all installed packages
+        pip freeze > requirements.txt # Export all installed packages to a requirements.txt file
+        ```
 
 7. If you look through the requirements that both `pip` and `conda` produce then you will see that it
     is often filled with a lot more packages than what you are using in your project. What you are interested in are the

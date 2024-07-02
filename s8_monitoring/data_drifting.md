@@ -287,6 +287,6 @@ show it is possible for data to have drifted to another distribution with the ma
 ![Image](../figures/data_drift_marginals.png){width="500"}
 </figure>
 
-There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.csail.mit.edu/papers/v13/gretton12a.html)
-that are able to do testing on multivariate distributions, which you are free to dive into. In this course we will just
-always recommend to consider multiple features when doing decision regarding your deployed applications.
+There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.org/papers/v13/gretton12a.html) that are
+able to do testing on multivariate distributions, which you are free to dive into. In this course we will just always
+recommend to consider multiple features when doing decision regarding your deployed applications.

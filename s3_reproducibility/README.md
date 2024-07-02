@@ -8,13 +8,13 @@
 
     Learn how to create reproducible computing environments using `docker` and how to use them to run your code.
 
-    [:octicons-arrow-right-24: M9: Docker](docker.md)
+    [:octicons-arrow-right-24: M10: Docker](docker.md)
 
 - ![](../figures/icons/hydra.png){align=right : style="height:100px;width:100px"}
 
     Learn how to use `hydra` to manage configuration files and how to integrate it with your code.
 
-    [:octicons-arrow-right-24: M10: Config Files](config_files.md)
+    [:octicons-arrow-right-24: M11: Config Files](config_files.md)
 
 </div>
 
