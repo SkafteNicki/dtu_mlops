@@ -118,7 +118,7 @@ Let's take a look at how a GitHub workflow file is organized:
                   matrix:
                     os: ["ubuntu-latest", "windows-latest", "macos-latest"]
                     python-version: [3.10, 3.11, 3.12]
-                        uses: actions/setup-python@v5
+
                 steps:
                 - uses: actions/checkout@v4
                 - name: Set up Python
@@ -360,7 +360,7 @@ Let's take a look at how a GitHub workflow file is organized:
             build:
             runs-on: ubuntu-latest
             steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Build the Docker image
               run: |
                 echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
