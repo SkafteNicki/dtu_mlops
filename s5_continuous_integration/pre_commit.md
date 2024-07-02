@@ -152,8 +152,7 @@ this will make sure that the file is automatically executed whenever we run `git
             - name: Install pre-commit
               uses: pre-commit/action@v3.0.1
 
-            - name: Commit changes
-              uses: pre-commit-ci/lite-action@v1.0.2
+            - uses: pre-commit-ci/lite-action@v1.0.2
               if: always()
         ```
 
