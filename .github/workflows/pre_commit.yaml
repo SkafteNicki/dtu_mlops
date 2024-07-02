@@ -9,6 +9,10 @@ jobs:
   pre-commit:
     name: Check pre-commit
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -22,5 +26,7 @@ jobs:
       uses: pre-commit/action@v3.0.1
       continue-on-error: true
 
-    - uses: pre-commit-ci/lite-action@v1.0.2
-      if: always()
+    - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: Pre-commit fixes
+        commit_options: '--no-verify --signoff'
