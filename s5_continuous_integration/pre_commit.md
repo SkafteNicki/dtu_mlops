@@ -119,43 +119,26 @@ this will make sure that the file is automatically executed whenever we run `git
 
 10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
 
-11. (Optional) Assuming you have completed the [module on GitHub Actions](github_actions.md), try to add a `pre-commit`
-    check to a new Github Actions workflow file. We recommend that you make use of this
-    [lite action](https://github.com/pre-commit-ci/lite-action), but alternatively you can also configure the full
-    [pre-commit ci](https://pre-commit.ci/).
+11. Assuming you have completed the [module on GitHub Actions](github_actions.md), lets try to add a
+    `pre-commit` workflow that automatically runs your `pre-commit` checks every time you push to your repository and
+    then automatically commits those changes to your repository. We recommend that you make use of
+
+    * this [pre-commit action](https://github.com/pre-commit/action) for installing and running `pre-commit`
+    * this [commit action](https://github.com/stefanzweifel/git-auto-commit-action) to automatically commit the
+      changes that `pre-commit` makes.
+
+    As an alternative you configure the [CI tool](https://pre-commit.ci/) provided by the creators of `pre-commit`.
 
     ??? success "Solution"
 
-        Assuming we use the lite action, we just need to add a new file `.github/workflows/pre_commit.yaml`
-        with the following content:
+        The workflow first uses the `pre-commit` action to install and run the `pre-commit` checks. Importantly we run
+        it with `continue-on-error: true` to make sure that the workflow does not fail if the checks fail. Next, we use
+        `git diff` to list the changes that `pre-commit` has made and then we use the `git-auto-commit-action` to commit
+        those changes.
 
-        ```yaml linenums="1" title="pre_commit.yaml"
-        name: Pre-commit CI
-
-        on:
-          pull_request:
-          push:
-            branches: [main]
-
-        jobs:
-          pre-commit:
-            runs-on: ubuntu-latest
-            steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-            
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                python-version: 3.11
-
-            - name: Install pre-commit
-              uses: pre-commit/action@v3.0.1
-
-            - uses: pre-commit-ci/lite-action@v1.0.2
-              if: always()
+        ```yaml linenums="1" title=".github/workflows/pre_commit.yaml"
+        --8<-- ".github/workflows/pre_commit.yaml"
         ```
-
 
 That was all about how `pre-commit` can be used to automate tasks. If you want to deep dive more into the topic you
 can checkout this [page](https://pre-commit.com/#python) on how to define your own `pre-commit` hooks.
