@@ -26,21 +26,12 @@ jobs:
       uses: pre-commit/action@v3.0.1
       continue-on-error: true
 
-    - name: Get changed files
-      id: changed-files
-      uses: tj-actions/changed-files@v44
-      with:
-        since_last_remote_commit: true
-
-    - name: List all changed files
-      env:
-        ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+    - name: List modified files
       run: |
-        for file in ${ALL_CHANGED_FILES}; do
-          echo "$file was changed"
-        done
+        git diff --name-only
 
-    - uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Pre-commit fixes
         commit_options: '--no-verify'
