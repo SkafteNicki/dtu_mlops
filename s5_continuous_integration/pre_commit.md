@@ -120,7 +120,7 @@ this will make sure that the file is automatically executed whenever we run `git
 10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
 
 11. (Optional) Assuming you have completed the [module on GitHub Actions](github_actions.md), try to add a `pre-commit`
-    check to a new Github Actions workflow file. We recommend that you make use of this 
+    check to a new Github Actions workflow file. We recommend that you make use of this
     [lite action](https://github.com/pre-commit-ci/lite-action), but alternatively you can also configure the full
     [pre-commit ci](https://pre-commit.ci/).
 
@@ -131,12 +131,12 @@ this will make sure that the file is automatically executed whenever we run `git
 
         ```yaml linenums="1" title="pre_commit.yaml"
         name: Pre-commit CI
-        
+
         on:
           pull_request:
           push:
             branches: [main]
-        
+
         jobs:
           pre-commit:
             runs-on: ubuntu-latest
