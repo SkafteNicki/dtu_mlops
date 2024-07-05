@@ -27,7 +27,7 @@ one to use in which situation.
 
 You might already be familiar with the concept of executable scripts. An executable script is a Python script that can
 be run directly from the terminal without having to call the Python interpreter. This has been possible for a long time
-in Python, by the inclusion of a so-called [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of
+in Python, by the inclusion of a so-called [shebang](https://en.wikipedia.org/wiki/hash-bang) line at the top of
 the script. However, we are going to look at a specific way of defining
 [executable scripts](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts)
 using the standard `pyproject.toml` file, which you should have learned about in this
