@@ -18,7 +18,7 @@
 
 - ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to setup a prometheus monitoring system for your application
+    Learn how to do scalable inference in Pytorch
 
     [:octicons-arrow-right-24: M30: Scalable Inference](inference.md)
 
