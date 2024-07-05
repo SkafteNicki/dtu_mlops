@@ -462,16 +462,16 @@ can be seen in the image below. While you do not have to understand every part o
         --8<-- "s10_extra/exercise_files/onnx_handler.py"
         ```
 
-3. We are now going to reuse the `resnet18.onnx` file we created in the previous set of exercises. For `torchserve` to
+4. We are now going to reuse the `resnet18.onnx` file we created in the previous set of exercises. For `torchserve` to
     work with the model we need to convert it to a `.mar` file. This can be done using the `torch-model-archiver`
-    package.
+    package. The following command shows how to do this
 
     ```bash
     torch-model-archiver --model-name resnet18 --version 1.0 \
         --model-file resnet18.onnx --serialized-file resnet18.mar --handler onnx_handler.py
     ```
 
-4. We can now start the `torchserve` server using the following command
+5. We can now start the `torchserve` server using the following command
 
     ```bash
     docker run --rm -it -p 8080:8080 -p 8081:8081 -v $(pwd)/model_store:/home/model-server/model-store \
@@ -481,15 +481,12 @@ can be seen in the image below. While you do not have to understand every part o
     The server should now be running and you can access the admin panel by going to `http://localhost:8081`. You can
     also test the model by sending a request to `http://localhost:8080/predictions/resnet18` with a image as input.
 
-8. Torchserve supports serving multiple models, not just one. Create a new vision model (either another resnet model
-    or something similar), script it, save it, archive it in the save model store folder and then re-run torchserve
-    like this
+6. Torchserve is able to serve multiple models. First convert a `resnet34` model to ONNX and then use the
+    `torch-model-archiver` to convert it to a `.mar` file (you should be able to use the same handler). Put the
+    `resnet34.mar` file in the `model-store` folder and restart the server. You should now be able to access the
+    `resnet34` model in the admin panel.
 
-    ```bash
-    torchserve --start --ncs --model-store model_store --models all
-    ```
 
-    Make sure that you can do inference with both models by calling `curl`.
 
 ## Triton Inference Server
 
@@ -582,6 +579,20 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
     triton_client = grpcclient.InferenceServerClient(url="localhost:8001", verbose=True)
     ```
 
+3. (Optional) Triton Inference server support many different inference engines. We have here used the onnx inference
+    engine because of ONNX portability. However, if we really want to focus on performance there is a inference engine
+    that in general works better with Nvidia GPUs, namely [TensorRT](https://github.com/NVIDIA/TensorRT). Try to convert
+    your ONNX model into the TensorRT format and see if you can get better performance. You can use the `trtexec` tool
+    that comes with TensorRT to convert the model.
+
+    ```bash
+    trtexec --onnx=resnet18.onnx --saveEngine=resnet18.engine
+    ```
+
+    Here is a [link](https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html) to a quick start guide
+    for TensorRT.
+
+
 
 ## 🧠 Knowledge check
 
@@ -615,8 +626,7 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
         backpropagate through the model to train it, because the graph contains all the necessary information to
         calculate the gradients of the model.
 
-3. In your own words, explain why fusing operations together in the computational graph often leads to better
-    performance?
+3. Explain why fusing operations together in the computational graph often leads to better performance?
 
     ??? success "Solution"
 
