@@ -1,7 +1,5 @@
 from ts.torch_handler.base_handler import BaseHandler
-import onnxruntime as ort
-import numpy as np
-import json
+
 
 class ONNXHandler(BaseHandler):
     def initialize(self, ctx):

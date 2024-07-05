@@ -384,7 +384,7 @@ limitation.
 ## Torchserve
 
 [Torchserve](https://pytorch.org/serve/) is the native model serving framework for Pytorch. It is designed to be a
-lightweight, flexible and easy to use framework for serving Pytorch models. The overall architechture of `torchserve`
+lightweight, flexible and easy to use framework for serving Pytorch models. The overall architecture of `torchserve`
 can be seen in the image below. While you do not have to understand every part of the architecture, overall note that:
 
 * Torchserve consist of a backend and a *frontend*. When a request is send through the inference API it is first send to
@@ -413,7 +413,7 @@ can be seen in the image below. While you do not have to understand every part o
     ```
 
     however, `torchserve` requires you to have Java installed on your system. For this reason we are going to go through
-    the exercises using docker, but you can try to install it locally if you want to (we will need the 
+    the exercises using docker, but you can try to install it locally if you want to (we will need the
     `torch-model-archiver` in both cases). Else lets start by pulling the relevant docker image:
 
     ```bash
@@ -427,7 +427,7 @@ can be seen in the image below. While you do not have to understand every part o
     torchserve --model-store model-store
     ```
 
-    else try to run the docker image with the 
+    else try to run the docker image with the
     [following command](https://github.com/pytorch/serve/blob/master/docker/README.md)
 
     ```bash
@@ -441,12 +441,12 @@ can be seen in the image below. While you do not have to understand every part o
     ```
 
     TorchServe's Dockerfile configures ports 8080, 8081 , 8082, 7070 and 7071 to be exposed to the host by default. In
-    both cases you should be able to access the [admin panel](https://pytorch.org/serve/management_api.html) (which is 
-    served on port `8081`) by going to `http://localhost:8081/models`. Since we did not load any models yet, the admin 
+    both cases you should be able to access the [admin panel](https://pytorch.org/serve/management_api.html) (which is
+    served on port `8081`) by going to `http://localhost:8081/models`. Since we did not load any models yet, the admin
     panel should be empty.
 
 3. We need to write a custom handler that tells `torchserve` how to use our model for inference. Take a look at this
-    [documentation](https://pytorch.org/serve/custom_service.html) and write a custom handler in a file called 
+    [documentation](https://pytorch.org/serve/custom_service.html) and write a custom handler in a file called
     `onnx_handler.py` that can be used to serve the `resnet18` model we exported to ONNX in the previous exercises. Here
     are some starting code to get you started.
 
@@ -462,8 +462,8 @@ can be seen in the image below. While you do not have to understand every part o
         --8<-- "s10_extra/exercise_files/onnx_handler.py"
         ```
 
-3. We are now going to reuse the `resnet18.onnx` file we created in the privious set of exercises. For `torchserve` to
-    work with the model we need to convert it to a `.mar` file. This can be done using the `torch-model-archiver` 
+3. We are now going to reuse the `resnet18.onnx` file we created in the previous set of exercises. For `torchserve` to
+    work with the model we need to convert it to a `.mar` file. This can be done using the `torch-model-archiver`
     package.
 
     ```bash
@@ -502,7 +502,7 @@ model formats:
 
 
 
-If you have completed the privious [module on ONNX](onnx.md) the you can just place the `.onnx` file in the model
+If you have completed the previous [module on ONNX](onnx.md) the you can just place the `.onnx` file in the model
 repository as triton-inference server also supports ONNX models.
 
 ```txt
@@ -532,7 +532,7 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
 
 ### ❔ Exercises
 
-1. define `config.pbtxt` 
+1. define `config.pbtxt`
 
     ```txt
     name: "text_detection"

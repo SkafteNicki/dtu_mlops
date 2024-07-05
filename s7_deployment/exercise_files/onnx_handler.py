@@ -1,7 +1,9 @@
-from ts.torch_handler.base_handler import BaseHandler
-import onnxruntime as ort
-import numpy as np
 import json
+
+import numpy as np
+import onnxruntime as ort
+from ts.torch_handler.base_handler import BaseHandler
+
 
 class ONNXHandler(BaseHandler):
     def initialize(self, ctx):
@@ -9,7 +11,7 @@ class ONNXHandler(BaseHandler):
         self.manifest = ctx.manifest
         properties = ctx.system_properties
         model_dir = properties.get("model_dir")
-        
+
         # Load the ONNX model
         model_path = f"{model_dir}/model.onnx"
         self.session = ort.InferenceSession(model_path)
