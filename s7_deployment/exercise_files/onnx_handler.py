@@ -6,7 +6,10 @@ from ts.torch_handler.base_handler import BaseHandler
 
 
 class ONNXHandler(BaseHandler):
+    """ONNX handler class for handling requests to the model server."""
+
     def initialize(self, ctx):
+        """Initialize the model and any other required components."""
         # Initialize the model and any other required components
         self.manifest = ctx.manifest
         properties = ctx.system_properties
@@ -19,6 +22,7 @@ class ONNXHandler(BaseHandler):
         self.output_name = self.session.get_outputs()[0].name
 
     def preprocess(self, data):
+        """Preprocess the input data to a numpy array and return it."""
         # Preprocess the input data
         input_data = data[0].get("body")
         input_data = json.loads(input_data)
@@ -26,12 +30,14 @@ class ONNXHandler(BaseHandler):
         return input_array
 
     def inference(self, input_array):
+        """Perform inference and return the output."""
         # Perform inference
         ort_inputs = {self.input_name: input_array}
         ort_outs = self.session.run([self.output_name], ort_inputs)
         return ort_outs
 
     def postprocess(self, inference_output):
+        """Postprocess the inference output and return the result as json."""
         # Postprocess the inference output
         output_data = inference_output[0].tolist()
         return [json.dumps(output_data)]
