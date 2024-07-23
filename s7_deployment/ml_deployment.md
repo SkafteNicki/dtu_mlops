@@ -474,7 +474,9 @@ can be seen in the image below. While you do not have to understand every part o
 5. We can now start the `torchserve` server using the following command
 
     ```bash
-    docker run --rm -it -p 8080:8080 -p 8081:8081 -v $(pwd)/model_store:/home/model-server/model-store \
+    docker run --rm -it \
+        -p 8080:8080 -p 8081:8081 \
+        -v $(pwd)/model_store:/home/model-server/model-store \
         pytorch/torchserve:latest
     ```
 
@@ -558,6 +560,29 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
     ]
     ```
 
+1. Triton inference server can be installed locally, however we are again going to recommend that you just use docker to run the server. Start by pulling the relevant docker image
+
+    ```bash
+    nvcr.io/nvidia/tritonserver:24.06-trtllm-python-py3  #(1)!
+    ```
+
+    1. :man_raising_hand: `nvcr` is the nvidia container registry which can be found 
+        [here](https://catalog.ngc.nvidia.com/containers). The specific container can be found
+        [here](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tritonserver).
+
+2. To check that everything works as it should lets try to run the inference server using the following command
+
+    !!! "CPU"
+
+        ```bash
+        docker run -it --rm --net=host -v ${PWD}:/workspace/ nvcr.io/nvidia/tritonserver:24.06-trtllm-python-py3 bash
+        ```
+
+    !!! "GPU"
+
+        ```bash
+        docker run -it --rm --net=host -v ${PWD}:/workspace/ nvcr.io/nvidia/tritonserver:24.06-trtllm-python-py3-sdk bash
+    ``  ```
 
 1. docker run -it --rm --net=host -v ${PWD}:/workspace/ nvcr.io/nvidia/tritonserver:<yy.mm>-py3-sdk bash
 
@@ -579,7 +604,12 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
     triton_client = grpcclient.InferenceServerClient(url="localhost:8001", verbose=True)
     ```
 
-3. (Optional) Triton Inference server support many different inference engines. We have here used the onnx inference
+3. (Optional) Out of the box Triton Inference server is a really fast inference server. However, we can improve performance
+    even more by taking advantage of the 
+    [Triton Performance Analyzer](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/client/src/c%2B%2B/perf_analyzer/README.html)
+    to analyze different configs of our server, to find the best configuration for our model.
+
+4. (Optional) Triton Inference server support many different inference engines. We have here used the onnx inference
     engine because of ONNX portability. However, if we really want to focus on performance there is a inference engine
     that in general works better with Nvidia GPUs, namely [TensorRT](https://github.com/NVIDIA/TensorRT). Try to convert
     your ONNX model into the TensorRT format and see if you can get better performance. You can use the `trtexec` tool
@@ -590,7 +620,12 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
     ```
 
     Here is a [link](https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html) to a quick start guide
-    for TensorRT.
+    for TensorRT. Try executing the model using the TensorRT engine and compare the performance to the ONNX engine.
+
+    ??? success "Solution"
+
+        On my personal laptop the ONNX engine was able to process 1000 requests in 1.5 seconds, while the TensorRT engine was
+        able to process the same number of requests in 1.2 seconds. This is a 20% improvement in performance.
 
 
 
