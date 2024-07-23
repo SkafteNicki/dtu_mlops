@@ -1,9 +1,11 @@
-import os, sys
+import os
+import sys
 
 from invoke import task
 
 CURRENT_DIR = os.getcwd()
 WINDOWS = os.name == "nt"
+
 
 @task
 def list(ctx):

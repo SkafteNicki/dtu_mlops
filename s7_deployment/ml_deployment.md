@@ -566,7 +566,7 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
     nvcr.io/nvidia/tritonserver:24.06-trtllm-python-py3  #(1)!
     ```
 
-    1. :man_raising_hand: `nvcr` is the nvidia container registry which can be found 
+    1. :man_raising_hand: `nvcr` is the nvidia container registry which can be found
         [here](https://catalog.ngc.nvidia.com/containers). The specific container can be found
         [here](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tritonserver).
 
@@ -605,7 +605,7 @@ server how to load the model. The `config.pbtxt` file is a protobuf file that co
     ```
 
 3. (Optional) Out of the box Triton Inference server is a really fast inference server. However, we can improve performance
-    even more by taking advantage of the 
+    even more by taking advantage of the
     [Triton Performance Analyzer](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/client/src/c%2B%2B/perf_analyzer/README.html)
     to analyze different configs of our server, to find the best configuration for our model.
 
