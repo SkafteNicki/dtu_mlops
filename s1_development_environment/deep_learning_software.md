@@ -241,7 +241,8 @@ future as you start to add more and more features. As subgoals, please fulfill t
     ```
 
     which can be implemented in various ways. We provide you with a starting script that uses the `click` library to
-    define a command line interface (CLI), which you can learn more about in [this extra module](../s10_extra/cli.md).
+    define a command line interface (CLI), which you can learn more about in
+    [this module](../s2_organisation_and_version_control/cli.md).
 
     ??? note "VS code and command line arguments"
 

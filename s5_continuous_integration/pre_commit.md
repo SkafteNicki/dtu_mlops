@@ -119,5 +119,26 @@ this will make sure that the file is automatically executed whenever we run `git
 
 10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
 
+11. Assuming you have completed the [module on GitHub Actions](github_actions.md), lets try to add a
+    `pre-commit` workflow that automatically runs your `pre-commit` checks every time you push to your repository and
+    then automatically commits those changes to your repository. We recommend that you make use of
+
+    * this [pre-commit action](https://github.com/pre-commit/action) for installing and running `pre-commit`
+    * this [commit action](https://github.com/stefanzweifel/git-auto-commit-action) to automatically commit the
+      changes that `pre-commit` makes.
+
+    As an alternative you configure the [CI tool](https://pre-commit.ci/) provided by the creators of `pre-commit`.
+
+    ??? success "Solution"
+
+        The workflow first uses the `pre-commit` action to install and run the `pre-commit` checks. Importantly we run
+        it with `continue-on-error: true` to make sure that the workflow does not fail if the checks fail. Next, we use
+        `git diff` to list the changes that `pre-commit` has made and then we use the `git-auto-commit-action` to commit
+        those changes.
+
+        ```yaml linenums="1" title=".github/workflows/pre_commit.yaml"
+        --8<-- ".github/workflows/pre_commit.yaml"
+        ```
+
 That was all about how `pre-commit` can be used to automate tasks. If you want to deep dive more into the topic you
 can checkout this [page](https://pre-commit.com/#python) on how to define your own `pre-commit` hooks.

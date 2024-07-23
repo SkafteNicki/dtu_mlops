@@ -112,7 +112,9 @@ following exercises are just to get you started, but you can find many more tuto
 
 That's the basics of using VS Code. We highly recommend that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
-as debugging and version control, which VS Code can help with.
+as debugging and version control, which VS Code can help with. We can also recommend this
+[blog post](https://fmind.medium.com/how-to-configure-vs-code-for-ai-ml-and-mlops-development-in-python-%EF%B8%8F%EF%B8%8F-8582d8c6ea54)
+that goes over some good extensions for AI/ML development in VS Code.
 
 ## A note on Jupyter notebooks in production environments
 

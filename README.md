@@ -43,14 +43,13 @@ which we use for communication. The link may be expired, write to [me](mailto:ns
 
 We highly recommend that when going through the material you use the
 [homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
-[Github pages](https://pages.github.com/) version of this repository that is more nicely
-rendered, that also includes some special HTML magic provided by
+[GitHub Pages](https://pages.github.com/) version of this repository that is more nicely rendered, and also includes
+some special HTML magic provided by
 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
 The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
 corresponds to a full day of work if you are following the course, meaning approximately 9 hours of work. Each session
-(**S**) corresponds to a topic within MLOps and consists of multiple modules (**M**) that each cover a tool within the
-session.
+(**S**) corresponds to a topic within MLOps and consists of multiple modules (**M**) that each cover a specific topic.
 
 Importantly we differ between core modules and optional modules. Core modules will be marked by
 
@@ -65,7 +64,7 @@ Additionally, be aware of the following icons throughout the course material:
 
     ??? example
 
-        I will contain code for an exercise.
+        I will contain some code for an exercise.
 
 * This icon can be expanded to show a solution for a given exercise
 
@@ -173,8 +172,8 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-Which will start a local server that you can access at `localhost:8000` and will automatically update when you make
-changes to the course material. When you have something that you want to contribute, please make a pull request.
+Which will start a local server that you can access at `http://127.0.0.1:8000` and will automatically update when you
+make changes to the course material. When you have something that you want to contribute, please make a pull request.
 
 ## ❕ License
 
