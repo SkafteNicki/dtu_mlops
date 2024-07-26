@@ -50,7 +50,7 @@ We are now going to start using the cloud.
     ??? success "Solution"
 
         In general, the price of a virtual machine is determined by the class of hardware attached to it. Higher class
-        CPUs and GPUs means higher prices. Additionally, the amount of memory and disk space also affects the price.
+        CPUs and GPUs mean higher prices. Additionally, the amount of memory and disk space also affects the price.
         Finally, to location of the virtual machine also affects the price.
 
 3. After figuring this out, create a `e2-medium` instance (leave the rest configured as default). Before clicking the
@@ -213,7 +213,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     gsutil cp <file> gs://<bucket-name>
     ```
 
-3. Next we need the Google storage extension for `dvc`
+3. Next, we need the Google storage extension for `dvc`
 
     ```bash
     pip install dvc-gs
@@ -320,7 +320,7 @@ The docker images for this application are therefore going to be substantially f
 the images we are used to that use Pytorch.
 
 1. Start by enabling the service: `Google Artifact Registry API` and `Google Cloud Build API`. This can be
-    done through the web site (by searching for the services) or can also be enabled from the terminal:
+    done through the website (by searching for the services) or can also be enabled from the terminal:
 
     ```bash
     gcloud services enable artifactregistry.googleapis.com
@@ -341,7 +341,7 @@ the images we are used to that use Pytorch.
 
         Give the repository a name, make sure to set the format to `Docker` and specify the region. At the bottom of the
         page you can optionally add a cleanup policy. We recommend that you add one to keep costs down. Give the policy
-        a name and choose the `Keep most recent versions` option and set the keep count to `5`. Click `Create` and you
+        a name choose the `Keep most recent versions` option and set the keep count to `5`. Click `Create` and you
         should now see the repository in the list of repositories.
 
     === "Command line"
@@ -355,7 +355,7 @@ the images we are used to that use Pytorch.
 
         where you need to replace `<registry-name>` with a name of your choice. You can read more about the command
         [here](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create). We recommend that after
-        creating the repository that you update it with a cleanup policy to keep costs down. You can do this by running:
+        creating the repository you update it with a cleanup policy to keep costs down. You can do this by running:
 
         ```bash
         gcloud artifacts repositories set-cleanup-policies REPOSITORY
@@ -441,7 +441,7 @@ the images we are used to that use Pytorch.
         This command will submit a build to the cloud build service using the configuration file `cloudbuild.yaml` in
         the current directory.
 
-5. Instead of relying on manually submitting builds, we can setup the building process as continues integration such
+5. Instead of relying on manually submitting builds, we can setup the building process as continuous integration such
     that it is triggered every time we push code to the repository. This is done by setting up a
     [trigger](https://cloud.google.com/build/docs/triggers) in the GCP console. From the GCP homepage, navigate to the
     triggers panel:
@@ -472,7 +472,7 @@ the images we are used to that use Pytorch.
 
     3. To activate the trigger, push some code to the chosen repository.
 
-    4. Go to the `Cloud Build` page and you should see the image being build and pushed.
+    4. Go to the `Cloud Build` page and you should see the image being built and pushed.
 
         <figure markdown>
         ![Image](../figures/gcp_build.png){ width="800"  }
@@ -511,8 +511,8 @@ the images we are used to that use Pytorch.
 
     ??? success "Solution"
 
-        Pushing to a repository is similar to pulling. Assuming that you have already built a image called `busybox` you
-        can push it to the repository by running:
+        Pushing to a repository is similar to pulling. Assuming that you have already built an image called `busybox`
+        you can push it to the repository by running:
 
         ```bash
         docker tag busybox <region>-docker.pkg.dev/<project-id>/<registry-name>/busybox:latest
@@ -641,6 +641,63 @@ the images we are used to that use Pytorch.
                   run: gcloud builds submit --config cloudbuild_containers.yaml
             ```
 
+9. (Optional) The `cloudbuild` specification format allows you to specify so-called
+    [substitutions](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values). A substitution
+    is simply a way to replace a variable in the `cloudbuild.yaml` file with a value that is known only at runtime. This
+    can be useful for using the same `cloudbuild.yaml` file for multiple builds. Try to implement a substitution in your
+    docker cloud build file such that the image name is a variable.
+
+    !!! note "Build in substitutions"
+
+        You have probably already encountered substitutions like `$PROJECT_ID` in the `cloudbuild.yaml` file. These are
+        substitutions that are automatically replaced by GCP. Other commonly used are `$BUILD_ID`, `$PROJECT_NUMBER`
+        and `$LOCATION`. You can find a full list of built.in substitutions
+        [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_default_substitutions)
+
+    ??? success "Solution"
+
+        We just need to add the `substitutions` field to the `cloudbuild.yaml` file. For example, if we want to replace
+        the image name with a variable called `_IMAGE_NAME` we can do the following:
+
+        ```yaml
+        steps:
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Build container image'
+          args: [
+            'build',
+            '.',
+            '-t',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/_IMAGE_NAME',
+            '-f',
+            '<path-to-dockerfile>'
+          ]
+        - name: 'gcr.io/cloud-builders/docker'
+          id: 'Push container image'
+          args: [
+            'push',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/_IMAGE_NAME'
+          ]
+        substitutions:
+          _IMAGE_NAME: 'my_image'
+        ```
+
+        Do note that user substitutions are prefixed with an underscore `_` to distinguish them from built-in. You can
+        read more
+        [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_user-defined_substitutions)
+
+    1. How would you provide the value for the `_IMAGE_NAME` variable to the `gcloud builds submit` command?
+
+        ??? success "Solution"
+
+            You can provide the value for the `_IMAGE_NAME` variable by adding the `--substitutions` flag to the
+            `gcloud builds submit` command:
+
+            ```bash
+            gcloud builds submit --config=cloudbuild.yaml --substitutions=_IMAGE_NAME=my_image
+            ```
+
+            If you want to provide more than one substitution you can do so by separating them with a comma.
+
 ## Training
 
 As the final step in our journey through different GCP services in this module, we are going to look at the training of
@@ -709,8 +766,8 @@ models, and then use other services for different parts of our pipeline.
     Engine service. The reason is that you need to manually start, setup and stop a separate VM for each experiment.
     Instead, let's try to use the Vertex AI service to train our models.
 
-    1. Start by enabling it by searching for `Vertex AI` in the cloud console by going to the service or alternatively
-        by running the following command:
+    1. Start by enabling it by searching for `Vertex AI` in the cloud console by going to the service or by running the
+        following command:
 
         ```bash
         gcloud services enable aiplatform.googleapis.com
@@ -760,10 +817,10 @@ models, and then use other services for different parts of our pipeline.
                     imageUri: gcr.io/<project-id>/<docker-img>
             ```
 
-            1. In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have quota for
+            1. In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
                 allocating this type of GPU in the Vertex AI service. You can check how to request quota in the last
-                exercise of the [previous module](cloud_setup.md). Remember that it is not enough to just request quota
-                for the GPU, the request need to by approved by Google before you can use it.
+                exercise of the [previous module](cloud_setup.md). Remember that it is not enough to just request a
+                quota for the GPU, the request needs to be approved by Google before you can use it.
 
         you can read more about the configuration formatting
         [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
@@ -835,7 +892,7 @@ models, and then use other services for different parts of our pipeline.
 
 ## Secrets management
 
-Similar to Github Actions, GCP also has a secrets store that can be used to keep secrets safe. This is called the
+Similar to GitHub Actions, GCP also has a secrets store that can be used to keep secrets safe. This is called the
 [Secret Manager](https://cloud.google.com/secret-manager/docs) in GCP. By using the Secret Manager, we get the option
 to inject secrets into our code without having to store them in the code itself.
 
@@ -964,8 +1021,8 @@ to inject secrets into our code without having to store them in the code itself.
 
     ??? success "Solution"
 
-        In both cases the solution is the `waitFor` field. If you want a step to wait for another step to finish you
-        you need to give the first step an id and then specify that id in the `waitFor` field of the second step.
+        In both cases, the solution is the `waitFor` field. If you want a step to wait for another step to finish you
+        you need to give the first step an `id` and then specify that `id` in the `waitFor` field of the second step.
 
         ```yaml
         steps:

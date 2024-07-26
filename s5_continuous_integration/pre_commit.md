@@ -75,6 +75,8 @@ this will make sure that the file is automatically executed whenever we run `git
     pip install pre-commit
     ```
 
+    Consider adding `pre-commit` to a `requirements_dev.txt` file, as it is a development tool.
+
 2. Next create the sample file
 
     ```bash
@@ -104,10 +106,45 @@ this will make sure that the file is automatically executed whenever we run `git
 6. Try adding at least another check from the [base repository](https://github.com/pre-commit/pre-commit-hooks) to your
     `.pre-commit-config.yaml` file.
 
+    ??? success "Solution"
+
+        In this case we have added the `check-json` hook to our `.pre-commit-config.yaml` file, which will automatically
+        check that all JSON files are valid.
+
+        ```yaml
+        repos:
+        -   repo:
+            rev: v3.2.0
+            hooks:
+            -   id: trailing-whitespace
+            -   id: end-of-file-fixer
+            -   id: check-yaml
+            -   id: check-added-large-files
+            -   id: check-json
+        ```
+
 7. If you have completed the optional module
     [M7 on good coding practice](../s2_organisation_and_version_control/good_coding_practice.md) you will have learned
     about the linter `ruff`. `ruff` comes with its own [pre-commit hook](https://github.com/astral-sh/ruff-pre-commit).
     Try adding that to your `.pre-commit-config.yaml` file and see what happens when you try to commit files.
+
+    ??? success "Solution"
+
+        This is one way to add the `ruff` pre-commit hook. We run both the `ruff` and `ruff-format` hooks, and we also
+        add the `--fix` argument to the `ruff` hook to try to fix what is possible.
+
+        ```yaml
+        repos:
+        - repo: https://github.com/astral-sh/ruff-pre-commit
+          rev: v0.4.7
+          hooks:
+            # try to fix what is possible
+            - id: ruff
+                args: ["--fix"]
+            # perform formatting updates
+            - id: ruff-format
+            # validate if all is fine with preview mode
+            - id: ruff
 
 8. (Optional) Add more hooks to your `.pre-commit-config.yaml`.
 
