@@ -14,3 +14,4 @@ pre-commit>=3.7.0
 
 # Other
 ipython >= 8.24.0
+invoke >= 2.2.0

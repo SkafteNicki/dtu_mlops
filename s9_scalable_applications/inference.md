@@ -5,32 +5,33 @@
 
 ---
 
-Inference is task of applying our trained model to some new and unseen data, often called *prediction*. Thus, scaling
-inference is different from scaling data loading and training, mainly due to inference normally only using a single
-data point (or a few). As we can neither parallelize the data loading or parallelize using multiple GPUs (at least
-not in any efficient way), this is of no use to us when we are doing inference. Secondly, inference is often not
-something we do on machines that can perform large computations, as most inference today is actually either done on
-*edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter about how
-we scale inference than just throwing more compute at it.
+Inference is the task of applying our trained model to some new and unseen data, often called *prediction*. Thus, 
+scaling inference is different from scaling data loading and training, mainly due to inference normally only using a 
+single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at 
+least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference 
+is often not something we do on machines that can perform large computations, as most inference today is actually either 
+done on *edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter 
+about how we scale inference than just throwing more computing power at it.
 
-In this module we are going to look at various ways that you can either reduce the size of your model and or make your
+In this module, we are going to look at various ways that you can either reduce the size of your model or make your
 model faster. Both are important for running inference fast regardless of the setup you are running your model on. We
 want to note that this is still very much an active area of research and therefore best practices for what to do in a
 specific situation can change.
 
 ## Choosing the right architecture
 
-Assume you are starting a completely new project and have to come up with a model architecture for doing this. What is
-you strategy? The common way to do this, is to look at prior work on similar problems that you are facing and either
-directly choosing the same architecture or creating some slight variation hereof. This is a great way to get started,
+Assume you are starting a completely new project and have to come up with a model architecture for doing this. What is 
+your strategy? The common way to do this is to look at prior work on similar problems that you are facing and either
+directly choose the same architecture or create some slight variation hereof. This is a great way to get started,
 but the architecture that you end up choosing may be optimal in terms of performance but not inference speed.
 
-The fact is that not all base architectures are created equal, and a 10K parameter model with one architecture can have
-significantly different inference speed than another 10K parameter model with another architecture. For example,
-consider the figure below which compares a number of models from the [timm] package, colored based on their base
-architecture. The general trend is that the number of images that can be processed by a model per sec (y-axis) is
-inverse proportional to the number of parameters (x-axis). However, we in general see that convolutional base
-architectures (conv) are more efficient than transformer (vit) for the same parameter budget.
+The fact is that not all base architectures are created equal, and a 10K parameter model with one architecture can have 
+a significantly different inference speed than another 10K parameter model with another architecture. For example,
+consider the figure below which compares an number of models from the 
+[timm](https://github.com/huggingface/pytorch-image-models) package, colored based on their base architecture. The 
+general trend is that the number of images that can be processed by a model per sec (y-axis) is inversely proportional 
+to the number of parameters (x-axis). However, we in general see that convolutional base architectures (conv) are more 
+efficient than transformer (vit) for the same parameter budget.
 
 <figure markdown>
 ![Image](../figures/infer_param_count.jpg){ width="800" }
@@ -39,40 +40,47 @@ architectures (conv) are more efficient than transformer (vit) for the same para
 
 ### ❔ Exercises
 
-As dissed in this
+As discussed in this
 [blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413)
-the largest increase in inference speed you will see (given some specific hardware) is choosing an efficient model
-architectures. In the exercises below we are going to investigate the inference speed of different architectures.
+the largest increase in inference speed you will see (given some specific hardware) is choosing an efficient model 
+architecture. In the exercises below we are going to investigate the inference speed of different architectures.
 
 1. Start by checking out this
     [table](https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights)
     which contains a list of pretrained weights in `torchvision`. Try finding an
 
-    * Efficientnet
+    * Efficient net
     * Resnet
     * Transformer based
 
-    model that have in the range of 20-30 mio parameters.
+    model that has in the range of 20-30 mio parameters.
 
-2. Write a small script that initialize all models and does inference with them. It should look something like this
+2. Write a small script that first initializes all models, creates a dummy input tensor of shape [100, 3, 256, 256] and
+    then measures the time it takes to do a forward pass on the input tensor. Make sure to do this multiple times to get
+    a good average time.
 
-    ```python
-    import time
-    from torchvision import models
+    ??? success "Solution"
 
-    m1 = models.ModelArchitecture1()
-    m2 = models.ModelArchitecture2()
-    m3 = models.ModelArchitecture3()
+        In this solution, we have chosen to use the efficientnet b5 (30.4M parameters), resnet50 (25.6M parameters) and
+        the swin v2 transformer tiny (28.4M parameters) models. 
 
-    input = torch.randn(100, 3, 256, 256)
+        ```python
+        import time
+        import torch
+        from torchvision import models
 
-    for i, m in enumerate([m1, m2, m3]):
-        tic = time.time()
-        for _ in range(n_reps):
-            _ = m(input)
-        toc = time.time()
-        print(f"Model {i} took: {(toc - tic) / n_reps}")
-    ```
+        model_list = ["efficientnet_b5", "resnet50", "swin_v2_t"]
+        image = torch.randn(100, 3, 256, 256)
+
+        n_reps = 10
+        for i, m in enumerate(model_list):
+            model = models.get_model(m)
+            tic = time.time()
+            for _ in range(n_reps):
+                _ = model(image)
+            toc = time.time()
+            print(f"Model {i} took: {(toc - tic) / n_reps}")
+        ```
 
 3. Does the results make sense? Based on the above figure we would expect that efficientnet is faster than resnet,
     which is faster than the transformer based model. Is this also what you are seeing?
@@ -91,6 +99,22 @@ architectures. In the exercises below we are going to investigate the inference 
 
     2. Try calling the `get_model_complexity_info` function from the `ptflops` package on the networks from the
         previous exercise. What are the results?
+
+        ??? success "Solution"
+
+            ```python
+            from ptflops import get_model_complexity_info
+            import time
+            import torch
+            from torchvision import models
+
+            model_list = ["efficientnet_b5", "resnet50", "swin_v2_t"]
+            for model in model_list:
+                macs, params = get_model_complexity_info(
+                    models.get_model(model_list[0]), (3, 256, 256), backend='pytorch', print_per_layer_stat=False
+                )
+                print(f"Model {model} have {params} parameters and uses {macs}")
+            ```
 
 5. In the table from the initial exercise, you could also see the overall performance of each network on the
     Imagenet-1K dataset. Given this performance, the inference speed, the flops count what network would you choose

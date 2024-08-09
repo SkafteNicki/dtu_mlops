@@ -33,18 +33,18 @@ three of these related to different tasks in machine learning algorithms:
 - Scaling training
 - Scaling inference
 
-We are going to approach the term *scaling* from two different angles that both should result in your application
+We are going to approach the term *scaling* from two different angles and both should result in your application
 running faster. The first approach is levering multiple devices, such as using multiple CPU cores or parallelizing
-training across multiple GPUs. The second approach is more analytical, were we are going to look at how we can
-design smaller/faster model architectures that runs faster.
+training across multiple GPUs. The second approach is more analytical, where we are going to look at how we can
+design smaller/faster model architectures that run faster.
 
-It should be noted that this module is specific to working with Pytorch applications. In particular we are going to see
+It should be noted that this module is specific to working with Pytorch applications. In particular, we are going to see
 how we can both improve base Pytorch code and how to utilize the Pytorch Lightning which we introduced in module
 [M14 on boilerplate](../s4_debugging_and_logging/boilerplate.md) to improve the scaling of our applications. If your
-application is written using another framework we can guarantee that the same techniques in these modules transfers to
-that framework, but may require you do seek out how to specifically to it.
+application is written using another framework we can guarantee that the same techniques in these modules transfer to
+that framework, but may require you to seek out how to specifically to it.
 
-If you manage to complete all modules in this session, feel free to checkout the *extra* module on scalable
+If you manage to complete all modules in this session, feel free to check out the *extra* module on scalable
 [hyperparameter optimization](../s10_extra/hyperparameters.md).
 
 !!! tip "Learning objectives"
@@ -52,7 +52,7 @@ If you manage to complete all modules in this session, feel free to checkout the
     The learning objectives of this session are:
 
     * Understand how data loading during training can be parallelized and have experimented with it
-    * Understand the different paradigms for distributed training and can run multi-gpu experiments using the
-      framework `pytorch-lightning`
+    * Understand the different paradigms for distributed training and can run multi-GPU experiments using the
+        framework `pytorch-lightning`
     * Knowledge of different ways, including quantization, pruning, architecture tuning etc. to improve inference
-      speed
+        speed
