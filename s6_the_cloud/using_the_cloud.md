@@ -667,7 +667,7 @@ the images we are used to that use Pytorch.
             'build',
             '.',
             '-t',
-            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/_IMAGE_NAME',
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/$_IMAGE_NAME',
             '-f',
             '<path-to-dockerfile>'
           ]
@@ -675,7 +675,7 @@ the images we are used to that use Pytorch.
           id: 'Push container image'
           args: [
             'push',
-            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/_IMAGE_NAME'
+            'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/$_IMAGE_NAME'
           ]
         substitutions:
           _IMAGE_NAME: 'my_image'
