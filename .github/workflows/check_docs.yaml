@@ -22,7 +22,9 @@ jobs:
           cache-dependency-path: setup.py
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip list
 
       - name: Build docs
         run: mkdocs build -d build --strict

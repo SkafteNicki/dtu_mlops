@@ -81,7 +81,7 @@ repository.
 
 1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
     which is a framework that is built on top of GitHub actions. The figure below describes the overall process using
-    the `cml` framework. It should be clear that it is the very same process that we go through as in the other
+    the `cml` framework. It should be clear that it is the very same process that we go through in the other
     continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this session
     that we are only going to trigger whenever data changes.
 
@@ -101,7 +101,7 @@ repository.
             --8<-- "s5_continuous_integration/exercise_files/dataset.py"
             ```
 
-    2. Then let's create a function that can report basic statistics such as the number of training samples, the number
+    2. Then let's create a function that can report basic statistics such as the number of training samples, number
         of test samples and generate figures of sample images in the dataset and distribution of the classes in the
         dataset. This function should be called `dataset_statistics` and should take a path to the dataset as input.
 
@@ -146,7 +146,7 @@ repository.
 
         ??? success "Solution"
 
-            This solution assumes that data is stored in GCP bucket and that the credentials are stored in a secret
+            This solution assumes that data is stored in a GCP bucket and that the credentials are stored in a secret
             called `GCP_SA_KEY`. If this is not the case for you, you need to adjust the workflow accordingly with
             the correct way to pull the data.
 
@@ -197,8 +197,8 @@ repository.
         to commit the changes to data. Open a pull request with the branch and make sure that the workflow activates
         and runs as expected.
 
-    6. Lets now add the `cml` framework such that we can comment the results of the `dataset_statistics` function in the
-        pull request automatically. Look at the
+    6. Let's now add the `cml` framework such that we can comment the results of the `dataset_statistics` function in
+        the pull request automatically. Look at the
         [getting started guide](https://github.com/iterative/cml#getting-started) for help on how to do this. You will
         need write all the content of the `dataset_statistics` function to a file called `report.md` and then use the
         `cml comment create` command to create a comment in the pull request with the content of the file.

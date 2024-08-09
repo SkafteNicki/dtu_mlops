@@ -25,7 +25,9 @@ jobs:
           cache-dependency-path: setup.py
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip list
 
       - name: Deploy docs
         run: mkdocs gh-deploy --force
