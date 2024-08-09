@@ -23,7 +23,7 @@ def output_label(label):
         8: "Bag",
         9: "Ankle Boot",
     }
-    label = label.item() if type(label) == torch.Tensor else label
+    label = label.item() if isinstance(torch.Tensor) else label
     return output_mapping[label]
 
 
