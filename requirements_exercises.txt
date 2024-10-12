@@ -1,0 +1,52 @@
+# list of all packages used throughout the exercises
+
+# s1 - development environment
+python-dotenv
+nbconvert
+torch
+torchvision
+pipreqs
+# s2 - organisation and version control
+typer
+invoke
+cookiecutter
+dvc
+dvc-gdrive
+ruff
+mypy
+# s3 - reproducibility
+hydra-cookiecutter
+# s4 - debugging and logging
+pytorch-lightning
+wandb
+snakeviz
+torch_tb_profiler
+# s5 - continuous integration
+pre-commit
+pytest
+coverage
+# s6 - the cloud
+google-cloud-storage
+dvc-gs
+# s7 - deployment
+fastapi
+pydantic
+uvicorn
+requests
+httpx
+locust
+# s8 - monitoring
+evidently
+prometheus-fastapi-instrumentator
+# s9 - scalable applications
+ptflops
+transformers
+datasets
+# s10 - extra
+onnxruntime
+scikit-learn
+mkdocs-material
+streamlit
+optuna
+prefect
+neural_compressor

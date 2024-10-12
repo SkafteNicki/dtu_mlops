@@ -73,8 +73,6 @@ and deploy it. The service is great for small applications that can be encapsula
     ![Image](../figures/gcp_test_function.png){ width="800" }
     </figure>
 
-    1.
-
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
     therefore just send an empty request by clicking the `Test The Function` button. Does the function return
     the output you expected? Wait for the logs to show up. What do they show?
@@ -271,9 +269,9 @@ deploying containers.
         docker push <region>-docker.pkg.dev/<project-id>/<registry-name>/gcp_test_app:latest
         ```
 
-        Afterward check your artifact registry contains the pushed image.
+        Afterward, check your artifact registry contains the pushed image.
 
-2. Next ,go to `Cloud Run` in the cloud console and enable the service or use the following command:
+2. Next, go to `Cloud Run` in the cloud console and enable the service or use the following command:
 
     ```bash
     gcloud services enable run.googleapis.com
@@ -288,7 +286,7 @@ deploying containers.
     Do the following:
 
     * Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
-        future, you probably want to choose the *Continuously deploy new revision from a source repository* such that
+        future, you probably want to choose the *Continuously deploy new revisions from a source repository* such that
         a new version is always deployed when a new container is built.
 
     * Hereafter, give the service a name and select the region. We recommend choosing a region close to you.

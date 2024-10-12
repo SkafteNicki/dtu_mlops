@@ -52,4 +52,4 @@ also how to deploy services in the cloud.
     * Understand the basics of requests and APIs
     * Can create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
-      serverless containers
+        serverless containers
