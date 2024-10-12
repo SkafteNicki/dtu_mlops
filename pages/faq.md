@@ -13,9 +13,6 @@ Mostly yes. All exercises are provided online and lectures will be recorded and 
 
 * For project days (see which days in the [time plan](timeplan.md)) you will need to agree with your project group that
     you are working from home.
-* The oral part of the exam takes place on campus. EuroTEQ students are exempt from this rule. If you have an
-    extremely good reason for not being able to come to campus on the exam date, please contact us within the first
-    week of the course.
 * We have limited TA resources and will be prioritizing students coming to campus for help. If you are attending online,
     feel free to ask questions on our Slack channel and we will help to the best of our ability.
 
@@ -49,9 +46,8 @@ as it sounds.
 
 ## When will the exam take place ❔
 
-The oral part of the exam, which is a small project demo, always falls on the last day of the course. For January 2024,
-this means the 19th. The written part which is a small project report, should be handed in at midnight on the final
-course day.
+From 2025 and onwards, the exam only consist of a project report. The report should be handed in at midnight on the
+final day of the course. For January 2025, this means the 24th.
 
 ## Where can I find information regarding the exam ❔
 
@@ -63,16 +59,22 @@ Yes, yes, and yes, but remember that its a tool and you need to validate the out
 for the exam report that you formulate the answers in your own words because it is intended for you do describe what
 you have been doing in your project. *The I in LLM stands for intelligence.*
 
+## I am a PhD student not enrolled at DTU, can I take the course ❔
+
+Yes, PhD students from other universities can attend the course. You can checkout
+[this page](https://www.dtu.dk/english/education/phd/intro/guest-phd/guest_courses) for more information or in general
+you can contact <phdcourses@dtu.dk> for more information. Do note that the registration deadline is usually in beginning
+of December.
+
 ## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
 
 We can give a grade on the Danish
 [7-point grading](https://ufm.dk/en/education/the-danish-education-system/grading-system) scale for foreign students who
 need it, where their home university does not accept pass/no-pass. You need to contact the course responsible
-[Nicki](mailto:nsde@dtu.com) within the first week of the course to request this. Secondly, make sure to also inform us
-about it during the oral part of the exam because we need to ask you additional questions to be able to give an exact
-grade.
+[Nicki](mailto:nsde@dtu.com) within the first week of the course to request this. Secondly, we may need to further
+validate your work, so please be prepared for doing a short oral exam on one of the last days of the course.
 
 ## I am a EuroTEQ student, any special rules for me ❔
 
-You will be allowed to attend the oral part of the exam online and we will provide a special Slack channel for you,
-trying to make sure that you get the same help as students from DTU who can attend the course on campus.
+Not really, you will attend the course as any other student. However, we will provide a special Slack channel for you,
+trying to make sure that you can get the same help as students from DTU who can attend the course on campus.

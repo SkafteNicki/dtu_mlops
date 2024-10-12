@@ -220,18 +220,11 @@ point on the checklist for the exam.
 
 ## Exam
 
-The exam consist of a written and oral element, and both contributes to the overall evaluation if you should pass or
-not pass the course.
-
-For the written part of the exam we provide an template folder called
+From January 2025 the exam only consist of a project report. The report should be handed in at midnight on the final day
+of the course. For January 2025, this means the 24th. We provide template folder called
 [reports](https://github.com/SkafteNicki/dtu_mlops/tree/main/reports). As the first task you should copy the folder and
 all its content to your project repository. Then, you jobs is to fill out the `README.md` file which contains the report
 template. The file itself contains instructions on how to fill it out and instructions on using the included `report.py`
-file. You will hand-in the template by simple including it in your project repository. By midnight on the 19/1 we will
-scrape it automatically, and changes after this point are therefore not registered.
-
-For the oral part of the exam you will be given a time slot where you have to show up for 5-7 min and give a very short
-demo of your project. What we are interested in seeing is essentially a live demo of your deployed application/project.
-We will possibly also ask questions regarding the overall curriculum of the course. Importantly, you should have your
-deployed application, the GitHub repository with your project code, W&B account and your GCP account ready before
-you enter the exam so we can quickly jump around. We will send out an the time slots during the last week.
+file for validating your work. You will hand-in the template by simple including it in your project repository. By
+midnight on the final day of the course, we will automatically scrape the report and use it as the basis for grading
+you. Therefore, changes after this point are not registered.

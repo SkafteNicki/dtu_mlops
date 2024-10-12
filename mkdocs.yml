@@ -75,6 +75,7 @@ plugins:
         - s10_extra\kubernetes.md
         - s10_extra\orchestration.md
         - s10_extra\calibration.md
+        - s10_extra\quantization.md
         - samples\README.md
         - tools\README.md
 
@@ -149,6 +150,8 @@ nav:
     # - M37 - Workflow orchestration: s10_extra/orchestration.md
     # - M38 - Kubernetes: s10_extra/kubernetes.md
     # - M39 - Infrastructure as code: infrastructure_as_code.md
+    # - M40 - Calibration: s10_extra/calibration.md
+    # - M41 - Quantization: s10_extra/quantization.md
   - Summary: pages/overview.md
   - Projects: pages/projects.md
   - FAQ: pages/faq.md

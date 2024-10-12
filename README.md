@@ -17,7 +17,7 @@
 * 3 week period in January
 * Master level course
 * Grade: Pass/not passed
-* Type of assessment: oral presentation + project report
+* Type of assessment: project report
 * Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/02456) or
     experience with the following topics:
 

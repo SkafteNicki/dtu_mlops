@@ -1,8 +1,3 @@
----
-layout: default
-nav_exclude: true
----
-
 # Exam template for 02476 Machine Learning Operations
 
 This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
