@@ -290,3 +290,200 @@ show it is possible for data to have drifted to another distribution with the ma
 There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.org/papers/v13/gretton12a.html) that are
 able to do testing on multivariate distributions, which you are free to dive into. In this course we will just always
 recommend to consider multiple features when doing decision regarding your deployed applications.
+
+## Data drift in the cloud
+
+In the next section we are going to look at how we can incorporate the data drifting in our cloud environment. In particular
+we are going to be looking at how we can deploy a monitoring application that will run on a schedule and then report those
+statistics directly back into GCP for us to study.
+
+### Exercises
+
+In this set of exercises we are going to deploy a machine learning model for sentiment analysis trained on
+[Google Play Store Reviews](https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews). The models task
+is to predict if a users review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
+service that will check if the distribution of the reviews have drifted over time. This may be useful if we are seeing
+a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
+expected.
+
+We have already created downloaded the training data, created a training script and trained a model for you. All of it
+can be found in the [exercise folder](https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files).
+You are free to retrain the model yourself, but it takes about 30 mins to train using a GPU. We recommend that you
+scroll through the files to get an understanding of what is going on.
+
+??? example "Training script for sentiment analysis model"
+    ```python linenums="1" title="sentiment_classifier.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_classifier.py"
+    ```
+
+1. To begin with lets start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
+    called `gcp_monitoring_exercise` (or something similar). Upload the training data and the trained model to the
+    bucket.
+
+    ??? success "Solution"
+
+        This can be done by running the following commands or manually uploading the files to the bucket using the
+        GCP console.
+
+        ```
+        gsutil mb gs://gcp_monitoring_exercise
+        gsutil cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
+        gsutil cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
+        ```
+
+2. Next we need to create a fastapi application that takes a review as input and returns the predicted sentiment of
+    the review. We provide a starting point for the application in the file below, that should be able to run as is.
+
+    ??? example "Starting point for sentiment analysis API"
+
+        ```python linenums="1" title="sentiment_api_starter.py"
+        --8<-- "s8_monitoring/exercise_files/sentiment_api_starter.py"
+        ```
+
+    1. Confirm that you can run the application by running the following command in the terminal
+
+        ```bash
+        uvicorn sentiment_api_starter:app --reload
+        ```
+
+        You need the model file saved in the same directory as the application to run the application. Write a small
+        `client.py` script that calls the application with a review and prints the predicted sentiment.
+
+        ??? success "Solution"
+
+            ```python
+            import requests
+
+            url = "http://localhost:8000/predict"
+            review = "This is a great app, I love it!"
+            response = requests.post(url, json={"review": review})
+            print(response.json())
+            ```
+
+    2. Next, we need to extend the application in two ways. First instead of loading the model from our local computer,
+        it should load from the bucket we just uploaded the model to. Secondly, we need to save the request data and the
+        predicted label to the cloud. Normally this would best be suited in a database, but we are going to just save
+        to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g. the
+        time and date of the request). Implement both of these functionalities in the application.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="sentiment_api.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.py"
+            ```
+
+    3. You should confirm that the application is working locally before moving on. You can do this by running the
+        following command in the terminal
+
+        ```bash
+        uvicorn sentiment_api:app --reload
+        ```
+
+        and use the same `client.py` script as before to confirm that the application is working. You should also check
+        that the data is saved to the bucket.
+
+    4. Write a small dockerfile that containerize the application
+
+        ??? success "Solution"
+
+            ```dockerfile
+            FROM python:3.11-slim
+
+            WORKDIR /app
+
+            RUN pip install fastapi torch transformers google-cloud-storage pydantic
+
+            COPY sentiment_api.py .
+
+            EXPOSE 8000
+
+            CMD exec uvicorn sentiment_api:app --port $PORT --host 0.0.0.0 --workers 1
+            ```
+
+    5. Deploy the container to cloud run and confirm that the application still runs as expected.
+
+        ```bash
+        gcloud run deploy <service-name> --source . #(1)!
+        ```
+
+        1. We can skip the hole process of building the container and pushing it to the container registry by just
+            deploying the current directory. This is really only recommended for testing purposes. You can read more
+            about deployment from source code [here](https://cloud.google.com/run/docs/deploying-source-code).
+
+3. We now have a working application that we are ready to monitor for data drift in real time. We therefore need to now
+    write a fastapi application that takes in the training data and the predicted data and run evidently to check if the
+    data or the labels have drifted. We again provide a starting point for the application below.
+
+    ```python linenums="1" title="monitoring_api_starter.py"
+    <--8<-- "s8_monitoring/exercise_files/monitoring_api_starter.py"
+    ```
+
+    1. The script misses one key function to work: `#!python fetch_latest_data(n: int)` that should fetch the latest `n`
+        predictions. Implement this function in the script.
+
+4. Next your job is now to write a separate evidently fastapi application that takes in the training data and the predicted
+    data and run evidently to check if the data or the labels have drifted. Because we want the service to only account for
+    the last `N` predictions you should only open these
+
+    ??? success "Solution"
+
+        ```python
+        ```
+
+5. Next deploy both the application and the monitoring service to the Cloud Run. You therefore need to create a simple
+    Dockerfile for each of the applications and then deploy them
+
+    ??? Solution
+
+        The dockerfile for the the two applications should be very similar, with the difference being the requirements
+        needed to run the applications and the file that needs to run. Below is shown one of the dockerfiles:
+
+        ```dockerfile
+        ```
+
+        Assuming the two dockerfiles are called `gcp_monitoring_exercise_app.dockerfile` and
+        `gcp_monitoring_exercise_app.dockerfile` they can be deployed to Cloud Run using these commands
+
+        ```txt
+        ```
+
+6. We are now finally, ready to test our services. Since we need to observe some longterm behaviour this part may take
+    some time to run depending on how you have exactly configured your. Below we have implemented a client script that
+    are meant to call our service.
+
+    ```python
+    import request
+    import time
+    import argparse
+    import logging
+
+    logger = logging.__get_logger__(__name__)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url")
+    parser.add_argument("waittime")
+
+    dummy_text = "
+
+    hurtful_words = [" "]
+
+    if __name__ == "__main__":
+        counter = 0
+
+        while True:  # this will run forever, you have to ctrl+c the script before it stops
+            time.pause(waittime)
+
+            if random.rand() > 0.5:
+                words_to_add = [ ]
+                for i in range(counter):
+                    words_to_add.append(random_select(hurtful_words))
+
+                request = dummy_text.insert(words_to_add)
+            else:
+                request = dummy_text
+
+            prediction = request.get(url)
+
+            logger.log(f"{time.gettime}\nSent sentence {request} and received label {prediction}")
+
+    ```
