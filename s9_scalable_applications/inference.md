@@ -5,12 +5,12 @@
 
 ---
 
-Inference is the task of applying our trained model to some new and unseen data, often called *prediction*. Thus, 
-scaling inference is different from scaling data loading and training, mainly due to inference normally only using a 
-single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at 
-least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference 
-is often not something we do on machines that can perform large computations, as most inference today is actually either 
-done on *edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter 
+Inference is the task of applying our trained model to some new and unseen data, often called *prediction*. Thus,
+scaling inference is different from scaling data loading and training, mainly due to inference normally only using a
+single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at
+least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference
+is often not something we do on machines that can perform large computations, as most inference today is actually either
+done on *edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
 about how we scale inference than just throwing more computing power at it.
 
 In this module, we are going to look at various ways that you can either reduce the size of your model or make your
@@ -20,17 +20,17 @@ specific situation can change.
 
 ## Choosing the right architecture
 
-Assume you are starting a completely new project and have to come up with a model architecture for doing this. What is 
+Assume you are starting a completely new project and have to come up with a model architecture for doing this. What is
 your strategy? The common way to do this is to look at prior work on similar problems that you are facing and either
 directly choose the same architecture or create some slight variation hereof. This is a great way to get started,
 but the architecture that you end up choosing may be optimal in terms of performance but not inference speed.
 
-The fact is that not all base architectures are created equal, and a 10K parameter model with one architecture can have 
+The fact is that not all base architectures are created equal, and a 10K parameter model with one architecture can have
 a significantly different inference speed than another 10K parameter model with another architecture. For example,
-consider the figure below which compares an number of models from the 
-[timm](https://github.com/huggingface/pytorch-image-models) package, colored based on their base architecture. The 
-general trend is that the number of images that can be processed by a model per sec (y-axis) is inversely proportional 
-to the number of parameters (x-axis). However, we in general see that convolutional base architectures (conv) are more 
+consider the figure below which compares an number of models from the
+[timm](https://github.com/huggingface/pytorch-image-models) package, colored based on their base architecture. The
+general trend is that the number of images that can be processed by a model per sec (y-axis) is inversely proportional
+to the number of parameters (x-axis). However, we in general see that convolutional base architectures (conv) are more
 efficient than transformer (vit) for the same parameter budget.
 
 <figure markdown>
@@ -42,7 +42,7 @@ efficient than transformer (vit) for the same parameter budget.
 
 As discussed in this
 [blogpost](https://devblog.pytorchlightning.ai/training-an-edge-optimized-speech-recognition-model-with-pytorch-lightning-a0a6a0c2a413)
-the largest increase in inference speed you will see (given some specific hardware) is choosing an efficient model 
+the largest increase in inference speed you will see (given some specific hardware) is choosing an efficient model
 architecture. In the exercises below we are going to investigate the inference speed of different architectures.
 
 1. Start by checking out this
@@ -62,7 +62,7 @@ architecture. In the exercises below we are going to investigate the inference s
     ??? success "Solution"
 
         In this solution, we have chosen to use the efficientnet b5 (30.4M parameters), resnet50 (25.6M parameters) and
-        the swin v2 transformer tiny (28.4M parameters) models. 
+        the swin v2 transformer tiny (28.4M parameters) models.
 
         ```python
         import time
