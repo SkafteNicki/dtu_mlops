@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -2044,7 +2044,7 @@ If you need help for the exercises you can find a simple solution script
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;There is something terribly wrong and process may terminate.&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The built-in variable <code>__name__</code> always contains the record of the script or module that is
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The built-in variable <code>__name__</code> always contains the record of the script or module that is
     currently being run. Therefore if we initialize our logger base using this variable, it will always be unique
     to our application and not conflict with logger setup by any third-party package.</li>
 </ol>
@@ -2099,12 +2099,12 @@ that?</p>
 </span></code></pre></div>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#formatter-objects">formatter</a> section
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#formatter-objects">formatter</a> section
     determines how logs should be formatted. Here we define two separate formatters, called <code>minimal</code> and
     <code>detailed</code> which we can use in the next part of the code.</p>
 </li>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#handler-objects">handlers</a> is in
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <a href="https://docs.python.org/3/library/logging.html#handler-objects">handlers</a> is in
     charge of what should happen to different level of logging. <code>console</code> uses the <code>minimal</code> format we defined
     and sens logs to the <code>stdout</code> stream for messages of level <code>DEBUG</code> and higher. The <code>info</code> handler uses
     the <code>detailed</code> format and sends messages of level <code>INFO</code> and higher to a separate <code>info.log</code> file. The
@@ -2759,7 +2759,7 @@ are passed to the model. For this solution we assume that the model accepts the 
 <code>batch_size</code> and <code>epochs</code> and that they are passed as <code>--args</code> (with hyphens) (1) e.g. this would be how we
 run the script</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If the script you want to run hyperparameter sweeping is configured using
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If the script you want to run hyperparameter sweeping is configured using
     <a href="../../s3_reproducibility/config_files/">hydra</a> then you will need to change the default <code>command</code> config
     in your <code>sweep.yaml</code> file. This is because <code>wandb</code> uses <code>--args</code> to pass hyperparameters to the script,
     whereas <code>hydra</code> uses <code>args</code> (without the hyphen). See this
@@ -3043,7 +3043,7 @@ replaced with the appropriate values.</p>
 </span></code></pre></div>
 <p class="annotate">Try running it an confirm that the results are uploaded to the wandb server (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you have stored the API key in a <code>.env</code> file you can use the <code>--env-file</code> flag instead
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you have stored the API key in a <code>.env</code> file you can use the <code>--env-file</code> flag instead
     of <code>-e</code> to load the environment variables from the file e.g. <code>docker run --env-file .env wandb:latest</code>.</li>
 </ol>
 </li>
@@ -3223,7 +3223,7 @@ the same overall functionalities as Wandb.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
