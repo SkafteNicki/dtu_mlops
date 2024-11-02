@@ -306,10 +306,19 @@ service that will check if the distribution of the reviews have drifted over tim
 a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
 expected.
 
-We have already created downloaded the training data, created a training script and trained a model for you. All of it
-can be found in the [exercise folder](https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files).
-You are free to retrain the model yourself, but it takes about 30 mins to train using a GPU. We recommend that you
-scroll through the files to get an understanding of what is going on.
+We have already created downloaded the training data, created a training script and trained a model for you.
+The training data and the trained model is available to download from the following
+[Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing) which can
+be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
+Python package):
+
+```bash
+pip install gdown
+gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
+```
+
+And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
+train using a GPU. We recommend that you scroll through the files to get an understanding of what is going on.
 
 ??? example "Training script for sentiment analysis model"
     ```python linenums="1" title="sentiment_classifier.py"
@@ -386,18 +395,8 @@ scroll through the files to get an understanding of what is going on.
 
         ??? success "Solution"
 
-            ```dockerfile
-            FROM python:3.11-slim
-
-            WORKDIR /app
-
-            RUN pip install fastapi torch transformers google-cloud-storage pydantic
-
-            COPY sentiment_api.py .
-
-            EXPOSE 8000
-
-            CMD exec uvicorn sentiment_api:app --port $PORT --host 0.0.0.0 --workers 1
+            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
             ```
 
     5. Deploy the container to cloud run and confirm that the application still runs as expected.
