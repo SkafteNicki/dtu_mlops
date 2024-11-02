@@ -157,3 +157,5 @@ latest_info.csv
 latest_repo_data.csv
 repo_data.csv
 student_repos/
+reviews.csv
+bert_sentiment_model.pt

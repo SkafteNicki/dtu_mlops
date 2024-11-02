@@ -162,10 +162,18 @@ important to have a basic understanding of the concepts.
 ### Final exercise
 
 As the final exercise, we will develop a simple baseline model that we will continue to develop during the course.
-For this exercise, we provide the data in the `data/corruptmnist` folder. Do **NOT** use the data in the
-`corruptmnist_v2` folder as that is intended for another exercise. As the name suggests, this is a (subsampled)
-corrupted version of the regular [MNIST](https://en.wikipedia.org/wiki/MNIST_database). Your overall task is the
-following:
+For this exercise, we provide a corrupted subset of the [MNIST](https://en.wikipedia.org/wiki/MNIST_database) dataset
+which can be downloaded from this
+[Google Drive folder](https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing) or using
+these two commands:
+
+```bash
+pip install gdown
+gdown --folder https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing
+```
+
+The data should be placed in a folder subfolder called `data/corruptedmnist` in the root of the project. Your overall
+task is the following:
 
 > **Implement an MNIST neural network that achieves at least 85% accuracy on the test set.**
 
