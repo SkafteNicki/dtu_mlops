@@ -1031,6 +1031,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependabot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependabot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependabot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
     <span class="md-ellipsis">
       🧠 Knowledge check
@@ -1866,6 +1890,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependabot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependabot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependabot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#knowledge-check" class="md-nav__link">
     <span class="md-ellipsis">
       🧠 Knowledge check
@@ -2464,6 +2512,94 @@ at the help page for <code>docker login</code>, <code>docker build</code> and <c
 </ol>
 </li>
 </ol>
+<h2 id="dependabot">Dependabot</h2>
+<p>A great feature that GitHub provides is the ability to have bots help you with maintaining your repository. One of the
+most useful bots is called <code>Dependabot</code>. As the name suggests, <code>Dependabot</code> helps you keep your dependencies up to date.
+This is important because dependencies often either contain fixes for bugs or security vulnerabilities that you want to
+have in your code.</p>
+<h3 id="exercises_1">❔ Exercises</h3>
+<ol>
+<li>
+<p>To get dependabot working in your repository, we need to add a single configuration file to your repository. Create
+    a file called <code>.github/dependabot.yaml</code>. Look through the
+    <a href="https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/">documentation</a> for how to set up
+    the file such that it updates your Python dependencies on a weekly basis.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The following code will check for updates in the <code>pip</code> ecosystem every week e.g. it automatically will look
+for <code>requirements.txt</code> files and update the packages in there.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">updates</span><span class="p">:</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package-ecosystem</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pip&quot;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nt">directory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;weekly&quot;</span>
+</span></code></pre></div>
+</details>
+<ol>
+<li>Push the changes to your repository and check that the dependabot is working by going to the <code>Insights</code> tab and
+then the <code>Dependency graph</code> tab. From here you under the <code>Dependabot</code> tab should be able to see if the bot has
+correctly identified what files to track and if it has found any updates.</li>
+</ol>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/github_dependabot.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_dependabot.png" width="1000" /></a>
+</figure></p>
+<p>Click the <code>Recent update jobs</code> to see the history of Dependabot checking for updates. If there are no updates you
+can try to click the <code>Check for updates</code> button to force Dependabot to check for updates.</p>
+</li>
+<li>
+<p>At this point the Dependabot should hopefully have found some updates and created one or more pull requests. If it
+    has not done so you most likely need to update your requirement file such that your dependencies are correctly
+    restricted/specified e.g.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># lets assume pytorch v2.5 is the latest version
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a># these different specifications will not trigger dependabot because
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a># the latest version is included in the specification
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>torch
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>torch == 2.5
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>torch &gt;= 2.5
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>torch ~= 2.5
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a># these specifications will trigger dependabot because the latest
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a># version is not included
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>torch &lt; 2.5
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>torch == 2.4
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>torch &lt;= 2.4
+</span></code></pre></div>
+<p>If you have a pull request from Dependabot, check it out and see if it looks good. If it does, you can merge it.</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/github_dependabot_pr.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_dependabot_pr.png" width="1000" /></a>
+</figure></p>
+</li>
+<li>
+<p>(Optional) Dependabot can also help keeping our GitHub Actions pipelines up-to-date. As you may have realized
+    during this module, when we write statements like in our workflow files:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nn">...</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nn">...</span>
+</span></code></pre></div>
+<p>The <code>@v4</code> specifies that we are using version 4 of the <code>actions/checkout</code> action. This means that if a new version
+of the action is released, we will not automatically get the new version. Dependabot can help us with this. Try
+adding to the <code>dependabot.yaml</code> file that Dependabot should also check for updates in the GitHub Actions ecosystem.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">updates</span><span class="p">:</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package-ecosystem</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pip&quot;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">directory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;weekly&quot;</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package-ecosystem</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;github-actions&quot;</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;weekly&quot;</span>
+</span></code></pre></div>
+</details>
+</li>
+</ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
@@ -2492,14 +2628,14 @@ at the help page for <code>docker login</code>, <code>docker build</code> and <c
 <li>
 <p>The <code>on</code> attribute specifies upon which events the workflow will be triggered. Assume you have set the <code>on</code> attribute
     to the following:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">on</span><span class="p">:</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nt">push</span><span class="p">:</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">      </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nt">pull_request</span><span class="p">:</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">      </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*&quot;</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">      </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="nt">pull_request</span><span class="p">:</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">      </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*&quot;</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </span></code></pre></div>
 <p>What 4 events would trigger the execution of that action?</p>
 <details class="success">
@@ -2520,7 +2656,7 @@ at the help page for <code>docker login</code>, <code>docker build</code> and <c
 </ol>
 <p>This ends the module on GitHub workflows. If you are more interested in this topic you can check out module
 <a href="../../s10_extra/documentation/">M31 on documentation</a> which first includes locally building some documentation for your
-project and afterwards use GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
+project and afterward use GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
 templates already for running different continuous integration tasks. If you try to create a workflow file directly in
 GitHub you may encounter the following page</p>
 <p><a class="glightbox" href="../../figures/github_workflows.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="action" src="../../figures/github_workflows.PNG" /></a></p>
@@ -2550,7 +2686,7 @@ Actions locally!</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 2, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2024</span>
   </span>
 
     
