@@ -10,7 +10,7 @@ mkdocs-exclude == 1.0.2
 # Developer stuff
 ruff == 0.7.2
 codespell == 2.3.0
-pre-commit == 3.7.1
+pre-commit == 4.0.1
 
 # Other
 ipython == 8.19.0
