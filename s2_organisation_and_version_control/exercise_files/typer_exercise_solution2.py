@@ -25,7 +25,7 @@ x_test = scaler.transform(x_test)
 
 
 @app.command()
-def train(output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
+def train(output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train the model."""
     # Train a Support Vector Machine (SVM) model
     model = SVC(kernel="linear", random_state=42)

@@ -5,14 +5,14 @@ from model import MyAwesomeModel
 
 
 @click.group()
-def cli():
+def cli() -> None:
     """Command line interface."""
     pass
 
 
 @click.command()
 @click.option("--lr", default=1e-3, help="learning rate to use for training")
-def train(lr):
+def train(lr) -> None:
     """Train a model on MNIST."""
     print("Training day and night")
     print(lr)
@@ -24,7 +24,7 @@ def train(lr):
 
 @click.command()
 @click.argument("model_checkpoint")
-def evaluate(model_checkpoint):
+def evaluate(model_checkpoint) -> None:
     """Evaluate a trained model."""
     print("Evaluating like my life depends on it")
     print(model_checkpoint)

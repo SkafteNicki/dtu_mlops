@@ -14,7 +14,7 @@ load_dotenv()
 @click.argument("model-name")
 @click.option("--metric_name", default="accuracy", help="Name of the metric to choose the best model from.")
 @click.option("--higher-is-better", default=True, help="Whether higher metric values are better.")
-def stage_best_model_to_registry(model_name, metric_name, higher_is_better):
+def stage_best_model_to_registry(model_name, metric_name, higher_is_better) -> None:
     """
     Stage the best model to the model registry.
 

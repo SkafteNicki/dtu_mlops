@@ -46,7 +46,7 @@ def download_data(filename: str) -> None:
         dbx.files_download_to_file(filename, f"/{filename}")
 
 
-def main():
+def main() -> None:
     """Streamlit application for showing group GitHub stats."""
     download_data("latest_repo_data.csv")
 

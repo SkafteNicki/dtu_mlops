@@ -37,7 +37,7 @@ def add_to_database(
     petal_length: float,
     petal_width: float,
     prediction: int,
-):
+) -> None:
     """Simple function to add prediction to database."""
     with open("prediction_database.csv", "a") as file:
         file.write(f"{now}, {sepal_length}, {sepal_width}, {petal_length}, {petal_width}, {prediction}\n")
@@ -89,7 +89,7 @@ async def iris_monitoring():
     )
     data_drift_report.save_html("monitoring.html")
 
-    with open("monitoring.html", "r", encoding="utf-8") as f:
+    with open("monitoring.html", encoding="utf-8") as f:
         html_content = f.read()
 
     return HTMLResponse(content=html_content, status_code=200)

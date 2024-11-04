@@ -17,15 +17,15 @@ class TeacherWarning(UserWarning):
 
 
 @click.group()
-def cli():
+def cli() -> None:
     """CLI for report."""
     pass
 
 
 @cli.command()
-def html():
+def html() -> None:
     """Convert README.md to html page."""
-    with open("README.md", "r") as file:
+    with open("README.md") as file:
         text = file.read()
     text = text[43:]  # remove header
 
@@ -34,11 +34,36 @@ def html():
     with open("report.html", "w") as newfile:
         newfile.write(html)
 
+    def no_constraints(answer, index) -> None:
+        pass
+
+    def length_constraints(answer, index, min_length, max_length) -> None:
+        answer = answer.split()
+        if not (min_length <= len(answer) <= max_length):
+            warnings.warn(
+                f"Question {index} failed check. Expected number of words to be"
+                f" between {min_length} and {max_length} but got {len(answer)}",
+                TeacherWarning,
+            )
+
+    def image_constrains(answer, index, min_length, max_length) -> None:
+        links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
+        if not (min_length <= len(links) <= max_length):
+            warnings.warn(
+                f"Question {index} failed check. Expected number of screenshots to be"
+                f" between {min_length} and {max_length} but got {len(links)}",
+                TeacherWarning,
+            )
+
+    def multi_constrains(answer, index, constrains) -> None:
+        for fn in constrains:
+            fn(answer, index)
+
 
 @cli.command()
-def check():
+def check() -> None:
     """Check if report satisfies the requirements."""
-    with open("README.md", "r") as file:
+    with open("README.md") as file:
         text = file.read()
     text = text[43:]  # remove header
 
@@ -54,31 +79,6 @@ def check():
     answers.append(per_question[-1])
     answers = answers[1:]  # remove first section
     answers = [answer.strip("\n") for answer in answers]
-
-    def no_constraints(answer, index):
-        pass
-
-    def length_constraints(answer, index, min_length, max_length):
-        answer = answer.split()
-        if not (min_length <= len(answer) <= max_length):
-            warnings.warn(
-                f"Question {index} failed check. Expected number of words to be"
-                f" between {min_length} and {max_length} but got {len(answer)}",
-                TeacherWarning,
-            )
-
-    def image_constrains(answer, index, min_length, max_length):
-        links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
-        if not (min_length <= len(links) <= max_length):
-            warnings.warn(
-                f"Question {index} failed check. Expected number of screenshots to be"
-                f" between {min_length} and {max_length} but got {len(links)}",
-                TeacherWarning,
-            )
-
-    def multi_constrains(answer, index, constrains):
-        for fn in constrains:
-            fn(answer, index)
 
     question_constrains = [
         no_constraints,

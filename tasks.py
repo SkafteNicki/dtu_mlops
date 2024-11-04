@@ -7,7 +7,7 @@ WINDOWS = os.name == "nt"
 
 
 @task
-def install(ctx):
+def install(ctx) -> None:
     """Create the environment for course."""
     ctx.run("conda create -n dtumlops python=3.11 pip --no-default-packages -y", echo=True, pty=not WINDOWS)
     ctx.run("conda activate dtumlops", echo=True, pty=not WINDOWS)
@@ -15,20 +15,20 @@ def install(ctx):
 
 
 @task
-def precommit(ctx):
+def precommit(ctx) -> None:
     """Install and run pre-commit checks."""
     ctx.run("pre-commit install", echo=True, pty=not WINDOWS)
     ctx.run("pre-commit run --all-files", echo=True, pty=not WINDOWS)
 
 
 @task(aliases=["mkdocs"])
-def docs(ctx):
+def docs(ctx) -> None:
     """Build the documentation."""
     ctx.run("mkdocs serve --dirty", echo=True, pty=not WINDOWS)
 
 
 @task
-def lint(ctx):
+def lint(ctx) -> None:
     """Run linters."""
     ctx.run("ruff check . --fix", echo=True, pty=not WINDOWS, warn=True)
     ctx.run("ruff format .", echo=True, pty=not WINDOWS, warn=True)
@@ -36,7 +36,7 @@ def lint(ctx):
 
 
 @task
-def linkcheck(ctx):
+def linkcheck(ctx) -> None:
     """Check for broken links."""
     ctx.run(
         (

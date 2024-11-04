@@ -109,10 +109,10 @@ def train(
                     test_loss, accuracy = validation(model, testloader, criterion)
 
                 print(
-                    "Epoch: {}/{}.. ".format(e + 1, epochs),
-                    "Training Loss: {:.3f}.. ".format(running_loss / print_every),
-                    "Test Loss: {:.3f}.. ".format(test_loss / len(testloader)),
-                    "Test Accuracy: {:.3f}".format(accuracy / len(testloader)),
+                    f"Epoch: {e + 1}/{epochs}.. ",
+                    f"Training Loss: {running_loss / print_every:.3f}.. ",
+                    f"Test Loss: {test_loss / len(testloader):.3f}.. ",
+                    f"Test Accuracy: {accuracy / len(testloader):.3f}",
                 )
 
                 running_loss = 0

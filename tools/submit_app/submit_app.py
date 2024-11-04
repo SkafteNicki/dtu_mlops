@@ -64,7 +64,7 @@ def send_to_dropbox_and_get_group_nb(
                 csv_writer.writerow(fields)
             file_to_upload = "info.csv"
         else:
-            with open("latest_info.csv", "r") as f:
+            with open("latest_info.csv") as f:
                 csv_reader = csv.reader(f, delimiter=",")
                 content = []
                 for row in csv_reader:
@@ -122,7 +122,7 @@ def validate_text_input(
     return True
 
 
-def main():
+def main() -> None:
     """Streamlit application submission form."""
     with st.columns([1, 8, 1])[1]:
         st.title("DTU course 02476 MLOps")

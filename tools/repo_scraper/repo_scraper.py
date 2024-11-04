@@ -39,7 +39,7 @@ def process_data(data: List[List[str]]):
 
 def load_data(filename: str) -> List[List[str]]:
     """Load the data from the csv file."""
-    with open("latest_info.csv", "r") as f:
+    with open("latest_info.csv") as f:
         csv_reader = csv.reader(f, delimiter=",")
         content = []
         for row in csv_reader:
@@ -86,7 +86,7 @@ def upload_data(filename: str) -> None:
             dbx.files_upload(f.read(), f"/latest_{filename}", mode=dropbox.files.WriteMode.overwrite)
 
 
-def reformat_repo(repo: str):
+def reformat_repo(repo: str) -> str:
     """Extract from the url the user id and repository name only."""
     split = repo.split("/")
     return f"{split[-2]}/{split[-1]}"
@@ -125,30 +125,15 @@ def get_content_recursive(url):
     return all_content
 
 
-def write_to_file(filename, row, mode="a"):
+def write_to_file(filename, row, mode="a") -> None:
     """Write to a local csv file."""
     with open(filename, mode=mode, newline="") as f:
         writer = csv.writer(f, delimiter=",")
         writer.writerow(row)
 
 
-def main(
-    out_folder: str = "student_repos",
-    timeout_clone: str = "2m",
-):
-    """Extract group statistics from github."""
-    print("Getting the repository information")
-    if "latest_info.csv" not in os.listdir():
-        download_data("latest_info.csv")
-    formatted_data = load_data("latest_info.csv")
-
-    # loop for scraping the repository of each group
-    print("Cleaning out old data if needed")
-    if os.path.isdir(out_folder):  # non-empty folder, delete content
-        shutil.rmtree(out_folder)
-    os.makedirs(out_folder)
-
-    # clone repos
+def clone_repos(formatted_data, out_folder, timeout_clone) -> None:
+    """Clone the repos of the students."""
     print("====== Cloning repos ======")
     for index, data in enumerate(formatted_data):
         group_nb, _, repo = data
@@ -162,6 +147,92 @@ def main(
             if folder_name in os.listdir(out_folder):
                 shutil.rmtree(f"{out_folder}/{folder_name}")
         data.append(clone_success)
+
+
+def extract_prs(repo: str) -> List[dict]:
+    """Extract all PRs from a GitHub repo."""
+    prs = []
+    page_counter = 1
+    while True:
+        prs_page = requests.get(
+            f"https://api.github.com/repos/{repo}/pulls",
+            headers=headers,
+            params={"state": "all", "page": page_counter, "per_page": 100},
+            timeout=100,
+        ).json()
+        if len(prs_page) == 0:
+            break
+        page_counter += 1
+        prs += prs_page
+    return prs
+
+
+def extract_commits(repo: str) -> List[dict]:
+    """Extract all commits from a GitHub repo."""
+    commits = []
+    page_counter = 1
+    while True:
+        commits_page = requests.get(
+            f"https://api.github.com/repos/{repo}/commits",
+            headers=headers,
+            params={"state": "all", "page": page_counter, "per_page": 100},
+            timeout=100,
+        ).json()
+        if len(commits_page) == 0:
+            break
+        page_counter += 1
+        commits += commits_page
+    return commits
+
+
+def get_stats_from_content(repo: str):
+    """Extract stats from the content of a GitHub repo."""
+    content = get_content_recursive(f"https://api.github.com/repos/{repo}/contents")
+    docker_files = [c for c in content if c["name"] == "Dockerfile" or ".dockerfile" in c["name"]]
+    num_docker_files = len(docker_files)
+    workflow_files = [c for c in content if c["path"].startswith(".github/workflows")]
+    num_workflow_files = len(workflow_files)
+    has_requirement_file = len([c for c in content if c["name"] == "requirements.txt"]) > 0
+    has_makefile = len([c for c in content if c["name"] == "Makefile"]) > 0
+    has_cloudbuild = len([c for c in content if "cloudbuild.yaml" in c["name"]]) > 0
+    return num_docker_files, num_workflow_files, has_requirement_file, has_makefile, has_cloudbuild
+
+
+def check_report(out_folder: str, group_nb: int) -> None | int:
+    """Check how many questions are answered in the report."""
+    warnings_raised = None
+    if "reports" in os.listdir(f"{out_folder}/group_{group_nb}"):
+        report_dir = os.listdir(f"{out_folder}/group_{group_nb}/reports")
+        if "README.md" in report_dir and "report.py" in report_dir:
+            p = Popen(
+                ["python", "report.py", "check"],
+                cwd=f"{out_folder}/group_{group_nb}/reports",
+                stdout=PIPE,
+                stderr=PIPE,
+                stdin=PIPE,
+            )
+            output = p.stderr.read()
+            warnings_raised = len(output.decode("utf-8").split("\n")[:-1:2])
+
+
+def main(
+    out_folder: str = "student_repos",
+    timeout_clone: str = "2m",
+) -> None:
+    """Extract group statistics from github."""
+    print("Getting the repository information")
+    if "latest_info.csv" not in os.listdir():
+        download_data("latest_info.csv")
+    formatted_data = load_data("latest_info.csv")
+
+    # loop for scraping the repository of each group
+    print("Cleaning out old data if needed")
+    if os.path.isdir(out_folder):  # non-empty folder, delete content
+        shutil.rmtree(out_folder)
+    os.makedirs(out_folder)
+
+    # clone repos
+    clone_repos(formatted_data, out_folder, timeout_clone)
 
     # create file for data
     write_to_file(
@@ -203,35 +274,10 @@ def main(
             contributors = {c["login"]: {"contributions": c["contributions"], "commits_pr": 0} for c in contributors}
             num_contributors = len(contributors)
 
-            prs = []
-            page_counter = 1
-            while True:
-                prs_page = requests.get(
-                    f"https://api.github.com/repos/{repo}/pulls",
-                    headers=headers,
-                    params={"state": "all", "page": page_counter, "per_page": 100},
-                    timeout=100,
-                ).json()
-                if len(prs_page) == 0:
-                    break
-                page_counter += 1
-                prs += prs_page
+            prs = extract_prs(repo)
             num_prs = len(prs)
 
-            commits = []
-            page_counter = 1
-            while True:
-                commits_page = requests.get(
-                    f"https://api.github.com/repos/{repo}/commits",
-                    headers=headers,
-                    params={"state": "all", "page": page_counter, "per_page": 100},
-                    timeout=100,
-                ).json()
-                if len(commits_page) == 0:
-                    break
-                page_counter += 1
-                commits += commits_page
-
+            commits = extract_commits(repo)
             num_commits_to_main = len(commits)
             commit_messages = [c["commit"]["message"] for c in commits]
             average_commit_message_length_to_main = sum([len(c) for c in commit_messages]) / len(commit_messages)
@@ -258,14 +304,8 @@ def main(
             contributions_per_contributor = [c["contributions"] + c["commits_pr"] for c in contributors.values()]
             total_commits = sum(contributions_per_contributor)
 
-            content = get_content_recursive(f"https://api.github.com/repos/{repo}/contents")
-            docker_files = [c for c in content if c["name"] == "Dockerfile" or ".dockerfile" in c["name"]]
-            num_docker_files = len(docker_files)
-            workflow_files = [c for c in content if c["path"].startswith(".github/workflows")]
-            num_workflow_files = len(workflow_files)
-            has_requirement_file = len([c for c in content if c["name"] == "requirements.txt"]) > 0
-            has_makefile = len([c for c in content if c["name"] == "Makefile"]) > 0
-            has_cloudbuild = len([c for c in content if "cloudbuild.yaml" in c["name"]]) > 0
+            stats = get_stats_from_content(repo)
+            num_docker_files, num_workflow_files, has_requirement_file, has_makefile, has_cloudbuild = stats
         else:
             num_contributors = None
             num_prs = None
@@ -286,27 +326,15 @@ def main(
             repo_size = sum([f.stat().st_size for f in path.glob("**/*") if f.is_file()]) / 1_048_576  # in MB
 
             if "README.md" in os.listdir(f"{out_folder}/group_{group_nb}"):
-                with open(f"{out_folder}/group_{group_nb}/README.md", "r") as f:
+                with open(f"{out_folder}/group_{group_nb}/README.md") as f:
                     content = f.read()
                 readme_size = len(content.split(" "))
             else:
                 readme_size = None
 
             using_dvc = ".dvc" in os.listdir(f"{out_folder}/group_{group_nb}")
+            warnings_raised = check_report(out_folder, group_nb)
 
-            warnings_raised = None
-            if "reports" in os.listdir(f"{out_folder}/group_{group_nb}"):
-                report_dir = os.listdir(f"{out_folder}/group_{group_nb}/reports")
-                if "README.md" in report_dir and "report.py" in report_dir:
-                    p = Popen(
-                        ["python", "report.py", "check"],
-                        cwd=f"{out_folder}/group_{group_nb}/reports",
-                        stdout=PIPE,
-                        stderr=PIPE,
-                        stdin=PIPE,
-                    )
-                    output = p.stderr.read()
-                    warnings_raised = len(output.decode("utf-8").split("\n")[:-1:2])
         else:
             repo_size = None
             readme_size = None

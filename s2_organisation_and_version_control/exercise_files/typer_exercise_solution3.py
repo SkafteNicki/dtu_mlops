@@ -28,7 +28,7 @@ x_test = scaler.transform(x_test)
 
 
 @train_app.command()
-def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
+def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train a SVM model."""
     model = SVC(kernel=kernel, random_state=42)
     model.fit(x_train, y_train)
@@ -38,7 +38,7 @@ def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--outp
 
 
 @train_app.command()
-def knn(k: int = 5, output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
+def knn(k: int = 5, output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train a KNN model."""
     model = KNeighborsClassifier(n_neighbors=k)
     model.fit(x_train, y_train)

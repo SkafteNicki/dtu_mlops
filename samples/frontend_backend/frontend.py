@@ -28,7 +28,7 @@ def classify_image(image, backend):
         return None
 
 
-def main():
+def main() -> None:
     """Main function of the Streamlit frontend."""
     backend = get_backend_url()
     if backend is None:

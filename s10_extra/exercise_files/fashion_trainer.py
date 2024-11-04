@@ -30,8 +30,8 @@ def output_label(label):
 class FashionCNN(nn.Module):
     """Basic CNN model for fashion MNIST."""
 
-    def __init__(self):
-        super(FashionCNN, self).__init__()
+    def __init__(self) -> None:
+        super().__init__()
 
         self.layer1 = nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
@@ -65,7 +65,7 @@ class FashionCNN(nn.Module):
         return out
 
 
-def train_and_test():
+def train_and_test() -> None:
     """Train and test the model."""
     train_set = FashionMNIST(
         "",
@@ -143,7 +143,7 @@ def train_and_test():
                 accuracy_list.append(accuracy)
 
             if not (count % 500):
-                print("Iteration: {}, Loss: {}, Accuracy: {}%".format(count, loss.data, accuracy))
+                print(f"Iteration: {count}, Loss: {loss.data}, Accuracy: {accuracy}%")
 
     class_correct = [0.0 for _ in range(10)]
     total_correct = [0.0 for _ in range(10)]
@@ -161,7 +161,7 @@ def train_and_test():
                 total_correct[label] += 1
 
     for i in range(10):
-        print("Accuracy of {}: {:.2f}%".format(output_label(i), class_correct[i] * 100 / total_correct[i]))
+        print(f"Accuracy of {output_label(i)}: {class_correct[i] * 100 / total_correct[i]:.2f}%")
 
 
 if __name__ == "__main__":

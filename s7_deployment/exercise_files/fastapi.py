@@ -47,7 +47,7 @@ database = {"username": [], "password": []}
 
 
 @app.post("/login/")
-def login(username: str, password: str):
+def login(username: str, password: str) -> str:
     """Simple function to save a login."""
     username_db = database["username"]
     password_db = database["password"]
