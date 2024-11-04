@@ -91,14 +91,24 @@ def send_to_dropbox_and_get_group_nb(
         if start_over:
             # if we started over we redo everything to get the group number
             new_group_nb = send_to_dropbox_and_get_group_nb(
-                github_repo, student1, student2, student3, student4, student5
+                github_repo,
+                student1,
+                student2,
+                student3,
+                student4,
+                student5,
             )
 
         return new_group_nb
 
 
 def validate_text_input(
-    student1: str, student2: str, student3: str, student4: str, student5: str, github_repo: str
+    student1: str,
+    student2: str,
+    student3: str,
+    student4: str,
+    student5: str,
+    github_repo: str,
 ) -> bool:
     """
     Validate input from text fields.
@@ -189,7 +199,7 @@ def main() -> None:
                 except:  # noqa: E722
                     st.error(
                         "The application did not manage to send your data. Please try again later."
-                        "If the problem persists, contact the course responsible."
+                        "If the problem persists, contact the course responsible.",
                     )
                     return
 

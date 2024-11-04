@@ -1,6 +1,7 @@
 import pickle
 from datetime import datetime
 
+import anyio
 from evidently.metric_preset import (
     DataDriftPreset,
     DataQualityPreset,
@@ -79,7 +80,7 @@ async def iris_monitoring():
             DataDriftPreset(),
             DataQualityPreset(),
             TargetDriftPreset(),
-        ]
+        ],
     )
 
     data_drift_report.run(
@@ -89,7 +90,7 @@ async def iris_monitoring():
     )
     data_drift_report.save_html("monitoring.html")
 
-    with open("monitoring.html", encoding="utf-8") as f:
+    async with await anyio.open_file("monitoring.html", encoding="utf-8") as f:
         html_content = f.read()
 
     return HTMLResponse(content=html_content, status_code=200)

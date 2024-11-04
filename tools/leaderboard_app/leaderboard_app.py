@@ -54,7 +54,7 @@ def main() -> None:
 
     # convert to column
     df["contributions_per_contributor"] = df["contributions_per_contributor"].apply(
-        lambda x: ast.literal_eval(x) if pd.notnull(x) else x
+        lambda x: ast.literal_eval(x) if pd.notnull(x) else x,
     )
     df["warnings_raised"] = df["warnings_raised"].apply(lambda x: 27 - x if pd.notnull(x) else x)
     f = "%Y-%m-%dT%H:%M:%SZ"
@@ -100,7 +100,7 @@ def main() -> None:
         towards you passing the course or not. Instead they can inform how you are doing in comparison to other groups,
         and it can indirectly inform the us about how well you are using version control for collaborating on your
         project.
-        """
+        """,
     )
 
     st.header("Base statistics")

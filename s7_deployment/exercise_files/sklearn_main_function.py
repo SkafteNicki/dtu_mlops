@@ -20,10 +20,7 @@ def knn_classifier(request):
         input_data = request_json["input_data"]
         input_data = [float(in_data) for in_data in input_data]
         input_data = [input_data]
-        try:
-            prediction = my_model.predict(input_data)
-        except Exception as e:
-            return {"error": str(e)}
+        prediction = my_model.predict(input_data)
         return {"prediction": prediction.tolist()}
     else:
         return {"error": "No input data provided."}

@@ -3,6 +3,7 @@ from enum import Enum
 from http import HTTPStatus
 from typing import Optional
 
+import anyio
 import cv2
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
@@ -105,7 +106,7 @@ def contains_email_domain(data: Item):
 @app.post("/cv_model/")
 async def cv_model(data: UploadFile = File(...), h: Optional[int] = 28, w: Optional[int] = 28):
     """Simple function using open-cv to resize an image."""
-    with open("image.jpg", "wb") as image:
+    async with await anyio.open_file("image.jpg", "wb") as image:
         content = await data.read()
         image.write(content)
         image.close()

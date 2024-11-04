@@ -44,7 +44,8 @@ def stage_best_model_to_registry(model_name, metric_name, higher_is_better) -> N
 
     logger.info(f"Best model found in registry: {best_artifact.name} with {metric_name}={best_metric}")
     best_artifact.link(
-        target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{model_name}", aliases=["best", "staging"]
+        target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{model_name}",
+        aliases=["best", "staging"],
     )
     best_artifact.save()
     logger.info("Model staged to registry.")

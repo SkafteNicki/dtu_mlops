@@ -2,7 +2,7 @@
 line-length = 120
 
 [tool.ruff.lint]
-select = ["F", "E", "W", "C90", "I", "N", "D", "UP", "YTT", "S", "A", "B"]
+select = ["F", "E", "W", "C90", "I", "N", "D", "UP", "YTT", "ASYNC", "S", "BLE", "B", "A", "COM"]
 ignore = [
     "F821",
     "F841",
@@ -18,6 +18,7 @@ ignore = [
     "B008",
     "B028",
     "B905",
+    "COM812",
 ]
 exclude=["student_repos/"]
 

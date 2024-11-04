@@ -23,7 +23,7 @@ pipeline = Pipeline(
     [
         ("scaler", StandardScaler()),
         ("knn", KNeighborsClassifier(n_neighbors=n_neighbors)),
-    ]
+    ],
 )
 
 # fit model

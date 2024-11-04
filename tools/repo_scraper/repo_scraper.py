@@ -269,7 +269,9 @@ def main(
         exists = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=100)
         if exists.status_code == 200:
             contributors = requests.get(
-                f"https://api.github.com/repos/{repo}/contributors", headers=headers, timeout=100
+                f"https://api.github.com/repos/{repo}/contributors",
+                headers=headers,
+                timeout=100,
             ).json()
             contributors = {c["login"]: {"contributions": c["contributions"], "commits_pr": 0} for c in contributors}
             num_contributors = len(contributors)
