@@ -13,13 +13,10 @@ import markdown
 class TeacherWarning(UserWarning):
     """Warning raised when a teacher check fails."""
 
-    pass
-
 
 @click.group()
 def cli() -> None:
     """CLI for report."""
-    pass
 
 
 @cli.command()

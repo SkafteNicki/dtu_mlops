@@ -11,7 +11,6 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.ba
 @click.group()
 def cli() -> None:
     """Command line interface."""
-    pass
 
 
 @click.command()

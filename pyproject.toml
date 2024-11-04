@@ -24,7 +24,11 @@ select = [
     "DJ",
     "EM",
     "EXE",
-    "FA"
+    "FA",
+    "ISC",
+    "ICN",
+    "LOG",
+    "PIE",
 ]
 ignore = [
     "F821",
@@ -42,6 +46,7 @@ ignore = [
     "B028",
     "B905",
     "COM812",
+    "ISC001",
 ]
 exclude=["student_repos/"]
 

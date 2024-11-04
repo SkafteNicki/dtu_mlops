@@ -7,7 +7,6 @@ from model import MyAwesomeModel
 @click.group()
 def cli() -> None:
     """Command line interface."""
-    pass
 
 
 @click.command()
