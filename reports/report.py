@@ -122,7 +122,8 @@ def check() -> None:
         partial(length_constraints, min_length=50, max_length=200),
     ]
     if len(answers) != 27:
-        raise ValueError("Number of answers are different from the expected 27. Have you filled out every field?")
+        msg = "Number of answers are different from the expected 27. Have you filled out every field?"
+        raise ValueError(msg)
 
     for i, (answer, const) in enumerate(zip(answers, question_constrains), start=1):
         const(answer, i)

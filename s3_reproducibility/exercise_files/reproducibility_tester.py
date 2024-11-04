@@ -16,4 +16,5 @@ if __name__ == "__main__":
 
     for p1, p2 in zip(model1.parameters(), model2.parameters()):
         if not torch.allclose(p1, p2):
-            raise RuntimeError("encountered a difference in parameters, your script is not fully reproducible")
+            msg = "encountered a difference in parameters, your script is not fully reproducible"
+            raise RuntimeError(msg)

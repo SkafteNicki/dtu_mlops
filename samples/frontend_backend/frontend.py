@@ -32,7 +32,8 @@ def main() -> None:
     """Main function of the Streamlit frontend."""
     backend = get_backend_url()
     if backend is None:
-        raise ValueError("Backend service not found")
+        msg = "Backend service not found"
+        raise ValueError(msg)
 
     st.title("Image Classification")
 

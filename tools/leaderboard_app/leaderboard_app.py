@@ -59,7 +59,7 @@ def main() -> None:
     df["warnings_raised"] = df["warnings_raised"].apply(lambda x: 27 - x if pd.notnull(x) else x)
     f = "%Y-%m-%dT%H:%M:%SZ"
     df["latest_commit"] = df["latest_commit"].apply(
-        lambda x: datetime.strptime(x, f) if pd.notnull(x) else x,
+        lambda x: datetime.strptime(x, f).astimezone(tz=datetime.UTC) if pd.notnull(x) else x,
     )
 
     # remove columns that are not needed

@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import re
 from enum import Enum
 from http import HTTPStatus
-from typing import Optional
 
 import anyio
 import cv2
@@ -104,7 +105,7 @@ def contains_email_domain(data: Item):
 
 
 @app.post("/cv_model/")
-async def cv_model(data: UploadFile = File(...), h: Optional[int] = 28, w: Optional[int] = 28):
+async def cv_model(data: UploadFile = File(...), h: None | int = 28, w: None | int = 28):
     """Simple function using open-cv to resize an image."""
     async with await anyio.open_file("image.jpg", "wb") as image:
         content = await data.read()

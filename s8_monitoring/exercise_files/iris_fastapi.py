@@ -56,7 +56,7 @@ async def iris_inference_v2(
     prediction = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
     prediction = prediction.item()
 
-    now = str(datetime.now())
+    now = str(datetime.now(tz=datetime.UTC))
     background_tasks.add_task(
         add_to_database,
         now,

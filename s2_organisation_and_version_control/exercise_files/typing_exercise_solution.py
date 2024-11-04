@@ -1,4 +1,6 @@
-from typing import Callable, List, Optional, Tuple, Union
+from __future__ import annotations
+
+from typing import Callable
 
 import torch
 from torch import nn
@@ -18,7 +20,7 @@ class Network(nn.Module):
         self,
         input_size: int,
         output_size: int,
-        hidden_layers: List[int],
+        hidden_layers: list[int],
         drop_p: float = 0.5,
     ) -> None:
         super().__init__()
@@ -46,8 +48,8 @@ class Network(nn.Module):
 def validation(
     model: nn.Module,
     testloader: torch.utils.data.DataLoader,
-    criterion: Union[Callable, nn.Module],
-) -> Tuple[float, float]:
+    criterion: Callable | nn.Module,
+) -> tuple[float, float]:
     """Validation pass through the dataset."""
     accuracy = 0
     test_loss = 0
@@ -72,8 +74,8 @@ def train(
     model: nn.Module,
     trainloader: torch.utils.data.DataLoader,
     testloader: torch.utils.data.DataLoader,
-    criterion: Union[Callable, nn.Module],
-    optimizer: Optional[torch.optim.Optimizer] = None,
+    criterion: Callable | nn.Module,
+    optimizer: None | torch.optim.Optimizer = None,
     epochs: int = 5,
     print_every: int = 40,
 ) -> None:

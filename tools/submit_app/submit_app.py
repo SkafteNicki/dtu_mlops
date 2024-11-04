@@ -82,7 +82,7 @@ def send_to_dropbox_and_get_group_nb(
                 csv_writer.writerow([new_group_nb, student1, student2, student3, student4, student5, github_repo])
             file_to_upload = "latest_info.csv"
 
-        now = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        now = datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")
         with open(file_to_upload, "rb") as f:
             dbx.files_upload(f.read(), f"/{now}_info.csv")
         with open(file_to_upload, "rb") as f:
@@ -119,7 +119,7 @@ def validate_text_input(
     - GitHub repo is valid
     """
     emails = [student1, student2, student3, student4, student5]
-    if all([email == DEFAULT_EMAIL for email in emails]):
+    if all(email == DEFAULT_EMAIL for email in emails):
         st.error("Please enter at least two student emails!")
         return False
     data = [email for email in emails if email != DEFAULT_EMAIL]

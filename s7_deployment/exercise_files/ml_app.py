@@ -1,5 +1,4 @@
 from contextlib import asynccontextmanager
-from typing import Optional
 
 import torch
 from fastapi import FastAPI, File, UploadFile
@@ -29,7 +28,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/caption/")
-async def caption(data: UploadFile = File(...), max_length: Optional[int] = 16):
+async def caption(data: UploadFile = File(...)):
     """Generate a caption for an image."""
     i_image = Image.open(data.file)
     if i_image.mode != "RGB":

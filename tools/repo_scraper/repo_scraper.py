@@ -4,6 +4,8 @@ Run locally with (from root folder)
     python tools/repo_scraper/repo_scraper.py
 """
 
+from __future__ import annotations
+
 import csv
 import datetime
 import os
@@ -11,7 +13,6 @@ import shutil
 import sys
 from pathlib import Path
 from subprocess import PIPE, Popen
-from typing import List
 
 import dropbox
 import requests
@@ -27,7 +28,7 @@ GH_TOKEN = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
 headers = {"Authorization": f"Bearer {GH_TOKEN}"}
 
 
-def process_data(data: List[List[str]]):
+def process_data(data: list[list[str]]):
     """Process the data from the csv file."""
     # remove empty emails
     new_data = []
@@ -37,7 +38,7 @@ def process_data(data: List[List[str]]):
     return new_data
 
 
-def load_data(filename: str) -> List[List[str]]:
+def load_data(filename: str) -> list[list[str]]:
     """Load the data from the csv file."""
     with open("latest_info.csv") as f:
         csv_reader = csv.reader(f, delimiter=",")
@@ -79,7 +80,7 @@ def upload_data(filename: str) -> None:
         except AuthError:
             sys.exit("ERROR: Invalid access token; try re-generating an access token from the app console on the web.")
 
-        now = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        now = datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")
         with open(filename, "rb") as f:
             dbx.files_upload(f.read(), f"/{now}_{filename}")
         with open(filename, "rb") as f:
@@ -149,7 +150,7 @@ def clone_repos(formatted_data, out_folder, timeout_clone) -> None:
         data.append(clone_success)
 
 
-def extract_prs(repo: str) -> List[dict]:
+def extract_prs(repo: str) -> list[dict]:
     """Extract all PRs from a GitHub repo."""
     prs = []
     page_counter = 1
@@ -167,7 +168,7 @@ def extract_prs(repo: str) -> List[dict]:
     return prs
 
 
-def extract_commits(repo: str) -> List[dict]:
+def extract_commits(repo: str) -> list[dict]:
     """Extract all commits from a GitHub repo."""
     commits = []
     page_counter = 1
