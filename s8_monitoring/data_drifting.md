@@ -409,80 +409,52 @@ train using a GPU. We recommend that you scroll through the files to get an unde
             deploying the current directory. This is really only recommended for testing purposes. You can read more
             about deployment from source code [here](https://cloud.google.com/run/docs/deploying-source-code).
 
+    6. Make sure that the application still works by trying to send a couple of requests to the deployed application and
+        make sure that the request/response data is correctly saved to the bucket.
+
 3. We now have a working application that we are ready to monitor for data drift in real time. We therefore need to now
     write a fastapi application that takes in the training data and the predicted data and run evidently to check if the
     data or the labels have drifted. We again provide a starting point for the application below.
 
-    ```python linenums="1" title="monitoring_api_starter.py"
-    <--8<-- "s8_monitoring/exercise_files/monitoring_api_starter.py"
+    ```python linenums="1" title="sentiment_monitoring_starter.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_monitoring_starter.py"
     ```
+
+    Look over the script and make sure you know what kind of features we are going to monitor?
+
+    ??? success "Solution"
+
+        The provided starting script makes use of two presets from evidently: 
+        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and 
+        [TargetDriftPreset](https://docs.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
+        text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
+        second preset runs target drift detection on the predicted labels.
 
     1. The script misses one key function to work: `#!python fetch_latest_data(n: int)` that should fetch the latest `n`
         predictions. Implement this function in the script.
 
-4. Next your job is now to write a separate evidently fastapi application that takes in the training data and the predicted
-    data and run evidently to check if the data or the labels have drifted. Because we want the service to only account for
-    the last `N` predictions you should only open these
+        ??? success "Solution"
 
-    ??? success "Solution"
+            ```python linenums="1" title="sentiment_monitoring.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.py"
+            ```
 
-        ```python
-        ```
+    2. Test out the script locally. This can be done by downloading a couple of the request/response data from the
+        bucket and running the script on this data. 
 
-5. Next deploy both the application and the monitoring service to the Cloud Run. You therefore need to create a simple
-    Dockerfile for each of the applications and then deploy them
+    3. Write a small dockerfile that containerize the monitoring application
 
-    ??? Solution
+        ??? success "Solution"
 
-        The dockerfile for the the two applications should be very similar, with the difference being the requirements
-        needed to run the applications and the file that needs to run. Below is shown one of the dockerfiles:
+            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
+            ```
 
-        ```dockerfile
-        ```
-
-        Assuming the two dockerfiles are called `gcp_monitoring_exercise_app.dockerfile` and
-        `gcp_monitoring_exercise_app.dockerfile` they can be deployed to Cloud Run using these commands
-
-        ```txt
-        ```
-
-6. We are now finally, ready to test our services. Since we need to observe some longterm behaviour this part may take
+4. We are now finally, ready to test our services. Since we need to observe some long term behaviour this part may take
     some time to run depending on how you have exactly configured your. Below we have implemented a client script that
     are meant to call our service.
 
-    ```python
-    import request
-    import time
-    import argparse
-    import logging
-
-    logger = logging.__get_logger__(__name__)
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("url")
-    parser.add_argument("waittime")
-
-    dummy_text = "
-
-    hurtful_words = [" "]
-
-    if __name__ == "__main__":
-        counter = 0
-
-        while True:  # this will run forever, you have to ctrl+c the script before it stops
-            time.pause(waittime)
-
-            if random.rand() > 0.5:
-                words_to_add = [ ]
-                for i in range(counter):
-                    words_to_add.append(random_select(hurtful_words))
-
-                request = dummy_text.insert(words_to_add)
-            else:
-                request = dummy_text
-
-            prediction = request.get(url)
-
-            logger.log(f"{time.gettime}\nSent sentence {request} and received label {prediction}")
-
+    ```python linenums="1" title="sentiment_client.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_client.py"
     ```
+    
