@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from argparse import ArgumentParser
 
 import torch
@@ -17,11 +16,11 @@ NUM_EPOCHS = 3
 class YourDataset(Dataset):
     """Implement your dataset here."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
 
-def main():
+def main() -> None:
     """Main function for running the distributed example."""
     parser = ArgumentParser("DDP usage example")
     # you need this argument in your scripts for DDP to work

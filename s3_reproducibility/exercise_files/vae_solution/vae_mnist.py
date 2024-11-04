@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 
 @hydra.main(config_path="config", config_name="default_config.yaml")
-def train(config):
+def train(config) -> None:
     """Train VAE on MNIST."""
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     hparams = config.experiment

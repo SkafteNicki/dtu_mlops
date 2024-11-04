@@ -33,8 +33,7 @@ def info_cuda():
     except FileNotFoundError:
         info = "No CUDA device found"
     info = info.replace("\n", f"\n{LEVEL_OFFSET}")
-    info = LEVEL_OFFSET + info
-    return info
+    return LEVEL_OFFSET + info
 
 
 def info_packages() -> dict:

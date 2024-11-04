@@ -7,7 +7,7 @@ from utils import show_image_and_target
 
 @click.command()
 @click.option("--datadir", default="data", help="Path to the data directory")
-def dataset_statistics(datadir: str):
+def dataset_statistics(datadir: str) -> None:
     """Compute dataset statistics."""
     train_dataset = MnistDataset(data_folder=datadir, train=True)
     test_dataset = MnistDataset(data_folder=datadir, train=False)

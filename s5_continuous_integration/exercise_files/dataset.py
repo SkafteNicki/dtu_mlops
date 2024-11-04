@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 
 import torch
@@ -55,6 +57,6 @@ class MnistDataset(Dataset):
             target = self.target_transform(target)
         return img, target
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Return the number of images in the dataset."""
         return self.images.shape[0]

@@ -46,7 +46,7 @@ def download_data(filename: str) -> None:
         dbx.files_download_to_file(filename, f"/{filename}")
 
 
-def main():
+def main() -> None:
     """Streamlit application for showing group GitHub stats."""
     download_data("latest_repo_data.csv")
 
@@ -54,12 +54,12 @@ def main():
 
     # convert to column
     df["contributions_per_contributor"] = df["contributions_per_contributor"].apply(
-        lambda x: ast.literal_eval(x) if pd.notnull(x) else x
+        lambda x: ast.literal_eval(x) if pd.notnull(x) else x,
     )
     df["warnings_raised"] = df["warnings_raised"].apply(lambda x: 27 - x if pd.notnull(x) else x)
     f = "%Y-%m-%dT%H:%M:%SZ"
     df["latest_commit"] = df["latest_commit"].apply(
-        lambda x: datetime.strptime(x, f) if pd.notnull(x) else x,
+        lambda x: datetime.strptime(x, f).astimezone(tz=datetime.UTC) if pd.notnull(x) else x,
     )
 
     # remove columns that are not needed
@@ -100,7 +100,7 @@ def main():
         towards you passing the course or not. Instead they can inform how you are doing in comparison to other groups,
         and it can indirectly inform the us about how well you are using version control for collaborating on your
         project.
-        """
+        """,
     )
 
     st.header("Base statistics")
