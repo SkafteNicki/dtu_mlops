@@ -2088,10 +2088,10 @@ each of these files/folders to run training in our Docker container?</p>
 <p class="annotate">Let's set the working directory in our container and add commands that install the dependencies (1):</p>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> We split the installation into two steps so that Docker can cache our project dependencies
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> We split the installation into two steps so that Docker can cache our project dependencies
     separately from our application code. This means that if we change our application code, we do not need to
     reinstall all the dependencies. This is a common strategy for Docker images.</p>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative, you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative, you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
 installs the dependencies. Just remember to also copy over the <code>Makefile</code> into the Docker image.</p>
 </li>
 </ol>
