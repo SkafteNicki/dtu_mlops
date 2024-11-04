@@ -14,8 +14,7 @@ def get_backend_url():
     for service in services:
         if service.name.split("/")[-1] == "production-model":
             return service.uri
-    name = os.environ.get("BACKEND", None)
-    return name
+    return os.environ.get("BACKEND", None)
 
 
 def classify_image(image, backend):
@@ -24,8 +23,7 @@ def classify_image(image, backend):
     response = requests.post(predict_url, files={"image": image}, timeout=10)
     if response.status_code == 200:
         return response.json()
-    else:
-        return None
+    return None
 
 
 def main() -> None:

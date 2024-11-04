@@ -29,6 +29,11 @@ select = [
     "ICN",
     "LOG",
     "PIE",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
 ]
 ignore = [
     "F821",

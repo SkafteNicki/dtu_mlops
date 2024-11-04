@@ -22,5 +22,4 @@ def knn_classifier(request):
         input_data = [input_data]
         prediction = my_model.predict(input_data)
         return {"prediction": prediction.tolist()}
-    else:
-        return {"error": "No input data provided."}
+    return {"error": "No input data provided."}

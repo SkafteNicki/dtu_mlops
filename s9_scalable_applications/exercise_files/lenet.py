@@ -20,8 +20,7 @@ class LeNet(nn.Module):
         x = x.view(-1, int(x.nelement() / x.shape[0]))
         x = nn.functional.relu(self.fc1(x))
         x = nn.functional.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
+        return self.fc3(x)
 
 
 if __name__ == "__main__":

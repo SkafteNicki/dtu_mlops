@@ -47,8 +47,7 @@ def load_data(filename: str) -> list[list[str]]:
             content.append(row)
 
         header = content.pop(0)
-        formatted_data = process_data(content)
-    return formatted_data
+        return process_data(content)
 
 
 def download_data(filename: str) -> None:

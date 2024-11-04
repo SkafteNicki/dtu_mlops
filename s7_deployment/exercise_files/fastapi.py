@@ -65,13 +65,12 @@ def login(username: str, password: str) -> str:
 def contains_email(data: str):
     """Simple function to check if an email is valid."""
     regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
-    response = {
+    return {
         "input": data,
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
         "is_email": re.fullmatch(regex, data) is not None,
     }
-    return response
 
 
 class DomainEnum(Enum):
@@ -95,13 +94,12 @@ def contains_email_domain(data: Item):
         regex = r"\b[A-Za-z0-9._%+-]+@gmail+\.[A-Z|a-z]{2,}\b"
     if data.domain is DomainEnum.hotmail:
         regex = r"\b[A-Za-z0-9._%+-]+@hotmail+\.[A-Z|a-z]{2,}\b"
-    response = {
+    return {
         "input": data,
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
         "is_email": re.fullmatch(regex, data.email) is not None,
     }
-    return response
 
 
 @app.post("/cv_model/")
@@ -117,10 +115,9 @@ async def cv_model(data: UploadFile = File(...), h: None | int = 28, w: None | i
 
     cv2.imwrite("image_resize.jpg", res)
 
-    response = {
+    return {
         "input": data,
         "output": FileResponse("image_resize.jpg"),
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
     }
-    return response

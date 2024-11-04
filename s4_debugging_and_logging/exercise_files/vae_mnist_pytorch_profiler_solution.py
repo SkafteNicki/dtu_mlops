@@ -64,9 +64,7 @@ class Encoder(nn.Module):
         """Reparameterization trick."""
         epsilon = torch.rand_like(var)
 
-        z = mean + var * epsilon
-
-        return z
+        return mean + var * epsilon
 
 
 class Decoder(nn.Module):
@@ -80,8 +78,7 @@ class Decoder(nn.Module):
     def forward(self, x):
         """Forward pass."""
         h = torch.relu(self.FC_hidden(x))
-        x_hat = torch.sigmoid(self.FC_output(h))
-        return x_hat
+        return torch.sigmoid(self.FC_output(h))
 
 
 class Model(nn.Module):

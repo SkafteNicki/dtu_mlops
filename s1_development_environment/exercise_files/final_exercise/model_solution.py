@@ -23,8 +23,7 @@ class MyAwesomeModel(nn.Module):
         x = torch.max_pool2d(x, 2, 2)
         x = torch.flatten(x, 1)
         x = self.dropout(x)
-        x = self.fc1(x)
-        return x
+        return self.fc1(x)
 
 
 if __name__ == "__main__":

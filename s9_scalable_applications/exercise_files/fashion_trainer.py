@@ -60,9 +60,7 @@ class FashionCNN(nn.Module):
         out = self.fc1(out)
         out = self.drop(out)
         out = self.fc2(out)
-        out = self.fc3(out)
-
-        return out
+        return self.fc3(out)
 
 
 def train_and_test() -> None:

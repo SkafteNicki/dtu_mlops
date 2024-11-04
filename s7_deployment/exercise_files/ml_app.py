@@ -38,5 +38,4 @@ async def caption(data: UploadFile = File(...)):
     pixel_values = pixel_values.to(device)
     output_ids = model.generate(pixel_values, **gen_kwargs)
     preds = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
-    preds = [pred.strip() for pred in preds]
-    return preds
+    return [pred.strip() for pred in preds]
