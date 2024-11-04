@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1887,7 +1885,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/pytorch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/pytorch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytorch.png" width="130" /></a></p>
 <h1 id="distributed-data-loading">Distributed Data Loading</h1>
 <hr />
 <div class="admonition info">
@@ -1900,7 +1898,7 @@ improve if more was added. However, as deep learning models have become deeper a
 data-hungry performance seems to be ever increasing or at least not reaching a plateau in the same way as for
 traditional machine learning.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/ml_data.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ml_data.png" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/ml_data.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ml_data.png" width="500" /></a></p>
 <figcaption>
 <a href="https://www.codesofinterest.com/2017/04/how-deep-should-deep-learning-be.html"> Image credit </a>
 </figcaption>
@@ -1919,7 +1917,7 @@ at what is going on behind the scenes when we use Pytorch to parallelize data lo
 <p>Before we talk distributed applications it is important to understand the physical layout of a standard CPU (the
 brain of your computer).</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_layout.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_layout.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_layout.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_layout.PNG" width="500" /></a></p>
 </figure>
 <p>Most modern CPUs is a single chip that consists of multiple <em>cores</em>. Each core can further be divided into <em>threads</em>.
 In most laptops, the core count is 4 and commonly 2 threads per code. This means that the common laptop has 8 threads.
@@ -1955,18 +1953,18 @@ we must understand that we have a thread that plays the role of the <em>main</em
 example we request 4) are called <em>workers</em>. When the dataloader is created, we create this structure and make sure that
 all threads have a copy of our dataset definition so each can call the <code>__getitem__</code> method.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_data_loading1.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading1.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_data_loading1.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading1.PNG" width="500" /></a></p>
 </figure>
 <p>Then comes the actual part where we request a batch of data. Assume that we have a batch size of 8 and we do not do
 any shuffling. In this step, the master thread then distributes the list of requested data points (<code>[0,1,2,3,4,5,6,7]</code>)
 to the four worker threads. With 8 indices and 4 workers, each worker will receive 2 indices.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_data_loading2.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading2.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_data_loading2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading2.PNG" width="500" /></a></p>
 </figure>
 <p>Each worker thread then calls the <code>__getitem__</code> method for all the indices it has received. When all processes are done,
 the loaded images data points gets sent back to the master thread and collected into a single structure/tensor.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/cpu_data_loading3.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading3.PNG" width="500" /></a></p>
+<p><a class="glightbox" href="../../figures/cpu_data_loading3.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading3.PNG" width="500" /></a></p>
 </figure>
 <p>Each arrow is corresponds to a communication between two threads, which is not a free operation. In total to get a
 single batch (not counting the initial startup cost) in this example we need to do 8 communication operations. This may
@@ -2202,5 +2200,7 @@ loading in Pytorch works and performance benchmarks.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

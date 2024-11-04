@@ -54,17 +54,15 @@
     
     
    <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1796,23 +1794,23 @@
 <div class="grid cards">
 <ul>
 <li>
-<p><a class="glightbox" href="../figures/icons/pytest.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/pytest.png" style="height:100px;width:100px" /></a>
+<p><a class="glightbox" href="../figures/icons/pytest.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/pytest.png" style="height:100px;width:100px" /></a>
     Learn how to write unit tests that cover both data and models in your ML pipeline.</p>
 <p><a href="unittesting/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M16: Unit testing</a></p>
 </li>
 <li>
-<p><a class="glightbox" href="../figures/icons/actions.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/actions.png" style="height:100px;width:100px" /></a>
+<p><a class="glightbox" href="../figures/icons/actions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/actions.png" style="height:100px;width:100px" /></a>
     Learn how to implement continuous integration using Github actions such that tests are automatically executed on
     code changes.</p>
 <p><a href="github_actions/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M17: Github Actions</a></p>
 </li>
 <li>
-<p><a class="glightbox" href="../figures/icons/precommit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/precommit.png" style="height:100px;width:100px" /></a>
+<p><a class="glightbox" href="../figures/icons/precommit.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/precommit.png" style="height:100px;width:100px" /></a>
     Learn how to use pre-commit to ensure that code that is not up to standard does not get committed.</p>
 <p><a href="pre_commit/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M18: Pre-commit</a></p>
 </li>
 <li>
-<p><a class="glightbox" href="../figures/icons/cml.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/cml.png" style="height:100px;width:100px" /></a></p>
+<p><a class="glightbox" href="../figures/icons/cml.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img :=":" align="right" alt="" src="../figures/icons/cml.png" style="height:100px;width:100px" /></a></p>
 <p>Learn how to implement continuous machine learning pipelines in Github actions.</p>
 <p><a href="cml/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> M19: Continuous Machine Learning</a></p>
 </li>
@@ -1830,7 +1828,7 @@ elements of modern DevOps, and by extension MLOps. Continuous X assumes that we 
 doing changes to the start of our pipeline is that we want the change to propagate all the way through
 to the end of the pipeline.</p>
 <figure>
-<p><a class="glightbox" href="../figures/continuous_x.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../figures/continuous_x.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../figures/continuous_x.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../figures/continuous_x.png" width="1000" /></a></p>
 <figcaption>
 <a href="https://faun.pub/most-popular-ci-cd-pipelines-and-tools-ccfdce429867"> Image credit </a>
 </figcaption>
@@ -2018,5 +2016,7 @@ of our pipeline than in the end.</p>
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1905,7 +1903,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/pytest.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytest.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/pytest.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pytest.png" width="130" /></a></p>
 <h1 id="unit-testing">Unit testing</h1>
 <hr />
 <div class="admonition info">
@@ -1925,7 +1923,7 @@ Continuous integration simply structures and automates this.</p>
 Martin Fowler, Chief Scientist, ThoughtWorks</p>
 </div>
 <figure>
-<p><a class="glightbox" href="../../figures/ci.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ci.png" width="600" /></a></p>
+<p><a class="glightbox" href="../../figures/ci.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ci.png" width="600" /></a></p>
 <figcaption>
 <a href="https://devhumor.com/media/tests-won-t-fail-if-you-don-t-write-tests"> Image credit </a>
 </figcaption>
@@ -1944,7 +1942,7 @@ and more monitoring to check that we stay within the data distribution we are tr
 <a href="../../s8_monitoring/data_drifting/">module M25 on data drifting</a>). This added complexity is illustrated in the figure
 below.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/system_difference.drawio.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/system_difference.drawio.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/system_difference.drawio.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/system_difference.drawio.png" width="1000" /></a></p>
 </figure>
 <h2 id="pytest">Pytest</h2>
 <p>Before we can begin to automate testing of our code base we of course need to write the tests first. It is both a hard
@@ -2384,5 +2382,7 @@ correct. For such testing, we can highly recommend using Python built-in framewo
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

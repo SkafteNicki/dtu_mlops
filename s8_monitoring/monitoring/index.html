@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1983,8 +1981,8 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/prometheus.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/prometheus.png" width="130" /></a>
-<a class="glightbox" href="../../figures/icons/monitoring.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/monitoring.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/prometheus.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/prometheus.png" width="130" /></a>
+<a class="glightbox" href="../../figures/icons/monitoring.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/monitoring.png" width="130" /></a></p>
 <h1 id="monitoring">Monitoring</h1>
 <hr />
 <p>In this module we are going to look into more classical monitoring of applications. The key concept we are often working
@@ -2087,7 +2085,7 @@ system such as <a href="https://kubernetes.io/">Kubernetes</a>. This is out of s
 of <code>Cloud Run</code> called <code>sidecar containers</code> to achieve the same effect. A sidecar container is a container that is
 running alongside the main container and can be used to do things such as collecting metrics.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_run_monitoring.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_monitoring.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_run_monitoring.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_monitoring.png" width="800" /></a></p>
 </figure>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
@@ -2105,7 +2103,7 @@ running alongside the main container and can be used to do things such as collec
     is a target for how well your application should be performing. Click the <code>Create SLO</code> button and fill it out with
     what you consider to be a good SLO for your application.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_run_slo.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_slo.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_run_slo.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_slo.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -2138,7 +2136,7 @@ of our applications are not behaving as expected.</p>
 <li>
 <p>Go to the <code>Monitoring</code> service. Then go to <code>Alerting</code> tab.
     <figure markdown>
-    <a class="glightbox" href="../../figures/gcp_alert.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_alert.png" width="800" /></a>
+    <a class="glightbox" href="../../figures/gcp_alert.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_alert.png" width="800" /></a>
     </figure></p>
 </li>
 <li>
@@ -2149,7 +2147,7 @@ of our applications are not behaving as expected.</p>
    condition as you want but the image is one way bo setup an alert that will react to the number of times an cloud
    function is invoked (actually it measures the amount of log entries from cloud functions).</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_alert_condition.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_alert_condition.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_alert_condition.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_alert_condition.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -2335,5 +2333,7 @@ of our applications are not behaving as expected.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1905,7 +1903,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/cml.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/cml.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/cml.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/cml.png" width="130" /></a></p>
 <h1 id="continuous-machine-learning">Continuous Machine Learning</h1>
 <hr />
 <p>The continuous integration we have looked at until now is what we can consider "classical" continuous integration, which
@@ -1933,7 +1931,7 @@ model. The reason here is to get a better understanding of when continuous machi
 behind the MLOps maturity model is to help organizations understand where they are in their machine learning operations
 journey and what the next logical steps are. The model is divided into five stages:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/mlops_maturity_model.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/mlops_maturity_model.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/mlops_maturity_model.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/mlops_maturity_model.png" width="1000" /></a></p>
 <figcaption>
 <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/mlops-maturity-model"> Image credit </a>
 </figcaption>
@@ -1985,7 +1983,7 @@ repository.</p>
     continuous integration sessions: <code>push code</code> -&gt; <code>trigger GitHub actions</code> -&gt; <code>do stuff</code>. The new part in this session
     that we are only going to trigger whenever data changes.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/cml.jpeg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cml.jpeg" width="1000" /></a>
+<a class="glightbox" href="../../figures/cml.jpeg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cml.jpeg" width="1000" /></a>
 <figcaption>
 <a href="https://towardsdatascience.com/continuous-machine-learning-e1ffb847b8da"> Image credit </a>
 </figcaption>
@@ -2337,7 +2335,7 @@ and runs as expected.</p>
 <p>Make sure that the workflow works as expected. You should see a comment created by <code>github-actions (bot)</code> like
     this if you have done everything correctly:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/cml_pr_comment.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cml_pr_comment.png" width="600" /></a>
+<a class="glightbox" href="../../figures/cml_pr_comment.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cml_pr_comment.png" width="600" /></a>
 </figure></p>
 </li>
 <li>
@@ -2352,7 +2350,7 @@ and runs as expected.</p>
     whenever we add them to our model registry. For that reason, do not continue with this set of exercises before you
     have completed the exercises on the model registry in <a href="../../s4_debugging_and_logging/logging/">this module</a>.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/model_registry.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/model_registry.png" width="600" /></a>
+<a class="glightbox" href="../../figures/model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/model_registry.png" width="600" /></a>
 <figcaption>
 The model registry is in general a repository of a team's trained models where ML practitioners publish candidates
 for production and share them with others. Figure from <a href="https://docs.wandb.ai/guides/model_registry">wandb</a>.
@@ -2371,7 +2369,7 @@ for production and share them with others. Figure from <a href="https://docs.wan
     <code>Settings</code>, then <code>Developer settings</code>, then <code>Personal access tokens</code> and finally choose either
     <code>Tokens (classic)</code> or <code>Fine-grained tokens</code> (which is the safer option, which is also what the link points to).</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/personal_access_token.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/personal_access_token.png" width="500" /></a>
+<a class="glightbox" href="../../figures/personal_access_token.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/personal_access_token.png" width="500" /></a>
 </figure></p>
 <p>give it a name, set what repositories it should have access to and select the permissions you want it to have.
 In our case if you choose to create <code>Fine-grained token</code> then it needs access to the <code>contents:write</code>
@@ -2420,7 +2418,7 @@ some other framework that should trigger a Github action, you can use this endpo
 </span></code></pre></div>
 <p>Finally, on the next page give the automation a name and click <code>Create automation</code>.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/wandb_automation.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_automation.png" width="500" /></a>
+<a class="glightbox" href="../../figures/wandb_automation.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_automation.png" width="500" /></a>
 </figure></p>
 <p>Make sure you understand overall what is happening here.</p>
 <details class="success">
@@ -2896,5 +2894,7 @@ cloud resources instead of the GitHub actions runners.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

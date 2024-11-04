@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1983,7 +1981,7 @@ deep learning and machine learning tasks because they cannot be scaled locally.<
 offers. We are going to be working with around 10 of these services throughout the course. Therefore, if you get done
 with exercises early I highly recommend that you deep dive more into the Google cloud platform.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_services.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_services.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_services.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_services.png" width="1000" /></a></p>
 <figcaption> <a href="https://github.com/priyankavergadia/google-cloud-4-words"> Image credit </a> </figcaption>
 </figure>
 <h2 id="exercises">❔ Exercises</h2>
@@ -1999,13 +1997,13 @@ with exercises early I highly recommend that you deep dive more into the Google 
 <li>
 <p>Log in to the homepage of GCP. It should look like this:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp1.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp1.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp1.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp1.PNG" width="800" /></a>
 </figure></p>
 </li>
 <li>
 <p>Go to billing and make sure that your account is showing $50 of cloud credit</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp2.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp2.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp2.PNG" width="800" /></a>
 </figure></p>
 <p>make sure to also check out the <code>Reports</code> throughout the course. When you are starting to use some of the cloud
 services these tabs will update with info about how much time you can use before your cloud credit runs out.
@@ -2014,7 +2012,7 @@ Make sure that you monitor this page as you will not be given another coupon.</p
 <li>
 <p>One way to stay organized within GCP is to create projects.</p>
 <p><figure markdown>
-    <a class="glightbox" href="../../figures/gcp3.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp3.PNG" width="800" /></a>
+    <a class="glightbox" href="../../figures/gcp3.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp3.PNG" width="800" /></a>
 </figure></p>
 <p>Create a new project called <code>dtumlops</code>. When you click <code>create</code> you should get a notification that the project
 is being created. The notification bell is a good way to make sure how the processes you are running are doing
@@ -2099,7 +2097,7 @@ the IAM (Identities and Access Management) page. Simply click the <code>Grant Ac
 person you want to share the project with and give them either <code>Viewer</code>, <code>Editor</code> or <code>Owner</code> access, depending on what
 you want them to be able to do. The figure below shows how to do this.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_iam_group.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_iam_group.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_iam_group.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_iam_group.png" width="1000" /></a></p>
 </figure>
 <p>What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
 project. By default, for any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that
@@ -2138,7 +2136,7 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
 </li>
 </ol>
 <p><figure markdown>
-    <a class="glightbox" href="../../figures/quotas.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quotas.PNG" width="1000" /></a>
+    <a class="glightbox" href="../../figures/quotas.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quotas.PNG" width="1000" /></a>
 </figure></p>
 </li>
 </ol>
@@ -2147,7 +2145,7 @@ go to this page and see what you are allowed to use currently and try to increas
 training machine learning models using Vertex AI in the <a href="../using_the_cloud/">next module</a>, you would most likely
 need to ask for a quota increase for that service as well.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_quotas.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_quotas.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_quotas.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_quotas.png" width="1000" /></a></p>
 </figure>
 <p>Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
 request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
@@ -2458,5 +2456,7 @@ different permissions. This setup is called the
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

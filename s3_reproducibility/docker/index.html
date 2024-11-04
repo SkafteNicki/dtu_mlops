@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1911,14 +1909,14 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/docker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/docker.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/docker.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/docker.png" width="130" /></a></p>
 <h1 id="docker">Docker</h1>
 <hr />
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
 </div>
 <figure>
-<p><a class="glightbox" href="../../figures/docker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker.png" width="400" /></a></p>
+<p><a class="glightbox" href="../../figures/docker.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker.png" width="400" /></a></p>
 <figcaption>
 <a href="https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/"> Image credit </a>
 </figcaption>
@@ -1938,7 +1936,7 @@ start our program on a single machine or on 1000 machines at once.</p>
 <h2 id="docker-overview">Docker Overview</h2>
 <p>Docker has three main concepts: <strong>Dockerfile</strong>, <strong>Docker image</strong>, and <strong>Docker container</strong>:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/docker_structure.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_structure.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/docker_structure.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_structure.png" width="800" /></a></p>
 </figure>
 <ul>
 <li>
@@ -1972,7 +1970,7 @@ your own container.</p>
 </li>
 </ul>
 <figure>
-<p><a class="glightbox" href="../../figures/docker_share.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_share.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/docker_share.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_share.png" width="1000" /></a></p>
 <figcaption> <a href="https://www.ravirajag.dev/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 <h2 id="exercises">❔ Exercises</h2>
@@ -2137,7 +2135,7 @@ is important to remember) indicates which Dockerfile we want to run (except if y
 the <code>-t trainer:latest</code> is the respective name and tag that we see afterward when running <code>docker images</code> (see
 image below). Please note that building a Docker image can take a couple of minutes.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/docker_output.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_output.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/docker_output.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/docker_output.PNG" width="800" /></a>
 </figure></p>
 <details class="warning">
 <summary>Docker images and space</summary>
@@ -2252,7 +2250,7 @@ inside a container based on the image you just pulled. It should look something 
 </span></code></pre></div>
 <p>and should show an image like below:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/nvidia_smi.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/nvidia_smi.PNG" width="600" /></a>
+<a class="glightbox" href="../../figures/nvidia_smi.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/nvidia_smi.PNG" width="600" /></a>
 </figure></p>
 <p>If it does not work, try redoing the steps.</p>
 </li>
@@ -2336,7 +2334,7 @@ our Python dependencies after the container has been created.</p>
     option <code>Remote-Containers: Reopen in Container</code> or <code>Remote-Containers: Rebuild and Reopen in Container</code>. Choose
     either of these options.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/dev_container.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dev_container.png" width="600" /></a>
+<a class="glightbox" href="../../figures/dev_container.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dev_container.png" width="600" /></a>
 </figure></p>
 <p>This will start a new VS Code instance inside a Docker container. You should be able to see this in the bottom
 left corner of your VS Code window. You should also be able to see that the Python interpreter has changed to
@@ -2626,5 +2624,7 @@ Desktop that lets you explore in depth your Docker images.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1935,7 +1933,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/profiler.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/profiler.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/profiler.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/profiler.png" width="130" /></a></p>
 <h1 id="profilers">Profilers</h1>
 <hr />
 <div class="admonition info">
@@ -1994,7 +1992,7 @@ As the image shows the profiler looks both a the <code>kernel</code> time (this 
 and also transfer times such as <code>memcpy</code> (where we are copying data between devices).
 It can even analyze your code and give recommendations.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/pytorch_profiler.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pytorch_profiler.png" width="700" /></a></p>
+<p><a class="glightbox" href="../../figures/pytorch_profiler.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pytorch_profiler.png" width="700" /></a></p>
 </figure>
 <p>Using the profiler can be as simple as wrapping the code that you want to profile with the <code>torch.profiler.profile</code>
 decorator</p>
@@ -2117,7 +2115,7 @@ produced in the <code>log/resnet18</code> folder.</p>
 <p>and open the page <a href="http://localhost:6006/#pytorch_profiler">http://localhost:6006/#pytorch_profiler</a>, where you should hopefully see an image similar
 to the one below:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/profiler_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/profiler_overview.png" width="600" /></a>
+<a class="glightbox" href="../../figures/profiler_overview.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/profiler_overview.png" width="600" /></a>
 <figcaption>
 <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a>
 </figcaption>
@@ -2308,5 +2306,7 @@ another open-source profiling tool for Python programs.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

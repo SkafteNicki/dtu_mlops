@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -2097,8 +2095,8 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/engine.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/engine.png" width="130" /></a>
-<a class="glightbox" href="../../figures/icons/bucket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/bucket.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/engine.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/engine.png" width="130" /></a>
+<a class="glightbox" href="../../figures/icons/bucket.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/bucket.png" width="130" /></a></p>
 <h1 id="using-the-cloud">Using the cloud</h1>
 <hr />
 <div class="admonition info">
@@ -2127,7 +2125,7 @@ There are many reasons why one to use virtual machines:</p>
 </li>
 </ul>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_compute_engine.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_compute_engine.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_compute_engine.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_compute_engine.png" width="800" /></a></p>
 </figure>
 <h3 id="exercises">❔ Exercises</h3>
 <p>We are now going to start using the cloud.</p>
@@ -2138,7 +2136,7 @@ There are many reasons why one to use virtual machines:</p>
 <li>
 <p>Click the <code>Create Instance</code> button. You will see the following image below.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp4.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp4.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp4.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp4.PNG" width="800" /></a>
 </figure></p>
 <p>Give the virtual machine a meaningful name, and set the location to some location that is closer to where you are
 (to reduce latency, we recommend <code>europe-west-1</code>). Finally, try to adjust the configuration a bit. Can you find
@@ -2168,7 +2166,7 @@ Finally, to location of the virtual machine also affects the price.</p>
 <p>You can always see the exact command that you need to run to <code>ssh</code> to a VM by selecting the
 <code>View gcloud command</code> option in the Compute Engine overview (see image below).</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_ssh_command.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_ssh_command.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_ssh_command.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_ssh_command.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -2236,7 +2234,7 @@ have access).</p>
     both a Python installation and Pytorch is also installed. Hint: you also have the possibility
     through the web page to start a browser session directly to the VMs you create:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_vm_browser.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vm_browser.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_vm_browser.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vm_browser.png" width="800" /></a>
 </figure></p>
 </li>
 </ol>
@@ -2245,7 +2243,7 @@ have access).</p>
 <p>Everything that you have done locally can also be achieved through the web terminal, which of course comes
     pre-installed with the <code>gcloud</code> command etc.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_terminal.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_terminal.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_terminal.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_terminal.png" width="800" /></a>
 </figure></p>
 <p>Try out launching this and run some of the commands from the previous exercises.</p>
 </li>
@@ -2279,7 +2277,7 @@ reason is that we need to use an API instead which is offered through GCP.</p>
 <p>Let's start by creating a data storage. On the GCP start page, in the sidebar, click on the <code>Cloud Storage</code>.
     On the next page click the <code>Create bucket</code>:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp5.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp5.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp5.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp5.PNG" width="800" /></a>
 </figure></p>
 <p>Give the bucket a unique name, set it to a region close by and importantly remember to enable <em>Object versioning</em>
 under the last tab. Finally, click `Create``.</p>
@@ -2476,7 +2474,7 @@ the images we are used to that use Pytorch.</p>
 <p>Find the <code>Artifact Registry</code> service (search for it in the search bar) and click on it. From there click on the
 <code>Create repository</code> button. You should see the following page:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/artifact_registry.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/artifact_registry.png" width="800" /></a>
+<a class="glightbox" href="../../figures/artifact_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/artifact_registry.png" width="800" /></a>
 </figure></p>
 <p>Give the repository a name, make sure to set the format to <code>Docker</code> and specify the region. At the bottom of the
 page you can optionally add a cleanup policy. We recommend that you add one to keep costs down. Give the policy
@@ -2572,7 +2570,7 @@ the current directory.</p>
     <a href="https://cloud.google.com/build/docs/triggers">trigger</a> in the GCP console. From the GCP homepage, navigate to the
     triggers panel:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_trigger_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_trigger_1.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_trigger_1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_trigger_1.png" width="800" /></a>
 </figure></p>
 <p>Click on the manage repositories.</p>
 <ol>
@@ -2581,7 +2579,7 @@ the current directory.</p>
     GCP and choose the repository that you want to setup build triggers. For now, skip the
     <code>Create a trigger (optional)</code> part by pressing <code>Done</code> in the end.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_trigger_2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_trigger_2.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_trigger_2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_trigger_2.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -2601,7 +2599,7 @@ the current directory.</p>
 <li>
 <p>Go to the <code>Cloud Build</code> page and you should see the image being built and pushed.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_build.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_build.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_build.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_build.png" width="800" /></a>
 </figure></p>
 <p>Try clicking on the build to check out the build process and build summary. As you can see from the image, if a
 build is failing you will often find valuable info by looking at the build summary. If your build is failing try
@@ -2648,7 +2646,7 @@ you can push it to the repository by running:</p>
     pipeline. For example, in the image below we have conditioned the build to only run if tests are passing on
     all operating systems. Lets try to implement this.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/github_actions_job_dependency.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_actions_job_dependency.png" width="800" /></a>
+<a class="glightbox" href="../../figures/github_actions_job_dependency.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_actions_job_dependency.png" width="800" /></a>
 </figure></p>
 <ol>
 <li>
@@ -2944,14 +2942,14 @@ and <a href="https://cloud.google.com/vertex-ai/docs/training/create-custom-job#
 <li>
 <p>Assuming you manage to launch a job, you should see an output like this:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_vertex_custom.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_custom.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_vertex_custom.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_custom.PNG" width="800" /></a>
 </figure></p>
 <p>Try executing the commands that are outputted to look at both the status and the progress of your job.</p>
 </li>
 <li>
 <p>In addition, you can also visit the <code>Custom Jobs</code> tab in <code>training</code> part of Vertex AI</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_vertex_job.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_job.PNG" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_vertex_job.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_vertex_job.PNG" width="800" /></a>
 </figure></p>
 <p>You will need to select the specific region that you submitted your job to see the job.</p>
 </li>
@@ -3028,7 +3026,7 @@ Manager and inject it right before the job starts. Let's figure out how to do th
 <p>Next, go to the secrets manager in the cloud console and create a new secret. You just need to give it a name, a
     value and leave the rest as default. Add one or more secrets like the image below.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_secrets_manager.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_secrets_manager.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_secrets_manager.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_secrets_manager.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -3359,5 +3357,7 @@ bit more of the services offered in GCP, in particular for deploying the models 
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

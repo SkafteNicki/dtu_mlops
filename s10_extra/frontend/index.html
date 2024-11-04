@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1875,7 +1873,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/streamlit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/streamlit.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/streamlit.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/streamlit.png" width="130" /></a></p>
 <h1 id="frontend">Frontend</h1>
 <p>If you have gone over the <a href="../../s7_deployment/">deployment module</a> you should be at the point where you have a
 machine learning model running in the cloud. The model can be interacted with by sending HTTP requests to the API
@@ -1887,7 +1885,7 @@ of users interacting with our application, we might want to scale only the backe
 is the part that will be running our heavy machine learning model. In general dividing a application into smaller pieces
 are the pattern that is used in <a href="https://martinfowler.com/articles/microservices.html">microservice architectures</a>.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/different_architechtures.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/different_architechtures.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/different_architechtures.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/different_architechtures.png" width="800" /></a></p>
 <figcaption>
 In monollithic applications everything the user may be requesting of our application is handled by a single process/
 container. In microservice architectures the application is split into smaller pieces that can be scaled independently.
@@ -2637,5 +2635,7 @@ the frontend does not need the <code>torch</code> library which is huge and only
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1923,7 +1921,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/git.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/git.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/git.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/git.png" width="130" /></a></p>
 <h1 id="git">Git</h1>
 <hr />
 <div class="admonition info">
@@ -1944,7 +1942,7 @@ hosting repositories but that does not mean that they are the only one providing
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+GitHub.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git.png" width="400" /></a></p>
+<p><a class="glightbox" href="../../figures/git.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git.png" width="400" /></a></p>
 <figcaption> <a href="https://xkcd.com/1597/"> Image credit </a> </figcaption>
 </figure>
 <h2 id="initial-config">Initial config</h2>
@@ -1982,7 +1980,7 @@ this into your own projects depends, but you are at least expected to be familia
 <h2 id="git-overview">Git overview</h2>
 <p>The most simple way to think of version control, is that it is just nodes with lines connecting them</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
 </figure>
 <p>Each node, which we call a <em>commit</em> is uniquely identified by a hash string. Each node, stores what our code
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
@@ -1990,7 +1988,7 @@ revert to a specific point in time.</p>
 <p>The commits are made up of local changes that we make to our code. A basic workflow for
 adding commits are seen below</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
 </figure>
 <p>Assuming that we have made some changes to our local <em>working directory</em> and that we
 want to get these updates to be online in the <em>remote repository</em> we have to do the following steps:</p>
@@ -2011,7 +2009,7 @@ want to get these updates to be online in the <em>remote repository</em> we have
 </ul>
 <p>Of course, the real power of version control is the ability to make branches, as in the image below</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_branches.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branches.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/git_branches.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branches.png" width="1000" /></a></p>
 <figcaption>
 <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </figcaption>
@@ -2087,7 +2085,7 @@ is not present on the main branch.</p>
 <p>Go online and find a project you do not own, where you can improve the code. You can either look at this
     <a href="https://goodfirstissue.dev/">page</a> of good issues to get started with or for simplicity you can just choose
     the repository belonging to the course. Now fork the project by clicking the <em>Fork</em> button.</p>
-<p><a class="glightbox" href="../../figures/forking.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="forking" src="../../figures/forking.PNG" /></a></p>
+<p><a class="glightbox" href="../../figures/forking.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="forking" src="../../figures/forking.PNG" /></a></p>
 <p>This will create a local copy of the repository which you have complete writing access to. Note that
 code updates to the original repository do not update code in your local repository.</p>
 </li>
@@ -2146,7 +2144,7 @@ code updates to the original repository do not update code in your local reposit
     your choosing and click the edit button (see image below) and make some change to the file. For example, if
     you choose a Python file you can just import some random packages at the top of the file. Commit the change.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/git_edit.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_edit.PNG" width="1000" /></a>
+<a class="glightbox" href="../../figures/git_edit.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_edit.PNG" width="1000" /></a>
 </figure></p>
 </li>
 <li>
@@ -2399,5 +2397,7 @@ GitHub has an built-in editor that can simply be enabled by changing any URL fro
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

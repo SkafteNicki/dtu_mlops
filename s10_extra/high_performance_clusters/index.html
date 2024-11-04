@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1887,7 +1885,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/pbs.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pbs.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/pbs.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/pbs.png" width="130" /></a></p>
 <h1 id="high-performance-clusters">High Performance Clusters</h1>
 <hr />
 <p>As discussed in <a href="../../s6_the_cloud/">the intro session on the cloud</a>, cloud providers offers near infinite
@@ -1904,7 +1902,7 @@ different tiers of HPC. In Europe, HPC are often categorized such that Tier-0 ar
 or hexascale machines, Tier 1 are National centers of supercomputers, and Tier 2 are Regional centers. The lower the
 Tier, the larger applications it is possible to run.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/hpc_tiers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/hpc_tiers.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/hpc_tiers.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/hpc_tiers.png" width="800" /></a></p>
 <figcaption> <a href="https://gl.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
 </figure>
 <h2 id="cluster-architectures">Cluster architectures</h2>
@@ -1916,7 +1914,7 @@ compute modules (CPU), acceleration modules (GPU), a memory module (RAM) and fin
 on your application you may need one module more than another. For example in deep learning the acceleration module is
 important but in physics simulation the general compute module / storage model is probably more important.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/meluxina_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/meluxina_overview.png" width="800" /></a></p>
+<p><a class="glightbox" href="../../figures/meluxina_overview.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/meluxina_overview.png" width="800" /></a></p>
 <figcaption> Overview of the Meluxina supercomputer that's part of EuroHPC.
 <a href="https://hpc.uni.lu/old/blog/2019/luxembourg-meluxina-supercomputer-part-of-eurohpc/"> Image credit </a>
 </figcaption>
@@ -2225,5 +2223,7 @@ provided image classifier script then the correct version is <code>CUDA/11.7</co
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

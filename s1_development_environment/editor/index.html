@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1923,7 +1921,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/vscode.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/vscode.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/vscode.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/vscode.png" width="130" /></a></p>
 <h1 id="editoride">Editor/IDE</h1>
 <hr />
 <div class="admonition info">
@@ -1965,7 +1963,7 @@ a suboptimal workflow. Therefore, to truly get "work done," you will need a good
 something new). We, therefore, put additional effort into explaining VS Code.</p>
 <p>Below, you see an overview of the VS Code interface</p>
 <figure>
-<p><a class="glightbox" href="../../figures/vscode.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/vscode.PNG" width="700" /></a></p>
+<p><a class="glightbox" href="../../figures/vscode.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/vscode.PNG" width="700" /></a></p>
 <figcaption> <a href=" https://www.git-tower.com/learn/cheat-sheets/vscode/"> Image credit </a> </figcaption>
 </figure>
 <p>The main components of VS Code are:</p>
@@ -2024,7 +2022,7 @@ following exercises are just to get you started, but you can find many more tuto
 <li>
 <p>If you install the <code>Python</code> package, you should see something like this in your status bar:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/action_bar.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/action_bar.PNG" width="700" /></a>
+<a class="glightbox" href="../../figures/action_bar.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/action_bar.PNG" width="700" /></a>
 </figure></p>
 <p>which indicates that you are using the stock Python installation instead of the one you have created using <code>conda</code>.
 Click it and change the Python environment to the one you want to use.</p>
@@ -2036,14 +2034,14 @@ Click it and change the Python environment to the one you want to use.</p>
     select <code>Open Folder</code>). You should end up with a completely clean workspace (as shown below). Click the <code>New file</code>
     button and create a file called <code>hello.py</code>.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/toolbar_new_file.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/toolbar_new_file.png" width="700" /></a>
+<a class="glightbox" href="../../figures/toolbar_new_file.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/toolbar_new_file.png" width="700" /></a>
 <figcaption> <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a> </figcaption>
 </figure></p>
 </li>
 <li>
 <p>Finally, let's run some code. Add something simple to the <code>hello.py</code> file like:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/run_python_file.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/run_python_file.png" width="700" /></a>
+<a class="glightbox" href="../../figures/run_python_file.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/run_python_file.png" width="700" /></a>
 <figcaption> <a href="https://code.visualstudio.com/docs/python/python-tutorial"> Image credit </a> </figcaption>
 </figure></p>
 <p>and click the <code>run</code> button as shown in the image. It should create a new terminal, activate the environment that you
@@ -2113,7 +2111,7 @@ code you are currently writing and in general it just has access to a larger con
     your code. Try highlighting (in your code editor) the code from the previous exercise and press <code>Ctrl+i</code> which
     should open a chat window. Ask it to complete it with a convolutional neural network instead of a linear one.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/github_copilot.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_copilot.png" width="700" /></a>
+<a class="glightbox" href="../../figures/github_copilot.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_copilot.png" width="700" /></a>
 </figure></p>
 </li>
 <li>
@@ -2144,7 +2142,7 @@ the <code>Github Copilot: Explain This (Terminal)</code> command (see the image 
 palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
 the code running?</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/github_copilot2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_copilot2.png" width="700" /></a>
+<a class="glightbox" href="../../figures/github_copilot2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_copilot2.png" width="700" /></a>
 </figure></p>
 </li>
 <li>
@@ -2323,5 +2321,7 @@ you are the one responsible for the code you write, not the AI tool.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

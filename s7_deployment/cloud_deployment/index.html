@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1953,8 +1951,8 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/functions.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/functions.png" width="130" /></a>
-<a class="glightbox" href="../../figures/icons/run.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/run.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/functions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/functions.png" width="130" /></a>
+<a class="glightbox" href="../../figures/icons/run.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/run.png" width="130" /></a></p>
 <h1 id="cloud-deployment">Cloud deployment</h1>
 <hr />
 <div class="admonition info">
@@ -1969,7 +1967,7 @@ of deploying our model: <a href="https://cloud.google.com/functions/docs">Google
 <a href="https://cloud.google.com/run/docs">Google cloud run</a>. Both services are serverless, meaning that you do not have to
 manage the server that runs your code.</p>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_deployment_options.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_deployment_options.png" width="1000" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_deployment_options.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_deployment_options.png" width="1000" /></a></p>
 <figcaption>
 GCP in general has 5 core deployment options. We are going to focus on Cloud Functions and Cloud Run, which are two
 of the serverless options. In contrast to these two, you have the option to deploy to Kubernetes Engine and Compute
@@ -1993,7 +1991,7 @@ and deploy it. The service is great for small applications that can be encapsula
     Gen function, give it a name, set the server region to somewhere close by and change the authentication policy to
     <code>Allow unauthenticated invocations</code> so we can access it directly from a browser. Remember to note down the</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_cloud_functions.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_cloud_functions.png" width="500" /></a>
+<a class="glightbox" href="../../figures/gcp_cloud_functions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_cloud_functions.png" width="500" /></a>
 </figure></p>
 </li>
 <li>
@@ -2002,7 +2000,7 @@ and deploy it. The service is great for small applications that can be encapsula
     look at the <a href="https://github.com/GoogleCloudPlatform/functions-framework-python">functions-framework</a> which is a
     needed requirement of any Cloud function.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_functions_code.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_functions_code.png" width="500" /></a>
+<a class="glightbox" href="../../figures/gcp_functions_code.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_functions_code.png" width="500" /></a>
 </figure></p>
 <p>After you have looked over the files, click the <code>Deploy</code> button.</p>
 <details class="success">
@@ -2016,7 +2014,7 @@ decorator.</p>
 <p>Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by going to
     the <code>Testing</code> tab.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_test_function.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_test_function.png" width="800" /></a>
+<a class="glightbox" href="../../figures/gcp_test_function.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_test_function.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
@@ -2422,7 +2420,7 @@ deploying containers.</p>
 <li>
 <p>Click the <code>Create Service</code> button which should bring you to a page similar to the one below</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_run.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run.PNG" width="1000" /></a>
+<a class="glightbox" href="../../figures/gcp_run.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run.PNG" width="1000" /></a>
 </figure></p>
 <p>Do the following:</p>
 <ul>
@@ -2477,7 +2475,7 @@ and can be accessed in your application:</p>
 <li>
 <p>If you manage to deploy the service you should see an image like this:</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_run2.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run2.PNG" width="1000" /></a>
+<a class="glightbox" href="../../figures/gcp_run2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run2.PNG" width="1000" /></a>
 </figure></p>
 <p>You can now access your application by clicking the URL. This will access the root of your application, so you may
 need to add <code>/</code> or <code>/&lt;path&gt;</code> to the URL depending on how the app works.</p>
@@ -2508,7 +2506,7 @@ is needed if you want to access the service without providing credentials.</p>
     <a href="https://resources.github.com/devops/fundamentals/ci-cd/deployment">continuous deployment</a>, and it is a way to
     automate the deployment process.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/continuous_x.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/continuous_x.png" width="1000" /></a>
+<a class="glightbox" href="../../figures/continuous_x.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/continuous_x.png" width="1000" /></a>
 <figcaption>
 <a href="https://faun.pub/most-popular-ci-cd-pipelines-and-tools-ccfdce429867"> Image credit </a>
 </figcaption>
@@ -2604,7 +2602,7 @@ the application is updated continuously.</p>
 <p>In the cloud console, secrets can be set in the <em>Container(s), Volumes, Networking, Security</em> tab under the
 <em>Variables &amp; Secrets</em> section, see image below.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/gcp_run_secrets.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_secrets.png" width="500" /></a>
+<a class="glightbox" href="../../figures/gcp_run_secrets.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_secrets.png" width="500" /></a>
 </figure></p>
 <p>In the <code>gcloud</code> command, you can set the secret by using the <code>--update-secrets</code> flag.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span><span class="se">\</span>
@@ -2785,5 +2783,7 @@ that are a necessary component before you start to
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

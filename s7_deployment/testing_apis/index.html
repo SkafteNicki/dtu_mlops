@@ -54,17 +54,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1953,7 +1951,7 @@
   
 
 
-<p><a class="glightbox" href="../../figures/icons/locust.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/locust.png" width="130" /></a></p>
+<p><a class="glightbox" href="../../figures/icons/locust.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/locust.png" width="130" /></a></p>
 <h1 id="api-testing">API testing</h1>
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
@@ -2067,7 +2065,7 @@ locally, thus in a terminal window run the following command:</p>
 <p>However, the end goal is to test an API you have deployed in the cloud. If you have used Google Cloud Run to deploy
 your API then you can get the endpoint by going to the UI and looking at the service details:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/gcp_run_monitoring.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_monitoring.png" width="600" /></a></p>
+<p><a class="glightbox" href="../../figures/gcp_run_monitoring.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_monitoring.png" width="600" /></a></p>
 <figcaption> The endpoint can be seen in the top center. It always starts with `https://<my-service-name>` followed by
 a random string and then `.a.run.app` </a> </figcaption>
 </figure>
@@ -2191,7 +2189,7 @@ very easy to integrate with your CI/CD pipeline.</p>
 <p>and then navigate to <a href="http://localhost:8089">http://localhost:8089</a> in your web browser. You should see a page that looks similar to the
 top of this figure.</p>
 <p><figure markdown>
-<a class="glightbox" href="../../figures/locust_page.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/locust_page.png" width="600" /></a>
+<a class="glightbox" href="../../figures/locust_page.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/locust_page.png" width="600" /></a>
 </figure></p>
 <p>you can here define the number of users you want to simulate and how many users you want to spawn per second.
 Finally, you can define which endpoint you want to test. When you are ready you can press the <code>Start</code>.</p>
@@ -2462,5 +2460,7 @@ with the API.</p>
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>
