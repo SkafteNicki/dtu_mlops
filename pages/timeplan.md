@@ -48,7 +48,7 @@ Date | Day       | Presentation topic                                           
 14/1/25 | Tuesday   | [The Cloud📝](../slides/CloudIntro.pdf)                        | GCP Engine, Bucket, Artifact registry, Vertex AI  | [Exercises](../s6_the_cloud/README.md)
 15/1/25 | Wednesday | [Deployment📝](../slides/Deployment.pdf)                       | FastAPI, Torchserve, GCP Functions, GCP Run       | [Exercises](../s7_deployment/README.md)
 16/1/25 | Thursday  | No lecture                                                      | -                                                 | [Projects](projects.md)
-17/1/25 | Friday    | No lecture                                                      | -                                                 | [Projects](projects.md)
+17/1/25 | Friday    | Company presentation (TBA)                                      | -                                                 | [Projects](projects.md)
 
 ## Week 3
 
@@ -59,8 +59,8 @@ important topic if we ever want our applications to be used by many people at th
 
 Date | Day       | Presentation topic                                           | Frameworks                               | Format
 -----|-----------|--------------------------------------------------------------|------------------------------------------|----------
-18/1/25 | Monday    | [Monitoring📝](../slides/Monitoring.pdf)                     | Evidently AI, Prometheus, GCP Monitoring |  [Exercises](../s8_monitoring/README.md)
-19/1/25 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf) | Pytorch, Lightning                       | [Exercises](../s9_scalable_applications/README.md)
-20/1/25 | Wednesday | -                                                             | -                                       | [Projects](projects.md)
-21/1/25 | Thursday  | -                                                             | -                                       | [Projects](projects.md)
-22/1/25 | Friday    | -                                                             | -                                       | [Projects](projects.md)
+20/1/25 | Monday    | [Monitoring📝](../slides/Monitoring.pdf)                     | Evidently AI, Prometheus, GCP Monitoring |  [Exercises](../s8_monitoring/README.md)
+21/1/25 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf) | Pytorch, Lightning                       | [Exercises](../s9_scalable_applications/README.md)
+22/1/25 | Wednesday | Company presentation (TBA)                                    | -                                       | [Projects](projects.md)
+23/1/25 | Thursday  | No lecture                                                    | -                                       | [Projects](projects.md)
+24/1/25 | Friday    | No lecture                                                    | -                                       | [Projects](projects.md)
