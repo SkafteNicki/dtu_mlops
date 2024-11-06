@@ -1,6 +1,6 @@
 # Frequently asked questions
 
-For further questions, please contact [Nicki](mailto:nsde@dtu.com).
+For further questions, please contact [Nicki](mailto:nsde@dtu.dk).
 
 ## When is the next time the course is running ❔
 
