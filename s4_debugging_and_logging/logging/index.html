@@ -2489,7 +2489,7 @@ figure and log that as well.</p>
 </span><span id="__span-11-73"><a id="__codelineno-11-73" name="__codelineno-11-73"></a>            <span class="p">)</span>
 </span><span id="__span-11-74"><a id="__codelineno-11-74" name="__codelineno-11-74"></a>
 </span><span id="__span-11-75"><a id="__codelineno-11-75" name="__codelineno-11-75"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">plot</span><span class="p">({</span><span class="s2">&quot;roc&quot;</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
-</span><span id="__span-11-76"><a id="__codelineno-11-76" name="__codelineno-11-76"></a>        <span class="c1"># alternative: wandb.log({&quot;roc&quot;: wandb.plot.roc_curve(targets, preds)})</span>
+</span><span id="__span-11-76"><a id="__codelineno-11-76" name="__codelineno-11-76"></a>        <span class="c1"># alternatively the wandb.plot.roc_curve function can be used</span>
 </span><span id="__span-11-77"><a id="__codelineno-11-77" name="__codelineno-11-77"></a>
 </span><span id="__span-11-78"><a id="__codelineno-11-78" name="__codelineno-11-78"></a>
 </span><span id="__span-11-79"><a id="__codelineno-11-79" name="__codelineno-11-79"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -2676,7 +2676,7 @@ we add these as metadata to the artifact.</p>
 </span><span id="__span-12-73"><a id="__codelineno-12-73" name="__codelineno-12-73"></a>            <span class="p">)</span>
 </span><span id="__span-12-74"><a id="__codelineno-12-74" name="__codelineno-12-74"></a>
 </span><span id="__span-12-75"><a id="__codelineno-12-75" name="__codelineno-12-75"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">plot</span><span class="p">({</span><span class="s2">&quot;roc&quot;</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
-</span><span id="__span-12-76"><a id="__codelineno-12-76" name="__codelineno-12-76"></a>        <span class="c1"># alternative: wandb.log({&quot;roc&quot;: wandb.plot.roc_curve(targets, preds)})</span>
+</span><span id="__span-12-76"><a id="__codelineno-12-76" name="__codelineno-12-76"></a>        <span class="c1"># alternatively the wandb.plot.roc_curve function can be used</span>
 </span><span id="__span-12-77"><a id="__codelineno-12-77" name="__codelineno-12-77"></a>
 </span><span id="__span-12-78"><a id="__codelineno-12-78" name="__codelineno-12-78"></a>    <span class="n">final_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </span><span id="__span-12-79"><a id="__codelineno-12-79" name="__codelineno-12-79"></a>    <span class="n">final_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>

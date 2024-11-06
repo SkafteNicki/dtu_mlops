@@ -73,7 +73,7 @@ def train(lr, batch_size, epochs) -> None:
             )
 
         wandb.plot({"roc": plt})
-        # alternative: wandb.log({"roc": wandb.plot.roc_curve(targets, preds)})
+        # alternatively the wandb.plot.roc_curve function can be used
 
     final_accuracy = accuracy_score(targets, preds.argmax(dim=1))
     final_precision = precision_score(targets, preds.argmax(dim=1), average="weighted")

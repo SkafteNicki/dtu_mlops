@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import os
+from typing import TYPE_CHECKING
 
 import torch
-import torchvision.transforms.v2 as transforms
 from torch import Tensor
 from torch.utils.data import Dataset
+
+if TYPE_CHECKING:
+    import torchvision.transforms.v2 as transforms
 
 
 class MnistDataset(Dataset):

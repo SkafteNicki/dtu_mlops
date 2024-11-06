@@ -70,10 +70,7 @@ def send_to_dropbox_and_get_group_nb(
                 for row in csv_reader:
                     print(row)
                     content.append(row)
-                if len(content) == 1:  # header only
-                    group_nb = 0
-                else:
-                    group_nb = int(content[-1][0])
+                group_nb = 0 if len(content) == 1 else int(content[-1][0])
 
                 new_group_nb = group_nb + 1
 
