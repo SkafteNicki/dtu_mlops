@@ -452,10 +452,7 @@ EXAMPLE_INPUT = (
     "celebrate what is being hailed as 'The Leap of the Century.'"
 )
 
-@bentoml.service(
-    resources={"cpu": "2"},
-    traffic={"timeout": 10},
-)
+@bentoml.service(resources={"cpu": "2"}, traffic={"timeout": 10})
 class Summarization:
     def __init__(self) -> None:
         self.pipeline = pipeline('summarization')
@@ -501,26 +498,30 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
 2. You are in principal free to serve any model you like, but we recommend to just use a
     [torchvision](https://pytorch.org/vision/stable/index.html) model as in the ONNX exercises. Write your first service
-    in `BentoML` that serves a model of your choice. Afterwards, serve the model and check that it works as expected.
+    in `BentoML` that serves a model of your choice. We recommend experimenting with providing
+    [input/output as tensors](https://docs.bentoml.com/en/latest/guides/iotypes.html) because bentoml supports this
+    nativly. Secondly, write a client that can send a request to the service and print the result. Here we recommend
+    using the build in [bentoml.SyncHTTPClient](https://docs.bentoml.com/en/latest/reference/client.html).
 
     ??? success "Solution"
 
-        The following implements a simple BentoML service that serves a ONNX resnet18 model.
+        The following implements a simple BentoML service that serves a ONNX resnet18 model. The service expects the
+        both input and output to be numpy arrays.
 
         ```python linenums="1" title="bentoml_service.py"
         --8<-- "s7_deployment/exercise_files/bentoml_service.py"
         ```
 
-        which can then be served using the following command
+        The service can be served using the following command
 
         ```bash
-        bentoml serve service:MyService
+        bentoml serve bentoml_service:ImageClassifierService
         ```
 
-        To test that the service works the following code shipped with the service can be used
+        To test that the service works the following client can be used
 
         ```python linenums="1" title="bentoml_client.py"
-        --8<-- "s7_deployment/exercise_files/bentoml_service.py"
+        --8<-- "s7_deployment/exercise_files/bentoml_client.py"
         ```
 
 3. We are now going to look at features very `BentoML` really sets itself apart from `FastAPI`. The first is
