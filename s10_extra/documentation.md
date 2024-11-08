@@ -268,7 +268,7 @@ Before getting started with this set of exercises you should have completed
             - main
 
     permissions:
-        contents: write # (1)
+        contents: write # (1)!
 
     jobs:
       deploy:
@@ -311,7 +311,7 @@ Before getting started with this set of exercises you should have completed
     * In the `Branch` setting choose the `gh-pages` branch and `/(root)` folder and save
 
     <figure markdown>
-        ![Image](../figures/github_pages.png){ width="700" }
+    ![Image](../figures/github_pages.png){ width="700" }
     </figure>
 
     This should then start deploying your site to `https://<your-username>.github.io/<your-reponame>/`. If it does not

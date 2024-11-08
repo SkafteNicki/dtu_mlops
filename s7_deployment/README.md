@@ -22,7 +22,7 @@
 
     [:octicons-arrow-right-24: M24: API testing](testing_apis.md)
 
-- ![](../figures/icons/onnx.png){align=right : style="height:100px;width:100px"}
+- ![](../figures/icons/bentoml.png){align=right : style="height:100px;width:100px"}
 
     Learn about different ways to improve the deployment of machine learning models
 

@@ -1,4 +1,5 @@
 ![Logo](../figures/icons/onnx.png){ align=right width="130"}
+![Logo](../figures/icons/bentoml.png){ align=right width="130"}
 
 # Deployment of Machine Learning Models
 
@@ -522,7 +523,17 @@ but you will need to use a PyTorch model instead of an ONNX model.
         --8<-- "s7_deployment/exercise_files/bentoml_service.py"
         ```
 
-3. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
+3. We are now going to look at features very `BentoML` really sets itself apart from `FastAPI`. The first is
+    *adaptive batching*.
+
+    <figure markdown>
+    ![Image](../figures/bentoml_adaptive_batching.png){ width="700" }
+    <figcaption>
+    <a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html"> Image credit </a>
+    </figcaption>
+    </figure>
+
+4. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
     often requires you to first containerize the application. Because `BentoML` is designed to be easy to use for even
     users not that familiar with Docker, it introduces the concept of a `bentofile`. A `bentofile` is a file that
     specifies how the container should be build. Below is an example of how a `bentofile` could look like.
