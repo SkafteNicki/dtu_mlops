@@ -235,8 +235,8 @@ deploying containers.
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
     from: first is a small FastAPI app consisting of a single Python script and a docker file. The second is a small
-    Streamlit app (which you can learn more about in [this module](../s10_extra/frontend.md)) consisting of a single
-    docker file. You can choose which one you want to work with.
+    Streamlit app (which you can learn more about in [this module](frontend.md)) consisting of a single docker file.
+    You can choose which one you want to work with.
 
     ??? example "Simple Fastapi app"
 
