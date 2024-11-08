@@ -22,36 +22,71 @@ machine learning models:
     build with machine learning in mind, so you will have to do some extra work to get it to work.
 
 It should come as no surprise that multiple frameworks have therefore sprung up that better supports deployment of
-machine learning algorithms:
+machine learning algorithms (just listing a few here):
 
-* [Cortex](https://github.com/cortexlabs/cortex)
+```python exec="1" session="greet"
+import requests
 
-* [Bento ML](https://github.com/bentoml/bentoml)
+def get_github_stars(owner_repo):
+    url = f"https://api.github.com/repos/{owner_repo}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("stargazers_count", 0)
+    else:
+        return None
 
-* [Ray Serve](https://docs.ray.io/en/master/serve/)
+table =  "| 🌟 Framework | 🧩 Backend Agnostic | 🧠 Model Agnostic | 📂 Repository | ⭐ Github Stars |\n"
+table += "|--------------|---------------------|-------------------|---------------|----------------|\n"
 
-* [Triton Inference Server](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html)
+data = [
+    ("Cortex", "Yes", "Yes", "cortexlabs/cortex"),
+    ("BentoML", "Yes", "Yes", "bentoml/bentoml"),
+    ("Ray Serve", "Yes", "Yes", "ray-project/ray"),
+    ("Triton Inference Server", "Yes", "Yes", "NVIDIA/triton-inference-server"),
+    ("OpenVINO", "Yes", "Yes", "openvinotoolkit/openvino"),
+    ("Seldon-core", "Yes", "Yes", "seldonio/seldon-core"),
+    ("Litserve", "Yes", "Yes", "Lightning-AI/LitServe"),
+    ("Torchserve", "No", "Yes", "pytorch/serve"),
+    ("Tensorflow serve", "No", "Yes", "tensorflow/serving"),
+    ("vLLM", "No", "No", "vllm-project/vllm")
+]
 
-* [OpenVINO](https://docs.openvino.ai/2024/index.html)
+for framework, backend_agnostic, model_agnostic, repo in data:
+    stars = get_github_stars(repo) or "⭐ N/A"
+    backend_emoji = "✅" if backend_agnostic == "Yes" else "❌"
+    model_emoji = "✅" if model_agnostic == "Yes" else "❌"
+    table += f"| {framework} | {backend_emoji} | {model_emoji} | [🔗 Link](https://github.com/{repo}) | {stars} |\n"
 
-* [Seldon-core](https://docs.seldon.io/projects/seldon-core/en/latest/)
+print(table)
+```
 
-* [Torchserve](https://pytorch.org/serve/)
+The first 7 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
+you model is implemented in (Tensorflow, PyTorch, Jax, Sklearn etc.), whereas the last 3 are backend specific (PyTorch,
+Tensorflow and a custom framework). The first 9 frameworks are model agnostic, meaning that they are intended to work
+with whatever model you have implemented, whereas the last one is model specific in this case to LLM's. When choosing a
+framework to deploy your model, you should consider the following:
 
-* [Tensorflow serve](https://github.com/tensorflow/serving)
+* **Ease of use**. Some frameworks are easier to use and get started with than others, but may have fewer features. As
+    an example from the list above, `Litserve` is very easy to get started with but is a relatively new framework and
+    may not have all the features you need.
 
-The first 6 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
-you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two are backend specific to respective
-Pytorch and Tensorflow. In this module we are going to look at two of the frameworks, namely `Torchserve` because we
-have developed Pytorch applications i nthis course and `Triton Inference Server` because it is a very popular framework
-for deploying models on Nvidia GPUs (but we can still use it on CPU).
+* **Performance**. Some frameworks are optimized for performance, but may be harder to use. As an example from the list
+    above, `vLLM` is a very high performance framework for serving large language models but it cannot be used for other
+    types of models.
 
-But before we dive into these frameworks, we are going to look at a general way to package our machine learning models
-that should work with any of the above frameworks.
+* **Community**. Some frameworks have a large community, which can be helpful if you run into problems. As an example
+    from the list above, `Triton Inference Server` is developed by Nvidia and has a large community of users. As a good
+    rule of thumb, the more stars a repository has on Github, the larger the community.
+
+In this module we are going to be looking at the `BentoML` framework because it strikes a good balance between ease of
+use and having a lot of features that can improve the performance of serving your models. However, before we dive into
+this serving framework, we are going to look at a general way to package our machine learning models that should work
+with most of the above frameworks.
 
 ## Model Packaging
 
-Whenever we want to serve an machine learning model, we in general need 3 things:
+Whenever we want to serve a machine learning model, we in general need 3 things:
 
 * The computational graph of the model, e.g. how to pass data through the model to get a prediction.
 * The weights of the model, e.g. the parameters that the model has learned during training.
@@ -66,9 +101,9 @@ that supports this format.
 This is exactly what the [Open Neural Network Exchange (ONNX)](https://onnx.ai/) is designed to do. ONNX is a
 standardized format for creating and sharing machine learning models. It defines an extensible computation graph model,
 as well as definitions of built-in operators and standard data types. The idea behind ONNX is that a model trained with
-a specific framework on a specific device, lets say Pytorch on your local computer, can be exported and run with an
+a specific framework on a specific device, let's say Pytorch on your local computer, can be exported and run with an
 entirely different framework and hardware easily. Learning how to export your models to ONNX is therefore a great way
-to increase the longivity of your models and not being locked into a specific framework for serving your models.
+to increase the longevity of your models and not being locked into a specific framework for serving your models.
 
 <figure markdown>
 ![Image](../figures/onnx.png){ width="1000" }
@@ -381,13 +416,7 @@ that the `.onnx` format is not enough for very large models. However, through th
 [external data](https://onnxruntime.ai/docs/tutorials/web/large-models.html) it is possible to circumvent this
 limitation.
 
-## Torchserve
-
-Text to come...
-
-## Triton Inference Server
-
-Text to come...
+## BentoML
 
 ## 🧠 Knowledge check
 
