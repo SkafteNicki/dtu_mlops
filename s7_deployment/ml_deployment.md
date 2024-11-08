@@ -420,6 +420,174 @@ limitation.
 
 ## BentoML
 
+!!! note "BentoML cloud vs BentoML OSS"
+
+    We are only going to be looking at the open-source version of BentoML in this module. However, BentoML also has a
+    cloud version that makes it very easy to deploy models that are coded in BentoML to the cloud. If you are interested
+    in this, you can check out the
+    [BentoML cloud documentation](https://docs.bentoml.com/en/latest/guides/cloud/index.html). This business strategy
+    of having an open-source product and a cloud product is very common in the machine learning space (HuggingFace,
+    LightningAI, Weights and Biases etc.), because it allows companies to make money from the cloud product while still
+    providing a free product to the community.
+
+BentoML is a framework that is designed to make it easy to serve machine learning models. It is designed to be backend
+agnostic, meaning that it can be used with any computational backend. It is also model agnostic, meaning that it can be
+used with any machine learning model.
+
+Let's consider a simple example of how to serve a model using BentoML. The following
+[code snippet](https://docs.bentoml.com/en/latest/get-started/quickstart.html) shows how to serve a model that uses
+the `transformers` library to summarize text.
+
+```python
+import bentoml
+from transformers import pipeline
+
+EXAMPLE_INPUT = (
+    "Breaking News: In an astonishing turn of events, the small town of Willow Creek has been taken by storm as "
+    "local resident Jerry Thompson's cat, Whiskers, performed what witnesses are calling a 'miraculous and gravity-"
+    "defying leap.' Eyewitnesses report that Whiskers, an otherwise unremarkable tabby cat, jumped a record-breaking "
+    "20 feet into the air to catch a fly. The event, which took place in Thompson's backyard, is now being investigated "
+    "by scientists for potential breaches in the laws of physics. Local authorities are considering a town festival to "
+    "celebrate what is being hailed as 'The Leap of the Century.'"
+)
+
+@bentoml.service(
+    resources={"cpu": "2"},
+    traffic={"timeout": 10},
+)
+class Summarization:
+    def __init__(self) -> None:
+        self.pipeline = pipeline('summarization')
+
+    @bentoml.api
+    def summarize(self, text: str = EXAMPLE_INPUT) -> str:
+        result = self.pipeline(text)
+        return result[0]['summary_text']
+
+```
+
+In `BentoML` we organize our services in classes, where each class is a service that we want to serve. The two important
+parts of the code snippet are the `@bentoml.service` and `@bentoml.api` decorators.
+
+* The `@bentoml.service` decorator is used to specify the resources that the service should use and in general how the
+    service should be run. In this case we are specifying that the service should use 2 CPU cores and that the timeout
+    for the service should be 10 seconds.
+
+* The `@bentoml.api` decorator is used to specify the API that the service should expose. In this case we are specifying
+    that the service should have an API called `summarize` that takes a string as input and returns a string as output.
+
+To serve the model using `BentoML` we can execute the following command, which is very similar to the command we used
+to serve the model using FastAPI.
+
+```bash
+bentoml serve service:Summarization
+```
+
+### ❔ Exercises
+
+In general, we advise looking through the [docs](https://docs.bentoml.com/en/latest/index.html) for Bento ML if you
+need help with any of the exercises. We are going to assume that you have done the exercises on ONNX and we are
+therefore going to be using `BentoML` to serve ONNX models. If you have not done this part, you can still follow along
+but you will need to use a PyTorch model instead of an ONNX model.
+
+1. Install BentoML
+
+    ```bash
+    pip install bentoml
+    ```
+
+    Remember to add the dependency to your `requirements.txt` file.
+
+2. You are in principal free to serve any model you like, but we recommend to just use a
+    [torchvision](https://pytorch.org/vision/stable/index.html) model as in the ONNX exercises. Write your first service
+    in `BentoML` that serves a model of your choice. Afterwards, serve the model and check that it works as expected.
+
+    ??? success "Solution"
+
+        The following implements a simple BentoML service that serves a ONNX resnet18 model.
+
+        ```python linenums="1" title="bentoml_service.py"
+        --8<-- "s7_deployment/exercise_files/bentoml_service.py"
+        ```
+
+        which can then be served using the following command
+
+        ```bash
+        bentoml serve service:MyService
+        ```
+
+        To test that the service works the following code shipped with the service can be used
+
+        ```python linenums="1" title="bentoml_client.py"
+        --8<-- "s7_deployment/exercise_files/bentoml_service.py"
+        ```
+
+3. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
+    often requires you to first containerize the application. Because `BentoML` is designed to be easy to use for even
+    users not that familiar with Docker, it introduces the concept of a `bentofile`. A `bentofile` is a file that
+    specifies how the container should be build. Below is an example of how a `bentofile` could look like.
+
+    ```yaml
+    service: 'service:Summarization'
+    labels:
+      owner: bentoml-team
+      project: gallery
+    include:
+      - '*.py'
+    python:
+      packages:
+        - torch
+        - transformers
+    ```
+
+    which can then be used to build a `bento` using the following command
+
+    ```bash
+    bentoml build
+    ```
+
+    A `bento` is not a docker image, but it can be used to build a docker image with the following command
+
+    ```bash
+    bentoml containerize summarization:latest
+    ```
+
+    1. Can you figure out how the different parts of the `bentofile` are used to build the docker image? Additionally,
+        can you figure out from the [source repository](https://github.com/bentoml/BentoML) how the `bentofile` is
+        used to build the docker image?
+
+        ??? success "Solution"
+
+            The `service` part specifies both what the container should be called and also what service it should
+            serve e.g. the last statement in the corresponding dockerfile is
+            `CMD ["bentoml", "serve", "service:Summarization"]`. The `labels` part is used to specify labels about the
+            container, see this [link](https://docs.docker.com/reference/dockerfile/#label) for more info. The `include`
+            part corresponds to `COPY` statements in the dockerfile and finally the `python` part is used to specify
+            what python packages should be installed in the container which corresponds to `RUN pip install ...` in the
+            dockerfile.
+
+            Regarding how the `bentofile` is used to build the docker image, the `bentoml` package contains a number
+            of templates (written using the [jinja2](https://jinja.palletsprojects.com/en/stable/) templating language)
+            that are used to generate the dockerfiles. The templates can be found
+            [here](https://github.com/bentoml/BentoML/tree/main/src/bentoml/_internal/container/frontend/dockerfile).
+
+    2. Take whatever model from the previous exercises and try to containerize it. You are free to either write a
+        `bentofile` or a `dockerfile` to do this.
+
+        ??? success "Solution"
+
+            ```yaml
+            service: 'service:Summarization'
+            ```
+
+            and
+
+            ```dockerfile
+            FROM bentoml/model-server:0.13.0
+            ```
+
+    3. Deploy the container to GCP Run and test that it works.
+
 ## 🧠 Knowledge check
 
 1. How would you export a `scikit-learn` model to ONNX? What method is exported when you export `scikit-learn` model to
