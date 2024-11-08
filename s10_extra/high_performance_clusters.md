@@ -144,7 +144,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 
     1. First we need to load the correct version of CUDA. A cluster system often contains multiple versions of specific
         software to suit the needs of all their users, and it is the users that are in charge of *loading* the correct
-        software during job submission. The only extra software that needs to be loaded for most Pytorch applications
+        software during job submission. The only extra software that needs to be loaded for most PyTorch applications
         are a CUDA module. You can check which modules are available on the cluster with
 
         ```bash

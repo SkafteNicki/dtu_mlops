@@ -163,7 +163,7 @@ The following exercises should be applied to your MNIST repository
     5. Good code raises errors and gives out warnings in appropriate places. This is often in
         the case of some invalid combination of input to your script. For example, your model could check for the size
         of the input given to it (see code below) to make sure it corresponds to what you are expecting. Not
-        implementing such errors would still result in Pytorch failing at a later point due to shape errors, however,
+        implementing such errors would still result in PyTorch failing at a later point due to shape errors, however,
         these custom errors will probably make more sense to the end user. Implement at least one raised error or
         warning somewhere in your code and use either `#!python pytest.raises` or `#!python pytest.warns` to check that
         they are correctly raised/warned. As inspiration, the following implements `#!python ValueError` in code

@@ -170,7 +170,7 @@ computations in quantized format.
 
 ### ❔ Exercises
 
-1. Lets look at how quantized tensors look in Pytorch
+1. Lets look at how quantized tensors look in PyTorch
 
     1. Start by creating a tensor that contains both random numbers
 
@@ -187,7 +187,7 @@ computations in quantized format.
     errors? HINT: it has to do with the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
 3. Lets move on to quantization of our model. Follow this
-    [tutorial](https://pytorch.org/docs/stable/quantization.html) from Pytorch on how to do quantization. The goal is
+    [tutorial](https://pytorch.org/docs/stable/quantization.html) from PyTorch on how to do quantization. The goal is
     to construct a model `model_fc32` that works on normal floats and a quantized version `model_int8`. For simplicity
     you can just use one of the models from the tutorial.
 
@@ -216,7 +216,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s9_scalable_applications/exercise_files/lenet.py).
     Open and run it just to make sure that you know the network.
 
-2. Pytorch have already some pruning methods implemented in its package.
+2. PyTorch have already some pruning methods implemented in its package.
     Import the `prune` module from `torch.nn.utils` in the script.
 
 3. Try to prune the weights of the first convolutional layer by calling
@@ -323,7 +323,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
         the `.to_sparse()` method on each pruned weight. Is the saved model smaller now?
 
 This ends the exercises on pruning. As you probably realized in the last couple of exercises, then pruning does not
-guarantee speedups out of the box. This is because linear operations in Pytorch does not handle sparse structures out
+guarantee speedups out of the box. This is because linear operations in PyTorch does not handle sparse structures out
 of the box. To actually get speedups we would need to deep dive into the
 [sparse tensor operations](https://pytorch.org/docs/stable/sparse.html), which again does not even guarantee that a
 speedup because the performance of these operations depends on the sparsity structure of the pruned weights.

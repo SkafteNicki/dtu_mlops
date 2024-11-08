@@ -1,4 +1,5 @@
 ![Logo](../figures/icons/onnx.png){ align=right width="130"}
+![Logo](../figures/icons/bentoml.png){ align=right width="130"}
 
 # Deployment of Machine Learning Models
 
@@ -22,36 +23,73 @@ machine learning models:
     build with machine learning in mind, so you will have to do some extra work to get it to work.
 
 It should come as no surprise that multiple frameworks have therefore sprung up that better supports deployment of
-machine learning algorithms:
+machine learning algorithms (just listing a few here):
 
-* [Cortex](https://github.com/cortexlabs/cortex)
+```python exec="1"
+# this code is being executed at build time to get the latest number of stars
+import requests
 
-* [Bento ML](https://github.com/bentoml/bentoml)
+def get_github_stars(owner_repo):
+    url = f"https://api.github.com/repos/{owner_repo}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("stargazers_count", 0)
+    else:
+        return None
 
-* [Ray Serve](https://docs.ray.io/en/master/serve/)
+table =  "| 🌟 Framework | 🧩 Backend Agnostic | 🧠 Model Agnostic | 📂 Repository | ⭐ Github Stars |\n"
+table += "|--------------|---------------------|-------------------|---------------|----------------|\n"
 
-* [Triton Inference Server](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html)
+data = [
+    ("Cortex", "Yes", "Yes", "cortexlabs/cortex"),
+    ("BentoML", "Yes", "Yes", "bentoml/bentoml"),
+    ("Ray Serve", "Yes", "Yes", "ray-project/ray"),
+    ("Triton Inference Server", "Yes", "Yes", "NVIDIA/triton-inference-server"),
+    ("OpenVINO", "Yes", "Yes", "openvinotoolkit/openvino"),
+    ("Seldon-core", "Yes", "Yes", "seldonio/seldon-core"),
+    ("Litserve", "Yes", "Yes", "Lightning-AI/LitServe"),
+    ("Torchserve", "No", "Yes", "pytorch/serve"),
+    ("TensorFlow serve", "No", "Yes", "tensorflow/serving"),
+    ("vLLM", "No", "No", "vllm-project/vllm")
+]
 
-* [OpenVINO](https://docs.openvino.ai/2024/index.html)
+for framework, backend_agnostic, model_agnostic, repo in data:
+    stars_count = get_github_stars(repo)
+    stars = f"{stars_count / 1000:.1f}k" if stars_count is not None else "⭐ N/A"
+    backend_emoji = "✅" if backend_agnostic == "Yes" else "❌"
+    model_emoji = "✅" if model_agnostic == "Yes" else "❌"
+    table += f"| {framework} | {backend_emoji} | {model_emoji} | [🔗 Link](https://github.com/{repo}) | {stars} |\n"
 
-* [Seldon-core](https://docs.seldon.io/projects/seldon-core/en/latest/)
+print(table)
+```
 
-* [Torchserve](https://pytorch.org/serve/)
+The first 7 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
+you model is implemented in (TensorFlow, PyTorch, Jax, Sklearn etc.), whereas the last 3 are backend specific (PyTorch,
+TensorFlow and a custom framework). The first 9 frameworks are model agnostic, meaning that they are intended to work
+with whatever model you have implemented, whereas the last one is model specific in this case to LLM's. When choosing a
+framework to deploy your model, you should consider the following:
 
-* [Tensorflow serve](https://github.com/tensorflow/serving)
+* **Ease of use**. Some frameworks are easier to use and get started with than others, but may have fewer features. As
+    an example from the list above, `Litserve` is very easy to get started with but is a relatively new framework and
+    may not have all the features you need.
 
-The first 6 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
-you model is implemented in (Tensorflow vs PyTorch vs Jax), whereas the last two are backend specific to respective
-Pytorch and Tensorflow. In this module we are going to look at two of the frameworks, namely `Torchserve` because we
-have developed Pytorch applications i nthis course and `Triton Inference Server` because it is a very popular framework
-for deploying models on Nvidia GPUs (but we can still use it on CPU).
+* **Performance**. Some frameworks are optimized for performance, but may be harder to use. As an example from the list
+    above, `vLLM` is a very high performance framework for serving large language models but it cannot be used for other
+    types of models.
 
-But before we dive into these frameworks, we are going to look at a general way to package our machine learning models
-that should work with any of the above frameworks.
+* **Community**. Some frameworks have a large community, which can be helpful if you run into problems. As an example
+    from the list above, `Triton Inference Server` is developed by Nvidia and has a large community of users. As a good
+    rule of thumb, the more stars a repository has on Github, the larger the community.
+
+In this module we are going to be looking at the `BentoML` framework because it strikes a good balance between ease of
+use and having a lot of features that can improve the performance of serving your models. However, before we dive into
+this serving framework, we are going to look at a general way to package our machine learning models that should work
+with most of the above frameworks.
 
 ## Model Packaging
 
-Whenever we want to serve an machine learning model, we in general need 3 things:
+Whenever we want to serve a machine learning model, we in general need 3 things:
 
 * The computational graph of the model, e.g. how to pass data through the model to get a prediction.
 * The weights of the model, e.g. the parameters that the model has learned during training.
@@ -66,15 +104,15 @@ that supports this format.
 This is exactly what the [Open Neural Network Exchange (ONNX)](https://onnx.ai/) is designed to do. ONNX is a
 standardized format for creating and sharing machine learning models. It defines an extensible computation graph model,
 as well as definitions of built-in operators and standard data types. The idea behind ONNX is that a model trained with
-a specific framework on a specific device, lets say Pytorch on your local computer, can be exported and run with an
+a specific framework on a specific device, let's say PyTorch on your local computer, can be exported and run with an
 entirely different framework and hardware easily. Learning how to export your models to ONNX is therefore a great way
-to increase the longivity of your models and not being locked into a specific framework for serving your models.
+to increase the longevity of your models and not being locked into a specific framework for serving your models.
 
 <figure markdown>
 ![Image](../figures/onnx.png){ width="1000" }
 <figcaption>
 The ONNX format is designed to bridge the gap between development and deployment of machine learning models, by making
-it easy to export models between different frameworks and hardware. For example Pytorch is in general considered
+it easy to export models between different frameworks and hardware. For example PyTorch is in general considered
 an developer friendly framework, however it has historically been slow to run inference with compared to a framework.
 <a href="https://medium.com/trueface-ai/two-benefits-of-the-onnx-library-for-ml-models-4b3e417df52e"> Image credit </a>
 </figcaption>
@@ -92,10 +130,10 @@ an developer friendly framework, however it has historically been slow to run in
     and the third package contains a new experimental package that is designed to make it easier to export models to
     ONNX.
 
-2. Let's start out with converting a model to ONNX. The following code snippets shows how to export a Pytorch model to
+2. Let's start out with converting a model to ONNX. The following code snippets shows how to export a PyTorch model to
     ONNX.
 
-    === "Pytorch => 2.0"
+    === "PyTorch => 2.0"
 
         ```python
         import torch
@@ -113,7 +151,7 @@ an developer friendly framework, however it has historically been slow to run in
         onnx_model.save("resnet18.onnx")
         ```
 
-    === "Pytorch < 2.0 or Windows"
+    === "PyTorch < 2.0 or Windows"
 
         ```python
         import torch
@@ -133,7 +171,7 @@ an developer friendly framework, however it has historically been slow to run in
         )
         ```
 
-    === "Pytorch-lightning"
+    === "PyTorch-lightning"
 
         ```python
         import torch
@@ -194,7 +232,7 @@ an developer friendly framework, however it has historically been slow to run in
 
     ??? success "Solution"
 
-        When a Pytorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
+        When a PyTorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
         means that it is the only method we have access to when we load the model later. Therefore, make sure that the
         `forward` method of your model is implemented in a way that it can be used for inference.
 
@@ -219,8 +257,8 @@ an developer friendly framework, however it has historically been slow to run in
             out = ort_session.run(output_names, batch)
             ```
 
-    2. Let's experiment with performance of ONNX vs. Pytorch. Implement a benchmark that measures the time it takes to
-        run a model using Pytorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
+    2. Let's experiment with performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes to
+        run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
         have implemented a timing decorator that you can use to measure the time it takes to run a function.
 
         ```python
@@ -308,18 +346,18 @@ an developer friendly framework, however it has historically been slow to run in
 
 7. As you have probably realised in the exercises [on docker](../s3_reproducibility/docker.md), it can take a long time
     to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
-    is that Pytorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
-    framework. This kind of makes sense, because Pytorch is a framework that primarily was designed for developing e.g.
+    is that PyTorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
+    framework. This kind of makes sense, because PyTorch is a framework that primarily was designed for developing e.g.
     training models, while ONNX is a framework that is designed for serving models. Let's try to quantify this.
 
-    1. Construct a dockerfile that builds a docker image with Pytorch as a dependency. The dockerfile does actually
+    1. Construct a dockerfile that builds a docker image with PyTorch as a dependency. The dockerfile does actually
         not need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
         image that takes a [build arg](https://docs.docker.com/build/guide/build-args/) at build time that specifies
         if the image should be built with CUDA support or not.
 
         ??? success "Solution"
 
-            The dockerfile for the Pytorch image could look something like this
+            The dockerfile for the PyTorch image could look something like this
 
             ```dockerfile linenums="1" title="inference_pytorch.dockerfile"
             --8<-- "s10_extra/exercise_files/inference_pytorch.dockerfile"
@@ -332,7 +370,7 @@ an developer friendly framework, however it has historically been slow to run in
             ```
 
     2. Build both containers and measure the time it takes to build them. How much faster is it to build the ONNX
-        container compared to the Pytorch container?
+        container compared to the PyTorch container?
 
         ??? success "Solution"
 
@@ -353,16 +391,16 @@ an developer friendly framework, however it has historically been slow to run in
 
             the `--no-cache` flag is used to ensure that the build process is not cached and ensure a fair comparison.
             On my laptop this respectively took `5m1s`, `1m4s`, `0m4s`, `0m50s` meaning that the ONNX
-            container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the Pytorch container.
+            container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the PyTorch container.
 
     3. Find out the size of the two docker images. It can be done in the terminal by running the `docker images`
-        command. How much smaller is the ONNX model compared to the Pytorch model?
+        command. How much smaller is the ONNX model compared to the PyTorch model?
 
         ??? success "Solution"
 
-            As of writing the docker image containing the Pytorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
+            As of writing the docker image containing the PyTorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
             In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
-            respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the Pytorch image.
+            respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image.
 
 8. (Optional) Assuming you have completed the module on [FastAPI](../s7_deployment/apis.md) try creating a small
     FastAPI application that serves a model using the ONNX runtime.
@@ -381,13 +419,186 @@ that the `.onnx` format is not enough for very large models. However, through th
 [external data](https://onnxruntime.ai/docs/tutorials/web/large-models.html) it is possible to circumvent this
 limitation.
 
-## Torchserve
+## BentoML
 
-Text to come...
+!!! note "BentoML cloud vs BentoML OSS"
 
-## Triton Inference Server
+    We are only going to be looking at the open-source version of BentoML in this module. However, BentoML also has a
+    cloud version that makes it very easy to deploy models that are coded in BentoML to the cloud. If you are interested
+    in this, you can check out the
+    [BentoML cloud documentation](https://docs.bentoml.com/en/latest/guides/cloud/index.html). This business strategy
+    of having an open-source product and a cloud product is very common in the machine learning space (HuggingFace,
+    LightningAI, Weights and Biases etc.), because it allows companies to make money from the cloud product while still
+    providing a free product to the community.
 
-Text to come...
+BentoML is a framework that is designed to make it easy to serve machine learning models. It is designed to be backend
+agnostic, meaning that it can be used with any computational backend. It is also model agnostic, meaning that it can be
+used with any machine learning model.
+
+Let's consider a simple example of how to serve a model using BentoML. The following
+[code snippet](https://docs.bentoml.com/en/latest/get-started/quickstart.html) shows how to serve a model that uses
+the `transformers` library to summarize text.
+
+```python
+import bentoml
+from transformers import pipeline
+
+EXAMPLE_INPUT = (
+    "Breaking News: In an astonishing turn of events, the small town of Willow Creek has been taken by storm as "
+    "local resident Jerry Thompson's cat, Whiskers, performed what witnesses are calling a 'miraculous and gravity-"
+    "defying leap.' Eyewitnesses report that Whiskers, an otherwise unremarkable tabby cat, jumped a record-breaking "
+    "20 feet into the air to catch a fly. The event, which took place in Thompson's backyard, is now being investigated "
+    "by scientists for potential breaches in the laws of physics. Local authorities are considering a town festival to "
+    "celebrate what is being hailed as 'The Leap of the Century.'"
+)
+
+@bentoml.service(resources={"cpu": "2"}, traffic={"timeout": 10})
+class Summarization:
+    def __init__(self) -> None:
+        self.pipeline = pipeline('summarization')
+
+    @bentoml.api
+    def summarize(self, text: str = EXAMPLE_INPUT) -> str:
+        result = self.pipeline(text)
+        return result[0]['summary_text']
+
+```
+
+In `BentoML` we organize our services in classes, where each class is a service that we want to serve. The two important
+parts of the code snippet are the `@bentoml.service` and `@bentoml.api` decorators.
+
+* The `@bentoml.service` decorator is used to specify the resources that the service should use and in general how the
+    service should be run. In this case we are specifying that the service should use 2 CPU cores and that the timeout
+    for the service should be 10 seconds.
+
+* The `@bentoml.api` decorator is used to specify the API that the service should expose. In this case we are specifying
+    that the service should have an API called `summarize` that takes a string as input and returns a string as output.
+
+To serve the model using `BentoML` we can execute the following command, which is very similar to the command we used
+to serve the model using FastAPI.
+
+```bash
+bentoml serve service:Summarization
+```
+
+### ❔ Exercises
+
+In general, we advise looking through the [docs](https://docs.bentoml.com/en/latest/index.html) for Bento ML if you
+need help with any of the exercises. We are going to assume that you have done the exercises on ONNX and we are
+therefore going to be using `BentoML` to serve ONNX models. If you have not done this part, you can still follow along
+but you will need to use a PyTorch model instead of an ONNX model.
+
+1. Install BentoML
+
+    ```bash
+    pip install bentoml
+    ```
+
+    Remember to add the dependency to your `requirements.txt` file.
+
+2. You are in principal free to serve any model you like, but we recommend to just use a
+    [torchvision](https://pytorch.org/vision/stable/index.html) model as in the ONNX exercises. Write your first service
+    in `BentoML` that serves a model of your choice. We recommend experimenting with providing
+    [input/output as tensors](https://docs.bentoml.com/en/latest/guides/iotypes.html) because bentoml supports this
+    nativly. Secondly, write a client that can send a request to the service and print the result. Here we recommend
+    using the build in [bentoml.SyncHTTPClient](https://docs.bentoml.com/en/latest/reference/client.html).
+
+    ??? success "Solution"
+
+        The following implements a simple BentoML service that serves a ONNX resnet18 model. The service expects the
+        both input and output to be numpy arrays.
+
+        ```python linenums="1" title="bentoml_service.py"
+        --8<-- "s7_deployment/exercise_files/bentoml_service.py"
+        ```
+
+        The service can be served using the following command
+
+        ```bash
+        bentoml serve bentoml_service:ImageClassifierService
+        ```
+
+        To test that the service works the following client can be used
+
+        ```python linenums="1" title="bentoml_client.py"
+        --8<-- "s7_deployment/exercise_files/bentoml_client.py"
+        ```
+
+3. We are now going to look at features very `BentoML` really sets itself apart from `FastAPI`. The first is
+    *adaptive batching*.
+
+    <figure markdown>
+    ![Image](../figures/bentoml_adaptive_batching.png){ width="700" }
+    <figcaption>
+    <a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html"> Image credit </a>
+    </figcaption>
+    </figure>
+
+4. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
+    often requires you to first containerize the application. Because `BentoML` is designed to be easy to use for even
+    users not that familiar with Docker, it introduces the concept of a `bentofile`. A `bentofile` is a file that
+    specifies how the container should be build. Below is an example of how a `bentofile` could look like.
+
+    ```yaml
+    service: 'service:Summarization'
+    labels:
+      owner: bentoml-team
+      project: gallery
+    include:
+      - '*.py'
+    python:
+      packages:
+        - torch
+        - transformers
+    ```
+
+    which can then be used to build a `bento` using the following command
+
+    ```bash
+    bentoml build
+    ```
+
+    A `bento` is not a docker image, but it can be used to build a docker image with the following command
+
+    ```bash
+    bentoml containerize summarization:latest
+    ```
+
+    1. Can you figure out how the different parts of the `bentofile` are used to build the docker image? Additionally,
+        can you figure out from the [source repository](https://github.com/bentoml/BentoML) how the `bentofile` is
+        used to build the docker image?
+
+        ??? success "Solution"
+
+            The `service` part specifies both what the container should be called and also what service it should
+            serve e.g. the last statement in the corresponding dockerfile is
+            `CMD ["bentoml", "serve", "service:Summarization"]`. The `labels` part is used to specify labels about the
+            container, see this [link](https://docs.docker.com/reference/dockerfile/#label) for more info. The `include`
+            part corresponds to `COPY` statements in the dockerfile and finally the `python` part is used to specify
+            what python packages should be installed in the container which corresponds to `RUN pip install ...` in the
+            dockerfile.
+
+            Regarding how the `bentofile` is used to build the docker image, the `bentoml` package contains a number
+            of templates (written using the [jinja2](https://jinja.palletsprojects.com/en/stable/) templating language)
+            that are used to generate the dockerfiles. The templates can be found
+            [here](https://github.com/bentoml/BentoML/tree/main/src/bentoml/_internal/container/frontend/dockerfile).
+
+    2. Take whatever model from the previous exercises and try to containerize it. You are free to either write a
+        `bentofile` or a `dockerfile` to do this.
+
+        ??? success "Solution"
+
+            ```yaml
+            service: 'service:Summarization'
+            ```
+
+            and
+
+            ```dockerfile
+            FROM bentoml/model-server:0.13.0
+            ```
+
+    3. Deploy the container to GCP Run and test that it works.
 
 ## 🧠 Knowledge check
 

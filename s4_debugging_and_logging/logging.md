@@ -292,7 +292,7 @@ metrics. This allows for better iteration of models and training procedure.
 4. We are now ready for incorporating `wandb` into our code. We are going to continue development on our corrupt MNIST
     codebase from the previous sessions. For help, we recommend looking at this
     [quickstart](https://docs.wandb.ai/quickstart) and this [guide](https://docs.wandb.ai/guides/integrations/pytorch)
-    for Pytorch applications. You first job is to alter your training script to include `wandb` logging, at least for
+    for PyTorch applications. You first job is to alter your training script to include `wandb` logging, at least for
     the training loss.
 
     ??? success "Solution"

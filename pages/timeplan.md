@@ -30,7 +30,7 @@ especially with a focus on making everything reproducible.
 
 Date | Day       | Presentation topic                                                 | Frameworks                           | Format
 -----|-----------|--------------------------------------------------------------------|--------------------------------------|-----------
-6/1/25  | Monday    | [Deep learning software📝](../slides/DeepLearningSoftware.pdf)     | Terminal, Conda, IDE, Pytorch        | [Exercises](../s1_development_environment/README.md)
+6/1/25  | Monday    | [Deep learning software📝](../slides/DeepLearningSoftware.pdf)     | Terminal, Conda, IDE, PyTorch        | [Exercises](../s1_development_environment/README.md)
 7/1/25  | Tuesday   | [MLOps: what is it?📝](../slides/IntroToMLOps.pdf)                 | Git, CookieCutter, Pep8, DVC         | [Exercises](../s2_organisation_and_version_control/README.md)
 8/1/25  | Wednesday | [Reproducibility📝](../slides/ReproducibilityAndSoftware.pdf)      | Docker, Hydra                        | [Exercises](../s3_reproducibility/README.md)
 9/1/25  | Thursday  | [Debugging📝](../slides/DebuggingML.pdf)                           | Debugger, Profiler, Wandb, Lightning | [Exercises](../s4_debugging_and_logging/README.md)
@@ -60,7 +60,7 @@ important topic if we ever want our applications to be used by many people at th
 Date | Day       | Presentation topic                                           | Frameworks                               | Format
 -----|-----------|--------------------------------------------------------------|------------------------------------------|----------
 20/1/25 | Monday    | [Monitoring📝](../slides/Monitoring.pdf)                     | Evidently AI, Prometheus, GCP Monitoring |  [Exercises](../s8_monitoring/README.md)
-21/1/25 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf) | Pytorch, Lightning                       | [Exercises](../s9_scalable_applications/README.md)
+21/1/25 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf) | PyTorch, Lightning                       | [Exercises](../s9_scalable_applications/README.md)
 22/1/25 | Wednesday | Company presentation (TBA)                                    | -                                       | [Projects](projects.md)
 23/1/25 | Thursday  | No lecture                                                    | -                                       | [Projects](projects.md)
 24/1/25 | Friday    | No lecture                                                    | -                                       | [Projects](projects.md)

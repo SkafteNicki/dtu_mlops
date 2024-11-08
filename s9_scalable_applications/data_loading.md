@@ -31,7 +31,7 @@ can be costly in the long run.
 
 In the first set of exercises, we are therefore going to focus on distributed data loading i.e. how to load data in
 parallel to make sure that we always have data ready for our compute devices. We are in the following going to look
-at what is going on behind the scenes when we use Pytorch to parallelize data loading.
+at what is going on behind the scenes when we use PyTorch to parallelize data loading.
 
 ## A closer look at Data loading
 
@@ -55,7 +55,7 @@ print(f"Number of cores: {cores}, Number of threads: {2*cores}")
 ```
 
 A distributed application is in general any kind of application that parallelizes some or all of its workload. We are
-in these exercises only focusing on distributed data loading, which happens primarily only on the CPU. In `Pytorch` it
+in these exercises only focusing on distributed data loading, which happens primarily only on the CPU. In `PyTorch` it
 is easy to parallelize data loading if you are using their dataset/data loader interface:
 
 ```python
@@ -174,9 +174,9 @@ the raw data files (.jpg) at runtime.
     using multiple workers because the data augmentation is also executed in parallel.
 
 7. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the `pin_memory` flag
-    to `True`. By setting this flag we are essentially telling Pytorch that they can lock the data in place in memory
+    to `True`. By setting this flag we are essentially telling PyTorch that they can lock the data in place in memory
     which will make the transfer between the *host* (CPU) and the *device* (GPU) faster.
 
-This ends the module on distributed data loading in Pytorch. If you want to go into more details we highly recommend
+This ends the module on distributed data loading in PyTorch. If you want to go into more details we highly recommend
 that you read [this paper](https://arxiv.org/pdf/2211.04908.pdf) that goes into great detail on analyzing how data
-loading in Pytorch works and performance benchmarks.
+loading in PyTorch works and performance benchmarks.

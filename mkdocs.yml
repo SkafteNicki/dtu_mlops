@@ -64,6 +64,7 @@ plugins:
   - search
   - glightbox
   - same-dir
+  - markdown-exec
   - git-revision-date-localized:
       enable_creation_date: true
   - exclude:
@@ -127,25 +128,25 @@ nav:
   - S7 - Deployment 📦:
     - s7_deployment/README.md
     - M22 - Requests and APIs: s7_deployment/apis.md
-    - M23 - Local Deployment: s7_deployment/local_deployment.md
-    - M24 - Cloud Deployment: s7_deployment/cloud_deployment.md
-    - M25 - API Testing: s7_deployment/testing_apis.md
+    - M23 - Cloud Deployment: s7_deployment/cloud_deployment.md
+    - M24 - API Testing: s7_deployment/testing_apis.md
+    - M25 - ML deployment: s7_deployment/ml_deployment.md
+    - M26 - Frontend: s7_deployment/frontend.md
   - S8 - Monitoring 📊:
     - s8_monitoring/README.md
-    - M26 - Data Drifting: s8_monitoring/data_drifting.md
-    - M27 - System Monitoring: s8_monitoring/monitoring.md
+    - M27 - Data Drifting: s8_monitoring/data_drifting.md
+    - M28 - System Monitoring: s8_monitoring/monitoring.md
   - S9 - Scalable applications ⚖️:
     - s9_scalable_applications/README.md
-    - M28 - Distributed Data Loading: s9_scalable_applications/data_loading.md
-    - M29 - Distributed Training: s9_scalable_applications/distributed_training.md
-    - M30 - Scalable Inference: s9_scalable_applications/inference.md
+    - M29 - Distributed Data Loading: s9_scalable_applications/data_loading.md
+    - M30 - Distributed Training: s9_scalable_applications/distributed_training.md
+    - M31 - Scalable Inference: s9_scalable_applications/inference.md
   - S10 - Extra 🔥:
     - s10_extra/README.md
-    - M31 - Documentation: s10_extra/documentation.md
-    - M32 - Hyperparameter optimization: s10_extra/hyperparameters.md
-    - M33 - High Performance Clusters: s10_extra/high_performance_clusters.md
-    - M34 - Frontend: s10_extra/frontend.md
-    - M35 - ML deployment: s10_extra/ml_deployment.md
+    - M32 - Documentation: s10_extra/documentation.md
+    - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
+    - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
+
     # - M35 - Designing Pipelines: s10_extra/design.md
     # - M37 - Workflow orchestration: s10_extra/orchestration.md
     # - M38 - Kubernetes: s10_extra/kubernetes.md

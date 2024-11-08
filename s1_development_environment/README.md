@@ -25,7 +25,7 @@
 
 - ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
 
-    Refresh your Pytorch skills and implement a simple deep-learning model.
+    Refresh your PyTorch skills and implement a simple deep-learning model.
 
     [:octicons-arrow-right-24: M4: Deep Learning Software](deep_learning_software.md)
 
