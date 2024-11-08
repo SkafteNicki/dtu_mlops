@@ -24,7 +24,8 @@ machine learning models:
 It should come as no surprise that multiple frameworks have therefore sprung up that better supports deployment of
 machine learning algorithms (just listing a few here):
 
-```python exec="1" session="greet"
+```python exec="1"
+# this code is being executed at build time to get the latest number of stars
 import requests
 
 def get_github_stars(owner_repo):
@@ -48,12 +49,13 @@ data = [
     ("Seldon-core", "Yes", "Yes", "seldonio/seldon-core"),
     ("Litserve", "Yes", "Yes", "Lightning-AI/LitServe"),
     ("Torchserve", "No", "Yes", "pytorch/serve"),
-    ("Tensorflow serve", "No", "Yes", "tensorflow/serving"),
+    ("TensorFlow serve", "No", "Yes", "tensorflow/serving"),
     ("vLLM", "No", "No", "vllm-project/vllm")
 ]
 
 for framework, backend_agnostic, model_agnostic, repo in data:
-    stars = get_github_stars(repo) or "⭐ N/A"
+    stars_count = get_github_stars(repo)
+    stars = f"{stars_count / 1000:.1f}k" if stars_count is not None else "⭐ N/A"
     backend_emoji = "✅" if backend_agnostic == "Yes" else "❌"
     model_emoji = "✅" if model_agnostic == "Yes" else "❌"
     table += f"| {framework} | {backend_emoji} | {model_emoji} | [🔗 Link](https://github.com/{repo}) | {stars} |\n"
@@ -62,8 +64,8 @@ print(table)
 ```
 
 The first 7 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
-you model is implemented in (Tensorflow, PyTorch, Jax, Sklearn etc.), whereas the last 3 are backend specific (PyTorch,
-Tensorflow and a custom framework). The first 9 frameworks are model agnostic, meaning that they are intended to work
+you model is implemented in (TensorFlow, PyTorch, Jax, Sklearn etc.), whereas the last 3 are backend specific (PyTorch,
+TensorFlow and a custom framework). The first 9 frameworks are model agnostic, meaning that they are intended to work
 with whatever model you have implemented, whereas the last one is model specific in this case to LLM's. When choosing a
 framework to deploy your model, you should consider the following:
 
@@ -101,7 +103,7 @@ that supports this format.
 This is exactly what the [Open Neural Network Exchange (ONNX)](https://onnx.ai/) is designed to do. ONNX is a
 standardized format for creating and sharing machine learning models. It defines an extensible computation graph model,
 as well as definitions of built-in operators and standard data types. The idea behind ONNX is that a model trained with
-a specific framework on a specific device, let's say Pytorch on your local computer, can be exported and run with an
+a specific framework on a specific device, let's say PyTorch on your local computer, can be exported and run with an
 entirely different framework and hardware easily. Learning how to export your models to ONNX is therefore a great way
 to increase the longevity of your models and not being locked into a specific framework for serving your models.
 
@@ -109,7 +111,7 @@ to increase the longevity of your models and not being locked into a specific fr
 ![Image](../figures/onnx.png){ width="1000" }
 <figcaption>
 The ONNX format is designed to bridge the gap between development and deployment of machine learning models, by making
-it easy to export models between different frameworks and hardware. For example Pytorch is in general considered
+it easy to export models between different frameworks and hardware. For example PyTorch is in general considered
 an developer friendly framework, however it has historically been slow to run inference with compared to a framework.
 <a href="https://medium.com/trueface-ai/two-benefits-of-the-onnx-library-for-ml-models-4b3e417df52e"> Image credit </a>
 </figcaption>
@@ -127,10 +129,10 @@ an developer friendly framework, however it has historically been slow to run in
     and the third package contains a new experimental package that is designed to make it easier to export models to
     ONNX.
 
-2. Let's start out with converting a model to ONNX. The following code snippets shows how to export a Pytorch model to
+2. Let's start out with converting a model to ONNX. The following code snippets shows how to export a PyTorch model to
     ONNX.
 
-    === "Pytorch => 2.0"
+    === "PyTorch => 2.0"
 
         ```python
         import torch
@@ -148,7 +150,7 @@ an developer friendly framework, however it has historically been slow to run in
         onnx_model.save("resnet18.onnx")
         ```
 
-    === "Pytorch < 2.0 or Windows"
+    === "PyTorch < 2.0 or Windows"
 
         ```python
         import torch
@@ -168,7 +170,7 @@ an developer friendly framework, however it has historically been slow to run in
         )
         ```
 
-    === "Pytorch-lightning"
+    === "PyTorch-lightning"
 
         ```python
         import torch
@@ -229,7 +231,7 @@ an developer friendly framework, however it has historically been slow to run in
 
     ??? success "Solution"
 
-        When a Pytorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
+        When a PyTorch model is exported to ONNX, it is only the `forward` method of the model that is exported. This
         means that it is the only method we have access to when we load the model later. Therefore, make sure that the
         `forward` method of your model is implemented in a way that it can be used for inference.
 
@@ -254,8 +256,8 @@ an developer friendly framework, however it has historically been slow to run in
             out = ort_session.run(output_names, batch)
             ```
 
-    2. Let's experiment with performance of ONNX vs. Pytorch. Implement a benchmark that measures the time it takes to
-        run a model using Pytorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
+    2. Let's experiment with performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes to
+        run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
         have implemented a timing decorator that you can use to measure the time it takes to run a function.
 
         ```python
@@ -343,18 +345,18 @@ an developer friendly framework, however it has historically been slow to run in
 
 7. As you have probably realised in the exercises [on docker](../s3_reproducibility/docker.md), it can take a long time
     to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
-    is that Pytorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
-    framework. This kind of makes sense, because Pytorch is a framework that primarily was designed for developing e.g.
+    is that PyTorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
+    framework. This kind of makes sense, because PyTorch is a framework that primarily was designed for developing e.g.
     training models, while ONNX is a framework that is designed for serving models. Let's try to quantify this.
 
-    1. Construct a dockerfile that builds a docker image with Pytorch as a dependency. The dockerfile does actually
+    1. Construct a dockerfile that builds a docker image with PyTorch as a dependency. The dockerfile does actually
         not need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
         image that takes a [build arg](https://docs.docker.com/build/guide/build-args/) at build time that specifies
         if the image should be built with CUDA support or not.
 
         ??? success "Solution"
 
-            The dockerfile for the Pytorch image could look something like this
+            The dockerfile for the PyTorch image could look something like this
 
             ```dockerfile linenums="1" title="inference_pytorch.dockerfile"
             --8<-- "s10_extra/exercise_files/inference_pytorch.dockerfile"
@@ -367,7 +369,7 @@ an developer friendly framework, however it has historically been slow to run in
             ```
 
     2. Build both containers and measure the time it takes to build them. How much faster is it to build the ONNX
-        container compared to the Pytorch container?
+        container compared to the PyTorch container?
 
         ??? success "Solution"
 
@@ -388,16 +390,16 @@ an developer friendly framework, however it has historically been slow to run in
 
             the `--no-cache` flag is used to ensure that the build process is not cached and ensure a fair comparison.
             On my laptop this respectively took `5m1s`, `1m4s`, `0m4s`, `0m50s` meaning that the ONNX
-            container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the Pytorch container.
+            container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the PyTorch container.
 
     3. Find out the size of the two docker images. It can be done in the terminal by running the `docker images`
-        command. How much smaller is the ONNX model compared to the Pytorch model?
+        command. How much smaller is the ONNX model compared to the PyTorch model?
 
         ??? success "Solution"
 
-            As of writing the docker image containing the Pytorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
+            As of writing the docker image containing the PyTorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
             In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
-            respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the Pytorch image.
+            respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image.
 
 8. (Optional) Assuming you have completed the module on [FastAPI](../s7_deployment/apis.md) try creating a small
     FastAPI application that serves a model using the ONNX runtime.

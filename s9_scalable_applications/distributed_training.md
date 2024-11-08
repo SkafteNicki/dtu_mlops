@@ -78,7 +78,7 @@ One of the big downsides of using data parallel is that all the replicas are des
 This means that we over and over again need to replicate our model and send it to the devices that are part of the
 computations.
 
-Even though it seems like a lot of logic is implementing data parallel into your code, in Pytorch we can very simply
+Even though it seems like a lot of logic is implementing data parallel into your code, in PyTorch we can very simply
 enable data parallel training by wrapping our model in the
 [nn.DataParallel](https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html) class.
 
@@ -147,11 +147,11 @@ other communication operations that we can do, because we only have to do a sing
 Empirically distributed data parallel tends to be 2-3 times faster than data parallel.
 
 However, this performance increase does not come for free. Where we could implement data parallel in a single line in
-Pytorch, distributed data parallel is much more involving.
+PyTorch, distributed data parallel is much more involving.
 
 ### ❔ Exercises
 
-1. We have provided an example of how to do distributed data parallel training in Pytorch in the two
+1. We have provided an example of how to do distributed data parallel training in PyTorch in the two
     files `distributed_example.py` and `distributed_example.sh`. You objective is to get a understanding of the necessary
     components in the script to get this kind of distributed training to work. Try to answer the following questions
     (HINT: try to Google around):
@@ -167,7 +167,7 @@ Pytorch, distributed data parallel is much more involving.
 2. Try to benchmark the runs using 1 and 2 GPUs
 
 3. The first exercise have hopefully convinced you that it can be quite the trouble writing distributed training
-    applications yourself. Luckily for us, `Pytorch-lightning` can take care of this for us such that we do not have to
+    applications yourself. Luckily for us, `PyTorch-lightning` can take care of this for us such that we do not have to
     care about the specific details. To get your model training on multiple GPUs you need to change two arguments in the
     trainer: the `accelerator` flag and the `gpus` flag. In addition to this, you can read through this
     [guide](https://pytorch-lightning.readthedocs.io/en/latest/accelerators/gpu.html) about any additional steps you may

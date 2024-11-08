@@ -25,7 +25,7 @@ probabilities are, what a classifier is, what overfitting means etc. This corres
 course [02450](https://kurser.dtu.dk/course/02450). The actual focus of the course is not on machine learning models,
 but we will be using these basic concepts throughout the exercises.
 
-Additionally, we recommend basic knowledge about deep learning and how to code in [Pytorch](https://pytorch.org/),
+Additionally, we recommend basic knowledge about deep learning and how to code in [PyTorch](https://pytorch.org/),
 corresponding to the curriculum covered in [02456](https://kurser.dtu.dk/course/02456). From prior experience, we know
 that not all students have gained knowledge about deep learning models before this course, and we will be covering the
 basics of how to code in PyTorch in one of the

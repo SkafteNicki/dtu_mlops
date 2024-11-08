@@ -15,8 +15,8 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 
 | Framework | Description |
 |-----------|-------------|
-| ![Pytorch](../figures/icons/pytorch.png){ width="50" } | **Pytorch** is the backbone of our code, it provides the computational engine and the data structures that we need to define our data structures. |
-| ![Pytorch Lightning](../figures/icons/lightning.png){ width="50" } | **Pytorch lightning** is a framework that provides a high-level interface to Pytorch. It provides a lot of functionality that we need to train our models, such as logging, checkpointing, early stopping, etc. such that we do not have to implement it ourselves. It also allows us to scale our models to multiple GPUs and multiple nodes. |
+| ![PyTorch](../figures/icons/pytorch.png){ width="50" } | **PyTorch** is the backbone of our code, it provides the computational engine and the data structures that we need to define our data structures. |
+| ![PyTorch Lightning](../figures/icons/lightning.png){ width="50" } | **PyTorch lightning** is a framework that provides a high-level interface to PyTorch. It provides a lot of functionality that we need to train our models, such as logging, checkpointing, early stopping, etc. such that we do not have to implement it ourselves. It also allows us to scale our models to multiple GPUs and multiple nodes. |
 | ![Conda](../figures/icons/conda.png){ width="50" } | We control the dependencies and Python interpreter using **Conda** that enables us to construct reproducible virtual environments |
 | ![Hydra](../figures/icons/hydra.png){ width="50" } | For configuring our experiments we use **Hydra** that allows us to define a hierarchical configuration structure config files |
 | ![Wandb](../figures/icons/w&b.png){ width="50" } | Using **Weights and Bias** allows us to track and log any values and hyperparameters for our experiments |

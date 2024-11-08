@@ -218,9 +218,9 @@ and deploy it. The service is great for small applications that can be encapsula
         where you need to replace `<func-name>` with the name of your function and `<folder>` with the path to the
         folder containing the `main.py` and `requirements.txt` files.
 
-8. (Optional) You can finally try to redo the exercises by deploying a Pytorch application. You will essentially
+8. (Optional) You can finally try to redo the exercises by deploying a PyTorch application. You will essentially
     need to go through the same steps as the sklearn example, including uploading a trained model to storage and
-    writing a cloud function that loads it and returns some output. You are free to choose whatever Pytorch model you
+    writing a cloud function that loads it and returns some output. You are free to choose whatever PyTorch model you
     want.
 
 ## Cloud Run
