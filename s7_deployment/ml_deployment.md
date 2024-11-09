@@ -283,7 +283,7 @@ an developer friendly framework, however it has historically been slow to run in
         ??? success "Solution"
 
             ```python linenums="1" title="onnx_benchmark.py"
-            --8<-- "s10_extra/exercise_files/onnx_benchmark.py"
+            --8<-- "s7_deployment/exercise_files/onnx_benchmark.py"
             ```
 
     3. To get a better understanding of why running the model using the ONNX runtime is usually faster lets try to see
@@ -360,13 +360,13 @@ an developer friendly framework, however it has historically been slow to run in
             The dockerfile for the PyTorch image could look something like this
 
             ```dockerfile linenums="1" title="inference_pytorch.dockerfile"
-            --8<-- "s10_extra/exercise_files/inference_pytorch.dockerfile"
+            --8<-- "s7_deployment/exercise_files/inference_pytorch.dockerfile"
             ```
 
             and the dockerfile for the ONNX image could look something like this
 
             ```dockerfile linenums="1" title="inference_onnx.dockerfile"
-            --8<-- "s10_extra/exercise_files/inference_onnx.dockerfile"
+            --8<-- "s7_deployment/exercise_files/inference_onnx.dockerfile"
             ```
 
     2. Build both containers and measure the time it takes to build them. How much faster is it to build the ONNX
@@ -410,7 +410,7 @@ an developer friendly framework, however it has historically been slow to run in
         Here is a simple example of how to create a FastAPI application that serves a model using the ONNX runtime.
 
         ```python linenums="1" title="onnx_fastapi.py"
-        --8<-- "s10_extra/exercise_files/onnx_fastapi.py"
+        --8<-- "s7_deployment/exercise_files/onnx_fastapi.py"
         ```
 
 This completes the exercises on the ONNX format. Do note that one limitation of the ONNX format is that is is based on
