@@ -580,7 +580,81 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
             On my laptop I saw about a 1.5 - 2x speedup when adaptive batching was enabled.
 
-4. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
+4. (Optional, requires GPU) Look through the
+    [documentation for inference on GPU](https://docs.bentoml.org/en/latest/guides/gpu-inference.html) and add this to
+    your service. Check that your service works as expected by testing it with the client from the previous exercise and
+    make sure you are seeing a speedup when running on the GPU.
+
+    ??? success "Solution"
+
+        A simple change to the `bento.service` decorator is all that is needed to run the model on the GPU.
+
+        ```python
+        @bentoml.service(resources={"gpu": 1})
+        class MyService:
+            def __init__(self):
+                self.model = torch.load('model.pth').to('cuda:0')
+
+5. Another way to speed up the inference is to just use multiple workers. This duplicates the server over multiple
+    processes taking advantage of modern multi-core CPUs. This is similar to running `uvicorn` command with the
+    `--workers` flag for fastapi applications. Implement multiple workers in your service and test that it works as
+    expected by testing it with the client from the previous exercise. Also test that you are seeing a speedup when
+    running with multiple workers.
+
+    ??? success "Solution"
+
+        Multiple workers can be added to the `bento.service` decorator as shown below.
+
+        ```python
+        @bentoml.service(workers=4)
+        class MyService:
+            # Service implementation
+        ```
+
+        Alternatively, you can set `workers="cpu_count"` to use all available CPU cores. The speedup depends on the
+        model you are serving, the hardware you are running on and the number of workers you are using, but it should be
+        higher than using a single worker.
+
+6. In addition to increasing the throughput of your deployments `BentoML` can also help with ML applications that
+    requires some kind of composition of multiple models. It is very normal in production setups to have multiple models
+    that either
+
+    * Runs in a sequence, e.g. the output of one model is the input of another model. You may have a preprocessing
+        service that preprocesses the data before it is sent to a model that makes a prediction.
+    * Runs concurrently, e.g. you have multiple models that are run at the same time and the output of all the models
+        are combined to make a prediction. Ensemble models are a good example of this.
+
+    `BentoML` makes it easy to
+    [compose multiple models together](https://docs.bentoml.org/en/latest/guides/model-composition.html).
+
+    1. Implement two services that runs in a sequence e.g. the output of one service is used as the input of another
+        service. As an example you can implement either some pre- or post-processing service that is used in conjunction
+        with the model you have implemented in the previous exercises.
+
+        ??? success "Solution"
+
+            The following code snippet shows how to implement two services that runs in a sequence.
+
+            ```python linenums="1" title="bentoml_service_composition.py"
+            --8<-- "s7_deployment/exercise_files/bentoml_service_composition_sequential.py"
+            ```
+
+    2. Implement three services, where two of them runs concurrently and the output of both services are combined in the
+        third service to make a prediction. As an example you can expand your previous service to serve two different
+        models and then implement a third service that combines the output of both models to make a prediction.
+
+        ??? success "Solution"
+
+            The following code snippet shows how to implement a service that consist of two concurrent services. The
+            example assumes that two models called `model_a.onnx` and `model_b.onnx` are available.
+
+            ```python linenums="1" title="bentoml_service_composition.py"
+            --8<-- "s7_deployment/exercise_files/bentoml_service_composition_concurrent.py"
+            ```
+
+    3. (Optional) Implement a server that consist of both sequential and concurrent services.
+
+7. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
     often requires you to first containerize the application. Because `BentoML` is designed to be easy to use for even
     users not that familiar with Docker, it introduces the concept of a `bentofile`. A `bentofile` is a file that
     specifies how the container should be build. Below is an example of how a `bentofile` could look like.
