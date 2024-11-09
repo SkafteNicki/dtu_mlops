@@ -21,27 +21,27 @@ and over again every time that we start a new project. This is of course a waste
 find a solution to.
 
 This is where high-level frameworks comes into play. High-level frameworks are build on top of another framework
-(Pytorch in this case) and tries to abstract/standardize how to do particular tasks such as training. At first it may
+(PyTorch in this case) and tries to abstract/standardize how to do particular tasks such as training. At first it may
 seem irritating that you need to comply to someone else code structure, however there is a good reason for that. The
 idea is that you can focus on what really matters (your task, model architecture etc.) and do not have to worry about
 the actual boilerplate that comes with it.
 
-The most popular high-level (training) frameworks within the `Pytorch` ecosystem are:
+The most popular high-level (training) frameworks within the `PyTorch` ecosystem are:
 
 * [fast.ai](https://github.com/fastai/fastai)
 * [Ignite](https://github.com/pytorch/ignite)
 * [skorch](https://github.com/skorch-dev/skorch)
 * [Catalyst](https://github.com/catalyst-team/catalyst)
 * [Composer](https://github.com/mosaicml/composer)
-* [Pytorch Lightning](https://github.com/Lightning-AI/lightning)
+* [PyTorch Lightning](https://github.com/Lightning-AI/lightning)
 
 They all offer many of the same features, so choosing one over the other for most projects should not matter that much.
-We are here going to use `Pytorch Lightning`, as it offers all the functionality that we are going to need later in the
+We are here going to use `PyTorch Lightning`, as it offers all the functionality that we are going to need later in the
 course.
 
-## Pytorch Lightning
+## PyTorch Lightning
 
-In general we refer to the [documentation](https://lightning.ai/docs/pytorch/stable/) from Pytorch lightning
+In general we refer to the [documentation](https://lightning.ai/docs/pytorch/stable/) from PyTorch lightning
 if in doubt about how to format your code for doing specific tasks. We are here going to explain the key concepts of
 the API that you need to understand to use the framework, starting with the `LightningModule` and the `Trainer`.
 
@@ -166,7 +166,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
     ```
 
     1. :man_raising_hand: You may also install it as `pip install lightning` which includes more than just the
-        `Pytorch Lightning` package. This also includes `Lightning Fabric` and `Lightning Apps` which you can read more
+        `PyTorch Lightning` package. This also includes `Lightning Fabric` and `Lightning Apps` which you can read more
         about [here](https://lightning.ai/docs/fabric/stable/) and [here](https://lightning.ai/docs/app/stable/).
 
 2. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely override your old
@@ -317,11 +317,11 @@ framework to do some of the heavy lifting you need to have gone through some of 
         as an alternative the accelerator can just be set to `#!python accelerator="auto"` to automatically detect the
         best available device.
 
-10. (Optional) As default Pytorch uses `float32` for representing floating point numbers. However, research have shown
+10. (Optional) As default PyTorch uses `float32` for representing floating point numbers. However, research have shown
     that neural network training is very robust towards a decrease in precision. The great benefit going from `float32`
     to `float16` is that we get approximately half the
     [memory consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training in
-    Pytorch lightning. You can enable this by setting the
+    PyTorch lightning. You can enable this by setting the
     [precision](https://lightning.ai/docs/pytorch/latest/common/trainer.html#precision) flag in the `Trainer`.
 
     ??? success "Solution"
@@ -359,12 +359,12 @@ framework to do some of the heavy lifting you need to have gone through some of 
     module. Only your imagination is the limit!
 
 That covers everything for today. It has been a mix of topics that all should help you write "better" code (by some
-objective measure). If you want to deep dive more into the Pytorch lightning framework, we highly recommend looking at
+objective measure). If you want to deep dive more into the PyTorch lightning framework, we highly recommend looking at
 the different tutorials in the documentation that covers more advanced models and training cases. Additionally, we also
 want to highlight other frameworks in the lightning ecosystem:
 
 * [Torchmetrics](https://torchmetrics.readthedocs.io/en/latest/): collection of machine learning metrics written
-    in Pytorch
+    in PyTorch
 * [lightning flash](https://lightning-flash.readthedocs.io/en/latest/): High-level framework for fast prototyping,
     baselining, finetuning with a even simpler interface than lightning
 * [lightning-bolts](https://lightning-bolts.readthedocs.io/en/latest/): Collection of SOTA pretrained models, model

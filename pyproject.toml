@@ -1,5 +1,6 @@
 [tool.ruff]
 line-length = 120
+target-version = "py311"
 
 [tool.ruff.lint]
 select = [
@@ -60,6 +61,7 @@ ignore = [
     "B905",
     "COM812",
     "ISC001",
+    "TCH003",
 ]
 exclude=["student_repos/"]
 

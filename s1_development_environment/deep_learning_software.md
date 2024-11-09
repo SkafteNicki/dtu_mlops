@@ -31,26 +31,26 @@ of when they were published):
 ![Logo](../figures/pytorch.png){ align=right width="130"}
 ![Logo](../figures/jax.png){ align=right width="200"}
 
-* [Tensorflow](https://github.com/tensorflow/tensorflow)
+* [TensorFlow](https://github.com/tensorflow/tensorflow)
 
-* [Pytorch](https://github.com/pytorch/pytorch)
+* [PyTorch](https://github.com/pytorch/pytorch)
 
 * [JAX](https://github.com/google/jax)
 
-We won't go into a longer discussion on which framework is best, as it is pointless. Pytorch and Tensorflow have been
+We won't go into a longer discussion on which framework is best, as it is pointless. PyTorch and TensorFlow have been
 around for the longest and therefore have bigger communities and feature sets at this point in time. They are both very
 similar in the sense that they both have features directed against research and production. JAX is kind of the new kid
-on the block, which in many ways improves on Pytorch and Tensorflow, but is still not as mature as the other frameworks.
+on the block, which in many ways improves on PyTorch and TensorFlow, but is still not as mature as the other frameworks.
 As the frameworks use different kinds of programming principles (object-oriented vs. functional programming), comparing
 them is essentially meaningless.
 
-In this course, we have chosen to work with Pytorch because we find it a bit more intuitive and it is the framework that
+In this course, we have chosen to work with PyTorch because we find it a bit more intuitive and it is the framework that
 we use for our day-to-day research life. Additionally, as of right now, it is absolutely the
 [dominating framework](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/) for published models, research
 papers, and [competition winners](https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w).
 
-The intention behind this set of exercises is to bring everyone's Pytorch skills up to date. If you already are a
-Pytorch-Jedi, feel free to pass the first set of exercises, but I recommend that you still complete it. The exercises
+The intention behind this set of exercises is to bring everyone's PyTorch skills up to date. If you already are a
+PyTorch-Jedi, feel free to pass the first set of exercises, but I recommend that you still complete it. The exercises
 are, in large part, taken directly from the
 [deep learning course at Udacity](https://github.com/udacity/deep-learning-v2-pytorch). Note that these exercises are
 given as notebooks, which is the last time we are going to use them actively in the course. Instead, after this set of
@@ -81,13 +81,13 @@ important to have a basic understanding of the concepts.
     [here](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
 
 2. Complete the
-    [Tensors in Pytorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
-    notebook. It focuses on the basic manipulation of Pytorch tensors. You can pass this notebook if you are comfortable
+    [Tensors in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
+    notebook. It focuses on the basic manipulation of PyTorch tensors. You can pass this notebook if you are comfortable
     doing this.
 
 3. Complete the
-    [Neural Networks in Pytorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb)
-    notebook. It focuses on building a very simple neural network using the Pytorch `nn.Module` interface.
+    [Neural Networks in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb)
+    notebook. It focuses on building a very simple neural network using the PyTorch `nn.Module` interface.
 
 4. Complete the
     [Training Neural Networks](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/3_Training_Neural_Networks.ipynb)
@@ -147,7 +147,7 @@ important to have a basic understanding of the concepts.
         sum([prod(p.shape) for p in neural_net.parameters()])
         ```
 
-3. A working training loop in Pytorch should have these three function calls: `optimizer.zero_grad()`,
+3. A working training loop in PyTorch should have these three function calls: `optimizer.zero_grad()`,
     `loss.backward()`, `optimizer.step()`. Explain what would happen in the training loop (or implement it) if you
     forgot each of the function calls.
 
@@ -222,7 +222,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
 
         1. :man_raising_hand: The `.pt` files are nothing else than a `.pickle` file in disguise. The
             `torch.save/torch.load` function is essentially a wrapper around the `pickle` module in Python, which
-            produces serialized files. However, it is convention to use `.pt` to indicate that the file contains Pytorch
+            produces serialized files. However, it is convention to use `.pt` to indicate that the file contains PyTorch
             tensors.
 
         We have additionally in the solution added functionality for plotting the images together with the labels for

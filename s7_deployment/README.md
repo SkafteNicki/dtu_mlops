@@ -10,23 +10,29 @@
 
     [:octicons-arrow-right-24: M22: Requests and APIs](apis.md)
 
-- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
-
-    Learn how to use `torchserve` for serving PyTorch models
-
-    [:octicons-arrow-right-24: M23: Local Deployment](local_deployment.md)
-
 - ![](../figures/icons/run.png){align=right : style="height:100px;width:100px"}
 
     Learn how to deploy custom APIs using serverless functions and serverless containers in the cloud
 
-    [:octicons-arrow-right-24: M24: Cloud Deployment](cloud_deployment.md)
+    [:octicons-arrow-right-24: M23: Cloud Deployment](cloud_deployment.md)
 
 - ![](../figures/icons/locust.png){align=right : style="height:100px;width:100px"}
 
     Learn how to test APIs for functionality and load
 
-    [:octicons-arrow-right-24: M25: API testing](testing_apis.md)
+    [:octicons-arrow-right-24: M24: API testing](testing_apis.md)
+
+- ![](../figures/icons/bentoml.png){align=right : style="height:100px;width:100px"}
+
+    Learn about different ways to improve the deployment of machine learning models
+
+    [:octicons-arrow-right-24: M25: ML Deployment](ml_deployment.md)
+
+- ![](../figures/icons/streamlit.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to create a frontend for your application using Streamlit
+
+    [:octicons-arrow-right-24: M26: Frontend](frontend.md)
 
 </div>
 
@@ -53,3 +59,6 @@ also how to deploy services in the cloud.
     * Can create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
         serverless containers
+    * Can create basic continues deployment pipelines for your models
+    * Understand the basics of frontend development and how to create a frontend for your application using Streamlit
+    * Know how to use more advance frameworks like onnx and bentoml to deploy your machine learning models

@@ -1,4 +1,5 @@
 import os
+import sys
 
 from invoke import task
 
@@ -11,6 +12,12 @@ def install(ctx) -> None:
     """Create the environment for course."""
     ctx.run("conda create -n dtumlops python=3.11 pip --no-default-packages -y", echo=True, pty=not WINDOWS)
     ctx.run("conda activate dtumlops", echo=True, pty=not WINDOWS)
+    ctx.run("pip install -r requirements.txt", echo=True, pty=not WINDOWS)
+
+
+@task
+def requirements(ctx):
+    """Install Python requirements."""
     ctx.run("pip install -r requirements.txt", echo=True, pty=not WINDOWS)
 
 
@@ -36,6 +43,18 @@ def lint(ctx) -> None:
 
 
 @task
+def docker_running(ctx):
+    """Check if Docker is running."""
+    result = ctx.run("docker info", pty=not WINDOWS, hide=True, warn=True)
+
+    if result.ok:
+        print("Docker is running.")
+    else:
+        print("Docker is not running.")
+        sys.exit(1)
+
+
+@task(docker_running)
 def linkcheck(ctx) -> None:
     """Check for broken links."""
     ctx.run(

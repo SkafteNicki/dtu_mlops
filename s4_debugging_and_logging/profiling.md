@@ -47,7 +47,7 @@ programs.
 5. Try optimizing the run! (Hint: The data is not stored as torch tensor). After optimizing the code make sure
     (using `cProfile` and `snakeviz`) that the code actually runs faster.
 
-## Pytorch profiling
+## PyTorch profiling
 
 Profiling machine learning code can become much more complex because we are suddenly beginning to mix different
 devices (CPU+GPU), that can (and should) overlap some of their computations. When profiling this kind of machine
@@ -89,7 +89,7 @@ import torch
 print(torch.__version__)
 ```
 
-But we always recommend to update to the latest Pytorch version for the best experience. Additionally, to display the
+But we always recommend to update to the latest PyTorch version for the best experience. Additionally, to display the
 result nicely (like `snakeviz` for `cProfile`) we are also going to use the tensorboard profiler extension
 
 ```bash
