@@ -703,22 +703,64 @@ but you will need to use a PyTorch model instead of an ONNX model.
             that are used to generate the dockerfiles. The templates can be found
             [here](https://github.com/bentoml/BentoML/tree/main/src/bentoml/_internal/container/frontend/dockerfile).
 
-    2. Take whatever model from the previous exercises and try to containerize it. You are free to either write a
+    2. Take whatever service from the previous exercises and try to containerize it. You are free to either write a
         `bentofile` or a `dockerfile` to do this.
 
         ??? success "Solution"
 
+            The following `bentofile` can be used to containerize the very first service we implemented in this set of
+            exercises.
+
             ```yaml
-            service: 'service:Summarization'
+            service: 'bentoml_service:ImageClassifierService'
+            labels:
+              owner: bentoml-team
+              project: gallery
+            include:
+            - 'bentoml_service.py'
+            - 'model.onnx'
+            python:
+              packages:
+                - onnxruntime
+                - numpy
             ```
 
-            and
+            The corresponding dockerfile would look something like this
 
             ```dockerfile
-            FROM bentoml/model-server:0.13.0
+            FROM python:3.11-slim
+            WORKDIR /bento
+            COPY bentoml_service.py .
+            COPY model.onnx .
+            RUN pip install onnxruntime numpy bentoml
+            CMD ["bentoml", "serve", "bentoml_service:ImageClassifierService"]
             ```
 
     3. Deploy the container to GCP Run and test that it works.
+
+        ??? success "Solution"
+
+            The following command can be used to deploy the container to GCP Run. We assume that you have already build
+            the container and called it `bentoml_service:latest`.
+
+            ```bash
+            docker tag bentoml_service:latest \
+                <region>-docker.pkg.dev/<project-id>/<repository-name>/bentoml_service:latest
+            docker push <region>-docker.pkg.dev/<project-id>/<repository-name>/bentoml_service:latest
+            gcloud run deploy bentoml-service \
+                --image=<region>-docker.pkg.dev/<project-id>/<repository-name>/bentoml_service:latest \
+                --platform managed \
+                --port 3000  # default used by BentoML
+            ```
+
+            where `<project-id>` should be replaced with the id of the project you are deploying to. The service should
+            now be available at the URL that is printed in the terminal.
+
+This completes the exercises on the `BentoML` framework. If you want to deep dive more into this we can recommend
+looking into their [tasks feature](https://docs.bentoml.org/en/latest/guides/tasks.html) for use cases that have a
+very long running time and build in
+[model management feature](https://docs.bentoml.org/en/latest/guides/model-loading-and-management.html) to unify the
+way models are loaded, managed and served.
 
 ## 🧠 Knowledge check
 
@@ -762,4 +804,7 @@ but you will need to use a PyTorch model instead of an ONNX model.
         together, we can reduce the number of times we need to load the data, because we can do multiple operations
         on the same data before we need to load new data.
 
-This ends the module on tools specifically designed for serving machine learning models.
+This ends the module on tools specifically designed for serving machine learning models. As stated in the beginning of
+the module, there are a lot of different tools that can be used to serve machine learning models and the choice of tool
+often depends on the specific use case. In general, we recommend that whenever you want to serve a machine learning
+model, you should try out a few different frameworks and see which one fits your use case the best.
