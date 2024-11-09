@@ -46,6 +46,10 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../assets/_markdown_exec_ansi.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1145,6 +1149,8 @@
       
         
       
+        
+      
     
     
     
@@ -1211,32 +1217,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../s7_deployment/local_deployment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M23 - Local Deployment
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../s7_deployment/cloud_deployment/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    M24 - Cloud Deployment
+    M23 - Cloud Deployment
   </span>
   
 
@@ -1257,7 +1242,49 @@
         
   
   <span class="md-ellipsis">
-    M25 - API Testing
+    M24 - API Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/ml_deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M25 - ML deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/frontend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M26 - Frontend
   </span>
   
 
@@ -1340,7 +1367,7 @@
         
   
   <span class="md-ellipsis">
-    M26 - Data Drifting
+    M27 - Data Drifting
   </span>
   
 
@@ -1361,7 +1388,7 @@
         
   
   <span class="md-ellipsis">
-    M27 - System Monitoring
+    M28 - System Monitoring
   </span>
   
 
@@ -1446,7 +1473,7 @@
         
   
   <span class="md-ellipsis">
-    M28 - Distributed Data Loading
+    M29 - Distributed Data Loading
   </span>
   
 
@@ -1467,7 +1494,7 @@
         
   
   <span class="md-ellipsis">
-    M29 - Distributed Training
+    M30 - Distributed Training
   </span>
   
 
@@ -1488,7 +1515,7 @@
         
   
   <span class="md-ellipsis">
-    M30 - Scalable Inference
+    M31 - Scalable Inference
   </span>
   
 
@@ -1516,10 +1543,6 @@
       
         
           
-        
-      
-        
-      
         
       
         
@@ -1577,7 +1600,7 @@
         
   
   <span class="md-ellipsis">
-    M31 - Documentation
+    M32 - Documentation
   </span>
   
 
@@ -1598,7 +1621,7 @@
         
   
   <span class="md-ellipsis">
-    M32 - Hyperparameter optimization
+    M33 - Hyperparameter optimization
   </span>
   
 
@@ -1619,49 +1642,7 @@
         
   
   <span class="md-ellipsis">
-    M33 - High Performance Clusters
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../s10_extra/frontend/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M34 - Frontend
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../s10_extra/ml_deployment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M35 - ML deployment
+    M34 - High Performance Clusters
   </span>
   
 
@@ -2147,11 +2128,11 @@ group yet.</p>
 <p>We strive to keep the tools thought in this course as open-source as possible. The great thing about the open-source
 community is that whatever problem you are working on, there is probably some package out there that can get you
 at least 10% of the way. For the project, we want to enforce this point and you are required to include some third-party
-package, that is neither Pytorch or one of the tools already covered in the course, into your project.</p>
-<p>If you have no idea what framework to include, the <a href="https://pytorch.org/ecosystem/">Pytorch ecosystem</a> is a great place
-for finding open-source frameworks that can help you accelerate your own projects where Pytorch is the backengine. All
-tools in the ecosystem should work greatly together with Pytorch. However, it is important to note that the ecosystem is
-not a complete list of all the awesome packages that exist to extend the functionality of Pytorch. If you are still
+package, that is neither PyTorch or one of the tools already covered in the course, into your project.</p>
+<p>If you have no idea what framework to include, the <a href="https://pytorch.org/ecosystem/">PyTorch ecosystem</a> is a great place
+for finding open-source frameworks that can help you accelerate your own projects where PyTorch is the backengine. All
+tools in the ecosystem should work greatly together with PyTorch. However, it is important to note that the ecosystem is
+not a complete list of all the awesome packages that exist to extend the functionality of PyTorch. If you are still
 missing inspiration for frameworks to use, we highly recommend these three that have been used in previous years of the
 course:</p>
 <ul>
@@ -2167,7 +2148,7 @@ course:</p>
     etc in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.</p>
 </li>
 <li>
-<p><a href="https://github.com/rusty1s/pytorch_geometric">Pytorch-Geometric</a>. PyTorch Geometric (PyG) is a geometric deep
+<p><a href="https://github.com/rusty1s/pytorch_geometric">PyTorch-Geometric</a>. PyTorch Geometric (PyG) is a geometric deep
     learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
     geometric deep learning, from a variety of published papers.</p>
 </li>
@@ -2305,7 +2286,7 @@ point on the checklist for the exam.</p>
     you can optimize your code</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use Weights &amp; Biases to log training progress and other important metrics/artifacts in your code. Additionally,
     consider running a hyperparameter optimization sweep.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code</li>
 </ul>
 <h3 id="week-2">Week 2</h3>
 <ul class="task-list">
@@ -2366,7 +2347,7 @@ you. Therefore, changes after this point are not registered.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 12, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
   </span>
 
     
@@ -2504,6 +2485,8 @@ you. Therefore, changes after this point are not registered.</p>
     
     
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../assets/_markdown_exec_pyodide.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

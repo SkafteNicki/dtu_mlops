@@ -46,6 +46,10 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../assets/_markdown_exec_ansi.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1235,6 +1239,8 @@
       
         
       
+        
+      
     
     
     
@@ -1301,32 +1307,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../s7_deployment/local_deployment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M23 - Local Deployment
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../s7_deployment/cloud_deployment/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    M24 - Cloud Deployment
+    M23 - Cloud Deployment
   </span>
   
 
@@ -1347,7 +1332,49 @@
         
   
   <span class="md-ellipsis">
-    M25 - API Testing
+    M24 - API Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/ml_deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M25 - ML deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/frontend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M26 - Frontend
   </span>
   
 
@@ -1430,7 +1457,7 @@
         
   
   <span class="md-ellipsis">
-    M26 - Data Drifting
+    M27 - Data Drifting
   </span>
   
 
@@ -1451,7 +1478,7 @@
         
   
   <span class="md-ellipsis">
-    M27 - System Monitoring
+    M28 - System Monitoring
   </span>
   
 
@@ -1536,7 +1563,7 @@
         
   
   <span class="md-ellipsis">
-    M28 - Distributed Data Loading
+    M29 - Distributed Data Loading
   </span>
   
 
@@ -1557,7 +1584,7 @@
         
   
   <span class="md-ellipsis">
-    M29 - Distributed Training
+    M30 - Distributed Training
   </span>
   
 
@@ -1578,7 +1605,7 @@
         
   
   <span class="md-ellipsis">
-    M30 - Scalable Inference
+    M31 - Scalable Inference
   </span>
   
 
@@ -1606,10 +1633,6 @@
       
         
           
-        
-      
-        
-      
         
       
         
@@ -1667,7 +1690,7 @@
         
   
   <span class="md-ellipsis">
-    M31 - Documentation
+    M32 - Documentation
   </span>
   
 
@@ -1688,7 +1711,7 @@
         
   
   <span class="md-ellipsis">
-    M32 - Hyperparameter optimization
+    M33 - Hyperparameter optimization
   </span>
   
 
@@ -1709,49 +1732,7 @@
         
   
   <span class="md-ellipsis">
-    M33 - High Performance Clusters
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../s10_extra/frontend/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M34 - Frontend
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../s10_extra/ml_deployment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M35 - ML deployment
+    M34 - High Performance Clusters
   </span>
   
 
@@ -1961,27 +1942,27 @@ of when they were published):</p>
 <a class="glightbox" href="../../figures/jax.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/jax.png" width="200" /></a></p>
 <ul>
 <li>
-<p><a href="https://github.com/tensorflow/tensorflow">Tensorflow</a></p>
+<p><a href="https://github.com/tensorflow/tensorflow">TensorFlow</a></p>
 </li>
 <li>
-<p><a href="https://github.com/pytorch/pytorch">Pytorch</a></p>
+<p><a href="https://github.com/pytorch/pytorch">PyTorch</a></p>
 </li>
 <li>
 <p><a href="https://github.com/google/jax">JAX</a></p>
 </li>
 </ul>
-<p>We won't go into a longer discussion on which framework is best, as it is pointless. Pytorch and Tensorflow have been
+<p>We won't go into a longer discussion on which framework is best, as it is pointless. PyTorch and TensorFlow have been
 around for the longest and therefore have bigger communities and feature sets at this point in time. They are both very
 similar in the sense that they both have features directed against research and production. JAX is kind of the new kid
-on the block, which in many ways improves on Pytorch and Tensorflow, but is still not as mature as the other frameworks.
+on the block, which in many ways improves on PyTorch and TensorFlow, but is still not as mature as the other frameworks.
 As the frameworks use different kinds of programming principles (object-oriented vs. functional programming), comparing
 them is essentially meaningless.</p>
-<p>In this course, we have chosen to work with Pytorch because we find it a bit more intuitive and it is the framework that
+<p>In this course, we have chosen to work with PyTorch because we find it a bit more intuitive and it is the framework that
 we use for our day-to-day research life. Additionally, as of right now, it is absolutely the
 <a href="https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/">dominating framework</a> for published models, research
 papers, and <a href="https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w">competition winners</a>.</p>
-<p>The intention behind this set of exercises is to bring everyone's Pytorch skills up to date. If you already are a
-Pytorch-Jedi, feel free to pass the first set of exercises, but I recommend that you still complete it. The exercises
+<p>The intention behind this set of exercises is to bring everyone's PyTorch skills up to date. If you already are a
+PyTorch-Jedi, feel free to pass the first set of exercises, but I recommend that you still complete it. The exercises
 are, in large part, taken directly from the
 <a href="https://github.com/udacity/deep-learning-v2-pytorch">deep learning course at Udacity</a>. Note that these exercises are
 given as notebooks, which is the last time we are going to use them actively in the course. Instead, after this set of
@@ -2010,14 +1991,14 @@ important to have a basic understanding of the concepts.</p>
 </li>
 <li>
 <p>Complete the
-    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb">Tensors in Pytorch</a>
-    notebook. It focuses on the basic manipulation of Pytorch tensors. You can pass this notebook if you are comfortable
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb">Tensors in PyTorch</a>
+    notebook. It focuses on the basic manipulation of PyTorch tensors. You can pass this notebook if you are comfortable
     doing this.</p>
 </li>
 <li>
 <p>Complete the
-    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb">Neural Networks in Pytorch</a>
-    notebook. It focuses on building a very simple neural network using the Pytorch <code>nn.Module</code> interface.</p>
+    <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb">Neural Networks in PyTorch</a>
+    notebook. It focuses on building a very simple neural network using the PyTorch <code>nn.Module</code> interface.</p>
 </li>
 <li>
 <p>Complete the
@@ -2079,7 +2060,7 @@ Therefore, the total number of parameters in the network is
 </details>
 </li>
 <li>
-<p>A working training loop in Pytorch should have these three function calls: <code>optimizer.zero_grad()</code>,
+<p>A working training loop in PyTorch should have these three function calls: <code>optimizer.zero_grad()</code>,
     <code>loss.backward()</code>, <code>optimizer.step()</code>. Explain what would happen in the training loop (or implement it) if you
     forgot each of the function calls.</p>
 <details class="success">
@@ -2251,7 +2232,7 @@ width of the image. The dataset is stored in the shape <code>[N, H, W]</code> an
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>.pt</code> files are nothing else than a <code>.pickle</code> file in disguise. The
     <code>torch.save/torch.load</code> function is essentially a wrapper around the <code>pickle</code> module in Python, which
-    produces serialized files. However, it is convention to use <code>.pt</code> to indicate that the file contains Pytorch
+    produces serialized files. However, it is convention to use <code>.pt</code> to indicate that the file contains PyTorch
     tensors.</li>
 </ol>
 <p>We have additionally in the solution added functionality for plotting the images together with the labels for
@@ -2710,7 +2691,7 @@ you have created.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 28, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
   </span>
 
     
@@ -2848,6 +2829,8 @@ you have created.</p>
     
     
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../assets/_markdown_exec_pyodide.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

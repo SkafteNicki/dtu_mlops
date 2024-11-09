@@ -20,7 +20,7 @@
     
     
       
-        <title>M28 - Distributed Data Loading - DTU-MLOps</title>
+        <title>M29 - Distributed Data Loading - DTU-MLOps</title>
       
     
     
@@ -45,6 +45,10 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../assets/_markdown_exec_ansi.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -116,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              M28 - Distributed Data Loading
+              M29 - Distributed Data Loading
             
           </span>
         </div>
@@ -1145,6 +1149,8 @@
       
         
       
+        
+      
     
     
     
@@ -1211,32 +1217,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../s7_deployment/local_deployment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M23 - Local Deployment
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../s7_deployment/cloud_deployment/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    M24 - Cloud Deployment
+    M23 - Cloud Deployment
   </span>
   
 
@@ -1257,7 +1242,49 @@
         
   
   <span class="md-ellipsis">
-    M25 - API Testing
+    M24 - API Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/ml_deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M25 - ML deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s7_deployment/frontend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M26 - Frontend
   </span>
   
 
@@ -1340,7 +1367,7 @@
         
   
   <span class="md-ellipsis">
-    M26 - Data Drifting
+    M27 - Data Drifting
   </span>
   
 
@@ -1361,7 +1388,7 @@
         
   
   <span class="md-ellipsis">
-    M27 - System Monitoring
+    M28 - System Monitoring
   </span>
   
 
@@ -1457,7 +1484,7 @@
           
   
   <span class="md-ellipsis">
-    M28 - Distributed Data Loading
+    M29 - Distributed Data Loading
   </span>
   
 
@@ -1468,7 +1495,7 @@
         
   
   <span class="md-ellipsis">
-    M28 - Distributed Data Loading
+    M29 - Distributed Data Loading
   </span>
   
 
@@ -1533,7 +1560,7 @@
         
   
   <span class="md-ellipsis">
-    M29 - Distributed Training
+    M30 - Distributed Training
   </span>
   
 
@@ -1554,7 +1581,7 @@
         
   
   <span class="md-ellipsis">
-    M30 - Scalable Inference
+    M31 - Scalable Inference
   </span>
   
 
@@ -1582,10 +1609,6 @@
       
         
           
-        
-      
-        
-      
         
       
         
@@ -1643,7 +1666,7 @@
         
   
   <span class="md-ellipsis">
-    M31 - Documentation
+    M32 - Documentation
   </span>
   
 
@@ -1664,7 +1687,7 @@
         
   
   <span class="md-ellipsis">
-    M32 - Hyperparameter optimization
+    M33 - Hyperparameter optimization
   </span>
   
 
@@ -1685,49 +1708,7 @@
         
   
   <span class="md-ellipsis">
-    M33 - High Performance Clusters
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../s10_extra/frontend/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M34 - Frontend
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../s10_extra/ml_deployment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    M35 - ML deployment
+    M34 - High Performance Clusters
   </span>
   
 
@@ -1912,7 +1893,7 @@ cloud provider for training deep learning models, you are paying by the hour per
 can be costly in the long run.</p>
 <p>In the first set of exercises, we are therefore going to focus on distributed data loading i.e. how to load data in
 parallel to make sure that we always have data ready for our compute devices. We are in the following going to look
-at what is going on behind the scenes when we use Pytorch to parallelize data loading.</p>
+at what is going on behind the scenes when we use PyTorch to parallelize data loading.</p>
 <h2 id="a-closer-look-at-data-loading">A closer look at Data loading</h2>
 <p>Before we talk distributed applications it is important to understand the physical layout of a standard CPU (the
 brain of your computer).</p>
@@ -1929,7 +1910,7 @@ cores in your machine by writing (try it):</p>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of cores: </span><span class="si">{</span><span class="n">cores</span><span class="si">}</span><span class="s2">, Number of threads: </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">cores</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>A distributed application is in general any kind of application that parallelizes some or all of its workload. We are
-in these exercises only focusing on distributed data loading, which happens primarily only on the CPU. In <code>Pytorch</code> it
+in these exercises only focusing on distributed data loading, which happens primarily only on the CPU. In <code>PyTorch</code> it
 is easy to parallelize data loading if you are using their dataset/data loader interface:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">class</span> <span class="nc">MyDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
@@ -2031,13 +2012,13 @@ using multiple workers because the data augmentation is also executed in paralle
 </li>
 <li>
 <p>(Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the <code>pin_memory</code> flag
-    to <code>True</code>. By setting this flag we are essentially telling Pytorch that they can lock the data in place in memory
+    to <code>True</code>. By setting this flag we are essentially telling PyTorch that they can lock the data in place in memory
     which will make the transfer between the <em>host</em> (CPU) and the <em>device</em> (GPU) faster.</p>
 </li>
 </ol>
-<p>This ends the module on distributed data loading in Pytorch. If you want to go into more details we highly recommend
+<p>This ends the module on distributed data loading in PyTorch. If you want to go into more details we highly recommend
 that you read <a href="https://arxiv.org/pdf/2211.04908.pdf">this paper</a> that goes into great detail on analyzing how data
-loading in Pytorch works and performance benchmarks.</p>
+loading in PyTorch works and performance benchmarks.</p>
 
 
 
@@ -2060,7 +2041,7 @@ loading in Pytorch works and performance benchmarks.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 1, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
   </span>
 
     
@@ -2116,13 +2097,13 @@ loading in Pytorch works and performance benchmarks.</p>
         
         
           
-          <a href="../distributed_training/" class="md-footer__link md-footer__link--next" aria-label="Next: M29 - Distributed Training">
+          <a href="../distributed_training/" class="md-footer__link md-footer__link--next" aria-label="Next: M30 - Distributed Training">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                M29 - Distributed Training
+                M30 - Distributed Training
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2198,6 +2179,8 @@ loading in Pytorch works and performance benchmarks.</p>
     
     
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../assets/_markdown_exec_pyodide.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
