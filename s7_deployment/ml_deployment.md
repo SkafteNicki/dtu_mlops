@@ -525,14 +525,60 @@ but you will need to use a PyTorch model instead of an ONNX model.
         ```
 
 3. We are now going to look at features very `BentoML` really sets itself apart from `FastAPI`. The first is
-    *adaptive batching*.
+    *adaptive batching*. As you are hopefully aware, modern machine learning models can process multiple samples at the
+    same time and in doing so increases the throughput of the model. When we train a model we often set a fixed
+    batch size, however we cannot do that when serving the model because that would mean that we would have to wait for
+    the batch to be full before we can process it. *Adaptive batching* simply refers to the process where we specify a
+    *maximum batch size* and also a *timeout*. When either the batch is full or the timeout is reached, however many
+    samples we have collected are sent to the model for processing. This can be a very powerful feature because it
+    allows us to process samples as soon as they arrive, while still taking advantage of the increased throughput of
+    batching.
 
     <figure markdown>
     ![Image](../figures/bentoml_adaptive_batching.png){ width="700" }
     <figcaption>
+    The overall architecture of the adaptive batching feature in BentoML. The feature is implemented on the server side
+    and mainly consist of dispatcher that is in charge of collecting requests and sending them to the model server when
+    either the batch is full or a timeout is reached.
     <a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html"> Image credit </a>
     </figcaption>
     </figure>
+
+    1. Look through the
+        [documentation on adaptive batching](https://docs.bentoml.com/en/latest/guides/adaptive-batching.html) and
+        add adaptive batching to your service from the previous exercise. Make sure your service works as expected by
+        testing it with the client from the previous exercise.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="bentoml_service_adaptive_batching.py"
+            --8<-- "s7_deployment/exercise_files/bentoml_service_adaptive_batching.py"
+            ```
+
+    2. Try to measure the throughput of your model with and without adaptive batching. Assuming that you have completed
+        the [module on testing APIs](testing_apis.md) and therefore are familiar with the `locust` framework, we
+        recommend that you write a simple locustfile and use the `locust` command to measure the throughput of your
+        model.
+
+        ??? success "Solution"
+
+            The following locust file can be used to measure the throughput of the model with and without adaptive
+
+            ```python linenums="1" title="locustfile.py"
+            --8<-- "s7_deployment/exercise_files/locustfile_bentoml.py"
+            ```
+
+            and then the following command can be used to measure the throughput of the model
+
+            ```bash
+            locust -f locustfile_bentoml.py --host http://localhost:4040 --headless -u 50 -t 60s
+            ```
+
+            You should hopefully see that the throughput of the model is higher when adaptive batching is enabled, but
+            the speedup is largely dependent on the model you are running, the configuration of the adaptive batching
+            and the hardware you are running on.
+
+            On my laptop I saw about a 1.5 - 2x speedup when adaptive batching was enabled.
 
 4. Similar to deploying a FastAPI application to the cloud, deploying a `BentoML` framework to the cloud
     often requires you to first containerize the application. Because `BentoML` is designed to be easy to use for even
