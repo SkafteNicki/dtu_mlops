@@ -1,12 +1,13 @@
-import requests
-import time
-import random
 import argparse
+import random
+import time
+
+import requests
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--url', type=str, default="http://localhost:8000/predict")
-    parser.add_argument('--wait_time', type=int, default=30)
+    parser.add_argument("--url", type=str, default="http://localhost:8000/predict")
+    parser.add_argument("--wait_time", type=int, default=30)
     parser.add_argument("--max_iterations", type=int, default=100)
     args = parser.parse_args()
 
@@ -28,15 +29,15 @@ if __name__ == "__main__":
     ]
 
     count = 0
-    while count < args.max_iterations: 
+    while count < args.max_iterations:
         review = random.choice(reviews)
         negativity_probability = min(count / args.max_iterations, 1.0)
-        
+
         updated_review = review
         for phrase in negative_phrases:
             if random.random() < negativity_probability:
                 updated_review += " " + phrase
-        
+
         response = requests.post(args.url, json={"review": updated_review})
         print(f"Iteration {count}, Sent review: {updated_review}, Response: {response.json()}")
         time.sleep(args.wait_time)

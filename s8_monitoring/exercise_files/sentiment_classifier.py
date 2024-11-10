@@ -24,10 +24,9 @@ def to_sentiment(rating):
     rating = int(rating)
     if rating <= 2:
         return 0  # Negative
-    elif rating == 3:
+    if rating == 3:
         return 1  # Neutral
-    else:
-        return 2  # Positive
+    return 2  # Positive
 
 
 # Apply to the dataset

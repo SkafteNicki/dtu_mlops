@@ -424,8 +424,8 @@ train using a GPU. We recommend that you scroll through the files to get an unde
 
     ??? success "Solution"
 
-        The provided starting script makes use of two presets from evidently: 
-        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and 
+        The provided starting script makes use of two presets from evidently:
+        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and
         [TargetDriftPreset](https://docs.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
         text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
         second preset runs target drift detection on the predicted labels.
@@ -440,7 +440,7 @@ train using a GPU. We recommend that you scroll through the files to get an unde
             ```
 
     2. Test out the script locally. This can be done by downloading a couple of the request/response data from the
-        bucket and running the script on this data. 
+        bucket and running the script on this data.
 
     3. Write a small dockerfile that containerize the monitoring application
 
@@ -457,4 +457,4 @@ train using a GPU. We recommend that you scroll through the files to get an unde
     ```python linenums="1" title="sentiment_client.py"
     --8<-- "s8_monitoring/exercise_files/sentiment_client.py"
     ```
-    
+

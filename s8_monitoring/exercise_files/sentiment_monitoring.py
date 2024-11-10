@@ -25,10 +25,9 @@ def lifespan(app: FastAPI):
         rating = int(rating)
         if rating <= 2:
             return 0  # Negative
-        elif rating == 3:
+        if rating == 3:
             return 1  # Neutral
-        else:
-            return 2  # Positive
+        return 2  # Positive
 
     training_data["sentiment"] = training_data.score.apply(to_sentiment)
     class_names = ["negative", "neutral", "positive"]
@@ -43,7 +42,6 @@ app = FastAPI(lifespan=lifespan)
 
 def fetch_latest_data():
     """Fetch latest data from the database."""
-    pass
 
 
 @app.get("/report")
