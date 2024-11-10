@@ -33,12 +33,12 @@ group yet.
 We strive to keep the tools thought in this course as open-source as possible. The great thing about the open-source
 community is that whatever problem you are working on, there is probably some package out there that can get you
 at least 10% of the way. For the project, we want to enforce this point and you are required to include some third-party
-package, that is neither Pytorch or one of the tools already covered in the course, into your project.
+package, that is neither PyTorch or one of the tools already covered in the course, into your project.
 
-If you have no idea what framework to include, the [Pytorch ecosystem](https://pytorch.org/ecosystem/) is a great place
-for finding open-source frameworks that can help you accelerate your own projects where Pytorch is the backengine. All
-tools in the ecosystem should work greatly together with Pytorch. However, it is important to note that the ecosystem is
-not a complete list of all the awesome packages that exist to extend the functionality of Pytorch. If you are still
+If you have no idea what framework to include, the [PyTorch ecosystem](https://pytorch.org/ecosystem/) is a great place
+for finding open-source frameworks that can help you accelerate your own projects where PyTorch is the backengine. All
+tools in the ecosystem should work greatly together with PyTorch. However, it is important to note that the ecosystem is
+not a complete list of all the awesome packages that exist to extend the functionality of PyTorch. If you are still
 missing inspiration for frameworks to use, we highly recommend these three that have been used in previous years of the
 course:
 
@@ -51,7 +51,7 @@ course:
     texts such as classification, information extraction, question answering, summarization, translation, text generation,
     etc in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.
 
-* [Pytorch-Geometric](https://github.com/rusty1s/pytorch_geometric). PyTorch Geometric (PyG) is a geometric deep
+* [PyTorch-Geometric](https://github.com/rusty1s/pytorch_geometric). PyTorch Geometric (PyG) is a geometric deep
     learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
     geometric deep learning, from a variety of published papers.
 
@@ -188,7 +188,7 @@ point on the checklist for the exam.
     you can optimize your code
 * [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
     consider running a hyperparameter optimization sweep.
-* [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
@@ -220,18 +220,11 @@ point on the checklist for the exam.
 
 ## Exam
 
-The exam consist of a written and oral element, and both contributes to the overall evaluation if you should pass or
-not pass the course.
-
-For the written part of the exam we provide an template folder called
+From January 2025 the exam only consist of a project report. The report should be handed in at midnight on the final day
+of the course. For January 2025, this means the 24th. We provide template folder called
 [reports](https://github.com/SkafteNicki/dtu_mlops/tree/main/reports). As the first task you should copy the folder and
 all its content to your project repository. Then, you jobs is to fill out the `README.md` file which contains the report
 template. The file itself contains instructions on how to fill it out and instructions on using the included `report.py`
-file. You will hand-in the template by simple including it in your project repository. By midnight on the 19/1 we will
-scrape it automatically, and changes after this point are therefore not registered.
-
-For the oral part of the exam you will be given a time slot where you have to show up for 5-7 min and give a very short
-demo of your project. What we are interested in seeing is essentially a live demo of your deployed application/project.
-We will possibly also ask questions regarding the overall curriculum of the course. Importantly, you should have your
-deployed application, the GitHub repository with your project code, W&B account and your GCP account ready before
-you enter the exam so we can quickly jump around. We will send out an the time slots during the last week.
+file for validating your work. You will hand-in the template by simple including it in your project repository. By
+midnight on the final day of the course, we will automatically scrape the report and use it as the basis for grading
+you. Therefore, changes after this point are not registered.

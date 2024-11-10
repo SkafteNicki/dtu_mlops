@@ -395,17 +395,17 @@ beneficial for you to download.
         If it does not work, try redoing the steps.
 
     3. We should hopefully have a working setup now for running Nvidia accelerated docker containers. The next step is
-        to get Pytorch inside our container, such that our Pytorch implementation also correctly identifies the GPU.
+        to get PyTorch inside our container, such that our PyTorch implementation also correctly identifies the GPU.
         Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
         through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
-        The containers that have to do with Pytorch can be seen
+        The containers that have to do with PyTorch can be seen
         [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html). Try pulling the latest:
 
         ```bash
         docker pull nvcr.io/nvidia/pytorch:22.07-py3
         ```
 
-        It may take some time because the NGC images include a lot of other software for optimizing Pytorch
+        It may take some time because the NGC images include a lot of other software for optimizing PyTorch
         applications. It may be possible for you to find other images for running GPU-accelerated applications that have
         a smaller memory footprint, but NGC is the recommended and supported way.
 

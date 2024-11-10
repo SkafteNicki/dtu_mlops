@@ -45,13 +45,13 @@ ort_session = ort.InferenceSession("resnet18.onnx")
 
 
 @timing_decorator
-def torch_predict(image):
+def torch_predict(image) -> None:
     """Predict using PyTorch model."""
     model(image)
 
 
 @timing_decorator
-def onnx_predict(image):
+def onnx_predict(image) -> None:
     """Predict using ONNX model."""
     ort_session.run(None, {"input.1": image.numpy()})
 

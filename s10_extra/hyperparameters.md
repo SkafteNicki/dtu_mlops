@@ -4,6 +4,13 @@
 
 ---
 
+!!! warning "Outdated module"
+
+    This module has not been updated for a long time and therefore some functionality of Optuna, which is used in these
+    exercises, may not be included. If you have completed the module on
+    [Weights & Bias](../s4_debugging_and_logging/logging.md) then we highly recommend instead using their sweep
+    functionality.
+
 Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
 the uprise of deep learning. This can mainly be contributed to the following:
 

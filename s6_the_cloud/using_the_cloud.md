@@ -78,7 +78,7 @@ We are now going to start using the cloud.
     ![Image](../figures/gcp_ssh_command.png){ width="800"  }
     </figure>
 
-6. While logged into the instance, check if Python and Pytorch are installed.
+6. While logged into the instance, check if Python and PyTorch are installed.
     You should see that neither is installed. The VM we have only specified what
     compute resources it should have, and not what software should be in it. We
     can fix this by starting VMs based on specific docker images (it's all coming together).
@@ -97,9 +97,9 @@ We are now going to start using the cloud.
 
             The output should show a list of images that are available for you to use. The images are essentially
             docker images that contain a specific software stack. The software stack is often a specific version of
-            Python, Pytorch, Tensorflow, etc. The images are maintained by Google and are updated regularly.
+            Python, PyTorch, TensorFlow, etc. The images are maintained by Google and are updated regularly.
 
-    2. Next, start (in the terminal) a new instance using a Pytorch image. The command for doing it should look
+    2. Next, start (in the terminal) a new instance using a PyTorch image. The command for doing it should look
         something like this:
 
         ```bash
@@ -142,7 +142,7 @@ We are now going to start using the cloud.
                 ```
 
     3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
-        both a Python installation and Pytorch is also installed. Hint: you also have the possibility
+        both a Python installation and PyTorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
 
         <figure markdown>
@@ -317,7 +317,7 @@ the corresponding `requirements.txt` file and `Dockerfile`.
     --8<-- "s6_the_cloud/exercise_files/Dockerfile"
     ```
 The docker images for this application are therefore going to be substantially faster to build and smaller in size than
-the images we are used to that use Pytorch.
+the images we are used to that use PyTorch.
 
 1. Start by enabling the service: `Google Artifact Registry API` and `Google Cloud Build API`. This can be
     done through the website (by searching for the services) or can also be enabled from the terminal:
@@ -718,9 +718,9 @@ models, and then use other services for different parts of our pipeline.
 
 ### ❔ Exercises
 
-1. Let's start by going through how we could train a model using Pytorch using the Compute Engine service:
+1. Let's start by going through how we could train a model using PyTorch using the Compute Engine service:
 
-    1. Start by creating an appropriate VM. If you want to start a VM that has Pytorch pre-installed with only CPU
+    1. Start by creating an appropriate VM. If you want to start a VM that has PyTorch pre-installed with only CPU
         support you can run the following command
 
         ```bash
@@ -750,7 +750,7 @@ models, and then use other services for different parts of our pipeline.
         ```
 
     3. It is recommended to always check that the VM we get is actually what we asked for. In this case, the VM should
-        have Pytorch pre-installed so let's check for that by running
+        have PyTorch pre-installed so let's check for that by running
 
         ```bash
         python -c "import torch; print(torch.__version__)"

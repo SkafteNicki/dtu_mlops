@@ -410,6 +410,102 @@ Let's take a look at how a GitHub workflow file is organized:
                 docker run ...
         ```
 
+## Dependabot
+
+A great feature that GitHub provides is the ability to have bots help you with maintaining your repository. One of the
+most useful bots is called `Dependabot`. As the name suggests, `Dependabot` helps you keep your dependencies up to date.
+This is important because dependencies often either contain fixes for bugs or security vulnerabilities that you want to
+have in your code.
+
+### ❔ Exercises
+
+1. To get dependabot working in your repository, we need to add a single configuration file to your repository. Create
+    a file called `.github/dependabot.yaml`. Look through the
+    [documentation](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/) for how to set up
+    the file such that it updates your Python dependencies on a weekly basis.
+
+    ??? success "Solution"
+
+        The following code will check for updates in the `pip` ecosystem every week e.g. it automatically will look
+        for `requirements.txt` files and update the packages in there.
+
+        ```yaml
+        version: 2
+        updates:
+          - package-ecosystem: "pip"
+            directory: "/"
+            schedule:
+              interval: "weekly"
+        ```
+2. Push the changes to your repository and check that the dependabot is working by going to the `Insights` tab and
+    then the `Dependency graph` tab. From here you under the `Dependabot` tab should be able to see if the bot has
+    correctly identified what files to track and if it has found any updates.
+
+    <figure markdown>
+    ![Image](../figures/github_dependabot.png){ width="1000" }
+    </figure>
+
+    Click the `Recent update jobs` to see the history of Dependabot checking for updates. If there are no updates you
+    can try to click the `Check for updates` button to force Dependabot to check for updates.
+
+3. At this point the Dependabot should hopefully have found some updates and created one or more pull requests. If it
+    has not done so you most likely need to update your requirement file such that your dependencies are correctly
+    restricted/specified e.g.
+
+    ```txt
+    # lets assume pytorch v2.5 is the latest version
+
+    # these different specifications will not trigger dependabot because
+    # the latest version is included in the specification
+    torch
+    torch == 2.5
+    torch >= 2.5
+    torch ~= 2.5
+
+    # these specifications will trigger dependabot because the latest
+    # version is not included
+    torch < 2.5
+    torch == 2.4
+    torch <= 2.4
+    ```
+
+    If you have a pull request from Dependabot, check it out and see if it looks good. If it does, you can merge it.
+
+    <figure markdown>
+    ![Image](../figures/github_dependabot_pr.png){ width="1000" }
+    </figure>
+
+4. (Optional) Dependabot can also help keeping our GitHub Actions pipelines up-to-date. As you may have realized
+    during this module, when we write statements like in our workflow files:
+
+    ```yaml
+    ...
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v4
+    ...
+    ```
+
+    The `@v4` specifies that we are using version 4 of the `actions/checkout` action. This means that if a new version
+    of the action is released, we will not automatically get the new version. Dependabot can help us with this. Try
+    adding to the `dependabot.yaml` file that Dependabot should also check for updates in the GitHub Actions ecosystem.
+
+    ??? success "Solution"
+
+        ```yaml
+        version: 2
+        updates:
+          - package-ecosystem: "pip"
+            directory: "/"
+            schedule:
+              interval: "weekly"
+          - package-ecosystem: "github-actions"
+            schedule:
+              interval: "weekly"
+        ```
+
 ## 🧠 Knowledge check
 
 1. When working with GitHub actions you will often encounter the following 4 concepts:
@@ -461,7 +557,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
 This ends the module on GitHub workflows. If you are more interested in this topic you can check out module
 [M31 on documentation](../s10_extra/documentation.md) which first includes locally building some documentation for your
-project and afterwards use GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
+project and afterward use GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
 templates already for running different continuous integration tasks. If you try to create a workflow file directly in
 GitHub you may encounter the following page
 

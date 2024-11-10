@@ -73,7 +73,7 @@ def train(lr, batch_size, epochs) -> None:
             )
 
         wandb.plot({"roc": plt})
-        # alternative: wandb.log({"roc": wandb.plot.roc_curve(targets, preds)})
+        # alternatively the wandb.plot.roc_curve function can be used
 
 
 if __name__ == "__main__":

@@ -73,8 +73,6 @@ and deploy it. The service is great for small applications that can be encapsula
     ![Image](../figures/gcp_test_function.png){ width="800" }
     </figure>
 
-    1.
-
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
     therefore just send an empty request by clicking the `Test The Function` button. Does the function return
     the output you expected? Wait for the logs to show up. What do they show?
@@ -220,9 +218,9 @@ and deploy it. The service is great for small applications that can be encapsula
         where you need to replace `<func-name>` with the name of your function and `<folder>` with the path to the
         folder containing the `main.py` and `requirements.txt` files.
 
-8. (Optional) You can finally try to redo the exercises by deploying a Pytorch application. You will essentially
+8. (Optional) You can finally try to redo the exercises by deploying a PyTorch application. You will essentially
     need to go through the same steps as the sklearn example, including uploading a trained model to storage and
-    writing a cloud function that loads it and returns some output. You are free to choose whatever Pytorch model you
+    writing a cloud function that loads it and returns some output. You are free to choose whatever PyTorch model you
     want.
 
 ## Cloud Run
@@ -237,8 +235,8 @@ deploying containers.
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
     from: first is a small FastAPI app consisting of a single Python script and a docker file. The second is a small
-    Streamlit app (which you can learn more about in [this module](../s10_extra/frontend.md)) consisting of a single
-    docker file. You can choose which one you want to work with.
+    Streamlit app (which you can learn more about in [this module](frontend.md)) consisting of a single docker file.
+    You can choose which one you want to work with.
 
     ??? example "Simple Fastapi app"
 
@@ -271,9 +269,9 @@ deploying containers.
         docker push <region>-docker.pkg.dev/<project-id>/<registry-name>/gcp_test_app:latest
         ```
 
-        Afterward check your artifact registry contains the pushed image.
+        Afterward, check your artifact registry contains the pushed image.
 
-2. Next ,go to `Cloud Run` in the cloud console and enable the service or use the following command:
+2. Next, go to `Cloud Run` in the cloud console and enable the service or use the following command:
 
     ```bash
     gcloud services enable run.googleapis.com
@@ -288,7 +286,7 @@ deploying containers.
     Do the following:
 
     * Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
-        future, you probably want to choose the *Continuously deploy new revision from a source repository* such that
+        future, you probably want to choose the *Continuously deploy new revisions from a source repository* such that
         a new version is always deployed when a new container is built.
 
     * Hereafter, give the service a name and select the region. We recommend choosing a region close to you.

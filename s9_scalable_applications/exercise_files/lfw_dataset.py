@@ -16,7 +16,7 @@ class LFWDataset(Dataset):
         # TODO: fill out with what you need
         self.transform = transform
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Return length of dataset."""
         return None  # TODO: fill out
 

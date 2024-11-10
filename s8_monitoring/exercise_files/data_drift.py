@@ -15,7 +15,7 @@ data_drift_report = Report(
         DataDriftPreset(),
         DataQualityPreset(),
         TargetDriftPreset(),
-    ]
+    ],
 )
 
 data_drift_report.run(
@@ -28,7 +28,7 @@ data_drift_report.save_html("test.html")
 data_stability = TestSuite(
     tests=[
         DataStabilityTestPreset(),
-    ]
+    ],
 )
 data_stability.run(
     current_data=iris_frame.iloc[:60],

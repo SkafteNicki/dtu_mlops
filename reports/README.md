@@ -1,8 +1,3 @@
----
-layout: default
-nav_exclude: true
----
-
 # Exam template for 02476 Machine Learning Operations
 
 This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
@@ -70,7 +65,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
       you can optimize your code
 * [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
-* [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
