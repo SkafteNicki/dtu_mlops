@@ -1,4 +1,4 @@
-"""Adapted from https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
+"""Adapted from https://github.com/Jackson-Kang/PyTorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 
 @hydra.main(config_path="config", config_name="default_config.yaml")
-def train(config):
+def train(config) -> None:
     """Train VAE on MNIST."""
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     hparams = config.experiment

@@ -1,5 +1,3 @@
-# imports
-
 from onnx import TensorProto
 from onnx.checker import check_model
 from onnx.helper import make_graph, make_model, make_node, make_tensor_value_info

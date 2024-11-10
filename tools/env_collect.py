@@ -33,8 +33,7 @@ def info_cuda():
     except FileNotFoundError:
         info = "No CUDA device found"
     info = info.replace("\n", f"\n{LEVEL_OFFSET}")
-    info = LEVEL_OFFSET + info
-    return info
+    return LEVEL_OFFSET + info
 
 
 def info_packages() -> dict:
@@ -54,7 +53,7 @@ def nice_print(details: dict, level: int = 0) -> list:
         if isinstance(details[k], dict):
             lines += [level * LEVEL_OFFSET + key]
             lines += nice_print(details[k], level + 1)
-        elif isinstance(details[k], (set, list, tuple)):
+        elif isinstance(details[k], set | list | tuple):
             lines += [level * LEVEL_OFFSET + key]
             lines += [(level + 1) * LEVEL_OFFSET + "- " + v for v in details[k]]
         else:

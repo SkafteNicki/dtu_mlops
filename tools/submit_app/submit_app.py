@@ -64,16 +64,13 @@ def send_to_dropbox_and_get_group_nb(
                 csv_writer.writerow(fields)
             file_to_upload = "info.csv"
         else:
-            with open("latest_info.csv", "r") as f:
+            with open("latest_info.csv") as f:
                 csv_reader = csv.reader(f, delimiter=",")
                 content = []
                 for row in csv_reader:
                     print(row)
                     content.append(row)
-                if len(content) == 1:  # header only
-                    group_nb = 0
-                else:
-                    group_nb = int(content[-1][0])
+                group_nb = 0 if len(content) == 1 else int(content[-1][0])
 
                 new_group_nb = group_nb + 1
 
@@ -82,7 +79,7 @@ def send_to_dropbox_and_get_group_nb(
                 csv_writer.writerow([new_group_nb, student1, student2, student3, student4, student5, github_repo])
             file_to_upload = "latest_info.csv"
 
-        now = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        now = datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")
         with open(file_to_upload, "rb") as f:
             dbx.files_upload(f.read(), f"/{now}_info.csv")
         with open(file_to_upload, "rb") as f:
@@ -91,14 +88,24 @@ def send_to_dropbox_and_get_group_nb(
         if start_over:
             # if we started over we redo everything to get the group number
             new_group_nb = send_to_dropbox_and_get_group_nb(
-                github_repo, student1, student2, student3, student4, student5
+                github_repo,
+                student1,
+                student2,
+                student3,
+                student4,
+                student5,
             )
 
         return new_group_nb
 
 
 def validate_text_input(
-    student1: str, student2: str, student3: str, student4: str, student5: str, github_repo: str
+    student1: str,
+    student2: str,
+    student3: str,
+    student4: str,
+    student5: str,
+    github_repo: str,
 ) -> bool:
     """
     Validate input from text fields.
@@ -109,7 +116,7 @@ def validate_text_input(
     - GitHub repo is valid
     """
     emails = [student1, student2, student3, student4, student5]
-    if all([email == DEFAULT_EMAIL for email in emails]):
+    if all(email == DEFAULT_EMAIL for email in emails):
         st.error("Please enter at least two student emails!")
         return False
     data = [email for email in emails if email != DEFAULT_EMAIL]
@@ -122,7 +129,7 @@ def validate_text_input(
     return True
 
 
-def main():
+def main() -> None:
     """Streamlit application submission form."""
     with st.columns([1, 8, 1])[1]:
         st.title("DTU course 02476 MLOps")
@@ -189,7 +196,7 @@ def main():
                 except:  # noqa: E722
                     st.error(
                         "The application did not manage to send your data. Please try again later."
-                        "If the problem persists, contact the course responsible."
+                        "If the problem persists, contact the course responsible.",
                     )
                     return
 

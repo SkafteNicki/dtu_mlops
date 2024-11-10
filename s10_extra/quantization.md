@@ -41,7 +41,7 @@ after training. There are good reasons for doing both:
 
     ??? success "Solution"
 
-        We are here going to assume that you are either loading from a `onnx` model or alternatively loading a Pytorch
+        We are here going to assume that you are either loading from a `onnx` model or alternatively loading a PyTorch
         Lightning checkpoint:
 
         ```python

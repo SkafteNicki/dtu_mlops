@@ -6,21 +6,21 @@
 
 - ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to setup distributed data loading in your Pytorch application
+    Learn how to setup distributed data loading in your PyTorch application
 
-    [:octicons-arrow-right-24: M28: Distributed Data Loading](data_loading.md)
+    [:octicons-arrow-right-24: M29: Distributed Data Loading](data_loading.md)
 
 - ![](../figures/icons/lightning.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to do distributed training in Pytorch using `pytorch-lightning`
+    Learn how to do distributed training in PyTorch using `pytorch-lightning`
 
-    [:octicons-arrow-right-24: M29: Distributed Training](distributed_training.md)
+    [:octicons-arrow-right-24: M30: Distributed Training](distributed_training.md)
 
 - ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to do scalable inference in Pytorch
+    Learn how to do scalable inference in PyTorch
 
-    [:octicons-arrow-right-24: M30: Scalable Inference](inference.md)
+    [:octicons-arrow-right-24: M31: Scalable Inference](inference.md)
 
 </div>
 
@@ -38,8 +38,8 @@ running faster. The first approach is levering multiple devices, such as using m
 training across multiple GPUs. The second approach is more analytical, where we are going to look at how we can
 design smaller/faster model architectures that run faster.
 
-It should be noted that this module is specific to working with Pytorch applications. In particular, we are going to see
-how we can both improve base Pytorch code and how to utilize the Pytorch Lightning which we introduced in module
+It should be noted that this module is specific to working with PyTorch applications. In particular, we are going to see
+how we can both improve base PyTorch code and how to utilize the PyTorch Lightning which we introduced in module
 [M14 on boilerplate](../s4_debugging_and_logging/boilerplate.md) to improve the scaling of our applications. If your
 application is written using another framework we can guarantee that the same techniques in these modules transfer to
 that framework, but may require you to seek out how to specifically to it.

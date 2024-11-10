@@ -1,8 +1,49 @@
 [tool.ruff]
 line-length = 120
+target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "W", "F", "I", "D", "N", "S", "A", "B"]
+select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "UP",
+    "YTT",
+    "ASYNC",
+    "S",
+    "BLE",
+    "B",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "DJ",
+    "EM",
+    "EXE",
+    "FA",
+    "ISC",
+    "ICN",
+    "LOG",
+    "PIE",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "TCH",
+    "INT",
+    "ERA",
+    "PGH",
+]
 ignore = [
     "F821",
     "F841",
@@ -18,6 +59,9 @@ ignore = [
     "B008",
     "B028",
     "B905",
+    "COM812",
+    "ISC001",
+    "TCH003",
 ]
 exclude=["student_repos/"]
 
