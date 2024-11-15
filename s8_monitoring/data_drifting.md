@@ -457,4 +457,3 @@ train using a GPU. We recommend that you scroll through the files to get an unde
     ```python linenums="1" title="sentiment_client.py"
     --8<-- "s8_monitoring/exercise_files/sentiment_client.py"
     ```
-
