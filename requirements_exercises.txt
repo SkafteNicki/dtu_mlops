@@ -36,6 +36,8 @@ requests
 httpx
 locust
 # s8 - monitoring
+scikit-learn
+pandas
 evidently
 prometheus-fastapi-instrumentator
 # s9 - scalable applications
@@ -44,7 +46,6 @@ transformers
 datasets
 # s10 - extra
 onnxruntime
-scikit-learn
 mkdocs-material
 streamlit
 optuna

@@ -1,6 +1,6 @@
 import datetime
 import json
-import uuid
+import os
 from contextlib import asynccontextmanager
 
 import torch
@@ -33,7 +33,7 @@ class SentimentClassifier(nn.Module):
     """Sentiment Classifier class. Combines BERT model with a dropout and linear layer."""
 
     def __init__(self, n_classes, model_name=MODEL_NAME):
-        super(SentimentClassifier, self).__init__()
+        super().__init__()
         self.bert = BertModel.from_pretrained(model_name)
         self.drop = nn.Dropout(p=0.3)
         self.out = nn.Linear(self.bert.config.hidden_size, n_classes)
@@ -49,7 +49,8 @@ class SentimentClassifier(nn.Module):
 async def lifespan(app: FastAPI):
     """Load the model and tokenizer when the app starts and clean up when the app stops."""
     global model, tokenizer, class_names
-    download_model_from_gcp()  # Download the model from GCP
+    if "bert_sentiment_model.pt" not in os.listdir():
+        download_model_from_gcp()  # Download the model from GCP
     model = SentimentClassifier(n_classes=3)
     model.load_state_dict(torch.load("bert_sentiment_model.pt", map_location=device))
     model = model.to(device)
@@ -77,15 +78,19 @@ def download_model_from_gcp():
 
 
 # Save prediction results to GCP
-def save_prediction_to_gcp(review: str, sentiment: str):
+def save_prediction_to_gcp(review: str, outputs: list[float], sentiment: str):
     """Save the prediction results to GCP bucket."""
     client = storage.Client()
     bucket = client.bucket(BUCKET_NAME)
-    time = datetime.utcnow().isoformat()
-    iid = str(uuid.uuid4())
+    time = datetime.datetime.now(tz=datetime.UTC)
     # Prepare prediction data
-    data = {"review": review, "sentiment": sentiment, "timestamp": datetime.utcnow().isoformat()}
-    blob = bucket.blob(f"prediction_{time}_{iid}.json")
+    data = {
+        "review": review,
+        "sentiment": sentiment,
+        "probability": outputs,
+        "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat(),
+    }
+    blob = bucket.blob(f"prediction_{time}.json")
     blob.upload_from_string(json.dumps(data))
     print("Prediction saved to GCP bucket.")
 
@@ -111,11 +116,11 @@ async def predict_sentiment(review_input: ReviewInput, background_tasks: Backgro
 
         # Model prediction
         with torch.no_grad():
-            outputs = model(input_ids, attention_mask)
+            outputs: torch.Tensor = model(input_ids, attention_mask)
             _, prediction = torch.max(outputs, dim=1)
             sentiment = class_names[prediction]
 
-        background_tasks.add_task(save_prediction_to_gcp, review_input.review, sentiment)
+        background_tasks.add_task(save_prediction_to_gcp, review_input.review, outputs.softmax(-1).tolist(), sentiment)
 
         return PredictionOutput(sentiment=sentiment)
 
