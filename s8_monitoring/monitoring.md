@@ -101,7 +101,7 @@ time-series data.
         The important parts that implements the prometheus metrics are highlighted below:
 
         ```python linenums="1" hl_lines="10 50 74 135"
-        --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_1.py"
+        --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_simple.py"
         ```
 
     1. If you have done the previous exercise correctly you should be seeing something like the image below
@@ -150,12 +150,14 @@ time-series data.
             The important parts that implements the prometheus metrics are highlighted below:
 
             ```python linenums="1" hl_lines="10 50-53 76 110 111 113 141"
-            --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_2.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_advance.py"
             ```
 
     3. Write a small dockerfile that containerizes the application. Check that you can build the container and run it.
 
         ??? example "Dockerfile for sentiment API"
+
+            We here assume that you have implemented the code in a file called `sentiment_api_prometheus_advance.py`
 
             ```dockerfile
             --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus.dockerfile"
@@ -172,8 +174,19 @@ time-series data.
 
     ??? success "Solution"
 
+        The following docker compose file specifies the two containers. The first container is the application container
+        and the second container is the sidecar prometheus container.
+
         ```yaml
         --8<-- "s8_monitoring/exercise_files/docker-compose.yaml"
+        ```
+
+        As a note for the sidecar container we mount a special `prometheus.yaml` file that
+        can be used to configure the scraping interval of the prometheus server. The default scraping interval is 1 min
+        but if you want to change it you could add the following to the `prometheus.yaml` file:
+
+        ```yaml title="prometheus.yaml"
+        --8<-- "s8_monitoring/exercise_files/prometheus.yaml"
         ```
 
     1. Build the application and the sidecar container by running the following command:
@@ -190,19 +203,6 @@ time-series data.
 
     3. Confirm that the application is running by going to the `/metrics` endpoint. Confirm that the sidecar container
         is collecting the metrics by going to the `/metrics` endpoint of the sidecar container.
-
-    4. The default scraping interval for Prometheus is 1 minute. This may be too slow for some applications. To change
-        the scraping interval you need to add a `prometheus.yaml`file that specifies the scraping interval. Look through
-        the [documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) on how to set the
-        scraping interval and then set it to 10 seconds. Check it, by running the application and checking the
-        `/metrics` endpoint.
-
-        ??? success "Solution"
-
-            ```yaml
-            global:
-                scrape_interval: 10s
-            ```
 
 ## Logs logging
 
