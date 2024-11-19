@@ -1,3 +1,8 @@
+import glob
+import os
+from datetime import datetime
+from pathlib import Path
+
 import nltk
 import pandas as pd
 from evidently.presents import TextOverviewPreset
@@ -40,14 +45,40 @@ def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-def fetch_latest_data():
-    """Fetch latest data from the database."""
+def load_latest_files(directory: Path, n: int):
+    """Load the N latest prediction files from the directory."""
+    # Get all prediction files in the directory
+    files = glob.glob(os.path.join(directory, "prediction_*"))
+
+    # Sort files based on the timestamp in the filename
+    files.sort(
+        key=lambda x: datetime.strptime(x.split("_")[1], "%Y-%m-%d %H:%M:%S.%f").astimezone(datetime.timezone.utc),
+        reverse=True,
+    )
+
+    # Get the N latest files
+    latest_files = files[:n]
+
+    # Load or process the files as needed
+    loaded_files = []
+    for file in latest_files:
+        with open(file) as f:
+            data = f.read()  # or other processing if needed
+            loaded_files.append(data)
+
+    return loaded_files
+
+
+# Usage example:
+directory = "/path/to/your/logfiles"
+N = 5  # Number of latest files you want to load
+latest_files_data = load_latest_files(directory, N)
 
 
 @app.get("/report")
 async def get_report():
     """Generate and return the report."""
-    prediction_data = fetch_latest_data()
+    prediction_data = load_latest_files()
     return run_analysis(training_data, prediction_data)
 
 

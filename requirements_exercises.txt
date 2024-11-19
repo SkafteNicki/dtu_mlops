@@ -40,6 +40,7 @@ scikit-learn
 pandas
 evidently
 prometheus-fastapi-instrumentator
+prometheus-client
 # s9 - scalable applications
 ptflops
 transformers

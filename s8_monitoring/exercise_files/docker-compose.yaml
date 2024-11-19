@@ -1,0 +1,17 @@
+version: '2'
+  api:
+    image: sentiment_api:latest
+    ports:
+      - "5000:5000"
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    links:
+      - api
+    depends_on:
+      - api
