@@ -38,7 +38,7 @@ if __name__ == "__main__":
             if random.random() < negativity_probability:
                 updated_review += " " + phrase
 
-        response = requests.post(args.url, json={"review": updated_review})
+        response = requests.post(args.url, json={"review": updated_review}, timeout=10)
         print(f"Iteration {count}, Sent review: {updated_review}, Response: {response.json()}")
         time.sleep(args.wait_time)
         count += 1

@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from google.cloud import storage
+from prometheus_client import Counter, Histogram, Summary, make_asgi_app
 from pydantic import BaseModel
 from transformers import BertModel, BertTokenizer
 
@@ -45,6 +46,13 @@ class SentimentClassifier(nn.Module):
         return self.out(output)
 
 
+# Define Prometheus metrics
+error_counter = Counter("prediction_error", "Number of prediction errors")
+request_counter = Counter("prediction_requests", "Number of prediction requests")
+request_latency = Histogram("prediction_latency_seconds", "Prediction latency in seconds")
+review_summary = Summary("review_length_summary", "Review length summary")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Load the model and tokenizer when the app starts and clean up when the app stops."""
@@ -66,6 +74,7 @@ async def lifespan(app: FastAPI):
 
 # Initialize FastAPI app
 app = FastAPI(lifespan=lifespan)
+app.mount("/metrics", make_asgi_app())
 
 
 def download_model_from_gcp():
@@ -99,36 +108,36 @@ def save_prediction_to_gcp(review: str, outputs: list[float], sentiment: str):
 @app.post("/predict", response_model=PredictionOutput)
 async def predict_sentiment(review_input: ReviewInput, background_tasks: BackgroundTasks):
     """Predict sentiment of the input text."""
-    try:
-        # Encode input text
-        encoding = tokenizer.encode_plus(
-            review_input.review,
-            add_special_tokens=True,
-            max_length=160,
-            return_token_type_ids=False,
-            padding="max_length",
-            return_attention_mask=True,
-            return_tensors="pt",
-        )
+    request_counter.inc()
+    with request_latency.time():
+        try:
+            review_summary.observe(len(review_input.review))
+            # Encode input text
+            encoding = tokenizer.encode_plus(
+                review_input.review,
+                add_special_tokens=True,
+                max_length=160,
+                return_token_type_ids=False,
+                padding="max_length",
+                return_attention_mask=True,
+                return_tensors="pt",
+            )
 
-        input_ids = encoding["input_ids"].to(device)
-        attention_mask = encoding["attention_mask"].to(device)
+            input_ids = encoding["input_ids"].to(device)
+            attention_mask = encoding["attention_mask"].to(device)
 
-        # Model prediction
-        with torch.no_grad():
-            outputs: torch.Tensor = model(input_ids, attention_mask)
-            _, prediction = torch.max(outputs, dim=1)
-            sentiment = class_names[prediction]
+            # Model prediction
+            with torch.no_grad():
+                outputs: torch.Tensor = model(input_ids, attention_mask)
+                _, prediction = torch.max(outputs, dim=1)
+                sentiment = class_names[prediction]
 
-        background_tasks.add_task(save_prediction_to_gcp, review_input.review, outputs.softmax(-1).tolist(), sentiment)
+            background_tasks.add_task(
+                save_prediction_to_gcp, review_input.review, outputs.softmax(-1).tolist(), sentiment
+            )
 
-        return PredictionOutput(sentiment=sentiment)
+            return PredictionOutput(sentiment=sentiment)
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e)) from e
-
-
-@app.post("/health")
-def health_check():
-    """Health check endpoint."""
-    return {"status": "ok"}
+        except Exception as e:
+            error_counter.inc()
+            raise HTTPException(status_code=500, detail=str(e)) from e

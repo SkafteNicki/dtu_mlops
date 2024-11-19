@@ -96,7 +96,7 @@ class SentimentClassifier(nn.Module):
     """Sentiment Classifier class. Combines BERT model with a dropout and linear layer."""
 
     def __init__(self, n_classes, model_name=MODEL_NAME):
-        super(SentimentClassifier, self).__init__()
+        super().__init__()
         self.bert = BertModel.from_pretrained(model_name)
         self.drop = nn.Dropout(p=0.3)
         self.out = nn.Linear(self.bert.config.hidden_size, n_classes)

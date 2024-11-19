@@ -80,9 +80,3 @@ async def get_report():
     """Generate and return the report."""
     prediction_data = load_latest_files()
     return run_analysis(training_data, prediction_data)
-
-
-@app.get("/health")
-async def get_health():
-    """Health check endpoint."""
-    return {"status": "ok"}

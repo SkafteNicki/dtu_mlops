@@ -133,9 +133,3 @@ async def predict_sentiment(review_input: ReviewInput, background_tasks: Backgro
     except Exception as e:
         error_counter.inc()
         raise HTTPException(status_code=500, detail=str(e)) from e
-
-
-@app.post("/health")
-def health_check():
-    """Health check endpoint."""
-    return {"status": "ok"}

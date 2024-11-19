@@ -98,7 +98,9 @@ time-series data.
 
     ??? success "Solution"
 
-        ```python linenums="1" hl_lines="12 50 73 132"
+        The important parts that implements the prometheus metrics are highlighted below:
+
+        ```python linenums="1" hl_lines="10 50 74 135"
         --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_1.py"
         ```
 
@@ -134,40 +136,29 @@ time-series data.
             API that will raise an error. In this case the API will raise an 500 error if the review is too long. After
             this you should see the counter increase in value.
 
-    2. Next, we ask you to add a bunch of more metrics to the API. Specifically we ask you to add the following metrics:
+    2. Next, we ask you to add a few more metrics to the API. Specifically we ask you to add the following metrics:
 
         * Add a `Counter` metric that counts the number of requests the API has received.
         * Add a `Histogram` metric that measures the time it takes to classify a review.
+        * Add a `Summary` metric that measures the size of the reviews that are classified.
 
         Confirm that everything works by running the application, sending a couple of requests to the API and then
         checking the `/metrics` endpoint updates as expected.
 
         ??? success "Solution"
 
-            ```python linenums="1"
+            The important parts that implements the prometheus metrics are highlighted below:
+
+            ```python linenums="1" hl_lines="10 50-53 76 110 111 113 141"
             --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_2.py"
             ```
 
     3. Write a small dockerfile that containerizes the application. Check that you can build the container and run it.
-        You can reuse the dockerfile from the previous module on data drifting and you just need to change one line.
 
         ??? example "Dockerfile for sentiment API"
 
             ```dockerfile
-            --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
-            ```
-
-    4. The default scraping interval for Prometheus is 1 minute. This may be too slow for some applications. To change
-        the scraping interval you need to add a `prometheus.yaml`file that specifies the scraping interval. Look through
-        the [documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) on how to set the
-        scraping interval and then set it to 10 seconds. Check it, by running the application and checking the
-        `/metrics` endpoint.
-
-        ??? success "Solution"
-
-            ```yaml
-            global:
-                scrape_interval: 10s
+            --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus.dockerfile"
             ```
 
 4. We are now going to containerize this setup, but there are a new complexity that we have not encountered before in
@@ -199,6 +190,19 @@ time-series data.
 
     3. Confirm that the application is running by going to the `/metrics` endpoint. Confirm that the sidecar container
         is collecting the metrics by going to the `/metrics` endpoint of the sidecar container.
+
+    4. The default scraping interval for Prometheus is 1 minute. This may be too slow for some applications. To change
+        the scraping interval you need to add a `prometheus.yaml`file that specifies the scraping interval. Look through
+        the [documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) on how to set the
+        scraping interval and then set it to 10 seconds. Check it, by running the application and checking the
+        `/metrics` endpoint.
+
+        ??? success "Solution"
+
+            ```yaml
+            global:
+                scrape_interval: 10s
+            ```
 
 ## Logs logging
 

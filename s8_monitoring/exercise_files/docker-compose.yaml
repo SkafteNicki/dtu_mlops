@@ -1,17 +1,24 @@
-version: '2'
-  api:
-    image: sentiment_api:latest
+version: '3.8'
+
+services:
+  # FastAPI Application Service
+  sentiment_api:
+    build:
+      context: .  # Assumes the Dockerfile is in the same directory as docker-compose.yml
+    image: sentiment_api_image
+    container_name: sentiment_api
     ports:
-      - "5000:5000"
-  prometheus:
-    image: prom/prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    links:
-      - api
+      - "8000:8000"  # Expose FastAPI on port 8000
+    environment:
+      - PORT=8000
     depends_on:
-      - api
+      - prometheus
+
+  # Prometheus Service
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mount Prometheus config file
+    ports:
+      - "9090:9090"  # Expose Prometheus on port 9090
