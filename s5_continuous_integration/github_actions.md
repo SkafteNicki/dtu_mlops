@@ -39,7 +39,7 @@ Let's take a look at how a GitHub workflow file is organized:
 <figure markdown>
 ![Image](../figures/actions.png){ width="1000" }
 <figcaption>
-<a href=" https://madewithml.com/courses/mlops/cicd/#github-actions"> Image credit </a>
+<a href="https://madewithml.com/courses/mlops/cicd/#github-actions"> Image credit </a>
 </figcaption>
 </figure>
 

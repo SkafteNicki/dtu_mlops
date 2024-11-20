@@ -27,7 +27,7 @@ Below, you see an overview of the VS Code interface
 
 <figure markdown>
 ![Image](../figures/vscode.PNG){ width="700" }
-<figcaption> <a href=" https://www.git-tower.com/learn/cheat-sheets/vscode/"> Image credit </a> </figcaption>
+<figcaption> <a href="https://www.git-tower.com/learn/cheat-sheets/vscode/"> Image credit </a> </figcaption>
 </figure>
 
 The main components of VS Code are:

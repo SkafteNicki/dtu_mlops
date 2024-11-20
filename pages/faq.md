@@ -71,7 +71,7 @@ of December.
 We can give a grade on the Danish
 [7-point grading](https://ufm.dk/en/education/the-danish-education-system/grading-system) scale for foreign students who
 need it, where their home university does not accept pass/no-pass. You need to contact the course responsible
-[Nicki](mailto:nsde@dtu.com) within the first week of the course to request this. Secondly, we may need to further
+[Nicki](mailto:nsde@dtu.dk) within the first week of the course to request this. Secondly, we may need to further
 validate your work, so please be prepared for doing a short oral exam on one of the last days of the course.
 
 ## I am a EuroTEQ student, any special rules for me ❔
