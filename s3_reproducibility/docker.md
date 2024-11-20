@@ -61,7 +61,7 @@ The whole point of using Docker is that sharing applications becomes much easier
 
 <figure markdown>
 ![Image](../figures/docker_share.png){ width="1000" }
-<figcaption> <a href="https://www.ravirajag.dev/blog/mlops-docker"> Image credit </a> </figcaption>
+<figcaption> <a href="https://deep-learning-blogs.vercel.app/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 
 ## ❔ Exercises
