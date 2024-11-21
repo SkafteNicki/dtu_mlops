@@ -168,11 +168,11 @@ def main():
         repo_stats.append(repo_stat)
 
     logger.info("Writing repo stats to file")
-    filename = f"repo_stats{datetime.datetime.now(tz=datetime.UTC).isoformat(timespec='seconds')}.json"
+    filename = f"repo_stats_{datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")}.json"
     with open("repo_stats.json", "w") as f:
-        json.dump([r.model_dump() for r in repo_stats])
+        json.dump([r.model_dump() for r in repo_stats], f)
     with open(filename, "w") as f:
-        json.dump([r.model_dump() for r in repo_stats])
+        json.dump([r.model_dump() for r in repo_stats], f)
 
     logger.info("Uploading repo stats to GCS")
     upload_data("repo_stats.json")
@@ -181,6 +181,7 @@ def main():
     logger.info("Cleaning locally temp files")
     Path("README.md").unlink()
     Path("report.py").unlink()
+    Path(filename).unlink()
 
 
 if __name__ == "__main__":
