@@ -6,6 +6,8 @@
 
 GCP_PROJECT_NAME = $(shell gcloud config get-value project)
 
+# construct service account key file name
+# upload as github secret and use in github actions
 service_account:
 	gcloud iam service-accounts create repo-stats-account \
 		--description="Service account for repo stats application" --display-name="repo-stats-account"
@@ -17,6 +19,7 @@ service_account:
 		--iam-account=repo-stats-account@$(GCP_PROJECT_NAME).iam.gserviceaccount.com
 	echo service_account_key.json >> .gitignore
 
+# deploy the leaderboard service
 deploy_leaderboard:
 	gcloud run deploy repo-stats-leaderboard \
 		--source . \  # deploy from current directory
