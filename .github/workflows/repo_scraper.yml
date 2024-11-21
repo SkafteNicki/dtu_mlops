@@ -7,7 +7,6 @@ on:
 
 jobs:
   scrape:
-    name: Run repo scraper
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -34,4 +33,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python tools/repo_scraper/scraper.py
+          python tools/repo_stats/scraper.py
