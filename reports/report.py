@@ -16,7 +16,6 @@ class TeacherWarning(UserWarning):
 
 def no_constraints(answer, index) -> None:
     """No constrains for question."""
-    pass
 
 
 def length_constraints(answer, index, min_length, max_length) -> None:
