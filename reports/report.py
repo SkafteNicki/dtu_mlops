@@ -15,10 +15,12 @@ class TeacherWarning(UserWarning):
 
 
 def no_constraints(answer, index) -> None:
+    """No constrains for question."""
     pass
 
 
 def length_constraints(answer, index, min_length, max_length) -> None:
+    """Either min or maximum length contrains for question."""
     answer = answer.split()
     if not (min_length <= len(answer) <= max_length):
         warnings.warn(
@@ -29,6 +31,7 @@ def length_constraints(answer, index, min_length, max_length) -> None:
 
 
 def image_constrains(answer, index, min_length, max_length) -> None:
+    """Requires the inclusion of a image in question."""
     links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
     if not (min_length <= len(links) <= max_length):
         warnings.warn(
@@ -39,6 +42,7 @@ def image_constrains(answer, index, min_length, max_length) -> None:
 
 
 def multi_constrains(answer, index, constrains) -> None:
+    """Multiple constrains in question."""
     for fn in constrains:
         fn(answer, index)
 
