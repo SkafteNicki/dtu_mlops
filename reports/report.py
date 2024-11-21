@@ -14,6 +14,35 @@ class TeacherWarning(UserWarning):
     """Warning raised when a teacher check fails."""
 
 
+def no_constraints(answer, index) -> None:
+    pass
+
+
+def length_constraints(answer, index, min_length, max_length) -> None:
+    answer = answer.split()
+    if not (min_length <= len(answer) <= max_length):
+        warnings.warn(
+            f"Question {index} failed check. Expected number of words to be"
+            f" between {min_length} and {max_length} but got {len(answer)}",
+            TeacherWarning,
+        )
+
+
+def image_constrains(answer, index, min_length, max_length) -> None:
+    links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
+    if not (min_length <= len(links) <= max_length):
+        warnings.warn(
+            f"Question {index} failed check. Expected number of screenshots to be"
+            f" between {min_length} and {max_length} but got {len(links)}",
+            TeacherWarning,
+        )
+
+
+def multi_constrains(answer, index, constrains) -> None:
+    for fn in constrains:
+        fn(answer, index)
+
+
 @click.group()
 def cli() -> None:
     """CLI for report."""
@@ -30,31 +59,6 @@ def html() -> None:
 
     with open("report.html", "w") as newfile:
         newfile.write(html)
-
-    def no_constraints(answer, index) -> None:
-        pass
-
-    def length_constraints(answer, index, min_length, max_length) -> None:
-        answer = answer.split()
-        if not (min_length <= len(answer) <= max_length):
-            warnings.warn(
-                f"Question {index} failed check. Expected number of words to be"
-                f" between {min_length} and {max_length} but got {len(answer)}",
-                TeacherWarning,
-            )
-
-    def image_constrains(answer, index, min_length, max_length) -> None:
-        links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
-        if not (min_length <= len(links) <= max_length):
-            warnings.warn(
-                f"Question {index} failed check. Expected number of screenshots to be"
-                f" between {min_length} and {max_length} but got {len(links)}",
-                TeacherWarning,
-            )
-
-    def multi_constrains(answer, index, constrains) -> None:
-        for fn in constrains:
-            fn(answer, index)
 
 
 @cli.command()
