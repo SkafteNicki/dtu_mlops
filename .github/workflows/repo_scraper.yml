@@ -1,8 +1,6 @@
 name: Run repo scraper
 
 on:
-  #push:
-  #  branches: [main]
   #schedule:
   #  - cron: "0 0 * * *"  # Run at the end of every day
   workflow_dispatch: {}  # manual executions
@@ -11,7 +9,6 @@ jobs:
   scrape:
     name: Run repo scraper
     runs-on: ubuntu-latest
-    steps:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

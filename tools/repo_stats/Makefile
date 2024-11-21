@@ -16,3 +16,15 @@ service_account:
 	gcloud iam service-accounts keys create service_account_key.json \
 		--iam-account=repo-stats-account@$(GCP_PROJECT_NAME).iam.gserviceaccount.com
 	echo service_account_key.json >> .gitignore
+
+deploy_leaderboard:
+	gcloud run deploy repo-stats-leaderboard \
+		--source . \  # deploy from current directory
+		--platform managed \
+		--region europe-west1 \
+	gcloud run services add-iam-policy-binding \
+    	--region=europe-west1 \
+    	--member=allUsers \
+    	--role=roles/run.invoker \
+		repo-stats-leaderboard
+	gcloud run services describe repo-stats-leaderboard --region=europe-west1 --format="value(status.url)"
