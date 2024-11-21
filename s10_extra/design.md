@@ -1,15 +1,30 @@
-# Designing MLOps pipelines
+# Designing Machine Learning Pipeline
 
 ---
 
 !!! danger
     Module is still under development
 
-"Machine learning engineering is 10% machine learning and 90% engineering." - *Chip Huyen*
+!!! quote"
+    *Machine learning engineering is 10% machine learning and 90% engineering.*
+    <br>
+    Chip Huye, author of Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications
 
-We highly recommend that you read the book
-*Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications* by Chip Huyen which gives
-an fantastic overview of the thought processes that goes into designing moder machine learning systems.
+Building machine learning systems is not just about training models and deploying them. The *success* of an ML system
+depends heavily on its **design process** - how well you understand the problem, define the objectives and plan the
+system architecture before writing a single line of code.
+
+As ML engineers and practitioners, it's tempting to dive straight into the data and algorithms. However, failing to
+think through the design can lead to systems that are brittle, inefficient or incapable of meeting real-work
+requirements. Said in another way we want to minimize the amount of rework that we have to do and the overall
+[technical debt](https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html)
+that we accumulate.
+
+In addition, you are often not the only stakeholder in a ML project, which often includes data engineers, data
+scientists, product managers, and business stakeholders. As such, having a clear design that can be easily communicated
+to non-technical stakeholders is crucial. We are in this module going to look at what the design process could look
+like. If you are more interested in this topic we recommend that you read the book
+*Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications* by Chip Huyen.
 
 # The stack
 
@@ -21,7 +36,7 @@ Below is seen an image of the massive amounts of tools that exist within the MLO
 <figure markdown>
 ![Overview](../figures/tool_landscape.PNG){ width="1000" }
 <figcaption>
-<a href=" https://mlops.neptune.ai/"> Image credit </a>
+<a href="https://mlops.neptune.ai/"> Image credit </a>
 </figcaption>
 </figure>
 
