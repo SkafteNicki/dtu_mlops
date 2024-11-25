@@ -5,6 +5,7 @@ import logging
 import os
 from pathlib import Path
 
+import numpy as np
 import requests
 from dotenv import load_dotenv
 from google.cloud.storage import Client
@@ -57,6 +58,27 @@ def load_data(file_name: str) -> list[GroupInfo]:
     return content
 
 
+def create_activity_matrix(commits: list, max_delta: int = 5, normalize: bool = True) -> list[list[int]]:
+    """Creates an activity matrix from the commits."""
+    commit_times = [datetime.datetime.fromisoformat(commit["commit"]["committer"]["date"][:-1]) for commit in commits]
+    commit_times.sort()
+
+    start_time = commit_times[0]
+    end_time = min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1])
+
+    num_days = (end_time - start_time).days + 1  # include last day
+
+    commit_matrix = np.zeros((num_days, 24), dtype=int)
+
+    for commit_time in commit_times:
+        if start_time <= commit_time <= end_time:
+            day_index = (commit_time - start_time).days
+            hour_index = commit_time.hour
+            commit_matrix[day_index, hour_index] += 1
+
+    return commit_matrix.tolist()
+
+
 app = Typer()
 
 
@@ -100,6 +122,10 @@ def main():
                             and contributor.login == commit["author"]["login"]
                         ):
                             contributor.commits_pr += 1
+                commits += pr_commits
+
+            activity_matrix = create_activity_matrix(commits)
+
             average_commit_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
             contributions_per_contributor = [c.total_commits for c in contributors]
@@ -116,6 +142,7 @@ def main():
             using_dvc = repo_content.using_dvc
             repo_size = repo_content.repo_size
             readme_length = repo_content.readme_length
+            actions_passing = repo_content.actions_passing
 
             report = Report(
                 group_number=group.group_number, repo_api=group.repo_api, default_branch=group.default_branch
@@ -132,6 +159,7 @@ def main():
             total_commits = None
             contributions_per_contributor = None
             total_commits = None
+            activity_matrix = None
 
             num_docker_files = None
             num_python_files = None
@@ -141,6 +169,7 @@ def main():
             using_dvc = None
             repo_size = None
             readme_length = None
+            actions_passing = None
 
             num_warnings = None
 
@@ -155,6 +184,7 @@ def main():
             average_commit_length=average_commit_length,
             contributions_per_contributor=contributions_per_contributor,
             total_commits=total_commits,
+            activity_matrix=activity_matrix,
             num_docker_files=num_docker_files,
             num_python_files=num_python_files,
             num_workflow_files=num_workflow_files,
@@ -163,12 +193,14 @@ def main():
             using_dvc=using_dvc,
             repo_size=repo_size,
             readme_length=readme_length,
+            actions_passing=actions_passing,
             num_warnings=num_warnings,
         )
         repo_stats.append(repo_stat)
 
     logger.info("Writing repo stats to file")
-    filename = f"repo_stats_{datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")}.json"
+    now = datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")
+    filename = f"repo_stats_{now}.json"
     with open("repo_stats.json", "w") as f:
         json.dump([r.model_dump() for r in repo_stats], f)
     with open(filename, "w") as f:

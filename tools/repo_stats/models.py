@@ -26,6 +26,8 @@ class RepoStats(BaseModel):
     average_commit_length: float | None
     contributions_per_contributor: list[int] | None
     total_commits: int | None
+    activity_matrix: list[list[int]] | None
+
     num_docker_files: int | None
     num_python_files: int | None
     num_workflow_files: int | None
@@ -34,6 +36,8 @@ class RepoStats(BaseModel):
     using_dvc: bool | None
     repo_size: float | None
     readme_length: int | None
+    actions_passing: bool | None
+
     num_warnings: int | None
 
 
@@ -170,6 +174,26 @@ class RepoContent(BaseModel):
             return len(plain_text.split())
         return 0
 
+    @property
+    def actions_passing(self) -> bool:
+        """Returns True if the GitHub Actions are passing."""
+        commit_url = f"{self.repo_api}/commits/{self.default_branch}"
+        commit_response = requests.get(commit_url, headers=headers, timeout=100).json()
+        latest_commit = commit_response["sha"]
+
+        workflow_url = f"{self.repo_api}/actions/runs?branch={self.default_branch}&event=push"
+        workflow_response = requests.get(workflow_url, headers=headers, timeout=100).json()
+        workflow_runs = workflow_response["workflow_runs"]
+
+        all_passing = True
+        for w_run in workflow_runs:
+            if w_run["head_sha"] == latest_commit and (
+                w_run["status"] != "completed" or w_run["conclusion"] != "success"
+            ):
+                all_passing = False
+                break
+        return all_passing
+
 
 class GroupInfo(BaseModel):
     """Model for group information."""
@@ -238,7 +262,7 @@ class GroupInfo(BaseModel):
         return None
 
     @property
-    def commits(self):
+    def commits(self) -> list:
         """Returns all commits to the default branch."""
         if self.repo_accessible:
             commits = []
