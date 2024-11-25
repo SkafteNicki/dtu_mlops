@@ -7,4 +7,4 @@ streamlit==1.40.1
 pydantic==2.9.2
 requests==2.32.3
 numpy==2.1.3
-pillow=11.0.0
+pillow==11.0.0

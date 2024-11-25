@@ -128,7 +128,7 @@ def main() -> None:
             "total_commits": "Total Commits",
             "num_commits_to_main": "Commits to main",
             "contributions_per_contributor": st.column_config.BarChartColumn("Contributions distribution"),
-            "num_prs": "Number of Pull Requests",
+            "num_prs": "PRs",
             "average_commit_length_to_main": "ACML* (main)",
             "average_commit_length": "ACML* (all)",
             "latest_commit": st.column_config.DatetimeColumn("Latest commit"),
