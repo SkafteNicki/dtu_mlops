@@ -61,7 +61,7 @@ The whole point of using Docker is that sharing applications becomes much easier
 
 <figure markdown>
 ![Image](../figures/docker_share.png){ width="1000" }
-<figcaption> <a href="https://www.ravirajag.dev/blog/mlops-docker"> Image credit </a> </figcaption>
+<figcaption> <a href="https://deep-learning-blogs.vercel.app/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 
 ## ❔ Exercises
@@ -157,6 +157,14 @@ beneficial for you to download.
     ```bash
     docker rm <container_id>
     ```
+
+    In general we recommend to use the `--rm` flag when running a container e.g.
+
+    ```bash
+    docker run --rm <image>
+    ```
+
+    which will automatically remove the container after it has finished running.
 
 9. Let's now move on to trying to construct a Dockerfile ourselves for our MNIST project. Create a file called
     `trainer.dockerfile`. The intention is that we want to develop one Dockerfile for running our training script and
@@ -303,7 +311,7 @@ beneficial for you to download.
     to start the image in interactive mode:
 
     ```bash
-    docker run -it --entrypoint sh {image_name}:{image_name}
+    docker run --rm -it --entrypoint sh {image_name}:{image_tag}
     ```
 
 16. When your training has completed you will notice that any files that are created when running your training script

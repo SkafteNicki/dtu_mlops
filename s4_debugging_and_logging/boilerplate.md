@@ -320,8 +320,8 @@ framework to do some of the heavy lifting you need to have gone through some of 
 10. (Optional) As default PyTorch uses `float32` for representing floating point numbers. However, research have shown
     that neural network training is very robust towards a decrease in precision. The great benefit going from `float32`
     to `float16` is that we get approximately half the
-    [memory consumption](https://www.khronos.org/opengl/wiki/Small_Float_Formats). Try out half-precision training in
-    PyTorch lightning. You can enable this by setting the
+    [memory consumption](https://en.wikipedia.org/wiki/Half-precision_floating-point_format). Try out half-precision
+    training in PyTorch lightning. You can enable this by setting the
     [precision](https://lightning.ai/docs/pytorch/latest/common/trainer.html#precision) flag in the `Trainer`.
 
     ??? success "Solution"
