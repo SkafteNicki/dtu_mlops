@@ -156,10 +156,13 @@ node_modules/
 latest_info.csv
 latest_repo_data.csv
 repo_data.csv
+group_info.csv
+repo_stats*.json
 student_repos/
 reviews.csv
 bert_sentiment_model.pt
 prediction*.json
+**/service_account_key.json
 
 # vscode
 .vscode/
