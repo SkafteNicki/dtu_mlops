@@ -61,7 +61,7 @@ ignore = [
     "B905",
     "COM812",
     "ISC001",
-    "TCH003",
+    "TC003",
 ]
 exclude=["student_repos/"]
 
