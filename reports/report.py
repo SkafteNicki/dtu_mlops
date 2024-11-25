@@ -19,7 +19,7 @@ def no_constraints(answer, index) -> None:
 
 
 def length_constraints(answer, index, min_length, max_length) -> None:
-    """Either min or maximum length contrains for question."""
+    """Either min or maximum length constrains for question."""
     answer = answer.split()
     if not (min_length <= len(answer) <= max_length):
         warnings.warn(
