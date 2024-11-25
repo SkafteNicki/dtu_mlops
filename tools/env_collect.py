@@ -12,7 +12,7 @@ sys.path += [os.path.abspath(".."), os.path.abspath("")]
 
 
 LEVEL_OFFSET = "\t"
-KEY_PADDING = 20
+KEY_PADDING = 30
 
 
 def info_system() -> dict:
@@ -57,8 +57,7 @@ def nice_print(details: dict, level: int = 0) -> list:
             lines += [level * LEVEL_OFFSET + key]
             lines += [(level + 1) * LEVEL_OFFSET + "- " + v for v in details[k]]
         else:
-            template = "{:%is} {}" % KEY_PADDING
-            key_val = template.format(key, details[k])
+            key_val = f"{key:{KEY_PADDING}} {details[k]}"
             lines += [(level * LEVEL_OFFSET) + key_val]
     return lines
 
