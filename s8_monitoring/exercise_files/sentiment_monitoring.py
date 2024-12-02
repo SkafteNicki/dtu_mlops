@@ -1,11 +1,10 @@
-import glob
+import json
 import os
-from datetime import datetime
 from pathlib import Path
 
 import nltk
 import pandas as pd
-from evidently.presents import TextOverviewPreset
+from evidently.metric_preset import TargetDriftPreset, TextEvals
 from evidently.report import Report
 from fastapi import FastAPI
 
@@ -14,27 +13,38 @@ nltk.download("wordnet")
 nltk.download("omw-1.4")
 
 
+def to_sentiment(rating):
+    """Convert rating to sentiment class."""
+    rating = int(rating)
+    if rating <= 2:
+        return 0  # Negative
+    if rating == 3:
+        return 1  # Neutral
+    return 2  # Positive
+
+
+def sentiment_to_numeric(sentiment: str) -> int:
+    """Convert sentiment class to numeric."""
+    if sentiment == "negative":
+        return 0
+    if sentiment == "neutral":
+        return 1
+    return 2
+
+
 def run_analysis(reference_data: pd.DataFrame, current_data: pd.DataFrame):
     """Run the analysis and return the report."""
-    text_overview_report = Report(metrics=[TextOverviewPreset(column_name="Review_Text")])
+    text_overview_report = Report(metrics=[TextEvals(column_name="content"), TargetDriftPreset(columns=["sentiment"])])
     text_overview_report.run(reference_data=reference_data, current_data=current_data)
+    text_overview_report.save("text_overview_report.html")
 
 
 def lifespan(app: FastAPI):
     """Load the data and class names before the application starts."""
     global training_data, class_names
     training_data = pd.read_csv("reviews.csv")
-
-    def to_sentiment(rating):
-        """Convert rating to sentiment class."""
-        rating = int(rating)
-        if rating <= 2:
-            return 0  # Negative
-        if rating == 3:
-            return 1  # Neutral
-        return 2  # Positive
-
     training_data["sentiment"] = training_data.score.apply(to_sentiment)
+    training_data["target"] = training_data["sentiment"]  # evidently expects the target column to be named "target"
     class_names = ["negative", "neutral", "positive"]
 
     yield
@@ -45,38 +55,32 @@ def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-def load_latest_files(directory: Path, n: int):
+def load_latest_files(directory: Path, n: int) -> pd.DataFrame:
     """Load the N latest prediction files from the directory."""
     # Get all prediction files in the directory
-    files = glob.glob(os.path.join(directory, "prediction_*"))
+    files = directory.glob("prediction_*.json")
 
-    # Sort files based on the timestamp in the filename
-    files.sort(
-        key=lambda x: datetime.strptime(x.split("_")[1], "%Y-%m-%d %H:%M:%S.%f").astimezone(datetime.timezone.utc),
-        reverse=True,
-    )
+    # Sort files based on when they where created
+    files = sorted(files, key=os.path.getmtime)
 
     # Get the N latest files
-    latest_files = files[:n]
+    latest_files = files[-n:]
 
     # Load or process the files as needed
-    loaded_files = []
+    reviews, sentiment = [], []
     for file in latest_files:
-        with open(file) as f:
-            data = f.read()  # or other processing if needed
-            loaded_files.append(data)
-
-    return loaded_files
-
-
-# Usage example:
-directory = "/path/to/your/logfiles"
-N = 5  # Number of latest files you want to load
-latest_files_data = load_latest_files(directory, N)
+        with file.open() as f:
+            data = json.load(f)
+            reviews.append(data["review"])
+            sentiment.append(sentiment_to_numeric(data["sentiment"]))
+    dataframe = pd.DataFrame({"content": reviews, "sentiment": sentiment})
+    dataframe["target"] = dataframe["sentiment"]
+    return dataframe
 
 
+@app.get("/")
 @app.get("/report")
-async def get_report():
+async def get_report(n: int = 5):
     """Generate and return the report."""
-    prediction_data = load_latest_files()
+    prediction_data = load_latest_files(Path("."), n=n)
     return run_analysis(training_data, prediction_data)

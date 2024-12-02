@@ -390,14 +390,16 @@ through the files to get an understanding of what is going on.
 
         ??? success "Solution"
 
-            The following three commands should be able to deploy the application to GCP cloud run. Make sure to replace
+            The following four commands should be able to deploy the application to GCP cloud run. Make sure to replace
             `<location>`, `<project-id>` and `<repo-name>` with the appropriate values.
 
             ```bash
+            gcloud artifacts repositories create <repo-name> --repository-format=docker --location=<location>
             docker tag sentiment_api:latest <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
             docker push <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
             gcloud run deploy sentiment-api \
-                --image <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
+                --image <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest \
+                --region <region> --allow-unauthenticated
             ```
 
     6. Make sure that the application still works by trying to send a couple of requests to the deployed application and
