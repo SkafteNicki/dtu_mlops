@@ -76,3 +76,25 @@ def linkcheck(ctx) -> None:
         echo=True,
         pty=not WINDOWS,
     )
+
+
+@task(aliases=["drawio"])
+def diagrams(ctx):
+    """Generate diagrams."""
+    ctx.run("docker pull rlespinasse/drawio-export", echo=True, pty=not WINDOWS)
+    ctx.run(
+        (
+            f"docker run --rm -v {CURRENT_DIR}:/data rlespinasse/drawio-export "
+            "figures/diagrams/ -f png --on-changes --remove-page-suffix --output ../"
+        ),
+        echo=True,
+        pty=not WINDOWS,
+    )
+    ctx.run(
+        (
+            f"docker run --rm -v {CURRENT_DIR}:/data rlespinasse/drawio-export "
+            "figures/diagrams/mlops_canvas.drawio -f pdf --on-changes --remove-page-suffix --output ../.."
+        ),
+        echo=True,
+        pty=not WINDOWS,
+    )
