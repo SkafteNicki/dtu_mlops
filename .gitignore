@@ -153,6 +153,7 @@ Gemfile.lock
 node_modules/
 
 # local stuff
+.vscode/
 latest_info.csv
 latest_repo_data.csv
 repo_data.csv

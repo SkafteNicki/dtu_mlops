@@ -498,7 +498,7 @@ the images we are used to that use PyTorch.
     command should hopefully be enough to make `docker` and GCP talk to each other:
 
     ```bash
-    gcloud auth configure-docker <region-docker.pkg.dev>
+    gcloud auth configure-docker <region>-docker.pkg.dev
     ```
 
     where you need to replace `<region>` with the region you are using. Do note you need to have `docker` actively
