@@ -135,9 +135,9 @@ the API of the package. This is especially important when working with machine l
 that we can reproduce the exact same model at a later point.
 
 Finally, we also need to discuss *dependency resolution*, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have ever
-thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were trying
-to figure out which packages are compatible with each other. For example, if you try to install
+compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have
+ever thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were
+trying to figure out which packages are compatible with each other. For example, if you try to install
 
 ```bash
 pip install "matplotlib >= 3.8.0" "numpy <= 1.19" --dry-run
