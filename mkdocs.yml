@@ -91,7 +91,7 @@ extra:
 
 nav:
   - Home: README.md
-  - Timeplan: pages/timeplan.md
+  - Time plan: pages/timeplan.md
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
