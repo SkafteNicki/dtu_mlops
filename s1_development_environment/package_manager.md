@@ -85,7 +85,7 @@ def get_github_stars(owner_repo):
     else:
         return None
 
-table =  "| 🌟 Framework | 📄 Docs | 📂 Repository | ⭐ Github Stars |\n"
+table =  "| 🌟 Framework | 📄 Docs | 📂 Repository | ⭐ GitHub Stars |\n"
 table += "|--------------|---------|---------------|----------------|\n"
 
 data = [

@@ -130,7 +130,7 @@ it contains excellent tutorials.
     copy-pasting the code in the link prompted. Check out your Google Drive folder. You will see that the data is not
     in a recognizable format anymore due to the way that `dvc` packs and tracks the data. The boring detail is that
     `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
-    which makes data much faster to get. Finally, make sure that your data is not stored in your Github repository.
+    which makes data much faster to get. Finally, make sure that your data is not stored in your GitHub repository.
 
     After authenticating the first time, `DVC` should be setup without having to authenticate again. If you for some
     reason encounter that dvc fails to authenticate, you can try to reset the authentication. Locate the file
