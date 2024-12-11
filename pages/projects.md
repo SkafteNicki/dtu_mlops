@@ -234,7 +234,8 @@ midnight on the final day of the course, we will automatically scrape the report
 you. Therefore, changes after this point are not registered.
 
 Importantly, for the scraping to work, your repository should as minimum have the following structure (which it will
-have if you have used the template from the [code organization module](../modules/code_organization.md)):
+have if you have used the template from the
+[code organization module](../s2_organisation_and_version_control/code_structure.md)):
 
 ```plaintext
 <repository-name>

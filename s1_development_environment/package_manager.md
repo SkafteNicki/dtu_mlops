@@ -93,9 +93,9 @@ data = [
     ("Pipenv", "https://pipenv.pypa.io/en/latest/", "pypa/pipenv"),
     ("Poetry", "https://python-poetry.org/", "python-poetry/poetry"),
     ("Pipx", "https://pipx.pypa.io/stable/", "pypa/pipx"),
-    ("Hatch", "https://hatch.pypa.io/latest/", "hatch-sh/hatch"),
+    ("Hatch", "https://hatch.pypa.io/latest/", "pypa/hatch"),
     ("PDM", "https://pdm.fming.dev/latest/", "pdm-project/pdm"),
-    ("uv", "https://docs.astral.sh/uv/", "astralsh/uv"),
+    ("uv", "https://docs.astral.sh/uv/", "astral-sh/uv"),
 ]
 
 for framework, docs, repo in data:
