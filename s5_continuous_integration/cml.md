@@ -463,16 +463,12 @@ repository.
         some relevant Python code that can be used to add the alias:
 
         ```python
-        import click
+        import typer
         import os
         import wandb
 
-        @click.command()
-        @click.argument("artifact-path")
-        @click.option(
-            "--aliases", "-a", multiple=True, default=["staging"], help="List of aliases to link the artifact with."
-        )
-        def link_model(artifact_path: str, aliases: list[str]) -> None:
+
+        def link_model(artifact_path: str, aliases: list[str] = ["staging"]) -> None:
             """
             Stage a specific model to the model registry.
 
@@ -486,7 +482,7 @@ repository.
 
             """
             if artifact_path == "":
-                click.echo("No artifact path provided. Exiting.")
+                typer.echo("No artifact path provided. Exiting.")
                 return
 
             api = wandb.Api(
@@ -499,7 +495,10 @@ repository.
             artifact = api.artifact(artifact_path)
             artifact.link(target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{artifact_name}", aliases=aliases)
             artifact.save()
-            click.echo(f"Artifact {artifact_path} linked to {aliases}")
+            typer.echo(f"Artifact {artifact_path} linked to {aliases}")
+
+        if __name__ == "__main__":
+            typer.run(link_model)
         ```
 
         for example, you can run this script with the following command:
