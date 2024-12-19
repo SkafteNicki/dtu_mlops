@@ -1,5 +1,5 @@
-import click
 import torch
+import typer
 
 
 def normalize(images: torch.Tensor) -> torch.Tensor:
@@ -7,10 +7,7 @@ def normalize(images: torch.Tensor) -> torch.Tensor:
     return (images - images.mean()) / images.std()
 
 
-@click.command()
-@click.option("raw_dir", default="data/raw", help="Path to raw data directory")
-@click.option("processed_dir", default="data/processed", help="Path to processed data directory")
-def make_data(raw_dir: str, processed_dir: str) -> None:
+def preprocess_data(raw_dir: str = "data/raw", processed_dir: str = "data/processed") -> None:
     """Process raw data and save it to processed directory."""
     train_images, train_target = [], []
     for i in range(5):
@@ -36,5 +33,17 @@ def make_data(raw_dir: str, processed_dir: str) -> None:
     torch.save(test_target, f"{processed_dir}/test_target.pt")
 
 
+def corrupt_mnist() -> tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """Return train and test datasets for corrupt MNIST."""
+    train_images = torch.load("data/processed/train_images.pt")
+    train_target = torch.load("data/processed/train_target.pt")
+    test_images = torch.load("data/processed/test_images.pt")
+    test_target = torch.load("data/processed/test_target.pt")
+
+    train_set = torch.utils.data.TensorDataset(train_images, train_target)
+    test_set = torch.utils.data.TensorDataset(test_images, test_target)
+    return train_set, test_set
+
+
 if __name__ == "__main__":
-    make_data()
+    typer.run(preprocess_data)
