@@ -1,0 +1,22 @@
+services:
+  # FastAPI Application Service
+  sentiment_api:
+    build:
+      context: .
+      dockerfile: sentiment_api_prometheus.dockerfile
+    container_name: sentiment_api
+    ports:
+      - "8000:8000"  # Expose FastAPI on port 8000
+    environment:
+      - PORT=8000
+    depends_on:
+      - prometheus
+
+  # Prometheus Service
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml  # Mount Prometheus config file
+    ports:
+      - "9090:9090"  # Expose Prometheus on port 9090

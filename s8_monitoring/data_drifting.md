@@ -1,5 +1,5 @@
 
-![Logo](../figures/icons/evidentlyai.png){ align=right width="130"}
+![Logo](../figures/icons/evidentlyai.png){align=right width="130"}
 
 # Data drifting
 
@@ -7,7 +7,7 @@
 
 Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
-this means that the model is receiving input that is outside of the scope that it was trained on, as seen in the figure
+this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
 two years
 
@@ -49,16 +49,16 @@ research and therefore exist multiple frameworks for doing this kind of detectio
 we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
 [deepcheck](https://github.com/deepchecks/deepchecks).
 
-1. Start by install Evidently
+1. Start by installing Evidently
 
     ```python
     pip install evidently
     ```
 
-    you will also need `scikit-learn` and `pandas` installed if you do not already have it.
+    You will also need `scikit-learn` and `pandas` installed if you do not already have it.
 
-2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the deployment
-    to GCP functions you should have developed a application that can classify the
+2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
+    deployment sections you should have developed an application that can classify the
     [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
     [script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py)
     . We are going to convert this into a FastAPI application for the purpose here:
@@ -220,7 +220,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         [this tutorial](https://github.com/evidentlyai/evidently/blob/main/examples/how_to_questions/how_to_run_calculations_over_text_data.ipynb)
         to understand how drift detection is done on text.
 
-    3. Lets instead take a deep learning based approach to doing this. Lets consider the
+    3. Let's instead take a deep learning based approach to doing this. Let's consider the
         [CLIP](https://arxiv.org/abs/2103.00020) model, which is normally used to do image captioning. For our purpose
         this is perfect because we can use the model to get abstract feature embeddings for both images and text:
 
@@ -237,7 +237,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         image = Image.open(requests.get(url, stream=True).raw)
 
         # set either text=None or images=None when only the other is needed
-        inputs = processor(text=["a photo of a cat", "a photo of a dog"], images=image, return_tensors="pt", padding=True)
+        inputs = processor(
+            text=["a photo of a cat", "a photo of a dog"], images=image, return_tensors="pt", padding=True
+        )
 
         img_features = model.get_image_features(inputs['pixel_values'])
         text_features = model.get_text_features(inputs['input_ids'], inputs['attention_mask'])
@@ -248,7 +250,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         different datasets like CIFAR10 and SVHN if you want to work with vision or
         [IMDB movie review](https://www.kaggle.com/code/lakshmi25npathi/sentiment-analysis-of-imdb-movie-reviews) and
         [Amazon review](https://www.kaggle.com/datasets/PromptCloudHQ/amazon-echo-dot-2-reviews-dataset) for text. After
-        extracting the features try running some of the data distribution testing you just learned about.
+        extracting the features try running some data distribution testing you just learned about.
 
 8. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
     monitoring to be a deployed application (that only we can access). Implement a `/monitoring/` endpoint that does
@@ -259,29 +261,275 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     http://127.0.0.1:8000/iris_monitoring/ # monitoring endpoint
     ```
 
-    Our monitoring endpoint should return a HTML page either showing an Evidently report or test suit. Try implementing
+    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suit. Try implementing
     this endpoint. We have implemented a solution in this [file](exercise_files/iris_fastapi.py) if you need help with
     how to return an HTML page from a FastAPI application.
 
-9. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
-    implement this in a container e.g. GCP Run service because the data gathering from the endpoint should still be
-    implemented as an background task. For this to work you will need to change the following:
+## Data drift in the cloud
 
-   * Instead of saving the input to a local file you should either store it in GCP bucket or an
-        [BigQuery](https://console.cloud.google.com/bigquery) SQL table (this is a better solution, but also
-        out-of-scope for this course)
+In the next section we are going to look at how we can incorporate the data drifting in our cloud environment. In
+particular, we are going to be looking at how we can deploy a monitoring application that will run on a schedule and
+then report those statistics directly back into GCP for us to study.
 
-   * You can either run the data analysis locally by just pulling from cloud storage predictions and training data
-        or alternatively you can deploy this as its own endpoint that can be invoked. For the latter option we recommend
-        that this should require authentication.
+### ❔ Exercises
+
+In this set of exercises we are going to deploy a machine learning model for sentiment analysis trained on
+[Google Play Store Reviews](https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews). The models task
+is to predict if a users review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
+service that will check if the distribution of the reviews have drifted over time. This may be useful if we are seeing
+a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
+expected.
+
+We have already created downloaded the training data, created a training script and trained a model for you.
+The training data and the trained model is available to download from the following
+[Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing) which can
+be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
+Python package):
+
+```bash
+pip install gdown
+gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
+```
+
+And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
+train using a GPU. Overall the model scores around 74% accuracy on a hold-out test set. We recommend that you scroll
+through the files to get an understanding of what is going on.
+
+??? example "Training script for sentiment analysis model"
+
+    ```python linenums="1" title="sentiment_classifier.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_classifier.py"
+    ```
+
+1. To begin with lets start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
+    called `gcp_monitoring_exercise` (or something similar). Upload the training data and the trained model to the
+    bucket.
+
+    ??? success "Solution"
+
+        This can be done by running the following commands or manually uploading the files to the bucket using the
+        GCP console.
+
+        ```
+        gsutil mb gs://gcp_monitoring_exercise
+        gsutil cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
+        gsutil cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
+        ```
+
+2. Next we need to create a FastAPI application that takes a review as input and returns the predicted sentiment of
+    the review. We provide a starting point for the application in the file below, that should be able to run as is.
+
+    ??? example "Starting point for sentiment analysis API"
+
+        ```python linenums="1" title="sentiment_api_starter.py"
+        --8<-- "s8_monitoring/exercise_files/sentiment_api_starter.py"
+        ```
+
+    1. Confirm that you can run the application by running the following command in the terminal
+
+        ```bash
+        uvicorn sentiment_api_starter:app --reload
+        ```
+
+        You need the model file saved in the same directory as the application to run the application. Write a small
+        `client.py` script that calls the application with a review and prints the predicted sentiment.
+
+        ??? success "Solution"
+
+            ```python
+            import requests
+
+            url = "http://localhost:8000/predict"
+            review = "This is a great app, I love it!"
+            response = requests.post(url, json={"review": review})
+            print(response.json())
+            ```
+
+    2. Next, we need to extend the application in two ways. First instead of loading the model from our local computer,
+        it should load from the bucket we just uploaded the model to. Secondly, we need to save the request data and the
+        predicted label to the cloud. Normally this would best be suited in a database, but we are going to just save
+        to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g. the
+        time and date of the request). Implement both of these functionalities in the application. To interact with
+        GCP buckets in Python you should install the `google-cloud-storage` package if you have not already done so.
+
+        ```bash
+        pip install google-cloud-storage
+        ```
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="sentiment_api.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.py"
+            ```
+
+    3. You should confirm that the application is working locally before moving on. You can do this by running the
+        following command in the terminal
+
+        ```bash
+        uvicorn sentiment_api:app --reload
+        ```
+
+        And use the same `client.py` script as before to confirm that the application is working. You should also check
+        that the data is saved to the bucket.
+
+    4. Write a small Dockerfile that containerize the application
+
+        ??? success "Solution"
+
+            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
+            ```
+
+            which can be built by running the following command
+
+            ```bash
+            docker build -f sentiment_api.dockerfile -t sentiment_api:latest .
+            ```
+
+    5. Deploy the container to cloud run and confirm that the application still runs as expected.
+
+        ??? success "Solution"
+
+            The following four commands should be able to deploy the application to GCP cloud run. Make sure to replace
+            `<location>`, `<project-id>` and `<repo-name>` with the appropriate values.
+
+            ```bash
+            gcloud artifacts repositories create <repo-name> --repository-format=docker --location=<location>
+            docker tag sentiment_api:latest <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
+            docker push <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
+            gcloud run deploy sentiment-api \
+                --image <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest \
+                --region <region> --allow-unauthenticated
+            ```
+
+    6. Make sure that the application still works by trying to send a couple of requests to the deployed application and
+        make sure that the request/response data is correctly saved to the bucket.
+
+        ??? success "Solution"
+
+            To get the url of the deployed service you can run the following command
+
+            ```bash
+            gcloud run services describe sentiment-api --format 'value(status.url)'
+            ```
+
+            which can the be used in the `client.py` script to call the deployed service.
+
+3. We now have a working application that we are ready to monitor for data drift in real time. We therefore need to now
+    write a FastAPI application that takes in the training data and the predicted data and run evidently to check if the
+    data or the labels have drifted. Furthermore, we again provide a starting point for the application below.
+
+    ```python linenums="1" title="sentiment_monitoring_starter.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_monitoring_starter.py"
+    ```
+
+    Look over the script and make sure you know what kind of features we are going to monitor?
+
+    ??? success "Solution"
+
+        The provided starting script makes use of two presets from evidently:
+        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and
+        [TargetDriftPreset](https://docs.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
+        text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
+        second preset runs target drift detection on the predicted labels.
+
+    1. The script misses one key function to work: `#!python fetch_latest_data(n: int)` that should fetch the latest `n`
+        predictions. Implement this function in the script.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="sentiment_monitoring.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.py"
+            ```
+
+    2. Test out the script locally. This can be done by downloading a couple of the request/response data from the
+        bucket and running the script on this data.
+
+    3. Write a small dockerfile that containerize the monitoring application
+
+        ??? success "Solution"
+
+            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
+            ```
+
+4. We are now finally, ready to test our services. Since we need to observe some long term behavior this part may take
+    some time to run depending on how you have exactly configured your. Below we have implemented a client script that
+    are meant to call our service.
+
+    !!! example "Training script for sentiment analysis model"
+
+        ```python linenums="1" title="sentiment_client.py"
+        --8<-- "s8_monitoring/exercise_files/sentiment_client.py"
+        ```
+
+    1. What does the client script do?
+
+        ??? success "Solution"
+
+            The client script will iteratively call our deployed sentiment analysis service every `wait_time` seconds.
+            In each iteration it does:
+
+            * Randomly samples a review for a list of positive, neutral and negative reviews
+            * Randomly add negative phrases to the review. Each review is added if a randomly uniform number is lower
+                than probability `negative_probability=min(count / args.max_iterations, 1.0), meaning that it becomes
+                more and more likely that the negative phrases are added as the number of iterations increases.
+            * Sends the review to the sentiment analysis service and saves the response to a file.
+
+    2. Run the client script for 100 iterations.
+
+## 🧠 Knowledge check
+
+1. What are some common causes of data drift in machine learning models running in production?
+
+    ??? success "Solution"
+
+        * Seasonal changes: Consumers of machine learning models may change their behavior with the seasons. For
+            example, a model that predicts sales may need to be retrained for the holiday season.
+        * User behavior change: Trends in user behavior (most likely due to social media) may change the data
+            distribution. For example, a model that predicts user engagement may need to be retrained if users start
+            using the platform differently.
+        * External factors: Changes in the environment that the model is operating in may change. For example, a model
+            that predicts traffic may need to be retrained if the city changes its road layout.
+        * Sensor degradation: If the model is based on sensor data, the sensors may degrade over time leading to a
+            change in the data distribution. For example, a model that predicts the temperature may need to be retrained
+            if the temperature sensor starts to degrade and becomes less accurate.
+
+2. How would you go about setting thresholds to meaningful detect data drift in a model?
+
+    ??? success "Solution"
+
+        Threshold are most commonly set by examining historical data and identifying the natural viriability in the
+        feature distributions. Setting a threshold that is too low may lead to false positives (too many alerts) and
+        a high threshold may lead to false negatives (not detecting drift when it is present). Because of this duality,
+        thresholds are often set by examining the trade-off between these two types of errors, often in a very iterative
+        process.
+
+3. In what types of applications or industries is data drift a significant concern and why?
+
+    ??? success "Solution"
+
+        Data drift is of significant concerns in applications where data changes frequently and the model is expected to
+        generalize to new data. This could be industries such as e-commerce, financial forecasting and healthcare. For
+        example in e-commerce the products that are being sold may quickly change and the model should be able to adapt
+        to these changes.
+
+4. What are some strategies to proactively mitigate data drift?
+
+    ??? success "Solution"
+
+        Any strategy that focuses on creating a more generalizing model e.g. one that is less sensitive to the exact
+        distribution of the data. This could be done by using more data, using data augmentation, using more complex
+        models, using ensemble models etc.
 
 That ends the module on detection of data drifting, data quality etc. If this has not already been made clear,
-monitoring of machine learning applications is an extremely hard discipline because it is not a clear cut when we
+monitoring of machine learning applications is an extremely hard discipline because it is not a clear-cut when we
 should actually respond to feature beginning to drift and when it is probably fine. That comes down to the individual
 application what kind of rules that should be implemented. Additionally, the tools presented here are also in no way
 complete and are especially limited in one way: they are only considering the marginal distribution of data. Every
-analysis that we done have been on the distribution per feature (the marginal distribution), however as the image below
-show it is possible for data to have drifted to another distribution with the marginal being approximately the same.
+analysis that we're done have been on the distribution per feature (the marginal distribution), however as the image
+below show it is possible for data to have drifted to another distribution with the marginal being approximately the
+same.
 
 <figure markdown>
 ![Image](../figures/data_drift_marginals.png){width="500"}

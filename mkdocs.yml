@@ -70,15 +70,15 @@ plugins:
   - exclude:
       glob:
         - student_repos/*
-        - reports\README.md
-        - s10_extra\design.md
-        - s10_extra\infrastructure_as_code.md
-        - s10_extra\kubernetes.md
-        - s10_extra\orchestration.md
-        - s10_extra\calibration.md
-        - s10_extra\quantization.md
-        - samples\README.md
-        - tools\README.md
+        - reports/README.md
+        - s10_extra/design.md
+        - s10_extra/infrastructure_as_code.md
+        - s10_extra/kubernetes.md
+        - s10_extra/orchestration.md
+        - s10_extra/calibration.md
+        - s10_extra/quantization.md
+        - samples/README.md
+        - tools/README.md
 
 extra:
   social:
