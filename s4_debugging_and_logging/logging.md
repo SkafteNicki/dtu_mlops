@@ -37,27 +37,28 @@ for batch_idx, batch in enumerate(dataloader):
 
 This will keep a "record" of the events happening in our script, in this case how far we have progressed. We could even
 change the print to include something like `batch.shape` to also have information about the current data being
-processed.
+processed. Using `print` statements is fine for small applications, but to have proper logging we need a bit more
+functionality than what `print` can offer. Python actually comes with a great
+[logging](https://docs.python.org/3/library/logging.html) module, that defines functions for flexible logging. However,
+it does require a bit more setup than just using `print`:
 
-Using `print` statements is fine for small applications, but to have proper logging we need a bit more functionality
-than what `print` can offer. Python actually comes with a great
-[logging](https://docs.python.org/3/library/logging.html) module, that defines functions for flexible
-logging. It is exactly this we are going to look at in this module.
+```python
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.info("This is an info message")
+```
 
-The four main components to the Python logging module are:
+For this reason we are instead going to look at [loguru](https://github.com/Delgan/loguru) package which makes Python
+logging (stupidly) easy. Logging with loguru is essentially as easy as using `print`:
 
-1. *Logger*: The main entry point for using the logging system. You create instances of the Logger class to emit log
-    messages.
+```python
+from loguru import logger
+logger.info("This is an info message")
+```
 
-2. *Handler*: Defines where the log messages go. Handlers send the log messages to specific destinations, such as the
-    console or a file.
-
-3. *Formatter*: Specifies the layout of the log messages. Formatters determine the structure of the log records,
-    including details like timestamps and log message content.
-
-4. *Level*: Specifies the severity of a log message.
-
-Especially, the last point is important to understand. Levels essentially allows of to get rid of statements like this:
+The only core different is that we need to understand what log levels are and how to use them. Levels essentially allows
+of to get rid of statements like this:
 
 ```python
 if debug:
@@ -67,7 +68,7 @@ if debug:
 where the logging is conditional on the variable `debug` which we can set a runtime. Thus, it is something we can
 disable for users of our application (`debug=False`) but have enabled when we develop the application (`debug=True`).
 And it makes sense that not all things logged, should be available to all stakeholders of a codebase. We as developers
-probably always wants the highest level of logging, whereas users of the our code need less info and we may want to
+probably always wants the highest level of logging, whereas users of our code need less info, and we may want to
 differentiate this based on users.
 
 <figure markdown>
@@ -89,128 +90,83 @@ except ValueError:
     print("I failed to do a thing, but continuing.")
 ```
 
-Why would we evere need log `warning`, `error`, `critical` levels of information, if we are just going to handle it?
+Why would we ever need log `warning`, `error`, `critical` levels of information, if we are just going to handle it?
 The reason is that raising exceptions are meant to change the *program flow at runtime* e.g. things we do not want the
 user to do, but we can deal with in some way. Logging is always for *after* a program have run, to inspect what went
 wrong. Sometimes you need one, sometimes the other, sometimes both.
 
 ### ❔ Exercises
 
-Exercises are inspired by this [made with ml](https://madewithml.com/courses/mlops/logging/) module on the same topic.
-If you need help for the exercises you can find a simple solution script
-[here](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files).
+If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/en/stable/) for help.
 
-1. As logging is a built-in module in Python, nothing needs to be installed. Instead start a new file called
-    `my_logger.py` and start out with the following code:
+1. Start by installing `loguru`:
 
-    ```python
-    import logging
-    import sys
-
-    # Create super basic logger
-    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-    logger = logging.getLogger(__name__) # (1)
-
-    # Logging levels (from lowest to highest priority)
-    logger.debug("Used for debugging your code.")
-    logger.info("Informative messages from your code.")
-    logger.warning("Everything works but there is something to be aware of.")
-    logger.error("There's been a mistake with the process.")
-    logger.critical("There is something terribly wrong and process may terminate.")
+    ```bash
+    pip install loguru
     ```
 
-    1. :man_raising_hand: The built-in variable `__name__` always contains the record of the script or module that is
-        currently being run. Therefore if we initialize our logger base using this variable, it will always be unique
-        to our application and not conflict with logger setup by any third-party package.
+    and remember to add to your requirements file.
 
-    Try running the code. Than try changing the argument `level` when creating the logger. What happens when you do
-    that?
+2. Create a script called `my_logger.py` and try logging a few messages using `loguru`. Make sure to log at least one
+    message of each level: `debug`, `info`, `warning`, `error` and `critical`.
 
-2. Instead of sending logs to the terminal, we may also want to send them to a file. This can be beneficial, such that
-    only `warning` level logs and higher are available to the user, but `debug` and `info` is still saved when the
-    application is running.
+    ??? success "Solution"
 
-    1. Try adding the following dict to your `logger.py` file:
-
-        ```python
-        logging_config = {
-            "version": 1,
-            "formatters": { # (1)
-                "minimal": {"format": "%(message)s"},
-                "detailed": {
-                    "format": "%(levelname)s %(asctime)s [%(name)s:%(filename)s:%(funcName)s:%(lineno)d]\n%(message)s\n"
-                },
-            },
-            "handlers": { # (2)
-                "console": {
-                    "class": "logging.StreamHandler",
-                    "stream": sys.stdout,
-                    "formatter": "minimal",
-                    "level": logging.DEBUG,
-                },
-                "info": {
-                    "class": "logging.handlers.RotatingFileHandler",
-                    "filename": Path(LOGS_DIR, "info.log"),
-                    "maxBytes": 10485760,  # 1 MB
-                    "backupCount": 10,
-                    "formatter": "detailed",
-                    "level": logging.INFO,
-                },
-                "error": {
-                    "class": "logging.handlers.RotatingFileHandler",
-                    "filename": Path(LOGS_DIR, "error.log"),
-                    "maxBytes": 10485760,  # 1 MB
-                    "backupCount": 10,
-                    "formatter": "detailed",
-                    "level": logging.ERROR,
-                },
-            },
-            "root": {
-                "handlers": ["console", "info", "error"],
-                "level": logging.INFO,
-                "propagate": True,
-            },
-        }
+        ```python linenums="1" title="my_logger.py"
+        --8<-- "s4_debugging_and_logging/exercise_files/my_logger.py"
         ```
 
-        1. :man_raising_hand: The [formatter](https://docs.python.org/3/library/logging.html#formatter-objects) section
-            determines how logs should be formatted. Here we define two separate formatters, called `minimal` and
-            `detailed` which we can use in the next part of the code.
+3. Configure the logging level such that only messages of level `warning` and higher are shown. Confirm by rerunning
+    the script.
 
-        2. :man_raising_hand: The [handlers](https://docs.python.org/3/library/logging.html#handler-objects) is in
-            charge of what should happen to different level of logging. `console` uses the `minimal` format we defined
-            and sens logs to the `stdout` stream for messages of level `DEBUG` and higher. The `info` handler uses
-            the `detailed` format and sends messages of level `INFO` and higher to a separate `info.log` file. The
-            `error` handler does the same for messages of level `ERROR` and higher to a file called `error.log`.
+    ??? success "Solution"
 
-        you will need to set the `LOGS_DIR` variable and also figure out how to add this `logging_config` using the
-        [logging config](https://docs.python.org/3/library/logging.config.html#module-logging.config) submodule to your
-        logger.
+        ```python
+        import sys
+        from loguru import logger
+        logger.remove()  # Remove the default logger
+        logger.add(sys.stdout, level="WARNING")  # Add a new logger with WARNING level
+        ```
 
-    2. When the code successfully runs, check the `LOGS_DIR` folder and make sure that a `info.log` and `error.log` file
-        was created with the appropriate content.
+        as an alternative you can set the `LOGURU_LEVEL` environment variable to `WARNING` before running the script.
 
-3. Finally, lets try to add a little bit of style and color to our logging. For this we can use the great package
-    [rich](https://github.com/Textualize/rich) which is a great package for *rich* text and beautiful formatting in
-    terminals. Install `rich` and add the following line to your `my_logger.py`
-    script:
+4. Instead of sending logs to the terminal, lets instead log to a file. This can be beneficial, such that only
+    `warning` level logs and higher are available to the user, but `debug` and `info` is still saved when the
+    application is running. Change the code such that logs are saved to a file called `my_log.log`.
 
-    ```python
-    logger.root.handlers[0] = RichHandler(markup=True)  # set rich handler
-    ```
+    ??? success "Solution"
 
-    and try re-running the script. Hopefully you should see something beautiful in your terminal like this:
+        ```python
+        from loguru import logger
+        logger.add("my_log.log", level="DEBUG")
+        ```
 
-    <figure markdown>
-    ![Image](../figures/rich_terminal_logging.png){ width="700" }
-    </figure>
+    1. A common problem with logging to an file is that the file can grow very large over time. Luckily, loguru has
+        a build in feature for rotating logs. Add this feature to the logger, such that the log file is rotated when
+        it reaches 100 MB.
 
-4. (Optional) We already briefly touched on logging during the
-    [module on config files using hydra](../s3_reproducibility/config_files.md). If you want to configure hydra to use
-    custom logging scheme as the one we setup in the last two exercises, you can take a look at this
-    [page](https://hydra.cc/docs/configure_hydra/logging/). In hydra you will need to provide the configuration of the
-    logger as config file. You can find examples of such config file
-    [here](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files).
+        ??? success "Solution"
+
+            ```python
+            from loguru import logger
+            logger.add("my_log.log", level="DEBUG", rotation="100 MB")
+            ```
+
+5. (Optional) Play around with some of the other features that loguru provides such as: `logger.catch` for catching
+    errors and sending them to the logger, the `format` argument for changing the format (and color) of the logs and the
+    `opt` method for lazy evaluation of logs.
+
+6. (Optional) We already briefly touched on logging during the
+    [module on config files using hydra](../s3_reproducibility/config_files.md). Officially, `loguru` and `hydra` does
+    not really integrate because `hydra` uses the standard Python logging module. However, you can still use `loguru`
+    with `hydra` by configuring `loguru` to save a log file to the same location as hydra is saving its logs. Try
+    implementing this in your hydra project.
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="my_logger_hydra.py"
+        --8<-- "s4_debugging_and_logging/exercise_files/my_logger_hydra.py"
+        ```
 
 ## Experiment logging
 

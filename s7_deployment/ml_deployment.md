@@ -38,7 +38,7 @@ def get_github_stars(owner_repo):
     else:
         return None
 
-table =  "| 🌟 Framework | 🧩 Backend Agnostic | 🧠 Model Agnostic | 📂 Repository | ⭐ Github Stars |\n"
+table =  "| 🌟 Framework | 🧩 Backend Agnostic | 🧠 Model Agnostic | 📂 Repository | ⭐ GitHub Stars |\n"
 table += "|--------------|---------------------|-------------------|---------------|----------------|\n"
 
 data = [
@@ -80,7 +80,7 @@ framework to deploy your model, you should consider the following:
 
 * **Community**. Some frameworks have a large community, which can be helpful if you run into problems. As an example
     from the list above, `Triton Inference Server` is developed by Nvidia and has a large community of users. As a good
-    rule of thumb, the more stars a repository has on Github, the larger the community.
+    rule of thumb, the more stars a repository has on GitHub, the larger the community.
 
 In this module we are going to be looking at the `BentoML` framework because it strikes a good balance between ease of
 use and having a lot of features that can improve the performance of serving your models. However, before we dive into

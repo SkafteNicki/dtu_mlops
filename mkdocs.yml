@@ -91,7 +91,7 @@ extra:
 
 nav:
   - Home: README.md
-  - Timeplan: pages/timeplan.md
+  - Time plan: pages/timeplan.md
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
@@ -118,7 +118,7 @@ nav:
   - S5 - Continuous Integration ✔️:
     - s5_continuous_integration/README.md
     - M16 - Unit testing: s5_continuous_integration/unittesting.md
-    - M17 - Github Actions: s5_continuous_integration/github_actions.md
+    - M17 - GitHub Actions: s5_continuous_integration/github_actions.md
     - M18 - Pre-commit: s5_continuous_integration/pre_commit.md
     - M19 - Continuous Machine Learning: s5_continuous_integration/cml.md
   - S6 - The cloud 🌐:

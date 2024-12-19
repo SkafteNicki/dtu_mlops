@@ -240,9 +240,9 @@ future as you start to add more and more features. As subgoals, please fulfill t
     python main.py evaluate trained_model.pt
     ```
 
-    which can be implemented in various ways. We provide you with a starting script that uses the `click` library to
+    which can be implemented in various ways. We provide you with a starting script that uses the `typer` library to
     define a command line interface (CLI), which you can learn more about in
-    [this module](../s2_organisation_and_version_control/cli.md).
+    [this module](../s2_organisation_and_version_control/cli.md) later in the course.
 
     ??? note "VS code and command line arguments"
 

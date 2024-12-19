@@ -178,14 +178,14 @@ created. The API is an abstraction layer that allows the user to interact with o
 to interact with it, without the user even having to look at the code.
 
 We can take the API from GitHub as an example <https://api.github.com>. This API allows any user to retrieve, integrate
-and send data to Github without ever having to visit their webpage. The API exposes multiple endpoints that have various
+and send data to GitHub without ever having to visit their webpage. The API exposes multiple endpoints that have various
 functions:
 
 * <https://api.github.com/repos/OWNER/REPO/branches>: check out the branches on a given repository
-* <https://api.github.com/search/code>: search through Github for repositories
+* <https://api.github.com/search/code>: search through GitHub for repositories
 * <https://api.github.com/repos/OWNER/REPO/actions/workflows>: check the status of workflows for a given repository
 
-and we could go on. However, there may be functionality that Github is not interested in users having access to and
+and we could go on. However, there may be functionality that GitHub is not interested in users having access to and
 they may therefore choose not to have endpoints for specific features (1).
 { .annotate }
 

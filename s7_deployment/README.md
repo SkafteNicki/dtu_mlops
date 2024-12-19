@@ -37,7 +37,7 @@
 </div>
 
 Let's say that you have spent 1000 GPU hours and trained the most awesome model that you want to share with the
-world. One way to do this is, of course, to just place all your code in a Github repository, upload a file with
+world. One way to do this is, of course, to just place all your code in a GitHub repository, upload a file with
 the trained model weights to your favorite online storage (assuming it is too big for GitHub to handle) and
 ask people to just download your code and the weights to run the code by themselves. This is a fine approach in a small
 research setting, but in production, you need to be able to **deploy** the model to an environment that is fully

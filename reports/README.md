@@ -37,7 +37,7 @@ short, too long, or have you included an image when asked to.
 For both functions to work you mustn't rename anything. The script has two dependencies that can be installed with
 
 ```bash
-pip install click markdown
+pip install typer markdown
 ```
 
 ## Overall project checklist

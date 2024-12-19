@@ -205,8 +205,8 @@ services some more to make sure you are not a bot that wants to mine crypto.
 
 At some point, you will most likely need to use a service account. A service account is a virtual account that is used
 to interact with the Google Cloud API. It it intended for non-human users e.g. other machines, services, etc. For
-example, if you want to launch a training job from Github Actions, you will need to use a service account for
-authentication between Github and GCP. You can read more about how to create a service account
+example, if you want to launch a training job from GitHub Actions, you will need to use a service account for
+authentication between GitHub and GCP. You can read more about how to create a service account
 [here](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
 
 ### ❔ Exercises

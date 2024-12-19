@@ -1,13 +1,12 @@
 # run following commands to install requirements
-# pip install click
-# pip install markdown
+# pip install typer markdown
 
 import re
 import warnings
 from functools import partial
 
-import click
 import markdown
+import typer
 
 
 class TeacherWarning(UserWarning):
@@ -46,12 +45,10 @@ def multi_constrains(answer, index, constrains) -> None:
         fn(answer, index)
 
 
-@click.group()
-def cli() -> None:
-    """CLI for report."""
+app = typer.Typer()
 
 
-@cli.command()
+@app.command()
 def html() -> None:
     """Convert README.md to html page."""
     with open("README.md") as file:
@@ -64,7 +61,7 @@ def html() -> None:
         newfile.write(html)
 
 
-@cli.command()
+@app.command()
 def check() -> None:
     """Check if report satisfies the requirements."""
     with open("README.md") as file:
@@ -134,4 +131,4 @@ def check() -> None:
 
 
 if __name__ == "__main__":
-    cli()
+    app()

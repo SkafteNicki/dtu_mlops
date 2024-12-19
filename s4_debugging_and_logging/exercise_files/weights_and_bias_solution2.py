@@ -1,6 +1,6 @@
-import click
 import matplotlib.pyplot as plt
 import torch
+import typer
 import wandb
 from my_project.data import corrupt_mnist
 from my_project.model import MyAwesomeModel
@@ -9,11 +9,7 @@ from sklearn.metrics import RocCurveDisplay
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
 
-@click.command()
-@click.option("--lr", type=float, default=0.001, help="Learning rate")
-@click.option("--batch_size", type=int, default=32, help="Batch size")
-@click.option("--epochs", type=int, default=5, help="Number of epochs")
-def train(lr, batch_size, epochs) -> None:
+def train(lr: float = 0.001, batch_size: int = 32, epochs: int = 5) -> None:
     """Train a model on MNIST."""
     print("Training day and night")
     print(f"{lr=}, {batch_size=}, {epochs=}")
@@ -77,4 +73,4 @@ def train(lr, batch_size, epochs) -> None:
 
 
 if __name__ == "__main__":
-    train()
+    typer.run(train)

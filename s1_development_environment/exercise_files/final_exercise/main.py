@@ -1,17 +1,13 @@
-import click
 import torch
+import typer
 from data_solution import corrupt_mnist
 from model import MyAwesomeModel
 
-
-@click.group()
-def cli() -> None:
-    """Command line interface."""
+app = typer.Typer()
 
 
-@click.command()
-@click.option("--lr", default=1e-3, help="learning rate to use for training")
-def train(lr) -> None:
+@app.command()
+def train(lr: float = 1e-3) -> None:
     """Train a model on MNIST."""
     print("Training day and night")
     print(lr)
@@ -21,9 +17,8 @@ def train(lr) -> None:
     train_set, _ = corrupt_mnist()
 
 
-@click.command()
-@click.argument("model_checkpoint")
-def evaluate(model_checkpoint) -> None:
+@app.command()
+def evaluate(model_checkpoint: str) -> None:
     """Evaluate a trained model."""
     print("Evaluating like my life depends on it")
     print(model_checkpoint)
@@ -33,9 +28,5 @@ def evaluate(model_checkpoint) -> None:
     _, test_set = corrupt_mnist()
 
 
-cli.add_command(train)
-cli.add_command(evaluate)
-
-
 if __name__ == "__main__":
-    cli()
+    app()

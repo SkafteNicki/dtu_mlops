@@ -248,8 +248,8 @@ your project code is installed in your environment such that it can be imported 
 
 To publish your documentation you need a place to host your build documentation e.g. the content of the `site` folder
 you build in the last exercise. There are many places to host your documentation, but if you only need a static site
-and are already hosting your code through Github, then a good option is [Github Pages](https://pages.github.com/).
-Github pages is free to use for your public projects.
+and are already hosting your code through GitHub, then a good option is [GitHub Pages](https://pages.github.com/).
+GitHub pages is free to use for your public projects.
 
 Before getting started with this set of exercises you should have completed
 [module M16 on GitHub actions](../s5_continuous_integration/github_actions.md) so you already know about workflow files.
@@ -303,8 +303,8 @@ Before getting started with this set of exercises you should have completed
 2. Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
     a branch called `gh-pages`. If the action does not succeeds, then figure out what is wrong and fix it!
 
-3. After confirming that our action is working, you need to configure Github to publish the content being
-    build by Github Actions. Do the following:
+3. After confirming that our action is working, you need to configure GitHub to publish the content being
+    build by GitHub Actions. Do the following:
 
     * Go to the Settings tab and then the Pages subsection
     * In the `Source` setting choose the `Deploy from a branch`

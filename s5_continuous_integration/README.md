@@ -10,10 +10,10 @@
     [:octicons-arrow-right-24: M16: Unit testing](unittesting.md)
 
 - ![](../figures/icons/actions.png){align=right : style="height:100px;width:100px"}
-    Learn how to implement continuous integration using Github actions such that tests are automatically executed on
+    Learn how to implement continuous integration using GitHub actions such that tests are automatically executed on
     code changes.
 
-    [:octicons-arrow-right-24: M17: Github Actions](github_actions.md)
+    [:octicons-arrow-right-24: M17: GitHub Actions](github_actions.md)
 
 - ![](../figures/icons/precommit.png){align=right : style="height:100px;width:100px"}
     Learn how to use pre-commit to ensure that code that is not up to standard does not get committed.
@@ -22,7 +22,7 @@
 
 - ![](../figures/icons/cml.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to implement continuous machine learning pipelines in Github actions.
+    Learn how to implement continuous machine learning pipelines in GitHub actions.
 
     [:octicons-arrow-right-24: M19: Continuous Machine Learning](cml.md)
 
@@ -63,7 +63,7 @@ of our pipeline than in the end.
     The learning objectives of this session are:
 
     * Being able to write unit tests that cover both data and models in your ML pipeline
-    * Know how to implement continuous integration using Github actions such that tests are automatically executed on
+    * Know how to implement continuous integration using GitHub actions such that tests are automatically executed on
         code changes
     * Can use pre-commit to secure that code that is not up to standard does not get committed
     * Know how to implement continuous integration for continuous building of containers

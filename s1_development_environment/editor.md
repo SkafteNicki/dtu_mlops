@@ -144,7 +144,7 @@ in your toolbox.
 
 ## AI assistance
 
-You are probably all familiar with using AI tools for solving different tasks in your daily life and you have most
+You are probably all familiar with using AI tools for solving different tasks in your daily life, and you have most
 likely also used AI tools like ChatGPT or similar for programming. However, most of these tools are not directly
 integrated into your editor, which can lead to a lot of [context-switching](https://reclaim.ai/blog/context-switching)
 that in general leads to lower productivity.
@@ -173,7 +173,7 @@ code you are currently writing and in general it just has access to a larger con
     class Net(nn.Module):
     ```
 
-    Github Copilot will most likely suggest you complete the code using linear layers with an input dimension of
+    GitHub Copilot will most likely suggest you complete the code using linear layers with an input dimension of
     `28*28`. Can you explain why it suggests this and where this bias comes from?
 
 4. The second feature that can be very useful is the ability to directly chat or ask questions regarding
@@ -210,7 +210,7 @@ code you are currently writing and in general it just has access to a larger con
 
     and run it in the terminal: `python copilot.py`. It will naturally give you an error, but you can now ask GitHub
     Copilot for help. The easiest way to do this is by highlighting the output in the terminal and then pressing running
-    the `Github Copilot: Explain This (Terminal)` command (see the image below, use `Ctrl+Shift+P` to open the command
+    the `GitHub Copilot: Explain This (Terminal)` command (see the image below, use `Ctrl+Shift+P` to open the command
     palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
     the code running?
 
@@ -218,13 +218,13 @@ code you are currently writing and in general it just has access to a larger con
     ![Image](../figures/github_copilot2.png){ width="700" }
     </figure>
 
-6. (Optional) Just to investigate the difference between using Github Copilot and ChatGPT, try to redo the previous
+6. (Optional) Just to investigate the difference between using GitHub Copilot and ChatGPT, try to redo the previous
     exercises using ChatGPT. What are the main differences between the two tools? (1)
     { .annotate }
 
     1. :man_raising_hand: Remember that ChatGPT is a general AI model, meaning that it was trained to be good at many
-        different tasks, whereas GitHub Copilot (which uses OpenAI's Codex model under the hood) was specifically
-        trained to be good at coding.
+        tasks, whereas GitHub Copilot (which uses OpenAI's Codex model under the hood) was specifically trained to be
+        good at coding.
 
 That was a small introduction to GitHub Copilot. We highly recommend that you try to use it during the course to see
 how it can help you solve both the exercises and the final project. However, when using AI tools it is always important

@@ -2,7 +2,7 @@ import logging
 import operator
 import os
 
-import click
+import typer
 import wandb
 from dotenv import load_dotenv
 
@@ -10,11 +10,7 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 
-@click.command()
-@click.argument("model-name")
-@click.option("--metric_name", default="accuracy", help="Name of the metric to choose the best model from.")
-@click.option("--higher-is-better", default=True, help="Whether higher metric values are better.")
-def stage_best_model_to_registry(model_name, metric_name, higher_is_better) -> None:
+def stage_best_model_to_registry(model_name: str, metric_name: str = "accuracy", higher_is_better: bool = True) -> None:
     """
     Stage the best model to the model registry.
 
@@ -52,4 +48,4 @@ def stage_best_model_to_registry(model_name, metric_name, higher_is_better) -> N
 
 
 if __name__ == "__main__":
-    stage_best_model_to_registry()
+    typer.run(stage_best_model_to_registry)

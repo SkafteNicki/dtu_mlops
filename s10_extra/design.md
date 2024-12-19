@@ -9,7 +9,7 @@
 
 We highly recommend that you read the book
 *Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications* by Chip Huyen which gives
-an fantastic overview of the thought processes that goes into designing moder machine learning systems.
+an fantastic overview of the taught processes that goes into designing modern machine learning systems.
 
 # The stack
 
