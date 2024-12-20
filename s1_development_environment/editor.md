@@ -156,7 +156,7 @@ code you are currently writing and in general it just has access to a larger con
 
 ### ❔ Exercises
 
-1. As of writing this GitHub Copilot is free for all students, teachers and maintainers of popular open-source projects.
+1. As of writing this, GitHub Copilot is free for all students, teachers and maintainers of popular open-source projects.
     As a student, sign up for the [Student Developer Pack](https://education.github.com/pack#offers)
 
 2. Install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) in your

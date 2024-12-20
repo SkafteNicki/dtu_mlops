@@ -7,19 +7,19 @@
 !!! info "Core Module"
 
 Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
-This is the reason that **version control** exist. Simply stated, it is a way to keep track of:
+This is the reason that **version control** exists. Simply stated, it is a way to keep track of:
 
 * Who made changes to the code
 * When did the change happen
 * What changes were made
 
-For a full explanation please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
+For a full explanation, please see this [page](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F).
 
 Secondly, it is important to note that GitHub is not git! GitHub is the dominating player when it comes to
 hosting repositories but that does not mean that they are the only one providing free repository hosting
 (see [bitbucket](https://bitbucket.org/product/) or [gitlab](https://about.gitlab.com/)) for some other examples.
 
-That said we will be using git and GitHub throughout this course. It is a requirement for passing this course that
+That said, we will be using git and GitHub throughout this course. It is a requirement for passing this course that
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+GitHub.
 
@@ -59,18 +59,18 @@ this into your own projects depends, but you are at least expected to be familia
 
 ## Git overview
 
-The most simple way to think of version control, is that it is just nodes with lines connecting them
+The most simple way to think of version control is that it is just nodes with lines connecting them:
 
 <figure markdown>
   ![Image](../figures/git_branch.png){width="1000," }
 </figure>
 
-Each node, which we call a *commit* is uniquely identified by a hash string. Each node, stores what our code
+Each node, which we call a *commit*, is uniquely identified by a hash string. Each node stores what our code
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
 revert to a specific point in time.
 
 The commits are made up of local changes that we make to our code. A basic workflow for
-adding commits are seen below
+adding commits are seen below:
 
 <figure markdown>
 ![Image](../figures/git_structure.PNG){width="1000," }
@@ -98,7 +98,7 @@ Of course, the real power of version control is the ability to make branches, as
 </figcaption>
 </figure>
 
-Each branch can contain code that are not present on other branches. This is useful when you are many developers
+Each branch can contain code that is not present on other branches. This is useful when you are many developers
 working together on the same project.
 
 ### ❔ Exercises
@@ -155,7 +155,7 @@ working together on the same project.
 
 4. Git may seem like a waste of time when solutions like dropbox, google drive etc exist, and it is
     not completely untrue when you are only one or two working on a project. However, these file management
-    systems falls short when hundreds to thousands of people work together. For this exercise you will
+    systems fall short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:
 
     1. Go online and find a project you do not own, where you can improve the code. You can either look at this
@@ -206,7 +206,7 @@ working together on the same project.
         ```
 
 7. As a final exercise we want to simulate a *merge conflict*, which happens when two users try to commit changes
-    to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be
+    to exactly the same lines of code in the codebase, and git is not able to resolve how the different commits should be
     integrated.
 
     1. In your browser, open your favorite repository (it could be the one you just worked on), go to any file of
@@ -232,7 +232,7 @@ working together on the same project.
         >>>>>>> master
         ```
 
-        this should be interpret as: everything that's between `<<<<<<<` and `=======` are the changes made by your
+        this should be interpreted as: everything that's between `<<<<<<<` and `=======` are the changes made by your
         local commit and everything between `=======` and `>>>>>>>` are the changes you are trying to pull. To fix
         the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
         remove the identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
