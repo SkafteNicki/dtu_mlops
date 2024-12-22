@@ -18,7 +18,7 @@ concept of technical debt, namely that we should develop methods, processes, and
 DevOps) to counter the problems we run into when working with deep learning models.
 
 It is important to note that all the concepts and tools that have been developed for MLOps can be used together with
-more classical machine learning models (think K-nearest neighbor, Random forest, etc.), however, deep learning comes
+more classic machine learning models (think K-nearest neighbor, Random forest, etc.), however, deep learning comes
 with its own set of problems which mostly have to do with the sheer size of the data and models we are
 working with. For these reasons, we are focusing on working with deep learning models in this course.
 
@@ -40,7 +40,7 @@ of when they were published):
 We won't go into a longer discussion on which framework is best, as it is pointless. PyTorch and TensorFlow have been
 around for the longest and therefore have bigger communities and feature sets at this point in time. They are both very
 similar in the sense that they both have features directed against research and production. JAX is kind of the new kid
-on the block, which in many ways improves on PyTorch and TensorFlow, but is still not as mature as the other frameworks.
+on the block, which in many ways improves on PyTorch and TensorFlow, but it is still not as mature as the other frameworks.
 As the frameworks use different kinds of programming principles (object-oriented vs. functional programming), comparing
 them is essentially meaningless.
 

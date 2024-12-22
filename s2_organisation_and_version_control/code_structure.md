@@ -13,7 +13,7 @@ some time initially getting organized with the chance of this making our code ea
 long run. If we do not spend time organizing our code, we may end up with a mess of code that is hard to understand
 or maintain
 
-!!! quote "Big ball of Mud"
+!!! quote "Big Ball of Mud"
     *A Big Ball of Mud is a haphazardly structured, sprawling, sloppy, duct-tape-and-baling-wire, spaghetti-code*
     *jungle. These systems show unmistakable signs of unregulated growth, and repeated, expedient repair. Information*
     *is shared promiscuously among distant elements of the system, often to the point where nearly all the important*
@@ -27,7 +27,7 @@ or maintain
     (PLoP '97/EuroPLoP '97) Monticello, Illinois, September 1997
 
 We are here going to focus on the organization of data science projects and machine learning projects. The core
-difference this kind of projects introduces compared to more traditional systems, is *data*. The key to modern machine
+difference this kind of projects introduces compared to more traditional systems is *data*. The key to modern machine
 learning is without a doubt the vast amounts of data that we have access to today. It is therefore not unreasonable that
 data should influence our choice of code structure. If we had another kind of application, then the layout of our
 codebase should probably be different.
@@ -42,8 +42,8 @@ custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The temp
 used for a couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
 
 We are not going to argue that this template is better than every other template, we are just focusing on that it is a
-**standardized** way of creating project structures for machine learning projects. By standardized we mean, that if two
-persons are both using `cookiecutter` with the same template, the layout of their code does follow some specific rules,
+**standardized** way of creating project structures for machine learning projects. By standardized we mean that if two
+people are using `cookiecutter` with the same template, the layout of their code follows some specific rules,
 enabling one to faster understand the other person's code. Code organization is therefore not only to make the
 code easier for you to maintain but also for others to read and understand.
 
@@ -53,7 +53,7 @@ Shown below is the default code structure of cookiecutter for data science proje
 ![Image](../figures/cookie_cutter.png){ width="1000" }
 </figure>
 
-What is important to keep in mind when using a template, is that it exactly is a template. By definition a template is
+What is important to keep in mind when using a template is that it exactly is a template. By definition, a template is
 a *guide* to make something. Therefore, not all parts of a template may be important for your project at hand. Your job
 is to pick the parts from the template that is useful for organizing your machine learning project and add the parts
 that are missing.
@@ -176,7 +176,7 @@ a lot of projects using `setup.py + setup.cfg` so it is good to at least know ab
     This non-standardized way of providing meta information regarding a package was essentially what lead to the
     creation of `pyproject.toml`.
 
-Regardless of what way a project is configured, after creating the above files the correct way to install them would be
+Regardless of what way a project is configured, after creating the above files, the correct way to install them would be
 the same
 
 ```bash
@@ -192,14 +192,14 @@ pip install -e . # (1)!
     can immediately take place without requiring a new installation.
 
 after running this your code should be available to import as `from project_name import ...` like any other Python
-package you use. This is the most essential you need to know about creating Python packages.
+package you use. This is the most essential information you need to know about creating Python packages.
 
 ## ❔ Exercises
 
-After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on taking the
-simple CNN MNIST classifier from yesterdays exercise and force it into this structure. You are not required to fill out
-every folder and file in the project structure, but try to at least follow the steps in exercises. Whenever you need to
-run a file I recommend always doing this from the root directory e.g.
+After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on the
+simple CNN MNIST classifier from yesterday's exercise and force it into this structure. You are not required to fill out
+every folder and file in the project structure, but try to at least follow the steps in the exercises. Whenever you need
+to run a file I recommend always doing this from the root directory e.g.
 
 ```bash
 python <project_name>/data/make_dataset.py data/raw data/processed
@@ -339,7 +339,7 @@ in this way paths (for saving and loading files) are always relative to the root
         --8<-- "s2_organisation_and_version_control/exercise_files/visualize_solution.py"
         ```
 
-11. (Optional) Feel free to create more files/visualizations (what about investigating/explore the data distribution?)
+11. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?)
 
 12. Make sure to update the `README.md` file with a short description on how your scripts should be run
 
@@ -433,5 +433,5 @@ happens in a team is that multiple templates are needed in different stages of t
 product types because they share common structure, while still having some specifics. Keeping templates up-to-date then
 becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we highly
 recommend to checkout [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make
-projects but update existing ones as template evolves. Cruft additionally also has template validation capabilities to
+projects but update existing ones as the template evolves. Cruft additionally also has template validation capabilities to
 ensure projects match the latest version of a template.

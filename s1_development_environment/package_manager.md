@@ -7,7 +7,7 @@
 !!! info "Core Module"
 
 Python is a great programming language and this is mostly due to its vast ecosystem of packages. No matter what you want
-to do, there is probably a package that can get you started. Just try to remember when the last time you wrote a program
+to do, there is probably a package that can get you started. Just try to remember the last time you wrote a program
 only using the [Python standard library](https://docs.python.org/3/library/index.html). Probably never. For this reason,
 we need a way to install third-party packages and this is where
 [package managers](https://en.wikipedia.org/wiki/Package_manager) come into play.
@@ -28,7 +28,7 @@ python main.py  # try executing main script from project A
 ```
 
 will mean that even though we are executing the main script from project A's folder, it will use `torch==2.0` instead of
-`torch==1.3.0` because that is the last version we installed because in both cases `pip` will install the package into
+`torch==1.3.0` because that is the last version we installed. In both cases, `pip` will install the package into
 the same environment, in this case, the global environment. Instead, if we did something like:
 
 === "Unix/macOS"
@@ -97,7 +97,7 @@ evaluation of the different environment management and packaging tools that exis
 
 If you are not familiar with any package managers, then we recommend that you use `conda` and `pip` for this course. You
 probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
-on your laptop, which is great. What conda does especially well, is that it allows you to create virtual environments
+on your laptop, which is great. What conda does especially well is that it allows you to create virtual environments
 with different Python versions, which can be really useful if you encounter dependencies that have not been updated in
 a long time. In this course specifically, we are going to recommend the following workflow
 
@@ -135,7 +135,7 @@ the API of the package. This is especially important when working with machine l
 that we can reproduce the exact same model at a later point.
 
 Finally, we also need to discuss *dependency resolution*, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have ever
+compatible. This is a non-trivial problem, and there exists a lot of different algorithms for doing this. If you have ever
 thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were trying
 to figure out which packages are compatible with each other. For example, if you try to install
 
@@ -274,7 +274,7 @@ in the exercise folder.
         pip install "pytest >= 4.6" pytest-cov==2.12.1
         ```
 
-        but there of course exist other solutions as well.
+        but there of course exists other solutions as well.
 
 This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
 to construct requirements files automatically, sometimes it is just easier to manually sit down and create the files as you
