@@ -1909,17 +1909,17 @@
 <p class="admonition-title">Core Module</p>
 </div>
 <p>Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
-This is the reason that <strong>version control</strong> exist. Simply stated, it is a way to keep track of:</p>
+This is the reason that <strong>version control</strong> exists. Simply stated, it is a way to keep track of:</p>
 <ul>
 <li>Who made changes to the code</li>
 <li>When did the change happen</li>
 <li>What changes were made</li>
 </ul>
-<p>For a full explanation please see this <a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F">page</a></p>
+<p>For a full explanation, please see this <a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F">page</a>.</p>
 <p>Secondly, it is important to note that GitHub is not git! GitHub is the dominating player when it comes to
 hosting repositories but that does not mean that they are the only one providing free repository hosting
 (see <a href="https://bitbucket.org/product/">bitbucket</a> or <a href="https://about.gitlab.com/">gitlab</a>) for some other examples.</p>
-<p>That said we will be using git and GitHub throughout this course. It is a requirement for passing this course that
+<p>That said, we will be using git and GitHub throughout this course. It is a requirement for passing this course that
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+GitHub.</p>
 <figure>
@@ -1959,15 +1959,15 @@ this into your own projects depends, but you are at least expected to be familia
 </li>
 </ol>
 <h2 id="git-overview">Git overview</h2>
-<p>The most simple way to think of version control, is that it is just nodes with lines connecting them</p>
+<p>The most simple way to think of version control is that it is just nodes with lines connecting them:</p>
 <figure>
 <p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
 </figure>
-<p>Each node, which we call a <em>commit</em> is uniquely identified by a hash string. Each node, stores what our code
+<p>Each node, which we call a <em>commit</em>, is uniquely identified by a hash string. Each node stores what our code
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
 revert to a specific point in time.</p>
 <p>The commits are made up of local changes that we make to our code. A basic workflow for
-adding commits are seen below</p>
+adding commits are seen below:</p>
 <figure>
 <p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
 </figure>
@@ -1995,7 +1995,7 @@ want to get these updates to be online in the <em>remote repository</em> we have
 <a href="https://dev.to/juanbelieni/creating-an-alias-for-deleting-useless-git-branches-105j"> Image credit </a>
 </figcaption>
 </figure>
-<p>Each branch can contain code that are not present on other branches. This is useful when you are many developers
+<p>Each branch can contain code that is not present on other branches. This is useful when you are many developers
 working together on the same project.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
@@ -2059,7 +2059,7 @@ is not present on the main branch.</p>
 <li>
 <p>Git may seem like a waste of time when solutions like dropbox, google drive etc exist, and it is
     not completely untrue when you are only one or two working on a project. However, these file management
-    systems falls short when hundreds to thousands of people work together. For this exercise you will
+    systems fall short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:</p>
 <ol>
 <li>
@@ -2117,7 +2117,7 @@ code updates to the original repository do not update code in your local reposit
 </li>
 <li>
 <p>As a final exercise we want to simulate a <em>merge conflict</em>, which happens when two users try to commit changes
-    to exactly same lines of code in the codebase, and git is not able to resolve how the different commits should be
+    to exactly the same lines of code in the codebase, and git is not able to resolve how the different commits should be
     integrated.</p>
 <ol>
 <li>
@@ -2142,7 +2142,7 @@ code updates to the original repository do not update code in your local reposit
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>totally different content to merge later
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
 </span></code></pre></div>
-<p>this should be interpret as: everything that's between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
+<p>this should be interpreted as: everything that's between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
 local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
 the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
 remove the identifiers <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</p>
@@ -2238,7 +2238,7 @@ GitHub has an built-in editor that can simply be enabled by changing any URL fro
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 22, 2024</span>
   </span>
 
     
