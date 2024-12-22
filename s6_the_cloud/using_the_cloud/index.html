@@ -288,7 +288,7 @@
         
   
   <span class="md-ellipsis">
-    Timeplan
+    Time plan
   </span>
   
 
@@ -965,7 +965,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Github Actions
+    M17 - GitHub Actions
   </span>
   
 
@@ -2623,7 +2623,7 @@ you can push it to the repository by running:</p>
 </li>
 <li>
 <p>(Optional) Instead of using the built-in trigger in GCP, another way to activate the build-on code changes is to
-    integrate with Github Actions. This has the benefit that we can make the build process depend on other steps in the
+    integrate with GitHub Actions. This has the benefit that we can make the build process depend on other steps in the
     pipeline. For example, in the image below we have conditioned the build to only run if tests are passing on
     all operating systems. Lets try to implement this.</p>
 <p><figure markdown>
@@ -2631,8 +2631,8 @@ you can push it to the repository by running:</p>
 </figure></p>
 <ol>
 <li>
-<p>Start by adding a new secret to Github with the name <code>GCLOUD_SERVICE_KEY</code> and the value of the service account
-    key that you created in the previous module. This is needed to authenticate the Github action with GCP.</p>
+<p>Start by adding a new secret to GitHub with the name <code>GCLOUD_SERVICE_KEY</code> and the value of the service account
+    key that you created in the previous module. This is needed to authenticate the GitHub action with GCP.</p>
 </li>
 <li>
 <p>We assume that you already have a workflow file that runs some unit tests:</p>
@@ -2701,7 +2701,7 @@ the <code>test</code> job? Hint: Relevant
 <li>Setup gcloud</li>
 <li>Submit the build</li>
 </ul>
-<p>How can you do this? Hint: For the first two steps these two Github actions can be useful:
+<p>How can you do this? Hint: For the first two steps these two GitHub actions can be useful:
 <a href="https://github.com/google-github-actions/auth">auth</a> and
 <a href="https://github.com/google-github-actions/setup-gcloud">setup-gcloud</a>.</p>
 <details class="success">
@@ -2848,7 +2848,7 @@ models, and then use other services for different parts of our pipeline.</p>
 </li>
 <li>
 <p>When you have logged in to the VM, it works as your machine. Therefore to run some training code you would
-    need to do the same setup step you have done on your machine: clone your Github, install dependencies,
+    need to do the same setup step you have done on your machine: clone your GitHub, install dependencies,
     download data, and run code. Try doing this to make sure you can train a model.</p>
 </li>
 </ol>
@@ -3198,7 +3198,7 @@ bit more of the services offered in GCP, in particular for deploying the models 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 22, 2024</span>
   </span>
 
     

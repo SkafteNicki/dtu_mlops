@@ -284,7 +284,7 @@
         
   
   <span class="md-ellipsis">
-    Timeplan
+    Time plan
   </span>
   
 
@@ -961,7 +961,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Github Actions
+    M17 - GitHub Actions
   </span>
   
 
@@ -1779,9 +1779,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional" class="md-nav__link">
+  <a href="#extra" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional
+      Extra
     </span>
   </a>
   
@@ -2060,6 +2060,21 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#question-23" class="md-nav__link">
     <span class="md-ellipsis">
@@ -2073,6 +2088,24 @@
   <a href="#question-24" class="md-nav__link">
     <span class="md-ellipsis">
       Question 24
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 25
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 26
     </span>
   </a>
   
@@ -2094,27 +2127,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#question-25" class="md-nav__link">
-    <span class="md-ellipsis">
-      Question 25
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-26" class="md-nav__link">
-    <span class="md-ellipsis">
-      Question 26
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#question-27" class="md-nav__link">
     <span class="md-ellipsis">
       Question 27
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 28
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-29" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 29
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 30
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-31" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 31
     </span>
   </a>
   
@@ -2160,7 +2211,7 @@
 <p>This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
 like:</p>
 <p><code>--- question 1 fill here ---</code></p>
-<p>where you instead should add your answers. Any other changes may have unwanted consequences when your report is
+<p>Where you instead should add your answers. Any other changes may have unwanted consequences when your report is
 auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
 to the <code>figures</code> subfolder (please only use <code>.png</code>, <code>.jpg</code> or <code>.jpeg</code>) and then add the following code in your answer:</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>![<span class="nt">my_image</span>](<span class="na">figures/&lt;image&gt;.&lt;extension&gt;</span>)
@@ -2169,69 +2220,86 @@ to the <code>figures</code> subfolder (please only use <code>.png</code>, <code>
 <p>Running:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>report.py<span class="w"> </span>html
 </span></code></pre></div>
-<p>will generate a <code>.html</code> page of your report. After the deadline for answering this template, we will auto-scrape
-everything in this <code>reports</code> folder and then use this utility to generate an <code>.html</code> page that will be your serve
+<p>Will generate a <code>.html</code> page of your report. After the deadline for answering this template, we will auto-scrape
+everything in this <code>reports</code> folder and then use this utility to generate a <code>.html</code> page that will be your serve
 as your final hand-in.</p>
 <p>Running</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>report.py<span class="w"> </span>check
 </span></code></pre></div>
-<p>will check your answers in this template against the constraints listed for each question e.g. is your answer too
-short, too long, or have you included an image when asked to.</p>
-<p>For both functions to work you mustn't rename anything. The script has two dependencies that can be installed with</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>click<span class="w"> </span>markdown
+<p>Will check your answers in this template against the constraints listed for each question e.g. is your answer too
+short, too long, or have you included an image when asked. For both functions to work you mustn't rename anything.
+The script has two dependencies that can be installed with</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>typer<span class="w"> </span>markdown
 </span></code></pre></div>
 <h2 id="overall-project-checklist">Overall project checklist</h2>
 <p>The checklist is <em>exhaustive</em> which means that it includes everything that you could do on the project included in the
-curriculum in this course. Therefore, we do not expect at all that you have checked all boxes at the end of the project.</p>
+curriculum in this course. Therefore, we do not expect at all that you have checked all boxes at the end of the project.
+The parenthesis at the end indicates what module the bullet point is related to. Please be honest in your answers, we
+will check the repositories and the code to verify your answers.</p>
 <h3 id="week-1">Week 1</h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a git repository</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make sure that all team members have write access to the GitHub repository</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a dedicated environment for you project to keep track of your packages</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create the initial file structure using cookiecutter</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fill out the <code>make_dataset.py</code> file such that it downloads whatever data you need and</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a model file and a training script and get that running</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remember to fill out the <code>requirements.txt</code> file with whatever dependencies that you are using</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remember to comply with good coding practices (<code>pep8</code>) while doing the project</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Do a bit of code typing and remember to document essential parts of your code</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Setup version control for your data or part of your data</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Construct one or multiple docker files for your code</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Build the docker files locally and make sure they work as intended</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write one or multiple configurations files for your experiments</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Used Hydra to load the configurations and manage your hyperparameters</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> When you have something that works somewhat, remember at some point to to some profiling and see if
-      you can optimize your code</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use Weights &amp; Biases to log training progress and other important metrics/artifacts in your code. Additionally,
-      consider running a hyperparameter optimization sweep.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a git repository (M5)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make sure that all team members have write access to the GitHub repository (M5)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a dedicated environment for you project to keep track of your packages (M2)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create the initial file structure using cookiecutter with an appropriate template (M6)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fill out the <code>data.py</code> file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a model to <code>model.py</code> and a training procedure to <code>train.py</code> and get that running (M6)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remember to fill out the <code>requirements.txt</code> and <code>requirements_dev.txt</code> file with whatever dependencies that you
+    are using (M2+M6)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remember to comply with good coding practices (<code>pep8</code>) while doing the project (M7)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Do a bit of code typing and remember to document essential parts of your code (M7)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Setup version control for your data or part of your data (M8)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add command line interfaces and project commands to your code where it makes sense (M9)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Construct one or multiple docker files for your code (M10)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Build the docker files locally and make sure they work as intended (M10)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write one or multiple configurations files for your experiments (M11)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Used Hydra to load the configurations and manage your hyperparameters (M11)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use profiling to optimize your code (M12)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use logging to log important events in your code (M14)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use Weights &amp; Biases to log training progress and other important metrics/artifacts in your code (M14)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Consider running a hyperparameter optimization sweep (M14)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)</li>
 </ul>
 <h3 id="week-2">Week 2</h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write unit tests related to the data part of your code</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write unit tests related to model construction and or model training</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Calculate the coverage.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get some continuous integration running on the GitHub repository</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a trigger workflow for automatically building your docker images</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get your model training in GCP using either the Engine or Vertex AI</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a FastAPI application that can do inference using your model</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If applicable, consider deploying the model locally using torchserve</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Deploy your model in GCP using either Functions or Run as the backend</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write unit tests related to the data part of your code (M16)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write unit tests related to model construction and or model training (M16)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Calculate the code coverage (M16)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get some continuous integration running on the GitHub repository (M17)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add caching and multi-os/python/pytorch testing to your continuous integration (M17)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a linting step to your continuous integration (M17)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add pre-commit hooks to your version control setup (M18)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a continues workflow that triggers when data changes (M19)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a continues workflow that triggers when changes to the model registry is made (M19)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a trigger workflow for automatically building your docker images (M21)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Get your model training in GCP using either the Engine or Vertex AI (M21)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a FastAPI application that can do inference using your model (M22)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Deploy your model in GCP using either Functions or Run as the backend (M23)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write API tests for your application and setup continues integration for these (M24)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Load test your application (M24)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a frontend for your API (M26)</li>
 </ul>
 <h3 id="week-3">Week 3</h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Check how robust your model is towards data drifting</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Setup monitoring for the system telemetry of your deployed model</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Setup monitoring for the performance of your deployed model</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If applicable, play around with distributed data loading</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If applicable, play around with distributed model training</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Play around with quantization, compilation and pruning for you trained models to increase inference speed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Check how robust your model is towards data drifting (M27)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Deploy to the cloud a drift detection API (M27)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Instrument your API with a couple of system metrics (M28)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Setup cloud monitoring of your instrumented application (M28)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If applicable, optimize the performance of your data loading using distributed data loading (M29)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If applicable, optimize the performance of your training pipeline by using distributed training (M30)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)</li>
 </ul>
-<h3 id="additional">Additional</h3>
+<h3 id="extra">Extra</h3>
 <ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Write some documentation for your application (M32)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Publish the documentation to GitHub Pages (M32)</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Revisit your initial project description. Did the project turn out as you wanted?</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make sure all group members have a understanding about all parts of the project</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Uploaded all your code to github</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create an architectural diagram over your MLOps pipeline</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make sure all group members have an understanding about all parts of the project</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Uploaded all your code to GitHub</li>
 </ul>
 <h2 id="group-information">Group information</h2>
 <h3 id="question-1">Question 1</h3>
@@ -2250,7 +2318,8 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 <p>--- question 2 fill here ---</p>
 <h3 id="question-3">Question 3</h3>
 <blockquote>
-<p><strong>What framework did you choose to work with and did it help you complete the project?</strong></p>
+<p><strong>A requirement to the project is that you include a third-party package not covered in the course. What framework</strong>
+<strong>did you choose to work with and did it help you complete the project?</strong></p>
 <p>Recommended answer length: 100-200 words.</p>
 <p>Example:
 <em>We used the third-party framework ... in our project. We used functionality ... and functionality ... from the</em>
@@ -2260,7 +2329,8 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 <p>--- question 3 fill here ---</p>
 <h2 id="coding-environment">Coding environment</h2>
 <blockquote>
-<p>In the following section we are interested in learning more about you local development environment.</p>
+<p>In the following section we are interested in learning more about you local development environment. This includes
+how you managed dependencies, the structure of your code and how you managed code quality.</p>
 </blockquote>
 <h3 id="question-4">Question 4</h3>
 <blockquote>
@@ -2276,20 +2346,23 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 <h3 id="question-5">Question 5</h3>
 <blockquote>
 <p><strong>We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your</strong>
-<strong>code. Did you fill out every folder or only a subset?</strong></p>
+<strong>code. What did you fill out? Did you deviate from the template in some way?</strong></p>
 <p>Recommended answer length: 100-200 words</p>
 <p>Example:
 <em>From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder</em>
 <em>because we did not use any ... in our project. We have added an ... folder that contains ... for running our</em>
-<em>experiments.</em>
-Answer:</p>
+<em>experiments.</em></p>
+<p>Answer:</p>
 </blockquote>
 <p>--- question 5 fill here ---</p>
 <h3 id="question-6">Question 6</h3>
 <blockquote>
-<p><strong>Did you implement any rules for code quality and format? Additionally, explain with your own words why these</strong>
-<strong>concepts matters in larger projects.</strong></p>
-<p>Recommended answer length: 50-100 words.</p>
+<p><strong>Did you implement any rules for code quality and format? What about typing and documentation? Additionally,</strong>
+<strong>explain with your own words why these concepts matters in larger projects.</strong></p>
+<p>Recommended answer length: 100-200 words.</p>
+<p>Example:
+<em>We used ... for linting and ... for formatting. We also used ... for typing and ... for documentation. These</em>
+<em>concepts are important in larger projects because ... . For example, typing ...</em></p>
 <p>Answer:</p>
 </blockquote>
 <p>--- question 6 fill here ---</p>
@@ -2310,7 +2383,7 @@ corporate and increase the quality of your code.</p>
 <p>--- question 7 fill here ---</p>
 <h3 id="question-8">Question 8</h3>
 <blockquote>
-<p><strong>What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close</strong>
+<p><strong>What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close</strong>
 <strong>to), would you still trust it to be error free? Explain you reasoning.</strong></p>
 <p>Recommended answer length: 100-200 words.</p>
 <p>Example:
@@ -2396,7 +2469,7 @@ especially the reproducibility of your experiments.</p>
 <h3 id="question-15">Question 15</h3>
 <blockquote>
 <p><strong>Docker is an important tool for creating containerized applications. Explain how you used docker in your</strong>
-<strong>experiments? Include how you would run your docker images and include a link to one of your docker files.</strong></p>
+<strong>experiments/project? Include how you would run your docker images and include a link to one of your docker files.</strong></p>
 <p>Recommended answer length: 100-200 words.</p>
 <p>Example:
 <em>For our project we developed several images: one for training, inference and deployment. For example to run the</em>
@@ -2448,21 +2521,44 @@ especially the reproducibility of your experiments.</p>
 <p>--- question 19 fill here ---</p>
 <h3 id="question-20">Question 20</h3>
 <blockquote>
-<p><strong>Upload one image of your GCP artifact registry, such that we can see the different images that you have stored.</strong>
-<strong>You can take inspiration from <a href="figures/registry.png">this figure</a>.</strong></p>
+<p><strong>Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have</strong>
+<strong>stored. You can take inspiration from <a href="figures/registry.png">this figure</a>.</strong></p>
 <p>Answer:</p>
 </blockquote>
 <p>--- question 20 fill here ---</p>
 <h3 id="question-21">Question 21</h3>
 <blockquote>
-<p><strong>Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in</strong>
+<p><strong>Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in</strong>
 <strong>your project. You can take inspiration from <a href="figures/build.png">this figure</a>.</strong></p>
 <p>Answer:</p>
 </blockquote>
 <p>--- question 21 fill here ---</p>
 <h3 id="question-22">Question 22</h3>
 <blockquote>
-<p><strong>Did you manage to deploy your model, either in locally or cloud? If not, describe why. If yes, describe how and</strong>
+<p><strong>Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did</strong>
+<strong>it. If not, describe why.</strong></p>
+<p>Recommended answer length: 100-200 words.</p>
+<p>Example:
+<em>We managed to train our model in the cloud using the Engine. We did this by ... . The reason we choose the Engine</em>
+<em>was because ...</em></p>
+<p>Answer:</p>
+</blockquote>
+<p>--- question 22 fill here ---</p>
+<h2 id="deployment">Deployment</h2>
+<h3 id="question-23">Question 23</h3>
+<blockquote>
+<p><strong>Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If</strong>
+<strong>not, explain how you would do it.</strong></p>
+<p>Recommended answer length: 100-200 words.</p>
+<p>Example:
+<em>We did manage to write an API for our model. We used FastAPI to do this. We did this by ... . We also added ...</em>
+<em>to the API to make it more ...</em></p>
+<p>Answer:</p>
+</blockquote>
+<p>--- question 23 fill here ---</p>
+<h3 id="question-24">Question 24</h3>
+<blockquote>
+<p><strong>Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and</strong>
 <strong>preferably how you invoke your deployed service?</strong></p>
 <p>Recommended answer length: 100-200 words.</p>
 <p>Example:
@@ -2471,8 +2567,19 @@ especially the reproducibility of your experiments.</p>
 <em><code>curl -X POST -F "file=@file.json"&lt;weburl&gt;</code></em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 22 fill here ---</p>
-<h3 id="question-23">Question 23</h3>
+<p>--- question 24 fill here ---</p>
+<h3 id="question-25">Question 25</h3>
+<blockquote>
+<p><strong>Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for</strong>
+<strong>the load testing did you get. If not, explain how you would do it.</strong></p>
+<p>Recommended answer length: 100-200 words.</p>
+<p>Example:
+<em>For unit testing we used ... and for load testing we used ... . The results of the load testing showed that ...</em>
+<em>before the service crashed.</em></p>
+<p>Answer:</p>
+</blockquote>
+<p>--- question 25 fill here ---</p>
+<h3 id="question-26">Question 26</h3>
 <blockquote>
 <p><strong>Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how</strong>
 <strong>monitoring would help the longevity of your application.</strong></p>
@@ -2482,34 +2589,47 @@ especially the reproducibility of your experiments.</p>
 <em>measure ... and ... that would inform us about this ... behaviour of our application.</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 23 fill here ---</p>
-<h3 id="question-24">Question 24</h3>
-<blockquote>
-<p><strong>How many credits did you end up using during the project and what service was most expensive?</strong></p>
-<p>Recommended answer length: 25-100 words.</p>
-<p>Example:
-<em>Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service</em>
-<em>costing the most was ... due to ...</em></p>
-<p>Answer:</p>
-</blockquote>
-<p>--- question 24 fill here ---</p>
+<p>--- question 26 fill here ---</p>
 <h2 id="overall-discussion-of-project">Overall discussion of project</h2>
 <blockquote>
 <p>In the following section we would like you to think about the general structure of your project.</p>
 </blockquote>
-<h3 id="question-25">Question 25</h3>
+<h3 id="question-27">Question 27</h3>
+<blockquote>
+<p><strong>How many credits did you end up using during the project and what service was most expensive? In general what do</strong>
+<strong>you think about working in the cloud?</strong></p>
+<p>Recommended answer length: 100-200 words.</p>
+<p>Example:
+<em>Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service</em>
+<em>costing the most was ... due to ... . Working in the cloud was ...</em></p>
+<p>Answer:</p>
+</blockquote>
+<p>--- question 27 fill here ---</p>
+<h3 id="question-28">Question 28</h3>
+<blockquote>
+<p><strong>Did you implement anything extra in your project that is not covered by other questions? Maybe you implemented</strong>
+<strong>a frontend for your API, use extra version control features, a drift detection service, a kubernetes cluster etc.</strong>
+<strong>If yes, explain what you did and why.</strong></p>
+<p>Recommended answer length: 0-200 words.</p>
+<p>Example:
+<em>We implemented a frontend for our API. We did this because we wanted to show the user ... . The frontend was</em>
+<em>implemented using ...</em></p>
+<p>Answer:</p>
+</blockquote>
+<p>--- question 28 fill here ---</p>
+<h3 id="question-29">Question 29</h3>
 <blockquote>
 <p><strong>Include a figure that describes the overall architecture of your system and what services that you make use of.</strong>
-<strong>You can take inspiration from <a href="figures/overview.png">this figure</a>. Additionally in your own words, explain the</strong>
+<strong>You can take inspiration from <a href="figures/overview.png">this figure</a>. Additionally, in your own words, explain the</strong>
 <strong>overall steps in figure.</strong></p>
 <p>Recommended answer length: 200-400 words</p>
 <p>Example:</p>
 <p><em>The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.</em>
-<em>Whenever we commit code and push to github, it auto triggers ... and ... . From there the diagram shows ...</em></p>
+<em>Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 25 fill here ---</p>
-<h3 id="question-26">Question 26</h3>
+<p>--- question 29 fill here ---</p>
+<h3 id="question-30">Question 30</h3>
 <blockquote>
 <p><strong>Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these</strong>
 <strong>challenges?</strong></p>
@@ -2518,8 +2638,8 @@ especially the reproducibility of your experiments.</p>
 <em>The biggest challenges in the project was using ... tool to do ... . The reason for this was ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 26 fill here ---</p>
-<h3 id="question-27">Question 27</h3>
+<p>--- question 30 fill here ---</p>
+<h3 id="question-31">Question 31</h3>
 <blockquote>
 <p><strong>State the individual contributions of each team member. This is required information from DTU, because we need to</strong>
 <strong>make sure all members contributed actively to the project</strong></p>
@@ -2531,7 +2651,7 @@ especially the reproducibility of your experiments.</p>
 <em>All members contributed to code by...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 27 fill here ---</p>
+<p>--- question 31 fill here ---</p>
 
 
 
@@ -2554,7 +2674,7 @@ especially the reproducibility of your experiments.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 22, 2024</span>
   </span>
 
     

@@ -288,7 +288,7 @@
         
   
   <span class="md-ellipsis">
-    Timeplan
+    Time plan
   </span>
   
 
@@ -1034,7 +1034,7 @@
         
   
   <span class="md-ellipsis">
-    M17 - Github Actions
+    M17 - GitHub Actions
   </span>
   
 
@@ -1937,17 +1937,63 @@ but when working on multiple projects it can quickly become a hassle to manage a
 virtual environments yourself, remembering which Python version to use, which packages to install and so on.</p>
 <p>For this reason, a number of package managers have been created that can help you manage your virtual environments and
 dependencies, with some of the most popular being:</p>
-<ul>
-<li><a href="https://docs.conda.io/en/latest/">conda</a></li>
-<li><a href="https://pipenv.pypa.io/en/latest/">pipenv</a></li>
-<li><a href="https://python-poetry.org/">poetry</a></li>
-<li><a href="https://pipx.pypa.io/stable/">pipx</a></li>
-<li><a href="https://hatch.pypa.io/latest/">hatch</a></li>
-<li><a href="https://pdm.fming.dev/latest/">pdm</a></li>
-</ul>
-<p>with more being created every year (<a href="https://github.com/mitsuhiko/rye">rye</a> is looking like an interesting project). This
-is considered a problem in the Python community because it means that there is no standard way of managing
-dependencies like in other languages like <code>npm</code> for <code>node.js</code> or <code>cargo</code> for <code>rust</code>.</p>
+<table>
+<thead>
+<tr>
+<th>🌟 Framework</th>
+<th>📄 Docs</th>
+<th>📂 Repository</th>
+<th>⭐ GitHub Stars</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conda</td>
+<td><a href="https://docs.conda.io/en/latest/">🔗 Link</a></td>
+<td><a href="https://github.com/conda/conda">🔗 Link</a></td>
+<td>6.5k</td>
+</tr>
+<tr>
+<td>Pipenv</td>
+<td><a href="https://pipenv.pypa.io/en/latest/">🔗 Link</a></td>
+<td><a href="https://github.com/pypa/pipenv">🔗 Link</a></td>
+<td>24.9k</td>
+</tr>
+<tr>
+<td>Poetry</td>
+<td><a href="https://python-poetry.org/">🔗 Link</a></td>
+<td><a href="https://github.com/python-poetry/poetry">🔗 Link</a></td>
+<td>32.0k</td>
+</tr>
+<tr>
+<td>Pipx</td>
+<td><a href="https://pipx.pypa.io/stable/">🔗 Link</a></td>
+<td><a href="https://github.com/pypa/pipx">🔗 Link</a></td>
+<td>10.8k</td>
+</tr>
+<tr>
+<td>Hatch</td>
+<td><a href="https://hatch.pypa.io/latest/">🔗 Link</a></td>
+<td><a href="https://github.com/pypa/hatch">🔗 Link</a></td>
+<td>6.2k</td>
+</tr>
+<tr>
+<td>PDM</td>
+<td><a href="https://pdm.fming.dev/latest/">🔗 Link</a></td>
+<td><a href="https://github.com/pdm-project/pdm">🔗 Link</a></td>
+<td>8.0k</td>
+</tr>
+<tr>
+<td>uv</td>
+<td><a href="https://docs.astral.sh/uv/">🔗 Link</a></td>
+<td><a href="https://github.com/astral-sh/uv">🔗 Link</a></td>
+<td>33.2k</td>
+</tr>
+</tbody>
+</table>
+<p>This is considered a problem in the Python community because it means that there is no standard way of managing
+dependencies like in other languages like <code>npm</code> for <code>node.js</code> or <code>cargo</code> for <code>rust</code> (however, it does seem like <code>uv</code> is
+trying to become the standard, quickly gaining popularity and being adopted by many projects).</p>
 <figure>
 <p><a class="glightbox" href="../../figures/standards.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/standards.png" width="700" /></a></p>
 <figcaption> <a href="https://xkcd.com/927/"> Image credit </a> </figcaption>
@@ -1991,9 +2037,9 @@ later point. If we do not specify the version number, then we are at the mercy o
 the API of the package. This is especially important when working with machine learning models, as we want to make sure
 that we can reproduce the exact same model at a later point.</p>
 <p>Finally, we also need to discuss <em>dependency resolution</em>, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exists a lot of different algorithms for doing this. If you have ever
-thought that <code>pip</code> and <code>conda</code> were taking a long time to install something, then it is probably because they were trying
-to figure out which packages are compatible with each other. For example, if you try to install</p>
+compatible. This is a non-trivial problem, and there exists a lot of different algorithms for doing this. If you have
+ever thought that <code>pip</code> and <code>conda</code> were taking a long time to install something, then it is probably because they were
+trying to figure out which packages are compatible with each other. For example, if you try to install</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;matplotlib &gt;= 3.8.0&quot;</span><span class="w"> </span><span class="s2">&quot;numpy &lt;= 1.19&quot;</span><span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p>then it would simply fail because there are no versions of <code>matplotlib</code> and <code>numpy</code> under the given
@@ -2002,6 +2048,13 @@ constraints that are compatible with each other. In this case, we would need to 
 </span></code></pre></div>
 <p>to make it work.</p>
 <h2 id="exercises">❔ Exercises</h2>
+<div class="admonition note">
+<p class="admonition-title">Conda vs. Mamba</p>
+<p>If you are using <code>conda</code> then you can also use <code>mamba</code> which is a drop-in replacement <code>conda</code> that is faster.
+This means that any <code>conda</code> command can be replaced with <code>mamba</code> and it should work. Feel free to use <code>mamba</code> if
+you are already familiar with <code>conda</code> or after having gone through the exercises below. Install instructions can
+be found <a href="https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html">here</a>.</p>
+</div>
 <p>For hints regarding how to use <code>conda</code> you can check out the
 <a href="https://github.com/SkafteNicki/dtu_mlops/blob/main/s1_development_environment/exercise_files/conda_cheatsheet.pdf">cheat sheet</a>
 in the exercise folder.</p>
@@ -2011,9 +2064,9 @@ in the exercise folder.</p>
     The core difference between the two packages is that <code>conda</code> already comes with a lot of packages that you would
     normally have to install with <code>miniconda</code>. The downside is that <code>conda</code> is a much larger package which can be a
     huge disadvantage on smaller devices. Make sure that your installation is working by writing <code>conda help</code> in a
-    terminal and it should show you the help message for conda. If this does not work you probably need to set some
-    system variable to
-    <a href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">point to the conda installation</a></p>
+    terminal, and it should show you the help message for conda. If this does not work you probably need to set some
+    system variable to point to the
+    <a href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">conda installation</a></p>
 </li>
 <li>
 <p>If you have successfully installed conda, then you should be able to execute the <code>conda</code> command in a terminal.</p>
