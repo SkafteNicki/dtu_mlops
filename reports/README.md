@@ -5,7 +5,7 @@ like:
 
 ```--- question 1 fill here ---```
 
-where you instead should add your answers. Any other changes may have unwanted consequences when your report is
+Where you instead should add your answers. Any other changes may have unwanted consequences when your report is
 auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
 to the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
 
@@ -21,8 +21,8 @@ Running:
 python report.py html
 ```
 
-will generate a `.html` page of your report. After the deadline for answering this template, we will auto-scrape
-everything in this `reports` folder and then use this utility to generate an `.html` page that will be your serve
+Will generate a `.html` page of your report. After the deadline for answering this template, we will auto-scrape
+everything in this `reports` folder and then use this utility to generate a `.html` page that will be your serve
 as your final hand-in.
 
 Running
@@ -31,10 +31,9 @@ Running
 python report.py check
 ```
 
-will check your answers in this template against the constraints listed for each question e.g. is your answer too
-short, too long, or have you included an image when asked to.
-
-For both functions to work you mustn't rename anything. The script has two dependencies that can be installed with
+Will check your answers in this template against the constraints listed for each question e.g. is your answer too
+short, too long, or have you included an image when asked. For both functions to work you mustn't rename anything.
+The script has two dependencies that can be installed with
 
 ```bash
 pip install typer markdown
@@ -44,6 +43,8 @@ pip install typer markdown
 
 The checklist is *exhaustive* which means that it includes everything that you could do on the project included in the
 curriculum in this course. Therefore, we do not expect at all that you have checked all boxes at the end of the project.
+The parenthesis at the end indicates what module the bullet point is related to. Please be honest in your answers, we
+will check the repositories and the code to verify your answers.
 
 ### Week 1
 
@@ -131,7 +132,8 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 --- question 2 fill here ---
 
 ### Question 3
-> **What framework did you choose to work with and did it help you complete the project?**
+> **A requirement to the project is that you include a third-party package not covered in the course. What framework**
+> **did you choose to work with and did it help you complete the project?**
 >
 > Recommended answer length: 100-200 words.
 >
@@ -145,7 +147,8 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 
 ## Coding environment
 
-> In the following section we are interested in learning more about you local development environment.
+> In the following section we are interested in learning more about you local development environment. This includes
+> how you managed dependencies, the structure of your code and how you managed code quality.
 
 ### Question 4
 
@@ -165,7 +168,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 ### Question 5
 
 > **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your**
-> **code. Did you fill out every folder or only a subset?**
+> **code. What did you fill out? Did you deviate from the template in some way?**
 >
 > Recommended answer length: 100-200 words
 >
@@ -173,16 +176,21 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 > *From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder*
 > *because we did not use any ... in our project. We have added an ... folder that contains ... for running our*
 > *experiments.*
+>
 > Answer:
 
 --- question 5 fill here ---
 
 ### Question 6
 
-> **Did you implement any rules for code quality and format? Additionally, explain with your own words why these**
-> **concepts matters in larger projects.**
+> **Did you implement any rules for code quality and format? What about typing and documentation? Additionally,**
+> **explain with your own words why these concepts matters in larger projects.**
 >
-> Recommended answer length: 50-100 words.
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *We used ... for linting and ... for formatting. We also used ... for typing and ... for documentation. These*
+> *concepts are important in larger projects because ... . For example, typing ...*
 >
 > Answer:
 
@@ -209,7 +217,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 
 ### Question 8
 
-> **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close**
+> **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
 >
 > Recommended answer length: 100-200 words.
@@ -323,7 +331,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
-> **experiments? Include how you would run your docker images and include a link to one of your docker files.**
+> **experiments/project? Include how you would run your docker images and include a link to one of your docker files.**
 >
 > Recommended answer length: 100-200 words.
 >
@@ -393,8 +401,8 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 
 ### Question 20
 
-> **Upload one image of your GCP artifact registry, such that we can see the different images that you have stored.**
-> **You can take inspiration from [this figure](figures/registry.png).**
+> **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
+> **stored. You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
 
@@ -402,7 +410,7 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 
 ### Question 21
 
-> **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
+> **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
@@ -411,7 +419,39 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 
 ### Question 22
 
-> **Did you manage to deploy your model, either in locally or cloud? If not, describe why. If yes, describe how and**
+> **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
+> **it. If not, describe why.**
+>
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *We managed to train our model in the cloud using the Engine. We did this by ... . The reason we choose the Engine*
+> *was because ...*
+>
+> Answer:
+
+--- question 22 fill here ---
+
+## Deployment
+
+### Question 23
+
+> **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
+> **not, explain how you would do it.**
+>
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *We did manage to write an API for our model. We used FastAPI to do this. We did this by ... . We also added ...*
+> *to the API to make it more ...*
+>
+> Answer:
+
+--- question 23 fill here ---
+
+### Question 24
+
+> **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
 >
 > Recommended answer length: 100-200 words.
@@ -423,9 +463,24 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 >
 > Answer:
 
---- question 22 fill here ---
+--- question 24 fill here ---
 
-### Question 23
+### Question 25
+
+> **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
+> **the load testing did you get. If not, explain how you would do it.**
+>
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *For unit testing we used ... and for load testing we used ... . The results of the load testing showed that ...*
+> *before the service crashed.*
+>
+> Answer:
+
+--- question 25 fill here ---
+
+### Question 26
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -438,30 +493,47 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 >
 > Answer:
 
---- question 23 fill here ---
-
-### Question 24
-
-> **How many credits did you end up using during the project and what service was most expensive?**
->
-> Recommended answer length: 25-100 words.
->
-> Example:
-> *Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service*
-> *costing the most was ... due to ...*
->
-> Answer:
-
---- question 24 fill here ---
+--- question 26 fill here ---
 
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 25
+### Question 27
+
+> **How many credits did you end up using during the project and what service was most expensive? In general what do**
+> **you think about working in the cloud?**
+>
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service*
+> *costing the most was ... due to ... . Working in the cloud was ...*
+>
+> Answer:
+
+--- question 27 fill here ---
+
+### Question 28
+
+> **Did you implement anything extra in your project that is not covered by other questions? Maybe you implemented**
+> **a frontend for your API, use extra version control features, a drift detection service, a kubernetes cluster etc.**
+> **If yes, explain what you did and why.**
+>
+> Recommended answer length: 0-200 words.
+>
+> Example:
+> *We implemented a frontend for our API. We did this because we wanted to show the user ... . The frontend was*
+> *implemented using ...*
+>
+> Answer:
+
+--- question 28 fill here ---
+
+### Question 29
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
-> **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the**
+> **You can take inspiration from [this figure](figures/overview.png). Additionally, in your own words, explain the**
 > **overall steps in figure.**
 >
 > Recommended answer length: 200-400 words
@@ -469,13 +541,13 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 > Example:
 >
 > *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
-> *Whenever we commit code and push to github, it auto triggers ... and ... . From there the diagram shows ...*
+> *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
 
---- question 25 fill here ---
+--- question 29 fill here ---
 
-### Question 26
+### Question 30
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -487,9 +559,9 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 >
 > Answer:
 
---- question 26 fill here ---
+--- question 30 fill here ---
 
-### Question 27
+### Question 31
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
 > **make sure all members contributed actively to the project**
@@ -504,4 +576,4 @@ curriculum in this course. Therefore, we do not expect at all that you have chec
 >
 > Answer:
 
---- question 27 fill here ---
+--- question 31 fill here ---
