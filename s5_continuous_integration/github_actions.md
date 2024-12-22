@@ -345,7 +345,7 @@ Let's take a look at how a GitHub workflow file is organized:
     be cumbersome to build docker images, sometimes taking a couple of minutes to build each time we make changes to our
     code base. For this reason, we just want to build a new image every time we commit our code because that should mark
     that we believe the code to be working at that point. Thus, let's automate the process of building our docker images
-    using Github actions. Do note that in a [future module](../s6_the_cloud/using_the_cloud.md) will look at how to
+    using GitHub actions. Do note that in a [future module](../s6_the_cloud/using_the_cloud.md) will look at how to
     build containers using cloud providers, and this exercise is therefore very much optional.
 
     1. Start by making sure you have a dockerfile in your repository. If you do not have one, you can use the following
@@ -368,7 +368,7 @@ Let's take a look at how a GitHub workflow file is organized:
         it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and
         `DOCKER_HUB_REPOSITORY` that contain your docker username and docker repository name respectively.
 
-    6. Next, we are going to construct the actual Github actions workflow file
+    6. Next, we are going to construct the actual GitHub actions workflow file
 
         ```yaml
         name: Docker Image continuous integration

@@ -76,7 +76,7 @@ def main() -> None:
         lambda x: activity_to_image(x) if x is not None else x
     )
     st.set_page_config(layout="wide")
-    st.title("Group Github Stats")
+    st.title("Group GitHub Stats")
     st.text(
         """
         Below is shown automatic scraped data for all groups in the course. None of these stats directly contribute

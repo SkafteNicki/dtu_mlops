@@ -38,7 +38,7 @@ DVC (Data Version Control) is simply an extension of `git` to not only take vers
 experiments in general. But how does it deal with these large data files? Essentially, `DVC` will just keep track of a
 small *metafile* that will then point to some remote location where your original data is stored. Metafiles
 essentially work as placeholders for your data files. Your large data files are then stored in some remote location such
-as Google Drive or an `S3` bucket from Amazon.
+as Google Drive or a `S3` bucket from Amazon.
 
 <figure markdown>
   ![Image](../figures/dvc.png){ width="700" }
@@ -54,12 +54,12 @@ remote and the metafile is stored in the code remote.
 
 ## ❔ Exercises
 
-If in doubt about some of the exercises, we recommend checking out the [documentation for DVC](https://dvc.org/doc) as
+If in doubt about some exercises, we recommend checking out the [documentation for DVC](https://dvc.org/doc) as
 it contains excellent tutorials.
 
-1. For these exercises, we are going to use Google [drive](https://www.google.com/intl/da/drive/) as a remote storage
+1. For these exercises, we are going to use [Google Drive](https://www.google.com/intl/da/drive/) as a remote storage
     solution for our data. If you do not already have a Google account, please create one (we are going to use it again
-    in later exercises). Please make sure that you at least have 1GB of free space.
+    in later exercises). Please make sure that you at least have 1 GB of free space.
 
 2. Next, install DVC and the Google Drive extension
 
@@ -69,9 +69,9 @@ it contains excellent tutorials.
     ```
 
     If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
-    optional dependencies: [s3], [azure], [gdrive], [gs], [oss], [ssh]. Alternatively, use [all] to include them all.
-    If you encounter that the installation fails, we recommend that you start by updating pip and then trying to
-    update `dvc`:
+    optional dependencies: `[s3]`, `[azure]`, `[gdrive]`, `[gs]`, `[oss]`, `[ssh]`. Alternatively, use `[all]` to
+    include them all. If you encounter that the installation fails, we recommend that you start by updating pip and then
+    trying to update `dvc`:
 
     ```bash
     pip install -U pip
@@ -87,7 +87,7 @@ it contains excellent tutorials.
     dvc init
     ```
 
-    this will setup `dvc` for this repository (similar to how `git init` will initialize a git repository).
+    This will set up `dvc` for this repository (similar to how `git init` will initialize a git repository).
     These files should be committed using standard `git` to your repository.
 
 4. Go to your Google Drive and create a new folder called `dtu_mlops_data`. Then copy the unique identifier
@@ -117,7 +117,7 @@ it contains excellent tutorials.
     folder should have been added to the `.gitignore` file that marks which files should not be tracked by git. Confirm
     that this is correct.
 
-7. Now we are going to add, commit and tag the *metafiles* so we can restore to this stage later on. Commit and tag
+7. Now we are going to add, commit and tag the *metafiles*, so we can restore to this stage later on. Commit and tag
     the files, which should look something like this:
 
     ```bash
@@ -130,10 +130,10 @@ it contains excellent tutorials.
     copy-pasting the code in the link prompted. Check out your Google Drive folder. You will see that the data is not
     in a recognizable format anymore due to the way that `dvc` packs and tracks the data. The boring detail is that
     `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
-    which makes data much faster to get. Finally, make sure that your data is not stored in your Github repository.
+    which makes data much faster to get. Finally, make sure that your data is not stored in your GitHub repository.
 
-    After authenticating the first time, `DVC` should be setup without having to authenticate again. If you for some
-    reason encounter that dvc fails to authenticate, you can try to reset the authentication. Locate the file
+    After authenticating the first time, DVC should be setup without having to authenticate again. If you for some
+    reason encounter that DVC fails to authenticate, you can try to reset the authentication. Locate the file
     `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
 
     === "macOS"
@@ -160,18 +160,18 @@ it contains excellent tutorials.
     (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
     than your standard code) to make sure that the two commands indeed download both your code and data.
 
-10. Lets look about the process of updating our data. Remember the important aspect of version control is that we do not
-    need to store explicit files called `data_v1.pt`, `data_v2.pt` etc. but just have a single `data.pt` that where we
-    can always checkout earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from this
-    repository to your MNIST code. This contains 3 extra datafiles with 15000 additional observations. Rerun your data
-    pipeline so these gets incorporated into the files in your `processed` folder.
+10. Let's look about the process of updating our data. Remember the important aspect of version control is that we do
+    not need to store explicit files called `data_v1.pt`, `data_v2.pt` etc. but just have a single `data.pt` that where
+    we can always check out earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from
+    this repository to your MNIST code. This contains 3 extra data files with 15000 additional observations. Rerun your
+    data pipeline so these gets incorporated into the files in your `processed` folder.
 
 11. Redo the above steps, adding the new data using `dvc`, committing and tagging the metafiles e.g. the following
     commands should be executed (with appropriate input):
 
     `dvc add -> git add -> git commit -> git tag -> dvc push -> git push`.
 
-12. Lets say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
+12. Let's say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
     you should be able to do this using:
 
     ```bash
@@ -179,7 +179,7 @@ it contains excellent tutorials.
     dvc checkout
     ```
 
-    confirm that you have reverted to the original data.
+    Confirm that you have reverted to the original data.
 
 13. (Optional) Finally, it is important to note that `dvc` is not only intended to be used to store data files but also
     any other large files such as trained model weights (with billions of parameters these can be quite large). For
@@ -192,7 +192,7 @@ does have some performance issue when dealing with datasets that consist of many
 working with a dataset that consists of many small files, it can be a
 [good idea to](https://fizzylogic.nl/2023/01/13/did-you-know-dvc-doesn-t-handle-large-datasets-neither-did-we-and-here-s-how-we-fixed-it):
 
-* zip files into a single archive and then version control the archive. The `zip` archive should be placed in a
+* Zip files into a single archive and then version control the archive. The `zip` archive should be placed in a
     `data/raw` folder and then unzipped in the `data/processed` folder.
 
 * If possible turn your data into 1D arrays, then it can be stored in a single file such as `.parquet` or `.csv`.

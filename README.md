@@ -36,7 +36,7 @@ git clone https://github.com/SkafteNicki/dtu_mlops
 
 If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all the exercise
 material for this course and lectures. Additionally, you should join our
-[Slack channel](https://join.slack.com/t/dtumlops/shared_invite/zt-29szus81f-JKANkZqhalPjKqKRPPY6xA)
+[Slack channel](https://join.slack.com/t/dtumlops/shared_invite/zt-2utq0bupc-5gTBkFPjaTLkQVBc2C4Qqg)
 which we use for communication. The link may be expired, write to [me](mailto:nsde@dtu.dk).
 
 ## 📂 Course organization
@@ -123,10 +123,10 @@ This includes:
 
 * Organize code in an efficient way for easy maintainability and shareability
 * Understand the importance of reproducibility and how to create reproducible containerized applications and experiments
-* Cable of using version control to efficiently collaborate on code development
+* Capable of using version control to efficiently collaborate on code development
 * Knowledge of continuous integration (CI) and continuous machine learning (CML) for automating code development
 * Being able to debug, profile, visualize and monitor multiple experiments to assess model performance
-* Cable of using online cloud-based computing services to scale experiments
+* Capable of using online cloud-based computing services to scale experiments
 * Demonstrate knowledge about different distributed training paradigms within  machine learning and how to apply them
 * Deploy machine learning models, both locally and in the cloud
 * Conduct a research project in collaboration with fellow students using the frameworks taught in the course
@@ -146,7 +146,7 @@ Additional reading resources (in no particular order):
     Another introduction to the principles of MLOps and the different stages of MLOps.
 
 * [Ref 4](https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf)
-    Great paper about the technical dept in machine learning.
+    Great paper about the technical debt in machine learning.
 
 * [Ref 5](https://arxiv.org/abs/2209.09125)
     Interview study that uncovers many of the pain points that ML engineers go through when doing MLOps.

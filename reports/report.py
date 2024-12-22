@@ -1,60 +1,87 @@
 # run following commands to install requirements
-# pip install click
-# pip install markdown
+# pip install typer markdown pydantic loguru
 
 import re
-import warnings
-from functools import partial
+from pathlib import Path
 
-import click
 import markdown
+import pydantic
+import typer
+from loguru import logger
 
 
-class TeacherWarning(UserWarning):
-    """Warning raised when a teacher check fails."""
+class Constraints(pydantic.BaseModel):
+    """Base class for constraints."""
+
+    def __call__(self, answer: str, index: int) -> None:
+        """Check constraints on the answer."""
+        raise NotImplementedError
 
 
-def no_constraints(answer, index) -> None:
-    """No constrains for question."""
+class NoConstraints(Constraints):
+    """No constraints on the answer."""
+
+    def __call__(self, answer: str, index: int) -> bool:
+        """No constraints on the answer."""
+        return True
 
 
-def length_constraints(answer, index, min_length, max_length) -> None:
-    """Either min or maximum length constrains for question."""
-    answer = answer.split()
-    if not (min_length <= len(answer) <= max_length):
-        warnings.warn(
-            f"Question {index} failed check. Expected number of words to be"
-            f" between {min_length} and {max_length} but got {len(answer)}",
-            TeacherWarning,
-        )
+class LengthConstraints(Constraints):
+    """Check constraints on the length of the answer."""
+
+    min_length: int = pydantic.Field(ge=0)
+    max_length: int = pydantic.Field(ge=0)
+
+    def __call__(self, answer: str, index: int) -> bool:
+        """Check constraints on the length of the answer."""
+        answer = answer.split()
+        if not (self.min_length <= len(answer) <= self.max_length):
+            logger.warning(
+                f"Question {index} failed check. Expected number of words to be"
+                f" between {self.min_length} and {self.max_length} but got {len(answer)}"
+            )
+            return False
+        return True
 
 
-def image_constrains(answer, index, min_length, max_length) -> None:
-    """Requires the inclusion of a image in question."""
-    links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
-    if not (min_length <= len(links) <= max_length):
-        warnings.warn(
-            f"Question {index} failed check. Expected number of screenshots to be"
-            f" between {min_length} and {max_length} but got {len(links)}",
-            TeacherWarning,
-        )
+class ImageConstraints(Constraints):
+    """Check constraints on the number of images in the answer."""
+
+    min_images: int = pydantic.Field(ge=0)
+    max_images: int = pydantic.Field(ge=0)
+
+    def __call__(self, answer: str, index: int) -> bool:
+        """Check constraints on the number of images in the answer."""
+        links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
+        if not (self.min_images <= len(links) <= self.max_images):
+            logger.warning(
+                f"Question {index} failed check. Expected number of screenshots to be"
+                f" between {self.min_images} and {self.max_images} but got {len(links)}"
+            )
+            return False
+        return True
 
 
-def multi_constrains(answer, index, constrains) -> None:
-    """Multiple constrains in question."""
-    for fn in constrains:
-        fn(answer, index)
+class MultiConstraints(Constraints):
+    """Check multiple constraints on the answer."""
+
+    constrains: list[Constraints]
+
+    def __call__(self, answer: str, index: int) -> None:
+        """Check multiple constraints on the answer."""
+        value = True
+        for fn in self.constrains:
+            value = fn(answer, index) and value
+        return value
 
 
-@click.group()
-def cli() -> None:
-    """CLI for report."""
+app = typer.Typer()
 
 
-@cli.command()
+@app.command()
 def html() -> None:
     """Convert README.md to html page."""
-    with open("README.md") as file:
+    with Path("README.md").open() as file:
         text = file.read()
     text = text[43:]  # remove header
 
@@ -64,15 +91,17 @@ def html() -> None:
         newfile.write(html)
 
 
-@cli.command()
+@app.command()
 def check() -> None:
     """Check if report satisfies the requirements."""
-    with open("README.md") as file:
+    with Path("README.md").open() as file:
         text = file.read()
-    text = text[43:]  # remove header
 
+    # answers in general can be found between "Answer:" and "###" or "##"
+    # which marks the next question or next section
     answers = []
     per_question = text.split("Answer:")
+    per_question.pop(0)  # remove the initial section
     for q in per_question:
         if "###" in q:
             q = q.split("###")[0]
@@ -80,58 +109,64 @@ def check() -> None:
                 q = q.split("##")[0]
             answers.append(q)
 
+    # add the last question
     answers.append(per_question[-1])
-    answers = answers[1:]  # remove first section
+
+    # remove newlines
     answers = [answer.strip("\n") for answer in answers]
 
-    question_constrains = [
-        no_constraints,
-        no_constraints,
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=50, max_length=100),
-        partial(length_constraints, min_length=50, max_length=100),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=200, max_length=300),
-        partial(length_constraints, min_length=50, max_length=100),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(
-            multi_constrains,
-            constrains=(
-                partial(length_constraints, min_length=200, max_length=300),
-                partial(image_constrains, min_length=1, max_length=3),
-            ),
+    question_constraints = {
+        "question_1": NoConstraints(),
+        "question_2": NoConstraints(),
+        "question_3": LengthConstraints(min_length=100, max_length=200),
+        "question_4": LengthConstraints(min_length=100, max_length=200),
+        "question_5": LengthConstraints(min_length=100, max_length=200),
+        "question_6": LengthConstraints(min_length=100, max_length=200),
+        "question_7": LengthConstraints(min_length=50, max_length=100),
+        "question_8": LengthConstraints(min_length=100, max_length=200),
+        "question_9": LengthConstraints(min_length=100, max_length=200),
+        "question_10": LengthConstraints(min_length=100, max_length=200),
+        "question_11": LengthConstraints(min_length=200, max_length=300),
+        "question_12": LengthConstraints(min_length=50, max_length=100),
+        "question_13": LengthConstraints(min_length=100, max_length=200),
+        "question_14": MultiConstraints(
+            constrains=[
+                LengthConstraints(min_length=200, max_length=300),
+                ImageConstraints(min_images=1, max_images=3),
+            ]
         ),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=50, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(image_constrains, min_length=1, max_length=2),
-        partial(image_constrains, min_length=1, max_length=1),
-        partial(image_constrains, min_length=1, max_length=1),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=100, max_length=200),
-        partial(length_constraints, min_length=25, max_length=100),
-        partial(
-            multi_constrains,
-            constrains=(
-                partial(length_constraints, min_length=200, max_length=400),
-                partial(image_constrains, min_length=1, max_length=1),
-            ),
+        "question_15": LengthConstraints(min_length=100, max_length=200),
+        "question_16": LengthConstraints(min_length=100, max_length=200),
+        "question_17": LengthConstraints(min_length=50, max_length=200),
+        "question_18": LengthConstraints(min_length=100, max_length=200),
+        "question_19": ImageConstraints(min_images=1, max_images=2),
+        "question_20": ImageConstraints(min_images=1, max_images=2),
+        "question_21": ImageConstraints(min_images=1, max_images=2),
+        "question_22": LengthConstraints(min_length=100, max_length=200),
+        "question_23": LengthConstraints(min_length=100, max_length=200),
+        "question_24": LengthConstraints(min_length=100, max_length=200),
+        "question_25": LengthConstraints(min_length=100, max_length=200),
+        "question_26": LengthConstraints(min_length=100, max_length=200),
+        "question_27": LengthConstraints(min_length=100, max_length=200),
+        "question_28": LengthConstraints(min_length=0, max_length=200),
+        "question_29": MultiConstraints(
+            constrains=[
+                LengthConstraints(min_length=200, max_length=400),
+                ImageConstraints(min_images=1, max_images=1),
+            ]
         ),
-        partial(length_constraints, min_length=200, max_length=400),
-        partial(length_constraints, min_length=50, max_length=200),
-    ]
-    if len(answers) != 27:
-        msg = "Number of answers are different from the expected 27. Have you filled out every field?"
+        "question_30": LengthConstraints(min_length=200, max_length=400),
+        "question_31": LengthConstraints(min_length=50, max_length=200),
+    }
+    if len(answers) != 31:
+        msg = "Number of answers are different from the expected 31. Have you changed the template?"
         raise ValueError(msg)
 
-    for i, (answer, const) in enumerate(zip(answers, question_constrains), start=1):
-        const(answer, i)
+    counter = 0
+    for index, (answer, (_, constraints)) in enumerate(zip(answers, question_constraints.items()), 1):
+        counter += int(constraints(answer, index))
+    logger.info(f"Total number of questions passed: {counter}/{len(answers)}")
 
 
 if __name__ == "__main__":
-    cli()
+    app()
