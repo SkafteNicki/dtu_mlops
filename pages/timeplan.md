@@ -8,7 +8,7 @@ The course is organized into *exercise* (2/3 of the course) days and *project* d
 least one of the topics of that day. Additionally, previous days exercises may shortly be touched upon. The remaining
 of the day will be spent on solving exercises either individually or in small groups. For some people the exercises
 may be fast to do and for others it will take the whole day. We will provide help throughout the day. We will try to
-answer questions on Slack but help with be priorities to students physically on campus.
+answer questions on Slack, but help will be prioritized to students physically on campus.
 
 *Project* days are intended for project work, and you are therefore responsible for making an agreement with your group
 when and where you are going to work. The first project days there will be a lecture at 9:00 with project information.
@@ -53,7 +53,7 @@ Date    | Day       | Presentation topic                                        
 ## Week 3
 
 For the final week we look into advance topics such as monitoring and scaling of applications. Monitoring is especially
-important for the longivity for the applications that we develop, that we can deploy them either
+important for the longevity for the applications that we develop, that we can deploy them either
 locally or in the cloud and that we have the tools to monitor how they behave over time. Scaling of applications is an
 important topic if we ever want our applications to be used by many people at the same time.
 
