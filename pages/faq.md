@@ -55,13 +55,13 @@ Look at the bottom of this [page](projects.md). Details will be updated as we ge
 
 ## Can I use ChatGPT or similar tools for the exercises, project, exam report (coding + writing) ❔
 
-Yes, yes, and yes, but remember that its a tool and you need to validate the output before using it. We would prefer
+Yes, yes, and yes, but remember that it's a tool, and you need to validate the output before using it. We would prefer
 for the exam report that you formulate the answers in your own words because it is intended for you do describe what
 you have been doing in your project. *The I in LLM stands for intelligence.*
 
 ## I am a PhD student not enrolled at DTU, can I take the course ❔
 
-Yes, PhD students from other universities can attend the course. You can checkout
+Yes, PhD students from other universities can attend the course. You can check out
 [this page](https://www.dtu.dk/english/education/phd/intro/guest-phd/guest_courses) for more information or in general
 you can contact <phdcourses@dtu.dk> for more information. Do note that the registration deadline is usually in beginning
 of December.
@@ -74,7 +74,7 @@ need it, where their home university does not accept pass/no-pass. You need to c
 [Nicki](mailto:nsde@dtu.dk) within the first week of the course to request this. Secondly, we may need to further
 validate your work, so please be prepared for doing a short oral exam on one of the last days of the course.
 
-## I am a EuroTEQ student, any special rules for me ❔
+## I am a EuroTeQ student, any special rules for me ❔
 
 Not really, you will attend the course as any other student. However, we will provide a special Slack channel for you,
 trying to make sure that you can get the same help as students from DTU who can attend the course on campus.

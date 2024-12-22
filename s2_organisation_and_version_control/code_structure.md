@@ -7,7 +7,7 @@
 !!! info "Core Module"
 
 With a basic understanding of version control, it is now time to really begin filling up our code repository. However,
-the question then remains how to organize our code? As developers we tend to not think about code organization that
+the question then remains how to organize our code? As developers, we tend to not think about code organization that
 much. It is instead something that just dynamically is being created as we may need it. However, maybe we should spend
 some time initially getting organized with the chance of this making our code easier to develop and maintain in the
 long run. If we do not spend time organizing our code, we may end up with a mess of code that is hard to understand
@@ -35,11 +35,11 @@ codebase should probably be different.
 ## Cookiecutter
 
 We are in this course going to use the tool [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html),
-which is tool for creating projects from *project templates*. A project template is in short just an overall structure of
-how you want your folders, files etc. to be organised from the beginning. For this course we are going to be using a
+which is tool for creating projects from *project templates*. A project template is in short just an overall structure
+of how you want your folders, files etc. to be organized from the beginning. For this course we are going to be using a
 custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The template is essentially a fork of the
-[cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) template that has been
-used for a couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
+[cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) that has been used for a
+couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
 
 We are not going to argue that this template is better than every other template, we are just focusing on that it is a
 **standardized** way of creating project structures for machine learning projects. By standardized we mean that if two
@@ -60,13 +60,13 @@ that are missing.
 
 ## Python projects
 
-While the same template in principal could be used regardless of what language we were using for our machine learning
+While the same template in principle could be used regardless of what language we were using for our machine learning
 or data science application, there are certain considerations to take into account based on what language we are using.
 Python is the dominant language for machine learning and data science currently, which is why we in this section are
-focusing on some of the special files you will need for your Python projects.
+focusing on some special files you will need for your Python projects.
 
 The first file you may or may not know is the `__init__.py` file. In Python the `__init__.py` file is used to mark a
-directory as a Python package. Therefore as a bare minimum, any Python package should look something like this:
+directory as a Python package. Therefore, as a bare minimum, any Python package should look something like this:
 
 ```txt
 ├── src/
@@ -83,7 +83,7 @@ the code it should install and how to install it. This is the job of the `pyproj
 
 Below we have both added a description of the structure of the `pyproject.toml` file but also `setup.py + setup.cfg`
 which is the "old" way of providing project instructions regarding Python project. However, you may still encounter
-a lot of projects using `setup.py + setup.cfg` so it is good to at least know about them.
+a lot of projects using `setup.py + setup.cfg`, so it is good to at least know about them.
 
 === "pyproject.toml"
 
@@ -182,10 +182,12 @@ the same
 ```bash
 pip install .
 # or in developer mode
-pip install -e . # (1)!
+pip install -e .
 ```
 
-1. :man_raising_hand: The `-e` is short for `--editable` mode also called
+!!! note "Developer mode in Python"
+
+    The `-e` is short for `--editable` mode also called
     [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously
     iterating on our package this is the preferred way to install our package, because that means that we do not have
     to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
@@ -196,18 +198,19 @@ package you use. This is the most essential information you need to know about c
 
 ## ❔ Exercises
 
-After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on the
-simple CNN MNIST classifier from yesterday's exercise and force it into this structure. You are not required to fill out
-every folder and file in the project structure, but try to at least follow the steps in the exercises. Whenever you need
-to run a file I recommend always doing this from the root directory e.g.
+After having installed cookiecutter and created your first template project (exercise 1 and 2 below), the remaining
+exercises are intended to be used on taking the simple CNN MNIST classifier from yesterday's exercise and force it into
+this structure. You are not required to fill out every folder and file in the project structure, but try to at least
+follow the steps in exercises. Whenever you need to run a file I recommend always doing this from the root directory
+e.g.
 
 ```bash
-python <project_name>/data/make_dataset.py data/raw data/processed
-python <project_name>/models/train_model.py <arguments>
-etc...
+python src/<project_name>/data.py data/raw data/processed
+python src/<project_name>/train_model.py <arguments>
 ```
 
-in this way paths (for saving and loading files) are always relative to the root.
+In this way paths (for saving and loading files) are always relative to the root, and it is in general easier to wrap
+your head around where files are located.
 
 1. Install [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
 
@@ -219,10 +222,10 @@ in this way paths (for saving and loading files) are always relative to the root
     this course (1).
     { .annotate }
 
-    1. If you feel like the template can be improve in some way, feel free to either open a issue with the proposed
+    1. If you feel like the template can be improved in some way, feel free to either open an issue with the proposed
         improvement or directly send a pull request to the repository 😄.
 
-    You do this by running the cookiecutter command using the template url:
+    You do this by running the cookiecutter command using the template URL:
 
     ```bash
     cookiecutter <url-to-template>
@@ -241,86 +244,83 @@ in this way paths (for saving and loading files) are always relative to the root
         There are two common choices on how layout your source directory. The first is called *src-layout*
         where the source code is always place in a `src/<project_name>` folder and the second is called *flat-layout*
         where the source code is place is just placed in a `<project_name>` folder. The template we are using in this
-        course is using the flat-layout, but there are
+        course is using the src-layout, but there are
         [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) for both.
 
 3. After having created your new project, the first step is to also create a corresponding virtual environment and
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that else create
-    a new. Then install the project in that environment
+    an new. Then install the project in that environment
 
     ```bash
     pip install -e .
     ```
 
-4. Start by filling out the `<project_name>/data/make_dataset.py` file. When this file runs, it should take the raw
-    data e.g. the corrupted MNIST files from yesterday (`../data/corruptmnist`) which now should be located in a
-    `data/raw` folder and process them into a single tensor, normalize the tensor and save this intermediate
-    representation to the `data/processed` folder. By normalization here we refer to making sure the images have mean 0
-    and standard deviation 1.
+4. Start by filling out the `src/<project_name>/data.py` file. When this file runs, it should take the raw data e.g. the
+    corrupted MNIST files from yesterday (`../data/corruptmnist`) which now should be located in a `data/raw` folder and
+    process them into a single tensor, normalize the tensor and save this intermediate representation to the
+    `data/processed` folder. By normalization here we refer to making sure the images have mean 0 and standard
+    deviation 1.
 
     ??? success "Solution"
 
         ```python linenums="1" title="make_dataset.py"
-        --8<-- "s2_organisation_and_version_control/exercise_files/make_dataset_solution.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/data_solution.py"
         ```
 
-5. This template comes with a `Makefile` that can be used to easily define common operations in a project. You do not
-    have to understand the complete file but try taking a look at it. In particular the following commands may come in
-    handy
+5. This template comes with a `tasks.py` which uses the [invoke](https://www.pyinvoke.org/) framework to define project
+    tasks. You can learn more about the framework in the last optional [module](cli.md) in today's session. However, for
+    now just know that `tasks.py` is a file that can be used to specify common tasks that you want to run in your
+    project. It is similar to `Markefile`s if you are familiar with them. Try out some of the pre-defined tasks:
 
     ```bash
-    make data  # runs the make_dataset.py file, try it!
-    make clean  # clean __pycache__ files
-    make requirements  # install everything in the requirements.txt file
+    invoke preprocess-data  # runs the data.py file
+    invoke requirements     # installs all requirements in the requirements.txt file
+    invoke train            # runs the train.py file
     ```
 
-    ??? note "Windows users"
+    In general, we recommend that you add commands to the `tasks.py` file as you move along in the course.
 
-        `make` is a GNU build tool that is by default not available on Windows. There are two recommended ways to get
-        it running on Windows. The first is leveraging
-        [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for Windows which you maybe have
-        already installed. The second option is utilizing the [chocolatey](https://chocolatey.org/) package manager,
-        which enables Windows users to install packages similar to Linux system.
-
-    In general we recommend that you add commands to the `Makefile` as you move along in the course. If you want to know
-    more about how to write `Makefile`s then this is an excellent
-    [video](https://youtu.be/F6DZdvbRZQQ?si=9qg-XUva-l-9Tl21).
-
-6. Put your model file (`model.py`) into `<project_name>/models` folder together and insert the relevant code from the
-    `main.py` file into the `train_model.py` file. Make sure that whenever a model is trained and it is saved, that it
-    gets saved to the `models` folder (preferably in sub-folders).
-
-7. When you run `train_model.py`, make sure that some statistics/visualizations from the trained models gets saved to
-    the `reports/figures/` folder. This could be a simple `.png` of the training curve.
-
-8. (Optional) Can you figure out a way to add a `train` command to the `Makefile` such that training can be started
-    using
+6. Transfer your model file `model.py` into `src/<project_name>/model.py` file. When you call the script e.g.
 
     ```bash
-    make train
+    python src/<project_name>/model.py
     ```
+
+    It should print out the model architecture and number of parameters of the model.
 
     ??? success "Solution"
 
-        ```makefile
-        train:
-            python <project_name>/models/train_model.py
+        This is the CNN solution from yesterday and it may differ from the model architecture you have created.
+
+        ```python linenums="1" title="make_dataset.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/model_solution.py"
         ```
 
-9. Fill out the newly created `<project_name>/models/predict_model.py` file, such that it takes a pre-trained model file
-    and creates prediction for some data. Recommended interface is that users can give this file either a folder with
-    raw images that gets loaded in or a `numpy` or `pickle` file with already loaded images e.g. something like this
+7. Transfer the relevant parts of the `main.py` script in the `src/<project-name>/train.py` script e.g. the parts that
+    has to do with training the model. In addition, make sure it also does the following two things when run:
 
-    ```bash
-    python <project_name>/models/predict_model.py \
-        models/my_trained_model.pt \  # file containing a pretrained model
-        data/example_images.npy  # file containing just 10 images for prediction
-    ```
+    * Saves the trained model to the `models` folder
+    * Saves some statistics/visualizations from the training to the `reports/figures` folder. This could be a simple
 
-10. Fill out the file `<project_name>/visualization/visualize.py` with this (as minimum, feel free to add more
-    visualizations)
+    ??? success "Solution"
+
+        ```python linenums="1" title="make_dataset.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/train_solution.py"
+        ```
+8. Transfer the remaining parts of the `main.py` script into the `src/<project-name>/evaluate.py` script e.g. the parts
+    that has to do with evaluating the model. When run, it should load the model from the `models` folder and print out
+    the accuracy of the model on the test set.
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="make_dataset.py"
+        --8<-- "s2_organisation_and_version_control/exercise_files/evaluate_solution.py"
+        ```
+
+9. Fill out the file `src/<project-name>/visualize.py` with this (as minimum, feel free to add more visualizations)
+
     * Loads a pre-trained network
-    * Extracts some intermediate representation of the data (your training set) from your cnn. This could be the
+    * Extracts some intermediate representation of the data (your training set) from your CNN. This could be the
         features just before the final classification layer
     * Visualize features in a 2D space using
         [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
@@ -338,15 +338,14 @@ in this way paths (for saving and loading files) are always relative to the root
         ```python linenums="1" hl_lines="23" title="visualize.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/visualize_solution.py"
         ```
+10. Make sure to update the `README.md` file with a short description on how your scripts should be run
 
-11. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?)
-
-12. Make sure to update the `README.md` file with a short description on how your scripts should be run
-
-13. Finally make sure to update the `requirements.txt` file with any packages that are necessary for running your
+11. Finally, make sure to update the `requirements.txt` file with any packages that are necessary for running your
     code (see [this set of exercises](../s1_development_environment/package_manager.md) for help)
 
-14. (Optional) Lets say that you are not satisfied with the template I have recommended that you use, which is
+12. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?)
+
+13. (Optional) Lets say that you are not satisfied with the template I have recommended that you use, which is
     completely fine. What should you then do? You should of course create your own template! This is actually not that
     hard to do.
 
@@ -355,21 +354,21 @@ in this way paths (for saving and loading files) are always relative to the root
         alternatively fork the [data science template](https://github.com/drivendata/cookiecutter-data-science)
         template.
 
-    2. After forking the template, clone it down locally and lets start modifying it. The first step is changing
-        the `cookiecutter.json` file. For the mlops template it looks like this:
+    2. After forking the template, clone it down locally and let's start modifying it. The first step is changing
+        the `cookiecutter.json` file. For the MLOps template it looks like this:
 
         ```json
         {
+            "repo_name": "repo_name",
             "project_name": "project_name",
-            "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
             "author_name": "Your name (or your organization/company/team)",
             "description": "A short description of the project.",
-            "python_version_number": "3.10",
-            "open_source_license": ["No license file", "MIT", "BSD-3-Clause"]
+            "python_version": "3.11",
+            "open_source_license": ["No license file", "MIT", "BSD-3-Clause"],
         }
         ```
 
-        simply add a new line to the json file with the name of the variable you want to add and the default value you
+        Simply add a new line to the JSON file with the name of the variable you want to add and the default value you
         want it to have.
 
     3. The actual template is located in the `{{ cookiecutter.project_name }}` folder. `cookiecutter` works by replacing
@@ -383,7 +382,7 @@ in this way paths (for saving and loading files) are always relative to the root
         cookiecutter . -f --no-input
         ```
 
-        and it should create a new folder using the default values of the `cookiecutter.json` file.
+        And it should create a new folder using the default values of the `cookiecutter.json` file.
 
     5. Finally, make sure to push any changes you made to the template to GitHub, such that you in the future can use it
         by simply running
