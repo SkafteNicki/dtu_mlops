@@ -7,7 +7,7 @@
 !!! info "Core Module"
 
 Python is a great programming language and this is mostly due to its vast ecosystem of packages. No matter what you want
-to do, there is probably a package that can get you started. Just try to remember when the last time you wrote a program
+to do, there is probably a package that can get you started. Just try to remember the last time you wrote a program
 only using the [Python standard library](https://docs.python.org/3/library/index.html). Probably never. For this reason,
 we need a way to install third-party packages and this is where
 [package managers](https://en.wikipedia.org/wiki/Package_manager) come into play.
@@ -28,7 +28,7 @@ python main.py  # try executing main script from project A
 ```
 
 will mean that even though we are executing the main script from project A's folder, it will use `torch==2.0` instead of
-`torch==1.3.0` because that is the last version we installed because in both cases `pip` will install the package into
+`torch==1.3.0` because that is the last version we installed. In both cases, `pip` will install the package into
 the same environment, in this case, the global environment. Instead, if we did something like:
 
 === "Unix/macOS"
@@ -72,16 +72,43 @@ virtual environments yourself, remembering which Python version to use, which pa
 For this reason, a number of package managers have been created that can help you manage your virtual environments and
 dependencies, with some of the most popular being:
 
-* [conda](https://docs.conda.io/en/latest/)
-* [pipenv](https://pipenv.pypa.io/en/latest/)
-* [poetry](https://python-poetry.org/)
-* [pipx](https://pipx.pypa.io/stable/)
-* [hatch](https://hatch.pypa.io/latest/)
-* [pdm](https://pdm.fming.dev/latest/)
+```python exec="1"
+# this code is being executed at build time to get the latest number of stars
+import requests
 
-with more being created every year ([rye](https://github.com/mitsuhiko/rye) is looking like an interesting project). This
-is considered a problem in the Python community because it means that there is no standard way of managing
-dependencies like in other languages like `npm` for `node.js` or `cargo` for `rust`.
+def get_github_stars(owner_repo):
+    url = f"https://api.github.com/repos/{owner_repo}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("stargazers_count", 0)
+    else:
+        return None
+
+table =  "| 🌟 Framework | 📄 Docs | 📂 Repository | ⭐ GitHub Stars |\n"
+table += "|--------------|---------|---------------|----------------|\n"
+
+data = [
+    ("Conda", "https://docs.conda.io/en/latest/", "conda/conda"),
+    ("Pipenv", "https://pipenv.pypa.io/en/latest/", "pypa/pipenv"),
+    ("Poetry", "https://python-poetry.org/", "python-poetry/poetry"),
+    ("Pipx", "https://pipx.pypa.io/stable/", "pypa/pipx"),
+    ("Hatch", "https://hatch.pypa.io/latest/", "pypa/hatch"),
+    ("PDM", "https://pdm.fming.dev/latest/", "pdm-project/pdm"),
+    ("uv", "https://docs.astral.sh/uv/", "astral-sh/uv"),
+]
+
+for framework, docs, repo in data:
+    stars_count = get_github_stars(repo)
+    stars = f"{stars_count / 1000:.1f}k" if stars_count is not None else "⭐ N/A"
+    table += f"| {framework} | [🔗 Link]({docs}) | [🔗 Link](https://github.com/{repo}) | {stars} |\n"
+
+print(table)
+```
+
+This is considered a problem in the Python community because it means that there is no standard way of managing
+dependencies like in other languages like `npm` for `node.js` or `cargo` for `rust` (however, it does seem like `uv` is
+trying to become the standard, quickly gaining popularity and being adopted by many projects).
 
 <figure markdown>
 ![Image](../figures/standards.png){ width="700" }
@@ -97,7 +124,7 @@ evaluation of the different environment management and packaging tools that exis
 
 If you are not familiar with any package managers, then we recommend that you use `conda` and `pip` for this course. You
 probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
-on your laptop, which is great. What conda does especially well, is that it allows you to create virtual environments
+on your laptop, which is great. What conda does especially well is that it allows you to create virtual environments
 with different Python versions, which can be really useful if you encounter dependencies that have not been updated in
 a long time. In this course specifically, we are going to recommend the following workflow
 
@@ -135,9 +162,9 @@ the API of the package. This is especially important when working with machine l
 that we can reproduce the exact same model at a later point.
 
 Finally, we also need to discuss *dependency resolution*, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have ever
-thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were trying
-to figure out which packages are compatible with each other. For example, if you try to install
+compatible. This is a non-trivial problem, and there exists a lot of different algorithms for doing this. If you have
+ever thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were
+trying to figure out which packages are compatible with each other. For example, if you try to install
 
 ```bash
 pip install "matplotlib >= 3.8.0" "numpy <= 1.19" --dry-run
@@ -154,6 +181,13 @@ to make it work.
 
 ## ❔ Exercises
 
+!!! note "Conda vs. Mamba"
+
+    If you are using `conda` then you can also use `mamba` which is a drop-in replacement `conda` that is faster.
+    This means that any `conda` command can be replaced with `mamba` and it should work. Feel free to use `mamba` if
+    you are already familiar with `conda` or after having gone through the exercises below. Install instructions can
+    be found [here](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).
+
 For hints regarding how to use `conda` you can check out the
 [cheat sheet](https://github.com/SkafteNicki/dtu_mlops/blob/main/s1_development_environment/exercise_files/conda_cheatsheet.pdf)
 in the exercise folder.
@@ -162,9 +196,9 @@ in the exercise folder.
     The core difference between the two packages is that `conda` already comes with a lot of packages that you would
     normally have to install with `miniconda`. The downside is that `conda` is a much larger package which can be a
     huge disadvantage on smaller devices. Make sure that your installation is working by writing `conda help` in a
-    terminal and it should show you the help message for conda. If this does not work you probably need to set some
-    system variable to
-    [point to the conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
+    terminal, and it should show you the help message for conda. If this does not work you probably need to set some
+    system variable to point to the
+    [conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
 
 2. If you have successfully installed conda, then you should be able to execute the `conda` command in a terminal.
 
@@ -274,7 +308,7 @@ in the exercise folder.
         pip install "pytest >= 4.6" pytest-cov==2.12.1
         ```
 
-        but there of course exist other solutions as well.
+        but there of course exists other solutions as well.
 
 This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
 to construct requirements files automatically, sometimes it is just easier to manually sit down and create the files as you

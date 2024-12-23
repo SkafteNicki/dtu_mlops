@@ -522,7 +522,7 @@ the images we are used to that use PyTorch.
         where you need to replace `<region>`, `<project-id>` and `<registry-name>` with your own values.
 
 8. (Optional) Instead of using the built-in trigger in GCP, another way to activate the build-on code changes is to
-    integrate with Github Actions. This has the benefit that we can make the build process depend on other steps in the
+    integrate with GitHub Actions. This has the benefit that we can make the build process depend on other steps in the
     pipeline. For example, in the image below we have conditioned the build to only run if tests are passing on
     all operating systems. Lets try to implement this.
 
@@ -530,8 +530,8 @@ the images we are used to that use PyTorch.
     ![Image](../figures/github_actions_job_dependency.png){ width="800"  }
     </figure>
 
-    1. Start by adding a new secret to Github with the name `GCLOUD_SERVICE_KEY` and the value of the service account
-        key that you created in the previous module. This is needed to authenticate the Github action with GCP.
+    1. Start by adding a new secret to GitHub with the name `GCLOUD_SERVICE_KEY` and the value of the service account
+        key that you created in the previous module. This is needed to authenticate the GitHub action with GCP.
 
     2. We assume that you already have a workflow file that runs some unit tests:
 
@@ -603,7 +603,7 @@ the images we are used to that use PyTorch.
         * Setup gcloud
         * Submit the build
 
-        How can you do this? Hint: For the first two steps these two Github actions can be useful:
+        How can you do this? Hint: For the first two steps these two GitHub actions can be useful:
         [auth](https://github.com/google-github-actions/auth) and
         [setup-gcloud](https://github.com/google-github-actions/setup-gcloud).
 
@@ -759,7 +759,7 @@ models, and then use other services for different parts of our pipeline.
         Additionally, if you have a VM with GPU support also try running the `nvidia-smi` command.
 
     4. When you have logged in to the VM, it works as your machine. Therefore to run some training code you would
-        need to do the same setup step you have done on your machine: clone your Github, install dependencies,
+        need to do the same setup step you have done on your machine: clone your GitHub, install dependencies,
         download data, and run code. Try doing this to make sure you can train a model.
 
 2. The above exercises should hopefully have convinced you that it can be hard to scale experiments using the Compute

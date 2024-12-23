@@ -171,7 +171,7 @@ def main() -> None:
         )
 
         github_repo = st.text_input(
-            "Github Repo",
+            "GitHub Repo",
             value="https://github.com/Username/reponame",
             key="github_repo",
         )

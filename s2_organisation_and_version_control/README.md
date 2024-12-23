@@ -38,7 +38,7 @@
 
 Today we take our first steps into the world of MLOps. The set of modules in this session focuses on getting organized
 and making sure that you are familiar with good development practices. While many of the practices you will learn about
-these modules do not seem that important when you are a single person working on a project, it is crucial when
+in these modules do not seem that important when you are a single person working on a project, it is crucial when
 working in large groups that the difference in how different people organize and write their code is minimized.
 The topics in this session will focus on:
 
@@ -53,7 +53,7 @@ The topics in this session will focus on:
 </figure>
 
 Some exercises in this course are very loosely stated (including the exercises today). You are expected to seek out
-information before you ask for help (Google is your friend!) as you will both learn more for trying to solve the
+information before you ask for help (Google is your friend!) as you will both learn more from trying to solve the
 problems yourself, and it is more realistic of how the "real world" works.
 
 !!! tip "Learning objectives"
