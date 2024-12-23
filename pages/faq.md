@@ -14,7 +14,7 @@ Mostly yes. All exercises are provided online and lectures will be recorded and 
 * For project days (see which days in the [time plan](timeplan.md)) you will need to agree with your project group that
     you are working from home.
 * We have limited TA resources and will be prioritizing students coming to campus for help. If you are attending online,
-    feel free to ask questions on our Slack channel and we will help to the best of our ability.
+    feel free to ask questions on our Slack channel, and we will help to the best of our ability.
 
 Overall we try to support flexible learning as much as possible with some limitations.
 
@@ -46,7 +46,7 @@ as it sounds.
 
 ## When will the exam take place ❔
 
-From 2025 and onwards, the exam only consist of a project report. The report should be handed in at midnight on the
+From 2025 and onwards, the exam only consists of a project report. The report should be handed in at midnight on the
 final day of the course. For January 2025, this means the 24th.
 
 ## Where can I find information regarding the exam ❔

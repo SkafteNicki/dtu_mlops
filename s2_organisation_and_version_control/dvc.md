@@ -160,11 +160,19 @@ it contains excellent tutorials.
     (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
     than your standard code) to make sure that the two commands indeed download both your code and data.
 
-10. Let's look about the process of updating our data. Remember the important aspect of version control is that we do
-    not need to store explicit files called `data_v1.pt`, `data_v2.pt` etc. but just have a single `data.pt` that where
-    we can always check out earlier versions. Initially start by copying the data `data/corruptmnist_v2` folder from
-    this repository to your MNIST code. This contains 3 extra data files with 15000 additional observations. Rerun your
-    data pipeline so these gets incorporated into the files in your `processed` folder.
+10. Let's now look at the process of creating a new version of our data. We are going to add some new data to our
+    dataset and version control this as well. The new data can be downloaded from this
+    [Google Driver folder](https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing)
+    or by running these two commands:
+
+    ```bash
+    pip install gdown
+    gdown --folder https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing
+    ```
+
+    Copy the data to your `data/raw` folder and then rerun your data pipeline to incorporate the new data into the
+    files in your `processed` folder. The new data should are 4 files with train images and 4 files with train targets,
+    a total of 20000 additional observations.
 
 11. Redo the above steps, adding the new data using `dvc`, committing and tagging the metafiles e.g. the following
     commands should be executed (with appropriate input):

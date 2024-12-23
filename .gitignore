@@ -153,6 +153,7 @@ Gemfile.lock
 node_modules/
 
 # local stuff
+.vscode/
 latest_info.csv
 latest_repo_data.csv
 repo_data.csv
@@ -163,6 +164,8 @@ reviews.csv
 bert_sentiment_model.pt
 prediction*.json
 **/service_account_key.json
+corruptmnist_v1/
+corruptmnist_v2/
 
 # vscode
 .vscode/
