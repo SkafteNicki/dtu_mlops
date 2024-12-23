@@ -23,7 +23,7 @@ model is not broken, but there exist other failure modes of a machine learning p
 * ...
 
 All these questions are questions that we can answer by writing tests that are specific to machine learning. In this
-session, we are going to look at how we can begin to use [Github Actions](github_actions.md) to automate these tests.
+session, we are going to look at how we can begin to use [GitHub Actions](github_actions.md) to automate these tests.
 
 ## MLOps maturity model
 
@@ -260,7 +260,7 @@ repository.
 
     2. Now we need to generate a personal access token that can link our weights and bias account to our GitHub account.
         Go to [this page](https://github.com/settings/personal-access-tokens/new) and generate a new token. You can also
-        find the page by clicking your profile icon in the upper right corner of Github and selecting
+        find the page by clicking your profile icon in the upper right corner of GitHub and selecting
         `Settings`, then `Developer settings`, then `Personal access tokens` and finally choose either
         `Tokens (classic)` or `Fine-grained tokens` (which is the safer option, which is also what the link points to).
 
@@ -286,8 +286,8 @@ repository.
         * Secret: leave empty
 
         You here need to replace `<owner>` and `<repo>` with your own information. The `/dispatches` endpoint is a
-        special endpoint that all Github actions workflows can listen to. Thus, if you ever want to setup a webhook in
-        some other framework that should trigger a Github action, you can use this endpoint.
+        special endpoint that all GitHub actions workflows can listen to. Thus, if you ever want to setup a webhook in
+        some other framework that should trigger a GitHub action, you can use this endpoint.
 
     5. Next, navigate to your model registry. It should hopefully contain at least one registry with at least one model
         registered. If not, go back to the previous module and do that.
@@ -323,11 +323,11 @@ repository.
         ??? success "Solution"
 
             The automation is set up to trigger a webhook whenever the alias `staging` is added to a model version. The
-            webhook is set up to trigger a Github action workflow that listens to the `/dispatches` endpoint and has
+            webhook is set up to trigger a GitHub action workflow that listens to the `/dispatches` endpoint and has
             the event type `staged_model`. The payload that is sent to the webhook contains information about the model
             that was staged.
 
-    7. We are now ready to create the `Github actions workflow` that listens to the `/dispatches` endpoint and triggers
+    7. We are now ready to create the `GitHub actions workflow` that listens to the `/dispatches` endpoint and triggers
         whenever a model is staged. Create a new workflow file (called `stage_model.yaml`) and make sure it only
         activates on the `staged_model` event. Hint: relevant
         [documentation](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
@@ -463,16 +463,12 @@ repository.
         some relevant Python code that can be used to add the alias:
 
         ```python
-        import click
+        import typer
         import os
         import wandb
 
-        @click.command()
-        @click.argument("artifact-path")
-        @click.option(
-            "--aliases", "-a", multiple=True, default=["staging"], help="List of aliases to link the artifact with."
-        )
-        def link_model(artifact_path: str, aliases: list[str]) -> None:
+
+        def link_model(artifact_path: str, aliases: list[str] = ["staging"]) -> None:
             """
             Stage a specific model to the model registry.
 
@@ -486,7 +482,7 @@ repository.
 
             """
             if artifact_path == "":
-                click.echo("No artifact path provided. Exiting.")
+                typer.echo("No artifact path provided. Exiting.")
                 return
 
             api = wandb.Api(
@@ -499,7 +495,10 @@ repository.
             artifact = api.artifact(artifact_path)
             artifact.link(target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{artifact_name}", aliases=aliases)
             artifact.save()
-            click.echo(f"Artifact {artifact_path} linked to {aliases}")
+            typer.echo(f"Artifact {artifact_path} linked to {aliases}")
+
+        if __name__ == "__main__":
+            typer.run(link_model)
         ```
 
         for example, you can run this script with the following command:
@@ -593,7 +592,7 @@ repository.
         process.
 
 This ends the module on continuous machine learning. As we have hopefully convinced you, it is only the imagination that
-sets the limits for what you can use Github actions for in your machine learning pipeline. However, we do want to stress
+sets the limits for what you can use GitHub actions for in your machine learning pipeline. However, we do want to stress
 that it is important that human oversight is always present in the process. Automation is great, but it should never
 replace human judgement. This is especially true in machine learning where the consequences of a bad model can be
 severe if it is used in critical decision making.
