@@ -1,8 +1,7 @@
 import torch
 import typer
-from model import MyAwesomeModel
-
 from data import corrupt_mnist
+from model import MyAwesomeModel
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
