@@ -160,8 +160,8 @@ it contains excellent tutorials.
     (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
     than your standard code) to make sure that the two commands indeed download both your code and data.
 
-10. Let's now look at the process of creating a new version of our data. We are going to add some new data to our dataset
-    and version control this as well. The new data can be downloaded from this
+10. Let's now look at the process of creating a new version of our data. We are going to add some new data to our
+    dataset and version control this as well. The new data can be downloaded from this
     [Google Driver folder](https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing)
     or by running these two commands:
 
@@ -171,8 +171,8 @@ it contains excellent tutorials.
     ```
 
     Copy the data to your `data/raw` folder and then rerun your data pipeline to incorporate the new data into the
-    files in your `processed` folder. The new data should contain 3 extra data files with a total of 15000 additional
-    observations.
+    files in your `processed` folder. The new data should are 4 files with train images and 4 files with train targets,
+    a total of 20000 additional observations.
 
 11. Redo the above steps, adding the new data using `dvc`, committing and tagging the metafiles e.g. the following
     commands should be executed (with appropriate input):
