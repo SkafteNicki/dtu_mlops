@@ -1,13 +1,15 @@
 
-![Logo](../figures/icons/evidentlyai.png){ align=right width="130"}
+![Logo](../figures/icons/evidentlyai.png){align=right width="130"}
 
 # Data drifting
 
 ---
 
+!!! info "Core Module"
+
 Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
-this means that the model is receiving input that is outside of the scope that it was trained on, as seen in the figure
+this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
 two years
 
@@ -49,46 +51,50 @@ research and therefore exist multiple frameworks for doing this kind of detectio
 we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
 [deepcheck](https://github.com/deepchecks/deepchecks).
 
-1. Start by install Evidently
+1. Start by installing Evidently
 
     ```python
     pip install evidently
     ```
 
-    you will also need `scikit-learn` and `pandas` installed if you do not already have it.
+    You will also need `scikit-learn` and `pandas` installed if you do not already have it.
 
-2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the deployment
-    to GCP functions you should have developed a application that can classify the
-    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
-    [script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py)
-    . We are going to convert this into a FastAPI application for the purpose here:
+2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
+    deployment exercises about GCP functions you should have developed an application that can classify the
+    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris). Your solution should look something like the script
+    below:
 
-    1. Convert your GCP function into a FastAPI application. The appropriate `curl` command should look something like
-        this:
+    ??? example "Example GCP function for iris classification"
 
-        ```bash
-        curl -X 'POST' \
-            'http://127.0.0.1:8000/iris_v1/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
-            -H 'accept: application/json' \
-            -d ''
+        ```python linenums="1" title="sklearn_train_function.py"
+        --8<-- "s7_deployment/exercise_files/sklearn_main_function.py"
         ```
 
-        and the response body should look like this:
+    Start by converting your GCP function into a FastAPI application. The appropriate `curl` command should look
+    something like this:
 
-        ```json
-        {
-            "prediction": "Iris-Setosa",
-            "prediction_int": 0
-        }
+    ```bash
+    curl -X 'POST' \
+        'http://127.0.0.1:8000/iris_v1/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
+        -H 'accept: application/json' \
+        -d ''
+    ```
+
+    and the response body should look like this:
+
+    ```json
+    { "prediction": "Iris-Setosa", "prediction_int": 0 }
+    ```
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="iris_fastapi_solution.py"
+        --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution.py"
         ```
 
-        We have implemented a solution in this
-        [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files/iris_fastapi.py)
-        (called v1) if you need help.
-
-    2. Next we are going to add some functionality to our application. We need to add that the input for the user is
+    1. Next we are going to add some functionality to our application. We need to add that the input for the user is
         saved to a database whenever our application is called. However, to not slow down the response to our user we
-        want to implement this as an *background task*. A background task is a function that should be executed after
+        want to implement this as a *background task*. A background task is a function that should be executed after
         the user have got their response. Implement a background task that save the user input to a database implemented
         as a simple `.csv` file. You can read more about background tasks
         [here](https://fastapi.tiangolo.com/tutorial/background-tasks/). The header of the database should look
@@ -101,13 +107,18 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         ...
         ```
 
-        thus both input, timestamp and predicted value should be saved. We have implemented a solution in this
-        [file](exercise_files/iris_fastapi.py) (called v2) if you need help.
+        Thus both input, timestamp and predicted value should be saved.
 
-    3. Call you API a number of times to generate some dummy data in the database.
+        ??? success "Solution"
+
+            ```python linenums="1" title="iris_fastapi_solution.py"
+            --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution_2.py"
+            ```
+
+    2. Call you API a number of times to generate some dummy data in the database.
 
 3. Create a new `data_drift.py` file where we are going to implement the data drifting detection and reporting. Start
-    by adding both the real iris data and your generated dummy data as pandas dataframes.
+    by adding both the real iris data and your generated dummy data as pandas data frames.
 
     ```python
     import pandas as pd
@@ -116,7 +127,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     current_data = pd.read_csv('prediction_database.csv')
     ```
 
-    if done correctly you will most likely end up with two dataframes that look like
+    If done correctly you will most likely end up with two data frames that look like
 
     ```txt
     # reference_data
@@ -136,43 +147,74 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     [10 rows x 5 columns]
     ```
 
-    Standardize the dataframes such that they have the same column names and drop the time column from the
-    `current_data` dataframe.
+    Standardize the data frames such that they have the same column names and drop the time column from the
+    `current_data` data frame.
 
-4. We are now ready to generate some reports about data drifting:
+    ??? success "Solution"
 
-    1. Try executing the following code:
+        ```python
+        import pandas as pd
+        from sklearn import datasets
+        reference_data = datasets.load_iris(as_frame=True).frame
+        reference_data = reference_data.rename(
+            columns={
+                'sepal length (cm)': 'sepal_length',
+                'sepal width (cm)': 'sepal_width',
+                'petal length (cm)': 'petal_length',
+                'petal width (cm)': 'petal_width',
+                'target': 'target'
+            }
+        )
+
+        current_data = pd.read_csv('prediction_database.csv')
+        current_data = current_data.drop(columns=['time'])
+        ```
+
+    1. Add the following code to the `data_drift.py` file to create a report on the data drift:
 
         ```python
         from evidently.report import Report
         from evidently.metric_preset import DataDriftPreset
         report = Report(metrics=[DataDriftPreset()])
-        report.run(reference_data=reference, current_data=current)
+        report.run(reference_data=reference_data, current_data=current_data)
         report.save_html('report.html')
         ```
 
-        and open the generated `.html` page. What does it say about your data? Have it drifted? Make sure to poke
+        Open the generated `.html` page. What does it say about your data? Have it drifted? Make sure to poke
         around to understand what the different plots are actually showing.
 
     2. Data drifting is not the only kind of reporting evidently can make. We can also get reports on the data quality.
-        Try first adding a few `Nan` values to your reference data. Secondly, try changing the report to
+        Look through the documentation of evidently and add the preset that has to do with data quality to the report.
+        Try adding a few `Nan` values to your `current_data` and re-run the report. Checkout the report and go over the
+        generated plots and make sure that it picked up on the missing values you just added.
 
-        ```python
-        from evidently.metric_preset import DataDriftPreset, DataQualityPreset
-        report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
-        ```
+        ??? success "Solution"
 
-        and re-run the report. Checkout the newly generated report. Again go over the generated plots and make sure that
-        it picked up on the missing values you just added.
+            The `DataQualityPreset` checks the quality of the data:
 
-    3. The final report present we will look at is the `TargetDriftPreset`. Target drift means that our model is
-        over/under predicting certain classes e.g. or general terms the distribution of predicted values differs from
-        the ground true distribution of targets. Try adding the `TargetDriftPreset` to the `Report` class and re-run the
-        analysis and inspect the result. Have your targets drifted?
+            ```python
+            from evidently.metric_preset import DataDriftPreset, DataQualityPreset
+            report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
+            ```
 
-5. Evidently reports are meant for debugging, exploration and reporting of results. However, as we stated in the
+    3. Another important kind of drift is called *target drift*, where the distribution of the target values have
+        changed. If your training data was balanced, and you are now seeing a lot of one class being predicted this may
+        indicate that your model is not performing as expected or that external factors have changed, which means that
+        you should retrain your model. Find the preset that checks for target drift, add it to the report and re-run
+        the analysis.
+
+        ??? success "Solution"
+
+            The `TargetDriftPreset` checks the distribution of the target values:
+
+            ```python
+            from evidently.metric_preset import DataDriftPreset, DataQualityPreset, TargetDriftPreset
+            report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
+            ```
+
+4. Evidently reports are meant for debugging, exploration and reporting of results. However, as we stated in the
     beginning, what we are actually interested in methods automatically detecting when we are beginning to drift. For
-    this we will need to look at Test and TestSuites:
+    this we will need to look at `Test` and `TestSuites` in Evidently.
 
     1. Lets start with a simple test that checks if there are any missing values in our dataset:
 
@@ -192,13 +234,34 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your
         usecase and get them all passing.
 
-6. (Optional) When doing monitoring in practice, we are not always interested in running on all data collected from our
-    API maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
-    the timestamps of when our API is called we can use that for filtering. Implement a simple filter that either takes
-    an integer `n` and returns the last `n` entries in our database or some datetime `t` that filters away observations
-    earlier than this.
+        ??? success "Solution"
 
-7. Evidently by default only supports structured data e.g. tabular data (so does nearly every other framework). Thus,
+            ```python linenums="1" title="data_drift.py"
+            --8<-- "s8_monitoring/exercise_files/data_drift.py"
+            ```
+
+5. (Optional) When doing monitoring in practice, we are not always interested in running on all data collected from our
+    API maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
+    the timestamps of when our API is called we can use that for filtering. Implement a simple filter that
+
+    * Takes an integer `n` and returns the last `n` entries in our database
+    * Takes an integer `t` that filters away observations older than `t` hours
+
+    ??? success "Solution"
+
+        ```python
+        import pandas as pd
+        def filter_data(data: pd.Dataframe, n: int | None = None, t: int | None = None) -> pd.Dataframe:
+            if n is not None:
+                return data.tail(n)
+            if t is not None:
+                df['time'] = pd.to_datetime(df['time'])  # Ensure the 'time' column is a datetime object
+                one_hour_ago = datetime.now() - timedelta(hours=t)
+                return df[df['time'] > one_hour_ago]
+            return data
+        ```
+
+6. Evidently by default only supports structured data e.g. tabular data (so does nearly every other framework). Thus,
     the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
     structured features from the data which we then can run the analysis on.
 
@@ -250,20 +313,76 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         [Amazon review](https://www.kaggle.com/datasets/PromptCloudHQ/amazon-echo-dot-2-reviews-dataset) for text. After
         extracting the features try running some of the data distribution testing you just learned about.
 
-8. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
-    monitoring to be a deployed application (that only we can access). Implement a `/monitoring/` endpoint that does
+7. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
+    monitoring to be a deployed application (that only we can access). Implement a `/monitoring` endpoint that does
     all the reporting we just went through such that you have two endpoints:
 
     ```bash
-    http://127.0.0.1:8000/iris_infer/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0 # user endpoint
-    http://127.0.0.1:8000/iris_monitoring/ # monitoring endpoint
+    http://127.0.0.1:8000/predict/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0  # user endpoint
+    http://127.0.0.1:8000/monitoring/  # monitoring endpoint
     ```
 
-    Our monitoring endpoint should return a HTML page either showing an Evidently report or test suit. Try implementing
-    this endpoint. We have implemented a solution in this [file](exercise_files/iris_fastapi.py) if you need help with
-    how to return an HTML page from a FastAPI application.
+    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suit. Try implementing
+    this endpoint.
 
-9. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
+    ??? success "Solution"
+
+        ```python linenums="1" title="iris_fastapi_solution.py"
+        --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution_3.py"
+        ```
+
+## Data drift in the Cloud
+
+In the next section we are going to look at how we can incorporate the data drifting in our cloud environment. In
+particular, we are going to be looking at how we can deploy a monitoring application that will run on a schedule and
+then report those statistics directly back into GCP for us to study.
+
+### ❔ Exercises
+
+In this set of exercises we are going to deploy a machine learning model for sentiment analysis trained on
+[Google Play Store Reviews](https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews). The models task
+is to predict if a users review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
+service that will check if the distribution of the reviews have drifted over time. This may be useful if we are seeing
+a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
+expected.
+
+We have already created downloaded the training data, created a training script and trained a model for you.
+The training data and the trained model is available to download from the following
+[Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing) which can
+be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
+Python package):
+
+```bash
+pip install gdown
+gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
+```
+
+And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
+train using a GPU. Overall the model scores around 74% accuracy on a hold-out test set. We recommend that you scroll
+through the files to get an understanding of what is going on.
+
+??? example "Training script for sentiment analysis model"
+
+    ```python linenums="1" title="sentiment_classifier.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_classifier.py"
+    ```
+
+1. To begin with lets start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
+    called `gcp_monitoring_exercise` (or something similar). Upload the training data and the trained model to the
+    bucket.
+
+    ??? success "Solution"
+
+        This can be done by running the following commands or manually uploading the files to the bucket using the
+        GCP console.
+
+        ```
+        gsutil mb gs://gcp_monitoring_exercise
+        gsutil cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
+        gsutil cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
+        ```
+
+2. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
     implement this in a container e.g. GCP Run service because the data gathering from the endpoint should still be
     implemented as an background task. For this to work you will need to change the following:
 
