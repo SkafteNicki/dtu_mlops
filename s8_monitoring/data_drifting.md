@@ -1,5 +1,5 @@
 
-![Logo](../figures/icons/evidentlyai.png){ align=right width="130"}
+![Logo](../figures/icons/evidentlyai.png){align=right width="130"}
 
 # Data drifting
 
@@ -7,7 +7,7 @@
 
 Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
-this means that the model is receiving input that is outside of the scope that it was trained on, as seen in the figure
+this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
 two years
 
@@ -49,46 +49,50 @@ research and therefore exist multiple frameworks for doing this kind of detectio
 we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
 [deepcheck](https://github.com/deepchecks/deepchecks).
 
-1. Start by install Evidently
+1. Start by installing Evidently
 
     ```python
     pip install evidently
     ```
 
-    you will also need `scikit-learn` and `pandas` installed if you do not already have it.
+    You will also need `scikit-learn` and `pandas` installed if you do not already have it.
 
-2. Hopefully you already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the deployment
-    to GCP functions you should have developed a application that can classify the
-    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), based on a model trained by this
-    [script](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/sklearn_cloud_functions.py)
-    . We are going to convert this into a FastAPI application for the purpose here:
+2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
+    deployment exercises about GCP functions you should have developed an application that can classify the
+    [iris dataset](https://archive.ics.uci.edu/ml/datasets/iris). Your solution should look something like the script
+    below:
 
-    1. Convert your GCP function into a FastAPI application. The appropriate `curl` command should look something like
-        this:
+    ??? example "Example GCP function for iris classification"
 
-        ```bash
-        curl -X 'POST' \
-            'http://127.0.0.1:8000/iris_v1/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
-            -H 'accept: application/json' \
-            -d ''
+        ```python linenums="1" title="sklearn_train_function.py"
+        --8<-- "s7_deployment/exercise_files/sklearn_main_function.py"
         ```
 
-        and the response body should look like this:
+    Start by converting your GCP function into a FastAPI application. The appropriate `curl` command should look
+    something like this:
 
-        ```json
-        {
-            "prediction": "Iris-Setosa",
-            "prediction_int": 0
-        }
+    ```bash
+    curl -X 'POST' \
+        'http://127.0.0.1:8000/iris_v1/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
+        -H 'accept: application/json' \
+        -d ''
+    ```
+
+    and the response body should look like this:
+
+    ```json
+    { "prediction": "Iris-Setosa", "prediction_int": 0 }
+    ```
+
+    ??? success "Solution"
+
+        ```python linenums="1" title="iris_fastapi_solution.py"
+        --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution.py"
         ```
 
-        We have implemented a solution in this
-        [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s8_monitoring/exercise_files/iris_fastapi.py)
-        (called v1) if you need help.
-
-    2. Next we are going to add some functionality to our application. We need to add that the input for the user is
+    1. Next we are going to add some functionality to our application. We need to add that the input for the user is
         saved to a database whenever our application is called. However, to not slow down the response to our user we
-        want to implement this as an *background task*. A background task is a function that should be executed after
+        want to implement this as a *background task*. A background task is a function that should be executed after
         the user have got their response. Implement a background task that save the user input to a database implemented
         as a simple `.csv` file. You can read more about background tasks
         [here](https://fastapi.tiangolo.com/tutorial/background-tasks/). The header of the database should look
@@ -101,10 +105,15 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         ...
         ```
 
-        thus both input, timestamp and predicted value should be saved. We have implemented a solution in this
-        [file](exercise_files/iris_fastapi.py) (called v2) if you need help.
+        Thus both input, timestamp and predicted value should be saved.
 
-    3. Call you API a number of times to generate some dummy data in the database.
+        ??? success "Solution"
+
+            ```python linenums="1" title="iris_fastapi_solution.py"
+            --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution_2.py"
+            ```
+
+    2. Call you API a number of times to generate some dummy data in the database.
 
 3. Create a new `data_drift.py` file where we are going to implement the data drifting detection and reporting. Start
     by adding both the real iris data and your generated dummy data as pandas dataframes.
