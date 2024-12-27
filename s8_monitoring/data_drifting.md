@@ -482,17 +482,43 @@ through the files to get an understanding of what is going on.
 
             which can the be used in the `client.py` script to call the deployed service.
 
-3. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
-    implement this in a container e.g. GCP Run service because the data gathering from the endpoint should still be
-    implemented as an background task. For this to work you will need to change the following:
+3. We now have a working application that we are ready to monitor for data drift in real time. We therefore need to now
+    write a FastAPI application that takes in the training data and the predicted data and run evidently to check if the
+    data or the labels have drifted. Furthermore, we again provide a starting point for the application below.
 
-   * Instead of saving the input to a local file you should either store it in GCP bucket or an
-        [BigQuery](https://console.cloud.google.com/bigquery) SQL table (this is a better solution, but also
-        out-of-scope for this course)
+    ```python linenums="1" title="sentiment_monitoring_starter.py"
+    --8<-- "s8_monitoring/exercise_files/sentiment_monitoring_starter.py"
+    ```
 
-   * You can either run the data analysis locally by just pulling from cloud storage predictions and training data
-        or alternatively you can deploy this as its own endpoint that can be invoked. For the latter option we recommend
-        that this should require authentication.
+    Look over the script and make sure you know what kind of features we are going to monitor?
+
+    ??? success "Solution"
+
+        The provided starting script makes use of two presets from evidently:
+        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and
+        [TargetDriftPreset](https://docs.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
+        text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
+        second preset runs target drift detection on the predicted labels.
+
+    1. The script misses one key function to work: `#!python fetch_latest_data(n: int)` that should fetch the latest `n`
+        predictions. Implement this function in the script.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="sentiment_monitoring.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.py"
+            ```
+
+    2. Test out the script locally. This can be done by downloading a couple of the request/response data from the
+        bucket and running the script on this data.
+
+    3. Write a Dockerfile that containerize the monitoring application
+
+        ??? success "Solution"
+
+            ```docker linenums="1" title="sentiment_monitoring.dockerfile"
+            --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.dockerfile"
+            ```
 
 That ends the module on detection of data drifting, data quality etc. If this has not already been made clear,
 monitoring of machine learning applications is an extremely hard discipline because it is not a clear cut when we
