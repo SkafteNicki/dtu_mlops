@@ -392,6 +392,96 @@ through the files to get an understanding of what is going on.
         --8<-- "s8_monitoring/exercise_files/sentiment_api_starter.py"
         ```
 
+    1. Confirm that you can run the application by running the following command in the terminal
+
+        ```bash
+        uvicorn sentiment_api_starter:app --reload
+        ```
+
+        You need the model file saved in the same directory as the application to run the application. Write a small
+        `client.py` script that calls the application with a review and prints the predicted sentiment.
+
+        ??? success "Solution"
+
+            ```python
+            import requests
+
+            url = "http://localhost:8000/predict"
+            review = "This is a great app, I love it!"
+            response = requests.post(url, json={"review": review})
+            print(response.json())
+            ```
+
+    2. Next, we need to extend the application in two ways. First instead of loading the model from our local computer,
+        it should load from the bucket we just uploaded the model to. Secondly, we need to save the request data and the
+        predicted label to the cloud. Normally this would best be suited in a database, but we are going to just save
+        to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g. the
+        time and date of the request). Implement both of these functionalities in the application. To interact with
+        GCP buckets in Python you should install the `google-cloud-storage` package if you have not already done so.
+
+        ```bash
+        pip install google-cloud-storage
+        ```
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="sentiment_api.py"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.py"
+            ```
+
+    3. You should confirm that the application is working locally before moving on. You can do this by running the
+        following command in the terminal
+
+        ```bash
+        uvicorn sentiment_api:app --reload
+        ```
+
+        And use the same `client.py` script as before to confirm that the application is working. You should also check
+        that the data is saved to the bucket.
+
+    4. Write a small Dockerfile that containerize the application
+
+        ??? success "Solution"
+
+            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
+            ```
+
+            which can be built by running the following command
+
+            ```bash
+            docker build -f sentiment_api.dockerfile -t sentiment_api:latest .
+            ```
+
+    5. Deploy the container to cloud run and confirm that the application still runs as expected.
+
+        ??? success "Solution"
+
+            The following four commands should be able to deploy the application to GCP cloud run. Make sure to replace
+            `<location>`, `<project-id>` and `<repo-name>` with the appropriate values.
+
+            ```bash
+            gcloud artifacts repositories create <repo-name> --repository-format=docker --location=<location>
+            docker tag sentiment_api:latest <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
+            docker push <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest
+            gcloud run deploy sentiment-api \
+                --image <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_api:latest \
+                --region <region> --allow-unauthenticated
+            ```
+
+    6. Make sure that the application still works by trying to send a couple of requests to the deployed application and
+        make sure that the request/response data is correctly saved to the bucket.
+
+        ??? success "Solution"
+
+            To get the url of the deployed service you can run the following command
+
+            ```bash
+            gcloud run services describe sentiment-api --format 'value(status.url)'
+            ```
+
+            which can the be used in the `client.py` script to call the deployed service.
+
 3. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
     implement this in a container e.g. GCP Run service because the data gathering from the endpoint should still be
     implemented as an background task. For this to work you will need to change the following:
