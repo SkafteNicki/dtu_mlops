@@ -212,33 +212,32 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
             ```
 
-4. Evidently reports are meant for debugging, exploration and reporting of results. However, as we stated in the
-    beginning, what we are actually interested in methods automatically detecting when we are beginning to drift. For
-    this we will need to look at `Test` and `TestSuites` in Evidently.
+4. Evidently reports are meant for debugging, exploration and reporting of results. However, if we want to integrate
+    evidently functionality into our already developed pipelines, either as a simple script, as part of a GitHub action
+    workflow or something else, we need to be able to extract the results in a more programmatic way. This can be done
+    using their `Test` and `TestSuites` classes. Implement a simple test that checks if there are any missing values in
+    our dataset and print the results to the console.
 
-    1. Lets start with a simple test that checks if there are any missing values in our dataset:
+    ??? success "Solution"
+
+        Using the `.as_dict()` method on a `TestSuite` we can programmatically extract the results of the test. In
+        particular the returned dictionary contains a key `summary` that contains a key `all_passed` that is `True` if
+        all tests passed and `False` otherwise.
 
         ```python
         from evidently.test_suite import TestSuite
         from evidently.tests import TestNumberOfMissingValues
         data_test = TestSuite(tests=[TestNumberOfMissingValues()])
-        data_test.run(reference_data=reference, current_data=current)
+        data_test.run(reference_data=reference_data, current_data=current_data)
+        result = data_test.as_dict()
+        print(result)
+        print("All tests passed: ", result['summary']['all_passed'])
         ```
 
-        again we could run `data_test.save_html` to get a nice view of the results (feel free to try it out) but
-        additionally we can also call `data_test.as_dict()` method that will give a dict with the test results.
-        What dictionary key contains the if all tests have passed or not?
-
-    2. Take a look at this [colab notebook](https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl)
+    1. Take a look at this [colab notebook](https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl)
         that contains all tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
         and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your
-        usecase and get them all passing.
-
-        ??? success "Solution"
-
-            ```python linenums="1" title="data_drift.py"
-            --8<-- "s8_monitoring/exercise_files/data_drift.py"
-            ```
+        use case and get them all passing.
 
 5. (Optional) When doing monitoring in practice, we are not always interested in running on all data collected from our
     API maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
@@ -265,53 +264,55 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
     structured features from the data which we then can run the analysis on.
 
-    1. (Optional) For images the simple solution would be to flatten the images and consider each pixel a feature,
+    1. For images the simple solution would be to flatten the images and consider each pixel a feature,
         however this does not work in practice because changes in the individual pixels does not really tell anything
-        about the image. Instead we should derive some feature such as:
+        about the image. Instead, we should derive some feature such as:
 
         * Average brightness
-        * Contrast of image
+        * Contrast of an image
         * Image sharpness
         * ...
 
-        These are all numbers that can make up a feature vector for a image. Try out doing this yourself, for example by
-        extracting such features from MNIST and FashionMNIST datasets, and check if you can detect a drift between the two
-        sets.
+        These are all numbers that can make up a feature vector for a given image. Try out doing this yourself, for
+        example by extracting such features from MNIST and FashionMNIST datasets, and check if you can detect a drift
+        between the two sets.
+
+        ??? success "Solution"
+
+            ```python linenums="1" title="image_drift.py"
+            --8<-- "s8_monitoring/exercise_files/image_drift.py"
+            ```
 
     2. (Optional) For text a common approach is to extra some higher level embedding such as the very classical
         [GLOVE](https://nlp.stanford.edu/projects/glove/) embedding. Try following
-        [this tutorial](https://github.com/evidentlyai/evidently/blob/main/examples/how_to_questions/how_to_run_calculations_over_text_data.ipynb)
+        [this tutorial](https://github.com/evidentlyai/community-examples/blob/main/examples/how_to_run_drift_report_for_text_data.ipynb)
         to understand how drift detection is done on text.
 
-    3. Lets instead take a deep learning based approach to doing this. Lets consider the
-        [CLIP](https://arxiv.org/abs/2103.00020) model, which is normally used to do image captioning. For our purpose
-        this is perfect because we can use the model to get abstract feature embeddings for both images and text:
+    3. Instead of manually specifying the features, let's take a deep learning based approach to getting features from
+        unstructured data. To do this let's consider the [CLIP](https://arxiv.org/abs/2103.00020) model, which is
+        state-of-the-art model for connecting text to images e.g. image captioning. For our purpose this is perfect
+        because we can use the model to get abstract feature embeddings for both images and text. Implement a simple
+        script that extracts features from an image and a text using CLIP. We recommend using the
+        [Huggingface implementation](https://huggingface.co/docs/transformers/model_doc/clip) for doing this. What is
+        the size of the feature vector?
 
-        ```python
-        from PIL import Image
-        import requests
-        # requires transformers package: pip install transformers
-        from transformers import CLIPProcessor, CLIPModel
+        ??? success "Solution"
 
-        model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
-        processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+            Both `img_features` and `text_features` for the standard CLIP model are a `(512,)` abstract feature
+            embedding. We cannot interpret these features directly, but they should be able to tell us something about
+            our data distribution.
 
-        url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-        image = Image.open(requests.get(url, stream=True).raw)
+            ```python linenums="1" title="clip_features.py"
+            --8<-- "s8_monitoring/exercise_files/clip_features.py"
+            ```
 
-        # set either text=None or images=None when only the other is needed
-        inputs = processor(text=["a photo of a cat", "a photo of a dog"], images=image, return_tensors="pt", padding=True)
-
-        img_features = model.get_image_features(inputs['pixel_values'])
-        text_features = model.get_text_features(inputs['input_ids'], inputs['attention_mask'])
-        ```
-
-        Both `img_features` and `text_features` are in this case a `(512,)` abstract feature embedding, that should be
-        able to tell us something about our data distribution. Try using this method to extract features on two
-        different datasets like CIFAR10 and SVHN if you want to work with vision or
+    4. Run your CLIP script on two different datasets for example
+        [CIFAR10](https://pytorch.org/vision/main/generated/torchvision.datasets.CIFAR10.html) and
+        [SVHN](https://pytorch.org/vision/main/generated/torchvision.datasets.SVHN.html#torchvision.datasets.SVHN)
+        for images or
         [IMDB movie review](https://www.kaggle.com/code/lakshmi25npathi/sentiment-analysis-of-imdb-movie-reviews) and
-        [Amazon review](https://www.kaggle.com/datasets/PromptCloudHQ/amazon-echo-dot-2-reviews-dataset) for text. After
-        extracting the features try running some of the data distribution testing you just learned about.
+        [Amazon review](https://www.kaggle.com/datasets/PromptCloudHQ/amazon-echo-dot-2-reviews-dataset) for text.
+        Then run the data drift detection on the extracted features. What do you see? Does the data drift?
 
 7. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
     monitoring to be a deployed application (that only we can access). Implement a `/monitoring` endpoint that does
