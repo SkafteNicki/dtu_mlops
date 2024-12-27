@@ -383,7 +383,16 @@ through the files to get an understanding of what is going on.
         gsutil cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
         ```
 
-2. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
+2. Next we need to create a FastAPI application that takes a review as input and returns the predicted sentiment of
+    the review. We provide a starting point for the application in the file below, that should be able to run as is.
+
+    ??? example "Starting point for sentiment analysis API"
+
+        ```python linenums="1" title="sentiment_api_starter.py"
+        --8<-- "s8_monitoring/exercise_files/sentiment_api_starter.py"
+        ```
+
+3. As an final exercise, we recommend that you try implementing this to run directly in the cloud. You will need to
     implement this in a container e.g. GCP Run service because the data gathering from the endpoint should still be
     implemented as an background task. For this to work you will need to change the following:
 
