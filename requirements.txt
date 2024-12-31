@@ -9,7 +9,7 @@ mkdocs-exclude == 1.0.2
 markdown-exec[ansi] == 1.10.0
 
 # Developer stuff
-ruff == 0.8.3
+ruff == 0.8.4
 codespell == 2.3.0
 pre-commit == 4.0.1
 
