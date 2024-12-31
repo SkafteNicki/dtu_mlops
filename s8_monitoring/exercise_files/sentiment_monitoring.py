@@ -62,6 +62,9 @@ app = FastAPI(lifespan=lifespan)
 
 def load_latest_files(directory: Path, n: int) -> pd.DataFrame:
     """Load the N latest prediction files from the directory."""
+    # Download the latest prediction files from the GCP bucket
+    download_files(n=n)
+
     # Get all prediction files in the directory
     files = directory.glob("prediction_*.json")
 
@@ -97,7 +100,6 @@ def download_files(n: int = 5) -> None:
 @app.get("/report", response_class=HTMLResponse)
 async def get_report(n: int = 5):
     """Generate and return the report."""
-    download_files(n=n)
     prediction_data = load_latest_files(Path("."), n=n)
     run_analysis(training_data, prediction_data)
 
