@@ -2,15 +2,20 @@ import json
 import os
 from pathlib import Path
 
+import anyio
 import nltk
 import pandas as pd
 from evidently.metric_preset import TargetDriftPreset, TextEvals
 from evidently.report import Report
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+from google.cloud import storage
 
 nltk.download("words")
 nltk.download("wordnet")
 nltk.download("omw-1.4")
+
+BUCKET_NAME = "gcp_monitoring_exercise"
 
 
 def to_sentiment(rating):
@@ -32,7 +37,7 @@ def sentiment_to_numeric(sentiment: str) -> int:
     return 2
 
 
-def run_analysis(reference_data: pd.DataFrame, current_data: pd.DataFrame):
+def run_analysis(reference_data: pd.DataFrame, current_data: pd.DataFrame) -> None:
     """Run the analysis and return the report."""
     text_overview_report = Report(metrics=[TextEvals(column_name="content"), TargetDriftPreset(columns=["sentiment"])])
     text_overview_report.run(reference_data=reference_data, current_data=current_data)
@@ -78,9 +83,25 @@ def load_latest_files(directory: Path, n: int) -> pd.DataFrame:
     return dataframe
 
 
-@app.get("/")
-@app.get("/report")
+def download_files(n: int = 5) -> None:
+    """Download the N latest prediction files from the GCP bucket."""
+    bucket = storage.Client().bucket(BUCKET_NAME)
+    blobs = bucket.list_blobs(prefix="prediction_")
+    blobs.sort(key=lambda x: x.updated, reverse=True)
+    latest_blobs = blobs[:n]
+
+    for blob in latest_blobs:
+        blob.download_to_filename(blob.name)
+
+
+@app.get("/report", response_class=HTMLResponse)
 async def get_report(n: int = 5):
     """Generate and return the report."""
+    download_files(n=n)
     prediction_data = load_latest_files(Path("."), n=n)
-    return run_analysis(training_data, prediction_data)
+    run_analysis(training_data, prediction_data)
+
+    async with await anyio.open_file("monitoring.html", encoding="utf-8") as f:
+        html_content = f.read()
+
+    return HTMLResponse(content=html_content, status_code=200)

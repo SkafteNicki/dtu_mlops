@@ -520,18 +520,71 @@ through the files to get an understanding of what is going on.
             --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.dockerfile"
             ```
 
-That ends the module on detection of data drifting, data quality etc. If this has not already been made clear,
-monitoring of machine learning applications is an extremely hard discipline because it is not a clear cut when we
-should actually respond to feature beginning to drift and when it is probably fine. That comes down to the individual
-application what kind of rules that should be implemented. Additionally, the tools presented here are also in no way
-complete and are especially limited in one way: they are only considering the marginal distribution of data. Every
-analysis that we done have been on the distribution per feature (the marginal distribution), however as the image below
-show it is possible for data to have drifted to another distribution with the marginal being approximately the same.
+    4. Deploy the monitoring application to cloud run and confirm that the application returns a monitoring report when
+        asked for it.
 
-<figure markdown>
-![Image](../figures/data_drift_marginals.png){width="500"}
-</figure>
+        ??? success "Solution"
 
-There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.org/papers/v13/gretton12a.html) that are
-able to do testing on multivariate distributions, which you are free to dive into. In this course we will just always
-recommend to consider multiple features when doing decision regarding your deployed applications.
+            ```bash
+            docker tag sentiment_monitoring:latest \
+                <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_monitoring:latest
+            docker push <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_monitoring:latest
+            gcloud run deploy sentiment-monitoring \
+                --image <location>-docker.pkg.dev/<project-id>/<repo-name>/sentiment_monitoring:latest \
+                --region <region> --allow-unauthenticated
+            ```
+
+4. We are now finally, ready to test our services. Since we need to observe some long term behavior this part may take
+    some time to run depending on how you have exactly configured your. Below we have implemented a client script that
+    are meant to call our service.
+
+    !!! example "Client script for sentiment analysis model"
+
+        ```python linenums="1" title="sentiment_client.py"
+        --8<-- "s8_monitoring/exercise_files/sentiment_client.py"
+        ```
+
+    1. What does the client script do?
+
+        ??? success "Solution"
+
+            The client script will iteratively call our deployed sentiment analysis service every `wait_time` seconds.
+            In each iteration it does:
+
+            * Randomly samples a review for a list of positive, neutral and negative reviews
+            * Randomly add negative phrases to the review. Each review is added if a randomly uniform number is lower
+                than probability `negative_probability=min(count / args.max_iterations, 1.0), meaning that it becomes
+                more and more likely that the negative phrases are added as the number of iterations increases.
+            * Sends the review to the sentiment analysis service and saves the response to a file.
+
+    2. Run the client script for 1000 iterations. What happens to the distribution of the reviews over time? Does the
+        data drift?
+
+That ends the module on detection of data drifting, data quality etc. We have a couple of final points to make before
+we end the module:
+
+* Monitoring of machine learning applications is an extremely hard discipline because it is not clear-cut when we should
+    actually respond to feature/targets beginning to drift and when it is probably fine letting the system run as is.
+    That comes down to the individual application what kind of rules that should be implemented.
+
+* The cloud setup we have developed is very simple and not meant for production. In a real-world scenario we would not
+    have deployed our monitoring application an endpoint that generates a report, but rather have it return the tests
+    results in a JSON format that can be ingested into more complex monitoring systems where we can show how drift
+    scores develop over time. You will learn more about this in the [next module](monitoring.md).
+
+* The tools presented here are in no way complete and are especially limited in one way: they are only considering the
+    marginal distribution of data. Every analysis that we're done have been on the distribution per feature (the
+    marginal distribution), however as the image below show it is possible for data to have drifted to another
+    distribution with the marginal being approximately the same.
+
+    <figure markdown>
+    ![Image](../figures/data_drift_marginals.png){width="500"}
+    </figure>
+
+    There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.org/papers/v13/gretton12a.html) that
+    are able to do testing on multivariate distributions, which you are free to dive into. The general recommendation is
+    to just always consider multiple features when taking decisions. In this course we will just always recommend
+    considering multiple features when doing decision regarding your deployed applications.
+
+Finally, we want to stress that monitoring is a very active field of research and that there are many more tools and
+frameworks that can be used for monitoring.
