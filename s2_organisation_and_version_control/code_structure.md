@@ -233,7 +233,7 @@ your head around where files are located.
 
    ??? success "Solution"
 
-   ``python linenums="1" title="make_dataset.py" --8<-- "s2_organisation_and_version_control/exercise_files/data_solution.py" ``
+   ``python linenums="1" title="data.py" --8<-- "s2_organisation_and_version_control/exercise_files/data_solution.py" ``
 5. This template comes with a `tasks.py` which uses the [invoke](https://www.pyinvoke.org/) framework to define project
    tasks. You can learn more about the framework in the last optional [module](cli.md) in today's session. However, for
    now just know that `tasks.py` is a file that can be used to specify common tasks that you want to run in your
