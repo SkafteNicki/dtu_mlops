@@ -6,6 +6,21 @@
 
 !!! info "Core Module"
 
+!!! warning
+
+    Since August 2024, Google have changed their policy for the Google Drive API. This means that the proceduce for
+    setting up DVC with Google Drive has changed. The following exercises therefore needs extra authentication to work.
+    You therefore have two options:
+
+    1. Skip these exercises for now. We are going to revisit DVC later in the course when we get access to a more
+        permanent storage solution in this [module](../s6_the_cloud/using_the_cloud.md).
+
+    2. Follow the instructions below to authenticate DVC with Google Drive. As a starting point read the following
+        [Github issue](https://github.com/iterative/dvc/issues/10516#issuecomment-2289652067) and then follow the
+        instructions
+        [here](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended).
+        for setting up a custom Google Cloud project.
+
 In this module, we are going to return to version control. However, this time we are going to focus on version control
 of data. The reason we need to separate between standard version control and data version control comes down to one
 problem: size.
@@ -41,10 +56,10 @@ essentially work as placeholders for your data files. Your large data files are 
 as Google Drive or a `S3` bucket from Amazon.
 
 <figure markdown>
-  ![Image](../figures/dvc.png){ width="700" }
-  <figcaption>
-  <a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
-  </figcaption>
+![Image](../figures/dvc.png){ width="700" }
+<figcaption>
+<a href="https://www.analyticsvidhya.com/blog/2021/06/mlops-versioning-datasets-with-git-dvc/"> Image credit </a>
+</figcaption>
 </figure>
 
 As the figure shows, we now have two remote locations: one for code and one for data. We use `git pull/push` for the
