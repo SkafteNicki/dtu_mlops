@@ -267,14 +267,14 @@ your head around where files are located.
 
    ??? success "Solution"
 
-   ``python linenums="1" title="make_dataset.py" --8<-- "s2_organisation_and_version_control/exercise_files/train_solution.py" ``
+   ``python linenums="1" title="train.py" --8<-- "s2_organisation_and_version_control/exercise_files/train_solution.py" ``
 8. Transfer the remaining parts of the `main.py` script into the `src/<project-name>/evaluate.py` script e.g. the parts
    that has to do with evaluating the model. When run, it should load the model from the `models` folder and print out
    the accuracy of the model on the test set.
 
    ??? success "Solution"
 
-   ``python linenums="1" title="make_dataset.py" --8<-- "s2_organisation_and_version_control/exercise_files/evaluate_solution.py" ``
+   ``python linenums="1" title="`evaluate.py" --8<-- "s2_organisation_and_version_control/exercise_files/evaluate_solution.py" ``
 9. Fill out the file `src/<project-name>/visualize.py` with this (as minimum, feel free to add more visualizations)
 
    * Loads a pre-trained network
