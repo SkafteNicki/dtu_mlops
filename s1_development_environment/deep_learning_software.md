@@ -32,9 +32,7 @@ of when they were published):
 ![Logo](../figures/jax.png){ align=right width="200"}
 
 * [TensorFlow](https://github.com/tensorflow/tensorflow)
-
 * [PyTorch](https://github.com/pytorch/pytorch)
-
 * [JAX](https://github.com/google/jax)
 
 We won't go into a longer discussion on which framework is best, as it is pointless. PyTorch and TensorFlow have been
@@ -72,92 +70,80 @@ important to have a basic understanding of the concepts.
 ### ❔ Exercises
 
 <!-- markdownlint-disable -->
+
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }
+
 <!-- markdownlint-restore -->
 
 1. Start a Jupyter Notebook session in your terminal (assuming you are standing at the root of the course material).
-    Alternatively, you should be able to open the notebooks directly in your code editor. For VS code users you can read
-    more about how to work with Jupyter Notebooks in VS code
-    [here](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
-
+   Alternatively, you should be able to open the notebooks directly in your code editor. For VS code users you can read
+   more about how to work with Jupyter Notebooks in VS code
+   [here](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
 2. Complete the
-    [Tensors in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
-    notebook. It focuses on the basic manipulation of PyTorch tensors. You can pass this notebook if you are comfortable
-    doing this.
-
+   [Tensors in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
+   notebook. It focuses on the basic manipulation of PyTorch tensors. You can pass this notebook if you are comfortable
+   doing this.
 3. Complete the
-    [Neural Networks in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb)
-    notebook. It focuses on building a very simple neural network using the PyTorch `nn.Module` interface.
-
+   [Neural Networks in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/2_Neural_Networks_in_PyTorch.ipynb)
+   notebook. It focuses on building a very simple neural network using the PyTorch `nn.Module` interface.
 4. Complete the
-    [Training Neural Networks](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/3_Training_Neural_Networks.ipynb)
-    notebook. It focuses on how to write a simple training loop for training a neural network.
-
+   [Training Neural Networks](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/3_Training_Neural_Networks.ipynb)
+   notebook. It focuses on how to write a simple training loop for training a neural network.
 5. Complete the
-    [Fashion MNIST](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/4_Fashion_MNIST.ipynb)
-    notebook, which summarizes concepts learned in notebooks 2 and 3 on building a neural network for classifying the
-    [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset.
-
+   [Fashion MNIST](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/4_Fashion_MNIST.ipynb)
+   notebook, which summarizes concepts learned in notebooks 2 and 3 on building a neural network for classifying the
+   [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset.
 6. Complete the
-    [Inference and Validation](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/5_Inference_and_Validation.ipynb)
-    notebook. This notebook adds important concepts on how to do inference and validation on our neural network.
-
+   [Inference and Validation](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/5_Inference_and_Validation.ipynb)
+   notebook. This notebook adds important concepts on how to do inference and validation on our neural network.
 7. Complete the
-    [Saving_and_Loading_Models](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/6_Saving_and_Loading_Models.ipynb)
-    notebook. This notebook addresses how to save and load model weights. This is important if you want to share a
-    model with someone else.
+   [Saving_and_Loading_Models](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/6_Saving_and_Loading_Models.ipynb)
+   notebook. This notebook addresses how to save and load model weights. This is important if you want to share a
+   model with someone else.
 
 ## 🧠 Knowledge check
 
 1. If tensor `a` has shape `[N, d]` and tensor `b` has shape `[M, d]` how can we calculate the pairwise distance
-    between rows in `a` and `b` without using a for loop?
+   between rows in `a` and `b` without using a for loop?
 
-    ??? success "Solution"
+   ??? success "Solution"
 
-        We can take advantage of [broadcasting](https://pytorch.org/docs/stable/notes/broadcasting.html) to do this
+   We can take advantage of [broadcasting](https://pytorch.org/docs/stable/notes/broadcasting.html) to do this
 
-        ```python
-        a = torch.randn(N, d)
-        b = torch.randn(M, d)
-        dist = torch.sum((a.unsqueeze(1) - b.unsqueeze(0))**2, dim=2)  # shape [N, M]
-        ```
-
+   ``python a = torch.randn(N, d) b = torch.randn(M, d) dist = torch.sum((a.unsqueeze(1) - b.unsqueeze(0))**2, dim=2)  # shape [N, M] ``
 2. What should be the size of `S` for an input image of size 1x28x28, and how many parameters does the neural network
-    then have?
+   then have?
 
-    ```python
-    from torch import nn
-    neural_net = nn.Sequential(
-        nn.Conv2d(1, 32, 3), nn.ReLU(), nn.Conv2d(32, 64, 3), nn.ReLU(), nn.Flatten(), nn.Linear(S, 10)
-    )
-    ```
+   ```python
+   from torch import nn
+   neural_net = nn.Sequential(
+       nn.Conv2d(1, 32, 3), nn.ReLU(), nn.Conv2d(32, 64, 3), nn.ReLU(), nn.Flatten(), nn.Linear(S, 10)
+   )
+   ```
 
-    ??? success "Solution"
+   ??? success "Solution"
 
-        Since both convolutions have a kernel size of 3, stride 1 (default value) and no padding that means that we lose
-        2 pixels in each dimension, because the kernel can not be centered on the edge pixels. Therefore, the output
-        of the first convolution would be 32x26x26. The output of the second convolution would be 64x24x24. The size of
-        `S` must therefore be `64 * 24 * 24 = 36864`. The number of parameters in a convolutional layer is
-        `kernel_size * kernel_size * in_channels * out_channels + out_channels` (last term is the bias) and the number
-        of parameters in a linear layer is `in_features * out_features + out_features` (last term is the bias).
-        Therefore, the total number of parameters in the network is
-        `3*3*1*32 + 32 + 3*3*32*64 + 64 + 36864*10 + 10 = 387,466`, which could be calculated by running:
+   Since both convolutions have a kernel size of 3, stride 1 (default value) and no padding that means that we lose
+   2 pixels in each dimension, because the kernel can not be centered on the edge pixels. Therefore, the output
+   of the first convolution would be 32x26x26. The output of the second convolution would be 64x24x24. The size of
+   `S` must therefore be `64 * 24 * 24 = 36864`. The number of parameters in a convolutional layer is
+   `kernel_size * kernel_size * in_channels * out_channels + out_channels` (last term is the bias) and the number
+   of parameters in a linear layer is `in_features * out_features + out_features` (last term is the bias).
+   Therefore, the total number of parameters in the network is
+   `3*3*1*32 + 32 + 3*3*32*64 + 64 + 36864*10 + 10 = 387,466`, which could be calculated by running:
 
-        ```python
-        sum([prod(p.shape) for p in neural_net.parameters()])
-        ```
-
+   ``python sum([prod(p.shape) for p in neural_net.parameters()]) ``
 3. A working training loop in PyTorch should have these three function calls: `optimizer.zero_grad()`,
-    `loss.backward()`, `optimizer.step()`. Explain what would happen in the training loop (or implement it) if you
-    forgot each of the function calls.
+   `loss.backward()`, `optimizer.step()`. Explain what would happen in the training loop (or implement it) if you
+   forgot each of the function calls.
 
-    ??? success "Solution"
+   ??? success "Solution"
 
-        `optimizer.zero_grad()` is in charge of zeroring the gradient. If this is not done, then gradients would
-        accumulate over the steps leading to exploding gradients. `loss.backward()` is in charge of calculating the
-        gradients. If this is not done, then the gradients will not be calculated and the optimizer will not be able
-        to update the weights. `optimizer.step()` is in charge of updating the weights. If this is not done, then the
-        weights will not be updated and the model will not learn anything.
+   `optimizer.zero_grad()` is in charge of zeroring the gradient. If this is not done, then gradients would
+   accumulate over the steps leading to exploding gradients. `loss.backward()` is in charge of calculating the
+   gradients. If this is not done, then the gradients will not be calculated and the optimizer will not be able
+   to update the weights. `optimizer.step()` is in charge of updating the weights. If this is not done, then the
+   weights will not be updated and the model will not learn anything.
 
 ### Final exercise
 
@@ -186,131 +172,97 @@ future as you start to add more and more features. As subgoals, please fulfill t
 
 1. Implement your model in a script called `model.py`.
 
-    ??? example "Starting point for `model.py`"
+   ??? example "Starting point for `model.py`"
 
-        ```python linenums="1" title="model.py"
-        --8<-- "s1_development_environment/exercise_files/final_exercise/model.py"
-        ```
+   ``python linenums="1" title="model.py" --8<-- "s1_development_environment/exercise_files/final_exercise/model.py" ``
 
-    ??? success "Solution"
+   ??? success "Solution"
 
-        The provided solution implements a convolutional neural network with 3 convolutional layers and a single
-        fully connected layer. Because the MNIST dataset consists of images, we want an architecture that can take
-        advantage of the spatial information in the images.
+   The provided solution implements a convolutional neural network with 3 convolutional layers and a single
+   fully connected layer. Because the MNIST dataset consists of images, we want an architecture that can take
+   advantage of the spatial information in the images.
 
-        ```python linenums="1" title="model.py"
-        --8<-- "s1_development_environment/exercise_files/final_exercise/model_solution.py"
-        ```
-
+   ``python linenums="1" title="model.py" --8<-- "s1_development_environment/exercise_files/final_exercise/model_solution.py" ``
 2. Implement your data setup in a script called `data.py`. The data was saved using `torch.save`, so to load it you
-    should use `torch.load`.
+   should use `torch.load`.
 
-    !!! warning "Saving the model"
+   !!! warning "Saving the model"
 
-        When saving the model, you should use `#!python torch.save(model.state_dict(), "model.pt")`, and when loading
-        the model, you should use `#!python model.load_state_dict(torch.load("model.pt"))`. If you do
-        `#!python torch.save(model, "model.pt")`, this can lead to problems when loading the model later on, as it will
-        try to not only save the model weights but also the model definition. This can lead to problems if you change
-        the model definition later on (which you most likely are going to do).
+   When saving the model, you should use `#!python torch.save(model.state_dict(), "model.pt")`, and when loading
+   the model, you should use `#!python model.load_state_dict(torch.load("model.pt"))`. If you do
+   `#!python torch.save(model, "model.pt")`, this can lead to problems when loading the model later on, as it will
+   try to not only save the model weights but also the model definition. This can lead to problems if you change
+   the model definition later on (which you most likely are going to do).
 
-    ??? example "Starting point for `data.py`"
+   ??? example "Starting point for `data.py`"
 
-        ```python linenums="1" title="model.py"
-        --8<-- "s1_development_environment/exercise_files/final_exercise/data.py"
-        ```
+   ``python linenums="1" title="data.py" --8<-- "s1_development_environment/exercise_files/final_exercise/data.py" ``
 
-    ??? success "Solution"
+   ??? success "Solution"
 
-        Data is stored in `.pt` files which can be loaded using `torch.load` (1). We iterate over the files, load them
-        and concatenate them into a single tensor. In particular, we have highlighted the use of `.unsqueeze` function.
-        Convolutional neural networks (which we propose as a solution) need the data to be in the shape `[N, C, H, W]`
-        where `N` is the number of samples, `C` is the number of channels, `H` is the height of the image and `W` is the
-        width of the image. The dataset is stored in the shape `[N, H, W]` and therefore we need to add a channel.
-        { .annotate }
+   Data is stored in `.pt` files which can be loaded using `torch.load` (1). We iterate over the files, load them
+   and concatenate them into a single tensor. In particular, we have highlighted the use of `.unsqueeze` function.
+   Convolutional neural networks (which we propose as a solution) need the data to be in the shape `[N, C, H, W]`
+   where `N` is the number of samples, `C` is the number of channels, `H` is the height of the image and `W` is the
+   width of the image. The dataset is stored in the shape `[N, H, W]` and therefore we need to add a channel.
+   { .annotate }
 
-        1. :man_raising_hand: The `.pt` files are nothing else than a `.pickle` file in disguise. The
-            `torch.save/torch.load` function is essentially a wrapper around the `pickle` module in Python, which
-            produces serialized files. However, it is convention to use `.pt` to indicate that the file contains PyTorch
-            tensors.
+   1. :man_raising_hand: The `.pt` files are nothing else than a `.pickle` file in disguise. The
+      `torch.save/torch.load` function is essentially a wrapper around the `pickle` module in Python, which
+      produces serialized files. However, it is convention to use `.pt` to indicate that the file contains PyTorch
+      tensors.
 
-        We have additionally in the solution added functionality for plotting the images together with the labels for
-        inspection. Remember: all good machine learning starts with a good understanding of the data.
+   We have additionally in the solution added functionality for plotting the images together with the labels for
+   inspection. Remember: all good machine learning starts with a good understanding of the data.
 
-        ```python linenums="1" hl_lines="17 18" title="model.py"
-        --8<-- "s1_development_environment/exercise_files/final_exercise/data_solution.py"
-        ```
-
+   ``python linenums="1" hl_lines="17 18" title="model.py" --8<-- "s1_development_environment/exercise_files/final_exercise/data_solution.py" ``
 3. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to take
-    additional subcommands indicating if the model should be trained or evaluated. It will look something like this:
+   additional subcommands indicating if the model should be trained or evaluated. It will look something like this:
 
-    ```bash
-    python main.py train --lr 1e-4
-    python main.py evaluate trained_model.pt
-    ```
+   ```bash
+   python main.py train --lr 1e-4
+   python main.py evaluate trained_model.pt
+   ```
 
-    which can be implemented in various ways. We provide you with a starting script that uses the `typer` library to
-    define a command line interface (CLI), which you can learn more about in
-    [this module](../s2_organisation_and_version_control/cli.md) later in the course.
+   which can be implemented in various ways. We provide you with a starting script that uses the `typer` library to
+   define a command line interface (CLI), which you can learn more about in
+   [this module](../s2_organisation_and_version_control/cli.md) later in the course.
 
-    ??? note "VS code and command line arguments"
+   ??? note "VS code and command line arguments"
 
-        If you try to execute the above code in VS code using the debugger (F5) or the build run functionality in the
-        upper right corner:
+   If you try to execute the above code in VS code using the debugger (F5) or the build run functionality in the
+   upper right corner:
 
-        <figure markdown>
-        ![Image](../figures/vs_code_run.png){width="300"}
-        </figure>
+   `<figure markdown>`
+   ![Image](../figures/vs_code_run.png){width="300"}
+   `</figure>`
 
-        you will get an error message saying that you need to select a command to run e.g. `main.py` either needs the
-        `train` or `evaluate` command. This can be fixed by adding a `launch.json` to a specialized `.vscode` folder in
-        the root of the project. The `launch.json` file should look something like this:
+   you will get an error message saying that you need to select a command to run e.g. `main.py` either needs the
+   `train` or `evaluate` command. This can be fixed by adding a `launch.json` to a specialized `.vscode` folder in
+   the root of the project. The `launch.json` file should look something like this:
 
-        ```json
-        {
-            "version": "0.2.0",
-            "configurations": [
-                {
-                    "name": "Python: Current File",
-                    "type": "python",
-                    "request": "launch",
-                    "program": "${file}",
-                    "args": [
-                        "train",
-                        "--lr",
-                        "1e-4"
-                    ],
-                    "console": "integratedTerminal",
-                    "justMyCode": true
-                }
-            ]
-        }
-        ```
+   ``json { "version": "0.2.0", "configurations": [ { "name": "Python: Current File", "type": "python", "request": "launch", "program": "${file}", "args": [ "train", "--lr", "1e-4" ], "console": "integratedTerminal", "justMyCode": true } ] } ``
 
-        This will inform VS code that then we execute the current file (in this case `main.py`) we want to run it with
-        the `train` command and additionally pass the `--lr` argument with the value `1e-4`. You can read more about
-        creating a `launch.json` file [here](https://code.visualstudio.com/docs/python/debugging). If you want to have
-        multiple configurations you can add them to the `configurations` list as additional dictionaries.
+   This will inform VS code that then we execute the current file (in this case `main.py`) we want to run it with
+   the `train` command and additionally pass the `--lr` argument with the value `1e-4`. You can read more about
+   creating a `launch.json` file [here](https://code.visualstudio.com/docs/python/debugging). If you want to have
+   multiple configurations you can add them to the `configurations` list as additional dictionaries.
 
-    ??? example "Starting point for `main.py`"
+   ??? example "Starting point for `main.py`"
 
-        ```python linenums="1" title="main.py"
-        --8<-- "s1_development_environment/exercise_files/final_exercise/main.py"
-        ```
+   ``python linenums="1" title="main.py" --8<-- "s1_development_environment/exercise_files/final_exercise/main.py" ``
 
-    ??? success "Solution"
+   ??? success "Solution"
 
-        The solution implements a simple training loop and evaluation loop. Furthermore, we have added additional
-        hyperparameters that can be passed to the training loop. Highlighted in the solution are the different lines
-        where we take care that our model and data are moved to GPU (or Apple MPS accelerator if you have a newer Mac)
-        if available.
+   The solution implements a simple training loop and evaluation loop. Furthermore, we have added additional
+   hyperparameters that can be passed to the training loop. Highlighted in the solution are the different lines
+   where we take care that our model and data are moved to GPU (or Apple MPS accelerator if you have a newer Mac)
+   if available.
 
-        ```python linenums="1" hl_lines="8 26 38 69 78" title="main.py"
-        --8<-- "s1_development_environment/exercise_files/final_exercise/main_solution.py"
-        ```
-
+   ``python linenums="1" hl_lines="8 26 38 69 78" title="main.py" --8<-- "s1_development_environment/exercise_files/final_exercise/main_solution.py" ``
 4. As documentation that your model is working when running the `train` command, the script needs to produce a single
-    plot with the training curve (training step vs training loss). When the `evaluate` command is run, it should write
-    the test set accuracy to the terminal.
+   plot with the training curve (training step vs training loss). When the `evaluate` command is run, it should write
+   the test set accuracy to the terminal.
 
 It is part of the exercise to not implement in notebooks, as code development in real life happens in scripts.
 As the model is simple to run (for now), you should be able to complete the exercise on your laptop,
