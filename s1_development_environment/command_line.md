@@ -98,7 +98,7 @@ command line.
             print("Hello world!")
         ```
 
-    3. Save the script and try to execute it.
+    3. Save the script as a `.py` file and try to execute it using `python <filename>.py`.
 
     4. Afterward, try to edit the file through the terminal (change `Hello world` to something else).
 
