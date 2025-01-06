@@ -321,7 +321,7 @@ easier.
     returns the current Python interpreter but it works for all operating systems. Check that it works by running:
 
     ```bash
-    invoke hello
+    invoke python
     ```
 
 4. Lets try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Create a task such
