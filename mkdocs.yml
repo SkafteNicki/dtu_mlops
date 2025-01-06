@@ -105,7 +105,7 @@ nav:
     - M7 - Good coding practice: s2_organisation_and_version_control/good_coding_practice.md
     - M8 - Data version control: s2_organisation_and_version_control/dvc.md
     - M9 - Command Line Interfaces: s2_organisation_and_version_control/cli.md
-  - S3 - Reproduceability ♻️:
+  - S3 - Reproducibility ♻️:
     - s3_reproducibility/README.md
     - M10 - Docker: s3_reproducibility/docker.md
     - M11 - Config Files: s3_reproducibility/config_files.md
