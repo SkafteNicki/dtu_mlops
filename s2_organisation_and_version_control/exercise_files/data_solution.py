@@ -7,7 +7,7 @@ def normalize(images: torch.Tensor) -> torch.Tensor:
     return (images - images.mean()) / images.std()
 
 
-def preprocess_data(raw_dir: str = "data/raw", processed_dir: str = "data/processed") -> None:
+def preprocess_data(raw_dir: str, processed_dir: str) -> None:
     """Process raw data and save it to processed directory."""
     train_images, train_target = [], []
     for i in range(6):
