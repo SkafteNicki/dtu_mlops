@@ -260,7 +260,7 @@ in the exercise folder.
         ??? success "Solution"
 
             ```bash
-            conda env create --file environment.yaml
+            conda env create --name <environment-name> --file environment.yaml
             ```
 
 6. As the introduction states, it is fairly safe to use `pip` inside `conda` today. What is the corresponding `pip`

@@ -15,7 +15,7 @@ dvc-gdrive
 ruff
 mypy
 # s3 - reproducibility
-hydra-cookiecutter
+hydra-core
 # s4 - debugging and logging
 pytorch-lightning
 wandb
