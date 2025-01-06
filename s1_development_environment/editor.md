@@ -73,7 +73,7 @@ following exercises are just to get you started, but you can find many more tuto
         Python that provides better code completion and type-checking
     * [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter): support for Jupyter notebooks
         directly in VS Code
-    * [Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager):
+    * [Python Environments](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-python-envs):
         allows for easy management of virtual environments
 
 2. If you install the `Python` package, you should see something like this in your status bar:

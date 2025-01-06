@@ -96,7 +96,7 @@ The lifecycle of production ML can largely be divided into three phases:
     our model is generalizing well.
 
 3. Operations: Based on the model development phase, we now have a model that we want to use. The operations are where
-    create an automatic pipeline that makes sure that whenever we make changes to our codebase they get automatically
+    we create an automatic pipeline that makes sure that whenever we make changes to our codebase they get automatically
     incorporated into our model, such that we do not slow down production. Equally important is the ongoing monitoring
     of already deployed models to make sure that they behave exactly as we specified them.
 
@@ -114,7 +114,7 @@ production setting.
 
 General course objective
 
-> Introduce the student to a number of coding practices that will help them organization, scale,
+> Introduce the student to a number of coding practices that will help them organize, scale,
 > monitor and deploy machine learning models either in a research or production setting. To provide
 > hands-on experience with a number of frameworks, both local and in the cloud, for doing large
 > scale machine learning models.
