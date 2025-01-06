@@ -113,7 +113,7 @@ argument here is to give users of our code a single entrypoint to interact with 
 multiple scripts. As long as all subcommands are proper documented, then our interface should be simple to interact
 with (again think `git` where each subcommand can be given the `-h` arg to get specific help).
 
-Instead of using `argparse` we are here going to look at the [yyper](https://typer.tiangolo.com/) package. `typer`
+Instead of using `argparse` we are here going to look at the [typer](https://typer.tiangolo.com/) package. `typer`
 extends the functionalities of `argparse` to allow for easy definition of subcommands and many other things, which we
 are not going to touch upon in this module. For completeness we should also mention that `typer` is not the only package
 for doing this, and of other excellent frameworks for creating command line interfaces easily we can mention

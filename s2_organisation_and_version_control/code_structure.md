@@ -109,7 +109,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     ```
 
     the `[build-system]` informs `pip`/`python` that to build this Python project it needs the two packages
-    `setuptools` and `wheels` and that it should call the
+    `setuptools` and `wheel` and that it should call the
     [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) function to actually build the
     project. The `[project]` section essentially contains metadata regarding the package, what its called etc. if we
     ever want to publish it to [PyPI](https://pypi.org/).
