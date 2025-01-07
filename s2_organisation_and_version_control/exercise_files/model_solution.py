@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 
+#fixed mistakes
 
 class MyAwesomeModel(nn.Module):
     """My awesome model."""
