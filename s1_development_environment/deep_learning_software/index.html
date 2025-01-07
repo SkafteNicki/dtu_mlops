@@ -2350,7 +2350,7 @@ inspection. Remember: all good machine learning starts with a good understanding
 <p>Implement training and evaluation of your model in <code>main.py</code> script. The <code>main.py</code> script should be able to take
     additional subcommands indicating if the model should be trained or evaluated. It will look something like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>train<span class="w"> </span>--lr<span class="w"> </span>1e-4
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>evaluate<span class="w"> </span>trained_model.pt
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>evaluate<span class="w"> </span>model.pth
 </span></code></pre></div>
 <p>which can be implemented in various ways. We provide you with a starting script that uses the <code>typer</code> library to
 define a command line interface (CLI), which you can learn more about in
