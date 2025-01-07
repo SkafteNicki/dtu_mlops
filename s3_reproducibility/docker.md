@@ -175,7 +175,7 @@ beneficial for you to download.
 
     ```docker
     # Base image
-    FROM python:3.9-slim
+    FROM python:3.11-slim
     ```
 
 11. Next, we are going to install some essentials in our image. The essentials more or less consist of a Python
@@ -437,7 +437,7 @@ beneficial for you to download.
         also fairly easy as we just need to change our `FROM` statement at the beginning of our docker file:
 
         ```docker
-        FROM python:3.7-slim
+        FROM python:3.11-slim
         ```
 
         change to
@@ -468,7 +468,7 @@ beneficial for you to download.
         barebones for now, so let's just define a base installation of Python:
 
         ```docker
-        FROM python:3.11-slim-buster
+        FROM python:3.11-slim
 
         RUN apt update && \
             apt install --no-install-recommends -y build-essential gcc && \
