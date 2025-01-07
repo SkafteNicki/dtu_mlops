@@ -167,7 +167,7 @@ command line.
 
 ## 🧠 Knowledge check
 
-1. Here is one command from later in the course when we are going to work in the cloud
+1. Here is one command from later in the course when we are going to work in the cloud.
 
     ```bash
     gcloud compute instances create-with-container instance-1 \
