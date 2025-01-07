@@ -273,9 +273,14 @@ your head around where files are located.
     project. It is similar to `Markefile`s if you are familiar with them. Try out some of the pre-defined tasks:
 
     ```bash
+    # first install invoke
+    pip install invoke
+    # then you can execute the tasks
     invoke preprocess-data  # runs the data.py file
     invoke requirements     # installs all requirements in the requirements.txt file
     invoke train            # runs the train.py file
+    # or get a list of all tasks
+    invoke --list
     ```
 
     In general, we recommend that you add commands to the `tasks.py` file as you move along in the course.
