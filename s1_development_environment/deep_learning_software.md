@@ -245,7 +245,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
 
     ```bash
     python main.py train --lr 1e-4
-    python main.py evaluate trained_model.pt
+    python main.py evaluate model.pth
     ```
 
     which can be implemented in various ways. We provide you with a starting script that uses the `typer` library to
