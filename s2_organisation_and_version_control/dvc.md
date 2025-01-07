@@ -182,7 +182,7 @@ it contains excellent tutorials.
 
     ```bash
     pip install gdown
-    gdown --folder https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing
+    gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
     ```
 
     Copy the data to your `data/raw` folder and then rerun your data pipeline to incorporate the new data into the

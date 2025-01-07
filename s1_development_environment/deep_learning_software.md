@@ -169,7 +169,7 @@ these two commands:
 
 ```bash
 pip install gdown
-gdown --folder https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing
+gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
 ```
 
 The data should be placed in a folder subfolder called `data/corruptedmnist` in the root of the project. Your overall
