@@ -196,7 +196,7 @@ beneficial for you to download.
         ```docker
         COPY requirements.txt requirements.txt
         COPY pyproject.toml pyproject.toml
-        COPY <project-name>/ <project-name>/
+        COPY src/ src/
         COPY data/ data/
         ```
 
@@ -226,7 +226,7 @@ beneficial for you to download.
         the application that we want to run when the image is being executed:
 
         ```docker
-        ENTRYPOINT ["python", "-u", "<project_name>/train_model.py"]
+        ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
         ```
 
         The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets redirected to
@@ -351,7 +351,7 @@ beneficial for you to download.
         for help.
 
 17. With training done we also need to write an application for prediction. Create a new docker image called
-    `evaluate.dockerfile`. This file should call your `src/<project_name>/evaluate.py` script instead. This image
+    `evaluate.dockerfile`. This file should call your `src/<project-name>/evaluate.py` script instead. This image
     will need some trained model weights to work. Feel free to either include these during the build process or mount
     them afterwards. When you create the file try to `build` and `run` it to confirm that it works. Hint: if
     you are passing in the model checkpoint and evaluation data as arguments to your script, your `docker run` probably
