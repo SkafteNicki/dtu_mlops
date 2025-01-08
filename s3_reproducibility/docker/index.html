@@ -2144,7 +2144,7 @@ the same time by giving them all different names using the <code>--name</code> t
     or the addition of new functionality. Therefore, instead of watching pip suffer through downloading <code>torch</code> for
     the 20th time, you can reuse the cache from the last time the Docker image was built. To do this, replace the line
     in your Dockerfile that installs your requirements with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>RUN<span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>cache,target<span class="o">=</span>~/pip/.cache<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>--no-cache-dir
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>RUN<span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>cache,target<span class="o">=</span>~/pip/.cache<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </span></code></pre></div>
 <p>which mounts your local pip cache to the Docker image. For building the image, you need to have enabled the
 <a href="https://docs.docker.com/develop/develop-images/build_enhancements/">BuildKit</a> feature. If you have Docker
