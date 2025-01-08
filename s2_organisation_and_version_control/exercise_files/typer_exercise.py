@@ -31,11 +31,13 @@ def train():
     accuracy = accuracy_score(y_test, y_pred)
     report = classification_report(y_test, y_pred)
 
+    # Print the results
     print(f"Accuracy: {accuracy:.2f}")
     print("Classification Report:")
     print(report)
     return accuracy, report
 
 
+    # this "if"-block is added to enable the script to be run from the command line
 if __name__ == "__main__":
     train()
