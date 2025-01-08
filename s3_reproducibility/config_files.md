@@ -10,7 +10,7 @@ experiments magically become reproducible. There are other factors that are impo
 experiments.
 
 In [this paper](https://arxiv.org/abs/1909.06674) (highly recommended read) the authors tried to reproduce the results
-of 255 papers and tried to figure out which factors where significant to succeed. One of those factors were
+of 255 papers and tried to figure out which factors were significant to succeed. One of those factors were
 "Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameter that
 was used to run the experiments. It should come as no surprise that this can be a determining factor for
 reproducibility, however it is not given that hyperparameters are always well specified.
