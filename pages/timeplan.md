@@ -20,8 +20,9 @@ be using in the exercises.
 
 Recordings (link to drive folder with mp4 files):
 
-* [🎥2023 Lectures](https://drive.google.com/drive/folders/1j56XyHoPLjoIEmrVcV_9S1FBkXWZBK0w?usp=sharing)
+* [🎥2025 Lectures](https://panopto.dtu.dk/Panopto/Pages/Sessions/List.aspx?folderID=14eeb1b7-5c39-4547-b7c3-b25d007cecd1)
 * [🎥2024 Lectures](https://drive.google.com/drive/folders/1mgLlvfXUT9xdg9EZusgeWAmfpUDSwfL6?usp=sharing)
+* [🎥2023 Lectures](https://drive.google.com/drive/folders/1j56XyHoPLjoIEmrVcV_9S1FBkXWZBK0w?usp=sharing)
 
 ## Week 1
 
