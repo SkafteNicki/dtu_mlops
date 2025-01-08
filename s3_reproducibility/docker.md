@@ -167,7 +167,7 @@ beneficial for you to download.
     which will automatically remove the container after it has finished running.
 
 9. Let's now move on to trying to construct a Dockerfile ourselves for our MNIST project. Create a file called
-    `trainer.dockerfile`. The intention is that we want to develop one Dockerfile for running our training script and
+    `train.dockerfile`. The intention is that we want to develop one Dockerfile for running our training script and
     one for doing predictions.
 
 10. Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we are
@@ -235,7 +235,7 @@ beneficial for you to download.
 13. We are now ready to build our Dockerfile into a Docker image.
 
     ```bash
-    docker build -f trainer.dockerfile . -t trainer:latest
+    docker build -f train.dockerfile . -t train:latest
     ```
 
     ??? warning "MAC M1/M2 users"
@@ -247,22 +247,22 @@ beneficial for you to download.
         to build for by adding the `--platform` argument to the `docker build` command:
 
         ```bash
-        docker build --platform linux/amd64 -f trainer.dockerfile . -t trainer:latest
+        docker build --platform linux/amd64 -f train.dockerfile . -t train:latest
         ```
 
         and also when running the image:
 
         ```bash
-        docker run --platform linux/amd64 trainer:latest
+        docker run --platform linux/amd64 train:latest
         ```
 
         Note that this will significantly increase the build and run time of your Docker image when running locally,
         because Docker will need to emulate the other platform. In general, for the exercises today, you should not need
         to specify the platform, but be aware of this if you are building Docker images on your own.
 
-    Please note that here we are providing two extra arguments to `docker build`. The `-f trainer.dockerfile .` (the dot
+    Please note that here we are providing two extra arguments to `docker build`. The `-f train.dockerfile .` (the dot
     is important to remember) indicates which Dockerfile we want to run (except if you named it just `Dockerfile`) and
-    the `-t trainer:latest` is the respective name and tag that we see afterward when running `docker images` (see
+    the `-t train:latest` is the respective name and tag that we see afterward when running `docker images` (see
     image below). Please note that building a Docker image can take a couple of minutes.
 
     <figure markdown>
@@ -284,7 +284,7 @@ beneficial for you to download.
     then try running the docker image
 
     ```bash
-    docker run --name experiment1 trainer:latest
+    docker run --name experiment1 train:latest
     ```
 
     you should hopefully see your training starting. Please note that we can start as many containers as we want at
@@ -340,7 +340,7 @@ beneficial for you to download.
         container as
 
         ```bash
-        docker run --name {container_name} -v %cd%/models:/models/ trainer:latest
+        docker run --name {container_name} -v %cd%/models:/models/ train:latest
         ```
 
         this command mounts our local `models` folder as a corresponding `models` folder in the container. Any file save
@@ -351,19 +351,19 @@ beneficial for you to download.
         for help.
 
 17. With training done we also need to write an application for prediction. Create a new docker image called
-    `predict.dockerfile`. This file should call your `<project_name>/models/predict_model.py` script instead. This image
+    `evaluate.dockerfile`. This file should call your `src/<project_name>/evaluate.py` script instead. This image
     will need some trained model weights to work. Feel free to either include these during the build process or mount
     them afterwards. When you create the file try to `build` and `run` it to confirm that it works. Hint: if
-    you are passing in the model checkpoint and prediction data as arguments to your script, your `docker run` probably
+    you are passing in the model checkpoint and evaluation data as arguments to your script, your `docker run` probably
     needs to look something like
 
     ```bash
-    docker run --name predict --rm \
+    docker run --name evaluate --rm \
         -v %cd%/trained_model.pt:/models/trained_model.pt \  # mount trained model file
-        -v %cd%/data/example_images.npy:/example_images.npy \  # mount data we want to predict on
-        predict:latest \
+        -v %cd%/data/test_images.pt:/test_images.pt \  # mount data we want to evaluate on
+        -v %cd%/data/test_targets.pt:/test_targets.pt \
+        evaluate:latest \
         ../../models/trained_model.pt \  # argument to script, path relative to script location in container
-        ../../example_images.npy
     ```
 
 18. (Optional, requires GPU support) By default, a virtual machine created by docker only has access to your `cpu` and
