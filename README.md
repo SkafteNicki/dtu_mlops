@@ -107,7 +107,7 @@ this. Finally, you may try to cut the cost of running your model in production, 
 and trying to optimize some steps.
 
 The focus in this course is particularly on the **Operations** part of MLOps as this is what many data scientists are
-missing in their toolbox to take all the knowledge they have about data processing and model development into a
+missing in their toolbox to implement all the knowledge they have about data processing and model development into a
 production setting.
 
 ## ❔ Learning objectives
