@@ -226,7 +226,7 @@ beneficial for you to download.
         the application that we want to run when the image is being executed:
 
         ```docker
-        ENTRYPOINT ["python", "-u", "<project_name>/train_model.py"]
+        ENTRYPOINT ["python", "-u", "<project_name>/train.py"]
         ```
 
         The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets redirected to
