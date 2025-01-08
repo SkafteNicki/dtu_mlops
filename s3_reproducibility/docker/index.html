@@ -2061,7 +2061,7 @@ and kill it afterward.</p>
 <p>Let's copy over our application (the essential parts) from our computer to the container:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>requirements.txt
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>pyproject.toml
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">COPY</span><span class="w"> </span>&lt;project-name&gt;/<span class="w"> </span>&lt;project-name&gt;/
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">COPY</span><span class="w"> </span>src/<span class="w"> </span>src/
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">COPY</span><span class="w"> </span>data/<span class="w"> </span>data/
 </span></code></pre></div>
 <p>Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
@@ -2088,7 +2088,7 @@ Docker?</p>
 <li>
 <p>Finally, we are going to name our training script as the <em>entrypoint</em> for our Docker image. The <em>entrypoint</em> is
     the application that we want to run when the image is being executed:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;project_name&gt;/train_model.py&quot;</span><span class="p">]</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;src/&lt;project-name&gt;/train.py&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>The <code>"u"</code> here makes sure that any output from our script, e.g., any <code>print(...)</code> statements, gets redirected to
 our terminal. If not included, you would need to use <code>docker logs</code> to inspect your run.</p>
@@ -2195,7 +2195,7 @@ for help.</p>
 </li>
 <li>
 <p>With training done we also need to write an application for prediction. Create a new docker image called
-    <code>evaluate.dockerfile</code>. This file should call your <code>src/&lt;project_name&gt;/evaluate.py</code> script instead. This image
+    <code>evaluate.dockerfile</code>. This file should call your <code>src/&lt;project-name&gt;/evaluate.py</code> script instead. This image
     will need some trained model weights to work. Feel free to either include these during the build process or mount
     them afterwards. When you create the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
     you are passing in the model checkpoint and evaluation data as arguments to your script, your <code>docker run</code> probably
