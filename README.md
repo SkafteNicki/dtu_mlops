@@ -14,7 +14,7 @@
     * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
     * Professor [Søren Hauberg](http://www2.compute.dtu.dk/~sohau/), <sohau@dtu.dk>
 * 5 ECTS (European Credit Transfer System), corresponding to 140 hours of work
-* 3 week period in January
+* 3 week period in Janeiro
 * Master level course
 * Grade: Pass/not passed
 * Type of assessment: project report
