@@ -296,7 +296,7 @@ beneficial for you to download.
         in your Dockerfile that installs your requirements with:
 
         ```bash
-        RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
+        RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt
         ```
 
         which mounts your local pip cache to the Docker image. For building the image, you need to have enabled the
