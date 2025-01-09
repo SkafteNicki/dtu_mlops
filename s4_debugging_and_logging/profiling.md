@@ -92,14 +92,16 @@ programs.
 
         such that the data is returned as tensors. However, since data is already stored as tensors, calling this
         transform every time you want to access the data is redundant and can be removed. The easiest way to do this is
-        to create a `TensorDataset` from the internal data and labels (which already are tensors):
+        to create a `TensorDataset` from the internal data and labels (which already are tensors).
 
         ```python
         from torchvision.datasets import MNIST
         from torch.utils.data import TensorDataset
+        # the class also internally normalize to [0,1] domain so we need to divide by 255
         train_dataset = MNIST(dataset_path, train=True, download=True)
-        train_dataset = TensorDataset(train_dataset.data, train_dataset.targets)
-        # do the same for the test dataset
+        train_dataset = TensorDataset(train_dataset.data.float() / 255.0, train_dataset.targets)
+        test_dataset = MNIST(dataset_path, train=False, download=True)
+        test_dataset = TensorDataset(test_dataset.data.float() / 255.0, test_dataset.targets)
         ```
 
 ## PyTorch profiling
