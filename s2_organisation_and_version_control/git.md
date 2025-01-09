@@ -126,10 +126,13 @@ working together on the same project.
 
     5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
         updated in your repository.
+        { .annotate }
 
-    6. You can always use the command `git status` to check where you are in the process of making a commit.
+        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from you local terminal (https://github.com/settings/tokens) or install the GitHub cli               (https://docs.github.com/en/github-cli/github-cli/quickstart).
 
-    7. Also checkout the `git log` command, which will show you the history of commits that you have made.
+    7. You can always use the command `git status` to check where you are in the process of making a commit.
+
+    8. Also checkout the `git log` command, which will show you the history of commits that you have made.
 
 2. Make sure that you understand how to make branches, as this will allow you to try out code changes without
     messing with your working code. Creating a new branch can be done using:
