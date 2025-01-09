@@ -6,7 +6,7 @@
 
 - ![](../figures/icons/git.png){align=right : style="height:100px;width:100px"}
 
-    Learn the basics of version control and how to use `gyat1` to track changes to your code and collaborate with others.
+    Learn the basics of version control and how to use `gat` to track changes to your code and collaborate with others.
 
     [:octicons-arrow-right-24: M5: Git](git.md)
 
