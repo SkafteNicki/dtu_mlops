@@ -492,12 +492,12 @@ metrics. This allows for better iteration of models and training procedure.
 
 9. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
     training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
-    previous exercise, it needs to happen automatically. Lets therefore look into how we can do that.
+    previous exercise, it needs to happen automatically. Let's therefore look into how we can do that.
 
     1. First we need to generate an authentication key, or more precise an API key. This is in general the way any
         service (like a docker container) can authenticate. Start by going <https://wandb.ai/home>, click your profile
-        icon in the upper right corner and then go to settings. Scroll down to the danger zone and generate a new API
-        key and finally copy it.
+        icon in the upper right corner and then go to `User settings`. Scroll down to the danger zone and generate a
+        new API key (if you do not already have one) and finally copy it.
 
     2. Next create a new docker file called `wandb.docker` and add the following code
 
