@@ -31,7 +31,13 @@ programs.
     script using the `-m` arg
 
     ```bash
-    python -m cProfile -o <output_file> -s <sort_order> myscript.py
+    python -m cProfile -s <sort_order> myscript.py
+    ```
+
+    to write the output to a file you can use the `-o` argument
+
+    ```bash
+    python -m cProfile -s <sort_order> -o profile.txt myscript.py
     ```
 
     ??? example "Script to debug"
@@ -40,7 +46,21 @@ programs.
         --8<-- "s4_debugging_and_logging/exercise_files/vae_mnist_working.py"
         ```
 
-2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
+2. Try looking at the output of the profiling. Can you figure out which function took the longest to run? How do you
+    show the content of the `profile.txt` file?
+
+    ??? success "Solution"
+
+        If you try to open `profile.txt` in a text editor you will see that it is not very human readable. To get a
+        better overview of the profiling you can use the `pstats` module to read the file and print the results in a
+        more readable format. For example, to print the 10 functions that took the longest time to run you can use the
+        following code:
+
+        ```python
+        import pstats
+        p = pstats.Stats('profile.txt')
+        p.sort_stats('cumulative').print_stats(10)
+        ```
 
 3. Can you explain the difference between `tottime` and `cumtime`? Under what circumstances does these differ and
     when are they equal.
