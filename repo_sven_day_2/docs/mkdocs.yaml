@@ -1,0 +1,23 @@
+site_name: project_sven_day_2
+site_author: Sven_Finderup
+docs_dir: source
+
+theme:
+  language: en
+  name: material
+  features:
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_root_heading: true
+            separate_signature: true
+            show_signature_annotations: true
+
+nav:
+  - Home: index.md

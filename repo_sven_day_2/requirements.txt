@@ -1,0 +1,4 @@
+torch==2.5.1
+typer==0.15.1
+fastapi==0.115.6
+uvicorn==0.34.0

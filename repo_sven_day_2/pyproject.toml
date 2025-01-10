@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "project_sven_day_2"
+version = "0.0.1"
+description = "Simply doing what i have to for day 2"
+authors = [
+  { name = "Sven_Finderup", email = "your@email.com" },
+]
+
+keywords = ["machine learning", "MLOps"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = ['requirements_dev.txt']}
+
+[tool.ruff]
+line-length = 120
+
+[tool.coverage.run]
+omit = ["tests/*"]
