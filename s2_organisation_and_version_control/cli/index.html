@@ -2109,7 +2109,7 @@ these to be able to work properly.</p>
 </details>
 </li>
 <li>
-<p>Next, lets try on a bit harder example. Below is a simple script that trains a support vector machine on the iris
+<p>Next, let's try on a bit harder example. Below is a simple script that trains a support vector machine on the iris
     dataset.</p>
 <div class="admonition example">
 <p class="admonition-title">iris_classifier.py</p>
@@ -2197,8 +2197,8 @@ these to be able to work properly.</p>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <p>Implement a CLI for the script such that the following commands can be run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">  </span><span class="c1"># should train the model and save it to &#39;model.ckpt&#39;</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">  </span><span class="c1"># should be the same as above</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">  </span><span class="c1"># should train the model and save it to &#39;model.ckpt&#39;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">        </span><span class="c1"># should be the same as above</span>
 </span></code></pre></div>
 <details class="success">
 <summary>Solution</summary>
@@ -2310,7 +2310,7 @@ giving an shorter alias to the <code>--output</code> option.</p>
 </details>
 </li>
 <li>
-<p>Next lets create a CLI that has more than a single command. Continue working in the basic machine learning
+<p>Next let's create a CLI that has more than a single command. Continue working in the basic machine learning
     application from the previous exercise, but this time we want to define two separate commands</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>evaluate<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span>
@@ -2440,7 +2440,7 @@ to be an optional parameter e.g. we provide a default and for the <code>evaluate
 <li>
 <p>Finally, let's try to define subcommands for our subcommands e.g. something similar to how <code>git</code> has the subcommand
     <code>remote</code> which in itself has multiple subcommands like <code>add</code>, <code>rename</code> etc. Continue on the simple machine
-    learning application from the previous exercises, but this time define a cli such that</p>
+    learning application from the previous exercises, but this time define a CLI such that</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>-k<span class="w"> </span><span class="m">5</span>
 </span></code></pre></div>
@@ -2592,7 +2592,7 @@ and KNN) which each takes arguments that are unique to that model. Relevant
 </details>
 </li>
 <li>
-<p>(Optional) Let's try to combine what we have learned until now. Try to make your <code>typer</code> cli into a executable
+<p>(Optional) Let's try to combine what we have learned until now. Try to make your <code>typer</code> CLI into an executable
     script using the <code>pyproject.toml</code> file and try it out!</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2627,10 +2627,10 @@ projects:</p>
 to interact with. Here is a example of long command that you might need to run in your project in the future</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>my_image:latest<span class="w"> </span>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
 </span></code></pre></div>
-<p>This can be a lot to remember, and it can be easy to make mistakes. Instead it would be nice if we could just do</p>
+<p>This can be a lot to remember, and it can be easy to make mistakes. Instead, it would be nice if we could just do</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>run<span class="w"> </span>my_command<span class="w"> </span>--arg1<span class="o">=</span>val1<span class="w"> </span>--arg2<span class="o">=</span>val2
 </span></code></pre></div>
-<p>e.g. easier to remember because we have remove a lot of the hard-to-remember stuff, but we are still able to configure
+<p>e.g. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
 it to our liking. To help with this, we are going to look at the <a href="http://www.pyinvoke.org/">invoke</a> package.
 <code>invoke</code> is a Python package that allows you to define tasks that can be
 run from the terminal. It is a bit like a more advanced version of the <a href="https://makefiletutorial.com/">Makefile</a> that
@@ -2670,7 +2670,7 @@ returns the current Python interpreter but it works for all operating systems. C
 </span></code></pre></div>
 </li>
 <li>
-<p>Lets try to create a task that simplifies the process of <code>git add</code>, <code>git commit</code>, <code>git push</code>. Create a task such
+<p>Let's try to create a task that simplifies the process of <code>git add</code>, <code>git commit</code>, <code>git push</code>. Create a task such
     that the following command can be run</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>invoke<span class="w"> </span>git<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;My commit message&quot;</span>
 </span></code></pre></div>
@@ -2796,7 +2796,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 10, 2025</span>
   </span>
 
     
