@@ -198,8 +198,8 @@ package you use. This is the most essential information you need to know about c
 
 After having installed cookiecutter (exercise 1 and 2), the remaining exercises are intended to be used on the
 simple CNN MNIST classifier from yesterday's exercise and force it into this structure. You are not required to fill out
-every folder and file in the project structure, but try to at least follow the steps in the exercises. Whenever you need to
-run a file I recommend always doing this from the root directory e.g.
+every folder and file in the project structure, but try to at least follow the steps in the exercises. Whenever you need
+to run a file I recommend always doing this from the root directory e.g.
 
 ```bash
 python <project_name>/data/make_dataset.py data/raw data/processed
