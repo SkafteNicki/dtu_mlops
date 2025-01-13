@@ -270,8 +270,8 @@ future as you start to add more and more features. As subgoals, please fulfill t
             "version": "0.2.0",
             "configurations": [
                 {
-                    "name": "Python: Current File",
-                    "type": "python",
+                    "name": "Train",
+                    "type": "debugpy",
                     "request": "launch",
                     "program": "${file}",
                     "args": [
