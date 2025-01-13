@@ -124,7 +124,7 @@ def main():
                             contributor.commits_pr += 1
                 commits += pr_commits
 
-            activity_matrix = create_activity_matrix(commits)
+            activity_matrix = create_activity_matrix(commits, max_delta=3)
 
             average_commit_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
