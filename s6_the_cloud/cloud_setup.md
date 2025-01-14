@@ -70,8 +70,11 @@ As the first step, we are going to get you some Google Cloud credits.
     2. Now login by typing
 
         ```bash
-        gcloud auth login
+        gcloud auth login #(1)!
         ```
+
+        1. If you are authenticating through WSL you most likely needs to add the argument `--no-launch-browser` at the
+            end of the command to get the authentication link. Copy the link and paste it into your browser.
 
         you should be sent to a web page where you link your cloud account to the `gcloud` interface. Afterward, also
         run this command:
