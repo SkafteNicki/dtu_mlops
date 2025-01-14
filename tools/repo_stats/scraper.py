@@ -58,13 +58,20 @@ def load_data(file_name: str) -> list[GroupInfo]:
     return content
 
 
-def create_activity_matrix(commits: list, max_delta: int = 5, normalize: bool = True) -> list[list[int]]:
+def create_activity_matrix(
+    commits: list,
+    max_delta: int = 5,
+    min_delta: int = 1,
+) -> list[list[int]]:
     """Creates an activity matrix from the commits."""
     commit_times = [datetime.datetime.fromisoformat(commit["commit"]["committer"]["date"][:-1]) for commit in commits]
     commit_times.sort()
 
     start_time = commit_times[0]
-    end_time = min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1])
+    end_time = max(
+        start_time + datetime.timedelta(weeks=min_delta),
+        min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1]),
+    )
 
     num_days = (end_time - start_time).days + 1  # include last day
 
@@ -124,7 +131,7 @@ def main():
                             contributor.commits_pr += 1
                 commits += pr_commits
 
-            activity_matrix = create_activity_matrix(commits)
+            activity_matrix = create_activity_matrix(commits, max_delta=3, min_delta=1)
 
             average_commit_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 

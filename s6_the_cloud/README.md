@@ -41,7 +41,7 @@ of the biggest being:
 - Alibaba Cloud
 
 They all have slight advantages and disadvantages over each other. In this course, we are going to focus on Google
-Cloud platform, because they have been kind enough to sponsor $50 of cloud credit to each student. If you happen to run
+Cloud Platform, because they have been kind enough to sponsor $50 of cloud credit to each student. If you happen to run
 out of credit, you can also get some free credit for a limited amount of time when you sign up with a new account.
 What's important to note is that all these different cloud providers all have the same set of services and that learning
 how to use the services of one cloud provider in many cases translates to also knowing how to use the same services at

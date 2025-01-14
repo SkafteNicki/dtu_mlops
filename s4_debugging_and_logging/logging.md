@@ -492,28 +492,35 @@ metrics. This allows for better iteration of models and training procedure.
 
 9. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
     training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
-    previous exercise, it needs to happen automatically. Lets therefore look into how we can do that.
+    previous exercise, it needs to happen automatically. Let's therefore look into how we can do that.
 
     1. First we need to generate an authentication key, or more precise an API key. This is in general the way any
         service (like a docker container) can authenticate. Start by going <https://wandb.ai/home>, click your profile
-        icon in the upper right corner and then go to settings. Scroll down to the danger zone and generate a new API
-        key and finally copy it.
+        icon in the upper right corner and then go to `User settings`. Scroll down to the danger zone and generate a
+        new API key (if you do not already have one) and finally copy it.
 
     2. Next create a new docker file called `wandb.docker` and add the following code
 
         ```dockerfile
-        FROM python:3.10-slim
+        FROM python:3.11-slim
         RUN apt update && \
             apt install --no-install-recommends -y build-essential gcc && \
             apt clean && rm -rf /var/lib/apt/lists/*
         RUN pip install wandb
-        COPY s4_debugging_and_logging/exercise_files/wandb_tester.py wandb_tester.py
+        COPY wandb_tester.py wandb_tester.py
         ENTRYPOINT ["python", "-u", "wandb_tester.py"]
         ```
 
-        please take a look at the script being copied into the image and afterwards build the docker image.
+        and a new script called `wandb_tester.py` that contains the following code
 
-    3. When we want to run the image, what we need to do is including a environment variables that contains the API key
+        ```python
+        --8<-- "s4_debugging_and_logging/exercise_files/wandb_tester.py"
+        ```
+
+        and then build the docker image. These two files are just a very minimal setup to test that we can authenticate
+        a docker container with Wandb.
+
+    3. When we want to run the image, what we need to do is including an environment variable that contains the API key
         we generated. This will then authenticate the docker container with the wandb server:
 
         ```bash

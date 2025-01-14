@@ -263,7 +263,7 @@ your head around where files are located.
 
     ??? success "Solution"
 
-        ```python linenums="1" title="make_dataset.py"
+        ```python linenums="1" title="data.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/data_solution.py"
         ```
 
@@ -273,9 +273,14 @@ your head around where files are located.
     project. It is similar to `Markefile`s if you are familiar with them. Try out some of the pre-defined tasks:
 
     ```bash
+    # first install invoke
+    pip install invoke
+    # then you can execute the tasks
     invoke preprocess-data  # runs the data.py file
     invoke requirements     # installs all requirements in the requirements.txt file
     invoke train            # runs the train.py file
+    # or get a list of all tasks
+    invoke --list
     ```
 
     In general, we recommend that you add commands to the `tasks.py` file as you move along in the course.
@@ -292,7 +297,7 @@ your head around where files are located.
 
         This is the CNN solution from yesterday and it may differ from the model architecture you have created.
 
-        ```python linenums="1" title="make_dataset.py"
+        ```python linenums="1" title="model.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/model_solution.py"
         ```
 
@@ -304,7 +309,7 @@ your head around where files are located.
 
     ??? success "Solution"
 
-        ```python linenums="1" title="make_dataset.py"
+        ```python linenums="1" title="train.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/train_solution.py"
         ```
 8. Transfer the remaining parts of the `main.py` script into the `src/<project-name>/evaluate.py` script e.g. the parts
@@ -313,7 +318,7 @@ your head around where files are located.
 
     ??? success "Solution"
 
-        ```python linenums="1" title="make_dataset.py"
+        ```python linenums="1" title="evaluate.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/evaluate_solution.py"
         ```
 
