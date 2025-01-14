@@ -216,7 +216,7 @@ an developer friendly framework, however it has historically been slow to run in
         not be able to optimize the computational graph as well.
 
 3. Check that the model was correctly exported by loading it using the `onnx` package and afterwards check the graph
-    of model using the following code:
+    of the model using the following code:
 
     ```python
     import onnx
@@ -225,7 +225,7 @@ an developer friendly framework, however it has historically been slow to run in
     print(onnx.helper.printable_graph(model.graph))
     ```
 
-4. To get a better understanding of what is actually exported, lets try to visualize the computational graph of the
+4. To get a better understanding of what is actually exported, let's try to visualize the computational graph of the
     model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
     try it out directly in [webbrowser](https://netron.app/) or you can install it locally using `pip install netron`
     and then run it using `netron resnet18.onnx`. Can you figure out what method of the model is exported to ONNX?
