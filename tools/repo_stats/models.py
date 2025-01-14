@@ -102,7 +102,9 @@ class Report(BaseModel):
                 stdin=PIPE,
             )
             output = p.stderr.read()
-            return len(output.decode("utf-8").split("\n")[:-1:2])
+            output = output.decode("utf-8").split("\n")
+            lines = [line for line in output if "WARNING" in line]
+            return len(lines) if len(lines) else None
         return None
 
 

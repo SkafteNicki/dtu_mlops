@@ -166,6 +166,8 @@ prediction*.json
 **/service_account_key.json
 corruptmnist_v1/
 corruptmnist_v2/
+tools/repo_stats/report.py
+tools/repo_stats/README.md
 
 # vscode
 .vscode/
