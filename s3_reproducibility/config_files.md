@@ -197,7 +197,7 @@ look online for your answers before looking at the solution. Remember: its not a
     |--my_app.py
     ```
 
-12. Finally, a awesome feature of hydra is the
+12. Finally, an awesome feature of hydra is the
     [instantiate](https://hydra.cc/docs/advanced/instantiate_objects/overview/) feature. This allows you to define a
     configuration file that can be used to directly instantiating objects in python. Try to create a configuration file
     that can be used to instantiating the `Adam` optimizer in the `vae_mnist.py` script.
@@ -223,7 +223,10 @@ look online for your answers before looking at the solution. Remember: its not a
 
         @hydra.main(config_name="adam.yaml")
         def main(cfg):
-            optimizer = hydra.utils.instantiate(cfg.optimizer)
+            model = ...  # define the model we want to optimize
+            # the first argument of any optimize is the parameters to optimize
+            # we add those dynamically when we instantiate the optimizer
+            optimizer = hydra.utils.instantiate(cfg.optimizer, params=model.parameters())
             print(optimizer)
 
         if __name__ == "__main__":

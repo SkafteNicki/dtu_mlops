@@ -544,7 +544,7 @@ you can look through for help.
     2. Next, create a `Dockerfile` with the following content
 
         ```Dockerfile
-        FROM python:3.9
+        FROM python:3.11-slim
         WORKDIR /code
         COPY ./requirements.txt /code/requirements.txt
 
