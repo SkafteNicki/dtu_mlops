@@ -2118,17 +2118,22 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
 </li>
 <li>
 <p>After sending your request you can try clicking the <code>Increase requests</code> tab to see the status of your request</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/quotas.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quotas.PNG" width="1000" /></a>
+</figure></p>
 </li>
 </ol>
-<p><figure markdown>
-    <a class="glightbox" href="../../figures/quotas.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quotas.PNG" width="1000" /></a>
-</figure></p>
 </li>
 </ol>
 <p>If you are ever running into errors when working in GPU that contains statements about <code>quotas</code> you can always try to
 go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
 training machine learning models using Vertex AI in the <a href="../using_the_cloud/">next module</a>, you would most likely
 need to ask for a quota increase for that service as well.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can only request a quota increase for service that you have enabled. After enabling a given service it may take
+5-10 minutes before you can request a quota increase for that service.</p>
+</div>
 <figure>
 <p><a class="glightbox" href="../../figures/gcp_quotas.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_quotas.png" width="1000" /></a></p>
 </figure>
@@ -2153,9 +2158,11 @@ authentication between GitHub and GCP. You can read more about how to create a s
     default and click <code>Create</code>.</p>
 </li>
 <li>
-<p>Next, let's give the service account some permissions. Click on the service account you just created. In the
-    <code>Permissions</code> tab click <code>Add permissions</code>. Your job now is to give the service account the lowest possible
-    permissions such that it can download files from a bucket. Look at this
+<p>Next, let's give the service account some permissions. Your job now is to give the service account the lowest
+    possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
+    the <code>IAM</code> page. Click on <code>Grant Access</code> button and paste in the email address in <code>Add principals</code> field. Then click
+    the <code>Select a role</code> dropdown and either write the name of the role you want to give the service account or search
+    for it in the list. Finally, click <code>Save</code>.  As help, you can look at this
     <a href="https://cloud.google.com/iam/docs/understanding-roles">page</a> and try to find the role that fits the description.</p>
 <details class="success">
 <summary>Solution</summary>
