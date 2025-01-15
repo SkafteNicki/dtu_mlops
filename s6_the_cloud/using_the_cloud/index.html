@@ -2830,7 +2830,7 @@ models, and then use other services for different parts of our pipeline.</p>
 </span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span>--zone<span class="w"> </span>europe-west4-a<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span>--image-family<span class="o">=</span>pytorch-latest-gpu<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span>--image-project<span class="o">=</span>deeplearning-platform-release<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-v100,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">    </span>--accelerator<span class="o">=</span><span class="s2">&quot;type=nvidia-tesla-t4,count=1&quot;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;install-nvidia-driver=True&quot;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE
 </span></code></pre></div>
@@ -2838,7 +2838,7 @@ models, and then use other services for different parts of our pipeline.</p>
 <li>
 <p>Next login into your newly created VM. You can either open an <code>ssh</code> terminal in the cloud console or run the
     following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>gcloud<span class="w"> </span>beta<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>&lt;instance-name&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>gcloud<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>&lt;instance-name&gt;
 </span></code></pre></div>
 </li>
 <li>
