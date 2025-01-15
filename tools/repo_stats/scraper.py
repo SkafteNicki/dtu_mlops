@@ -100,8 +100,9 @@ def main():
 
     repo_stats: list[RepoContent] = []
     for index, group in enumerate(group_data):
-        logger.info(f"Processing group {group.group_number}, {index+1}/{len(group_data)}")
-
+        logger.info(
+            f"Processing group {group.group_number}, {index+1}/{len(group_data)}. Accessible: {group.repo_accessible}"
+        )
         if group.repo_accessible:
             contributors = group.contributors
             num_contributors = len(contributors)

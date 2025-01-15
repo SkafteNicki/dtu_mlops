@@ -679,6 +679,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/$_IMAGE_NAME'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         substitutions:
           _IMAGE_NAME: 'my_image'
         ```

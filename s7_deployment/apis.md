@@ -536,8 +536,9 @@ you can look through for help.
         in the file and we always recommend that you are specific about the version you want to use
 
         ```txt
-        fastapi>=0.68.0,<0.69.0
-        uvicorn>=0.15.0,<0.16.0
+        # newest version of fastapi and uvicorn as of time of writing
+        fastapi==0.115.6
+        uvicorn==0.34.0
         # add anything else you application needs to be able to run
         ```
 
