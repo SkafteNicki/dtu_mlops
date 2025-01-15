@@ -421,6 +421,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
         where you need to replace `<registry-name>`, `<image-name>` and `<path-to-dockerfile>` with your own values.
