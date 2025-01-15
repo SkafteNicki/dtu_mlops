@@ -124,7 +124,7 @@ We are now going to start using the cloud.
             === "CPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-cpu \
                     --image-project=deeplearning-platform-release
@@ -133,11 +133,11 @@ We are now going to start using the cloud.
             === "GPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-gpu \
                     --image-project=deeplearning-platform-release \
-                    --accelerator="type=nvidia-tesla-K80,count=1" \
+                    --accelerator="type=nvidia-tesla-V100,count=1" \
                     --maintenance-policy TERMINATE
                 ```
 
