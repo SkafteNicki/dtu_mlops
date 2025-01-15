@@ -149,7 +149,7 @@ We are going to do a couple of exercises on sending requests using
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do it from a
     script.
 
-    1. Make sure you have `curl` installed, or else find instruction on installing it. To check call `curl -`-help` with
+    1. Make sure you have `curl` installed, or else find instruction on installing it. To check call `curl --help` with
         the documentation on curl.
 
     2. To execute `requests.get('https://api.github.com')` using curl we would simply do
