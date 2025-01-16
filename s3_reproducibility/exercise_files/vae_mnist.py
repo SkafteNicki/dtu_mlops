@@ -4,8 +4,10 @@ A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 
 """
 
+import logging
 import os
 
+import hydra
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
@@ -15,9 +17,6 @@ from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
 
-import hydra
-import logging
-
 # Hydra configuration
 
 cuda = True
@@ -26,6 +25,7 @@ DEVICE = torch.device("cuda" if cuda else "cpu")
 log = logging.getLogger(__name__)
 
 def setup_data_model(cfg):
+    """Setup data and model."""
     torch.manual_seed(cfg.hyperparameters.seed)
     # Model Hyperparameters
 
@@ -39,8 +39,12 @@ def setup_data_model(cfg):
     train_loader = DataLoader(dataset=train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
     test_loader = DataLoader(dataset=test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
-    encoder = Encoder(input_dim=cfg.hyperparameters.x_dim, hidden_dim=cfg.hyperparameters.hidden_dim, latent_dim=cfg.hyperparameters.latent_dim)
-    decoder = Decoder(latent_dim=cfg.hyperparameters.latent_dim, hidden_dim=cfg.hyperparameters.hidden_dim, output_dim=cfg.hyperparameters.x_dim)
+    encoder = Encoder(input_dim=cfg.hyperparameters.x_dim,
+                      hidden_dim=cfg.hyperparameters.hidden_dim,
+                      latent_dim=cfg.hyperparameters.latent_dim)
+    decoder = Decoder(latent_dim=cfg.hyperparameters.latent_dim,
+                      hidden_dim=cfg.hyperparameters.hidden_dim,
+                      output_dim=cfg.hyperparameters.x_dim)
 
     model = Model(encoder=encoder, decoder=decoder).to(DEVICE)
 
@@ -55,6 +59,7 @@ def loss_function(x, x_hat, mean, log_var):
 
 
 def train(cfg, train_loader, model):
+    """Train the model."""
     optimizer = Adam(model.parameters(), lr=cfg.hyperparameters.lr)
 
     log.info("Start training VAE...")
@@ -76,13 +81,15 @@ def train(cfg, train_loader, model):
 
             loss.backward()
             optimizer.step()
-        log.info(f"Epoch {epoch+1} complete!,  Average Loss: {overall_loss / (batch_idx*cfg.hyperparameters.batch_size)}")
+        log.info(f"Epoch {epoch+1} complete! \
+                  Average Loss: {overall_loss / (batch_idx*cfg.hyperparameters.batch_size)}")
     log.info("Finish!!")
 
     # save weights
     torch.save(model, f"{os.getcwd()}/trained_model.pt")
 
 def test(cfg, test_loader, model):
+    """Test the model."""
     # Generate reconstructions
     model.eval()
     with torch.no_grad():
@@ -99,6 +106,7 @@ def test(cfg, test_loader, model):
 
 
 def generate_samples(cfg, decoder):
+    """Generate samples from the model."""
     # Generate samples
     with torch.no_grad():
         noise = torch.randn(cfg.hyperparameters.batch_size, 20).to(DEVICE)
@@ -108,12 +116,13 @@ def generate_samples(cfg, decoder):
 
 @hydra.main(config_name="config.yaml", config_path="conf")
 def main(cfg):
+    """Main function."""
     print(cfg)
     train_loader, test_loader, encoder, decoder, model = setup_data_model(cfg)
     train(cfg, train_loader, model)
     test(cfg, test_loader, model)
     generate_samples(cfg, decoder)
-    
+
 
 if __name__ == "__main__":
     main()
