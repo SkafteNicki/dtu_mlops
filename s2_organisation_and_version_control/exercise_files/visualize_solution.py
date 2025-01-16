@@ -8,7 +8,8 @@ from sklearn.manifold import TSNE
 
 def visualize(model_checkpoint: str, figure_name: str = "embeddings.png") -> None:
     """Visualize model predictions."""
-    model = MyAwesomeModel().load_state_dict(torch.load(model_checkpoint))
+    model: torch.nn.Module = MyAwesomeModel()
+    model.load_state_dict(torch.load(model_checkpoint))
     model.eval()
     model.fc = torch.nn.Identity()
 

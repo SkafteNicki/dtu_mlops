@@ -156,7 +156,7 @@ def check() -> None:
             ]
         ),
         "question_30": LengthConstraints(min_length=200, max_length=400),
-        "question_31": LengthConstraints(min_length=50, max_length=200),
+        "question_31": LengthConstraints(min_length=50, max_length=300),
     }
     if len(answers) != 31:
         msg = "Number of answers are different from the expected 31. Have you changed the template?"

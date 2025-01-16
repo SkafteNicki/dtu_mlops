@@ -108,7 +108,7 @@ We are now going to start using the cloud.
             --image-family=<image-family> \
             --image-project=deeplearning-platform-release \
             # add these arguments if you want to run on GPU and have the quota to do so
-            --accelerator="type=nvidia-tesla-K80,count=1" \
+            --accelerator="type=nvidia-tesla-V100,count=1" \
             --maintenance-policy TERMINATE \
             --metadata="install-nvidia-driver=True" \
         ```
@@ -124,7 +124,7 @@ We are now going to start using the cloud.
             === "CPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-cpu \
                     --image-project=deeplearning-platform-release
@@ -133,11 +133,11 @@ We are now going to start using the cloud.
             === "GPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-gpu \
                     --image-project=deeplearning-platform-release \
-                    --accelerator="type=nvidia-tesla-K80,count=1" \
+                    --accelerator="type=nvidia-tesla-V100,count=1" \
                     --maintenance-policy TERMINATE
                 ```
 
@@ -421,6 +421,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
         where you need to replace `<registry-name>`, `<image-name>` and `<path-to-dockerfile>` with your own values.
@@ -677,6 +679,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/$_IMAGE_NAME'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         substitutions:
           _IMAGE_NAME: 'my_image'
         ```
@@ -737,7 +741,7 @@ models, and then use other services for different parts of our pipeline.
             --zone europe-west4-a \
             --image-family=pytorch-latest-gpu \
             --image-project=deeplearning-platform-release \
-            --accelerator="type=nvidia-tesla-v100,count=1" \
+            --accelerator="type=nvidia-tesla-t4,count=1" \
             --metadata="install-nvidia-driver=True" \
             --maintenance-policy TERMINATE
         ```
@@ -746,7 +750,7 @@ models, and then use other services for different parts of our pipeline.
         following command
 
         ```bash
-        gcloud beta compute ssh <instance-name>
+        gcloud compute ssh <instance-name>
         ```
 
     3. It is recommended to always check that the VM we get is actually what we asked for. In this case, the VM should

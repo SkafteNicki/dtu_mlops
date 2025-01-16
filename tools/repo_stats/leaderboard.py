@@ -71,7 +71,7 @@ def main() -> None:
     """Main function for the leaderboard."""
     download_data("repo_stats.json")
     dataframe = load_data("repo_stats.json")
-    dataframe["num_warnings"] = dataframe["num_warnings"].apply(lambda x: 27 - x if pd.notnull(x) else x)
+    dataframe["num_warnings"] = dataframe["num_warnings"].apply(lambda x: 31 - x if pd.notnull(x) else x)
     dataframe["activity_matrix"] = dataframe["activity_matrix"].apply(
         lambda x: activity_to_image(x) if x is not None else x
     )

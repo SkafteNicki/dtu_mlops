@@ -102,7 +102,9 @@ class Report(BaseModel):
                 stdin=PIPE,
             )
             output = p.stderr.read()
-            return len(output.decode("utf-8").split("\n")[:-1:2])
+            output = output.decode("utf-8").split("\n")
+            lines = [line for line in output if "WARNING" in line]
+            return len(lines) if len(lines) else None
         return None
 
 
@@ -139,7 +141,13 @@ class RepoContent(BaseModel):
     @property
     def num_workflow_files(self) -> int:
         """Returns the number of workflow files in the repository."""
-        return len([f for f in self.file_tree if ".yml" in f["path"]])
+        return len(
+            [
+                f
+                for f in self.file_tree
+                if f["path"].startswith(".github/workflows/") and f["path"].endswith((".yml", ".yaml"))
+            ]
+        )
 
     @property
     def has_requirements_file(self) -> bool:
