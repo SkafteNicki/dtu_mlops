@@ -24,11 +24,11 @@ DEVICE = torch.device("cuda" if cuda else "cpu")
 
 log = logging.getLogger(__name__)
 
+
 def setup_data_model(cfg):
     """Setup data and model."""
     torch.manual_seed(cfg.hyperparameters.seed)
     # Model Hyperparameters
-
 
     # Data loading
     mnist_transform = transforms.Compose([transforms.ToTensor()])
@@ -39,12 +39,16 @@ def setup_data_model(cfg):
     train_loader = DataLoader(dataset=train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
     test_loader = DataLoader(dataset=test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
-    encoder = Encoder(input_dim=cfg.hyperparameters.x_dim,
-                      hidden_dim=cfg.hyperparameters.hidden_dim,
-                      latent_dim=cfg.hyperparameters.latent_dim)
-    decoder = Decoder(latent_dim=cfg.hyperparameters.latent_dim,
-                      hidden_dim=cfg.hyperparameters.hidden_dim,
-                      output_dim=cfg.hyperparameters.x_dim)
+    encoder = Encoder(
+        input_dim=cfg.hyperparameters.x_dim,
+        hidden_dim=cfg.hyperparameters.hidden_dim,
+        latent_dim=cfg.hyperparameters.latent_dim,
+    )
+    decoder = Decoder(
+        latent_dim=cfg.hyperparameters.latent_dim,
+        hidden_dim=cfg.hyperparameters.hidden_dim,
+        output_dim=cfg.hyperparameters.x_dim,
+    )
 
     model = Model(encoder=encoder, decoder=decoder).to(DEVICE)
 
@@ -81,12 +85,14 @@ def train(cfg, train_loader, model):
 
             loss.backward()
             optimizer.step()
-        log.info(f"Epoch {epoch+1} complete! \
-                  Average Loss: {overall_loss / (batch_idx*cfg.hyperparameters.batch_size)}")
+        log.info(
+            f"Epoch {epoch+1} complete!,  Average Loss: {overall_loss / (batch_idx*cfg.hyperparameters.batch_size)}"
+        )
     log.info("Finish!!")
 
     # save weights
     torch.save(model, f"{os.getcwd()}/trained_model.pt")
+
 
 def test(cfg, test_loader, model):
     """Test the model."""
@@ -113,6 +119,7 @@ def generate_samples(cfg, decoder):
         generated_images = decoder(noise)
 
     save_image(generated_images.view(cfg.hyperparameters.batch_size, 1, 28, 28), "generated_sample.png")
+
 
 @hydra.main(config_name="config.yaml", config_path="conf")
 def main(cfg):
