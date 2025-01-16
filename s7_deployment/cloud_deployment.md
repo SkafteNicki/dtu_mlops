@@ -401,6 +401,8 @@ deploying containers.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
     Add a third step to the `cloudbuild.yaml` file that deploys the container image to Cloud Run. The relevant service
@@ -444,6 +446,8 @@ deploying containers.
             '--platform',
             'managed',
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
 ## 🧠 Knowledge check
