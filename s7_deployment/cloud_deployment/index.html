@@ -2126,8 +2126,9 @@ should look like this:</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gsutil<span class="w"> </span>mb<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># mb stands for make bucket</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gsutil<span class="w"> </span>cp<span class="w"> </span>&lt;file-name&gt;<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># cp stands for copy</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gsutil<span class="w"> </span>cp<span class="w"> </span>model.pkl<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># cp stands for copy</span>
 </span></code></pre></div>
+<p>where you replace <code>&lt;bucket-name&gt;</code> with the name of your bucket.</p>
 </details>
 </li>
 <li>
@@ -2504,7 +2505,9 @@ is needed if you want to access the service without providing credentials.</p>
 <span class="normal"><a href="#__codelineno-23-14">14</a></span>
 <span class="normal"><a href="#__codelineno-23-15">15</a></span>
 <span class="normal"><a href="#__codelineno-23-16">16</a></span>
-<span class="normal"><a href="#__codelineno-23-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nt">steps</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-23-17">17</a></span>
+<span class="normal"><a href="#__codelineno-23-18">18</a></span>
+<span class="normal"><a href="#__codelineno-23-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">container</span><span class="nv"> </span><span class="s">image&#39;</span>
 </span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
@@ -2521,6 +2524,8 @@ is needed if you want to access the service without providing credentials.</p>
 </span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15"></a><span class="w">    </span><span class="s">&#39;push&#39;</span><span class="p p-Indicator">,</span>
 </span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16"></a><span class="w">    </span><span class="s">&#39;europe-west1-docker.pkg.dev/$PROJECT_ID/&lt;registry-name&gt;/&lt;image-name&gt;&#39;</span>
 </span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18"></a><span class="nt">options</span><span class="p">:</span>
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19"></a><span class="w">  </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLOUD_LOGGING_ONLY</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <p>Add a third step to the <code>cloudbuild.yaml</code> file that deploys the container image to Cloud Run. The relevant service
@@ -2561,6 +2566,8 @@ the application is updated continuously.</p>
 </span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a><span class="w">    </span><span class="s">&#39;--platform&#39;</span><span class="p p-Indicator">,</span>
 </span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a><span class="w">    </span><span class="s">&#39;managed&#39;</span><span class="p p-Indicator">,</span>
 </span><span id="__span-24-30"><a id="__codelineno-24-30" name="__codelineno-24-30" href="#__codelineno-24-30"></a><span class="w">  </span><span class="p p-Indicator">]</span>
+</span><span id="__span-24-31"><a id="__codelineno-24-31" name="__codelineno-24-31" href="#__codelineno-24-31"></a><span class="nt">options</span><span class="p">:</span>
+</span><span id="__span-24-32"><a id="__codelineno-24-32" name="__codelineno-24-32" href="#__codelineno-24-32"></a><span class="w">  </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLOUD_LOGGING_ONLY</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2616,7 +2623,7 @@ that are a necessary component before you start to
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2025</span>
   </span>
 
     
