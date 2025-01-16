@@ -881,7 +881,7 @@ models, and then use other services for different parts of our pipeline.
                     machineType: n1-highmem-2
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
                     env:
                     - name: WANDB_API_KEY
                       value: <your-wandb-api-key>
@@ -913,7 +913,7 @@ to inject secrets into our code without having to store them in the code itself.
             imageUri: gcr.io/<project-id>/<docker-img>
             env:
             - name: WANDB_API_KEY
-                value: $WANDB_API_KEY
+              value: $WANDB_API_KEY
     ```
 
     we do not want to store the `WANDB_API_KEY` in the config file, rather we would like to store it in the Secret
@@ -971,6 +971,8 @@ to inject secrets into our code without having to store them in the code itself.
             '--config',
             '${_VERTEX_TRAIN_CONFIG}',
           ]
+        substitutions:
+          _VERTEX_TRAIN_CONFIG: 'config.yaml'
         availableSecrets:
           secretManager:
           - versionName: projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest
