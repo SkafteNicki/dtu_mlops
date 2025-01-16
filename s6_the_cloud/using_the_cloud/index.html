@@ -2964,7 +2964,7 @@ and <a href="https://cloud.google.com/vertex-ai/docs/training/create-custom-job#
 </span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-highmem-2</span>
 </span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
-</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;</span>
 </span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
 </span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WANDB_API_KEY</span>
 </span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-wandb-api-key&gt;</span>
@@ -2997,7 +2997,7 @@ to inject secrets into our code without having to store them in the code itself.
 </span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
 </span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
 </span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WANDB_API_KEY</span>
-</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$WANDB_API_KEY</span>
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$WANDB_API_KEY</span>
 </span></code></pre></div>
 <p>we do not want to store the <code>WANDB_API_KEY</code> in the config file, rather we would like to store it in the Secret
 Manager and inject it right before the job starts. Let's figure out how to do that.</p>
@@ -3055,7 +3055,9 @@ Manager and inject it right before the job starts. Let's figure out how to do th
 <span class="normal"><a href="#__codelineno-47-36">36</a></span>
 <span class="normal"><a href="#__codelineno-47-37">37</a></span>
 <span class="normal"><a href="#__codelineno-47-38">38</a></span>
-<span class="normal"><a href="#__codelineno-47-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1"></a><span class="nt">steps</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-47-39">39</a></span>
+<span class="normal"><a href="#__codelineno-47-40">40</a></span>
+<span class="normal"><a href="#__codelineno-47-41">41</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1"></a><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alpine&quot;</span>
 </span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3"></a><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Replace</span><span class="nv"> </span><span class="s">values</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">training</span><span class="nv"> </span><span class="s">config&quot;</span>
 </span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4"></a><span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sh&quot;</span>
@@ -3090,10 +3092,12 @@ Manager and inject it right before the job starts. Let's figure out how to do th
 </span><span id="__span-47-33"><a id="__codelineno-47-33" name="__codelineno-47-33"></a><span class="w">    </span><span class="s">&#39;--config&#39;</span><span class="p p-Indicator">,</span>
 </span><span id="__span-47-34"><a id="__codelineno-47-34" name="__codelineno-47-34"></a><span class="w">    </span><span class="s">&#39;${_VERTEX_TRAIN_CONFIG}&#39;</span><span class="p p-Indicator">,</span>
 </span><span id="__span-47-35"><a id="__codelineno-47-35" name="__codelineno-47-35"></a><span class="w">  </span><span class="p p-Indicator">]</span>
-</span><span id="__span-47-36"><a id="__codelineno-47-36" name="__codelineno-47-36"></a><span class="nt">availableSecrets</span><span class="p">:</span>
-</span><span id="__span-47-37"><a id="__codelineno-47-37" name="__codelineno-47-37"></a><span class="w">  </span><span class="nt">secretManager</span><span class="p">:</span>
-</span><span id="__span-47-38"><a id="__codelineno-47-38" name="__codelineno-47-38"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">versionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest</span>
-</span><span id="__span-47-39"><a id="__codelineno-47-39" name="__codelineno-47-39"></a><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;WANDB_API_KEY&#39;</span>
+</span><span id="__span-47-36"><a id="__codelineno-47-36" name="__codelineno-47-36"></a><span class="nt">substitutions</span><span class="p">:</span>
+</span><span id="__span-47-37"><a id="__codelineno-47-37" name="__codelineno-47-37"></a><span class="w">  </span><span class="nt">_VERTEX_TRAIN_CONFIG</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;config.yaml&#39;</span>
+</span><span id="__span-47-38"><a id="__codelineno-47-38" name="__codelineno-47-38"></a><span class="nt">availableSecrets</span><span class="p">:</span>
+</span><span id="__span-47-39"><a id="__codelineno-47-39" name="__codelineno-47-39"></a><span class="w">  </span><span class="nt">secretManager</span><span class="p">:</span>
+</span><span id="__span-47-40"><a id="__codelineno-47-40" name="__codelineno-47-40"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">versionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest</span>
+</span><span id="__span-47-41"><a id="__codelineno-47-41" name="__codelineno-47-41"></a><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;WANDB_API_KEY&#39;</span>
 </span></code></pre></div></td></tr></table></div>
 <p>Slowly go through the file and try to understand what each step does.</p>
 <details class="success">
@@ -3202,7 +3206,7 @@ bit more of the services offered in GCP, in particular for deploying the models 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2025</span>
   </span>
 
     
