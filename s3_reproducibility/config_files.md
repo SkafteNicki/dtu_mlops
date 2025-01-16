@@ -218,10 +218,12 @@ look online for your answers before looking at the solution. Remember: its not a
         and the python code to load the configuration file and instantiate the optimizer could look like this
 
         ```python
+        import os
+
         import hydra
         import torch.optim as optim
 
-        @hydra.main(config_name="adam.yaml")
+        @hydra.main(config_name="adam.yaml", config_path=f"{os.getcwd()}/configs")
         def main(cfg):
             model = ...  # define the model we want to optimize
             # the first argument of any optimize is the parameters to optimize
