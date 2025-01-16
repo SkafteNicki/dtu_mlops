@@ -14,12 +14,13 @@ class Network(nn.Module):
 
     """
 
-    def __init__(self,
-                 input_size:int,
-                 output_size:int,
-                 hidden_layers:list[int],
-                 drop_p=0.5,
-                 ) -> None:
+    def __init__(
+        self,
+        input_size: int,
+        output_size: int,
+        hidden_layers: list[int],
+        drop_p=0.5,
+    ) -> None:
         super().__init__()
         # Input to a hidden layer
         self.hidden_layers = nn.ModuleList([nn.Linear(input_size, hidden_layers[0])])
@@ -32,9 +33,10 @@ class Network(nn.Module):
 
         self.dropout = nn.Dropout(p=drop_p)
 
-    def forward(self,
-                x:torch.Tensor,
-                ) -> torch.Tensor :
+    def forward(
+        self,
+        x: torch.Tensor,
+    ) -> torch.Tensor:
         """Forward pass through the network, returns the output logits."""
         for each in self.hidden_layers:
             x = nn.functional.relu(each(x))
@@ -45,10 +47,10 @@ class Network(nn.Module):
 
 
 def validation(
-        model:nn.Module,
-        testloader:torch.utils.Dataloader,
-        criterion:Callable | nn.Module,
-        ) -> tuple[float, float]:
+    model: nn.Module,
+    testloader: torch.utils.Dataloader,
+    criterion: Callable | nn.Module,
+) -> tuple[float, float]:
     """Validation pass through the dataset."""
     accuracy = 0
     test_loss = 0
