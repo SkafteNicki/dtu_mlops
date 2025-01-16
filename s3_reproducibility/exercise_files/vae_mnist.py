@@ -4,8 +4,10 @@ A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 
 """
 
+import logging
 import os
 
+import hydra
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
@@ -15,9 +17,6 @@ from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
 
-import hydra
-import logging
-
 # Hydra configuration
 
 cuda = True
@@ -25,10 +24,10 @@ DEVICE = torch.device("cuda" if cuda else "cpu")
 
 log = logging.getLogger(__name__)
 
+
 def setup_data_model(cfg):
     torch.manual_seed(cfg.hyperparameters.seed)
     # Model Hyperparameters
-
 
     # Data loading
     mnist_transform = transforms.Compose([transforms.ToTensor()])
@@ -39,8 +38,16 @@ def setup_data_model(cfg):
     train_loader = DataLoader(dataset=train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
     test_loader = DataLoader(dataset=test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
-    encoder = Encoder(input_dim=cfg.hyperparameters.x_dim, hidden_dim=cfg.hyperparameters.hidden_dim, latent_dim=cfg.hyperparameters.latent_dim)
-    decoder = Decoder(latent_dim=cfg.hyperparameters.latent_dim, hidden_dim=cfg.hyperparameters.hidden_dim, output_dim=cfg.hyperparameters.x_dim)
+    encoder = Encoder(
+        input_dim=cfg.hyperparameters.x_dim,
+        hidden_dim=cfg.hyperparameters.hidden_dim,
+        latent_dim=cfg.hyperparameters.latent_dim,
+    )
+    decoder = Decoder(
+        latent_dim=cfg.hyperparameters.latent_dim,
+        hidden_dim=cfg.hyperparameters.hidden_dim,
+        output_dim=cfg.hyperparameters.x_dim,
+    )
 
     model = Model(encoder=encoder, decoder=decoder).to(DEVICE)
 
@@ -76,11 +83,14 @@ def train(cfg, train_loader, model):
 
             loss.backward()
             optimizer.step()
-        log.info(f"Epoch {epoch+1} complete!,  Average Loss: {overall_loss / (batch_idx*cfg.hyperparameters.batch_size)}")
+        log.info(
+            f"Epoch {epoch+1} complete!,  Average Loss: {overall_loss / (batch_idx*cfg.hyperparameters.batch_size)}"
+        )
     log.info("Finish!!")
 
     # save weights
     torch.save(model, f"{os.getcwd()}/trained_model.pt")
+
 
 def test(cfg, test_loader, model):
     # Generate reconstructions
@@ -106,6 +116,7 @@ def generate_samples(cfg, decoder):
 
     save_image(generated_images.view(cfg.hyperparameters.batch_size, 1, 28, 28), "generated_sample.png")
 
+
 @hydra.main(config_name="config.yaml", config_path="conf")
 def main(cfg):
     print(cfg)
@@ -113,7 +124,7 @@ def main(cfg):
     train(cfg, train_loader, model)
     test(cfg, test_loader, model)
     generate_samples(cfg, decoder)
-    
+
 
 if __name__ == "__main__":
     main()
