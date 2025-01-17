@@ -17,4 +17,4 @@ pre-commit == 4.0.1
 ipython == 8.31.0
 invoke == 2.2.0
 
-JEG KAN RIGTIG GODT LIDE KAGE
+# JEG KAN RIGTIG GODT LIDE KAGE
