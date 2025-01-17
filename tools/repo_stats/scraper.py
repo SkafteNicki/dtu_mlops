@@ -118,18 +118,25 @@ def main():
 
             merged_prs = [p["number"] for p in prs if p["merged_at"] is not None]
             for pr_num in merged_prs:
-                pr_commits = requests.get(
+                pr_commits: list[dict] = requests.get(
                     f"{group.repo_api}/pulls/{pr_num}/commits", headers=headers, timeout=100
                 ).json()
                 commit_messages += [c["commit"]["message"] for c in pr_commits]
                 for commit in pr_commits:
                     for contributor in contributors:
+                        commit_author = commit.get("author")  # GitHub account info
+                        commit_committer = commit.get("committer")  # GitHub account info
+                        commit_author_name = commit["commit"]["author"]["name"]
+                        commit_committer_name = commit["commit"]["committer"]["name"]
+
                         if (
-                            commit["committer"] is not None
-                            and "login" in commit["committer"]
-                            and contributor.login == commit["author"]["login"]
+                            (commit_author and commit_author["login"] == contributor.login)
+                            or (commit_author_name == contributor.login)
+                            or (commit_committer and commit_committer["login"] == contributor.login)
+                            or (commit_committer_name == contributor.login)
                         ):
                             contributor.commits_pr += 1
+                            break
                 commits += pr_commits
 
             activity_matrix = create_activity_matrix(commits, max_delta=3, min_delta=1)
