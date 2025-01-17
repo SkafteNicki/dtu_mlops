@@ -15,4 +15,4 @@ RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_front
 
 EXPOSE $PORT
 
-CMD ["streamlit", "run", "frontend.py", "--server.port", "$PORT"]
+ENTRYPOINT ["streamlit", "run", "frontend.py", "--server.port", "$PORT", "--server.address=0.0.0.0"]
