@@ -148,8 +148,10 @@ and deploy it. The service is great for small applications that can be encapsula
 
             ```bash
             gsutil mb gs://<bucket-name>  # mb stands for make bucket
-            gsutil cp <file-name> gs://<bucket-name>  # cp stands for copy
+            gsutil cp model.pkl gs://<bucket-name>  # cp stands for copy
             ```
+
+            where you replace `<bucket-name>` with the name of your bucket.
 
     3. Create a new cloud function with the same initial settings as the first one, e.g. `Python 3.11` and `HTTP`. Then
         implement in the `main.py` file code that:
@@ -399,6 +401,8 @@ deploying containers.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
     Add a third step to the `cloudbuild.yaml` file that deploys the container image to Cloud Run. The relevant service
@@ -442,6 +446,8 @@ deploying containers.
             '--platform',
             'managed',
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
 ## 🧠 Knowledge check

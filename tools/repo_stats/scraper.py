@@ -58,13 +58,20 @@ def load_data(file_name: str) -> list[GroupInfo]:
     return content
 
 
-def create_activity_matrix(commits: list, max_delta: int = 5, normalize: bool = True) -> list[list[int]]:
+def create_activity_matrix(
+    commits: list,
+    max_delta: int = 5,
+    min_delta: int = 1,
+) -> list[list[int]]:
     """Creates an activity matrix from the commits."""
     commit_times = [datetime.datetime.fromisoformat(commit["commit"]["committer"]["date"][:-1]) for commit in commits]
     commit_times.sort()
 
     start_time = commit_times[0]
-    end_time = min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1])
+    end_time = max(
+        start_time + datetime.timedelta(weeks=min_delta),
+        min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1]),
+    )
 
     num_days = (end_time - start_time).days + 1  # include last day
 
@@ -93,8 +100,9 @@ def main():
 
     repo_stats: list[RepoContent] = []
     for index, group in enumerate(group_data):
-        logger.info(f"Processing group {group.group_number}, {index+1}/{len(group_data)}")
-
+        logger.info(
+            f"Processing group {group.group_number}, {index+1}/{len(group_data)}. Accessible: {group.repo_accessible}"
+        )
         if group.repo_accessible:
             contributors = group.contributors
             num_contributors = len(contributors)
@@ -110,21 +118,28 @@ def main():
 
             merged_prs = [p["number"] for p in prs if p["merged_at"] is not None]
             for pr_num in merged_prs:
-                pr_commits = requests.get(
+                pr_commits: list[dict] = requests.get(
                     f"{group.repo_api}/pulls/{pr_num}/commits", headers=headers, timeout=100
                 ).json()
                 commit_messages += [c["commit"]["message"] for c in pr_commits]
                 for commit in pr_commits:
                     for contributor in contributors:
+                        commit_author = commit.get("author")  # GitHub account info
+                        commit_committer = commit.get("committer")  # GitHub account info
+                        commit_author_name = commit["commit"]["author"]["name"]
+                        commit_committer_name = commit["commit"]["committer"]["name"]
+
                         if (
-                            commit["committer"] is not None
-                            and "login" in commit["committer"]
-                            and contributor.login == commit["author"]["login"]
+                            (commit_author and commit_author["login"] == contributor.login)
+                            or (commit_author_name == contributor.login)
+                            or (commit_committer and commit_committer["login"] == contributor.login)
+                            or (commit_committer_name == contributor.login)
                         ):
                             contributor.commits_pr += 1
+                            break
                 commits += pr_commits
 
-            activity_matrix = create_activity_matrix(commits)
+            activity_matrix = create_activity_matrix(commits, max_delta=3, min_delta=1)
 
             average_commit_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
