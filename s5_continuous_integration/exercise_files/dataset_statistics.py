@@ -1,9 +1,20 @@
 import matplotlib.pyplot as plt
 import torch
 import typer
-from mnist_dataset import MnistDataset
-from utils import show_image_and_target
+from dataset import MnistDataset
+from mpl_toolkits.axes_grid1 import ImageGrid
 
+
+def show_image_and_target(images: torch.Tensor, target: torch.Tensor) -> None:
+    """Plot images and their labels in a grid."""
+    row_col = int(len(images) ** 0.5)
+    fig = plt.figure(figsize=(10.0, 10.0))
+    grid = ImageGrid(fig, 111, nrows_ncols=(row_col, row_col), axes_pad=0.3)
+    for ax, im, label in zip(grid, images, target):
+        ax.imshow(im.squeeze(), cmap="gray")
+        ax.set_title(f"Label: {label.item()}")
+        ax.axis("off")
+    plt.show()
 
 def dataset_statistics(datadir: str = "data") -> None:
     """Compute dataset statistics."""
@@ -17,9 +28,9 @@ def dataset_statistics(datadir: str = "data") -> None:
     print(f"Number of images: {len(test_dataset)}")
     print(f"Image shape: {test_dataset[0][0].shape}")
 
-    show_image_and_target(train_dataset.images[:25], train_dataset.target[:25], show=False)
-    plt.savefig("mnist_images.png")
-    plt.close()
+    #show_image_and_target(train_dataset.images, train_dataset.target, show=True)
+    #plt.savefig("mnist_images.png")
+    #plt.close()
 
     train_label_distribution = torch.bincount(train_dataset.target)
     test_label_distribution = torch.bincount(test_dataset.target)

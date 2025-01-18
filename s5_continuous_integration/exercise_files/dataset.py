@@ -31,7 +31,7 @@ class MnistDataset(Dataset):
         target_transform: transforms.Transform | None = None,
     ) -> None:
         super().__init__()
-        self.data_folder = data_folder
+        self.data_folder = "data/"
         self.train = train
         self.img_transform = img_transform
         self.target_transform = target_transform
