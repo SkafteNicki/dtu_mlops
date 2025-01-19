@@ -6,6 +6,7 @@ from subprocess import PIPE, Popen
 import markdown2
 import requests
 from dotenv import load_dotenv
+from loguru import logger
 from pydantic import BaseModel
 
 load_dotenv()
@@ -39,6 +40,10 @@ class RepoStats(BaseModel):
     actions_passing: bool | None
 
     num_warnings: int | None
+
+    def __repr__(self):
+        """Returns a string representation of the model."""
+        return ",".join(f"0{d=}" for d in self.model_dump().items())
 
 
 class Contributor(BaseModel):
@@ -103,6 +108,7 @@ class Report(BaseModel):
             )
             output = p.stderr.read()
             output = output.decode("utf-8").split("\n")
+            logger.info(output)
             lines = [line for line in output if "WARNING" in line]
             return len(lines) if len(lines) else None
         return None
