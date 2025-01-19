@@ -40,6 +40,10 @@ class RepoStats(BaseModel):
 
     num_warnings: int | None
 
+    def __repr__(self):
+        """Returns a string representation of the model."""
+        return ",".join(f"0{d=}" for d in self.model_dump().items())
+
 
 class Contributor(BaseModel):
     """Model for contributors."""

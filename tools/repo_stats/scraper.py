@@ -1,7 +1,6 @@
 import csv
 import datetime
 import json
-import logging
 import os
 from pathlib import Path
 
@@ -9,6 +8,7 @@ import numpy as np
 import requests
 from dotenv import load_dotenv
 from google.cloud.storage import Client
+from loguru import logger
 from models import GroupInfo, RepoContent, Report, RepoStats
 from typer import Typer
 
@@ -16,9 +16,6 @@ load_dotenv()
 
 GH_TOKEN = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
 headers = {"Authorization": f"Bearer {GH_TOKEN}"}
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 def upload_data(file_name: str) -> None:
@@ -163,7 +160,6 @@ def main():
                 group_number=group.group_number, repo_api=group.repo_api, default_branch=group.default_branch
             )
             num_warnings = report.check_answers
-
         else:
             num_contributors = None
             num_prs = None
@@ -211,6 +207,7 @@ def main():
             actions_passing=actions_passing,
             num_warnings=num_warnings,
         )
+        logger.info(f"Repo Stats: {repo_stat}")
         repo_stats.append(repo_stat)
 
     logger.info("Writing repo stats to file")
