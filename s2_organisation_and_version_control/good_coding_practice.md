@@ -131,7 +131,7 @@ the `pyproject.toml` file.
 
     ```toml
     [tool.ruff]
-    select = ["I"]
+    lint.select = ["I"]
     ```
 
     and try re-running `ruff check` and `ruff format`. Hopefully this should reorganize your imports to follow common
