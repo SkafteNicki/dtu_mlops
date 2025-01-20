@@ -172,7 +172,7 @@ pip install gdown
 gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
 ```
 
-The data should be placed in a folder subfolder called `data/corruptedmnist` in the root of the project. Your overall
+The data should be placed in a folder subfolder called `data/corruptmnist` in the root of the project. Your overall
 task is the following:
 
 > **Implement an MNIST neural network that achieves at least 85% accuracy on the test set.**
@@ -215,7 +215,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
 
     ??? example "Starting point for `data.py`"
 
-        ```python linenums="1" title="model.py"
+        ```python linenums="1" title="data.py"
         --8<-- "s1_development_environment/exercise_files/final_exercise/data.py"
         ```
 
@@ -236,7 +236,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
         We have additionally in the solution added functionality for plotting the images together with the labels for
         inspection. Remember: all good machine learning starts with a good understanding of the data.
 
-        ```python linenums="1" hl_lines="17 18" title="model.py"
+        ```python linenums="1" hl_lines="17 18" title="data.py"
         --8<-- "s1_development_environment/exercise_files/final_exercise/data_solution.py"
         ```
 
@@ -270,8 +270,8 @@ future as you start to add more and more features. As subgoals, please fulfill t
             "version": "0.2.0",
             "configurations": [
                 {
-                    "name": "Python: Current File",
-                    "type": "python",
+                    "name": "Train",
+                    "type": "debugpy",
                     "request": "launch",
                     "program": "${file}",
                     "args": [

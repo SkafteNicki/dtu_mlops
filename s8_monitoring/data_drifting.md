@@ -7,7 +7,7 @@
 
 !!! info "Core Module"
 
-Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
+Data drifting is one of the core reasons why model accuracy degrades over time in production. For machine learning
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
 this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over

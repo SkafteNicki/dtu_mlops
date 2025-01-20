@@ -145,6 +145,7 @@ this will make sure that the file is automatically executed whenever we run `git
             - id: ruff-format
             # validate if all is fine with preview mode
             - id: ruff
+        ```
 
 8. (Optional) Add more hooks to your `.pre-commit-config.yaml`.
 

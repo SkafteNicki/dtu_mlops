@@ -161,7 +161,7 @@ which can be found in the `samples/frontend_backend` folder.
 
         3. Have a button that sends the image to the backend and displays the result
 
-        For now just assume that a environment variable called `BACKEND` is available that contains the URL of the
+        For now just assume that an environment variable called `BACKEND` is available that contains the URL of the
         backend. We will in the next step show how to get this URL automatically.
 
         ??? success "Solution"
@@ -229,10 +229,10 @@ which can be found in the `samples/frontend_backend` folder.
     8. Run the frontend image
 
         ```bash
-        docker run --rm -p 8001:8001 -e "PORT=8001" backend
+        docker run --rm -p 8001:8001 -e "PORT=8001" frontend
         ```
 
-        and check in your web browser that the frontend works as expected.
+        And check in your web browser that the frontend works as expected.
 
     9. Deploy the frontend to Cloud run using the `gcloud` command
 

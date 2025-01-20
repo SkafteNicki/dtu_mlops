@@ -108,7 +108,7 @@ We are now going to start using the cloud.
             --image-family=<image-family> \
             --image-project=deeplearning-platform-release \
             # add these arguments if you want to run on GPU and have the quota to do so
-            --accelerator="type=nvidia-tesla-K80,count=1" \
+            --accelerator="type=nvidia-tesla-V100,count=1" \
             --maintenance-policy TERMINATE \
             --metadata="install-nvidia-driver=True" \
         ```
@@ -124,7 +124,7 @@ We are now going to start using the cloud.
             === "CPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-cpu \
                     --image-project=deeplearning-platform-release
@@ -133,11 +133,11 @@ We are now going to start using the cloud.
             === "GPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-gpu \
                     --image-project=deeplearning-platform-release \
-                    --accelerator="type=nvidia-tesla-K80,count=1" \
+                    --accelerator="type=nvidia-tesla-V100,count=1" \
                     --maintenance-policy TERMINATE
                 ```
 
@@ -421,6 +421,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
         where you need to replace `<registry-name>`, `<image-name>` and `<path-to-dockerfile>` with your own values.
@@ -677,6 +679,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/$_IMAGE_NAME'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         substitutions:
           _IMAGE_NAME: 'my_image'
         ```
@@ -737,7 +741,7 @@ models, and then use other services for different parts of our pipeline.
             --zone europe-west4-a \
             --image-family=pytorch-latest-gpu \
             --image-project=deeplearning-platform-release \
-            --accelerator="type=nvidia-tesla-v100,count=1" \
+            --accelerator="type=nvidia-tesla-t4,count=1" \
             --metadata="install-nvidia-driver=True" \
             --maintenance-policy TERMINATE
         ```
@@ -746,7 +750,7 @@ models, and then use other services for different parts of our pipeline.
         following command
 
         ```bash
-        gcloud beta compute ssh <instance-name>
+        gcloud compute ssh <instance-name>
         ```
 
     3. It is recommended to always check that the VM we get is actually what we asked for. In this case, the VM should
@@ -877,7 +881,7 @@ models, and then use other services for different parts of our pipeline.
                     machineType: n1-highmem-2
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
                     env:
                     - name: WANDB_API_KEY
                       value: <your-wandb-api-key>
@@ -909,7 +913,7 @@ to inject secrets into our code without having to store them in the code itself.
             imageUri: gcr.io/<project-id>/<docker-img>
             env:
             - name: WANDB_API_KEY
-                value: $WANDB_API_KEY
+              value: $WANDB_API_KEY
     ```
 
     we do not want to store the `WANDB_API_KEY` in the config file, rather we would like to store it in the Secret
@@ -967,6 +971,8 @@ to inject secrets into our code without having to store them in the code itself.
             '--config',
             '${_VERTEX_TRAIN_CONFIG}',
           ]
+        substitutions:
+          _VERTEX_TRAIN_CONFIG: 'config.yaml'
         availableSecrets:
           secretManager:
           - versionName: projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest
