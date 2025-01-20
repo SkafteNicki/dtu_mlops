@@ -160,7 +160,7 @@ for doing this, and of other excellent frameworks for creating command line inte
             app()
         ```
 
-3. Next, lets try on a bit harder example. Below is a simple script that trains a support vector machine on the iris
+3. Next, let's try on a bit harder example. Below is a simple script that trains a support vector machine on the iris
     dataset.
 
     !!! example "iris_classifier.py"
@@ -172,8 +172,8 @@ for doing this, and of other excellent frameworks for creating command line inte
     Implement a CLI for the script such that the following commands can be run
 
     ```bash
-    python iris_classifier.py train --output 'model.ckpt'  # should train the model and save it to 'model.ckpt'
-    python iris_classifier.py train -o 'model.ckpt'  # should be the same as above
+    python iris_classifier.py --output 'model.ckpt'  # should train the model and save it to 'model.ckpt'
+    python iris_classifier.py -o 'model.ckpt'        # should be the same as above
     ```
 
     ??? success "Solution"
@@ -186,7 +186,7 @@ for doing this, and of other excellent frameworks for creating command line inte
         --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution.py"
         ```
 
-4. Next lets create a CLI that has more than a single command. Continue working in the basic machine learning
+4. Next let's create a CLI that has more than a single command. Continue working in the basic machine learning
     application from the previous exercise, but this time we want to define two separate commands
 
     ```bash
@@ -205,7 +205,7 @@ for doing this, and of other excellent frameworks for creating command line inte
 
 5. Finally, let's try to define subcommands for our subcommands e.g. something similar to how `git` has the subcommand
     `remote` which in itself has multiple subcommands like `add`, `rename` etc. Continue on the simple machine
-    learning application from the previous exercises, but this time define a cli such that
+    learning application from the previous exercises, but this time define a CLI such that
 
     ```bash
     python iris_classifier.py train svm --kernel 'linear'
@@ -222,7 +222,7 @@ for doing this, and of other excellent frameworks for creating command line inte
         --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution3.py"
         ```
 
-6. (Optional) Let's try to combine what we have learned until now. Try to make your `typer` cli into a executable
+6. (Optional) Let's try to combine what we have learned until now. Try to make your `typer` CLI into an executable
     script using the `pyproject.toml` file and try it out!
 
     ??? success "Solution"
@@ -269,13 +269,13 @@ to interact with. Here is a example of long command that you might need to run i
 docker run -v $(pwd):/app -w /app --gpus all --rm -it my_image:latest python my_script.py --arg1 val1 --arg2 val2
 ```
 
-This can be a lot to remember, and it can be easy to make mistakes. Instead it would be nice if we could just do
+This can be a lot to remember, and it can be easy to make mistakes. Instead, it would be nice if we could just do
 
 ```bash
 run my_command --arg1=val1 --arg2=val2
 ```
 
-e.g. easier to remember because we have remove a lot of the hard-to-remember stuff, but we are still able to configure
+e.g. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
 it to our liking. To help with this, we are going to look at the [invoke](http://www.pyinvoke.org/) package.
 `invoke` is a Python package that allows you to define tasks that can be
 run from the terminal. It is a bit like a more advanced version of the [Makefile](https://makefiletutorial.com/) that
@@ -324,7 +324,7 @@ easier.
     invoke python
     ```
 
-4. Lets try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Create a task such
+4. Let's try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Create a task such
     that the following command can be run
 
     ```bash

@@ -21,7 +21,7 @@
 * Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/02456) or
     experience with the following topics:
 
-    * General understanding of machine learning (datasets, probability, classifiers, overfitting etc.)
+    * General understanding of machine learning (datasets, probability, classifiers, overfitting, underfitting, etc.)
     * Basic knowledge of deep learning (backpropagation, convolutional neural networks, auto-encoders etc.)
     * Coding in [PyTorch](https://pytorch.org/). On the first day, we provide some exercises in PyTorch to
         get everyone's skills up-to-date as fast as possible.
