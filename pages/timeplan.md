@@ -62,6 +62,6 @@ Date    | Day       | Presentation topic                                        
 --------|-----------|--------------------------------------------------------------|------------------------------------------|----------
 20/1/25 | Monday    | [Monitoring📝](../slides/Monitoring.pdf)                     | Evidently AI, Prometheus, GCP Monitoring | [Exercises](../s8_monitoring/README.md)
 21/1/25 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf) | PyTorch, Lightning                       | [Exercises](../s9_scalable_applications/README.md)
-22/1/25 | Wednesday | No lecture                                                   | -                                        | [Projects](projects.md)
+22/1/25 | Wednesday | Summary lecture                                              | -                                        | [Projects](projects.md)
 23/1/25 | Thursday  | No lecture                                                   | -                                        | [Projects](projects.md)
 24/1/25 | Friday    | No lecture                                                   | -                                        | [Projects](projects.md)
