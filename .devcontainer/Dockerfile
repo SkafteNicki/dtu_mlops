@@ -1,4 +1,4 @@
-FROM python:3.11-slim-buster
+FROM python:3.11-slim
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \

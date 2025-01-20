@@ -63,3 +63,114 @@ looking at the script). Successfully debugging and running the script should pro
 
 Again, we cannot stress enough that the exercise is actually not about finding the bugs but **using a proper** debugger
 to find them.
+
+??? success "Solution for device bug"
+
+    If you look at the reparametrization function in the `Encoder` class you can see that we initialize a noise tensor
+
+    ```python
+    def reparameterization(self, mean, var):
+        """Reparameterization trick to sample z values."""
+        epsilon = torch.randn(*var.shape)
+        return mean + var * epsilon
+    ```
+
+    this will fail with a
+    `RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!` if
+    you are running on GPU, because the noise tensor is initialized on the CPU. You can fix this by initializing the
+    noise tensor on the same device as the mean and var tensors
+
+    ```python
+    def reparameterization(self, mean, var):
+        """Reparameterization trick to sample z values."""
+        epsilon = torch.randn(*var.shape, device=mean.device)
+        return mean + var * epsilon
+    ```
+
+??? success "Solution for shape bug"
+
+    In the `Decoder` class we initialize the following fully connected layers
+
+    ```python
+    self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
+    self.FC_output = nn.Linear(latent_dim, output_dim)
+    ```
+
+    which is used in the forward pass as
+
+    ```python
+    def forward(self, x):
+        """Forward pass of the decoder module."""
+        h = torch.relu(self.FC_hidden(x))
+        return torch.sigmoid(self.FC_output(h))
+    ```
+
+    this means that `h` should be a tensor of shape `[bs, hidden_dim]` but since we initialize the `FC_output`
+    layer with `latent_dim` output dimensions, the forward pass will fail with a
+    `RuntimeError: size mismatch, m1: [bs, hidden_dim], m2: [bs, latent_dim]` if `hidden_dim != latent_dim`. You can
+    fix this by initializing the `FC_output` layer with `hidden_dim` output dimensions
+
+    ```python
+    self.FC_output = nn.Linear(hidden_dim, output_dim)
+    ```
+
+??? success "Solution for math bug"
+
+    In the Encoder class you have the following code
+
+    ```python
+    def forward(self, x):
+        """Forward pass of the encoder module."""
+        h_ = torch.relu(self.FC_input(x))
+        mean = self.FC_mean(h_)
+        log_var = self.FC_var(h_)
+        z = self.reparameterization(mean, log_var)
+        return z, mean, log_var
+
+    def reparameterization(self, mean, var):
+        """Reparameterization trick to sample z values."""
+        epsilon = torch.randn(*var.shape)
+        return mean + var * epsilon
+    ```
+
+    from just the naming of the variables you can see that `log_var` is the log of the variance and not the variance
+    itself. This means that you should exponentiate `log_var` before using it in the `reparameterization` function
+
+    ```python
+    z = self.reparameterization(mean, torch.exp(log_var))
+    ```
+
+    alternatively, we can convert to using the standard deviation instead of the variance
+
+    ```python
+    z = self.reparameterization(mean, torch.exp(0.5 * log_var))
+    ```
+
+    and
+
+    ```python
+    epsilon = torch.randn_like(std)
+    ```
+
+??? success "Solution for training bug"
+
+    Any training loop in PyTorch should have the following structure
+
+    ```python
+    for epoch in range(num_epochs):
+        for batch in dataloader:
+            optimizer.zero_grad()
+            loss = model(batch)
+            loss.backward()
+            optimizer.step()
+    ```
+
+    if you look at the code for the training loop in the `vae_mnist_bugs.py` script you can see that the optimizer is
+    not zeroed before the backward pass. This means that the gradients will accumulate over the batches and will
+    explode. You can fix this by adding the line
+
+    ```python
+    optimizer.zero_grad()
+    ```
+
+    as the first line of the inner training loop

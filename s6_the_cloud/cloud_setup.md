@@ -70,8 +70,11 @@ As the first step, we are going to get you some Google Cloud credits.
     2. Now login by typing
 
         ```bash
-        gcloud auth login
+        gcloud auth login #(1)!
         ```
+
+        1. If you are authenticating through WSL you most likely needs to add the argument `--no-launch-browser` at the
+            end of the command to get the authentication link. Copy the link and paste it into your browser.
 
         you should be sent to a web page where you link your cloud account to the `gcloud` interface. Afterward, also
         run this command:
@@ -184,14 +187,19 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
 
     6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request
 
-    <figure markdown>
+        <figure markdown>
         ![Image](../figures/quotas.PNG){ width="1000" }
-    </figure>
+        </figure>
 
 If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
 go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
 training machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
 need to ask for a quota increase for that service as well.
+
+!!! note
+
+    You can only request a quota increase for service that you have enabled. After enabling a given service it may take
+    5-10 minutes before you can request a quota increase for that service.
 
 <figure markdown>
 ![Image](../figures/gcp_quotas.png){ width="1000" }
@@ -218,9 +226,11 @@ authentication between GitHub and GCP. You can read more about how to create a s
     automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
     default and click `Create`.
 
-3. Next, let's give the service account some permissions. Click on the service account you just created. In the
-    `Permissions` tab click `Add permissions`. Your job now is to give the service account the lowest possible
-    permissions such that it can download files from a bucket. Look at this
+3. Next, let's give the service account some permissions. Your job now is to give the service account the lowest
+    possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
+    the `IAM` page. Click on `Grant Access` button and paste in the email address in `Add principals` field. Then click
+    the `Select a role` dropdown and either write the name of the role you want to give the service account or search
+    for it in the list. Finally, click `Save`.  As help, you can look at this
     [page](https://cloud.google.com/iam/docs/understanding-roles) and try to find the role that fits the description.
 
     ??? success "Solution"
