@@ -955,7 +955,7 @@ to inject secrets into our code without having to store them in the code itself.
           args:
             - '-c'
             - |
-            cat config.yaml
+              cat config.yaml
 
         - name: 'gcr.io/cloud-builders/gcloud'
           id: 'Train on vertex AI'

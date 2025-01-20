@@ -305,7 +305,7 @@ help us at all. Therefore, use `Any` only when necessary.
         def f(x: None | Iterable[int]):
         ```
 
-        because both `list`, `tuple` and `dict` are iterables and therefore can be covered by one type
+        because all `list`, `tuple` and `dict` are iterables and therefore can be covered by one type
         (in this specific case).
 
 This ends the module on coding style. We again want to emphazize that a good coding style is more about having a
