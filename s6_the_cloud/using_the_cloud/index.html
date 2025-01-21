@@ -2541,10 +2541,15 @@ You can hopefully recognize the syntax from the docker exercises. In this exampl
 <details class="success">
 <summary>Solution</summary>
 <p>You can trigger a build by running the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>--config<span class="o">=</span>cloudbuild.yaml<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>.<span class="w"> </span>--config<span class="o">=</span>cloudbuild.yaml
 </span></code></pre></div>
 <p>This command will submit a build to the cloud build service using the configuration file <code>cloudbuild.yaml</code> in
-the current directory.</p>
+the current directory. The <code>.</code> specifies that the build context is the current directory. The build context are
+all the files that are uploaded to the cloud build service, thus if your Dockerfile have <code>COPY</code> commands that
+copy files from the local directory to the container, these files need to be in the build context. Do note that
+by default all files in your <code>.gitignore</code> file are excluded from the build context, but you can override this
+by using the <code>--ignore-file</code> flag, which you can read more about
+<a href="https://cloud.google.com/sdk/gcloud/reference/builds/submit">here</a>.</p>
 </details>
 </li>
 <li>
@@ -2736,7 +2741,7 @@ the <code>test</code> job? Hint: Relevant
 </span><span id="__span-32-26"><a id="__codelineno-32-26" name="__codelineno-32-26" href="#__codelineno-32-26"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google-github-actions/setup-gcloud@v2</span>
 </span><span id="__span-32-27"><a id="__codelineno-32-27" name="__codelineno-32-27" href="#__codelineno-32-27"></a>
 </span><span id="__span-32-28"><a id="__codelineno-32-28" name="__codelineno-32-28" href="#__codelineno-32-28"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Submit build</span>
-</span><span id="__span-32-29"><a id="__codelineno-32-29" name="__codelineno-32-29" href="#__codelineno-32-29"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcloud builds submit --config cloudbuild_containers.yaml</span>
+</span><span id="__span-32-29"><a id="__codelineno-32-29" name="__codelineno-32-29" href="#__codelineno-32-29"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcloud builds submit . --config cloudbuild_containers.yaml</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2792,7 +2797,7 @@ read more
 <summary>Solution</summary>
 <p>You can provide the value for the <code>_IMAGE_NAME</code> variable by adding the <code>--substitutions</code> flag to the
 <code>gcloud builds submit</code> command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>--config<span class="o">=</span>cloudbuild.yaml<span class="w"> </span>--substitutions<span class="o">=</span><span class="nv">_IMAGE_NAME</span><span class="o">=</span>my_image
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>.<span class="w"> </span>--config<span class="o">=</span>cloudbuild.yaml<span class="w"> </span>--substitutions<span class="o">=</span><span class="nv">_IMAGE_NAME</span><span class="o">=</span>my_image
 </span></code></pre></div>
 <p>If you want to provide more than one substitution you can do so by separating them with a comma.</p>
 </details>
@@ -2881,7 +2886,7 @@ models, and then use other services for different parts of our pipeline.</p>
 </span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">    </span>--args<span class="w"> </span><span class="s1">&#39;[&quot;--epochs&quot;, &quot;10&quot;]&#39;</span>
 </span></code></pre></div>
 <p>Essentially, this command combines everything into one command: it first creates a VM with the specs specified
-by a configuration file, then loads a container specified again in the configuration file and finally it runs
+by a configuration file, then loads a container specified again in the configuration file, and finally it runs
 everything. An example of a config file could be:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">CPU</label><label for="__tabbed_4_2">GPU</label></div>
 <div class="tabbed-content">
@@ -2900,18 +2905,18 @@ everything. An example of a config file could be:</p>
 </span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nt">workerPoolSpecs</span><span class="p">:</span>
 </span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">    </span><span class="nt">machineSpec</span><span class="p">:</span>
 </span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">        </span><span class="nt">machineType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n1-standard-8</span>
-</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">        </span><span class="nt">acceleratorType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NVIDIA_TESLA_T4</span><span class="w"> </span><span class="c1">#(1)!</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">        </span><span class="nt">acceleratorType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NVIDIA_TESLA_T4</span>
 </span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="w">        </span><span class="nt">acceleratorCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="w">    </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a><span class="w">    </span><span class="nt">containerSpec</span><span class="p">:</span>
 </span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="w">        </span><span class="nt">imageUri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/&lt;project-id&gt;/&lt;docker-img&gt;</span>
 </span></code></pre></div>
-<ol>
-<li>In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
-    allocating this type of GPU in the Vertex AI service. You can check how to request quota in the last
-    exercise of the <a href="../cloud_setup/">previous module</a>. Remember that it is not enough to just request a
-    quota for the GPU, the request needs to be approved by Google before you can use it.</li>
-</ol>
+<p>In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
+allocating this type of GPU in the Vertex AI service. To check your quota, go into
+<a href="https://console.cloud.google.com/iam-admin/quotas">quotas</a> and search for <code>custom_model_training_nvidia_t4</code>
+in the <code>Filter</code> field to see the quota. If not, you can try to request a quota increase. Remember that it is
+not enough to just request a quota for the GPU, the request needs to be approved by Google before you can
+use it.</p>
 </div>
 </div>
 </div>
@@ -3126,7 +3131,7 @@ The steps are then doing:</p>
 </li>
 <li>
 <p>Finally, try to trigger the build:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>--config<span class="o">=</span>vertex_ai_train.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>gcloud<span class="w"> </span>builds<span class="w"> </span>submit<span class="w"> </span>.<span class="w"> </span>--config<span class="o">=</span>vertex_ai_train.yaml
 </span></code></pre></div>
 <p>and check that the <code>WANDB_API_KEY</code> is correctly injected into the <code>config.yaml</code> file.</p>
 </li>
@@ -3206,7 +3211,7 @@ bit more of the services offered in GCP, in particular for deploying the models 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 20, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
   </span>
 
     
