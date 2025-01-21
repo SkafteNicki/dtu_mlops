@@ -38,9 +38,9 @@ def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--outp
 
 
 @train_app.command()
-def knn(k: int = 5, output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
+def knn(n_neighbors: int = 5, output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train a KNN model."""
-    model = KNeighborsClassifier(n_neighbors=k)
+    model = KNeighborsClassifier(n_neighbors=n_neighbors)
     model.fit(x_train, y_train)
 
     with open(output_file, "wb") as f:

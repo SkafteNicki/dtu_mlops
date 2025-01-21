@@ -2442,11 +2442,17 @@ to be an optional parameter e.g. we provide a default and for the <code>evaluate
     <code>remote</code> which in itself has multiple subcommands like <code>add</code>, <code>rename</code> etc. Continue on the simple machine
     learning application from the previous exercises, but this time define a CLI such that</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>-k<span class="w"> </span><span class="m">5</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>--n-neighbors<span class="w"> </span><span class="m">5</span>
 </span></code></pre></div>
 <p>e.g the <code>train</code> command now has two subcommands for training different machine learning models (in this case SVM
 and KNN) which each takes arguments that are unique to that model. Relevant
 <a href="https://typer.tiangolo.com/tutorial/subcommands/">documentation</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>_</code> vs <code>-</code></p>
+<p>When using typer do not that variables with <code>_</code> in the name
+will be converted to <code>-</code> in the CLI. Meaning that if you have a variable <code>n_neighbors</code> in your code, you should use
+<code>--n-neighbors</code> in the CLI.</p>
+</div>
 <details class="success">
 <summary>Success</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
@@ -2558,9 +2564,9 @@ and KNN) which each takes arguments that are unique to that model. Relevant
 </span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38"></a>
 </span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39"></a>
 </span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40"></a><span class="nd">@train_app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41"></a><span class="k">def</span><span class="w"> </span><span class="nf">knn</span><span class="p">(</span><span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41"></a><span class="k">def</span><span class="w"> </span><span class="nf">knn</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a KNN model.&quot;&quot;&quot;</span>
-</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span>
 </span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45"></a>
 </span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -2796,7 +2802,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
   </span>
 
     
