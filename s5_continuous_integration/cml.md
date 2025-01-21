@@ -342,6 +342,10 @@ repository.
                 types: staged_model
             ```
 
+            Do note that the `repository_dispatch` event will only trigger a workflow run if the workflow file exists
+            on the default branch. Therefore, if you are testing this on a branch, you need to push the workflow file
+            to the default branch.
+
     8. Next, we need to implement the steps in our workflow that do something when a model is staged. The payload that
         is sent to the webhook contains information about the model that was staged. Implement a workflow that:
 

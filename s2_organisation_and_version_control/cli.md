@@ -209,12 +209,18 @@ for doing this, and of other excellent frameworks for creating command line inte
 
     ```bash
     python iris_classifier.py train svm --kernel 'linear'
-    python iris_classifier.py train knn -k 5
+    python iris_classifier.py train knn --n-neighbors 5
     ```
 
     e.g the `train` command now has two subcommands for training different machine learning models (in this case SVM
     and KNN) which each takes arguments that are unique to that model. Relevant
     [documentation](https://typer.tiangolo.com/tutorial/subcommands/).
+
+    !!! warning "`_` vs `-`"
+
+        When using typer do not that variables with `_` in the name
+        will be converted to `-` in the CLI. Meaning that if you have a variable `n_neighbors` in your code, you should use
+        `--n-neighbors` in the CLI.
 
     ??? success
 

@@ -80,7 +80,7 @@ or using `hydra` for loading the configuration
 ```python
 import hydra
 
-@hydra.main(config_name="basic.yaml")
+@hydra.main(config_name="config.yaml")
 def main(cfg):
     print(cfg.hyperparameters.batch_size, cfg.hyperparameters.learning_rate)
 
