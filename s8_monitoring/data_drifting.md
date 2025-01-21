@@ -399,7 +399,9 @@ through the files to get an understanding of what is going on.
         ```
 
         You need the model file saved in the same directory as the application to run the application. Write a small
-        `client.py` script that calls the application with a review and prints the predicted sentiment.
+        `client.py` script that calls the application with a review and prints the predicted sentiment. Try executing
+        the script in another terminal (while the `uvicorn` server is running) to confirm that the application is
+        working.
 
         ??? success "Solution"
 

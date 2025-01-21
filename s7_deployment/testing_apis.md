@@ -29,9 +29,10 @@ of machine learning projects and APIs we have been working with in this course:
 ```plaintext
 my_project
 |-- src/
-|   |-- train.py
-|   |-- data.py
-|   |-- app.py
+|   | <project-name>/
+|   |   |-- train.py
+|   |   |-- data.py
+|   |   |-- api.py
 |-- tests/
 |   |-- unittests/
 |   |   |-- test_train.py
@@ -61,7 +62,7 @@ to change.
 
     ```python
     from fastapi.testclient import TestClient
-    from app.main import app
+    from <project-name>.api import app
     client = TestClient(app)
     ```
 

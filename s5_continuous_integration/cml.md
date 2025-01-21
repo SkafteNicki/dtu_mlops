@@ -192,6 +192,7 @@ repository.
         git add data.dvc
         git commit -m "Update data"
         git push
+        dvc push
         ```
 
         to commit the changes to data. Open a pull request with the branch and make sure that the workflow activates
