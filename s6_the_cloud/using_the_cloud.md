@@ -793,7 +793,7 @@ models, and then use other services for different parts of our pipeline.
             --config=config.yaml \
             # these are the arguments that are passed to the container, only needed if you want to change defaults
             --command 'python src/my_project/train.py' \
-            --args '["--epochs", "10"]'
+            --args=--epochs=10 --args=--batch-size=128
         ```
 
         Essentially, this command combines everything into one command: it first creates a VM with the specs specified
@@ -809,7 +809,7 @@ models, and then use other services for different parts of our pipeline.
                     machineType: n1-highmem-2
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
             ```
 
         === "GPU"
@@ -823,7 +823,7 @@ models, and then use other services for different parts of our pipeline.
                     acceleratorCount: 1
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
             ```
 
             In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
