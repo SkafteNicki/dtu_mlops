@@ -7,7 +7,7 @@
 !!! info "Core Module"
 
 With the tests established in the previous module, we are now ready to move on to implementing some continuous
-integration in our pipeline. As you probably have already realized testing your code locally may be cumbersome to do,
+integration in our pipeline. As you probably have already realized, testing your code locally may be cumbersome to do,
 because
 
 * You need to run it often to make sure to catch bugs early on
@@ -15,7 +15,7 @@ because
 
 For these reasons, we want to automate the testing, such that it is done every time we push to our repository. If we
 combine this with only pushing to branches and then only merging these branches whenever all automated testing has
-passed, our code should be fairly safe against unwanted bugs (assuming your tests are well covering your code).
+passed, our code should be fairly safe against unwanted bugs (assuming your tests cover your code well).
 
 ## GitHub actions
 
@@ -27,12 +27,12 @@ other repository that you have.
 
 Let's take a look at how a GitHub workflow file is organized:
 
-* Initially, we start by giving the workflow a `name`
+* Initially, we start by giving the workflow a `name`.
 * Next, we specify what events the workflow should be triggered. This includes both the action
-    (pull request, push etc) and on what branches it should activate
+    (pull request, push, etc.) and on what branches it should activate.
 * Next, we list the jobs that we want to do. Jobs are by default executed in parallel but can
-    also be dependent on each other
-* In the `runs-on`, we can specify which operation system we want the workflow to run on.
+    also be dependent on each other.
+* In the `runs-on`, we can specify which operating system we want the workflow to run on.
 * Finally, we have the `steps`. This is where we specify the actual commands that should be
     run when the workflow is executed.
 
@@ -52,11 +52,11 @@ Let's take a look at how a GitHub workflow file is organized:
     to understand everything, but at least get a feeling of what a workflow file should look like.
 
 3. We have provided a workflow file called `tests.yaml` that should run your tests for you. Place
-    this file in the `.github/workflows/` folder. The workflow file consists of three steps
+    this file in the `.github/workflows/` folder. The workflow file consists of three steps:
 
     * First, a Python environment is initiated (in this case Python 3.8)
 
-    * Next all dependencies required to run the test are installed
+    * Next, all dependencies required to run the test are installed
 
     * Finally, `pytest` is called and our tests will be run
 
@@ -69,12 +69,12 @@ Let's take a look at how a GitHub workflow file is organized:
         ```
 
 4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. The first file should
-    contain all packages required to run your code. The second file contains all *additional* packages required to run
-    the tests. In your simple case, it may very well be that the second file is empty, however, sometimes additional
+    contain all the packages required to run your code. The second file contains all *additional* packages required to run
+    the tests. In your simple case, it may very well be that the second file is empty; however, sometimes additional
     packages are used for testing that are not strictly required for the scripts to run.
 
-5. Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and you will after some
-    time see a green check mark next to the hash of the commit. Also, try to inspect the *Actions* tap where you can see
+5. Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and after some
+    time you will see a green check mark next to the hash of the commit. Also, try to inspect the *Actions* tab where you can see
     the history of actions run.
 
     <figure markdown>
@@ -82,7 +82,7 @@ Let's take a look at how a GitHub workflow file is organized:
     </figure>
 
 6. Normally we develop code on only one operating system and just hope that it will work on other operating systems.
-    However, continuous integration enables us to automatically test on other systems than the one we are using.
+    However, continuous integration enables us to automatically test on systems different to the one we are using.
 
     1. The provided `tests.yaml` only runs on one operating system. Which one?
 
@@ -92,7 +92,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
         ??? success "Solution"
 
-            We can "parametrize" of script to run on different operating systems by using the `strategy` attribute. This
+            We can "parametrize" the script to run on different operating systems by using the `strategy` attribute. This
             attribute allows us to define a matrix of values that the workflow will run on. The following code will run
             the tests on `ubuntu-latest`, `windows-latest`, and `macos-latest`:
 
@@ -110,7 +110,7 @@ Let's take a look at how a GitHub workflow file is organized:
         ??? success "Solution"
 
             Just add another line to the `strategy` attribute that specifies the Python version and use the value in the
-            setup Python action. The following code will run the tests on Python versions
+            setup Python action. The following code will run the tests on Python versions:
 
             ```yaml linenums="1" title="tests.yaml"
             jobs:
@@ -129,7 +129,7 @@ Let's take a look at how a GitHub workflow file is organized:
                     python-version: ${{ matrix.python-version }}
             ```
 
-    4. If you push the changes above you will maybe see that whenever one of the tests in the matrix fails, it will
+    4. If you push the above changes you will maybe see that whenever one of the tests in the matrix fails, it will
         automatically cancel the other tests. This is for saving time and resources. However, sometimes you want all the
         tests to run even if one fails. Can you figure out how to do that?
 
@@ -168,13 +168,13 @@ Let's take a look at how a GitHub workflow file is organized:
             ```
 
     2. When you have implemented a caching system go to `Actions->Caches` in your repository and make sure that they
-        are correctly added. It should look something like the image below
+        are correctly added. It should look something like the image below.
 
         <figure markdown>
         ![Image](../figures/github_caches.PNG){ width="1000" }
         </figure>
 
-    3. Measure how long your workflow takes before and after adding `caching` to your workflow. Did it improve the
+    3. Measure how long your workflow takes before and after adding `caching`. Did caching improve the
         runtime of your workflow?
 
 8. (Optional) Code coverage can also be added to the workflow file by uploading it as an artifact
@@ -183,7 +183,7 @@ Let's take a look at how a GitHub workflow file is organized:
     on how to do it.
 
 9. With different checks in place, it is a good time to learn about *branch protection rules*. A branch
-    protection rule is essentially some kind of guarding that prevents you from merging code into a branch before
+    protection rule is essentially some kind of guard that prevents you from merging code into a branch before
     certain conditions are met. In this exercise, we will create a branch protection rule that requires all checks to
     pass before merging code into the main branch.
 
@@ -197,7 +197,7 @@ Let's take a look at how a GitHub workflow file is organized:
         the ruleset will be applied to your master/main branch. As shown in the image below, two rules may be
         particularly beneficial when you later start working with other people:
 
-        * The first rule to consider is *Require a pull request before merging*. As the name suggests this rule
+        * The first rule to consider is *Require a pull request before merging*. As the name suggests, this rule
             requires that changes that are to be merged into the main branch must be done through a pull request. This
             is a good practice as it allows for code review and testing before the code is merged into the main branch.
             Additionally, this opens the option to specify that the code must be reviewed (or at least approved) by
@@ -211,7 +211,7 @@ Let's take a look at how a GitHub workflow file is organized:
         ![Image](../figures/branch_protection_rules2.png){ width="800" }
         </figure>
 
-        Finally, if you think the rules are a bit too restrictive you can always add that the repository admin e.g. you
+        Finally, if you think the rules are a bit too restrictive you can always add that the repository admin, e.g. you,
         can bypass the rules by adding `Repository admin` to the bypass list. Implement the following rules:
 
         * At least one person needs to approve any PR
@@ -226,10 +226,10 @@ Let's take a look at how a GitHub workflow file is organized:
         ![Image](../figures/branch_protection_rules3.png){ width="800" }
         </figure>
 
-10. One problem you may have encountered is running your tests that have to do with your data, with the core problem
-    being that your data is not stored in GitHub (assuming you have done module
+10. One problem you may have encountered is running tests that have to do with your data, with the core problem
+    being that your data is not stored on GitHub (assuming you have done module
     [M8 - DVC](../s2_organisation_and_version_control/dvc.md)) and therefore cannot be tested. However, we can download
-    data while running our continuous integration. Let's try to create that:
+    data while running our continuous integration. Let's try to create that.
 
     1. The first problem is that we need our continuous integration pipeline to be able to authenticate with our storage
         solution. We can take advantage of an authentication file that is created the first time we push with DVC. It is
@@ -260,7 +260,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     2. The content of that file should be treated as a password and not shared with the world and the relevant
         question is therefore how to use this info in a *public* repository. The answer is GitHub *secrets*, where we
-        can store information, and access it in our workflow files and it is still not public. Navigate to the secrets
+        can store information and access it in our workflow files and it is still not public. Navigate to the secrets
         option (as shown below) and create a secret with the name `GDRIVE_CREDENTIALS_DATA` that contains the content
         of the file you found in the previous exercise.
 
@@ -278,7 +278,7 @@ Let's take a look at how a GitHub workflow file is organized:
             GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         ```
 
-        that runs `dvc pull` using the secret authentication file. For help you can visit this
+        which runs `dvc pull` using the secret authentication file. For help you can visit this
         [small repository](https://github.com/SkafteNicki/gha_dvc_test) that implements the same workflow.
 
     4. Finally, add the changes, commit, push and confirm that everything works as expected. You should now be able to
@@ -290,9 +290,9 @@ Let's take a look at how a GitHub workflow file is organized:
     was done using the `ruff` framework. In this set of exercises, we will create GitHub workflows that will
     automatically test for this.
 
-    1. Create a new workflow file called `codecheck.yaml`, that implements the following three steps
+    1. Create a new workflow file called `codecheck.yaml`, that implements the following three steps:
 
-        * Setup Python environment
+        * Sets up Python environment
 
         * Installs `ruff`
 
@@ -336,16 +336,16 @@ Let's take a look at how a GitHub workflow file is organized:
             ```
 
     2. In addition to `ruff` we also used `mypy` in those sets of exercises for checking if the typing we added to our
-        code was good enough. Add another step to the `codecheck.yaml` file which runs `mypy` on your repository.
+        code was good enough. Add another step to the `codecheck.yaml` file that runs `mypy` on your repository.
 
-    3. Try to make sure that all steps are passed on repository. Especially `mypy` can be hard to get a passing, so this
+    3. Try to make sure that all steps are passed on the repository. Especially `mypy` can be hard to get passing, so this
         exercise formally only requires you to get `ruff` passing.
 
-12. (Optional) As you have probably already experienced in module [M9 on docker](../s3_reproducibility/docker.md) it can
+12. (Optional) As you have probably already experienced in module [M9 on docker](../s3_reproducibility/docker.md), it can
     be cumbersome to build docker images, sometimes taking a couple of minutes to build each time we make changes to our
     code base. For this reason, we just want to build a new image every time we commit our code because that should mark
     that we believe the code to be working at that point. Thus, let's automate the process of building our docker images
-    using GitHub actions. Do note that in a [future module](../s6_the_cloud/using_the_cloud.md) will look at how to
+    using GitHub actions. Do note that in a [future module](../s6_the_cloud/using_the_cloud.md) we will look at how to
     build containers using cloud providers, and this exercise is therefore very much optional.
 
     1. Start by making sure you have a dockerfile in your repository. If you do not have one, you can use the following
@@ -397,9 +397,9 @@ Let's take a look at how a GitHub workflow file is organized:
         at the help page for `docker login`, `docker build` and `docker push`.
 
     7. Upload the workflow to your GitHub repository and check that it is being executed. If everything works you should
-        be able to see the build docker image in your container repository in the docker hub.
+        be able to see the built docker image in your container repository in the docker hub.
 
-    8. Make sure that you can execute `docker pull` locally to pull down the image that you just continuously build
+    8. Make sure that you can execute `docker pull` locally to pull down the image that you just continuously build.
 
     9. (Optional) To test that the container works directly in GitHub you can also try to include an additional
         step that runs the container.
@@ -426,7 +426,7 @@ have in your code.
 
     ??? success "Solution"
 
-        The following code will check for updates in the `pip` ecosystem every week e.g. it automatically will look
+        The following code will check for updates in the `pip` ecosystem every week, i.e. it automatically will look
         for `requirements.txt` files and update the packages in there.
 
         ```yaml
@@ -438,7 +438,7 @@ have in your code.
               interval: "weekly"
         ```
 2. Push the changes to your repository and check that the dependabot is working by going to the `Insights` tab and
-    then the `Dependency graph` tab. From here you under the `Dependabot` tab should be able to see if the bot has
+    then the `Dependency graph` tab. From here under the `Dependabot` tab you should be able to see if the bot has
     correctly identified what files to track and if it has found any updates.
 
     <figure markdown>
@@ -475,7 +475,7 @@ have in your code.
     ![Image](../figures/github_dependabot_pr.png){ width="1000" }
     </figure>
 
-4. (Optional) Dependabot can also help keeping our GitHub Actions pipelines up-to-date. As you may have realized
+4. (Optional) Dependabot can also help keep our GitHub Actions pipelines up-to-date. As you may have realized
     during this module, when we write statements like in our workflow files:
 
     ```yaml
@@ -557,13 +557,13 @@ have in your code.
 
 This ends the module on GitHub workflows. If you are more interested in this topic you can check out module
 [M31 on documentation](../s10_extra/documentation.md) which first includes locally building some documentation for your
-project and afterward use GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
+project and afterward using GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
 templates already for running different continuous integration tasks. If you try to create a workflow file directly in
-GitHub you may encounter the following page
+GitHub you may encounter the following page:
 
 ![action](../figures/github_workflows.PNG)
 
 We highly recommend checking this out if you want to write any other kind of continuous integration pipeline in GitHub
 actions. We can also recommend this [repository](https://github.com/sdras/awesome-actions) that has a list of awesome
-actions and check out the [act](https://github.com/nektos/act) repository which is a tool for running your GitHub
+actions, and check out the [act](https://github.com/nektos/act) repository which is a tool for running your GitHub
 Actions locally!
