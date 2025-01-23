@@ -5,14 +5,14 @@
 ---
 
 The continuous integration we have looked at until now is what we can consider "classical" continuous integration, which
-has its roots in DevOps and not MLOps. While the test that we have written and the containers we have developed in the
+has its roots in DevOps and not MLOps. While the tests that we have written and the containers we have developed in the
 previous session have been about machine learning, everything we have done translates completely to how it would be
 done if we had developed any other application that did not include machine learning.
 
-In this session, we are now gonna change gears and look at **continuous machine learning** (CML). As the name may
-suggest we are now focusing on automatizing actual machine learning processes. The reason for doing this is the same
+In this session, we are now going to change gears and look at **continuous machine learning** (CML). As the name may
+suggest we are now focusing on automating actual machine learning processes. The reason for doing this is the same
 as with continuous integration, namely that we often have a bunch of checks that we want our newly trained model to pass
-before we trust it to be ready for deployment. Writing unit tests secures that the code that we use for training our
+before we trust it to be ready for deployment. Writing unit tests ensures that the code that we use for training our
 model is not broken, but there exist other failure modes of a machine learning pipeline:
 
 * Did I train on the correct data?
@@ -47,7 +47,7 @@ journey and what the next logical steps are. The model is divided into five stag
 `Level 1`
 
 : At this level, organizations have started to implement DevOps practices in their machine learning workflows. They have
-    started to use version control and maybe come with basic continuous integration practices.
+    started to use version control and maybe basic continuous integration practices.
 
 `Level 2`
 
@@ -73,7 +73,7 @@ exercises are therefore some of the last steps in the MLOps maturity model.
 ## ❔ Exercises
 
 In the following exercises, we are going to look at two different cases where we can use continuous machine learning.
-The first one is a simple case where we are automatically going to trigger some workflow (like training of a model)
+The first one is a simple case where we are automatically going to trigger some workflow (like model training)
 whenever we make changes to our data. This is a very common use case in machine learning where we have a data pipeline
 that is continuously updating our data. The second case is connected to staging and deploying models. In this case, we
 are going to look at how we can automatically do further processing of our model whenever we push a new model to our
@@ -82,7 +82,7 @@ repository.
 1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
     which is a framework that is built on top of GitHub actions. The figure below describes the overall process using
     the `cml` framework. It should be clear that it is the very same process that we go through in the other
-    continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this session
+    continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this session is
     that we are only going to trigger whenever data changes.
 
     <figure markdown>
@@ -92,8 +92,8 @@ repository.
     </figcaption>
     </figure>
 
-    1. If you have not already created a dataset class for the corrupted Mnist data, start by doing that. Essentially,
-        it is a class that should inherit from `torch.utils.data.Dataset` and should have a `__getitem__` and `__len__`
+    1. If you have not already created a dataset class for the corrupted MNIST data, start by doing that. Essentially,
+        it is a class that should inherit from `torch.utils.data.Dataset` and should have `__getitem__` and `__len__`.
 
         ??? success "Solution"
 
@@ -102,7 +102,7 @@ repository.
             ```
 
     2. Then let's create a function that can report basic statistics such as the number of training samples, number
-        of test samples and generate figures of sample images in the dataset and distribution of the classes in the
+        of test samples and generate figures of sample images in the dataset and distribution of classes in the
         dataset. This function should be called `dataset_statistics` and should take a path to the dataset as input.
 
         ??? success "Solution"
@@ -138,8 +138,8 @@ repository.
     4. The next step is to implement steps in our workflow that do something when data changes. This is the reason
         why we created the `dataset_statistics` function. Implement a workflow that:
 
-        1. Check-out the code
-        2. Setups Python
+        1. Checks out the code
+        2. Sets up Python
         3. Installs dependencies
         4. Downloads the data
         5. Runs the `dataset_statistics` function on the data
@@ -201,7 +201,7 @@ repository.
     6. Let's now add the `cml` framework such that we can comment the results of the `dataset_statistics` function in
         the pull request automatically. Look at the
         [getting started guide](https://github.com/iterative/cml#getting-started) for help on how to do this. You will
-        need write all the content of the `dataset_statistics` function to a file called `report.md` and then use the
+        need to write all the content of the `dataset_statistics` function to a file called `report.md` and then use the
         `cml comment create` command to create a comment in the pull request with the content of the file.
 
         ??? success "Solution"
@@ -269,8 +269,8 @@ repository.
         ![Image](../figures/personal_access_token.png){ width="500" }
         </figure>
 
-        give it a name, set what repositories it should have access to and select the permissions you want it to have.
-        In our case if you choose to create `Fine-grained token` then it needs access to the `contents:write`
+        Give it a name, set what repositories it should have access to and select the permissions you want it to have.
+        In our case if you choose to create a `Fine-grained token` then it needs access to the `contents:write`
         permission. If you choose `Tokens (classic)` then it needs access to the `repo` permission. After you have
         created the token, copy it and save it somewhere safe.
 
@@ -286,8 +286,8 @@ repository.
         * Access token: `GITHUB_ACTIONS_TOKEN`
         * Secret: leave empty
 
-        You here need to replace `<owner>` and `<repo>` with your own information. The `/dispatches` endpoint is a
-        special endpoint that all GitHub actions workflows can listen to. Thus, if you ever want to setup a webhook in
+        Here you need to replace `<owner>` and `<repo>` with your own information. The `/dispatches` endpoint is a
+        special endpoint that all GitHub action workflows can listen to. Thus, if you ever want to set up a webhook in
         some other framework that should trigger a GitHub action, you can use this endpoint.
 
     5. Next, navigate to your model registry. It should hopefully contain at least one registry with at least one model
@@ -377,13 +377,13 @@ repository.
     9. We now need to write a script that can be executed on our staged model. In this case, we are going to run some
         performance tests on it to check that it is fast enough for deployment. Therefore, do the following:
 
-        1. In a `tests/performancetests` folder, create a new file called `test_model.py`
+        1. In a `tests/performancetests` folder, create a new file called `test_model.py`.
 
-        2. Implement a test that loads the model from an wandb artifact path e.g.
+        2. Implement a test that loads the model from a wandb artifact path e.g.
             <team-name>/<project-name>/<artifact-name>:<version> and runs it on a random input. Importantly, the
             artifact path should be read from an environment variable called `MODEL_NAME`.
 
-        3. The test should assert that the model can do 100 predictions in less than X amount of time
+        3. The test should assert that the model can do 100 predictions in less than X amount of time.
 
         ??? success "Solution"
 
@@ -417,7 +417,7 @@ repository.
 
     10. Let's now add another job that calls the script we just wrote. It needs to:
 
-        * Setup the correct environment variables
+        * Set the correct environment variables
         * Checkout the code
         * Setup Python
         * Install dependencies
@@ -506,7 +506,7 @@ repository.
             typer.run(link_model)
         ```
 
-        for example, you can run this script with the following command:
+        For example, you can run this script with the following command:
 
         ```bash
         python link_model.py entity/project/artifact_name:version -a staging -a production
@@ -562,7 +562,7 @@ repository.
         model is too large for deployment, runs some further evaluation scripts, or checks if the model is robust to
         adversarial attacks. Only the imagination sets the limits here.
 
-3. (Optional) If you have got this far, consider combining principles from the two exercises. Here is an idea: we use
+3. (Optional) If you have gotten this far, consider combining principles from the two exercises. Here is an idea: we use
     the workflow from the second exercise to trigger a workflow that checks a staged model for performance. We then
     use the `cml` framework to automatically create a pull request e.g. use `cml pr create` instead of
     `cml comment create` to create a pull request with the results of the performance test. Then if we are happy with
@@ -584,8 +584,8 @@ repository.
         * Feedback Mechanisms: CI primarily uses automated tests to provide feedback on code quality. CML uses
             performance metrics from deployed models to provide feedback and trigger retraining or model updates.
 
-2. Imaging you get hired in the pharmasuitical industri being asked to develop a machine learning pipeline that can
-    automatically sort out which drugs are safe and which are not. What level of the MLOps maturity model would you
+2. Imagine you get hired in the pharmaceutical industry and are asked to develop a machine learning pipeline that can
+    automatically determine which drugs are safe and which are not. What level of the MLOps maturity model would you
     strive to reach?
 
     ??? success "Solution"
@@ -604,4 +604,4 @@ severe if it is used in critical decision making.
 
 Finally, if you have completed the exercises on [using the cloud](../s6_the_cloud/using_the_cloud.md) consider checking
 out the [cml runner lunch](https://cml.dev/doc/ref/runner#--cloud) command that allows you to run your workflows on
-cloud resources instead of the GitHub actions runners.
+cloud resources instead of the GitHub action runners.
