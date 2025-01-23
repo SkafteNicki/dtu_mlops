@@ -11,7 +11,7 @@ Data drifting is one of the core reasons why model accuracy degrades over time i
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
 this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
-two years
+two years.
 
 <figure markdown>
 ![Image](../figures/data_drift.png){ width="700" }
@@ -39,25 +39,25 @@ degrade, thus we need tools that can detect when we are seeing a drift in our da
 
 ## ❔ Exercises
 
-For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) developed by
-[EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports both detection for both regression and
-classification models. The exercises are in large taken from
+For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) ,developed by
+[EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports detection for both regression and
+classification models. The exercises are in large part taken from
 [here](https://docs.evidentlyai.com/get-started/hello-world) and in general we recommend if you are in doubt about an
-exercise to look at the [docs](https://docs.evidentlyai.com/) for API and examples (their documentation can be a bit
+exercise to look at the [docs](https://docs.evidentlyai.com/) for the API and examples (their documentation can be a bit
 lacking sometimes, so you may also have to dive into the source code).
 
-Additionally, we want to stress that data drift detection, concept drift detection etc. is still an active field of
-research and therefore exist multiple frameworks for doing this kind of detection. In addition to Evidently,
+Additionally, we want to stress that data drift detection, concept drift detection, etc. is still an active field of
+research and so there exist multiple frameworks for doing this kind of detection. In addition to Evidently,
 we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
 [deepcheck](https://github.com/deepchecks/deepchecks).
 
-1. Start by installing Evidently
+1. Start by installing Evidently.
 
     ```python
     pip install evidently
     ```
 
-    You will also need `scikit-learn` and `pandas` installed if you do not already have it.
+    You will also need `scikit-learn` and `pandas` installed if you do not already have them.
 
 2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
     deployment exercises about GCP functions you should have developed an application that can classify the
@@ -95,7 +95,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     1. Next we are going to add some functionality to our application. We need to add that the input for the user is
         saved to a database whenever our application is called. However, to not slow down the response to our user we
         want to implement this as a *background task*. A background task is a function that should be executed after
-        the user have got their response. Implement a background task that save the user input to a database implemented
+        the user has gotten their response. Implement a background task that saves the user input to a database implemented
         as a simple `.csv` file. You can read more about background tasks
         [here](https://fastapi.tiangolo.com/tutorial/background-tasks/). The header of the database should look
         something like this:
@@ -115,10 +115,10 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution_2.py"
             ```
 
-    2. Call you API a number of times to generate some dummy data in the database.
+    2. Call your API a number of times to generate some dummy data in the database.
 
 3. Create a new `data_drift.py` file where we are going to implement the data drifting detection and reporting. Start
-    by adding both the real iris data and your generated dummy data as pandas data frames.
+    by adding both the real iris data and your generated dummy data as pandas dataframes.
 
     ```python
     import pandas as pd
@@ -127,7 +127,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     current_data = pd.read_csv('prediction_database.csv')
     ```
 
-    If done correctly you will most likely end up with two data frames that look like
+    If done correctly you will most likely end up with two dataframes that look like
 
     ```txt
     # reference_data
@@ -147,8 +147,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     [10 rows x 5 columns]
     ```
 
-    Standardize the data frames such that they have the same column names and drop the time column from the
-    `current_data` data frame.
+    Standardize the dataframes such that they have the same column names and drop the time column from the
+    `current_data` dataframe.
 
     ??? success "Solution"
 
@@ -180,11 +180,11 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         report.save_html('report.html')
         ```
 
-        Open the generated `.html` page. What does it say about your data? Have it drifted? Make sure to poke
+        Open the generated `.html` page. What does it say about your data? Has it drifted? Make sure to poke
         around to understand what the different plots are actually showing.
 
-    2. Data drifting is not the only kind of reporting evidently can make. We can also get reports on the data quality.
-        Look through the documentation of evidently and add the preset that has to do with data quality to the report.
+    2. Data drifting is not the only kind of reporting evidently can make. We can also get reports on data quality.
+        Look through evidently's documentation and add the preset that has to do with data quality to the report.
         Try adding a few `Nan` values to your `current_data` and re-run the report. Checkout the report and go over the
         generated plots and make sure that it picked up on the missing values you just added.
 
@@ -197,7 +197,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
             ```
 
-    3. Another important kind of drift is called *target drift*, where the distribution of the target values have
+    3. Another important kind of drift is called *target drift*, where the distribution of the target values has
         changed. If your training data was balanced, and you are now seeing a lot of one class being predicted this may
         indicate that your model is not performing as expected or that external factors have changed, which means that
         you should retrain your model. Find the preset that checks for target drift, add it to the report and re-run
@@ -235,16 +235,16 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         ```
 
     1. Take a look at this [colab notebook](https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl)
-        that contains all tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
+        that contains all the tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
         and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your
         use case and get them all passing.
 
-5. (Optional) When doing monitoring in practice, we are not always interested in running on all data collected from our
-    API maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
+5. (Optional) When doing monitoring in practice, we are not always interested in running on all the data collected from our
+    API, maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
     the timestamps of when our API is called we can use that for filtering. Implement a simple filter that
 
     * Takes an integer `n` and returns the last `n` entries in our database
-    * Takes an integer `t` that filters away observations older than `t` hours
+    * Takes an integer `t` that filters out observations older than `t` hours
 
     ??? success "Solution"
 
@@ -260,21 +260,21 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             return data
         ```
 
-6. Evidently by default only supports structured data e.g. tabular data (so does nearly every other framework). Thus,
+6. Evidently by default only supports structured data, e.g., tabular data (so does nearly every other framework). Thus,
     the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
-    structured features from the data which we then can run the analysis on.
+    structured features from the data which we can then run the analysis on.
 
     1. For images the simple solution would be to flatten the images and consider each pixel a feature,
-        however this does not work in practice because changes in the individual pixels does not really tell anything
-        about the image. Instead, we should derive some feature such as:
+        however this does not work in practice because changes in the individual pixels do not really tell us anything
+        about the image. Instead, we should derive some features such as:
 
         * Average brightness
         * Contrast of an image
         * Image sharpness
         * ...
 
-        These are all numbers that can make up a feature vector for a given image. Try out doing this yourself, for
-        example by extracting such features from MNIST and FashionMNIST datasets, and check if you can detect a drift
+        These are all numbers that can make up a feature vector for a given image. Try doing this yourself, for
+        example by extracting such features from the MNIST and FashionMNIST datasets, and check if you can detect a drift
         between the two sets.
 
         ??? success "Solution"
@@ -283,14 +283,14 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             --8<-- "s8_monitoring/exercise_files/image_drift.py"
             ```
 
-    2. (Optional) For text a common approach is to extra some higher level embedding such as the very classical
+    2. (Optional) For text a common approach is to extract some higher-level embedding such as the very classical
         [GLOVE](https://nlp.stanford.edu/projects/glove/) embedding. Try following
         [this tutorial](https://github.com/evidentlyai/community-examples/blob/main/examples/how_to_run_drift_report_for_text_data.ipynb)
         to understand how drift detection is done on text.
 
-    3. Instead of manually specifying the features, let's take a deep learning based approach to getting features from
-        unstructured data. To do this let's consider the [CLIP](https://arxiv.org/abs/2103.00020) model, which is
-        state-of-the-art model for connecting text to images e.g. image captioning. For our purpose this is perfect
+    3. Instead of manually specifying the features, let's take a deep learning-based approach to getting features from
+        unstructured data. To do this let's consider the [CLIP](https://arxiv.org/abs/2103.00020) model, which is a
+        state-of-the-art model for connecting text to images, i.e., image captioning. For our purpose this is perfect
         because we can use the model to get abstract feature embeddings for both images and text. Implement a simple
         script that extracts features from an image and a text using CLIP. We recommend using the
         [Huggingface implementation](https://huggingface.co/docs/transformers/model_doc/clip) for doing this. What is
@@ -306,7 +306,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             --8<-- "s8_monitoring/exercise_files/clip_features.py"
             ```
 
-    4. Run your CLIP script on two different datasets for example
+    4. Run your CLIP script on two different datasets, for example
         [CIFAR10](https://pytorch.org/vision/main/generated/torchvision.datasets.CIFAR10.html) and
         [SVHN](https://pytorch.org/vision/main/generated/torchvision.datasets.SVHN.html#torchvision.datasets.SVHN)
         for images or
@@ -314,7 +314,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         [Amazon review](https://www.kaggle.com/datasets/PromptCloudHQ/amazon-echo-dot-2-reviews-dataset) for text.
         Then run the data drift detection on the extracted features. What do you see? Does the data drift?
 
-7. (Optional) If we have multiple applications and want to run monitoring for each application we often want also the
+7. (Optional) If we have multiple applications and want to run monitoring for each application we often also want the
     monitoring to be a deployed application (that only we can access). Implement a `/monitoring` endpoint that does
     all the reporting we just went through such that you have two endpoints:
 
@@ -323,7 +323,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     http://127.0.0.1:8000/monitoring/  # monitoring endpoint
     ```
 
-    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suit. Try implementing
+    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suite. Try implementing
     this endpoint.
 
     ??? success "Solution"
@@ -341,15 +341,15 @@ then report those statistics directly back into GCP for us to study.
 ### ❔ Exercises
 
 In this set of exercises we are going to deploy a machine learning model for sentiment analysis trained on
-[Google Play Store Reviews](https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews). The models task
-is to predict if a users review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
-service that will check if the distribution of the reviews have drifted over time. This may be useful if we are seeing
+[Google Play Store Reviews](https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews). The model's task
+is to predict if a user's review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
+service that will check if the distribution of the reviews has drifted over time. This may be useful if we are seeing
 a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
 expected.
 
 We have already created downloaded the training data, created a training script and trained a model for you.
-The training data and the trained model is available to download from the following
-[Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing) which can
+The training data and the trained model are available to download from the following
+[Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing), which can
 be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
 Python package):
 
@@ -359,7 +359,7 @@ gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZ
 ```
 
 And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
-train using a GPU. Overall the model scores around 74% accuracy on a hold-out test set. We recommend that you scroll
+train using a GPU. Overall the model achieves around 74% accuracy on a held-out test set. We recommend that you scroll
 through the files to get an understanding of what is going on.
 
 ??? example "Training script for sentiment analysis model"
@@ -368,13 +368,13 @@ through the files to get an understanding of what is going on.
     --8<-- "s8_monitoring/exercise_files/sentiment_classifier.py"
     ```
 
-1. To begin with lets start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
+1. To begin let's start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
     called `gcp_monitoring_exercise` (or something similar). Upload the training data and the trained model to the
     bucket.
 
     ??? success "Solution"
 
-        This can be done by running the following commands or manually uploading the files to the bucket using the
+        This can be done by running the following commands or by manually uploading the files to the bucket using the
         GCP console.
 
         ```
@@ -384,7 +384,7 @@ through the files to get an understanding of what is going on.
         ```
 
 2. Next we need to create a FastAPI application that takes a review as input and returns the predicted sentiment of
-    the review. We provide a starting point for the application in the file below, that should be able to run as is.
+    the review. We provide a starting point for the application in the file below that should be able to run as is.
 
     ??? example "Starting point for sentiment analysis API"
 
@@ -398,7 +398,7 @@ through the files to get an understanding of what is going on.
         uvicorn sentiment_api_starter:app --reload
         ```
 
-        You need the model file saved in the same directory as the application to run the application. Write a small
+        You need the model file saved in the same directory as the application to run it. Write a small
         `client.py` script that calls the application with a review and prints the predicted sentiment. Try executing
         the script in another terminal (while the `uvicorn` server is running) to confirm that the application is
         working.
@@ -414,10 +414,10 @@ through the files to get an understanding of what is going on.
             print(response.json())
             ```
 
-    2. Next, we need to extend the application in two ways. First instead of loading the model from our local computer,
-        it should load from the bucket we just uploaded the model to. Secondly, we need to save the request data and the
+    2. Next, we need to extend the application in two ways. First, instead of loading the model from our local computer,
+        it should load from the bucket we just uploaded the model to. Second, we need to save the request data and the
         predicted label to the cloud. Normally this would best be suited in a database, but we are going to just save
-        to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g. the
+        to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g., the
         time and date of the request). Implement both of these functionalities in the application. To interact with
         GCP buckets in Python you should install the `google-cloud-storage` package if you have not already done so.
 
@@ -441,7 +441,7 @@ through the files to get an understanding of what is going on.
         And use the same `client.py` script as before to confirm that the application is working. You should also check
         that the data is saved to the bucket.
 
-    4. Write a small Dockerfile that containerize the application
+    4. Write a small Dockerfile that containerizes the application
 
         ??? success "Solution"
 
@@ -476,23 +476,23 @@ through the files to get an understanding of what is going on.
 
         ??? success "Solution"
 
-            To get the url of the deployed service you can run the following command
+            To get the URL of the deployed service you can run the following command
 
             ```bash
             gcloud run services describe sentiment-api --format 'value(status.url)'
             ```
 
-            which can the be used in the `client.py` script to call the deployed service.
+            which can then be used in the `client.py` script to call the deployed service.
 
-3. We now have a working application that we are ready to monitor for data drift in real time. We therefore need to now
-    write a FastAPI application that takes in the training data and the predicted data and run evidently to check if the
+3. We now have a working application that we are ready to monitor for data drift in real time. We therefore now need to
+    write a FastAPI application that takes in the training data and the predicted data and runs evidently to check if the
     data or the labels have drifted. Furthermore, we again provide a starting point for the application below.
 
     ```python linenums="1" title="sentiment_monitoring_starter.py"
     --8<-- "s8_monitoring/exercise_files/sentiment_monitoring_starter.py"
     ```
 
-    Look over the script and make sure you know what kind of features we are going to monitor?
+    Look over the script and make sure you know what kind of features we are going to monitor.
 
     ??? success "Solution"
 
@@ -502,7 +502,7 @@ through the files to get an understanding of what is going on.
         text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
         second preset runs target drift detection on the predicted labels.
 
-    1. The script misses one key function to work: `#!python fetch_latest_data(n: int)` that should fetch the latest `n`
+    1. The script is missing one key function to work: `#!python fetch_latest_data(n: int)` which should fetch the latest `n`
         predictions. Implement this function in the script.
 
         ??? success "Solution"
@@ -511,10 +511,10 @@ through the files to get an understanding of what is going on.
             --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.py"
             ```
 
-    2. Test out the script locally. This can be done by downloading a couple of the request/response data from the
+    2. Test out the script locally. This can be done by downloading a couple of the request/response data points from the
         bucket and running the script on this data.
 
-    3. Write a Dockerfile that containerize the monitoring application
+    3. Write a Dockerfile that containerizes the monitoring application.
 
         ??? success "Solution"
 
@@ -536,9 +536,9 @@ through the files to get an understanding of what is going on.
                 --region <region> --allow-unauthenticated
             ```
 
-4. We are now finally, ready to test our services. Since we need to observe some long term behavior this part may take
-    some time to run depending on how you have exactly configured your. Below we have implemented a client script that
-    are meant to call our service.
+4. We are now finally ready to test our services. Since we need to observe some long-term behavior this part may take
+    some time to run depending on how exactly you have configured things. Below we have implemented a client script that
+    is meant to call our service.
 
     !!! example "Client script for sentiment analysis model"
 
@@ -551,32 +551,32 @@ through the files to get an understanding of what is going on.
         ??? success "Solution"
 
             The client script will iteratively call our deployed sentiment analysis service every `wait_time` seconds.
-            In each iteration it does:
+            In each iteration it:
 
-            * Randomly samples a review for a list of positive, neutral and negative reviews
-            * Randomly add negative phrases to the review. Each review is added if a randomly uniform number is lower
+            * Randomly samples a review from a list of positive, neutral and negative reviews
+            * Randomly adds negative phrases to the review. Each review is added if a randomly uniform number is lower
                 than probability `negative_probability=min(count / args.max_iterations, 1.0), meaning that it becomes
                 more and more likely that the negative phrases are added as the number of iterations increases.
             * Sends the review to the sentiment analysis service and saves the response to a file.
 
-    2. Run the client script for 1000 iterations. What happens to the distribution of the reviews over time? Does the
+    2. Run the client script for 1,000 iterations. What happens to the distribution of the reviews over time? Does the
         data drift?
 
-That ends the module on detection of data drifting, data quality etc. We have a couple of final points to make before
+That ends the module on detection of data drifting, data quality, etc. We have a couple of final points to make before
 we end the module:
 
 * Monitoring of machine learning applications is an extremely hard discipline because it is not clear-cut when we should
     actually respond to feature/targets beginning to drift and when it is probably fine letting the system run as is.
-    That comes down to the individual application what kind of rules that should be implemented.
+    It comes down to the individual application what kinds of rules should be implemented.
 
 * The cloud setup we have developed is very simple and not meant for production. In a real-world scenario we would not
-    have deployed our monitoring application an endpoint that generates a report, but rather have it return the tests
+    have deployed our monitoring application on an endpoint that generates a report, but rather have it return the test
     results in a JSON format that can be ingested into more complex monitoring systems where we can show how drift
-    scores develop over time. You will learn more about this in the [next module](monitoring.md).
+    scores evolve over time. You will learn more about this in the [next module](monitoring.md).
 
-* The tools presented here are in no way complete and are especially limited in one way: they are only considering the
-    marginal distribution of data. Every analysis that we're done have been on the distribution per feature (the
-    marginal distribution), however as the image below show it is possible for data to have drifted to another
+* The tools presented here are in no way comprehensive and are especially limited in one way: they only consider the
+    marginal data distribution. Every analysis that we've done has been on the distribution per feature (the
+    marginal distribution), however as the image below shows it is possible for data to have drifted to another
     distribution with the marginal being approximately the same.
 
     <figure markdown>
@@ -585,8 +585,8 @@ we end the module:
 
     There are methods such as [Maximum Mean Discrepancy (MMD) tests](https://jmlr.org/papers/v13/gretton12a.html) that
     are able to do testing on multivariate distributions, which you are free to dive into. The general recommendation is
-    to just always consider multiple features when taking decisions. In this course we will just always recommend
-    considering multiple features when doing decision regarding your deployed applications.
+    to just always consider multiple features when making decisions. In this course we will just always recommend
+    considering multiple features when making decisions regarding your deployed applications.
 
 Finally, we want to stress that monitoring is a very active field of research and that there are many more tools and
 frameworks that can be used for monitoring.
