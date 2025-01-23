@@ -7,23 +7,23 @@
 !!! info "Core Module"
 
 Notebooks can be great for testing out ideas, developing simple code, and explaining and visualizing certain aspects
-of a codebase. Remember that [Jupyter Notebook](https://jupyter.org/) was created to "...allows you
+of a codebase. Remember that [Jupyter Notebook](https://jupyter.org/) was created to "...allow you
 to create and share documents that contain live code, equations, visualizations, and narrative text." However,
 any larger machine learning project will require you to work in multiple `.py` files, and here notebooks will provide
 a suboptimal workflow. Therefore, to truly get "work done," you will need a good editor/IDE.
 
-Many opinions exist on this matter, but for simplicity, we recommend getting started with one of the following 3:
+Many opinions exist on this matter, but for simplicity, we recommend getting started with one of the following three:
 
 | Editor             | Webpage                              | Comment (Biased opinion)                                                 |
 | ------------------ | ------------------------------------ | ------------------------------------------------------------------------ |
 | Spyder             | <https://www.spyder-ide.org/>        | A Matlab-like environment that is easy to get started with               |
 | Visual Studio Code | <https://code.visualstudio.com/>     | Support for multiple languages with fairly easy setup                    |
-| PyCharm            | <https://www.jetbrains.com/pycharm/> | An IDE for Python professionals. Will take a bit of time getting used to |
+| PyCharm            | <https://www.jetbrains.com/pycharm/> | An IDE for Python professionals. Will take a bit of time to get used to  |
 
 We highly recommend Visual Studio (VS) Code if you do not already have an editor installed (or just want to try
-something new). We, therefore, put additional effort into explaining VS Code.
+something new). We therefore put additional effort into explaining VS Code.
 
-Below, you see an overview of the VS Code interface
+Below, you can see an overview of the VS Code interface.
 
 <figure markdown>
 ![Image](../figures/vscode.PNG){ width="700" }
@@ -32,7 +32,7 @@ Below, you see an overview of the VS Code interface
 
 The main components of VS Code are:
 
-* The action bar: VS Code is not an editor meant for a single language and can do many things. One of the core reasons
+* The action bar: VS Code is not an editor meant for any one language and can do many things. One of the core reasons
     that VS Code has become so popular is that custom plug-ins called *extensions* can be installed to add
     functionality to VS Code. It is in the action bar that you can navigate between these different applications
     when you have installed them.
@@ -86,7 +86,7 @@ following exercises are just to get you started, but you can find many more tuto
     Click it and change the Python environment to the one you want to use.
 
 3. One of the most useful tools in VS Code is the ability to navigate the whole project using the built-in
-    `Explorer`. To take advantage of VS Code, you need to make sure what you are working on is a project.
+    `Explorer`. To take advantage of VS Code, you need to make sure that what you are working on is a project.
     Create a folder called `hello` (somewhere on your laptop) and open it in VS Code (Click `File` in the menu and then
     select `Open Folder`). You should end up with a completely clean workspace (as shown below). Click the `New file`
     button and create a file called `hello.py`.
@@ -107,7 +107,7 @@ following exercises are just to get you started, but you can find many more tuto
     have chosen, and finally run your script. In addition to clicking the `run` button, you can also:
 
     * Select some code and press `Shift+Enter` to run it in the terminal
-    * Select some code and right-click, choosing to run in an interactive window (where you can interact with the results
+    * Select some code and right-click, choosing to run it in an interactive window (where you can interact with the results
         like in a Jupyter Notebook)
 
 That's the basics of using VS Code. We highly recommend that you revisit
@@ -146,21 +146,21 @@ in your toolbox.
 
 You are probably all familiar with using AI tools for solving different tasks in your daily life, and you have most
 likely also used AI tools like ChatGPT or similar for programming. However, most of these tools are not directly
-integrated into your editor, which can lead to a lot of [context-switching](https://reclaim.ai/blog/context-switching)
+integrated into your editor, which can lead to a lot of [context switching](https://reclaim.ai/blog/context-switching)
 that in general leads to lower productivity.
 
 We are therefore in this section going to be looking at [GitHub Copilot](https://github.com/features/copilot), which is
 an AI tool that directly integrates into your editor, eliminating the need to switch between browser tabs or external
 tools. In addition, the strength of having AI directly in your editor is that it can provide suggestions based on the
-code you are currently writing and in general it just has access to a larger context than a standalone tool.
+code you are currently writing and in general just has access to a larger context than a standalone tool.
 
 ### ❔ Exercises
 
 1. As of writing this, GitHub Copilot is free for all students, teachers and maintainers of popular open-source projects.
-    As a student, sign up for the [Student Developer Pack](https://education.github.com/pack#offers)
+    As a student, sign up for the [Student Developer Pack](https://education.github.com/pack#offers).
 
 2. Install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) in your
-    editor
+    editor.
 
 3. GitHub Copilot has many different features, but the most important one is the ability to provide suggestions based
     on the code you are currently writing. Try to write some code in a new Python file and see if you can get some
@@ -173,10 +173,10 @@ code you are currently writing and in general it just has access to a larger con
     class Net(nn.Module):
     ```
 
-    GitHub Copilot will most likely suggest you complete the code using linear layers with an input dimension of
+    GitHub Copilot will most likely suggest that you complete the code using linear layers with an input dimension of
     `28*28`. Can you explain why it suggests this and where this bias comes from?
 
-4. The second feature that can be very useful is the ability to directly chat or ask questions regarding
+4. The second feature that can be very useful is the ability to directly chat or ask questions about
     your code. Try highlighting (in your code editor) the code from the previous exercise and press `Ctrl+i` which
     should open a chat window. Ask it to complete it with a convolutional neural network instead of a linear one.
 
@@ -185,8 +185,8 @@ code you are currently writing and in general it just has access to a larger con
     </figure>
 
 5. Finally, let's try the built-in chat feature. You can get to this by clicking the `Chat` icon in the Activity bar and
-    begin to ask questions similar to how you would ask ChatGPT. However, we have also the option to provide context
-    either from the code editor or the terminal. Try saving the following code in a Python script `copilot.py`:
+    begin to ask questions similar to how you would ask ChatGPT. However, we also have the option of providing context
+    either from the code editor or the terminal. Try saving the following code in a Python script called `copilot.py`:
 
     ```python
     import torch
@@ -209,7 +209,7 @@ code you are currently writing and in general it just has access to a larger con
     ```
 
     and run it in the terminal: `python copilot.py`. It will naturally give you an error, but you can now ask GitHub
-    Copilot for help. The easiest way to do this is by highlighting the output in the terminal and then pressing running
+    Copilot for help. The easiest way to do this is by highlighting the output in the terminal and then running
     the `GitHub Copilot: Explain This (Terminal)` command (see the image below, use `Ctrl+Shift+P` to open the command
     palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
     the code running?
