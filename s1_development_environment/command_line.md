@@ -13,15 +13,15 @@
 
 Contrary to popular belief, the command line (also commonly known as the *terminal*) is not a mythical being that has
 existed since the dawn of time. Instead, it was created at a time when it was not given that your computer had a
-graphical interface that you could interact with. Think of it as a text interface to your computer.
+graphical interface that you could interact with. Think of it as a text interface for your computer.
 
-The terminal is a well-known concept to users of Linux; however, MAC and (especially) Windows users often do not need it
-and therefore encounter it. Having a basic understanding of how to use a command line can help improve your workflow.
-The reason that the command line is an important tool to get to know is that doing any kind of MLOps will require us to
+The terminal is a well-known concept to users of Linux; however, Mac and (especially) Windows users often do not need it
+or therefore encounter it. Having a basic understanding of how to use a command line can help improve your workflow.
+The reason that the command line is an important tool to get familiar with is that doing any kind of MLOps will require us to
 be able to interact with many different tools, many of which do not have a graphical interface. Additionally, when we
 get to working in the cloud later in the course, you will be forced to interact with the command line.
 
-Note if you already are a terminal wizard then feel free to skip the exercises below. They are very elementary.
+Note that if you're already a terminal wizard then feel free to skip the exercises below. They are very elementary.
 
 ## The anatomy of the command line
 
@@ -31,12 +31,12 @@ Regardless of the operating system, all command lines look more or less the same
 ![Image](../figures/terminal.PNG){ width="800" }
 </figure>
 
-As already stated, it is essentially just a big text interface to interact with your computer. As the image illustrates,
+As already stated, it is essentially just a big text interface for interacting with your computer. As the image illustrates,
 when trying to execute a command, there are several parts to it:
 
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
-    are in, followed by some kind of sign: `$`, `>`, `:` are the usual ones. It can also contain other information,
-    such as in the case of the above image which also shows the current `conda` environment.
+    are in, followed by some kind of symbol: `$`, `>`, `:` are the usual ones. It can also contain other information,
+    such as in the case of the above image, which also shows the current `conda` environment.
 2. The **command** is the actual command you want to execute. For example, `ls` or `cd`.
 3. The **options** are additional arguments that you can pass to the command. For example, `ls -l` or `cd ..`.
 4. The **arguments** are the actual arguments that you pass to the command. For example, `ls -l figures` or `cd ..`.
@@ -52,7 +52,7 @@ The core difference between options and arguments is that options are optional, 
 
 We have put a cheat sheet in the
 [exercise files folder](https://github.com/SkafteNicki/dtu_mlops/blob/main/s1_development_environment/exercise_files/command_line_cheatsheet.pdf)
-belonging to this session, that gives a quick overview of the different commands that can be executed in the
+belonging to this session that gives a quick overview of the different commands that can be executed in the
 command line.
 
 ???+ note "Windows users"
@@ -76,9 +76,9 @@ command line.
     { .annotate }
 
     1. :man_raising_hand: Your terminal should support
-        [tab-completion](https://en.wikipedia.org/wiki/Command-line_completion) which can help finish commands for you!
+        [tab completion](https://en.wikipedia.org/wiki/Command-line_completion) which can help finish commands for you!
 
-3. The `ls` command is important when we want to know the content of a folder. Try to use the command, and also try
+3. The `ls` command is important when we want to inspect the content of a folder. Try to use the command, and also try
     it with the additional option `-l`. What does it show?
 
 4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less`, and `top` commands. Also,
@@ -86,8 +86,8 @@ command line.
     your future career. For Windows users, these commands may be named something else, e.g., `where` command on Windows
     corresponds to `which`.
 
-5. It is also significant that you know how to edit a file through the terminal. Most systems should have the
-    `nano` editor installed; else, try to figure out which one is installed on your system.
+5. It is also important that you know how to edit a file through the terminal. Most systems should have the
+    `nano` editor installed; otherwise, try to figure out which one is installed on your system.
 
     1. Type `nano` in the terminal.
 
@@ -100,17 +100,17 @@ command line.
 
     3. Save the script as a `.py` file and try to execute it using `python <filename>.py`.
 
-    4. Afterward, try to edit the file through the terminal (change `Hello world` to something else).
+    4. Afterwards, try to edit the file through the terminal (change `Hello world` to something else).
 
 6. All terminals come with a programming language. The most common system is called `bash`, which can come in handy
-    when being able to write simple programs in bash. For example, one case is that you want to execute multiple Python
-    programs sequentially, which can be done through a bash script.
+    when you're able to write simple programs in bash. For example, if you want to execute multiple Python
+    programs sequentially, this can be done through a bash script.
 
     ??? note "Windows users"
 
         Bash is not part of Windows, so you need to run this part through WSL. If you did not install WSL, you can
         skip this part or as an alternative do the exercises in
-        [Powershell](https://learn.microsoft.com/en-us/training/modules/script-with-powershell/) which is the native
+        [Powershell](https://learn.microsoft.com/en-us/training/modules/script-with-powershell/), which is the native
         Windows scripting language (not recommended).
 
     1. Write a bash script (in `nano`) and try executing it:
@@ -167,7 +167,7 @@ command line.
 
 ## 🧠 Knowledge check
 
-1. Here is one command from later in the course when we are going to work in the cloud
+1. Here is one command from later in the course when we will be working in the cloud
 
     ```bash
     gcloud compute instances create-with-container instance-1 \
