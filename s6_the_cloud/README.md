@@ -41,15 +41,15 @@ of the biggest being:
 - Alibaba Cloud
 
 They all have slight advantages and disadvantages over each other. In this course, we are going to focus on Google
-Cloud Platform, because they have been kind enough to sponsor $50 of cloud credit to each student. If you happen to run
+Cloud Platform, because they have been kind enough to sponsor $50 of cloud credit for each student. If you happen to run
 out of credit, you can also get some free credit for a limited amount of time when you sign up with a new account.
 What's important to note is that all these different cloud providers all have the same set of services and that learning
-how to use the services of one cloud provider in many cases translates to also knowing how to use the same services at
+how to use the services of one cloud provider in many cases translates to also knowing how to use the same services on
 another cloud provider. The services are called something different and can have a bit of a different
 interface/interaction pattern but in the end, it does not matter.
 
 Today's exercises are about getting to know how to work with the cloud. If you are in doubt about anything or want to
-deep dive into some topics, I can recommend watching this
+deep dive into some topics, I recommend watching this
 [series of videos](https://www.youtube.com/watch?v=4D3X6Xl5c_Y&list=PLIivdWyY5sqKh1gDR0WpP9iIOY00IE0xL)
 or going through the [general docs](https://cloud.google.com/docs).
 
@@ -57,8 +57,8 @@ or going through the [general docs](https://cloud.google.com/docs).
 
     The learning objectives of this session are:
 
-    * In general being familiar with the Google SDK working
+    * In general being familiar with the Google SDK
     * Being able to start different compute instances and work with them
-    * Know how to do continuous integration workflows for the building of docker images
+    * Know how to implement continuous integration workflows for the building of docker images
     * Knowledge about how to store data and containers/artifacts in cloud buckets
     * Being able to train simple deep-learning models using a combination of cloud services
