@@ -445,6 +445,8 @@ deploying containers.
             'europe-west1',
             '--platform',
             'managed',
+            # optional argument if you want to inject secrets as environment variables
+            '--update-secrets=<env-name-in-container>=<secret-name-in-secrets-manager>:latest'
           ]
         options:
           logging: CLOUD_LOGGING_ONLY

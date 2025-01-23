@@ -9,6 +9,7 @@ from pathlib import Path
 import typer
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from google.cloud import storage
 from playwright.sync_api import sync_playwright
 
 load_dotenv()
@@ -74,17 +75,12 @@ def create_grouped_csv(download1: str) -> None:
         writer = csv.writer(file)
         writer.writerow(["group_nb", "student 1", "student 2", "student 3", "student 4", "student 5"])
         for group, students in sorted_groups:
-            # Limit to 5 students per group
-            writer.writerow([group] + students[:5])
+            row = [group] + students[:5] + [""] * (5 - len(students[:5]))
+            writer.writerow(row)
 
 
-def main(
-    course: str = typer.Argument(..., help="The course code"),
-    clean: bool = typer.Option(True, help="Clean the extracted files"),
-) -> None:
-    """Automatically download group membership and project repositories from DTU Learn."""
-    download1, download2 = download_from_learn(course)
-
+def unzip_assignments_and_extract_links(download2: str) -> dict:
+    """Unzip the downloaded assignments and extract the repository links."""
     os.makedirs("extracted_files", exist_ok=True)
     with zipfile.ZipFile(download2, "r") as zip_ref:
         zip_ref.extractall("extracted_files")
@@ -102,9 +98,22 @@ def main(
                         link_tag = soup.find("a", href=True)
                         if link_tag:
                             group_links[group_number] = link_tag["href"].rstrip(".git")
+    return group_links
+
+
+def main(
+    course: str = typer.Argument(..., help="The course code"),
+    clean: bool = typer.Option(True, help="Clean the extracted files"),
+    upload: bool = typer.Option(False, help="Upload the updated CSV file to GCS"),
+) -> None:
+    """Automatically download group membership and project repositories from DTU Learn."""
+    download1, download2 = download_from_learn(course)
+
+    create_grouped_csv(download1)
+    group_links = unzip_assignments_and_extract_links(download2)
 
     grouped_csv_path = "grouped_students.csv"
-    updated_csv_path = "grouped_students_with_links.csv"
+    updated_csv_path = "group_info.csv"
     total_students = 0
     total_groups = 0
 
@@ -117,7 +126,7 @@ def main(
 
         # Add a new column header
         headers = next(reader)
-        headers.append("repository_link")
+        headers.append("github_repo")
         writer.writerow(headers)
 
         # Update rows with links
@@ -141,6 +150,13 @@ def main(
         Path("grouped_students.csv").unlink()
         Path(download1).unlink()
         Path(download2).unlink()
+
+    if upload:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket("mlops_group_repository")
+        blob = bucket.blob("group_info.csv")
+        blob.upload_from_filename(updated_csv_path)
+        print("Updated CSV file uploaded to GCS")
 
 
 if __name__ == "__main__":
