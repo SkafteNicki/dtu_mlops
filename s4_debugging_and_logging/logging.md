@@ -6,24 +6,24 @@
 
 !!! info "Core Module"
 
-[Logging](https://en.wikipedia.org/wiki/Logging_(computing)) in general refers to the practise of recording events
-activities over time. Having proper logging in your applications can be extremely beneficial for a few reasons:
+[Logging](https://en.wikipedia.org/wiki/Logging_(computing)) in general refers to the practice of recording events
+over time. Having proper logging in your applications can be extremely beneficial for a few reasons:
 
-* *Debugging* becomes easier because we in a more structure way can output information about the state of our program,
-    variables, values etc. to help identify and fix bugs or unexpected behavior.
+* *Debugging* becomes easier because we in a more structured way can output information about the state of our program,
+    variables, values, etc. to help identify and fix bugs or unexpected behavior.
 
 * When we move into a more production environment, proper logging is essential for *monitoring* the health and
     performance of our application.
 
-* It can help in *auditing* as logging info about specific activities etc. can help keeping a record of who did what
+* It can help in *auditing*, as logging info about specific activities, etc. can help keeping a record of who did what
     and when.
 
-* Having proper logging means that info is saved for later, that can be *analysed* to gain insight into the behavior of
+* Having proper logging means that info is saved for later, which can be *analysed* to gain insight into the behavior of
     our application, such as trends.
 
 We are in this course going to divide the kind of logging we can do into categories: application logging and experiment
 logging. In general application logging is important regardless of the kind of application you are developing, whereas
-experiment logging is important machine learning based projects where we are doing experiments.
+experiment logging is important in machine learning-based projects where we do experiments.
 
 ## Application logging
 
@@ -39,7 +39,7 @@ This will keep a "record" of the events happening in our script, in this case ho
 change the print to include something like `batch.shape` to also have information about the current data being
 processed. Using `print` statements is fine for small applications, but to have proper logging we need a bit more
 functionality than what `print` can offer. Python actually comes with a great
-[logging](https://docs.python.org/3/library/logging.html) module, that defines functions for flexible logging. However,
+[logging](https://docs.python.org/3/library/logging.html) module that defines functions for flexible logging. However,
 it does require a bit more setup than just using `print`:
 
 ```python
@@ -49,7 +49,7 @@ logger.setLevel(logging.INFO)
 logger.info("This is an info message")
 ```
 
-For this reason we are instead going to look at [loguru](https://github.com/Delgan/loguru) package which makes Python
+For this reason we are instead going to look at the [loguru](https://github.com/Delgan/loguru) package which makes Python
 logging (stupidly) easy. Logging with loguru is essentially as easy as using `print`:
 
 ```python
@@ -57,25 +57,25 @@ from loguru import logger
 logger.info("This is an info message")
 ```
 
-The only core different is that we need to understand what log levels are and how to use them. Levels essentially allows
-of to get rid of statements like this:
+The only core different is that we need to understand what log levels are and how to use them. Levels essentially allow
+us to get rid of statements like this:
 
 ```python
 if debug:
     print(x.shape)
 ```
 
-where the logging is conditional on the variable `debug` which we can set a runtime. Thus, it is something we can
+where the logging is conditional on the variable `debug` which we can set at runtime. Thus, it is something we can
 disable for users of our application (`debug=False`) but have enabled when we develop the application (`debug=True`).
-And it makes sense that not all things logged, should be available to all stakeholders of a codebase. We as developers
-probably always wants the highest level of logging, whereas users of our code need less info, and we may want to
+And it makes sense that not all things logged should be available to all stakeholders of a codebase. We as developers
+probably always want the highest level of logging, whereas users of our code need less info, and we may want to
 differentiate this based on users.
 
 <figure markdown>
 ![Image](../figures/logging_level.drawio.png){ width="800" }
 </figure>
 
-It is also important to understand the different between logging and error handling. Error handling
+It is also important to understand the difference between logging and error handling. Error handling in
 Python is done using `raise` statements and `try/catch` like:
 
 ```python
@@ -92,7 +92,7 @@ except ValueError:
 
 Why would we ever need log `warning`, `error`, `critical` levels of information, if we are just going to handle it?
 The reason is that raising exceptions are meant to change the *program flow at runtime* e.g. things we do not want the
-user to do, but we can deal with in some way. Logging is always for *after* a program have run, to inspect what went
+user to do, but we can deal with in some way. Logging is always for *after* a program has run, to inspect what went
 wrong. Sometimes you need one, sometimes the other, sometimes both.
 
 ### ❔ Exercises
@@ -105,7 +105,7 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
     pip install loguru
     ```
 
-    and remember to add to your requirements file.
+    and remember to add it to your requirements file.
 
 2. Create a script called `my_logger.py` and try logging a few messages using `loguru`. Make sure to log at least one
     message of each level: `debug`, `info`, `warning`, `error` and `critical`.
@@ -128,10 +128,10 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
         logger.add(sys.stdout, level="WARNING")  # Add a new logger with WARNING level
         ```
 
-        as an alternative you can set the `LOGURU_LEVEL` environment variable to `WARNING` before running the script.
+        As an alternative you can set the `LOGURU_LEVEL` environment variable to `WARNING` before running the script.
 
-4. Instead of sending logs to the terminal, lets instead log to a file. This can be beneficial, such that only
-    `warning` level logs and higher are available to the user, but `debug` and `info` is still saved when the
+4. Instead of sending logs to the terminal, let's instead log to a file. This can be beneficial, such that only
+    `warning` level logs and higher are available to the user, but `debug` and `info` are still saved when the
     application is running. Change the code such that logs are saved to a file called `my_log.log`.
 
     ??? success "Solution"
@@ -141,8 +141,8 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
         logger.add("my_log.log", level="DEBUG")
         ```
 
-    1. A common problem with logging to an file is that the file can grow very large over time. Luckily, loguru has
-        a build in feature for rotating logs. Add this feature to the logger, such that the log file is rotated when
+    1. A common problem with logging to a file is that the file can grow very large over time. Luckily, loguru has
+        a built-in feature for rotating logs. Add this feature to the logger, such that the log file is rotated when
         it reaches 100 MB.
 
         ??? success "Solution"
@@ -157,7 +157,7 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
     `opt` method for lazy evaluation of logs.
 
 6. (Optional) We already briefly touched on logging during the
-    [module on config files using hydra](../s3_reproducibility/config_files.md). Officially, `loguru` and `hydra` does
+    [module on config files using hydra](../s3_reproducibility/config_files.md). Officially, `loguru` and `hydra` do
     not really integrate because `hydra` uses the standard Python logging module. However, you can still use `loguru`
     with `hydra` by configuring `loguru` to save a log file to the same location as hydra is saving its logs. Try
     implementing this in your hydra project.
@@ -173,13 +173,13 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
 When most people think machine learning, we think about the training phase. Being able to track and log experiments
 is an important part of understanding what is going on with your model while you are training. It can help you debug
 your model and help tweak your models to perfection. Without proper logging of experiments, it can be really hard to
-iterate on the model because you do not know what changes lead to increase or decrease in performance.
+iterate on the model because you do not know what changes led to increase or decrease in performance.
 
-The most basic logging we can do when running experiments is writing the metrics that our model is producing e.g. the
+The most basic logging we can do when running experiments is writing the metrics that our model is producing, e.g. the
 loss or the accuracy to the terminal or a file for later inspection. We can then also use tools such as
 [matplotlib](https://matplotlib.org/) for plotting the progression of our metrics over time. This kind of workflow may
 be enough when doing smaller experiments or working alone on a project, but there is no way around using a proper
-experiment tracker and visualizer when doing large scale experiments in collaboration with others. It especially becomes
+experiment tracker and visualizer when doing large-scale experiments in collaboration with others. It especially becomes
 important when you want to compare performance between different runs.
 
 There exist many tools for logging your experiments, with some of them being:
@@ -190,9 +190,9 @@ There exist many tools for logging your experiments, with some of them being:
 * [Neptune](https://neptune.ai/)
 * [Weights and Bias](https://wandb.ai/site)
 
-All of the frameworks offers many of the same functionalities, you can see a (bias) review
+All of the frameworks offer many of the same functionalities, you can see a (biased) review
 [here](https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/). We are going to use
-Weights and Bias (wandb), as it support everything we need in this course. Additionally, it is an excellent tool for
+Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an excellent tool for
 collaboration and sharing of results.
 
 <figure markdown>
@@ -229,23 +229,23 @@ metrics. This allows for better iteration of models and training procedure.
         api_key = os.getenv("WANDB_API_KEY")
         ```
 
-2. Next install wandb on your laptop
+2. Next install wandb on your laptop.
 
     ```bash
     pip install wandb
     ```
 
-3. Now connect to your wandb account
+3. Now connect to your wandb account.
 
     ```bash
     wandb login
     ```
 
-    you will be asked to provide the 40 length API key. The connection should be remain open to the wandb server
-    even when you close the terminal, such that you do not have to login each time. If using `wandb` in a notebook
+    You will be asked to provide the length-40 API key. The connection should remain open to the wandb server
+    even when you close the terminal, such that you do not have to log in each time. If using `wandb` in a notebook
     you need to manually close the connection using `wandb.finish()`.
 
-4. We are now ready for incorporating `wandb` into our code. We are going to continue development on our corrupt MNIST
+4. We are now ready to incorporate `wandb` into our code. We are going to continue development on our corrupt MNIST
     codebase from the previous sessions. For help, we recommend looking at this
     [quickstart](https://docs.wandb.ai/quickstart) and this [guide](https://docs.wandb.ai/guides/integrations/pytorch)
     for PyTorch applications. You first job is to alter your training script to include `wandb` logging, at least for
@@ -257,17 +257,17 @@ metrics. This allows for better iteration of models and training procedure.
         --8<-- "s4_debugging_and_logging/exercise_files/weights_and_bias_solution.py"
         ```
 
-    1. After running your model, checkout the webpage. Hopefully you should be able to see at least one run with
+    1. After running your model, check out the webpage. Hopefully you should be able to see at least one run with
         something logged.
 
-    2. Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
-        cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image` etc. depending
+    2. Now log something other than scalar values. This could be an image, a histogram or a matplotlib figure. In all
+        cases the logging is still going to use `wandb.log` but you need extra calls to `wandb.Image`, etc. depending
         on what you choose to log.
 
         ??? success "Solution"
 
-            In this solution we log the input images to the model every 100 step. Additionally, we also log a histogram
-            of the gradients to inspect if the model is converging. Finally, we create a ROC curve which is a matplotlib
+            In this solution we log the input images to the model every 100 steps. Additionally, we also log a histogram
+            of the gradients to inspect if the model is converging. Finally, we create an ROC curve which is a matplotlib
             figure and log that as well.
 
             ```python linenums="1" title="train.py"
@@ -275,7 +275,7 @@ metrics. This allows for better iteration of models and training procedure.
             ```
 
     3. Finally, we want to log the model itself. This is done by saving the model as an artifact and then logging the
-        artifact. You can read much more about what artifacts are [here](https://docs.wandb.ai/guides/artifacts) but
+        artifact. You can read much more about what artifacts are [here](https://docs.wandb.ai/guides/artifacts), but
         they are essentially one or more files logged together with runs that can be versioned and equipped with
         metadata. Log the model after training and see if you can find it in the wandb dashboard.
 
@@ -294,23 +294,23 @@ metrics. This allows for better iteration of models and training procedure.
             ![Image](../figures/wandb_artifact.png){ width="600" }
             </figure>
 
-5. Weights and bias was created with collaboration in mind and lets therefore share our results with others.
+5. Weights and bias was created with collaboration in mind and let's therefore share our results with others.
 
-    1. Lets create a report that you can share. Click the **Create report** button (upper right corner when you are in
+    1. Let's create a report that you can share. Click the **Create report** button (upper right corner when you are in
         a project workspace) and include some of the graphs/plots/images that you have generated in the report.
 
-    2. Make the report shareable by clicking the *Share* button and create *view-only-link*. Send a link to your report
+    2. Make the report shareable by clicking the *Share* button and create a *view-only-link*. Send a link to your report
         to a group member, fellow student or a friend. In the worst case that you have no one else to share with you can
-        send a link to my email `nsde@dtu.dk`, so I can checkout your awesome work 😃
+        send a link to my email `nsde@dtu.dk`, so I can check out your awesome work 😃
 
-6. When calling `wandb.init` you can provide many additional argument. Some of the most important are
+6. When calling `wandb.init` you can provide many additional arguments. Some of the most important are
 
     * `project`
     * `entity`
     * `job_type`
 
     Make sure you understand what these arguments do and try them out. It will come in handy for your group work as they
-    essentially allows multiple users to upload their own runs to the same project in `wandb`.
+    essentially allow multiple users to upload their own runs to the same project in `wandb`.
 
     ??? success "Solution"
 
@@ -325,7 +325,7 @@ metrics. This allows for better iteration of models and training procedure.
         ![Image](../figures/wandb_job_type.png){ width="600" }
         </figure>
 
-7. Wandb also comes with build in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
+7. Wandb also comes with a built-in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
     which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
     sweep in Wandb. You at least need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
     in your code on an appropriate value.
@@ -336,10 +336,10 @@ metrics. This allows for better iteration of models and training procedure.
 
         ??? success "Solution"
 
-            The `sweep.yaml` file will depend on kind of hyperparameters your model accepts as arguments and how they
+            The `sweep.yaml` file will depend on the kind of hyperparameters your model accepts as arguments and how they
             are passed to the model. For this solution we assume that the model accepts the hyperparameters `lr`,
             `batch_size` and `epochs` and that they are passed as `--args` (with hyphens) (1) e.g. this would be how we
-            run the script
+            run the script:
             {.annotate}
 
             1. :man_raising_hand: If the script you want to run hyperparameter sweeping is configured using
@@ -380,7 +380,7 @@ metrics. This allows for better iteration of models and training procedure.
         wandb sweep configs/sweep.yaml
         ```
 
-        this will output a sweep id that you need to use in the next step.
+        This will output a sweep id that you need to use in the next step.
 
     3. Finally, you need to run the sweep using the `wandb agent` command:
 
@@ -410,7 +410,7 @@ metrics. This allows for better iteration of models and training procedure.
 
             1. Sort the runs based on what metric you are interested in, thereby quickly finding the best runs.
             2. Look at the parallel coordinates plot to see if there are any tendencies in the hyperparameters that
-                gives the best results.
+                give the best results.
             3. Look at the importance/correlation plot to see what hyperparameters have the largest impact on the
                 results.
 
@@ -422,7 +422,7 @@ metrics. This allows for better iteration of models and training procedure.
     <figure markdown>
     ![Image](../figures/model_registry.png){ width="600" }
     <figcaption>
-    The model registry is in general a repository of a teams trained models where ML practitioners publish candidates
+    The model registry is in general a repository of a team's trained models where ML practitioners publish candidates
     for production and share them with others. Figure from [wandb](https://docs.wandb.ai/guides/model_registry).
     </figure>
 
@@ -431,7 +431,7 @@ metrics. This allows for better iteration of models and training procedure.
         register them in the model registry. Make sure you have logged at least one model as an artifact before
         continuing.
 
-    2. Next lets create a registry. Go to the model registry tab (left pane, visible from your homepage) and then click
+    2. Next let's create a registry. Go to the model registry tab (left pane, visible from your homepage) and then click
         the `New Registered Model` button. Fill out the form and create the registry.
 
         <figure markdown>
@@ -441,7 +441,7 @@ metrics. This allows for better iteration of models and training procedure.
     3. When then need to link our artifact to the model registry we just created. We can do this in two ways: either
         through the web interface or through the `wandb` API. In the web interface, go to the artifact you want to link
         to the model registry and click the `Link to registry` button (upper right corner). If you want to use the
-        API you need to call the [link method](https://docs.wandb.ai/ref/python/artifact#link) on a artifact object.
+        API you need to call the [link method](https://docs.wandb.ai/ref/python/artifact#link) on an artifact object.
 
         ??? success "Solution"
 
@@ -474,13 +474,13 @@ metrics. This allows for better iteration of models and training procedure.
         Try running this code with the appropriate values for `<entity>`, `<my_registry_name>`, `<version>` and
         `<artifact_dir>`. Make sure that you can load the model and that it is the same as the one you trained.
 
-    5. Each model in the registry have at least one alias, which is the version of the model. The most recently added
-        model also receives the alias `latest`. Aliases are great for indicating where in workflow a model is, e.g. if
+    5. Each model in the registry has at least one alias, which is the version of the model. The most recently added
+        model also receives the alias `latest`. Aliases are great for indicating where in the workflow a model is, e.g. if
         it is a candidate for production or if it is a model that is still being developed. Try adding an alias to one
         of your models in the registry.
 
     6. (Optional) A model always corresponds to an artifact, and artifacts can contain metadata that we can use to
-        automate the process of registering models. We could for example imaging that we at the end of each week run
+        automate the process of registering models. We could for example imagine that we at the end of each week run
         a script that registers the best model from the week. Try creating a small script using the `wandb` API that
         goes over a collection of artifacts and registers the best one.
 
@@ -492,14 +492,14 @@ metrics. This allows for better iteration of models and training procedure.
 
 9. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
     training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
-    previous exercise, it needs to happen automatically. Let's therefore look into how we can do that.
+    previous exercise; it needs to happen automatically. Let's therefore look into how we can do that.
 
-    1. First we need to generate an authentication key, or more precise an API key. This is in general the way any
-        service (like a docker container) can authenticate. Start by going <https://wandb.ai/home>, click your profile
+    1. First we need to generate an authentication key, or more precisely an API key. This is in general the way any
+        service (like a docker container) can authenticate. Start by going to <https://wandb.ai/home>, click your profile
         icon in the upper right corner and then go to `User settings`. Scroll down to the danger zone and generate a
         new API key (if you do not already have one) and finally copy it.
 
-    2. Next create a new docker file called `wandb.docker` and add the following code
+    2. Next create a new dockerfile called `wandb.docker` and add the following code
 
         ```dockerfile
         FROM python:3.11-slim
@@ -520,14 +520,14 @@ metrics. This allows for better iteration of models and training procedure.
         and then build the docker image. These two files are just a very minimal setup to test that we can authenticate
         a docker container with Wandb.
 
-    3. When we want to run the image, what we need to do is including an environment variable that contains the API key
+    3. When we want to run the image, what we need to do is include an environment variable that contains the API key
         we generated. This will then authenticate the docker container with the wandb server:
 
         ```bash
         docker run -e WANDB_API_KEY=<your-api-key> wandb:latest
         ```
 
-        Try running it an confirm that the results are uploaded to the wandb server (1).
+        Try running it and confirm that the results are uploaded to the wandb server (1).
         {.annotate}
 
         1. :man_raising_hand: If you have stored the API key in a `.env` file you can use the `--env-file` flag instead
@@ -537,13 +537,13 @@ metrics. This allows for better iteration of models and training procedure.
 
 That is the module on logging. Please note that at this point in the course you will begin to see some overlap between
 the different frameworks. While we mainly used `hydra` for configuring our Python scripts it can also be used to save
-metrics and hyperparameters similar to how `wandb` can. Similar arguments holds for `dvc` which can also be used to
+metrics and hyperparameters similar to how `wandb` can. Similar arguments hold for `dvc` which can also be used to
 log metrics. In our opinion `wandb` just offers a better experience when interacting with the results after logging.
 We want to stress that the combination of tools presented in this course may not be the best for all your future
-projects, and we recommend finding a setup that fits you. That said, each framework provide specific features
-that the others does not.
+projects, and we recommend finding a setup that works for you. That said, each framework provides specific features
+that the others do not.
 
-Finally, we want to note that we during the course really try to showcase a lot of open source frameworks, Wandb is not
-one. It is free to use for personal usage (with a few restrictions) but for enterprise it does require a license. If you
-are eager to only work with open-source tools we highly recommend trying out [MLFlow](https://mlflow.org/) which offers
+Finally, we want to note that while during the course we really try to showcase a lot of open-source frameworks, Wandb is not
+one. It is free to use for personal usage (with a few restrictions) but for enterprises it does require a license. If you
+are eager to only work with open-source tools we highly recommend trying out [MLFlow](https://mlflow.org/), which offers
 the same overall functionalities as Wandb.
