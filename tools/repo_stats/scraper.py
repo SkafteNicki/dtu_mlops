@@ -90,8 +90,7 @@ app = Typer()
 def main():
     """Main function to scrape the group-repository data."""
     logger.info("Getting group-repository information")
-    if "group_info.csv" not in os.listdir():
-        download_data("group_info.csv")
+    download_data("group_info.csv")
     group_data = load_data("group_info.csv")
     logger.info("Group-repository information loaded successfully")
 
