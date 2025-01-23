@@ -10,7 +10,7 @@ scaling inference is different from scaling data loading and training, mainly du
 single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at
 least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference
 is often not something we do on machines that can perform large computations, as most inference today is actually either
-done on *edge* devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
+done on *edge* devices, e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
 about how we scale inference than just throwing more computing power at it.
 
 In this module, we are going to look at various ways that you can either reduce the size of your model or make your
@@ -27,7 +27,7 @@ but the architecture that you end up choosing may be optimal in terms of perform
 
 The fact is that not all base architectures are created equal, and a 10K parameter model with one architecture can have
 a significantly different inference speed than another 10K parameter model with another architecture. For example,
-consider the figure below which compares an number of models from the
+consider the figure below which compares a number of models from the
 [timm](https://github.com/huggingface/pytorch-image-models) package, colored based on their base architecture. The
 general trend is that the number of images that can be processed by a model per sec (y-axis) is inversely proportional
 to the number of parameters (x-axis). However, we in general see that convolutional base architectures (conv) are more
@@ -47,13 +47,13 @@ architecture. In the exercises below we are going to investigate the inference s
 
 1. Start by checking out this
     [table](https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights)
-    which contains a list of pretrained weights in `torchvision`. Try finding an
+    which contains a list of pretrained weights in `torchvision`. Try finding
 
     * Efficient net
     * Resnet
     * Transformer based
 
-    model that has in the range of 20-30 mio parameters.
+    models that have in the range of 20-30 million parameters.
 
 2. Write a small script that first initializes all models, creates a dummy input tensor of shape [100, 3, 256, 256] and
     then measures the time it takes to do a forward pass on the input tensor. Make sure to do this multiple times to get
@@ -82,16 +82,16 @@ architecture. In the exercises below we are going to investigate the inference s
             print(f"Model {i} took: {(toc - tic) / n_reps}")
         ```
 
-3. Does the results make sense? Based on the above figure we would expect that efficientnet is faster than resnet,
+3. Do the results make sense? Based on the above figure we would expect that efficientnet is faster than resnet,
     which is faster than the transformer based model. Is this also what you are seeing?
 
-4. To figure out why one net is more efficient than another we can try to count the operations each network need to
-    do for inference. A operation here we can define as a
+4. To figure out why one net is more efficient than another we can try to count the operations each network needs to
+    perform for inference. An operation here we can define as a
     [FLOP (floating point operation)](https://en.wikipedia.org/wiki/FLOPS) which is any mathematical operation (such as
     +, -, *, /) or assignment that involves floating-point numbers. Luckily for us someone has already created a python
     package for calculating this in pytorch: [ptflops](https://github.com/sovrasov/flops-counter.pytorch)
 
-    1. Install the package
+    1. Install the package.
 
         ```bash
         pip install ptflops
@@ -117,7 +117,7 @@ architecture. In the exercises below we are going to investigate the inference s
             ```
 
 5. In the table from the initial exercise, you could also see the overall performance of each network on the
-    Imagenet-1K dataset. Given this performance, the inference speed, the flops count what network would you choose
+    Imagenet-1K dataset. Given this performance, the inference speed, the flops count, what network would you choose
     to use in a production setting? Discuss when choosing one over another should be considered.
 
 ## Quantization
@@ -132,21 +132,21 @@ We are essentially taking all continuous signals and converting them into discre
 
 As discussed in this
 [blogpost series](https://devblog.pytorchlightning.ai/benchmarking-quantized-mobile-speech-recognition-models-with-pytorch-lightning-and-grid-9a69f7503d07),
-while `float` (32-bit) is the primarily used precision in machine learning because is strikes a good balance between
-memory consumption, precision and computational requirement it does not mean that during inference we can take
+while `float` (32-bit) is the primarily used precision in machine learning because it strikes a good balance between
+memory consumption, precision and computational requirements, it does not mean that during inference we can't take
 advantage of quantization to improve the speed of our model. For instance:
 
-* Floating-point computations are slower than integer operations
+* Floating-point computations are slower than integer operations.
 
-* Recent hardware have specialized hardware for doing integer operations
+* Recent hardware have specialized hardware for doing integer operations.
 
 * Many neural networks are actually not bottlenecked by how many computations they need to do but by how fast we can
-    transfer data e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit
-    integers vs 32-bit floats means that we can approximately move data around 4 times as fast.
+    transfer data, e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit
+    integers vs. 32-bit floats means that we can approximately move data around 4 times as fast.
 
-* Storing models in integers instead of floats save us approximately 75% of the ram/harddisk space whenever we save
+* Storing models in integers instead of floats saves us approximately 75% of the ram/harddisk space whenever we save
     a checkpoint. This is especially useful in relation to deploying models using docker (as you hopefully remember) as
-    it will lower the size of our docker images.
+    it will decrease the size of our docker images.
 
 But how do we convert between floats and integers in quantization? In most cases we often use a
 *linear affine quantization*:
@@ -155,7 +155,7 @@ $$
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$
 
-where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The
+where $s$ is a scale and $z$ is the so-called zero point. But how does that relate to doing inference in a neural network? The
 figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
 computations in quantized format.
 
@@ -170,39 +170,39 @@ computations in quantized format.
 
 ### ❔ Exercises
 
-1. Lets look at how quantized tensors look in PyTorch
+1. Let's look at how quantized tensors look in PyTorch.
 
-    1. Start by creating a tensor that contains both random numbers
+    1. Start by creating a tensor that contains both random numbers.
 
     2. Next call the `torch.quantize_per_tensor` function on the tensor. What does the quantized tensor
-        look like? How does the values relate to the `scale` and `zero_point` arguments.
+        look like? How do the values relate to the `scale` and `zero_point` arguments?
 
     3. Finally, try to call the `.dequantize()` method on the tensor. Do you get a tensor back that is
-        close to what you initially started out with.
+        close to what you initially started out with?
 
 2. As you hopefully saw in the first exercise we are going to perform a number of rounding errors when
-    doing quantization and naively we would expect that this would accumulate and lead to a much worse model.
+    doing quantization and naively we would expect that these would accumulate and lead to a much worse model.
     However, in practice we observe that quantization still works, and we actually have a mathematically
     sound reason for this. Can you figure out why quantization still works with all the small rounding
     errors? HINT: it has to do with the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
-3. Lets move on to quantization of our model. Follow this
+3. Let's move on to quantization of our model. Follow this
     [tutorial](https://pytorch.org/docs/stable/quantization.html) from PyTorch on how to do quantization. The goal is
     to construct a model `model_fc32` that works on normal floats and a quantized version `model_int8`. For simplicity
     you can just use one of the models from the tutorial.
 
-4. Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also
+4. Let's try to benchmark our quantized model and see if all the trouble that we went through actually paid off. Also
     try to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an
     improvement, explain why that may be.
 
 ## Pruning
 
-Pruning is another way for reducing the model size and maybe improve performance of our network. As the figure below
+Pruning is another way to reduce the model size and maybe improve the performance of our network. As the figure below
 illustrates, in pruning we are simply removing weights in our network that we do not consider important for the task
 at hand. By removing, we here mean that the weight gets set to 0. There are many ways to determine if a weight is
-important but the general rule that the importance of a weight is proportional to the magnitude of a given weight. This
-makes intuitively sense, since weights in all linear operations (fully connected or convolutional) are always
-multiplied onto the incoming value, thus a small weight means a small outgoing activation.
+important but the general rule is that the importance of a weight is proportional to the magnitude of a given weight. This
+intuitively makes sense, since weights in all linear operations (fully connected or convolutional) are always
+multiplied by the incoming value, thus a small weight means a small outgoing activation.
 
 <figure markdown>
 ![Image](../figures/pruning.png){ width="800" }
@@ -216,10 +216,10 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s9_scalable_applications/exercise_files/lenet.py).
     Open and run it just to make sure that you know the network.
 
-2. PyTorch have already some pruning methods implemented in its package.
+2. PyTorch already has some pruning methods implemented in its package.
     Import the `prune` module from `torch.nn.utils` in the script.
 
-3. Try to prune the weights of the first convolutional layer by calling
+3. Try to prune the weights of the first convolutional layer by calling.
 
     ```python
     prune.random_unstructured(module_1, name="weight", amount=0.3)  # (1)!
@@ -228,14 +228,14 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     1. :man_raising_hand: You can read about the prune method
         [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
 
-    Try printing the `named_parameters`, `named_buffers` before and after the module is pruned. Can you explain the
-    difference and what is the connection to the `module_1.weight` attribute.
+    Try printing `named_parameters` and `named_buffers` before and after the module is pruned. Can you explain the
+    difference and what the connection is to the `module_1.weight` attribute?
 
 4. Try pruning the bias of the same module this time using the `l1_unstructured` function from the pruning module. Again
-    check the  `named_parameters`, `named_buffers` argument to make sure you understand the difference between L1 pruning
+    check the `named_parameters` and `named_buffers` arguments to make sure you understand the difference between L1 pruning
     and unstructured pruning.
 
-5. Instead of pruning only a single module in the model lets try pruning the whole model. To do this we just need to
+5. Instead of pruning only a single module in the model let's try pruning the whole model. To do this we just need to
     iterate over all `named_modules` in the model like this:
 
     ```python
@@ -243,7 +243,7 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
         prune.l1_unstructured(module, name='weight', amount=0.2)
     ```
 
-    But what if we wanted to apply different pruning to different layers. Implement a pruning scheme where
+    But what if we wanted to apply different pruning to different layers? Implement a pruning scheme where
 
     * The weights of convolutional layers are L1 pruned with `amount=0.2`
     * The weights of linear layers are unstructured pruned with `amount=0.4`
@@ -251,12 +251,12 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     Print `print(dict(new_model.named_buffers()).keys())` after the pruning to confirm that all weights have been
     correctly pruned.
 
-6. The pruning we have looked at until know have only been local in nature e.g. we have applied the pruning
+6. The pruning we have looked at until now has only been local in nature, i.e., we have applied the pruning
     independently for each layer, not accounting globally for how much we should actually prune. As you may realize this
-    can quickly lead to an network that is pruned too much. Instead, the more common approach is too prune globally
+    can quickly lead to a network that is pruned too much. Instead, the more common approach is to prune globally
     where we remove the smallest `X` amount of connections:
 
-    1. Start by creating a tuple over all the weights with the following format
+    1. Start by creating a tuple over all the weights with the following format:
 
         ```python
         parameters_to_prune = (
@@ -267,9 +267,9 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
         ```
 
         The tuple needs to have length 5. Challenge: Can you construct the tuple using `for` loops, such that the code
-        works for arbitrary size networks?
+        works for arbitrary-size networks?
 
-    2. Next prune using the `global_unstructured` function to globally prune the tuple of parameters
+    2. Next prune using the `global_unstructured` function to globally prune the tuple of parameters.
 
         ```python
         prune.global_unstructured(
@@ -279,9 +279,9 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
         )
         ```
 
-    3. Check that the amount that have been pruned is actually equal to the 20% specified in the pruning. We provide
-        the following function that for a given submodule (for example `model.conv1`) computes the amount of pruned
-        weights
+    3. Check that the amount that has been pruned is actually equal to the 20% specified in the pruning. We provide
+        the following function that for a given submodule (for example `model.conv1`) computes the number of pruned
+        weights.
 
         ```python
         def check_prune_level(module: nn.Module):
@@ -289,14 +289,14 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
             print(f"Sparsity level of module {sparsity_level}")
         ```
 
-7. With a pruned network we really want to see if all our effort actually ended up with a network that is faster and/or
+7. With a pruned network we really want to see if all our effort actually resulted in a network that is faster and/or
     smaller in memory. Do the following to the globally pruned network from the previous exercises:
 
     1. First we need to make the pruning of our network permanent. Right now it is only semi-permanent as we are still
         keeping a copy of the original weights in memory. Make the change permanent by calling `prune.remove` on every
         pruned module in the model. Hint: iterate over the `parameters_to_prune` tuple.
 
-    2. Next try to measure the time of a single inference (repeated 100 times) for both the pruned and non-pruned network
+    2. Next try to measure the time of a single inference (repeated 100 times) for both the pruned and non-pruned networks.
 
         ```python
         import time
@@ -307,9 +307,9 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
         print(toc - tic)
         ```
 
-        Is the pruned network actually faster? If not can you explain why?
+        Is the pruned network actually faster? If not, can you explain why?
 
-    3. Next lets measure the size of our network (called `pruned_network`) and a freshly initialized network (called
+    3. Next let's measure the size of our network (called `pruned_network`) and a freshly initialized network (called
         `network`):
 
         ```python
@@ -317,25 +317,25 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
         torch.save(network.state_dict(), 'network.pt')
         ```
 
-        Lookup the size of each file. Are the pruned network actually smaller? If not can you explain why?
+        Look up the size of each file. Is the pruned network actually smaller? If not, can you explain why?
 
     4. Repeat the last exercise, but this time start by converting all pruned weights to sparse format first by calling
         the `.to_sparse()` method on each pruned weight. Is the saved model smaller now?
 
-This ends the exercises on pruning. As you probably realized in the last couple of exercises, then pruning does not
-guarantee speedups out of the box. This is because linear operations in PyTorch does not handle sparse structures out
+This ends the exercises on pruning. As you probably realized in the last couple of exercises, pruning does not
+guarantee speedups out of the box. This is because linear operations in PyTorch do not handle sparse structures out
 of the box. To actually get speedups we would need to deep dive into the
-[sparse tensor operations](https://pytorch.org/docs/stable/sparse.html), which again does not even guarantee that a
+[sparse tensor operations](https://pytorch.org/docs/stable/sparse.html), which again does not even guarantee a
 speedup because the performance of these operations depends on the sparsity structure of the pruned weights.
 Investigating this is out of scope for these exercises, but we highly recommend checking it out if you are interested
 in sparse networks.
 
 ## Knowledge distillation
 
-Knowledge distillation is somewhat similar to pruning, in the sense that it tries to find a smaller model that can
+Knowledge distillation is somewhat similar to pruning in the sense that it tries to find a smaller model that can
 perform equally well as a large model, however it does so in a completely different way. Knowledge distillation is a
 *model compression* technique that builds on the work of
-[Bucila et al.](https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf) in which we try do distill/compress the
+[Bucila et al.](https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf) in which we try to distill/compress the
 knowledge of a large complex model (also called the teacher model) into a simpler model (also called the student model).
 
 The best known example of this is the [DistilBERT model](https://arxiv.org/abs/1910.01108). The DistilBERT model is a
@@ -350,11 +350,11 @@ compared to other models developed at the same time.
 
 Knowledge distillation works by assuming we have a big teacher that is already performing well that we want to compress.
 By running our training set through our large model we get a softmax distribution for each and every training sample.
-The goal of the students, is to both match the original labels of the training data but also match the softmax
-distribution of the teacher model. The intuition behind doing this, is that teacher model needs to be more complex to
-learn the complex inter-class relasionship from just (one-hot) labels. The student on the other hand gets directly feed
-with softmax distributions from the teacher that explicit encodes this inter-class relasionship and thus does not need
-the same capasity to learn the same as the teacher.
+The goal of the student is to both match the original labels of the training data but also match the softmax
+distribution of the teacher model. The intuition behind doing this is that the teacher model needs to be more complex to
+learn the complex inter-class relationship from just (one-hot) labels. The student on the other hand gets directly fed
+with softmax distributions from the teacher that explicitly encodes this inter-class relasionship and thus does not need
+the same capacity to learn as the teacher.
 
 <figure markdown>
 ![Image](../figures/knowledge_distillation.png){ width="800" }
@@ -363,9 +363,9 @@ the same capasity to learn the same as the teacher.
 
 ### ❔ Exercises
 
-Lets try implementing model distillation ourself. We are going to see if we can achieve this on the
-[cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that exercise below can take quite long time to
-finish because it involves training multiple networks and therefore involve some waiting.
+Let's try implementing model distillation ourselves. We are going to see if we can accomplish this on the
+[cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that the exercises below can take quite a long time to
+finish because they involve training multiple networks and therefore involve some waiting.
 
 1. Start by install the `transformers` and `datasets` packages from Huggingface
 
@@ -374,7 +374,7 @@ finish because it involves training multiple networks and therefore involve some
     pip install datasets
     ```
 
-    which we are going to download the cifar10 dataset and a teacher model.
+    from which we are going to download the cifar10 dataset and a teacher model.
 
 2. Next download the cifar10 dataset
 
@@ -383,7 +383,7 @@ finish because it involves training multiple networks and therefore involve some
     dataset = load_dataset("cifar10")
     ```
 
-3. Next lets initialize our teacher model. For this we consider a large transformer based model:
+3. Next let's initialize our teacher model. For this we consider a large transformer-based model:
 
     ```python
     from transformers import AutoFeatureExtractor, AutoModelForImageClassification
