@@ -14,10 +14,10 @@ In this set of exercises, we are going to get more familiar with using some of t
 The most basic service of any cloud provider is the ability to create and run virtual machines.
 In GCP this service is called [Compute Engine API](https://cloud.google.com/compute/docs/reference/rest/v1).
 A virtual machine allows you to essentially run an operating system that behaves like a completely separate computer.
-There are many reasons why one to use virtual machines:
+There are many reasons for using virtual machines:
 
 * Virtual machines allow you to scale your operations, essentially giving you access to infinitely many individual
-    computers
+    computers.
 
 * Virtual machines allow you to use large-scale hardware. For example, if you are developing a deep learning model on
     your laptop and want to know the inference time for a specific hardware configuration, you can just create a virtual
@@ -51,7 +51,7 @@ We are now going to start using the cloud.
 
         In general, the price of a virtual machine is determined by the class of hardware attached to it. Higher class
         CPUs and GPUs mean higher prices. Additionally, the amount of memory and disk space also affects the price.
-        Finally, to location of the virtual machine also affects the price.
+        Finally, the location of the virtual machine also affects the price.
 
 3. After figuring this out, create a `e2-medium` instance (leave the rest configured as default). Before clicking the
     `Create` button make sure to check the `Equivalent code` button. You should see a very long command that you
@@ -63,7 +63,7 @@ We are now going to start using the cloud.
     gcloud compute instances list
     ```
 
-    you should hopefully see the instance you have just created.
+    You should hopefully see the instance you have just created.
 
 5. You can start a terminal directly by typing:
 
@@ -71,7 +71,7 @@ We are now going to start using the cloud.
     gcloud compute ssh --zone <zone> <name> --project <project-id>
     ```
 
-    You can always see the exact command that you need to run to `ssh` to a VM by selecting the
+    You can always see the exact command that you need to run to `ssh` into a VM by selecting the
     `View gcloud command` option in the Compute Engine overview (see image below).
 
     <figure markdown>
@@ -91,7 +91,7 @@ We are now going to start using the cloud.
         gcloud container images list --repository="gcr.io/deeplearning-platform-release"
         ```
 
-        what does the output show?
+        What does the output show?
 
         ??? success "Solution"
 
@@ -114,7 +114,7 @@ We are now going to start using the cloud.
         ```
 
         You can find more info [here](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on what
-        `<image-family>` should have as value and what extra argument you need to add if you want to run on GPU (if you
+        `<image-family>` should be and what extra argument you need to add if you want to run on GPU (if you
         have access).
 
         ??? success "Solution"
@@ -141,7 +141,7 @@ We are now going to start using the cloud.
                     --maintenance-policy TERMINATE
                 ```
 
-    3. `ssh` to the VM as one of the previous exercises. Confirm that the container indeed contains
+    3. `ssh` into the VM as in one of the previous exercises. Confirm that the container indeed contains
         both a Python installation and PyTorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
 
@@ -156,7 +156,7 @@ We are now going to start using the cloud.
     ![Image](../figures/gcp_terminal.png){ width="800"  }
     </figure>
 
-    Try out launching this and run some of the commands from the previous exercises.
+    Try launching this and run some of the commands from the previous exercises.
 
 8. Finally, we want to make sure that we do not forget to stop our VMs. VMs are charged by the minute, so even if you
     are not using them you are still paying for them. Therefore, you must remember to stop your VMs when you are not
@@ -188,8 +188,8 @@ reason is that we need to use an API instead which is offered through GCP.
 
 We are going to follow the instructions from this [page](https://dvc.org/doc/user-guide/setup-google-drive-remote)
 
-1. Let's start by creating a data storage. On the GCP start page, in the sidebar, click on the `Cloud Storage`.
-    On the next page click the `Create bucket`:
+1. Let's start by creating data storage. On the GCP start page, in the sidebar, click on `Cloud Storage`.
+    On the next page click `Create bucket`:
 
     <figure markdown>
     ![Image](../figures/gcp5.PNG){ width="800" }
@@ -206,14 +206,14 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     ```
 
     [gsutil](https://cloud.google.com/storage/docs/gsutil) is a command line tool that allows you to create, upload,
-    download, list, move, rename and delete objects in the cloud storage. For example, you can upload a file to the
+    download, list, move, rename and delete objects in cloud storage. For example, you can upload a file to
     cloud storage by running:
 
     ```bash
     gsutil cp <file> gs://<bucket-name>
     ```
 
-3. Next, we need the Google storage extension for `dvc`
+3. Next, we need the Google storage extension for `dvc`.
 
     ```bash
     pip install dvc-gs
@@ -233,12 +233,12 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     ```
 
     This will change the default way that `dvc` handles data. Instead of just storing the latest version of the data as
-    [content-addressable storage](https://dvc.org/doc/user-guide/project-structure/internal-files#structure-of-the-cache-directory)
+    [content-addressable storage](https://dvc.org/doc/user-guide/project-structure/internal-files#structure-of-the-cache-directory),
     it will now store the data as it looks in our local repository, which allows us to not only use `dvc` to download
     our data.
 
 5. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file.
-    Finally, push data to the cloud
+    Finally, push data to the cloud.
 
     ```bash
     dvc push --no-run-cache  # (1)!
@@ -248,7 +248,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
         supported by the Google Cloud storage.
 
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
-    is to delete the `.dvc/cache` folder that should be locally on your laptop and afterward do a
+    is to delete the `.dvc/cache` folder that should be on your laptop and afterward do a
 
     ```bash
     dvc pull --no-run-cache
@@ -258,7 +258,7 @@ This setup should work when trying to access the data from your laptop, which we
 module. However, how can you access the data from a virtual machine, inside a docker container or from a different
 laptop? We in general recommend two ways:
 
-* You can make the bucket publicly accessible e.g. no authentication is needed. That means that anyone with the URL
+* You can make the bucket publicly accessible, i.e. no authentication is needed. That means that anyone with the URL
     to the data can access it. This is the easiest way to do it, but also the least secure. You can read more about
     how to make your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
 
@@ -319,7 +319,7 @@ the corresponding `requirements.txt` file and `Dockerfile`.
 The docker images for this application are therefore going to be substantially faster to build and smaller in size than
 the images we are used to that use PyTorch.
 
-1. Start by enabling the service: `Google Artifact Registry API` and `Google Cloud Build API`. This can be
+1. Start by enabling the services `Google Artifact Registry API` and `Google Cloud Build API`. This can be
     done through the website (by searching for the services) or can also be enabled from the terminal:
 
     ```bash
@@ -327,7 +327,7 @@ the images we are used to that use PyTorch.
     gcloud services enable cloudbuild.googleapis.com
     ```
 
-2. The first step is creating an artifact repository in the cloud. You can either do this through the UI or using
+2. The first step is creating an artifact repository in the cloud. You can either do this through the UI or by using
     `gcloud` in the command line.
 
     === "UI"
@@ -441,14 +441,14 @@ the images we are used to that use PyTorch.
         ```
 
         This command will submit a build to the cloud build service using the configuration file `cloudbuild.yaml` in
-        the current directory. The `.` specifies that the build context is the current directory. The build context are
-        all the files that are uploaded to the cloud build service, thus if your Dockerfile have `COPY` commands that
+        the current directory. The `.` specifies that the build context is the current directory. The build context is
+        all the files that are uploaded to the cloud build service, thus if your Dockerfile has `COPY` commands that
         copy files from the local directory to the container, these files need to be in the build context. Do note that
         by default all files in your `.gitignore` file are excluded from the build context, but you can override this
         by using the `--ignore-file` flag, which you can read more about
         [here](https://cloud.google.com/sdk/gcloud/reference/builds/submit).
 
-5. Instead of relying on manually submitting builds, we can setup the building process as continuous integration such
+5. Instead of relying on manually submitting builds, we can setup the build process as continuous integration such
     that it is triggered every time we push code to the repository. This is done by setting up a
     [trigger](https://cloud.google.com/build/docs/triggers) in the GCP console. From the GCP homepage, navigate to the
     triggers panel:
@@ -457,11 +457,11 @@ the images we are used to that use PyTorch.
     ![Image](../figures/gcp_trigger_1.png){ width="800"  }
     </figure>
 
-    Click on the manage repositories.
+    Click on manage repositories.
 
-    1. From there, click the `Connect Repository` and go through the steps of authenticating your GitHub profile with
-        GCP and choose the repository that you want to setup build triggers. For now, skip the
-        `Create a trigger (optional)` part by pressing `Done` in the end.
+    1. From there, click `Connect Repository` and go through the steps of authenticating your GitHub profile with
+        GCP and choose the repository that you want to set up build triggers for. For now, skip the
+        `Create a trigger (optional)` part by pressing `Done` at the end.
 
         <figure markdown>
         ![Image](../figures/gcp_trigger_2.png){ width="800"  }
@@ -509,12 +509,12 @@ the images we are used to that use PyTorch.
     ```
 
     where you need to replace `<region>` with the region you are using. Do note you need to have `docker` actively
-    running in the background, as any other time you want to use `docker`.
+    running in the background, just like any other time you want to use `docker`.
 
 7. Automatization through the cloud is in general the way to go, but sometimes you may want to manually create images
     and push them to the registry. Figure out how to push an image to your `Artifact Registry`. For simplicity, you can
     just push the `busybox` image you downloaded during the initial docker exercises. This
-    [page](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling) should help you with exercise.
+    [page](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling) should help you with the exercise.
 
     ??? success "Solution"
 
@@ -555,7 +555,7 @@ the images we are used to that use PyTorch.
           test:
         ```
 
-        we now want to add a job that triggers the build process in GCP. How can you make the `build` job depend on
+        We now want to add a job that triggers the build process in GCP. How can you make the `build` job depend on
         the `test` job? Hint: Relevant
         [documentation](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow).
 
@@ -580,7 +580,7 @@ the images we are used to that use PyTorch.
                 ...
             ```
 
-    3. Additionally, we probably only want to build the image if the job is running on our main branch e.g. not part
+    3. Additionally, we probably only want to build the image if the job is running on our main branch, i.e. not part
         of a pull request. How can you make the `build` job only run on the main branch?
 
         ??? success "Solution"
@@ -605,9 +605,9 @@ the images we are used to that use PyTorch.
 
     4. Finally, we need to add the steps to submit the build job to GCP. You need four steps:
 
-        * Checkout the code
+        * Check out the code
         * Authenticate with GCP
-        * Setup gcloud
+        * Set up gcloud
         * Submit the build
 
         How can you do this? Hint: For the first two steps these two GitHub actions can be useful:
@@ -658,8 +658,8 @@ the images we are used to that use PyTorch.
 
         You have probably already encountered substitutions like `$PROJECT_ID` in the `cloudbuild.yaml` file. These are
         substitutions that are automatically replaced by GCP. Other commonly used are `$BUILD_ID`, `$PROJECT_NUMBER`
-        and `$LOCATION`. You can find a full list of built.in substitutions
-        [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_default_substitutions)
+        and `$LOCATION`. You can find a full list of built-in substitutions
+        [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_default_substitutions).
 
     ??? success "Solution"
 
@@ -690,9 +690,9 @@ the images we are used to that use PyTorch.
           _IMAGE_NAME: 'my_image'
         ```
 
-        Do note that user substitutions are prefixed with an underscore `_` to distinguish them from built-in. You can
+        Do note that user substitutions are prefixed with an underscore `_` to distinguish them from built-in ones. You can
         read more
-        [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_user-defined_substitutions)
+        [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_user-defined_substitutions).
 
     1. How would you provide the value for the `_IMAGE_NAME` variable to the `gcloud builds submit` command?
 
@@ -717,20 +717,20 @@ experiments).
 We are going to check out two ways of running our experiments. First, we are going to return to the Compute Engine
 service because it gives the most simple form of scaling of experiments. That is: we create a VM with an appropriate
 docker image, start it, log into the VM and run our experiments. Most people can run a couple of experiments in parallel
-this way. However, what if there was an abstract layer that automatically created VM for us, launched our experiments
+this way. However, what if there was an abstract layer that automatically created a VM for us, launched our experiments
 and then closed the VM afterwards?
 
-This is where [Vertex AI](https://cloud.google.com/vertex-ai/docs) service comes into play. This is a dedicated service
-for handling ML models in GCP in the cloud. Vertex AI is in principal and end-to-end service that can take care of
-everything machine learning related in the cloud. In this course, we are primarily focused on just the training of our
-models, and then use other services for different parts of our pipeline.
+This is where the [Vertex AI](https://cloud.google.com/vertex-ai/docs) service comes into play. This is a dedicated service
+for handling ML models in GCP in the cloud. Vertex AI is in principal an end-to-end service that can take care of
+everything machine learning-related in the cloud. In this course, we are primarily focused on just the training of our
+models, and then use other services for other parts of our pipeline.
 
 ### ❔ Exercises
 
 1. Let's start by going through how we could train a model using PyTorch using the Compute Engine service:
 
     1. Start by creating an appropriate VM. If you want to start a VM that has PyTorch pre-installed with only CPU
-        support you can run the following command
+        support you can run the following command:
 
         ```bash
         gcloud compute instances create <instance-name> \
@@ -739,7 +739,7 @@ models, and then use other services for different parts of our pipeline.
             --image-project=deeplearning-platform-release
         ```
 
-        alternatively, if you have access to GPU in your GCP account you could start a VM in the following way
+        Alternatively, if you have access to GPU in your GCP account you could start a VM in the following way:
 
         ```bash
         gcloud compute instances create <instance-name> \
@@ -751,8 +751,8 @@ models, and then use other services for different parts of our pipeline.
             --maintenance-policy TERMINATE
         ```
 
-    2. Next login into your newly created VM. You can either open an `ssh` terminal in the cloud console or run the
-        following command
+    2. Next log into your newly created VM. You can either open an `ssh` terminal in the cloud console or run the
+        following command:
 
         ```bash
         gcloud compute ssh <instance-name>
@@ -772,7 +772,7 @@ models, and then use other services for different parts of our pipeline.
         download data, and run code. Try doing this to make sure you can train a model.
 
 2. The above exercises should hopefully have convinced you that it can be hard to scale experiments using the Compute
-    Engine service. The reason is that you need to manually start, setup and stop a separate VM for each experiment.
+    Engine service. The reason is that you need to manually start, set up and stop a separate VM for each experiment.
     Instead, let's try to use the Vertex AI service to train our models.
 
     1. Start by enabling it by searching for `Vertex AI` in the cloud console by going to the service or by running the
@@ -783,7 +783,7 @@ models, and then use other services for different parts of our pipeline.
         ```
 
     2. The way we are going to use Vertex AI is to create custom jobs because we have already developed docker
-        containers that contain everything to run our code. Thus the only command that we need to use is
+        containers that contain everything to run our code. Thus the only command that we need to use is the
         `gcloud ai custom-jobs create` command. An example here would be:
 
         ```bash
@@ -826,21 +826,21 @@ models, and then use other services for different parts of our pipeline.
                     imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
             ```
 
-            In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
+            In this case we are requesting an Nvidia Tesla T4 GPU. This will only work if you have a quota for
             allocating this type of GPU in the Vertex AI service. To check your quota, go into
             [quotas](https://console.cloud.google.com/iam-admin/quotas) and search for `custom_model_training_nvidia_t4`
             in the `Filter` field to see the quota. If not, you can try to request a quota increase. Remember that it is
-            not enough to just request a quota for the GPU, the request needs to be approved by Google before you can
+            not enough to just request a quota for the GPU; the request needs to be approved by Google before you can
             use it.
 
-        you can read more about the configuration formatting
+        You can read more about the configuration formatting
         [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
         and the different types of machines
         [here](https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types). Try to execute a job
         using the `gcloud ai custom-jobs create` command. For additional documentation you can look at
         [the documentation on the command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create)
         and [this page](https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging) and
-        [this page](https://cloud.google.com/vertex-ai/docs/training/configure-compute)
+        [this page](https://cloud.google.com/vertex-ai/docs/training/configure-compute).
 
     3. Assuming you manage to launch a job, you should see an output like this:
 
@@ -850,19 +850,19 @@ models, and then use other services for different parts of our pipeline.
 
         Try executing the commands that are outputted to look at both the status and the progress of your job.
 
-    4. In addition, you can also visit the `Custom Jobs` tab in `training` part of Vertex AI
+    4. In addition, you can also visit the `Custom Jobs` tab in the `training` part of Vertex AI.
 
         <figure markdown>
         ![Image](../figures/gcp_vertex_job.PNG){ width="800"  }
         </figure>
 
-        You will need to select the specific region that you submitted your job to see the job.
+        You will need to select the specific region that you submitted your job to in order to see the job.
 
     5. During custom training, we do not necessarily need to use `dvc` for downloading our data. A more efficient way is
         to use cloud storage as a
         [mounted file system](https://cloud.google.com/vertex-ai/docs/training/cloud-storage-file-system).
         This allows us to access data directly from the cloud storage without having to download it first. All our
-        training jobs are automatically mounted a `gcs` folder in the root directory. Try to access the data from your
+        training jobs are automatically mounted to a `gcs` folder in the root directory. Try to access the data from your
         training script:
 
         ```python
@@ -872,9 +872,9 @@ models, and then use other services for different parts of our pipeline.
         torch.save(data, '/gcs/<my-bucket-name>/data.pt')
         ```
 
-        is should speed up the training process a bit.
+        should speed up the training process a bit.
 
-    6. Your code may depend on environment variables for authenticating, for example with weights and bias during
+    6. Your code may depend on environment variables for authenticating, for example with weights and biases during
         training. These can also be specified in the configuration file. How would you do this?
 
         ??? success "Solution"
@@ -897,15 +897,15 @@ models, and then use other services for different parts of our pipeline.
             You need to replace `<your-wandb-api-key>` with your actual key. Also, remember that this file
             now contains a secret and should be treated as such.
 
-    7. Try to execute multiple jobs with different configurations e.g. change the `--args` field in the `gcloud ai
+    7. Try to execute multiple jobs with different configurations, e.g., change the `--args` field in the `gcloud ai
         custom-jobs create` command at the same time. This should hopefully show you how easy it is to scale experiments
         using the Vertex AI service.
 
 ## Secrets management
 
-Similar to GitHub Actions, GCP also has a secrets store that can be used to keep secrets safe. This is called the
-[Secret Manager](https://cloud.google.com/secret-manager/docs) in GCP. By using the Secret Manager, we get the option
-to inject secrets into our code without having to store them in the code itself.
+Similar to GitHub Actions, GCP also has secrets storage that can be used to keep secrets safe. This is called the
+[Secret Manager](https://cloud.google.com/secret-manager/docs) in GCP. By using the Secret Manager, we have the option
+of injecting secrets into our code without having to store them in the code itself.
 
 ### ❔ Exercises
 
@@ -923,7 +923,7 @@ to inject secrets into our code without having to store them in the code itself.
               value: $WANDB_API_KEY
     ```
 
-    we do not want to store the `WANDB_API_KEY` in the config file, rather we would like to store it in the Secret
+    We do not want to store the `WANDB_API_KEY` in the config file, rather we would like to store it in the Secret
     Manager and inject it right before the job starts. Let's figure out how to do that.
 
     1. Start by enabling the secrets manager API by running the following command:
@@ -933,13 +933,13 @@ to inject secrets into our code without having to store them in the code itself.
         ```
 
     2. Next, go to the secrets manager in the cloud console and create a new secret. You just need to give it a name, a
-        value and leave the rest as default. Add one or more secrets like the image below.
+        value and leave the rest as default. Add one or more secrets like in the image below.
 
         <figure markdown>
         ![Image](../figures/gcp_secrets_manager.png){ width="800"  }
         </figure>
 
-    3. We are going to inject the secrets into our training job by using cloudbuild. Create new cloudbuild file called
+    3. We are going to inject the secrets into our training job by using cloudbuild. Create a new cloudbuild file called
         `vertex_ai_train.yaml` and add the following content:
 
         ```yaml linenums="1" title="vertex_ai_train.yaml"
@@ -996,7 +996,7 @@ to inject secrets into our code without having to store them in the code itself.
             field in the first step. This field specifies which secrets should be available in the first step.
             The steps are then doing:
 
-            1. The first step call the [envsubst](https://www.baeldung.com/linux/envsubst-command) command which is a
+            1. The first step calls the [envsubst](https://www.baeldung.com/linux/envsubst-command) command which is a
                 general Linux command that replaces environment variables in a file. In this case, it replaces the
                 `$WANDB_API_KEY` with the actual value of the secret. We then save the file as `config.yaml.tmp` and
                 rename it back to `config.yaml`.
@@ -1006,7 +1006,7 @@ to inject secrets into our code without having to store them in the code itself.
 
             3. The third step is the actual training job. It waits for the first step to finish before running.
 
-    4. Finally, try to trigger the build:
+    4. Finally, try to trigger the build
 
         ```bash
         gcloud builds submit . --config=vertex_ai_train.yaml
@@ -1016,7 +1016,7 @@ to inject secrets into our code without having to store them in the code itself.
 
 ## 🧠 Knowledge check
 
-1. In Compute Engine, we have the option to either stop or suspend the VMs, can you describe what the difference is?
+1. In the Compute Engine, we have the option to either stop or suspend the VMs, can you describe what the difference is?
 
     ??? success "Solution"
 
@@ -1025,7 +1025,7 @@ to inject secrets into our code without having to store them in the code itself.
         charged for the storage of the aforementioned states.
         [Stopped instances](https://cloud.google.com/compute/docs/instances/stop-start-instance#stop-vm) do not
         preserve any of the states and you will be charged for the storage of the disk. However, in both cases if the
-        VM instances have resources attached to them, such as static IPs and persistent disks, which are charged until
+        VM instances have resources attached to them, such as static IPs and persistent disks, they are charged until
         they are deleted.
 
 2. As seen in the exercises, a `cloudbuild.yaml` file often contains multiple steps. How would you make steps dependent
@@ -1065,5 +1065,5 @@ to inject secrets into our code without having to store them in the code itself.
           waitFor: ['-']
         ```
 
-This ends the session on how to use Google Cloud services for now. In a future session, we are going to investigate a
-bit more of the services offered in GCP, in particular for deploying the models that we have just trained.
+This ends the session on how to use Google Cloud services for now. In a future session, we are going to investigate some
+more of the services offered in GCP, in particular for deploying the models that we have just trained.
