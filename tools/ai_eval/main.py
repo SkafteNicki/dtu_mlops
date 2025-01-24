@@ -1,5 +1,7 @@
 import json
 import os
+import shutil
+from pathlib import Path
 
 import logfire
 import typer
@@ -27,8 +29,16 @@ client = AsyncAzureOpenAI(
 model = OpenAIModel(os.environ.get("MODEL"), openai_client=client)
 
 
+def finalize(responses: list, clean: bool = True, name: str = "responses.json") -> None:
+    """Save responses and clean up if needed."""
+    with open(name, "w") as f:  # Save responses in case of error
+        json.dump([response.model_dump() for response in responses], f, indent=4)
+    if clean:
+        shutil.rmtree(Path("output"))
+
+
 @app.command()
-def codebase(group_nb: None | int = None) -> None:
+def codebase(group_nb: None | int = None, clean: bool = True) -> None:
     """Main function to evaluate the codebase of a group."""
     ta_agent = Agent(
         model=model,
@@ -84,6 +94,7 @@ def codebase(group_nb: None | int = None) -> None:
     if group_nb:
         group_data = [group_data[group_nb - 1]]
 
+    responses: list[TACodeResponse] = []
     for group in group_data:
         logger.info(f"Processing group {group.group_number}")
         deps = TADependency(
@@ -100,17 +111,27 @@ def codebase(group_nb: None | int = None) -> None:
                         "**/*.html",
                         "uv.lock",
                         "data/**",
+                        "**/*.csv",
+                        "log/**",
+                        "logs/**",
+                        "outputs/**",
                     ]
                 )
             ),
         )
-        result = ta_agent.run_sync("What do you think of the groups repository?", deps=deps)
-        pprint(result.data)
-        pprint(result.usage())
+        try:
+            result = ta_agent.run_sync("What do you think of the groups repository?", deps=deps)
+            result.data.request_usage = result.usage()
+            pprint(result.data)
+            responses.append(result.data)
+        except Exception as e:
+            finalize(responses, clean, name="codebase")
+            raise e
+    finalize(responses, clean, name="codebase")
 
 
 @app.command()
-def report(group_nb: None | int = None) -> None:
+def report(group_nb: None | int = None, clean: bool = True) -> None:
     """Main function to evaluate the report of a group."""
     ta_agent = Agent(
         model=model,
@@ -119,8 +140,8 @@ def report(group_nb: None | int = None) -> None:
         system_prompt="""
         You are a teaching assistant for a university level course on machine learning operations. You are tasked with
         correcting a student's report which is provided in markdown format. The report is a template consisting of 31
-        questions and are formatted into a couple of sections:  Group information, Coding environment, Version control,
-        Running code and tracking experiments, Working in the cloud, Deployment, Overall discussion of project.
+        questions and are fologrmatted into a couple of sections:  Group information, Coding environment, Version
+        control, Running code and tracking experiments, Working in the cloud, Deployment, Overall discussion of project.
         Additionally, it contains a checklist of 52 items that needs to be filled out. For each of the sections
         (except Group information), you will provide a brief summary of the student's response and then provide feedback
         on the accuracy and completeness of the response. You will also provide suggestions for improvement. Score each
@@ -153,13 +174,15 @@ def report(group_nb: None | int = None) -> None:
     responses: list[TAReportResponse] = []
     for group in group_data:
         deps = TADependency(group_info=group, repomix=RepoMix(include=["reports/README.md"]))
-        result = ta_agent.run_sync("What do you think of the groups report?", deps=deps)
-        result.data.request_usage = result.usage()
-        pprint(result.data)
-        responses.append(result.data)
-
-    with open("responses.json", "w") as f:
-        json.dump([response.model_dump() for response in responses], f, indent=4)
+        try:
+            result = ta_agent.run_sync("What do you think of the groups report?", deps=deps)
+            result.data.request_usage = result.usage()
+            pprint(result.data)
+            responses.append(result.data)
+        except Exception as e:
+            finalize(responses, clean, name="codebase")
+            raise e
+    finalize(responses, clean, name="codebase")
 
 
 if __name__ == "__main__":
