@@ -109,7 +109,7 @@ class Report(BaseModel):
             output = p.stderr.read()
             output = output.decode("utf-8").split("\n")
             lines = [line for line in output if "WARNING" in line]
-            return len(lines) if len(lines) else None
+            return len(lines)
         return None
 
 
