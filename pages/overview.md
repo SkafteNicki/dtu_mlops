@@ -36,7 +36,7 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 | ![Engine](../figures/icons/engine.png){ width="50" } | For general compute tasks we can use **Compute engine** that provides a scalable and secure compute solution |
 | ![Vertex](../figures/icons/vertex.png){ width="50" } | For training our experiments in a easy and scalable manner we can use **Vertex AI** |
 | ![FastAPI](../figures/icons/fastapi.png){ width="50" } | For creating a REST API for our model we can use **FastAPI** that provides a high-level interface for creating APIs |
-| ![ONNX](..figures/icons/onnx.png){ width="50" } | For converting our PyTorch model to a format that can be used in production we can use **ONNX** |
+| ![ONNX](../figures/icons/onnx.png){ width="50" } | For converting our PyTorch model to a format that can be used in production we can use **ONNX** |
 | ![Streamlit](../figures/icons/streamlit.png){ width="50" } | For creating a frontend for our model we can use **Streamlit** that provides a high-level interface for creating web applications |
 | ![Functions](../figures/icons/functions.png){ width="50" } | For simple deployments of our code we can use **Cloud functions** that allows us to run our code in response to events through simple Python functions |
 | ![Run](../figures/icons/run.png){ width="50" } | For more complex deployments of our code we can use **Cloud run** that allows us to run our code in response to events through docker containers |
