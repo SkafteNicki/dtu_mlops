@@ -2,6 +2,8 @@
 
 [Slides](../slides/Projects.pdf){ .md-button }
 
+[Project learderboard](https://repo-stats-leaderboard-704180779177.europe-west1.run.app){ .md-button }
+
 Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
 project. The overall goals with the project are:

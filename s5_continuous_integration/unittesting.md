@@ -189,9 +189,9 @@ The following exercises should be applied to your MNIST repository
 
             def test_error_on_wrong_shape():
                 model = MyAwesomeModel()
-                with pytest.raises(ValueError, match='Expected input to a 4D tensor')
+                with pytest.raises(ValueError, match='Expected input to a 4D tensor'):
                     model(torch.randn(1,2,3))
-                with pytest.raises(ValueError, match='Expected each sample to have shape [1, 28, 28]')
+                with pytest.raises(ValueError, match='Expected each sample to have shape [1, 28, 28]'):
                     model(torch.randn(1,1,28,29))
             ```
 
@@ -266,8 +266,8 @@ The following exercises should be applied to your MNIST repository
 
         to get the exact lines that were missed by your tests.
 
-    4. Finally, try to increase the coverage by writing a new test that runs some
-        of the lines in your codebase that are not covered yet.
+    4. Finally, try to increase the coverage by writing a new test that runs some of the lines in your codebase that
+        are not covered yet.
 
     5. Often `coverage` reports the code coverage on files that we do not want to get a code coverage for, for example
         your test file. Figure out how to configure `coverage` to exclude some files.
