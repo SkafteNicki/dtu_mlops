@@ -162,7 +162,7 @@ class RepoContent(BaseModel):
     @property
     def has_cloudbuild(self) -> bool:
         """Returns True if the repository uses Google Cloud Build."""
-        return any("cloudbuild.yaml" in f["path"] for f in self.file_tree)
+        return any(os.path.basename(f["path"]) == "cloudbuild.yaml" for f in self.file_tree)
 
     @property
     def using_dvc(self) -> bool:
