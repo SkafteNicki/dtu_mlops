@@ -149,7 +149,7 @@ We are going to do a couple of exercises on sending requests using
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do it from a
     script.
 
-    1. Make sure you have `curl` installed, or else find instruction on installing it. To check call `curl -`-help` with
+    1. Make sure you have `curl` installed, or else find instruction on installing it. To check call `curl --help` with
         the documentation on curl.
 
     2. To execute `requests.get('https://api.github.com')` using curl we would simply do
@@ -536,15 +536,16 @@ you can look through for help.
         in the file and we always recommend that you are specific about the version you want to use
 
         ```txt
-        fastapi>=0.68.0,<0.69.0
-        uvicorn>=0.15.0,<0.16.0
+        # newest version of fastapi and uvicorn as of time of writing
+        fastapi==0.115.6
+        uvicorn==0.34.0
         # add anything else you application needs to be able to run
         ```
 
     2. Next, create a `Dockerfile` with the following content
 
         ```Dockerfile
-        FROM python:3.9
+        FROM python:3.11-slim
         WORKDIR /code
         COPY ./requirements.txt /code/requirements.txt
 

@@ -16,9 +16,9 @@ At the bare minimum, the two questions a proper profiling of your program should
 * *“ How many times is each method in my code called?”*
 * *“ How long do each of these methods take?”*
 
-The first question is important to priorities optimization. If two methods `A` and `B` have approximately the same
+The first question can help us priorities what to optimize. If two methods `A` and `B` have approximately the same
 runtime, but `A` is called 1000 more times than `B` we should probably spend time optimizing `A` over `B` if we want
-to speedup our code. The second question is gives itself, directly telling us which methods are the expensive to call.
+to speed up our code. The second question is gives itself, directly telling us which methods are the expensive to call.
 
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html). `cProfile` is
@@ -31,13 +31,45 @@ programs.
     script using the `-m` arg
 
     ```bash
-    python -m cProfile -o <output_file> -s <sort_order> myscript.py
+    python -m cProfile -s <sort_order> myscript.py
     ```
 
-2. Try looking at the output of the profiling. Can you figure out which function took the longest to run?
+    to write the output to a file you can use the `-o` argument
+
+    ```bash
+    python -m cProfile -s <sort_order> -o profile.txt myscript.py
+    ```
+
+    ??? example "Script to debug"
+
+        ```python linenums="1" title="vae_mnist_working.py"
+        --8<-- "s4_debugging_and_logging/exercise_files/vae_mnist_working.py"
+        ```
+
+2. Try looking at the output of the profiling. Can you figure out which function took the longest to run? How do you
+    show the content of the `profile.txt` file?
+
+    ??? success "Solution"
+
+        If you try to open `profile.txt` in a text editor you will see that it is not very human readable. To get a
+        better overview of the profiling you can use the `pstats` module to read the file and print the results in a
+        more readable format. For example, to print the 10 functions that took the longest time to run you can use the
+        following code:
+
+        ```python
+        import pstats
+        p = pstats.Stats('profile.txt')
+        p.sort_stats('cumulative').print_stats(10)
+        ```
 
 3. Can you explain the difference between `tottime` and `cumtime`? Under what circumstances does these differ and
     when are they equal.
+
+    ??? success "Solution"
+
+        `tottime` is the total time spent in the function excluding time spent in subfunctions. `cumtime` is the total
+        time spent in the function including time spent in subfunctions. Therefore, `cumtime` is always greater than
+        `tottime`.
 
 4. To get a better feeling of the profiled result we can try to visualize it. Python does not
     provide a native solution, but open-source solutions such as [snakeviz](https://jiffyclub.github.io/snakeviz/)
@@ -46,6 +78,31 @@ programs.
 
 5. Try optimizing the run! (Hint: The data is not stored as torch tensor). After optimizing the code make sure
     (using `cProfile` and `snakeviz`) that the code actually runs faster.
+
+    ??? success "Solution"
+
+        For consistency reasons, even though the data in the `MNIST` dataset class from `torchvision` is stored as
+        tensors, they are converted to
+        [PIL images before returned](https://github.com/pytorch/vision/blob/d3beb52a00e16c71e821e192bcc592d614a490c0/torchvision/datasets/mnist.py#L141-L143).
+        This is the reason the solution is initialize the dataclass with the transform
+
+        ```python
+        mnist_transform = transforms.Compose([transforms.ToTensor()])
+        ```
+
+        such that the data is returned as tensors. However, since data is already stored as tensors, calling this
+        transform every time you want to access the data is redundant and can be removed. The easiest way to do this is
+        to create a `TensorDataset` from the internal data and labels (which already are tensors).
+
+        ```python
+        from torchvision.datasets import MNIST
+        from torch.utils.data import TensorDataset
+        # the class also internally normalize to [0,1] domain so we need to divide by 255
+        train_dataset = MNIST(dataset_path, train=True, download=True)
+        train_dataset = TensorDataset(train_dataset.data.float() / 255.0, train_dataset.targets)
+        test_dataset = MNIST(dataset_path, train=False, download=True)
+        test_dataset = TensorDataset(test_dataset.data.float() / 255.0, test_dataset.targets)
+        ```
 
 ## PyTorch profiling
 

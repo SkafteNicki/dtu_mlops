@@ -55,14 +55,9 @@ class Encoder(nn.Module):
 
         return z, mean, log_var
 
-    def reparameterization(
-        self,
-        mean,
-        std,
-    ):
+    def reparameterization(self, mean, std):
         """Reparameterization trick."""
         epsilon = torch.randn_like(std)
-
         return mean + std * epsilon
 
 
