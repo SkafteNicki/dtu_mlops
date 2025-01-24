@@ -1,7 +1,6 @@
 import csv
 import datetime
 import json
-import logging
 import os
 from pathlib import Path
 
@@ -9,6 +8,7 @@ import numpy as np
 import requests
 from dotenv import load_dotenv
 from google.cloud.storage import Client
+from loguru import logger
 from models import GroupInfo, RepoContent, Report, RepoStats
 from typer import Typer
 
@@ -16,9 +16,6 @@ load_dotenv()
 
 GH_TOKEN = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
 headers = {"Authorization": f"Bearer {GH_TOKEN}"}
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 def upload_data(file_name: str) -> None:
@@ -93,15 +90,15 @@ app = Typer()
 def main():
     """Main function to scrape the group-repository data."""
     logger.info("Getting group-repository information")
-    if "group_info.csv" not in os.listdir():
-        download_data("group_info.csv")
+    download_data("group_info.csv")
     group_data = load_data("group_info.csv")
     logger.info("Group-repository information loaded successfully")
 
     repo_stats: list[RepoContent] = []
     for index, group in enumerate(group_data):
-        logger.info(f"Processing group {group.group_number}, {index+1}/{len(group_data)}")
-
+        logger.info(
+            f"Processing group {group.group_number}, {index+1}/{len(group_data)}. Accessible: {group.repo_accessible}"
+        )
         if group.repo_accessible:
             contributors = group.contributors
             num_contributors = len(contributors)
@@ -117,18 +114,25 @@ def main():
 
             merged_prs = [p["number"] for p in prs if p["merged_at"] is not None]
             for pr_num in merged_prs:
-                pr_commits = requests.get(
+                pr_commits: list[dict] = requests.get(
                     f"{group.repo_api}/pulls/{pr_num}/commits", headers=headers, timeout=100
                 ).json()
                 commit_messages += [c["commit"]["message"] for c in pr_commits]
                 for commit in pr_commits:
                     for contributor in contributors:
+                        commit_author = commit.get("author")  # GitHub account info
+                        commit_committer = commit.get("committer")  # GitHub account info
+                        commit_author_name = commit["commit"]["author"]["name"]
+                        commit_committer_name = commit["commit"]["committer"]["name"]
+
                         if (
-                            commit["committer"] is not None
-                            and "login" in commit["committer"]
-                            and contributor.login == commit["author"]["login"]
+                            (commit_author and commit_author["login"] == contributor.login)
+                            or (commit_author_name == contributor.login)
+                            or (commit_committer and commit_committer["login"] == contributor.login)
+                            or (commit_committer_name == contributor.login)
                         ):
                             contributor.commits_pr += 1
+                            break
                 commits += pr_commits
 
             activity_matrix = create_activity_matrix(commits, max_delta=3, min_delta=1)
@@ -155,7 +159,6 @@ def main():
                 group_number=group.group_number, repo_api=group.repo_api, default_branch=group.default_branch
             )
             num_warnings = report.check_answers
-
         else:
             num_contributors = None
             num_prs = None

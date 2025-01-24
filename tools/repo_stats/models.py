@@ -6,6 +6,7 @@ from subprocess import PIPE, Popen
 import markdown2
 import requests
 from dotenv import load_dotenv
+from loguru import logger
 from pydantic import BaseModel
 
 load_dotenv()
@@ -39,6 +40,10 @@ class RepoStats(BaseModel):
     actions_passing: bool | None
 
     num_warnings: int | None
+
+    def __repr__(self):
+        """Returns a string representation of the model."""
+        return ",".join(f"0{d=}" for d in self.model_dump().items())
 
 
 class Contributor(BaseModel):
@@ -79,7 +84,7 @@ class Report(BaseModel):
             return
         url = f"{self.repo_api}/contents/reports/README.md"
         response = requests.get(url, headers=headers, timeout=100).json()
-        if response.get("message") != "Not Found":
+        if response.get("message") != "Not Found" and response.get("status") != "404":
             content_base64 = response["content"]
             content_decoded = base64.b64decode(content_base64).decode("utf-8")
             with open("README.md", "w", encoding="utf-8") as file:
@@ -104,7 +109,7 @@ class Report(BaseModel):
             output = p.stderr.read()
             output = output.decode("utf-8").split("\n")
             lines = [line for line in output if "WARNING" in line]
-            return len(lines) if len(lines) else None
+            return len(lines)
         return None
 
 
@@ -141,7 +146,13 @@ class RepoContent(BaseModel):
     @property
     def num_workflow_files(self) -> int:
         """Returns the number of workflow files in the repository."""
-        return len([f for f in self.file_tree if ".yml" in f["path"]])
+        return len(
+            [
+                f
+                for f in self.file_tree
+                if f["path"].startswith(".github/workflows/") and f["path"].endswith((".yml", ".yaml"))
+            ]
+        )
 
     @property
     def has_requirements_file(self) -> bool:
@@ -151,7 +162,7 @@ class RepoContent(BaseModel):
     @property
     def has_cloudbuild(self) -> bool:
         """Returns True if the repository uses Google Cloud Build."""
-        return any("cloudbuild.yaml" in f["path"] for f in self.file_tree)
+        return any(os.path.basename(f["path"]) == "cloudbuild.yaml" for f in self.file_tree)
 
     @property
     def using_dvc(self) -> bool:
@@ -209,6 +220,27 @@ class GroupInfo(BaseModel):
     repo_url: str
 
     @property
+    def repo_accessible(self) -> bool:
+        """Returns True if the repository is accessible."""
+        if hasattr(self, "_repo_accessible") and self._repo_accessible is not None:
+            return self._repo_accessible
+
+        try:
+            response = requests.head(self.repo_url, headers=headers, timeout=100, allow_redirects=False)
+
+            if 300 <= response.status_code < 400:  # Check if redirection occurred
+                redirect_url = response.headers.get("Location")
+                if redirect_url:
+                    self.repo_url = redirect_url  # Update the repository URL to the redirected one
+
+            self._repo_accessible = requests.head(self.repo_url, headers=headers, timeout=100).status_code == 200
+        except requests.RequestException as e:
+            logger.error(f"An error occurred: {e}")
+            self._repo_accessible = False
+
+        return self._repo_accessible
+
+    @property
     def group_size(self) -> int:
         """Returns the number of students in the group."""
         return len(list(filter(None, [self.student_1, self.student_2, self.student_3, self.student_4, self.student_5])))
@@ -226,14 +258,6 @@ class GroupInfo(BaseModel):
             return self._default_branch
         self._default_branch = requests.get(self.repo_api, headers=headers, timeout=100).json()["default_branch"]
         return self._default_branch
-
-    @property
-    def repo_accessible(self) -> bool:
-        """Returns True if the repository is accessible."""
-        if hasattr(self, "_repo_accessible"):
-            return self._repo_accessible
-        self._repo_accessible = requests.head(self.repo_url, headers=headers, timeout=100).status_code == 200
-        return self._repo_accessible
 
     @property
     def contributors(self) -> list[Contributor]:

@@ -168,6 +168,9 @@ corruptmnist_v1/
 corruptmnist_v2/
 tools/repo_stats/report.py
 tools/repo_stats/README.md
+tools/learn_automate/extracted_files
+tools/ai_eval/output
+tools/ai_eval/responses.json
 
 # vscode
 .vscode/
