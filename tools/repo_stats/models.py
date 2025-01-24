@@ -6,6 +6,7 @@ from subprocess import PIPE, Popen
 import markdown2
 import requests
 from dotenv import load_dotenv
+from loguru import logger
 from pydantic import BaseModel
 
 load_dotenv()
@@ -83,7 +84,7 @@ class Report(BaseModel):
             return
         url = f"{self.repo_api}/contents/reports/README.md"
         response = requests.get(url, headers=headers, timeout=100).json()
-        if response.get("message") != "Not Found":
+        if response.get("message") != "Not Found" and response.get("status") != "404":
             content_base64 = response["content"]
             content_decoded = base64.b64decode(content_base64).decode("utf-8")
             with open("README.md", "w", encoding="utf-8") as file:
@@ -219,6 +220,27 @@ class GroupInfo(BaseModel):
     repo_url: str
 
     @property
+    def repo_accessible(self) -> bool:
+        """Returns True if the repository is accessible."""
+        if hasattr(self, "_repo_accessible") and self._repo_accessible is not None:
+            return self._repo_accessible
+
+        try:
+            response = requests.head(self.repo_url, headers=headers, timeout=100, allow_redirects=False)
+
+            if 300 <= response.status_code < 400:  # Check if redirection occurred
+                redirect_url = response.headers.get("Location")
+                if redirect_url:
+                    self.repo_url = redirect_url  # Update the repository URL to the redirected one
+
+            self._repo_accessible = requests.head(self.repo_url, headers=headers, timeout=100).status_code == 200
+        except requests.RequestException as e:
+            logger.error(f"An error occurred: {e}")
+            self._repo_accessible = False
+
+        return self._repo_accessible
+
+    @property
     def group_size(self) -> int:
         """Returns the number of students in the group."""
         return len(list(filter(None, [self.student_1, self.student_2, self.student_3, self.student_4, self.student_5])))
@@ -236,14 +258,6 @@ class GroupInfo(BaseModel):
             return self._default_branch
         self._default_branch = requests.get(self.repo_api, headers=headers, timeout=100).json()["default_branch"]
         return self._default_branch
-
-    @property
-    def repo_accessible(self) -> bool:
-        """Returns True if the repository is accessible."""
-        if hasattr(self, "_repo_accessible"):
-            return self._repo_accessible
-        self._repo_accessible = requests.head(self.repo_url, headers=headers, timeout=100).status_code == 200
-        return self._repo_accessible
 
     @property
     def contributors(self) -> list[Contributor]:

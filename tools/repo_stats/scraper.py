@@ -206,7 +206,6 @@ def main():
             actions_passing=actions_passing,
             num_warnings=num_warnings,
         )
-        logger.info(f"Repo Stats: {repo_stat}")
         repo_stats.append(repo_stat)
 
     logger.info("Writing repo stats to file")
