@@ -8,6 +8,7 @@ def imshow(image, ax=None, title=None, normalize=True):
         fig, ax = plt.subplots()
     image = image.numpy().transpose((1, 2, 0))
 
+    # Sets standard for how to normalize tensor images
     if normalize:
         mean = np.array([0.485, 0.456, 0.406])
         std = np.array([0.229, 0.224, 0.225])
