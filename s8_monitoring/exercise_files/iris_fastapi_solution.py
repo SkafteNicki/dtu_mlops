@@ -1,11 +1,7 @@
 import pickle
 from collections.abc import Generator
-from typing import TYPE_CHECKING
 
 from fastapi import FastAPI
-
-if TYPE_CHECKING:
-    from sklearn.neighbors import KNeighborsClassifier
 
 
 def lifespan(app: FastAPI) -> Generator[None]:
@@ -13,7 +9,7 @@ def lifespan(app: FastAPI) -> Generator[None]:
     global model, classes
     classes = ["Iris-Setosa", "Iris-Versicolour", "Iris-Virginica"]
     with open("model.pkl", "rb") as file:
-        model: KNeighborsClassifier = pickle.load(file)
+        model = pickle.load(file)
 
     yield
 
