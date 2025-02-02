@@ -125,12 +125,13 @@ working together on the same project.
             [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
 
     5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
-        updated in your repository.
-       { .annotate }
+        updated in your repository (1).
+        { .annotate }
 
-        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from you local terminal
-           (https://github.com/settings/tokens) or install the GitHub cli (https://docs.github.com/en/github-cli/github-cli/quickstart).
-    
+        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from you local
+            [terminal](https://github.com/settings/tokens) or install the
+            [GitHub CLI](https://docs.github.com/en/github-cli/github-cli/quickstart).
+
     6. You can always use the command `git status` to check where you are in the process of making a commit.
 
     7. Also checkout the `git log` command, which will show you the history of commits that you have made.
