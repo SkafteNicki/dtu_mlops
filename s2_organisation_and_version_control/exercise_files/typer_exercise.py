@@ -38,6 +38,6 @@ def train():
     return accuracy, report
 
 
-    # this "if"-block is added to enable the script to be run from the command line
+# this "if"-block is added to enable the script to be run from the command line
 if __name__ == "__main__":
     train()
