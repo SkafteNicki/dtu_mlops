@@ -1880,8 +1880,8 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Since August 2024, Google have changed their policy for the Google Drive API. This means that the proceduce for
-setting up DVC with Google Drive has changed. The following exercises therefore needs extra authentication to work.
+<p>Since August 2024, Google has changed their policy for the Google Drive API. This means that the procedure for
+setting up DVC with Google Drive has changed. The following exercises therefore need extra authentication to work.
 You therefore have two options:</p>
 <ol>
 <li>
@@ -1890,7 +1890,7 @@ You therefore have two options:</p>
 </li>
 <li>
 <p>Follow the instructions below to authenticate DVC with Google Drive. As a starting point read the following
-    <a href="https://github.com/iterative/dvc/issues/10516#issuecomment-2289652067">Github issue</a> and then follow the
+    <a href="https://github.com/iterative/dvc/issues/10516#issuecomment-2289652067">GitHub issue</a> and then follow the
     instructions
     <a href="https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended">here</a>.
     for setting up a custom Google Cloud project.</p>
@@ -1908,7 +1908,7 @@ more data that you feed them, we are seeing models today that are being trained 
 <a href="https://dvc.org/">DVC</a>, <a href="https://dagshub.com/">DAGsHub</a>, <a href="https://www.activeloop.ai/">Hub</a>,
 <a href="https://modelstore.readthedocs.io/en/latest/">Modelstore</a> and <a href="https://github.com/VertaAI/modeldb/">ModelDB</a>.
 Regardless of what framework, they all implement somewhat the same concept: instead of storing the actual data files
-or in general storing any large <em>artifacts</em> files we instead store a pointer to these large flies. We then version
+or in general storing any large <em>artifacts</em> files we instead store a pointer to these large files. We then version
 control the point instead of the artifact.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/git_artifact.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_artifact.png" width="700" /></a></p>
@@ -1917,7 +1917,7 @@ control the point instead of the artifact.</p>
 </figcaption>
 </figure>
 <p>We are in this course going to use <code>DVC</code> provided by <a href="https://iterative.ai/">iterative.ai</a> as they also provide tools
-for automatizing machine learning, which we are going to focus on later.</p>
+for automating machine learning, which we are going to focus on later.</p>
 <h2 id="dvc-what-is-it">DVC: What is it?</h2>
 <p>DVC (Data Version Control) is simply an extension of <code>git</code> to not only take versioning data but also models and
 experiments in general. But how does it deal with these large data files? Essentially, <code>DVC</code> will just keep track of a
@@ -2003,7 +2003,7 @@ These files should be committed using standard <code>git</code> to your reposito
     in a recognizable format anymore due to the way that <code>dvc</code> packs and tracks the data. The boring detail is that
     <code>dvc</code> converts the data into <a href="https://en.wikipedia.org/wiki/Content-addressable_storage">content-addressable storage</a>
     which makes data much faster to get. Finally, make sure that your data is not stored in your GitHub repository.</p>
-<p>After authenticating the first time, DVC should be setup without having to authenticate again. If you for some
+<p>After authenticating the first time, DVC should be set up without having to authenticate again. If you for some
 reason encounter that DVC fails to authenticate, you can try to reset the authentication. Locate the file
 <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code> where <code>$CACHE_HOME</code> depends on your operating system:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">Windows</label></div>
@@ -2023,7 +2023,7 @@ This is the typical location, but it may vary depending on what distro you are r
 <p>Delete the complete <code>{gdrive_client_id}</code> folder and retry authenticating with <code>dvc push</code>.</p>
 </li>
 <li>
-<p>After completing the above steps, it is very easy for others (or yourself) to get setup with both
+<p>After completing the above steps, it is very easy for others (or yourself) to get set up with both
     code and data by simply running</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;my_repository&gt;
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">cd</span><span class="w"> </span>&lt;my_repository&gt;
@@ -2035,13 +2035,13 @@ than your standard code) to make sure that the two commands indeed download both
 <li>
 <p>Let's now look at the process of creating a new version of our data. We are going to add some new data to our
     dataset and version control this as well. The new data can be downloaded from this
-    <a href="https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing">Google Driver folder</a>
+    <a href="https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing">Google Drive folder</a>
     or by running these two commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>gdown
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>gdown<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing&#39;</span>
 </span></code></pre></div>
 <p>Copy the data to your <code>data/raw</code> folder and then rerun your data pipeline to incorporate the new data into the
-files in your <code>processed</code> folder. The new data should are 4 files with train images and 4 files with train targets,
+files in your <code>processed</code> folder. The new data should be 4 files with train images and 4 files with train targets,
 a total of 20000 additional observations.</p>
 </li>
 <li>
@@ -2066,7 +2066,7 @@ a total of 20000 additional observations.</p>
 </li>
 </ol>
 <p>In general <code>dvc</code> is a great framework for version-controlling data and models. However, it is important to note that it
-does have some performance issue when dealing with datasets that consist of many files. Therefore, if you are ever
+does have some performance issues when dealing with datasets that consist of many files. Therefore, if you are ever
 working with a dataset that consists of many small files, it can be a
 <a href="https://fizzylogic.nl/2023/01/13/did-you-know-dvc-doesn-t-handle-large-datasets-neither-did-we-and-here-s-how-we-fixed-it">good idea to</a>:</p>
 <ul>
@@ -2086,12 +2086,12 @@ working with a dataset that consists of many small files, it can be a
 <details class="success">
 <summary>Solution</summary>
 <p>Similar to a git repository having a <code>.git</code> directory, a repository using dvc needs to have a <code>.dvc</code> folder.
-Alternatively you can you the <code>dvc status</code> command.</p>
+Alternatively you can use the <code>dvc status</code> command.</p>
 </details>
 </li>
 <li>
 <p>Assume you just added a folder called <code>data/</code> that you want to track with <code>dvc</code>. What is the sequence of 5 commands
-    to successful version control the folder? (assuming you already setup a remote)</p>
+    to successfully version control the folder? (assuming you already set up a remote)</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dvc<span class="w"> </span>add<span class="w"> </span>data/
@@ -2106,8 +2106,8 @@ Alternatively you can you the <code>dvc status</code> command.</p>
 <p>That's all for today. With the combined power of <code>git</code> and <code>dvc</code> we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that <code>dvc</code>
 offers more than just data version control, so if you want to deep dive into <code>dvc</code> we recommend their
-<a href="https://dvc.org/doc/user-guide/project-structure/pipelines-files">pipeline</a> feature and how this can be used to setup
-version controlled <a href="https://dvc.org/doc/command-reference/exp">experiments</a>. Note that we are going to revisit <code>dvc</code>
+<a href="https://dvc.org/doc/user-guide/project-structure/pipelines-files">pipeline</a> feature and how this can be used to set up
+version-controlled <a href="https://dvc.org/doc/command-reference/exp">experiments</a>. Note that we are going to revisit <code>dvc</code>
 later for a more permanent (and large-scale) storage solution.</p>
 
 
@@ -2131,7 +2131,7 @@ later for a more permanent (and large-scale) storage solution.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2025</span>
   </span>
 
     
