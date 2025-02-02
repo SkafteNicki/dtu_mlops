@@ -6,7 +6,7 @@
 
 - ![](../figures/icons/git.png){align=right : style="height:100px;width:100px"}
 
-    Learn the basics of version control and how to use `git` to track changes to your code and collaborate with others.
+    Learn the basics of version control and how to use `git` to track changes in your code and collaborate with others.
 
     [:octicons-arrow-right-24: M5: Git](git.md)
 
@@ -38,7 +38,7 @@
 
 Today we take our first steps into the world of MLOps. The set of modules in this session focuses on getting organized
 and making sure that you are familiar with good development practices. While many of the practices you will learn about
-in these modules do not seem that important when you are a single person working on a project, it is crucial when
+in these modules do not seem that important when you are a single person working on a project, it becomes crucial when
 working in large groups that the difference in how different people organize and write their code is minimized.
 The topics in this session will focus on:
 

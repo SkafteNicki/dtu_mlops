@@ -1,14 +1,15 @@
 import csv
 import datetime
 import json
-import logging
 import os
+import subprocess
 from pathlib import Path
 
 import numpy as np
 import requests
 from dotenv import load_dotenv
 from google.cloud.storage import Client
+from loguru import logger
 from models import GroupInfo, RepoContent, Report, RepoStats
 from typer import Typer
 
@@ -16,9 +17,6 @@ load_dotenv()
 
 GH_TOKEN = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
 headers = {"Authorization": f"Bearer {GH_TOKEN}"}
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 def upload_data(file_name: str) -> None:
@@ -58,13 +56,20 @@ def load_data(file_name: str) -> list[GroupInfo]:
     return content
 
 
-def create_activity_matrix(commits: list, max_delta: int = 5, normalize: bool = True) -> list[list[int]]:
+def create_activity_matrix(
+    commits: list,
+    max_delta: int = 5,
+    min_delta: int = 1,
+) -> list[list[int]]:
     """Creates an activity matrix from the commits."""
     commit_times = [datetime.datetime.fromisoformat(commit["commit"]["committer"]["date"][:-1]) for commit in commits]
     commit_times.sort()
 
     start_time = commit_times[0]
-    end_time = min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1])
+    end_time = max(
+        start_time + datetime.timedelta(weeks=min_delta),
+        min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1]),
+    )
 
     num_days = (end_time - start_time).days + 1  # include last day
 
@@ -83,18 +88,18 @@ app = Typer()
 
 
 @app.command()
-def main():
+def scrape():
     """Main function to scrape the group-repository data."""
     logger.info("Getting group-repository information")
-    if "group_info.csv" not in os.listdir():
-        download_data("group_info.csv")
+    download_data("group_info.csv")
     group_data = load_data("group_info.csv")
     logger.info("Group-repository information loaded successfully")
 
     repo_stats: list[RepoContent] = []
     for index, group in enumerate(group_data):
-        logger.info(f"Processing group {group.group_number}, {index+1}/{len(group_data)}")
-
+        logger.info(
+            f"Processing group {group.group_number}, {index+1}/{len(group_data)}. Accessible: {group.repo_accessible}"
+        )
         if group.repo_accessible:
             contributors = group.contributors
             num_contributors = len(contributors)
@@ -110,21 +115,28 @@ def main():
 
             merged_prs = [p["number"] for p in prs if p["merged_at"] is not None]
             for pr_num in merged_prs:
-                pr_commits = requests.get(
+                pr_commits: list[dict] = requests.get(
                     f"{group.repo_api}/pulls/{pr_num}/commits", headers=headers, timeout=100
                 ).json()
                 commit_messages += [c["commit"]["message"] for c in pr_commits]
                 for commit in pr_commits:
                     for contributor in contributors:
+                        commit_author = commit.get("author")  # GitHub account info
+                        commit_committer = commit.get("committer")  # GitHub account info
+                        commit_author_name = commit["commit"]["author"]["name"]
+                        commit_committer_name = commit["commit"]["committer"]["name"]
+
                         if (
-                            commit["committer"] is not None
-                            and "login" in commit["committer"]
-                            and contributor.login == commit["author"]["login"]
+                            (commit_author and commit_author["login"] == contributor.login)
+                            or (commit_author_name == contributor.login)
+                            or (commit_committer and commit_committer["login"] == contributor.login)
+                            or (commit_committer_name == contributor.login)
                         ):
                             contributor.commits_pr += 1
+                            break
                 commits += pr_commits
 
-            activity_matrix = create_activity_matrix(commits)
+            activity_matrix = create_activity_matrix(commits, max_delta=3, min_delta=1)
 
             average_commit_length = sum([len(c) for c in commit_messages]) / len(commit_messages)
 
@@ -148,7 +160,6 @@ def main():
                 group_number=group.group_number, repo_api=group.repo_api, default_branch=group.default_branch
             )
             num_warnings = report.check_answers
-
         else:
             num_contributors = None
             num_prs = None
@@ -214,6 +225,42 @@ def main():
     Path("README.md").unlink()
     Path("report.py").unlink()
     Path(filename).unlink()
+
+
+@app.command()
+def clone(base_dir: str = "cloned_repos"):
+    """Clones the repositories of the groups."""
+    logger.info("Getting group-repository information")
+    download_data("group_info.csv")
+    group_data = load_data("group_info.csv")
+    logger.info("Group-repository information loaded successfully")
+
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+
+    for group in group_data:
+        repo_url = group.repo_url
+        group_number = group.group_number
+
+        # Create a directory for the group if it doesn't exist
+        group_dir = os.path.join(base_dir, f"group_{group_number}")
+        if not os.path.exists(group_dir):
+            os.makedirs(group_dir)
+
+        # Extract the repository name from the URL
+        repo_name = repo_url.split("/")[-1].replace(".git", "")
+
+        # Create a directory for the repository
+        repo_dir = os.path.join(group_dir, repo_name)
+        if not os.path.exists(repo_dir):
+            os.makedirs(repo_dir)
+
+        # Clone the repository
+        try:
+            subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+            logger.info(f"Successfully cloned {repo_url} into {repo_dir}")
+        except subprocess.CalledProcessError as e:
+            logger.info(f"Failed to clone {repo_url}: {e}")
 
 
 if __name__ == "__main__":
