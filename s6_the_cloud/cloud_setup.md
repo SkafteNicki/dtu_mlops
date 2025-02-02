@@ -269,6 +269,18 @@ authentication between GitHub and GCP. You can read more about how to create a s
         gcloud iam service-accounts delete global-service-account@$(GCP_PROJECT_NAME).iam.gserviceaccount.com
         ```
 
+In this course we recommend that you one only use a single service account for doing exercises and your project. This
+is to simplify the process of managing permissions. In a real-world scenario, you would most likely have multiple
+service accounts, each with different permissions. The following roles are the most common ones that you will use in
+this course:
+
+* `Storage Object Viewer`: Allows the service account to list objects in a bucket and download objects
+* `Cloud Build Builder`: Allows the service account to run builds in Cloud Build
+* `Secret Manager Secret Accessor`: Allows the service account to access secrets in Secret Manager
+* `Cloud Run Developer`: Allows the service account to deploy services in Cloud Run
+* `AI Platform Developer`: Allows the service account to use the AI Platform
+* `Artifact Registry Writer`: Allows the service account to write to Artifact Registry
+
 ## 🧠 Knowledge check
 
 1. What considerations to take when choosing a GCP region for running a new application?
