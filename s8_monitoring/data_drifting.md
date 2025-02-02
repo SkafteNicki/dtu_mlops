@@ -7,7 +7,7 @@
 
 !!! info "Core Module"
 
-Data drifting is one of the core reasons for model accuracy degrades over time in production. For machine learning
+Data drifting is one of the core reasons why model accuracy degrades over time in production. For machine learning
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
 this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
@@ -399,7 +399,9 @@ through the files to get an understanding of what is going on.
         ```
 
         You need the model file saved in the same directory as the application to run the application. Write a small
-        `client.py` script that calls the application with a review and prints the predicted sentiment.
+        `client.py` script that calls the application with a review and prints the predicted sentiment. Try executing
+        the script in another terminal (while the `uvicorn` server is running) to confirm that the application is
+        working.
 
         ??? success "Solution"
 

@@ -9,9 +9,7 @@ Where you instead should add your answers. Any other changes may have unwanted c
 auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
 to the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
 
-```markdown
-![my_image](figures/<image>.<extension>)
-```
+`![my_image](figures/<image>.<extension>)`
 
 In addition to this markdown file, we also provide the `report.py` script that provides two utility functions:
 
@@ -577,4 +575,14 @@ will check the repositories and the code to verify your answers.
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+fewafewubaofewnafioewnifowf ewafw afew afewafewafionewoanf waf ewonfieownaf fewnaiof newio fweanøf wea fewa
+ fweafewa fewiagonwa ognwra'g
+ wa
+ gwreapig ipweroang w rag
+ wa grwa
+  g
+  ew
+  gwea g
+  ew ag ioreabnguorwa bg̈́aw
+   wa
+   gew4igioera giroeahgi0wra gwa

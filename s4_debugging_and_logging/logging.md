@@ -502,7 +502,7 @@ metrics. This allows for better iteration of models and training procedure.
     2. Next create a new docker file called `wandb.docker` and add the following code
 
         ```dockerfile
-        FROM python:3.10-slim
+        FROM python:3.11-slim
         RUN apt update && \
             apt install --no-install-recommends -y build-essential gcc && \
             apt clean && rm -rf /var/lib/apt/lists/*

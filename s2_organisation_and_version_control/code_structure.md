@@ -27,7 +27,7 @@ or maintain
     (PLoP '97/EuroPLoP '97) Monticello, Illinois, September 1997
 
 We are here going to focus on the organization of data science projects and machine learning projects. The core
-difference this kind of projects introduces compared to more traditional systems is *data*. The key to modern machine
+difference this kind of project introduces compared to more traditional systems is *data*. The key to modern machine
 learning is without a doubt the vast amounts of data that we have access to today. It is therefore not unreasonable that
 data should influence our choice of code structure. If we had another kind of application, then the layout of our
 codebase should probably be different.
@@ -35,7 +35,7 @@ codebase should probably be different.
 ## Cookiecutter
 
 We are in this course going to use the tool [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html),
-which is tool for creating projects from *project templates*. A project template is in short just an overall structure
+which is a tool for creating projects from *project templates*. A project template is in short just an overall structure
 of how you want your folders, files etc. to be organized from the beginning. For this course we are going to be using a
 custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The template is essentially a fork of the
 [cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) that has been used for a
@@ -87,7 +87,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
 
 === "pyproject.toml"
 
-    `pyproject.toml` is the new standardized way of describing project metadata in a declaratively way, introduced in
+    `pyproject.toml` is the new standardized way of describing project metadata in a declarative way, introduced in
     [PEP 621](https://peps.python.org/pep-0621/). It is written in [toml format](https://toml.io/en/) which is easy to
     read. At the very least your `pyproject.toml` file should include the `[build-system]` and `[project]` sections:
 
@@ -159,8 +159,8 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     )
     ```
 
-    Essentially, the it is the exact same meta information as in `pyproject.toml`, just written directly in Python
-    syntax instead of `toml`. Because there was a wish to deperate this meta information into a separate file, the
+    Essentially, it is the exact same meta information as in `pyproject.toml`, just written directly in Python
+    syntax instead of `toml`. Because there was a wish to separate this meta information into a separate file, the
     `setup.cfg` file was created which can contain the exact same information as `setup.py` just in a declarative
     config.
 
@@ -173,7 +173,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     # ...
     ```
 
-    This non-standardized way of providing meta information regarding a package was essentially what lead to the
+    This non-standardized way of providing meta information regarding a package was essentially what led to the
     creation of `pyproject.toml`.
 
 Regardless of what way a project is configured, after creating the above files, the correct way to install them would be
@@ -188,7 +188,7 @@ pip install -e .
 !!! note "Developer mode in Python"
 
     The `-e` is short for `--editable` mode also called
-    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously
+    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will be continuously
     iterating on our package this is the preferred way to install our package, because that means that we do not have
     to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.
@@ -236,20 +236,20 @@ your head around where files are located.
         When asked for a project name you should follow the
         [PEP8](https://peps.python.org/pep-0008/#package-and-module-names) guidelines for naming packages. This means
         that the name should be all lowercase and if you want to separate words, you should use underscores. For example
-        `my_project` is a valid name, while `MyProject` is not. Additionally, the packaage name cannot start with a
+        `my_project` is a valid name, while `MyProject` is not. Additionally, the package name cannot start with a
         number.
 
     ??? note "Flat-layout vs src-layout"
 
         There are two common choices on how layout your source directory. The first is called *src-layout*
-        where the source code is always place in a `src/<project_name>` folder and the second is called *flat-layout*
-        where the source code is place is just placed in a `<project_name>` folder. The template we are using in this
+        where the source code is always placed in a `src/<project_name>` folder and the second is called *flat-layout*
+        where the source code is just placed in a `<project_name>` folder. The template we are using in this
         course is using the src-layout, but there are
         [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) for both.
 
 3. After having created your new project, the first step is to also create a corresponding virtual environment and
-    install any needed requirements. If you have a virtual environment from yesterday feel free to use that else create
-    an new. Then install the project in that environment
+    install any needed requirements. If you have a virtual environment from yesterday feel free to use that, otherwise create
+    a new one. Then install the project in that environment
 
     ```bash
     pip install -e .
@@ -270,7 +270,7 @@ your head around where files are located.
 5. This template comes with a `tasks.py` which uses the [invoke](https://www.pyinvoke.org/) framework to define project
     tasks. You can learn more about the framework in the last optional [module](cli.md) in today's session. However, for
     now just know that `tasks.py` is a file that can be used to specify common tasks that you want to run in your
-    project. It is similar to `Markefile`s if you are familiar with them. Try out some of the pre-defined tasks:
+    project. It is similar to `Makefile`s if you are familiar with them. Try out some of the pre-defined tasks:
 
     ```bash
     # first install invoke
@@ -350,7 +350,7 @@ your head around where files are located.
 
 12. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?)
 
-13. (Optional) Lets say that you are not satisfied with the template I have recommended that you use, which is
+13. (Optional) Let's say that you are not satisfied with the template I have recommended that you use, which is
     completely fine. What should you then do? You should of course create your own template! This is actually not that
     hard to do.
 

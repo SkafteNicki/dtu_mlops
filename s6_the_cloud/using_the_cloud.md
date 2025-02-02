@@ -108,7 +108,7 @@ We are now going to start using the cloud.
             --image-family=<image-family> \
             --image-project=deeplearning-platform-release \
             # add these arguments if you want to run on GPU and have the quota to do so
-            --accelerator="type=nvidia-tesla-K80,count=1" \
+            --accelerator="type=nvidia-tesla-V100,count=1" \
             --maintenance-policy TERMINATE \
             --metadata="install-nvidia-driver=True" \
         ```
@@ -124,7 +124,7 @@ We are now going to start using the cloud.
             === "CPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-cpu \
                     --image-project=deeplearning-platform-release
@@ -133,11 +133,11 @@ We are now going to start using the cloud.
             === "GPU"
 
                 ```bash
-                gcloud compute instances create my_instance \
+                gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
                     --image-family=pytorch-latest-gpu \
                     --image-project=deeplearning-platform-release \
-                    --accelerator="type=nvidia-tesla-K80,count=1" \
+                    --accelerator="type=nvidia-tesla-V100,count=1" \
                     --maintenance-policy TERMINATE
                 ```
 
@@ -421,6 +421,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
         where you need to replace `<registry-name>`, `<image-name>` and `<path-to-dockerfile>` with your own values.
@@ -435,11 +437,16 @@ the images we are used to that use PyTorch.
         You can trigger a build by running the following command:
 
         ```bash
-        gcloud builds submit --config=cloudbuild.yaml .
+        gcloud builds submit . --config=cloudbuild.yaml
         ```
 
         This command will submit a build to the cloud build service using the configuration file `cloudbuild.yaml` in
-        the current directory.
+        the current directory. The `.` specifies that the build context is the current directory. The build context are
+        all the files that are uploaded to the cloud build service, thus if your Dockerfile have `COPY` commands that
+        copy files from the local directory to the container, these files need to be in the build context. Do note that
+        by default all files in your `.gitignore` file are excluded from the build context, but you can override this
+        by using the `--ignore-file` flag, which you can read more about
+        [here](https://cloud.google.com/sdk/gcloud/reference/builds/submit).
 
 5. Instead of relying on manually submitting builds, we can setup the building process as continuous integration such
     that it is triggered every time we push code to the repository. This is done by setting up a
@@ -638,7 +645,7 @@ the images we are used to that use PyTorch.
                   uses: google-github-actions/setup-gcloud@v2
 
                 - name: Submit build
-                  run: gcloud builds submit --config cloudbuild_containers.yaml
+                  run: gcloud builds submit . --config cloudbuild_containers.yaml
             ```
 
 9. (Optional) The `cloudbuild` specification format allows you to specify so-called
@@ -677,6 +684,8 @@ the images we are used to that use PyTorch.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/$_IMAGE_NAME'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         substitutions:
           _IMAGE_NAME: 'my_image'
         ```
@@ -693,7 +702,7 @@ the images we are used to that use PyTorch.
             `gcloud builds submit` command:
 
             ```bash
-            gcloud builds submit --config=cloudbuild.yaml --substitutions=_IMAGE_NAME=my_image
+            gcloud builds submit . --config=cloudbuild.yaml --substitutions=_IMAGE_NAME=my_image
             ```
 
             If you want to provide more than one substitution you can do so by separating them with a comma.
@@ -737,7 +746,7 @@ models, and then use other services for different parts of our pipeline.
             --zone europe-west4-a \
             --image-family=pytorch-latest-gpu \
             --image-project=deeplearning-platform-release \
-            --accelerator="type=nvidia-tesla-v100,count=1" \
+            --accelerator="type=nvidia-tesla-t4,count=1" \
             --metadata="install-nvidia-driver=True" \
             --maintenance-policy TERMINATE
         ```
@@ -746,7 +755,7 @@ models, and then use other services for different parts of our pipeline.
         following command
 
         ```bash
-        gcloud beta compute ssh <instance-name>
+        gcloud compute ssh <instance-name>
         ```
 
     3. It is recommended to always check that the VM we get is actually what we asked for. In this case, the VM should
@@ -784,11 +793,11 @@ models, and then use other services for different parts of our pipeline.
             --config=config.yaml \
             # these are the arguments that are passed to the container, only needed if you want to change defaults
             --command 'python src/my_project/train.py' \
-            --args '["--epochs", "10"]'
+            --args=--epochs=10 --args=--batch-size=128
         ```
 
         Essentially, this command combines everything into one command: it first creates a VM with the specs specified
-        by a configuration file, then loads a container specified again in the configuration file and finally it runs
+        by a configuration file, then loads a container specified again in the configuration file, and finally it runs
         everything. An example of a config file could be:
 
         === "CPU"
@@ -800,7 +809,7 @@ models, and then use other services for different parts of our pipeline.
                     machineType: n1-highmem-2
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
             ```
 
         === "GPU"
@@ -810,17 +819,19 @@ models, and then use other services for different parts of our pipeline.
             workerPoolSpecs:
                 machineSpec:
                     machineType: n1-standard-8
-                    acceleratorType: NVIDIA_TESLA_T4 #(1)!
+                    acceleratorType: NVIDIA_TESLA_T4
                     acceleratorCount: 1
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
             ```
 
-            1. In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
-                allocating this type of GPU in the Vertex AI service. You can check how to request quota in the last
-                exercise of the [previous module](cloud_setup.md). Remember that it is not enough to just request a
-                quota for the GPU, the request needs to be approved by Google before you can use it.
+            In this case we are requesting a Nvidia Tesla T4 GPU. This will only work if you have a quota for
+            allocating this type of GPU in the Vertex AI service. To check your quota, go into
+            [quotas](https://console.cloud.google.com/iam-admin/quotas) and search for `custom_model_training_nvidia_t4`
+            in the `Filter` field to see the quota. If not, you can try to request a quota increase. Remember that it is
+            not enough to just request a quota for the GPU, the request needs to be approved by Google before you can
+            use it.
 
         you can read more about the configuration formatting
         [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
@@ -877,7 +888,7 @@ models, and then use other services for different parts of our pipeline.
                     machineType: n1-highmem-2
                 replicaCount: 1
                 containerSpec:
-                    imageUri: gcr.io/<project-id>/<docker-img>
+                    imageUri: <region>-docker.pkg.dev/<project-id>/<registry-name>/<image-name>:<image-tag>
                     env:
                     - name: WANDB_API_KEY
                       value: <your-wandb-api-key>
@@ -909,7 +920,7 @@ to inject secrets into our code without having to store them in the code itself.
             imageUri: gcr.io/<project-id>/<docker-img>
             env:
             - name: WANDB_API_KEY
-                value: $WANDB_API_KEY
+              value: $WANDB_API_KEY
     ```
 
     we do not want to store the `WANDB_API_KEY` in the config file, rather we would like to store it in the Secret
@@ -951,7 +962,7 @@ to inject secrets into our code without having to store them in the code itself.
           args:
             - '-c'
             - |
-            cat config.yaml
+              cat config.yaml
 
         - name: 'gcr.io/cloud-builders/gcloud'
           id: 'Train on vertex AI'
@@ -967,6 +978,8 @@ to inject secrets into our code without having to store them in the code itself.
             '--config',
             '${_VERTEX_TRAIN_CONFIG}',
           ]
+        substitutions:
+          _VERTEX_TRAIN_CONFIG: 'config.yaml'
         availableSecrets:
           secretManager:
           - versionName: projects/$PROJECT_ID/secrets/WANDB_API_KEY/versions/latest
@@ -996,7 +1009,7 @@ to inject secrets into our code without having to store them in the code itself.
     4. Finally, try to trigger the build:
 
         ```bash
-        gcloud builds submit --config=vertex_ai_train.yaml
+        gcloud builds submit . --config=vertex_ai_train.yaml
         ```
 
         and check that the `WANDB_API_KEY` is correctly injected into the `config.yaml` file.

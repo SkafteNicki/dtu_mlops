@@ -1,7 +1,6 @@
 import pickle
 from collections.abc import Generator
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 import anyio
 import pandas as pd
@@ -15,16 +14,13 @@ from fastapi import BackgroundTasks, FastAPI
 from fastapi.responses import HTMLResponse
 from sklearn import datasets
 
-if TYPE_CHECKING:
-    from sklearn.neighbors import KNeighborsClassifier
-
 
 def lifespan(app: FastAPI) -> Generator[None]:
     """Load model and classes, and create database file."""
     global model, classes
     classes = ["Iris-Setosa", "Iris-Versicolour", "Iris-Virginica"]
     with open("model.pkl", "rb") as file:
-        model: KNeighborsClassifier = pickle.load(file)
+        model = pickle.load(file)
 
     with open("prediction_database.csv", "w") as file:
         file.write("time, sepal_length, sepal_width, petal_length, petal_width, prediction\n")
