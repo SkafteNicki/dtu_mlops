@@ -103,7 +103,7 @@ working together on the same project.
 
 ### ❔ Exercises
 
-1. In your GitHub account create an repository, where the intention is that you upload the code from the final
+1. In your GitHub account create a repository, where the intention is that you upload the code from the final
     exercise from yesterday
 
     1. After creating the repository, clone it to your computer
@@ -125,7 +125,12 @@ working together on the same project.
             [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
 
     5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
-        updated in your repository.
+        updated in your repository (1).
+        { .annotate }
+
+        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from you local
+            [terminal](https://github.com/settings/tokens) or install the
+            [GitHub CLI](https://docs.github.com/en/github-cli/github-cli/quickstart).
 
     6. You can always use the command `git status` to check where you are in the process of making a commit.
 
@@ -241,7 +246,7 @@ working together on the same project.
     4. Finally, commit the merge and try to push.
 
 8. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
-    However, if you are using a proper editor they also have build in support for version control. We recommend getting
+    However, if you are using a proper editor they also have built-in support for version control. We recommend getting
     familiar with these features (here is a tutorial for
     [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol))
 
@@ -251,7 +256,7 @@ working together on the same project.
 
     ??? success "Solution"
 
-        You can check if there is a ".git" directory. Alternative you can use the `git status` command.
+        You can check if there is a ".git" directory. Alternatively you can use the `git status` command.
 
 2. Explain what the file `gitignore` is used for?
 
@@ -289,7 +294,7 @@ That covers the basics of git to get you started. In the exercise folder you can
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of GitHub:
 in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
 IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
-GitHub has an built-in editor that can simply be enabled by changing any URL from
+GitHub has a built-in editor that can simply be enabled by changing any URL from
 
 ```bash
 https://github.com/username/repository
