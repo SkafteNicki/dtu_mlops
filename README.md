@@ -26,7 +26,7 @@
     * Coding in [PyTorch](https://pytorch.org/). On the first day, we provide some exercises in PyTorch to
         get everyone's skills up-to-date as fast as possible.
 
-## 💻 Course setup
+## 💻 Course setup :)
 
 Start by cloning or downloading this repository
 
@@ -79,7 +79,7 @@ Additionally, be aware of the following icons throughout the course material:
 
 ## 🆒 MLOps: What is it?
 
-Machine Learning Operations (MLOps) is a rather new field that has seen its uprise as machine learning and particularly
+*Machine Learning Operations* (MLOps) is a rather new field that has seen its uprise as machine learning and particularly
 deep learning has become a widely available technology. The term itself is a compound of "machine learning"
 and "operations" and covers everything that has to do with the management of the production ML lifecycle.
 
