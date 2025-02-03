@@ -2,6 +2,7 @@ import csv
 import datetime
 import json
 import os
+import subprocess
 from pathlib import Path
 
 import numpy as np
@@ -87,7 +88,7 @@ app = Typer()
 
 
 @app.command()
-def main():
+def scrape():
     """Main function to scrape the group-repository data."""
     logger.info("Getting group-repository information")
     download_data("group_info.csv")
@@ -224,6 +225,42 @@ def main():
     Path("README.md").unlink()
     Path("report.py").unlink()
     Path(filename).unlink()
+
+
+@app.command()
+def clone(base_dir: str = "cloned_repos"):
+    """Clones the repositories of the groups."""
+    logger.info("Getting group-repository information")
+    download_data("group_info.csv")
+    group_data = load_data("group_info.csv")
+    logger.info("Group-repository information loaded successfully")
+
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+
+    for group in group_data:
+        repo_url = group.repo_url
+        group_number = group.group_number
+
+        # Create a directory for the group if it doesn't exist
+        group_dir = os.path.join(base_dir, f"group_{group_number}")
+        if not os.path.exists(group_dir):
+            os.makedirs(group_dir)
+
+        # Extract the repository name from the URL
+        repo_name = repo_url.split("/")[-1].replace(".git", "")
+
+        # Create a directory for the repository
+        repo_dir = os.path.join(group_dir, repo_name)
+        if not os.path.exists(repo_dir):
+            os.makedirs(repo_dir)
+
+        # Clone the repository
+        try:
+            subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+            logger.info(f"Successfully cloned {repo_url} into {repo_dir}")
+        except subprocess.CalledProcessError as e:
+            logger.info(f"Failed to clone {repo_url}: {e}")
 
 
 if __name__ == "__main__":
