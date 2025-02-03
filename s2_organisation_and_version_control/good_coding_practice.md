@@ -160,10 +160,10 @@ the `pyproject.toml` file.
 
 ## Typing
 
-In addition to writing documentation and following a specific styling method, in Python we have a third way of improving the
-quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the earlier
-programming languages like `c`, `c++` etc. where [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/)
-needed to be explicitly stated for variables:
+In addition to writing documentation and following a specific styling method, in Python we have a third way of improving
+the quality of our code: [through typing](https://docs.python.org/3/library/typing.html). Typing goes back to the
+earlier programming languages like `c`, `c++` etc. where
+[data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/) needed to be explicitly stated for variables:
 
 ```cpp
 int main() {

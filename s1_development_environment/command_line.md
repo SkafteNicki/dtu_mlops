@@ -17,9 +17,9 @@ graphical interface that you could interact with. Think of it as a text interfac
 
 The terminal is a well-known concept to users of Linux; however, Mac and (especially) Windows users often do not need it
 or therefore encounter it. Having a basic understanding of how to use a command line can help improve your workflow.
-The reason that the command line is an important tool to get familiar with is that doing any kind of MLOps will require us to
-be able to interact with many different tools, many of which do not have a graphical interface. Additionally, when we
-get to working in the cloud later in the course, you will be forced to interact with the command line.
+The reason that the command line is an important tool to get familiar with is that doing any kind of MLOps will require
+us to be able to interact with many different tools, many of which do not have a graphical interface. Additionally, when
+we get to working in the cloud later in the course, you will be forced to interact with the command line.
 
 Note that if you're already a terminal wizard then feel free to skip the exercises below. They are very elementary.
 

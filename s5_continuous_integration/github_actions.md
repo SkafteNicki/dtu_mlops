@@ -69,13 +69,13 @@ Let's take a look at how a GitHub workflow file is organized:
         ```
 
 4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. The first file should
-    contain all the packages required to run your code. The second file contains all *additional* packages required to run
-    the tests. In your simple case, it may very well be that the second file is empty; however, sometimes additional
+    contain all the packages required to run your code. The second file contains all *additional* packages required to
+    run the tests. In your simple case, it may very well be that the second file is empty; however, sometimes additional
     packages are used for testing that are not strictly required for the scripts to run.
 
 5. Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and after some
-    time you will see a green check mark next to the hash of the commit. Also, try to inspect the *Actions* tab where you can see
-    the history of actions run.
+    time you will see a green check mark next to the hash of the commit. Also, try to inspect the *Actions* tab where
+    you can see the history of actions run.
 
     <figure markdown>
     ![Image](../figures/action.PNG){ width="1000" }

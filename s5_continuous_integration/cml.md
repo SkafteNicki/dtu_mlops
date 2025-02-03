@@ -82,8 +82,8 @@ repository.
 1. For the first set of exercises, we are going to rely on the `cml` framework by [iterative.ai](https://iterative.ai/),
     which is a framework that is built on top of GitHub actions. The figure below describes the overall process using
     the `cml` framework. It should be clear that it is the very same process that we go through in the other
-    continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this session is
-    that we are only going to trigger whenever data changes.
+    continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this
+    session is that we are only going to trigger whenever data changes.
 
     <figure markdown>
     ![Image](../figures/cml.jpeg){ width="1000" }

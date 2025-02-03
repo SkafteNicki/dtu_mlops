@@ -502,8 +502,8 @@ through the files to get an understanding of what is going on.
         text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
         second preset runs target drift detection on the predicted labels.
 
-    1. The script is missing one key function to work: `#!python fetch_latest_data(n: int)` which should fetch the latest `n`
-        predictions. Implement this function in the script.
+    1. The script is missing one key function to work: `#!python fetch_latest_data(n: int)` which should fetch the
+        latest `n` predictions. Implement this function in the script.
 
         ??? success "Solution"
 

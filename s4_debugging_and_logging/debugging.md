@@ -44,9 +44,9 @@ To invoke the built-in Python debugger you can either:
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
 
-We here provide a script `vae_mnist_bugs.py` which contains a number of bugs that need to be fixed to get it running. Start by going over
-the script and try to understand what is going on. Afterwards, try to get it running by fixing the bugs. The following
-bugs exist in the script:
+We here provide a script `vae_mnist_bugs.py` which contains a number of bugs that need to be fixed to get it running.
+Start by going over the script and try to understand what is going on. Afterwards, try to get it running by fixing the
+bugs. The following bugs exist in the script:
 
 * One device bug (will only show if running on gpu, but try to find it anyways)
 * One shape bug

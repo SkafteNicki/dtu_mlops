@@ -192,8 +192,8 @@ A core problem within monitoring is alert systems. The alert system is in charge
 people when some telemetry or metric we are tracking is not behaving as it should. Alert systems are a subjective
 choice of when and how many should be sent out and in general should be proportional to the importance of the
 metric/telemetry. We commonly run into what is referred to the
-[goldilocks problem](https://en.wikipedia.org/wiki/Goldilocks_principle) where we want just the *right amount* of alerts, though
-it is more often the case that we either have
+[goldilocks problem](https://en.wikipedia.org/wiki/Goldilocks_principle) where we want just the *right amount* of
+alerts, though it is more often the case that we either have
 
 * Too many alerts, such that they become irrelevant and the really important ones are overseen, often referred to as
     alert fatigue

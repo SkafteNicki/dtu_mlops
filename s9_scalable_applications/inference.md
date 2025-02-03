@@ -155,9 +155,9 @@ $$
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$
 
-where $s$ is a scale and $z$ is the so-called zero point. But how does that relate to doing inference in a neural network? The
-figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
-computations in quantized format.
+where $s$ is a scale and $z$ is the so-called zero point. But how does that relate to doing inference in a neural
+network? The figure below shows all the conversations that we need to make to our standard inference pipeline to
+actually do computations in quantized format.
 
 <!-- markdownlint-disable -->
 <figure markdown>
@@ -364,8 +364,8 @@ the same capacity to learn as the teacher.
 ### ❔ Exercises
 
 Let's try implementing model distillation ourselves. We are going to see if we can accomplish this on the
-[cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that the exercises below can take quite a long time to
-finish because they involve training multiple networks and therefore involve some waiting.
+[cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that the exercises below can take quite a long
+time to finish because they involve training multiple networks and therefore involve some waiting.
 
 1. Start by install the `transformers` and `datasets` packages from Huggingface
 

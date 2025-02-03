@@ -543,7 +543,7 @@ We want to stress that the combination of tools presented in this course may not
 projects, and we recommend finding a setup that works for you. That said, each framework provides specific features
 that the others do not.
 
-Finally, we want to note that while during the course we really try to showcase a lot of open-source frameworks, Wandb is not
-one. It is free to use for personal usage (with a few restrictions) but for enterprises it does require a license. If you
-are eager to only work with open-source tools we highly recommend trying out [MLFlow](https://mlflow.org/), which offers
-the same overall functionalities as Wandb.
+Finally, we want to note that while during the course we really try to showcase a lot of open-source frameworks, Wandb
+is not one. It is free to use for personal usage (with a few restrictions) but for enterprises it does require a
+license. If you are eager to only work with open-source tools we highly recommend trying out
+[MLFlow](https://mlflow.org/), which offers the same overall functionalities as Wandb.

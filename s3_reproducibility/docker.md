@@ -407,7 +407,8 @@ beneficial for you to download.
         Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
         through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
         The containers that have to do with PyTorch can be seen
-        [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html). Try pulling the latest one:
+        [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html).
+        Try pulling the latest one:
 
         ```bash
         docker pull nvcr.io/nvidia/pytorch:22.07-py3

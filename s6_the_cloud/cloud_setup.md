@@ -143,11 +143,11 @@ services, both locally on your laptop and in the cloud console.
 ## IAM and Quotas
 
 A big part of using the cloud in a bigger organization has to do with Admin and quotas. Admin here in general refers
-to the different roles that users of GCP can have and quotas refers to the amount of resources that a given user has access to.
-For example, one employee, let's say a data scientist, may only be granted access to certain GCP services that have to
-do with the development and training of machine learning models, with `X` amount of GPUs available to use to make sure
-that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not need access to
-the same services and not necessarily the same resources.
+to the different roles that users of GCP can have and quotas refers to the amount of resources that a given user has
+access to. For example, one employee, let's say a data scientist, may only be granted access to certain GCP services
+that have to do with the development and training of machine learning models, with `X` amount of GPUs available to use
+to make sure that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not
+need access to the same services and not necessarily the same resources.
 
 In this course, we are not going to focus too much on this aspect but it is important to know that it exists. One
 feature you are going to need for doing the project is how to share a project with other people. This is done through
@@ -222,15 +222,15 @@ authentication between GitHub and GCP. You can read more about how to create a s
 1. Go to the `IAM & Admin` page and click on `Service accounts`. Alternatively, you can search for it in the top search
     bar.
 
-2. Click the `Create Service Account` button. On the next page, you can give the service account a name and id (automatically
-   generated, but you can change it if you want). You can also give it a description. Leave the rest as
-   default and click `Create`.
+2. Click the `Create Service Account` button. On the next page, you can give the service account a name and id
+    (automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
+    default and click `Create`.
 
-4. Next, let's give the service account some permissions. Your job now is to give the service account the lowest
+3. Next, let's give the service account some permissions. Your job now is to give the service account the lowest
     possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
-    the `IAM` page. Click on the `Grant Access` button and paste in the email address in the `Add principals` field. Then click
-    the `Select a role` dropdown and either write the name of the role you want to give the service account or search
-    for it in the list. Finally, click `Save`.  For help, you can look at this
+    the `IAM` page. Click on the `Grant Access` button and paste in the email address in the `Add principals` field.
+    Then click the `Select a role` dropdown and either write the name of the role you want to give the service account
+    or search for it in the list. Finally, click `Save`.  For help, you can look at this
     [page](https://cloud.google.com/iam/docs/understanding-roles) and try to find the role that fits the description.
 
     ??? success "Solution"
@@ -239,12 +239,12 @@ authentication between GitHub and GCP. You can read more about how to create a s
         in a bucket and download objects, but nothing more. Thus, even if someone gets access to the service account
         they cannot delete objects in the bucket.
 
-5. To use the service account later we need to create a key for it. Click on the service account and then the `Keys`
+4. To use the service account later we need to create a key for it. Click on the service account and then the `Keys`
     tab. Click `Add key` and then `Create new key`. Choose the `JSON` key type and click `Create`. This will download
     a JSON file to your computer. This file is the key to the service account and should be kept secret. If you lose
     it you can always create a new one.
 
-6. Finally, everything we just did from creating the service account, giving it permissions, and creating a key can
+5. Finally, everything we just did from creating the service account, giving it permissions, and creating a key can
     also be done through the `gcloud` interface. Try to find the commands to do this in the
     [documentation](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts).
 
