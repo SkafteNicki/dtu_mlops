@@ -19,6 +19,7 @@ from torchvision.utils import save_image
 log = logging.getLogger(__name__)
 
 
+# creating a logger
 @hydra.main(config_path="config", config_name="default_config.yaml")
 def train(config) -> None:
     """Train VAE on MNIST."""

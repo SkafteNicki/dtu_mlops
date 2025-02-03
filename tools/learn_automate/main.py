@@ -4,7 +4,9 @@ import shutil
 import time
 import zipfile
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 import typer
 from bs4 import BeautifulSoup
@@ -16,6 +18,31 @@ load_dotenv()
 
 USER = os.getenv("USER")
 PASSWORD = os.getenv("PASSWORD")
+
+
+def extract_datetime(folder_name):
+    """Extracts the datetime part from the folder name."""
+    datetime_part = folder_name.split(" - ")[-1]
+    datetime_part = datetime_part.replace("AM", " AM").replace("PM", " PM")
+    return datetime.strptime(datetime_part, "%d %B, %Y %I%M %p")  # noqa: DTZ007
+
+
+def extract_base_github_url(url):
+    """Extracts the base URL of a GitHub repo, removing extra components like branch or file paths, '.git' suffix."""
+    parsed = urlparse(url)
+    path_parts = parsed.path.split("/")
+
+    # Ensure the path contains at least 'owner' and 'repo' components
+    if len(path_parts) >= 3:
+        owner = path_parts[1]
+        repo = path_parts[2]
+        # Remove '.git' suffix if present
+        if repo.endswith(".git"):
+            repo = repo[:-4]
+        # Construct the base GitHub URL
+        return f"https://{parsed.netloc}/{owner}/{repo}"
+    msg = "Invalid GitHub URL format."
+    raise ValueError(msg)
 
 
 def download_from_learn(course: str) -> tuple[str, str]:
@@ -85,19 +112,30 @@ def unzip_assignments_and_extract_links(download2: str) -> dict:
     with zipfile.ZipFile(download2, "r") as zip_ref:
         zip_ref.extractall("extracted_files")
 
+    folders = Path("extracted_files").iterdir()
+    grouped_folders = defaultdict(list)
+    for folder in folders:
+        if folder.is_dir():
+            group_key = folder.name.split(" - ")[1].strip("MLOPS ")
+            grouped_folders[group_key].append(folder)
+
+    # Get the most recent folder for each group
+    most_recent_folders = {}
+    for group_key, group_folders in grouped_folders.items():
+        most_recent_folder = max(group_folders, key=lambda x: extract_datetime(x.name))
+        most_recent_folders[group_key] = most_recent_folder
+
     group_links = {}
-    for folder in Path("extracted_files").iterdir():
+    for group_number, folder in most_recent_folders.items():
         if folder.is_dir():
             for file in folder.iterdir():
                 if file.suffix == ".html":
-                    # Extract group number from folder name
-                    group_number = folder.name.split(" - ")[1].strip().strip("MLOPS ")  # Extract group number
-                    # Parse the HTML file
                     with open(file, encoding="utf-8") as html_file:
                         soup = BeautifulSoup(html_file, "html.parser")
                         link_tag = soup.find("a", href=True)
                         if link_tag:
-                            group_links[group_number] = link_tag["href"].rstrip(".git")
+                            link_tag["href"] = extract_base_github_url(link_tag["href"])
+                            group_links[group_number] = link_tag["href"]
     return group_links
 
 

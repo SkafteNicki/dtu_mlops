@@ -65,8 +65,8 @@ or data science application, there are certain considerations to take into accou
 Python is the dominant language for machine learning and data science currently, which is why we in this section are
 focusing on some special files you will need for your Python projects.
 
-The first file you may or may not know about is the `__init__.py` file. In Python the `__init__.py` file is used to mark a
-directory as a Python package. Therefore, as a bare minimum, any Python package should look something like this:
+The first file you may or may not know about is the `__init__.py` file. In Python the `__init__.py` file is used to mark
+a directory as a Python package. Therefore, as a bare minimum, any Python package should look something like this:
 
 ```txt
 ├── src/
@@ -111,12 +111,12 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     The `[build-system]` informs `pip`/`python` that to build this Python project it needs the two packages
     `setuptools` and `wheel` and that it should call the
     [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) function to actually build the
-    project. The `[project]` section essentially contains metadata regarding the package, what it's called, etc. for if we
-    ever want to publish it to [PyPI](https://pypi.org/).
+    project. The `[project]` section essentially contains metadata regarding the package, what it's called, etc. for if
+    we ever want to publish it to [PyPI](https://pypi.org/).
 
     For specifying dependencies of your project you have two options. Either you specify them in a `requirements.txt`
-    file and put that as a dynamic field in `pyproject.toml` as shown above. Alternatively, you can add a `dependencies` field
-    under the `[project]` header like this:
+    file and put that as a dynamic field in `pyproject.toml` as shown above. Alternatively, you can add a `dependencies`
+    field under the `[project]` header like this:
 
     ```toml
     [project]
@@ -160,7 +160,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     ```
 
     Essentially, it is the exact same meta information as in `pyproject.toml`, just written directly in Python
-    syntax instead of `toml`. Because there was a desire to seperate this meta information into a separate file, the
+    syntax instead of `toml`. Because there was a desire to separate this meta information into its own file, the
     `setup.cfg` file was created which can contain the exact same information as `setup.py` just in a declarative
     config.
 
@@ -188,8 +188,8 @@ pip install -e .
 !!! note "Developer mode in Python"
 
     The `-e` is short for `--editable` mode also called
-    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously be
-    iterating on our package this is the preferred way to install our package, because that means that we do not have
+    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously
+    be iterating on our package this is the preferred way to install our package, because that means that we do not have
     to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.
 
@@ -199,10 +199,10 @@ package you use. This is the most essential information you need to know about c
 ## ❔ Exercises
 
 After having installed cookiecutter and created your first template project (exercise 1 and 2 below), the remaining
-exercises are intended to be used on the simple CNN MNIST classifier from yesterday's exercise, with the goal of forcing it into
-this structure. You are not required to fill out every folder and file in the project structure, but try to at least
-follow the steps in the exercises. Whenever you need to run a file I recommend always doing so from the root directory
-e.g.
+exercises are intended to be used on the simple CNN MNIST classifier from yesterday's exercise, with the goal of forcing
+it into this structure. You are not required to fill out every folder and file in the project structure, but try to at
+least follow the steps in the exercises. Whenever you need to run a file I recommend always doing so from the root
+directory e.g.
 
 ```bash
 python src/<project_name>/data.py data/raw data/processed
@@ -248,8 +248,8 @@ your head around where files are located.
         [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) to both.
 
 3. After having created your new project, the first step is to also create a corresponding virtual environment and
-    install any needed requirements. If you have a virtual environment from yesterday feel free to use that. Otherwise create
-    a new one. Then install the project in that environment.
+    install any needed requirements. If you have a virtual environment from yesterday feel free to use that. Otherwise,
+    create a new one. Then install the project in that environment.
 
     ```bash
     pip install -e .
@@ -433,8 +433,8 @@ your head around where files are located.
 That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
-product types because they share a common structure, while still having some specifics. Keeping templates up-to-date then
-becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we highly
-recommend to checkout [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make
-projects but also update existing ones as the template evolves. Cruft additionally also has template validation capabilities to
-ensure projects match the latest version of a template.
+product types because they share a common structure, while still having some specifics. Keeping templates up-to-date
+then becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we
+highly recommend to checkout [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only
+make projects but also update existing ones as the template evolves. Cruft additionally also has template validation
+capabilities to ensure projects match the latest version of a template.

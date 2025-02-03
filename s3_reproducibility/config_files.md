@@ -115,15 +115,15 @@ look online for your answers before looking at the solution. Remember: it's not 
     revisit during the course.
 
 3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least three have made it
-    into the core part of the code. One essential hyperparameter is also not included in the script but is needed for the code to be
-    completely reproducible (HINT: the weights of any neural network are initialized at random).
+    into the core part of the code. One essential hyperparameter is also not included in the script but is needed for
+    the code to be completely reproducible (HINT: the weights of any neural network are initialized at random).
 
     ??? success "Solution"
 
         From the top of the file `batch_size`, `x_dim`, `hidden_dim` can be found as hyperparameters. Looking through
-        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` for the optimzer, and `epochs` in the
-        training loop are also hyperparameters. Finally, the `seed` is not included in the script but is needed to make
-        the script fully reproducible, e.g. `torch.manual_seed(seed)`.
+        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` for the optimzer, and `epochs` in
+        the training loop are also hyperparameters. Finally, the `seed` is not included in the script but is needed to
+        make the script fully reproducible, e.g. `torch.manual_seed(seed)`.
 
 4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found.
 
@@ -133,8 +133,8 @@ look online for your answers before looking at the solution. Remember: it's not 
 6. Run the script.
 
 7. By default hydra will write the results to an `outputs` folder, with a sub-folder for the day the experiment was
-    run and further the time it was started. Inspect your run by going over each file that hydra has generated and check that
-    the information has been logged. Can you find the hyperparameters?
+    run and further the time it was started. Inspect your run by going over each file that hydra has generated and
+    check that the information has been logged. Can you find the hyperparameters?
 
 8. Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:
 

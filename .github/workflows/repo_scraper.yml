@@ -1,8 +1,8 @@
 name: Run repo scraper
 
 on:
-  schedule:
-    - cron: "0 */1 * * *"  # Runs every hour
+  #schedule:
+  #  - cron: "0 */1 * * *"  # Runs every hour
   workflow_dispatch: {}  # Allows manual executions
 
 jobs:

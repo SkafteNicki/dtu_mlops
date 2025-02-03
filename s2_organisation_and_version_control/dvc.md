@@ -16,7 +16,7 @@
         permanent storage solution in this [module](../s6_the_cloud/using_the_cloud.md).
 
     2. Follow the instructions below to authenticate DVC with Google Drive. As a starting point read the following
-        [Github issue](https://github.com/iterative/dvc/issues/10516#issuecomment-2289652067) and then follow the
+        [GitHub issue](https://github.com/iterative/dvc/issues/10516#issuecomment-2289652067) and then follow the
         instructions
         [here](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended).
         for setting up a custom Google Cloud project.
@@ -147,7 +147,7 @@ it contains excellent tutorials.
     `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
     which makes data much faster to get. Finally, make sure that your data is not stored in your GitHub repository.
 
-    After authenticating the first time, DVC should be setup without having to authenticate again. If you for some
+    After authenticating the first time, DVC should be set up without having to authenticate again. If you for some
     reason encounter that DVC fails to authenticate, you can try to reset the authentication. Locate the file
     `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json`, where `$CACHE_HOME` depends on your operating system:
 
@@ -163,7 +163,7 @@ it contains excellent tutorials.
 
     Delete the complete `{gdrive_client_id}` folder and retry authenticating with `dvc push`.
 
-9. After completing the above steps, it is very easy for others (or yourself) to get setup with both
+9. After completing the above steps, it is very easy for others (or yourself) to get set up with both
     code and data by simply running
 
     ```bash
@@ -177,7 +177,7 @@ it contains excellent tutorials.
 
 10. Let's now look at the process of creating a new version of our data. We are going to add some new data to our
     dataset and version control this as well. The new data can be downloaded from this
-    [Google Driver folder](https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing)
+    [Google Drive folder](https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing)
     or by running these two commands:
 
     ```bash

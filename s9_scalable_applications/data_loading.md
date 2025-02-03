@@ -43,10 +43,10 @@ brain of your computer).
 </figure>
 
 Most modern CPUs are a single chip that consists of multiple *cores*. Each core can further be divided into *threads*.
-In most laptops, the core count is 4 and there are commonly 2 threads per core. This means that the common laptop has 8 threads.
-The number of threads a compute unit has is important because that directly corresponds to the number of parallel
-operations that can be executed, i.e., one per thread. In a Python terminal you should be able to get the number of
-cores in your machine by writing (try it):
+In most laptops, the core count is 4 and there are commonly 2 threads per core. This means that the common laptop has
+8 threads. The number of threads a compute unit has is important because that directly corresponds to the number of
+parallel operations that can be executed, i.e., one per thread. In a Python terminal you should be able to get the
+number of cores in your machine by writing (try it):
 
 ```python
 import multiprocessing

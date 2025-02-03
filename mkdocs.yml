@@ -69,7 +69,7 @@ plugins:
       enable_creation_date: true
   - exclude:
       glob:
-        - student_repos/*
+        - tools/*
         - reports/README.md
         - s10_extra/design.md
         - s10_extra/infrastructure_as_code.md

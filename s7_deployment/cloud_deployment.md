@@ -240,7 +240,7 @@ deploying containers.
     Streamlit app (which you can learn more about in [this module](frontend.md)) consisting of a single docker file.
     You can choose which one you want to work with.
 
-    ??? example "Simple Fastapi app"
+    ??? example "Simple FastAPI app"
 
         ```python linenums="1" title="simple_fastapi_app.py"
         --8<-- "s7_deployment/exercise_files/simple_fastapi_app.py"
@@ -451,6 +451,57 @@ deploying containers.
         options:
           logging: CLOUD_LOGGING_ONLY
         ```
+
+8. (Optional) A common pattern when using cloud run is that your application need access to some storage during
+    operations, either for reading or writing a file. This could be reading in a model checkpoint on startup and then
+    writing some statistics during runtime. The easiest way to do this is to mount a storage bucket to your container.
+
+    1. Consider the following application that reads and writes for a folder `FOLDER = "/gcs/<bucket-name>/"`.
+
+        ??? example "Simple FastAPI app with storage"
+
+            ```python linenums="1" title="simple_fastapi_app_volume.py"
+            --8<-- "s7_deployment/exercise_files/simple_fastapi_app_volume.py"
+            ```
+
+        Replace the `<bucket-name>` in the folder path with a bucket you have created. Then write a small dockerfile
+        and deploy the application to cloud run.
+
+        ??? success "Solution"
+
+            The dockerfile should look like this:
+
+            ```dockerfile linenums="1" title="simple_fastapi_app_volume.dockerfile"
+            --8<-- "s7_deployment/exercise_files/simple_fastapi_app.dockerfile"
+            ```
+
+            and the deployment command should look like this:
+
+            ```bash
+            gcloud run deploy simple-fastapi-with-mounted-volume \
+                --image <image-name>:<image-tag> --platform managed --region <region> --allow-unauthenticated \
+            ```
+
+    2. If you then try to access either the `/upload/` or `/files/` endpoints you should see that the application at
+        this point is unable to read or write to the folder location, because it is not mounted to the container yet.
+        Mounting a volume can either be done though the command line or through the UI. You can read how to do
+        [here](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#mount-volume). Add a
+        volume to your cloud run service and try to access the endpoints again making sure you can read and write.
+
+        ??? success "Solution"
+
+            If you are using the UI, follow the instructions in the link above. If you are using the command line, the
+            command should look like this:
+
+            ```bash
+            gcloud run services update SERVICE \
+                --add-volume name=<volume-name>,type=cloud-storage,bucket=<bucket-name> \
+                --add-volume-mount volume=<volume-name>,mount-path="/gcs/<bucket-name>"
+            ```
+
+            The `<volume-name>` you can choose arbitrarily, but the `<bucket-name>` should be the name of the bucket
+            you want to mount. And the `<mount-path>` should be the path you are reading from/writing to inside your
+            application.
 
 ## 🧠 Knowledge check
 

@@ -119,13 +119,18 @@ working together on the same project.
     4. Commit the files using the `git commit` command where you use the `-m` argument to provide a commit message (1).
         { .annotate }
 
-        1. :man_raising_hand: Writing a good commit message is a skill in and of itself. A commit message should be short but
-            informative about the work you are trying to commit. Try to practice writing good commit messages
+        1. :man_raising_hand: Writing a good commit message is a skill in and of itself. A commit message should be
+            short but informative about the work you are trying to commit. Try to practice writing good commit messages
             throughout the course. You can see
             [this guideline](https://github.com/joelparkerhenderson/git-commit-message) for help.
 
     5. Finally push the files to your repository using `git push`. Make sure to check online that the files have been
-        updated in your repository.
+        updated in your repository (1).
+        { .annotate }
+
+        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from you local
+            [terminal](https://github.com/settings/tokens) or install the
+            [GitHub CLI](https://docs.github.com/en/github-cli/github-cli/quickstart).
 
     6. You can always use the command `git status` to check where you are in the process of making a commit.
 
@@ -160,7 +165,8 @@ working together on the same project.
 
     1. Go online and find a project you do not own, where you can improve the code. You can either look at this
         [page](https://goodfirstissue.dev/) of good issues to get started with or for simplicity you can just choose
-        the repository belonging to the course. Now fork the project by clicking the *Fork* button.
+        [the repository belonging to the course](https://github.com/SkafteNicki/dtu_mlops). Now fork the project by
+        clicking the *Fork* button.
 
         ![forking](../figures/forking.PNG)
 
