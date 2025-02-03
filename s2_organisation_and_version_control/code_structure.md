@@ -7,8 +7,8 @@
 !!! info "Core Module"
 
 With a basic understanding of version control, it is now time to really begin filling up our code repository. However,
-the question then remains how to organize our code? As developers, we tend to not think about code organization that
-much. It is instead something that just dynamically is being created as we may need it. However, maybe we should spend
+the question then remains: how to organize our code? As developers, we tend to not think about code organization that
+much. It is instead something that is just dynamically created as we may need it. However, maybe we should spend
 some time initially getting organized with the chance of this making our code easier to develop and maintain in the
 long run. If we do not spend time organizing our code, we may end up with a mess of code that is hard to understand
 or maintain
@@ -27,7 +27,7 @@ or maintain
     (PLoP '97/EuroPLoP '97) Monticello, Illinois, September 1997
 
 We are here going to focus on the organization of data science projects and machine learning projects. The core
-difference this kind of project introduces compared to more traditional systems is *data*. The key to modern machine
+difference these kinds of projects introduce compared to more traditional systems is *data*. The key to modern machine
 learning is without a doubt the vast amounts of data that we have access to today. It is therefore not unreasonable that
 data should influence our choice of code structure. If we had another kind of application, then the layout of our
 codebase should probably be different.
@@ -36,15 +36,15 @@ codebase should probably be different.
 
 We are in this course going to use the tool [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html),
 which is a tool for creating projects from *project templates*. A project template is in short just an overall structure
-of how you want your folders, files etc. to be organized from the beginning. For this course we are going to be using a
+for how you want your folders, files, etc. to be organized from the beginning. For this course we are going to be using a
 custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The template is essentially a fork of the
 [cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) that has been used for a
 couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
 
-We are not going to argue that this template is better than every other template, we are just focusing on that it is a
+We are not going to argue that this template is better than every other template; it is just a
 **standardized** way of creating project structures for machine learning projects. By standardized we mean that if two
 people are using `cookiecutter` with the same template, the layout of their code follows some specific rules,
-enabling one to faster understand the other person's code. Code organization is therefore not only to make the
+enabling them to understand each other's code faster. Code organization is therefore not only to make the
 code easier for you to maintain but also for others to read and understand.
 
 Shown below is the default code structure of cookiecutter for data science projects.
@@ -53,9 +53,9 @@ Shown below is the default code structure of cookiecutter for data science proje
 ![Image](../figures/cookie_cutter.png){ width="1000" }
 </figure>
 
-What is important to keep in mind when using a template is that it exactly is a template. By definition, a template is
-a *guide* to make something. Therefore, not all parts of a template may be important for your project at hand. Your job
-is to pick the parts from the template that is useful for organizing your machine learning project and add the parts
+What is important to keep in mind when using a template is that it is precisely a template. By definition, a template is
+a *guide* to making something. Therefore, not all parts of a template may be important for your project at hand. Your job
+is to pick the parts from the template that are useful for organizing your machine learning project and add the parts
 that are missing.
 
 ## Python projects
@@ -65,8 +65,8 @@ or data science application, there are certain considerations to take into accou
 Python is the dominant language for machine learning and data science currently, which is why we in this section are
 focusing on some special files you will need for your Python projects.
 
-The first file you may or may not know is the `__init__.py` file. In Python the `__init__.py` file is used to mark a
-directory as a Python package. Therefore, as a bare minimum, any Python package should look something like this:
+The first file you may or may not know about is the `__init__.py` file. In Python the `__init__.py` file is used to mark
+a directory as a Python package. Therefore, as a bare minimum, any Python package should look something like this:
 
 ```txt
 ├── src/
@@ -82,7 +82,7 @@ but also in charge of *installing* it. For `pip` to be able to install a package
 the code it should install and how to install it. This is the job of the `pyproject.toml` file.
 
 Below we have both added a description of the structure of the `pyproject.toml` file but also `setup.py + setup.cfg`
-which is the "old" way of providing project instructions regarding Python project. However, you may still encounter
+which is the "old" way of providing project instructions regarding Python projects. However, you may still encounter
 a lot of projects using `setup.py + setup.cfg`, so it is good to at least know about them.
 
 === "pyproject.toml"
@@ -108,15 +108,15 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     dependencies = {file = ["requirements.txt"]}
     ```
 
-    the `[build-system]` informs `pip`/`python` that to build this Python project it needs the two packages
+    The `[build-system]` informs `pip`/`python` that to build this Python project it needs the two packages
     `setuptools` and `wheel` and that it should call the
     [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) function to actually build the
-    project. The `[project]` section essentially contains metadata regarding the package, what its called etc. if we
-    ever want to publish it to [PyPI](https://pypi.org/).
+    project. The `[project]` section essentially contains metadata regarding the package, what it's called, etc. for if
+    we ever want to publish it to [PyPI](https://pypi.org/).
 
     For specifying dependencies of your project you have two options. Either you specify them in a `requirements.txt`
-    file and it as a dynamic field in `pyproject.toml` as shown above. Alternatively, you can add a `dependencies` field
-    under the `[project]` header like this:
+    file and put that as a dynamic field in `pyproject.toml` as shown above. Alternatively, you can add a `dependencies`
+    field under the `[project]` header like this:
 
     ```toml
     [project]
@@ -143,7 +143,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
 
 === "setup.py + setup.cfg"
 
-    `setup.py` is the original way to describing how a Python package should be build. The most basic `setup.py` file
+    `setup.py` is the original way to describe how a Python package should be built. The most basic `setup.py` file
     will look like this:
 
     ```python
@@ -160,7 +160,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     ```
 
     Essentially, it is the exact same meta information as in `pyproject.toml`, just written directly in Python
-    syntax instead of `toml`. Because there was a wish to separate this meta information into a separate file, the
+    syntax instead of `toml`. Because there was a desire to separate this meta information into its own file, the
     `setup.cfg` file was created which can contain the exact same information as `setup.py` just in a declarative
     config.
 
@@ -188,21 +188,21 @@ pip install -e .
 !!! note "Developer mode in Python"
 
     The `-e` is short for `--editable` mode also called
-    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will be continuously
-    iterating on our package this is the preferred way to install our package, because that means that we do not have
+    [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will continuously
+    be iterating on our package this is the preferred way to install our package, because that means that we do not have
     to run `pip install` every time we make a change. Essentially, in developer mode changes in the Python source code
     can immediately take place without requiring a new installation.
 
-after running this your code should be available to import as `from project_name import ...` like any other Python
+After running this your code should be available to import as `from project_name import ...` like any other Python
 package you use. This is the most essential information you need to know about creating Python packages.
 
 ## ❔ Exercises
 
 After having installed cookiecutter and created your first template project (exercise 1 and 2 below), the remaining
-exercises are intended to be used on taking the simple CNN MNIST classifier from yesterday's exercise and force it into
-this structure. You are not required to fill out every folder and file in the project structure, but try to at least
-follow the steps in exercises. Whenever you need to run a file I recommend always doing this from the root directory
-e.g.
+exercises are intended to be used on the simple CNN MNIST classifier from yesterday's exercise, with the goal of forcing
+it into this structure. You are not required to fill out every folder and file in the project structure, but try to at
+least follow the steps in the exercises. Whenever you need to run a file I recommend always doing so from the root
+directory e.g.
 
 ```bash
 python src/<project_name>/data.py data/raw data/processed
@@ -212,13 +212,13 @@ python src/<project_name>/train_model.py <arguments>
 In this way paths (for saving and loading files) are always relative to the root, and it is in general easier to wrap
 your head around where files are located.
 
-1. Install [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
+1. Install the [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
 
     ``` bash
     pip install cookiecutter
     ```
 
-2. Start a new project using [this template](https://github.com/SkafteNicki/mlops_template), that is specialized for
+2. Start a new project using [this template](https://github.com/SkafteNicki/mlops_template), which is specialized for
     this course (1).
     { .annotate }
 
@@ -239,24 +239,24 @@ your head around where files are located.
         `my_project` is a valid name, while `MyProject` is not. Additionally, the package name cannot start with a
         number.
 
-    ??? note "Flat-layout vs src-layout"
+    ??? note "Flat-layout vs. src-layout"
 
         There are two common choices on how layout your source directory. The first is called *src-layout*
         where the source code is always placed in a `src/<project_name>` folder and the second is called *flat-layout*
         where the source code is just placed in a `<project_name>` folder. The template we are using in this
-        course is using the src-layout, but there are
-        [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) for both.
+        course uses the src-layout, but there are
+        [pros and cons](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) to both.
 
 3. After having created your new project, the first step is to also create a corresponding virtual environment and
-    install any needed requirements. If you have a virtual environment from yesterday feel free to use that, otherwise create
-    a new one. Then install the project in that environment
+    install any needed requirements. If you have a virtual environment from yesterday feel free to use that. Otherwise,
+    create a new one. Then install the project in that environment.
 
     ```bash
     pip install -e .
     ```
 
-4. Start by filling out the `src/<project_name>/data.py` file. When this file runs, it should take the raw data e.g. the
-    corrupted MNIST files from yesterday (`../data/corruptmnist`) which now should be located in a `data/raw` folder and
+4. Start by filling out the `src/<project_name>/data.py` file. When this file runs, it should take the raw data, e.g. the
+    corrupted MNIST files from yesterday (`../data/corruptmnist`), which now should be located in a `data/raw` folder and
     process them into a single tensor, normalize the tensor and save this intermediate representation to the
     `data/processed` folder. By normalization here we refer to making sure the images have mean 0 and standard
     deviation 1.
@@ -267,7 +267,7 @@ your head around where files are located.
         --8<-- "s2_organisation_and_version_control/exercise_files/data_solution.py"
         ```
 
-5. This template comes with a `tasks.py` which uses the [invoke](https://www.pyinvoke.org/) framework to define project
+5. This template comes with `tasks.py`, which uses the [invoke](https://www.pyinvoke.org/) framework to define project
     tasks. You can learn more about the framework in the last optional [module](cli.md) in today's session. However, for
     now just know that `tasks.py` is a file that can be used to specify common tasks that you want to run in your
     project. It is similar to `Makefile`s if you are familiar with them. Try out some of the pre-defined tasks:
@@ -285,13 +285,13 @@ your head around where files are located.
 
     In general, we recommend that you add commands to the `tasks.py` file as you move along in the course.
 
-6. Transfer your model file `model.py` into `src/<project_name>/model.py` file. When you call the script e.g.
+6. Transfer your model file `model.py` into the `src/<project_name>/model.py` file. When you call the script, e.g.
 
     ```bash
     python src/<project_name>/model.py
     ```
 
-    It should print out the model architecture and number of parameters of the model.
+    it should print out the model architecture and number of parameters in the model.
 
     ??? success "Solution"
 
@@ -301,19 +301,19 @@ your head around where files are located.
         --8<-- "s2_organisation_and_version_control/exercise_files/model_solution.py"
         ```
 
-7. Transfer the relevant parts of the `main.py` script in the `src/<project-name>/train.py` script e.g. the parts that
-    has to do with training the model. In addition, make sure it also does the following two things when run:
+7. Transfer the relevant parts of the `main.py` script to the `src/<project-name>/train.py` script, i.e. the parts that
+    have to do with training the model. In addition, make sure it also does the following two things when run:
 
     * Saves the trained model to the `models` folder
-    * Saves some statistics/visualizations from the training to the `reports/figures` folder. This could be a simple
+    * Saves some statistics/visualizations from training to the `reports/figures` folder. This could be a simple
 
     ??? success "Solution"
 
         ```python linenums="1" title="train.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/train_solution.py"
         ```
-8. Transfer the remaining parts of the `main.py` script into the `src/<project-name>/evaluate.py` script e.g. the parts
-    that has to do with evaluating the model. When run, it should load the model from the `models` folder and print out
+8. Transfer the remaining parts of the `main.py` script into the `src/<project-name>/evaluate.py` script, i.e. the parts
+    that have to do with evaluating the model. When run, it should load the model from the `models` folder and print out
     the accuracy of the model on the test set.
 
     ??? success "Solution"
@@ -324,42 +324,41 @@ your head around where files are located.
 
 9. Fill out the file `src/<project-name>/visualize.py` with this (as minimum, feel free to add more visualizations)
 
-    * Loads a pre-trained network
+    * Loads a pre-trained network.
     * Extracts some intermediate representation of the data (your training set) from your CNN. This could be the
-        features just before the final classification layer
-    * Visualize features in a 2D space using
+        features just before the final classification layer.
+    * Visualize features in 2D space using
         [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
         reduction.
     * Save the visualization to a file in the `reports/figures/` folder.
 
     ??? success "Solution"
 
-        The solution here depends a bit on the choice of model. However, in most cases your
+        The solution here depends a bit on the choice of model. However, in most cases the
         last layer in the model will be a fully connected layer, which we assume is named `fc`. The easiest way to get
         the features before this layer is to replace the layer with `torch.nn.Identity` which essentially does nothing
-        (see highlighted line below). Alternatively, if you implemented everything in a `torch.nn.Sequential` you can
+        (see the highlighted line below). Alternatively, if you implemented everything in `torch.nn.Sequential` you can
         just remove the last layer from the `Sequential` object: `model = model[:-1]`.
 
         ```python linenums="1" hl_lines="23" title="visualize.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/visualize_solution.py"
         ```
-10. Make sure to update the `README.md` file with a short description on how your scripts should be run
+10. Make sure to update the `README.md` file with a short description of how your scripts should be run.
 
 11. Finally, make sure to update the `requirements.txt` file with any packages that are necessary for running your
-    code (see [this set of exercises](../s1_development_environment/package_manager.md) for help)
+    code (see [this set of exercises](../s1_development_environment/package_manager.md) for help).
 
-12. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?)
+12. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?).
 
 13. (Optional) Let's say that you are not satisfied with the template I have recommended that you use, which is
     completely fine. What should you then do? You should of course create your own template! This is actually not that
     hard to do.
 
-    1. Just for a starting point I would recommend that you fork either the
+    1. Just as a starting point I would recommend that you fork either the
         [mlops template](https://github.com/SkafteNicki/mlops_template) which you have already been using or
-        alternatively fork the [data science template](https://github.com/drivendata/cookiecutter-data-science)
-        template.
+        alternatively fork the [data science template](https://github.com/drivendata/cookiecutter-data-science).
 
-    2. After forking the template, clone it down locally and let's start modifying it. The first step is changing
+    2. After forking the template, clone it locally and let's start modifying it. The first step is changing
         the `cookiecutter.json` file. For the MLOps template it looks like this:
 
         ```json
@@ -389,7 +388,7 @@ your head around where files are located.
 
         And it should create a new folder using the default values of the `cookiecutter.json` file.
 
-    5. Finally, make sure to push any changes you made to the template to GitHub, such that you in the future can use it
+    5. Finally, make sure to push any changes you made to the template to GitHub, so that you in the future can use it
         by simply running
 
         ```bash
@@ -398,27 +397,27 @@ your head around where files are located.
 
 ## 🧠 Knowledge check
 
-1. Starting from complete scratch, what is the steps needed to create a new GitHub repository and push a specific
-    template to it as the very first commit.
+1. Starting completely from scratch, what are the steps needed to create a new GitHub repository and push a specific
+    template to it as the very first commit?
 
     ??? success "Solution"
 
-        1. Create a completely barebone repository, either using the GitHub UI or if you have the GitHub cli installed
+        1. Create a completely barebone repository, either using the GitHub UI or if you have the GitHub CLI installed
             (not `git`) you can run
 
             ```bash
             gh repo create <repo_name> --public --confirm
             ```
 
-        2. Run `cookiecutter` with the template you want to use
+        2. Run `cookiecutter` with the template you want to use.
 
             ```bash
             cookiecutter <template>
             ```
 
-            The name of the folder created by `cookiecutter` should be the same as <repo_name> you just used.
+            The name of the folder created by `cookiecutter` should be the same as the <repo_name> you just used.
 
-        3. Run the following sequence of commands
+        3. Run the following sequence of commands.
 
             ```bash
             cd <project_name>
@@ -434,8 +433,8 @@ your head around where files are located.
 That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
-product types because they share common structure, while still having some specifics. Keeping templates up-to-date then
-becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we highly
-recommend to checkout [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only make
-projects but update existing ones as the template evolves. Cruft additionally also has template validation capabilities to
-ensure projects match the latest version of a template.
+product types because they share a common structure, while still having some specifics. Keeping templates up-to-date
+then becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we
+highly recommend to checkout [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only
+make projects but also update existing ones as the template evolves. Cruft additionally also has template validation
+capabilities to ensure projects match the latest version of a template.

@@ -25,7 +25,7 @@
 
 - ![](../figures/icons/lightning.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to use `pytorch-lightning` framework to minimize boilerplate code and structure deep learning models.
+    Learn how to use the `pytorch-lightning` framework to minimize boilerplate code and structure deep learning models.
 
     [:octicons-arrow-right-24: M15: Boilerplate](boilerplate.md)
 
@@ -38,14 +38,15 @@ scientist or DevOps engineer:
 - Profiling
 - Logging
 
-All three topics can be characterized by something you probably already are familiar with. Since you started
-programming, you have done debugging as nobody can write perfect code on the first try. Similarly, while you have not
-directly profiled your code, I bet that you at some point have had some very slow code and optimized it to run faster.
-Identifying and improving are the fundamentals of profiling code. Finally, logging is a very broad term and refers to
-any kind of output from your applications that helps you at a later point identify the "performance" of you application.
+All three topics can be characterized by something you are probably already familiar with. Since you started
+programming, you have done debugging, since nobody can write perfect code on the first try. Similarly, while you have
+not directly profiled your code, I bet that you at some point have had some very slow code and optimized it to run
+faster. Identifying and improving are the fundamentals of profiling code. Finally, logging is a very broad term and
+refers to any kind of output from your applications that helps you at a later point identify the "performance" of your
+application.
 
-However, while we expect you to already be familiar with these topics, we do not expect all of you to be experts as it
-is very rare that these topics are focused on. Today we are going to introduce some best practices and tools to
+However, while we expect you to already be familiar with these topics, we do not expect all of you to be experts, as
+these topics are rarely focused on. Today we are going to introduce some best practices and tools to
 help you overcome every one of these three important topics. As the final topic for today, we are going to learn about
 how we can *minimize* boilerplate and focus on coding what matters for our project instead of all the boilerplate to get
 it working.
@@ -55,8 +56,8 @@ it working.
     The learning objectives of this session are:
 
     * Understand the basics of debugging and how to use a debugger to find bugs in your code
-    * Can use a profiler to identify bottlenecks in your code and from those profiles optimize the runtime of your
-        programs
-    * Familiar with an experiment logging framework for tracking experiments and hyperparameters of your code to make it
-        reproducible
-    * Be able to use `pytorch-lightning` framework to minimize boilerplate code and structure deep learning models
+    * Be able to use a profiler to identify bottlenecks in your code and from those profiles optimize the runtime of
+        your programs
+    * Be familiar with an experiment logging framework for tracking experiments and hyperparameters of your code to
+        make it reproducible
+    * Be able to use the `pytorch-lightning` framework to minimize boilerplate code and structure deep learning models

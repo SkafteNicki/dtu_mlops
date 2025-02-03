@@ -6,7 +6,7 @@
 
 - ![](../figures/icons/fastapi.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to use requests works and how to create custom APIs
+    Learn how to use requests and how to create custom APIs
 
     [:octicons-arrow-right-24: M22: Requests and APIs](apis.md)
 
@@ -56,9 +56,9 @@ also how to deploy services in the cloud.
     The learning objectives of this session are:
 
     * Understand the basics of requests and APIs
-    * Can create custom APIs using the framework `fastapi` and run it locally
+    * Be able to create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
         serverless containers
-    * Can create basic continues deployment pipelines for your models
+    * Can create basic continuouss deployment pipelines for your models
     * Understand the basics of frontend development and how to create a frontend for your application using Streamlit
-    * Know how to use more advance frameworks like onnx and bentoml to deploy your machine learning models
+    * Know how to use more advanced frameworks like onnx and bentoml to deploy your machine learning models

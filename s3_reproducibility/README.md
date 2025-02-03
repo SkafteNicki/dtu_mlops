@@ -12,14 +12,14 @@
 
 - ![](../figures/icons/hydra.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to use `hydra` to manage configuration files and how to integrate it with your code.
+    Learn how to use `hydra` to manage configuration files and how to integrate them into your code.
 
     [:octicons-arrow-right-24: M11: Config Files](config_files.md)
 
 </div>
 
 Today is all about reproducibility - one of those concepts that everyone agrees is very important and something should
-be done about, but the reality is that it is very hard to secure full reproducibility. The last sessions have already
+be done about, but the reality is that it is very hard to ensure complete reproducibility. The last sessions have already
 touched a bit on how tools like `conda` and code organization can help make code more reproducible. Today we are going
 all the way to ensure that our scripts and our computing environment are fully reproducible.
 
@@ -39,8 +39,8 @@ of making sure that machine learning is **trustworthy**.
 <figure markdown>
 ![Image](../figures/trustworthy_ml.drawio.png){ width="600" }
 <figcaption>
-Many different aspects are needed if trustworthy machine learning is ever going to be a reality. We need robustness of
-our pipelines so we can trust that they do not fail under heavy load. We need integrity to make sure that pipelines are
+Many different aspects are needed if trustworthy machine learning is ever going to be a reality. We need robustness pipelines
+so we can trust that they will not fail under heavy load. We need integrity to make sure that pipelines are
 deployed if they are of high quality. We need explainability to make sure that we understand what our machine learning
 models are doing, so it is not just a black box. We need reproducibility to make sure that the results of our models can
 be reproduced over and over again. Finally, we need fairness to make sure that our models are not biased toward specific
@@ -51,13 +51,13 @@ populations. Figure inspired by this<a href="https://arxiv.org/abs/2209.06529"> 
 Trustworthy ML is the idea that machine learning agents *can* be trusted. Take the example of a machine
 learning agent being responsible for medical diagnoses. It is very clear that we need to be able to trust that the
 agent gives us the correct diagnosis for the system to work in practice. Reproducibility plays a big role here,
-because without we cannot be sure that the same agent deployed at two different hospitals will give the same
+because without it we cannot be sure that the same agent deployed at two different hospitals will give the same
 diagnosis (given the same input).
 
 !!! tip "Learning objectives"
 
     The learning objectives of this session are:
 
-    * To understand the importance of reproducibility in computer science
-    * To be able to use `docker` to create a reproducible container, including how to build them from scratch
+    * Understand the importance of reproducibility in computer science
+    * Be able to use `docker` to create a reproducible container, including how to build them from scratch
     * Understand different ways of configuring your code and how to use `hydra` to integrate with config files

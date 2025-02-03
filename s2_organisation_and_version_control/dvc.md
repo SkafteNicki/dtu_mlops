@@ -8,7 +8,7 @@
 
 !!! warning
 
-    Since August 2024, Google has changed their policy for the Google Drive API. This means that the procedure for
+    Since August 2024, Google has changed their policy for the Google Drive API. This means that the proceduce for
     setting up DVC with Google Drive has changed. The following exercises therefore need extra authentication to work.
     You therefore have two options:
 
@@ -25,7 +25,7 @@ In this module, we are going to return to version control. However, this time we
 of data. The reason we need to separate between standard version control and data version control comes down to one
 problem: size.
 
-Classic version control was developed to keep track of code files, which all are simple text files. Even a codebase that
+Classic version control was developed to keep track of code files, which are all simple text files. Even a codebase that
 contains 1000+ files with millions of lines of code can probably be stored in less than a single gigabyte (GB). On the
 other hand, the size of data can be drastically bigger. As most machine learning algorithms only get better with the
 more data that you feed them, we are seeing models today that are being trained on petabytes of data (1.000.000 GB).
@@ -33,8 +33,8 @@ more data that you feed them, we are seeing models today that are being trained 
 Because this is an important concept there exist a couple of frameworks that have specialized in versioning data such as
 [DVC](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Hub](https://www.activeloop.ai/),
 [Modelstore](https://modelstore.readthedocs.io/en/latest/) and [ModelDB](https://github.com/VertaAI/modeldb/).
-Regardless of what framework, they all implement somewhat the same concept: instead of storing the actual data files
-or in general storing any large *artifacts* files we instead store a pointer to these large files. We then version
+Regardless of the framework, they all implement more or less the same concept: instead of storing the actual data files
+or in general storing any large *artifact* files, we instead store a pointer to these large flies. We then version
 control the point instead of the artifact.
 
 <figure markdown>
@@ -44,7 +44,7 @@ control the point instead of the artifact.
 </figcaption>
 </figure>
 
-We are in this course going to use `DVC` provided by [iterative.ai](https://iterative.ai/) as they also provide tools
+We are in this course going to use `DVC` provided by [iterative.ai](https://iterative.ai/), as they also provide tools
 for automating machine learning, which we are going to focus on later.
 
 ## DVC: What is it?
@@ -53,7 +53,7 @@ DVC (Data Version Control) is simply an extension of `git` to not only take vers
 experiments in general. But how does it deal with these large data files? Essentially, `DVC` will just keep track of a
 small *metafile* that will then point to some remote location where your original data is stored. Metafiles
 essentially work as placeholders for your data files. Your large data files are then stored in some remote location such
-as Google Drive or a `S3` bucket from Amazon.
+as Google Drive or an `S3` bucket from Amazon.
 
 <figure markdown>
 ![Image](../figures/dvc.png){ width="700" }
@@ -96,7 +96,7 @@ it contains excellent tutorials.
     If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
     you follow the instructions [here](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
 
-3. In your MNIST repository run the following command from the terminal
+3. In your MNIST repository run the following command from the terminal:
 
     ```bash
     dvc init
@@ -112,7 +112,7 @@ it contains excellent tutorials.
     ![Image](../figures/google_drive.PNG){ width="1000" }
     </figure>
 
-    Using this identifier, add it as a remote storage
+    Using this identifier, add it as remote storage.
 
     ```bash
     dvc remote add -d storage gdrive://<your_identifier>
@@ -149,7 +149,7 @@ it contains excellent tutorials.
 
     After authenticating the first time, DVC should be set up without having to authenticate again. If you for some
     reason encounter that DVC fails to authenticate, you can try to reset the authentication. Locate the file
-    `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME` depends on your operating system:
+    `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json`, where `$CACHE_HOME` depends on your operating system:
 
     === "macOS"
         ```~/Library/Caches```
@@ -172,7 +172,7 @@ it contains excellent tutorials.
     dvc pull
     ```
 
-    (assuming that you give them access right to the folder in your drive). Try doing this (in some other location
+    (assuming that you give them access rights to the folder in your drive). Try doing this (in some other location
     than your standard code) to make sure that the two commands indeed download both your code and data.
 
 10. Let's now look at the process of creating a new version of our data. We are going to add some new data to our
@@ -187,7 +187,7 @@ it contains excellent tutorials.
 
     Copy the data to your `data/raw` folder and then rerun your data pipeline to incorporate the new data into the
     files in your `processed` folder. The new data should be 4 files with train images and 4 files with train targets,
-    a total of 20000 additional observations.
+    a total of 20,000 additional observations.
 
 11. Redo the above steps, adding the new data using `dvc`, committing and tagging the metafiles e.g. the following
     commands should be executed (with appropriate input):

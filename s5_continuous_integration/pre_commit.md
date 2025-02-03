@@ -4,18 +4,18 @@
 
 ---
 
-One of the cornerstones of working with git is remembering to commit your work often. Often committing makes sure
-that it is easier to identify and revert unwanted changes that you have introduced, because the code changes becomes
+One of the cornerstones of working with git is remembering to commit your work often. Frequent committing ensures
+that it is easier to identify and revert unwanted changes that you have introduced, because the code changes become
 smaller per commit.
 
-However, as you hopefully already seen in the course there are a lot of mental task to do before you actually write
+However, as you have hopefully already seen in the course there are a lot of mental tasks to do before you actually write
 `git commit` in the terminal. The most basic thing is of course making sure that you have saved all your changes, and
 you are not committing a not up-to-date file. However, this also includes tasks such as styling, formatting, making
-sure all tests succeeds etc. All these mental to-do notes does not mix well with the principal of remembering to commit
-often, because you in principal have to do them every time.
+sure all tests succeed, etc. All these mental to-do notes do not mix well with the principal of remembering to commit
+often because you in principal have to do them every time.
 
-The obvious solution to this problem is to automate all or some of our mental task every time that we do a commit. This
-is where *pre-commit hooks* comes into play, as they can help us attach additional tasks that should be run every time
+The obvious solution to this problem is to automate all or some of our mental tasks every time that we make a commit. This
+is where *pre-commit hooks* come into play, as they can help us attach additional tasks that should be run every time
 that we do a `git commit`.
 
 ## Configuration
@@ -30,7 +30,7 @@ afterwards would do a `git push`.
 </figcaption>
 </figure>
 
-The system works by looking for a file called `.pre-commit-config.yaml` that we can configure. If we execute
+The system works by looking for a file called `.pre-commit-config.yaml` that we can configure. If you execute
 
 ```bash
 pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
@@ -51,25 +51,25 @@ repos:
     -   id: check-added-large-files
 ```
 
-the file structure is very simple:
+The file structure is very simple:
 
 * It starts by listing the repositories where we want to get our pre-commits from, in this case
   <https://github.com/pre-commit/pre-commit-hooks>. This repository contains a large collection of pre-commit hooks.
-* Next we need to defined what pre-commit hooks that we want to get by specifying the `id` of the different hooks.
+* Next we need to define what pre-commit hooks we want to get by specifying the `id` of the different hooks.
   The `id` corresponds to an `id` in this file:
   <https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-hooks.yaml>
 
-When we are done defining our `.pre-commit-config.yaml` we just need to install it
+When we are done defining our `.pre-commit-config.yaml` we just need to install it.
 
 ```bash
 pre-commit install
 ```
 
-this will make sure that the file is automatically executed whenever we run `git commit`
+This will make sure that the file is automatically executed whenever we run `git commit`.
 
 ### ❔ Exercises
 
-1. Install pre-commit
+1. Install pre-commit.
 
     ```bash
     pip install pre-commit
@@ -77,13 +77,13 @@ this will make sure that the file is automatically executed whenever we run `git
 
     Consider adding `pre-commit` to a `requirements_dev.txt` file, as it is a development tool.
 
-2. Next create the sample file
+2. Next create the sample file:
 
     ```bash
     pre-commit sample-config > .pre-commit-config.yaml
     ```
 
-3. The sample file already contains 4 hooks. Make sure you understand what each do and if you need them at all.
+3. The sample file already contains 4 hooks. Make sure you understand what each does and if you need them at all.
 
 4. `pre-commit` works by hooking into the `git commit` command, running whenever that command is run. For this to work,
     we need to install the hooks into `git commit`. Run
@@ -95,13 +95,13 @@ this will make sure that the file is automatically executed whenever we run `git
     to do this.
 
 5. Try to commit your recently created `.pre-commit-config.yaml` file. You will likely not do anything, because
-    `pre-commit` only check files that are being committed. Instead try to run
+    `pre-commit` only checks files that are being committed. Instead try to run
 
     ```bash
     pre-commit run --all-files
     ```
 
-    that will check every file in your repository.
+    which will check every file in your repository.
 
 6. Try adding at least another check from the [base repository](https://github.com/pre-commit/pre-commit-hooks) to your
     `.pre-commit-config.yaml` file.
@@ -149,7 +149,7 @@ this will make sure that the file is automatically executed whenever we run `git
 
 8. (Optional) Add more hooks to your `.pre-commit-config.yaml`.
 
-9. Sometimes you are in a hurry, so make sure that you also can do commits without running `pre-commit` e.g.
+9. Sometimes you are in a hurry, so make sure that you also can make commits without running `pre-commit` e.g.
 
     ```bash
     git commit -m <message> --no-verify
@@ -157,15 +157,15 @@ this will make sure that the file is automatically executed whenever we run `git
 
 10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
 
-11. Assuming you have completed the [module on GitHub Actions](github_actions.md), lets try to add a
+11. Assuming you have completed the [module on GitHub Actions](github_actions.md), let's try to add a
     `pre-commit` workflow that automatically runs your `pre-commit` checks every time you push to your repository and
     then automatically commits those changes to your repository. We recommend that you make use of
 
     * this [pre-commit action](https://github.com/pre-commit/action) for installing and running `pre-commit`
     * this [commit action](https://github.com/stefanzweifel/git-auto-commit-action) to automatically commit the
-      changes that `pre-commit` makes.
+      changes that `pre-commit` makes
 
-    As an alternative you configure the [CI tool](https://pre-commit.ci/) provided by the creators of `pre-commit`.
+    As an alternative you can configure the [CI tool](https://pre-commit.ci/) provided by the creators of `pre-commit`.
 
     ??? success "Solution"
 

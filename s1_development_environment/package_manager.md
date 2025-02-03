@@ -13,7 +13,7 @@ we need a way to install third-party packages and this is where
 [package managers](https://en.wikipedia.org/wiki/Package_manager) come into play.
 
 You have probably already used `pip` for the longest time, which is the default package manager for Python. `pip` is
-great for beginners but it is missing one essential feature that you will need as a developer or data scientist:
+great for beginners, but it is missing one essential feature that you will need as a developer or data scientist:
 *virtual environments*. Virtual environments are an essential way to make sure that the dependencies of different
 projects do not cross-contaminate each other. As a naive example, consider project A that requires `torch==1.3.0` and
 project B that requires `torch==2.0`, then doing
@@ -64,8 +64,8 @@ the same environment, in this case, the global environment. Instead, if we did s
     ```
 
 then we would be sure that `torch==1.3.0` is used when executing `main.py` in project A because we are using two
-different virtual environments. In the above case, we used the [venv module](https://docs.python.org/3/library/venv.html)
-which is the built-in Python module for creating virtual environments. `venv+pip` is arguably a good combination
+different virtual environments. In the above case, we used the [venv module](https://docs.python.org/3/library/venv.html),
+which is the built-in Python module for creating virtual environments. `venv+pip` is arguably a good combination,
 but when working on multiple projects it can quickly become a hassle to manage all the different
 virtual environments yourself, remembering which Python version to use, which packages to install and so on.
 
@@ -115,10 +115,10 @@ trying to become the standard, quickly gaining popularity and being adopted by m
 <figcaption> <a href="https://xkcd.com/927/"> Image credit </a> </figcaption>
 </figure>
 
-In the course, we do not care about which package manager you use, but we do care that you use one. If you are already
+In this course, we do not care about which package manager you use, but we do care that you use one. If you are already
 familiar with one package manager, then skip this exercise and continue to use that. The best recommendation that I can
 give regarding package managers, in general, is to find one you like and then stick with it. A lot of time can be wasted
-on trying to find the perfect package manager, but in the end, they all do the same with some minor differences.
+on trying to find the perfect package manager, but in the end, they all do the same thing with some minor differences.
 Check out [this blog post](https://alpopkes.com/posts/python/packaging_tools/) if you want a fairly up-to-date
 evaluation of the different environment management and packaging tools that exist in the Python ecosystem.
 
@@ -126,14 +126,14 @@ If you are not familiar with any package managers, then we recommend that you us
 probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
 on your laptop, which is great. What conda does especially well is that it allows you to create virtual environments
 with different Python versions, which can be really useful if you encounter dependencies that have not been updated in
-a long time. In this course specifically, we are going to recommend the following workflow
+a long time. In this course specifically, we are going to recommend the following workflow:
 
 * Use `conda` to create virtual environments with specific Python versions
 * Use `pip` to install packages in that environment
 
 Installing packages with `pip` inside `conda` environments has been considered a bad practice for a long time, but
 since `conda>=4.6` it is considered safe to do so. The reason for this is that `conda` now has a built-in compatibility
-layer that makes sure that `pip` installed packages are compatible with the other packages installed in the environment.
+layer that makes sure that `pip`-installed packages are compatible with the other packages installed in the environment.
 
 ## Python dependencies
 
@@ -162,7 +162,7 @@ the API of the package. This is especially important when working with machine l
 that we can reproduce the exact same model at a later point.
 
 Finally, we also need to discuss *dependency resolution*, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exists a lot of different algorithms for doing this. If you have
+compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have
 ever thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were
 trying to figure out which packages are compatible with each other. For example, if you try to install
 
@@ -195,8 +195,8 @@ in the exercise folder.
 1. Download and install `conda`. You are free to either install full `conda` or the much simpler version `miniconda`.
     The core difference between the two packages is that `conda` already comes with a lot of packages that you would
     normally have to install with `miniconda`. The downside is that `conda` is a much larger package which can be a
-    huge disadvantage on smaller devices. Make sure that your installation is working by writing `conda help` in a
-    terminal, and it should show you the help message for conda. If this does not work you probably need to set some
+    huge disadvantage on smaller devices. Make sure that your installation works by writing `conda help` in a
+    terminal, and it should show you the help message for conda. If this does not work, you probably need to set some
     system variable to point to the
     [conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
 
@@ -217,7 +217,7 @@ in the exercise folder.
         We highly recommend that you use Python 3.8 or higher for this course. In general, we recommend that you use
         the second latest version of Python that is available (currently Python 3.11 as of writing this). This is
         because the latest version of Python is often not supported by all dependencies. You can always check the status
-        of different Python version support [here](https://devguide.python.org/versions/).
+        of different Python versions [here](https://devguide.python.org/versions/).
 
     ??? success "Solution"
 
@@ -264,7 +264,7 @@ in the exercise folder.
             ```
 
 6. As the introduction states, it is fairly safe to use `pip` inside `conda` today. What is the corresponding `pip`
-    command that gives you a list of all `pip` installed packages? And how do you export this to `requirements.txt`
+    command that gives you a list of all `pip` installed packages? And how do you export this to a `requirements.txt`
     file?
 
     ??? success "Solution"
@@ -274,8 +274,8 @@ in the exercise folder.
         pip freeze > requirements.txt # Export all installed packages to a requirements.txt file
         ```
 
-7. If you look through the requirements that both `pip` and `conda` produce then you will see that it
-    is often filled with a lot more packages than what you are using in your project. What you are interested in are the
+7. If you look through the requirements that both `pip` and `conda` produce, you will see that they
+    are often filled with a lot more packages than what you are using in your project. What you are interested in are the
     packages that you import in your code: `from package import module`. One way to get around this is to use the
     package `pipreqs`, which will automatically scan your project and create a requirements file specific to that.
     Let's try it out:
@@ -287,8 +287,8 @@ in the exercise folder.
         ```
 
     2. Either try out `pipreqs` on one of your own projects or try it out on some other online project.
-        What does the `requirements.txt` file `pipreqs` produces look like compared to the files produced
-        by either `pip` or `conda`.
+        What does the `requirements.txt` file that `pipreqs` produces look like compared to the files produced
+        by either `pip` or `conda`?
 
 ## 🧠 Knowledge check
 
@@ -308,8 +308,8 @@ in the exercise folder.
         pip install "pytest >= 4.6" pytest-cov==2.12.1
         ```
 
-        but there of course exists other solutions as well.
+        but there of course exist other solutions as well.
 
 This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
-to construct requirements files automatically, sometimes it is just easier to manually sit down and create the files as you
+to construct requirement files automatically, sometimes it is just easier to sit down and manually create the files, as you
 in that way ensure that only the most necessary requirements are installed when creating a new environment.

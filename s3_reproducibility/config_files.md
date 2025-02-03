@@ -10,21 +10,21 @@ experiments magically become reproducible. There are other factors that are impo
 experiments.
 
 In [this paper](https://arxiv.org/abs/1909.06674) (highly recommended read) the authors tried to reproduce the results
-of 255 papers and tried to figure out which factors were significant to succeed. One of those factors were
-"Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameter that
-was used to run the experiments. It should come as no surprise that this can be a determining factor for
-reproducibility, however it is not given that hyperparameters are always well specified.
+of 255 papers and tried to figure out which factors were significant to succeed. One of those factors was
+"Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameters that
+were used to run the experiments. It should come as no surprise that this can be a determining factor for
+reproducibility. However it is not a given that hyperparameters are always well specified.
 
 ## Configure experiments
 
 There is really no way around it: deep learning contains *a lot* of hyperparameters. In general, a *hyperparameter* is
 any parameter that affects the learning process (e.g. the weights of a neural network are not hyperparameters because
-they are a consequence of the learning process). The problem with having many hyperparameters to control in your code,
-is that if you are not careful and structure them it may be hard after running a experiment to figure out which
+they are a consequence of the learning process). The problem with having many hyperparameters to control in your code
+is that if you are not careful and structure them it may be hard after running an experiment to figure out which
 hyperparameters were actually used. Lack of proper configuration management can cause serious problems with reliability,
 uptime, and the ability to scale a system.
 
-One of the most basic ways of structuring hyperparameters, is just to put them directly into you `train.py` script in
+One of the most basic ways of structuring hyperparameters is just to put them directly into your `train.py` script in
 some object:
 
 ```python
@@ -38,15 +38,15 @@ dl = DataLoader(Dataset, batch_size=my_hp.batch_size)
 ```
 
 the problem here is configuration is not easy. Each time you want to run a new experiment, you basically have to
-change the script. If you run the code multiple times, without committing the changes in between then the exact
+change the script. If you run the code multiple times without committing the changes in between then the exact
 hyperparameter configuration for some experiments may be lost. Alright, with this in mind you change strategy to use
-an [argument parser](https://docs.python.org/3/library/argparse.html) e.g. run experiments like this
+an [argument parser](https://docs.python.org/3/library/argparse.html) e.g. run experiments like this:
 
 ```bash
 python train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
 ```
 
-This at least solves the problem with configurability. However, we again can end up with losing experiments if we are
+This at least solves the problem with configurability. However, we again can end up losing experiments if we are
 not careful.
 
 What we really want is some way to easily configure our experiments where the hyperparameters are systematically saved
@@ -101,9 +101,9 @@ configured. In the provided script, the hyperparameters are hardcoded into the c
 them out into a configuration file.
 
 Note that we provide a solution (in the `vae_solution` folder) that can help you get through the exercise, but try to
-look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.
+look online for your answers before looking at the solution. Remember: it's not about the result; it's about the journey.
 
-1. Start by installing hydra:
+1. Start by installing hydra.
 
     ```bash
     pip install hydra-core
@@ -111,40 +111,40 @@ look online for your answers before looking at the solution. Remember: its not a
 
     Remember to add it to your `requirements.txt` file.
 
-2. Next take a look at the `vae_mnist.py` and `model.py` file and understand what is going on. It is a model we will
+2. Next, take a look at the `vae_mnist.py` and `model.py` files and understand what is going on. It is a model we will
     revisit during the course.
 
-3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
-    into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
-    completely reproducible (HINT: the weights of any neural network are initialized at random).
+3. Identify the key hyperparameters of the script. Some of them should be easy to find, but at least three have made it
+    into the core part of the code. One essential hyperparameter is also not included in the script but is needed for
+    the code to be completely reproducible (HINT: the weights of any neural network are initialized at random).
 
     ??? success "Solution"
 
         From the top of the file `batch_size`, `x_dim`, `hidden_dim` can be found as hyperparameters. Looking through
-        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` or the optimzer, `epochs` in the
-        training loop also are hyperparameters. Finally, the `seed` is not included in the script but is needed to make
-        the script fully reproducible e.g. `torch.manual_seed(seed)`.
+        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` for the optimzer, and `epochs` in
+        the training loop are also hyperparameters. Finally, the `seed` is not included in the script but is needed to
+        make the script fully reproducible, e.g. `torch.manual_seed(seed)`.
 
-4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found
+4. Write a configuration file `config.yaml` where you write down the hyperparameters that you have found.
 
 5. Get the script running by loading the configuration file inside your script (using hydra) that incorporates the
     hyperparameters into the script. Note: you should only edit the `vae_mnist.py` file and not the `model.py` file.
 
-6. Run the script
+6. Run the script.
 
-7. By default hydra will write the results to a `outputs` folder, with a sub-folder for the day the experiment was
-    run and further the time it was started. Inspect your run by going over each file the hydra has generated and check
-    the information has been logged. Can you find the hyperparameters?
+7. By default hydra will write the results to an `outputs` folder, with a sub-folder for the day the experiment was
+    run and further the time it was started. Inspect your run by going over each file that hydra has generated and
+    check that the information has been logged. Can you find the hyperparameters?
 
 8. Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:
 
-    1. Try changing one parameter from the command-line
+    1. Try changing one parameter from the command-line.
 
         ```bash
         python vae_mnist.py hyperparameters.seed=1234
         ```
 
-    2. Try adding one parameter from the command-line
+    2. Try adding one parameter from the command-line.
 
         ```bash
         python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
@@ -155,17 +155,17 @@ look online for your answers before looking at the solution. Remember: its not a
     [logging](https://docs.python.org/3/library/logging.html) package. This means that to also save all printed output
     from the script we need to convert all calls to `print` with `log.info`
 
-    1. Create a logger in the script:
+    1. Create a logger in the script.
 
         ```python
         import logging
         log = logging.getLogger(__name__)
         ```
 
-    2. Exchange all calls to `print` with calls to `log.info`
+    2. Replace all calls to `print` with calls to `log.info`.
 
     3. Try re-running the script and make sure that the output printed to the terminal also gets saved to the
-        `vae_mnist.log` file
+        `vae_mnist.log` file.
 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare.
     Then run the `reproducibility_tester.py` script as
@@ -174,9 +174,9 @@ look online for your answers before looking at the solution. Remember: its not a
     python reproducibility_tester.py path/to/run/1 path/to/run/2
     ```
 
-    the script will go over trained weights to see if the match and that the hyperparameters was the same.
+    the script will go over trained weights to see if they match and that the hyperparameters are the same.
     Note: for the script to work, the weights should be saved to a file called `trained_model.pt` (this is the default
-    of the `vae_mnist.py` script, so only relevant if you have changed the saving of the weights)
+    of the `vae_mnist.py` script, so only relevant if you have changed the saving of the weights).
 
 11. Make a new experiment using a new configuration file where you have changed a hyperparameter of your own
     choice. You are not allowed to change the configuration file in the script but should instead be able to provide it
@@ -199,8 +199,8 @@ look online for your answers before looking at the solution. Remember: its not a
 
 12. Finally, an awesome feature of hydra is the
     [instantiate](https://hydra.cc/docs/advanced/instantiate_objects/overview/) feature. This allows you to define a
-    configuration file that can be used to directly instantiating objects in python. Try to create a configuration file
-    that can be used to instantiating the `Adam` optimizer in the `vae_mnist.py` script.
+    configuration file that can be used to directly instantiate objects in python. Try to create a configuration file
+    that can be used to instantiate the `Adam` optimizer in the `vae_mnist.py` script.
 
     ??? success "Solution"
 
@@ -239,7 +239,7 @@ look online for your answers before looking at the solution. Remember: its not a
 
 ### Final exercise
 
-Make your MNIST code reproducible! Apply what you have just done to the simple script to your MNIST code. Only
+Make your MNIST code reproducible! Apply what you have just done to the simple script to your MNIST code. The only
 requirement is that you this time use multiple configuration files, meaning that you should have at least one
 `model_conf.yaml` file and a `training_conf.yaml` file that separates out the hyperparameters that have to do with
 the model definition and those that have to do with the training. You can also choose to work with even more complex

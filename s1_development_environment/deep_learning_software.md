@@ -13,12 +13,12 @@ learning is transforming nearly every sector of our economy and our lives. Howev
 realized that deep learning is not a simple beast to tame and it comes with its own kinds of problems, especially if you
 want to use it in a production setting. In particular, the concept of
 [technical debt](https://research.google/pubs/pub43146/) was invented to indicate the significant maintenance costs at a
-system level that it takes to run machine learning in production. MLOps should very much be seen as the response to the
+system level that are needed to run machine learning in production. MLOps should very much be seen as the response to the
 concept of technical debt, namely that we should develop methods, processes, and tools (with inspiration from classical
 DevOps) to counter the problems we run into when working with deep learning models.
 
 It is important to note that all the concepts and tools that have been developed for MLOps can be used together with
-more classical machine learning models (think K-nearest neighbor, Random forest, etc.), however, deep learning comes
+more classical machine learning models (think K-nearest neighbor, Random forest, etc.). However, deep learning comes
 with its own set of problems which mostly have to do with the sheer size of the data and models we are
 working with. For these reasons, we are focusing on working with deep learning models in this course.
 
@@ -37,26 +37,26 @@ of when they were published):
 
 * [JAX](https://github.com/google/jax)
 
-We won't go into a longer discussion on which framework is best, as it is pointless. PyTorch and TensorFlow have been
-around for the longest and therefore have bigger communities and feature sets at this point in time. They are both very
-similar in the sense that they both have features directed against research and production. JAX is kind of the new kid
+We won't go into a longer discussion on which framework is the best, as it is pointless. PyTorch and TensorFlow have been
+around for the longest and therefore have larger communities and feature sets at this point in time. They are both very
+similar in the sense that they both have features directed at research and production. JAX is kind of the new kid
 on the block, which in many ways improves on PyTorch and TensorFlow, but is still not as mature as the other frameworks.
 As the frameworks use different kinds of programming principles (object-oriented vs. functional programming), comparing
 them is essentially meaningless.
 
-In this course, we have chosen to work with PyTorch because we find it a bit more intuitive and it is the framework that
-we use for our day-to-day research life. Additionally, as of right now, it is absolutely the
+In this course, we have chosen to work with PyTorch because it is a bit more intuitive and it is the framework that
+we use in our day-to-day research life. Additionally, as of right now, it is absolutely the
 [dominating framework](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/) for published models, research
 papers, and [competition winners](https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w).
 
-The intention behind this set of exercises is to bring everyone's PyTorch skills up to date. If you already are a
-PyTorch-Jedi, feel free to pass the first set of exercises, but I recommend that you still complete it. The exercises
-are, in large part, taken directly from the
+The intention behind this set of exercises is to get everyone's PyTorch skills up to date. If you're already a
+PyTorch-Jedi, feel free to skip the first set of exercises, but I still recommend that you go through them. The exercises
+are in large part taken directly from the
 [deep learning course at Udacity](https://github.com/udacity/deep-learning-v2-pytorch). Note that these exercises are
-given as notebooks, which is the last time we are going to use them actively in the course. Instead, after this set of
+given as notebooks, which is the only time we are going to use them actively in the course. Instead, after this set of
 exercises, we are going to focus on writing code in Python scripts.
 
-The notebooks contain a lot of explanatory text. The exercises that you are supposed to fill out are inlined in the text
+The notebooks contain a lot of explanatory text. The exercises that you are supposed to complete are inlined in the text
 in small "exercise" blocks:
 
 <figure markdown>
@@ -66,7 +66,7 @@ in small "exercise" blocks:
 If you need a refresher on any deep learning topic in general throughout the course, we recommend finding the relevant
 chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow, Yoshua Bengio, and Aaron
 Courville (which can also be found in the literature folder). It is not necessary to be good at deep learning to pass
-this course as the focus is on all the software needed to get deep learning models into production. However, it's
+this course, as the focus is on all the software needed to get deep learning models into production. However, it's
 important to have a basic understanding of the concepts.
 
 ### ❔ Exercises
@@ -75,14 +75,14 @@ important to have a basic understanding of the concepts.
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
 
-1. Start a Jupyter Notebook session in your terminal (assuming you are standing at the root of the course material).
-    Alternatively, you should be able to open the notebooks directly in your code editor. For VS code users you can read
+1. Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
+    Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
     more about how to work with Jupyter Notebooks in VS code
     [here](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
 
 2. Complete the
     [Tensors in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
-    notebook. It focuses on the basic manipulation of PyTorch tensors. You can pass this notebook if you are comfortable
+    notebook. It focuses on basic manipulation of PyTorch tensors. You can skip this notebook if you are comfortable
     doing this.
 
 3. Complete the
@@ -135,7 +135,7 @@ important to have a basic understanding of the concepts.
     ??? success "Solution"
 
         Since both convolutions have a kernel size of 3, stride 1 (default value) and no padding that means that we lose
-        2 pixels in each dimension, because the kernel can not be centered on the edge pixels. Therefore, the output
+        2 pixels in each dimension, because the kernel cannot be centered on the edge pixels. Therefore, the output
         of the first convolution would be 32x26x26. The output of the second convolution would be 64x24x24. The size of
         `S` must therefore be `64 * 24 * 24 = 36864`. The number of parameters in a convolutional layer is
         `kernel_size * kernel_size * in_channels * out_channels + out_channels` (last term is the bias) and the number
@@ -153,8 +153,8 @@ important to have a basic understanding of the concepts.
 
     ??? success "Solution"
 
-        `optimizer.zero_grad()` is in charge of zeroring the gradient. If this is not done, then gradients would
-        accumulate over the steps leading to exploding gradients. `loss.backward()` is in charge of calculating the
+        `optimizer.zero_grad()` is in charge of zeroing the gradient. If this is not done, then gradients would
+        accumulate over the steps, leading to exploding gradients. `loss.backward()` is in charge of calculating the
         gradients. If this is not done, then the gradients will not be calculated and the optimizer will not be able
         to update the weights. `optimizer.step()` is in charge of updating the weights. If this is not done, then the
         weights will not be updated and the model will not learn anything.
@@ -172,7 +172,7 @@ pip install gdown
 gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
 ```
 
-The data should be placed in a folder subfolder called `data/corruptmnist` in the root of the project. Your overall
+The data should be placed in a subfolder called `data/corruptmnist` in the root of the project. Your overall
 task is the following:
 
 > **Implement an MNIST neural network that achieves at least 85% accuracy on the test set.**
@@ -182,7 +182,7 @@ create the corrupted version. This can help you identify what kind of neural net
 any network should be able to achieve this.
 
 One key point of this course is trying to stay organized. Spending time now organizing your code will save time in the
-future as you start to add more and more features. As subgoals, please fulfill the following exercises:
+future as you start to add more and more features. As subgoals, please complete the following exercises:
 
 1. Implement your model in a script called `model.py`.
 
@@ -211,7 +211,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
         the model, you should use `#!python model.load_state_dict(torch.load("model.pt"))`. If you do
         `#!python torch.save(model, "model.pt")`, this can lead to problems when loading the model later on, as it will
         try to not only save the model weights but also the model definition. This can lead to problems if you change
-        the model definition later on (which you most likely are going to do).
+        the model definition later (which you are most likely going to do).
 
     ??? example "Starting point for `data.py`"
 
@@ -240,8 +240,8 @@ future as you start to add more and more features. As subgoals, please fulfill t
         --8<-- "s1_development_environment/exercise_files/final_exercise/data_solution.py"
         ```
 
-3. Implement training and evaluation of your model in `main.py` script. The `main.py` script should be able to take
-    additional subcommands indicating if the model should be trained or evaluated. It will look something like this:
+3. Implement training and evaluation of your model in the `main.py` script. The `main.py` script should be able to take
+    additional subcommands indicating if the model is being trained or evaluated. It will look something like this:
 
     ```bash
     python main.py train --lr 1e-4
@@ -252,9 +252,9 @@ future as you start to add more and more features. As subgoals, please fulfill t
     define a command line interface (CLI), which you can learn more about in
     [this module](../s2_organisation_and_version_control/cli.md) later in the course.
 
-    ??? note "VS code and command line arguments"
+    ??? note "VS Code and command line arguments"
 
-        If you try to execute the above code in VS code using the debugger (F5) or the build run functionality in the
+        If you try to execute the above code in VS Code using the debugger (F5) or the build run functionality in the
         upper right corner:
 
         <figure markdown>
@@ -286,7 +286,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
         }
         ```
 
-        This will inform VS code that then we execute the current file (in this case `main.py`) we want to run it with
+        This will inform VS Code that when we execute the current file (in this case `main.py`), we want to run it with
         the `train` command and additionally pass the `--lr` argument with the value `1e-4`. You can read more about
         creating a `launch.json` file [here](https://code.visualstudio.com/docs/python/debugging). If you want to have
         multiple configurations you can add them to the `configurations` list as additional dictionaries.
@@ -301,7 +301,7 @@ future as you start to add more and more features. As subgoals, please fulfill t
 
         The solution implements a simple training loop and evaluation loop. Furthermore, we have added additional
         hyperparameters that can be passed to the training loop. Highlighted in the solution are the different lines
-        where we take care that our model and data are moved to GPU (or Apple MPS accelerator if you have a newer Mac)
+        where we ensure that our model and data are moved to the GPU (or Apple MPS accelerator if you have a newer Mac)
         if available.
 
         ```python linenums="1" hl_lines="8 26 38 69 78" title="main.py"
@@ -309,10 +309,10 @@ future as you start to add more and more features. As subgoals, please fulfill t
         ```
 
 4. As documentation that your model is working when running the `train` command, the script needs to produce a single
-    plot with the training curve (training step vs training loss). When the `evaluate` command is run, it should write
+    plot with the training curve (training step vs. training loss). When the `evaluate` command is run, it should write
     the test set accuracy to the terminal.
 
-It is part of the exercise to not implement in notebooks, as code development in real life happens in scripts.
+It is part of the exercise not to implement this in notebooks, as code development in real life happens in scripts.
 As the model is simple to run (for now), you should be able to complete the exercise on your laptop,
 even if you are only training on CPU. That said, you are allowed to upload your scripts to your own "Google Drive" and
 then you can call your scripts from a Google Colab notebook, which is shown in the image below where all code is
