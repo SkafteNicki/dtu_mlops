@@ -1891,18 +1891,18 @@
 experiments magically become reproducible. There are other factors that are important for creating reproducible
 experiments.</p>
 <p>In <a href="https://arxiv.org/abs/1909.06674">this paper</a> (highly recommended read) the authors tried to reproduce the results
-of 255 papers and tried to figure out which factors were significant to succeed. One of those factors were
-"Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameter that
-was used to run the experiments. It should come as no surprise that this can be a determining factor for
-reproducibility, however it is not given that hyperparameters are always well specified.</p>
+of 255 papers and tried to figure out which factors were significant to succeed. One of those factors was
+"Hyperparameters Specified" e.g. whether or not the authors of the paper had precisely specified the hyperparameters that
+were used to run the experiments. It should come as no surprise that this can be a determining factor for
+reproducibility. However it is not a given that hyperparameters are always well specified.</p>
 <h2 id="configure-experiments">Configure experiments</h2>
 <p>There is really no way around it: deep learning contains <em>a lot</em> of hyperparameters. In general, a <em>hyperparameter</em> is
 any parameter that affects the learning process (e.g. the weights of a neural network are not hyperparameters because
-they are a consequence of the learning process). The problem with having many hyperparameters to control in your code,
-is that if you are not careful and structure them it may be hard after running a experiment to figure out which
+they are a consequence of the learning process). The problem with having many hyperparameters to control in your code
+is that if you are not careful and structure them it may be hard after running an experiment to figure out which
 hyperparameters were actually used. Lack of proper configuration management can cause serious problems with reliability,
 uptime, and the ability to scale a system.</p>
-<p>One of the most basic ways of structuring hyperparameters, is just to put them directly into you <code>train.py</code> script in
+<p>One of the most basic ways of structuring hyperparameters is just to put them directly into your <code>train.py</code> script in
 some object:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">my_hp</span><span class="p">:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">batch_size</span><span class="p">:</span> <span class="mi">64</span>
@@ -1913,12 +1913,12 @@ some object:</p>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">my_hp</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
 </span></code></pre></div>
 <p>the problem here is configuration is not easy. Each time you want to run a new experiment, you basically have to
-change the script. If you run the code multiple times, without committing the changes in between then the exact
+change the script. If you run the code multiple times without committing the changes in between then the exact
 hyperparameter configuration for some experiments may be lost. Alright, with this in mind you change strategy to use
-an <a href="https://docs.python.org/3/library/argparse.html">argument parser</a> e.g. run experiments like this</p>
+an <a href="https://docs.python.org/3/library/argparse.html">argument parser</a> e.g. run experiments like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--batch_size<span class="w"> </span><span class="m">256</span><span class="w"> </span>--learning_rate<span class="w"> </span>1e-4<span class="w"> </span>--other_hp<span class="w"> </span><span class="m">12345</span>
 </span></code></pre></div>
-<p>This at least solves the problem with configurability. However, we again can end up with losing experiments if we are
+<p>This at least solves the problem with configurability. However, we again can end up losing experiments if we are
 not careful.</p>
 <p>What we really want is some way to easily configure our experiments where the hyperparameters are systematically saved
 with the experiment. For this we turn our attention to <a href="https://hydra.cc/">Hydra</a>, a configuration tool that is based
@@ -1958,55 +1958,55 @@ everything gets correctly logged such that you would be able to exactly report t
 configured. In the provided script, the hyperparameters are hardcoded into the code and your job will be to separate
 them out into a configuration file.</p>
 <p>Note that we provide a solution (in the <code>vae_solution</code> folder) that can help you get through the exercise, but try to
-look online for your answers before looking at the solution. Remember: its not about the result, its about the journey.</p>
+look online for your answers before looking at the solution. Remember: it's not about the result; it's about the journey.</p>
 <ol>
 <li>
-<p>Start by installing hydra:</p>
+<p>Start by installing hydra.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hydra-core
 </span></code></pre></div>
 <p>Remember to add it to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
-<p>Next take a look at the <code>vae_mnist.py</code> and <code>model.py</code> file and understand what is going on. It is a model we will
+<p>Next, take a look at the <code>vae_mnist.py</code> and <code>model.py</code> files and understand what is going on. It is a model we will
     revisit during the course.</p>
 </li>
 <li>
-<p>Identify the key hyperparameters of the script. Some of them should be easy to find, but at least 3 have made it
-    into the core part of the code. One essential hyperparameter is also not included in the script but is needed to be
-    completely reproducible (HINT: the weights of any neural network are initialized at random).</p>
+<p>Identify the key hyperparameters of the script. Some of them should be easy to find, but at least three have made it
+    into the core part of the code. One essential hyperparameter is also not included in the script but is needed for
+    the code to be completely reproducible (HINT: the weights of any neural network are initialized at random).</p>
 <details class="success">
 <summary>Solution</summary>
 <p>From the top of the file <code>batch_size</code>, <code>x_dim</code>, <code>hidden_dim</code> can be found as hyperparameters. Looking through
-the code it can be seen that the <code>latent_dim</code> of the encoder and decoder, <code>lr</code> or the optimzer, <code>epochs</code> in the
-training loop also are hyperparameters. Finally, the <code>seed</code> is not included in the script but is needed to make
-the script fully reproducible e.g. <code>torch.manual_seed(seed)</code>.</p>
+the code it can be seen that the <code>latent_dim</code> of the encoder and decoder, <code>lr</code> for the optimzer, and <code>epochs</code> in
+the training loop are also hyperparameters. Finally, the <code>seed</code> is not included in the script but is needed to
+make the script fully reproducible, e.g. <code>torch.manual_seed(seed)</code>.</p>
 </details>
 </li>
 <li>
-<p>Write a configuration file <code>config.yaml</code> where you write down the hyperparameters that you have found</p>
+<p>Write a configuration file <code>config.yaml</code> where you write down the hyperparameters that you have found.</p>
 </li>
 <li>
 <p>Get the script running by loading the configuration file inside your script (using hydra) that incorporates the
     hyperparameters into the script. Note: you should only edit the <code>vae_mnist.py</code> file and not the <code>model.py</code> file.</p>
 </li>
 <li>
-<p>Run the script</p>
+<p>Run the script.</p>
 </li>
 <li>
-<p>By default hydra will write the results to a <code>outputs</code> folder, with a sub-folder for the day the experiment was
-    run and further the time it was started. Inspect your run by going over each file the hydra has generated and check
-    the information has been logged. Can you find the hyperparameters?</p>
+<p>By default hydra will write the results to an <code>outputs</code> folder, with a sub-folder for the day the experiment was
+    run and further the time it was started. Inspect your run by going over each file that hydra has generated and
+    check that the information has been logged. Can you find the hyperparameters?</p>
 </li>
 <li>
 <p>Hydra also allows for dynamically changing and adding parameters on the fly from the command-line:</p>
 <ol>
 <li>
-<p>Try changing one parameter from the command-line</p>
+<p>Try changing one parameter from the command-line.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>vae_mnist.py<span class="w"> </span>hyperparameters.seed<span class="o">=</span><span class="m">1234</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>Try adding one parameter from the command-line</p>
+<p>Try adding one parameter from the command-line.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>vae_mnist.py<span class="w"> </span>+experiment.stuff_that_i_want_to_add<span class="o">=</span><span class="m">42</span>
 </span></code></pre></div>
 </li>
@@ -2019,17 +2019,17 @@ the script fully reproducible e.g. <code>torch.manual_seed(seed)</code>.</p>
     from the script we need to convert all calls to <code>print</code> with <code>log.info</code></p>
 <ol>
 <li>
-<p>Create a logger in the script:</p>
+<p>Create a logger in the script.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>Exchange all calls to <code>print</code> with calls to <code>log.info</code></p>
+<p>Replace all calls to <code>print</code> with calls to <code>log.info</code>.</p>
 </li>
 <li>
 <p>Try re-running the script and make sure that the output printed to the terminal also gets saved to the
-    <code>vae_mnist.log</code> file</p>
+    <code>vae_mnist.log</code> file.</p>
 </li>
 </ol>
 </li>
@@ -2038,9 +2038,9 @@ the script fully reproducible e.g. <code>torch.manual_seed(seed)</code>.</p>
     Then run the <code>reproducibility_tester.py</code> script as</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python<span class="w"> </span>reproducibility_tester.py<span class="w"> </span>path/to/run/1<span class="w"> </span>path/to/run/2
 </span></code></pre></div>
-<p>the script will go over trained weights to see if the match and that the hyperparameters was the same.
+<p>the script will go over trained weights to see if they match and that the hyperparameters are the same.
 Note: for the script to work, the weights should be saved to a file called <code>trained_model.pt</code> (this is the default
-of the <code>vae_mnist.py</code> script, so only relevant if you have changed the saving of the weights)</p>
+of the <code>vae_mnist.py</code> script, so only relevant if you have changed the saving of the weights).</p>
 </li>
 <li>
 <p>Make a new experiment using a new configuration file where you have changed a hyperparameter of your own
@@ -2060,8 +2060,8 @@ of the <code>vae_mnist.py</code> script, so only relevant if you have changed th
 <li>
 <p>Finally, an awesome feature of hydra is the
     <a href="https://hydra.cc/docs/advanced/instantiate_objects/overview/">instantiate</a> feature. This allows you to define a
-    configuration file that can be used to directly instantiating objects in python. Try to create a configuration file
-    that can be used to instantiating the <code>Adam</code> optimizer in the <code>vae_mnist.py</code> script.</p>
+    configuration file that can be used to directly instantiate objects in python. Try to create a configuration file
+    that can be used to instantiate the <code>Adam</code> optimizer in the <code>vae_mnist.py</code> script.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The configuration file could look like this</p>
@@ -2094,7 +2094,7 @@ of the <code>vae_mnist.py</code> script, so only relevant if you have changed th
 </li>
 </ol>
 <h3 id="final-exercise">Final exercise</h3>
-<p>Make your MNIST code reproducible! Apply what you have just done to the simple script to your MNIST code. Only
+<p>Make your MNIST code reproducible! Apply what you have just done to the simple script to your MNIST code. The only
 requirement is that you this time use multiple configuration files, meaning that you should have at least one
 <code>model_conf.yaml</code> file and a <code>training_conf.yaml</code> file that separates out the hyperparameters that have to do with
 the model definition and those that have to do with the training. You can also choose to work with even more complex
@@ -2130,7 +2130,7 @@ that we may try.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

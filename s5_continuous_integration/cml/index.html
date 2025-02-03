@@ -1888,13 +1888,13 @@
 <h1 id="continuous-machine-learning">Continuous Machine Learning</h1>
 <hr />
 <p>The continuous integration we have looked at until now is what we can consider "classical" continuous integration, which
-has its roots in DevOps and not MLOps. While the test that we have written and the containers we have developed in the
+has its roots in DevOps and not MLOps. While the tests that we have written and the containers we have developed in the
 previous session have been about machine learning, everything we have done translates completely to how it would be
 done if we had developed any other application that did not include machine learning.</p>
-<p>In this session, we are now gonna change gears and look at <strong>continuous machine learning</strong> (CML). As the name may
-suggest we are now focusing on automatizing actual machine learning processes. The reason for doing this is the same
+<p>In this session, we are now going to change gears and look at <strong>continuous machine learning</strong> (CML). As the name may
+suggest we are now focusing on automating actual machine learning processes. The reason for doing this is the same
 as with continuous integration, namely that we often have a bunch of checks that we want our newly trained model to pass
-before we trust it to be ready for deployment. Writing unit tests secures that the code that we use for training our
+before we trust it to be ready for deployment. Writing unit tests ensures that the code that we use for training our
 model is not broken, but there exist other failure modes of a machine learning pipeline:</p>
 <ul>
 <li>Did I train on the correct data?</li>
@@ -1926,7 +1926,7 @@ control, no testing, and no monitoring.</p>
 <dt><code>Level 1</code></dt>
 <dd>
 <p>At this level, organizations have started to implement DevOps practices in their machine learning workflows. They have
-started to use version control and maybe come with basic continuous integration practices.</p>
+started to use version control and maybe basic continuous integration practices.</p>
 </dd>
 <dt><code>Level 2</code></dt>
 <dd>
@@ -1951,7 +1951,7 @@ stage where we have automated the entire machine learning pipeline and the cases
 exercises are therefore some of the last steps in the MLOps maturity model.</p>
 <h2 id="exercises">❔ Exercises</h2>
 <p>In the following exercises, we are going to look at two different cases where we can use continuous machine learning.
-The first one is a simple case where we are automatically going to trigger some workflow (like training of a model)
+The first one is a simple case where we are automatically going to trigger some workflow (like model training)
 whenever we make changes to our data. This is a very common use case in machine learning where we have a data pipeline
 that is continuously updating our data. The second case is connected to staging and deploying models. In this case, we
 are going to look at how we can automatically do further processing of our model whenever we push a new model to our
@@ -1961,8 +1961,8 @@ repository.</p>
 <p>For the first set of exercises, we are going to rely on the <code>cml</code> framework by <a href="https://iterative.ai/">iterative.ai</a>,
     which is a framework that is built on top of GitHub actions. The figure below describes the overall process using
     the <code>cml</code> framework. It should be clear that it is the very same process that we go through in the other
-    continuous integration sessions: <code>push code</code> -&gt; <code>trigger GitHub actions</code> -&gt; <code>do stuff</code>. The new part in this session
-    that we are only going to trigger whenever data changes.</p>
+    continuous integration sessions: <code>push code</code> -&gt; <code>trigger GitHub actions</code> -&gt; <code>do stuff</code>. The new part in this
+    session is that we are only going to trigger whenever data changes.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/cml.jpeg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cml.jpeg" width="1000" /></a>
 <figcaption>
@@ -1971,8 +1971,8 @@ repository.</p>
 </figure></p>
 <ol>
 <li>
-<p>If you have not already created a dataset class for the corrupted Mnist data, start by doing that. Essentially,
-    it is a class that should inherit from <code>torch.utils.data.Dataset</code> and should have a <code>__getitem__</code> and <code>__len__</code></p>
+<p>If you have not already created a dataset class for the corrupted MNIST data, start by doing that. Essentially,
+    it is a class that should inherit from <code>torch.utils.data.Dataset</code> and should have <code>__getitem__</code> and <code>__len__</code>.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dataset.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
@@ -2109,7 +2109,7 @@ repository.</p>
 </li>
 <li>
 <p>Then let's create a function that can report basic statistics such as the number of training samples, number
-    of test samples and generate figures of sample images in the dataset and distribution of the classes in the
+    of test samples and generate figures of sample images in the dataset and distribution of classes in the
     dataset. This function should be called <code>dataset_statistics</code> and should take a path to the dataset as input.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2227,8 +2227,8 @@ update our data and call <code>dvc add data/</code>.</p>
 <p>The next step is to implement steps in our workflow that do something when data changes. This is the reason
     why we created the <code>dataset_statistics</code> function. Implement a workflow that:</p>
 <ol>
-<li>Check-out the code</li>
-<li>Setups Python</li>
+<li>Checks out the code</li>
+<li>Sets up Python</li>
 <li>Installs dependencies</li>
 <li>Downloads the data</li>
 <li>Runs the <code>dataset_statistics</code> function on the data</li>
@@ -2288,7 +2288,7 @@ and runs as expected.</p>
 <p>Let's now add the <code>cml</code> framework such that we can comment the results of the <code>dataset_statistics</code> function in
     the pull request automatically. Look at the
     <a href="https://github.com/iterative/cml#getting-started">getting started guide</a> for help on how to do this. You will
-    need write all the content of the <code>dataset_statistics</code> function to a file called <code>report.md</code> and then use the
+    need to write all the content of the <code>dataset_statistics</code> function to a file called <code>report.md</code> and then use the
     <code>cml comment create</code> command to create a comment in the pull request with the content of the file.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2359,8 +2359,8 @@ for production and share them with others. Figure from <a href="https://docs.wan
 <p><figure markdown>
 <a class="glightbox" href="../../figures/personal_access_token.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/personal_access_token.png" width="500" /></a>
 </figure></p>
-<p>give it a name, set what repositories it should have access to and select the permissions you want it to have.
-In our case if you choose to create <code>Fine-grained token</code> then it needs access to the <code>contents:write</code>
+<p>Give it a name, set what repositories it should have access to and select the permissions you want it to have.
+In our case if you choose to create a <code>Fine-grained token</code> then it needs access to the <code>contents:write</code>
 permission. If you choose <code>Tokens (classic)</code> then it needs access to the <code>repo</code> permission. After you have
 created the token, copy it and save it somewhere safe.</p>
 </li>
@@ -2378,8 +2378,8 @@ created the token, copy it and save it somewhere safe.</p>
 <li>Access token: <code>GITHUB_ACTIONS_TOKEN</code></li>
 <li>Secret: leave empty</li>
 </ul>
-<p>You here need to replace <code>&lt;owner&gt;</code> and <code>&lt;repo&gt;</code> with your own information. The <code>/dispatches</code> endpoint is a
-special endpoint that all GitHub actions workflows can listen to. Thus, if you ever want to setup a webhook in
+<p>Here you need to replace <code>&lt;owner&gt;</code> and <code>&lt;repo&gt;</code> with your own information. The <code>/dispatches</code> endpoint is a
+special endpoint that all GitHub action workflows can listen to. Thus, if you ever want to set up a webhook in
 some other framework that should trigger a GitHub action, you can use this endpoint.</p>
 </li>
 <li>
@@ -2468,15 +2468,15 @@ to the default branch.</p>
     performance tests on it to check that it is fast enough for deployment. Therefore, do the following:</p>
 <ol>
 <li>
-<p>In a <code>tests/performancetests</code> folder, create a new file called <code>test_model.py</code></p>
+<p>In a <code>tests/performancetests</code> folder, create a new file called <code>test_model.py</code>.</p>
 </li>
 <li>
-<p>Implement a test that loads the model from an wandb artifact path e.g.
+<p>Implement a test that loads the model from a wandb artifact path e.g.
     <team-name>/<project-name>/<artifact-name>:<version> and runs it on a random input. Importantly, the
     artifact path should be read from an environment variable called <code>MODEL_NAME</code>.</p>
 </li>
 <li>
-<p>The test should assert that the model can do 100 predictions in less than X amount of time</p>
+<p>The test should assert that the model can do 100 predictions in less than X amount of time.</p>
 </li>
 </ol>
 <details class="success">
@@ -2532,7 +2532,7 @@ to the default branch.</p>
 <li>
 <p>Let's now add another job that calls the script we just wrote. It needs to:</p>
 <ul>
-<li>Setup the correct environment variables</li>
+<li>Set the correct environment variables</li>
 <li>Checkout the code</li>
 <li>Setup Python</li>
 <li>Install dependencies</li>
@@ -2618,7 +2618,7 @@ to the default branch.</p>
 </span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 </span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">link_model</span><span class="p">)</span>
 </span></code></pre></div>
-<p>for example, you can run this script with the following command:</p>
+<p>For example, you can run this script with the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>link_model.py<span class="w"> </span>entity/project/artifact_name:version<span class="w"> </span>-a<span class="w"> </span>staging<span class="w"> </span>-a<span class="w"> </span>production
 </span></code></pre></div>
 <p>Implement a final job that calls this script and adds the <code>production</code> alias to the model.</p>
@@ -2675,7 +2675,7 @@ to the default branch.</p>
 </ol>
 </li>
 <li>
-<p>(Optional) If you have got this far, consider combining principles from the two exercises. Here is an idea: we use
+<p>(Optional) If you have gotten this far, consider combining principles from the two exercises. Here is an idea: we use
     the workflow from the second exercise to trigger a workflow that checks a staged model for performance. We then
     use the <code>cml</code> framework to automatically create a pull request e.g. use <code>cml pr create</code> instead of
     <code>cml comment create</code> to create a pull request with the results of the performance test. Then if we are happy with
@@ -2701,8 +2701,8 @@ to the default branch.</p>
 </details>
 </li>
 <li>
-<p>Imaging you get hired in the pharmasuitical industri being asked to develop a machine learning pipeline that can
-    automatically sort out which drugs are safe and which are not. What level of the MLOps maturity model would you
+<p>Imagine you get hired in the pharmaceutical industry and are asked to develop a machine learning pipeline that can
+    automatically determine which drugs are safe and which are not. What level of the MLOps maturity model would you
     strive to reach?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2721,7 +2721,7 @@ replace human judgement. This is especially true in machine learning where the c
 severe if it is used in critical decision making.</p>
 <p>Finally, if you have completed the exercises on <a href="../../s6_the_cloud/using_the_cloud/">using the cloud</a> consider checking
 out the <a href="https://cml.dev/doc/ref/runner#--cloud">cml runner lunch</a> command that allows you to run your workflows on
-cloud resources instead of the GitHub actions runners.</p>
+cloud resources instead of the GitHub action runners.</p>
 
 
 
@@ -2744,7 +2744,7 @@ cloud resources instead of the GitHub actions runners.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

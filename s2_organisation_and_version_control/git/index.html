@@ -1917,8 +1917,8 @@ This is the reason that <strong>version control</strong> exists. Simply stated, 
 </ul>
 <p>For a full explanation, please see this <a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F">page</a>.</p>
 <p>Secondly, it is important to note that GitHub is not git! GitHub is the dominating player when it comes to
-hosting repositories but that does not mean that they are the only one providing free repository hosting
-(see <a href="https://bitbucket.org/product/">bitbucket</a> or <a href="https://about.gitlab.com/">gitlab</a>) for some other examples.</p>
+hosting repositories, but that does not mean that they are the only ones providing free repository hosting
+(see <a href="https://bitbucket.org/product/">bitbucket</a> or <a href="https://about.gitlab.com/">gitlab</a> for some other examples).</p>
 <p>That said, we will be using git and GitHub throughout this course. It is a requirement for passing this course that
 you create a public repository with your code and use git to upload any code changes. How much you choose to integrate
 this into your own projects depends, but you are at least expected to be familiar with git+GitHub.</p>
@@ -1934,7 +1934,7 @@ this into your own projects depends, but you are at least expected to be familia
 <ul>
 <li>Random three-letter combination that is pronounceable, and not actually used by any common UNIX command. The fact
     that it is a mispronunciation of "get" may or may not be relevant.</li>
-<li>Stupid. Contemptible and Despicable. simple. Take your pick from the dictionary of slang.</li>
+<li>Stupid. Contemptible and Despicable. Simple. Take your pick from the dictionary of slang.</li>
 <li>"Global information tracker": you're in a good mood, and it actually works for you.
     Angels sing, and a light suddenly fills the room.</li>
 <li>"Goddamn idiotic truckload of sh*t": when it breaks</li>
@@ -1950,8 +1950,8 @@ this into your own projects depends, but you are at least expected to be familia
 <p>Create a <a href="https://github.com/">GitHub</a> account if you do not already have one.</p>
 </li>
 <li>
-<p>To make sure that we do not have to type in our GitHub username every time that we want to do some changes,
-    we can once and for all set them on our local machine</p>
+<p>To make sure that we do not have to type in our GitHub username every time that we want to make some changes,
+    we can once and for all set it on our local machine.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># type in a terminal</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>credential.helper<span class="w"> </span>store
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span>&lt;email&gt;
@@ -1967,7 +1967,7 @@ this into your own projects depends, but you are at least expected to be familia
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
 revert to a specific point in time.</p>
 <p>The commits are made up of local changes that we make to our code. A basic workflow for
-adding commits are seen below:</p>
+adding commits can be seen below:</p>
 <figure>
 <p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
 </figure>
@@ -1976,19 +1976,19 @@ want to get these updates to be online in the <em>remote repository</em> we have
 <ul>
 <li>
 <p>First we run the command <code>git add</code>. This will move our changes to the <em>staging area</em>. While changes are in the
-    staging area we can very easily revert them (using <code>git restore</code>). There have therefore not been assigned a unique
-    hash to the code yet, and we can therefore still overwrite it.</p>
+    staging area we can very easily revert them (using <code>git restore</code>). There has therefore not been assigned a unique
+    hash to the code yet, and so we can still overwrite it.</p>
 </li>
 <li>
 <p>To take our code from the <em>staging area</em> and make it into a commit, we simply run <code>git commit</code> which will locally
-    add a note to the graph. It is important again, that we have not pushed the commit to the online <em>repository</em> yet.</p>
+    add a node to the graph. Note again that we have not pushed the commit to the online <em>repository</em> yet.</p>
 </li>
 <li>
 <p>Finally, we want others to be able to use the changes that we made. We do a simple <code>git push</code> and our
-    commit gets online</p>
+    commit goes online.</p>
 </li>
 </ul>
-<p>Of course, the real power of version control is the ability to make branches, as in the image below</p>
+<p>Of course, the real power of version control is the ability to make branches, as in the image below.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/git_branches.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branches.png" width="1000" /></a></p>
 <figcaption>
@@ -2001,24 +2001,24 @@ working together on the same project.</p>
 <ol>
 <li>
 <p>In your GitHub account create a repository, where the intention is that you upload the code from the final
-    exercise from yesterday</p>
+    exercise from yesterday.</p>
 <ol>
 <li>
-<p>After creating the repository, clone it to your computer</p>
+<p>After creating the repository, clone it to your computer.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/my_user_name/my_repository_name.git
 </span></code></pre></div>
 </li>
 <li>
-<p>Move/copy the three files from yesterday into the repository (and any other that you made)</p>
+<p>Move/copy the three files from yesterday into the repository (and any others that you made).</p>
 </li>
 <li>
-<p>Add the files to a commit by using <code>git add</code> command</p>
+<p>Add the files to a commit by using the <code>git add</code> command.</p>
 </li>
 <li>
-<p class="annotate">Commit the files using <code>git commit</code> command where you use the <code>-m</code> argument to provide a commit message (1).</p>
+<p class="annotate">Commit the files using the <code>git commit</code> command where you use the <code>-m</code> argument to provide a commit message (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing good commit message is a skill in itself. A commit message should be short but
-    informative about the work you are trying to commit. Try to practise writing good commit messages
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing a good commit message is a skill in and of itself. A commit message should be
+    short but informative about the work you are trying to commit. Try to practice writing good commit messages
     throughout the course. You can see
     <a href="https://github.com/joelparkerhenderson/git-commit-message">this guideline</a> for help.</li>
 </ol>
@@ -2046,9 +2046,9 @@ working together on the same project.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># create a new branch</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;my_branch_name&gt;
 </span></code></pre></div>
-<p class="annotate">Afterwards, you can use <code>git checkout</code> (1) to change between branches (remember to commit your work!)
-Try adding something (a file, a new line of code etc.) to the newly created branch, commit it and
-try changing back to master afterwards. You should hopefully see whatever you added on the branch
+<p class="annotate">Afterwards, you can use <code>git checkout</code> (1) to change between branches (remember to commit your work!).
+Try adding something (a file, a new line of code, etc.) to the newly created branch, commit it and
+try changing back to main afterwards. You should hopefully see whatever you added on the branch
 is not present on the main branch.</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>git checkout</code> command is used for a lot of different things in git. It can be used to
@@ -2057,12 +2057,12 @@ is not present on the main branch.</p>
 </ol>
 </li>
 <li>
-<p>If you do not already have a cloned version of this repository belonging to the course, make sure to make one!
+<p>If you do not already have a cloned version of the repository belonging to the course, make sure to make one!
     I am continuously updating/changing some of the material during the course and I therefore recommend that you
-    each day before the lecture do a <code>git pull</code> on your local copy</p>
+    each day before the lecture do a <code>git pull</code> on your local copy.</p>
 </li>
 <li>
-<p>Git may seem like a waste of time when solutions like dropbox, google drive etc exist, and it is
+<p>Git may seem like a waste of time when solutions like Dropbox, Google Drive, etc. exist, and it is
     not completely untrue when you are only one or two working on a project. However, these file management
     systems fall short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:</p>
@@ -2086,21 +2086,21 @@ code updates to the original repository do not update code in your local reposit
 </li>
 <li>
 <p>You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
-    When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code></p>
+    When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code>.</p>
 </li>
 <li>
-<p>Go online to the original repository and go to the <code>Pull requests</code> tab. Find <code>compare</code> button and
+<p>Go online to the original repository and go to the <code>Pull requests</code> tab. Find the <code>compare</code> button and
     choose the button to compare the <code>master branch</code> of the original repo with the branch that you just created
     in your own repository. Check the diff on the page to make sure that it contains the changes you have made.</p>
 </li>
 <li>
-<p>Write a bit about the changes you have made and click <code>Create pull request</code> :)</p>
+<p>Write a bit about the changes you have made and click <code>Create pull request</code> :).</p>
 </li>
 </ol>
 </li>
 <li>
 <p>Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
-    mitigate this we can set what is called an <em>remote upstream</em>. Take a look on this
+    mitigate this we can set what is called a <em>remote upstream</em>. Take a look at this
     <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork">page</a>
     , and set a remote upstream for the repository you just forked.</p>
 <details class="success">
@@ -2110,7 +2110,7 @@ code updates to the original repository do not update code in your local reposit
 </details>
 </li>
 <li>
-<p>After setting the upstream branch, we need to pull and merge any update. Take a look on this
+<p>After setting the upstream branch, we need to pull and merge any updates. Take a look at this
     <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">page</a>
     and figure out how to do this.</p>
 <details class="success">
@@ -2162,7 +2162,7 @@ remove the identifiers <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======<
 <p>(Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
     However, if you are using a proper editor they also have built-in support for version control. We recommend getting
     familiar with these features (here is a tutorial for
-    <a href="https://code.visualstudio.com/docs/editor/versioncontrol">VS Code</a>)</p>
+    <a href="https://code.visualstudio.com/docs/editor/versioncontrol">VS Code</a>).</p>
 </li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
@@ -2213,8 +2213,8 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
 <p>That covers the basics of git to get you started. In the exercise folder you can find a
 <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf">git cheat sheet</a>
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of GitHub:
-in browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in a
-IDE/editor. Or you may be in the situation where you are working from another device than your usual developer machine.
+in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
+IDE/editor. Or you may be in the situation where you are working from a device other than your usual developer machine.
 GitHub has a built-in editor that can simply be enabled by changing any URL from</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>https://github.com/username/repository
 </span></code></pre></div>
@@ -2244,7 +2244,7 @@ GitHub has a built-in editor that can simply be enabled by changing any URL from
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

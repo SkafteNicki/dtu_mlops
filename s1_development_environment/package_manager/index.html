@@ -1884,7 +1884,7 @@ only using the <a href="https://docs.python.org/3/library/index.html">Python sta
 we need a way to install third-party packages and this is where
 <a href="https://en.wikipedia.org/wiki/Package_manager">package managers</a> come into play.</p>
 <p>You have probably already used <code>pip</code> for the longest time, which is the default package manager for Python. <code>pip</code> is
-great for beginners but it is missing one essential feature that you will need as a developer or data scientist:
+great for beginners, but it is missing one essential feature that you will need as a developer or data scientist:
 <em>virtual environments</em>. Virtual environments are an essential way to make sure that the dependencies of different
 projects do not cross-contaminate each other. As a naive example, consider project A that requires <code>torch==1.3.0</code> and
 project B that requires <code>torch==2.0</code>, then doing</p>
@@ -1931,8 +1931,8 @@ the same environment, in this case, the global environment. Instead, if we did s
 </div>
 </div>
 <p>then we would be sure that <code>torch==1.3.0</code> is used when executing <code>main.py</code> in project A because we are using two
-different virtual environments. In the above case, we used the <a href="https://docs.python.org/3/library/venv.html">venv module</a>
-which is the built-in Python module for creating virtual environments. <code>venv+pip</code> is arguably a good combination
+different virtual environments. In the above case, we used the <a href="https://docs.python.org/3/library/venv.html">venv module</a>,
+which is the built-in Python module for creating virtual environments. <code>venv+pip</code> is arguably a good combination,
 but when working on multiple projects it can quickly become a hassle to manage all the different
 virtual environments yourself, remembering which Python version to use, which packages to install and so on.</p>
 <p>For this reason, a number of package managers have been created that can help you manage your virtual environments and
@@ -1998,24 +1998,24 @@ trying to become the standard, quickly gaining popularity and being adopted by m
 <p><a class="glightbox" href="../../figures/standards.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/standards.png" width="700" /></a></p>
 <figcaption> <a href="https://xkcd.com/927/"> Image credit </a> </figcaption>
 </figure>
-<p>In the course, we do not care about which package manager you use, but we do care that you use one. If you are already
+<p>In this course, we do not care about which package manager you use, but we do care that you use one. If you are already
 familiar with one package manager, then skip this exercise and continue to use that. The best recommendation that I can
 give regarding package managers, in general, is to find one you like and then stick with it. A lot of time can be wasted
-on trying to find the perfect package manager, but in the end, they all do the same with some minor differences.
+on trying to find the perfect package manager, but in the end, they all do the same thing with some minor differences.
 Check out <a href="https://alpopkes.com/posts/python/packaging_tools/">this blog post</a> if you want a fairly up-to-date
 evaluation of the different environment management and packaging tools that exist in the Python ecosystem.</p>
 <p>If you are not familiar with any package managers, then we recommend that you use <code>conda</code> and <code>pip</code> for this course. You
 probably already have <a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda</a> installed
 on your laptop, which is great. What conda does especially well is that it allows you to create virtual environments
 with different Python versions, which can be really useful if you encounter dependencies that have not been updated in
-a long time. In this course specifically, we are going to recommend the following workflow</p>
+a long time. In this course specifically, we are going to recommend the following workflow:</p>
 <ul>
 <li>Use <code>conda</code> to create virtual environments with specific Python versions</li>
 <li>Use <code>pip</code> to install packages in that environment</li>
 </ul>
 <p>Installing packages with <code>pip</code> inside <code>conda</code> environments has been considered a bad practice for a long time, but
 since <code>conda&gt;=4.6</code> it is considered safe to do so. The reason for this is that <code>conda</code> now has a built-in compatibility
-layer that makes sure that <code>pip</code> installed packages are compatible with the other packages installed in the environment.</p>
+layer that makes sure that <code>pip</code>-installed packages are compatible with the other packages installed in the environment.</p>
 <h2 id="python-dependencies">Python dependencies</h2>
 <p>Before we get started with the exercises, let's first talk a bit about Python dependencies. One of the most common ways
 to specify dependencies in the Python community is through a <code>requirements.txt</code> file, which is a simple text file that
@@ -2037,7 +2037,7 @@ later point. If we do not specify the version number, then we are at the mercy o
 the API of the package. This is especially important when working with machine learning models, as we want to make sure
 that we can reproduce the exact same model at a later point.</p>
 <p>Finally, we also need to discuss <em>dependency resolution</em>, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exists a lot of different algorithms for doing this. If you have
+compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have
 ever thought that <code>pip</code> and <code>conda</code> were taking a long time to install something, then it is probably because they were
 trying to figure out which packages are compatible with each other. For example, if you try to install</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;matplotlib &gt;= 3.8.0&quot;</span><span class="w"> </span><span class="s2">&quot;numpy &lt;= 1.19&quot;</span><span class="w"> </span>--dry-run
@@ -2063,8 +2063,8 @@ in the exercise folder.</p>
 <p>Download and install <code>conda</code>. You are free to either install full <code>conda</code> or the much simpler version <code>miniconda</code>.
     The core difference between the two packages is that <code>conda</code> already comes with a lot of packages that you would
     normally have to install with <code>miniconda</code>. The downside is that <code>conda</code> is a much larger package which can be a
-    huge disadvantage on smaller devices. Make sure that your installation is working by writing <code>conda help</code> in a
-    terminal, and it should show you the help message for conda. If this does not work you probably need to set some
+    huge disadvantage on smaller devices. Make sure that your installation works by writing <code>conda help</code> in a
+    terminal, and it should show you the help message for conda. If this does not work, you probably need to set some
     system variable to point to the
     <a href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">conda installation</a></p>
 </li>
@@ -2084,7 +2084,7 @@ default, it will always start in the <code>(base)</code> environment.</p>
 <p>We highly recommend that you use Python 3.8 or higher for this course. In general, we recommend that you use
 the second latest version of Python that is available (currently Python 3.11 as of writing this). This is
 because the latest version of Python is often not supported by all dependencies. You can always check the status
-of different Python version support <a href="https://devguide.python.org/versions/">here</a>.</p>
+of different Python versions <a href="https://devguide.python.org/versions/">here</a>.</p>
 </details>
 <details class="success">
 <summary>Solution</summary>
@@ -2135,7 +2135,7 @@ of different Python version support <a href="https://devguide.python.org/version
 </li>
 <li>
 <p>As the introduction states, it is fairly safe to use <code>pip</code> inside <code>conda</code> today. What is the corresponding <code>pip</code>
-    command that gives you a list of all <code>pip</code> installed packages? And how do you export this to <code>requirements.txt</code>
+    command that gives you a list of all <code>pip</code> installed packages? And how do you export this to a <code>requirements.txt</code>
     file?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2145,8 +2145,8 @@ of different Python version support <a href="https://devguide.python.org/version
 </details>
 </li>
 <li>
-<p>If you look through the requirements that both <code>pip</code> and <code>conda</code> produce then you will see that it
-    is often filled with a lot more packages than what you are using in your project. What you are interested in are the
+<p>If you look through the requirements that both <code>pip</code> and <code>conda</code> produce, you will see that they
+    are often filled with a lot more packages than what you are using in your project. What you are interested in are the
     packages that you import in your code: <code>from package import module</code>. One way to get around this is to use the
     package <code>pipreqs</code>, which will automatically scan your project and create a requirements file specific to that.
     Let's try it out:</p>
@@ -2158,8 +2158,8 @@ of different Python version support <a href="https://devguide.python.org/version
 </li>
 <li>
 <p>Either try out <code>pipreqs</code> on one of your own projects or try it out on some other online project.
-    What does the <code>requirements.txt</code> file <code>pipreqs</code> produces look like compared to the files produced
-    by either <code>pip</code> or <code>conda</code>.</p>
+    What does the <code>requirements.txt</code> file that <code>pipreqs</code> produces look like compared to the files produced
+    by either <code>pip</code> or <code>conda</code>?</p>
 </li>
 </ol>
 </li>
@@ -2176,12 +2176,12 @@ of different Python version support <a href="https://devguide.python.org/version
 <p>As <code>pytest-cov==2.12.1</code> requires a version of <code>pytest</code> newer than <code>4.6</code>, we can simply change the command to be:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &gt;= 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
-<p>but there of course exists other solutions as well.</p>
+<p>but there of course exist other solutions as well.</p>
 </details>
 </li>
 </ol>
 <p>This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
-to construct requirements files automatically, sometimes it is just easier to manually sit down and create the files as you
+to construct requirement files automatically, sometimes it is just easier to sit down and manually create the files, as you
 in that way ensure that only the most necessary requirements are installed when creating a new environment.</p>
 
 
@@ -2205,7 +2205,7 @@ in that way ensure that only the most necessary requirements are installed when 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

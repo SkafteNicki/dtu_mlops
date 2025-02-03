@@ -1956,11 +1956,11 @@
 <p class="admonition-title">Core Module</p>
 </div>
 <p>Google Cloud Platform (GCP) is the cloud service provided by Google. The key concept, or selling point, of any cloud
-provider, is the idea of near-infinite resources. Without the cloud, it simply is not feasible to do many modern
+provider, is the idea of near-infinite resources. Without the cloud, it is simply not feasible to do many modern
 deep learning and machine learning tasks because they cannot be scaled locally.</p>
 <p>The image below shows <a href="https://cloud.google.com/products">all the different services</a> that the Google Cloud platform
-offers. We are going to be working with around 10 of these services throughout the course. Therefore, if you get done
-with exercises early I highly recommend that you deep dive more into the Google cloud platform.</p>
+offers. We are going to be working with around 10 of these services throughout the course. Therefore, if you finish
+the exercises early I highly recommend that you deep dive more into the Google Cloud Platform.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/gcp_services.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_services.png" width="1000" /></a></p>
 <figcaption> <a href="https://github.com/priyankavergadia/google-cloud-4-words"> Image credit </a> </figcaption>
@@ -1970,10 +1970,10 @@ with exercises early I highly recommend that you deep dive more into the Google 
 <ol>
 <li>
 <p>Go to <a href="https://learn.inside.dtu.dk">https://learn.inside.dtu.dk</a>. Go to this course. Find the recent message where there should be a download
-    link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there are a
+    link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there is a
     limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits
     whenever you sign up with a new account. NOTE that you need to provide a credit card for this so make
-    sure to closely monitor your credit use so you do not end up spending more than the free credit.</p>
+    sure to closely monitor your credit usage so you do not end up spending more than the free credit.</p>
 </li>
 <li>
 <p>Log in to the homepage of GCP. It should look like this:</p>
@@ -1982,12 +1982,12 @@ with exercises early I highly recommend that you deep dive more into the Google 
 </figure></p>
 </li>
 <li>
-<p>Go to billing and make sure that your account is showing $50 of cloud credit</p>
+<p>Go to billing and make sure that your account is showing $50 of cloud credit.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp2.PNG" width="800" /></a>
 </figure></p>
-<p>make sure to also check out the <code>Reports</code> throughout the course. When you are starting to use some of the cloud
-services these tabs will update with info about how much time you can use before your cloud credit runs out.
+<p>Make sure to also check out the <code>Reports</code> throughout the course. When you are starting to use some of the cloud
+services these tabs will update with info about how much time you have before your cloud credit runs out.
 Make sure that you monitor this page as you will not be given another coupon.</p>
 </li>
 <li>
@@ -2000,7 +2000,7 @@ is being created. The notification bell is a good way to make sure how the proce
 throughout the course.</p>
 </li>
 <li>
-<p>Next, it local setup on your laptop. We are going to install <code>gcloud</code>, which is part of the Google Cloud SDK.
+<p>Next is local setup on your laptop. We are going to install <code>gcloud</code>, which is part of the Google Cloud SDK.
     <code>gcloud</code> is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the <code>gcloud</code> interface. Follow the installation instructions
     <a href="https://cloud.google.com/sdk/docs/install">here</a> for your specific OS.</p>
@@ -2009,18 +2009,18 @@ throughout the course.</p>
 <p>After installation, try in a terminal to type:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>-h
 </span></code></pre></div>
-<p>the command should show the help page. If not, something went wrong in the installation (you may need to
+<p>The command should show the help page. If not, something went wrong in the installation (you may need to
 restart after installing).</p>
 </li>
 <li>
-<p>Now login by typing</p>
+<p>Now log in by typing</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>login<span class="w"> </span><span class="c1">#(1)!</span>
 </span></code></pre></div>
 <ol>
-<li>If you are authenticating through WSL you most likely needs to add the argument <code>--no-launch-browser</code> at the
+<li>If you are authenticating through WSL you most likely need to add the argument <code>--no-launch-browser</code> at the
     end of the command to get the authentication link. Copy the link and paste it into your browser.</li>
 </ol>
-<p>you should be sent to a web page where you link your cloud account to the <code>gcloud</code> interface. Afterward, also
+<p>You should be sent to a web page where you link your cloud account to the <code>gcloud</code> interface. Afterward, also
 run this command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>application-default<span class="w"> </span>login
 </span></code></pre></div>
@@ -2031,7 +2031,7 @@ run this command:</p>
 <li>
 <p>Next, you will need to set the project that we just created as the default project0. In your web browser under
     project info, you should be able to see the <code>Project ID</code> belonging to your <code>dtumlops</code> project. Copy this and
-    type he following command in a terminal</p>
+    type the following command in a terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span>&lt;project-id&gt;
 </span></code></pre></div>
 <p>You can also get the project info by running</p>
@@ -2045,7 +2045,7 @@ run this command:</p>
 <p>Make sure that the Python interface is also installed. In a Python terminal type</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">googleapiclient</span>
 </span></code></pre></div>
-<p>this should work without any errors.</p>
+<p>which should work without any errors.</p>
 </li>
 <li>
 <p>(Optional) If you are using VSCode you can also download the relevant
@@ -2062,7 +2062,7 @@ run this command:</p>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicemanagement.googleapis.com
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicecontrol.googleapis.com
 </span></code></pre></div>
-<p>you can always check which services are enabled by typing</p>
+<p>You can always check which services are enabled by typing</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span>list
 </span></code></pre></div>
 </li>
@@ -2071,11 +2071,11 @@ run this command:</p>
 services, both locally on your laptop and in the cloud console.</p>
 <h2 id="iam-and-quotas">IAM and Quotas</h2>
 <p>A big part of using the cloud in a bigger organization has to do with Admin and quotas. Admin here in general refers
-to the different roles that users of GCP and quotas refer to the amount of resources that a given user has access to.
-For example, one employee, let's say a data scientist, may only be granted access to certain GCP services that have to
-do with the development and training of machine learning models, with <code>X</code> amounts of GPUs available to use to make sure
-that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not need access to
-the same services and not necessarily the same resources.</p>
+to the different roles that users of GCP can have and quotas refers to the amount of resources that a given user has
+access to. For example, one employee, let's say a data scientist, may only be granted access to certain GCP services
+that have to do with the development and training of machine learning models, with <code>X</code> amount of GPUs available to use
+to make sure that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not
+need access to the same services and not necessarily the same resources.</p>
 <p>In this course, we are not going to focus too much on this aspect but it is important to know that it exists. One
 feature you are going to need for doing the project is how to share a project with other people. This is done through
 the IAM (Identities and Access Management) page. Simply click the <code>Grant Access</code> button, search for the email of the
@@ -2099,15 +2099,15 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
     in the figure below.</p>
 <ol>
 <li>
-<p>Go to the <code>quotas page</code></p>
+<p>Go to the <code>quotas page</code>.</p>
 </li>
 <li>
-<p>In the search field search for <code>GPUs (all regions)</code> (needs to match exactly, the search field is case sensitive),
+<p>In the search field search for <code>GPUs (all regions)</code> (needs to match exactly, the search field is case-sensitive),
     such that you get the same quota as in the image.</p>
 </li>
 <li>
 <p>In the limit, you can see what your current quota for the number of GPUs you can use is. Additionally, to the
-    right of the limit, you can see the current usage. It is worth checking in on if you are ever in doubt if a job
+    right of the limit, you can see the current usage. It is worth checking if you are ever in doubt if a job
     is running on GPU or not.</p>
 </li>
 <li>
@@ -2117,7 +2117,7 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
 <p>In the pop-up window, increase your limit to either 1 or 2.</p>
 </li>
 <li>
-<p>After sending your request you can try clicking the <code>Increase requests</code> tab to see the status of your request</p>
+<p>After sending your request you can try clicking the <code>Increase requests</code> tab to see the status of your request.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/quotas.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quotas.PNG" width="1000" /></a>
 </figure></p>
@@ -2125,24 +2125,24 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
 </ol>
 </li>
 </ol>
-<p>If you are ever running into errors when working in GPU that contains statements about <code>quotas</code> you can always try to
+<p>If you are ever running into errors when working in GPU that contain statements about <code>quotas</code> you can always try to
 go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
 training machine learning models using Vertex AI in the <a href="../using_the_cloud/">next module</a>, you would most likely
 need to ask for a quota increase for that service as well.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can only request a quota increase for service that you have enabled. After enabling a given service it may take
+<p>You can only request a quota increase for a service that you have enabled. After enabling a given service it may take
 5-10 minutes before you can request a quota increase for that service.</p>
 </div>
 <figure>
 <p><a class="glightbox" href="../../figures/gcp_quotas.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_quotas.png" width="1000" /></a></p>
 </figure>
 <p>Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
-request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
-services some more to make sure you are not a bot that wants to mine crypto.</p>
+request gets rejected, we recommend waiting a day and trying again. If this does still not work, you may need to use their
+services some more to show you are not a bot that wants to mine crypto.</p>
 <h2 id="service-accounts">Service accounts</h2>
 <p>At some point, you will most likely need to use a service account. A service account is a virtual account that is used
-to interact with the Google Cloud API. It it intended for non-human users e.g. other machines, services, etc. For
+to interact with the Google Cloud API. It it intended for non-human users, e.g. other machines, services, etc. For
 example, if you want to launch a training job from GitHub Actions, you will need to use a service account for
 authentication between GitHub and GCP. You can read more about how to create a service account
 <a href="https://cloud.google.com/iam/docs/creating-managing-service-accounts">here</a>.</p>
@@ -2153,21 +2153,21 @@ authentication between GitHub and GCP. You can read more about how to create a s
     bar.</p>
 </li>
 <li>
-<p>Click the <code>Create Service Account</code> button. On the next page, you can give the service account a name, and id (
-    automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
+<p>Click the <code>Create Service Account</code> button. On the next page, you can give the service account a name and id
+    (automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
     default and click <code>Create</code>.</p>
 </li>
 <li>
 <p>Next, let's give the service account some permissions. Your job now is to give the service account the lowest
     possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
-    the <code>IAM</code> page. Click on <code>Grant Access</code> button and paste in the email address in <code>Add principals</code> field. Then click
-    the <code>Select a role</code> dropdown and either write the name of the role you want to give the service account or search
-    for it in the list. Finally, click <code>Save</code>.  As help, you can look at this
+    the <code>IAM</code> page. Click on the <code>Grant Access</code> button and paste in the email address in the <code>Add principals</code> field.
+    Then click the <code>Select a role</code> dropdown and either write the name of the role you want to give the service account
+    or search for it in the list. Finally, click <code>Save</code>.  For help, you can look at this
     <a href="https://cloud.google.com/iam/docs/understanding-roles">page</a> and try to find the role that fits the description.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The role you are looking for is <code>Storage Object Viewer</code>. This role allows the service account to list objects
-in a bucket and download objects, but nothing more. Thus even if someone gets access to the service account
+in a bucket and download objects, but nothing more. Thus, even if someone gets access to the service account
 they cannot delete objects in the bucket.</p>
 </details>
 </li>
@@ -2199,7 +2199,7 @@ run</p>
 </details>
 </li>
 </ol>
-<p>In this course we recommend that you one only use a single service account for doing exercises and your project. This
+<p>In this course we recommend that you only use a single service account for doing exercises and your project. This
 is to simplify the process of managing permissions. In a real-world scenario, you would most likely have multiple
 service accounts, each with different permissions. The following roles are the most common ones that you will use in
 this course:</p>
@@ -2209,28 +2209,28 @@ this course:</p>
 <li><code>Secret Manager Secret Accessor</code>: Allows the service account to access secrets in Secret Manager</li>
 <li><code>Cloud Run Developer</code>: Allows the service account to deploy services in Cloud Run</li>
 <li><code>AI Platform Developer</code>: Allows the service account to use the AI Platform</li>
-<li><code>Artifact Registry Writer</code>: Allows the service account to write to Artifact Registry</li>
+<li><code>Artifact Registry Writer</code>: Allows the service account to write to the Artifact Registry</li>
 </ul>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
-<p>What considerations to take when choosing a GCP region for running a new application?</p>
+<p>What considerations should you have when choosing a GCP region for running a new application?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>A series of factors may influence your choice of region, including:</p>
 <ul>
-<li>Services availability in the region, not all services are available in all regions</li>
+<li>Services availability in the region; not all services are available in all regions</li>
 <li>Resource availability: <a href="https://cloud.google.com/compute/docs/gpus/gpu-regions-zones">some regions</a> have more
     GPUs available than others</li>
 <li>Reduced latency: if your application is running in the same region as your users, the latency will be lower</li>
 <li>Compliance: some countries have strict rules that require user info to be stored inside a particular region
-    eg. EU has GDPR rules that require all user data to be stored in the EU</li>
+    e.g., EU has GDPR rules that require all user data to be stored in the EU</li>
 <li>Pricing: some regions may have different pricing than others</li>
 </ul>
 </details>
 </li>
 <li>
-<p>The 3 major cloud providers all have the same services, but they are called something different depending on the
+<p>The three major cloud providers all have the same services, but they are called something different depending on the
     provider. What are the corresponding names of these GCP services in AWS and Azure?</p>
 <ul>
 <li>Compute Engine</li>
@@ -2240,7 +2240,7 @@ this course:</p>
 <li>Cloud build</li>
 <li>Vertex AI</li>
 </ul>
-<p>It is important to know these correspondences to navigate blogpost etc. about MLOps on the internet.</p>
+<p>It is important to know these correspondences to navigate blog posts, etc. about MLOps on the internet.</p>
 <details class="success">
 <summary>Solution</summary>
 <table>
@@ -2287,11 +2287,11 @@ this course:</p>
 </details>
 </li>
 <li>
-<p>Why does is it always important to assign the lowest possible permissions to a service account?</p>
+<p>Why is it always important to assign the lowest possible permissions to a service account?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The reason is that if someone gets access to the service account they can only do what the service account is
-allowed to do. If the service account has the permission to delete objects in a bucket, the attacker can delete
+allowed to do. If the service account has permission to delete objects in a bucket, the attacker can delete
 all the objects in the bucket. For this reason, in most cases multiple service accounts are used, each with
 different permissions. This setup is called the
 <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege">principle of least privilege</a>.</p>
@@ -2320,7 +2320,7 @@ different permissions. This setup is called the
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

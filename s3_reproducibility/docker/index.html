@@ -1913,7 +1913,7 @@ To truly achieve reproducibility, we need to capture system-level components suc
 <p>Docker provides this kind of system-level reproducibility by creating isolated program dependencies. In addition to
 providing reproducibility, one of the key features of Docker is scalability, which is important when we later discuss
 deployment. Because Docker ensures system-level reproducibility, it does not (conceptually) matter whether we try to
-start our program on a single machine or on 1000 machines at once.</p>
+start our program on a single machine or on 1,000 machines at once.</p>
 <h2 id="docker-overview">Docker Overview</h2>
 <p>Docker has three main concepts: <strong>Dockerfile</strong>, <strong>Docker image</strong>, and <strong>Docker container</strong>:</p>
 <figure>
@@ -1946,8 +1946,8 @@ your own container.</p>
 </li>
 <li>
 <p>After building the image ourselves, we can choose to upload it to an <em>image registry</em> such as
-    <a href="https://hub.docker.com/">Docker Hub</a>, where others can get our image by simply running <code>docker pull</code>, making them
-    able to instantaneously run it as a container, as shown in the figure below:</p>
+    <a href="https://hub.docker.com/">Docker Hub</a>, where others can get our image by simply running <code>docker pull</code>, allowing them
+    to instantaneously run it as a container, as shown in the figure below:</p>
 </li>
 </ul>
 <figure>
@@ -1955,21 +1955,21 @@ your own container.</p>
 <figcaption> <a href="https://deep-learning-blogs.vercel.app/blog/mlops-docker"> Image credit </a> </figcaption>
 </figure>
 <h2 id="exercises">❔ Exercises</h2>
-<p>In the following exercises, we guide you on how to build a docker file for your MNIST repository that will make the
+<p>In the following exercises, we guide you on how to build a dockerfile for your MNIST repository that will make the
 training and prediction a self-contained application. Please make sure that you somewhat understand each step and do
-not just copy the exercise. Also, note that you probably need to execute the exercise from an elevated terminal e.g.
+not just copy the exercise. Also, note that you probably need to execute the exercise from an elevated terminal, i.e.
 with administrative privilege.</p>
 <p>The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
 production setting view. For example, we often want to keep the size of the docker image as small as possible, which we
 are not focusing on for these exercises.</p>
 <p>If you are using <code>VScode</code> then we recommend installing the
-<a href="https://code.visualstudio.com/docs/containers/overview">VScode docker extension</a> for easy getting an overview of
+<a href="https://code.visualstudio.com/docs/containers/overview">VScode docker extension</a> for easily getting an overview of
 which images have been building and which are running. Additionally, the extension named <em>Dev Containers</em> may also be
 beneficial for you to download.</p>
 <ol>
 <li>
 <p>Start by <a href="https://docs.docker.com/get-docker/">installing docker</a>. How much trouble you need to go through
-    depends on your operating system. For Windows and Mac, we recommend they install <em>Docker Desktop</em>, which comes with
+    depends on your operating system. For Windows and Mac, we recommend you install <em>Docker Desktop</em>, which comes with
     a graphical user interface (GUI) for quickly viewing docker images and docker containers currently built/in use.
     Windows users that have not installed WSL yet are going to have to do it now (as docker needs it as a backend for
     starting virtual machines) but you do not need to install docker in WSL. After installing docker we recommend that
@@ -1998,7 +1998,7 @@ shell utilities, etc.</p>
 <p>which should show you all available images. You should see the <code>busybox</code> image that we just downloaded.</p>
 </li>
 <li>
-<p>Let's try to run this image</p>
+<p>Let's try to run this image.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox
 </span></code></pre></div>
 <p>You will see that nothing happens! The reason for that is we did not provide any commands to <code>docker run</code>. We
@@ -2010,13 +2010,13 @@ again, this time with</p>
 and kill it afterward.</p>
 </li>
 <li>
-<p>Try running</p>
+<p>Try running:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>ps
 </span></code></pre></div>
 <p>What does this command do? What if you add <code>-a</code> to the end?</p>
 </li>
 <li>
-<p>If we want to run multiple commands within the virtual machine, we can start it in <em>interactive mode</em></p>
+<p>If we want to run multiple commands within the virtual machine, we can start it in <em>interactive mode</em>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>busybox
 </span></code></pre></div>
 <p>This can be a great way to investigate what the filesystem of our virtual machine looks like.</p>
@@ -2024,10 +2024,10 @@ and kill it afterward.</p>
 <li>
 <p>As you may have already noticed by now, each time we execute <code>docker run</code>, we can still see small remnants of the
     containers using <code>docker ps -a</code>. These stray containers can end up taking up a lot of disk space. To remove them,
-    use <code>docker rm</code> where you provide the container ID that you want to delete</p>
+    use <code>docker rm</code> where you provide the container ID that you want to delete.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>&lt;container_id&gt;
 </span></code></pre></div>
-<p>In general we recommend to use the <code>--rm</code> flag when running a container e.g.</p>
+<p>In general we recommend using the <code>--rm</code> flag when running a container, e.g.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>&lt;image&gt;
 </span></code></pre></div>
 <p>which will automatically remove the container after it has finished running.</p>
@@ -2035,11 +2035,11 @@ and kill it afterward.</p>
 <li>
 <p>Let's now move on to trying to construct a Dockerfile ourselves for our MNIST project. Create a file called
     <code>train.dockerfile</code>. The intention is that we want to develop one Dockerfile for running our training script and
-    one for doing predictions.</p>
+    one for making predictions.</p>
 </li>
 <li>
 <p>Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we are
-    going to start from a simple <code>python</code> image. Add the following to your <code>Dockerfile</code></p>
+    going to start from a simple <code>python</code> image. Add the following to your <code>Dockerfile</code>:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c"># Base image</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span></code></pre></div>
@@ -2087,7 +2087,7 @@ Docker?</p>
 </li>
 <li>
 <p>Finally, we are going to name our training script as the <em>entrypoint</em> for our Docker image. The <em>entrypoint</em> is
-    the application that we want to run when the image is being executed:</p>
+    the application that we want to run when the image is executed:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;src/&lt;project-name&gt;/train.py&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>The <code>"u"</code> here makes sure that any output from our script, e.g., any <code>print(...)</code> statements, gets redirected to
@@ -2104,7 +2104,7 @@ our terminal. If not included, you would need to use <code>docker logs</code> to
 <p>In general, Docker images are built for a specific platform. For example, if you are using a Mac with an M1/M2
 chip, then you are running on an ARM architecture. If you are using a Windows or Linux machine, then you are
 running on an AMD64 architecture. This is important to know when building Docker images. Thus, Docker images
-you build may not work on other platforms than the ones you build on. You can specify which platform you want
+you build may not work on platforms different than the ones you build on. You can specify which platform you want
 to build for by adding the <code>--platform</code> argument to the <code>docker build</code> command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>-f<span class="w"> </span>train.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>train:latest
 </span></code></pre></div>
@@ -2116,7 +2116,7 @@ because Docker will need to emulate the other platform. In general, for the exer
 to specify the platform, but be aware of this if you are building Docker images on your own.</p>
 </details>
 <p>Please note that here we are providing two extra arguments to <code>docker build</code>. The <code>-f train.dockerfile .</code> (the dot
-is important to remember) indicates which Dockerfile we want to run (except if you named it just <code>Dockerfile</code>) and
+is important to remember) indicates which Dockerfile we want to run (except if you just named it <code>Dockerfile</code>) and
 the <code>-t train:latest</code> is the respective name and tag that we see afterward when running <code>docker images</code> (see
 image below). Please note that building a Docker image can take a couple of minutes.</p>
 <p><figure markdown>
@@ -2128,15 +2128,15 @@ image below). Please note that building a Docker image can take a couple of minu
 because PyTorch is a huge dependency. If you are running low on space, you can try to</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>system<span class="w"> </span>prune
 </span></code></pre></div>
-<p>Alternatively, you can manually delete images using <code>docker rmi {image_name}:{image_tag}</code>.</p>
+<p>Alternatively, you can manually delete images using <code>docker rm {image_name}:{image_tag}</code>.</p>
 </details>
 </li>
 <li>
-<p>Try running <code>docker images</code> and confirm that you get output similar to the one above. If you succeed with this,
-    then try running the docker image</p>
+<p>Try running <code>docker images</code> and confirm that you get output similar to the above. If you succeed with this,
+    then try running the docker image.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>experiment1<span class="w"> </span>train:latest
 </span></code></pre></div>
-<p>you should hopefully see your training starting. Please note that we can start as many containers as we want at
+<p>You should hopefully see your training starting. Please note that we can start as many containers as we want at
 the same time by giving them all different names using the <code>--name</code> tag.</p>
 <ol>
 <li>
@@ -2156,8 +2156,8 @@ image.</p>
 </ol>
 </li>
 <li>
-<p>Remember, if you ever are in doubt about how files are organized inside a Docker image, you always have the option
-    to start the image in interactive mode:</p>
+<p>Remember, if you are ever in doubt about how files are organized inside a Docker image, you always have the option
+    of starting the image in interactive mode:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span><span class="o">{</span>image_name<span class="o">}</span>:<span class="o">{</span>image_tag<span class="o">}</span>
 </span></code></pre></div>
 </li>
@@ -2168,7 +2168,7 @@ image.</p>
     options:</p>
 <ol>
 <li>
-<p>If you already have a completed run then you can use it</p>
+<p>If you already have a completed run then you can use</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>docker<span class="w"> </span>cp
 </span></code></pre></div>
 <p>to copy the files between your container and laptop. For example to copy a file called <code>trained_model.pt</code> from a
@@ -2184,7 +2184,7 @@ folder you would do:</p>
     container as</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span><span class="o">{</span>container_name<span class="o">}</span><span class="w"> </span>-v<span class="w"> </span>%cd%/models:/models/<span class="w"> </span>train:latest
 </span></code></pre></div>
-<p>this command mounts our local <code>models</code> folder as a corresponding <code>models</code> folder in the container. Any file save
+<p>This command mounts our local <code>models</code> folder as a corresponding <code>models</code> folder in the container. Any file saved
 by the container to this folder will be synchronized back to our host machine. Try this out! Note if you have
 multiple files/folders that you want to mount (if in doubt about file organization in the container try to do
 the next exercise first). Also note that the <code>%cd%</code> needs to change depending on your OS, see this
@@ -2217,18 +2217,18 @@ for help.</p>
 <ol>
 <li>
 <p>There are three prerequisites for working with Nvidia GPU-accelerated docker containers. First, you need to have
-    the Docker Engine installed (already taken care of), have Nvidia GPU with updated GPU drivers and finally have
+    the Docker Engine installed (already taken care of), have an Nvidia GPU with updated GPU drivers and finally have
     the <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker">Nvidia container toolkit</a>
-    installed. The last part you not likely have not installed and needs to do. Some distros of Linux have known
+    installed. The last part you likely have not installed and need to do. Some distros of Linux have known
     problems with the installation process, so you may have to search through known issues in
-    <a href="https://github.com/NVIDIA/nvidia-docker/issues">nvidia-docker repository</a> to find a solution</p>
+    <a href="https://github.com/NVIDIA/nvidia-docker/issues">nvidia-docker repository</a> to find a solution.</p>
 </li>
 <li>
 <p>To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
     the correct image:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04
 </span></code></pre></div>
-<p>but it may differ based on what Cuda vision you have. You can find all the different official Nvidia images
+<p>but it may differ based on what Cuda version you have. You can find all the different official Nvidia images
 <a href="https://hub.docker.com/r/nvidia/cuda">here</a>. After pulling the image, try running the <code>nvidia-smi</code> command
 inside a container based on the image you just pulled. It should look something like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04<span class="w"> </span>nvidia-smi
@@ -2245,7 +2245,8 @@ inside a container based on the image you just pulled. It should look something 
     Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
     through their <a href="https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc">NGC Catalog</a>.
     The containers that have to do with PyTorch can be seen
-    <a href="https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html">here</a>. Try pulling the latest:</p>
+    <a href="https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html">here</a>.
+    Try pulling the latest one:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
 </span></code></pre></div>
 <p>It may take some time because the NGC images include a lot of other software for optimizing PyTorch
@@ -2256,12 +2257,12 @@ a smaller memory footprint, but NGC is the recommended and supported way.</p>
 <p>Let's test that this container works:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
 </span></code></pre></div>
-<p>this should run the container in interactive mode attached to your current terminal. Try opening <code>python</code> in
+<p>This should run the container in interactive mode attached to your current terminal. Try opening <code>python</code> in
 the container and try writing:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span>
 </span></code></pre></div>
-<p>which hopefully should return <code>True</code>.</p>
+<p>which should hopefully return <code>True</code>.</p>
 </li>
 <li>
 <p>Finally, we need to incorporate all this into our already developed docker files for our application. This is
@@ -2271,7 +2272,7 @@ the container and try writing:</p>
 <p>change to</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w">  </span><span class="s">nvcr.io/nvidia/pytorch:22.07-py3</span>
 </span></code></pre></div>
-<p>try doing this to one of your docker files, build the image and run the container. Remember to check that your
+<p>try doing this to one of your dockerfiles, build the image and run the container. Remember to check that your
 application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 </li>
 </ol>
@@ -2331,7 +2332,7 @@ the one inside the container.</p>
 </li>
 <li>
 <p>(Optional) In <a href="../../s2_organisation_and_version_control/dvc/">M8 on Data version control</a> you learned about the
-    framework <code>dvc</code> for version controlling data. A neutral question at this point would then be how to incorporate
+    framework <code>dvc</code> for version controlling data. A natural question at this point would then be how to incorporate
     <code>dvc</code> into our docker image. We need to do two things:</p>
 <ul>
 <li>Make sure that <code>dvc</code> has all the correct files to pull data from our remote storage</li>
@@ -2446,7 +2447,7 @@ image size for you or your end user. If you have time, you can read
 <a href="https://devopscube.com/reduce-docker-image-size/">this article</a> on different approaches to reducing image size.
 Additionally, you can take a look at the
 <a href="https://www.docker.com/blog/reduce-your-image-size-with-the-dive-in-docker-extension/">dive-in extension</a> for Docker
-Desktop that lets you explore in depth your Docker images.</p>
+Desktop that lets you explore your Docker images in depth.</p>
 
 
 
@@ -2469,7 +2470,7 @@ Desktop that lets you explore in depth your Docker images.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

@@ -1920,29 +1920,29 @@
 <div class="admonition info">
 <p class="admonition-title">Core Module</p>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/Logging_(computing)">Logging</a> in general refers to the practise of recording events
-activities over time. Having proper logging in your applications can be extremely beneficial for a few reasons:</p>
+<p><a href="https://en.wikipedia.org/wiki/Logging_(computing)">Logging</a> in general refers to the practice of recording events
+over time. Having proper logging in your applications can be extremely beneficial for a few reasons:</p>
 <ul>
 <li>
-<p><em>Debugging</em> becomes easier because we in a more structure way can output information about the state of our program,
-    variables, values etc. to help identify and fix bugs or unexpected behavior.</p>
+<p><em>Debugging</em> becomes easier because we in a more structured way can output information about the state of our program,
+    variables, values, etc. to help identify and fix bugs or unexpected behavior.</p>
 </li>
 <li>
 <p>When we move into a more production environment, proper logging is essential for <em>monitoring</em> the health and
     performance of our application.</p>
 </li>
 <li>
-<p>It can help in <em>auditing</em> as logging info about specific activities etc. can help keeping a record of who did what
+<p>It can help in <em>auditing</em>, as logging info about specific activities, etc. can help keeping a record of who did what
     and when.</p>
 </li>
 <li>
-<p>Having proper logging means that info is saved for later, that can be <em>analysed</em> to gain insight into the behavior of
+<p>Having proper logging means that info is saved for later, which can be <em>analysed</em> to gain insight into the behavior of
     our application, such as trends.</p>
 </li>
 </ul>
 <p>We are in this course going to divide the kind of logging we can do into categories: application logging and experiment
 logging. In general application logging is important regardless of the kind of application you are developing, whereas
-experiment logging is important machine learning based projects where we are doing experiments.</p>
+experiment logging is important in machine learning-based projects where we do experiments.</p>
 <h2 id="application-logging">Application logging</h2>
 <p>The most basic form of logging in Python applications is the good old <code>print</code> statement:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
@@ -1953,32 +1953,32 @@ experiment logging is important machine learning based projects where we are doi
 change the print to include something like <code>batch.shape</code> to also have information about the current data being
 processed. Using <code>print</code> statements is fine for small applications, but to have proper logging we need a bit more
 functionality than what <code>print</code> can offer. Python actually comes with a great
-<a href="https://docs.python.org/3/library/logging.html">logging</a> module, that defines functions for flexible logging. However,
+<a href="https://docs.python.org/3/library/logging.html">logging</a> module that defines functions for flexible logging. However,
 it does require a bit more setup than just using <code>print</code>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This is an info message&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>For this reason we are instead going to look at <a href="https://github.com/Delgan/loguru">loguru</a> package which makes Python
+<p>For this reason we are instead going to look at the <a href="https://github.com/Delgan/loguru">loguru</a> package which makes Python
 logging (stupidly) easy. Logging with loguru is essentially as easy as using <code>print</code>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This is an info message&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>The only core different is that we need to understand what log levels are and how to use them. Levels essentially allows
-of to get rid of statements like this:</p>
+<p>The only core different is that we need to understand what log levels are and how to use them. Levels essentially allow
+us to get rid of statements like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </span></code></pre></div>
-<p>where the logging is conditional on the variable <code>debug</code> which we can set a runtime. Thus, it is something we can
+<p>where the logging is conditional on the variable <code>debug</code> which we can set at runtime. Thus, it is something we can
 disable for users of our application (<code>debug=False</code>) but have enabled when we develop the application (<code>debug=True</code>).
-And it makes sense that not all things logged, should be available to all stakeholders of a codebase. We as developers
-probably always wants the highest level of logging, whereas users of our code need less info, and we may want to
+And it makes sense that not all things logged should be available to all stakeholders of a codebase. We as developers
+probably always want the highest level of logging, whereas users of our code need less info, and we may want to
 differentiate this based on users.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/logging_level.drawio.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/logging_level.drawio.png" width="800" /></a></p>
 </figure>
-<p>It is also important to understand the different between logging and error handling. Error handling
+<p>It is also important to understand the difference between logging and error handling. Error handling in
 Python is done using <code>raise</code> statements and <code>try/catch</code> like:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -1992,7 +1992,7 @@ Python is done using <code>raise</code> statements and <code>try/catch</code> li
 </span></code></pre></div>
 <p>Why would we ever need log <code>warning</code>, <code>error</code>, <code>critical</code> levels of information, if we are just going to handle it?
 The reason is that raising exceptions are meant to change the <em>program flow at runtime</em> e.g. things we do not want the
-user to do, but we can deal with in some way. Logging is always for <em>after</em> a program have run, to inspect what went
+user to do, but we can deal with in some way. Logging is always for <em>after</em> a program has run, to inspect what went
 wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <p>If in doubt, always refer to the <a href="https://loguru.readthedocs.io/en/stable/">documentation</a> for help.</p>
@@ -2001,7 +2001,7 @@ wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 <p>Start by installing <code>loguru</code>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>loguru
 </span></code></pre></div>
-<p>and remember to add to your requirements file.</p>
+<p>and remember to add it to your requirements file.</p>
 </li>
 <li>
 <p>Create a script called <code>my_logger.py</code> and try logging a few messages using <code>loguru</code>. Make sure to log at least one
@@ -2034,12 +2034,12 @@ wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>  <span class="c1"># Remove the default logger</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;WARNING&quot;</span><span class="p">)</span>  <span class="c1"># Add a new logger with WARNING level</span>
 </span></code></pre></div>
-<p>as an alternative you can set the <code>LOGURU_LEVEL</code> environment variable to <code>WARNING</code> before running the script.</p>
+<p>As an alternative you can set the <code>LOGURU_LEVEL</code> environment variable to <code>WARNING</code> before running the script.</p>
 </details>
 </li>
 <li>
-<p>Instead of sending logs to the terminal, lets instead log to a file. This can be beneficial, such that only
-    <code>warning</code> level logs and higher are available to the user, but <code>debug</code> and <code>info</code> is still saved when the
+<p>Instead of sending logs to the terminal, let's instead log to a file. This can be beneficial, such that only
+    <code>warning</code> level logs and higher are available to the user, but <code>debug</code> and <code>info</code> are still saved when the
     application is running. Change the code such that logs are saved to a file called <code>my_log.log</code>.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2049,8 +2049,8 @@ wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 </details>
 <ol>
 <li>
-<p>A common problem with logging to an file is that the file can grow very large over time. Luckily, loguru has
-    a build in feature for rotating logs. Add this feature to the logger, such that the log file is rotated when
+<p>A common problem with logging to a file is that the file can grow very large over time. Luckily, loguru has
+    a built-in feature for rotating logs. Add this feature to the logger, such that the log file is rotated when
     it reaches 100 MB.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2068,7 +2068,7 @@ wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 </li>
 <li>
 <p>(Optional) We already briefly touched on logging during the
-    <a href="../../s3_reproducibility/config_files/">module on config files using hydra</a>. Officially, <code>loguru</code> and <code>hydra</code> does
+    <a href="../../s3_reproducibility/config_files/">module on config files using hydra</a>. Officially, <code>loguru</code> and <code>hydra</code> do
     not really integrate because <code>hydra</code> uses the standard Python logging module. However, you can still use <code>loguru</code>
     with <code>hydra</code> by configuring <code>loguru</code> to save a log file to the same location as hydra is saving its logs. Try
     implementing this in your hydra project.</p>
@@ -2129,12 +2129,12 @@ wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 <p>When most people think machine learning, we think about the training phase. Being able to track and log experiments
 is an important part of understanding what is going on with your model while you are training. It can help you debug
 your model and help tweak your models to perfection. Without proper logging of experiments, it can be really hard to
-iterate on the model because you do not know what changes lead to increase or decrease in performance.</p>
-<p>The most basic logging we can do when running experiments is writing the metrics that our model is producing e.g. the
+iterate on the model because you do not know what changes led to increase or decrease in performance.</p>
+<p>The most basic logging we can do when running experiments is writing the metrics that our model is producing, e.g. the
 loss or the accuracy to the terminal or a file for later inspection. We can then also use tools such as
 <a href="https://matplotlib.org/">matplotlib</a> for plotting the progression of our metrics over time. This kind of workflow may
 be enough when doing smaller experiments or working alone on a project, but there is no way around using a proper
-experiment tracker and visualizer when doing large scale experiments in collaboration with others. It especially becomes
+experiment tracker and visualizer when doing large-scale experiments in collaboration with others. It especially becomes
 important when you want to compare performance between different runs.</p>
 <p>There exist many tools for logging your experiments, with some of them being:</p>
 <ul>
@@ -2144,9 +2144,9 @@ important when you want to compare performance between different runs.</p>
 <li><a href="https://neptune.ai/">Neptune</a></li>
 <li><a href="https://wandb.ai/site">Weights and Bias</a></li>
 </ul>
-<p>All of the frameworks offers many of the same functionalities, you can see a (bias) review
+<p>All of the frameworks offer many of the same functionalities, you can see a (biased) review
 <a href="https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/">here</a>. We are going to use
-Weights and Bias (wandb), as it support everything we need in this course. Additionally, it is an excellent tool for
+Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an excellent tool for
 collaboration and sharing of results.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/wandb_example.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_example.png" width="700" /></a></p>
@@ -2187,20 +2187,20 @@ see this <a href="https://pypi.org/project/python-dotenv/">page</a>.</p>
 </details>
 </li>
 <li>
-<p>Next install wandb on your laptop</p>
+<p>Next install wandb on your laptop.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>pip<span class="w"> </span>install<span class="w"> </span>wandb
 </span></code></pre></div>
 </li>
 <li>
-<p>Now connect to your wandb account</p>
+<p>Now connect to your wandb account.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>wandb<span class="w"> </span>login
 </span></code></pre></div>
-<p>you will be asked to provide the 40 length API key. The connection should be remain open to the wandb server
-even when you close the terminal, such that you do not have to login each time. If using <code>wandb</code> in a notebook
+<p>You will be asked to provide the length-40 API key. The connection should remain open to the wandb server
+even when you close the terminal, such that you do not have to log in each time. If using <code>wandb</code> in a notebook
 you need to manually close the connection using <code>wandb.finish()</code>.</p>
 </li>
 <li>
-<p>We are now ready for incorporating <code>wandb</code> into our code. We are going to continue development on our corrupt MNIST
+<p>We are now ready to incorporate <code>wandb</code> into our code. We are going to continue development on our corrupt MNIST
     codebase from the previous sessions. For help, we recommend looking at this
     <a href="https://docs.wandb.ai/quickstart">quickstart</a> and this <a href="https://docs.wandb.ai/guides/integrations/pytorch">guide</a>
     for PyTorch applications. You first job is to alter your training script to include <code>wandb</code> logging, at least for
@@ -2298,17 +2298,17 @@ you need to manually close the connection using <code>wandb.finish()</code>.</p>
 </details>
 <ol>
 <li>
-<p>After running your model, checkout the webpage. Hopefully you should be able to see at least one run with
+<p>After running your model, check out the webpage. Hopefully you should be able to see at least one run with
     something logged.</p>
 </li>
 <li>
-<p>Now log something else than scalar values. This could be a image, a histogram or a matplotlib figure. In all
-    cases the logging is still going to use <code>wandb.log</code> but you need extra calls to <code>wandb.Image</code> etc. depending
+<p>Now log something other than scalar values. This could be an image, a histogram or a matplotlib figure. In all
+    cases the logging is still going to use <code>wandb.log</code> but you need extra calls to <code>wandb.Image</code>, etc. depending
     on what you choose to log.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>In this solution we log the input images to the model every 100 step. Additionally, we also log a histogram
-of the gradients to inspect if the model is converging. Finally, we create a ROC curve which is a matplotlib
+<p>In this solution we log the input images to the model every 100 steps. Additionally, we also log a histogram
+of the gradients to inspect if the model is converging. Finally, we create an ROC curve which is a matplotlib
 figure and log that as well.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">train.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
@@ -2468,7 +2468,7 @@ figure and log that as well.</p>
 </li>
 <li>
 <p>Finally, we want to log the model itself. This is done by saving the model as an artifact and then logging the
-    artifact. You can read much more about what artifacts are <a href="https://docs.wandb.ai/guides/artifacts">here</a> but
+    artifact. You can read much more about what artifacts are <a href="https://docs.wandb.ai/guides/artifacts">here</a>, but
     they are essentially one or more files logged together with runs that can be versioned and equipped with
     metadata. Log the model after training and see if you can find it in the wandb dashboard.</p>
 <details class="success">
@@ -2670,28 +2670,28 @@ we add these as metadata to the artifact.</p>
 </ol>
 </li>
 <li>
-<p>Weights and bias was created with collaboration in mind and lets therefore share our results with others.</p>
+<p>Weights and bias was created with collaboration in mind and let's therefore share our results with others.</p>
 <ol>
 <li>
-<p>Lets create a report that you can share. Click the <strong>Create report</strong> button (upper right corner when you are in
+<p>Let's create a report that you can share. Click the <strong>Create report</strong> button (upper right corner when you are in
     a project workspace) and include some of the graphs/plots/images that you have generated in the report.</p>
 </li>
 <li>
-<p>Make the report shareable by clicking the <em>Share</em> button and create <em>view-only-link</em>. Send a link to your report
+<p>Make the report shareable by clicking the <em>Share</em> button and create a <em>view-only-link</em>. Send a link to your report
     to a group member, fellow student or a friend. In the worst case that you have no one else to share with you can
-    send a link to my email <code>nsde@dtu.dk</code>, so I can checkout your awesome work 😃</p>
+    send a link to my email <code>nsde@dtu.dk</code>, so I can check out your awesome work 😃</p>
 </li>
 </ol>
 </li>
 <li>
-<p>When calling <code>wandb.init</code> you can provide many additional argument. Some of the most important are</p>
+<p>When calling <code>wandb.init</code> you can provide many additional arguments. Some of the most important are</p>
 <ul>
 <li><code>project</code></li>
 <li><code>entity</code></li>
 <li><code>job_type</code></li>
 </ul>
 <p>Make sure you understand what these arguments do and try them out. It will come in handy for your group work as they
-essentially allows multiple users to upload their own runs to the same project in <code>wandb</code>.</p>
+essentially allow multiple users to upload their own runs to the same project in <code>wandb</code>.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Relevant documentation can be found <a href="https://docs.wandb.ai/ref/python/init">here</a>. The <code>project</code> indicates what
@@ -2706,7 +2706,7 @@ runs in the wandb dashboard.</p>
 </details>
 </li>
 <li>
-<p>Wandb also comes with build in feature for doing <a href="https://docs.wandb.ai/guides/sweeps">hyperparameter sweeping</a>
+<p>Wandb also comes with a built-in feature for doing <a href="https://docs.wandb.ai/guides/sweeps">hyperparameter sweeping</a>
     which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
     sweep in Wandb. You at least need to create a new file called <code>sweep.yaml</code> and make sure that you call <code>wandb.log</code>
     in your code on an appropriate value.</p>
@@ -2717,10 +2717,10 @@ runs in the wandb dashboard.</p>
     <code>configs</code> folder in your project.</p>
 <details class="success">
 <summary>Solution</summary>
-<p class="annotate">The <code>sweep.yaml</code> file will depend on kind of hyperparameters your model accepts as arguments and how they
+<p class="annotate">The <code>sweep.yaml</code> file will depend on the kind of hyperparameters your model accepts as arguments and how they
 are passed to the model. For this solution we assume that the model accepts the hyperparameters <code>lr</code>,
 <code>batch_size</code> and <code>epochs</code> and that they are passed as <code>--args</code> (with hyphens) (1) e.g. this would be how we
-run the script</p>
+run the script:</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If the script you want to run hyperparameter sweeping is configured using
     <a href="../../s3_reproducibility/config_files/">hydra</a> then you will need to change the default <code>command</code> config
@@ -2755,7 +2755,7 @@ run the script</p>
 <p>Afterwards, you need to create a sweep using the <code>wandb sweep</code> command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>wandb<span class="w"> </span>sweep<span class="w"> </span>configs/sweep.yaml
 </span></code></pre></div>
-<p>this will output a sweep id that you need to use in the next step.</p>
+<p>This will output a sweep id that you need to use in the next step.</p>
 </li>
 <li>
 <p>Finally, you need to run the sweep using the <code>wandb agent</code> command:</p>
@@ -2781,7 +2781,7 @@ a new terminal and running the <code>wandb agent</code> command again (with the 
 <ol>
 <li>Sort the runs based on what metric you are interested in, thereby quickly finding the best runs.</li>
 <li>Look at the parallel coordinates plot to see if there are any tendencies in the hyperparameters that
-    gives the best results.</li>
+    give the best results.</li>
 <li>Look at the importance/correlation plot to see what hyperparameters have the largest impact on the
     results.</li>
 </ol>
@@ -2797,7 +2797,7 @@ a new terminal and running the <code>wandb agent</code> command again (with the 
 <p><figure markdown>
 <a class="glightbox" href="../../figures/model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/model_registry.png" width="600" /></a>
 <figcaption>
-The model registry is in general a repository of a teams trained models where ML practitioners publish candidates
+The model registry is in general a repository of a team's trained models where ML practitioners publish candidates
 for production and share them with others. Figure from <a href="https://docs.wandb.ai/guides/model_registry">wandb</a>.
 </figure></p>
 <ol>
@@ -2808,7 +2808,7 @@ for production and share them with others. Figure from <a href="https://docs.wan
     continuing.</p>
 </li>
 <li>
-<p>Next lets create a registry. Go to the model registry tab (left pane, visible from your homepage) and then click
+<p>Next let's create a registry. Go to the model registry tab (left pane, visible from your homepage) and then click
     the <code>New Registered Model</code> button. Fill out the form and create the registry.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/wandb_model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_model_registry.png" width="600" /></a>
@@ -2818,7 +2818,7 @@ for production and share them with others. Figure from <a href="https://docs.wan
 <p>When then need to link our artifact to the model registry we just created. We can do this in two ways: either
     through the web interface or through the <code>wandb</code> API. In the web interface, go to the artifact you want to link
     to the model registry and click the <code>Link to registry</code> button (upper right corner). If you want to use the
-    API you need to call the <a href="https://docs.wandb.ai/ref/python/artifact#link">link method</a> on a artifact object.</p>
+    API you need to call the <a href="https://docs.wandb.ai/ref/python/artifact#link">link method</a> on an artifact object.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>To use the API, create a new script called <code>link_to_registry.py</code> and add the following code:</p>
@@ -2852,14 +2852,14 @@ replaced with the appropriate values.</p>
 <code>&lt;artifact_dir&gt;</code>. Make sure that you can load the model and that it is the same as the one you trained.</p>
 </li>
 <li>
-<p>Each model in the registry have at least one alias, which is the version of the model. The most recently added
-    model also receives the alias <code>latest</code>. Aliases are great for indicating where in workflow a model is, e.g. if
+<p>Each model in the registry has at least one alias, which is the version of the model. The most recently added
+    model also receives the alias <code>latest</code>. Aliases are great for indicating where in the workflow a model is, e.g. if
     it is a candidate for production or if it is a model that is still being developed. Try adding an alias to one
     of your models in the registry.</p>
 </li>
 <li>
 <p>(Optional) A model always corresponds to an artifact, and artifacts can contain metadata that we can use to
-    automate the process of registering models. We could for example imaging that we at the end of each week run
+    automate the process of registering models. We could for example imagine that we at the end of each week run
     a script that registers the best model from the week. Try creating a small script using the <code>wandb</code> API that
     goes over a collection of artifacts and registers the best one.</p>
 <details class="success">
@@ -2973,16 +2973,16 @@ replaced with the appropriate values.</p>
 <li>
 <p>In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
     training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
-    previous exercise, it needs to happen automatically. Let's therefore look into how we can do that.</p>
+    previous exercise; it needs to happen automatically. Let's therefore look into how we can do that.</p>
 <ol>
 <li>
-<p>First we need to generate an authentication key, or more precise an API key. This is in general the way any
-    service (like a docker container) can authenticate. Start by going <a href="https://wandb.ai/home">https://wandb.ai/home</a>, click your profile
+<p>First we need to generate an authentication key, or more precisely an API key. This is in general the way any
+    service (like a docker container) can authenticate. Start by going to <a href="https://wandb.ai/home">https://wandb.ai/home</a>, click your profile
     icon in the upper right corner and then go to <code>User settings</code>. Scroll down to the danger zone and generate a
     new API key (if you do not already have one) and finally copy it.</p>
 </li>
 <li>
-<p>Next create a new docker file called <code>wandb.docker</code> and add the following code</p>
+<p>Next create a new dockerfile called <code>wandb.docker</code> and add the following code</p>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
@@ -3004,11 +3004,11 @@ replaced with the appropriate values.</p>
 a docker container with Wandb.</p>
 </li>
 <li>
-<p>When we want to run the image, what we need to do is including an environment variable that contains the API key
+<p>When we want to run the image, what we need to do is include an environment variable that contains the API key
     we generated. This will then authenticate the docker container with the wandb server:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="nv">WANDB_API_KEY</span><span class="o">=</span>&lt;your-api-key&gt;<span class="w"> </span>wandb:latest
 </span></code></pre></div>
-<p class="annotate">Try running it an confirm that the results are uploaded to the wandb server (1).</p>
+<p class="annotate">Try running it and confirm that the results are uploaded to the wandb server (1).</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you have stored the API key in a <code>.env</code> file you can use the <code>--env-file</code> flag instead
     of <code>-e</code> to load the environment variables from the file e.g. <code>docker run --env-file .env wandb:latest</code>.</li>
@@ -3022,15 +3022,15 @@ a docker container with Wandb.</p>
 </ol>
 <p>That is the module on logging. Please note that at this point in the course you will begin to see some overlap between
 the different frameworks. While we mainly used <code>hydra</code> for configuring our Python scripts it can also be used to save
-metrics and hyperparameters similar to how <code>wandb</code> can. Similar arguments holds for <code>dvc</code> which can also be used to
+metrics and hyperparameters similar to how <code>wandb</code> can. Similar arguments hold for <code>dvc</code> which can also be used to
 log metrics. In our opinion <code>wandb</code> just offers a better experience when interacting with the results after logging.
 We want to stress that the combination of tools presented in this course may not be the best for all your future
-projects, and we recommend finding a setup that fits you. That said, each framework provide specific features
-that the others does not.</p>
-<p>Finally, we want to note that we during the course really try to showcase a lot of open source frameworks, Wandb is not
-one. It is free to use for personal usage (with a few restrictions) but for enterprise it does require a license. If you
-are eager to only work with open-source tools we highly recommend trying out <a href="https://mlflow.org/">MLFlow</a> which offers
-the same overall functionalities as Wandb.</p>
+projects, and we recommend finding a setup that works for you. That said, each framework provides specific features
+that the others do not.</p>
+<p>Finally, we want to note that while during the course we really try to showcase a lot of open-source frameworks, Wandb
+is not one. It is free to use for personal usage (with a few restrictions) but for enterprises it does require a
+license. If you are eager to only work with open-source tools we highly recommend trying out
+<a href="https://mlflow.org/">MLFlow</a>, which offers the same overall functionalities as Wandb.</p>
 
 
 
@@ -3053,7 +3053,7 @@ the same overall functionalities as Wandb.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

@@ -1942,23 +1942,23 @@
 <h1 id="minimizing-boilerplate">Minimizing boilerplate</h1>
 <hr />
 <p>Boilerplate is a general term that describes any <em>standardized</em> text, copy, documents, methods, or procedures that may
-be used over again without making major changes to the original. But how does this relate to doing machine learning
+be used over and over again without making major changes to the original. But how does this relate to doing machine learning
 projects? If you have already tried doing a couple of projects within machine learning you will probably have seen a
-pattern: every project usually consist of these three aspects of code:</p>
+pattern: every project usually consists of these three aspects of code:</p>
 <ul>
 <li>a model implementation</li>
 <li>some training code</li>
-<li>a collection of utilities for saving models, logging images etc.</li>
+<li>a collection of utilities for saving models, logging images, etc.</li>
 </ul>
-<p>While the latter two certainly seems important, in most cases the actual <em>development</em> or <em>research</em> often revolves
-around defining the model. In this sense, both the training code and the utilities becomes boilerplate that should just
-carry over from one project to another. But the problem usually is that we have not generalized our training code to
-take care of the small adjusted that may be required in future projects and we therefore end up implementing it over
-and over again every time that we start a new project. This is of course a waste of our time that we should try to
+<p>While the latter two certainly seem important, in most cases the actual <em>development</em> or <em>research</em> often revolves
+around defining the model. In this sense, both the training code and the utilities become boilerplate that should just
+carry over from one project to another. But the problem is that we usually have not generalized our training code to
+take care of the small adjustments that may be required in future projects and we therefore end up implementing it over
+and over again every time we start a new project. This is of course a waste of our time that we should try to
 find a solution to.</p>
-<p>This is where high-level frameworks comes into play. High-level frameworks are build on top of another framework
-(PyTorch in this case) and tries to abstract/standardize how to do particular tasks such as training. At first it may
-seem irritating that you need to comply to someone else code structure, however there is a good reason for that. The
+<p>This is where high-level frameworks come into play. High-level frameworks are built on top of another framework
+(PyTorch in this case) and try to abstract/standardize how to do particular tasks such as training. At first it may
+seem irritating that you need to comply with someone else's code structure, however there is a good reason for that. The
 idea is that you can focus on what really matters (your task, model architecture etc.) and do not have to worry about
 the actual boilerplate that comes with it.</p>
 <p>The most popular high-level (training) frameworks within the <code>PyTorch</code> ecosystem are:</p>
@@ -1974,7 +1974,7 @@ the actual boilerplate that comes with it.</p>
 We are here going to use <code>PyTorch Lightning</code>, as it offers all the functionality that we are going to need later in the
 course.</p>
 <h2 id="pytorch-lightning">PyTorch Lightning</h2>
-<p>In general we refer to the <a href="https://lightning.ai/docs/pytorch/stable/">documentation</a> from PyTorch lightning
+<p>In general refer to the <a href="https://lightning.ai/docs/pytorch/stable/">documentation</a> from PyTorch lightning
 if in doubt about how to format your code for doing specific tasks. We are here going to explain the key concepts of
 the API that you need to understand to use the framework, starting with the <code>LightningModule</code> and the <code>Trainer</code>.</p>
 <h3 id="lightningmodule">LightningModule</h3>
@@ -1990,31 +1990,31 @@ requires two more methods implemented:</p>
 <p><code>configure_optimizers</code>: should return the optimizer that you want to use</p>
 </li>
 </ul>
-<p>Below is shown these two methods added to standard MNIST classifier</p>
+<p>Below these two methods are shown added to the standard MNIST classifier</p>
 <figure>
 <p><a class="glightbox" href="../../figures/lightning.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/lightning.png" width="700" /></a></p>
 </figure>
-<p>Compared to a standard <code>nn.Module</code>, the additional methods in the <code>LightningModule</code> basically specifies exactly how you
+<p>Compared to a standard <code>nn.Module</code>, the additional methods in the <code>LightningModule</code> basically specify exactly how you
 want to optimize your model.</p>
 <h3 id="trainer">Trainer</h3>
-<p>The second component to lightning is the <code>Trainer</code> object. As the name suggest, the <code>Trainer</code> object takes care of the
-actual training, automizing everything that you do not want to worry about.</p>
+<p>The second component to lightning is the <code>Trainer</code> object. As the name suggests, the <code>Trainer</code> object takes care of the
+actual training, automating everything that you do not want to worry about.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pytorch_lightning</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span>  <span class="c1"># this is our LightningModule</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">()</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">traier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span></code></pre></div>
-<p>That's is essentially all that you need to specify in lightning to have a working model. The trainer object does not
-have methods that you need to implement yourself, but it have a bunch of arguments that can be used to control how many
-epochs that you want to train, if you want to run on gpu etc. To get the training of our model to work we just need to
-specify how our data should be feed into the lighning framework.</p>
+<p>That's essentially all that you need to specify in lightning to have a working model. The trainer object does not
+have methods that you need to implement yourself, but it has a bunch of arguments that can be used to control how many
+epochs you want to train, if you want to run on gpu, etc. To get the training of our model to work we just need to
+specify how our data should be fed into the lightning framework.</p>
 <h3 id="data">Data</h3>
 <p>For organizing our code that has to do with data in <code>Lightning</code> we essentially have three different options. However,
-all three assume that we are using <code>torch.utils.data.DataLoader</code> for the dataloading.</p>
+all three assume that we are using <code>torch.utils.data.DataLoader</code> for the data loading.</p>
 <ol>
 <li>
-<p>If we already have a <code>train_dataloader</code> and possible also a <code>val_dataloader</code> and <code>test_dataloader</code> defined we can
-    simply add them to our <code>LightningModule</code> using the similar named methods:</p>
+<p>If we already have a <code>train_dataloader</code> and possibly also a <code>val_dataloader</code> and <code>test_dataloader</code> defined we can
+    simply add them to our <code>LightningModule</code> using the similarly named methods:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -2026,29 +2026,29 @@ all three assume that we are using <code>torch.utils.data.DataLoader</code> for 
 </span></code></pre></div>
 </li>
 <li>
-<p>Maybe even simpler, we can directly feed such dataloaders in the <code>fit</code> method of the <code>Trainer</code> object:</p>
+<p>Maybe even simpler, we can directly feed such dataloaders into the <code>fit</code> method of the <code>Trainer</code> object:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val_dataloader</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">trainer</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>Finally, <code>Lightning</code> also have the <code>LightningDataModule</code> that organizes data loading into a single structure, see
+<p>Finally, <code>Lightning</code> also has the <code>LightningDataModule</code> that organizes data loading into a single structure, see
     this <a href="https://lightning.ai/docs/pytorch/latest/data/datamodule.html">page</a> for more info. Putting
-    data loading into a <code>DataModule</code> makes sense as it is then can be reused between projects.</p>
+    data loading into a <code>DataModule</code> makes sense as it can then be reused between projects.</p>
 </li>
 </ol>
 <h3 id="callbacks">Callbacks</h3>
-<p>Callbacks is one way to add additional functionality to your model, that strictly speaking is not already part of your
-model. Callbacks should therefore be seen as self-contained feature that can be reused between projects. You have the
-option to implement callbacks yourself (by inheriting from the <code>pytorch_lightning.callbacks.Callback</code> base class) or
-use one of the
-<a href="https://lightning.ai/docs/pytorch/latest/extensions/callbacks.html#built-in-callbacks">build in callbacks</a>.
-Of particular interest are <code>ModelCheckpoint</code> and <code>EarlyStopping</code> callbacks:</p>
+<p>Callbacks are one way to add additional functionality to your model, that strictly speaking is not already part of your
+model. Callbacks should therefore be seen as a self-contained feature that can be reused between projects. You have the
+option of implementing callbacks yourself (by inheriting from the <code>pytorch_lightning.callbacks.Callback</code> base class) or
+using one of the
+<a href="https://lightning.ai/docs/pytorch/latest/extensions/callbacks.html#built-in-callbacks">built-in callbacks</a>.
+Of particular interest are the <code>ModelCheckpoint</code> and <code>EarlyStopping</code> callbacks:</p>
 <ul>
 <li>
-<p>The <code>ModelCheckpoint</code> makes sure to save checkpoints of you model. This is in principal not hard to do yourself, but
+<p>The <code>ModelCheckpoint</code> makes sure to save checkpoints of your model. This is in principal not hard to do yourself, but
     the <code>ModelCheckpoint</code> callback offers additional functionality by saving checkpoints only when some metric improves,
-    or only save the best <code>K</code> performing models etc.</p>
+    or only save the best <code>K</code> performing models, etc.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">checkpoint_callback</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">dirpath</span><span class="o">=</span><span class="s2">&quot;./models&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span>
@@ -2073,10 +2073,10 @@ Of particular interest are <code>ModelCheckpoint</code> and <code>EarlyStopping<
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callbacks</span><span class="p">,</span> <span class="n">early_stopping_callback</span><span class="p">])</span>
 </span></code></pre></div>
 <h2 id="exercises">❔ Exercises</h2>
-<p>Please note that the in following exercise we will basically ask you to reformat all your MNIST code to follow the
+<p>Please note that in the following exercise we will basically ask you to reformat all your MNIST code to follow the
 lightning standard, such that we can take advantage of all the tricks the framework has to offer. The reason we did not
-implement our model in <code>lightning</code> to begin with, is that to truly understand why it is beneficially to use a high-level
-framework to do some of the heavy lifting you need to have gone through some of implementation troubles yourself.</p>
+implement our model in <code>lightning</code> to begin with is that to truly understand why it is beneficial to use a high-level
+framework to do some of the heavy lifting you need to have gone through some implementation troubles yourself.</p>
 <ol>
 <li>
 <p>Install pytorch lightning:</p>
@@ -2089,7 +2089,7 @@ framework to do some of the heavy lifting you need to have gone through some of 
 </ol>
 </li>
 <li>
-<p>Convert your corrupted MNIST model into a <code>LightningModule</code>. You can either choose to completely override your old
+<p>Convert your corrupted MNIST model into a <code>LightningModule</code>. You can either choose to completely overwrite your old
     model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
     the rest of lightning:</p>
 <ul>
@@ -2214,11 +2214,11 @@ for more info.</p>
     are many of them) and maybe adjust some of them:</p>
 <ol>
 <li>
-<p>Investigate what the <code>default_root_dir</code> flag does</p>
+<p>Investigate what the <code>default_root_dir</code> flag does.</p>
 </li>
 <li>
 <p>As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
-    changing the appropriate flag. Additionally, there also exist a flag to set the maximum number of steps that we
+    changing the appropriate flag. Additionally, there is also a flag to set the maximum number of steps that we
     should train for.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2231,7 +2231,7 @@ to set the minimum number of epochs, steps or time.</p>
 </details>
 </li>
 <li>
-<p>To start with we also want to limit the amount of training data to 20% of its original size. which
+<p>To start with we also want to limit the amount of training data to 20% of its original size. Which
     trainer flag do you need to set for this to work?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2262,13 +2262,13 @@ and test data.</p>
 </details>
 </li>
 <li>
-<p>The privous module was all about logging in <code>wandb</code>, so the question is naturally how does <code>lightning</code> support this.
+<p>The previous module was all about logging in <code>wandb</code>, so the question is naturally how does <code>lightning</code> support this.
     Lightning does not only support <code>wandb</code>, but also many
-    <a href="https://lightning.ai/docs/pytorch/latest/extensions/logging.html">others</a>. Common for all of them, is that
-    logging just need to happen through the <code>self.log</code> method in your <code>LightningModule</code>:</p>
+    <a href="https://lightning.ai/docs/pytorch/latest/extensions/logging.html">others</a>. Common to all of them is that
+    logging just needs to happen through the <code>self.log</code> method in your <code>LightningModule</code>:</p>
 <ol>
 <li>
-<p>Add <code>self.log</code> to your `LightningModule. Should look something like this:</p>
+<p>Add <code>self.log</code> to your `LightningModule. It should look something like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -2287,23 +2287,23 @@ and test data.</p>
 </li>
 <li>
 <p><code>self.log</code> does sadly only support logging scalar tensors. Luckily, for logging other quantities we
-    can still access the standard <code>wandb.log</code> through our model</p>
+    can still access the standard <code>wandb.log</code> through our model.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="o">...</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="c1"># self.logger.experiment is the same as wandb.log</span>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s1">&#39;logits&#39;</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histrogram</span><span class="p">(</span><span class="n">preds</span><span class="p">)})</span>
 </span></code></pre></div>
-<p>try doing this, by logging something else than scalar tensors.</p>
+<p>Try doing this by logging something other than scalar tensors.</p>
 </li>
 </ol>
 </li>
 <li>
 <p>Finally, we maybe also want to do some validation or testing. In lightning we just need to add the <code>validation_step</code>
-    and <code>test_step</code> to our lightning module and supply the respective data in form of a separate dataloader. Try to at
+    and <code>test_step</code> to our lightning module and supply the respective data in the form of a separate dataloader. Try to at
     least implement one of them.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Both validation and test steps can be implemented in the same way as the training step:</p>
+<p>Both the validation and test steps can be implemented in the same way as the training step:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -2312,28 +2312,28 @@ and test data.</p>
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;val_acc&#39;</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></code></pre></div>
-<p>two things to take note of here is that we are setting the <code>on_epoch</code> flag to <code>True</code> in the <code>self.log</code> method.
+<p>Two things to note here are that we are setting the <code>on_epoch</code> flag to <code>True</code> in the <code>self.log</code> method.
 This is because we want to log the validation loss and accuracy only once per epoch. Additionally, we are not
-returning anything from the <code>validation_step</code> method, because we do not optimize over the loss.</p>
+returning anything from the <code>validation_step</code> method because we do not optimize over the loss.</p>
 </details>
 </li>
 <li>
-<p>(Optional, requires GPU) One of the big advantages of using <code>lightning</code> is that you no more need to deal with device
-    placement e.g. called <code>.to('cuda')</code> everywhere. If you have a GPU, try to set the <code>gpus</code> flag in the trainer. If you
-    do not have one, do not worry, we are going to return to this when we are going to run training in the cloud.</p>
+<p>(Optional, requires GPU) One of the big advantages of using <code>lightning</code> is that you do not need to deal with device
+    placement, i.e. calling <code>.to('cuda')</code> everywhere. If you have a GPU, try to set the <code>gpus</code> flag in the trainer. If you
+    do not have one, do not worry, we are going to return to this when we run training in the cloud.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The two arguments <code>accelerator</code> and <code>devices</code> can be used to specify which devices to run on and how many to run
 on. For example, to run on a single GPU you can do</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;gpu&quot;</span><span class="p">,</span> <span class="n">devices</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </span></code></pre></div>
-<p>as an alternative the accelerator can just be set to <code class="language-python highlight"><span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span></code> to automatically detect the
+<p>As an alternative the accelerator can just be set to <code class="language-python highlight"><span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span></code> to automatically detect the
 best available device.</p>
 </details>
 </li>
 <li>
-<p>(Optional) As default PyTorch uses <code>float32</code> for representing floating point numbers. However, research have shown
-    that neural network training is very robust towards a decrease in precision. The great benefit going from <code>float32</code>
+<p>(Optional) As default PyTorch uses <code>float32</code> for representing floating point numbers. However, research has shown
+    that neural network training is very robust towards a decrease in precision. The great benefit of going from <code>float32</code>
     to <code>float16</code> is that we get approximately half the
     <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">memory consumption</a>. Try out half-precision
     training in PyTorch lightning. You can enable this by setting the
@@ -2356,12 +2356,12 @@ best available device.</p>
 </details>
 </li>
 <li>
-<p>(Optional) Lightning also have built-in support for profiling. Checkout how to do this using the
+<p>(Optional) Lightning also has built-in support for profiling. Check out how to do this using the
     <a href="https://lightning.ai/docs/pytorch/latest/tuning/profiler_basic.html">profiler</a> argument in
     the <code>Trainer</code> object.</p>
 </li>
 <li>
-<p>(Optional) Another great feature of Lightning is that the allow for easily defining command line interfaces through
+<p>(Optional) Another great feature of Lightning is that it allows for easily defining command line interfaces through
     the <a href="https://lightning.ai/docs/pytorch/stable/cli/lightning_cli.html">Lightning CLI</a> feature. The
     Lightning CLI is essentially a drop in replacement for defining command line interfaces (covered in
     <a href="../../s2_organisation_and_version_control/cli/">this module</a>) and can also replace the need for config files
@@ -2375,17 +2375,17 @@ best available device.</p>
     module. Only your imagination is the limit!</p>
 </li>
 </ol>
-<p>That covers everything for today. It has been a mix of topics that all should help you write "better" code (by some
+<p>That covers everything for today. It has been a mix of topics that should all help you write "better" code (by some
 objective measure). If you want to deep dive more into the PyTorch lightning framework, we highly recommend looking at
-the different tutorials in the documentation that covers more advanced models and training cases. Additionally, we also
+the different tutorials in the documentation that cover more advanced models and training cases. Additionally, we also
 want to highlight other frameworks in the lightning ecosystem:</p>
 <ul>
 <li><a href="https://torchmetrics.readthedocs.io/en/latest/">Torchmetrics</a>: collection of machine learning metrics written
     in PyTorch</li>
-<li><a href="https://lightning-flash.readthedocs.io/en/latest/">lightning flash</a>: High-level framework for fast prototyping,
-    baselining, finetuning with a even simpler interface than lightning</li>
+<li><a href="https://lightning-flash.readthedocs.io/en/latest/">lightning flash</a>: high-level framework for fast prototyping,
+    baselining, finetuning with an even simpler interface than lightning</li>
 <li><a href="https://lightning-bolts.readthedocs.io/en/latest/">lightning-bolts</a>: Collection of SOTA pretrained models, model
-    components, callbacks, losses and datasets for testing out ideas as fast a possible</li>
+    components, callbacks, losses and datasets for testing out ideas as fast as possible</li>
 </ul>
 
 
@@ -2409,7 +2409,7 @@ want to highlight other frameworks in the lightning ecosystem:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

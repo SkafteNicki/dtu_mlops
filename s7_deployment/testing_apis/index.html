@@ -1943,15 +1943,15 @@ The core difference from the unit testing we have been implementing until now is
 functions, we are testing the entire API as a whole. API testing is therefore a form of
 <a href="https://en.wikipedia.org/wiki/Integration_testing">integration testing</a>. Additionally, another difference is that we
 need to simulate API calls that should be as similar as possible to the ones that will be made by the users of the API.</p>
-<p>The is in general two things that we want to test when we are working with APIs:</p>
+<p>There are in general two things that we want to test when working with APIs:</p>
 <ul>
-<li>Does the API work as intended? e.g. for a given input, does it return the expected output?</li>
-<li>Can the API handle the expected load? e.g. if we send 1000 requests per second, does it crash?</li>
+<li>Does the API work as intended? E.g. for a given input, does it return the expected output?</li>
+<li>Can the API handle the expected load? E.g. if we send 1,000 requests per second, does it crash?</li>
 </ul>
 <p>In this module, we go over how to do each of them.</p>
 <h2 id="testing-for-functionality">Testing for functionality</h2>
-<p>Similar to when we wrote unit tests for our code back in <a href="../../s5_continuous_integration/unittesting/">this module</a> we
-can also write tests for our API that checks that our code does what it is supposed to do e.g. by using
+<p>Similar to when we wrote unit tests for our code back in <a href="../../s5_continuous_integration/unittesting/">this module</a>, we
+can also write tests for our API that check that our code does what it is supposed to do, e.g., by using
 <code class="language-python highlight"><span class="k">assert</span></code> statements. As always we recommend implementing the tests in a separate folder called <code>tests</code>, but
 we recommend that you add further subfolders to separate the different types of tests. For example, for the type
 of machine learning projects and APIs we have been working with in this course:</p>
@@ -1988,22 +1988,22 @@ to change.</p>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="o">&lt;</span><span class="n">project</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">api</span> <span class="kn">import</span><span class="w"> </span><span class="nn">app</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </span></code></pre></div>
-<p>this code will create a client that can be used to send requests to the API. The <code>app</code> variable is the FastAPI
+<p>This code will create a client that can be used to send requests to the API. The <code>app</code> variable is the FastAPI
 application that we want to test.</p>
 </li>
 <li>
 <p>Now, you can write tests that check that the API works as intended, much like you would write unit tests. For
-    example, if you have an root endpoint that just returns a simple welcome message you could write a test like this:</p>
+    example, if you have a root endpoint that just returns a simple welcome message you could write a test like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_read_root</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Welcome to the MNIST model inference API!&quot;</span><span class="p">}</span>
 </span></code></pre></div>
-<p>make sure to always <code class="language-python highlight"><span class="k">assert</span></code> that the status code is what you expect and that the response is what you
+<p>Make sure to always <code class="language-python highlight"><span class="k">assert</span></code> that the status code is what you expect and that the response is what you
 expect. Add such tests for all the endpoints in your API.</p>
 <details class="note">
 <summary>Application with lifespans</summary>
-<p>If you have an application with lifespan events e.g. you have implemented the <code>lifespan</code> function in your
+<p>If you have an application with lifespan events, i.e. you have implemented the <code>lifespan</code> function in your
 FastAPI application, you need to instead use the <code>TestClient</code> in a <code>with</code> statement. This is because the
 <code>TestClient</code> will close the connection to the application after the test is done. Here is an example:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_read_root</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
@@ -2027,11 +2027,11 @@ FastAPI application, you need to instead use the <code>TestClient</code> in a <c
 determine how an application behaves under both normal and peak conditions. The purpose is to identify the maximum
 operating capacity of an application as well as any bottlenecks and to determine which element is causing degradation.</p>
 <p>Before we get started on the exercises we recommend that you start by defining an environment variable that contains
-the endpoint of your API e.g we need the API running to be able to test it. To begin with, you can just run the API
+the endpoint of your API, i.e., we need the API running to be able to test it. To begin with, you can just run the API
 locally, thus in a terminal window run the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uvicorn<span class="w"> </span>app.main:app<span class="w"> </span>--reload
 </span></code></pre></div>
-<p>by default the API will be running on <code>http://localhost:8000</code> which we can then define as an environment variable:</p>
+<p>By default the API will run on <code>http://localhost:8000</code> which we can then define as an environment variable:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows</label><label for="__tabbed_1_2">Mac/Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2070,7 +2070,7 @@ a random string and then `.a.run.app` </a> </figcaption>
 <p>For the exercises, we are going to use the <a href="https://locust.io/">locust</a> framework for load testing (the name is a
 reference to a locust being a swarm of bugs invading your application). It is a Python framework that allows you to
 write tests that simulate many users interacting with your application. It is very easy to get started with and it is
-very easy to integrate with your CI/CD pipeline.</p>
+very easy to integrate into your CI/CD pipeline.</p>
 <ol>
 <li>
 <p>Install <code>locust</code></p>
@@ -2079,7 +2079,7 @@ very easy to integrate with your CI/CD pipeline.</p>
 <p>Remember to add it to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
-<p>Make sure you have written an API that you can test. Else you can for simplicity just use this simple example</p>
+<p>Make sure you have written an API that you can test. Otherwise you can for simplicity just use this simple example:</p>
 <div class="admonition example">
 <p class="admonition-title">Simple hallo world Fastapi example</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">model.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
@@ -2173,8 +2173,8 @@ top of this figure.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/locust_page.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/locust_page.png" width="600" /></a>
 </figure></p>
-<p>you can here define the number of users you want to simulate and how many users you want to spawn per second.
-Finally, you can define which endpoint you want to test. When you are ready you can press the <code>Start</code>.</p>
+<p>You can here define the number of users you want to simulate and how many users you want to spawn per second.
+Finally, you can define which endpoint you want to test. When you are ready you can press <code>Start</code>.</p>
 <p>Afterward, you should see the results of the test in the web browser. Answer the following questions:</p>
 <ul>
 <li>What is the average response time of your API?</li>
@@ -2198,7 +2198,7 @@ Finally, you can define which endpoint you want to test. When you are ready you 
 </div>
 </div>
 </div>
-<p>this will run the test with 10 users that are spawned at a rate of 1 per second for 1 minute.</p>
+<p>This will run the test with 10 users that are spawned at a rate of 1 per second for 1 minute.</p>
 </li>
 <li>
 <p>(Optional) A good use case for load testing in our case is to test that our API can handle a load right after it
@@ -2228,7 +2228,7 @@ relevant URL, and then run the load test:</p>
 </span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w">  </span><span class="nt">env</span><span class="p">:</span>
 </span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">    </span><span class="nt">DEPLOYED_MODEL_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ env.DEPLOYED_MODEL_URL }}</span>
 </span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">    </span><span class="no">locust -f tests/performance/locustfile.py \</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">    </span><span class="no">locust -f tests/performancetests/locustfile.py \</span>
 </span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="w">      </span><span class="no">--headless -u 100 -r 10 --run-time 10m --host=$DEPLOYED_MODEL_URL --csv=/locust/results</span>
 </span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>
 </span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload locust results</span>
@@ -2237,7 +2237,7 @@ relevant URL, and then run the load test:</p>
 </span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">locust-results</span>
 </span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/locust</span>
 </span></code></pre></div>
-<p>the results can afterward be downloaded from the artifacts tab in the GitHub UI.</p>
+<p>The results can then be downloaded from the artifacts tab in the GitHub UI.</p>
 </details>
 </li>
 </ol>
@@ -2271,9 +2271,9 @@ fixed number or a random number between two values.</p>
     do these numbers tell us about the user experience of the API?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The average response time and 99th percentile response time are both measures how "snappy" the API feels to the
+<p>The average response time and 99th percentile response time are both measures of how "snappy" the API feels to the
 user. While the average response time is normally considered the most important, the 99th percentile response
-time is also important as it tells us if there are a small amount of users that are experiencing a very slow
+time is also important as it tells us if there is a small number of users that are experiencing a very slow
 response time. The requests per second tells us how many users the API can handle at the same time. If this
 number is too low it can lead to users experiencing slow response times and may indicate that something is wrong
 with the API.</p>
@@ -2302,7 +2302,7 @@ with the API.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

@@ -1927,11 +1927,11 @@ learning is transforming nearly every sector of our economy and our lives. Howev
 realized that deep learning is not a simple beast to tame and it comes with its own kinds of problems, especially if you
 want to use it in a production setting. In particular, the concept of
 <a href="https://research.google/pubs/pub43146/">technical debt</a> was invented to indicate the significant maintenance costs at a
-system level that it takes to run machine learning in production. MLOps should very much be seen as the response to the
+system level that are needed to run machine learning in production. MLOps should very much be seen as the response to the
 concept of technical debt, namely that we should develop methods, processes, and tools (with inspiration from classical
 DevOps) to counter the problems we run into when working with deep learning models.</p>
 <p>It is important to note that all the concepts and tools that have been developed for MLOps can be used together with
-more classical machine learning models (think K-nearest neighbor, Random forest, etc.), however, deep learning comes
+more classical machine learning models (think K-nearest neighbor, Random forest, etc.). However, deep learning comes
 with its own set of problems which mostly have to do with the sheer size of the data and models we are
 working with. For these reasons, we are focusing on working with deep learning models in this course.</p>
 <h2 id="software-landscape-for-deep-learning">Software Landscape for Deep Learning</h2>
@@ -1951,23 +1951,23 @@ of when they were published):</p>
 <p><a href="https://github.com/google/jax">JAX</a></p>
 </li>
 </ul>
-<p>We won't go into a longer discussion on which framework is best, as it is pointless. PyTorch and TensorFlow have been
-around for the longest and therefore have bigger communities and feature sets at this point in time. They are both very
-similar in the sense that they both have features directed against research and production. JAX is kind of the new kid
+<p>We won't go into a longer discussion on which framework is the best, as it is pointless. PyTorch and TensorFlow have been
+around for the longest and therefore have larger communities and feature sets at this point in time. They are both very
+similar in the sense that they both have features directed at research and production. JAX is kind of the new kid
 on the block, which in many ways improves on PyTorch and TensorFlow, but is still not as mature as the other frameworks.
 As the frameworks use different kinds of programming principles (object-oriented vs. functional programming), comparing
 them is essentially meaningless.</p>
-<p>In this course, we have chosen to work with PyTorch because we find it a bit more intuitive and it is the framework that
-we use for our day-to-day research life. Additionally, as of right now, it is absolutely the
+<p>In this course, we have chosen to work with PyTorch because it is a bit more intuitive and it is the framework that
+we use in our day-to-day research life. Additionally, as of right now, it is absolutely the
 <a href="https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/">dominating framework</a> for published models, research
 papers, and <a href="https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w">competition winners</a>.</p>
-<p>The intention behind this set of exercises is to bring everyone's PyTorch skills up to date. If you already are a
-PyTorch-Jedi, feel free to pass the first set of exercises, but I recommend that you still complete it. The exercises
-are, in large part, taken directly from the
+<p>The intention behind this set of exercises is to get everyone's PyTorch skills up to date. If you're already a
+PyTorch-Jedi, feel free to skip the first set of exercises, but I still recommend that you go through them. The exercises
+are in large part taken directly from the
 <a href="https://github.com/udacity/deep-learning-v2-pytorch">deep learning course at Udacity</a>. Note that these exercises are
-given as notebooks, which is the last time we are going to use them actively in the course. Instead, after this set of
+given as notebooks, which is the only time we are going to use them actively in the course. Instead, after this set of
 exercises, we are going to focus on writing code in Python scripts.</p>
-<p>The notebooks contain a lot of explanatory text. The exercises that you are supposed to fill out are inlined in the text
+<p>The notebooks contain a lot of explanatory text. The exercises that you are supposed to complete are inlined in the text
 in small "exercise" blocks:</p>
 <figure>
 <p><a class="glightbox" href="../../figures/exercise.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/exercise.PNG" width="1000" /></a></p>
@@ -1975,7 +1975,7 @@ in small "exercise" blocks:</p>
 <p>If you need a refresher on any deep learning topic in general throughout the course, we recommend finding the relevant
 chapter in the <a href="https://www.deeplearningbook.org/">deep learning</a> book by Ian Goodfellow, Yoshua Bengio, and Aaron
 Courville (which can also be found in the literature folder). It is not necessary to be good at deep learning to pass
-this course as the focus is on all the software needed to get deep learning models into production. However, it's
+this course, as the focus is on all the software needed to get deep learning models into production. However, it's
 important to have a basic understanding of the concepts.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <!-- markdownlint-disable -->
@@ -1984,15 +1984,15 @@ important to have a basic understanding of the concepts.</p>
 
 <ol>
 <li>
-<p>Start a Jupyter Notebook session in your terminal (assuming you are standing at the root of the course material).
-    Alternatively, you should be able to open the notebooks directly in your code editor. For VS code users you can read
+<p>Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
+    Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
     more about how to work with Jupyter Notebooks in VS code
     <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">here</a></p>
 </li>
 <li>
 <p>Complete the
     <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb">Tensors in PyTorch</a>
-    notebook. It focuses on the basic manipulation of PyTorch tensors. You can pass this notebook if you are comfortable
+    notebook. It focuses on basic manipulation of PyTorch tensors. You can skip this notebook if you are comfortable
     doing this.</p>
 </li>
 <li>
@@ -2048,7 +2048,7 @@ important to have a basic understanding of the concepts.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Since both convolutions have a kernel size of 3, stride 1 (default value) and no padding that means that we lose
-2 pixels in each dimension, because the kernel can not be centered on the edge pixels. Therefore, the output
+2 pixels in each dimension, because the kernel cannot be centered on the edge pixels. Therefore, the output
 of the first convolution would be 32x26x26. The output of the second convolution would be 64x24x24. The size of
 <code>S</code> must therefore be <code>64 * 24 * 24 = 36864</code>. The number of parameters in a convolutional layer is
 <code>kernel_size * kernel_size * in_channels * out_channels + out_channels</code> (last term is the bias) and the number
@@ -2065,8 +2065,8 @@ Therefore, the total number of parameters in the network is
     forgot each of the function calls.</p>
 <details class="success">
 <summary>Solution</summary>
-<p><code>optimizer.zero_grad()</code> is in charge of zeroring the gradient. If this is not done, then gradients would
-accumulate over the steps leading to exploding gradients. <code>loss.backward()</code> is in charge of calculating the
+<p><code>optimizer.zero_grad()</code> is in charge of zeroing the gradient. If this is not done, then gradients would
+accumulate over the steps, leading to exploding gradients. <code>loss.backward()</code> is in charge of calculating the
 gradients. If this is not done, then the gradients will not be calculated and the optimizer will not be able
 to update the weights. <code>optimizer.step()</code> is in charge of updating the weights. If this is not done, then the
 weights will not be updated and the model will not learn anything.</p>
@@ -2082,7 +2082,7 @@ these two commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>gdown
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>gdown<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing&#39;</span>
 </span></code></pre></div>
-<p>The data should be placed in a folder subfolder called <code>data/corruptmnist</code> in the root of the project. Your overall
+<p>The data should be placed in a subfolder called <code>data/corruptmnist</code> in the root of the project. Your overall
 task is the following:</p>
 <blockquote>
 <p><strong>Implement an MNIST neural network that achieves at least 85% accuracy on the test set.</strong></p>
@@ -2091,7 +2091,7 @@ task is the following:</p>
 create the corrupted version. This can help you identify what kind of neural network to use to get good performance, but
 any network should be able to achieve this.</p>
 <p>One key point of this course is trying to stay organized. Spending time now organizing your code will save time in the
-future as you start to add more and more features. As subgoals, please fulfill the following exercises:</p>
+future as you start to add more and more features. As subgoals, please complete the following exercises:</p>
 <ol>
 <li>
 <p>Implement your model in a script called <code>model.py</code>.</p>
@@ -2204,7 +2204,7 @@ advantage of the spatial information in the images.</p>
 the model, you should use <code class="language-python highlight"><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;model.pt&quot;</span><span class="p">))</span></code>. If you do
 <code class="language-python highlight"><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;model.pt&quot;</span><span class="p">)</span></code>, this can lead to problems when loading the model later on, as it will
 try to not only save the model weights but also the model definition. This can lead to problems if you change
-the model definition later on (which you most likely are going to do).</p>
+the model definition later (which you are most likely going to do).</p>
 </div>
 <details class="example">
 <summary>Starting point for <code>data.py</code></summary>
@@ -2347,8 +2347,8 @@ inspection. Remember: all good machine learning starts with a good understanding
 </details>
 </li>
 <li>
-<p>Implement training and evaluation of your model in <code>main.py</code> script. The <code>main.py</code> script should be able to take
-    additional subcommands indicating if the model should be trained or evaluated. It will look something like this:</p>
+<p>Implement training and evaluation of your model in the <code>main.py</code> script. The <code>main.py</code> script should be able to take
+    additional subcommands indicating if the model is being trained or evaluated. It will look something like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>train<span class="w"> </span>--lr<span class="w"> </span>1e-4
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>evaluate<span class="w"> </span>model.pth
 </span></code></pre></div>
@@ -2356,8 +2356,8 @@ inspection. Remember: all good machine learning starts with a good understanding
 define a command line interface (CLI), which you can learn more about in
 <a href="../../s2_organisation_and_version_control/cli/">this module</a> later in the course.</p>
 <details class="note">
-<summary>VS code and command line arguments</summary>
-<p>If you try to execute the above code in VS code using the debugger (F5) or the build run functionality in the
+<summary>VS Code and command line arguments</summary>
+<p>If you try to execute the above code in VS Code using the debugger (F5) or the build run functionality in the
 upper right corner:</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/vs_code_run.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/vs_code_run.png" width="300" /></a>
@@ -2384,7 +2384,7 @@ the root of the project. The <code>launch.json</code> file should look something
 </span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">    </span><span class="p">]</span>
 </span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>This will inform VS code that then we execute the current file (in this case <code>main.py</code>) we want to run it with
+<p>This will inform VS Code that when we execute the current file (in this case <code>main.py</code>), we want to run it with
 the <code>train</code> command and additionally pass the <code>--lr</code> argument with the value <code>1e-4</code>. You can read more about
 creating a <code>launch.json</code> file <a href="https://code.visualstudio.com/docs/python/debugging">here</a>. If you want to have
 multiple configurations you can add them to the <code>configurations</code> list as additional dictionaries.</p>
@@ -2460,7 +2460,7 @@ multiple configurations you can add them to the <code>configurations</code> list
 <summary>Solution</summary>
 <p>The solution implements a simple training loop and evaluation loop. Furthermore, we have added additional
 hyperparameters that can be passed to the training loop. Highlighted in the solution are the different lines
-where we take care that our model and data are moved to GPU (or Apple MPS accelerator if you have a newer Mac)
+where we ensure that our model and data are moved to the GPU (or Apple MPS accelerator if you have a newer Mac)
 if available.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
@@ -2620,11 +2620,11 @@ if available.</p>
 </li>
 <li>
 <p>As documentation that your model is working when running the <code>train</code> command, the script needs to produce a single
-    plot with the training curve (training step vs training loss). When the <code>evaluate</code> command is run, it should write
+    plot with the training curve (training step vs. training loss). When the <code>evaluate</code> command is run, it should write
     the test set accuracy to the terminal.</p>
 </li>
 </ol>
-<p>It is part of the exercise to not implement in notebooks, as code development in real life happens in scripts.
+<p>It is part of the exercise not to implement this in notebooks, as code development in real life happens in scripts.
 As the model is simple to run (for now), you should be able to complete the exercise on your laptop,
 even if you are only training on CPU. That said, you are allowed to upload your scripts to your own "Google Drive" and
 then you can call your scripts from a Google Colab notebook, which is shown in the image below where all code is
@@ -2654,7 +2654,7 @@ you have created.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

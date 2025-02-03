@@ -1894,7 +1894,7 @@
 models, data drift is the change in model input data that leads to model performance degradation. In practical terms,
 this means that the model is receiving input that is outside the scope that it was trained on, as seen in the figure
 below. This shows that the underlying distribution of a particular feature has slowly been increasing in value over
-two years</p>
+two years.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/data_drift.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_drift.png" width="700" /></a></p>
 <figcaption>
@@ -1916,22 +1916,22 @@ application if you want to keep it up-to-date with the real world.</p>
 care of: When we should actually trigger the retraining? We do not want to wait around for our model performance to
 degrade, thus we need tools that can detect when we are seeing a drift in our data.</p>
 <h2 id="exercises">❔ Exercises</h2>
-<p>For these exercises we are going to use the framework <a href="https://github.com/evidentlyai/evidently">Evidently</a> developed by
-<a href="https://www.evidentlyai.com">EvidentlyAI</a>. Evidently currently supports both detection for both regression and
-classification models. The exercises are in large taken from
+<p>For these exercises we are going to use the framework <a href="https://github.com/evidentlyai/evidently">Evidently</a> ,developed by
+<a href="https://www.evidentlyai.com">EvidentlyAI</a>. Evidently currently supports detection for both regression and
+classification models. The exercises are in large part taken from
 <a href="https://docs.evidentlyai.com/get-started/hello-world">here</a> and in general we recommend if you are in doubt about an
-exercise to look at the <a href="https://docs.evidentlyai.com/">docs</a> for API and examples (their documentation can be a bit
+exercise to look at the <a href="https://docs.evidentlyai.com/">docs</a> for the API and examples (their documentation can be a bit
 lacking sometimes, so you may also have to dive into the source code).</p>
-<p>Additionally, we want to stress that data drift detection, concept drift detection etc. is still an active field of
-research and therefore exist multiple frameworks for doing this kind of detection. In addition to Evidently,
+<p>Additionally, we want to stress that data drift detection, concept drift detection, etc. is still an active field of
+research and so there exist multiple frameworks for doing this kind of detection. In addition to Evidently,
 we can also mention <a href="https://github.com/NannyML/nannyml">NannyML</a>, <a href="https://github.com/whylabs/whylogs">WhyLogs</a> and
 <a href="https://github.com/deepchecks/deepchecks">deepcheck</a>.</p>
 <ol>
 <li>
-<p>Start by installing Evidently</p>
+<p>Start by installing Evidently.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">pip</span> <span class="n">install</span> <span class="n">evidently</span>
 </span></code></pre></div>
-<p>You will also need <code>scikit-learn</code> and <code>pandas</code> installed if you do not already have it.</p>
+<p>You will also need <code>scikit-learn</code> and <code>pandas</code> installed if you do not already have them.</p>
 </li>
 <li>
 <p>Hopefully you have already gone through session <a href="../../s7_deployment/">S7 on deployment</a>. As part of the
@@ -2063,7 +2063,7 @@ something like this:</p>
 <p>Next we are going to add some functionality to our application. We need to add that the input for the user is
     saved to a database whenever our application is called. However, to not slow down the response to our user we
     want to implement this as a <em>background task</em>. A background task is a function that should be executed after
-    the user have got their response. Implement a background task that save the user input to a database implemented
+    the user has gotten their response. Implement a background task that saves the user input to a database implemented
     as a simple <code>.csv</code> file. You can read more about background tasks
     <a href="https://fastapi.tiangolo.com/tutorial/background-tasks/">here</a>. The header of the database should look
     something like this:</p>
@@ -2184,19 +2184,19 @@ something like this:</p>
 </details>
 </li>
 <li>
-<p>Call you API a number of times to generate some dummy data in the database.</p>
+<p>Call your API a number of times to generate some dummy data in the database.</p>
 </li>
 </ol>
 </li>
 <li>
 <p>Create a new <code>data_drift.py</code> file where we are going to implement the data drifting detection and reporting. Start
-    by adding both the real iris data and your generated dummy data as pandas data frames.</p>
+    by adding both the real iris data and your generated dummy data as pandas dataframes.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">reference_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">frame</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">current_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;prediction_database.csv&#39;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>If done correctly you will most likely end up with two data frames that look like</p>
+<p>If done correctly you will most likely end up with two dataframes that look like</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># reference_data
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  target
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>0                  5.1               3.5                1.4               0.2       0
@@ -2213,8 +2213,8 @@ something like this:</p>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>2022-12-28 17:24:34.045649   1.0            1.0            1.0           1.0           1
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>[10 rows x 5 columns]
 </span></code></pre></div>
-<p>Standardize the data frames such that they have the same column names and drop the time column from the
-<code>current_data</code> data frame.</p>
+<p>Standardize the dataframes such that they have the same column names and drop the time column from the
+<code>current_data</code> dataframe.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -2243,12 +2243,12 @@ something like this:</p>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">report</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">reference_data</span><span class="o">=</span><span class="n">reference_data</span><span class="p">,</span> <span class="n">current_data</span><span class="o">=</span><span class="n">current_data</span><span class="p">)</span>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">report</span><span class="o">.</span><span class="n">save_html</span><span class="p">(</span><span class="s1">&#39;report.html&#39;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Open the generated <code>.html</code> page. What does it say about your data? Have it drifted? Make sure to poke
+<p>Open the generated <code>.html</code> page. What does it say about your data? Has it drifted? Make sure to poke
 around to understand what the different plots are actually showing.</p>
 </li>
 <li>
-<p>Data drifting is not the only kind of reporting evidently can make. We can also get reports on the data quality.
-    Look through the documentation of evidently and add the preset that has to do with data quality to the report.
+<p>Data drifting is not the only kind of reporting evidently can make. We can also get reports on data quality.
+    Look through evidently's documentation and add the preset that has to do with data quality to the report.
     Try adding a few <code>Nan</code> values to your <code>current_data</code> and re-run the report. Checkout the report and go over the
     generated plots and make sure that it picked up on the missing values you just added.</p>
 <details class="success">
@@ -2260,7 +2260,7 @@ around to understand what the different plots are actually showing.</p>
 </details>
 </li>
 <li>
-<p>Another important kind of drift is called <em>target drift</em>, where the distribution of the target values have
+<p>Another important kind of drift is called <em>target drift</em>, where the distribution of the target values has
     changed. If your training data was balanced, and you are now seeing a lot of one class being predicted this may
     indicate that your model is not performing as expected or that external factors have changed, which means that
     you should retrain your model. Find the preset that checks for target drift, add it to the report and re-run
@@ -2297,18 +2297,18 @@ all tests passed and <code>False</code> otherwise.</p>
 </details>
 <ol>
 <li>Take a look at this <a href="https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl">colab notebook</a>
-    that contains all tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
+    that contains all the tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
     and implement them as a <code>TestSuite</code>. Then try changing the arguments of the test so they better fit your
     use case and get them all passing.</li>
 </ol>
 </li>
 <li>
-<p>(Optional) When doing monitoring in practice, we are not always interested in running on all data collected from our
-    API maybe only the last <code>N</code> entries or maybe just from the last hour of observations. Since we are already logging
+<p>(Optional) When doing monitoring in practice, we are not always interested in running on all the data collected from our
+    API, maybe only the last <code>N</code> entries or maybe just from the last hour of observations. Since we are already logging
     the timestamps of when our API is called we can use that for filtering. Implement a simple filter that</p>
 <ul>
 <li>Takes an integer <code>n</code> and returns the last <code>n</code> entries in our database</li>
-<li>Takes an integer <code>t</code> that filters away observations older than <code>t</code> hours</li>
+<li>Takes an integer <code>t</code> that filters out observations older than <code>t</code> hours</li>
 </ul>
 <details class="success">
 <summary>Solution</summary>
@@ -2325,22 +2325,22 @@ all tests passed and <code>False</code> otherwise.</p>
 </details>
 </li>
 <li>
-<p>Evidently by default only supports structured data e.g. tabular data (so does nearly every other framework). Thus,
+<p>Evidently by default only supports structured data, e.g., tabular data (so does nearly every other framework). Thus,
     the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
-    structured features from the data which we then can run the analysis on.</p>
+    structured features from the data which we can then run the analysis on.</p>
 <ol>
 <li>
 <p>For images the simple solution would be to flatten the images and consider each pixel a feature,
-    however this does not work in practice because changes in the individual pixels does not really tell anything
-    about the image. Instead, we should derive some feature such as:</p>
+    however this does not work in practice because changes in the individual pixels do not really tell us anything
+    about the image. Instead, we should derive some features such as:</p>
 <ul>
 <li>Average brightness</li>
 <li>Contrast of an image</li>
 <li>Image sharpness</li>
 <li>...</li>
 </ul>
-<p>These are all numbers that can make up a feature vector for a given image. Try out doing this yourself, for
-example by extracting such features from MNIST and FashionMNIST datasets, and check if you can detect a drift
+<p>These are all numbers that can make up a feature vector for a given image. Try doing this yourself, for
+example by extracting such features from the MNIST and FashionMNIST datasets, and check if you can detect a drift
 between the two sets.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2437,15 +2437,15 @@ between the two sets.</p>
 </details>
 </li>
 <li>
-<p>(Optional) For text a common approach is to extra some higher level embedding such as the very classical
+<p>(Optional) For text a common approach is to extract some higher-level embedding such as the very classical
     <a href="https://nlp.stanford.edu/projects/glove/">GLOVE</a> embedding. Try following
     <a href="https://github.com/evidentlyai/community-examples/blob/main/examples/how_to_run_drift_report_for_text_data.ipynb">this tutorial</a>
     to understand how drift detection is done on text.</p>
 </li>
 <li>
-<p>Instead of manually specifying the features, let's take a deep learning based approach to getting features from
-    unstructured data. To do this let's consider the <a href="https://arxiv.org/abs/2103.00020">CLIP</a> model, which is
-    state-of-the-art model for connecting text to images e.g. image captioning. For our purpose this is perfect
+<p>Instead of manually specifying the features, let's take a deep learning-based approach to getting features from
+    unstructured data. To do this let's consider the <a href="https://arxiv.org/abs/2103.00020">CLIP</a> model, which is a
+    state-of-the-art model for connecting text to images, i.e., image captioning. For our purpose this is perfect
     because we can use the model to get abstract feature embeddings for both images and text. Implement a simple
     script that extracts features from an image and a text using CLIP. We recommend using the
     <a href="https://huggingface.co/docs/transformers/model_doc/clip">Huggingface implementation</a> for doing this. What is
@@ -2490,7 +2490,7 @@ our data distribution.</p>
 </details>
 </li>
 <li>
-<p>Run your CLIP script on two different datasets for example
+<p>Run your CLIP script on two different datasets, for example
     <a href="https://pytorch.org/vision/main/generated/torchvision.datasets.CIFAR10.html">CIFAR10</a> and
     <a href="https://pytorch.org/vision/main/generated/torchvision.datasets.SVHN.html#torchvision.datasets.SVHN">SVHN</a>
     for images or
@@ -2501,13 +2501,13 @@ our data distribution.</p>
 </ol>
 </li>
 <li>
-<p>(Optional) If we have multiple applications and want to run monitoring for each application we often want also the
+<p>(Optional) If we have multiple applications and want to run monitoring for each application we often also want the
     monitoring to be a deployed application (that only we can access). Implement a <code>/monitoring</code> endpoint that does
     all the reporting we just went through such that you have two endpoints:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>http://127.0.0.1:8000/predict/?sepal_length<span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">sepal_width</span><span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">petal_length</span><span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">petal_width</span><span class="o">=</span><span class="m">1</span>.0<span class="w">  </span><span class="c1"># user endpoint</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>http://127.0.0.1:8000/monitoring/<span class="w">  </span><span class="c1"># monitoring endpoint</span>
 </span></code></pre></div>
-<p>Our monitoring endpoint should return an HTML page either showing an Evidently report or test suit. Try implementing
+<p>Our monitoring endpoint should return an HTML page either showing an Evidently report or test suite. Try implementing
 this endpoint.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2698,21 +2698,21 @@ particular, we are going to be looking at how we can deploy a monitoring applica
 then report those statistics directly back into GCP for us to study.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <p>In this set of exercises we are going to deploy a machine learning model for sentiment analysis trained on
-<a href="https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews">Google Play Store Reviews</a>. The models task
-is to predict if a users review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
-service that will check if the distribution of the reviews have drifted over time. This may be useful if we are seeing
+<a href="https://www.kaggle.com/datasets/prakharrathi25/google-play-store-reviews">Google Play Store Reviews</a>. The model's task
+is to predict if a user's review is positive, neutral or negative in sentiment. We are then going to deploy a monitoring
+service that will check if the distribution of the reviews has drifted over time. This may be useful if we are seeing
 a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
 expected.</p>
 <p>We have already created downloaded the training data, created a training script and trained a model for you.
-The training data and the trained model is available to download from the following
-<a href="https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing">Google Drive folder</a> which can
+The training data and the trained model are available to download from the following
+<a href="https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing">Google Drive folder</a>, which can
 be quickly downloaded by running the following commands (which uses the <a href="https://github.com/wkentaro/gdown">gdown</a>
 Python package):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>pip<span class="w"> </span>install<span class="w"> </span>gdown
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>gdown<span class="w"> </span>--folder<span class="w"> </span>https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp<span class="o">=</span>sharing
 </span></code></pre></div>
 <p>And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
-train using a GPU. Overall the model scores around 74% accuracy on a hold-out test set. We recommend that you scroll
+train using a GPU. Overall the model achieves around 74% accuracy on a held-out test set. We recommend that you scroll
 through the files to get an understanding of what is going on.</p>
 <details class="example">
 <summary>Training script for sentiment analysis model</summary>
@@ -3133,12 +3133,12 @@ through the files to get an understanding of what is going on.</p>
 </details>
 <ol>
 <li>
-<p>To begin with lets start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
+<p>To begin let's start by uploading the training data and model to a GCP bucket. Upload to a new GCP bucket
     called <code>gcp_monitoring_exercise</code> (or something similar). Upload the training data and the trained model to the
     bucket.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>This can be done by running the following commands or manually uploading the files to the bucket using the
+<p>This can be done by running the following commands or by manually uploading the files to the bucket using the
 GCP console.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gsutil mb gs://gcp_monitoring_exercise
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>gsutil cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
@@ -3148,7 +3148,7 @@ GCP console.</p>
 </li>
 <li>
 <p>Next we need to create a FastAPI application that takes a review as input and returns the predicted sentiment of
-    the review. We provide a starting point for the application in the file below, that should be able to run as is.</p>
+    the review. We provide a starting point for the application in the file below that should be able to run as is.</p>
 <details class="example">
 <summary>Starting point for sentiment analysis API</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sentiment_api_starter.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
@@ -3339,7 +3339,7 @@ GCP console.</p>
 <p>Confirm that you can run the application by running the following command in the terminal</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>uvicorn<span class="w"> </span>sentiment_api_starter:app<span class="w"> </span>--reload
 </span></code></pre></div>
-<p>You need the model file saved in the same directory as the application to run the application. Write a small
+<p>You need the model file saved in the same directory as the application to run it. Write a small
 <code>client.py</code> script that calls the application with a review and prints the predicted sentiment. Try executing
 the script in another terminal (while the <code>uvicorn</code> server is running) to confirm that the application is
 working.</p>
@@ -3355,10 +3355,10 @@ working.</p>
 </details>
 </li>
 <li>
-<p>Next, we need to extend the application in two ways. First instead of loading the model from our local computer,
-    it should load from the bucket we just uploaded the model to. Secondly, we need to save the request data and the
+<p>Next, we need to extend the application in two ways. First, instead of loading the model from our local computer,
+    it should load from the bucket we just uploaded the model to. Second, we need to save the request data and the
     predicted label to the cloud. Normally this would best be suited in a database, but we are going to just save
-    to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g. the
+    to the same bucket as the model. We just need to make sure each request is saved under a unique name (e.g., the
     time and date of the request). Implement both of these functionalities in the application. To interact with
     GCP buckets in Python you should install the <code>google-cloud-storage</code> package if you have not already done so.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>pip<span class="w"> </span>install<span class="w"> </span>google-cloud-storage
@@ -3632,7 +3632,7 @@ working.</p>
 that the data is saved to the bucket.</p>
 </li>
 <li>
-<p>Write a small Dockerfile that containerize the application</p>
+<p>Write a small Dockerfile that containerizes the application</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-docker highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sentiment_api.dockerfilepy</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1"> 1</a></span>
@@ -3682,17 +3682,17 @@ that the data is saved to the bucket.</p>
     make sure that the request/response data is correctly saved to the bucket.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>To get the url of the deployed service you can run the following command</p>
+<p>To get the URL of the deployed service you can run the following command</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>describe<span class="w"> </span>sentiment-api<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;value(status.url)&#39;</span>
 </span></code></pre></div>
-<p>which can the be used in the <code>client.py</code> script to call the deployed service.</p>
+<p>which can then be used in the <code>client.py</code> script to call the deployed service.</p>
 </details>
 </li>
 </ol>
 </li>
 <li>
-<p>We now have a working application that we are ready to monitor for data drift in real time. We therefore need to now
-    write a FastAPI application that takes in the training data and the predicted data and run evidently to check if the
+<p>We now have a working application that we are ready to monitor for data drift in real time. We therefore now need to
+    write a FastAPI application that takes in the training data and the predicted data and runs evidently to check if the
     data or the labels have drifted. Furthermore, we again provide a starting point for the application below.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sentiment_monitoring_starter.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
@@ -3826,7 +3826,7 @@ that the data is saved to the bucket.</p>
 </span><span id="__span-32-65"><a id="__codelineno-32-65" name="__codelineno-32-65"></a>
 </span><span id="__span-32-66"><a id="__codelineno-32-66" name="__codelineno-32-66"></a>    <span class="k">return</span> <span class="n">HTMLResponse</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">html_content</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-<p>Look over the script and make sure you know what kind of features we are going to monitor?</p>
+<p>Look over the script and make sure you know what kind of features we are going to monitor.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The provided starting script makes use of two presets from evidently:
@@ -3837,8 +3837,8 @@ second preset runs target drift detection on the predicted labels.</p>
 </details>
 <ol>
 <li>
-<p>The script misses one key function to work: <code class="language-python highlight"><span class="n">fetch_latest_data</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code> that should fetch the latest <code>n</code>
-    predictions. Implement this function in the script.</p>
+<p>The script is missing one key function to work: <code class="language-python highlight"><span class="n">fetch_latest_data</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code> which should fetch the
+    latest <code>n</code> predictions. Implement this function in the script.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sentiment_monitoring.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">  1</a></span>
@@ -4062,11 +4062,11 @@ second preset runs target drift detection on the predicted labels.</p>
 </details>
 </li>
 <li>
-<p>Test out the script locally. This can be done by downloading a couple of the request/response data from the
+<p>Test out the script locally. This can be done by downloading a couple of the request/response data points from the
     bucket and running the script on this data.</p>
 </li>
 <li>
-<p>Write a Dockerfile that containerize the monitoring application</p>
+<p>Write a Dockerfile that containerizes the monitoring application.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-docker highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sentiment_monitoring.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1"> 1</a></span>
@@ -4110,9 +4110,9 @@ second preset runs target drift detection on the predicted labels.</p>
 </ol>
 </li>
 <li>
-<p>We are now finally, ready to test our services. Since we need to observe some long term behavior this part may take
-    some time to run depending on how you have exactly configured your. Below we have implemented a client script that
-    are meant to call our service.</p>
+<p>We are now finally ready to test our services. Since we need to observe some long-term behavior this part may take
+    some time to run depending on how exactly you have configured things. Below we have implemented a client script that
+    is meant to call our service.</p>
 <div class="admonition example">
 <p class="admonition-title">Client script for sentiment analysis model</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sentiment_client.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1"> 1</a></span>
@@ -4210,10 +4210,10 @@ second preset runs target drift detection on the predicted labels.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The client script will iteratively call our deployed sentiment analysis service every <code>wait_time</code> seconds.
-In each iteration it does:</p>
+In each iteration it:</p>
 <ul>
-<li>Randomly samples a review for a list of positive, neutral and negative reviews</li>
-<li>Randomly add negative phrases to the review. Each review is added if a randomly uniform number is lower
+<li>Randomly samples a review from a list of positive, neutral and negative reviews</li>
+<li>Randomly adds negative phrases to the review. Each review is added if a randomly uniform number is lower
     than probability `negative_probability=min(count / args.max_iterations, 1.0), meaning that it becomes
     more and more likely that the negative phrases are added as the number of iterations increases.</li>
 <li>Sends the review to the sentiment analysis service and saves the response to a file.</li>
@@ -4221,38 +4221,38 @@ In each iteration it does:</p>
 </details>
 </li>
 <li>
-<p>Run the client script for 1000 iterations. What happens to the distribution of the reviews over time? Does the
+<p>Run the client script for 1,000 iterations. What happens to the distribution of the reviews over time? Does the
     data drift?</p>
 </li>
 </ol>
 </li>
 </ol>
-<p>That ends the module on detection of data drifting, data quality etc. We have a couple of final points to make before
+<p>That ends the module on detection of data drifting, data quality, etc. We have a couple of final points to make before
 we end the module:</p>
 <ul>
 <li>
 <p>Monitoring of machine learning applications is an extremely hard discipline because it is not clear-cut when we should
     actually respond to feature/targets beginning to drift and when it is probably fine letting the system run as is.
-    That comes down to the individual application what kind of rules that should be implemented.</p>
+    It comes down to the individual application what kinds of rules should be implemented.</p>
 </li>
 <li>
 <p>The cloud setup we have developed is very simple and not meant for production. In a real-world scenario we would not
-    have deployed our monitoring application an endpoint that generates a report, but rather have it return the tests
+    have deployed our monitoring application on an endpoint that generates a report, but rather have it return the test
     results in a JSON format that can be ingested into more complex monitoring systems where we can show how drift
-    scores develop over time. You will learn more about this in the <a href="../monitoring/">next module</a>.</p>
+    scores evolve over time. You will learn more about this in the <a href="../monitoring/">next module</a>.</p>
 </li>
 <li>
-<p>The tools presented here are in no way complete and are especially limited in one way: they are only considering the
-    marginal distribution of data. Every analysis that we're done have been on the distribution per feature (the
-    marginal distribution), however as the image below show it is possible for data to have drifted to another
+<p>The tools presented here are in no way comprehensive and are especially limited in one way: they only consider the
+    marginal data distribution. Every analysis that we've done has been on the distribution per feature (the
+    marginal distribution), however as the image below shows it is possible for data to have drifted to another
     distribution with the marginal being approximately the same.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/data_drift_marginals.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/data_drift_marginals.png" width="500" /></a>
 </figure></p>
 <p>There are methods such as <a href="https://jmlr.org/papers/v13/gretton12a.html">Maximum Mean Discrepancy (MMD) tests</a> that
 are able to do testing on multivariate distributions, which you are free to dive into. The general recommendation is
-to just always consider multiple features when taking decisions. In this course we will just always recommend
-considering multiple features when doing decision regarding your deployed applications.</p>
+to just always consider multiple features when making decisions. In this course we will just always recommend
+considering multiple features when making decisions regarding your deployed applications.</p>
 </li>
 </ul>
 <p>Finally, we want to stress that monitoring is a very active field of research and that there are many more tools and
@@ -4279,7 +4279,7 @@ frameworks that can be used for monitoring.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

@@ -1984,18 +1984,18 @@
 <h1 id="command-line-interfaces">Command line interfaces</h1>
 <hr />
 <p>As we already laid out in the very first <a href="../../s1_development_environment/command_line/">module</a>, the command line is a
-powerful tool for interacting with your computer. You should already now be familiar with running basic Python commands
+powerful tool for interacting with your computer. You should now already be familiar with running basic Python commands
 in the terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>my_script.py
 </span></code></pre></div>
 <p>However, as your projects grow in size and complexity, you will often find yourself in need of more advanced ways of
-interacting with your code. This is where <a href="https://en.wikipedia.org/wiki/Command-line_interface">command line interface</a>
+interacting with your code. This is where a <a href="https://en.wikipedia.org/wiki/Command-line_interface">command line interface</a>
 (CLI) comes into play. A CLI can be seen as a way for you to define the user interface of your application directly in
-the terminal. Thus, there is no right or wrong way of creating a CLI, it is all about what makes sense for your
+the terminal. Thus, there is no right or wrong way of creating a CLI; it is all about what makes sense for your
 application.</p>
 <p>In this module we are going to look at three different ways of creating a CLI for your machine learning projects. They
-are all serving a bit different purposes and can therefore be combined in the same project. However, you will most
-likely also feel that they are overlapping in some areas. That is completely fine, and it is up to you to decide which
+all serve slightly different purposes and can therefore be combined in the same project. However, you will most
+likely also feel that they overlap in some areas. That is completely fine, and it is up to you to decide which
 one to use in which situation.</p>
 <h2 id="project-scripts">Project scripts</h2>
 <p>You might already be familiar with the concept of executable scripts. An executable script is a Python script that can
@@ -2009,7 +2009,7 @@ using the standard <code>pyproject.toml</code> file, which you should have learn
 <ol>
 <li>
 <p>We are going to assume that you have a training script in your project that you would like to be able to run from the
-    terminal directly without having to call the Python interpreter. Lets assume it is located like this</p>
+    terminal directly without having to call the Python interpreter. Lets assume it is located like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>src/
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── my_project/
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   ├── __init__.py
@@ -2020,7 +2020,7 @@ using the standard <code>pyproject.toml</code> file, which you should have learn
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[project.scripts]</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">train</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_project.train:main&quot;</span>
 </span></code></pre></div>
-<p>what do you think the <code>train = "my_project.train:main"</code> line do?</p>
+<p>what do you think the <code>train = "my_project.train:main"</code> line does?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The line tells Python that we want to create an executable script called <code>train</code> that should run the <code>main</code>
@@ -2028,16 +2028,16 @@ function in the <code>train.py</code> file located in the <code>my_project</code
 </details>
 </li>
 <li>
-<p>Now, all that is left to do is install the project again in editable mode</p>
+<p>Now, all that is left to do is to install the project again in editable mode.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span></code></pre></div>
-<p>and you should now be able to run the following command in the terminal</p>
+<p>You should now be able to run the following command in the terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>train
 </span></code></pre></div>
 <p>Try it out and see if it works.</p>
 </li>
 <li>
-<p>Add additional scripts to your <code>pyproject.toml</code> file that allows you to run other scripts in your project from the
+<p>Add additional commands to your <code>pyproject.toml</code> file that allow you to run other scripts in your project from the
     terminal.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2050,28 +2050,28 @@ function in the <code>train.py</code> file located in the <code>my_project</code
 </li>
 </ol>
 <p>That is all there really is to it. You can now run your scripts directly from the terminal without having to call the
-Python interpreter. Some good examples of Python packages that uses this approach are
+Python interpreter. Some good examples of Python packages that use this approach are
 <a href="https://github.com/numpy/numpy/blob/main/pyproject.toml#L43-L45">numpy</a>,
 <a href="https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L67-L71">pylint</a> and
 <a href="https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L99-L100">kedro</a>.</p>
 <h2 id="command-line-arguments">Command line arguments</h2>
 <p>If you have worked with Python for some time you are probably familiar with the <code>argparse</code> package, which allows you
-to directly pass in additional arguments to your script in the terminal</p>
+to directly pass in additional arguments to your script via the terminal.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
 </span></code></pre></div>
-<p><code>argparse</code> is a very simple way of constructing what is called a command line interfaces. However, one limitation of
-<code>argparse</code> is the possibility of easily defining an CLI with subcommands. If we take <code>git</code> as an example, <code>git</code> is the
-main command but it has multiple subcommands: <code>push</code>, <code>pull</code>, <code>commit</code> etc. that all can take their own arguments. This
-kind of second CLI with subcommands is somewhat possible to do using only <code>argparse</code>, however it requires a bit of
+<p><code>argparse</code> is a very simple way of constructing what is called a command line interface. However, one limitation of
+<code>argparse</code> is that it is not easy to define a CLI with subcommands. If we take <code>git</code> as an example, <code>git</code> is the
+main command, but it has multiple subcommands: <code>push</code>, <code>pull</code>, <code>commit</code> etc. that can all take their own arguments. This
+kind of second CLI with subcommands is somewhat possible to do using only <code>argparse</code>, but it requires some
 hacks.</p>
-<p>You could of course ask the question why we at all would like to have the possibility of defining such CLI. The main
+<p>You could of course ask the question why we at all want to have the possibility of defining such a CLI. The main
 argument here is to give users of our code a single entrypoint to interact with our application instead of having
-multiple scripts. As long as all subcommands are proper documented, then our interface should be simple to interact
+multiple scripts. As long as all subcommands are properly documented, then our interface should be simple to interact
 with (again think <code>git</code> where each subcommand can be given the <code>-h</code> arg to get specific help).</p>
 <p>Instead of using <code>argparse</code> we are here going to look at the <a href="https://typer.tiangolo.com/">typer</a> package. <code>typer</code>
 extends the functionalities of <code>argparse</code> to allow for easy definition of subcommands and many other things, which we
 are not going to touch upon in this module. For completeness we should also mention that <code>typer</code> is not the only package
-for doing this, and of other excellent frameworks for creating command line interfaces easily we can mention
+for doing this, and another excellent framework for creating command line interfaces easily is
 <a href="https://click.palletsprojects.com/en/8.1.x/">click</a>.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
@@ -2079,7 +2079,7 @@ for doing this, and of other excellent frameworks for creating command line inte
 <p>Start by installing the <code>typer</code> package</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>typer
 </span></code></pre></div>
-<p>remember to add the package to your <code>requirements.txt</code> file.</p>
+<p>and remember to add the package to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
 <p>To get you started with <code>typer</code>, let's just create a simple hello world type of script. Create a new Python file
@@ -2092,7 +2092,7 @@ for doing this, and of other excellent frameworks for creating command line inte
 <p>executes and gives the expected output. Relevant <a href="https://typer.tiangolo.com/">documentation</a>.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Importantly for <code>typer</code> is that you need to provide
+<p>Important for <code>typer</code> is that you need to provide
 <a href="https://typer.tiangolo.com/tutorial/#python-types">type hints</a> for the arguments. This is because <code>typer</code> needs
 these to be able to work properly.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
@@ -2109,7 +2109,7 @@ these to be able to work properly.</p>
 </details>
 </li>
 <li>
-<p>Next, let's try on a bit harder example. Below is a simple script that trains a support vector machine on the iris
+<p>Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the iris
     dataset.</p>
 <div class="admonition example">
 <p class="admonition-title">iris_classifier.py</p>
@@ -2208,7 +2208,7 @@ these to be able to work properly.</p>
 <summary>Solution</summary>
 <p>We are here making use of the
 <a href="https://typer.tiangolo.com/tutorial/options/name/#cli-option-short-names">short name option</a> in typer for
-giving an shorter alias to the <code>--output</code> option.</p>
+giving a shorter alias to the <code>--output</code> option.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
@@ -2315,14 +2315,14 @@ giving an shorter alias to the <code>--output</code> option.</p>
 </li>
 <li>
 <p>Next let's create a CLI that has more than a single command. Continue working in the basic machine learning
-    application from the previous exercise, but this time we want to define two separate commands</p>
+    application from the previous exercise, but this time we want to define two separate commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>evaluate<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span>
 </span></code></pre></div>
 <details class="success">
 <summary>Solution</summary>
 <p>The only key difference between the two is that in the <code>train</code> command we define the <code>output</code> argument to
-to be an optional parameter e.g. we provide a default and for the <code>evaluate</code> command it is a required parameter.</p>
+to be an optional parameter, i.e., we provide a default and for the <code>evaluate</code> command it is a required parameter.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
@@ -2442,18 +2442,18 @@ to be an optional parameter e.g. we provide a default and for the <code>evaluate
 </details>
 </li>
 <li>
-<p>Finally, let's try to define subcommands for our subcommands e.g. something similar to how <code>git</code> has the subcommand
-    <code>remote</code> which in itself has multiple subcommands like <code>add</code>, <code>rename</code> etc. Continue on the simple machine
-    learning application from the previous exercises, but this time define a CLI such that</p>
+<p>Finally, let's try to define subcommands for our subcommands, e.g., something similar to how <code>git</code> has the subcommand
+    <code>remote</code> which in itself has multiple subcommands like <code>add</code>, <code>rename</code>, etc. Continue on the simple machine
+    learning application from the previous exercises, but this time define a CLI for these commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>--n-neighbors<span class="w"> </span><span class="m">5</span>
 </span></code></pre></div>
-<p>e.g the <code>train</code> command now has two subcommands for training different machine learning models (in this case SVM
+<p>i.e., the <code>train</code> command now has two subcommands for training different machine learning models (in this case SVM
 and KNN) which each takes arguments that are unique to that model. Relevant
 <a href="https://typer.tiangolo.com/tutorial/subcommands/">documentation</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title"><code>_</code> vs <code>-</code></p>
-<p>When using typer do not that variables with <code>_</code> in the name
+<p>When using typer note that variables with <code>_</code> in the name
 will be converted to <code>-</code> in the CLI. Meaning that if you have a variable <code>n_neighbors</code> in your code, you should use
 <code>--n-neighbors</code> in the CLI.</p>
 </div>
@@ -2606,7 +2606,7 @@ will be converted to <code>-</code> in the CLI. Meaning that if you have a varia
     script using the <code>pyproject.toml</code> file and try it out!</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Assuming that our <code>iris_classifier.py</code> script from before is placed in <code>src/my_project</code> folder, we should just
+<p>Assuming that our <code>iris_classifier.py</code> script from before is placed in the <code>src/my_project</code> folder, we should just
 add</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">[project.scripts]</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;src.my_project.iris_classifier:app&quot;</span>
@@ -2620,12 +2620,12 @@ add</p>
 </details>
 </li>
 </ol>
-<p>This covers the basic of <code>typer</code> but feel free to deep dive into how the package can help you custimize your CLIs.
+<p>This covers the basics of <code>typer</code> but feel free to deep dive into how the package can help you custimize your CLIs.
 Checkout <a href="https://typer.tiangolo.com/tutorial/printing/">this page</a> on adding colors to your CLI or
 <a href="https://typer.tiangolo.com/tutorial/parameter-types/number/">this page</a> on validating the inputs to your CLI.</p>
 <h2 id="non-python-code">Non-Python code</h2>
-<p>The two sections above have shown you how to create a simple CLI for your Python scripts. However, when doing machine
-learning projects, you often have a lot of non-Python code that you would like to run from the terminal. Based on the
+<p>The two above sections have shown you how to create a simple CLI for your Python scripts. However, when doing machine
+learning projects, you often have a lot of non-Python code that you would like to run from the terminal. In the
 learning modules you have already completed, you have already encountered a couple of CLI tools that are used in our
 projects:</p>
 <ul>
@@ -2634,19 +2634,19 @@ projects:</p>
 <li><a href="../dvc/">dvc</a> for version control of data</li>
 </ul>
 <p>As we begin to move into the next couple of learning modules, we are going to encounter even more CLI tools that we need
-to interact with. Here is a example of long command that you might need to run in your project in the future</p>
+to interact with. Here is an example of a long command that you might need to run in your project in the future:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>my_image:latest<span class="w"> </span>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
 </span></code></pre></div>
 <p>This can be a lot to remember, and it can be easy to make mistakes. Instead, it would be nice if we could just do</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>run<span class="w"> </span>my_command<span class="w"> </span>--arg1<span class="o">=</span>val1<span class="w"> </span>--arg2<span class="o">=</span>val2
 </span></code></pre></div>
-<p>e.g. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
+<p>i.e. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
 it to our liking. To help with this, we are going to look at the <a href="http://www.pyinvoke.org/">invoke</a> package.
 <code>invoke</code> is a Python package that allows you to define tasks that can be
 run from the terminal. It is a bit like a more advanced version of the <a href="https://makefiletutorial.com/">Makefile</a> that
 you might have encountered in other programming languages. Some good alternatives to <code>invoke</code> are
 <a href="https://github.com/casey/just">just</a> and <a href="https://github.com/go-task/task">task</a>, but we have chosen to focus on
-<code>invoke</code> in this module because it can be installed as a Python package making installation across different systems
+<code>invoke</code> in this module because it can be installed as a Python package, making installation across different systems
 easier.</p>
 <h3 id="exercises_2">❔ Exercises</h3>
 <ol>
@@ -2654,13 +2654,13 @@ easier.</p>
 <p>Start by installing <code>invoke</code></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>pip<span class="w"> </span>install<span class="w"> </span>invoke
 </span></code></pre></div>
-<p>remember to add the package to your <code>requirements.txt</code> file.</p>
+<p>and remember to add the package to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
 <p>Add a <code>tasks.py</code> file to your repository and try to just run</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>invoke<span class="w"> </span>--list
 </span></code></pre></div>
-<p>which should work but inform you that no tasks are added yet.</p>
+<p>which should work but inform you that no tasks have been added yet.</p>
 </li>
 <li>
 <p>Let's now try to add a task to the <code>tasks.py</code> file. The way to do this with invoke is to import the <code>task</code>
@@ -2674,8 +2674,8 @@ easier.</p>
 </span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;which python&quot;</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span> <span class="k">else</span> <span class="s2">&quot;where python&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>the first argument of any task-decorated function is the <code>ctx</code> context argument that implements the <code>run</code> method
-for running any command as we run them in the terminal. In this case we have simply implemented a task that
-returns the current Python interpreter but it works for all operating systems. Check that it works by running:</p>
+for running any command as we would run it in the terminal. In this case we have simply implemented a task that
+returns the current Python interpreter, but it works for all operating systems. Check that it works by running:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>invoke<span class="w"> </span>python
 </span></code></pre></div>
 </li>
@@ -2703,8 +2703,8 @@ returns the current Python interpreter but it works for all operating systems. C
 <summary>Solution</summary>
 <ul>
 <li><code>warn</code>: If set to <code>True</code> the command will not raise an exception if the command fails. This can be useful if
-    you want to run multiple commands and you do not want the whole process to stop if one of the commands fail.</li>
-<li><code>pty</code>: If set to <code>True</code> the command will be run in a pseudo-terminal. If you want to enable this or not,
+    you want to run multiple commands and you do not want the whole process to stop if one of the commands fails.</li>
+<li><code>pty</code>: If set to <code>True</code> the command will be run in a pseudo-terminal. Whether you want to enable this or not
     depends on the command you are running.
     <a href="https://www.pyinvoke.org/faq.html#why-is-my-command-behaving-differently-under-invoke-versus-being-run-by-hand">Here</a>
     is a good explanation of when/why you should use it.</li>
@@ -2713,7 +2713,7 @@ returns the current Python interpreter but it works for all operating systems. C
 </details>
 </li>
 <li>
-<p>Create a command that simplifies the process of bootstrapping a <code>conda</code> environment and install the relevant
+<p>Create a command that simplifies the process of bootstrapping a <code>conda</code> environment and installs the relevant
     dependencies of your project.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2729,7 +2729,7 @@ returns the current Python interpreter but it works for all operating systems. C
 </details>
 </li>
 <li>
-<p>Assuming you have completed the exercises on using <a href="../dvc/">dvc</a> for version control of data, lets also try to add
+<p>Assuming you have completed the exercises on using <a href="../dvc/">dvc</a> for version control of data, let's also try to add
     a task that simplifies the process of adding new data. This is the list of commands that need to be run to add new
     data to a dvc repository: <code>dvc add</code>, <code>git add</code>, <code>git commit</code>, <code>git push</code>, <code>dvc push</code>. Try to implement a task
     that simplifies this process. It needs to take two arguments for defining the folder to add and the commit message.</p>
@@ -2749,11 +2749,11 @@ returns the current Python interpreter but it works for all operating systems. C
 </details>
 </li>
 <li>
-<p>As the final exercise, lets try to combine every way of defining CLIs we have learned about in this module. Define
+<p>As the final exercise, let's try to combine every way of defining CLIs we have learned about in this module. Define
     a task that does the following</p>
 <ul>
 <li>calls <code>dvc pull</code> to download the data</li>
-<li>calls a entrypoint <code>my_cli</code> with the subcommand <code>train</code> with the arguments <code>--output 'model.ckpt'</code></li>
+<li>calls an entrypoint <code>my_cli</code> with the subcommand <code>train</code> with the arguments <code>--output 'model.ckpt'</code></li>
 </ul>
 <details class="success">
 <summary>Solution</summary>
@@ -2772,7 +2772,7 @@ returns the current Python interpreter but it works for all operating systems. C
 </ol>
 <p>That is all there is to it. You should now be able to define tasks that can be run from the terminal to simplify the
 process of running your code. We recommend that as you go through the learning modules in this course that you slowly
-start to add tasks to your <code>tasks.py</code> file that simplifies the process of running the code you are writing.</p>
+start to add tasks to your <code>tasks.py</code> file that simplify the process of running the code you are writing.</p>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
@@ -2806,7 +2806,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

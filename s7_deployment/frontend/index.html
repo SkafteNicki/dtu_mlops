@@ -1858,13 +1858,13 @@
 <h1 id="frontend">Frontend</h1>
 <p>If you have gone over the <a href="../">deployment module</a> you should be at the point where you have a
 machine learning model running in the cloud. The model can be interacted with by sending HTTP requests to the API
-endpoint. In general we refer to this as the <em>backend</em> of the application. It is the part of our application that are
-behind-the-scene that the user does not see and it is not really that user-friendly. Instead we want to create a
+endpoint. In general we refer to this as the <em>backend</em> of the application. It is the part of our application that is
+behind-the-scenes that the user does not see and is not really that user-friendly. Instead we want to create a
 <em>frontend</em> that the user can interact with in a more user-friendly way. This is what we will be doing in this module.</p>
 <p>Another point of splitting our application into a frontend and a backend has to do with scalability. If we have a lot
 of users interacting with our application, we might want to scale only the backend and not the frontend, because that
-is the part that will be running our heavy machine learning model. In general dividing a application into smaller pieces
-are the pattern that is used in <a href="https://martinfowler.com/articles/microservices.html">microservice architectures</a>.</p>
+is the part that will be running our heavy machine learning model. In general dividing an application into smaller pieces
+is the pattern that is used in <a href="https://martinfowler.com/articles/microservices.html">microservice architectures</a>.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/different_architechtures.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/different_architechtures.png" width="800" /></a></p>
 <figcaption>
@@ -1882,7 +1882,7 @@ now a lot of frameworks that can help us create a frontend in Python:</p>
 <li><a href="http://bokeh.org/">Bokeh</a></li>
 <li><a href="https://www.gradio.app/">Gradio</a></li>
 </ul>
-<p>In this module we will be looking at <code>streamlit</code>. <code>streamlit</code> is a easy to use framework that allows us to create
+<p>In this module we will be looking at <code>streamlit</code>. <code>streamlit</code> is an easy-to-use framework that allows us to create
 interactive web applications in Python. It is not at all as powerful as a framework like <code>Django</code>, but it is very easy
 to get started with and it is very easy to integrate with our machine learning models.</p>
 <h2 id="exercises">❔ Exercises</h2>
@@ -1891,13 +1891,13 @@ containerizing both applications and then deploying them to the cloud. We have a
 which can be found in the <code>samples/frontend_backend</code> folder.</p>
 <ol>
 <li>
-<p>Lets start by creating the backend application in a <code>backend.py</code> file. You can use essentially any backend you want,
+<p>Let's start by creating the backend application in a <code>backend.py</code> file. You can use essentially any backend you want,
     but we will be using a simple imagenet classifier that we have created in the <code>samples/frontend_backend/backend</code>
     folder.</p>
 <ol>
 <li>
 <p>Create a new file called <code>backend.py</code> and implement a FastAPI interface with a single <code>/predict</code> endpoint that
-    takes a image as input and returns the predicted class (and probabilities) of the image.</p>
+    takes an image as input and returns the predicted class (and probabilities) of the image.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">backend.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
@@ -2039,12 +2039,12 @@ which can be found in the <code>samples/frontend_backend</code> folder.</p>
 </details>
 </li>
 <li>
-<p>Run the backend using <code>uvicorn</code></p>
+<p>Run the backend using <code>uvicorn</code>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uvicorn<span class="w"> </span>backend:app<span class="w"> </span>--reload
 </span></code></pre></div>
 </li>
 <li>
-<p>Test the backend by sending a request to the <code>/predict</code> endpoint, preferably using <code>curl</code> command</p>
+<p>Test the backend by sending a request to the <code>/predict</code> endpoint, preferably using the <code>curl</code> command.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>In this example we are sending a request to the <code>/predict</code> endpoint with a file called <code>my_cat.jpg</code>. The
@@ -2123,7 +2123,7 @@ response should be "tabby cat" for the solution we have provided.</p>
 <p>and test that it works by sending a request to the <code>/predict</code> endpoint.</p>
 </li>
 <li>
-<p>Deploy the backend to Cloud run using the <code>gcloud</code> command</p>
+<p>Deploy the backend to Cloud run using the <code>gcloud</code> command.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Assuming that we have created an artifact registry called <code>frontend_backend</code> we can deploy the backend to
@@ -2142,7 +2142,7 @@ Cloud Run using the following commands:</p>
 </details>
 </li>
 <li>
-<p>Finally, test that the deployed backend works as expected by sending a request to the <code>/predict</code> endpoint</p>
+<p>Finally, test that the deployed backend works as expected by sending a request to the <code>/predict</code> endpoint.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>In this solution we are first extracting the url of the deployed backend and then sending a request to the
@@ -2159,17 +2159,17 @@ Cloud Run using the following commands:</p>
 </ol>
 </li>
 <li>
-<p>With the backend taken care of lets now write our frontend. Our frontend just needs to be a "nice" interface to our
-    backend. Its main functionality will be to send a request to the backend and display the result.
-    <a href="https://docs.streamlit.io/library/api-reference">streamlit documentation</a></p>
+<p>With the backend taken care of let's now write our frontend. Our frontend just needs to be a "nice" interface to our
+    backend. Its main functionality will be to send a request to the backend and display the result
+    (<a href="https://docs.streamlit.io/library/api-reference">streamlit documentation</a>).</p>
 <ol>
 <li>
-<p>Start by installing <code>streamlit</code></p>
+<p>Start by installing <code>streamlit</code>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pip<span class="w"> </span>install<span class="w"> </span>streamlit
 </span></code></pre></div>
 </li>
 <li>
-<p>Now create a file called <code>frontend.py</code> and implement a streamlit application. You can design it as you want,
+<p>Now create a file called <code>frontend.py</code> and implement a streamlit application. You can design it however you want,
     but we recommend that the following can be done in the frontend:</p>
 <ol>
 <li>
@@ -2316,7 +2316,7 @@ backend. We will in the next step show how to get this URL automatically.</p>
 <p>We need to make sure that the frontend knows where the backend is located, and we want that to happen
     automatically so we do not have to hardcode the URL into our frontend. We can do this by using the
     Python SDK for Google Cloud Run. The following code snippet shows how to get the URL of the backend service
-    or fall back to an environment variable if the service is not found.</p>
+    or fall back on an environment variable if the service is not found.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.cloud</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_v2</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">streamlit</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -2340,7 +2340,7 @@ backend. We will in the next step show how to get this URL automatically.</p>
 appropriate values. You will need to install <code>pip install google-cloud-run</code> to be able to use the code snippet.</p>
 </li>
 <li>
-<p>Run the frontend using <code>streamlit</code></p>
+<p>Run the frontend using <code>streamlit</code>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>streamlit<span class="w"> </span>run<span class="w"> </span>frontend.py
 </span></code></pre></div>
 </li>
@@ -2399,7 +2399,7 @@ appropriate values. You will need to install <code>pip install google-cloud-run<
 </details>
 </li>
 <li>
-<p>Build the frontend image</p>
+<p>Build the frontend image.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>frontend:latest<span class="w"> </span>-f<span class="w"> </span>frontend.dockerfile<span class="w"> </span>.
 </span></code></pre></div>
 </li>
@@ -2407,13 +2407,13 @@ appropriate values. You will need to install <code>pip install google-cloud-run<
 <p>Run the frontend image</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8001</span>:8001<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;PORT=8001&quot;</span><span class="w"> </span>frontend
 </span></code></pre></div>
-<p>And check in your web browser that the frontend works as expected.</p>
+<p>and check in your web browser that the frontend works as expected.</p>
 </li>
 <li>
-<p>Deploy the frontend to Cloud run using the <code>gcloud</code> command</p>
+<p>Deploy the frontend to Cloud run using the <code>gcloud</code> command.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Assuming that we have created an artifact registry called <code>frontend_backend</code> we can deploy the backend to
+<p>Assuming that we have created an artifact registry called <code>frontend_backend</code> we can deploy the frontend to
 Cloud Run using the following commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>frontend:latest<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span>&lt;region&gt;-docker.pkg.dev/&lt;project&gt;/frontend-backend/frontend:latest
@@ -2426,26 +2426,26 @@ Cloud Run using the following commands:</p>
 </details>
 </li>
 <li>
-<p>Test that frontend works as expected by opening the URL of the deployed frontend in your web browser.</p>
+<p>Test that the frontend works as expected by opening the URL of the deployed frontend in your web browser.</p>
 </li>
 </ol>
 </li>
 <li>
 <p>(Optional) If you have gotten this far you have successfully created a frontend and a backend and deployed them to
-    the cloud. Finally, it may be worth it to load test your application to see how it performs under load. Write a
-    locust file which is covered in <a href="../testing_apis/">this module</a> and run it against your frontend.
+    the cloud. Finally, it may be worth load testing your application to see how it performs under load. Write a
+    locust file which is covered in <a href="../testing_apis/">this module</a> and run it on your frontend.
     Make sure that it can handle the load you expect it to handle.</p>
 </li>
 <li>
 <p>(Optional) Feel free to experiment further with streamlit and see what you can create. For example, you can try to
-    create a option for the user to upload a video and then display the video with the predicted class overlaid on
+    create an option for the user to upload a video and then display the video with the predicted class overlaid on
     top of the video.</p>
 </li>
 </ol>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
-<p>We have created separate requirements files for the frontend and the backend. Why is this a good idea?</p>
+<p>We have created separate requirement files for the frontend and the backend. Why is this a good idea?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>This is a good idea because the frontend and the backend may have different dependencies. By having separate
@@ -2478,7 +2478,7 @@ the frontend does not need the <code>torch</code> library which is huge and only
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

@@ -1988,11 +1988,11 @@
 <p><em>Code is read more often than it is written.</em> <br> <br>
 Guido Van Rossum (author of Python)</p>
 </div>
-<p>It is hard to define exactly what good coding practises are. But the above quote by Guido does hint at what it could be,
-namely that it has to do with how others observe and persive your code. In general, good coding practice is about making
-sure that you code is easy to read and understand, not only by others but also by your future self. The key concept to
-keep in mind with we are talking about good coding practice is <em>consistency</em>. In many cases it does not matter exactly
-how you choose to style your code etc., the important part is that you are consistent about it.</p>
+<p>It is hard to define exactly what good coding practices are. But the above quote by Guido does hint at what it could be,
+namely that it has to do with how others observe and perceive your code. In general, good coding practice is about making
+sure that your code is easy to read and understand, not only by others but also by your future self. The key concept to
+keep in mind when we are talking about good coding practice is <em>consistency</em>. In many cases it does not matter exactly
+how you choose to style your code, etc., the important part is that you are consistent about it.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/understand_code_joke.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/understand_code_joke.jpg" width="500" /></a></p>
 <figcaption>
@@ -2000,22 +2000,22 @@ how you choose to style your code etc., the important part is that you are consi
 </figcaption>
 </figure>
 <h2 id="documentation">Documentation</h2>
-<p>Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourself, but love
-when someone else has actually taken time to add it to their code. There is no doubt about that well documented
-code is much easier to maintain, as you do not need to remember all details about the code to still maintain it.
-It is key to remember that good documentation saves more time, than it takes to write.</p>
+<p>Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourselves, but love
+when someone else has actually taken the time to add it to their code. There is no doubt that well documented
+code is much easier to maintain, as you do not need to remember all the details about the code to still maintain it.
+It is key to remember that good documentation saves more time than it takes to write.</p>
 <p>The problem with documentation is that there is no right or wrong way to do it. You can end up doing:</p>
 <ul>
 <li>
-<p>Under documentation: You document information that is clearly visible from the code and not the complex
+<p>Under-documentation: You document information that is clearly visible from the code and not the complex
     parts that are actually hard to understand.</p>
 </li>
 <li>
-<p>Over documentation: Writing too much documentation will have the opposite effect on most people than
+<p>Over-documentation: Writing too much documentation will have likely have an effect on most people opposite to
     what you want: there is too much to read, so people will skip it.</p>
 </li>
 </ul>
-<p>Writing good documentation is a skill that takes time to train, so lets try to do it.</p>
+<p>Writing good documentation is a skill that takes time to train, so let's try to do it.</p>
 <div class="admonition quote">
 <p class="admonition-title">Quote</p>
 <p><em>Code tells you how; Comments tell you why.</em> <br> <br>
@@ -2028,8 +2028,8 @@ Jeff Atwood</p>
     behind the code is not easily understandable. (1)</p>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> In deep learning we often work with multi-dimensional tensors that constantly changes shape
-    after each operation. It is good practise to annotate with comments when tensors undergoes some reshaping.
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> In deep learning we often work with multi-dimensional tensors that constantly change shape
+    after each operation. It is good practice to annotate with comments when tensors undergo some reshaping.
     In the following example we compute the pairwise euclidean distance between two tensors using broadcasting
     which results in multiple shape operations.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># N x D</span>
@@ -2041,62 +2041,62 @@ Jeff Atwood</p>
 </ol>
 </li>
 <li>
-<p>Add <a href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> to at least two Python function/methods.
-    You can see <a href="https://www.programiz.com/python-programming/docstrings">here (example 5)</a> a good example
-    how to use identifiable keywords such as <code>Parameters</code>, <code>Args</code>, <code>Returns</code> which standardizes the way of
+<p>Add <a href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> to at least two Python functions/methods.
+    You can see <a href="https://www.programiz.com/python-programming/docstrings">here (example 5)</a> a good example of
+    how to use identifiable keywords such as <code>Parameters</code>, <code>Args</code>, <code>Returns</code>, which standardizes the way of
     writing docstrings.</p>
 </li>
 </ol>
 <h2 id="styling">Styling</h2>
 <p>While Python already enforces some styling (e.g. code should be indented in a specific way), this is not enough
-to secure that code from different users actually look like each other. Maybe even more troubling is that you
+to ensure that code from different users actually looks similar. Maybe even more troubling is that you
 will often see that your own style of coding changes as you become more and more experienced. This kind of
-difference in coding style is not that important to take care of when you are working on a personal project,
-but when working multiple people together on the same project it is important to consider.</p>
+difference in coding style is not that important to keep in mind when you are working on a personal project,
+but when multiple people are working together on the same project it is important to consider.</p>
 <p>The question then remains what styling you should use. This is where <a href="https://www.python.org/dev/peps/pep-0008/">Pep8</a>
-comes into play, which is the  official style guide for python. It is essentially contains what is considered
+comes into play, which is the official style guide for python. It essentially contains what is considered
 "good practice" and "bad practice" when coding python.</p>
-<p class="annotate">The many years the most commonly used tool to check if you code is PEP8 compliant is to use
+<p class="annotate">For many years the most commonly used tool to check if your code was PEP8-compliant was to use
 <a href="https://flake8.pycqa.org/en/latest/">flake8</a>. However, we are in this course going to be using
-<a href="https://github.com/astral-sh/ruff">ruff</a> that are quickly gaining popularity due to how fast it is and how quickly the
+<a href="https://github.com/astral-sh/ruff">ruff</a>, which is quickly gaining popularity due to how fast it is and how quickly the
 developers are adding new features. (1)</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> both <code>flake8</code> and <code>ruff</code> is what is called a
-    <a href="https://en.wikipedia.org/wiki/Lint_(software)">linter or lint tool</a>, which is any kind of static code analyze
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> both <code>flake8</code> and <code>ruff</code> are what is called a
+    <a href="https://en.wikipedia.org/wiki/Lint_(software)">linter or lint tool</a>, which is any kind of static code analysis
     program that is used to flag programming errors, bugs, and styling errors.</li>
 </ol>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
 <li>
-<p>Install <code>ruff</code></p>
+<p>Install <code>ruff</code>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ruff
 </span></code></pre></div>
 </li>
 <li>
-<p>Run <code>ruff</code> on your project or part of your project</p>
+<p>Run <code>ruff</code> on your project or part of your project.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ruff<span class="w"> </span>check<span class="w"> </span>.<span class="w">  </span><span class="c1"># Lint all files in the current directory (and any subdirectories)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ruff<span class="w"> </span>check<span class="w"> </span>path/to/code/<span class="w">  </span><span class="c1"># Lint all files in `/path/to/code` (and any subdirectories).</span>
 </span></code></pre></div>
-<p>are you PEP8 compliant or are you a normal mortal?</p>
+<p>Are you PEP8-compliant or are you a mere mortal?</p>
 </li>
 </ol>
-<p>You could go and fix all the small errors that <code>ruff</code> is giving. However, in practice large projects instead relies
-on some kind of code formatter, that will automatically format your code for you to be PEP8 compliant. Some of the
+<p>You could go and fix all the small errors that <code>ruff</code> is giving. However, in practice large projects instead rely
+on some kind of code formatter that will automatically format your code for you to be PEP8-compliant. Some of the
 biggest formatters for the longest time in Python have been <a href="https://github.com/psf/black">black</a> and
-<a href="https://github.com/google/yapf">yapf</a>, but we are going to use <code>ruff</code> which also have a build in formatter that should
+<a href="https://github.com/google/yapf">yapf</a>, but we are going to use <code>ruff</code>, which also has a built-in formatter that should
 be a drop-in replacement for <code>black</code>.</p>
 <ol>
 <li>
-<p>Try to use <code>ruff format</code> to format your code</p>
+<p>Try to use <code>ruff format</code> to format your code.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ruff<span class="w"> </span>format<span class="w"> </span>.<span class="w">  </span><span class="c1"># Format all files in the current directory.</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ruff<span class="w"> </span>format<span class="w"> </span>/path/to/file.py<span class="w">  </span><span class="c1"># Format a single file.</span>
 </span></code></pre></div>
 </li>
 </ol>
 <p>By default <code>ruff</code> will apply a selection of rules when we are either checking it or formatting it. However, many more
-rules can be activated through <a href="https://docs.astral.sh/ruff/configuration/">configuration</a>.  If you have completed
+rules can be activated through <a href="https://docs.astral.sh/ruff/configuration/">configuration</a>. If you have completed
 module <a href="../code_structure/">M6 on code structure</a> you will have encountered the <code>pyproject.toml</code> file, which can store
-both build instructions about our package but also configuration of developer tools. Lets try to configure <code>ruff</code> using
+both build instructions about our package but also configuration of developer tools. Let's try to configure <code>ruff</code> using
 the <code>pyproject.toml</code> file.</p>
 <ol>
 <li>
@@ -2118,38 +2118,38 @@ practice. (1)</p>
 </li>
 <li>
 <p>One PEP8 styling rule that is often diverged from is the recommended line length of 79 characters, which by many
-    (including myself) is considered very restrictive. If you code consist of multiple levels of indentation, you can
-    quickly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters
-    which seems to be the sweet spot of how many characters fits in a coding window on a laptop.
+    (including myself) is considered very restrictive. If your code consists of multiple levels of indentation, you can
+    quickly run into 79 characters being limiting. For this reason many projects increase it, often to 120 characters,
+    which seems to be the sweet spot of how many characters fit in a coding window on a laptop.
     Add the line</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">line-length</span><span class="o">=</span><span class="mi">120</span>
 </span></code></pre></div>
 <p>under the <code>[tool.ruff]</code> section in the <code>pyproject.toml</code> file and rerun <code>ruff check</code> and <code>ruff format</code> on your code.</p>
 </li>
 <li>
-<p>Experiment yourself with further configuration of <code>ruff</code>. In particular we recommend adding more
-    <a href="https://docs.astral.sh/ruff/rules/">rules</a> and looking <code>[tool.ruff.pydocstyle]</code> configuration to indicate how you
+<p>Experiment with further configuration of <code>ruff</code>. In particular we recommend adding more
+    <a href="https://docs.astral.sh/ruff/rules/">rules</a> and looking at <code>[tool.ruff.pydocstyle]</code> configuration to indicate how you
     have styled your documentation.</p>
 </li>
 </ol>
 <h2 id="typing">Typing</h2>
-<p>In addition to writing documentation and following a specific styling, in Python we have a third way of improving the
-quality of our code: <a href="https://docs.python.org/3/library/typing.html">through typing</a>. Typing goes back to the earlier
-programming languages like <code>c</code>, <code>c++</code> etc. where <a href="https://www.scaler.com/topics/cpp/data-types-in-cpp/">data types</a>
-needed to be explicit stated for variables:</p>
+<p>In addition to writing documentation and following a specific styling method, in Python we have a third way of improving
+the quality of our code: <a href="https://docs.python.org/3/library/typing.html">through typing</a>. Typing goes back to the
+earlier programming languages like <code>c</code>, <code>c++</code> etc. where
+<a href="https://www.scaler.com/topics/cpp/data-types-in-cpp/">data types</a> needed to be explicitly stated for variables:</p>
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello World! &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">();</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>This is not required by Python but it can really improve the readability of code, that you can directly read from the
-code what the expected types of input arguments and returns are. In Python the <code>:</code> character have been reserved for
+<p>This is not required by Python but it can really improve the readability of code, since then you can directly read from the
+code what the expected types of input arguments and returns are. In Python the <code>:</code> character has been reserved for
 type hints. Here is one example of adding typing to a function:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">add2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
 </span></code></pre></div>
-<p>here we mark that both <code>x</code> and <code>y</code> are integers and using the arrow notation <code>-&gt;</code> we mark that the output type is also
+<p>Here we mark that both <code>x</code> and <code>y</code> are integers and using the arrow notation <code>-&gt;</code> we mark that the output type is also
 an integer. Assuming that we are also going to use the function for floats and <code>torch.Tensor</code>s we could improve the
 typing by specifying a <em>union</em> of types. Depending on the version of Python you are using the syntax for this can be
 different.</p>
@@ -2174,13 +2174,13 @@ different.</p>
 </div>
 <!-- markdownlint-restore -->
 
-<p>Finally, since this is a very generic function it also works on <code>numpy</code> arrays etc. we can always default to the <code>Any</code>
-type if we are not sure about all the specific types that a function can take</p>
+<p>Finally, since this is a very generic function it also works on <code>numpy</code> arrays, etc. We can always default to the <code>Any</code>
+type if we are not sure about all the specific types that a function can take.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">add2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
 </span></code></pre></div>
-<p>However, in this case we basically is in the same case as if our function were not typed, as the type hints does not
+<p>However, that is basically the same as if our function were not typed, as the type hints do not
 help us at all. Therefore, use <code>Any</code> only when necessary.</p>
 <h3 id="exercises_2">❔ Exercises</h3>
 <!-- markdownlint-disable -->
@@ -2190,7 +2190,7 @@ help us at all. Therefore, use <code>Any</code> only when necessary.</p>
 <ol>
 <li>
 <p>We provide a file called <code>typing_exercise.py</code>. Add typing everywhere in the file. Please note that you will
-    need the following import:</p>
+    need the following imports</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>  <span class="c1"># you will need all of them in your code</span>
 </span></code></pre></div>
 <p>for it to work. This <a href="https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html">cheat sheet</a> is a good resource on
@@ -2653,7 +2653,7 @@ typing. We also provide <code>typing_exercise_solution.py</code>, but try to sol
 <li>
 <p><a href="https://mypy.readthedocs.io/en/stable/index.html">mypy</a> is what is called a static type checker. If you are using
     typing in your code, then a static type checker can help you find common mistakes. <code>mypy</code> does not run your code,
-    but it scans it and checks that the types you have given are compatible. Install <code>mypy</code></p>
+    but it scans it and checks that the types you have given are compatible. Install <code>mypy</code>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pip<span class="w"> </span>install<span class="w"> </span>mypy
 </span></code></pre></div>
 </li>
@@ -2676,13 +2676,13 @@ types are incompatible.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>According to PEP8 classes should follow the CapWords convention, meaning that the first letter in each word of
-the class name should be capitalized. Thus <code>myclass</code> should therefore be <code>MyClass</code>. On the other hand, functions
-and methods should be full lowercase with words separated by underscore. Thus <code>TrainNetwork</code> should be
+the class name should be capitalized. Thus <code>myclass</code> should instead be <code>MyClass</code>. On the other hand, functions
+and methods should be all lowercase with words separated by underscore. Thus <code>TrainNetwork</code> should be
 <code>train_network</code>.</p>
 </details>
 </li>
 <li>
-<p>What would be the of argument <code>x</code> for a function <code>def f(x):</code> if it should support the following input</p>
+<p>What would be the type of argument <code>x</code> for a function <code>def f(x):</code> if it needs to support the following input:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">x3</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2693,18 +2693,18 @@ and methods should be full lowercase with words separated by underscore. Thus <c
 <p>The easy solution would be to do <code>def f(x : Any)</code>. But instead we could also go with:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
 </span></code></pre></div>
-<p>alternatively, we could also do</p>
+<p>Alternatively, we could do</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
 </span></code></pre></div>
-<p>because all <code>list</code>, <code>tuple</code> and <code>dict</code> are iterables and therefore can be covered by one type
+<p>because <code>list</code>, <code>tuple</code> and <code>dict</code> are all iterables and therefore can be covered by one type
 (in this specific case).</p>
 </details>
 </li>
 </ol>
-<p>This ends the module on coding style. We again want to emphazize that a good coding style is more about having a
-consistent style than strictly following PEP8. A good example of this is Google, that have their own
+<p>This ends the module on coding style. We again want to emphasize that a good coding style is more about having a
+consistent style than strictly following PEP8. A good example of this is Google, which has their own
 <a href="https://google.github.io/styleguide/pyguide.html">style guide for Python</a>. This guide does not match PEP8 exactly, but
-it makes sure that different teams within google that are working on different projects are still to a large degree
+it makes sure that different teams within Google that are working on different projects are still to a large degree
 following the same style and therefore if a project is handed from one team to another then at least that will not be a
 problem.</p>
 
@@ -2729,7 +2729,7 @@ problem.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 20, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

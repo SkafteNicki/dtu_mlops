@@ -1874,9 +1874,9 @@
 </div>
 <p>One way that deep learning fundamentally changed the way we think about data in machine learning is that <em>more data is
 always better</em>. This was very much not the case with more traditional machine learning algorithms (random forest,
-support vector machines etc.) where a plateau in performance was often reached for a certain amount of data and did not
-improve if more was added. However, as deep learning models have become deeper and deeper and thereby more and more
-data-hungry performance seems to be ever increasing or at least not reaching a plateau in the same way as for
+support vector machines, etc.) where a plateau in performance was often reached for a certain amount of data and did not
+improve if more was added. However, as deep learning models have become deeper and deeper, more and more
+data-hungry performance seems to be ever-increasing or at least not reaching a plateau in the same way as for
 traditional machine learning.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/ml_data.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ml_data.png" width="500" /></a></p>
@@ -1885,13 +1885,13 @@ traditional machine learning.</p>
 </figcaption>
 </figure>
 <p>As we are trying to feed more and more data into our models, the obvious first question to ask is how to do this
-efficiently. As a general rule of thumb, we want the performance bottleneck to be the forward/backward e.g. the
+efficiently. As a general rule of thumb, we want the performance bottleneck to be the forward/backward, e.g. the
 actual computation in our neural network and not the data loading. By bottleneck, we here refer to the part of our
 pipeline that is restricting how fast we can process data. If data loading is our bottleneck, then our compute device
 can sit idle while waiting for data to arrive, which is both inefficient and costly. For example, if you are using a
 cloud provider for training deep learning models, you are paying by the hour per device, and thus not using them fully
 can be costly in the long run.</p>
-<p>In the first set of exercises, we are therefore going to focus on distributed data loading i.e. how to load data in
+<p>In the first set of exercises, we are therefore going to focus on distributed data loading, i.e., how to load data in
 parallel to make sure that we always have data ready for our compute devices. We are in the following going to look
 at what is going on behind the scenes when we use PyTorch to parallelize data loading.</p>
 <h2 id="a-closer-look-at-data-loading">A closer look at Data loading</h2>
@@ -1900,17 +1900,17 @@ brain of your computer).</p>
 <figure>
 <p><a class="glightbox" href="../../figures/cpu_layout.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_layout.PNG" width="500" /></a></p>
 </figure>
-<p>Most modern CPUs is a single chip that consists of multiple <em>cores</em>. Each core can further be divided into <em>threads</em>.
-In most laptops, the core count is 4 and commonly 2 threads per core. This means that the common laptop has 8 threads.
-The number of threads a compute unit has is important because that directly corresponds to the number of parallel
-operations that can be executed i.e. one per thread. In a Python terminal you should be able to get the number of
-cores in your machine by writing (try it):</p>
+<p>Most modern CPUs are a single chip that consists of multiple <em>cores</em>. Each core can further be divided into <em>threads</em>.
+In most laptops, the core count is 4 and there are commonly 2 threads per core. This means that the common laptop has
+8 threads. The number of threads a compute unit has is important because that directly corresponds to the number of
+parallel operations that can be executed, i.e., one per thread. In a Python terminal you should be able to get the
+number of cores in your machine by writing (try it):</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">cores</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of cores: </span><span class="si">{</span><span class="n">cores</span><span class="si">}</span><span class="s2">, Number of threads: </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">cores</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>A distributed application is in general any kind of application that parallelizes some or all of its workload. We are
-in these exercises only focusing on distributed data loading, which happens primarily only on the CPU. In <code>PyTorch</code> it
+<p>A distributed application is in general any kind of application that parallelizes some or all of its workload.
+In these exercises we focus only on distributed data loading, which happens primarily only on the CPU. In <code>PyTorch</code> it
 is easy to parallelize data loading if you are using their dataset/data loader interface:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
@@ -1943,11 +1943,11 @@ to the four worker threads. With 8 indices and 4 workers, each worker will recei
 <p><a class="glightbox" href="../../figures/cpu_data_loading2.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading2.PNG" width="500" /></a></p>
 </figure>
 <p>Each worker thread then calls the <code>__getitem__</code> method for all the indices it has received. When all processes are done,
-the loaded images data points gets sent back to the master thread and collected into a single structure/tensor.</p>
+the loaded images get sent back to the master thread and collected into a single structure/tensor.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/cpu_data_loading3.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cpu_data_loading3.PNG" width="500" /></a></p>
 </figure>
-<p>Each arrow is corresponds to a communication between two threads, which is not a free operation. In total to get a
+<p>Each arrow corresponds to a communication between two threads, which is not a free operation. In total to get a
 single batch (not counting the initial startup cost) in this example we need to do 8 communication operations. This may
 seem like a small price to pay, but that may not be the case. If the processing time of <code>__getitem__</code> is very low (
 data is stored in memory, we just need to index to get it) then it does not make sense to use multiprocessing. The
@@ -1968,14 +1968,14 @@ the raw data files (.jpg) at runtime.</p>
     of the dataset.</p>
 </li>
 <li>
-<p>We provide the <code>lfw_dataset.py</code> file where we have started the process of defining a data class. Fill out the
+<p>We provide the <code>lfw_dataset.py</code> file where we have started the process of defining a data class. Fill out
     <code>__init__</code>, <code>__len__</code> and <code>__getitem__</code>. Note that <code>__getitem__</code> expects that you return a single <code>img</code> which should
     be a <code>torch.Tensor</code>. Loading should be done using <a href="https://pillow.readthedocs.io/en/stable/">PIL Image</a>, as <code>PIL</code>
     images are the default input format for <a href="https://pytorch.org/vision/stable/transforms.html">torchvision</a> for
     transforms (for data augmentation).</p>
 </li>
 <li>
-<p>Make sure that the script runs without any additional arguments</p>
+<p>Make sure that the script runs without any additional arguments.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>lfw_dataset.py
 </span></code></pre></div>
 </li>
@@ -1987,14 +1987,14 @@ the raw data files (.jpg) at runtime.</p>
 <p>Hint: this <a href="https://pytorch.org/vision/stable/auto_examples/others/plot_visualization_utils.html">tutorial</a>.</p>
 </li>
 <li>
-<p>Experiment how the number of workers influences the performance. We have already provide code that will pass over 100
-    batches from the dataset 5 times and calculate how long time it took, which you can play around with by calling</p>
+<p>Explore how the number of workers influences the performance. We have already provided code that will pass over 100
+    batches from the dataset 5 times and calculate how long it took, which you can play around with by calling</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>lfw_dataset.py<span class="w"> </span>-get_timing<span class="w"> </span>-num_workers<span class="w"> </span><span class="m">1</span>
 </span></code></pre></div>
-<p>Make a <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.errorbar.html">errorbar plot</a> with number of
+<p>Make an <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.errorbar.html">errorbar plot</a> with the number of
 workers along the x-axis and the timing along the y-axis. The errorbars should correspond to the standard deviation
-over the 5 runs. HINT: if it is taking too long to evaluate, measure the time over less batches (set the
-<code>-batches_to_check</code> flag). Also if you are not seeing an improvement, try increasing the batch size (since data
+over the 5 runs. HINT: if it is taking too long to evaluate, measure the time over fewer batches (set the
+<code>-batches_to_check</code> flag). Also if you are not seeing any improvement, try increasing the batch size (since data
 loading is parallelized per batch).</p>
 <p>For certain machines like the Mac with M1 chipset it is necessary to set the <code>multiprocessing_context</code> flag in the
 dataloder to <code>"fork"</code>. This essentially tells the dataloader how the worker nodes should be created.</p>
@@ -2007,12 +2007,12 @@ dataloder to <code>"fork"</code>. This essentially tells the dataloader how the 
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">])</span>
 </span></code></pre></div>
-<p>by making the augmentation more computationally demanding, it should be easier to get a boost in performance when
+<p>By making the augmentation more computationally demanding, it should be easier to get a boost in performance when
 using multiple workers because the data augmentation is also executed in parallel.</p>
 </li>
 <li>
 <p>(Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the <code>pin_memory</code> flag
-    to <code>True</code>. By setting this flag we are essentially telling PyTorch that they can lock the data in place in memory
+    to <code>True</code>. By setting this flag we are essentially telling PyTorch that it can lock the data in place in memory
     which will make the transfer between the <em>host</em> (CPU) and the <em>device</em> (GPU) faster.</p>
 </li>
 </ol>

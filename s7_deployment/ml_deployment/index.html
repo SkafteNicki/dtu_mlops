@@ -1936,16 +1936,16 @@ machine learning models:</p>
     model on a GPU, where the overhead of loading the model is significant.</p>
 </li>
 <li>
-<p>Async inference: FastAPi does support async requests but not no way to call the model asynchronously. This means that
+<p>Async inference: FastAPI does support async requests but not a way to call the model asynchronously. This means that
     if you have a large number of requests coming in, you will have to wait for the model to finish processing (because
     the model is not async) before you can start processing the next request.</p>
 </li>
 <li>
 <p>Native GPU support: you can definitely run part of your application in FastAPI if you want to. But again it was not
-    build with machine learning in mind, so you will have to do some extra work to get it to work.</p>
+    built with machine learning in mind, so you will have to do some extra work to get it to work.</p>
 </li>
 </ul>
-<p>It should come as no surprise that multiple frameworks have therefore sprung up that better supports deployment of
+<p>It should come as no surprise that multiple frameworks have therefore sprung up that better support deployment of
 machine learning algorithms (just listing a few here):</p>
 <table>
 <thead>
@@ -1984,7 +1984,7 @@ machine learning algorithms (just listing a few here):</p>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/NVIDIA/triton-inference-server">🔗 Link</a></td>
-<td>8.6k</td>
+<td>8.7k</td>
 </tr>
 <tr>
 <td>OpenVINO</td>
@@ -2031,7 +2031,7 @@ machine learning algorithms (just listing a few here):</p>
 </tbody>
 </table>
 <p>The first 7 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
-you model is implemented in (TensorFlow, PyTorch, Jax, Sklearn etc.), whereas the last 3 are backend specific (PyTorch,
+your model is implemented in (TensorFlow, PyTorch, Jax, Sklearn, etc.), whereas the last 3 are backend specific (PyTorch,
 TensorFlow and a custom framework). The first 9 frameworks are model agnostic, meaning that they are intended to work
 with whatever model you have implemented, whereas the last one is model specific in this case to LLM's. When choosing a
 framework to deploy your model, you should consider the following:</p>
@@ -2048,7 +2048,7 @@ framework to deploy your model, you should consider the following:</p>
 </li>
 <li>
 <p><strong>Community</strong>. Some frameworks have a large community, which can be helpful if you run into problems. As an example
-    from the list above, <code>Triton Inference Server</code> is developed by Nvidia and has a large community of users. As a good
+    from the list above, <code>Triton Inference Server</code> was developed by Nvidia and has a large community of users. As a good
     rule of thumb, the more stars a repository has on GitHub, the larger the community.</p>
 </li>
 </ul>
@@ -2057,14 +2057,14 @@ use and having a lot of features that can improve the performance of serving you
 this serving framework, we are going to look at a general way to package our machine learning models that should work
 with most of the above frameworks.</p>
 <h2 id="model-packaging">Model Packaging</h2>
-<p>Whenever we want to serve a machine learning model, we in general need 3 things:</p>
+<p>Whenever we want to serve a machine learning model, we in general need three things:</p>
 <ul>
-<li>The computational graph of the model, e.g. how to pass data through the model to get a prediction.</li>
-<li>The weights of the model, e.g. the parameters that the model has learned during training.</li>
+<li>The computational graph of the model, e.g. how to pass data through the model to get a prediction</li>
+<li>The weights of the model, e.g. the parameters that the model has learned during training</li>
 <li>A computational backend that can run the model</li>
 </ul>
-<p>In the previous module on <a href="../../s3_reproducibility/docker/">Docker</a> we learned how to package all of these things into
-a container. This is a great way to package a model, but it is not the only way. The core assumption we currently have
+<p>In the past module on <a href="../../s3_reproducibility/docker/">Docker</a> we learned how to package all of these things into
+a container. This is a great way to package a model, but it is not the only way. The core assumption we have currently
 made is that the computational backend is the same as the one we trained the model on. However, this does not need to
 be the case. As long as we can export our model and weights to a common format, we can run the model on any backend
 that supports this format.</p>
@@ -2073,28 +2073,28 @@ standardized format for creating and sharing machine learning models. It defines
 as well as definitions of built-in operators and standard data types. The idea behind ONNX is that a model trained with
 a specific framework on a specific device, let's say PyTorch on your local computer, can be exported and run with an
 entirely different framework and hardware easily. Learning how to export your models to ONNX is therefore a great way
-to increase the longevity of your models and not being locked into a specific framework for serving your models.</p>
+to increase the longevity of your models and not be locked into a specific framework for serving your models.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/onnx.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/onnx.png" width="1000" /></a></p>
 <figcaption>
-The ONNX format is designed to bridge the gap between development and deployment of machine learning models, by making
-it easy to export models between different frameworks and hardware. For example PyTorch is in general considered
-an developer friendly framework, however it has historically been slow to run inference with compared to a framework.
+The ONNX format is designed to bridge the gap between development and deployment of machine learning models by making
+it easy to export models between different frameworks and hardware. For example, PyTorch is in general considered to be
+a developer-friendly framework, though it has historically been slow to run inference with.
 <a href="https://medium.com/trueface-ai/two-benefits-of-the-onnx-library-for-ml-models-4b3e417df52e"> Image credit </a>
 </figcaption>
 </figure>
 <h2 id="exercises">❔ Exercises</h2>
 <ol>
 <li>
-<p>Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command</p>
+<p>Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>onnx<span class="w"> </span>onnxruntime<span class="w"> </span>onnxscript
 </span></code></pre></div>
-<p>the first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
+<p>The first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
 and the third package contains a new experimental package that is designed to make it easier to export models to
 ONNX.</p>
 </li>
 <li>
-<p>Let's start out with converting a model to ONNX. The following code snippets shows how to export a PyTorch model to
+<p>Let's start out by converting a model to ONNX. The following code snippets show how to export a PyTorch model to
     ONNX.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">PyTorch =&gt; 2.0</label><label for="__tabbed_1_2">PyTorch &lt; 2.0 or Windows</label><label for="__tabbed_1_3">PyTorch-lightning</label></div>
 <div class="tabbed-content">
@@ -2172,7 +2172,7 @@ and confirm that the model was exported by checking that the file exists. Can yo
 This is useful when the model can accept inputs of different sizes, e.g. when the model is used in a dynamic
 batching scenario. In the example above we have specified that the first axis of the input tensor should be
 considered dynamic, meaning that the model can accept inputs of different batch sizes. While it may be tempting
-to specify all axes as dynamic, however this can lead to slower inference times, because the ONNX runtime will
+to specify all axes as dynamic, this can lead to slower inference times because the ONNX runtime will
 not be able to optimize the computational graph as well.</p>
 </details>
 </li>
@@ -2193,21 +2193,21 @@ not be able to optimize the computational graph as well.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>When a PyTorch model is exported to ONNX, it is only the <code>forward</code> method of the model that is exported. This
-means that it is the only method we have access to when we load the model later. Therefore, make sure that the
+means that that is the only method we have access to when we load the model later. Therefore, make sure that the
 <code>forward</code> method of your model is implemented in a way that it can be used for inference.</p>
 </details>
 </li>
 <li>
-<p>After converting a model to ONNX format we can use the <a href="https://onnxruntime.ai/docs/">ONNX Runtime</a> to run it.
+<p>After converting a model to ONNX format we can use <a href="https://onnxruntime.ai/docs/">ONNX Runtime</a> to run it.
     The benefit of this is that ONNX Runtime is able to optimize the computational graph of the model, which can lead
-    to faster inference times. Lets try to look into that.</p>
+    to faster inference times. Let's try to look into that.</p>
 <ol>
 <li>
 <p>Figure out how to run a model using the ONNX Runtime. Relevant
     <a href="https://onnxruntime.ai/docs/get-started/with-python.html">documentation</a>.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>To use the ONNX runtime to run a model, we first need to start a inference session, then extract input
+<p>To use the ONNX runtime to run a model, we first need to start an inference session, then extract the input and
 output names of our model and finally run the model. The following code snippet shows how to do this.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rt</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;&lt;path-to-model&gt;&quot;</span><span class="p">)</span>
@@ -2219,7 +2219,7 @@ output names of our model and finally run the model. The following code snippet 
 </details>
 </li>
 <li>
-<p>Let's experiment with performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes to
+<p>Let's experiment with the performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes to
     run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
     have implemented a timing decorator that you can use to measure the time it takes to run a function.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span>
@@ -2372,8 +2372,8 @@ output names of our model and finally run the model. The following code snippet 
 </details>
 </li>
 <li>
-<p>To get a better understanding of why running the model using the ONNX runtime is usually faster lets try to see
-    what happens to the computational graph. By default the ONNX Runtime will apply these optimization in <em>online</em>
+<p>To get a better understanding of why running the model using the ONNX runtime is usually faster let's try to see
+    what happens to the computational graph. By default the ONNX Runtime will apply this optimization in <em>online</em>
     mode, meaning that the optimizations are applied when the model is loaded. However, it is also possible to apply
     the optimizations in <em>offline</em> mode, such that the optimized model is saved to disk. Below is an example of how
     to do this.</p>
@@ -2389,10 +2389,10 @@ output names of our model and finally run the model. The following code snippet 
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="n">session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;&lt;model_path&gt;&quot;</span><span class="p">,</span> <span class="n">sess_options</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Try to apply the optimizations in offline mode and use <code>netron</code> to visualize both the original and optimized
-model side by side. Can you see any differences?</p>
+models side by side. Can you see any differences?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>You should hopefully see that the optimized model consist of fewer nodes and edges than the original model.
+<p>You should hopefully see that the optimized model consists of fewer nodes and edges than the original model.
 These nodes are often called fused nodes, because they are the result of multiple nodes being fused
 together. In the image below we have visualized the first part of the computational graph of a resnet18
 model, before and after optimization.</p>
@@ -2404,13 +2404,13 @@ model, before and after optimization.</p>
 </ol>
 </li>
 <li>
-<p>As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engine.
-    You can check all providers and all the available providers by running the following code</p>
+<p>As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engines.
+    You can check all the providers and all the available providers by running the following code:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">onnxruntime</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_all_providers</span><span class="p">())</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_available_providers</span><span class="p">())</span>
 </span></code></pre></div>
-<p>Can you figure out how to set which provide the ONNX runtime should use?</p>
+<p>Can you figure out how to set which provider the ONNX runtime should use?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The provider that the ONNX runtime should use can be set by passing the <code>providers</code> argument to the
@@ -2424,15 +2424,15 @@ listed.</p>
 </details>
 </li>
 <li>
-<p>As you have probably realised in the exercises <a href="../../s3_reproducibility/docker/">on docker</a>, it can take a long time
+<p>As you have probably realized in the exercises <a href="../../s3_reproducibility/docker/">on docker</a>, it can take a long time
     to build the kind of containers we are working with and they can be quite large. There is a reason for this and that
     is that PyTorch is a very large framework with a lot of dependencies. ONNX on the other hand is a much smaller
-    framework. This kind of makes sense, because PyTorch is a framework that primarily was designed for developing e.g.
+    framework. This kind of makes sense, because PyTorch is a framework that primarily was designed for developing, e.g.
     training models, while ONNX is a framework that is designed for serving models. Let's try to quantify this.</p>
 <ol>
 <li>
-<p>Construct a dockerfile that builds a docker image with PyTorch as a dependency. The dockerfile does actually
-    not need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
+<p>Construct a dockerfile that builds a docker image with PyTorch as a dependency. The dockerfile does not actually
+    need to run anything. Repeat the same process for the ONNX runtime. Bonus point for developing a docker
     image that takes a <a href="https://docs.docker.com/build/guide/build-args/">build arg</a> at build time that specifies
     if the image should be built with CUDA support or not.</p>
 <details class="success">
@@ -2504,7 +2504,7 @@ listed.</p>
 <summary>Solution</summary>
 <p>On unix/linux you can use the <a href="https://linuxize.com/post/linux-time-command/">time</a> command to measure
 the time it takes to build the containers. Building both images, with and without CUDA support, can be done
-with the following commands</p>
+with the following commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>pytorch_inference_cuda:latest<span class="w"> </span>-f<span class="w"> </span>inference_pytorch.dockerfile<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span><span class="nb">true</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>pytorch_inference:latest<span class="w"> </span>-f<span class="w"> </span>inference_pytorch.dockerfile<span class="w"> </span><span class="se">\</span>
@@ -2514,17 +2514,17 @@ with the following commands</p>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>onnx_inference:latest<span class="w"> </span>-f<span class="w"> </span>inference_onnx.dockerfile<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span>
 </span></code></pre></div>
-<p>the <code>--no-cache</code> flag is used to ensure that the build process is not cached and ensure a fair comparison.
+<p>The <code>--no-cache</code> flag is used to ensure that the build process is not cached and ensures a fair comparison.
 On my laptop this respectively took <code>5m1s</code>, <code>1m4s</code>, <code>0m4s</code>, <code>0m50s</code> meaning that the ONNX
 container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the PyTorch container.</p>
 </details>
 </li>
 <li>
-<p>Find out the size of the two docker images. It can be done in the terminal by running the <code>docker images</code>
+<p>Figure out the sizes of the two docker images. This can be done in the terminal by running the <code>docker images</code>
     command. How much smaller is the ONNX model compared to the PyTorch model?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>As of writing the docker image containing the PyTorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
+<p>As of writing, the docker image containing the PyTorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
 In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
 respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image.</p>
 </details>
@@ -2532,7 +2532,7 @@ respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image
 </ol>
 </li>
 <li>
-<p>(Optional) Assuming you have completed the module on <a href="../apis/">FastAPI</a> try creating a small
+<p>(Optional) Assuming you have completed the module on <a href="../apis/">FastAPI</a>, try creating a small
     FastAPI application that serves a model using the ONNX runtime.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2580,7 +2580,7 @@ respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image
 </details>
 </li>
 </ol>
-<p>This completes the exercises on the ONNX format. Do note that one limitation of the ONNX format is that is is based on
+<p>This completes the exercises on the ONNX format. Do note that one limitation of the ONNX format is that it is based on
 <a href="https://protobuf.dev/">ProtoBuf</a>, which is a binary format. A protobuf file can have a maximum size of 2GB, which means
 that the <code>.onnx</code> format is not enough for very large models. However, through the use of
 <a href="https://onnxruntime.ai/docs/tutorials/web/large-models.html">external data</a> it is possible to circumvent this
@@ -2593,7 +2593,7 @@ cloud version that makes it very easy to deploy models that are coded in BentoML
 in this, you can check out the
 <a href="https://docs.bentoml.com/en/latest/guides/cloud/index.html">BentoML cloud documentation</a>. This business strategy
 of having an open-source product and a cloud product is very common in the machine learning space (HuggingFace,
-LightningAI, Weights and Biases etc.), because it allows companies to make money from the cloud product while still
+LightningAI, Weights and Biases, etc.), because it allows companies to make money from the cloud product while still
 providing a free product to the community.</p>
 </div>
 <p>BentoML is a framework that is designed to make it easy to serve machine learning models. It is designed to be backend
@@ -2642,28 +2642,28 @@ to serve the model using FastAPI.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>bentoml<span class="w"> </span>serve<span class="w"> </span>service:Summarization
 </span></code></pre></div>
 <h3 id="exercises_1">❔ Exercises</h3>
-<p>In general, we advise looking through the <a href="https://docs.bentoml.com/en/latest/index.html">docs</a> for Bento ML if you
+<p>In general, we recommend looking through the <a href="https://docs.bentoml.com/en/latest/index.html">docs</a> for Bento ML if you
 need help with any of the exercises. We are going to assume that you have done the exercises on ONNX and we are
-therefore going to be using <code>BentoML</code> to serve ONNX models. If you have not done this part, you can still follow along
+therefore going to be using <code>BentoML</code> to serve ONNX models. If you have not done that part, you can still follow along
 but you will need to use a PyTorch model instead of an ONNX model.</p>
 <ol>
 <li>
-<p>Install BentoML</p>
+<p>Install BentoML.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>pip<span class="w"> </span>install<span class="w"> </span>bentoml
 </span></code></pre></div>
 <p>Remember to add the dependency to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
-<p>You are in principal free to serve any model you like, but we recommend to just use a
+<p>You are in principal free to serve any model you like, but we recommend just using a
     <a href="https://pytorch.org/vision/stable/index.html">torchvision</a> model as in the ONNX exercises. Write your first service
     in <code>BentoML</code> that serves a model of your choice. We recommend experimenting with providing
     <a href="https://docs.bentoml.com/en/latest/guides/iotypes.html">input/output as tensors</a> because bentoml supports this
-    nativly. Secondly, write a client that can send a request to the service and print the result. Here we recommend
-    using the build in <a href="https://docs.bentoml.com/en/latest/reference/client.html">bentoml.SyncHTTPClient</a>.</p>
+    natively. Secondly, write a client that can send a request to the service and print the result. Here we recommend
+    using the built-in <a href="https://docs.bentoml.com/en/latest/reference/client.html">bentoml.SyncHTTPClient</a>.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The following implements a simple BentoML service that serves a ONNX resnet18 model. The service expects the
-both input and output to be numpy arrays.</p>
+<p>The following implements a simple BentoML service that serves an ONNX resnet18 model. The service expects
+both the input and output to be numpy arrays.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_service.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
@@ -2702,10 +2702,10 @@ both input and output to be numpy arrays.</p>
 </span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
 </span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span></code></pre></div></td></tr></table></div>
-<p>The service can be served using the following command</p>
+<p>The service can be served using the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>bentoml<span class="w"> </span>serve<span class="w"> </span>bentoml_service:ImageClassifierService
 </span></code></pre></div>
-<p>To test that the service works the following client can be used</p>
+<p>To test that the service works the following client can be used:</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_client.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-20-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-20-3"> 3</a></span>
@@ -2737,9 +2737,9 @@ both input and output to be numpy arrays.</p>
 </details>
 </li>
 <li>
-<p>We are now going to look at features very <code>BentoML</code> really sets itself apart from <code>FastAPI</code>. The first is
+<p>We are now going to look at features where <code>BentoML</code> really sets itself apart from <code>FastAPI</code>. The first is
     <em>adaptive batching</em>. As you are hopefully aware, modern machine learning models can process multiple samples at the
-    same time and in doing so increases the throughput of the model. When we train a model we often set a fixed
+    same time and in doing so increase the throughput of the model. When we train a model we often set a fixed
     batch size, however we cannot do that when serving the model because that would mean that we would have to wait for
     the batch to be full before we can process it. <em>Adaptive batching</em> simply refers to the process where we specify a
     <em>maximum batch size</em> and also a <em>timeout</em>. When either the batch is full or the timeout is reached, however many
@@ -2750,7 +2750,7 @@ both input and output to be numpy arrays.</p>
 <a class="glightbox" href="../../figures/bentoml_adaptive_batching.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/bentoml_adaptive_batching.png" width="700" /></a>
 <figcaption>
 The overall architecture of the adaptive batching feature in BentoML. The feature is implemented on the server side
-and mainly consist of dispatcher that is in charge of collecting requests and sending them to the model server when
+and mainly consists of a dispatcher that is in charge of collecting requests and sending them to the model server when
 either the batch is full or a timeout is reached.
 <a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html"> Image credit </a>
 </figcaption>
@@ -2820,7 +2820,7 @@ either the batch is full or a timeout is reached.
     model.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The following locust file can be used to measure the throughput of the model with and without adaptive</p>
+<p>The following locust file can be used to measure the throughput of the model with and without adaptive batching</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">locustfile.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
@@ -2907,8 +2907,8 @@ class MyService:
 </li>
 <li>
 <p>Another way to speed up the inference is to just use multiple workers. This duplicates the server over multiple
-    processes taking advantage of modern multi-core CPUs. This is similar to running <code>uvicorn</code> command with the
-    <code>--workers</code> flag for fastapi applications. Implement multiple workers in your service and test that it works as
+    processes taking advantage of modern multi-core CPUs. This is similar to running the <code>uvicorn</code> command with the
+    <code>--workers</code> flag for FastAPI applications. Implement multiple workers in your service and test that it works as
     expected by testing it with the client from the previous exercise. Also test that you are seeing a speedup when
     running with multiple workers.</p>
 <details class="success">
@@ -2925,24 +2925,24 @@ higher than using a single worker.</p>
 </li>
 <li>
 <p>In addition to increasing the throughput of your deployments <code>BentoML</code> can also help with ML applications that
-    requires some kind of composition of multiple models. It is very normal in production setups to have multiple models
+    require some kind of composition of multiple models. It is very normal in production setups to have multiple models
     that either</p>
 <ul>
-<li>Runs in a sequence, e.g. the output of one model is the input of another model. You may have a preprocessing
+<li>Run in a sequence, e.g., the output of one model is the input of another model. You may have a preprocessing
     service that preprocesses the data before it is sent to a model that makes a prediction.</li>
-<li>Runs concurrently, e.g. you have multiple models that are run at the same time and the output of all the models
+<li>Run concurrently, e.g., you have multiple models that are run at the same time and the outputs of all the models
     are combined to make a prediction. Ensemble models are a good example of this.</li>
 </ul>
 <p><code>BentoML</code> makes it easy to
 <a href="https://docs.bentoml.org/en/latest/guides/model-composition.html">compose multiple models together</a>.</p>
 <ol>
 <li>
-<p>Implement two services that runs in a sequence e.g. the output of one service is used as the input of another
+<p>Implement two services that run in a sequence, e.g., the output of one service is used as the input to another
     service. As an example you can implement either some pre- or post-processing service that is used in conjunction
     with the model you have implemented in the previous exercises.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The following code snippet shows how to implement two services that runs in a sequence.</p>
+<p>The following code snippet shows how to implement two services that run in sequence.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_service_composition.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-25-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-25-3"> 3</a></span>
@@ -3024,12 +3024,12 @@ higher than using a single worker.</p>
 </details>
 </li>
 <li>
-<p>Implement three services, where two of them runs concurrently and the output of both services are combined in the
+<p>Implement three services, where two of them run concurrently and the outputs of both services are combined in the
     third service to make a prediction. As an example you can expand your previous service to serve two different
-    models and then implement a third service that combines the output of both models to make a prediction.</p>
+    models and then implement a third service that combines the outputs of both models to make a prediction.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The following code snippet shows how to implement a service that consist of two concurrent services. The
+<p>The following code snippet shows how to implement a service that consists of two concurrent services. The
 example assumes that two models called <code>model_a.onnx</code> and <code>model_b.onnx</code> are available.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_service_composition.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-26-2"> 2</a></span>
@@ -3136,7 +3136,7 @@ example assumes that two models called <code>model_a.onnx</code> and <code>model
 </details>
 </li>
 <li>
-<p>(Optional) Implement a server that consist of both sequential and concurrent services.</p>
+<p>(Optional) Implement a server that consists of both sequential and concurrent services.</p>
 </li>
 </ol>
 </li>
@@ -3144,7 +3144,7 @@ example assumes that two models called <code>model_a.onnx</code> and <code>model
 <p>Similar to deploying a FastAPI application to the cloud, deploying a <code>BentoML</code> framework to the cloud
     often requires you to first containerize the application. Because <code>BentoML</code> is designed to be easy to use for even
     users not that familiar with Docker, it introduces the concept of a <code>bentofile</code>. A <code>bentofile</code> is a file that
-    specifies how the container should be build. Below is an example of how a <code>bentofile</code> could look like.</p>
+    specifies how the container should be built. Below is an example of how a <code>bentofile</code> could look.</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;service:Summarization&#39;</span>
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nt">labels</span><span class="p">:</span>
 </span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bentoml-team</span>
@@ -3156,10 +3156,10 @@ example assumes that two models called <code>model_a.onnx</code> and <code>model
 </span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">torch</span>
 </span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformers</span>
 </span></code></pre></div>
-<p>which can then be used to build a <code>bento</code> using the following command</p>
+<p>This can then be used to build a <code>bento</code> using the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>bentoml<span class="w"> </span>build
 </span></code></pre></div>
-<p>A <code>bento</code> is not a docker image, but it can be used to build a docker image with the following command</p>
+<p>A <code>bento</code> is not a docker image, but it can be used to build a docker image with the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>bentoml<span class="w"> </span>containerize<span class="w"> </span>summarization:latest
 </span></code></pre></div>
 <ol>
@@ -3170,7 +3170,7 @@ example assumes that two models called <code>model_a.onnx</code> and <code>model
 <details class="success">
 <summary>Solution</summary>
 <p>The <code>service</code> part specifies both what the container should be called and also what service it should
-serve e.g. the last statement in the corresponding dockerfile is
+serve, e.g., the last statement in the corresponding dockerfile is
 <code>CMD ["bentoml", "serve", "service:Summarization"]</code>. The <code>labels</code> part is used to specify labels about the
 container, see this <a href="https://docs.docker.com/reference/dockerfile/#label">link</a> for more info. The <code>include</code>
 part corresponds to <code>COPY</code> statements in the dockerfile and finally the <code>python</code> part is used to specify
@@ -3183,7 +3183,7 @@ that are used to generate the dockerfiles. The templates can be found
 </details>
 </li>
 <li>
-<p>Take whatever service from the previous exercises and try to containerize it. You are free to either write a
+<p>Take any service from the previous exercises and try to containerize it. You are free to either write a
     <code>bentofile</code> or a <code>dockerfile</code> to do this.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -3201,7 +3201,7 @@ exercises.</p>
 </span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onnxruntime</span>
 </span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numpy</span>
 </span></code></pre></div>
-<p>The corresponding dockerfile would look something like this</p>
+<p>The corresponding dockerfile would look something like this:</p>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/bento</span>
 </span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="k">COPY</span><span class="w"> </span>bentoml_service.py<span class="w"> </span>.
@@ -3215,8 +3215,8 @@ exercises.</p>
 <p>Deploy the container to GCP Run and test that it works.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The following command can be used to deploy the container to GCP Run. We assume that you have already build
-the container and called it <code>bentoml_service:latest</code>.</p>
+<p>The following command can be used to deploy the container to GCP Run. We assume that you have already built
+the container and called it <code>bentoml_service:latest</code></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>bentoml_service:latest<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">    </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>docker<span class="w"> </span>push<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest
@@ -3232,15 +3232,15 @@ now be available at the URL that is printed in the terminal.</p>
 </ol>
 </li>
 </ol>
-<p>This completes the exercises on the <code>BentoML</code> framework. If you want to deep dive more into this we can recommend
+<p>This completes the exercises on the <code>BentoML</code> framework. If you want to deep dive more into this we recommend
 looking into their <a href="https://docs.bentoml.org/en/latest/guides/tasks.html">tasks feature</a> for use cases that have a
-very long running time and build in
+very long running time and built-in
 <a href="https://docs.bentoml.org/en/latest/guides/model-loading-and-management.html">model management feature</a> to unify the
 way models are loaded, managed and served.</p>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
-<p>How would you export a <code>scikit-learn</code> model to ONNX? What method is exported when you export <code>scikit-learn</code> model to
+<p>How would you export a <code>scikit-learn</code> model to ONNX? What method is exported when you export a <code>scikit-learn</code> model to
     ONNX?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -3258,7 +3258,7 @@ snippet shows how to export a <code>scikit-learn</code> model to ONNX.</p>
 </details>
 </li>
 <li>
-<p>In your own words, describe what the concept of <em>computational graph</em> means?</p>
+<p>In your own words, describe what the concept of <em>computational graph</em> means.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>A computational graph is a way to represent the mathematical operations that are performed in a model. It is
@@ -3270,7 +3270,7 @@ calculate the gradients of the model.</p>
 </li>
 <li>
 <p>In your own words, explain why fusing operations together in the computational graph often leads to better
-    performance?</p>
+    performance.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Each time we want to do a computation, the data needs to be loaded from memory into the CPU/GPU. This is a
@@ -3283,7 +3283,7 @@ on the same data before we need to load new data.</p>
 <p>This ends the module on tools specifically designed for serving machine learning models. As stated in the beginning of
 the module, there are a lot of different tools that can be used to serve machine learning models and the choice of tool
 often depends on the specific use case. In general, we recommend that whenever you want to serve a machine learning
-model, you should try out a few different frameworks and see which one fits your use case the best.</p>
+model, you try out a few different frameworks and see which one fits your use case best.</p>
 
 
 
@@ -3306,7 +3306,7 @@ model, you should try out a few different frameworks and see which one fits your
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

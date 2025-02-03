@@ -2018,7 +2018,7 @@ scaling inference is different from scaling data loading and training, mainly du
 single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at
 least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference
 is often not something we do on machines that can perform large computations, as most inference today is actually either
-done on <em>edge</em> devices e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
+done on <em>edge</em> devices, e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
 about how we scale inference than just throwing more computing power at it.</p>
 <p>In this module, we are going to look at various ways that you can either reduce the size of your model or make your
 model faster. Both are important for running inference fast regardless of the setup you are running your model on. We
@@ -2031,7 +2031,7 @@ directly choose the same architecture or create some slight variation hereof. Th
 but the architecture that you end up choosing may be optimal in terms of performance but not inference speed.</p>
 <p>The fact is that not all base architectures are created equal, and a 10K parameter model with one architecture can have
 a significantly different inference speed than another 10K parameter model with another architecture. For example,
-consider the figure below which compares an number of models from the
+consider the figure below which compares a number of models from the
 <a href="https://github.com/huggingface/pytorch-image-models">timm</a> package, colored based on their base architecture. The
 general trend is that the number of images that can be processed by a model per sec (y-axis) is inversely proportional
 to the number of parameters (x-axis). However, we in general see that convolutional base architectures (conv) are more
@@ -2049,13 +2049,13 @@ architecture. In the exercises below we are going to investigate the inference s
 <li>
 <p>Start by checking out this
     <a href="https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights">table</a>
-    which contains a list of pretrained weights in <code>torchvision</code>. Try finding an</p>
+    which contains a list of pretrained weights in <code>torchvision</code>. Try finding</p>
 <ul>
 <li>Efficient net</li>
 <li>Resnet</li>
 <li>Transformer based</li>
 </ul>
-<p>model that has in the range of 20-30 mio parameters.</p>
+<p>models that have in the range of 20-30 million parameters.</p>
 </li>
 <li>
 <p>Write a small script that first initializes all models, creates a dummy input tensor of shape [100, 3, 256, 256] and
@@ -2084,18 +2084,18 @@ the swin v2 transformer tiny (28.4M parameters) models.</p>
 </details>
 </li>
 <li>
-<p>Does the results make sense? Based on the above figure we would expect that efficientnet is faster than resnet,
+<p>Do the results make sense? Based on the above figure we would expect that efficientnet is faster than resnet,
     which is faster than the transformer based model. Is this also what you are seeing?</p>
 </li>
 <li>
-<p>To figure out why one net is more efficient than another we can try to count the operations each network need to
-    do for inference. A operation here we can define as a
+<p>To figure out why one net is more efficient than another we can try to count the operations each network needs to
+    perform for inference. An operation here we can define as a
     <a href="https://en.wikipedia.org/wiki/FLOPS">FLOP (floating point operation)</a> which is any mathematical operation (such as
     +, -, *, /) or assignment that involves floating-point numbers. Luckily for us someone has already created a python
     package for calculating this in pytorch: <a href="https://github.com/sovrasov/flops-counter.pytorch">ptflops</a></p>
 <ol>
 <li>
-<p>Install the package</p>
+<p>Install the package.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ptflops
 </span></code></pre></div>
 </li>
@@ -2122,7 +2122,7 @@ the swin v2 transformer tiny (28.4M parameters) models.</p>
 </li>
 <li>
 <p>In the table from the initial exercise, you could also see the overall performance of each network on the
-    Imagenet-1K dataset. Given this performance, the inference speed, the flops count what network would you choose
+    Imagenet-1K dataset. Given this performance, the inference speed, the flops count, what network would you choose
     to use in a production setting? Discuss when choosing one over another should be considered.</p>
 </li>
 </ol>
@@ -2135,25 +2135,25 @@ We are essentially taking all continuous signals and converting them into discre
 </figure>
 <p>As discussed in this
 <a href="https://devblog.pytorchlightning.ai/benchmarking-quantized-mobile-speech-recognition-models-with-pytorch-lightning-and-grid-9a69f7503d07">blogpost series</a>,
-while <code>float</code> (32-bit) is the primarily used precision in machine learning because is strikes a good balance between
-memory consumption, precision and computational requirement it does not mean that during inference we can take
+while <code>float</code> (32-bit) is the primarily used precision in machine learning because it strikes a good balance between
+memory consumption, precision and computational requirements, it does not mean that during inference we can't take
 advantage of quantization to improve the speed of our model. For instance:</p>
 <ul>
 <li>
-<p>Floating-point computations are slower than integer operations</p>
+<p>Floating-point computations are slower than integer operations.</p>
 </li>
 <li>
-<p>Recent hardware have specialized hardware for doing integer operations</p>
+<p>Recent hardware have specialized hardware for doing integer operations.</p>
 </li>
 <li>
 <p>Many neural networks are actually not bottlenecked by how many computations they need to do but by how fast we can
-    transfer data e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit
-    integers vs 32-bit floats means that we can approximately move data around 4 times as fast.</p>
+    transfer data, e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit
+    integers vs. 32-bit floats means that we can approximately move data around 4 times as fast.</p>
 </li>
 <li>
-<p>Storing models in integers instead of floats save us approximately 75% of the ram/harddisk space whenever we save
+<p>Storing models in integers instead of floats saves us approximately 75% of the ram/harddisk space whenever we save
     a checkpoint. This is especially useful in relation to deploying models using docker (as you hopefully remember) as
-    it will lower the size of our docker images.</p>
+    it will decrease the size of our docker images.</p>
 </li>
 </ul>
 <p>But how do we convert between floats and integers in quantization? In most cases we often use a
@@ -2161,9 +2161,9 @@ advantage of quantization to improve the speed of our model. For instance:</p>
 <p>$$
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$</p>
-<p>where $s$ is a scale and $z$ is the so called zero point. But how does to doing inference in a neural network. The
-figure below shows all the conversations that we need to make to our standard inference pipeline to actually do
-computations in quantized format.</p>
+<p>where $s$ is a scale and $z$ is the so-called zero point. But how does that relate to doing inference in a neural
+network? The figure below shows all the conversations that we need to make to our standard inference pipeline to
+actually do computations in quantized format.</p>
 <!-- markdownlint-disable -->
 <figure>
 <p><a class="glightbox" href="../../figures/quantization_overview.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quantization_overview.png" width="600" /></a></p>
@@ -2176,47 +2176,47 @@ computations in quantized format.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
 <li>
-<p>Lets look at how quantized tensors look in PyTorch</p>
+<p>Let's look at how quantized tensors look in PyTorch.</p>
 <ol>
 <li>
-<p>Start by creating a tensor that contains both random numbers</p>
+<p>Start by creating a tensor that contains both random numbers.</p>
 </li>
 <li>
 <p>Next call the <code>torch.quantize_per_tensor</code> function on the tensor. What does the quantized tensor
-    look like? How does the values relate to the <code>scale</code> and <code>zero_point</code> arguments.</p>
+    look like? How do the values relate to the <code>scale</code> and <code>zero_point</code> arguments?</p>
 </li>
 <li>
 <p>Finally, try to call the <code>.dequantize()</code> method on the tensor. Do you get a tensor back that is
-    close to what you initially started out with.</p>
+    close to what you initially started out with?</p>
 </li>
 </ol>
 </li>
 <li>
 <p>As you hopefully saw in the first exercise we are going to perform a number of rounding errors when
-    doing quantization and naively we would expect that this would accumulate and lead to a much worse model.
+    doing quantization and naively we would expect that these would accumulate and lead to a much worse model.
     However, in practice we observe that quantization still works, and we actually have a mathematically
     sound reason for this. Can you figure out why quantization still works with all the small rounding
     errors? HINT: it has to do with the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a></p>
 </li>
 <li>
-<p>Lets move on to quantization of our model. Follow this
+<p>Let's move on to quantization of our model. Follow this
     <a href="https://pytorch.org/docs/stable/quantization.html">tutorial</a> from PyTorch on how to do quantization. The goal is
     to construct a model <code>model_fc32</code> that works on normal floats and a quantized version <code>model_int8</code>. For simplicity
     you can just use one of the models from the tutorial.</p>
 </li>
 <li>
-<p>Lets try to benchmark our quantized model and see if all the trouble that we went through actually paid of. Also
+<p>Let's try to benchmark our quantized model and see if all the trouble that we went through actually paid off. Also
     try to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an
     improvement, explain why that may be.</p>
 </li>
 </ol>
 <h2 id="pruning">Pruning</h2>
-<p>Pruning is another way for reducing the model size and maybe improve performance of our network. As the figure below
+<p>Pruning is another way to reduce the model size and maybe improve the performance of our network. As the figure below
 illustrates, in pruning we are simply removing weights in our network that we do not consider important for the task
 at hand. By removing, we here mean that the weight gets set to 0. There are many ways to determine if a weight is
-important but the general rule that the importance of a weight is proportional to the magnitude of a given weight. This
-makes intuitively sense, since weights in all linear operations (fully connected or convolutional) are always
-multiplied onto the incoming value, thus a small weight means a small outgoing activation.</p>
+important but the general rule is that the importance of a weight is proportional to the magnitude of a given weight. This
+intuitively makes sense, since weights in all linear operations (fully connected or convolutional) are always
+multiplied by the incoming value, thus a small weight means a small outgoing activation.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/pruning.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pruning.png" width="800" /></a></p>
 <figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
@@ -2230,32 +2230,32 @@ multiplied onto the incoming value, thus a small weight means a small outgoing a
     Open and run it just to make sure that you know the network.</p>
 </li>
 <li>
-<p>PyTorch have already some pruning methods implemented in its package.
+<p>PyTorch already has some pruning methods implemented in its package.
     Import the <code>prune</code> module from <code>torch.nn.utils</code> in the script.</p>
 </li>
 <li>
-<p>Try to prune the weights of the first convolutional layer by calling</p>
+<p>Try to prune the weights of the first convolutional layer by calling.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">prune</span><span class="o">.</span><span class="n">random_unstructured</span><span class="p">(</span><span class="n">module_1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># (1)!</span>
 </span></code></pre></div>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You can read about the prune method
     <a href="https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured">here</a>.</li>
 </ol>
-<p>Try printing the <code>named_parameters</code>, <code>named_buffers</code> before and after the module is pruned. Can you explain the
-difference and what is the connection to the <code>module_1.weight</code> attribute.</p>
+<p>Try printing <code>named_parameters</code> and <code>named_buffers</code> before and after the module is pruned. Can you explain the
+difference and what the connection is to the <code>module_1.weight</code> attribute?</p>
 </li>
 <li>
 <p>Try pruning the bias of the same module this time using the <code>l1_unstructured</code> function from the pruning module. Again
-    check the  <code>named_parameters</code>, <code>named_buffers</code> argument to make sure you understand the difference between L1 pruning
+    check the <code>named_parameters</code> and <code>named_buffers</code> arguments to make sure you understand the difference between L1 pruning
     and unstructured pruning.</p>
 </li>
 <li>
-<p>Instead of pruning only a single module in the model lets try pruning the whole model. To do this we just need to
+<p>Instead of pruning only a single module in the model let's try pruning the whole model. To do this we just need to
     iterate over all <code>named_modules</code> in the model like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">new_model</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">prune</span><span class="o">.</span><span class="n">l1_unstructured</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 </span></code></pre></div>
-<p>But what if we wanted to apply different pruning to different layers. Implement a pruning scheme where</p>
+<p>But what if we wanted to apply different pruning to different layers? Implement a pruning scheme where</p>
 <ul>
 <li>The weights of convolutional layers are L1 pruned with <code>amount=0.2</code></li>
 <li>The weights of linear layers are unstructured pruned with <code>amount=0.4</code></li>
@@ -2264,13 +2264,13 @@ difference and what is the connection to the <code>module_1.weight</code> attrib
 correctly pruned.</p>
 </li>
 <li>
-<p>The pruning we have looked at until know have only been local in nature e.g. we have applied the pruning
+<p>The pruning we have looked at until now has only been local in nature, i.e., we have applied the pruning
     independently for each layer, not accounting globally for how much we should actually prune. As you may realize this
-    can quickly lead to an network that is pruned too much. Instead, the more common approach is too prune globally
+    can quickly lead to a network that is pruned too much. Instead, the more common approach is to prune globally
     where we remove the smallest <code>X</code> amount of connections:</p>
 <ol>
 <li>
-<p>Start by creating a tuple over all the weights with the following format</p>
+<p>Start by creating a tuple over all the weights with the following format:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">parameters_to_prune</span> <span class="o">=</span> <span class="p">(</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">),</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="c1"># fill in the rest of the modules yourself</span>
@@ -2278,10 +2278,10 @@ correctly pruned.</p>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>The tuple needs to have length 5. Challenge: Can you construct the tuple using <code>for</code> loops, such that the code
-works for arbitrary size networks?</p>
+works for arbitrary-size networks?</p>
 </li>
 <li>
-<p>Next prune using the <code>global_unstructured</code> function to globally prune the tuple of parameters</p>
+<p>Next prune using the <code>global_unstructured</code> function to globally prune the tuple of parameters.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">prune</span><span class="o">.</span><span class="n">global_unstructured</span><span class="p">(</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">parameters_to_prune</span><span class="p">,</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">pruning_method</span><span class="o">=</span><span class="n">prune</span><span class="o">.</span><span class="n">L1Unstructured</span><span class="p">,</span>
@@ -2290,9 +2290,9 @@ works for arbitrary size networks?</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Check that the amount that have been pruned is actually equal to the 20% specified in the pruning. We provide
-    the following function that for a given submodule (for example <code>model.conv1</code>) computes the amount of pruned
-    weights</p>
+<p>Check that the amount that has been pruned is actually equal to the 20% specified in the pruning. We provide
+    the following function that for a given submodule (for example <code>model.conv1</code>) computes the number of pruned
+    weights.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">check_prune_level</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">sparsity_level</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">numel</span><span class="p">())</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sparsity level of module </span><span class="si">{</span><span class="n">sparsity_level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2301,7 +2301,7 @@ works for arbitrary size networks?</p>
 </ol>
 </li>
 <li>
-<p>With a pruned network we really want to see if all our effort actually ended up with a network that is faster and/or
+<p>With a pruned network we really want to see if all our effort actually resulted in a network that is faster and/or
     smaller in memory. Do the following to the globally pruned network from the previous exercises:</p>
 <ol>
 <li>
@@ -2310,7 +2310,7 @@ works for arbitrary size networks?</p>
     pruned module in the model. Hint: iterate over the <code>parameters_to_prune</code> tuple.</p>
 </li>
 <li>
-<p>Next try to measure the time of a single inference (repeated 100 times) for both the pruned and non-pruned network</p>
+<p>Next try to measure the time of a single inference (repeated 100 times) for both the pruned and non-pruned networks.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
@@ -2318,15 +2318,15 @@ works for arbitrary size networks?</p>
 </span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 </span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">toc</span> <span class="o">-</span> <span class="n">tic</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Is the pruned network actually faster? If not can you explain why?</p>
+<p>Is the pruned network actually faster? If not, can you explain why?</p>
 </li>
 <li>
-<p>Next lets measure the size of our network (called <code>pruned_network</code>) and a freshly initialized network (called
+<p>Next let's measure the size of our network (called <code>pruned_network</code>) and a freshly initialized network (called
     <code>network</code>):</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pruned_network</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s1">&#39;pruned_network.pt&#39;</span><span class="p">)</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s1">&#39;network.pt&#39;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Lookup the size of each file. Are the pruned network actually smaller? If not can you explain why?</p>
+<p>Look up the size of each file. Is the pruned network actually smaller? If not, can you explain why?</p>
 </li>
 <li>
 <p>Repeat the last exercise, but this time start by converting all pruned weights to sparse format first by calling
@@ -2335,18 +2335,18 @@ works for arbitrary size networks?</p>
 </ol>
 </li>
 </ol>
-<p>This ends the exercises on pruning. As you probably realized in the last couple of exercises, then pruning does not
-guarantee speedups out of the box. This is because linear operations in PyTorch does not handle sparse structures out
+<p>This ends the exercises on pruning. As you probably realized in the last couple of exercises, pruning does not
+guarantee speedups out of the box. This is because linear operations in PyTorch do not handle sparse structures out
 of the box. To actually get speedups we would need to deep dive into the
-<a href="https://pytorch.org/docs/stable/sparse.html">sparse tensor operations</a>, which again does not even guarantee that a
+<a href="https://pytorch.org/docs/stable/sparse.html">sparse tensor operations</a>, which again does not even guarantee a
 speedup because the performance of these operations depends on the sparsity structure of the pruned weights.
 Investigating this is out of scope for these exercises, but we highly recommend checking it out if you are interested
 in sparse networks.</p>
 <h2 id="knowledge-distillation">Knowledge distillation</h2>
-<p>Knowledge distillation is somewhat similar to pruning, in the sense that it tries to find a smaller model that can
+<p>Knowledge distillation is somewhat similar to pruning in the sense that it tries to find a smaller model that can
 perform equally well as a large model, however it does so in a completely different way. Knowledge distillation is a
 <em>model compression</em> technique that builds on the work of
-<a href="https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf">Bucila et al.</a> in which we try do distill/compress the
+<a href="https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf">Bucila et al.</a> in which we try to distill/compress the
 knowledge of a large complex model (also called the teacher model) into a simpler model (also called the student model).</p>
 <p>The best known example of this is the <a href="https://arxiv.org/abs/1910.01108">DistilBERT model</a>. The DistilBERT model is a
 smaller version of the large natural-language procession model Bert, which achieves 97% of the performance of Bert while
@@ -2358,26 +2358,26 @@ compared to other models developed at the same time.</p>
 </figure>
 <p>Knowledge distillation works by assuming we have a big teacher that is already performing well that we want to compress.
 By running our training set through our large model we get a softmax distribution for each and every training sample.
-The goal of the students, is to both match the original labels of the training data but also match the softmax
-distribution of the teacher model. The intuition behind doing this, is that teacher model needs to be more complex to
-learn the complex inter-class relasionship from just (one-hot) labels. The student on the other hand gets directly feed
-with softmax distributions from the teacher that explicit encodes this inter-class relasionship and thus does not need
-the same capasity to learn the same as the teacher.</p>
+The goal of the student is to both match the original labels of the training data but also match the softmax
+distribution of the teacher model. The intuition behind doing this is that the teacher model needs to be more complex to
+learn the complex inter-class relationship from just (one-hot) labels. The student on the other hand gets directly fed
+with softmax distributions from the teacher that explicitly encodes this inter-class relasionship and thus does not need
+the same capacity to learn as the teacher.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/knowledge_distillation.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/knowledge_distillation.png" width="800" /></a></p>
 <figcaption> <a href="https://deeplearningsystems.ai/#ch06/"> Image credit </a> </figcaption>
 </figure>
 <h3 id="exercises_3">❔ Exercises</h3>
-<p>Lets try implementing model distillation ourself. We are going to see if we can achieve this on the
-<a href="https://www.cs.toronto.edu/~kriz/cifar.html">cifar10</a> dataset. Do note that exercise below can take quite long time to
-finish because it involves training multiple networks and therefore involve some waiting.</p>
+<p>Let's try implementing model distillation ourselves. We are going to see if we can accomplish this on the
+<a href="https://www.cs.toronto.edu/~kriz/cifar.html">cifar10</a> dataset. Do note that the exercises below can take quite a long
+time to finish because they involve training multiple networks and therefore involve some waiting.</p>
 <ol>
 <li>
 <p>Start by install the <code>transformers</code> and <code>datasets</code> packages from Huggingface</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span>transformers
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>pip<span class="w"> </span>install<span class="w"> </span>datasets
 </span></code></pre></div>
-<p>which we are going to download the cifar10 dataset and a teacher model.</p>
+<p>from which we are going to download the cifar10 dataset and a teacher model.</p>
 </li>
 <li>
 <p>Next download the cifar10 dataset</p>
@@ -2386,7 +2386,7 @@ finish because it involves training multiple networks and therefore involve some
 </span></code></pre></div>
 </li>
 <li>
-<p>Next lets initialize our teacher model. For this we consider a large transformer based model:</p>
+<p>Next let's initialize our teacher model. For this we consider a large transformer-based model:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoFeatureExtractor</span><span class="p">,</span> <span class="n">AutoModelForImageClassification</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">extractor</span> <span class="o">=</span> <span class="n">AutoFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;aaraki/vit-base-patch16-224-in21k-finetuned-cifar10&quot;</span><span class="p">)</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForImageClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;aaraki/vit-base-patch16-224-in21k-finetuned-cifar10&quot;</span><span class="p">)</span>
@@ -2449,7 +2449,7 @@ finish because it involves training multiple networks and therefore involve some
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

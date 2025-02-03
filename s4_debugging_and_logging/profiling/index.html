@@ -1928,21 +1928,21 @@ somewhat narrow approach to what "performance" is: runtime, meaning the time it 
 <li><em>“ How many times is each method in my code called?”</em></li>
 <li><em>“ How long do each of these methods take?”</em></li>
 </ul>
-<p>The first question can help us priorities what to optimize. If two methods <code>A</code> and <code>B</code> have approximately the same
+<p>The first question can help us prioritize what to optimize. If two methods <code>A</code> and <code>B</code> have approximately the same
 runtime, but <code>A</code> is called 1000 more times than <code>B</code> we should probably spend time optimizing <code>A</code> over <code>B</code> if we want
-to speed up our code. The second question is gives itself, directly telling us which methods are the expensive to call.</p>
+to speed up our code. The second question directly tells us which methods are expensive to call.</p>
 <p>Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the <a href="https://docs.python.org/3/library/profile.html">cProfile</a>. <code>cProfile</code> is
-pythons build in profiler that can help give you an overview runtime of all the functions and methods involved in your
+python's built-in profiler that can help give you an overview runtime of all the functions and methods involved in your
 programs.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
-<p>Run the <code>cProfile</code> on the <code>vae_mnist_working.py</code> script. Hint: you can directly call the profiler on a
-    script using the <code>-m</code> arg</p>
+<p>Run <code>cProfile</code> on the <code>vae_mnist_working.py</code> script. Hint: you can directly call the profiler on a
+    script using the <code>-m</code> arg:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>cProfile<span class="w"> </span>-s<span class="w"> </span>&lt;sort_order&gt;<span class="w"> </span>myscript.py
 </span></code></pre></div>
-<p>to write the output to a file you can use the <code>-o</code> argument</p>
+<p>To write the output to a file you can use the <code>-o</code> argument:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>cProfile<span class="w"> </span>-s<span class="w"> </span>&lt;sort_order&gt;<span class="w"> </span>-o<span class="w"> </span>profile.txt<span class="w"> </span>myscript.py
 </span></code></pre></div>
 <details class="example">
@@ -2274,7 +2274,7 @@ programs.</p>
     show the content of the <code>profile.txt</code> file?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>If you try to open <code>profile.txt</code> in a text editor you will see that it is not very human readable. To get a
+<p>If you try to open <code>profile.txt</code> in a text editor you will see that it is not very human-readable. To get a
 better overview of the profiling you can use the <code>pstats</code> module to read the file and print the results in a
 more readable format. For example, to print the 10 functions that took the longest time to run you can use the
 following code:</p>
@@ -2285,8 +2285,8 @@ following code:</p>
 </details>
 </li>
 <li>
-<p>Can you explain the difference between <code>tottime</code> and <code>cumtime</code>? Under what circumstances does these differ and
-    when are they equal.</p>
+<p>Can you explain the difference between <code>tottime</code> and <code>cumtime</code>? Under what circumstances do these differ and
+    when are they equal?</p>
 <details class="success">
 <summary>Solution</summary>
 <p><code>tottime</code> is the total time spent in the function excluding time spent in subfunctions. <code>cumtime</code> is the total
@@ -2297,23 +2297,23 @@ time spent in the function including time spent in subfunctions. Therefore, <cod
 <li>
 <p>To get a better feeling of the profiled result we can try to visualize it. Python does not
     provide a native solution, but open-source solutions such as <a href="https://jiffyclub.github.io/snakeviz/">snakeviz</a>
-    exist. Try installing <code>snakeviz</code> and load a profiled run into it (HINT: snakeviz expect the run to have the file
+    exist. Try installing <code>snakeviz</code> and load a profiled run into it (HINT: snakeviz expects the run to have the file
     format <code>.prof</code>).</p>
 </li>
 <li>
-<p>Try optimizing the run! (Hint: The data is not stored as torch tensor). After optimizing the code make sure
+<p>Try optimizing the run! (Hint: The data is not stored as a torch tensor). After optimizing the code make sure
     (using <code>cProfile</code> and <code>snakeviz</code>) that the code actually runs faster.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>For consistency reasons, even though the data in the <code>MNIST</code> dataset class from <code>torchvision</code> is stored as
 tensors, they are converted to
-<a href="https://github.com/pytorch/vision/blob/d3beb52a00e16c71e821e192bcc592d614a490c0/torchvision/datasets/mnist.py#L141-L143">PIL images before returned</a>.
-This is the reason the solution is initialize the dataclass with the transform</p>
+<a href="https://github.com/pytorch/vision/blob/d3beb52a00e16c71e821e192bcc592d614a490c0/torchvision/datasets/mnist.py#L141-L143">PIL images before being returned</a>.
+This is the reason the solution is to initialize the dataclass with the transform</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">mnist_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()])</span>
 </span></code></pre></div>
-<p>such that the data is returned as tensors. However, since data is already stored as tensors, calling this
+<p>such that the data is returned as tensors. However, since the data is already stored as tensors, calling this
 transform every time you want to access the data is redundant and can be removed. The easiest way to do this is
-to create a <code>TensorDataset</code> from the internal data and labels (which already are tensors).</p>
+to create a <code>TensorDataset</code> from the internal data and labels (which are already tensors).</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">MNIST</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">TensorDataset</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># the class also internally normalize to [0,1] domain so we need to divide by 255</span>
@@ -2327,20 +2327,20 @@ to create a <code>TensorDataset</code> from the internal data and labels (which 
 </ol>
 <h2 id="pytorch-profiling">PyTorch profiling</h2>
 <p>Profiling machine learning code can become much more complex because we are suddenly beginning to mix different
-devices (CPU+GPU), that can (and should) overlap some of their computations. When profiling this kind of machine
-learning code we are often looking for <em>bottlenecks</em>. A bottleneck is simple the place in your code that is
+devices (CPU+GPU), which can (and should) overlap in some of their computations. When profiling this kind of machine
+learning code we are often looking for <em>bottlenecks</em>. A bottleneck is simply a place in your code that is
 preventing other processes from performing their best. This is the reason that all major deep learning
 frameworks also include their own profilers that can help profiling more complex applications.</p>
 <p>The image below show a typical report using the
-<a href="https://www.google.com/search?client=firefox-b-d&amp;q=pytorch+profiling">build in profiler in pytorch</a>.
-As the image shows the profiler looks both a the <code>kernel</code> time (this is the time spend doing actual computations)
+<a href="https://www.google.com/search?client=firefox-b-d&amp;q=pytorch+profiling">built-in profiler in pytorch</a>.
+As the image shows, the profiler looks both at the <code>kernel</code> time (this is the time spent doing actual computations)
 and also transfer times such as <code>memcpy</code> (where we are copying data between devices).
 It can even analyze your code and give recommendations.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/pytorch_profiler.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pytorch_profiler.png" width="700" /></a></p>
 </figure>
 <p>Using the profiler can be as simple as wrapping the code that you want to profile with the <code>torch.profiler.profile</code>
-decorator</p>
+decorator:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="k">as</span> <span class="n">prof</span><span class="p">:</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="c1"># code that I want to profile</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -2350,27 +2350,27 @@ decorator</p>
 <p><a class="md-button" href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files">Exercise files</a></p>
 <!-- markdownlint-restore -->
 
-<p>In these investigate the profiler that is build into PyTorch already. Note that these exercises requires that you
+<p>In these investigate the profiler that is build into PyTorch already. Note that these exercises require that you
 have PyTorch v1.8.1 installed (or higher). You can always check which version you currently have installed by writing
 (in a python interpreter):</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </span></code></pre></div>
-<p>But we always recommend to update to the latest PyTorch version for the best experience. Additionally, to display the
-result nicely (like <code>snakeviz</code> for <code>cProfile</code>) we are also going to use the tensorboard profiler extension</p>
+<p>But we always recommend updating to the latest PyTorch version for the best experience. Additionally, to display the
+result nicely (like <code>snakeviz</code> for <code>cProfile</code>) we are also going to use the tensorboard profiler extension.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>torch_tb_profiler
 </span></code></pre></div>
 <ol>
 <li>
-<p>A good starting point is too look at the <a href="https://pytorch.org/docs/stable/profiler.html">API for the profiler</a>. Here
+<p>A good starting point is to look at the <a href="https://pytorch.org/docs/stable/profiler.html">API for the profiler</a>. Here
     the important class to look at is the <code>torch.profiler.profile</code> class.</p>
 </li>
 <li>
-<p>Lets try out an simple example (taken from
+<p>Let's try out a simple example (taken from
     <a href="https://pytorch.org/tutorials/recipes/recipes/profiler_recipe.html">here</a>):</p>
 <ol>
 <li>
-<p>Try to run the following code</p>
+<p>Try to run the following code:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torchvision.models</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">models</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch.profiler</span><span class="w"> </span><span class="kn">import</span> <span class="n">profile</span><span class="p">,</span> <span class="n">ProfilerActivity</span>
@@ -2381,20 +2381,20 @@ result nicely (like <code>snakeviz</code> for <code>cProfile</code>) we are also
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">with</span> <span class="n">profile</span><span class="p">(</span><span class="n">activities</span><span class="o">=</span><span class="p">[</span><span class="n">ProfilerActivity</span><span class="o">.</span><span class="n">CPU</span><span class="p">],</span> <span class="n">record_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">prof</span><span class="p">:</span>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 </span></code></pre></div>
-<p>this will profile the <code>forward</code> pass of Resnet 18 model.</p>
+<p>This will profile the <code>forward</code> pass of a Resnet 18 model.</p>
 </li>
 <li>
-<p>Running this code will produce an <code>prof</code> object that contains all the relevant information about the profiling.
+<p>Running this code will produce a <code>prof</code> object that contains all the relevant information about the profiling.
     Try writing the following code:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">prof</span><span class="o">.</span><span class="n">key_averages</span><span class="p">()</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;cpu_time_total&quot;</span><span class="p">,</span> <span class="n">row_limit</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
 </span></code></pre></div>
-<p>what operation is taking most of the cpu?</p>
+<p>What operation is using most of the cpu?</p>
 </li>
 <li>
 <p>Try running</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">prof</span><span class="o">.</span><span class="n">key_averages</span><span class="p">(</span><span class="n">group_by_input_shape</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;cpu_time_total&quot;</span><span class="p">,</span> <span class="n">row_limit</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
 </span></code></pre></div>
-<p>can you see any correlation between the shape of the input and the cost of the operation?</p>
+<p>Can you see any correlation between the shape of the input and the cost of the operation?</p>
 </li>
 <li>
 <p>(Optional) If you have a GPU you can also profile the operations on that device:</p>
@@ -2403,8 +2403,8 @@ result nicely (like <code>snakeviz</code> for <code>cProfile</code>) we are also
 </span></code></pre></div>
 </li>
 <li>
-<p>(Optional) As an alternative to using <code>profile</code> as an
-    <a href="https://book.pythontips.com/en/latest/context_managers.html">context-manager</a> we can also use its <code>.start</code> and
+<p>(Optional) As an alternative to using <code>profile</code> as a
+    <a href="https://book.pythontips.com/en/latest/context_managers.html">context-manager</a>, we can also use its <code>.start</code> and
     <code>.stop</code> methods:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">prof</span> <span class="o">=</span> <span class="n">profile</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">prof</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -2418,28 +2418,28 @@ result nicely (like <code>snakeviz</code> for <code>cProfile</code>) we are also
 <li>
 <p>The <code>torch.profiler.profile</code> function takes some additional arguments. What argument would you need to
     set to also profile the memory usage? (Hint: this <a href="https://pytorch.org/docs/stable/profiler.html">page</a>)
-    Try doing it to the simple example above and make sure to sort the sample by <code>self_cpu_memory_usage</code>.</p>
+    Try doing it on the simple example above and make sure to sort the samples by <code>self_cpu_memory_usage</code>.</p>
 </li>
 <li>
-<p>As mentioned we can also get a graphical output for better inspection. After having done a profiling
+<p>As mentioned we can also get a graphical output for better inspection. After having done profiling
     try to export the results with:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">prof</span><span class="o">.</span><span class="n">export_chrome_trace</span><span class="p">(</span><span class="s2">&quot;trace.json&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>you should be able to visualize the file by going to <code>chrome://tracing</code> in any chromium based web browser.
+<p>You should be able to visualize the file by going to <code>chrome://tracing</code> in any chromium-based web browser.
 Can you still identify the information printed in the previous exercises from the visualizations?</p>
 </li>
 <li>
-<p>Running profiling on a single forward step can produce misleading results as it only provides a single sample that
-    may depend on what background processes that are running on your computer. Therefore it is recommended to profile
+<p>Running profiling on a single forward step can produce misleading results, as it only provides a single sample that
+    may depend on what background processes are running on your computer. Therefore it is recommended to profile
     multiple iterations of your model. If this is the case then we need to include <code>prof.step()</code> to tell the profiler
-    when we are doing a new iteration</p>
+    when we are doing a new iteration.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">with</span> <span class="n">profile</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="k">as</span> <span class="n">prof</span><span class="p">:</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>        <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        <span class="n">prof</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </span></code></pre></div>
-<p>Try doing this. Is the conclusion this the same on what operations that are taken up most of the time? Have the
-percentage changed significantly?</p>
+<p>Try doing this. Is the conclusion the same on what operations are taking up most of the time? Have the
+percentages changed significantly?</p>
 </li>
 <li>
 <p>Additionally, we can also visualize the profiling results using the profiling viewer in tensorboard.</p>
@@ -2450,7 +2450,7 @@ percentage changed significantly?</p>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">with</span> <span class="n">profile</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">on_trace_ready</span><span class="o">=</span><span class="n">tensorboard_trace_handler</span><span class="p">(</span><span class="s2">&quot;./log/resnet18&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">prof</span><span class="p">:</span>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="o">...</span>
 </span></code></pre></div>
-<p>Try run a profiling (using a couple of iterations) and make sure that a file with the <code>.pt.trace.json</code> is
+<p>Try running profiling (using a couple of iterations) and make sure that a file with the <code>.pt.trace.json</code> is
 produced in the <code>log/resnet18</code> folder.</p>
 </li>
 <li>
@@ -2468,26 +2468,26 @@ to the one below:</p>
 <p>Try poking around in the interface.</p>
 </li>
 <li>
-<p>Tensorboard have a nice feature for comparing runs under the <code>diff</code> tab. Try redoing a profiling run but use
+<p>Tensorboard has a nice feature for comparing runs under the <code>diff</code> tab. Try redoing a profiling run but use
     <code>model = models.resnet34()</code> instead. Load up both runs and try to look at the <code>diff</code> between them.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>As an final exercise, try to use the profiler on the <code>vae_mnist_working.py</code> file from the previous module on
+<p>As a final exercise, try to use the profiler on the <code>vae_mnist_working.py</code> file from the previous module on
     debugging, where you profile a whole training run (not only the forward pass). What is the bottleneck during the
     training? Is it still the forward pass or is it something else? Can you improve the code somehow based on the
-    information from the profiler.</p>
+    information from the profiler?</p>
 </li>
 </ol>
-<p>This end the module on profiling. If you want to go into more details on this topic we can recommend looking into
+<p>This ends the module on profiling. If you want to go into more details on this topic we recommend looking into
 <a href="https://github.com/pyutils/line_profiler">line_profiler and kernprof</a>. A downside of using python's <code>cProfile</code> is that
-it can only profiling at an functional/modular level, that is great for identifying hotspots in your code. However,
-sometimes the cause of an computationally hotspot is a single line of code in a function, which will not be caught by
-<code>cProfile</code>. An example would be an simple index operations such as <code>a[idx] = b</code>, which for large arrays and
+it can only profile at a functional/modular level, which is great for identifying hotspots in your code. However,
+sometimes the cause of a computational hotspot is a single line of code in a function, which will not be caught by
+<code>cProfile</code>. An example would be a simple index operation such as <code>a[idx] = b</code>, which for large arrays and
 non-sequential indexes is really expensive. For these cases
 <a href="https://github.com/pyutils/line_profiler">line_profiler and kernprof</a> are excellent tools to have in your toolbox.
-Additionally, if you do not like cProfile we can also recommend <a href="https://github.com/benfred/py-spy">py-spy</a> which is
+Additionally, if you do not like cProfile we also recommend <a href="https://github.com/benfred/py-spy">py-spy</a>, which is
 another open-source profiling tool for Python programs.</p>
 
 
@@ -2511,7 +2511,7 @@ another open-source profiling tool for Python programs.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

@@ -1956,13 +1956,13 @@ Engine which are more traditional ways of deploying your code. Here you have to 
 </figcaption>
 </figure>
 <h2 id="cloud-functions">Cloud Functions</h2>
-<p>Google Cloud Functions, is the most simple way that we can deploy our code to the cloud. As stated above, it is a
+<p>Google Cloud Functions is the most simple way that we can deploy our code to the cloud. As stated above, it is a
 serverless service, meaning that you do not have to worry about the underlying infrastructure. You just write your code
 and deploy it. The service is great for small applications that can be encapsulated in <strong>a single script</strong>.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
-<p>Go to the start page of <code>Cloud Functions</code>. Can be found in the sidebar on the homepage or you can just search for it.
+<p>Go to the start page of <code>Cloud Functions</code>. It can be found in the sidebar on the homepage or you can just search for it.
     Activate the service in the cloud console or use the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudfunctions.googleapis.com
 </span></code></pre></div>
@@ -1977,7 +1977,7 @@ and deploy it. The service is great for small applications that can be encapsula
 </li>
 <li>
 <p>On the next page, for <code>Runtime</code> pick the <code>Python 3.11</code> option (or newer). This will make the inline editor show both
-    a <code>main.py</code> and <code>requirements.py</code> file. Look over them and try to understand what they do. Especially, take a
+    a <code>main.py</code> and <code>requirements.py</code> file. Look over them and try to understand what they do. Be sure to take a
     look at the <a href="https://github.com/GoogleCloudPlatform/functions-framework-python">functions-framework</a> which is a
     needed requirement of any Cloud function.</p>
 <p><figure markdown>
@@ -2196,13 +2196,13 @@ why.</p>
 </span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">tolist</span><span class="p">()}</span>
 </span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;No input data provided.&quot;</span><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
-<p>And, the requirement file should look like this:</p>
+<p>And the requirement file should look like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>functions-framework&gt;=3.7.0
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>google-cloud-storage&gt;=2.14.0
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>scikit-learn&gt;=1.4.0
 </span></code></pre></div>
-<p>importantly make sure that you are using the same version of <code>scikit-learn</code> as you used when you trained the
-model. Else when trying to load the model you will most likely get an error.</p>
+<p>Make sure that you are using the same version of <code>scikit-learn</code> as when you trained the
+model. Otherwise when trying to load the model you will most likely get an error.</p>
 </details>
 </li>
 <li>
@@ -2210,7 +2210,7 @@ model. Else when trying to load the model you will most likely get an error.</p>
     look like?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>It depends on how exactly you have chosen to implement the <code>main.py</code>. But for the provided solution, the
+<p>It depends on how exactly you have chosen to implement <code>main.py</code>. But for the provided solution, the
 payload should look like this:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span>
@@ -2248,9 +2248,9 @@ folder containing the <code>main.py</code> and <code>requirements.txt</code> fil
 </li>
 </ol>
 <h2 id="cloud-run">Cloud Run</h2>
-<p>Cloud functions are great for simple deployments, that can be encapsulated in a single script with only simple
+<p>Cloud functions are great for simple deployments that can be encapsulated in a single script with only simple
 requirements. However, they do not scale with more advanced applications that may depend on multiple programming
-languages. We are already familiar with how we can deal with this through containers and
+languages. We are already familiar with how we can deal with this through containers, and
 <a href="https://cloud.google.com/run/docs/overview/what-is-cloud-run">Cloud Run</a> is the corresponding service in GCP for
 deploying containers.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
@@ -2370,19 +2370,19 @@ deploying containers.</p>
 </details>
 <ol>
 <li>
-<p>Start by going over the files belonging to your choice app and understand what it does.</p>
+<p>Start by going over the files belonging to your chosen app and understand what they do.</p>
 </li>
 <li>
-<p>Next, build the docker image belonging to the app</p>
+<p>Next, build the docker image belonging to the app.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>&lt;dockerfile&gt;<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>gcp_test_app:latest
 </span></code></pre></div>
 </li>
 <li>
-<p>Next tag and push the image to your artifact registry</p>
+<p>Next tag and push the image to your artifact registry.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>gcp_test_app<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/gcp_test_app:latest
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>docker<span class="w"> </span>push<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/gcp_test_app:latest
 </span></code></pre></div>
-<p>Afterward, check your artifact registry contains the pushed image.</p>
+<p>Afterward, check that your artifact registry contains the pushed image.</p>
 </li>
 </ol>
 </li>
@@ -2392,14 +2392,14 @@ deploying containers.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Click the <code>Create Service</code> button which should bring you to a page similar to the one below</p>
+<p>Click the <code>Create Service</code> button which should bring you to a page similar to the one below.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_run.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run.PNG" width="1000" /></a>
 </figure></p>
 <p>Do the following:</p>
 <ul>
 <li>
-<p>Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
+<p>Click the select button, which will bring up all built containers, and pick the one you want to deploy. In the
     future, you probably want to choose the <em>Continuously deploy new revisions from a source repository</em> such that
     a new version is always deployed when a new container is built.</p>
 </li>
@@ -2455,7 +2455,7 @@ and can be accessed in your application:</p>
 need to add <code>/</code> or <code>/&lt;path&gt;</code> to the URL depending on how the app works.</p>
 </li>
 <li>
-<p>Everything we just did in the console UI we can also do with the
+<p>Everything we just did in the console UI we can also do with
     <a href="https://cloud.google.com/sdk/gcloud/reference/run/deploy">gcloud run deploy</a>. How would you do that?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2469,14 +2469,14 @@ is needed if you want to access the service without providing credentials.</p>
 </details>
 </li>
 <li>
-<p>After deploying using the command line, make sure that the service is up and running by using these two commands</p>
+<p>After deploying using the command line, make sure that the service is up and running by using these two commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>list
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>describe<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span>--region<span class="w"> </span>&lt;region&gt;
 </span></code></pre></div>
 </li>
 <li>
 <p>Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
-    continuously by using <code>cloudbuild.yaml</code> file we learned about in the previous section. This is called
+    continuously by using the <code>cloudbuild.yaml</code> file we learned about in the previous section. This is called
     <a href="https://resources.github.com/devops/fundamentals/ci-cd/deployment">continuous deployment</a>, and it is a way to
     automate the deployment process.</p>
 <p><figure markdown>
@@ -2749,10 +2749,10 @@ application.</p>
 </ol>
 <p>That ends the exercises on deployment. The exercises above are just a small taste of what deployment has to offer. In
 both sections, we have explicitly chosen to work with <em>serverless</em> deployments. But what if you wanted to do the
-opposite e.g. being the one in charge of the management of the cluster that handles the deployed services? If you are
-interested in taking deployment to the next level should get started on <em>Kubernetes</em> which is the de-facto
-open-source container orchestration platform that is being used in production environments. If you want to deep dive we
-recommend starting <a href="https://cloud.google.com/ai-platform/pipelines/docs">here</a> which describes how to make pipelines
+opposite, i.e., being the one in charge of the management of the cluster that handles the deployed services? If you are
+interested in taking deployment to the next level, you should get started on <em>Kubernetes</em> which is the de-facto
+open-source container orchestration platform that is used in production environments. If you want to deep dive we
+recommend starting <a href="https://cloud.google.com/ai-platform/pipelines/docs">here</a>, which describes how to make pipelines
 that are a necessary component before you start to
 <a href="https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster">create</a> your own Kubernetes cluster.</p>
 
@@ -2777,7 +2777,7 @@ that are a necessary component before you start to
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

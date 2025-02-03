@@ -1847,7 +1847,7 @@ way of debugging when dealing with a very large codebase. You should therefore f
 <figure>
 <p><a class="glightbox" href="../../figures/debug.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/debug.jpg" width="700" /></a></p>
 </figure>
-<p>To invoke the build in Python debugger you can either:</p>
+<p>To invoke the built-in Python debugger you can either:</p>
 <ul>
 <li>
 <p>Set a trace directly with the Python debugger by calling</p>
@@ -1858,10 +1858,10 @@ way of debugging when dealing with a very large codebase. You should therefore f
 to step through the code.</p>
 </li>
 <li>
-<p>If you are using an editor, then you can insert inline breakpoints (in VS code this can be done by pressing <code>F9</code>)
+<p>If you are using an editor, then you can insert inline breakpoints (in VS Code this can be done by pressing <code>F9</code>)
     and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
     your code). The editor should then offer some interface to allow you step through your code. Here is a guide to
-    using the build in debugger <a href="https://code.visualstudio.com/docs/python/debugging#_basic-debugging">in VScode</a>.</p>
+    using the built-in debugger <a href="https://code.visualstudio.com/docs/python/debugging#_basic-debugging">in VScode</a>.</p>
 </li>
 <li>
 <p>Additionally, if your program is stopping on an error and you automatically want to start the debugger where it
@@ -1875,16 +1875,16 @@ to step through the code.</p>
 <p><a class="md-button" href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files">Exercise files</a></p>
 <!-- markdownlint-restore -->
 
-<p>We here provide a script <code>vae_mnist_bugs.py</code> which contains a number of bugs to get it running. Start by going over
-the script and try to understand what is going on. Hereafter, try to get it running by solving the bugs. The following
-bugs exist in the script:</p>
+<p>We here provide a script <code>vae_mnist_bugs.py</code> which contains a number of bugs that need to be fixed to get it running.
+Start by going over the script and try to understand what is going on. Afterwards, try to get it running by fixing the
+bugs. The following bugs exist in the script:</p>
 <ul>
 <li>One device bug (will only show if running on gpu, but try to find it anyways)</li>
 <li>One shape bug</li>
 <li>One math bug</li>
 <li>One training bug</li>
 </ul>
-<p>Some of the bugs prevents the script from even running, while some of them influences the training dynamics. Try to
+<p>Some of the bugs prevent the script from running at all, while some of them influence the training dynamics. Try to
 find them all. We also provide a working version called <code>vae_mnist_working.py</code> (but please try to find the bugs before
 looking at the script). Successfully debugging and running the script should produce three files:</p>
 <ul>
@@ -1892,7 +1892,7 @@ looking at the script). Successfully debugging and running the script should pro
 <li><code>reconstructions.png</code> reconstructions from the model</li>
 <li><code>generated_samples.png</code> samples from the model</li>
 </ul>
-<p>Again, we cannot stress enough that the exercise is actually not about finding the bugs but <strong>using a proper</strong> debugger
+<p>Again, we cannot stress enough that the exercise is not actually about finding the bugs but <strong>using a proper</strong> debugger
 to find them.</p>
 <details class="success">
 <summary>Solution for device bug</summary>
@@ -1905,7 +1905,7 @@ to find them.</p>
 <p>this will fail with a
 <code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</code> if
 you are running on GPU, because the noise tensor is initialized on the CPU. You can fix this by initializing the
-noise tensor on the same device as the mean and var tensors</p>
+noise tensor on the same device as the mean and var tensors.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reparameterization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Reparameterization trick to sample z values.&quot;&quot;&quot;</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">epsilon</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">mean</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -1918,22 +1918,22 @@ noise tensor on the same device as the mean and var tensors</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">FC_hidden</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">FC_output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
 </span></code></pre></div>
-<p>which is used in the forward pass as</p>
+<p>which are used in the forward pass as</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Forward pass of the decoder module.&quot;&quot;&quot;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">h</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FC_hidden</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FC_output</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
 </span></code></pre></div>
-<p>this means that <code>h</code> should be a tensor of shape <code>[bs, hidden_dim]</code> but since we initialize the <code>FC_output</code>
+<p>This means that <code>h</code> should be a tensor of shape <code>[bs, hidden_dim]</code>, but since we initialize the <code>FC_output</code>
 layer with <code>latent_dim</code> output dimensions, the forward pass will fail with a
 <code>RuntimeError: size mismatch, m1: [bs, hidden_dim], m2: [bs, latent_dim]</code> if <code>hidden_dim != latent_dim</code>. You can
-fix this by initializing the <code>FC_output</code> layer with <code>hidden_dim</code> output dimensions</p>
+fix this by initializing the <code>FC_output</code> layer with <code>hidden_dim</code> output dimensions.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">FC_output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
 <details class="success">
 <summary>Solution for math bug</summary>
-<p>In the Encoder class you have the following code</p>
+<p>In the Encoder class you have the following code:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Forward pass of the encoder module.&quot;&quot;&quot;</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">h_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FC_input</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -1947,11 +1947,11 @@ fix this by initializing the <code>FC_output</code> layer with <code>hidden_dim<
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">epsilon</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="k">return</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">var</span> <span class="o">*</span> <span class="n">epsilon</span>
 </span></code></pre></div>
-<p>from just the naming of the variables you can see that <code>log_var</code> is the log of the variance and not the variance
-itself. This means that you should exponentiate <code>log_var</code> before using it in the <code>reparameterization</code> function</p>
+<p>From just the naming of the variables you can see that <code>log_var</code> is the log of the variance and not the variance
+itself. This means that you should exponentiate <code>log_var</code> before using it in the <code>reparameterization</code> function.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reparameterization</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_var</span><span class="p">))</span>
 </span></code></pre></div>
-<p>alternatively, we can convert to using the standard deviation instead of the variance</p>
+<p>Alternatively, we can convert to using the standard deviation instead of the variance</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reparameterization</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">log_var</span><span class="p">))</span>
 </span></code></pre></div>
 <p>and</p>
@@ -1960,7 +1960,7 @@ itself. This means that you should exponentiate <code>log_var</code> before usin
 </details>
 <details class="success">
 <summary>Solution for training bug</summary>
-<p>Any training loop in PyTorch should have the following structure</p>
+<p>Any training loop in PyTorch should have the following structure:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">:</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
@@ -1968,12 +1968,12 @@ itself. This means that you should exponentiate <code>log_var</code> before usin
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </span></code></pre></div>
-<p>if you look at the code for the training loop in the <code>vae_mnist_bugs.py</code> script you can see that the optimizer is
+<p>If you look at the code for the training loop in the <code>vae_mnist_bugs.py</code> script you can see that the optimizer is
 not zeroed before the backward pass. This means that the gradients will accumulate over the batches and will
 explode. You can fix this by adding the line</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
 </span></code></pre></div>
-<p>as the first line of the inner training loop</p>
+<p>to the beginning of the inner training loop.</p>
 </details>
 
 
@@ -1997,7 +1997,7 @@ explode. You can fix this by adding the line</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     

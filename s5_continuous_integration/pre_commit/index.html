@@ -1869,16 +1869,16 @@
 <p><a class="glightbox" href="../../figures/icons/precommit.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/precommit.png" width="130" /></a></p>
 <h1 id="pre-commit">Pre-commit</h1>
 <hr />
-<p>One of the cornerstones of working with git is remembering to commit your work often. Often committing makes sure
-that it is easier to identify and revert unwanted changes that you have introduced, because the code changes becomes
+<p>One of the cornerstones of working with git is remembering to commit your work often. Frequent committing ensures
+that it is easier to identify and revert unwanted changes that you have introduced, because the code changes become
 smaller per commit.</p>
-<p>However, as you hopefully already seen in the course there are a lot of mental task to do before you actually write
+<p>However, as you have hopefully already seen in the course there are a lot of mental tasks to do before you actually write
 <code>git commit</code> in the terminal. The most basic thing is of course making sure that you have saved all your changes, and
 you are not committing a not up-to-date file. However, this also includes tasks such as styling, formatting, making
-sure all tests succeeds etc. All these mental to-do notes does not mix well with the principal of remembering to commit
-often, because you in principal have to do them every time.</p>
-<p>The obvious solution to this problem is to automate all or some of our mental task every time that we do a commit. This
-is where <em>pre-commit hooks</em> comes into play, as they can help us attach additional tasks that should be run every time
+sure all tests succeed, etc. All these mental to-do notes do not mix well with the principal of remembering to commit
+often because you in principal have to do them every time.</p>
+<p>The obvious solution to this problem is to automate all or some of our mental tasks every time that we make a commit. This
+is where <em>pre-commit hooks</em> come into play, as they can help us attach additional tasks that should be run every time
 that we do a <code>git commit</code>.</p>
 <h2 id="configuration">Configuration</h2>
 <p>Pre-commit simply works by inserting whatever workflow we want to automate in between whenever we do a <code>git commit</code> and
@@ -1889,7 +1889,7 @@ afterwards would do a <code>git push</code>.</p>
 <a href="https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/"> Image credit </a>
 </figcaption>
 </figure>
-<p>The system works by looking for a file called <code>.pre-commit-config.yaml</code> that we can configure. If we execute</p>
+<p>The system works by looking for a file called <code>.pre-commit-config.yaml</code> that we can configure. If you execute</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pre-commit<span class="w"> </span>sample-config<span class="w"> </span><span class="p">|</span><span class="w"> </span>out-file<span class="w"> </span>.pre-commit-config.yaml<span class="w"> </span>-encoding<span class="w"> </span>utf8
 </span></code></pre></div>
 <p>you should get a sample file that looks like</p>
@@ -1904,33 +1904,33 @@ afterwards would do a <code>git push</code>.</p>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-yaml</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-added-large-files</span>
 </span></code></pre></div>
-<p>the file structure is very simple:</p>
+<p>The file structure is very simple:</p>
 <ul>
 <li>It starts by listing the repositories where we want to get our pre-commits from, in this case
   <a href="https://github.com/pre-commit/pre-commit-hooks">https://github.com/pre-commit/pre-commit-hooks</a>. This repository contains a large collection of pre-commit hooks.</li>
-<li>Next we need to defined what pre-commit hooks that we want to get by specifying the <code>id</code> of the different hooks.
+<li>Next we need to define what pre-commit hooks we want to get by specifying the <code>id</code> of the different hooks.
   The <code>id</code> corresponds to an <code>id</code> in this file:
   <a href="https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-hooks.yaml">https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-hooks.yaml</a></li>
 </ul>
-<p>When we are done defining our <code>.pre-commit-config.yaml</code> we just need to install it</p>
+<p>When we are done defining our <code>.pre-commit-config.yaml</code> we just need to install it.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pre-commit<span class="w"> </span>install
 </span></code></pre></div>
-<p>this will make sure that the file is automatically executed whenever we run <code>git commit</code></p>
+<p>This will make sure that the file is automatically executed whenever we run <code>git commit</code>.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
-<p>Install pre-commit</p>
+<p>Install pre-commit.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
 </span></code></pre></div>
 <p>Consider adding <code>pre-commit</code> to a <code>requirements_dev.txt</code> file, as it is a development tool.</p>
 </li>
 <li>
-<p>Next create the sample file</p>
+<p>Next create the sample file:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pre-commit<span class="w"> </span>sample-config<span class="w"> </span>&gt;<span class="w"> </span>.pre-commit-config.yaml
 </span></code></pre></div>
 </li>
 <li>
-<p>The sample file already contains 4 hooks. Make sure you understand what each do and if you need them at all.</p>
+<p>The sample file already contains 4 hooks. Make sure you understand what each does and if you need them at all.</p>
 </li>
 <li>
 <p><code>pre-commit</code> works by hooking into the <code>git commit</code> command, running whenever that command is run. For this to work,
@@ -1941,10 +1941,10 @@ afterwards would do a <code>git push</code>.</p>
 </li>
 <li>
 <p>Try to commit your recently created <code>.pre-commit-config.yaml</code> file. You will likely not do anything, because
-    <code>pre-commit</code> only check files that are being committed. Instead try to run</p>
+    <code>pre-commit</code> only checks files that are being committed. Instead try to run</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
 </span></code></pre></div>
-<p>that will check every file in your repository.</p>
+<p>which will check every file in your repository.</p>
 </li>
 <li>
 <p>Try adding at least another check from the <a href="https://github.com/pre-commit/pre-commit-hooks">base repository</a> to your
@@ -1992,7 +1992,7 @@ add the <code>--fix</code> argument to the <code>ruff</code> hook to try to fix 
 <p>(Optional) Add more hooks to your <code>.pre-commit-config.yaml</code>.</p>
 </li>
 <li>
-<p>Sometimes you are in a hurry, so make sure that you also can do commits without running <code>pre-commit</code> e.g.</p>
+<p>Sometimes you are in a hurry, so make sure that you also can make commits without running <code>pre-commit</code> e.g.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span>&lt;message&gt;<span class="w"> </span>--no-verify
 </span></code></pre></div>
 </li>
@@ -2000,15 +2000,15 @@ add the <code>--fix</code> argument to the <code>ruff</code> hook to try to fix 
 <p>Finally, figure out how to disable <code>pre-commit</code> again (if you get tired of it).</p>
 </li>
 <li>
-<p>Assuming you have completed the <a href="../github_actions/">module on GitHub Actions</a>, lets try to add a
+<p>Assuming you have completed the <a href="../github_actions/">module on GitHub Actions</a>, let's try to add a
     <code>pre-commit</code> workflow that automatically runs your <code>pre-commit</code> checks every time you push to your repository and
     then automatically commits those changes to your repository. We recommend that you make use of</p>
 <ul>
 <li>this <a href="https://github.com/pre-commit/action">pre-commit action</a> for installing and running <code>pre-commit</code></li>
 <li>this <a href="https://github.com/stefanzweifel/git-auto-commit-action">commit action</a> to automatically commit the
-  changes that <code>pre-commit</code> makes.</li>
+  changes that <code>pre-commit</code> makes</li>
 </ul>
-<p>As an alternative you configure the <a href="https://pre-commit.ci/">CI tool</a> provided by the creators of <code>pre-commit</code>.</p>
+<p>As an alternative you can configure the <a href="https://pre-commit.ci/">CI tool</a> provided by the creators of <code>pre-commit</code>.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The workflow first uses the <code>pre-commit</code> action to install and run the <code>pre-commit</code> checks. Importantly we run
@@ -2116,7 +2116,7 @@ can checkout this <a href="https://pre-commit.com/#python">page</a> on how to de
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
   </span>
 
     
