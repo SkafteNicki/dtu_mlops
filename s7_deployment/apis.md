@@ -64,8 +64,14 @@ We are going to do a couple of exercises on sending requests using
     ```
 
     As you can see from the syntax, we are sending a request using the GET method. This code should return status
-    code 404. Take a look at [this page](https://restfulapi.net/http-status-codes/) that contains a list of status
+    code 404 (1). Take a look at [this page](https://restfulapi.net/http-status-codes/) that contains a list of status
     codes. Next, let's call a page that exists
+    { .annotate }
+
+    1. :man_raising_hand: If you do not get a status code of 404, it can either be due to some firewall settings or the
+        fact that many other students are doing the same exercise at the same time and we are essentially
+        [DDOS'ing](https://en.wikipedia.org/wiki/Denial-of-service_attack) GitHub. It does not matter if you get a
+        different status code.
 
     ```python
     import requests
