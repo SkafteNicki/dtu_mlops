@@ -243,6 +243,33 @@ working together on the same project.
         the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
         remove the identifiers `<<<<<<<`, `=======` and `>>>>>>>`.
 
+        !!! note "Merge, rebase or fast-forward?"
+
+            On a `git pull` you can get messages like this the first time you try to pull after a merge conflict:
+
+            ```txt
+            hint: You have divergent branches and need to specify how to reconcile them.
+            hint: You can do so by running one of the following commands sometime before
+            hint: your next pull:
+            hint:
+            hint:   git config pull.rebase false  # merge
+            hint:   git config pull.rebase true   # rebase
+            hint:   git config pull.ff only       # fast-forward only
+            hint:
+            hint: You can replace "git config" with "git config --global" to set a default
+            hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+            hint: or --ff-only on the command line to override the configured default per
+            hint: invocation.
+            ```
+
+            In general we recommend setiing `git config pull.rebase false` to merge the changes. This is the default
+            behavior of git and is the most common way to resolve merge conflicts. However, if you are working on a
+            project with many people and you want to keep the commit history clean, you can use
+            `git config pull.rebase true` to rebase the changes. This will make it look like you made the changes
+            directly on top of the latest commit. The last option `git config pull.ff only` will only allow you to
+            pull changes that can be fast-forwarded. This is the most strict option and will not allow you to pull
+            changes that have been made to the same lines of code as you have made changes to.
+
     4. Finally, commit the merge and try to push.
 
 8. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
