@@ -2152,6 +2152,30 @@ code updates to the original repository do not update code in your local reposit
 local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
 the merge conflict you simply have to make the code in the two "cells" work together. When you are done,
 remove the identifiers <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Merge, rebase or fast-forward?</p>
+<p>On a <code>git pull</code> you can get messages like this the first time you try to pull after a merge conflict:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>hint: You have divergent branches and need to specify how to reconcile them.
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hint: You can do so by running one of the following commands sometime before
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>hint: your next pull:
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>hint:
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>hint:   git config pull.rebase false  # merge
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>hint:   git config pull.rebase true   # rebase
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>hint:   git config pull.ff only       # fast-forward only
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>hint:
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>hint: You can replace &quot;git config&quot; with &quot;git config --global&quot; to set a default
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>hint: or --ff-only on the command line to override the configured default per
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>hint: invocation.
+</span></code></pre></div>
+<p>In general we recommend setiing <code>git config pull.rebase false</code> to merge the changes. This is the default
+behavior of git and is the most common way to resolve merge conflicts. However, if you are working on a
+project with many people and you want to keep the commit history clean, you can use
+<code>git config pull.rebase true</code> to rebase the changes. This will make it look like you made the changes
+directly on top of the latest commit. The last option <code>git config pull.ff only</code> will only allow you to
+pull changes that can be fast-forwarded. This is the most strict option and will not allow you to pull
+changes that have been made to the same lines of code as you have made changes to.</p>
+</div>
 </li>
 <li>
 <p>Finally, commit the merge and try to push.</p>
@@ -2188,10 +2212,10 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
     <em>devel</em> is in sync with <em>main</em>?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>pull
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
 </span></code></pre></div>
 </details>
 </li>
@@ -2216,10 +2240,10 @@ with the most useful commands for future reference. Finally, we want to point ou
 in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
 IDE/editor. Or you may be in the situation where you are working from a device other than your usual developer machine.
 GitHub has a built-in editor that can simply be enabled by changing any URL from</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>https://github.com/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://github.com/username/repository
 </span></code></pre></div>
 <p>to</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://github.dev/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>https://github.dev/username/repository
 </span></code></pre></div>
 <p>Try it out on your newly created repository.</p>
 
@@ -2244,7 +2268,7 @@ GitHub has a built-in editor that can simply be enabled by changing any URL from
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 5, 2025</span>
   </span>
 
     
