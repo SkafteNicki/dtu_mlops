@@ -7,16 +7,24 @@ on:
     - cron: '0 0 * * 0'
   workflow_dispatch: {}  # Allows manual executions
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
+          cache: 'pip'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
 
       - name: Install pre-commit
         run: pip install pre-commit
@@ -25,13 +33,11 @@ jobs:
         run: pre-commit autoupdate
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: update/pre-commit-autoupdate
           title: Auto-update pre-commit hooks
           commit-message: Auto-update pre-commit hooks
-          body: |
-            Update versions of tools in pre-commit
-            configs to latest version
+          body: Update versions of tools in pre-commit configs to latest version
           labels: dependencies
