@@ -319,6 +319,40 @@ a developer-friendly framework, though it has historically been slow to run infe
             ![Image](../figures/onnx_optimization.png){ width="600" }
             </figure>
 
+    4. Exporting a model to ONNX is not always perfect out of the box. To the conversion of your PyTorch models there
+        need to be a one-to-one correspondence between PyTorch and ONNX operators. Especially, the
+        [opset number](http://onnx.ai/sklearn-onnx/auto_tutorial/plot_cbegin_opset.html) is important to set correctly
+        in ONNX to get the correct operators. If this is not the case, the exported model can lead to a difference in
+        results. To check the model, it is therefore also a good idea to check if the difference between the PyTorch
+        and ONNX model is within a certain threshold. Implement a simple function that loads the model using PyTorch
+        and ONNX and checks if the difference between the two models is within a certain threshold.
+
+        ??? success "Solution"
+
+            The function below should work for a neural network which takes in a single input tensor and returns a
+            single output tensor. If this is not the case, you will need to modify the function to fit your model.
+
+            ```python linenums="1" title="onnx_check.py"
+            import torch
+
+            def check_onnx_model(
+                onnx_model_file: str,
+                pytorch_model: torch.nn.Module,
+                random_input: torch.Tensor,
+                rtol: float = 1e-03,
+                atol: float = 1e-05,
+            ) -> None:
+                import onnxruntime as rt
+                import numpy as np
+
+                ort_session = rt.InferenceSession(onnx_model_file)
+                ort_inputs = {ort_session.get_inputs()[0].name: random_input.numpy()}
+                ort_outs = ort_session.run(None, ort_inputs)
+                pytorch_outs = pytorch_model(random_input).detach().numpy()
+
+                assert np.allclose(ort_outs[0], pytorch_outs, rtol=rtol, atol=atol)
+            ```
+
 6. As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engines.
     You can check all the providers and all the available providers by running the following code:
 
