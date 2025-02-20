@@ -172,6 +172,7 @@ tools/repo_stats/cloned_repos/
 tools/learn_automate/extracted_files
 tools/ai_eval/output
 tools/ai_eval/responses.json
+tools/course_stats/output
 
 # vscode
 .vscode/
