@@ -10,7 +10,7 @@ markdown-exec[ansi] == 1.10.0
 
 # Developer stuff
 ruff == 0.9.9
-codespell == 2.4.0
+codespell == 2.4.1
 pre-commit == 4.1.0
 
 # Other
