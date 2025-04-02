@@ -31,15 +31,14 @@
 
 </div>
 
-Today we start our journey into the world of machine learning operations (MLOps). However, before we can get started, we
-need to make sure that you have a basic understanding of a couple of topics, as we will be using these
-throughout the course. In particular, today is all about getting set up with a proper development environment that can
-support your journey. Most of you probably already have experience with these topics, and it will be mostly review.
+Today, we begin our exploration of machine learning operations (MLOps). Before diving in, we need to ensure a basic
+understanding of several key topics that we'll use throughout the course. This session focuses on setting up a suitable
+development environment. Many of you likely have prior experience with these topics, so this will primarily serve as a
+review.
 
-The reason we are starting here is that many students are missing very basic skills that are never taught but are just
-expected to be picked up on your own. This session will only cover the most basic skills to get you started on your
-development journey. If you wish to learn more about basic computer science skills in general, we highly recommend that
-you check out [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) course from MIT.
+We're starting here because many students lack fundamental skills that are often assumed but not explicitly taught. This
+session covers the essential skills to begin your MLOps journey. For a broader overview of computer science
+fundamentals, we recommend [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) from MIT.
 
 !!! tip "Learning objectives"
 

@@ -11,15 +11,12 @@
 <figcaption> <a href="https://twitter.com/rorypreddy/status/1257336536477171712"> Image credit </a> </figcaption>
 </figure>
 
-Contrary to popular belief, the command line (also commonly known as the *terminal*) is not a mythical being that has
-existed since the dawn of time. Instead, it was created at a time when it was not given that your computer had a
-graphical interface that you could interact with. Think of it as a text interface for your computer.
-
-The terminal is a well-known concept to users of Linux; however, Mac and (especially) Windows users often do not need it
-or therefore encounter it. Having a basic understanding of how to use a command line can help improve your workflow.
-The reason that the command line is an important tool to get familiar with is that doing any kind of MLOps will require
-us to be able to interact with many different tools, many of which do not have a graphical interface. Additionally, when
-we get to working in the cloud later in the course, you will be forced to interact with the command line.
+The command line (also commonly known as the *terminal*) provides a text-based interface for interacting with your
+computer. It originated in an era before graphical user interfaces became standard. While Linux users are often familiar
+with the terminal, Mac and Windows users may encounter it less frequently. However, a basic understanding of the command
+line is valuable for improving workflow, especially in MLOps. Many MLOps tools lack graphical interfaces, making
+terminal interaction necessary. Furthermore, working effectively in cloud environments, which we will cover later in the
+course, often requires using the command line.
 
 Note that if you're already a terminal wizard then feel free to skip the exercises below. They are very elementary.
 
@@ -31,17 +28,17 @@ Regardless of the operating system, all command lines look more or less the same
 ![Image](../figures/terminal.PNG){ width="800" }
 </figure>
 
-As already stated, it is essentially just a big text interface for interacting with your computer. As the image illustrates,
-when trying to execute a command, there are several parts to it:
+As the image illustrates, executing a command involves several components:
 
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
     are in, followed by some kind of symbol: `$`, `>`, `:` are the usual ones. It can also contain other information,
     such as in the case of the above image, which also shows the current `conda` environment.
 2. The **command** is the actual command you want to execute. For example, `ls` or `cd`.
-3. The **options** are additional arguments that you can pass to the command. For example, `ls -l` or `cd ..`.
-4. The **arguments** are the actual arguments that you pass to the command. For example, `ls -l figures` or `cd ..`.
+3. The **options** (or flags) modify the command's behavior. They often start with a hyphen (`-`) or double
+    hyphen (`--`). For example, `-l` in `ls -l`.
+4. The **arguments** specify what the command should operate on. For example, `figures` in `ls -l figures`.
 
-The core difference between options and arguments is that options are optional, while arguments are not.
+Generally, options are optional modifiers, while arguments provide the necessary inputs for the command.
 
 <figure markdown>
 ![Image](../figures/terminal_anatomy.png){ width="800" }
@@ -82,9 +79,9 @@ command line.
     it with the additional option `-l`. What does it show?
 
 4. Make sure to familiarize yourself with the `which`, `echo`, `cat`, `wget`, `less`, and `top` commands. Also,
-    familiarize yourself with the `>` operator. You are probably going to use some of them throughout the course or in
-    your future career. For Windows users, these commands may be named something else, e.g., `where` command on Windows
-    corresponds to `which`.
+    familiarize yourself with the `>` operator (used for output redirection). You are likely to use some of these
+    commands and concepts throughout the course or in your future career. For Windows users, these commands may have
+    different names (e.g., `where` corresponds to `which`).
 
 5. It is also important that you know how to edit a file through the terminal. Most systems should have the
     `nano` editor installed; otherwise, try to figure out which one is installed on your system.
@@ -197,9 +194,10 @@ command line.
         The `-V` (or `--version`) option prints the version of the installed program.
         Try it out by executing `python --version`.
 
-This ends the module on the command line. If you are still not comfortable working with the command line, fear not as
-we are going to use it extensively throughout the course. If you want to spend additional time on this topic, we highly
-recommend that you [watch this video](https://www.youtube.com/watch?v=oxuRxtrO2Ag) on how to use the command line.
+This concludes the module on the command line. Don't worry if you're not yet fully comfortable; we will use the command
+line extensively throughout the course, providing ample opportunity for practice. If you want to spend additional time
+on this topic, we highly recommend [watching this video](https://www.youtube.com/watch?v=oxuRxtrO2Ag) for a more
+in-depth introduction.
 
 If you are interested in personalizing your command line, you can check out the [starship](https://starship.rs/)
 project, which allows you to customize your command line with a lot of different options.

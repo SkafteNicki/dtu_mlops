@@ -6,11 +6,9 @@
 
 !!! info "Core Module"
 
-Notebooks can be great for testing out ideas, developing simple code, and explaining and visualizing certain aspects
-of a codebase. Remember that [Jupyter Notebook](https://jupyter.org/) was created to "...allow you
-to create and share documents that contain live code, equations, visualizations, and narrative text." However,
-any larger machine learning project will require you to work in multiple `.py` files, and here notebooks will provide
-a suboptimal workflow. Therefore, to truly get "work done," you will need a good editor/IDE.
+Notebooks are useful for prototyping, developing simple code, and explaining/visualizing aspects of a codebase. However,
+larger machine learning projects require working with multiple `.py` files, making notebooks a suboptimal workflow.
+Therefore, a good editor/IDE is essential for efficient development.
 
 Many opinions exist on this matter, but for simplicity, we recommend getting started with one of the following three:
 
@@ -20,8 +18,8 @@ Many opinions exist on this matter, but for simplicity, we recommend getting sta
 | Visual Studio Code | <https://code.visualstudio.com/>     | Support for multiple languages with fairly easy setup                    |
 | PyCharm            | <https://www.jetbrains.com/pycharm/> | An IDE for Python professionals. Will take a bit of time to get used to  |
 
-We highly recommend Visual Studio (VS) Code if you do not already have an editor installed (or just want to try
-something new). We therefore put additional effort into explaining VS Code.
+We recommend Visual Studio (VS) Code if you don't have an editor installed or want to try something new. The following
+sections will focus on explaining VS Code.
 
 Below, you can see an overview of the VS Code interface.
 
@@ -64,9 +62,7 @@ if using another editor. In the `exercise_files` folder belonging to this sessio
 following exercises are just to get you started, but you can find many more tutorials
 [here](https://code.visualstudio.com/docs/python/python-tutorial).
 
-1. VS Code is a general editor for many languages, and to get proper *Python* support, we need to install some
-    extensions. In the `action bar`, go to the `extension` tab and search for `python` in the marketplace. From here,
-    we highly recommend installing the following packages:
+1. VS Code is a versatile editor that supports many languages. For Python development, install the following extensions:
 
     * [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python): general Python support for VS Code
     * [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance): language server for
@@ -85,11 +81,10 @@ following exercises are just to get you started, but you can find many more tuto
     which indicates that you are using the stock Python installation instead of the one you have created using `conda`.
     Click it and change the Python environment to the one you want to use.
 
-3. One of the most useful tools in VS Code is the ability to navigate the whole project using the built-in
-    `Explorer`. To take advantage of VS Code, you need to make sure that what you are working on is a project.
-    Create a folder called `hello` (somewhere on your laptop) and open it in VS Code (Click `File` in the menu and then
-    select `Open Folder`). You should end up with a completely clean workspace (as shown below). Click the `New file`
-    button and create a file called `hello.py`.
+3. One of the most useful tools in VS Code is the built-in `Explorer`, which allows you to navigate the entire project.
+    To take advantage of VS Code, make sure that what you are working on is a project. Create a folder called `hello`
+    (somewhere on your laptop) and open it in VS Code (Click `File` -> `Open Folder`). You should end up with a
+    completely clean workspace (as shown below). Click the `New file` button and create a file called `hello.py`.
 
     <figure markdown>
     ![Image](../figures/toolbar_new_file.png){ width="700" }
@@ -107,8 +102,8 @@ following exercises are just to get you started, but you can find many more tuto
     have chosen, and finally run your script. In addition to clicking the `run` button, you can also:
 
     * Select some code and press `Shift+Enter` to run it in the terminal
-    * Select some code and right-click, choosing to run it in an interactive window (where you can interact with the results
-        like in a Jupyter Notebook)
+    * Select some code and right-click, choosing to run it in an interactive window (where you can interact with the
+        results like in a Jupyter Notebook)
 
 That's the basics of using VS Code. We highly recommend that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
@@ -156,8 +151,8 @@ code you are currently writing and in general just has access to a larger contex
 
 ### ❔ Exercises
 
-1. As of writing this, GitHub Copilot is free for all students, teachers and maintainers of popular open-source projects.
-    As a student, sign up for the [Student Developer Pack](https://education.github.com/pack#offers).
+1. As of writing this, GitHub Copilot is free for all students, teachers and maintainers of popular open-source
+    projects. As a student, sign up for the [Student Developer Pack](https://education.github.com/pack#offers).
 
 2. Install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) in your
     editor.

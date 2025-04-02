@@ -4,34 +4,31 @@
 
 ---
 
-As we already laid out in the very first [module](../s1_development_environment/command_line.md), the command line is a
-powerful tool for interacting with your computer. You should now already be familiar with running basic Python commands
+As discussed in the initial [module](../s1_development_environment/command_line.md), the command line offers a robust
+interface for interacting with your computer. You should already be comfortable executing basic Python commands
 in the terminal:
 
 ```bash
 python my_script.py
 ```
 
-However, as your projects grow in size and complexity, you will often find yourself in need of more advanced ways of
-interacting with your code. This is where a [command line interface](https://en.wikipedia.org/wiki/Command-line_interface)
-(CLI) comes into play. A CLI can be seen as a way for you to define the user interface of your application directly in
-the terminal. Thus, there is no right or wrong way of creating a CLI; it is all about what makes sense for your
-application.
+However, as projects increase in size and complexity, more sophisticated methods of interacting with your code become
+necessary. This is where a [command line interface](https://en.wikipedia.org/wiki/Command-line_interface) (CLI)
+becomes useful. A CLI allows you to define the user interface of your application directly in the terminal, and
+the best approach depends on the specific needs of your application.
 
-In this module we are going to look at three different ways of creating a CLI for your machine learning projects. They
-all serve slightly different purposes and can therefore be combined in the same project. However, you will most
-likely also feel that they overlap in some areas. That is completely fine, and it is up to you to decide which
-one to use in which situation.
+In this module, we will explore three distinct methods for creating CLIs for your machine learning projects. Each
+method serves a slightly different purpose, and they can be combined within the same project. You may find some
+overlap between them, which is perfectly acceptable. The choice of which method to use depends on your specific
+requirements.
 
 ## Project scripts
 
-You might already be familiar with the concept of executable scripts. An executable script is a Python script that can
-be run directly from the terminal without having to call the Python interpreter. This has been possible for a long time
-in Python, by the inclusion of a so-called [shebang](https://en.wikipedia.org/wiki/hash-bang) line at the top of
-the script. However, we are going to look at a specific way of defining
-[executable scripts](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts)
-using the standard `pyproject.toml` file, which you should have learned about in this
-[module](code_structure.md).
+You may already be familiar with executable scripts. An executable script is a Python script that can be run directly
+from the terminal without needing to call the Python interpreter. This has been possible in Python for a long time,
+using a [shebang](https://en.wikipedia.org/wiki/hash-bang) line at the top of the script. However, we will explore a
+specific method for defining [executable scripts](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts)
+using the standard `pyproject.toml` file, as covered in this [module](code_structure.md).
 
 ### ❔ Exercises
 
@@ -46,7 +43,7 @@ using the standard `pyproject.toml` file, which you should have learned about in
     pyproject.toml
     ```
 
-    In your `pyproject.toml` file add the following lines. You will need to alter the paths to match your project.
+    In your `pyproject.toml` file, add the following lines, adjusting the paths to match your project structure:
 
     ```toml
     [project.scripts]
@@ -57,8 +54,8 @@ using the standard `pyproject.toml` file, which you should have learned about in
 
     ??? success "Solution"
 
-        The line tells Python that we want to create an executable script called `train` that should run the `main`
-        function in the `train.py` file located in the `my_project` package.
+        The line instructs Python to create an executable script named `train` that executes the `main` function within
+        the `train.py` file, located in the `my_project` package.
 
 2. Now, all that is left to do is to install the project again in editable mode.
 
@@ -95,8 +92,8 @@ Python interpreter. Some good examples of Python packages that use this approach
 
 ## Command line arguments
 
-If you have worked with Python for some time you are probably familiar with the `argparse` package, which allows you
-to directly pass in additional arguments to your script via the terminal.
+If you have experience with Python, you are likely familiar with the `argparse` package, which enables you to pass
+arguments directly to your script via the terminal.
 
 ```bash
 python my_script.py --arg1 val1 --arg2 val2
@@ -160,8 +157,8 @@ for doing this, and another excellent framework for creating command line interf
             app()
         ```
 
-3. Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the iris
-    dataset.
+3. Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the
+    iris dataset.
 
     !!! example "iris_classifier.py"
 
@@ -197,7 +194,8 @@ for doing this, and another excellent framework for creating command line interf
     ??? success "Solution"
 
         The only key difference between the two is that in the `train` command we define the `output` argument to
-        to be an optional parameter, i.e., we provide a default and for the `evaluate` command it is a required parameter.
+        to be an optional parameter, i.e., we provide a default and for the `evaluate` command it is a required
+        parameter.
 
         ```python linenums="1" title="iris_classifier.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution2.py"
@@ -219,8 +217,8 @@ for doing this, and another excellent framework for creating command line interf
     !!! warning "`_` vs `-`"
 
         When using typer note that variables with `_` in the name
-        will be converted to `-` in the CLI. Meaning that if you have a variable `n_neighbors` in your code, you should use
-        `--n-neighbors` in the CLI.
+        will be converted to `-` in the CLI. Meaning that if you have a variable `n_neighbors` in your code, you should
+        use `--n-neighbors` in the CLI.
 
     ??? success
 
@@ -233,8 +231,8 @@ for doing this, and another excellent framework for creating command line interf
 
     ??? success "Solution"
 
-        Assuming that our `iris_classifier.py` script from before is placed in the `src/my_project` folder, we should just
-        add
+        Assuming that our `iris_classifier.py` script from before is placed in the `src/my_project` folder, we should
+        just add
 
         ```toml
         [project.scripts]

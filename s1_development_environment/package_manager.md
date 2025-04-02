@@ -6,17 +6,14 @@
 
 !!! info "Core Module"
 
-Python is a great programming language and this is mostly due to its vast ecosystem of packages. No matter what you want
-to do, there is probably a package that can get you started. Just try to remember the last time you wrote a program
-only using the [Python standard library](https://docs.python.org/3/library/index.html). Probably never. For this reason,
-we need a way to install third-party packages and this is where
-[package managers](https://en.wikipedia.org/wiki/Package_manager) come into play.
+Python's extensive package ecosystem is a major strength. It's rare to write a program relying solely on the
+[Python standard library](https://docs.python.org/3/library/index.html). Therefore,
+[package managers](https://en.wikipedia.org/wiki/Package_manager) are essential for installing third-party packages.
 
-You have probably already used `pip` for the longest time, which is the default package manager for Python. `pip` is
-great for beginners, but it is missing one essential feature that you will need as a developer or data scientist:
-*virtual environments*. Virtual environments are an essential way to make sure that the dependencies of different
-projects do not cross-contaminate each other. As a naive example, consider project A that requires `torch==1.3.0` and
-project B that requires `torch==2.0`, then doing
+You've likely used `pip`, the default Python package manager. While suitable for beginners, `pip` lacks a crucial
+feature for developers and data scientists: *virtual environments*. Virtual environments prevent dependency conflicts
+between projects. For example, if project A requires `torch==1.3.0` and project B requires `torch==2.0`, the following
+scenario illustrates the problem:
 
 ```bash
 cd project_A  # move to project A
@@ -52,14 +49,14 @@ the same environment, in this case, the global environment. Instead, if we did s
     ```bash
     cd project_A  # Move to project A
     python -m venv env  # Create a virtual environment in project A
-    .\env\Scripts\activate  # Activate that virtual environment
+    .\\env\\Scripts\\activate  # Activate that virtual environment
     pip install torch==1.3.0  # Install the old torch version into the virtual environment belonging to project A
     cd ../project_B  # Move to project B
     python -m venv env  # Create a virtual environment in project B
-    .\env\Scripts\activate  # Activate that virtual environment
+    .\\env\\Scripts\\activate  # Activate that virtual environment
     pip install torch==2.0  # Install new torch version into the virtual environment belonging to project B
     cd ../project_A  # Move back to project A
-    .\env\Scripts\activate  # Activate the virtual environment belonging to project A
+    .\\env\\Scripts\\activate  # Activate the virtual environment belonging to project A
     python main.py  # Succeed in executing the main script from project A
     ```
 
@@ -69,8 +66,8 @@ which is the built-in Python module for creating virtual environments. `venv+pip
 but when working on multiple projects it can quickly become a hassle to manage all the different
 virtual environments yourself, remembering which Python version to use, which packages to install and so on.
 
-For this reason, a number of package managers have been created that can help you manage your virtual environments and
-dependencies, with some of the most popular being:
+Therefore, several package managers have been developed to manage virtual environments and dependencies. Some popular
+options include:
 
 ```python exec="1"
 # this code is being executed at build time to get the latest number of stars
@@ -106,34 +103,31 @@ for framework, docs, repo in data:
 print(table)
 ```
 
-This is considered a problem in the Python community because it means that there is no standard way of managing
-dependencies like in other languages like `npm` for `node.js` or `cargo` for `rust` (however, it does seem like `uv` is
-trying to become the standard, quickly gaining popularity and being adopted by many projects).
+The lack of a standard dependency management approach, unlike `npm` for `node.js` or `cargo` for `rust`, is a known
+issue in the Python community. However, `uv` is gaining popularity and may become a standard.
 
 <figure markdown>
 ![Image](../figures/standards.png){ width="700" }
 <figcaption> <a href="https://xkcd.com/927/"> Image credit </a> </figcaption>
 </figure>
 
-In this course, we do not care about which package manager you use, but we do care that you use one. If you are already
-familiar with one package manager, then skip this exercise and continue to use that. The best recommendation that I can
-give regarding package managers, in general, is to find one you like and then stick with it. A lot of time can be wasted
-on trying to find the perfect package manager, but in the end, they all do the same thing with some minor differences.
-Check out [this blog post](https://alpopkes.com/posts/python/packaging_tools/) if you want a fairly up-to-date
-evaluation of the different environment management and packaging tools that exist in the Python ecosystem.
+This course doesn't mandate a specific package manager, but using one is essential. If you're already familiar with a
+package manager, continue using it. The best approach is to choose one you like and stick with it. While it's tempting
+to find the "perfect" package manager, they all accomplish the same goal with minor differences. For a recent comparison
+of Python environment management and packaging tools, see
+[this blog post](https://alpopkes.com/posts/python/packaging_tools/).
 
-If you are not familiar with any package managers, then we recommend that you use `conda` and `pip` for this course. You
-probably already have [conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed
-on your laptop, which is great. What conda does especially well is that it allows you to create virtual environments
-with different Python versions, which can be really useful if you encounter dependencies that have not been updated in
-a long time. In this course specifically, we are going to recommend the following workflow:
+If you're new to package managers, we recommend using `conda` and `pip` for this course. You may already have
+[conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) installed. Conda excels at creating
+virtual environments with different Python versions, which is helpful for managing dependencies that haven't been
+updated recently. Specifically, we recommend the following workflow:
 
 * Use `conda` to create virtual environments with specific Python versions
 * Use `pip` to install packages in that environment
 
-Installing packages with `pip` inside `conda` environments has been considered a bad practice for a long time, but
-since `conda>=4.6` it is considered safe to do so. The reason for this is that `conda` now has a built-in compatibility
-layer that makes sure that `pip`-installed packages are compatible with the other packages installed in the environment.
+Installing packages with `pip` inside `conda` environments was once discouraged, but it's now safe with `conda>=4.6`.
+Conda includes a compatibility layer that ensures `pip`-installed packages are compatible with other packages in the
+environment.
 
 ## Python dependencies
 
@@ -156,15 +150,12 @@ In general, all packages (should) follow the [semantic versioning](https://semve
 version number is split into three parts: `x.y.z` where `x` is the major version, `y` is the minor version and `z` is
 the patch version.
 
-The reason that we need to specify the version number is that we want to make sure that we can reproduce our code at a
-later point. If we do not specify the version number, then we are at the mercy of the package maintainer to not change
-the API of the package. This is especially important when working with machine learning models, as we want to make sure
-that we can reproduce the exact same model at a later point.
+Specifying version numbers ensures code reproducibility. Without version numbers, you risk API changes by package
+maintainers. This is especially important in machine learning, where reproducing the exact same model is crucial.
 
 Finally, we also need to discuss *dependency resolution*, which is the process of figuring out which packages are
-compatible. This is a non-trivial problem, and there exist a lot of different algorithms for doing this. If you have
-ever thought that `pip` and `conda` were taking a long time to install something, then it is probably because they were
-trying to figure out which packages are compatible with each other. For example, if you try to install
+compatible. This is a complex problem with various algorithms. If `pip` or `conda` take a long time to install packages,
+it's likely due to the dependency resolution process. For example, attempting to install
 
 ```bash
 pip install "matplotlib >= 3.8.0" "numpy <= 1.19" --dry-run
@@ -188,17 +179,15 @@ to make it work.
     you are already familiar with `conda` or after having gone through the exercises below. Install instructions can
     be found [here](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).
 
-For hints regarding how to use `conda` you can check out the
+For guidance on using `conda`, refer to the
 [cheat sheet](https://github.com/SkafteNicki/dtu_mlops/blob/main/s1_development_environment/exercise_files/conda_cheatsheet.pdf)
 in the exercise folder.
 
 1. Download and install `conda`. You are free to either install full `conda` or the much simpler version `miniconda`.
-    The core difference between the two packages is that `conda` already comes with a lot of packages that you would
-    normally have to install with `miniconda`. The downside is that `conda` is a much larger package which can be a
-    huge disadvantage on smaller devices. Make sure that your installation works by writing `conda help` in a
-    terminal, and it should show you the help message for conda. If this does not work, you probably need to set some
-    system variable to point to the
-    [conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10)
+    Conda includes many pre-installed packages, while Miniconda is a smaller, minimal installation. Conda's larger size
+    can be a disadvantage on smaller devices. Verify your installation by running `conda help` in a terminal; it should
+    display the conda help message. If it doesn't work, you may need to configure a system variable to point to the
+    [conda installation](https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10).
 
 2. If you have successfully installed conda, then you should be able to execute the `conda` command in a terminal.
 
@@ -214,9 +203,8 @@ in the exercise folder.
 
     ??? warning "Use Python 3.8 or higher"
 
-        We highly recommend that you use Python 3.8 or higher for this course. In general, we recommend that you use
-        the second latest version of Python that is available (currently Python 3.11 as of writing this). This is
-        because the latest version of Python is often not supported by all dependencies. You can always check the status
+        We recommend using Python 3.8 or higher for this course. Generally, using the second latest Python version
+        (currently 3.12) is advisable, as the newest version may lack support from all dependencies. Check the status
         of different Python versions [here](https://devguide.python.org/versions/).
 
     ??? success "Solution"
@@ -275,8 +263,8 @@ in the exercise folder.
         ```
 
 7. If you look through the requirements that both `pip` and `conda` produce, you will see that they
-    are often filled with a lot more packages than what you are using in your project. What you are interested in are the
-    packages that you import in your code: `from package import module`. One way to get around this is to use the
+    are often filled with a lot more packages than what you are using in your project. What you are interested in are
+    the packages that you import in your code: `from package import module`. One way to get around this is to use the
     package `pipreqs`, which will automatically scan your project and create a requirements file specific to that.
     Let's try it out:
 
@@ -311,5 +299,5 @@ in the exercise folder.
         but there of course exist other solutions as well.
 
 This ends the module on setting up virtual environments. While the methods mentioned in the exercises are great ways
-to construct requirement files automatically, sometimes it is just easier to sit down and manually create the files, as you
-in that way ensure that only the most necessary requirements are installed when creating a new environment.
+to construct requirement files automatically, sometimes it is just easier to sit down and manually create the files, as
+you in that way ensure that only the most necessary requirements are installed when creating a new environment.

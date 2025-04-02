@@ -6,21 +6,17 @@
 
 !!! info "Core Module"
 
-Deep learning has, since its
-[revolution back in 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html),
-transformed our lives. From Google Translate to driverless cars to personal assistants to protein engineering, deep
-learning is transforming nearly every sector of our economy and our lives. However, it did not take long before people
-realized that deep learning is not a simple beast to tame and it comes with its own kinds of problems, especially if you
-want to use it in a production setting. In particular, the concept of
-[technical debt](https://research.google/pubs/pub43146/) was invented to indicate the significant maintenance costs at a
-system level that are needed to run machine learning in production. MLOps should very much be seen as the response to the
-concept of technical debt, namely that we should develop methods, processes, and tools (with inspiration from classical
-DevOps) to counter the problems we run into when working with deep learning models.
+Since its breakthrough in 2012, deep learning has revolutionized various aspects of our lives, from Google Translate and
+driverless cars to personal assistants and protein engineering. It is transforming nearly every sector of the economy.
+However, deploying deep learning models in production presents unique challenges. The concept of
+[technical debt](https://research.google.com/pubs/pub43146/) highlights the significant maintenance costs associated
+with running machine learning systems in production. MLOps, inspired by classical DevOps, aims to address these
+challenges by developing methods, processes, and tools to streamline the development and deployment of deep learning
+models.
 
-It is important to note that all the concepts and tools that have been developed for MLOps can be used together with
-more classical machine learning models (think K-nearest neighbor, Random forest, etc.). However, deep learning comes
-with its own set of problems which mostly have to do with the sheer size of the data and models we are
-working with. For these reasons, we are focusing on working with deep learning models in this course.
+While MLOps concepts and tools can be applied to classical machine learning models (e.g., K-nearest neighbor, Random
+Forest), deep learning introduces specific challenges related to the size of data and models. Therefore, this course
+focuses on deep learning models.
 
 ## Software Landscape for Deep Learning
 
@@ -37,21 +33,17 @@ of when they were published):
 
 * [JAX](https://github.com/google/jax)
 
-We won't go into a longer discussion on which framework is the best, as it is pointless. PyTorch and TensorFlow have been
-around for the longest and therefore have larger communities and feature sets at this point in time. They are both very
-similar in the sense that they both have features directed at research and production. JAX is kind of the new kid
-on the block, which in many ways improves on PyTorch and TensorFlow, but is still not as mature as the other frameworks.
-As the frameworks use different kinds of programming principles (object-oriented vs. functional programming), comparing
-them is essentially meaningless.
+A detailed comparison of these frameworks is unnecessary. PyTorch and TensorFlow, being the oldest, have larger
+communities and comprehensive feature sets for both research and production. JAX, a newer framework, incorporates
+improvements over PyTorch and TensorFlow but is still evolving. Given their different programming paradigms
+(object-oriented vs. functional), a direct comparison is not particularly meaningful.
 
-In this course, we have chosen to work with PyTorch because it is a bit more intuitive and it is the framework that
-we use in our day-to-day research life. Additionally, as of right now, it is absolutely the
-[dominating framework](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/) for published models, research
-papers, and [competition winners](https://blog.mlcontests.com/p/winning-at-competitive-ml-in-2022?s=w).
+This course uses PyTorch due to its intuitive nature and its prevalence in our research. Currently, PyTorch is the
+dominant framework for published models, research papers, and competition winners.
 
 The intention behind this set of exercises is to get everyone's PyTorch skills up to date. If you're already a
-PyTorch-Jedi, feel free to skip the first set of exercises, but I still recommend that you go through them. The exercises
-are in large part taken directly from the
+PyTorch-Jedi, feel free to skip the first set of exercises, but I still recommend that you go through them. The
+exercises are in large part taken directly from the
 [deep learning course at Udacity](https://github.com/udacity/deep-learning-v2-pytorch). Note that these exercises are
 given as notebooks, which is the only time we are going to use them actively in the course. Instead, after this set of
 exercises, we are going to focus on writing code in Python scripts.
@@ -63,11 +55,10 @@ in small "exercise" blocks:
 ![Image](../figures/exercise.PNG){width="1000"}
 </figure>
 
-If you need a refresher on any deep learning topic in general throughout the course, we recommend finding the relevant
-chapter in the [deep learning](https://www.deeplearningbook.org/) book by Ian Goodfellow, Yoshua Bengio, and Aaron
-Courville (which can also be found in the literature folder). It is not necessary to be good at deep learning to pass
-this course, as the focus is on all the software needed to get deep learning models into production. However, it's
-important to have a basic understanding of the concepts.
+For a refresher on deep learning topics, consult the relevant chapters in the
+[deep learning](https://www.deeplearningbook.org/) book by Goodfellow, Bengio, and Courville (also available in the
+literature folder). While expertise in deep learning is not required to pass this course, a basic understanding of the
+concepts is beneficial. The course focuses on the software aspects of deploying deep learning models in production.
 
 ### ❔ Exercises
 
