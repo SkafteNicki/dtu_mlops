@@ -262,7 +262,7 @@ working together on the same project.
             hint: invocation.
             ```
 
-            In general we recommend setiing `git config pull.rebase false` to merge the changes. This is the default
+            In general we recommend setting `git config pull.rebase false` to merge the changes. This is the default
             behavior of git and is the most common way to resolve merge conflicts. However, if you are working on a
             project with many people and you want to keep the commit history clean, you can use
             `git config pull.rebase true` to rebase the changes. This will make it look like you made the changes
