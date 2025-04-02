@@ -2034,28 +2034,25 @@
 <p><a class="glightbox" href="../../figures/icons/typer.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img align="right" alt="Logo" src="../../figures/icons/typer.png" width="130" /></a></p>
 <h1 id="command-line-interfaces">Command line interfaces</h1>
 <hr />
-<p>As we already laid out in the very first <a href="../../s1_development_environment/command_line/">module</a>, the command line is a
-powerful tool for interacting with your computer. You should now already be familiar with running basic Python commands
+<p>As discussed in the initial <a href="../../s1_development_environment/command_line/">module</a>, the command line offers a robust
+interface for interacting with your computer. You should already be comfortable executing basic Python commands
 in the terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>my_script.py
 </span></code></pre></div>
-<p>However, as your projects grow in size and complexity, you will often find yourself in need of more advanced ways of
-interacting with your code. This is where a <a href="https://en.wikipedia.org/wiki/Command-line_interface">command line interface</a>
-(CLI) comes into play. A CLI can be seen as a way for you to define the user interface of your application directly in
-the terminal. Thus, there is no right or wrong way of creating a CLI; it is all about what makes sense for your
-application.</p>
-<p>In this module we are going to look at three different ways of creating a CLI for your machine learning projects. They
-all serve slightly different purposes and can therefore be combined in the same project. However, you will most
-likely also feel that they overlap in some areas. That is completely fine, and it is up to you to decide which
-one to use in which situation.</p>
+<p>However, as projects increase in size and complexity, more sophisticated methods of interacting with your code become
+necessary. This is where a <a href="https://en.wikipedia.org/wiki/Command-line_interface">command line interface</a> (CLI)
+becomes useful. A CLI allows you to define the user interface of your application directly in the terminal, and
+the best approach depends on the specific needs of your application.</p>
+<p>In this module, we will explore three distinct methods for creating CLIs for your machine learning projects. Each
+method serves a slightly different purpose, and they can be combined within the same project. You may find some
+overlap between them, which is perfectly acceptable. The choice of which method to use depends on your specific
+requirements.</p>
 <h2 id="project-scripts">Project scripts</h2>
-<p>You might already be familiar with the concept of executable scripts. An executable script is a Python script that can
-be run directly from the terminal without having to call the Python interpreter. This has been possible for a long time
-in Python, by the inclusion of a so-called <a href="https://en.wikipedia.org/wiki/hash-bang">shebang</a> line at the top of
-the script. However, we are going to look at a specific way of defining
-<a href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts">executable scripts</a>
-using the standard <code>pyproject.toml</code> file, which you should have learned about in this
-<a href="../code_structure/">module</a>.</p>
+<p>You may already be familiar with executable scripts. An executable script is a Python script that can be run directly
+from the terminal without needing to call the Python interpreter. This has been possible in Python for a long time,
+using a <a href="https://en.wikipedia.org/wiki/hash-bang">shebang</a> line at the top of the script. However, we will explore a
+specific method for defining <a href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts">executable scripts</a>
+using the standard <code>pyproject.toml</code> file, as covered in this <a href="../code_structure/">module</a>.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
@@ -2067,15 +2064,15 @@ using the standard <code>pyproject.toml</code> file, which you should have learn
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   ├── train.py
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>pyproject.toml
 </span></code></pre></div>
-<p>In your <code>pyproject.toml</code> file add the following lines. You will need to alter the paths to match your project.</p>
+<p>In your <code>pyproject.toml</code> file, add the following lines, adjusting the paths to match your project structure:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[project.scripts]</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">train</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_project.train:main&quot;</span>
 </span></code></pre></div>
 <p>what do you think the <code>train = "my_project.train:main"</code> line does?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The line tells Python that we want to create an executable script called <code>train</code> that should run the <code>main</code>
-function in the <code>train.py</code> file located in the <code>my_project</code> package.</p>
+<p>The line instructs Python to create an executable script named <code>train</code> that executes the <code>main</code> function within
+the <code>train.py</code> file, located in the <code>my_project</code> package.</p>
 </details>
 </li>
 <li>
@@ -2106,8 +2103,8 @@ Python interpreter. Some good examples of Python packages that use this approach
 <a href="https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L67-L71">pylint</a> and
 <a href="https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L99-L100">kedro</a>.</p>
 <h2 id="command-line-arguments">Command line arguments</h2>
-<p>If you have worked with Python for some time you are probably familiar with the <code>argparse</code> package, which allows you
-to directly pass in additional arguments to your script via the terminal.</p>
+<p>If you have experience with Python, you are likely familiar with the <code>argparse</code> package, which enables you to pass
+arguments directly to your script via the terminal.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
 </span></code></pre></div>
 <p><code>argparse</code> is a very simple way of constructing what is called a command line interface. However, one limitation of
@@ -2160,8 +2157,8 @@ these to be able to work properly.</p>
 </details>
 </li>
 <li>
-<p>Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the iris
-    dataset.</p>
+<p>Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the
+    iris dataset.</p>
 <div class="admonition example">
 <p class="admonition-title">iris_classifier.py</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
@@ -2373,7 +2370,8 @@ giving a shorter alias to the <code>--output</code> option.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The only key difference between the two is that in the <code>train</code> command we define the <code>output</code> argument to
-to be an optional parameter, i.e., we provide a default and for the <code>evaluate</code> command it is a required parameter.</p>
+to be an optional parameter, i.e., we provide a default and for the <code>evaluate</code> command it is a required
+parameter.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
@@ -2505,8 +2503,8 @@ and KNN) which each takes arguments that are unique to that model. Relevant
 <div class="admonition warning">
 <p class="admonition-title"><code>_</code> vs <code>-</code></p>
 <p>When using typer note that variables with <code>_</code> in the name
-will be converted to <code>-</code> in the CLI. Meaning that if you have a variable <code>n_neighbors</code> in your code, you should use
-<code>--n-neighbors</code> in the CLI.</p>
+will be converted to <code>-</code> in the CLI. Meaning that if you have a variable <code>n_neighbors</code> in your code, you should
+use <code>--n-neighbors</code> in the CLI.</p>
 </div>
 <details class="success">
 <summary>Success</summary>
@@ -2657,8 +2655,8 @@ will be converted to <code>-</code> in the CLI. Meaning that if you have a varia
     script using the <code>pyproject.toml</code> file and try it out!</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Assuming that our <code>iris_classifier.py</code> script from before is placed in the <code>src/my_project</code> folder, we should just
-add</p>
+<p>Assuming that our <code>iris_classifier.py</code> script from before is placed in the <code>src/my_project</code> folder, we should
+just add</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">[project.scripts]</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;src.my_project.iris_classifier:app&quot;</span>
 </span></code></pre></div>
@@ -2857,7 +2855,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2025 06:48:20">February 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 09:14:20">April 2, 2025</span>
   </span>
 
     
