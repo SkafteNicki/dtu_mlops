@@ -203,6 +203,14 @@ def extract_course_evaluations():
     USER = os.getenv("USER")  # noqa: N806
     PASSWORD = os.getenv("PASSWORD")  # noqa: N806
 
+    courses = [
+        "Machine Learning Operations Jan 22",
+        "Machine Learning Operations Jan 23",
+        "Machine Learning Operations Jan 24",
+        "Machine Learning Operations Jan 25",
+    ]
+
+    course_data = []
     with sync_playwright() as p:
         browser = p.firefox.launch(headless=False)
         context = browser.new_context()
@@ -212,25 +220,12 @@ def extract_course_evaluations():
         page.get_by_placeholder("Password").fill(PASSWORD)
         page.get_by_role("button", name="Sign in").click()
 
-        page.get_by_role("link", name="Show more").click()
-        page.get_by_role("link", name="Machine Learning Operations Jan 25").click()
-        year2025 = page.locator("article ").filter(has_text="3.1 Here you can write").text_content()
-        page.get_by_role("link", name="My Evaluations").click()
-
-        page.get_by_role("link", name="Show more").click()
-        page.get_by_role("link", name="Machine Learning Operations Jan 24").click()
-        year2024 = page.locator("article").filter(has_text="3.1 Here you can write").text_content()
-        page.get_by_role("link", name="My Evaluations").click()
-
-        page.get_by_role("link", name="Show more").click()
-        page.get_by_role("link", name="Machine Learning Operations Jan 23").click()
-        year2023 = page.locator("article").filter(has_text="3.1 Here you can write").text_content()
-        page.get_by_role("link", name="My Evaluations").click()
-
-        page.get_by_role("link", name="Show more").click()
-        page.get_by_role("link", name="Machine Learning Operations Jan 22").click()
-        year2022 = page.locator("article").filter(has_text="3.1 Here you can write").text_content()
-        page.get_by_role("link", name="My Evaluations").click()
+        for course in courses:
+            page.get_by_role("link", name="Show more").click()
+            page.get_by_role("link", name=course).click()
+            course_content = page.locator("article").filter(has_text="3.1 Here you can write").text_content()
+            course_data.append(course_content)
+            page.get_by_role("link", name="My Evaluations").click()
 
         context.close()
         browser.close()
@@ -265,7 +260,7 @@ def extract_course_evaluations():
         year: int
 
     results: list[SaveType] = []
-    for data in [year2022, year2023, year2024, year2025]:
+    for data in course_data:
         result = agent.run_sync(data)
         results.append(SaveType(data=result.data, usage=result.usage(), year=2022 + len(results)))
 
@@ -276,7 +271,7 @@ def extract_course_evaluations():
 @app.command()
 def wordcloud(all_years_together: bool = False):
     """Construct a word cloud from the course evaluations."""
-    if "output/evaluations.json" not in os.listdir():
+    if "output/evaluations.json" not in os.listdir("output"):
         extract_course_evaluations()
     with open("output/evaluations.json") as f:
         data = json.load(f)
@@ -304,6 +299,80 @@ def wordcloud(all_years_together: bool = False):
             plt.imshow(wordcloud, interpolation="bilinear")
             plt.axis("off")
             plt.savefig(f"output/wordcloud_{2022+i}.png", dpi=300, bbox_inches="tight")
+
+
+@app.command()
+def extract_evaluations():
+    """Extract course evaluations from DTU's evaluation system."""
+    USER = os.getenv("USER")  # noqa: N806
+    PASSWORD = os.getenv("PASSWORD")  # noqa: N806
+
+    courses = [
+        "Machine Learning Operations Jan 22",
+        "Machine Learning Operations Jan 23",
+        "Machine Learning Operations Jan 24",
+        "Machine Learning Operations Jan 25",
+    ]
+
+    class CourseData(BaseModel):
+        course: str
+        course_feedback: str
+        course_download: str
+        exam_feedback: str
+        exam_download: str
+        teacher_feedback: str
+        teacher_download: str
+
+    course_data: list[CourseData] = []
+    with sync_playwright() as p:
+        browser = p.firefox.launch(headless=False)
+        context = browser.new_context()
+        page = context.new_page()
+        page.goto("https://evaluering.dtu.dk")
+        page.get_by_placeholder("User").fill(USER)
+        page.get_by_placeholder("Password").fill(PASSWORD)
+        page.get_by_role("button", name="Sign in").click()
+
+        for course in courses:
+            page.get_by_role("link", name="Show more").click()
+            page.get_by_role("link", name=course).click()
+
+            course_feedback = page.locator("article").filter(has_text="3.1 Here you can write").text_content()
+            with page.expect_download() as download_info:
+                page.get_by_role("button", name="Download Exceldata").click()
+            course_download = download_info.value
+            course_download.save_as(os.path.join("data", f"{course}_course_feedback.xlsx"))
+
+            page.get_by_role("link", name="Evaluation of exam").click()
+            exam_feedback = page.locator("article").filter(has_text="6 Further comments /").text_content()
+            with page.expect_download() as download1_info:
+                page.get_by_role("button", name="Download Exceldata").click()
+            exam_download = download1_info.value
+            exam_download.save_as(os.path.join("data", f"{course}_exam_feedback.xlsx"))
+
+            page.get_by_role("link", name="Schema B1, Teacher").click()
+            teacher_feedback = page.locator("article").filter(has_text="2.1 Do you have constructive").text_content()
+            with page.expect_download() as download2_info:
+                page.get_by_role("button", name="Download Exceldata").click()
+            teacher_download = download2_info.value
+            teacher_download.save_as(os.path.join("data", f"{course}_teacher_feedback.xlsx"))
+
+            course_data.append(
+                CourseData(
+                    course=course,
+                    course_feedback=course_feedback,
+                    course_download=course_download.suggested_filename,
+                    exam_feedback=exam_feedback,
+                    exam_download=exam_download.suggested_filename,
+                    teacher_feedback=teacher_feedback,
+                    teacher_download=teacher_download.suggested_filename,
+                )
+            )
+
+            page.get_by_role("link", name="My Evaluations").click()  # reset to homepage
+
+        context.close()
+        browser.close()
 
 
 if __name__ == "__main__":

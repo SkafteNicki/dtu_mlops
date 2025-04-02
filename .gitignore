@@ -173,6 +173,8 @@ tools/learn_automate/extracted_files
 tools/ai_eval/output
 tools/ai_eval/responses.json
 tools/course_stats/output
+tools/course_stats/data
+
 
 # vscode
 .vscode/
