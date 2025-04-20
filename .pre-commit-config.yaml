@@ -3,7 +3,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v5.0.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -16,7 +16,7 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.11.6
     hooks:
       # try to fix what is possible
       - id: ruff
@@ -27,30 +27,30 @@ repos:
       - id: ruff
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.4.1
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
         exclude: pyproject.toml
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.37.0
+    rev: v0.44.0
     hooks:
       - id: markdownlint-docker
         args: ["-c", ".github/markdownlint.json"]
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.20.7
+    rev: v1
     hooks:
       - id: typos
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 1.7.0
+    rev: v2.5.1
     hooks:
       - id: pyproject-fmt
         additional_dependencies: [tox]
 
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.16
+    rev: v0.24.1
     hooks:
       - id: validate-pyproject
