@@ -214,9 +214,17 @@ your head around where files are located.
 
 1. Install the [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
 
-    ``` bash
-    pip install cookiecutter
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install cookiecutter
+        ```
+
+    === "`uv`"
+
+        ```bash
+        uv add cookiecutter
+        ```
 
 2. Start a new project using [this template](https://github.com/SkafteNicki/mlops_template), which is specialized for
     this course (1).

@@ -215,9 +215,19 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
 3. Next, we need the Google storage extension for `dvc`.
 
-    ```bash
-    pip install dvc-gs
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install dvc-gs
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add dvc-gs
+        ```
 
 4. Now in your corrupt MNIST repository where you have already configured `dvc`, we are going to change the storage
     from our Google Drive to our newly created Google Cloud storage.
