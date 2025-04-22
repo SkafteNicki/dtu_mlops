@@ -212,7 +212,7 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
 ### ❔ Exercises
 
 1. We provide a start script that implements the famous
-    [LeNet](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf) in this
+    [LeNet](https://ieeexplore.ieee.org/document/726791) in this
     [file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s9_scalable_applications/exercise_files/lenet.py).
     Open and run it just to make sure that you know the network.
 
