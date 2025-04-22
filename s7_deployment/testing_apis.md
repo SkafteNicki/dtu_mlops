@@ -49,11 +49,19 @@ to change.
 
 1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
 
-    ```bash
-    pip install httpx
-    ```
+    === "`pip`"
 
-    Remember to add it to your `requirements.txt` file.
+        ```bash
+        pip install httpx
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add httpx
+        ```
 
 2. If you have already done the module on [unittesting](../s5_continuous_integration/unittesting.md) then you should
     already have a `tests/` folder. If not then create one. Inside the `tests/` folder create a new folder called
@@ -168,9 +176,19 @@ very easy to integrate into your CI/CD pipeline.
 
 1. Install `locust`
 
-    ```bash
-    pip install locust
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install locust
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add locust
+        ```
 
     Remember to add it to your `requirements.txt` file.
 

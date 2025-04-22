@@ -524,11 +524,19 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
 1. Install BentoML.
 
-    ```bash
-    pip install bentoml
-    ```
+    === "`pip`"
 
-    Remember to add the dependency to your `requirements.txt` file.
+        ```bash
+        pip install bentoml
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add bentoml
+        ```
 
 2. You are in principal free to serve any model you like, but we recommend just using a
     [torchvision](https://pytorch.org/vision/stable/index.html) model as in the ONNX exercises. Write your first service
