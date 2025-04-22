@@ -11,7 +11,7 @@ markdown-exec[ansi] == 1.10.3
 # Developer stuff
 ruff == 0.9.9
 codespell == 2.4.1
-pre-commit == 4.1.0
+pre-commit == 4.2.0
 
 # Other
 ipython == 9.0.2
