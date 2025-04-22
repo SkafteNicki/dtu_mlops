@@ -136,7 +136,7 @@ This includes:
 
 Additional reading resources (in no particular order):
 
-* [Ref 1](https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f)
+* [Ref 1](https://medium.com/analytics-vidhya/fundamentals-of-mlops-part-1-a-gentle-introduction-to-mlops-1b184d2c32a8)
     Introduction blog post for those who have never heard about MLOps and want to get an overview.
 
 * [Ref 2](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)
@@ -167,9 +167,18 @@ Other courses with content similar to this:
 If you want to contribute to the course, we are happy to have you! Anything from fixing typos to adding new content is
 welcome. For building the course material locally, it is a simple two-step process:
 
+Either use `pip` to install the requirements:
+
 ```bash
 pip install -r requirements.txt
 mkdocs serve
+```
+
+Or use `uv`
+
+```bash
+uv sync
+uv run mkdocs serve
 ```
 
 Which will start a local server that you can access at `http://127.0.0.1:8000` and will automatically update when you
