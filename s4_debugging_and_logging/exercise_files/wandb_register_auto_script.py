@@ -35,7 +35,7 @@ def stage_best_model_to_registry(model_name: str, metric_name: str = "accuracy",
             best_artifact = artifact
 
     if best_artifact is None:
-        logging.error("No model found in registry.")
+        logger.error("No model found in registry.")
         return
 
     logger.info(f"Best model found in registry: {best_artifact.name} with {metric_name}={best_metric}")
