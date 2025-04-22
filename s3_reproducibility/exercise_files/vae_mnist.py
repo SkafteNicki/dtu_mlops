@@ -66,7 +66,7 @@ for epoch in range(20):
 
         loss.backward()
         optimizer.step()
-    print(f"Epoch {epoch+1} complete!,  Average Loss: {overall_loss / (batch_idx*batch_size)}")
+    print(f"Epoch {epoch + 1} complete!,  Average Loss: {overall_loss / (batch_idx * batch_size)}")
 print("Finish!!")
 
 # save weights
