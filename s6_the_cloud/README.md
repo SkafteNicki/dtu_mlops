@@ -27,7 +27,7 @@ cloud computing.
 <figure markdown>
 ![Image](../figures/cloud_computing.jpeg){ width="600" }
 <figcaption>
-<a href="https://towardsdatascience.com/how-to-start-a-data-science-project-using-google-cloud-platform-6618b7c6edd2"> Image credit </a>
+<a href="https://medium.com/data-science/how-to-start-a-data-science-project-using-google-cloud-platform-6618b7c6edd2"> Image credit </a>
 </figcaption>
 </figure>
 <!-- markdownlint-restore -->
