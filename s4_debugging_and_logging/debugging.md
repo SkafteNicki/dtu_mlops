@@ -66,7 +66,7 @@ to find them.
 
 ??? success "Solution for device bug"
 
-    If you look at the reparametrization function in the `Encoder` class you can see that we initialize a noise tensor
+    If you look at the reparameterization function in the `Encoder` class you can see that we initialize a noise tensor
 
     ```python
     def reparameterization(self, mean, var):

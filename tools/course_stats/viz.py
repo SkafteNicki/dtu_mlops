@@ -298,7 +298,7 @@ def wordcloud(all_years_together: bool = False):
             plt.figure(figsize=(10, 6))
             plt.imshow(wordcloud, interpolation="bilinear")
             plt.axis("off")
-            plt.savefig(f"output/wordcloud_{2022+i}.png", dpi=300, bbox_inches="tight")
+            plt.savefig(f"output/wordcloud_{2022 + i}.png", dpi=300, bbox_inches="tight")
 
 
 @app.command()

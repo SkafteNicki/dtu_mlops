@@ -78,7 +78,7 @@ def train(config) -> None:
 
             loss.backward()
             optimizer.step()
-        log.info(f"Epoch {epoch+1} complete! Average Loss: {overall_loss / (batch_idx*hparams['batch_size'])}")
+        log.info(f"Epoch {epoch + 1} complete! Average Loss: {overall_loss / (batch_idx * hparams['batch_size'])}")
     log.info("Finish!!")
 
     # save weights

@@ -8,6 +8,7 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
   "codespell==2.4.1",
@@ -17,7 +18,7 @@ dependencies = [
   "mkdocs-exclude==1.0.2",
   "mkdocs-git-revision-date-localized-plugin==1.4.5",
   "mkdocs-glightbox==0.4",
-  "mkdocs-material==9.6.6",
+  "mkdocs-material==9.6.12",
   "mkdocs-material-extensions==1.3.1",
   "mkdocs-same-dir==0.1.3",
   "pre-commit==4.1",
@@ -26,78 +27,75 @@ dependencies = [
 ]
 
 [tool.ruff]
-line-length = 120
 target-version = "py311"
 
-[tool.ruff.lint]
-select = [
-    "F",
-    "E",
-    "W",
-    "C90",
-    "I",
-    "N",
-    "D",
-    "UP",
-    "YTT",
-    "ASYNC",
-    "S",
-    "BLE",
-    "B",
-    "A",
-    "COM",
-    "C4",
-    "DTZ",
-    "T10",
-    "DJ",
-    "EM",
-    "EXE",
-    "FA",
-    "ISC",
-    "ICN",
-    "LOG",
-    "PIE",
-    "PYI",
-    "PT",
-    "Q",
-    "RSE",
-    "RET",
-    "SLF",
-    "SLOT",
-    "SIM",
-    "TID",
-    "TCH",
-    "INT",
-    "ERA",
-    "PGH",
+line-length = 120
+lint.select = [
+  "A",
+  "ASYNC",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "COM",
+  "D",
+  "DJ",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "F",
+  "FA",
+  "I",
+  "ICN",
+  "INT",
+  "ISC",
+  "LOG",
+  "N",
+  "PGH",
+  "PIE",
+  "PT",
+  "PYI",
+  "Q",
+  "RET",
+  "RSE",
+  "S",
+  "SIM",
+  "SLF",
+  "SLOT",
+  "T10",
+  "TCH",
+  "TID",
+  "UP",
+  "W",
+  "YTT",
 ]
-ignore = [
-    "F821",
-    "F841",
-    "D100",
-    "D107",
-    "D211",
-    "D212",
-    "S301",
-    "S311",
-    "S603",
-    "S605",
-    "S607",
-    "B008",
-    "B028",
-    "B905",
-    "COM812",
-    "ISC001",
-    "TC003",
+lint.ignore = [
+  "B008",
+  "B028",
+  "B905",
+  "COM812",
+  "D100",
+  "D107",
+  "D211",
+  "D212",
+  "F821",
+  "F841",
+  "ISC001",
+  "S301",
+  "S311",
+  "S603",
+  "S605",
+  "S607",
+  "TC003",
 ]
-exclude=["student_repos/"]
-
-[tool.ruff.lint.pydocstyle]
-convention = "google"
+lint.exclude = [ "student_repos/" ]
+lint.pydocstyle.convention = "google"
 
 [tool.codespell]
 skip = "*.pdf,*.ipynb,*.drawio,*.json"
-ignore-words-list = ["instanciate"]
+ignore-words-list = [ "instanciate" ]
 
 [tool.typos.default.extend-identifiers]
 arange = "arange"
