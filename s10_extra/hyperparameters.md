@@ -145,7 +145,7 @@ rest to a "recommended value".
     1. To run hyperparameter search in parallel we need a common database that all experiments can read and
         write to. We are going to use the recommended `mysql`. You do not have to understand what SQL is to
         complete this exercise, but it is [basically](https://en.wikipedia.org/wiki/SQL) a language (like python)
-        for managing databases. Install [mysql](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/).
+        for managing databases. Install [mysql](https://dev.mysql.com/doc/).
 
     2. Next we are going to initialize a database that we can read and write to. For this exercises we are going
         to focus on a locally stored database but it could of course also be located in the cloud.

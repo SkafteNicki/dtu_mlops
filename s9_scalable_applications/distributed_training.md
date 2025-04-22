@@ -24,7 +24,7 @@ our computations:
 In this module we are going to look at data parallel training, which is the original way of doing parallel training and
 distributed data parallel training which is an improved version of data parallel. If you want to know more about sharded
 training which is the newest of the paradigms you can read more about it in this
-[blog post](https://towardsdatascience.com/sharded-a-new-technique-to-double-the-size-of-pytorch-models-3af057466dba),
+[blog post](https://medium.com/data-science/sharded-a-new-technique-to-double-the-size-of-pytorch-models-3af057466dba),
 which describes how sharded can save over 60% of memory used during your training.
 
 Finally, we want to note that for all the exercises in the module you are going to need a multi-GPU setup. If you have
