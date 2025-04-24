@@ -148,9 +148,17 @@ which can be found in the `samples/frontend_backend` folder.
 
     1. Start by installing `streamlit`.
 
-        ```bash
-        pip install streamlit
-        ```
+        === "`pip`"
+
+            ```bash
+            pip install streamlit
+            ```
+
+        === "`uv`"
+
+            ```bash
+            uv add streamlit
+            ```
 
     2. Now create a file called `frontend.py` and implement a streamlit application. You can design it however you want,
         but we recommend that the following can be done in the frontend:

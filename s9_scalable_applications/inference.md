@@ -93,9 +93,19 @@ architecture. In the exercises below we are going to investigate the inference s
 
     1. Install the package.
 
-        ```bash
-        pip install ptflops
-        ```
+        === "`pip`"
+
+            ```bash
+            pip install ptflops
+            ```
+
+            Remember to add the package to your `requirements.txt` file.
+
+        === "`uv`"
+
+            ```bash
+            uv add ptflops
+            ```
 
     2. Try calling the `get_model_complexity_info` function from the `ptflops` package on the networks from the
         previous exercise. What are the results?
@@ -369,10 +379,19 @@ time to finish because they involve training multiple networks and therefore inv
 
 1. Start by install the `transformers` and `datasets` packages from Huggingface
 
-    ```bash
-    pip install transformers
-    pip install datasets
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install transformers datasets
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add transformers datasets
+        ```
 
     from which we are going to download the cifar10 dataset and a teacher model.
 

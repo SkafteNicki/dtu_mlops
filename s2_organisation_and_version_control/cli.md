@@ -120,9 +120,17 @@ for doing this, and another excellent framework for creating command line interf
 
 1. Start by installing the `typer` package
 
-    ```bash
-    pip install typer
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install typer
+        ```
+
+    === "`uv`"
+
+        ```bash
+        uv add typer
+        ```
 
     and remember to add the package to your `requirements.txt` file.
 
@@ -292,9 +300,17 @@ easier.
 
 1. Start by installing `invoke`
 
-    ```bash
-    pip install invoke
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install invoke
+        ```
+
+    === "`uv`"
+
+        ```bash
+        uv add invoke
+        ```
 
     and remember to add the package to your `requirements.txt` file.
 
