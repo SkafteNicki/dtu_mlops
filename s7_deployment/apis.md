@@ -49,11 +49,21 @@ the TLDR is that it provides privacy, integrity and identification over the web.
 We are going to do a couple of exercises on sending requests using the
 [requests package](https://requests.readthedocs.io/en/latest/) to get familiar with the syntax.
 
-1. Start by installing the `requests`` package.
+1. Start by installing the `requests` package.
 
-    ```bash
-    pip install requests
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install requests
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add requests
+        ```
 
 2. Afterwards, create a small script and try to execute the code:
 
@@ -223,17 +233,36 @@ you can look through for help.
 
 1. Install FastAPI.
 
-    ```bash
-    pip install fastapi
-    ```
+    === "`pip`"
 
+        ```bash
+        pip install fastapi
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add fastapi
+        ```
     This contains the functions, modules, and variables we are going to need to define our interface.
 
 2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
 
-    ```bash
-    pip install uvicorn[standard]
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install uvicorn[standard]
+        ```
+
+        Remember to add the package to your `requirements.txt` file.
+
+    === "`uv`"
+
+        ```bash
+        uv add uvicorn[standard]
+        ```
 
 3. Start by defining a small application like this in a file called `main.py`:
 
