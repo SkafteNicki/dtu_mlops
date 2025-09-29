@@ -174,7 +174,7 @@ tools/ai_eval/output
 tools/ai_eval/responses.json
 tools/course_stats/output
 tools/course_stats/data
-
+tools/to_pdf/**/*.pdf
 
 # vscode
 .vscode/
