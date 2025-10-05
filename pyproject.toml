@@ -13,7 +13,7 @@ classifiers = [
 dependencies = [
   "codespell==2.4.1",
   "invoke==2.2",
-  "ipython==9.0.2",
+  "ipython==9.6.0",
   "markdown-exec[ansi]==1.10",
   "mkdocs-exclude==1.0.2",
   "mkdocs-git-revision-date-localized-plugin==1.4.5",
