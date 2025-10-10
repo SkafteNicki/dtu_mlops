@@ -14,5 +14,5 @@ codespell == 2.4.1
 pre-commit == 4.2.0
 
 # Other
-ipython == 9.0.2
+ipython == 9.6.0
 invoke == 2.2.0
