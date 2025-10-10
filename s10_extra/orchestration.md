@@ -18,10 +18,6 @@ If you give an MLOps engineer a job
 * Could you add caching?
 * Could you add add collaborators to run ad hoc - who don't code e.g could you add a UI?
 
-```bash
-pip install prefect
-```
-
 ```python
 from prefect import task, Flow
 ```
@@ -30,9 +26,17 @@ from prefect import task, Flow
 
 1. Start by installing `prefect`:
 
-    ```bash
-    pip install prefect
-    ```
+    === "`pip`"
+
+        ```bash
+        pip install prefect
+        ```
+
+    === "`uv`"
+
+        ```bash
+        uv add prefect
+        ```
 
 2. Start a local Prefect server instance in your virtual environment.
 
