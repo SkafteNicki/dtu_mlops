@@ -27,7 +27,7 @@ node2 = make_node("Add", ["XA", "B"], ["Y"])
 graph = make_graph([node1, node2], "lr", [X, A, B], [Y])  # nodes  # a name  # inputs  # outputs
 
 # onnx graph
-# there is no metata in this case.
+# there is no metadata in this case.
 
 onnx_model = make_model(graph)
 
