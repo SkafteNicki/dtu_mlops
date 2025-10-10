@@ -1,15 +1,16 @@
 import os
+import re
+from urllib.parse import urljoin, urlparse
+
+import pdfkit
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin, urlparse
-import pdfkit
 from PyPDF2 import PdfMerger, PdfReader, PdfWriter
-import re
+
 
 def natural_key(s):
     """Turn a string into a list of ints and text, so 's10' > 's9'."""
-    return [int(text) if text.isdigit() else text.lower()
-            for text in re.split(r'(\d+)', s)]
+    return [int(text) if text.isdigit() else text.lower() for text in re.split(r"(\d+)", s)]
 
 
 def get_all_links(base_url):
@@ -47,7 +48,7 @@ def save_pages_as_pdfs(urls, output_dir="pages_pdfs"):
     os.makedirs(output_dir, exist_ok=True)
     pdf_files = []
     for i, url in enumerate(urls):
-        out_file = os.path.join(output_dir, f"page_{i+1}.pdf")
+        out_file = os.path.join(output_dir, f"page_{i + 1}.pdf")
         try:
             pdfkit.from_url(url, out_file)
             pdf_files.append(out_file)
@@ -68,15 +69,22 @@ def merge_pdfs(pdf_files, output_file="combined.pdf"):
 
 import subprocess
 
-def compress_pdf(input_file, output_file, quality="/ebook"):
-    subprocess.run([
-        "gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4",
-        f"-dPDFSETTINGS={quality}",
-        "-dNOPAUSE", "-dQUIET", "-dBATCH",
-        f"-sOutputFile={output_file}", input_file
-    ])
-    print(f"📉 Compressed {input_file} → {output_file}")
 
+def compress_pdf(input_file, output_file, quality="/ebook"):
+    subprocess.run(
+        [
+            "gs",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.4",
+            f"-dPDFSETTINGS={quality}",
+            "-dNOPAUSE",
+            "-dQUIET",
+            "-dBATCH",
+            f"-sOutputFile={output_file}",
+            input_file,
+        ]
+    )
+    print(f"📉 Compressed {input_file} → {output_file}")
 
 
 def split_pdf(input_file, output_files):
@@ -95,21 +103,22 @@ def split_pdf(input_file, output_files):
             writer.add_page(page)
         with open(out_file, "wb") as f:
             writer.write(f)
-        print(f"✂️ Split pages {start+1}-{end} → {out_file}")
+        print(f"✂️ Split pages {start + 1}-{end} → {out_file}")
         start = end
 
 
 if __name__ == "__main__":
     base_url = "https://skaftenicki.github.io/dtu_mlops/"
     urls = get_all_links(base_url)
-    urls = sorted(urls, key=natural_key)   # 👈 use natural sort
+    urls = sorted(urls, key=natural_key)  # 👈 use natural sort
     print(f"Found {len(urls)} pages.")
 
     pdf_files = save_pages_as_pdfs(urls)
     merge_pdfs(pdf_files, "dtu_mlops_all.pdf")
-    split_pdf("dtu_mlops_all.pdf", [
-        "dtu_mlops_part1.pdf", "dtu_mlops_part2.pdf", "dtu_mlops_part3.pdf", "dtu_mlops_part4.pdf"
-    ])
+    split_pdf(
+        "dtu_mlops_all.pdf",
+        ["dtu_mlops_part1.pdf", "dtu_mlops_part2.pdf", "dtu_mlops_part3.pdf", "dtu_mlops_part4.pdf"],
+    )
     compress_pdf("dtu_mlops_part1.pdf", "dtu_mlops_part1_small.pdf")
     compress_pdf("dtu_mlops_part2.pdf", "dtu_mlops_part2_small.pdf")
     compress_pdf("dtu_mlops_part3.pdf", "dtu_mlops_part3_small.pdf")

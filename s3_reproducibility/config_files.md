@@ -121,7 +121,7 @@ look online for your answers before looking at the solution. Remember: it's not 
     ??? success "Solution"
 
         From the top of the file `batch_size`, `x_dim`, `hidden_dim` can be found as hyperparameters. Looking through
-        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` for the optimzer, and `epochs` in
+        the code it can be seen that the `latent_dim` of the encoder and decoder, `lr` for the optimizer, and `epochs` in
         the training loop are also hyperparameters. Finally, the `seed` is not included in the script but is needed to
         make the script fully reproducible, e.g. `torch.manual_seed(seed)`.
 
