@@ -40,7 +40,7 @@ dynamic (like video), but the site does not change (1).
 
 We are in this module going to look at [Mkdocs](https://www.mkdocs.org/), which (in my opinion) is one of the easiest
 systems to get started with because all documentation is written in markdown and the build system is written in Python.
-As an alternativ, you can consider doing the exercises in [Sphinx](https://www.sphinx-doc.org/en/master/) which is
+As an alternative, you can consider doing the exercises in [Sphinx](https://www.sphinx-doc.org/en/master/) which is
 probably the most used documentation system for Python code. Sphinx offer more customization than Mkdocs, so is
 generally preferred for larger projects with complex documentation, but for smaller projects Mkdocs should be easier to
 get started with and is sufficient.
