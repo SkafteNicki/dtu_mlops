@@ -106,7 +106,7 @@ design phase. Some new algorithms may show promising results, so you revisit the
 this. Finally, you may try to cut the cost of running your model in production, making you revisit the operations phase,
 and trying to optimize some steps.
 
-The focus in this course is particularly on the **Operations** part of MLOps as this is what many data scientists are
+The focus of this course is particularly on the **Operations** part of MLOps as this is what many data scientists are
 missing in their toolbox to implement all the knowledge they have about data processing and model development into a
 production setting.
 
