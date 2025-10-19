@@ -31,7 +31,7 @@ jobs:
         git diff --name-only
 
     - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v5
+      uses: stefanzweifel/git-auto-commit-action@v7
       with:
         commit_message: Pre-commit fixes
         commit_options: '--no-verify'
