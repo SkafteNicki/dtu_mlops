@@ -26,7 +26,7 @@ def precommit(ctx) -> None:
     """Install and run pre-commit checks."""
     ctx.run("pre-commit install", echo=True, pty=not WINDOWS)
     ctx.run("pre-commit run --all-files", echo=True, pty=not WINDOWS)
-
+#test
 
 @task(aliases=["mkdocs"])
 def docs(ctx) -> None:
