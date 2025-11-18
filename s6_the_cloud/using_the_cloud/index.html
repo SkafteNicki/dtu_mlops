@@ -2262,7 +2262,7 @@ Finally, the location of the virtual machine also affects the price.</p>
 <ol>
 <li>
 <p>GCP comes with several ready-to-go images for doing deep learning.
-    More info can be found <a href="https://cloud.google.com/deep-learning-containers/docs/choosing-container">here</a>.
+    More info can be found <a href="https://cloud.google.com/deep-learning-containers/docs/choosing-container">in the deep learning containers guide</a>.
     Try, running this line:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gcloud<span class="w"> </span>container<span class="w"> </span>images<span class="w"> </span>list<span class="w"> </span>--repository<span class="o">=</span><span class="s2">&quot;gcr.io/deeplearning-platform-release&quot;</span>
 </span></code></pre></div>
@@ -2286,8 +2286,9 @@ Python, PyTorch, TensorFlow, etc. The images are maintained by Google and are up
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span>--maintenance-policy<span class="w"> </span>TERMINATE<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;install-nvidia-driver=True&quot;</span><span class="w"> </span><span class="se">\</span>
 </span></code></pre></div>
-<p>You can find more info <a href="https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance">here</a> on what
-<code>&lt;image-family&gt;</code> should be and what extra argument you need to add if you want to run on GPU (if you
+<p>You can find more info
+<a href="https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance">in the PyTorch VM instance guide</a> on
+what <code>&lt;image-family&gt;</code> should be and what extra argument you need to add if you want to run on GPU (if you
 have access).</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2420,7 +2421,7 @@ laptop? We in general recommend two ways:</p>
 <li>
 <p>You can make the bucket publicly accessible, i.e. no authentication is needed. That means that anyone with the URL
     to the data can access it. This is the easiest way to do it, but also the least secure. You can read more about
-    how to make your buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">here</a>.</p>
+    how to make your buckets public <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">in the making data public guide</a>.</p>
 </li>
 <li>
 <p>You can use the service account that you created in the previous module to authenticate the VM. This is the most
@@ -2710,8 +2711,8 @@ to configure it to run in one of these regions:
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;registry-name&gt;/&lt;image-name&gt;:&lt;image-tag&gt;
 </span></code></pre></div>
 <p>you will need to authenticate <code>docker</code> with GCP first. Instructions can be found
-<a href="https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper">here</a>, but the following
-command should hopefully be enough to make <code>docker</code> and GCP talk to each other:</p>
+<a href="https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper">in the docker auth guide</a>, but
+the following command should hopefully be enough to make <code>docker</code> and GCP talk to each other:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>configure-docker<span class="w"> </span>&lt;region&gt;-docker.pkg.dev
 </span></code></pre></div>
 <p>where you need to replace <code>&lt;region&gt;</code> with the region you are using. Do note you need to have <code>docker</code> actively
@@ -3025,10 +3026,10 @@ use it.</p>
 </div>
 </div>
 <p>You can read more about the configuration formatting
-<a href="https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec">here</a>
+<a href="https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec">in the CustomJobSpec reference</a>
 and the different types of machines
-<a href="https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types">here</a>. Try to execute a job
-using the <code>gcloud ai custom-jobs create</code> command. For additional documentation you can look at
+<a href="https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types">in the documentation</a>. Try to
+execute a job using the <code>gcloud ai custom-jobs create</code> command. For additional documentation you can look at
 <a href="https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create">the documentation on the command</a>
 and <a href="https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging">this page</a> and
 <a href="https://cloud.google.com/vertex-ai/docs/training/configure-compute">this page</a>.</p>
@@ -3315,7 +3316,7 @@ more of the services offered in GCP, in particular for deploying the models that
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2025 06:48:20">February 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41">November 18, 2025</span>
   </span>
 
     

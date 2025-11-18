@@ -2249,9 +2249,9 @@ important when you want to compare performance between different runs.</p>
 <li><a href="https://wandb.ai/site">Weights and Bias</a></li>
 </ul>
 <p>All of the frameworks offer many of the same functionalities, you can see a (biased) review
-<a href="https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/">here</a>. We are going to use
-Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an excellent tool for
-collaboration and sharing of results.</p>
+<a href="https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/">comparing experiment tracking tools</a>.
+We are going to use Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an
+excellent tool for collaboration and sharing of results.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/wandb_example.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_example.png" width="700" /></a></p>
 <figcaption>
@@ -2572,9 +2572,10 @@ figure and log that as well.</p>
 </li>
 <li>
 <p>Finally, we want to log the model itself. This is done by saving the model as an artifact and then logging the
-    artifact. You can read much more about what artifacts are <a href="https://docs.wandb.ai/guides/artifacts">here</a>, but
-    they are essentially one or more files logged together with runs that can be versioned and equipped with
-    metadata. Log the model after training and see if you can find it in the wandb dashboard.</p>
+    artifact. You can read much more about what artifacts are
+    <a href="https://docs.wandb.ai/guides/artifacts">in the wandb artifacts guide</a>, but they are essentially one or more
+    files logged together with runs that can be versioned and equipped with metadata. Log the model after training
+    and see if you can find it in the wandb dashboard.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>In this solution we have added the calculating of final training metrics and when we then log the model
@@ -2817,12 +2818,12 @@ runs in the wandb dashboard.</p>
 <ol>
 <li>
 <p>Start by creating a <code>sweep.yaml</code> file. Relevant documentation can be found
-    <a href="https://docs.wandb.ai/guides/sweeps/define-sweep-configuration">here</a>. We recommend placing the file in a
-    <code>configs</code> folder in your project.</p>
+    <a href="https://docs.wandb.ai/guides/sweeps/define-sweep-configuration">in the wandb sweeps configuration guide</a>. We
+    recommend placing the file in a <code>configs</code> folder in your project.</p>
 <details class="success">
 <summary>Solution</summary>
-<p class="annotate">The <code>sweep.yaml</code> file will depend on the kind of hyperparameters your model accepts as arguments and how they
-are passed to the model. For this solution we assume that the model accepts the hyperparameters <code>lr</code>,
+<p class="annotate">The <code>sweep.yaml</code> file will depend on the kind of hyperparameters your model accepts as arguments and how
+they are passed to the model. For this solution we assume that the model accepts the hyperparameters <code>lr</code>,
 <code>batch_size</code> and <code>epochs</code> and that they are passed as <code>--args</code> (with hyphens) (1) e.g. this would be how we
 run the script:</p>
 <ol>
@@ -3157,7 +3158,7 @@ license. If you are eager to only work with open-source tools we highly recommen
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2025 06:48:20">February 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41">November 18, 2025</span>
   </span>
 
     

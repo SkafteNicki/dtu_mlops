@@ -2020,12 +2020,12 @@ application if you want to keep it up-to-date with the real world.</p>
 care of: When we should actually trigger the retraining? We do not want to wait around for our model performance to
 degrade, thus we need tools that can detect when we are seeing a drift in our data.</p>
 <h2 id="exercises">❔ Exercises</h2>
-<p>For these exercises we are going to use the framework <a href="https://github.com/evidentlyai/evidently">Evidently</a> ,developed by
-<a href="https://www.evidentlyai.com">EvidentlyAI</a>. Evidently currently supports detection for both regression and
+<p>For these exercises we are going to use the framework <a href="https://github.com/evidentlyai/evidently">Evidently</a> ,developed
+by <a href="https://www.evidentlyai.com">EvidentlyAI</a>. Evidently currently supports detection for both regression and
 classification models. The exercises are in large part taken from
-<a href="https://docs.evidentlyai.com/get-started/hello-world">here</a> and in general we recommend if you are in doubt about an
-exercise to look at the <a href="https://docs.evidentlyai.com/">docs</a> for the API and examples (their documentation can be a bit
-lacking sometimes, so you may also have to dive into the source code).</p>
+<a href="https://docs.evidentlyai.com/get-started/hello-world">the Evidently getting started guide</a> and in general we recommend
+if you are in doubt about an exercise to look at the <a href="https://docs.evidentlyai.com/">docs</a> for the API and examples
+(their documentation can be a bit lacking sometimes, so you may also have to dive into the source code).</p>
 <p>Additionally, we want to stress that data drift detection, concept drift detection, etc. is still an active field of
 research and so there exist multiple frameworks for doing this kind of detection. In addition to Evidently,
 we can also mention <a href="https://github.com/NannyML/nannyml">NannyML</a>, <a href="https://github.com/whylabs/whylogs">WhyLogs</a> and
@@ -2167,10 +2167,10 @@ something like this:</p>
 <p>Next we are going to add some functionality to our application. We need to add that the input for the user is
     saved to a database whenever our application is called. However, to not slow down the response to our user we
     want to implement this as a <em>background task</em>. A background task is a function that should be executed after
-    the user has gotten their response. Implement a background task that saves the user input to a database implemented
-    as a simple <code>.csv</code> file. You can read more about background tasks
-    <a href="https://fastapi.tiangolo.com/tutorial/background-tasks/">here</a>. The header of the database should look
-    something like this:</p>
+    the user has gotten their response. Implement a background task that saves the user input to a database
+    implemented as a simple <code>.csv</code> file. You can read more about background tasks
+    <a href="https://fastapi.tiangolo.com/tutorial/background-tasks/">in the FastAPI background tasks tutorial</a>. The header
+    of the database should look something like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>time, sepal_length, sepal_width, petal_length, petal_width, prediction
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>2022-12-28 17:24:34.045649, 1.0, 1.0, 1.0, 1.0, 1
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>2022-12-28 17:24:44.026432, 2.0, 2.0, 2.0, 2.0, 1
@@ -4383,7 +4383,7 @@ frameworks that can be used for monitoring.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2025 06:48:20">February 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41">November 18, 2025</span>
   </span>
 
     
