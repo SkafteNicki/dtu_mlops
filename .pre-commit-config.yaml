@@ -7,8 +7,6 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
-      # - id: check-json
-      # - id: check-yaml
       - id: check-toml
       - id: check-docstring-first
       - id: check-executables-have-shebangs
@@ -18,12 +16,9 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.11.6
     hooks:
-      # try to fix what is possible
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
-      # perform formatting updates
       - id: ruff-format
-      # validate if all is fine with preview mode
       - id: ruff
 
   - repo: https://github.com/codespell-project/codespell
@@ -36,7 +31,7 @@ repos:
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.44.0
     hooks:
-      - id: markdownlint-docker
+      - id: markdownlint
         args: ["-c", ".github/markdownlint.json"]
 
   - repo: https://github.com/crate-ci/typos
@@ -54,11 +49,3 @@ repos:
     rev: v0.24.1
     hooks:
       - id: validate-pyproject
-
-  - repo: local
-    hooks:
-      - id: markdownlint
-        name: markdownlint
-        entry: markdownlint **/*.md --ignore node_modules -c .github/markdownlint.json
-        language: system
-        types: [markdown]
