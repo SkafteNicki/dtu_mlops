@@ -15,22 +15,18 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: 3.11
-          cache: 'pip'
+          enable-cache: true
 
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
-
-      - name: Install pre-commit
-        run: pip install pre-commit
+      - name: Sync dependencies
+        run: uv sync
 
       - name: Run pre-commit autoupdate
-        run: pre-commit autoupdate
+        run: uv run pre-commit autoupdate
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7

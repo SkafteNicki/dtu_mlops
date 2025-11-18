@@ -156,7 +156,7 @@ repository.
                 runs-on: ubuntu-latest
                 steps:
                 - name: Checkout code
-                  uses: actions/checkout@v4
+                  uses: actions/checkout@v5
 
                 - name: Set up Python
                   uses: actions/setup-python@v5
@@ -444,7 +444,7 @@ repository.
                   run: |
                     echo "Model name: $MODEL_NAME"
                 - name: Checkout code
-                  uses: actions/checkout@v4
+                  uses: actions/checkout@v5
 
                 - name: Set up Python
                   uses: actions/setup-python@v5
@@ -536,7 +536,7 @@ repository.
                     echo "Model name: $MODEL_NAME"
 
                 - name: Checkout code
-                  uses: actions/checkout@v4
+                  uses: actions/checkout@v5
 
                 - name: Set up Python
                   uses: actions/setup-python@v5

@@ -122,7 +122,7 @@ Let's take a look at how a GitHub workflow file is organized:
                     python-version: ["3.10", "3.11", "3.12"]
 
                 steps:
-                - uses: actions/checkout@v4
+                - uses: actions/checkout@v5
                 - name: Set up Python
                   uses: actions/setup-python@v5
                   with:
@@ -161,7 +161,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
             ```yaml linenums="1" title="tests.yaml"
             steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - uses: actions/setup-python@v5
               with:
                 python-version: 3.11
@@ -320,7 +320,7 @@ Let's take a look at how a GitHub workflow file is organized:
                   runs-on: ubuntu-latest
                   steps:
                   - name: Checkout code
-                    uses: actions/checkout@v4
+                    uses: actions/checkout@v5
                   - name: Set up Python
                     uses: actions/setup-python@v5
                     with:
@@ -383,7 +383,7 @@ Let's take a look at how a GitHub workflow file is organized:
             build:
             runs-on: ubuntu-latest
             steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - name: Build the Docker image
               run: |
                 echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
@@ -486,7 +486,7 @@ have in your code.
       build:
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v5
     ...
     ```
 

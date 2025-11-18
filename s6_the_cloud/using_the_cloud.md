@@ -635,7 +635,7 @@ the images we are used to that use PyTorch.
                 runs-on: ubuntu-latest
                 steps:
                 - name: Checkout code
-                  uses: actions/checkout@v4
+                  uses: actions/checkout@v5
 
                 - name: Auth with GCP
                   uses: google-github-actions/auth@v2

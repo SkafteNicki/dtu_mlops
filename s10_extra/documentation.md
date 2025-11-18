@@ -276,7 +276,7 @@ Before getting started with this set of exercises you should have completed
         runs-on: ubuntu-latest
         steps:
         - name: Checkout code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v5
           with:
             fetch-depth: 0
 
