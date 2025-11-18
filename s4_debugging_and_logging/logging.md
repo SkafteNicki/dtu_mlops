@@ -191,9 +191,9 @@ There exist many tools for logging your experiments, with some of them being:
 * [Weights and Bias](https://wandb.ai/site)
 
 All of the frameworks offer many of the same functionalities, you can see a (biased) review
-[here](https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/). We are going to use
-Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an excellent tool for
-collaboration and sharing of results.
+[comparing experiment tracking tools](https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/).
+We are going to use Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an
+excellent tool for collaboration and sharing of results.
 
 <figure markdown>
 ![Image](../figures/wandb_example.png){ width="700" }
@@ -275,9 +275,10 @@ metrics. This allows for better iteration of models and training procedure.
             ```
 
     3. Finally, we want to log the model itself. This is done by saving the model as an artifact and then logging the
-        artifact. You can read much more about what artifacts are [here](https://docs.wandb.ai/guides/artifacts), but
-        they are essentially one or more files logged together with runs that can be versioned and equipped with
-        metadata. Log the model after training and see if you can find it in the wandb dashboard.
+        artifact. You can read much more about what artifacts are
+        [in the wandb artifacts guide](https://docs.wandb.ai/guides/artifacts), but they are essentially one or more
+        files logged together with runs that can be versioned and equipped with metadata. Log the model after training
+        and see if you can find it in the wandb dashboard.
 
         ??? success "Solution"
 
@@ -331,13 +332,13 @@ metrics. This allows for better iteration of models and training procedure.
     in your code on an appropriate value.
 
     1. Start by creating a `sweep.yaml` file. Relevant documentation can be found
-        [here](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration). We recommend placing the file in a
-        `configs` folder in your project.
+        [in the wandb sweeps configuration guide](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration). We
+        recommend placing the file in a `configs` folder in your project.
 
         ??? success "Solution"
 
-            The `sweep.yaml` file will depend on the kind of hyperparameters your model accepts as arguments and how they
-            are passed to the model. For this solution we assume that the model accepts the hyperparameters `lr`,
+            The `sweep.yaml` file will depend on the kind of hyperparameters your model accepts as arguments and how
+            they are passed to the model. For this solution we assume that the model accepts the hyperparameters `lr`,
             `batch_size` and `epochs` and that they are passed as `--args` (with hyphens) (1) e.g. this would be how we
             run the script:
             {.annotate}

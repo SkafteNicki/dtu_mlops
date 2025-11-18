@@ -69,7 +69,7 @@ concepts is beneficial. The course focuses on the software aspects of deploying 
 1. Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
     Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
     more about how to work with Jupyter Notebooks in VS code
-    [here](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
+    [in page from VScode documentation](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
 
 2. Complete the
     [Tensors in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)

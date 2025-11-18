@@ -54,3 +54,11 @@ repos:
     rev: v0.24.1
     hooks:
       - id: validate-pyproject
+
+  - repo: local
+    hooks:
+      - id: markdownlint
+        name: markdownlint
+        entry: markdownlint **/*.md --ignore node_modules -c .github/markdownlint.json
+        language: system
+        types: [markdown]

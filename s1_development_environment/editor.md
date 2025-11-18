@@ -60,7 +60,7 @@ The instructions below are specific to Visual Studio Code, but we recommend that
 if using another editor. In the `exercise_files` folder belonging to this session, we have put cheat sheets for VS Code
 (one for Windows and one for Mac/Linux) that can give you an easy overview of the different macros in VS Code. The
 following exercises are just to get you started, but you can find many more tutorials
-[here](https://code.visualstudio.com/docs/python/python-tutorial).
+[in the VS Code Python tutorial](https://code.visualstudio.com/docs/python/python-tutorial).
 
 1. VS Code is a versatile editor that supports many languages. For Python development, install the following extensions:
 
@@ -126,8 +126,8 @@ pip install nbconvert
 ```
 
 You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
-[here](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After this, converting a
-notebook to a `.py` script is as simple as:
+[in the nbconvert documentation](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After
+this, converting a notebook to a `.py` script is as simple as:
 
 ```bash
 jupyter nbconvert --to=script my_notebook.ipynb

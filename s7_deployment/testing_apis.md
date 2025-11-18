@@ -185,7 +185,7 @@ very easy to integrate into your CI/CD pipeline.
 3. Add a new folder to your `tests/` folder called `performancetests` and inside it create a file called
     `locustfile.py`. To that file, you need to add the appropriate code to simulate the users that you want to test.
     You can read more about how to write a `locustfile.py`
-    [here](https://docs.locust.io/en/stable/writing-a-locustfile.html).
+    [in the Locust documentation](https://docs.locust.io/en/stable/writing-a-locustfile.html).
 
     ??? success "Solution"
 

@@ -387,7 +387,7 @@ beneficial for you to download.
         ```
 
         but it may differ based on what Cuda version you have. You can find all the different official Nvidia images
-        [here](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
+        [on Docker Hub](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
         inside a container based on the image you just pulled. It should look something like this:
 
         ```bash
@@ -407,7 +407,7 @@ beneficial for you to download.
         Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
         through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
         The containers that have to do with PyTorch can be seen
-        [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html).
+        [in the PyTorch release notes](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html).
         Try pulling the latest one:
 
         ```bash

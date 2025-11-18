@@ -84,7 +84,7 @@ We are now going to start using the cloud.
     can fix this by starting VMs based on specific docker images (it's all coming together).
 
     1. GCP comes with several ready-to-go images for doing deep learning.
-        More info can be found [here](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
+        More info can be found [in the deep learning containers guide](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
         Try, running this line:
 
         ```bash
@@ -113,8 +113,9 @@ We are now going to start using the cloud.
             --metadata="install-nvidia-driver=True" \
         ```
 
-        You can find more info [here](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on what
-        `<image-family>` should be and what extra argument you need to add if you want to run on GPU (if you
+        You can find more info
+        [in the PyTorch VM instance guide](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on
+        what `<image-family>` should be and what extra argument you need to add if you want to run on GPU (if you
         have access).
 
         ??? success "Solution"
@@ -260,7 +261,7 @@ laptop? We in general recommend two ways:
 
 * You can make the bucket publicly accessible, i.e. no authentication is needed. That means that anyone with the URL
     to the data can access it. This is the easiest way to do it, but also the least secure. You can read more about
-    how to make your buckets public [here](https://cloud.google.com/storage/docs/access-control/making-data-public).
+    how to make your buckets public [in the making data public guide](https://cloud.google.com/storage/docs/access-control/making-data-public).
 
 * You can use the service account that you created in the previous module to authenticate the VM. This is the most
     secure way to do it, but also the most complicated. You first need to give the service account the correct
@@ -501,8 +502,8 @@ the images we are used to that use PyTorch.
     ```
 
     you will need to authenticate `docker` with GCP first. Instructions can be found
-    [here](https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper), but the following
-    command should hopefully be enough to make `docker` and GCP talk to each other:
+    [in the docker auth guide](https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper), but
+    the following command should hopefully be enough to make `docker` and GCP talk to each other:
 
     ```bash
     gcloud auth configure-docker <region>-docker.pkg.dev
@@ -834,10 +835,10 @@ models, and then use other services for other parts of our pipeline.
             use it.
 
         You can read more about the configuration formatting
-        [here](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
+        [in the CustomJobSpec reference](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/CustomJobSpec)
         and the different types of machines
-        [here](https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types). Try to execute a job
-        using the `gcloud ai custom-jobs create` command. For additional documentation you can look at
+        [in the documentation](https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types). Try to
+        execute a job using the `gcloud ai custom-jobs create` command. For additional documentation you can look at
         [the documentation on the command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create)
         and [this page](https://cloud.google.com/vertex-ai/docs/training/create-custom-job#without-autopackaging) and
         [this page](https://cloud.google.com/vertex-ai/docs/training/configure-compute).

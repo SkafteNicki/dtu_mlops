@@ -216,7 +216,7 @@ The following exercises should be applied to your MNIST repository
             ...
         ```
 
-        You can read more about skipping tests [here](https://docs.pytest.org/en/latest/how-to/skipping.html)
+        You can read more about skipping tests [in the pytest skipping documentation](https://docs.pytest.org/en/latest/how-to/skipping.html)
 
 5. After writing the different tests, make sure that they are passing locally.
 

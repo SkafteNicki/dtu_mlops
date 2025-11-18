@@ -39,12 +39,12 @@ degrade, thus we need tools that can detect when we are seeing a drift in our da
 
 ## ❔ Exercises
 
-For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) ,developed by
-[EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports detection for both regression and
+For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) ,developed
+by [EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports detection for both regression and
 classification models. The exercises are in large part taken from
-[here](https://docs.evidentlyai.com/get-started/hello-world) and in general we recommend if you are in doubt about an
-exercise to look at the [docs](https://docs.evidentlyai.com/) for the API and examples (their documentation can be a bit
-lacking sometimes, so you may also have to dive into the source code).
+[the Evidently getting started guide](https://docs.evidentlyai.com/get-started/hello-world) and in general we recommend
+if you are in doubt about an exercise to look at the [docs](https://docs.evidentlyai.com/) for the API and examples
+(their documentation can be a bit lacking sometimes, so you may also have to dive into the source code).
 
 Additionally, we want to stress that data drift detection, concept drift detection, etc. is still an active field of
 research and so there exist multiple frameworks for doing this kind of detection. In addition to Evidently,
@@ -95,10 +95,10 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     1. Next we are going to add some functionality to our application. We need to add that the input for the user is
         saved to a database whenever our application is called. However, to not slow down the response to our user we
         want to implement this as a *background task*. A background task is a function that should be executed after
-        the user has gotten their response. Implement a background task that saves the user input to a database implemented
-        as a simple `.csv` file. You can read more about background tasks
-        [here](https://fastapi.tiangolo.com/tutorial/background-tasks/). The header of the database should look
-        something like this:
+        the user has gotten their response. Implement a background task that saves the user input to a database
+        implemented as a simple `.csv` file. You can read more about background tasks
+        [in the FastAPI background tasks tutorial](https://fastapi.tiangolo.com/tutorial/background-tasks/). The header
+        of the database should look something like this:
 
         ```csv
         time, sepal_length, sepal_width, petal_length, petal_width, prediction

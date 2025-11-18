@@ -226,7 +226,7 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
     ```
 
     1. :man_raising_hand: You can read about the prune method
-        [here](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
+        [in the PyTorch pruning documentation](https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured).
 
     Try printing `named_parameters` and `named_buffers` before and after the module is pruned. Can you explain the
     difference and what the connection is to the `module_1.weight` attribute?

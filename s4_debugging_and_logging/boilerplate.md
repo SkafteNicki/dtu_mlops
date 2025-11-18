@@ -167,7 +167,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
     1. :man_raising_hand: You may also install it as `pip install lightning` which includes more than just the
         `PyTorch Lightning` package. This also includes `Lightning Fabric` and `Lightning Apps` which you can read more
-        about [here](https://lightning.ai/docs/fabric/stable/) and [here](https://lightning.ai/docs/app/stable/).
+        about [in the Lightning Fabric docs](https://lightning.ai/docs/fabric/stable/) and [in the Lightning Apps docs](https://lightning.ai/docs/app/stable/).
 
 2. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely overwrite your old
     model or implement it in a new file. The bare minimum that you need to add while converting to get it working with

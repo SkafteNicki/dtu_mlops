@@ -181,10 +181,10 @@ running alongside the main container and can be used to do things such as collec
     </figure>
 
 3. To expose our own metrics we need to set up a sidecar container. To do this follow the instructions
-    [here](https://cloud.google.com/stackdriver/docs/managed-prometheus/cloudrun-sidecar#default-configuration). We have
-    created a simple example that uses FastAPI and Prometheus that you can find
-    [here](https://github.com/SkafteNicki/gcp_monitoring_test). After you have correctly created the sidecar container
-    you should be able to see your custom metrics in the monitoring tab.
+    [in the Cloud Run sidecar guide](https://cloud.google.com/stackdriver/docs/managed-prometheus/cloudrun-sidecar#default-configuration).
+    We have created a simple example that uses FastAPI and Prometheus that you can find
+    [in this example repository](https://github.com/SkafteNicki/gcp_monitoring_test). After you have correctly created
+    the sidecar container you should be able to see your custom metrics in the monitoring tab.
 
 ## Alert systems
 

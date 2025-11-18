@@ -157,7 +157,7 @@ pip install torch_tb_profiler
     the important class to look at is the `torch.profiler.profile` class.
 
 2. Let's try out a simple example (taken from
-    [here](https://pytorch.org/tutorials/recipes/recipes/profiler_recipe.html)):
+    [the PyTorch profiler recipe](https://pytorch.org/tutorials/recipes/recipes/profiler_recipe.html)):
 
     1. Try to run the following code:
 

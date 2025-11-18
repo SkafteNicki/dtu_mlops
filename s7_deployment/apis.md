@@ -39,10 +39,10 @@ The common request methods are (case sensitive):
 * POST/PUT: send data to the server
 * DELETE: delete data on the server
 
-You can read more about the different methods [here](https://dev.to/adidoshi/http-request-methods-16ik). For most
-machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read more
-about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol, but
-the TLDR is that it provides privacy, integrity and identification over the web.
+You can read more about the different methods [in this HTTP request methods guide](https://dev.to/adidoshi/http-request-methods-16ik).
+For most machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read
+more about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol,
+but the TLDR is that it provides privacy, integrity and identification over the web.
 
 ### ❔ Exercises
 

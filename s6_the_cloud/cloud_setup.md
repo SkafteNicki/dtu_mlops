@@ -56,7 +56,7 @@ As the first step, we are going to get you some Google Cloud credits.
 5. Next is local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud SDK.
     `gcloud` is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the `gcloud` interface. Follow the installation instructions
-    [here](https://cloud.google.com/sdk/docs/install) for your specific OS.
+    [in the gcloud SDK installation guide](https://cloud.google.com/sdk/docs/install) for your specific OS.
 
     1. After installation, try in a terminal to type:
 
@@ -215,7 +215,7 @@ At some point, you will most likely need to use a service account. A service acc
 to interact with the Google Cloud API. It it intended for non-human users, e.g. other machines, services, etc. For
 example, if you want to launch a training job from GitHub Actions, you will need to use a service account for
 authentication between GitHub and GCP. You can read more about how to create a service account
-[here](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
+[in the service accounts documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
 
 ### ❔ Exercises
 
