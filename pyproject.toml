@@ -42,6 +42,7 @@ exercises = [
   "invoke>=2.2",
   "ipykernel>=7.1.0",
   "locust>=2.42.3",
+  "matplotlib>=3.10.8",
   "mkdocs-material>=9.7",
   "mypy>=1.18.2",
   "nbconvert>=7.16.6",
