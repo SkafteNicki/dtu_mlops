@@ -78,29 +78,53 @@ it contains excellent tutorials.
 
 2. Next, install DVC and the Google Drive extension
 
-    ```bash
-    pip install dvc
-    pip install dvc-gdrive
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install dvc
+        pip install dvc-gdrive
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv add dvc dvc-gdrive
+        ```
 
     If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
     optional dependencies: `[s3]`, `[azure]`, `[gdrive]`, `[gs]`, `[oss]`, `[ssh]`. Alternatively, use `[all]` to
     include them all. If you encounter that the installation fails, we recommend that you start by updating pip and then
     trying to update `dvc`:
 
-    ```bash
-    pip install -U pip
-    pip install -U dvc-gdrive
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install -U pip
+        pip install -U dvc-gdrive
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv update -U dvc-gdrive
+        ```
 
     If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
     you follow the instructions [in the pygit2 installation guide](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
 
 3. In your MNIST repository run the following command from the terminal:
 
-    ```bash
-    dvc init
-    ```
+    === "Using pip"
+
+        ```bash
+        dvc init
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run dvc init
+        ```
 
     This will set up `dvc` for this repository (similar to how `git init` will initialize a git repository).
     These files should be committed using standard `git` to your repository.
@@ -114,9 +138,17 @@ it contains excellent tutorials.
 
     Using this identifier, add it as remote storage.
 
-    ```bash
-    dvc remote add -d storage gdrive://<your_identifier>
-    ```
+    === "Using pip"
+
+        ```bash
+        dvc remote add -d storage gdrive://<your_identifier>
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run dvc remote add -d storage gdrive://<your_identifier>
+        ```
 
 5. Check the content of the file `.dvc/config`. Does it contain a pointer to your remote storage? Afterwards, make sure
     to add this file to the next commit we are going to make:
@@ -169,7 +201,7 @@ it contains excellent tutorials.
     ```bash
     git clone <my_repository>
     cd <my_repository>
-    dvc pull
+    dvc pull  # or uv run dvc pull
     ```
 
     (assuming that you give them access rights to the folder in your drive). Try doing this (in some other location
@@ -180,10 +212,19 @@ it contains excellent tutorials.
     [Google Drive folder](https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing)
     or by running these two commands:
 
-    ```bash
-    pip install gdown
-    gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install gdown
+        gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv add gdown
+        uv run gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
+        ```
 
     Copy the data to your `data/raw` folder and then rerun your data pipeline to incorporate the new data into the
     files in your `processed` folder. The new data should be 4 files with train images and 4 files with train targets,
@@ -199,7 +240,7 @@ it contains excellent tutorials.
 
     ```bash
     git checkout v1.0
-    dvc checkout
+    dvc checkout  # or uv run dvc checkout
     ```
 
     Confirm that you have reverted to the original data.
@@ -236,11 +277,11 @@ working with a dataset that consists of many small files, it can be a
     ??? success "Solution"
 
         ```bash
-        dvc add data/
+        dvc add data/  # or uv run dvc add data/
         git add .
         git commit -m "added raw data"
         git push
-        dvc push
+        dvc push  # or uv run dvc push
         ```
 
 That's all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
