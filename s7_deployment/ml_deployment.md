@@ -122,9 +122,15 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command:
 
-    ```bash
-    pip install onnx onnxruntime onnxscript
-    ```
+    === "Using pip"
+        ```bash
+        pip install onnx onnxruntime onnxscript
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add onnx onnxruntime onnxscript
+        ```
 
     The first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
     and the third package contains a new experimental package that is designed to make it easier to export models to
@@ -227,8 +233,21 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 4. To get a better understanding of what is actually exported, let's try to visualize the computational graph of the
     model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
-    try it out directly in [webbrowser](https://netron.app/) or you can install it locally using `pip install netron`
-    and then run it using `netron resnet18.onnx`. Can you figure out what method of the model is exported to ONNX?
+    try it out directly in [webbrowser](https://netron.app/) or you can install it locally and then run it:
+
+    === "Using pip"
+        ```bash
+        pip install netron
+        netron resnet18.onnx
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install netron
+        uv run netron resnet18.onnx
+        ```
+
+    Can you figure out what method of the model is exported to ONNX?
 
     ??? success "Solution"
 
@@ -524,9 +543,15 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
 1. Install BentoML.
 
-    ```bash
-    pip install bentoml
-    ```
+    === "Using pip"
+        ```bash
+        pip install bentoml
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install bentoml
+        ```
 
     Remember to add the dependency to your `requirements.txt` file.
 

@@ -42,9 +42,15 @@ change the script. If you run the code multiple times without committing the cha
 hyperparameter configuration for some experiments may be lost. Alright, with this in mind you change strategy to use
 an [argument parser](https://docs.python.org/3/library/argparse.html) e.g. run experiments like this:
 
-```bash
-python train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
-```
+=== "Using python"
+    ```bash
+    python train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
+    ```
+
+=== "Using uv"
+    ```bash
+    uv run train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
+    ```
 
 This at least solves the problem with configurability. However, we again can end up losing experiments if we are
 not careful.
@@ -105,9 +111,15 @@ look online for your answers before looking at the solution. Remember: it's not 
 
 1. Start by installing hydra.
 
-    ```bash
-    pip install hydra-core
-    ```
+    === "Using pip"
+        ```bash
+        pip install hydra-core
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add hydra-core
+        ```
 
     Remember to add it to your `requirements.txt` file.
 
@@ -140,15 +152,27 @@ look online for your answers before looking at the solution. Remember: it's not 
 
     1. Try changing one parameter from the command-line.
 
-        ```bash
-        python vae_mnist.py hyperparameters.seed=1234
-        ```
+        === "Using python"
+            ```bash
+            python vae_mnist.py hyperparameters.seed=1234
+            ```
+
+        === "Using uv"
+            ```bash
+            uv run vae_mnist.py hyperparameters.seed=1234
+            ```
 
     2. Try adding one parameter from the command-line.
 
-        ```bash
-        python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
-        ```
+        === "Using python"
+            ```bash
+            python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
+            ```
+
+        === "Using uv"
+            ```bash
+            uv run vae_mnist.py +experiment.stuff_that_i_want_to_add=42
+            ```
 
 9. By default the file `vae_mnist.log` should be empty, meaning that whatever you printed to the terminal did not get
     picked up by Hydra. This is due to Hydra under the hood making use of the native python
@@ -170,9 +194,15 @@ look online for your answers before looking at the solution. Remember: it's not 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare.
     Then run the `reproducibility_tester.py` script as
 
-    ```bash
-    python reproducibility_tester.py path/to/run/1 path/to/run/2
-    ```
+    === "Using python"
+        ```bash
+        python reproducibility_tester.py path/to/run/1 path/to/run/2
+        ```
+
+    === "Using uv"
+        ```bash
+        uv run reproducibility_tester.py path/to/run/1 path/to/run/2
+        ```
 
     the script will go over trained weights to see if they match and that the hyperparameters are the same.
     Note: for the script to work, the weights should be saved to a file called `trained_model.pt` (this is the default
