@@ -10,7 +10,7 @@
 
     Since August 2024, Google has changed their policy for the Google Drive API. This means that the proceduce for
     setting up DVC with Google Drive has changed. The following exercises therefore need extra authentication to work.
-    You therefore have two options:
+    You therefore have three options:
 
     1. Skip these exercises for now. We are going to revisit DVC later in the course when we get access to a more
         permanent storage solution in this [module](../s6_the_cloud/using_the_cloud.md).
@@ -20,6 +20,12 @@
         instructions
         [here](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended).
         for setting up a custom Google Cloud project.
+
+    3. Another alternative is that you can use a local remote storage instead of Google Drive. If you are a DTU student,
+        this could be the DTU HPC system. Assuming you have access to
+        [DTU HPC via SSH](https://www.hpc.dtu.dk/?page_id=2501), you can more or less follow the steps below but instead
+        of adding Google Drive as remote storage, you can add a
+        [local remote via SSH](https://doc.dvc.org/user-guide/data-management/remote-storage/ssh).
 
 In this module, we are going to return to version control. However, this time we are going to focus on version control
 of data. The reason we need to separate between standard version control and data version control comes down to one
