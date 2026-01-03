@@ -116,7 +116,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
 
     For specifying dependencies of your project you have two options. Either you specify them in a `requirements.txt`
     file and put that as a dynamic field in `pyproject.toml` as shown above. Alternatively, you can add a `dependencies`
-    field under the `[project]` header like this:
+    field under the `[project]` header like this (similar to how `uv` does it):
 
     ```toml
     [project]
@@ -179,11 +179,19 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
 Regardless of what way a project is configured, after creating the above files, the correct way to install them would be
 the same
 
-```bash
-pip install .
-# or in developer mode
-pip install -e .
-```
+=== "Using pip"
+    ```bash
+    pip install .
+    # or in developer mode
+    pip install -e .
+    ```
+
+=== "Using uv"
+    ```bash
+    uv pip install .
+    # or in developer mode
+    uv pip install -e .
+    ```
 
 !!! note "Developer mode in Python"
 
@@ -204,19 +212,33 @@ it into this structure. You are not required to fill out every folder and file i
 least follow the steps in the exercises. Whenever you need to run a file I recommend always doing so from the root
 directory e.g.
 
-```bash
-python src/<project_name>/data.py data/raw data/processed
-python src/<project_name>/train_model.py <arguments>
-```
+=== "Using python"
+    ```bash
+    python src/<project_name>/data.py data/raw data/processed
+    python src/<project_name>/train_model.py <arguments>
+    ```
+
+=== "Using uv"
+    ```bash
+    uv run src/<project_name>/data.py data/raw data/processed
+    uv run src/<project_name>/train_model.py <arguments>
+    ```
 
 In this way paths (for saving and loading files) are always relative to the root, and it is in general easier to wrap
 your head around where files are located.
 
 1. Install the [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
 
-    ``` bash
-    pip install cookiecutter
-    ```
+    === "Using pip"
+        ```bash
+        pip install cookiecutter
+        ```
+
+    === "Using uv"
+        ```bash
+        # install as global tool
+        uvx cookiecutter
+        ```
 
 2. Start a new project using [this template](https://github.com/SkafteNicki/mlops_template), which is specialized for
     this course (1).
@@ -227,9 +249,17 @@ your head around where files are located.
 
     You do this by running the cookiecutter command using the template URL:
 
-    ```bash
-    cookiecutter <url-to-template>
-    ```
+    === "Using pip"
+
+        ```bash
+        cookiecutter <url-to-template>
+        ```
+
+    === "Using uv"
+
+        ```
+        uvx cookiecutter <url-to-template>
+        ```
 
     !!! note "Valid project names"
 
@@ -251,9 +281,17 @@ your head around where files are located.
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that. Otherwise,
     create a new one. Then install the project in that environment.
 
-    ```bash
-    pip install -e .
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install -e .
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv sync
+        ```
 
 4. Start by filling out the `src/<project_name>/data.py` file. When this file runs, it should take the raw data, e.g. the
     corrupted MNIST files from yesterday (`../data/corruptmnist`), which now should be located in a `data/raw` folder and
@@ -272,24 +310,45 @@ your head around where files are located.
     now just know that `tasks.py` is a file that can be used to specify common tasks that you want to run in your
     project. It is similar to `Makefile`s if you are familiar with them. Try out some of the pre-defined tasks:
 
-    ```bash
-    # first install invoke
-    pip install invoke
-    # then you can execute the tasks
-    invoke preprocess-data  # runs the data.py file
-    invoke requirements     # installs all requirements in the requirements.txt file
-    invoke train            # runs the train.py file
-    # or get a list of all tasks
-    invoke --list
-    ```
+    === "Using pip"
+
+        ```bash
+        # first install invoke
+        pip install invoke
+        # then you can execute the tasks
+        invoke preprocess-data  # runs the data.py file
+        invoke requirements     # installs all requirements in the requirements.txt file
+        invoke train            # runs the train.py file
+        # or get a list of all tasks
+        invoke --list
+        ```
+
+    === "Using uv"
+
+        ```bash
+        # first install invoke
+        uvx invoke
+        # then you can execute the tasks
+        uvx invoke preprocess-data  # runs the data.py file
+        uvx invoke requirements     # installs all requirements in the requirements.txt file
+        uvx invoke train            # runs the train.py file
+        # or get a list of all tasks
+        uvx invoke --list
+        ```
 
     In general, we recommend that you add commands to the `tasks.py` file as you move along in the course.
 
 6. Transfer your model file `model.py` into the `src/<project_name>/model.py` file. When you call the script, e.g.
 
-    ```bash
-    python src/<project_name>/model.py
-    ```
+    === "Using python"
+        ```bash
+        python src/<project_name>/model.py
+        ```
+
+    === "Using uv"
+        ```bash
+        uv run src/<project_name>/model.py
+        ```
 
     it should print out the model architecture and number of parameters in the model.
 
@@ -382,18 +441,34 @@ your head around where files are located.
 
     4. After you have made the changes you want to the template, you should test it locally. Just run
 
-        ```bash
-        cookiecutter . -f --no-input
-        ```
+        === "Using pip"
+
+            ```bash
+            cookiecutter . -f --no-input
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uvx cookiecutter . -f --no-input
+            ```
 
         And it should create a new folder using the default values of the `cookiecutter.json` file.
 
     5. Finally, make sure to push any changes you made to the template to GitHub, so that you in the future can use it
         by simply running
 
-        ```bash
-        cookiecutter https://github.com/<username>/<my_template_repo>
-        ```
+        === "Using pip"
+
+            ```bash
+            cookiecutter https://github.com/<username>/<my_template_repo>
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uvx cookiecutter https://github.com/<username>/<my_template_repo>
+            ```
 
 ## 🧠 Knowledge check
 
@@ -411,9 +486,17 @@ your head around where files are located.
 
         2. Run `cookiecutter` with the template you want to use.
 
-            ```bash
-            cookiecutter <template>
-            ```
+            === "Using pip"
+
+                ```bash
+                cookiecutter <template>
+                ```
+
+            === "Using uv"
+
+                ```bash
+                uvx cookiecutter <template>
+                ```
 
             The name of the folder created by `cookiecutter` should be the same as the <repo_name> you just used.
 
