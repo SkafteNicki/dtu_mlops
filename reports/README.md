@@ -37,6 +37,12 @@ The script has two dependencies that can be installed with
 pip install typer markdown
 ```
 
+or
+
+```bash
+uv add typer markdown
+```
+
 ## Overall project checklist
 
 The checklist is *exhaustive* which means that it includes everything that you could do on the project included in the
