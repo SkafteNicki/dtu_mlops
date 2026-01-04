@@ -241,7 +241,7 @@ future as you start to add more and more features. As subgoals, please complete 
 3. Implement training and evaluation of your model in the `main.py` script. The `main.py` script should be able to take
     additional subcommands indicating if the model is being trained or evaluated. It will look something like this:
 
-    === "Using python"
+    === "Using pip"
         ```bash
         python main.py train --lr 1e-4
         python main.py evaluate model.pth

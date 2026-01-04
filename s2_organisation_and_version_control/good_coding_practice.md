@@ -91,7 +91,7 @@ developers are adding new features. (1)
 
 1. Install `ruff`.
 
-    === "Using uv"
+    === "Using pip"
 
         ```bash
         pip install ruff

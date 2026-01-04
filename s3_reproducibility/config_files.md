@@ -42,12 +42,14 @@ change the script. If you run the code multiple times without committing the cha
 hyperparameter configuration for some experiments may be lost. Alright, with this in mind you change strategy to use
 an [argument parser](https://docs.python.org/3/library/argparse.html) e.g. run experiments like this:
 
-=== "Using python"
+=== "Using pip"
+
     ```bash
     python train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
     ```
 
 === "Using uv"
+
     ```bash
     uv run train.py --batch_size 256 --learning_rate 1e-4 --other_hp 12345
     ```
@@ -152,7 +154,7 @@ look online for your answers before looking at the solution. Remember: it's not 
 
     1. Try changing one parameter from the command-line.
 
-        === "Using python"
+        === "Using pip"
             ```bash
             python vae_mnist.py hyperparameters.seed=1234
             ```
@@ -164,7 +166,7 @@ look online for your answers before looking at the solution. Remember: it's not 
 
     2. Try adding one parameter from the command-line.
 
-        === "Using python"
+        === "Using pip"
             ```bash
             python vae_mnist.py +experiment.stuff_that_i_want_to_add=42
             ```
@@ -194,7 +196,7 @@ look online for your answers before looking at the solution. Remember: it's not 
 10. Make sure that your script is fully reproducible. To check this you will need two runs of the script to compare.
     Then run the `reproducibility_tester.py` script as
 
-    === "Using python"
+    === "Using pip"
         ```bash
         python reproducibility_tester.py path/to/run/1 path/to/run/2
         ```

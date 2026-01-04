@@ -124,7 +124,7 @@ create virtual environments and manage dependencies seamlessly, including for mu
 (which has been the recommended approach for many years) is to use `conda` for creating virtual environments and `pip`
 for installing packages within those environments.
 
-!!! warning "uv and conda in this course"
+!!! warning "`uv` and `conda+pip` in this course"
 
     Until 2026, the recommended package managers for this course have been `conda+pip`. However, starting in 2026, we
     will transition to recommending `uv` as the primary package manager, and conda will probably be phased out of the
@@ -203,16 +203,16 @@ to make it work.
 
     1. Try creating a new virtual environment called using Python 3.11. What command should you execute to do this?
 
-        ??? warning "Use Python 3.8 or higher"
+        !!! warning "Use Python 3.10 or higher"
 
-            We recommend using Python 3.8 or higher for this course. Generally, using the second latest Python version
-            (currently 3.12) is advisable, as the newest version may lack support from all dependencies. Check the status
+            We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
+            (currently 3.13) is advisable, as the newest version may lack support from all dependencies. Check the status
             of different Python versions [here](https://devguide.python.org/versions/).
 
         ??? success "Solution"
 
             ```bash
-            uv venv --python 3.11
+            uv venv --python 3.13
             ```
 
     2. After creating the virtual environment, a folder called `.venv` should have been created in your current
@@ -425,7 +425,7 @@ to make it work.
         which will install the `cowsay` tool globally on your system and then execute it with the argument `"muuh"`. Try
         installing at least one tool and executing it.
 
-!!! tip "Alias uv run"
+!!! tip "Alias `uvr=uv run`"
 
     I have personally found that typing `uv run` before every command can get a bit tedious. Therefore, I recommend
     creating a shell alias to simplify this. For example, in `bash` or `zsh`, you can add the following line to your
@@ -468,16 +468,16 @@ in the exercise folder.
 3. Try creating a new virtual environment. Make sure that it is called `my_environment` and that it installs version
    3.11 of Python. What command should you execute to do this?
 
-    ??? warning "Use Python 3.8 or higher"
+    !!! warning "Use Python 3.10 or higher"
 
-        We recommend using Python 3.8 or higher for this course. Generally, using the second latest Python version
+        We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
         (currently 3.12) is advisable, as the newest version may lack support from all dependencies. Check the status
         of different Python versions [here](https://devguide.python.org/versions/).
 
     ??? success "Solution"
 
         ```bash
-        conda create --name my_environment python=3.11
+        conda create --name my_environment python=3.13
         ```
 
 4. Which `conda` command gives you a list of all the environments that you have created?
