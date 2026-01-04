@@ -122,9 +122,15 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command:
 
-    ```bash
-    pip install onnx onnxruntime onnxscript
-    ```
+    === "Using pip"
+        ```bash
+        pip install onnx onnxruntime onnxscript
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add onnx onnxruntime onnxscript
+        ```
 
     The first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
     and the third package contains a new experimental package that is designed to make it easier to export models to
@@ -227,8 +233,21 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 4. To get a better understanding of what is actually exported, let's try to visualize the computational graph of the
     model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
-    try it out directly in [webbrowser](https://netron.app/) or you can install it locally using `pip install netron`
-    and then run it using `netron resnet18.onnx`. Can you figure out what method of the model is exported to ONNX?
+    try it out directly in [webbrowser](https://netron.app/) or you can install it locally and then run it:
+
+    === "Using pip"
+        ```bash
+        pip install netron
+        netron resnet18.onnx
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install netron
+        uv run netron resnet18.onnx
+        ```
+
+    Can you figure out what method of the model is exported to ONNX?
 
     ??? success "Solution"
 
@@ -245,8 +264,8 @@ a developer-friendly framework, though it has historically been slow to run infe
 
         ??? success "Solution"
 
-            To use the ONNX runtime to run a model, we first need to start an inference session, then extract the input and
-            output names of our model and finally run the model. The following code snippet shows how to do this.
+            To use the ONNX runtime to run a model, we first need to start an inference session, then extract the input
+            and output names of our model and finally run the model. The following code snippet shows how to do this.
 
             ```python
             import onnxruntime as rt
@@ -257,8 +276,8 @@ a developer-friendly framework, though it has historically been slow to run infe
             out = ort_session.run(output_names, batch)
             ```
 
-    2. Let's experiment with the performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes to
-        run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
+    2. Let's experiment with the performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes
+        to run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
         have implemented a timing decorator that you can use to measure the time it takes to run a function.
 
         ```python
@@ -481,7 +500,7 @@ EXAMPLE_INPUT = (
     "Breaking News: In an astonishing turn of events, the small town of Willow Creek has been taken by storm as "
     "local resident Jerry Thompson's cat, Whiskers, performed what witnesses are calling a 'miraculous and gravity-"
     "defying leap.' Eyewitnesses report that Whiskers, an otherwise unremarkable tabby cat, jumped a record-breaking "
-    "20 feet into the air to catch a fly. The event, which took place in Thompson's backyard, is now being investigated "
+    "20 feet into the air to catch a fly. The event, which took place in Thompsons backyard, is now being investigated "
     "by scientists for potential breaches in the laws of physics. Local authorities are considering a town festival to "
     "celebrate what is being hailed as 'The Leap of the Century.'"
 )
@@ -524,9 +543,15 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
 1. Install BentoML.
 
-    ```bash
-    pip install bentoml
-    ```
+    === "Using pip"
+        ```bash
+        pip install bentoml
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install bentoml
+        ```
 
     Remember to add the dependency to your `requirements.txt` file.
 
