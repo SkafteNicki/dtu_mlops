@@ -35,6 +35,7 @@ theme:
     - content.code.annotate
     - content.action.edit
     - content.action.view
+    - content.tabs.link
     - search.suggest
     - search.highlight
 

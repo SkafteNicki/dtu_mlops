@@ -1,5 +1,7 @@
 # run following commands to install requirements
 # pip install typer markdown pydantic loguru
+# or
+# uv add typer markdown pydantic loguru
 
 import re
 from pathlib import Path

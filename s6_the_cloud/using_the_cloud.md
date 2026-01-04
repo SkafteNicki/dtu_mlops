@@ -691,8 +691,8 @@ the images we are used to that use PyTorch.
           _IMAGE_NAME: 'my_image'
         ```
 
-        Do note that user substitutions are prefixed with an underscore `_` to distinguish them from built-in ones. You can
-        read more
+        Do note that user substitutions are prefixed with an underscore `_` to distinguish them from built-in ones.
+        You can read more
         [here](https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#using_user-defined_substitutions).
 
     1. How would you provide the value for the `_IMAGE_NAME` variable to the `gcloud builds submit` command?

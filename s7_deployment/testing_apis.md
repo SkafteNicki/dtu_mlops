@@ -49,9 +49,15 @@ to change.
 
 1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
 
-    ```bash
-    pip install httpx
-    ```
+    === "Using pip"
+        ```bash
+        pip install httpx
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add httpx
+        ```
 
     Remember to add it to your `requirements.txt` file.
 
@@ -168,9 +174,15 @@ very easy to integrate into your CI/CD pipeline.
 
 1. Install `locust`
 
-    ```bash
-    pip install locust
-    ```
+    === "Using pip"
+        ```bash
+        pip install locust
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add locust
+        ```
 
     Remember to add it to your `requirements.txt` file.
 
