@@ -101,11 +101,19 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
 
 1. Start by installing `loguru`:
 
-    ```bash
-    pip install loguru
-    ```
+    === "Using pip"
 
-    and remember to add it to your requirements file.
+        ```bash
+        pip install loguru
+        ```
+
+        and remember to add it to your requirements file.
+
+    === "Using uv"
+
+        ```bash
+        uv add loguru
+        ```
 
 2. Create a script called `my_logger.py` and try logging a few messages using `loguru`. Make sure to log at least one
     message of each level: `debug`, `info`, `warning`, `error` and `critical`.
@@ -231,15 +239,33 @@ metrics. This allows for better iteration of models and training procedure.
 
 2. Next install wandb on your laptop.
 
-    ```bash
-    pip install wandb
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install wandb
+        ```
+
+        and remember to add it to your requirements file.
+
+    === "Using uv"
+
+        ```bash
+        uv add wandb
+        ```
 
 3. Now connect to your wandb account.
 
-    ```bash
-    wandb login
-    ```
+    === "Using pip"
+
+        ```bash
+        wandb login
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run wandb login
+        ```
 
     You will be asked to provide the length-40 API key. The connection should remain open to the wandb server
     even when you close the terminal, such that you do not have to log in each time. If using `wandb` in a notebook
@@ -377,17 +403,33 @@ metrics. This allows for better iteration of models and training procedure.
 
     2. Afterwards, you need to create a sweep using the `wandb sweep` command:
 
-        ```bash
-        wandb sweep configs/sweep.yaml
-        ```
+        === "Using pip"
+
+            ```bash
+            wandb sweep configs/sweep.yaml
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv run wandb sweep configs/sweep.yaml
+            ```
 
         This will output a sweep id that you need to use in the next step.
 
     3. Finally, you need to run the sweep using the `wandb agent` command:
 
-        ```bash
-        wandb agent <sweep_id>
-        ```
+        === "Using pip"
+
+            ```bash
+            wandb agent <sweep_id>
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv run wandb agent <sweep_id>
+            ```
 
         where `<sweep_id>` is the id of the sweep you just created. You can find the id in the output of the
         `wandb sweep` command. The reason that we first lunch the sweep and then the agent is that we can have multiple
@@ -502,15 +544,29 @@ metrics. This allows for better iteration of models and training procedure.
 
     2. Next create a new dockerfile called `wandb.docker` and add the following code
 
-        ```dockerfile
-        FROM python:3.11-slim
-        RUN apt update && \
-            apt install --no-install-recommends -y build-essential gcc && \
-            apt clean && rm -rf /var/lib/apt/lists/*
-        RUN pip install wandb
-        COPY wandb_tester.py wandb_tester.py
-        ENTRYPOINT ["python", "-u", "wandb_tester.py"]
-        ```
+        === "Using pip"
+
+            ```dockerfile
+            FROM python:3.12-slim
+            RUN apt update && \
+                apt install --no-install-recommends -y build-essential gcc && \
+                apt clean && rm -rf /var/lib/apt/lists/*
+            RUN pip install wandb
+            COPY wandb_tester.py wandb_tester.py
+            ENTRYPOINT ["python", "-u", "wandb_tester.py"]
+            ```
+
+        === "Using uv"
+
+            ```dockerfile
+            FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+            RUN apt update && \
+                apt install --no-install-recommends -y build-essential gcc && \
+                apt clean && rm -rf /var/lib/apt/lists/*
+            RUN uv add wandb
+            COPY wandb_tester.py wandb_tester.py
+            ENTRYPOINT ["uv", "run", "wandb_tester.py"]
+            ```
 
         and a new script called `wandb_tester.py` that contains the following code
 
