@@ -158,10 +158,17 @@ which can be downloaded from this
 [Google Drive folder](https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing) or using
 these two commands:
 
-```bash
-pip install gdown
-gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
-```
+=== "Using pip"
+    ```bash
+    pip install gdown
+    gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
+    ```
+
+=== "Using uv"
+    ```bash
+    uv add gdown
+    uv run gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
+    ```
 
 The data should be placed in a subfolder called `data/corruptmnist` in the root of the project. Your overall
 task is the following:
@@ -234,10 +241,17 @@ future as you start to add more and more features. As subgoals, please complete 
 3. Implement training and evaluation of your model in the `main.py` script. The `main.py` script should be able to take
     additional subcommands indicating if the model is being trained or evaluated. It will look something like this:
 
-    ```bash
-    python main.py train --lr 1e-4
-    python main.py evaluate model.pth
-    ```
+    === "Using pip"
+        ```bash
+        python main.py train --lr 1e-4
+        python main.py evaluate model.pth
+        ```
+
+    === "Using uv"
+        ```bash
+        uv run main.py train --lr 1e-4
+        uv run main.py evaluate model.pth
+        ```
 
     which can be implemented in various ways. We provide you with a starting script that uses the `typer` library to
     define a command line interface (CLI), which you can learn more about in
