@@ -64,7 +64,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     === "Using pip"
 
-        ??? example "`tests.yaml`"
+        !!! example "`tests.yaml`"
 
             ```python linenums="1" title="tests.yaml"
             --8<-- "s5_continuous_integration/exercise_files/tests_pip.yaml"
@@ -72,7 +72,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     === "Using uv"
 
-        ??? example "`tests.yaml`"
+        !!! example "`tests.yaml`"
 
             ```python linenums="1" title="tests.yaml"
             --8<-- "s5_continuous_integration/exercise_files/tests_uv.yaml"
@@ -354,7 +354,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
             === "Using pip"
 
-                ??? example "`codecheck.yaml`"
+                !!! example "`codecheck.yaml`"
 
                     ```python linenums="1" title="tests.yaml"
                     --8<-- "s5_continuous_integration/exercise_files/format_pip.yaml"
@@ -362,7 +362,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
             === "Using uv"
 
-                ??? example "`codecheck.yaml`"
+                !!! example "`codecheck.yaml`"
 
                     ```python linenums="1" title="tests.yaml"
                     --8<-- "s5_continuous_integration/exercise_files/format_uv.yaml"
