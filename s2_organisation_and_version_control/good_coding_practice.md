@@ -97,6 +97,8 @@ developers are adding new features. (1)
         pip install ruff
         ```
 
+        Consider adding `ruff` to a `requirements_dev.txt` file, as it is a development tool.
+
     === "Using uv"
 
         ```bash
@@ -286,6 +288,8 @@ help us at all. Therefore, use `Any` only when necessary.
         ```bash
         pip install mypy
         ```
+
+        Consider adding `mypy` to a `requirements_dev.txt` file, as it is a development tool.
 
     === "Using uv"
 

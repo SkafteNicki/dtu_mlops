@@ -70,6 +70,8 @@ The following exercises should be applied to your MNIST repository
         pip install pytest
         ```
 
+        Consider adding `pytest` to a `requirements_dev.txt` file, as it is a development tool.
+
     === "Using uv"
 
         ```bash
@@ -258,6 +260,8 @@ The following exercises should be applied to your MNIST repository
             ```bash
             pip install coverage
             ```
+
+            Consider adding `coverage` to a `requirements_dev.txt` file, as it is a development tool.
 
         === "Using uv"
 
