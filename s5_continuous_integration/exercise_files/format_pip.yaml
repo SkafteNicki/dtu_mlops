@@ -1,4 +1,4 @@
-name: "Run tests"
+name: "Run linting"
 
 on:
   push:
@@ -14,15 +14,19 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v5
-    - name: Set up Python
+
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: 3.11
+        python-version: 3.12
+
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements_tests.txt
-    - name: Test with pytest
-      run: |
-        pytest -v
+        pip install ruff
+        pip list
+
+    - name: Ruff check
+      run: ruff check .
+
+    - name: Ruff format
+      run: ruff format .
