@@ -2450,13 +2450,27 @@ the <code>train.py</code> file, located in the <code>my_project</code> package.<
 </details>
 </li>
 <li>
-<p>Now, all that is left to do is to install the project again in editable mode.</p>
+<p>Now, all that is left to do is to run the project script:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using pip</label><label for="__tabbed_1_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>For <code>pip</code> you most likely need to reinstall the project in editable mode for the changes to take effect.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span></code></pre></div>
 <p>You should now be able to run the following command in the terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>train
 </span></code></pre></div>
 <p>Try it out and see if it works.</p>
+</div>
+<div class="tabbed-block">
+<p>For <code>uv</code> everything should work out of the box. You should now be able to run the following command in the
+terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>train
+</span></code></pre></div>
+<p>Try it out and see if it works.</p>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Add additional commands to your <code>pyproject.toml</code> file that allow you to run other scripts in your project from the
@@ -2464,9 +2478,9 @@ the <code>train.py</code> file, located in the <code>my_project</code> package.<
 <details class="success">
 <summary>Solution</summary>
 <p>We assume that you also have a script called <code>evaluate.py</code> in the <code>my_project</code> package.</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[project.scripts]</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">train</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_project.train:main&quot;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">evaluate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_project.evaluate:main&quot;</span>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[project.scripts]</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">train</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_project.train:main&quot;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">evaluate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_project.evaluate:main&quot;</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2479,7 +2493,7 @@ Python interpreter. Some good examples of Python packages that use this approach
 <h2 id="command-line-arguments">Command line arguments</h2>
 <p>If you have experience with Python, you are likely familiar with the <code>argparse</code> package, which enables you to pass
 arguments directly to your script via the terminal.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
 </span></code></pre></div>
 <p><code>argparse</code> is a very simple way of constructing what is called a command line interface. However, one limitation of
 <code>argparse</code> is that it is not easy to define a CLI with subcommands. If we take <code>git</code> as an example, <code>git</code> is the
@@ -2499,34 +2513,56 @@ for doing this, and another excellent framework for creating command line interf
 <ol>
 <li>
 <p>Start by installing the <code>typer</code> package</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>typer
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Using pip</label><label for="__tabbed_2_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>typer
 </span></code></pre></div>
 <p>and remember to add the package to your <code>requirements.txt</code> file.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>uv<span class="w"> </span>add<span class="w"> </span>typer
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>To get you started with <code>typer</code>, let's just create a simple hello world type of script. Create a new Python file
     called <code>greetings.py</code> and use the <code>typer</code> package to create a command line interface such that running the
     following lines</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>greetings.py<span class="w">            </span><span class="c1"># should print &quot;Hello World!&quot;</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python<span class="w"> </span>greetings.py<span class="w"> </span>--count<span class="o">=</span><span class="m">3</span><span class="w">  </span><span class="c1"># should print &quot;Hello World!&quot; three times</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>python<span class="w"> </span>greetings.py<span class="w"> </span>--help<span class="w">     </span><span class="c1"># should print the help message, informing the user of the possible arguments</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Using pip</label><label for="__tabbed_3_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>greetings.py<span class="w">            </span><span class="c1"># should print &quot;Hello World!&quot;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>python<span class="w"> </span>greetings.py<span class="w"> </span>--count<span class="o">=</span><span class="m">3</span><span class="w">  </span><span class="c1"># should print &quot;Hello World!&quot; three times</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>python<span class="w"> </span>greetings.py<span class="w"> </span>--help<span class="w">     </span><span class="c1"># should print the help message, informing the user of the possible arguments</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>uv<span class="w"> </span>run<span class="w"> </span>greetings.py<span class="w">            </span><span class="c1"># should print &quot;Hello World!&quot;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>uv<span class="w"> </span>run<span class="w"> </span>greetings.py<span class="w"> </span>--count<span class="o">=</span><span class="m">3</span><span class="w">  </span><span class="c1"># should print &quot;Hello World!&quot; three times</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>uv<span class="w"> </span>run<span class="w"> </span>greetings.py<span class="w"> </span>--help<span class="w">     </span><span class="c1"># should print the help message, informing the user of</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>executes and gives the expected output. Relevant <a href="https://typer.tiangolo.com/">documentation</a>.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Important for <code>typer</code> is that you need to provide
 <a href="https://typer.tiangolo.com/tutorial/#python-types">type hints</a> for the arguments. This is because <code>typer</code> needs
 these to be able to work properly.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;World&quot;</span><span class="p">):</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="n">app</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;World&quot;</span><span class="p">):</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    <span class="n">app</span><span class="p">()</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2535,353 +2571,113 @@ these to be able to work properly.</p>
     iris dataset.</p>
 <div class="admonition example">
 <p class="admonition-title">iris_classifier.py</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span>
-<span class="normal"><a href="#__codelineno-10-12">12</a></span>
-<span class="normal"><a href="#__codelineno-10-13">13</a></span>
-<span class="normal"><a href="#__codelineno-10-14">14</a></span>
-<span class="normal"><a href="#__codelineno-10-15">15</a></span>
-<span class="normal"><a href="#__codelineno-10-16">16</a></span>
-<span class="normal"><a href="#__codelineno-10-17">17</a></span>
-<span class="normal"><a href="#__codelineno-10-18">18</a></span>
-<span class="normal"><a href="#__codelineno-10-19">19</a></span>
-<span class="normal"><a href="#__codelineno-10-20">20</a></span>
-<span class="normal"><a href="#__codelineno-10-21">21</a></span>
-<span class="normal"><a href="#__codelineno-10-22">22</a></span>
-<span class="normal"><a href="#__codelineno-10-23">23</a></span>
-<span class="normal"><a href="#__codelineno-10-24">24</a></span>
-<span class="normal"><a href="#__codelineno-10-25">25</a></span>
-<span class="normal"><a href="#__codelineno-10-26">26</a></span>
-<span class="normal"><a href="#__codelineno-10-27">27</a></span>
-<span class="normal"><a href="#__codelineno-10-28">28</a></span>
-<span class="normal"><a href="#__codelineno-10-29">29</a></span>
-<span class="normal"><a href="#__codelineno-10-30">30</a></span>
-<span class="normal"><a href="#__codelineno-10-31">31</a></span>
-<span class="normal"><a href="#__codelineno-10-32">32</a></span>
-<span class="normal"><a href="#__codelineno-10-33">33</a></span>
-<span class="normal"><a href="#__codelineno-10-34">34</a></span>
-<span class="normal"><a href="#__codelineno-10-35">35</a></span>
-<span class="normal"><a href="#__codelineno-10-36">36</a></span>
-<span class="normal"><a href="#__codelineno-10-37">37</a></span>
-<span class="normal"><a href="#__codelineno-10-38">38</a></span>
-<span class="normal"><a href="#__codelineno-10-39">39</a></span>
-<span class="normal"><a href="#__codelineno-10-40">40</a></span>
-<span class="normal"><a href="#__codelineno-10-41">41</a></span>
-<span class="normal"><a href="#__codelineno-10-42">42</a></span>
-<span class="normal"><a href="#__codelineno-10-43">43</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">():</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train and evaluate the model.&quot;&quot;&quot;</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a>    <span class="c1"># Load the dataset</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a>    <span class="c1"># Split the dataset into training and testing sets</span>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>    <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a>
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a>    <span class="c1"># Standardize the features</span>
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a>    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a>    <span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a>    <span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a>
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a>    <span class="c1"># Train a Support Vector Machine (SVM) model</span>
-</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26"></a>
-</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27"></a>    <span class="c1"># Make predictions on the test set</span>
-</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29"></a>
-</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30"></a>    <span class="c1"># Evaluate the model</span>
-</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33"></a>
-</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34"></a>    <span class="c1"># Print the results</span>
-</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
-</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
-</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
-</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39"></a>
-</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40"></a>
-</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41"></a><span class="c1"># this &quot;if&quot;-block is added to enable the script to be run from the command line</span>
-</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43"></a>    <span class="n">train</span><span class="p">()</span>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span>
+<span class="normal"><a href="#__codelineno-13-13">13</a></span>
+<span class="normal"><a href="#__codelineno-13-14">14</a></span>
+<span class="normal"><a href="#__codelineno-13-15">15</a></span>
+<span class="normal"><a href="#__codelineno-13-16">16</a></span>
+<span class="normal"><a href="#__codelineno-13-17">17</a></span>
+<span class="normal"><a href="#__codelineno-13-18">18</a></span>
+<span class="normal"><a href="#__codelineno-13-19">19</a></span>
+<span class="normal"><a href="#__codelineno-13-20">20</a></span>
+<span class="normal"><a href="#__codelineno-13-21">21</a></span>
+<span class="normal"><a href="#__codelineno-13-22">22</a></span>
+<span class="normal"><a href="#__codelineno-13-23">23</a></span>
+<span class="normal"><a href="#__codelineno-13-24">24</a></span>
+<span class="normal"><a href="#__codelineno-13-25">25</a></span>
+<span class="normal"><a href="#__codelineno-13-26">26</a></span>
+<span class="normal"><a href="#__codelineno-13-27">27</a></span>
+<span class="normal"><a href="#__codelineno-13-28">28</a></span>
+<span class="normal"><a href="#__codelineno-13-29">29</a></span>
+<span class="normal"><a href="#__codelineno-13-30">30</a></span>
+<span class="normal"><a href="#__codelineno-13-31">31</a></span>
+<span class="normal"><a href="#__codelineno-13-32">32</a></span>
+<span class="normal"><a href="#__codelineno-13-33">33</a></span>
+<span class="normal"><a href="#__codelineno-13-34">34</a></span>
+<span class="normal"><a href="#__codelineno-13-35">35</a></span>
+<span class="normal"><a href="#__codelineno-13-36">36</a></span>
+<span class="normal"><a href="#__codelineno-13-37">37</a></span>
+<span class="normal"><a href="#__codelineno-13-38">38</a></span>
+<span class="normal"><a href="#__codelineno-13-39">39</a></span>
+<span class="normal"><a href="#__codelineno-13-40">40</a></span>
+<span class="normal"><a href="#__codelineno-13-41">41</a></span>
+<span class="normal"><a href="#__codelineno-13-42">42</a></span>
+<span class="normal"><a href="#__codelineno-13-43">43</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">():</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train and evaluate the model.&quot;&quot;&quot;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a>    <span class="c1"># Load the dataset</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a>    <span class="c1"># Split the dataset into training and testing sets</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a>    <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a>    <span class="c1"># Standardize the features</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19"></a>    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20"></a>    <span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21"></a>    <span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22"></a>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23"></a>    <span class="c1"># Train a Support Vector Machine (SVM) model</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26"></a>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27"></a>    <span class="c1"># Make predictions on the test set</span>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29"></a>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30"></a>    <span class="c1"># Evaluate the model</span>
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33"></a>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34"></a>    <span class="c1"># Print the results</span>
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39"></a>
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40"></a>
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41"></a><span class="c1"># this &quot;if&quot;-block is added to enable the script to be run from the command line</span>
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43"></a>    <span class="n">train</span><span class="p">()</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <p>Implement a CLI for the script such that the following commands can be run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">  </span><span class="c1"># should train the model and save it to &#39;model.ckpt&#39;</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">        </span><span class="c1"># should be the same as above</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Using pip</label><label for="__tabbed_4_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">  </span><span class="c1"># should train the model and save it to &#39;model.ckpt&#39;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">        </span><span class="c1"># should be the same as above</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>uv<span class="w"> </span>run<span class="w"> </span>iris_classifier.py<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">  </span><span class="c1"># should train the model</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>uv<span class="w"> </span>run<span class="w"> </span>iris_classifier.py<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">        </span><span class="c1"># should be the same as above</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <details class="success">
 <summary>Solution</summary>
 <p>We are here making use of the
 <a href="https://typer.tiangolo.com/tutorial/options/name/#cli-option-short-names">short name option</a> in typer for
 giving a shorter alias to the <code>--output</code> option.</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-12-10">10</a></span>
-<span class="normal"><a href="#__codelineno-12-11">11</a></span>
-<span class="normal"><a href="#__codelineno-12-12">12</a></span>
-<span class="normal"><a href="#__codelineno-12-13">13</a></span>
-<span class="normal"><a href="#__codelineno-12-14">14</a></span>
-<span class="normal"><a href="#__codelineno-12-15">15</a></span>
-<span class="normal"><a href="#__codelineno-12-16">16</a></span>
-<span class="normal"><a href="#__codelineno-12-17">17</a></span>
-<span class="normal"><a href="#__codelineno-12-18">18</a></span>
-<span class="normal"><a href="#__codelineno-12-19">19</a></span>
-<span class="normal"><a href="#__codelineno-12-20">20</a></span>
-<span class="normal"><a href="#__codelineno-12-21">21</a></span>
-<span class="normal"><a href="#__codelineno-12-22">22</a></span>
-<span class="normal"><a href="#__codelineno-12-23">23</a></span>
-<span class="normal"><a href="#__codelineno-12-24">24</a></span>
-<span class="normal"><a href="#__codelineno-12-25">25</a></span>
-<span class="normal"><a href="#__codelineno-12-26">26</a></span>
-<span class="normal"><a href="#__codelineno-12-27">27</a></span>
-<span class="normal"><a href="#__codelineno-12-28">28</a></span>
-<span class="normal"><a href="#__codelineno-12-29">29</a></span>
-<span class="normal"><a href="#__codelineno-12-30">30</a></span>
-<span class="normal"><a href="#__codelineno-12-31">31</a></span>
-<span class="normal"><a href="#__codelineno-12-32">32</a></span>
-<span class="normal"><a href="#__codelineno-12-33">33</a></span>
-<span class="normal"><a href="#__codelineno-12-34">34</a></span>
-<span class="normal"><a href="#__codelineno-12-35">35</a></span>
-<span class="normal"><a href="#__codelineno-12-36">36</a></span>
-<span class="normal"><a href="#__codelineno-12-37">37</a></span>
-<span class="normal"><a href="#__codelineno-12-38">38</a></span>
-<span class="normal"><a href="#__codelineno-12-39">39</a></span>
-<span class="normal"><a href="#__codelineno-12-40">40</a></span>
-<span class="normal"><a href="#__codelineno-12-41">41</a></span>
-<span class="normal"><a href="#__codelineno-12-42">42</a></span>
-<span class="normal"><a href="#__codelineno-12-43">43</a></span>
-<span class="normal"><a href="#__codelineno-12-44">44</a></span>
-<span class="normal"><a href="#__codelineno-12-45">45</a></span>
-<span class="normal"><a href="#__codelineno-12-46">46</a></span>
-<span class="normal"><a href="#__codelineno-12-47">47</a></span>
-<span class="normal"><a href="#__codelineno-12-48">48</a></span>
-<span class="normal"><a href="#__codelineno-12-49">49</a></span>
-<span class="normal"><a href="#__codelineno-12-50">50</a></span>
-<span class="normal"><a href="#__codelineno-12-51">51</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
-</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a>
-</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a>
-</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">):</span>
-</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train and evaluate the model.&quot;&quot;&quot;</span>
-</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a>    <span class="c1"># Load the dataset</span>
-</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
-</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
-</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21"></a>
-</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22"></a>    <span class="c1"># Split the dataset into training and testing sets</span>
-</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23"></a>    <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24"></a>
-</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25"></a>    <span class="c1"># Standardize the features</span>
-</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26"></a>    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27"></a>    <span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
-</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28"></a>    <span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29"></a>
-</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30"></a>    <span class="c1"># Train a Support Vector Machine (SVM) model</span>
-</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33"></a>
-</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34"></a>    <span class="c1"># Make predictions on the test set</span>
-</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36"></a>
-</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37"></a>    <span class="c1"># Evaluate the model</span>
-</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40"></a>
-</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43"></a>
-</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
-</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
-</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
-</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48"></a>
-</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49"></a>
-</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-12-51"><a id="__codelineno-12-51" name="__codelineno-12-51"></a>    <span class="n">app</span><span class="p">()</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</li>
-<li>
-<p>Next let's create a CLI that has more than a single command. Continue working in the basic machine learning
-    application from the previous exercise, but this time we want to define two separate commands:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>evaluate<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span>
-</span></code></pre></div>
-<details class="success">
-<summary>Solution</summary>
-<p>The only key difference between the two is that in the <code>train</code> command we define the <code>output</code> argument to
-to be an optional parameter, i.e., we provide a default and for the <code>evaluate</code> command it is a required
-parameter.</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-14-10">10</a></span>
-<span class="normal"><a href="#__codelineno-14-11">11</a></span>
-<span class="normal"><a href="#__codelineno-14-12">12</a></span>
-<span class="normal"><a href="#__codelineno-14-13">13</a></span>
-<span class="normal"><a href="#__codelineno-14-14">14</a></span>
-<span class="normal"><a href="#__codelineno-14-15">15</a></span>
-<span class="normal"><a href="#__codelineno-14-16">16</a></span>
-<span class="normal"><a href="#__codelineno-14-17">17</a></span>
-<span class="normal"><a href="#__codelineno-14-18">18</a></span>
-<span class="normal"><a href="#__codelineno-14-19">19</a></span>
-<span class="normal"><a href="#__codelineno-14-20">20</a></span>
-<span class="normal"><a href="#__codelineno-14-21">21</a></span>
-<span class="normal"><a href="#__codelineno-14-22">22</a></span>
-<span class="normal"><a href="#__codelineno-14-23">23</a></span>
-<span class="normal"><a href="#__codelineno-14-24">24</a></span>
-<span class="normal"><a href="#__codelineno-14-25">25</a></span>
-<span class="normal"><a href="#__codelineno-14-26">26</a></span>
-<span class="normal"><a href="#__codelineno-14-27">27</a></span>
-<span class="normal"><a href="#__codelineno-14-28">28</a></span>
-<span class="normal"><a href="#__codelineno-14-29">29</a></span>
-<span class="normal"><a href="#__codelineno-14-30">30</a></span>
-<span class="normal"><a href="#__codelineno-14-31">31</a></span>
-<span class="normal"><a href="#__codelineno-14-32">32</a></span>
-<span class="normal"><a href="#__codelineno-14-33">33</a></span>
-<span class="normal"><a href="#__codelineno-14-34">34</a></span>
-<span class="normal"><a href="#__codelineno-14-35">35</a></span>
-<span class="normal"><a href="#__codelineno-14-36">36</a></span>
-<span class="normal"><a href="#__codelineno-14-37">37</a></span>
-<span class="normal"><a href="#__codelineno-14-38">38</a></span>
-<span class="normal"><a href="#__codelineno-14-39">39</a></span>
-<span class="normal"><a href="#__codelineno-14-40">40</a></span>
-<span class="normal"><a href="#__codelineno-14-41">41</a></span>
-<span class="normal"><a href="#__codelineno-14-42">42</a></span>
-<span class="normal"><a href="#__codelineno-14-43">43</a></span>
-<span class="normal"><a href="#__codelineno-14-44">44</a></span>
-<span class="normal"><a href="#__codelineno-14-45">45</a></span>
-<span class="normal"><a href="#__codelineno-14-46">46</a></span>
-<span class="normal"><a href="#__codelineno-14-47">47</a></span>
-<span class="normal"><a href="#__codelineno-14-48">48</a></span>
-<span class="normal"><a href="#__codelineno-14-49">49</a></span>
-<span class="normal"><a href="#__codelineno-14-50">50</a></span>
-<span class="normal"><a href="#__codelineno-14-51">51</a></span>
-<span class="normal"><a href="#__codelineno-14-52">52</a></span>
-<span class="normal"><a href="#__codelineno-14-53">53</a></span>
-<span class="normal"><a href="#__codelineno-14-54">54</a></span>
-<span class="normal"><a href="#__codelineno-14-55">55</a></span>
-<span class="normal"><a href="#__codelineno-14-56">56</a></span>
-<span class="normal"><a href="#__codelineno-14-57">57</a></span>
-<span class="normal"><a href="#__codelineno-14-58">58</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="c1"># Load the dataset</span>
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18"></a><span class="c1"># Split the dataset into training and testing sets</span>
-</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19"></a><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20"></a>
-</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21"></a><span class="c1"># Standardize the features</span>
-</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22"></a><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23"></a><span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
-</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24"></a><span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25"></a>
-</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26"></a>
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.&quot;&quot;&quot;</span>
-</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30"></a>    <span class="c1"># Train a Support Vector Machine (SVM) model</span>
-</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33"></a>
-</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36"></a>
-</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37"></a>
-</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39"></a><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model_file</span><span class="p">):</span>
-</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate the model.&quot;&quot;&quot;</span>
-</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42"></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43"></a>
-</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44"></a>    <span class="c1"># Make predictions on the test set</span>
-</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46"></a>
-</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47"></a>    <span class="c1"># Evaluate the model</span>
-</span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-14-49"><a id="__codelineno-14-49" name="__codelineno-14-49"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-14-50"><a id="__codelineno-14-50" name="__codelineno-14-50"></a>
-</span><span id="__span-14-51"><a id="__codelineno-14-51" name="__codelineno-14-51"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-14-52"><a id="__codelineno-14-52" name="__codelineno-14-52"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
-</span><span id="__span-14-53"><a id="__codelineno-14-53" name="__codelineno-14-53"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
-</span><span id="__span-14-54"><a id="__codelineno-14-54" name="__codelineno-14-54"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
-</span><span id="__span-14-55"><a id="__codelineno-14-55" name="__codelineno-14-55"></a>
-</span><span id="__span-14-56"><a id="__codelineno-14-56" name="__codelineno-14-56"></a>
-</span><span id="__span-14-57"><a id="__codelineno-14-57" name="__codelineno-14-57"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-14-58"><a id="__codelineno-14-58" name="__codelineno-14-58"></a>    <span class="n">app</span><span class="p">()</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</li>
-<li>
-<p>Finally, let's try to define subcommands for our subcommands, e.g., something similar to how <code>git</code> has the subcommand
-    <code>remote</code> which in itself has multiple subcommands like <code>add</code>, <code>rename</code>, etc. Continue on the simple machine
-    learning application from the previous exercises, but this time define a CLI for these commands:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>--n-neighbors<span class="w"> </span><span class="m">5</span>
-</span></code></pre></div>
-<p>i.e., the <code>train</code> command now has two subcommands for training different machine learning models (in this case SVM
-and KNN) which each takes arguments that are unique to that model. Relevant
-<a href="https://typer.tiangolo.com/tutorial/subcommands/">documentation</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title"><code>_</code> vs <code>-</code></p>
-<p>When using typer note that variables with <code>_</code> in the name
-will be converted to <code>-</code> in the CLI. Meaning that if you have a variable <code>n_neighbors</code> in your code, you should
-use <code>--n-neighbors</code> in the CLI.</p>
-</div>
-<details class="success">
-<summary>Success</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
@@ -2932,95 +2728,368 @@ use <code>--n-neighbors</code> in the CLI.</p>
 <span class="normal"><a href="#__codelineno-16-48">48</a></span>
 <span class="normal"><a href="#__codelineno-16-49">49</a></span>
 <span class="normal"><a href="#__codelineno-16-50">50</a></span>
-<span class="normal"><a href="#__codelineno-16-51">51</a></span>
-<span class="normal"><a href="#__codelineno-16-52">52</a></span>
-<span class="normal"><a href="#__codelineno-16-53">53</a></span>
-<span class="normal"><a href="#__codelineno-16-54">54</a></span>
-<span class="normal"><a href="#__codelineno-16-55">55</a></span>
-<span class="normal"><a href="#__codelineno-16-56">56</a></span>
-<span class="normal"><a href="#__codelineno-16-57">57</a></span>
-<span class="normal"><a href="#__codelineno-16-58">58</a></span>
-<span class="normal"><a href="#__codelineno-16-59">59</a></span>
-<span class="normal"><a href="#__codelineno-16-60">60</a></span>
-<span class="normal"><a href="#__codelineno-16-61">61</a></span>
-<span class="normal"><a href="#__codelineno-16-62">62</a></span>
-<span class="normal"><a href="#__codelineno-16-63">63</a></span>
-<span class="normal"><a href="#__codelineno-16-64">64</a></span>
-<span class="normal"><a href="#__codelineno-16-65">65</a></span>
-<span class="normal"><a href="#__codelineno-16-66">66</a></span>
-<span class="normal"><a href="#__codelineno-16-67">67</a></span>
-<span class="normal"><a href="#__codelineno-16-68">68</a></span>
-<span class="normal"><a href="#__codelineno-16-69">69</a></span>
-<span class="normal"><a href="#__codelineno-16-70">70</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="normal"><a href="#__codelineno-16-51">51</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a>
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
 </span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
 </span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a>
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
-</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="n">train_app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="n">app</span><span class="o">.</span><span class="n">add_typer</span><span class="p">(</span><span class="n">train_app</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a>
-</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="c1"># Load the dataset</span>
-</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a><span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
-</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
-</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a>
-</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a><span class="c1"># Split the dataset into training and testing sets</span>
-</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a>
-</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24"></a><span class="c1"># Standardize the features</span>
-</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25"></a><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26"></a><span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
-</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27"></a><span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">):</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train and evaluate the model.&quot;&quot;&quot;</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a>    <span class="c1"># Load the dataset</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a>    <span class="c1"># Split the dataset into training and testing sets</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a>    <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24"></a>
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25"></a>    <span class="c1"># Standardize the features</span>
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26"></a>    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27"></a>    <span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28"></a>    <span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
 </span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29"></a>
-</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="nd">@train_app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31"></a><span class="k">def</span><span class="w"> </span><span class="nf">svm</span><span class="p">(</span><span class="n">kernel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a SVM model.&quot;&quot;&quot;</span>
-</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35"></a>
-</span><span id="__span-16-36"><a id="__codelineno-16-36" name="__codelineno-16-36"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-16-37"><a id="__codelineno-16-37" name="__codelineno-16-37"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38"></a>
-</span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39"></a>
-</span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40"></a><span class="nd">@train_app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41"></a><span class="k">def</span><span class="w"> </span><span class="nf">knn</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a KNN model.&quot;&quot;&quot;</span>
-</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span>
-</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45"></a>
-</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-16-47"><a id="__codelineno-16-47" name="__codelineno-16-47"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30"></a>    <span class="c1"># Train a Support Vector Machine (SVM) model</span>
+</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33"></a>
+</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34"></a>    <span class="c1"># Make predictions on the test set</span>
+</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-16-36"><a id="__codelineno-16-36" name="__codelineno-16-36"></a>
+</span><span id="__span-16-37"><a id="__codelineno-16-37" name="__codelineno-16-37"></a>    <span class="c1"># Evaluate the model</span>
+</span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40"></a>
+</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43"></a>
+</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
+</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span id="__span-16-47"><a id="__codelineno-16-47" name="__codelineno-16-47"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
 </span><span id="__span-16-48"><a id="__codelineno-16-48" name="__codelineno-16-48"></a>
 </span><span id="__span-16-49"><a id="__codelineno-16-49" name="__codelineno-16-49"></a>
-</span><span id="__span-16-50"><a id="__codelineno-16-50" name="__codelineno-16-50"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-</span><span id="__span-16-51"><a id="__codelineno-16-51" name="__codelineno-16-51"></a><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model_file</span><span class="p">):</span>
-</span><span id="__span-16-52"><a id="__codelineno-16-52" name="__codelineno-16-52"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate the model.&quot;&quot;&quot;</span>
-</span><span id="__span-16-53"><a id="__codelineno-16-53" name="__codelineno-16-53"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-16-54"><a id="__codelineno-16-54" name="__codelineno-16-54"></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</span><span id="__span-16-55"><a id="__codelineno-16-55" name="__codelineno-16-55"></a>
-</span><span id="__span-16-56"><a id="__codelineno-16-56" name="__codelineno-16-56"></a>    <span class="c1"># Make predictions on the test set</span>
-</span><span id="__span-16-57"><a id="__codelineno-16-57" name="__codelineno-16-57"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</span><span id="__span-16-58"><a id="__codelineno-16-58" name="__codelineno-16-58"></a>
-</span><span id="__span-16-59"><a id="__codelineno-16-59" name="__codelineno-16-59"></a>    <span class="c1"># Evaluate the model</span>
-</span><span id="__span-16-60"><a id="__codelineno-16-60" name="__codelineno-16-60"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-16-61"><a id="__codelineno-16-61" name="__codelineno-16-61"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-</span><span id="__span-16-62"><a id="__codelineno-16-62" name="__codelineno-16-62"></a>
-</span><span id="__span-16-63"><a id="__codelineno-16-63" name="__codelineno-16-63"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-16-64"><a id="__codelineno-16-64" name="__codelineno-16-64"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
-</span><span id="__span-16-65"><a id="__codelineno-16-65" name="__codelineno-16-65"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
-</span><span id="__span-16-66"><a id="__codelineno-16-66" name="__codelineno-16-66"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
-</span><span id="__span-16-67"><a id="__codelineno-16-67" name="__codelineno-16-67"></a>
-</span><span id="__span-16-68"><a id="__codelineno-16-68" name="__codelineno-16-68"></a>
-</span><span id="__span-16-69"><a id="__codelineno-16-69" name="__codelineno-16-69"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-16-70"><a id="__codelineno-16-70" name="__codelineno-16-70"></a>    <span class="n">app</span><span class="p">()</span>
+</span><span id="__span-16-50"><a id="__codelineno-16-50" name="__codelineno-16-50"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-16-51"><a id="__codelineno-16-51" name="__codelineno-16-51"></a>    <span class="n">app</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>Next let's create a CLI that has more than a single command. Continue working in the basic machine learning
+    application from the previous exercise, but this time we want to define two separate commands:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Using pip</label><label for="__tabbed_5_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">     </span><span class="c1"># should train the model and save it to &#39;model.ckpt&#39;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>evaluate<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">           </span><span class="c1"># should evaluate the model saved in &#39;model.ckpt&#39;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>uv<span class="w"> </span>run<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>--output<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">     </span><span class="c1"># should train the</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uv<span class="w"> </span>run<span class="w"> </span>iris_classifier.py<span class="w"> </span>evaluate<span class="w"> </span><span class="s1">&#39;model.ckpt&#39;</span><span class="w">           </span><span class="c1"># should evaluate the model saved in &#39;model.ckpt&#39;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<details class="success">
+<summary>Solution</summary>
+<p>The only key difference between the two is that in the <code>train</code> command we define the <code>output</code> argument to
+to be an optional parameter, i.e., we provide a default and for the <code>evaluate</code> command it is a required
+parameter.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-19-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-19-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-19-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-19-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-19-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-19-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-19-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-19-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-19-10">10</a></span>
+<span class="normal"><a href="#__codelineno-19-11">11</a></span>
+<span class="normal"><a href="#__codelineno-19-12">12</a></span>
+<span class="normal"><a href="#__codelineno-19-13">13</a></span>
+<span class="normal"><a href="#__codelineno-19-14">14</a></span>
+<span class="normal"><a href="#__codelineno-19-15">15</a></span>
+<span class="normal"><a href="#__codelineno-19-16">16</a></span>
+<span class="normal"><a href="#__codelineno-19-17">17</a></span>
+<span class="normal"><a href="#__codelineno-19-18">18</a></span>
+<span class="normal"><a href="#__codelineno-19-19">19</a></span>
+<span class="normal"><a href="#__codelineno-19-20">20</a></span>
+<span class="normal"><a href="#__codelineno-19-21">21</a></span>
+<span class="normal"><a href="#__codelineno-19-22">22</a></span>
+<span class="normal"><a href="#__codelineno-19-23">23</a></span>
+<span class="normal"><a href="#__codelineno-19-24">24</a></span>
+<span class="normal"><a href="#__codelineno-19-25">25</a></span>
+<span class="normal"><a href="#__codelineno-19-26">26</a></span>
+<span class="normal"><a href="#__codelineno-19-27">27</a></span>
+<span class="normal"><a href="#__codelineno-19-28">28</a></span>
+<span class="normal"><a href="#__codelineno-19-29">29</a></span>
+<span class="normal"><a href="#__codelineno-19-30">30</a></span>
+<span class="normal"><a href="#__codelineno-19-31">31</a></span>
+<span class="normal"><a href="#__codelineno-19-32">32</a></span>
+<span class="normal"><a href="#__codelineno-19-33">33</a></span>
+<span class="normal"><a href="#__codelineno-19-34">34</a></span>
+<span class="normal"><a href="#__codelineno-19-35">35</a></span>
+<span class="normal"><a href="#__codelineno-19-36">36</a></span>
+<span class="normal"><a href="#__codelineno-19-37">37</a></span>
+<span class="normal"><a href="#__codelineno-19-38">38</a></span>
+<span class="normal"><a href="#__codelineno-19-39">39</a></span>
+<span class="normal"><a href="#__codelineno-19-40">40</a></span>
+<span class="normal"><a href="#__codelineno-19-41">41</a></span>
+<span class="normal"><a href="#__codelineno-19-42">42</a></span>
+<span class="normal"><a href="#__codelineno-19-43">43</a></span>
+<span class="normal"><a href="#__codelineno-19-44">44</a></span>
+<span class="normal"><a href="#__codelineno-19-45">45</a></span>
+<span class="normal"><a href="#__codelineno-19-46">46</a></span>
+<span class="normal"><a href="#__codelineno-19-47">47</a></span>
+<span class="normal"><a href="#__codelineno-19-48">48</a></span>
+<span class="normal"><a href="#__codelineno-19-49">49</a></span>
+<span class="normal"><a href="#__codelineno-19-50">50</a></span>
+<span class="normal"><a href="#__codelineno-19-51">51</a></span>
+<span class="normal"><a href="#__codelineno-19-52">52</a></span>
+<span class="normal"><a href="#__codelineno-19-53">53</a></span>
+<span class="normal"><a href="#__codelineno-19-54">54</a></span>
+<span class="normal"><a href="#__codelineno-19-55">55</a></span>
+<span class="normal"><a href="#__codelineno-19-56">56</a></span>
+<span class="normal"><a href="#__codelineno-19-57">57</a></span>
+<span class="normal"><a href="#__codelineno-19-58">58</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10"></a>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12"></a>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="c1"># Load the dataset</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17"></a>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="c1"># Split the dataset into training and testing sets</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20"></a>
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21"></a><span class="c1"># Standardize the features</span>
+</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22"></a><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23"></a><span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24"></a><span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25"></a>
+</span><span id="__span-19-26"><a id="__codelineno-19-26" name="__codelineno-19-26"></a>
+</span><span id="__span-19-27"><a id="__codelineno-19-27" name="__codelineno-19-27"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-19-28"><a id="__codelineno-19-28" name="__codelineno-19-28"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-19-29"><a id="__codelineno-19-29" name="__codelineno-19-29"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.&quot;&quot;&quot;</span>
+</span><span id="__span-19-30"><a id="__codelineno-19-30" name="__codelineno-19-30"></a>    <span class="c1"># Train a Support Vector Machine (SVM) model</span>
+</span><span id="__span-19-31"><a id="__codelineno-19-31" name="__codelineno-19-31"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-19-32"><a id="__codelineno-19-32" name="__codelineno-19-32"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-19-33"><a id="__codelineno-19-33" name="__codelineno-19-33"></a>
+</span><span id="__span-19-34"><a id="__codelineno-19-34" name="__codelineno-19-34"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-19-35"><a id="__codelineno-19-35" name="__codelineno-19-35"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="__span-19-36"><a id="__codelineno-19-36" name="__codelineno-19-36"></a>
+</span><span id="__span-19-37"><a id="__codelineno-19-37" name="__codelineno-19-37"></a>
+</span><span id="__span-19-38"><a id="__codelineno-19-38" name="__codelineno-19-38"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-19-39"><a id="__codelineno-19-39" name="__codelineno-19-39"></a><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model_file</span><span class="p">):</span>
+</span><span id="__span-19-40"><a id="__codelineno-19-40" name="__codelineno-19-40"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate the model.&quot;&quot;&quot;</span>
+</span><span id="__span-19-41"><a id="__codelineno-19-41" name="__codelineno-19-41"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-19-42"><a id="__codelineno-19-42" name="__codelineno-19-42"></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-19-43"><a id="__codelineno-19-43" name="__codelineno-19-43"></a>
+</span><span id="__span-19-44"><a id="__codelineno-19-44" name="__codelineno-19-44"></a>    <span class="c1"># Make predictions on the test set</span>
+</span><span id="__span-19-45"><a id="__codelineno-19-45" name="__codelineno-19-45"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-19-46"><a id="__codelineno-19-46" name="__codelineno-19-46"></a>
+</span><span id="__span-19-47"><a id="__codelineno-19-47" name="__codelineno-19-47"></a>    <span class="c1"># Evaluate the model</span>
+</span><span id="__span-19-48"><a id="__codelineno-19-48" name="__codelineno-19-48"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-19-49"><a id="__codelineno-19-49" name="__codelineno-19-49"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-19-50"><a id="__codelineno-19-50" name="__codelineno-19-50"></a>
+</span><span id="__span-19-51"><a id="__codelineno-19-51" name="__codelineno-19-51"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-19-52"><a id="__codelineno-19-52" name="__codelineno-19-52"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
+</span><span id="__span-19-53"><a id="__codelineno-19-53" name="__codelineno-19-53"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span id="__span-19-54"><a id="__codelineno-19-54" name="__codelineno-19-54"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
+</span><span id="__span-19-55"><a id="__codelineno-19-55" name="__codelineno-19-55"></a>
+</span><span id="__span-19-56"><a id="__codelineno-19-56" name="__codelineno-19-56"></a>
+</span><span id="__span-19-57"><a id="__codelineno-19-57" name="__codelineno-19-57"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-19-58"><a id="__codelineno-19-58" name="__codelineno-19-58"></a>    <span class="n">app</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>Finally, let's try to define subcommands for our subcommands, e.g., something similar to how <code>git</code> has the subcommand
+    <code>remote</code> which in itself has multiple subcommands like <code>add</code>, <code>rename</code>, etc. Continue on the simple machine
+    learning application from the previous exercises, but this time define a CLI for these commands:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Using pip</label><label for="__tabbed_6_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span><span class="w">     </span><span class="c1"># should train an SVM with a linear kernel</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>python<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>--n-neighbors<span class="w"> </span><span class="m">5</span><span class="w">       </span><span class="c1"># should train a KNN with 5 neighbors</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>uv<span class="w"> </span>run<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span><span class="w">     </span><span class="c1"># should train an S</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>uv<span class="w"> </span>run<span class="w"> </span>iris_classifier.py<span class="w"> </span>train<span class="w"> </span>knn<span class="w"> </span>--n-neighbors<span class="w"> </span><span class="m">5</span><span class="w">       </span><span class="c1"># should train a KNN with 5 neighbors</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>i.e., the <code>train</code> command now has two subcommands for training different machine learning models (in this case SVM
+and KNN) which each takes arguments that are unique to that model. Relevant
+<a href="https://typer.tiangolo.com/tutorial/subcommands/">documentation</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>_</code> vs <code>-</code></p>
+<p>When using typer note that variables with <code>_</code> in the name
+will be converted to <code>-</code> in the CLI. Meaning that if you have a variable <code>n_neighbors</code> in your code, you should
+use <code>--n-neighbors</code> in the CLI.</p>
+</div>
+<details class="success">
+<summary>Success</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span>
+<span class="normal"><a href="#__codelineno-22-21">21</a></span>
+<span class="normal"><a href="#__codelineno-22-22">22</a></span>
+<span class="normal"><a href="#__codelineno-22-23">23</a></span>
+<span class="normal"><a href="#__codelineno-22-24">24</a></span>
+<span class="normal"><a href="#__codelineno-22-25">25</a></span>
+<span class="normal"><a href="#__codelineno-22-26">26</a></span>
+<span class="normal"><a href="#__codelineno-22-27">27</a></span>
+<span class="normal"><a href="#__codelineno-22-28">28</a></span>
+<span class="normal"><a href="#__codelineno-22-29">29</a></span>
+<span class="normal"><a href="#__codelineno-22-30">30</a></span>
+<span class="normal"><a href="#__codelineno-22-31">31</a></span>
+<span class="normal"><a href="#__codelineno-22-32">32</a></span>
+<span class="normal"><a href="#__codelineno-22-33">33</a></span>
+<span class="normal"><a href="#__codelineno-22-34">34</a></span>
+<span class="normal"><a href="#__codelineno-22-35">35</a></span>
+<span class="normal"><a href="#__codelineno-22-36">36</a></span>
+<span class="normal"><a href="#__codelineno-22-37">37</a></span>
+<span class="normal"><a href="#__codelineno-22-38">38</a></span>
+<span class="normal"><a href="#__codelineno-22-39">39</a></span>
+<span class="normal"><a href="#__codelineno-22-40">40</a></span>
+<span class="normal"><a href="#__codelineno-22-41">41</a></span>
+<span class="normal"><a href="#__codelineno-22-42">42</a></span>
+<span class="normal"><a href="#__codelineno-22-43">43</a></span>
+<span class="normal"><a href="#__codelineno-22-44">44</a></span>
+<span class="normal"><a href="#__codelineno-22-45">45</a></span>
+<span class="normal"><a href="#__codelineno-22-46">46</a></span>
+<span class="normal"><a href="#__codelineno-22-47">47</a></span>
+<span class="normal"><a href="#__codelineno-22-48">48</a></span>
+<span class="normal"><a href="#__codelineno-22-49">49</a></span>
+<span class="normal"><a href="#__codelineno-22-50">50</a></span>
+<span class="normal"><a href="#__codelineno-22-51">51</a></span>
+<span class="normal"><a href="#__codelineno-22-52">52</a></span>
+<span class="normal"><a href="#__codelineno-22-53">53</a></span>
+<span class="normal"><a href="#__codelineno-22-54">54</a></span>
+<span class="normal"><a href="#__codelineno-22-55">55</a></span>
+<span class="normal"><a href="#__codelineno-22-56">56</a></span>
+<span class="normal"><a href="#__codelineno-22-57">57</a></span>
+<span class="normal"><a href="#__codelineno-22-58">58</a></span>
+<span class="normal"><a href="#__codelineno-22-59">59</a></span>
+<span class="normal"><a href="#__codelineno-22-60">60</a></span>
+<span class="normal"><a href="#__codelineno-22-61">61</a></span>
+<span class="normal"><a href="#__codelineno-22-62">62</a></span>
+<span class="normal"><a href="#__codelineno-22-63">63</a></span>
+<span class="normal"><a href="#__codelineno-22-64">64</a></span>
+<span class="normal"><a href="#__codelineno-22-65">65</a></span>
+<span class="normal"><a href="#__codelineno-22-66">66</a></span>
+<span class="normal"><a href="#__codelineno-22-67">67</a></span>
+<span class="normal"><a href="#__codelineno-22-68">68</a></span>
+<span class="normal"><a href="#__codelineno-22-69">69</a></span>
+<span class="normal"><a href="#__codelineno-22-70">70</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11"></a>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13"></a><span class="n">train_app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14"></a><span class="n">app</span><span class="o">.</span><span class="n">add_typer</span><span class="p">(</span><span class="n">train_app</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15"></a>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16"></a><span class="c1"># Load the dataset</span>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17"></a><span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18"></a><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19"></a><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20"></a>
+</span><span id="__span-22-21"><a id="__codelineno-22-21" name="__codelineno-22-21"></a><span class="c1"># Split the dataset into training and testing sets</span>
+</span><span id="__span-22-22"><a id="__codelineno-22-22" name="__codelineno-22-22"></a><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-22-23"><a id="__codelineno-22-23" name="__codelineno-22-23"></a>
+</span><span id="__span-22-24"><a id="__codelineno-22-24" name="__codelineno-22-24"></a><span class="c1"># Standardize the features</span>
+</span><span id="__span-22-25"><a id="__codelineno-22-25" name="__codelineno-22-25"></a><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+</span><span id="__span-22-26"><a id="__codelineno-22-26" name="__codelineno-22-26"></a><span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+</span><span id="__span-22-27"><a id="__codelineno-22-27" name="__codelineno-22-27"></a><span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-22-28"><a id="__codelineno-22-28" name="__codelineno-22-28"></a>
+</span><span id="__span-22-29"><a id="__codelineno-22-29" name="__codelineno-22-29"></a>
+</span><span id="__span-22-30"><a id="__codelineno-22-30" name="__codelineno-22-30"></a><span class="nd">@train_app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-22-31"><a id="__codelineno-22-31" name="__codelineno-22-31"></a><span class="k">def</span><span class="w"> </span><span class="nf">svm</span><span class="p">(</span><span class="n">kernel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-22-32"><a id="__codelineno-22-32" name="__codelineno-22-32"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a SVM model.&quot;&quot;&quot;</span>
+</span><span id="__span-22-33"><a id="__codelineno-22-33" name="__codelineno-22-33"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-22-34"><a id="__codelineno-22-34" name="__codelineno-22-34"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-22-35"><a id="__codelineno-22-35" name="__codelineno-22-35"></a>
+</span><span id="__span-22-36"><a id="__codelineno-22-36" name="__codelineno-22-36"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-22-37"><a id="__codelineno-22-37" name="__codelineno-22-37"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="__span-22-38"><a id="__codelineno-22-38" name="__codelineno-22-38"></a>
+</span><span id="__span-22-39"><a id="__codelineno-22-39" name="__codelineno-22-39"></a>
+</span><span id="__span-22-40"><a id="__codelineno-22-40" name="__codelineno-22-40"></a><span class="nd">@train_app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-22-41"><a id="__codelineno-22-41" name="__codelineno-22-41"></a><span class="k">def</span><span class="w"> </span><span class="nf">knn</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;model.ckpt&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-22-42"><a id="__codelineno-22-42" name="__codelineno-22-42"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a KNN model.&quot;&quot;&quot;</span>
+</span><span id="__span-22-43"><a id="__codelineno-22-43" name="__codelineno-22-43"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span>
+</span><span id="__span-22-44"><a id="__codelineno-22-44" name="__codelineno-22-44"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-22-45"><a id="__codelineno-22-45" name="__codelineno-22-45"></a>
+</span><span id="__span-22-46"><a id="__codelineno-22-46" name="__codelineno-22-46"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-22-47"><a id="__codelineno-22-47" name="__codelineno-22-47"></a>        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="__span-22-48"><a id="__codelineno-22-48" name="__codelineno-22-48"></a>
+</span><span id="__span-22-49"><a id="__codelineno-22-49" name="__codelineno-22-49"></a>
+</span><span id="__span-22-50"><a id="__codelineno-22-50" name="__codelineno-22-50"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span id="__span-22-51"><a id="__codelineno-22-51" name="__codelineno-22-51"></a><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model_file</span><span class="p">):</span>
+</span><span id="__span-22-52"><a id="__codelineno-22-52" name="__codelineno-22-52"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate the model.&quot;&quot;&quot;</span>
+</span><span id="__span-22-53"><a id="__codelineno-22-53" name="__codelineno-22-53"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-22-54"><a id="__codelineno-22-54" name="__codelineno-22-54"></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-22-55"><a id="__codelineno-22-55" name="__codelineno-22-55"></a>
+</span><span id="__span-22-56"><a id="__codelineno-22-56" name="__codelineno-22-56"></a>    <span class="c1"># Make predictions on the test set</span>
+</span><span id="__span-22-57"><a id="__codelineno-22-57" name="__codelineno-22-57"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span><span id="__span-22-58"><a id="__codelineno-22-58" name="__codelineno-22-58"></a>
+</span><span id="__span-22-59"><a id="__codelineno-22-59" name="__codelineno-22-59"></a>    <span class="c1"># Evaluate the model</span>
+</span><span id="__span-22-60"><a id="__codelineno-22-60" name="__codelineno-22-60"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-22-61"><a id="__codelineno-22-61" name="__codelineno-22-61"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</span><span id="__span-22-62"><a id="__codelineno-22-62" name="__codelineno-22-62"></a>
+</span><span id="__span-22-63"><a id="__codelineno-22-63" name="__codelineno-22-63"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-64"><a id="__codelineno-22-64" name="__codelineno-22-64"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
+</span><span id="__span-22-65"><a id="__codelineno-22-65" name="__codelineno-22-65"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span id="__span-22-66"><a id="__codelineno-22-66" name="__codelineno-22-66"></a>    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">report</span>
+</span><span id="__span-22-67"><a id="__codelineno-22-67" name="__codelineno-22-67"></a>
+</span><span id="__span-22-68"><a id="__codelineno-22-68" name="__codelineno-22-68"></a>
+</span><span id="__span-22-69"><a id="__codelineno-22-69" name="__codelineno-22-69"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-22-70"><a id="__codelineno-22-70" name="__codelineno-22-70"></a>    <span class="n">app</span><span class="p">()</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -3031,15 +3100,23 @@ use <code>--n-neighbors</code> in the CLI.</p>
 <summary>Solution</summary>
 <p>Assuming that our <code>iris_classifier.py</code> script from before is placed in the <code>src/my_project</code> folder, we should
 just add</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">[project.scripts]</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;src.my_project.iris_classifier:app&quot;</span>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">[project.scripts]</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;src.my_project.iris_classifier:app&quot;</span>
 </span></code></pre></div>
-<p>and remember to install the project in editable mode</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<p>to the <code>pyproject.toml</code> file and then we should be able to run</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Using pip</label><label for="__tabbed_7_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>greetings<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span>
 </span></code></pre></div>
-<p>and you should now be able to run the following command in the terminal</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>iris_classifier<span class="w"> </span>train<span class="w"> </span>knn
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>uv<span class="w"> </span>run<span class="w"> </span>greetings<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">&#39;linear&#39;</span>
 </span></code></pre></div>
+</div>
+</div>
+</div>
 </details>
 </li>
 </ol>
@@ -3058,10 +3135,10 @@ projects:</p>
 </ul>
 <p>As we begin to move into the next couple of learning modules, we are going to encounter even more CLI tools that we need
 to interact with. Here is an example of a long command that you might need to run in your project in the future:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>my_image:latest<span class="w"> </span>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>my_image:latest<span class="w"> </span>python<span class="w"> </span>my_script.py<span class="w"> </span>--arg1<span class="w"> </span>val1<span class="w"> </span>--arg2<span class="w"> </span>val2
 </span></code></pre></div>
 <p>This can be a lot to remember, and it can be easy to make mistakes. Instead, it would be nice if we could just do</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>run<span class="w"> </span>my_command<span class="w"> </span>--arg1<span class="o">=</span>val1<span class="w"> </span>--arg2<span class="o">=</span>val2
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>run<span class="w"> </span>my_command<span class="w"> </span>--arg1<span class="o">=</span>val1<span class="w"> </span>--arg2<span class="o">=</span>val2
 </span></code></pre></div>
 <p>i.e. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
 it to our liking. To help with this, we are going to look at the <a href="http://www.pyinvoke.org/">invoke</a> package.
@@ -3075,46 +3152,89 @@ easier.</p>
 <ol>
 <li>
 <p>Start by installing <code>invoke</code></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>pip<span class="w"> </span>install<span class="w"> </span>invoke
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Using pip</label><label for="__tabbed_8_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>pip<span class="w"> </span>install<span class="w"> </span>invoke
 </span></code></pre></div>
-<p>and remember to add the package to your <code>requirements.txt</code> file.</p>
+<p>Consider adding <code>invoke</code> to a <code>requirements_dev.txt</code> file, as it is a development tool.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span>invoke
+</span></code></pre></div>
+<p>We add <code>invoke</code> as a development dependency since it is not needed for running the actual code. Alternatively,
+we could install it globally using <code>uvx invoke</code> to be used across multiple projects.</p>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Add a <code>tasks.py</code> file to your repository and try to just run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>invoke<span class="w"> </span>--list
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Using pip</label><label for="__tabbed_9_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>invoke<span class="w"> </span>--list
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>--list
+</span></code></pre></div>
+<p>personally, I like to create an shell alias for <code>uv run invoke</code> called just <code>uvi</code> to shorten the command.</p>
+</div>
+</div>
+</div>
 <p>which should work but inform you that no tasks have been added yet.</p>
 </li>
 <li>
 <p>Let's now try to add a task to the <code>tasks.py</code> file. The way to do this with invoke is to import the <code>task</code>
     decorator from <code>invoke</code> and then decorate a function with it:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">invoke</span><span class="w"> </span><span class="kn">import</span> <span class="n">task</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nd">@task</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">python</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;which python&quot;</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span> <span class="k">else</span> <span class="s2">&quot;where python&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">invoke</span><span class="w"> </span><span class="kn">import</span> <span class="n">task</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="nd">@task</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">python</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;which python&quot;</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span> <span class="k">else</span> <span class="s2">&quot;where python&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>the first argument of any task-decorated function is the <code>ctx</code> context argument that implements the <code>run</code> method
 for running any command as we would run it in the terminal. In this case we have simply implemented a task that
 returns the current Python interpreter, but it works for all operating systems. Check that it works by running:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>invoke<span class="w"> </span>python
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Using pip</label><label for="__tabbed_10_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>invoke<span class="w"> </span>python
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>python
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Let's try to create a task that simplifies the process of <code>git add</code>, <code>git commit</code>, <code>git push</code>. Create a task such
     that the following command can be run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>invoke<span class="w"> </span>git<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;My commit message&quot;</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Using pip</label><label for="__tabbed_11_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>invoke<span class="w"> </span>git<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;My commit message&quot;</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>git<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;My commit message&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>Implement it and use the command to commit the taskfile you just created!</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nd">@task</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">git</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git add .&quot;</span><span class="p">)</span>
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git commit -m &#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git push&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nd">@task</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">git</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git add .&quot;</span><span class="p">)</span>
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git commit -m &#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git push&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -3136,18 +3256,18 @@ returns the current Python interpreter, but it works for all operating systems. 
 </details>
 </li>
 <li>
-<p>Create a command that simplifies the process of bootstrapping a <code>conda</code> environment and installs the relevant
-    dependencies of your project.</p>
+<p>(Optional, only relevant if you use conda) Create a command that simplifies the process of bootstrapping a <code>conda</code>
+    environment and installs the relevant dependencies of your project.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nd">@task</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">conda</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dtu_mlops&quot;</span><span class="p">):</span>
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conda env create -f environment.yml&quot;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conda activate </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pip install -e .&quot;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nd">@task</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">conda</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dtu_mlops&quot;</span><span class="p">):</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conda env create -f environment.yml&quot;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conda activate </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pip install -e .&quot;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></code></pre></div>
 <p>and try to run the following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>invoke<span class="w"> </span>conda
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>invoke<span class="w"> </span>conda
 </span></code></pre></div>
 </details>
 </li>
@@ -3158,17 +3278,27 @@ returns the current Python interpreter, but it works for all operating systems. 
     that simplifies this process. It needs to take two arguments for defining the folder to add and the commit message.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nd">@task</span>
-</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">dvc</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Add new data&quot;</span><span class="p">):</span>
-</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dvc add </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git add </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">.dvc .gitignore&quot;</span><span class="p">)</span>
-</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git commit -m &#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git push&quot;</span><span class="p">)</span>
-</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dvc push&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nd">@task</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">dvc</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Add new data&quot;</span><span class="p">):</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dvc add </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git add </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">.dvc .gitignore&quot;</span><span class="p">)</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git commit -m &#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;git push&quot;</span><span class="p">)</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dvc push&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>and try to run the following command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>invoke<span class="w"> </span>dvc<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;data&#39;</span><span class="w"> </span>--message<span class="w"> </span><span class="s1">&#39;Add new data&#39;</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Using pip</label><label for="__tabbed_12_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>invoke<span class="w"> </span>dvc<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;data&#39;</span><span class="w"> </span>--message<span class="w"> </span><span class="s1">&#39;Add new data&#39;</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>dvc<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;data&#39;</span><span class="w"> </span>--message<span class="w"> </span><span class="s1">&#39;Add new data&#39;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </details>
 </li>
 <li>
@@ -3180,15 +3310,15 @@ returns the current Python interpreter, but it works for all operating systems. 
 </ul>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">invoke</span><span class="w"> </span><span class="kn">import</span> <span class="n">task</span>
-</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
-</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="nd">@task</span>
-</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">pull_data</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;dvc pull&quot;</span><span class="p">)</span>
-</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
-</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="nd">@task</span><span class="p">(</span><span class="n">pull_data</span><span class="p">)</span>
-</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;my_cli train&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">invoke</span><span class="w"> </span><span class="kn">import</span> <span class="n">task</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="nd">@task</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">pull_data</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;dvc pull&quot;</span><span class="p">)</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="nd">@task</span><span class="p">(</span><span class="n">pull_data</span><span class="p">)</span>
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;my_cli train&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -3229,7 +3359,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 09:14:20 UTC">April 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38 UTC">January 4, 2026</span>
   </span>
 
     
@@ -3256,6 +3386,8 @@ terminal. It allows you to interact with your code in a more advanced way than j
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -3367,7 +3499,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>

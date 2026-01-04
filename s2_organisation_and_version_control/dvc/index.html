@@ -2291,7 +2291,7 @@
 <p class="admonition-title">Warning</p>
 <p>Since August 2024, Google has changed their policy for the Google Drive API. This means that the proceduce for
 setting up DVC with Google Drive has changed. The following exercises therefore need extra authentication to work.
-You therefore have two options:</p>
+You therefore have three options:</p>
 <ol>
 <li>
 <p>Skip these exercises for now. We are going to revisit DVC later in the course when we get access to a more
@@ -2303,6 +2303,13 @@ You therefore have two options:</p>
     instructions
     <a href="https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended">here</a>.
     for setting up a custom Google Cloud project.</p>
+</li>
+<li>
+<p>Another alternative is that you can use a local remote storage instead of Google Drive. If you are a DTU student,
+    this could be the DTU HPC system. Assuming you have access to
+    <a href="https://www.hpc.dtu.dk/?page_id=2501">DTU HPC via SSH</a>, you can more or less follow the steps below but instead
+    of adding Google Drive as remote storage, you can add a
+    <a href="https://doc.dvc.org/user-guide/data-management/remote-storage/ssh">local remote via SSH</a>.</p>
 </li>
 </ol>
 </div>
@@ -2354,23 +2361,53 @@ it contains excellent tutorials.</p>
 </li>
 <li>
 <p>Next, install DVC and the Google Drive extension</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using pip</label><label for="__tabbed_1_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>dvc
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>dvc-gdrive
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>add<span class="w"> </span>dvc<span class="w"> </span>dvc-gdrive
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
 optional dependencies: <code>[s3]</code>, <code>[azure]</code>, <code>[gdrive]</code>, <code>[gs]</code>, <code>[oss]</code>, <code>[ssh]</code>. Alternatively, use <code>[all]</code> to
 include them all. If you encounter that the installation fails, we recommend that you start by updating pip and then
 trying to update <code>dvc</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>dvc-gdrive
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Using pip</label><label for="__tabbed_2_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>dvc-gdrive
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>update<span class="w"> </span>-U<span class="w"> </span>dvc-gdrive
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>If this does not work for you, it is most likely due to a problem with <code>pygit2</code> and in that case we recommend that
 you follow the instructions <a href="https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced">in the pygit2 installation guide</a>.</p>
 </li>
 <li>
 <p>In your MNIST repository run the following command from the terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>dvc<span class="w"> </span>init
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Using pip</label><label for="__tabbed_3_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>dvc<span class="w"> </span>init
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>init
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>This will set up <code>dvc</code> for this repository (similar to how <code>git init</code> will initialize a git repository).
 These files should be committed using standard <code>git</code> to your repository.</p>
 </li>
@@ -2381,13 +2418,23 @@ These files should be committed using standard <code>git</code> to your reposito
 <a class="glightbox" href="../../figures/google_drive.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/google_drive.PNG" width="1000" /></a>
 </figure></p>
 <p>Using this identifier, add it as remote storage.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>storage<span class="w"> </span>gdrive://&lt;your_identifier&gt;
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Using pip</label><label for="__tabbed_4_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>storage<span class="w"> </span>gdrive://&lt;your_identifier&gt;
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>storage<span class="w"> </span>gdrive://&lt;your_identifier&gt;
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Check the content of the file <code>.dvc/config</code>. Does it contain a pointer to your remote storage? Afterwards, make sure
     to add this file to the next commit we are going to make:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>add<span class="w"> </span>.dvc/config
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>add<span class="w"> </span>.dvc/config
 </span></code></pre></div>
 </li>
 <li>
@@ -2401,9 +2448,9 @@ These files should be committed using standard <code>git</code> to your reposito
 <li>
 <p>Now we are going to add, commit and tag the <em>metafiles</em>, so we can restore to this stage later on. Commit and tag
     the files, which should look something like this:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>add<span class="w"> </span>data.dvc<span class="w"> </span>.gitignore
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;First datasets, containing 25000 images&quot;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;v1.0&quot;</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;data v1.0&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>add<span class="w"> </span>data.dvc<span class="w"> </span>.gitignore
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;First datasets, containing 25000 images&quot;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;v1.0&quot;</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;data v1.0&quot;</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -2415,7 +2462,7 @@ These files should be committed using standard <code>git</code> to your reposito
 <p>After authenticating the first time, DVC should be set up without having to authenticate again. If you for some
 reason encounter that DVC fails to authenticate, you can try to reset the authentication. Locate the file
 <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code>, where <code>$CACHE_HOME</code> depends on your operating system:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">Windows</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">macOS</label><label for="__tabbed_5_2">Linux</label><label for="__tabbed_5_3">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><code>~/Library/Caches</code></p>
@@ -2434,9 +2481,9 @@ This is the typical location, but it may vary depending on what distro you are r
 <li>
 <p>After completing the above steps, it is very easy for others (or yourself) to get set up with both
     code and data by simply running</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;my_repository&gt;
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">cd</span><span class="w"> </span>&lt;my_repository&gt;
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>dvc<span class="w"> </span>pull
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;my_repository&gt;
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">cd</span><span class="w"> </span>&lt;my_repository&gt;
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>dvc<span class="w"> </span>pull<span class="w">  </span><span class="c1"># or uv run dvc pull</span>
 </span></code></pre></div>
 <p>(assuming that you give them access rights to the folder in your drive). Try doing this (in some other location
 than your standard code) to make sure that the two commands indeed download both your code and data.</p>
@@ -2446,9 +2493,20 @@ than your standard code) to make sure that the two commands indeed download both
     dataset and version control this as well. The new data can be downloaded from this
     <a href="https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing">Google Drive folder</a>
     or by running these two commands:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>gdown
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>gdown<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing&#39;</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Using pip</label><label for="__tabbed_6_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>gdown
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>gdown<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing&#39;</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>uv<span class="w"> </span>add<span class="w"> </span>gdown
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>uv<span class="w"> </span>run<span class="w"> </span>gdown<span class="w"> </span>--folder<span class="w"> </span><span class="s1">&#39;https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing&#39;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>Copy the data to your <code>data/raw</code> folder and then rerun your data pipeline to incorporate the new data into the
 files in your <code>processed</code> folder. The new data should be 4 files with train images and 4 files with train targets,
 a total of 20,000 additional observations.</p>
@@ -2461,8 +2519,8 @@ a total of 20,000 additional observations.</p>
 <li>
 <p>Let's say that you wanted to go back to the state of your data in v1.0. If the above steps have been done correctly,
     you should be able to do this using:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>v1.0
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>dvc<span class="w"> </span>checkout
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>v1.0
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>dvc<span class="w"> </span>checkout<span class="w">  </span><span class="c1"># or uv run dvc checkout</span>
 </span></code></pre></div>
 <p>Confirm that you have reverted to the original data.</p>
 </li>
@@ -2503,11 +2561,11 @@ Alternatively you can use the <code>dvc status</code> command.</p>
     to successfully version control the folder? (assuming you already set up a remote)</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dvc<span class="w"> </span>add<span class="w"> </span>data/
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added raw data&quot;</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>git<span class="w"> </span>push
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>dvc<span class="w"> </span>push
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>dvc<span class="w"> </span>add<span class="w"> </span>data/<span class="w">  </span><span class="c1"># or uv run dvc add data/</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added raw data&quot;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>git<span class="w"> </span>push
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>dvc<span class="w"> </span>push<span class="w">  </span><span class="c1"># or uv run dvc push</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2540,7 +2598,7 @@ later for a more permanent (and large-scale) storage solution.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41 UTC">November 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38 UTC">January 4, 2026</span>
   </span>
 
     
@@ -2567,6 +2625,8 @@ later for a more permanent (and large-scale) storage solution.</p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -2678,7 +2738,7 @@ later for a more permanent (and large-scale) storage solution.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>

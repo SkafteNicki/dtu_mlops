@@ -494,10 +494,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#exercises-uv" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❔ Exercises
+        ❔ Exercises (uv)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-condapip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❔ Exercises (conda+pip)
       
     </span>
   </a>
@@ -2227,10 +2238,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#exercises-uv" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❔ Exercises
+        ❔ Exercises (uv)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-condapip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❔ Exercises (conda+pip)
       
     </span>
   </a>
@@ -2337,10 +2359,11 @@ the same environment, in this case, the global environment. Instead, if we did s
 </div>
 </div>
 <p>then we would be sure that <code>torch==1.3.0</code> is used when executing <code>main.py</code> in project A because we are using two
-different virtual environments. In the above case, we used the <a href="https://docs.python.org/3/library/venv.html">venv module</a>,
-which is the built-in Python module for creating virtual environments. <code>venv+pip</code> is arguably a good combination,
-but when working on multiple projects it can quickly become a hassle to manage all the different
-virtual environments yourself, remembering which Python version to use, which packages to install and so on.</p>
+different virtual environments. In the above case, we used the built-in
+<a href="https://docs.python.org/3/library/venv.html">venv module</a>, which is the built-in Python module for creating virtual
+environments. <code>venv+pip</code> is arguably a good combination, but when working on multiple projects it can quickly become a
+hassle to manage all the different virtual environments yourself, remembering which Python version to use, which
+packages to install and so on.</p>
 <p>Therefore, several package managers have been developed to manage virtual environments and dependencies. Some popular
 options include:</p>
 <table>
@@ -2393,32 +2416,35 @@ options include:</p>
 <td>uv</td>
 <td><a href="https://docs.astral.sh/uv/">🔗 Link</a></td>
 <td><a href="https://github.com/astral-sh/uv">🔗 Link</a></td>
-<td>76.1k</td>
+<td>76.2k</td>
 </tr>
 </tbody>
 </table>
 <p>The lack of a standard dependency management approach, unlike <code>npm</code> for <code>node.js</code> or <code>cargo</code> for <code>rust</code>, is a known
-issue in the Python community. However, <code>uv</code> is gaining popularity and may become a standard.</p>
+issue in the Python community.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/standards.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/standards.png" width="700" /></a></p>
 <figcaption> <a href="https://xkcd.com/927/"> Image credit </a> </figcaption>
 </figure>
 <p>This course doesn't mandate a specific package manager, but using one is essential. If you're already familiar with a
 package manager, continue using it. The best approach is to choose one you like and stick with it. While it's tempting
-to find the "perfect" package manager, they all accomplish the same goal with minor differences. For a recent comparison
-of Python environment management and packaging tools, see
+to find the "perfect" package manager, they all accomplish the same goal with minor differences. For a somewhat recent
+comparison of Python environment management and packaging tools, see
 <a href="https://alpopkes.com/posts/python/packaging_tools/">this blog post</a>.</p>
-<p>If you're new to package managers, we recommend using <code>conda</code> and <code>pip</code> for this course. You may already have
-<a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda</a> installed. Conda excels at creating
-virtual environments with different Python versions, which is helpful for managing dependencies that haven't been
-updated recently. Specifically, we recommend the following workflow:</p>
-<ul>
-<li>Use <code>conda</code> to create virtual environments with specific Python versions</li>
-<li>Use <code>pip</code> to install packages in that environment</li>
-</ul>
-<p>Installing packages with <code>pip</code> inside <code>conda</code> environments was once discouraged, but it's now safe with <code>conda&gt;=4.6</code>.
-Conda includes a compatibility layer that ensures <code>pip</code>-installed packages are compatible with other packages in the
-environment.</p>
+<p>If you're new to package managers, I will recommend that you use <code>uv</code>. It is becoming the de facto standard in the
+Python community due to its speed and ease of use. It combines the best features of <code>pip</code> and <code>conda</code>, allowing you to
+create virtual environments and manage dependencies seamlessly, including for multiple python versions. The alternative
+(which has been the recommended approach for many years) is to use <code>conda</code> for creating virtual environments and <code>pip</code>
+for installing packages within those environments.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>uv</code> and <code>conda+pip</code> in this course</p>
+<p>Until 2026, the recommended package managers for this course have been <code>conda+pip</code>. However, starting in 2026, we
+will transition to recommending <code>uv</code> as the primary package manager, and conda will probably be phased out of the
+course in a few years. Therefore, we try to as much as possible to provide instructions for both <code>conda+pip</code> and
+<code>uv</code>. However, I still expect to have missed a couple of places where only instructions for <code>conda+pip</code> are given.
+If you find such places, please report them on the course GitHub repository (or directly to me) so that I can fix
+them.</p>
+</div>
 <h2 id="python-dependencies">Python dependencies</h2>
 <p>Before we get started with the exercises, let's first talk a bit about Python dependencies. One of the most common ways
 to specify dependencies in the Python community is through a <code>requirements.txt</code> file, which is a simple text file that
@@ -2434,12 +2460,13 @@ version number you want, with 7 different operators:</p>
 </span></code></pre></div>
 <p>In general, all packages (should) follow the <a href="https://semver.org/">semantic versioning</a> standard, which means that the
 version number is split into three parts: <code>x.y.z</code> where <code>x</code> is the major version, <code>y</code> is the minor version and <code>z</code> is
-the patch version.</p>
-<p>Specifying version numbers ensures code reproducibility. Without version numbers, you risk API changes by package
-maintainers. This is especially important in machine learning, where reproducing the exact same model is crucial.</p>
+the patch version. Specifying version numbers ensures code reproducibility. Without version numbers, you risk API
+changes by package maintainers. This is especially important in machine learning, where reproducing the exact same model
+is crucial. The most common alternative to semantic versioning is <a href="https://calver.org/">calendar versioning</a>, where the
+version number is based on the date of release, e.g., <code>2023.4.1</code> for a release on April 1st, 2023.</p>
 <p>Finally, we also need to discuss <em>dependency resolution</em>, which is the process of figuring out which packages are
-compatible. This is a complex problem with various algorithms. If <code>pip</code> or <code>conda</code> take a long time to install packages,
-it's likely due to the dependency resolution process. For example, attempting to install</p>
+compatible. This is a complex problem with various algorithms. If a package manager takes a long time to install
+a package, it's likely due to the dependency resolution process. For example, attempting to install</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;matplotlib &gt;= 3.8.0&quot;</span><span class="w"> </span><span class="s2">&quot;numpy &lt;= 1.19&quot;</span><span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p>then it would simply fail because there are no versions of <code>matplotlib</code> and <code>numpy</code> under the given
@@ -2447,7 +2474,256 @@ constraints that are compatible with each other. In this case, we would need to 
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;matplotlib &gt;= 3.8.0&quot;</span><span class="w"> </span><span class="s2">&quot;numpy &lt;= 1.21&quot;</span><span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p>to make it work.</p>
-<h2 id="exercises">❔ Exercises</h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You are only supposed to use one package manager in the course and therefore you should either do the <code>uv</code> exercises
+or the <code>conda+pip</code> exercises, not both. The most clear difference between the two approaches is that <code>uv</code> forces you
+to use a project-based approach e.g. anything you do with <code>uv</code> should be done inside a project folder even for one
+off scripts, while with <code>conda+pip</code> you can just create a virtual environment anywhere on your system and use that
+wherever you want. For this reason, <code>conda+pip</code> may seem a bit more flexible and easier to use initially, while
+<code>uv</code> has a bit of a learning curve but is more structured and easier to manage in the long run. In the end, both
+approaches are valid and it is mostly a matter of personal preference which one you choose.</p>
+</div>
+<h2 id="exercises-uv">❔ Exercises (uv)</h2>
+<ol>
+<li>
+<p>Download and install <code>uv</code> following the
+    <a href="https://docs.astral.sh/uv/getting-started/installation/">official installation guide</a>. Verify your installation
+    by running <code>uv --version</code> in a terminal, it should display the <code>uv</code> version number.</p>
+</li>
+<li>
+<p>If you have successfully installed <code>uv</code>, then you should be able to execute the <code>uv</code> command in a terminal. You
+    should see something like this:</p>
+<p><figure markdown>
+<a class="glightbox" href="../../figures/uv_command.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/uv_command.png" width="700" /></a>
+</figure></p>
+</li>
+<li>
+<p>I cannot recommend the <a href="https://docs.astral.sh/uv/">uv documentation</a> enough. It will essentially go through all
+    the features of <code>uv</code> we will be using in the course. That said, let's first try to see how we can use <code>uv</code> to create
+    virtual environments and manage dependencies:</p>
+<ol>
+<li>
+<p>Try creating a new virtual environment called using Python 3.11. What command should you execute to do this?</p>
+<div class="admonition warning">
+<p class="admonition-title">Use Python 3.10 or higher</p>
+<p>We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
+(currently 3.13) is advisable, as the newest version may lack support from all dependencies. Check the status
+of different Python versions <a href="https://devguide.python.org/versions/">here</a>.</p>
+</div>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>After creating the virtual environment, a folder called <code>.venv</code> should have been created in your current
+    directory (check this!). To run a script using the virtual environment, you can use the <code>uv run</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>run<span class="w"> </span>script.py
+</span></code></pre></div>
+<p>you can think of <code>uv run</code> = <code>python</code> inside the virtual environment.</p>
+</li>
+<li>
+<p><code>uv pip</code> is a 1-to-1 replacement for <code>pip</code> that works directly within the virtual environment created by <code>uv</code>.
+    Try installing a package using <code>uv pip</code>, for example <code>numpy</code>.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>Instead of calling <code>uv run</code> every time you want to execute a command in the virtual environment, you can also
+    activate the virtual environment like with <code>venv</code> or <code>conda</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Unix/macOS</label><label for="__tabbed_2_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>which will change your terminal prompt to indicate that you are now inside the virtual environment. Instead of
+running <code>uv pip install</code> and <code>uv run</code>, you can now simply use <code>pip install</code> and <code>python</code> as you would normally
+do.</p>
+</li>
+<li>
+<p>Which <code>uv</code> command gives you a list of all packages installed in your virtual environment?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>uv<span class="w"> </span>venv<span class="w"> </span>list
+</span></code></pre></div>
+</details>
+</li>
+</ol>
+</li>
+<li>
+<p>The above is the very basic of <code>uv</code> and is actually not the recommended way of using <code>uv</code>. Instead, <code>uv</code> works best
+    as a project-based package manager. Let's try that out:</p>
+<ol>
+<li>
+<p>When you start a new project, you can initialize it with <code>uv init &lt;project_name&gt;</code>, which will create a new folder
+    with the given project name and set up a virtual environment for you(1):</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you already have a pre-existing folder, you can also run <code>uv init</code> inside that folder
+    to set it up as a <code>uv</code> project.</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>uv<span class="w"> </span>init<span class="w"> </span>my_project
+</span></code></pre></div>
+<p>which files have been created in the <code>my_project</code> folder and what do they do?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The following has been created:</p>
+<ul>
+<li>A <code>.venv</code> folder containing the virtual environment as above</li>
+<li>A <code>README.md</code> file for documenting your project</li>
+<li>a <code>pyproject.toml</code> file for managing your project, more on this file later</li>
+</ul>
+</details>
+</li>
+<li>
+<p>To add dependencies to your project, you can use the <code>uv add</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>uv<span class="w"> </span>add<span class="w"> </span>numpy<span class="w"> </span>pandas
+</span></code></pre></div>
+<p>which will install the packages in your virtual environment and also add them to the <code>pyproject.toml</code> file
+(check this out!). An additional file have been created called <code>uv.lock</code>, can you figure out what the purpose of
+this file is?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The <code>uv.lock</code> file is used to ensure <em>reproducibility</em> between different users of the project. It contains
+the exact versions of all packages installed in the virtual environment, including sub-dependencies. When
+another user wants to set up the same environment, they can use the <code>uv sync</code> command to install the exact
+same versions of all packages as specified in the <code>uv.lock</code> file.</p>
+</details>
+</li>
+<li>
+<p>Another, way to add dependencies to your project is to directly edit the <code>pyproject.toml</code> file. Try adding
+    <code>scikit-learn</code> version <code>1.2.2</code> to your <code>pyproject.toml</code> file. Afterwards, what command should you execute to
+    install the dependencies specified in the <code>pyproject.toml</code> file?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Add the following line under the <code>[project.dependencies]</code> section:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="s2">&quot;numpy&gt;=2.4.0&quot;</span><span class="p">,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="s2">&quot;scikit-learn==1.2.2&quot;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">]</span>
+</span></code></pre></div>
+<p>Afterwards, execute:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>uv<span class="w"> </span>sync
+</span></code></pre></div>
+<p>which will sync your virtual environment with the dependencies specified in the <code>pyproject.toml</code> file.</p>
+</details>
+</li>
+<li>
+<p>Make sure that everything works as expected by creating a new script that imports all the packages you have
+    installed and try running it using <code>uv run</code>. It should run without any import errors if the previous steps
+    were successful.</p>
+</li>
+<li>
+<p>Something you will encounter later in the course is the need to install dependencies for the development of
+    your project, e.g., testing frameworks, linters, formatters and so on, which are not needed for the actual
+    execution of your project. <code>uv</code> has a built-in way to handle this:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span>&lt;dependency1&gt;<span class="w"> </span>&lt;dependency2&gt;<span class="w"> </span>...
+</span></code></pre></div>
+<p>Try adding at least two development dependencies to your project and check how they are stored in the
+<code>pyproject.toml</code> file.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span>pytest<span class="w"> </span>ruff
+</span></code></pre></div>
+<p>which will add the following section to your <code>pyproject.toml</code> file:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">[dependency-groups]</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="s2">&quot;ruff&gt;=0.14.10&quot;</span><span class="p">,</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">]</span>
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p><code>uv</code> also supports for defining optional dependencies e.g. dependencies that are only needed for specific
+    use-cases. For example, <code>pandas</code> support the optional dependency <code>excel</code> for reading and writing Excel files.
+    Try adding an optional dependency to your project and check how it is stored in the <code>pyproject.toml</code> file.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>uv<span class="w"> </span>add<span class="w"> </span>pandas<span class="w"> </span>--optional<span class="w"> </span>dataframes
+</span></code></pre></div>
+<p>in this case we are adding an optional dependency group called <code>dataframes</code> and to that group we are adding
+the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afterwards.</p>
+<p>which will add the following line to your <code>pyproject.toml</code> file:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">[project.optional-dependencies]</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">dataframes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="s2">&quot;pandas&gt;=2.0.3&quot;</span><span class="p">,</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">]</span>
+</span></code></pre></div>
+<ol>
+<li>
+<p>Optional dependencies are, as the name suggests, not installed by default when you call <code>uv run</code> or
+    <code>uv sync</code>. How do you install optional dependencies?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># to install optional dependencies from the &quot;dataframes&quot; group</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--group<span class="w"> </span>dataframes
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="c1"># to install all optional dependencies</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>uv<span class="w"> </span>sync<span class="w"> </span>--all-groups
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>Finally, how do you specify which optional dependencies should be installed when executing
+    <code>uv run</code>?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>You can specify this in the <code>pyproject.toml</code> file under the <code>[tool.uv]</code> section (see
+<a href="https://docs.astral.sh/uv/concepts/projects/dependencies/#default-groups">docs</a>):</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">[tool.uv]</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">default-groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dataframes&quot;</span><span class="p">]</span>
+</span></code></pre></div>
+<p>alternatively, setting <code>default-groups = "all"</code> will install all optional dependencies by default.</p>
+</details>
+</li>
+</ol>
+</details>
+</li>
+<li>
+<p>Let's say that you want to upgrade or downgrade the python version you are running inside your <code>uv</code> project.
+    How do you do that?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The <a href="https://docs.astral.sh/uv/concepts/python-versions/#requesting-a-version">recommended way</a> is to pin
+the python version by having a <code>.python-version</code> file in the root of your project with the desired
+python version. This file can easily be created with the command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>uv<span class="w"> </span>python<span class="w"> </span>pin<span class="w"> </span><span class="m">3</span>.13
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>(Optional) <code>uv</code> also supports the notion of <em>tools</em> which are external command line tools that you may use in
+    multiple projects. Examples of such tools are <code>black</code>, <code>ruff</code>, <code>pytest</code> and so on (all which you will encounter
+    later in the course). These tools can be installed globally on your system by using the <code>uvx</code> (or <code>uv tool</code>):
+    command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>uvx<span class="w"> </span>cowsay<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;muuh&quot;</span>
+</span></code></pre></div>
+<p>which will install the <code>cowsay</code> tool globally on your system and then execute it with the argument <code>"muuh"</code>. Try
+installing at least one tool and executing it.</p>
+</li>
+</ol>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Alias <code>uvr=uv run</code></p>
+<p>I have personally found that typing <code>uv run</code> before every command can get a bit tedious. Therefore, I recommend
+creating a shell alias to simplify this. For example, in <code>bash</code> or <code>zsh</code>, you can add the following line to your
+<code>.bashrc</code> or <code>.zshrc</code> file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">uvr</span><span class="o">=</span><span class="s1">&#39;uv run&#39;</span>
+</span></code></pre></div>
+<p>and then you can simply use <code>uvr</code> instead of <code>uv run</code>.</p>
+</div>
+<h2 id="exercises-condapip">❔ Exercises (conda+pip)</h2>
 <div class="admonition note">
 <p class="admonition-title">Conda vs. Mamba</p>
 <p>If you are using <code>conda</code> then you can also use <code>mamba</code> which is a drop-in replacement <code>conda</code> that is faster.
@@ -2477,15 +2753,15 @@ default, it will always start in the <code>(base)</code> environment.</p>
 <li>
 <p>Try creating a new virtual environment. Make sure that it is called <code>my_environment</code> and that it installs version
    3.11 of Python. What command should you execute to do this?</p>
-<details class="warning">
-<summary>Use Python 3.8 or higher</summary>
-<p>We recommend using Python 3.8 or higher for this course. Generally, using the second latest Python version
+<div class="admonition warning">
+<p class="admonition-title">Use Python 3.10 or higher</p>
+<p>We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
 (currently 3.12) is advisable, as the newest version may lack support from all dependencies. Check the status
 of different Python versions <a href="https://devguide.python.org/versions/">here</a>.</p>
-</details>
+</div>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>my_environment<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>my_environment<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.13
 </span></code></pre></div>
 </details>
 </li>
@@ -2493,7 +2769,7 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
 <p>Which <code>conda</code> command gives you a list of all the environments that you have created?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>conda<span class="w"> </span>env<span class="w"> </span>list
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>conda<span class="w"> </span>env<span class="w"> </span>list
 </span></code></pre></div>
 </details>
 </li>
@@ -2501,7 +2777,7 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
 <p>Which <code>conda</code> command gives you a list of the packages installed in the current environment?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>conda<span class="w"> </span>list
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>conda<span class="w"> </span>list
 </span></code></pre></div>
 </details>
 <ol>
@@ -2510,7 +2786,7 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
     a file called <code>environment.yaml</code>, as conda uses another format by default than <code>pip</code>.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>conda<span class="w"> </span>list<span class="w"> </span>--explicit<span class="w"> </span>&gt;<span class="w"> </span>environment.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>conda<span class="w"> </span>list<span class="w"> </span>--explicit<span class="w"> </span>&gt;<span class="w"> </span>environment.yaml
 </span></code></pre></div>
 </details>
 </li>
@@ -2524,7 +2800,7 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
     installed exactly match what you originally had.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>&lt;environment-name&gt;<span class="w"> </span>--file<span class="w"> </span>environment.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>&lt;environment-name&gt;<span class="w"> </span>--file<span class="w"> </span>environment.yaml
 </span></code></pre></div>
 </details>
 </li>
@@ -2536,8 +2812,8 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
     file?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>list<span class="w"> </span><span class="c1"># List all installed packages</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt<span class="w"> </span><span class="c1"># Export all installed packages to a requirements.txt file</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>pip<span class="w"> </span>list<span class="w"> </span><span class="c1"># List all installed packages</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt<span class="w"> </span><span class="c1"># Export all installed packages to a requirements.txt file</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2550,7 +2826,7 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
 <ol>
 <li>
 <p>Install <code>pipreqs</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pipreqs
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pipreqs
 </span></code></pre></div>
 </li>
 <li>
@@ -2565,14 +2841,34 @@ of different Python versions <a href="https://devguide.python.org/versions/">her
 <ol>
 <li>
 <p>Try executing the command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &lt; 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Using pip</label><label for="__tabbed_3_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &lt; 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &lt; 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>based on the error message you get, what would be a compatible way to install these?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>As <code>pytest-cov==2.12.1</code> requires a version of <code>pytest</code> newer than <code>4.6</code>, we can simply change the command to be:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &gt;= 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Using pip</label><label for="__tabbed_4_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &gt;= 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pytest &gt;= 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>but there of course exist other solutions as well.</p>
 </details>
 </li>
@@ -2602,7 +2898,7 @@ you in that way ensure that only the most necessary requirements are installed w
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 09:14:20 UTC">April 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38 UTC">January 4, 2026</span>
   </span>
 
     
@@ -2629,6 +2925,8 @@ you in that way ensure that only the most necessary requirements are installed w
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -2740,7 +3038,7 @@ you in that way ensure that only the most necessary requirements are installed w
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>

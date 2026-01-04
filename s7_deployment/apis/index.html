@@ -2372,14 +2372,24 @@ but the TLDR is that it provides privacy, integrity and identification over the 
 <ol>
 <li>
 <p>Start by installing the `requests`` package.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using pip</label><label for="__tabbed_1_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>requests
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>add<span class="w"> </span>requests
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Afterwards, create a small script and try to execute the code:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.github.com/this-api-should-not-exist&#39;</span><span class="p">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.github.com/this-api-should-not-exist&#39;</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
 </span></code></pre></div>
 <p class="annotate">As you can see from the syntax, we are sending a request using the GET method. This code should return status
 code 404 (1). Take a look at <a href="https://restfulapi.net/http-status-codes/">this page</a> that contains a list of status
@@ -2390,22 +2400,22 @@ codes. Next, let's call a page that exists.</p>
     <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack">DDOS'ing</a> GitHub. It does not matter if you get a
     different status code.</li>
 </ol>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.github.com&#39;</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.github.com&#39;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
 </span></code></pre></div>
 <p>What is the status code now and what does it mean? Status codes are important when you have an application that is
 interacting with a server and want to make sure that it does not fail, which can be done with simple <code>if</code>
 statements on the status codes.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span><span class="p">)</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Not Found.&#39;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Not Found.&#39;</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
 <li>
 <p>Next, try to call the following</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">response</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.github.com/repos/SkafteNicki/dtu_mlops&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">response</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.github.com/repos/SkafteNicki/dtu_mlops&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>which gives back a <em>payload</em>. Essentially, payload refers to any additional data that is sent from the
 client to the server or vice-versa. Try looking at the <code>response.content</code> attribute. What is the type of this
@@ -2415,7 +2425,7 @@ attribute?</p>
 <p>You should hopefully observe that the <code>.content</code> attribute is of type <code>bytes</code>. It is important to note that
     the standard way of sending payloads to encode them into <code>byte</code> objects. To get a more human-readable version of
     the response, we can convert it to <a href="https://www.json.org/json-en.html">JSON</a> format.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </span></code></pre></div>
 <p>It is important to remember that a JSON object in Python is just a nested dictionary if you ever want to iterate
 over the object in some way.</p>
@@ -2423,10 +2433,10 @@ over the object in some way.</p>
 <li>
 <p>When we use the GET method we can additionally provide a <code>params</code> argument that specifies what we want the server
     to send back for a specific request URL:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="s1">&#39;https://api.github.com/search/repositories&#39;</span><span class="p">,</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;requests+language:python&#39;</span><span class="p">},</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="s1">&#39;https://api.github.com/search/repositories&#39;</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;requests+language:python&#39;</span><span class="p">},</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Before looking at <code>response.json()</code> can you explain what the code does? You can try looking at this
 <a href="https://docs.github.com/en/rest/search?apiVersion=2022-11-28">page</a> for help.</p>
@@ -2434,21 +2444,21 @@ over the object in some way.</p>
 <li>
 <p>Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
     Say that we want to download an image, which we can do in the following way:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://imgs.xkcd.com/comics/making_progress.png&#39;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://imgs.xkcd.com/comics/making_progress.png&#39;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Try calling <code>response.json()</code>, what happens? Next, try calling <code>response.content</code>. To get the result in this
 case we would need to convert from bytes to an image:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;img.png&#39;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;img.png&#39;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
 <li>
 <p>The <code>get</code> method is the most useful method because it allows us to get data from the server. However, as stated in
     the beginning, multiple request methods exist, for example, the POST method for sending data to the server. Try
     executing:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">pload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span><span class="p">:</span><span class="s1">&#39;Olivia&#39;</span><span class="p">,</span><span class="s1">&#39;password&#39;</span><span class="p">:</span><span class="s1">&#39;123&#39;</span><span class="p">}</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/post&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pload</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">pload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span><span class="p">:</span><span class="s1">&#39;Olivia&#39;</span><span class="p">,</span><span class="s1">&#39;password&#39;</span><span class="p">:</span><span class="s1">&#39;123&#39;</span><span class="p">}</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/post&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pload</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Investigate the response (this is an artificial example because we do not control the server).</p>
 </li>
@@ -2463,8 +2473,8 @@ case we would need to convert from bytes to an image:</p>
 </li>
 <li>
 <p>To execute <code>requests.get('https://api.github.com')</code> using curl we would simply do</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;https://api.github.com&quot;</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>-I<span class="w"> </span><span class="s2">&quot;https://api.github.com&quot;</span><span class="w"> </span><span class="c1"># if you want the status code</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;https://api.github.com&quot;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>-I<span class="w"> </span><span class="s2">&quot;https://api.github.com&quot;</span><span class="w"> </span><span class="c1"># if you want the status code</span>
 </span></code></pre></div>
 <p>Try it yourself.</p>
 </li>
@@ -2521,27 +2531,47 @@ you can look through for help.</p>
 <ol>
 <li>
 <p>Install FastAPI.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Using pip</label><label for="__tabbed_2_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>fastapi
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>This contains the functions, modules, and variables we are going to need to define our interface.</p>
 </li>
 <li>
 <p>Additionally, also install <code>uvicorn</code> which is a package for defining low level server applications.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>uvicorn<span class="o">[</span>standard<span class="o">]</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Using pip</label><label for="__tabbed_3_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pip<span class="w"> </span>install<span class="w"> </span>uvicorn<span class="o">[</span>standard<span class="o">]</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;uvicorn[standard]&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Start by defining a small application like this in a file called <code>main.py</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
 </span></code></pre></div>
 <p>Important here is the use of the <code>@app.get</code> decorator. What could this decorator refer to? Explain what the two
 functions are probably doing.</p>
@@ -2549,7 +2579,7 @@ functions are probably doing.</p>
 <li>
 <p>Next lets launch our app. Since we called our script <code>main.py</code> and we inside the script initialized our API with
     <code>app = FastAPI</code>, our application that we want to deploy can be referenced by <code>main:app</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>uvicorn<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span><span class="w"> </span>main:app
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>uvicorn<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span><span class="w"> </span>main:app
 </span></code></pre></div>
 <p>This will launch a server on this page: <code>http://localhost:8000/</code>. As you will hopefully see, this page will return
 the content of the <code>root</code> function, like the image below. Remember to also check the output in your terminal as that
@@ -2592,16 +2622,16 @@ will give info on when and how your application is being invoked.</p>
 <p>Lets start by changing the root function to include a bit more info. In particular we are also interested in
     returning the status code so the end user can easily read that. Default status codes are included in the
     <a href="https://docs.python.org/3/library/http.html">http</a> built-in Python package:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPStatus</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">root</span><span class="p">():</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Health check.&quot;&quot;&quot;</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        <span class="s2">&quot;status-code&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="p">}</span>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="k">return</span> <span class="n">response</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPStatus</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">root</span><span class="p">():</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Health check.&quot;&quot;&quot;</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        <span class="s2">&quot;status-code&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="p">}</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    <span class="k">return</span> <span class="n">response</span>
 </span></code></pre></div>
 <p>Try to reload the app and see what is returned now. You should not have to re-launch the app because we
 initialized the app with the <code>--reload</code> argument.</p>
@@ -2612,15 +2642,15 @@ initialized the app with the <code>--reload</code> argument.</p>
     already seen how we can restrict a path to a single type, but what if we want to restrict it to specific values?
     This is often the case if we are working with parameters of type <code>str</code>. In this case we would need to define an
     <code>enum</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">ItemEnum</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">alexnet</span> <span class="o">=</span> <span class="s2">&quot;alexnet&quot;</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">resnet</span> <span class="o">=</span> <span class="s2">&quot;resnet&quot;</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">lenet</span> <span class="o">=</span> <span class="s2">&quot;lenet&quot;</span>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/restric_items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="n">ItemEnum</span><span class="p">):</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">ItemEnum</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">alexnet</span> <span class="o">=</span> <span class="s2">&quot;alexnet&quot;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">resnet</span> <span class="o">=</span> <span class="s2">&quot;resnet&quot;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="n">lenet</span> <span class="o">=</span> <span class="s2">&quot;lenet&quot;</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/restric_items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="n">ItemEnum</span><span class="p">):</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
 </span></code></pre></div>
 <p>Add this API, reload and execute both a valid parameter and an invalid parameter.</p>
 </li>
@@ -2628,9 +2658,9 @@ initialized the app with the <code>--reload</code> argument.</p>
 <p>In addition to path parameters we have query parameters. In the requests exercises we saw an example of this
     where we were calling <a href="https://api.github.com/search/code">https://api.github.com/search/code</a> with the query <code>'q': 'requests+language:python'</code>.
     Any parameter in FastAPI that is not a path parameter will be considered a query parameter:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/query_items&quot;</span><span class="p">)</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/query_items&quot;</span><span class="p">)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
 </span></code></pre></div>
 <p>Add this API, reload and figure out how to pass in a query parameter.</p>
 </li>
@@ -2638,18 +2668,18 @@ initialized the app with the <code>--reload</code> argument.</p>
 <p>We have until now worked with the <code>.get</code> method, but let's also see an example of the <code>.post</code> method. As already
     described the POST request method is used for uploading data to the server. Here is a simple app that saves the
     username and password in a database (please never implement this in real life like this):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">database</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">],</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">]}</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/login/&quot;</span><span class="p">)</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">username_db</span> <span class="o">=</span> <span class="n">database</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">password_db</span> <span class="o">=</span> <span class="n">database</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="k">if</span> <span class="n">username</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">username_db</span> <span class="ow">and</span> <span class="n">password</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">password_db</span><span class="p">:</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;database.csv&#39;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>        <span class="n">username_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
-</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>        <span class="n">password_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
-</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="k">return</span> <span class="s2">&quot;login saved&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">database</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">],</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">]}</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/login/&quot;</span><span class="p">)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">username_db</span> <span class="o">=</span> <span class="n">database</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">password_db</span> <span class="o">=</span> <span class="n">database</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="k">if</span> <span class="n">username</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">username_db</span> <span class="ow">and</span> <span class="n">password</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">password_db</span><span class="p">:</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;database.csv&#39;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>        <span class="n">username_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>        <span class="n">password_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>    <span class="k">return</span> <span class="s2">&quot;login saved&quot;</span>
 </span></code></pre></div>
 <p>Make sure you understand what the function does and then try to execute it a couple of times to see your
 database updating. It is important to note that we sometimes in the following exercises use the <code>.get</code> method
@@ -2664,26 +2694,26 @@ and sometimes the <code>.post</code> method. For our usage it does not really ma
 <ol>
 <li>
 <p>Here is a small application that takes a single text input.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/text_model/&quot;</span><span class="p">)</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">contains_email</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b&#39;</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>        <span class="s2">&quot;status-code&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        <span class="s2">&quot;is_email&quot;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="p">}</span>
-</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    <span class="k">return</span> <span class="n">response</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/text_model/&quot;</span><span class="p">)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">contains_email</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b&#39;</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>        <span class="s2">&quot;status-code&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>        <span class="s2">&quot;is_email&quot;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="p">}</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>    <span class="k">return</span> <span class="n">response</span>
 </span></code></pre></div>
 <p>What does the application do? Try it out yourself.</p>
 </li>
 <li>
 <p>Let's say we wanted to extend the application to check for a specific email domain, either <code>gmail</code> or <code>hotmail</code>.
     Assume that we want to feed this into our application as a <code>json</code> object, e.g.</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mlops@gmail.com&quot;</span><span class="p">,</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nt">&quot;domain_match&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gmail&quot;</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">{</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mlops@gmail.com&quot;</span><span class="p">,</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nt">&quot;domain_match&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gmail&quot;</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Figure out how to alter the <code>data</code> parameter such that it takes in the <code>json</code> object and make sure to extend the
 application to check if the email and domain also match. Hint: take a look at
@@ -2691,22 +2721,22 @@ application to check if the email and domain also match. Hint: take a look at
 </li>
 <li>
 <p>Let's move on to an application that requires a file input:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">UploadFile</span><span class="p">,</span> <span class="n">File</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/cv_model/&quot;</span><span class="p">)</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">cv_model</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;image.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        <span class="n">image</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>        <span class="n">image</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>        <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
-</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>        <span class="s2">&quot;status-code&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
-</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>    <span class="p">}</span>
-</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>    <span class="k">return</span> <span class="n">response</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">UploadFile</span><span class="p">,</span> <span class="n">File</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/cv_model/&quot;</span><span class="p">)</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">cv_model</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;image.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>        <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>        <span class="n">image</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>        <span class="n">image</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>        <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>        <span class="s2">&quot;status-code&quot;</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>    <span class="p">}</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>    <span class="k">return</span> <span class="n">response</span>
 </span></code></pre></div>
 <p>A couple of new things are going on here: we use the specialized <code>UploadFile</code> and <code>File</code> bodies in our input
 definition. Additionally, we added the <code>async</code>/<code>await</code> keywords. Figure out what everything does and try to run
@@ -2715,9 +2745,9 @@ the application (you can use any image file you like).</p>
 <li>
 <p>The above application actually does not do anything. Let's add <a href="https://pypi.org/project/opencv-python/">opencv</a>
     as a package and resize the image. It can be done with the following three lines:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">)</span>
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">)</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
 </span></code></pre></div>
 <p>Figure out where to add them in the application and additionally add <code>h</code> and <code>w</code> as <strong>optional</strong> parameters,
 with a default value of 28. Try running the application where you specify everything and one more time where
@@ -2726,9 +2756,9 @@ you leave out <code>h</code> and <code>w</code>.</p>
 <li>
 <p>Finally, let's also figure out how to return a file from our application. You will need to add the following
     lines:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileResponse</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;image_resize.jpg&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="n">FileResponse</span><span class="p">(</span><span class="s1">&#39;image_resize.jpg&#39;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileResponse</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;image_resize.jpg&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="n">FileResponse</span><span class="p">(</span><span class="s1">&#39;image_resize.jpg&#39;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Figure out where to add them to the code and try running the application one more time to see that you get a
 file back with the resized image.</p>
@@ -2743,20 +2773,20 @@ file back with the resized image.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>Here is a simple example that will print <code>Hello</code> on startup and <code>Goodbye</code> on shutdown.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">asynccontextmanager</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nd">@asynccontextmanager</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">):</span>
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
-</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="k">yield</span>
-</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Goodbye&quot;</span><span class="p">)</span>
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
-</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">)</span>
-</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>
-</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
-</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">asynccontextmanager</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="nd">@asynccontextmanager</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">):</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>    <span class="k">yield</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Goodbye&quot;</span><span class="p">)</span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">)</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2765,7 +2795,7 @@ file back with the resized image.</p>
     a <code>VisionEncoderDecoder</code> from
     <a href="https://huggingface.co/docs/transformers/model_doc/vision-encoder-decoder#transformers.VisionEncoderDecoderModel">huggingface</a>
     . The model can be used to create captions for a given image. Thus calling</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">predict_step</span><span class="p">([</span><span class="s1">&#39;s7_deployment/exercise_files/my_cat.jpg&#39;</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">predict_step</span><span class="p">([</span><span class="s1">&#39;s7_deployment/exercise_files/my_cat.jpg&#39;</span><span class="p">])</span>
 </span></code></pre></div>
 <p>returns a list of strings like <code>['a cat laying on a couch with a stuffed animal']</code> (try this yourself). Create a
 FastAPI application that can do inference using this model, i.e., it should take in an image, preferably some optional
@@ -2773,120 +2803,120 @@ hyperparameters (like <code>max_length</code>) and should return a string (or li
 caption.</p>
 <div class="admonition example">
 <p class="admonition-title">simple ML application</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisionEncoderDecoderModel</span><span class="p">,</span> <span class="n">ViTFeatureExtractor</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
-</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">VisionEncoderDecoderModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
-</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">ViTFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
-</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
-</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
-</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>
-</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="n">gen_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;max_length&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;num_beams&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;num_return_sequences&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">predict_step</span><span class="p">(</span><span class="n">image_paths</span><span class="p">):</span>
-</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>    <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">:</span>
-</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>        <span class="n">i_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
-</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>        <span class="k">if</span> <span class="n">i_image</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">:</span>
-</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>            <span class="n">i_image</span> <span class="o">=</span> <span class="n">i_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
-</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>
-</span><span id="__span-26-20"><a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_image</span><span class="p">)</span>
-</span><span id="__span-26-21"><a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pixel_values</span>
-</span><span id="__span-26-22"><a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">pixel_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="__span-26-23"><a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a>    <span class="n">output_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">pixel_values</span><span class="p">,</span> <span class="o">**</span><span class="n">gen_kwargs</span><span class="p">)</span>
-</span><span id="__span-26-24"><a id="__codelineno-26-24" name="__codelineno-26-24" href="#__codelineno-26-24"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">output_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-26-25"><a id="__codelineno-26-25" name="__codelineno-26-25" href="#__codelineno-26-25"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">pred</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
-</span><span id="__span-26-26"><a id="__codelineno-26-26" name="__codelineno-26-26" href="#__codelineno-26-26"></a>    <span class="k">return</span> <span class="n">preds</span>
-</span><span id="__span-26-27"><a id="__codelineno-26-27" name="__codelineno-26-27" href="#__codelineno-26-27"></a>
-</span><span id="__span-26-28"><a id="__codelineno-26-28" name="__codelineno-26-28" href="#__codelineno-26-28"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-26-29"><a id="__codelineno-26-29" name="__codelineno-26-29" href="#__codelineno-26-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">predict_step</span><span class="p">([</span><span class="s1">&#39;s7_deployment/exercise_files/my_cat.jpg&#39;</span><span class="p">]))</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisionEncoderDecoderModel</span><span class="p">,</span> <span class="n">ViTFeatureExtractor</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">VisionEncoderDecoderModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">ViTFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="n">gen_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;max_length&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;num_beams&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;num_return_sequences&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">predict_step</span><span class="p">(</span><span class="n">image_paths</span><span class="p">):</span>
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>    <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">:</span>
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>        <span class="n">i_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>        <span class="k">if</span> <span class="n">i_image</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">:</span>
+</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>            <span class="n">i_image</span> <span class="o">=</span> <span class="n">i_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>
+</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_image</span><span class="p">)</span>
+</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pixel_values</span>
+</span><span id="__span-29-22"><a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">pixel_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>    <span class="n">output_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">pixel_values</span><span class="p">,</span> <span class="o">**</span><span class="n">gen_kwargs</span><span class="p">)</span>
+</span><span id="__span-29-24"><a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">output_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-29-25"><a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">pred</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
+</span><span id="__span-29-26"><a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a>    <span class="k">return</span> <span class="n">preds</span>
+</span><span id="__span-29-27"><a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a>
+</span><span id="__span-29-28"><a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-29-29"><a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">predict_step</span><span class="p">([</span><span class="s1">&#39;s7_deployment/exercise_files/my_cat.jpg&#39;</span><span class="p">]))</span>
 </span></code></pre></div>
 </div>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">ml_app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-27-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-27-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-27-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-27-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-27-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-27-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-27-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-27-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-27-10">10</a></span>
-<span class="normal"><a href="#__codelineno-27-11">11</a></span>
-<span class="normal"><a href="#__codelineno-27-12">12</a></span>
-<span class="normal"><a href="#__codelineno-27-13">13</a></span>
-<span class="normal"><a href="#__codelineno-27-14">14</a></span>
-<span class="normal"><a href="#__codelineno-27-15">15</a></span>
-<span class="normal"><a href="#__codelineno-27-16">16</a></span>
-<span class="normal"><a href="#__codelineno-27-17">17</a></span>
-<span class="normal"><a href="#__codelineno-27-18">18</a></span>
-<span class="normal"><a href="#__codelineno-27-19">19</a></span>
-<span class="normal"><a href="#__codelineno-27-20">20</a></span>
-<span class="normal"><a href="#__codelineno-27-21">21</a></span>
-<span class="normal"><a href="#__codelineno-27-22">22</a></span>
-<span class="normal"><a href="#__codelineno-27-23">23</a></span>
-<span class="normal"><a href="#__codelineno-27-24">24</a></span>
-<span class="normal"><a href="#__codelineno-27-25">25</a></span>
-<span class="normal"><a href="#__codelineno-27-26">26</a></span>
-<span class="normal"><a href="#__codelineno-27-27">27</a></span>
-<span class="normal"><a href="#__codelineno-27-28">28</a></span>
-<span class="normal"><a href="#__codelineno-27-29">29</a></span>
-<span class="normal"><a href="#__codelineno-27-30">30</a></span>
-<span class="normal"><a href="#__codelineno-27-31">31</a></span>
-<span class="normal"><a href="#__codelineno-27-32">32</a></span>
-<span class="normal"><a href="#__codelineno-27-33">33</a></span>
-<span class="normal"><a href="#__codelineno-27-34">34</a></span>
-<span class="normal"><a href="#__codelineno-27-35">35</a></span>
-<span class="normal"><a href="#__codelineno-27-36">36</a></span>
-<span class="normal"><a href="#__codelineno-27-37">37</a></span>
-<span class="normal"><a href="#__codelineno-27-38">38</a></span>
-<span class="normal"><a href="#__codelineno-27-39">39</a></span>
-<span class="normal"><a href="#__codelineno-27-40">40</a></span>
-<span class="normal"><a href="#__codelineno-27-41">41</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">asynccontextmanager</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2"></a>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">UploadFile</span>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">VisionEncoderDecoderModel</span><span class="p">,</span> <span class="n">ViTFeatureExtractor</span>
-</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7"></a>
-</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8"></a>
-</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9"></a><span class="nd">@asynccontextmanager</span>
-</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">):</span>
-</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Load and clean up model on startup and shutdown.&quot;&quot;&quot;</span>
-</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12"></a>    <span class="k">global</span> <span class="n">model</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">gen_kwargs</span>
-</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading model&quot;</span><span class="p">)</span>
-</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">VisionEncoderDecoderModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
-</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15"></a>    <span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">ViTFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
-</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16"></a>    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
-</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17"></a>    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18"></a>    <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19"></a>    <span class="n">gen_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;max_length&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;num_beams&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;num_return_sequences&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20"></a>
-</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21"></a>    <span class="k">yield</span>
-</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22"></a>
-</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cleaning up&quot;</span><span class="p">)</span>
-</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24"></a>    <span class="k">del</span> <span class="n">model</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">gen_kwargs</span>
-</span><span id="__span-27-25"><a id="__codelineno-27-25" name="__codelineno-27-25"></a>
-</span><span id="__span-27-26"><a id="__codelineno-27-26" name="__codelineno-27-26"></a>
-</span><span id="__span-27-27"><a id="__codelineno-27-27" name="__codelineno-27-27"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">)</span>
-</span><span id="__span-27-28"><a id="__codelineno-27-28" name="__codelineno-27-28"></a>
-</span><span id="__span-27-29"><a id="__codelineno-27-29" name="__codelineno-27-29"></a>
-</span><span id="__span-27-30"><a id="__codelineno-27-30" name="__codelineno-27-30"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/caption/&quot;</span><span class="p">)</span>
-</span><span id="__span-27-31"><a id="__codelineno-27-31" name="__codelineno-27-31"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">caption</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
-</span><span id="__span-27-32"><a id="__codelineno-27-32" name="__codelineno-27-32"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a caption for an image.&quot;&quot;&quot;</span>
-</span><span id="__span-27-33"><a id="__codelineno-27-33" name="__codelineno-27-33"></a>    <span class="n">i_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
-</span><span id="__span-27-34"><a id="__codelineno-27-34" name="__codelineno-27-34"></a>    <span class="k">if</span> <span class="n">i_image</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">:</span>
-</span><span id="__span-27-35"><a id="__codelineno-27-35" name="__codelineno-27-35"></a>        <span class="n">i_image</span> <span class="o">=</span> <span class="n">i_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
-</span><span id="__span-27-36"><a id="__codelineno-27-36" name="__codelineno-27-36"></a>
-</span><span id="__span-27-37"><a id="__codelineno-27-37" name="__codelineno-27-37"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="p">[</span><span class="n">i_image</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pixel_values</span>
-</span><span id="__span-27-38"><a id="__codelineno-27-38" name="__codelineno-27-38"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">pixel_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="__span-27-39"><a id="__codelineno-27-39" name="__codelineno-27-39"></a>    <span class="n">output_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">pixel_values</span><span class="p">,</span> <span class="o">**</span><span class="n">gen_kwargs</span><span class="p">)</span>
-</span><span id="__span-27-40"><a id="__codelineno-27-40" name="__codelineno-27-40"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">output_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-27-41"><a id="__codelineno-27-41" name="__codelineno-27-41"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">pred</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">ml_app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-30-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-30-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-30-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-30-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-30-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-30-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-30-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-30-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-30-10">10</a></span>
+<span class="normal"><a href="#__codelineno-30-11">11</a></span>
+<span class="normal"><a href="#__codelineno-30-12">12</a></span>
+<span class="normal"><a href="#__codelineno-30-13">13</a></span>
+<span class="normal"><a href="#__codelineno-30-14">14</a></span>
+<span class="normal"><a href="#__codelineno-30-15">15</a></span>
+<span class="normal"><a href="#__codelineno-30-16">16</a></span>
+<span class="normal"><a href="#__codelineno-30-17">17</a></span>
+<span class="normal"><a href="#__codelineno-30-18">18</a></span>
+<span class="normal"><a href="#__codelineno-30-19">19</a></span>
+<span class="normal"><a href="#__codelineno-30-20">20</a></span>
+<span class="normal"><a href="#__codelineno-30-21">21</a></span>
+<span class="normal"><a href="#__codelineno-30-22">22</a></span>
+<span class="normal"><a href="#__codelineno-30-23">23</a></span>
+<span class="normal"><a href="#__codelineno-30-24">24</a></span>
+<span class="normal"><a href="#__codelineno-30-25">25</a></span>
+<span class="normal"><a href="#__codelineno-30-26">26</a></span>
+<span class="normal"><a href="#__codelineno-30-27">27</a></span>
+<span class="normal"><a href="#__codelineno-30-28">28</a></span>
+<span class="normal"><a href="#__codelineno-30-29">29</a></span>
+<span class="normal"><a href="#__codelineno-30-30">30</a></span>
+<span class="normal"><a href="#__codelineno-30-31">31</a></span>
+<span class="normal"><a href="#__codelineno-30-32">32</a></span>
+<span class="normal"><a href="#__codelineno-30-33">33</a></span>
+<span class="normal"><a href="#__codelineno-30-34">34</a></span>
+<span class="normal"><a href="#__codelineno-30-35">35</a></span>
+<span class="normal"><a href="#__codelineno-30-36">36</a></span>
+<span class="normal"><a href="#__codelineno-30-37">37</a></span>
+<span class="normal"><a href="#__codelineno-30-38">38</a></span>
+<span class="normal"><a href="#__codelineno-30-39">39</a></span>
+<span class="normal"><a href="#__codelineno-30-40">40</a></span>
+<span class="normal"><a href="#__codelineno-30-41">41</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">asynccontextmanager</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">UploadFile</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">VisionEncoderDecoderModel</span><span class="p">,</span> <span class="n">ViTFeatureExtractor</span>
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7"></a>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8"></a>
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9"></a><span class="nd">@asynccontextmanager</span>
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">):</span>
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Load and clean up model on startup and shutdown.&quot;&quot;&quot;</span>
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12"></a>    <span class="k">global</span> <span class="n">model</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">gen_kwargs</span>
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading model&quot;</span><span class="p">)</span>
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">VisionEncoderDecoderModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15"></a>    <span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">ViTFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16"></a>    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;nlpconnect/vit-gpt2-image-captioning&quot;</span><span class="p">)</span>
+</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17"></a>    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18"></a>    <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19"></a>    <span class="n">gen_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;max_length&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;num_beams&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;num_return_sequences&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20"></a>
+</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21"></a>    <span class="k">yield</span>
+</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22"></a>
+</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cleaning up&quot;</span><span class="p">)</span>
+</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24"></a>    <span class="k">del</span> <span class="n">model</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">gen_kwargs</span>
+</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25"></a>
+</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26"></a>
+</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">)</span>
+</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28"></a>
+</span><span id="__span-30-29"><a id="__codelineno-30-29" name="__codelineno-30-29"></a>
+</span><span id="__span-30-30"><a id="__codelineno-30-30" name="__codelineno-30-30"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/caption/&quot;</span><span class="p">)</span>
+</span><span id="__span-30-31"><a id="__codelineno-30-31" name="__codelineno-30-31"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">caption</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+</span><span id="__span-30-32"><a id="__codelineno-30-32" name="__codelineno-30-32"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a caption for an image.&quot;&quot;&quot;</span>
+</span><span id="__span-30-33"><a id="__codelineno-30-33" name="__codelineno-30-33"></a>    <span class="n">i_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+</span><span id="__span-30-34"><a id="__codelineno-30-34" name="__codelineno-30-34"></a>    <span class="k">if</span> <span class="n">i_image</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">:</span>
+</span><span id="__span-30-35"><a id="__codelineno-30-35" name="__codelineno-30-35"></a>        <span class="n">i_image</span> <span class="o">=</span> <span class="n">i_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+</span><span id="__span-30-36"><a id="__codelineno-30-36" name="__codelineno-30-36"></a>
+</span><span id="__span-30-37"><a id="__codelineno-30-37" name="__codelineno-30-37"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="p">[</span><span class="n">i_image</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pixel_values</span>
+</span><span id="__span-30-38"><a id="__codelineno-30-38" name="__codelineno-30-38"></a>    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">pixel_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span-30-39"><a id="__codelineno-30-39" name="__codelineno-30-39"></a>    <span class="n">output_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">pixel_values</span><span class="p">,</span> <span class="o">**</span><span class="n">gen_kwargs</span><span class="p">)</span>
+</span><span id="__span-30-40"><a id="__codelineno-30-40" name="__codelineno-30-40"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">output_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-30-41"><a id="__codelineno-30-41" name="__codelineno-30-41"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">pred</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -2899,30 +2929,30 @@ caption.</p>
 <li>
 <p>Start by creating a <code>requirement.txt</code> file for your application. You will at least need <code>fastapi</code> and <code>uvicorn</code>
     in the file and we always recommend that you are specific about the version you want to use.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a># newest version of fastapi and uvicorn as of time of writing
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>fastapi==0.115.6
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>uvicorn==0.34.0
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a># add anything else you application needs to be able to run
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a># newest version of fastapi and uvicorn as of time of writing
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>fastapi==0.115.6
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>uvicorn==0.34.0
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a># add anything else you application needs to be able to run
 </span></code></pre></div>
 </li>
 <li>
 <p>Next, create a <code>Dockerfile</code> with the following content:</p>
-<div class="language-Dockerfile highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
-</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
-</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>
-</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;80&quot;</span><span class="p">]</span>
+<div class="language-Dockerfile highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;80&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>The above assumes that your file structure looks like this:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>.
-</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>├── app
-</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>│   ├── __init__.py
-</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>│   └── main.py
-</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>├── Dockerfile
-</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>└── requirements.txt
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>.
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>├── app
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>│   ├── __init__.py
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>│   └── main.py
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>├── Dockerfile
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>└── requirements.txt
 </span></code></pre></div>
 <p>Hopefully, all these steps should look familiar if you already went through
 <a href="../../s3_reproducibility/docker/">module M9</a>, except for maybe the last line. However, this is just the
@@ -2931,14 +2961,14 @@ extra arguments regarding the ports we allow.</p>
 </li>
 <li>
 <p>Next, build the corresponding docker image.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my_fastapi_app<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my_fastapi_app<span class="w"> </span>.
 </span></code></pre></div>
 </li>
 <li>
 <p>Finally, run the image such that a container is spun up that runs our application. The important part here is
     to remember to specify the <code>-p</code> argument (p for port) which should be the same number as the port we have
     specified in the last line of our Dockerfile.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mycontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>myimage
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mycontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>myimage
 </span></code></pre></div>
 </li>
 <li>
@@ -2975,7 +3005,7 @@ writing to make sure that it works as expected.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41 UTC">November 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38 UTC">January 4, 2026</span>
   </span>
 
     
@@ -3002,6 +3032,8 @@ writing to make sure that it works as expected.</p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -3113,7 +3145,7 @@ writing to make sure that it works as expected.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>

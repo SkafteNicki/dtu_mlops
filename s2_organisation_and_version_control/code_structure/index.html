@@ -2337,8 +2337,8 @@ codebase should probably be different.</p>
 <h2 id="cookiecutter">Cookiecutter</h2>
 <p>We are in this course going to use the tool <a href="https://cookiecutter.readthedocs.io/en/latest/README.html">cookiecutter</a>,
 which is a tool for creating projects from <em>project templates</em>. A project template is in short just an overall structure
-for how you want your folders, files, etc. to be organized from the beginning. For this course we are going to be using a
-custom <a href="https://github.com/SkafteNicki/mlops_template">MLOps template</a>. The template is essentially a fork of the
+for how you want your folders, files, etc. to be organized from the beginning. For this course we are going to be using
+a custom <a href="https://github.com/SkafteNicki/mlops_template">MLOps template</a>. The template is essentially a fork of the
 <a href="https://github.com/drivendata/cookiecutter-data-science">cookiecutter data science template</a> that has been used for a
 couple of years in the course, but specialized a bit more towards MLOps instead of general data science.</p>
 <p>We are not going to argue that this template is better than every other template; it is just a
@@ -2402,7 +2402,7 @@ project. The <code>[project]</code> section essentially contains metadata regard
 we ever want to publish it to <a href="https://pypi.org/">PyPI</a>.</p>
 <p>For specifying dependencies of your project you have two options. Either you specify them in a <code>requirements.txt</code>
 file and put that as a dynamic field in <code>pyproject.toml</code> as shown above. Alternatively, you can add a <code>dependencies</code>
-field under the <code>[project]</code> header like this:</p>
+field under the <code>[project]</code> header like this (similar to how <code>uv</code> does it):</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[project]</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="s1">&#39;torch==2.1.0&#39;</span><span class="p">,</span>
@@ -2453,6 +2453,9 @@ creation of <code>pyproject.toml</code>.</p>
 </div>
 <p>Regardless of what way a project is configured, after creating the above files, the correct way to install them would be
 the same</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Using pip</label><label for="__tabbed_2_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>.
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># or in developer mode</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
@@ -2460,10 +2463,25 @@ the same</p>
 <div class="admonition note">
 <p class="admonition-title">Developer mode in Python</p>
 <p>The <code>-e</code> is short for <code>--editable</code> mode also called
-<a href="https://setuptools.pypa.io/en/latest/userguide/development_mode.html">developer mode</a>. Since we will continuously
-be iterating on our package this is the preferred way to install our package, because that means that we do not have
-to run <code>pip install</code> every time we make a change. Essentially, in developer mode changes in the Python source code
-can immediately take place without requiring a new installation.</p>
+<a href="https://setuptools.pypa.io/en/latest/userguide/development_mode.html">developer mode</a>. Since we will
+continuously be iterating on our package this is the preferred way to install our package, because that means
+that we do not have to run <code>pip install</code> every time we make a change. Essentially, in developer mode changes in
+the Python source code can immediately take place without requiring a new installation.</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>TLDR: <code>uv</code> takes care of this for you when you run <code>uv sync</code>.</p>
+<p><code>uv</code> distinguishes between a project being an
+<a href="https://docs.astral.sh/uv/concepts/projects/init/#creating-projects">application or being a library/package</a>. The
+core difference is if the project was created using <code>uv init --app</code> or <code>uv init --lib</code> with <code>--app</code> being the
+default. The core difference is that applications are not installed as packages, while libraries/packages are.
+Concreatly this comes down to these lines in the <code>pyproject.toml</code> file being added or not:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">[build-system]</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uv_build&gt;=0.9.21,&lt;0.10.0&quot;</span><span class="p">]</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;uv_build&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
 </div>
 <p>After running this your code should be available to import as <code>from project_name import ...</code> like any other Python
 package you use. This is the most essential information you need to know about creating Python packages.</p>
@@ -2473,16 +2491,38 @@ exercises are intended to be used on the simple CNN MNIST classifier from yester
 it into this structure. You are not required to fill out every folder and file in the project structure, but try to at
 least follow the steps in the exercises. Whenever you need to run a file I recommend always doing so from the root
 directory e.g.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>src/&lt;project_name&gt;/data.py<span class="w"> </span>data/raw<span class="w"> </span>data/processed
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python<span class="w"> </span>src/&lt;project_name&gt;/train_model.py<span class="w"> </span>&lt;arguments&gt;
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Using pip</label><label for="__tabbed_3_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>src/&lt;project_name&gt;/data.py<span class="w"> </span>data/raw<span class="w"> </span>data/processed
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python<span class="w"> </span>src/&lt;project_name&gt;/train_model.py<span class="w"> </span>&lt;arguments&gt;
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>uv<span class="w"> </span>run<span class="w"> </span>src/&lt;project_name&gt;/data.py<span class="w"> </span>data/raw<span class="w"> </span>data/processed
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>uv<span class="w"> </span>run<span class="w"> </span>src/&lt;project_name&gt;/train_model.py<span class="w"> </span>&lt;arguments&gt;
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>In this way paths (for saving and loading files) are always relative to the root, and it is in general easier to wrap
 your head around where files are located.</p>
 <ol>
 <li>
 <p>Install the <a href="https://cookiecutter.readthedocs.io/en/stable/">cookiecutter</a> framework</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Using pip</label><label for="__tabbed_4_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># install as global tool</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>uvx<span class="w"> </span>cookiecutter
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p class="annotate">Start a new project using <a href="https://github.com/SkafteNicki/mlops_template">this template</a>, which is specialized for
@@ -2492,8 +2532,18 @@ your head around where files are located.</p>
     improvement or directly send a pull request to the repository 😄.</li>
 </ol>
 <p>You do this by running the cookiecutter command using the template URL:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cookiecutter<span class="w"> </span>&lt;url-to-template&gt;
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Using pip</label><label for="__tabbed_5_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cookiecutter<span class="w"> </span>&lt;url-to-template&gt;
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>uvx cookiecutter &lt;url-to-template&gt;
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Valid project names</p>
 <p>When asked for a project name you should follow the
@@ -2515,8 +2565,18 @@ course uses the src-layout, but there are
 <p>After having created your new project, the first step is to also create a corresponding virtual environment and
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that. Otherwise,
     create a new one. Then install the project in that environment.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Using pip</label><label for="__tabbed_6_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>uv<span class="w"> </span>sync
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Start by filling out the <code>src/&lt;project_name&gt;/data.py</code> file. When this file runs, it should take the raw data, e.g. the
@@ -2526,326 +2586,7 @@ course uses the src-layout, but there are
     deviation 1.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">data.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-11-10">10</a></span>
-<span class="normal"><a href="#__codelineno-11-11">11</a></span>
-<span class="normal"><a href="#__codelineno-11-12">12</a></span>
-<span class="normal"><a href="#__codelineno-11-13">13</a></span>
-<span class="normal"><a href="#__codelineno-11-14">14</a></span>
-<span class="normal"><a href="#__codelineno-11-15">15</a></span>
-<span class="normal"><a href="#__codelineno-11-16">16</a></span>
-<span class="normal"><a href="#__codelineno-11-17">17</a></span>
-<span class="normal"><a href="#__codelineno-11-18">18</a></span>
-<span class="normal"><a href="#__codelineno-11-19">19</a></span>
-<span class="normal"><a href="#__codelineno-11-20">20</a></span>
-<span class="normal"><a href="#__codelineno-11-21">21</a></span>
-<span class="normal"><a href="#__codelineno-11-22">22</a></span>
-<span class="normal"><a href="#__codelineno-11-23">23</a></span>
-<span class="normal"><a href="#__codelineno-11-24">24</a></span>
-<span class="normal"><a href="#__codelineno-11-25">25</a></span>
-<span class="normal"><a href="#__codelineno-11-26">26</a></span>
-<span class="normal"><a href="#__codelineno-11-27">27</a></span>
-<span class="normal"><a href="#__codelineno-11-28">28</a></span>
-<span class="normal"><a href="#__codelineno-11-29">29</a></span>
-<span class="normal"><a href="#__codelineno-11-30">30</a></span>
-<span class="normal"><a href="#__codelineno-11-31">31</a></span>
-<span class="normal"><a href="#__codelineno-11-32">32</a></span>
-<span class="normal"><a href="#__codelineno-11-33">33</a></span>
-<span class="normal"><a href="#__codelineno-11-34">34</a></span>
-<span class="normal"><a href="#__codelineno-11-35">35</a></span>
-<span class="normal"><a href="#__codelineno-11-36">36</a></span>
-<span class="normal"><a href="#__codelineno-11-37">37</a></span>
-<span class="normal"><a href="#__codelineno-11-38">38</a></span>
-<span class="normal"><a href="#__codelineno-11-39">39</a></span>
-<span class="normal"><a href="#__codelineno-11-40">40</a></span>
-<span class="normal"><a href="#__codelineno-11-41">41</a></span>
-<span class="normal"><a href="#__codelineno-11-42">42</a></span>
-<span class="normal"><a href="#__codelineno-11-43">43</a></span>
-<span class="normal"><a href="#__codelineno-11-44">44</a></span>
-<span class="normal"><a href="#__codelineno-11-45">45</a></span>
-<span class="normal"><a href="#__codelineno-11-46">46</a></span>
-<span class="normal"><a href="#__codelineno-11-47">47</a></span>
-<span class="normal"><a href="#__codelineno-11-48">48</a></span>
-<span class="normal"><a href="#__codelineno-11-49">49</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize images.&quot;&quot;&quot;</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">images</span> <span class="o">-</span> <span class="n">images</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">images</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">preprocess_data</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">processed_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Process raw data and save it to processed directory.&quot;&quot;&quot;</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>    <span class="n">train_images</span><span class="p">,</span> <span class="n">train_target</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a>        <span class="n">train_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/train_images_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">))</span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a>        <span class="n">train_target</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/train_target_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">))</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_images</span><span class="p">)</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a>
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a>    <span class="n">test_images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/test_images.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a>    <span class="n">test_target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/test_target.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a>
-</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">train_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
-</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">test_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
-</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a>
-</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">train_images</span><span class="p">)</span>
-</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">test_images</span><span class="p">)</span>
-</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a>
-</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/train_images.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">train_target</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/train_target.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/test_images.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">test_target</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/test_target.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34"></a>
-</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35"></a>
-</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36"></a><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_mnist</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]:</span>
-</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return train and test datasets for corrupt MNIST.&quot;&quot;&quot;</span>
-</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/train_images.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/train_target.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_images.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_target.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42"></a>
-</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43"></a>    <span class="n">train_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
-</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44"></a>    <span class="n">test_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
-</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45"></a>    <span class="k">return</span> <span class="n">train_set</span><span class="p">,</span> <span class="n">test_set</span>
-</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46"></a>
-</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47"></a>
-</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">preprocess_data</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</li>
-<li>
-<p>This template comes with <code>tasks.py</code>, which uses the <a href="https://www.pyinvoke.org/">invoke</a> framework to define project
-    tasks. You can learn more about the framework in the last optional <a href="../cli/">module</a> in today's session. However, for
-    now just know that <code>tasks.py</code> is a file that can be used to specify common tasks that you want to run in your
-    project. It is similar to <code>Makefile</code>s if you are familiar with them. Try out some of the pre-defined tasks:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># first install invoke</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>pip<span class="w"> </span>install<span class="w"> </span>invoke
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># then you can execute the tasks</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>invoke<span class="w"> </span>preprocess-data<span class="w">  </span><span class="c1"># runs the data.py file</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>invoke<span class="w"> </span>requirements<span class="w">     </span><span class="c1"># installs all requirements in the requirements.txt file</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>invoke<span class="w"> </span>train<span class="w">            </span><span class="c1"># runs the train.py file</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># or get a list of all tasks</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>invoke<span class="w"> </span>--list
-</span></code></pre></div>
-<p>In general, we recommend that you add commands to the <code>tasks.py</code> file as you move along in the course.</p>
-</li>
-<li>
-<p>Transfer your model file <code>model.py</code> into the <code>src/&lt;project_name&gt;/model.py</code> file. When you call the script, e.g.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>src/&lt;project_name&gt;/model.py
-</span></code></pre></div>
-<p>it should print out the model architecture and number of parameters in the model.</p>
-<details class="success">
-<summary>Solution</summary>
-<p>This is the CNN solution from yesterday and it may differ from the model architecture you have created.</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">model.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-14-10">10</a></span>
-<span class="normal"><a href="#__codelineno-14-11">11</a></span>
-<span class="normal"><a href="#__codelineno-14-12">12</a></span>
-<span class="normal"><a href="#__codelineno-14-13">13</a></span>
-<span class="normal"><a href="#__codelineno-14-14">14</a></span>
-<span class="normal"><a href="#__codelineno-14-15">15</a></span>
-<span class="normal"><a href="#__codelineno-14-16">16</a></span>
-<span class="normal"><a href="#__codelineno-14-17">17</a></span>
-<span class="normal"><a href="#__codelineno-14-18">18</a></span>
-<span class="normal"><a href="#__codelineno-14-19">19</a></span>
-<span class="normal"><a href="#__codelineno-14-20">20</a></span>
-<span class="normal"><a href="#__codelineno-14-21">21</a></span>
-<span class="normal"><a href="#__codelineno-14-22">22</a></span>
-<span class="normal"><a href="#__codelineno-14-23">23</a></span>
-<span class="normal"><a href="#__codelineno-14-24">24</a></span>
-<span class="normal"><a href="#__codelineno-14-25">25</a></span>
-<span class="normal"><a href="#__codelineno-14-26">26</a></span>
-<span class="normal"><a href="#__codelineno-14-27">27</a></span>
-<span class="normal"><a href="#__codelineno-14-28">28</a></span>
-<span class="normal"><a href="#__codelineno-14-29">29</a></span>
-<span class="normal"><a href="#__codelineno-14-30">30</a></span>
-<span class="normal"><a href="#__codelineno-14-31">31</a></span>
-<span class="normal"><a href="#__codelineno-14-32">32</a></span>
-<span class="normal"><a href="#__codelineno-14-33">33</a></span>
-<span class="normal"><a href="#__codelineno-14-34">34</a></span>
-<span class="normal"><a href="#__codelineno-14-35">35</a></span>
-<span class="normal"><a href="#__codelineno-14-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;My awesome model.&quot;&quot;&quot;</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a>
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass.&quot;&quot;&quot;</span>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27"></a>
-</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28"></a>
-</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span>
-</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model architecture: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of parameters: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33"></a>
-</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34"></a>    <span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
-</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35"></a>    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
-</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output shape: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</li>
-<li>
-<p>Transfer the relevant parts of the <code>main.py</code> script to the <code>src/&lt;project-name&gt;/train.py</code> script, i.e. the parts that
-    have to do with training the model. In addition, make sure it also does the following two things when run:</p>
-<ul>
-<li>Saves the trained model to the <code>models</code> folder</li>
-<li>Saves some statistics/visualizations from training to the <code>reports/figures</code> folder. This could be a simple</li>
-</ul>
-<details class="success">
-<summary>Solution</summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">train.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-15-10">10</a></span>
-<span class="normal"><a href="#__codelineno-15-11">11</a></span>
-<span class="normal"><a href="#__codelineno-15-12">12</a></span>
-<span class="normal"><a href="#__codelineno-15-13">13</a></span>
-<span class="normal"><a href="#__codelineno-15-14">14</a></span>
-<span class="normal"><a href="#__codelineno-15-15">15</a></span>
-<span class="normal"><a href="#__codelineno-15-16">16</a></span>
-<span class="normal"><a href="#__codelineno-15-17">17</a></span>
-<span class="normal"><a href="#__codelineno-15-18">18</a></span>
-<span class="normal"><a href="#__codelineno-15-19">19</a></span>
-<span class="normal"><a href="#__codelineno-15-20">20</a></span>
-<span class="normal"><a href="#__codelineno-15-21">21</a></span>
-<span class="normal"><a href="#__codelineno-15-22">22</a></span>
-<span class="normal"><a href="#__codelineno-15-23">23</a></span>
-<span class="normal"><a href="#__codelineno-15-24">24</a></span>
-<span class="normal"><a href="#__codelineno-15-25">25</a></span>
-<span class="normal"><a href="#__codelineno-15-26">26</a></span>
-<span class="normal"><a href="#__codelineno-15-27">27</a></span>
-<span class="normal"><a href="#__codelineno-15-28">28</a></span>
-<span class="normal"><a href="#__codelineno-15-29">29</a></span>
-<span class="normal"><a href="#__codelineno-15-30">30</a></span>
-<span class="normal"><a href="#__codelineno-15-31">31</a></span>
-<span class="normal"><a href="#__codelineno-15-32">32</a></span>
-<span class="normal"><a href="#__codelineno-15-33">33</a></span>
-<span class="normal"><a href="#__codelineno-15-34">34</a></span>
-<span class="normal"><a href="#__codelineno-15-35">35</a></span>
-<span class="normal"><a href="#__codelineno-15-36">36</a></span>
-<span class="normal"><a href="#__codelineno-15-37">37</a></span>
-<span class="normal"><a href="#__codelineno-15-38">38</a></span>
-<span class="normal"><a href="#__codelineno-15-39">39</a></span>
-<span class="normal"><a href="#__codelineno-15-40">40</a></span>
-<span class="normal"><a href="#__codelineno-15-41">41</a></span>
-<span class="normal"><a href="#__codelineno-15-42">42</a></span>
-<span class="normal"><a href="#__codelineno-15-43">43</a></span>
-<span class="normal"><a href="#__codelineno-15-44">44</a></span>
-<span class="normal"><a href="#__codelineno-15-45">45</a></span>
-<span class="normal"><a href="#__codelineno-15-46">46</a></span>
-<span class="normal"><a href="#__codelineno-15-47">47</a></span>
-<span class="normal"><a href="#__codelineno-15-48">48</a></span>
-<span class="normal"><a href="#__codelineno-15-49">49</a></span>
-<span class="normal"><a href="#__codelineno-15-50">50</a></span>
-<span class="normal"><a href="#__codelineno-15-51">51</a></span>
-<span class="normal"><a href="#__codelineno-15-52">52</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">data</span><span class="w"> </span><span class="kn">import</span> <span class="n">corrupt_mnist</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a>
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model on MNIST.&quot;&quot;&quot;</span>
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training day and night&quot;</span><span class="p">)</span>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lr</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">epochs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a>
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
-</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17"></a>
-</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18"></a>    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19"></a>
-</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20"></a>    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
-</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
-</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22"></a>
-</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23"></a>    <span class="n">statistics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;train_loss&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;train_accuracy&quot;</span><span class="p">:</span> <span class="p">[]}</span>
-</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
-</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27"></a>            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29"></a>            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_loss&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34"></a>
-</span><span id="__span-15-35"><a id="__codelineno-15-35" name="__codelineno-15-35"></a>            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-</span><span id="__span-15-36"><a id="__codelineno-15-36" name="__codelineno-15-36"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_accuracy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
-</span><span id="__span-15-37"><a id="__codelineno-15-37" name="__codelineno-15-37"></a>
-</span><span id="__span-15-38"><a id="__codelineno-15-38" name="__codelineno-15-38"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="__span-15-39"><a id="__codelineno-15-39" name="__codelineno-15-39"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-15-40"><a id="__codelineno-15-40" name="__codelineno-15-40"></a>
-</span><span id="__span-15-41"><a id="__codelineno-15-41" name="__codelineno-15-41"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training complete&quot;</span><span class="p">)</span>
-</span><span id="__span-15-42"><a id="__codelineno-15-42" name="__codelineno-15-42"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;models/model.pth&quot;</span><span class="p">)</span>
-</span><span id="__span-15-43"><a id="__codelineno-15-43" name="__codelineno-15-43"></a>    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-</span><span id="__span-15-44"><a id="__codelineno-15-44" name="__codelineno-15-44"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_loss&quot;</span><span class="p">])</span>
-</span><span id="__span-15-45"><a id="__codelineno-15-45" name="__codelineno-15-45"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Train loss&quot;</span><span class="p">)</span>
-</span><span id="__span-15-46"><a id="__codelineno-15-46" name="__codelineno-15-46"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_accuracy&quot;</span><span class="p">])</span>
-</span><span id="__span-15-47"><a id="__codelineno-15-47" name="__codelineno-15-47"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Train accuracy&quot;</span><span class="p">)</span>
-</span><span id="__span-15-48"><a id="__codelineno-15-48" name="__codelineno-15-48"></a>    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;reports/figures/training_statistics.png&quot;</span><span class="p">)</span>
-</span><span id="__span-15-49"><a id="__codelineno-15-49" name="__codelineno-15-49"></a>
-</span><span id="__span-15-50"><a id="__codelineno-15-50" name="__codelineno-15-50"></a>
-</span><span id="__span-15-51"><a id="__codelineno-15-51" name="__codelineno-15-51"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-15-52"><a id="__codelineno-15-52" name="__codelineno-15-52"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-<ol>
-<li>Transfer the remaining parts of the <code>main.py</code> script into the <code>src/&lt;project-name&gt;/evaluate.py</code> script, i.e. the parts
-that have to do with evaluating the model. When run, it should load the model from the <code>models</code> folder and print out
-the accuracy of the model on the test set.</li>
-</ol>
-<details class="success">
-<summary>Solution</summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">evaluate.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">data.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
@@ -2875,37 +2616,383 @@ the accuracy of the model on the test set.</li>
 <span class="normal"><a href="#__codelineno-16-28">28</a></span>
 <span class="normal"><a href="#__codelineno-16-29">29</a></span>
 <span class="normal"><a href="#__codelineno-16-30">30</a></span>
-<span class="normal"><a href="#__codelineno-16-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="normal"><a href="#__codelineno-16-31">31</a></span>
+<span class="normal"><a href="#__codelineno-16-32">32</a></span>
+<span class="normal"><a href="#__codelineno-16-33">33</a></span>
+<span class="normal"><a href="#__codelineno-16-34">34</a></span>
+<span class="normal"><a href="#__codelineno-16-35">35</a></span>
+<span class="normal"><a href="#__codelineno-16-36">36</a></span>
+<span class="normal"><a href="#__codelineno-16-37">37</a></span>
+<span class="normal"><a href="#__codelineno-16-38">38</a></span>
+<span class="normal"><a href="#__codelineno-16-39">39</a></span>
+<span class="normal"><a href="#__codelineno-16-40">40</a></span>
+<span class="normal"><a href="#__codelineno-16-41">41</a></span>
+<span class="normal"><a href="#__codelineno-16-42">42</a></span>
+<span class="normal"><a href="#__codelineno-16-43">43</a></span>
+<span class="normal"><a href="#__codelineno-16-44">44</a></span>
+<span class="normal"><a href="#__codelineno-16-45">45</a></span>
+<span class="normal"><a href="#__codelineno-16-46">46</a></span>
+<span class="normal"><a href="#__codelineno-16-47">47</a></span>
+<span class="normal"><a href="#__codelineno-16-48">48</a></span>
+<span class="normal"><a href="#__codelineno-16-49">49</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">data</span><span class="w"> </span><span class="kn">import</span> <span class="n">corrupt_mnist</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize images.&quot;&quot;&quot;</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">images</span> <span class="o">-</span> <span class="n">images</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">images</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate a trained model.&quot;&quot;&quot;</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluating like my life depended on it&quot;</span><span class="p">)</span>
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">)</span>
-</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
-</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a>
-</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">test_set</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
-</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a>    <span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a>
-</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a>    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a>    <span class="n">correct</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a>    <span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">test_dataloader</span><span class="p">:</span>
-</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a>        <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24"></a>        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25"></a>        <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26"></a>        <span class="n">total</span> <span class="o">+=</span> <span class="n">target</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test accuracy: </span><span class="si">{</span><span class="n">correct</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28"></a>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">preprocess_data</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">processed_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Process raw data and save it to processed directory.&quot;&quot;&quot;</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a>    <span class="n">train_images</span><span class="p">,</span> <span class="n">train_target</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a>        <span class="n">train_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/train_images_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">))</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a>        <span class="n">train_target</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/train_target_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">))</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_images</span><span class="p">)</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a>    <span class="n">test_images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/test_images.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a>    <span class="n">test_target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_dir</span><span class="si">}</span><span class="s2">/test_target.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">train_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">test_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26"></a>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">train_images</span><span class="p">)</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">test_images</span><span class="p">)</span>
 </span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29"></a>
-</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">evaluate</span><span class="p">)</span>
+</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/train_images.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">train_target</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/train_target.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/test_images.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">test_target</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">processed_dir</span><span class="si">}</span><span class="s2">/test_target.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34"></a>
+</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35"></a>
+</span><span id="__span-16-36"><a id="__codelineno-16-36" name="__codelineno-16-36"></a><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_mnist</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]:</span>
+</span><span id="__span-16-37"><a id="__codelineno-16-37" name="__codelineno-16-37"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return train and test datasets for corrupt MNIST.&quot;&quot;&quot;</span>
+</span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/train_images.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/train_target.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_images.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_target.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42"></a>
+</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43"></a>    <span class="n">train_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
+</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44"></a>    <span class="n">test_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
+</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45"></a>    <span class="k">return</span> <span class="n">train_set</span><span class="p">,</span> <span class="n">test_set</span>
+</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46"></a>
+</span><span id="__span-16-47"><a id="__codelineno-16-47" name="__codelineno-16-47"></a>
+</span><span id="__span-16-48"><a id="__codelineno-16-48" name="__codelineno-16-48"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-16-49"><a id="__codelineno-16-49" name="__codelineno-16-49"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">preprocess_data</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>This template comes with <code>tasks.py</code>, which uses the <a href="https://www.pyinvoke.org/">invoke</a> framework to define project
+    tasks. You can learn more about the framework in the last optional <a href="../cli/">module</a> in today's session. However, for
+    now just know that <code>tasks.py</code> is a file that can be used to specify common tasks that you want to run in your
+    project. It is similar to <code>Makefile</code>s if you are familiar with them. Try out some of the pre-defined tasks:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Using pip</label><label for="__tabbed_7_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># first install invoke</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>pip<span class="w"> </span>install<span class="w"> </span>invoke
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># then you can execute the tasks</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>invoke<span class="w"> </span>preprocess-data<span class="w">  </span><span class="c1"># runs the data.py file</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>invoke<span class="w"> </span>requirements<span class="w">     </span><span class="c1"># installs all requirements in the requirements.txt file</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>invoke<span class="w"> </span>train<span class="w">            </span><span class="c1"># runs the train.py file</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># or get a list of all tasks</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>invoke<span class="w"> </span>--list
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># first install invoke</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uvx<span class="w"> </span>invoke
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># then you can execute the tasks</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>preprocess-data<span class="w">  </span><span class="c1"># runs the data.py file</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>requirements<span class="w">     </span><span class="c1"># installs all requirements in the requirements.txt file</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>train<span class="w">            </span><span class="c1"># runs the train.py file</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># or get a list of all tasks</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>--list
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>In general, we recommend that you add commands to the <code>tasks.py</code> file as you move along in the course.</p>
+</li>
+<li>
+<p>Transfer your model file <code>model.py</code> into the <code>src/&lt;project_name&gt;/model.py</code> file. When you call the script, e.g.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Using pip</label><label for="__tabbed_8_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>python<span class="w"> </span>src/&lt;project_name&gt;/model.py
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>uv<span class="w"> </span>run<span class="w"> </span>src/&lt;project_name&gt;/model.py
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>it should print out the model architecture and number of parameters in the model.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>This is the CNN solution from yesterday and it may differ from the model architecture you have created.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">model.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-21-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-21-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-21-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-21-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-21-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-21-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-21-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-21-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-21-10">10</a></span>
+<span class="normal"><a href="#__codelineno-21-11">11</a></span>
+<span class="normal"><a href="#__codelineno-21-12">12</a></span>
+<span class="normal"><a href="#__codelineno-21-13">13</a></span>
+<span class="normal"><a href="#__codelineno-21-14">14</a></span>
+<span class="normal"><a href="#__codelineno-21-15">15</a></span>
+<span class="normal"><a href="#__codelineno-21-16">16</a></span>
+<span class="normal"><a href="#__codelineno-21-17">17</a></span>
+<span class="normal"><a href="#__codelineno-21-18">18</a></span>
+<span class="normal"><a href="#__codelineno-21-19">19</a></span>
+<span class="normal"><a href="#__codelineno-21-20">20</a></span>
+<span class="normal"><a href="#__codelineno-21-21">21</a></span>
+<span class="normal"><a href="#__codelineno-21-22">22</a></span>
+<span class="normal"><a href="#__codelineno-21-23">23</a></span>
+<span class="normal"><a href="#__codelineno-21-24">24</a></span>
+<span class="normal"><a href="#__codelineno-21-25">25</a></span>
+<span class="normal"><a href="#__codelineno-21-26">26</a></span>
+<span class="normal"><a href="#__codelineno-21-27">27</a></span>
+<span class="normal"><a href="#__codelineno-21-28">28</a></span>
+<span class="normal"><a href="#__codelineno-21-29">29</a></span>
+<span class="normal"><a href="#__codelineno-21-30">30</a></span>
+<span class="normal"><a href="#__codelineno-21-31">31</a></span>
+<span class="normal"><a href="#__codelineno-21-32">32</a></span>
+<span class="normal"><a href="#__codelineno-21-33">33</a></span>
+<span class="normal"><a href="#__codelineno-21-34">34</a></span>
+<span class="normal"><a href="#__codelineno-21-35">35</a></span>
+<span class="normal"><a href="#__codelineno-21-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4"></a>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;My awesome model.&quot;&quot;&quot;</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7"></a>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15"></a>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass.&quot;&quot;&quot;</span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-21-27"><a id="__codelineno-21-27" name="__codelineno-21-27"></a>
+</span><span id="__span-21-28"><a id="__codelineno-21-28" name="__codelineno-21-28"></a>
+</span><span id="__span-21-29"><a id="__codelineno-21-29" name="__codelineno-21-29"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-21-30"><a id="__codelineno-21-30" name="__codelineno-21-30"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span>
+</span><span id="__span-21-31"><a id="__codelineno-21-31" name="__codelineno-21-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model architecture: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-32"><a id="__codelineno-21-32" name="__codelineno-21-32"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of parameters: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-33"><a id="__codelineno-21-33" name="__codelineno-21-33"></a>
+</span><span id="__span-21-34"><a id="__codelineno-21-34" name="__codelineno-21-34"></a>    <span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+</span><span id="__span-21-35"><a id="__codelineno-21-35" name="__codelineno-21-35"></a>    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
+</span><span id="__span-21-36"><a id="__codelineno-21-36" name="__codelineno-21-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output shape: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>Transfer the relevant parts of the <code>main.py</code> script to the <code>src/&lt;project-name&gt;/train.py</code> script, i.e. the parts that
+    have to do with training the model. In addition, make sure it also does the following two things when run:</p>
+<ul>
+<li>Saves the trained model to the <code>models</code> folder</li>
+<li>Saves some statistics/visualizations from training to the <code>reports/figures</code> folder. This could be a simple</li>
+</ul>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">train.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span>
+<span class="normal"><a href="#__codelineno-22-21">21</a></span>
+<span class="normal"><a href="#__codelineno-22-22">22</a></span>
+<span class="normal"><a href="#__codelineno-22-23">23</a></span>
+<span class="normal"><a href="#__codelineno-22-24">24</a></span>
+<span class="normal"><a href="#__codelineno-22-25">25</a></span>
+<span class="normal"><a href="#__codelineno-22-26">26</a></span>
+<span class="normal"><a href="#__codelineno-22-27">27</a></span>
+<span class="normal"><a href="#__codelineno-22-28">28</a></span>
+<span class="normal"><a href="#__codelineno-22-29">29</a></span>
+<span class="normal"><a href="#__codelineno-22-30">30</a></span>
+<span class="normal"><a href="#__codelineno-22-31">31</a></span>
+<span class="normal"><a href="#__codelineno-22-32">32</a></span>
+<span class="normal"><a href="#__codelineno-22-33">33</a></span>
+<span class="normal"><a href="#__codelineno-22-34">34</a></span>
+<span class="normal"><a href="#__codelineno-22-35">35</a></span>
+<span class="normal"><a href="#__codelineno-22-36">36</a></span>
+<span class="normal"><a href="#__codelineno-22-37">37</a></span>
+<span class="normal"><a href="#__codelineno-22-38">38</a></span>
+<span class="normal"><a href="#__codelineno-22-39">39</a></span>
+<span class="normal"><a href="#__codelineno-22-40">40</a></span>
+<span class="normal"><a href="#__codelineno-22-41">41</a></span>
+<span class="normal"><a href="#__codelineno-22-42">42</a></span>
+<span class="normal"><a href="#__codelineno-22-43">43</a></span>
+<span class="normal"><a href="#__codelineno-22-44">44</a></span>
+<span class="normal"><a href="#__codelineno-22-45">45</a></span>
+<span class="normal"><a href="#__codelineno-22-46">46</a></span>
+<span class="normal"><a href="#__codelineno-22-47">47</a></span>
+<span class="normal"><a href="#__codelineno-22-48">48</a></span>
+<span class="normal"><a href="#__codelineno-22-49">49</a></span>
+<span class="normal"><a href="#__codelineno-22-50">50</a></span>
+<span class="normal"><a href="#__codelineno-22-51">51</a></span>
+<span class="normal"><a href="#__codelineno-22-52">52</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">data</span><span class="w"> </span><span class="kn">import</span> <span class="n">corrupt_mnist</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6"></a>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8"></a>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9"></a>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model on MNIST.&quot;&quot;&quot;</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training day and night&quot;</span><span class="p">)</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lr</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">epochs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14"></a>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17"></a>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18"></a>    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19"></a>
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20"></a>    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</span><span id="__span-22-21"><a id="__codelineno-22-21" name="__codelineno-22-21"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+</span><span id="__span-22-22"><a id="__codelineno-22-22" name="__codelineno-22-22"></a>
+</span><span id="__span-22-23"><a id="__codelineno-22-23" name="__codelineno-22-23"></a>    <span class="n">statistics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;train_loss&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;train_accuracy&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+</span><span id="__span-22-24"><a id="__codelineno-22-24" name="__codelineno-22-24"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+</span><span id="__span-22-25"><a id="__codelineno-22-25" name="__codelineno-22-25"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span-22-26"><a id="__codelineno-22-26" name="__codelineno-22-26"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
+</span><span id="__span-22-27"><a id="__codelineno-22-27" name="__codelineno-22-27"></a>            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-22-28"><a id="__codelineno-22-28" name="__codelineno-22-28"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span-22-29"><a id="__codelineno-22-29" name="__codelineno-22-29"></a>            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span id="__span-22-30"><a id="__codelineno-22-30" name="__codelineno-22-30"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span id="__span-22-31"><a id="__codelineno-22-31" name="__codelineno-22-31"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span-22-32"><a id="__codelineno-22-32" name="__codelineno-22-32"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="__span-22-33"><a id="__codelineno-22-33" name="__codelineno-22-33"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_loss&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span><span id="__span-22-34"><a id="__codelineno-22-34" name="__codelineno-22-34"></a>
+</span><span id="__span-22-35"><a id="__codelineno-22-35" name="__codelineno-22-35"></a>            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span-22-36"><a id="__codelineno-22-36" name="__codelineno-22-36"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_accuracy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+</span><span id="__span-22-37"><a id="__codelineno-22-37" name="__codelineno-22-37"></a>
+</span><span id="__span-22-38"><a id="__codelineno-22-38" name="__codelineno-22-38"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-22-39"><a id="__codelineno-22-39" name="__codelineno-22-39"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-40"><a id="__codelineno-22-40" name="__codelineno-22-40"></a>
+</span><span id="__span-22-41"><a id="__codelineno-22-41" name="__codelineno-22-41"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training complete&quot;</span><span class="p">)</span>
+</span><span id="__span-22-42"><a id="__codelineno-22-42" name="__codelineno-22-42"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;models/model.pth&quot;</span><span class="p">)</span>
+</span><span id="__span-22-43"><a id="__codelineno-22-43" name="__codelineno-22-43"></a>    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span><span id="__span-22-44"><a id="__codelineno-22-44" name="__codelineno-22-44"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_loss&quot;</span><span class="p">])</span>
+</span><span id="__span-22-45"><a id="__codelineno-22-45" name="__codelineno-22-45"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Train loss&quot;</span><span class="p">)</span>
+</span><span id="__span-22-46"><a id="__codelineno-22-46" name="__codelineno-22-46"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;train_accuracy&quot;</span><span class="p">])</span>
+</span><span id="__span-22-47"><a id="__codelineno-22-47" name="__codelineno-22-47"></a>    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Train accuracy&quot;</span><span class="p">)</span>
+</span><span id="__span-22-48"><a id="__codelineno-22-48" name="__codelineno-22-48"></a>    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;reports/figures/training_statistics.png&quot;</span><span class="p">)</span>
+</span><span id="__span-22-49"><a id="__codelineno-22-49" name="__codelineno-22-49"></a>
+</span><span id="__span-22-50"><a id="__codelineno-22-50" name="__codelineno-22-50"></a>
+</span><span id="__span-22-51"><a id="__codelineno-22-51" name="__codelineno-22-51"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-22-52"><a id="__codelineno-22-52" name="__codelineno-22-52"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+<ol>
+<li>Transfer the remaining parts of the <code>main.py</code> script into the <code>src/&lt;project-name&gt;/evaluate.py</code> script, i.e. the parts
+that have to do with evaluating the model. When run, it should load the model from the <code>models</code> folder and print out
+the accuracy of the model on the test set.</li>
+</ol>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">evaluate.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-23-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-23-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-23-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-23-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-23-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-23-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-23-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-23-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-23-10">10</a></span>
+<span class="normal"><a href="#__codelineno-23-11">11</a></span>
+<span class="normal"><a href="#__codelineno-23-12">12</a></span>
+<span class="normal"><a href="#__codelineno-23-13">13</a></span>
+<span class="normal"><a href="#__codelineno-23-14">14</a></span>
+<span class="normal"><a href="#__codelineno-23-15">15</a></span>
+<span class="normal"><a href="#__codelineno-23-16">16</a></span>
+<span class="normal"><a href="#__codelineno-23-17">17</a></span>
+<span class="normal"><a href="#__codelineno-23-18">18</a></span>
+<span class="normal"><a href="#__codelineno-23-19">19</a></span>
+<span class="normal"><a href="#__codelineno-23-20">20</a></span>
+<span class="normal"><a href="#__codelineno-23-21">21</a></span>
+<span class="normal"><a href="#__codelineno-23-22">22</a></span>
+<span class="normal"><a href="#__codelineno-23-23">23</a></span>
+<span class="normal"><a href="#__codelineno-23-24">24</a></span>
+<span class="normal"><a href="#__codelineno-23-25">25</a></span>
+<span class="normal"><a href="#__codelineno-23-26">26</a></span>
+<span class="normal"><a href="#__codelineno-23-27">27</a></span>
+<span class="normal"><a href="#__codelineno-23-28">28</a></span>
+<span class="normal"><a href="#__codelineno-23-29">29</a></span>
+<span class="normal"><a href="#__codelineno-23-30">30</a></span>
+<span class="normal"><a href="#__codelineno-23-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">data</span><span class="w"> </span><span class="kn">import</span> <span class="n">corrupt_mnist</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5"></a>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7"></a>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8"></a>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate a trained model.&quot;&quot;&quot;</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluating like my life depended on it&quot;</span><span class="p">)</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">)</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13"></a>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16"></a>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">test_set</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18"></a>    <span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19"></a>
+</span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20"></a>    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21"></a>    <span class="n">correct</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22"></a>    <span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">test_dataloader</span><span class="p">:</span>
+</span><span id="__span-23-23"><a id="__codelineno-23-23" name="__codelineno-23-23"></a>        <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-23-24"><a id="__codelineno-23-24" name="__codelineno-23-24"></a>        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span id="__span-23-25"><a id="__codelineno-23-25" name="__codelineno-23-25"></a>        <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span-23-26"><a id="__codelineno-23-26" name="__codelineno-23-26"></a>        <span class="n">total</span> <span class="o">+=</span> <span class="n">target</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-23-27"><a id="__codelineno-23-27" name="__codelineno-23-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test accuracy: </span><span class="si">{</span><span class="n">correct</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-23-28"><a id="__codelineno-23-28" name="__codelineno-23-28"></a>
+</span><span id="__span-23-29"><a id="__codelineno-23-29" name="__codelineno-23-29"></a>
+</span><span id="__span-23-30"><a id="__codelineno-23-30" name="__codelineno-23-30"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-23-31"><a id="__codelineno-23-31" name="__codelineno-23-31"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">evaluate</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -2927,99 +3014,99 @@ last layer in the model will be a fully connected layer, which we assume is name
 the features before this layer is to replace the layer with <code>torch.nn.Identity</code> which essentially does nothing
 (see the highlighted line below). Alternatively, if you implemented everything in <code>torch.nn.Sequential</code> you can
 just remove the last layer from the <code>Sequential</code> object: <code>model = model[:-1]</code>.</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">visualize.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-17-10">10</a></span>
-<span class="normal"><a href="#__codelineno-17-11">11</a></span>
-<span class="normal"><a href="#__codelineno-17-12">12</a></span>
-<span class="normal"><a href="#__codelineno-17-13">13</a></span>
-<span class="normal"><a href="#__codelineno-17-14">14</a></span>
-<span class="normal"><a href="#__codelineno-17-15">15</a></span>
-<span class="normal"><a href="#__codelineno-17-16">16</a></span>
-<span class="normal"><a href="#__codelineno-17-17">17</a></span>
-<span class="normal"><a href="#__codelineno-17-18">18</a></span>
-<span class="normal"><a href="#__codelineno-17-19">19</a></span>
-<span class="normal"><a href="#__codelineno-17-20">20</a></span>
-<span class="normal"><a href="#__codelineno-17-21">21</a></span>
-<span class="normal"><a href="#__codelineno-17-22">22</a></span>
-<span class="normal"><a href="#__codelineno-17-23">23</a></span>
-<span class="normal"><a href="#__codelineno-17-24">24</a></span>
-<span class="normal"><a href="#__codelineno-17-25">25</a></span>
-<span class="normal"><a href="#__codelineno-17-26">26</a></span>
-<span class="normal"><a href="#__codelineno-17-27">27</a></span>
-<span class="normal"><a href="#__codelineno-17-28">28</a></span>
-<span class="normal"><a href="#__codelineno-17-29">29</a></span>
-<span class="normal"><a href="#__codelineno-17-30">30</a></span>
-<span class="normal"><a href="#__codelineno-17-31">31</a></span>
-<span class="normal"><a href="#__codelineno-17-32">32</a></span>
-<span class="normal"><a href="#__codelineno-17-33">33</a></span>
-<span class="normal"><a href="#__codelineno-17-34">34</a></span>
-<span class="normal"><a href="#__codelineno-17-35">35</a></span>
-<span class="normal"><a href="#__codelineno-17-36">36</a></span>
-<span class="normal"><a href="#__codelineno-17-37">37</a></span>
-<span class="normal"><a href="#__codelineno-17-38">38</a></span>
-<span class="normal"><a href="#__codelineno-17-39">39</a></span>
-<span class="normal"><a href="#__codelineno-17-40">40</a></span>
-<span class="normal"><a href="#__codelineno-17-41">41</a></span>
-<span class="normal"><a href="#__codelineno-17-42">42</a></span>
-<span class="normal"><a href="#__codelineno-17-43">43</a></span>
-<span class="normal"><a href="#__codelineno-17-44">44</a></span>
-<span class="normal"><a href="#__codelineno-17-45">45</a></span>
-<span class="normal"><a href="#__codelineno-17-46">46</a></span>
-<span class="normal"><a href="#__codelineno-17-47">47</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_project_name.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7"></a>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9"></a>
-</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10"></a>
-</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">figure_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;embeddings.png&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize model predictions.&quot;&quot;&quot;</span>
-</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13"></a>    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
-</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15"></a>    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
-</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17"></a>
-</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_images.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_target.pt&quot;</span><span class="p">)</span>
-</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20"></a>    <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
-</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21"></a>
-</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22"></a>    <span class="n">embeddings</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23"></a><span class="hll">    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
-</span></span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24"></a>        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
-</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25"></a>            <span class="n">images</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
-</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26"></a>            <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
-</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27"></a>            <span class="n">embeddings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
-</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28"></a>            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29"></a>        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30"></a>        <span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span><span id="__span-17-31"><a id="__codelineno-17-31" name="__codelineno-17-31"></a>
-</span><span id="__span-17-32"><a id="__codelineno-17-32" name="__codelineno-17-32"></a>    <span class="k">if</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>  <span class="c1"># Reduce dimensionality for large embeddings</span>
-</span><span id="__span-17-33"><a id="__codelineno-17-33" name="__codelineno-17-33"></a>        <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</span><span id="__span-17-34"><a id="__codelineno-17-34" name="__codelineno-17-34"></a>        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
-</span><span id="__span-17-35"><a id="__codelineno-17-35" name="__codelineno-17-35"></a>    <span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-17-36"><a id="__codelineno-17-36" name="__codelineno-17-36"></a>    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
-</span><span id="__span-17-37"><a id="__codelineno-17-37" name="__codelineno-17-37"></a>
-</span><span id="__span-17-38"><a id="__codelineno-17-38" name="__codelineno-17-38"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-</span><span id="__span-17-39"><a id="__codelineno-17-39" name="__codelineno-17-39"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-</span><span id="__span-17-40"><a id="__codelineno-17-40" name="__codelineno-17-40"></a>        <span class="n">mask</span> <span class="o">=</span> <span class="n">targets</span> <span class="o">==</span> <span class="n">i</span>
-</span><span id="__span-17-41"><a id="__codelineno-17-41" name="__codelineno-17-41"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">embeddings</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">embeddings</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</span><span id="__span-17-42"><a id="__codelineno-17-42" name="__codelineno-17-42"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</span><span id="__span-17-43"><a id="__codelineno-17-43" name="__codelineno-17-43"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;reports/figures/</span><span class="si">{</span><span class="n">figure_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-17-44"><a id="__codelineno-17-44" name="__codelineno-17-44"></a>
-</span><span id="__span-17-45"><a id="__codelineno-17-45" name="__codelineno-17-45"></a>
-</span><span id="__span-17-46"><a id="__codelineno-17-46" name="__codelineno-17-46"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="__span-17-47"><a id="__codelineno-17-47" name="__codelineno-17-47"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">visualize</span><span class="p">)</span>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">visualize.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-24-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-24-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-24-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-24-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-24-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-24-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-24-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-24-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-24-10">10</a></span>
+<span class="normal"><a href="#__codelineno-24-11">11</a></span>
+<span class="normal"><a href="#__codelineno-24-12">12</a></span>
+<span class="normal"><a href="#__codelineno-24-13">13</a></span>
+<span class="normal"><a href="#__codelineno-24-14">14</a></span>
+<span class="normal"><a href="#__codelineno-24-15">15</a></span>
+<span class="normal"><a href="#__codelineno-24-16">16</a></span>
+<span class="normal"><a href="#__codelineno-24-17">17</a></span>
+<span class="normal"><a href="#__codelineno-24-18">18</a></span>
+<span class="normal"><a href="#__codelineno-24-19">19</a></span>
+<span class="normal"><a href="#__codelineno-24-20">20</a></span>
+<span class="normal"><a href="#__codelineno-24-21">21</a></span>
+<span class="normal"><a href="#__codelineno-24-22">22</a></span>
+<span class="normal"><a href="#__codelineno-24-23">23</a></span>
+<span class="normal"><a href="#__codelineno-24-24">24</a></span>
+<span class="normal"><a href="#__codelineno-24-25">25</a></span>
+<span class="normal"><a href="#__codelineno-24-26">26</a></span>
+<span class="normal"><a href="#__codelineno-24-27">27</a></span>
+<span class="normal"><a href="#__codelineno-24-28">28</a></span>
+<span class="normal"><a href="#__codelineno-24-29">29</a></span>
+<span class="normal"><a href="#__codelineno-24-30">30</a></span>
+<span class="normal"><a href="#__codelineno-24-31">31</a></span>
+<span class="normal"><a href="#__codelineno-24-32">32</a></span>
+<span class="normal"><a href="#__codelineno-24-33">33</a></span>
+<span class="normal"><a href="#__codelineno-24-34">34</a></span>
+<span class="normal"><a href="#__codelineno-24-35">35</a></span>
+<span class="normal"><a href="#__codelineno-24-36">36</a></span>
+<span class="normal"><a href="#__codelineno-24-37">37</a></span>
+<span class="normal"><a href="#__codelineno-24-38">38</a></span>
+<span class="normal"><a href="#__codelineno-24-39">39</a></span>
+<span class="normal"><a href="#__codelineno-24-40">40</a></span>
+<span class="normal"><a href="#__codelineno-24-41">41</a></span>
+<span class="normal"><a href="#__codelineno-24-42">42</a></span>
+<span class="normal"><a href="#__codelineno-24-43">43</a></span>
+<span class="normal"><a href="#__codelineno-24-44">44</a></span>
+<span class="normal"><a href="#__codelineno-24-45">45</a></span>
+<span class="normal"><a href="#__codelineno-24-46">46</a></span>
+<span class="normal"><a href="#__codelineno-24-47">47</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_project_name.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7"></a>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9"></a>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10"></a>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">figure_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;embeddings.png&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize model predictions.&quot;&quot;&quot;</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13"></a>    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15"></a>    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17"></a>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_images.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/processed/test_target.pt&quot;</span><span class="p">)</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20"></a>    <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21"></a>
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22"></a>    <span class="n">embeddings</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23"></a><span class="hll">    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+</span></span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24"></a>        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25"></a>            <span class="n">images</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
+</span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26"></a>            <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+</span><span id="__span-24-27"><a id="__codelineno-24-27" name="__codelineno-24-27"></a>            <span class="n">embeddings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28"></a>            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29"></a>        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span><span id="__span-24-30"><a id="__codelineno-24-30" name="__codelineno-24-30"></a>        <span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span><span id="__span-24-31"><a id="__codelineno-24-31" name="__codelineno-24-31"></a>
+</span><span id="__span-24-32"><a id="__codelineno-24-32" name="__codelineno-24-32"></a>    <span class="k">if</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>  <span class="c1"># Reduce dimensionality for large embeddings</span>
+</span><span id="__span-24-33"><a id="__codelineno-24-33" name="__codelineno-24-33"></a>        <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-24-34"><a id="__codelineno-24-34" name="__codelineno-24-34"></a>        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+</span><span id="__span-24-35"><a id="__codelineno-24-35" name="__codelineno-24-35"></a>    <span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-24-36"><a id="__codelineno-24-36" name="__codelineno-24-36"></a>    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+</span><span id="__span-24-37"><a id="__codelineno-24-37" name="__codelineno-24-37"></a>
+</span><span id="__span-24-38"><a id="__codelineno-24-38" name="__codelineno-24-38"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</span><span id="__span-24-39"><a id="__codelineno-24-39" name="__codelineno-24-39"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-24-40"><a id="__codelineno-24-40" name="__codelineno-24-40"></a>        <span class="n">mask</span> <span class="o">=</span> <span class="n">targets</span> <span class="o">==</span> <span class="n">i</span>
+</span><span id="__span-24-41"><a id="__codelineno-24-41" name="__codelineno-24-41"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">embeddings</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">embeddings</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</span><span id="__span-24-42"><a id="__codelineno-24-42" name="__codelineno-24-42"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span id="__span-24-43"><a id="__codelineno-24-43" name="__codelineno-24-43"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;reports/figures/</span><span class="si">{</span><span class="n">figure_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-24-44"><a id="__codelineno-24-44" name="__codelineno-24-44"></a>
+</span><span id="__span-24-45"><a id="__codelineno-24-45" name="__codelineno-24-45"></a>
+</span><span id="__span-24-46"><a id="__codelineno-24-46" name="__codelineno-24-46"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-24-47"><a id="__codelineno-24-47" name="__codelineno-24-47"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">visualize</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 <ol>
@@ -3046,14 +3133,14 @@ just remove the last layer from the <code>Sequential</code> object: <code>model 
 <li>
 <p>After forking the template, clone it locally and let's start modifying it. The first step is changing
     the <code>cookiecutter.json</code> file. For the MLOps template it looks like this:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="nt">&quot;repo_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;repo_name&quot;</span><span class="p">,</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project_name&quot;</span><span class="p">,</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="nt">&quot;author_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your name (or your organization/company/team)&quot;</span><span class="p">,</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A short description of the project.&quot;</span><span class="p">,</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11&quot;</span><span class="p">,</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="nt">&quot;open_source_license&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;No license file&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;BSD-3-Clause&quot;</span><span class="p">],</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">{</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="nt">&quot;repo_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;repo_name&quot;</span><span class="p">,</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project_name&quot;</span><span class="p">,</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nt">&quot;author_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your name (or your organization/company/team)&quot;</span><span class="p">,</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A short description of the project.&quot;</span><span class="p">,</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11&quot;</span><span class="p">,</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="nt">&quot;open_source_license&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;No license file&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;BSD-3-Clause&quot;</span><span class="p">],</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Simply add a new line to the JSON file with the name of the variable you want to add and the default value you
 want it to have.</p>
@@ -3066,15 +3153,35 @@ want it to have.</p>
 </li>
 <li>
 <p>After you have made the changes you want to the template, you should test it locally. Just run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>cookiecutter<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>--no-input
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Using pip</label><label for="__tabbed_9_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>cookiecutter<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>--no-input
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>uvx<span class="w"> </span>cookiecutter<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>--no-input
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>And it should create a new folder using the default values of the <code>cookiecutter.json</code> file.</p>
 </li>
 <li>
 <p>Finally, make sure to push any changes you made to the template to GitHub, so that you in the future can use it
     by simply running</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cookiecutter<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;my_template_repo&gt;
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Using pip</label><label for="__tabbed_10_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>cookiecutter<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;my_template_repo&gt;
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>uvx<span class="w"> </span>cookiecutter<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;my_template_repo&gt;
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </li>
 </ol>
 </li>
@@ -3090,23 +3197,33 @@ want it to have.</p>
 <li>
 <p>Create a completely barebone repository, either using the GitHub UI or if you have the GitHub CLI installed
     (not <code>git</code>) you can run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public<span class="w"> </span>--confirm
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public<span class="w"> </span>--confirm
 </span></code></pre></div>
 </li>
 <li>
 <p>Run <code>cookiecutter</code> with the template you want to use.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>cookiecutter<span class="w"> </span>&lt;template&gt;
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Using pip</label><label for="__tabbed_11_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>cookiecutter<span class="w"> </span>&lt;template&gt;
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>uvx<span class="w"> </span>cookiecutter<span class="w"> </span>&lt;template&gt;
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>The name of the folder created by <code>cookiecutter</code> should be the same as the <repo_name> you just used.</p>
 </li>
 <li>
 <p>Run the following sequence of commands.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;project_name&gt;
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>git<span class="w"> </span>init
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;repo_name&gt;
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;project_name&gt;
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>git<span class="w"> </span>init
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;username&gt;/&lt;repo_name&gt;
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
 </span></code></pre></div>
 </li>
 </ol>
@@ -3144,7 +3261,7 @@ capabilities to ensure projects match the latest version of a template.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2025 06:48:20 UTC">February 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38 UTC">January 4, 2026</span>
   </span>
 
     
@@ -3171,6 +3288,8 @@ capabilities to ensure projects match the latest version of a template.</p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -3282,7 +3401,7 @@ capabilities to ensure projects match the latest version of a template.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
