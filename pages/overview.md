@@ -13,6 +13,7 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 </figcaption>
 </figure>
 
+<!-- markdownlint-disable -->
 | Framework                                               | Description                                                |
 |---------------------------------------------------------|------------------------------------------------------------|
 | ![PyTorch](../figures/icons/pytorch.png){ width="50" }  | **PyTorch** is the backbone of our code, it provides the computational engine and the data structures that we need to define our data structures. |
@@ -44,3 +45,4 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 | ![Monitor](../figures/icons/monitoring.png){ width="50" } | **Cloud monitoring** gives us the tools to keep track of important logs and errors from the other cloud services |
 | ![Evidently](../figures/icons/evidentlyai.png){ width="50" } | For monitoring our deployed model is experiencing any drift we can use **Evidently AI** that provides a framework and dashboard for monitoring drift |
 | ![Telemetry](../figures/icons/opentelemetry.png){ width="50" } | For monitoring the telemetry of our deployed model we can use **OpenTelemetry** that provides a standard for collecting and exporting telemetry data |
+<!-- markdownlint-restore -->
