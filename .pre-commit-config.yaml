@@ -3,7 +3,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -14,7 +14,7 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.6
+    rev: v0.14.10
     hooks:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
@@ -29,18 +29,18 @@ repos:
         exclude: pyproject.toml
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.44.0
+    rev: v0.47.0
     hooks:
       - id: markdownlint
         args: ["-c", ".github/markdownlint.json"]
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.39.2
+    rev: v1
     hooks:
       - id: typos
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.5.1
+    rev: v2.11.1
     hooks:
       - id: pyproject-fmt
         additional_dependencies: [tox]
