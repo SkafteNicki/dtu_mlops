@@ -35,7 +35,7 @@ Date    | Day       | Presentation topic                                        
 6/1/26  | Tuesday   | [MLOps: what is it?📝](../slides/IntroToMLOps.pdf)                 | Git, CookieCutter, Pep8, DVC         | [Exercises](../s2_organisation_and_version_control/README.md)
 7/1/26  | Wednesday | [Reproducibility📝](../slides/ReproducibilityAndSoftware.pdf)      | Docker, Hydra                        | [Exercises](../s3_reproducibility/README.md)
 8/1/26  | Thursday  | [Debugging📝](../slides/DebuggingML.pdf)                           | Debugger, Profiler, Wandb, Lightning | [Exercises](../s4_debugging_and_logging/README.md)
-9/1/26 | Friday    | [Project work📝](../slides/Projects.pdf)                           | -                                    | [Projects](projects.md)
+9/1/26  | Friday    | [Project work📝](../slides/Projects.pdf)                           | -                                    | [Projects](projects.md)
 
 ## Week 2
 
