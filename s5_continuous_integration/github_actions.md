@@ -54,7 +54,7 @@ Let's take a look at how a GitHub workflow file is organized:
 3. We have provided a workflow file called `tests.yaml` that should run your tests for you. Place
     this file in the `.github/workflows/` folder. The workflow file consists of three steps:
 
-    * First, a Python environment is initiated (in this case Python 3.8)
+    * First, a Python environment or uv environment is initiated (in this case Python 3.12)
 
     * Next, all dependencies required to run the test are installed
 
@@ -62,16 +62,27 @@ Let's take a look at how a GitHub workflow file is organized:
 
     Go over the file and try to understand the overall structure and syntax of the file.
 
-    ??? example "`tests.yaml`"
+    === "Using pip"
 
-        ```python linenums="1" title="tests.yaml"
-        --8<-- "s5_continuous_integration/exercise_files/tests.yaml"
-        ```
+        ??? example "`tests.yaml`"
 
-4. For the script to work you need to define the `requirements.txt` and `requirements_tests.txt`. The first file should
-    contain all the packages required to run your code. The second file contains all *additional* packages required to
-    run the tests. In your simple case, it may very well be that the second file is empty; however, sometimes additional
-    packages are used for testing that are not strictly required for the scripts to run.
+            ```python linenums="1" title="tests.yaml"
+            --8<-- "s5_continuous_integration/exercise_files/tests_pip.yaml"
+            ```
+
+    === "Using uv"
+
+        ??? example "`tests.yaml`"
+
+            ```python linenums="1" title="tests.yaml"
+            --8<-- "s5_continuous_integration/exercise_files/tests_uv.yaml"
+            ```
+
+4. (Optional, for `pip` users) For the script to work you need to define the `requirements.txt` and
+    `requirements_tests.txt`. The first file should contain all the packages required to run your code. The second file
+    contains all *additional* packages required to run the tests. In your simple case, it may very well be that the
+    second file is empty. However, sometimes additional packages are used for testing that are not strictly required for
+    the scripts to run.
 
 5. Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and after some
     time you will see a green check mark next to the hash of the commit. Also, try to inspect the *Actions* tab where
@@ -112,22 +123,47 @@ Let's take a look at how a GitHub workflow file is organized:
             Just add another line to the `strategy` attribute that specifies the Python version and use the value in the
             setup Python action. The following code will run the tests on Python versions:
 
-            ```yaml linenums="1" title="tests.yaml"
-            jobs:
-              build:
-                runs-on: ${{ matrix.os }}
-                strategy:
-                  matrix:
-                    os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                    python-version: ["3.10", "3.11", "3.12"]
+            === "Using pip"
 
-                steps:
-                - uses: actions/checkout@v5
-                - name: Set up Python
-                  uses: actions/setup-python@v5
-                  with:
-                    python-version: ${{ matrix.python-version }}
-            ```
+                ```yaml linenums="1" title="tests.yaml"
+                jobs:
+                  build:
+                    runs-on: ${{ matrix.os }}
+                    strategy:
+                    matrix:
+                      os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                      python-version: ["3.10", "3.11", "3.12"]
+
+                  steps:
+                    - name: Checkout
+                      uses: actions/checkout@v5
+
+                    - name: Setup Python
+                      uses: actions/setup-python@v5
+                      with:
+                        python-version: ${{ matrix.python-version }}
+                ```
+
+            === "Using uv"
+
+                ```yaml linenums="1" title="tests.yaml"
+                jobs:
+                  build:
+                    runs-on: ${{ matrix.os }}
+                    strategy:
+                    matrix:
+                      os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                      python-version: ["3.10", "3.11", "3.12"]
+
+                  steps:
+                    - name: Checkout
+                      uses: actions/checkout@v5
+
+                    - name: Setup uv
+                      uses: astral-sh/setup-uv@v7
+                      with:
+                        python-version: ${{ matrix.python-version }}
+                ```
 
     4. If you push the above changes you will maybe see that whenever one of the tests in the matrix fails, it will
         automatically cancel the other tests. This is for saving time and resources. However, sometimes you want all the
@@ -159,15 +195,27 @@ Let's take a look at how a GitHub workflow file is organized:
 
         ??? success "Solution"
 
-            ```yaml linenums="1" title="tests.yaml"
-            steps:
-            - uses: actions/checkout@v5
-            - uses: actions/setup-python@v5
-              with:
-                python-version: 3.11
-                cache: 'pip' # caching pip dependencies
-            - run: pip install -r requirements.txt
-            ```
+            === "Using pip"
+
+                ```yaml linenums="1" title="tests.yaml"
+                steps:
+                - uses: actions/checkout@v5
+                - uses: actions/setup-python@v5
+                  with:
+                    python-version: 3.12
+                    cache: 'pip' # caching pip dependencies
+                ```
+
+            === "Using uv"
+
+                ```yaml linenums="1" title="tests.yaml"
+                steps:
+                - uses: actions/checkout@v5
+                - uses: astral-sh/setup-uv@v7
+                  with:
+                    python-version: 3.12
+                    enable-cache: true
+                ```
 
     2. When you have implemented a caching system go to `Actions->Caches` in your repository and make sure that they
         are correctly added. It should look something like the image below.
@@ -228,10 +276,10 @@ Let's take a look at how a GitHub workflow file is organized:
         ![Image](../figures/branch_protection_rules3.png){ width="800" }
         </figure>
 
-10. One problem you may have encountered is running tests that have to do with your data, with the core problem
-    being that your data is not stored on GitHub (assuming you have done module
-    [M8 - DVC](../s2_organisation_and_version_control/dvc.md)) and therefore cannot be tested. However, we can download
-    data while running our continuous integration. Let's try to create that.
+10. (Optional, only continue if you done module [M8 - DVC](../s2_organisation_and_version_control/dvc.md) on data
+    version control) One problem you may have encountered is running tests that have to do with your data, with the core
+    problem being that your data is not stored on GitHub (assuming you have  and therefore cannot be tested. However, we
+    can download data while running our continuous integration. Let's try to create that.
 
     1. The first problem is that we need our continuous integration pipeline to be able to authenticate with our storage
         solution. We can take advantage of an authentication file that is created the first time we push with DVC. It is
@@ -294,7 +342,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     1. Create a new workflow file called `codecheck.yaml`, that implements the following three steps:
 
-        * Sets up Python environment
+        * Sets up Python or uv environment
 
         * Installs `ruff`
 
@@ -304,38 +352,21 @@ Let's take a look at how a GitHub workflow file is organized:
 
         ??? success "Solution"
 
-            ```yaml linenums="1" title="codecheck.yaml"
-            name: Code formatting
+            === "Using pip"
 
-            on:
-              push:
-                branches:
-                - main
-              pull_request:
-                branches:
-                - main
+                ??? example "`codecheck.yaml`"
 
-            jobs:
-              format:
-                  runs-on: ubuntu-latest
-                  steps:
-                  - name: Checkout code
-                    uses: actions/checkout@v5
-                  - name: Set up Python
-                    uses: actions/setup-python@v5
-                    with:
-                      python-version: 3.11
-                      cache: 'pip'
-                      cache-dependency-path: setup.py
-                  - name: Install dependencies
-                    run: |
-                      pip install ruff
-                      pip list
-                  - name: Ruff check
-                    run: ruff check .
-                  - name: Ruff format
-                    run: ruff format .
-            ```
+                    ```python linenums="1" title="tests.yaml"
+                    --8<-- "s5_continuous_integration/exercise_files/format_pip.yaml"
+                    ```
+
+            === "Using uv"
+
+                ??? example "`codecheck.yaml`"
+
+                    ```python linenums="1" title="tests.yaml"
+                    --8<-- "s5_continuous_integration/exercise_files/format_uv.yaml"
+                    ```
 
     2. In addition to `ruff` we also used `mypy` in those sets of exercises for checking if the typing we added to our
         code was good enough. Add another step to the `codecheck.yaml` file that runs `mypy` on your repository.
@@ -431,14 +462,28 @@ have in your code.
         The following code will check for updates in the `pip` ecosystem every week, i.e. it automatically will look
         for `requirements.txt` files and update the packages in there.
 
-        ```yaml
-        version: 2
-        updates:
-          - package-ecosystem: "pip"
-            directory: "/"
-            schedule:
-              interval: "weekly"
-        ```
+        === "Using pip"
+
+            ```yaml
+            version: 2
+            updates:
+            - package-ecosystem: "pip"
+                directory: "/"
+                schedule:
+                interval: "weekly"
+            ```
+
+        === "Using uv"
+
+            ```yaml
+            version: 2
+            updates:
+            - package-ecosystem: "uv"
+                directory: "/"
+                schedule:
+                interval: "weekly"
+            ```
+
 2. Push the changes to your repository and check that the dependabot is working by going to the `Insights` tab and
     then the `Dependency graph` tab. From here under the `Dependabot` tab you should be able to see if the bot has
     correctly identified what files to track and if it has found any updates.
@@ -499,13 +544,13 @@ have in your code.
         ```yaml
         version: 2
         updates:
-          - package-ecosystem: "pip"
-            directory: "/"
-            schedule:
-              interval: "weekly"
-          - package-ecosystem: "github-actions"
-            schedule:
-              interval: "weekly"
+        - package-ecosystem: "pip"
+          directory: "/"
+          schedule:
+            interval: "weekly"
+        - package-ecosystem: "github-actions"
+          schedule:
+            interval: "weekly"
         ```
 
 ## 🧠 Knowledge check
