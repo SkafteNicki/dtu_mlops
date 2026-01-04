@@ -13,9 +13,10 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 </figcaption>
 </figure>
 
-| Framework | Description |
-|-----------|-------------|
-| ![PyTorch](../figures/icons/pytorch.png){ width="50" } | **PyTorch** is the backbone of our code, it provides the computational engine and the data structures that we need to define our data structures. |
+<!-- markdownlint-disable -->
+| Framework                                               | Description                                                |
+|---------------------------------------------------------|------------------------------------------------------------|
+| ![PyTorch](../figures/icons/pytorch.png){ width="50" }  | **PyTorch** is the backbone of our code, it provides the computational engine and the data structures that we need to define our data structures. |
 | ![PyTorch Lightning](../figures/icons/lightning.png){ width="50" } | **PyTorch lightning** is a framework that provides a high-level interface to PyTorch. It provides a lot of functionality that we need to train our models, such as logging, checkpointing, early stopping, etc. such that we do not have to implement it ourselves. It also allows us to scale our models to multiple GPUs and multiple nodes. |
 | ![Conda](../figures/icons/conda.png){ width="50" } | We control the dependencies and Python interpreter using **Conda** that enables us to construct reproducible virtual environments |
 | ![Hydra](../figures/icons/hydra.png){ width="50" } | For configuring our experiments we use **Hydra** that allows us to define a hierarchical configuration structure config files |
@@ -44,3 +45,4 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 | ![Monitor](../figures/icons/monitoring.png){ width="50" } | **Cloud monitoring** gives us the tools to keep track of important logs and errors from the other cloud services |
 | ![Evidently](../figures/icons/evidentlyai.png){ width="50" } | For monitoring our deployed model is experiencing any drift we can use **Evidently AI** that provides a framework and dashboard for monitoring drift |
 | ![Telemetry](../figures/icons/opentelemetry.png){ width="50" } | For monitoring the telemetry of our deployed model we can use **OpenTelemetry** that provides a standard for collecting and exporting telemetry data |
+<!-- markdownlint-restore -->

@@ -30,15 +30,31 @@ programs.
 1. Run `cProfile` on the `vae_mnist_working.py` script. Hint: you can directly call the profiler on a
     script using the `-m` arg:
 
-    ```bash
-    python -m cProfile -s <sort_order> myscript.py
-    ```
+    === "Using pip"
+
+        ```bash
+        python -m cProfile -s <sort_order> myscript.py
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run python -m cProfile -s <sort_order> myscript.py
+        ```
 
     To write the output to a file you can use the `-o` argument:
 
-    ```bash
-    python -m cProfile -s <sort_order> -o profile.txt myscript.py
-    ```
+    === "Using pip"
+
+        ```bash
+        python -m cProfile -s <sort_order> -o profile.txt myscript.py
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run python -m cProfile -s <sort_order> -o profile.txt myscript.py
+        ```
 
     ??? example "Script to debug"
 
@@ -149,9 +165,17 @@ print(torch.__version__)
 But we always recommend updating to the latest PyTorch version for the best experience. Additionally, to display the
 result nicely (like `snakeviz` for `cProfile`) we are also going to use the tensorboard profiler extension.
 
-```bash
-pip install torch_tb_profiler
-```
+=== "Using pip"
+
+    ```bash
+    pip install torch_tb_profiler
+    ```
+
+=== "Using uv"
+
+    ```bash
+    uv add torch_tb_profiler
+    ```
 
 1. A good starting point is to look at the [API for the profiler](https://pytorch.org/docs/stable/profiler.html). Here
     the important class to look at is the `torch.profiler.profile` class.

@@ -59,47 +59,77 @@ The file structure is very simple:
   The `id` corresponds to an `id` in this file:
   <https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-hooks.yaml>
 
-When we are done defining our `.pre-commit-config.yaml` we just need to install it.
-
-```bash
-pre-commit install
-```
-
-This will make sure that the file is automatically executed whenever we run `git commit`.
+When we are done defining our `.pre-commit-config.yaml` we just need to run `pre-commit install` to install the hooks
+into out git configuration. This will make sure that the file is automatically executed whenever we run `git commit`.
 
 ### ❔ Exercises
 
 1. Install pre-commit.
 
-    ```bash
-    pip install pre-commit
-    ```
+    === "Using pip"
 
-    Consider adding `pre-commit` to a `requirements_dev.txt` file, as it is a development tool.
+        ```bash
+        pip install pre-commit
+        ```
+
+        Consider adding `pre-commit` to a `requirements_dev.txt` file, as it is a development tool.
+
+    === "Using uv"
+
+        ```bash
+        uv add --dev pre-commit
+        ```
+
+        We add `pre-commit` as a development dependency since it is not needed for running the actual code. Alternatively,
+        we could install it globally using `uvx pre-commit` to be used across multiple projects.
 
 2. Next create the sample file:
 
-    ```bash
-    pre-commit sample-config > .pre-commit-config.yaml
-    ```
+    === "Using pip"
+
+        ```bash
+        pre-commit sample-config > .pre-commit-config.yaml
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
+        ```
 
 3. The sample file already contains 4 hooks. Make sure you understand what each does and if you need them at all.
 
 4. `pre-commit` works by hooking into the `git commit` command, running whenever that command is run. For this to work,
     we need to install the hooks into `git commit`. Run
 
-    ```bash
-    pre-commit install
-    ```
+    === "Using pip"
+
+        ```bash
+        pre-commit install
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run pre-commit install
+        ```
 
     to do this.
 
 5. Try to commit your recently created `.pre-commit-config.yaml` file. You will likely not do anything, because
     `pre-commit` only checks files that are being committed. Instead try to run
 
-    ```bash
-    pre-commit run --all-files
-    ```
+    === "Using pip"
+
+        ```bash
+        pre-commit run --all-files
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run pre-commit run --all-files
+        ```
 
     which will check every file in your repository.
 
@@ -156,6 +186,20 @@ This will make sure that the file is automatically executed whenever we run `git
     ```
 
 10. Finally, figure out how to disable `pre-commit` again (if you get tired of it).
+
+    ??? success "Solution"
+
+        === "Using pip"
+
+            ```bash
+            pre-commit uninstall
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv run pre-commit uninstall
+            ```
 
 11. Assuming you have completed the [module on GitHub Actions](github_actions.md), let's try to add a
     `pre-commit` workflow that automatically runs your `pre-commit` checks every time you push to your repository and
