@@ -64,9 +64,20 @@ The following exercises should be applied to your MNIST repository
 
 3. Install pytest:
 
-    ```bash
-    pip install pytest
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install pytest
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv add --dev pytest
+        ```
+
+        We add `pytest` as a development dependency since it is not needed for running the actual code. Alternatively,
+        we could install it globally using `uvx pytest` to be used across multiple projects.
 
 4. Write some tests. Below are some guidelines on some tests that should be implemented, but
     you are of course free to implement more tests. You can at any point check if your tests are
@@ -242,29 +253,50 @@ The following exercises should be applied to your MNIST repository
 
     1. Install coverage.
 
-        ```bash
-        pip install coverage
-        ```
+        === "Using pip"
+
+            ```bash
+            pip install coverage
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv add --dev coverage
+            ```
+
+            We add `coverage` as a development dependency since it is not needed for running the actual code.
+            Alternatively, we could install it globally using `uvx coverage` to be used across multiple projects.
 
     2. Instead of running your tests directly with `pytest`, now do:
 
-        ```bash
-        coverage run -m pytest tests/
-        ```
+        === "Using pip"
+
+            ```bash
+            coverage run -m pytest tests/
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv run coverage run -m pytest tests/
+            ```
 
     3. To get a simple coverage report simply type
 
-        ```bash
-        coverage report
-        ```
+        === "Using pip
 
-        which will give you the percentage of cover in each of your files. You can also write
+            ```bash
+            coverage report -m
+            ```
 
-        ```bash
-        coverage report -m
-        ```
+        === "Using uv"
 
-        to get the exact lines that were missed by your tests.
+            ```bash
+            uv run coverage report -m
+            ```
+
+        which will give you the percentage of cover in each of your files and also mark which lines are not covered.
 
     4. Finally, try to increase the coverage by writing a new test that runs some of the lines in your codebase that
         are not covered yet.
@@ -277,11 +309,21 @@ The following exercises should be applied to your MNIST repository
             You need to set the `omit` option. This can either be done when running `coverage run` or `coverage report`
             such as:
 
-            ```bash
-            coverage run --omit="tests/*" -m pytest tests/
-            # or
-            coverage report --omit="tests/*"
-            ```
+            === "Using pip"
+
+                ```bash
+                coverage run --omit="tests/*" -m pytest tests/
+                # or
+                coverage report --omit="tests/*"
+                ```
+
+            === "Using uv"
+
+                ```bash
+                uv run coverage run --omit="tests/*" -m pytest tests/
+                # or
+                uv run coverage report --omit="tests/*"
+                ```
 
             As an alternative you can specify this in your `pyproject.toml` file:
 
