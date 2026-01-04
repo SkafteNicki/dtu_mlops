@@ -132,11 +132,21 @@ your project code is installed in your environment such that it can be imported 
 1. We are going to need two Python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
     [material for mkdocs](https://pypi.org/project/mkdocs-material/). Install with
 
-    ```bash
-    pip install "mkdocs-material >= 4.8.0" # (1)!
-    ```
+    === "Using pip"
 
-    1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
+        ```bash
+        pip install "mkdocs-material >= 4.8.0" # (1)!
+        ```
+
+        1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
+
+    === "Using uv"
+
+        ```bash
+        uv add "mkdocs-material >= 4.8.0" # (1)!
+        ```
+
+        1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
 
 2. Run in your terminal (from the `docs` folder):
 

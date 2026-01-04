@@ -57,19 +57,35 @@ using the standard `pyproject.toml` file, as covered in this [module](code_struc
         The line instructs Python to create an executable script named `train` that executes the `main` function within
         the `train.py` file, located in the `my_project` package.
 
-2. Now, all that is left to do is to install the project again in editable mode.
+2. Now, all that is left to do is to run the project script:
 
-    ```bash
-    pip install -e .
-    ```
+    === "Using pip"
 
-    You should now be able to run the following command in the terminal:
+        For `pip` you most likely need to reinstall the project in editable mode for the changes to take effect.
 
-    ```bash
-    train
-    ```
 
-    Try it out and see if it works.
+        ```bash
+        pip install -e .
+        ```
+
+        You should now be able to run the following command in the terminal:
+
+        ```bash
+        train
+        ```
+
+        Try it out and see if it works.
+
+    === "Using uv"
+
+        For `uv` everything should work out of the box. You should now be able to run the following command in the
+        terminal:
+
+        ```bash
+        uv run train
+        ```
+
+        Try it out and see if it works.
 
 3. Add additional commands to your `pyproject.toml` file that allow you to run other scripts in your project from the
     terminal.
@@ -120,21 +136,39 @@ for doing this, and another excellent framework for creating command line interf
 
 1. Start by installing the `typer` package
 
-    ```bash
-    pip install typer
-    ```
+    === "Using pip"
 
-    and remember to add the package to your `requirements.txt` file.
+        ```bash
+        pip install typer
+        ```
+
+        and remember to add the package to your `requirements.txt` file.
+
+    === "Using uv"
+
+        ```bash
+        uv add typer
+        ```
 
 2. To get you started with `typer`, let's just create a simple hello world type of script. Create a new Python file
     called `greetings.py` and use the `typer` package to create a command line interface such that running the
     following lines
 
-    ```bash
-    python greetings.py            # should print "Hello World!"
-    python greetings.py --count=3  # should print "Hello World!" three times
-    python greetings.py --help     # should print the help message, informing the user of the possible arguments
-    ```
+    === "Using pip"
+
+        ```bash
+        python greetings.py            # should print "Hello World!"
+        python greetings.py --count=3  # should print "Hello World!" three times
+        python greetings.py --help     # should print the help message, informing the user of the possible arguments
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run greetings.py            # should print "Hello World!"
+        uv run greetings.py --count=3  # should print "Hello World!" three times
+        uv run greetings.py --help     # should print the help message, informing the user of
+        ```
 
     executes and gives the expected output. Relevant [documentation](https://typer.tiangolo.com/).
 
@@ -168,10 +202,19 @@ for doing this, and another excellent framework for creating command line interf
 
     Implement a CLI for the script such that the following commands can be run
 
-    ```bash
-    python iris_classifier.py --output 'model.ckpt'  # should train the model and save it to 'model.ckpt'
-    python iris_classifier.py -o 'model.ckpt'        # should be the same as above
-    ```
+    === "Using pip"
+
+        ```bash
+        python iris_classifier.py --output 'model.ckpt'  # should train the model and save it to 'model.ckpt'
+        python iris_classifier.py -o 'model.ckpt'        # should be the same as above
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run iris_classifier.py --output 'model.ckpt'  # should train the model
+        uv run iris_classifier.py -o 'model.ckpt'        # should be the same as above
+        ```
 
     ??? success "Solution"
 
@@ -186,10 +229,19 @@ for doing this, and another excellent framework for creating command line interf
 4. Next let's create a CLI that has more than a single command. Continue working in the basic machine learning
     application from the previous exercise, but this time we want to define two separate commands:
 
-    ```bash
-    python iris_classifier.py train --output 'model.ckpt'
-    python iris_classifier.py evaluate 'model.ckpt'
-    ```
+    === "Using pip"
+
+        ```bash
+        python iris_classifier.py train --output 'model.ckpt'     # should train the model and save it to 'model.ckpt'
+        python iris_classifier.py evaluate 'model.ckpt'           # should evaluate the model saved in 'model.ckpt'
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run iris_classifier.py train --output 'model.ckpt'     # should train the
+        uv run iris_classifier.py evaluate 'model.ckpt'           # should evaluate the model saved in 'model.ckpt'
+        ```
 
     ??? success "Solution"
 
@@ -205,10 +257,19 @@ for doing this, and another excellent framework for creating command line interf
     `remote` which in itself has multiple subcommands like `add`, `rename`, etc. Continue on the simple machine
     learning application from the previous exercises, but this time define a CLI for these commands:
 
-    ```bash
-    python iris_classifier.py train svm --kernel 'linear'
-    python iris_classifier.py train knn --n-neighbors 5
-    ```
+    === "Using pip"
+
+        ```bash
+        python iris_classifier.py train svm --kernel 'linear'     # should train an SVM with a linear kernel
+        python iris_classifier.py train knn --n-neighbors 5       # should train a KNN with 5 neighbors
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run iris_classifier.py train svm --kernel 'linear'     # should train an S
+        uv run iris_classifier.py train knn --n-neighbors 5       # should train a KNN with 5 neighbors
+        ```
 
     i.e., the `train` command now has two subcommands for training different machine learning models (in this case SVM
     and KNN) which each takes arguments that are unique to that model. Relevant
@@ -239,17 +300,20 @@ for doing this, and another excellent framework for creating command line interf
         greetings = "src.my_project.iris_classifier:app"
         ```
 
-        and remember to install the project in editable mode
+        to the `pyproject.toml` file and then we should be able to run
 
-        ```bash
-        pip install -e .
-        ```
+        === "Using pip"
 
-        and you should now be able to run the following command in the terminal
+            ```bash
+            python -m pip install -e .
+            greetings train svm --kernel 'linear'
+            ```
 
-        ```bash
-        iris_classifier train knn
-        ```
+        === "Using uv"
+
+            ```bash
+            uv run greetings train svm --kernel 'linear'
+            ```
 
 This covers the basics of `typer` but feel free to deep dive into how the package can help you custimize your CLIs.
 Checkout [this page](https://typer.tiangolo.com/tutorial/printing/) on adding colors to your CLI or
@@ -292,17 +356,38 @@ easier.
 
 1. Start by installing `invoke`
 
-    ```bash
-    pip install invoke
-    ```
+    === "Using pip"
 
-    and remember to add the package to your `requirements.txt` file.
+        ```bash
+        pip install invoke
+        ```
+
+        Consider adding `invoke` to a `requirements_dev.txt` file, as it is a development tool.
+
+    === "Using uv"
+
+        ```bash
+        uv add --dev invoke
+        ```
+
+        We add `invoke` as a development dependency since it is not needed for running the actual code. Alternatively,
+        we could install it globally using `uvx invoke` to be used across multiple projects.
 
 2. Add a `tasks.py` file to your repository and try to just run
 
-    ```bash
-    invoke --list
-    ```
+    === "Using pip"
+
+        ```bash
+        invoke --list
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run invoke --list
+        ```
+
+        personally, I like to create an shell alias for `uv run invoke` called just `uvi` to shorten the command.
 
     which should work but inform you that no tasks have been added yet.
 
@@ -324,16 +409,32 @@ easier.
     for running any command as we would run it in the terminal. In this case we have simply implemented a task that
     returns the current Python interpreter, but it works for all operating systems. Check that it works by running:
 
-    ```bash
-    invoke python
-    ```
+    === "Using pip"
+
+        ```bash
+        invoke python
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run invoke python
+        ```
 
 4. Let's try to create a task that simplifies the process of `git add`, `git commit`, `git push`. Create a task such
     that the following command can be run
 
-    ```bash
-    invoke git --message "My commit message"
-    ```
+    === "Using pip"
+
+        ```bash
+        invoke git --message "My commit message"
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run invoke git --message "My commit message"
+        ```
 
     Implement it and use the command to commit the taskfile you just created!
 
@@ -361,8 +462,8 @@ easier.
             is a good explanation of when/why you should use it.
         * `echo`: If set to `True` the command will be printed to the terminal before it is run.
 
-6. Create a command that simplifies the process of bootstrapping a `conda` environment and installs the relevant
-    dependencies of your project.
+6. (Optional, only relevant if you use conda) Create a command that simplifies the process of bootstrapping a `conda`
+    environment and installs the relevant dependencies of your project.
 
     ??? success "Solution"
 
@@ -399,9 +500,17 @@ easier.
 
         and try to run the following command
 
-        ```bash
-        invoke dvc --folder 'data' --message 'Add new data'
-        ```
+        === "Using pip"
+
+            ```bash
+            invoke dvc --folder 'data' --message 'Add new data'
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv run invoke dvc --folder 'data' --message 'Add new data'
+            ```
 
 8. As the final exercise, let's try to combine every way of defining CLIs we have learned about in this module. Define
     a task that does the following

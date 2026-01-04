@@ -34,8 +34,8 @@ and deploy it. The service is great for small applications that can be encapsula
 
 ### ❔ Exercises
 
-1. Go to the start page of `Cloud Functions`. It can be found in the sidebar on the homepage or you can just search for it.
-    Activate the service in the cloud console or use the following command:
+1. Go to the start page of `Cloud Functions`. It can be found in the sidebar on the homepage or you can just search for
+    it. Activate the service in the cloud console or use the following command:
 
     ```bash
     gcloud services enable cloudfunctions.googleapis.com
