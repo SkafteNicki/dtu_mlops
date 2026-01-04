@@ -204,8 +204,8 @@ int main() {
 }
 ```
 
-This is not required by Python but it can really improve the readability of code, since then you can directly read from the
-code what the expected types of input arguments and returns are. In Python the `:` character has been reserved for
+This is not required by Python but it can really improve the readability of code, since then you can directly read from
+the code what the expected types of input arguments and returns are. In Python the `:` character has been reserved for
 type hints. Here is one example of adding typing to a function:
 
 ```python

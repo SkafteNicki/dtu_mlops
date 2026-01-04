@@ -284,8 +284,8 @@ framework to do some of the heavy lifting you need to have gone through some imp
         Try doing this by logging something other than scalar tensors.
 
 8. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step`
-    and `test_step` to our lightning module and supply the respective data in the form of a separate dataloader. Try to at
-    least implement one of them.
+    and `test_step` to our lightning module and supply the respective data in the form of a separate dataloader. Try to
+    at least implement one of them.
 
     ??? success "Solution"
 

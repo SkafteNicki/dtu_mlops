@@ -264,8 +264,8 @@ a developer-friendly framework, though it has historically been slow to run infe
 
         ??? success "Solution"
 
-            To use the ONNX runtime to run a model, we first need to start an inference session, then extract the input and
-            output names of our model and finally run the model. The following code snippet shows how to do this.
+            To use the ONNX runtime to run a model, we first need to start an inference session, then extract the input
+            and output names of our model and finally run the model. The following code snippet shows how to do this.
 
             ```python
             import onnxruntime as rt
@@ -276,8 +276,8 @@ a developer-friendly framework, though it has historically been slow to run infe
             out = ort_session.run(output_names, batch)
             ```
 
-    2. Let's experiment with the performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes to
-        run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
+    2. Let's experiment with the performance of ONNX vs. PyTorch. Implement a benchmark that measures the time it takes
+        to run a model using PyTorch and ONNX. Bonus points if you test for multiple input sizes. To get you started we
         have implemented a timing decorator that you can use to measure the time it takes to run a function.
 
         ```python
@@ -500,7 +500,7 @@ EXAMPLE_INPUT = (
     "Breaking News: In an astonishing turn of events, the small town of Willow Creek has been taken by storm as "
     "local resident Jerry Thompson's cat, Whiskers, performed what witnesses are calling a 'miraculous and gravity-"
     "defying leap.' Eyewitnesses report that Whiskers, an otherwise unremarkable tabby cat, jumped a record-breaking "
-    "20 feet into the air to catch a fly. The event, which took place in Thompson's backyard, is now being investigated "
+    "20 feet into the air to catch a fly. The event, which took place in Thompsons backyard, is now being investigated "
     "by scientists for potential breaches in the laws of physics. Local authorities are considering a town festival to "
     "celebrate what is being hailed as 'The Leap of the Century.'"
 )

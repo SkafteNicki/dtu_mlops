@@ -518,9 +518,9 @@ metrics. This allows for better iteration of models and training procedure.
         `<artifact_dir>`. Make sure that you can load the model and that it is the same as the one you trained.
 
     5. Each model in the registry has at least one alias, which is the version of the model. The most recently added
-        model also receives the alias `latest`. Aliases are great for indicating where in the workflow a model is, e.g. if
-        it is a candidate for production or if it is a model that is still being developed. Try adding an alias to one
-        of your models in the registry.
+        model also receives the alias `latest`. Aliases are great for indicating where in the workflow a model is, e.g.
+        if it is a candidate for production or if it is a model that is still being developed. Try adding an alias to
+        one of your models in the registry.
 
     6. (Optional) A model always corresponds to an artifact, and artifacts can contain metadata that we can use to
         automate the process of registering models. We could for example imagine that we at the end of each week run
@@ -538,9 +538,9 @@ metrics. This allows for better iteration of models and training procedure.
     previous exercise; it needs to happen automatically. Let's therefore look into how we can do that.
 
     1. First we need to generate an authentication key, or more precisely an API key. This is in general the way any
-        service (like a docker container) can authenticate. Start by going to <https://wandb.ai/home>, click your profile
-        icon in the upper right corner and then go to `User settings`. Scroll down to the danger zone and generate a
-        new API key (if you do not already have one) and finally copy it.
+        service (like a docker container) can authenticate. Start by going to <https://wandb.ai/home>, click your
+        profile icon in the upper right corner and then go to `User settings`. Scroll down to the danger zone and
+        generate a new API key (if you do not already have one) and finally copy it.
 
     2. Next create a new dockerfile called `wandb.docker` and add the following code
 
