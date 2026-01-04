@@ -53,11 +53,20 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
 1. Start by installing Evidently.
 
-    ```python
-    pip install evidently
-    ```
+    === "Using pip"
 
-    You will also need `scikit-learn` and `pandas` installed if you do not already have them.
+        ```python
+        pip install evidently
+        pip install scikit-learn pandas  # also needed if you do not have them already
+        ```
+
+        and remember to add this to your `requirements.txt` file.
+
+    === "Using uv"
+
+        ```bash
+        uv add evidently scikit-learn pandas
+        ```
 
 2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
     deployment exercises about GCP functions you should have developed an application that can classify the
@@ -235,13 +244,13 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         ```
 
     1. Take a look at this [colab notebook](https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl)
-        that contains all the tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by default
-        and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your
+        that contains all the tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by
+        default and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your
         use case and get them all passing.
 
-5. (Optional) When doing monitoring in practice, we are not always interested in running on all the data collected from our
-    API, maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already logging
-    the timestamps of when our API is called we can use that for filtering. Implement a simple filter that
+5. (Optional) When doing monitoring in practice, we are not always interested in running on all the data collected from
+    our API, maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already
+    logging the timestamps of when our API is called we can use that for filtering. Implement a simple filter that
 
     * Takes an integer `n` and returns the last `n` entries in our database
     * Takes an integer `t` that filters out observations older than `t` hours
@@ -274,8 +283,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         * ...
 
         These are all numbers that can make up a feature vector for a given image. Try doing this yourself, for
-        example by extracting such features from the MNIST and FashionMNIST datasets, and check if you can detect a drift
-        between the two sets.
+        example by extracting such features from the MNIST and FashionMNIST datasets, and check if you can detect a
+        drift between the two sets.
 
         ??? success "Solution"
 
@@ -323,8 +332,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     http://127.0.0.1:8000/monitoring/  # monitoring endpoint
     ```
 
-    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suite. Try implementing
-    this endpoint.
+    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suite. Try
+    implementing this endpoint.
 
     ??? success "Solution"
 
@@ -353,10 +362,21 @@ The training data and the trained model are available to download from the follo
 be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
 Python package):
 
-```bash
-pip install gdown
-gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
-```
+=== "Using pip"
+
+    ```bash
+    pip install gdown
+    gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
+    ```
+
+    and remember to add this to your `requirements.txt` file.
+
+=== "Using uv"
+
+    ```bash
+    uv add gdown
+    uv run gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
+    ```
 
 And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
 train using a GPU. Overall the model achieves around 74% accuracy on a held-out test set. We recommend that you scroll
@@ -421,9 +441,17 @@ through the files to get an understanding of what is going on.
         time and date of the request). Implement both of these functionalities in the application. To interact with
         GCP buckets in Python you should install the `google-cloud-storage` package if you have not already done so.
 
-        ```bash
-        pip install google-cloud-storage
-        ```
+        === "Using pip"
+
+            ```bash
+            pip install google-cloud-storage
+            ```
+
+        === "Using uv"
+
+            ```bash
+            uv add google-cloud-storage
+            ```
 
         ??? success "Solution"
 
@@ -485,8 +513,8 @@ through the files to get an understanding of what is going on.
             which can then be used in the `client.py` script to call the deployed service.
 
 3. We now have a working application that we are ready to monitor for data drift in real time. We therefore now need to
-    write a FastAPI application that takes in the training data and the predicted data and runs evidently to check if the
-    data or the labels have drifted. Furthermore, we again provide a starting point for the application below.
+    write a FastAPI application that takes in the training data and the predicted data and runs evidently to check if
+    the data or the labels have drifted. Furthermore, we again provide a starting point for the application below.
 
     ```python linenums="1" title="sentiment_monitoring_starter.py"
     --8<-- "s8_monitoring/exercise_files/sentiment_monitoring_starter.py"
@@ -511,8 +539,8 @@ through the files to get an understanding of what is going on.
             --8<-- "s8_monitoring/exercise_files/sentiment_monitoring.py"
             ```
 
-    2. Test out the script locally. This can be done by downloading a couple of the request/response data points from the
-        bucket and running the script on this data.
+    2. Test out the script locally. This can be done by downloading a couple of the request/response data points from
+        the bucket and running the script on this data.
 
     3. Write a Dockerfile that containerizes the monitoring application.
 

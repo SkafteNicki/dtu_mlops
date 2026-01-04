@@ -51,9 +51,15 @@ We are going to do a couple of exercises on sending requests using the
 
 1. Start by installing the `requests`` package.
 
-    ```bash
-    pip install requests
-    ```
+    === "Using pip"
+        ```bash
+        pip install requests
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add requests
+        ```
 
 2. Afterwards, create a small script and try to execute the code:
 
@@ -223,17 +229,29 @@ you can look through for help.
 
 1. Install FastAPI.
 
-    ```bash
-    pip install fastapi
-    ```
+    === "Using pip"
+        ```bash
+        pip install fastapi
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install fastapi
+        ```
 
     This contains the functions, modules, and variables we are going to need to define our interface.
 
 2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
 
-    ```bash
-    pip install uvicorn[standard]
-    ```
+    === "Using pip"
+        ```bash
+        pip install uvicorn[standard]
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install "uvicorn[standard]"
+        ```
 
 3. Start by defining a small application like this in a file called `main.py`:
 

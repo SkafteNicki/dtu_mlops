@@ -41,3 +41,53 @@ root of the repository. This means that:
     `uv run invoke <task_name>`. Run `uv run invoke --list` to see all available tasks.
 - Project uses `pre-commit` for git hooks. Make sure to run the pre-commit hooks after making changes to the codebase:
     `uv run pre-commit`
+
+## Material mkdocs specific instructions
+
+The project uses the `material for mkdocs` theme for mkdocs. You can find the documentation for this theme here:
+<https://squidfunk.github.io/mkdocs-material/reference/>
+
+That said here is some general guidelines for features that are used in this repository:
+
+### Admonitions
+
+Admonitions are used to highlight important information in the course material, for example sometimes code snippets
+and solutions are inside admonitions. Example of admonitions used in the course material:
+
+```markdown
+!!! example "Simple script"
+
+    ```python linenums="1" title="sklearn_cloud_functions.py"
+    --8<-- "s7_deployment/exercise_files/sklearn_cloud_functions.py"
+    ```
+```
+
+And a collapsible admonition:
+
+```markdown
+??? success "Solution"
+
+    The line instructs Python to create an executable script named `train` that executes the `main` function within
+    the `train.py` file, located in the `my_project` package.
+```
+
+### Code snippets
+
+As showcased in the admonition example above, code snippets are often included from external files using the
+`--8<-- "path/to/file"` syntax. This ensures that the code snippets in the documentation are always in sync with the
+actual code files.
+
+### Content tabs
+
+Content tabs are used to group alternatives together, for example different ways to execute a command:
+
+```markdown
+=== "Using uv"
+    ```bash
+    uv run python script.py
+    ```
+=== "Using python directly"
+    ```bash
+    python script.py
+    ```
+```
