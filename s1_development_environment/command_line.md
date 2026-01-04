@@ -153,7 +153,8 @@ command line.
         ```
 
         To load the environment variables from the file, you can use the `python-dotenv` package. Install it with
-        `pip install python-dotenv` and then try to load the environment variables from the file and print them out.
+        `pip install python-dotenv` or `uv add python-dotenv` and then try to load the environment variables from the
+        file and print them out.
 
         ```python
         from dotenv import load_dotenv
