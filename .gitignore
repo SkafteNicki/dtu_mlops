@@ -165,6 +165,8 @@ bert_sentiment_model.pt
 prediction*.json
 **/service_account_key.json
 corruptmnist_v1/
+data/corruptmnist_v1/¨
+data/
 corruptmnist_v2/
 tools/repo_stats/report.py
 tools/repo_stats/README.md
