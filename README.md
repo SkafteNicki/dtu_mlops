@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center">Machine Learning Operations</h1>
+    <h1 align="center">Machine Learning Operations EDITED</h1>
     <p align="center">Repository for <a href="https://kurser.dtu.dk/course/02476">course 02476</a> at DTU.</p>
     <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
 </p>
