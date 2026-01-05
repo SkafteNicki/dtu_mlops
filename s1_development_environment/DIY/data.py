@@ -16,7 +16,7 @@ def corrupt_mnist():
     # Define a transform to normalize the data
     transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 
-    BASE_DIR = Path(__file__).resolve().parent.parent
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
     DATA_DIR = BASE_DIR / "data" / "corrupt_mnist"
 
     train_images = []
