@@ -46,7 +46,20 @@ rest to a "recommended value".
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 
 1. Start by installing optuna:
-    `pip install optuna`
+
+    === "Using pip"
+
+        ```bash
+        pip install optuna
+        ```
+
+        and remember to add this to your `requirements.txt` file.
+
+    === "Using uv"
+
+        ```bash
+        uv add optuna
+        ```
 
 2. Initially we will look at the `cross_validate.py` file. It implements simple K-fold cross validation of
     a random forest sklearn digits dataset (subset of MNIST). Look over the script and try to run it.

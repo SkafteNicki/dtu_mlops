@@ -91,16 +91,38 @@ developers are adding new features. (1)
 
 1. Install `ruff`.
 
-    ```bash
-    pip install ruff
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install ruff
+        ```
+
+        Consider adding `ruff` to a `requirements_dev.txt` file, as it is a development tool.
+
+    === "Using uv"
+
+        ```bash
+        uv add --dev ruff
+        ```
+
+        We add `ruff` as a development dependency since it is not needed for running the actual code. Alternatively,
+        we could install it globally using `uvx ruff` to be used across multiple projects.
 
 2. Run `ruff` on your project or part of your project.
 
-    ```bash
-    ruff check .  # Lint all files in the current directory (and any subdirectories)
-    ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
-    ```
+    === "Using pip"
+
+        ```bash
+        ruff check .  # Lint all files in the current directory (and any subdirectories)
+        ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run ruff check .  # Lint all files in the current directory (and any subdirectories)
+        uv run ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
+        ```
 
     Are you PEP8-compliant or are you a mere mortal?
 
@@ -112,10 +134,19 @@ be a drop-in replacement for `black`.
 
 1. Try to use `ruff format` to format your code.
 
-    ```bash
-    ruff format .  # Format all files in the current directory.
-    ruff format /path/to/file.py  # Format a single file.
-    ```
+    === "Using pip"
+
+        ```bash
+        ruff format .  # Format all files in the current directory.
+        ruff format /path/to/file.py  # Format a single file.
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run ruff format .  # Format all files in the current directory.
+        uv run ruff format /path/to/file.py  # Format a single file.
+        ```
 
 By default `ruff` will apply a selection of rules when we are either checking it or formatting it. However, many more
 rules can be activated through [configuration](https://docs.astral.sh/ruff/configuration/). If you have completed
@@ -173,8 +204,8 @@ int main() {
 }
 ```
 
-This is not required by Python but it can really improve the readability of code, since then you can directly read from the
-code what the expected types of input arguments and returns are. In Python the `:` character has been reserved for
+This is not required by Python but it can really improve the readability of code, since then you can directly read from
+the code what the expected types of input arguments and returns are. In Python the `:` character has been reserved for
 type hints. Here is one example of adding typing to a function:
 
 ```python
@@ -252,15 +283,42 @@ help us at all. Therefore, use `Any` only when necessary.
     typing in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code,
     but it scans it and checks that the types you have given are compatible. Install `mypy`.
 
-    ```bash
-    pip install mypy
-    ```
+    === "Using pip"
+
+        ```bash
+        pip install mypy
+        ```
+
+        Consider adding `mypy` to a `requirements_dev.txt` file, as it is a development tool.
+
+    === "Using uv"
+
+        ```bash
+        uv add --dev mypy
+        ```
+
+        We add `mypy` as a development dependency since it is not needed for running the actual code. Alternatively,
+        we could install it globally using `uvx mypy` to be used across multiple projects.
+
+    !!! info
+
+        An alternative to `mypy` is [ty](https://docs.astral.sh/ty/) developed by the same team as `uv` and `ruff`. `ty`
+        is still in beta so may be rough around the edges, but it is also significantly faster than `mypy` and will
+        probably be adopted by many projects in the near future. Feel free to try `ty` instead of `mypy` if you want to.
 
 3. Try to run `mypy` on the `typing.py` file
 
-    ```bash
-    mypy typing_exercise.py
-    ```
+    === "Using pip"
+
+        ```bash
+        mypy typing_exercise.py
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv run mypy typing_exercise.py
+        ```
 
     If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your
     types are incompatible.

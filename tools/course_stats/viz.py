@@ -24,8 +24,8 @@ app = typer.Typer()
 @app.command()
 def plot_students():
     """Plot the number of students over the years."""
-    year = [2021, 2022, 2023, 2024, 2025]
-    students = [60, 102, 196, 275, 374]
+    year = [2021, 2022, 2023, 2024, 2025, 2026]
+    students = [60, 102, 196, 275, 374, 450]
 
     # Calculate year-over-year percentage increase
     percentage_increase = [0]  # No increase for the first year
