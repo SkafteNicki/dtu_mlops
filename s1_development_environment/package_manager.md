@@ -415,7 +415,19 @@ to make it work.
             uv python pin 3.13
             ```
 
-    8. (Optional) `uv` also supports the notion of *tools* which are external command line tools that you may use in
+    8. Assume you have a friend wonking on the same project as you and they are using `pip` together with good old
+        `requirements.txt` files. How do you create a `requirements.txt` file from your `uv` project?
+
+        ??? success "Solution"
+
+            Relevant documentation can be found
+            [here](https://docs.astral.sh/uv/concepts/projects/sync/#exporting-the-lockfile).
+
+            ```bash
+            uv export --format requirements.txt
+            ```
+
+    9. (Optional) `uv` also supports the notion of *tools* which are external command line tools that you may use in
         multiple projects. Examples of such tools are `black`, `ruff`, `pytest` and so on (all which you will encounter
         later in the course). These tools can be installed globally on your system by using the `uvx` (or `uv tool`):
         command:
