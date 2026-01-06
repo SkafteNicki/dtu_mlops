@@ -1131,6 +1131,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "codespell" },
+    { name = "cookiecutter" },
     { name = "invoke" },
     { name = "ipython" },
     { name = "markdown-exec", extra = ["ansi"] },
@@ -1192,6 +1193,7 @@ exercises = [
 [package.metadata]
 requires-dist = [
     { name = "codespell", specifier = ">=2.4.1" },
+    { name = "cookiecutter", specifier = ">=2.6.0" },
     { name = "invoke", specifier = ">=2.2" },
     { name = "ipython", specifier = ">=9.0.2" },
     { name = "markdown-exec", extras = ["ansi"], specifier = ">=1.10" },

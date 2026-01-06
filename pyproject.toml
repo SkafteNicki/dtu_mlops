@@ -13,6 +13,7 @@ classifiers = [
 ]
 dependencies = [
   "codespell>=2.4.1",
+  "cookiecutter>=2.6.0",
   "invoke>=2.2",
   "ipython>=9.0.2",
   "markdown-exec[ansi]>=1.10",
