@@ -3,7 +3,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-
+from typing import Callable, Optional, Tuple, Union, List 
 
 def train():
     """Train and evaluate the model."""
