@@ -14,8 +14,10 @@ classifiers = [
 dependencies = [
   "codespell>=2.4.1",
   "invoke>=2.2",
+  "ipykernel>=7.1.0",
   "ipython>=9.0.2",
   "markdown-exec[ansi]>=1.10",
+  "matplotlib>=3.10.8",
   "mkdocs-exclude>=1.0.2",
   "mkdocs-git-revision-date-localized-plugin>=1.4.5",
   "mkdocs-glightbox>=0.4",
@@ -25,6 +27,8 @@ dependencies = [
   "pre-commit>=4.1",
   "pymdown-extensions>=10.14.3",
   "ruff>=0.14.5",
+  "torch>=2.9.1",
+  "torchvision>=0.24.1",
 ]
 
 [dependency-groups]
