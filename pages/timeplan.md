@@ -18,8 +18,7 @@ in. During each project day we will have office hours for you to ask questions r
 Below is an overall time plan for each day, including the presentation topic of the day and the frameworks that you will
 be using in the exercises.
 
-Recordings (link to drive folder with mp4 files):
-
+* [🎥2026 Lectures](https://panopto.dtu.dk/Panopto/Pages/Sessions/List.aspx?folderID=51273d06-22f1-4cb0-bc87-b3c900e41fc7)
 * [🎥2025 Lectures](https://panopto.dtu.dk/Panopto/Pages/Sessions/List.aspx?folderID=14eeb1b7-5c39-4547-b7c3-b25d007cecd1)
 * [🎥2024 Lectures](https://drive.google.com/drive/folders/1mgLlvfXUT9xdg9EZusgeWAmfpUDSwfL6?usp=sharing)
 * [🎥2023 Lectures](https://drive.google.com/drive/folders/1j56XyHoPLjoIEmrVcV_9S1FBkXWZBK0w?usp=sharing)

@@ -41,6 +41,13 @@ improvements over PyTorch and TensorFlow but is still evolving. Given their diff
 This course uses PyTorch due to its intuitive nature and its prevalence in our research. Currently, PyTorch is the
 dominant framework for published models, research papers, and competition winners.
 
+<figure markdown>
+![Image](../figures/pytorch_dominates.png){ width="800" }
+<figcaption>
+<a href="https://www.linuxfoundation.org/hubfs/LF%20Research/lfr_genai24_111924.pdf?hsLang=en"> Image credit </a>
+</figcaption>
+</figure>
+
 The intention behind this set of exercises is to get everyone's PyTorch skills up to date. If you're already a
 PyTorch-Jedi, feel free to skip the first set of exercises, but I still recommend that you go through them. The
 exercises are in large part taken directly from the
@@ -60,11 +67,95 @@ For a refresher on deep learning topics, consult the relevant chapters in the
 literature folder). While expertise in deep learning is not required to pass this course, a basic understanding of the
 concepts is beneficial. The course focuses on the software aspects of deploying deep learning models in production.
 
+## A note on installing Pytorch
+
+Pytorch is a huge library with many dependencies. As writing this, if you naively install Pytorch like this
+
+```bash
+pip install torch
+```
+
+in a new virtual environment, this will result in a disk usage of around 6.6 GB! This is not a problem if you have to
+do it one time, but what you will experience throughout this course you will end up downloading and installing your
+project dependencies over and over again for different reasons (new virtual environments, containers, continues
+integration systems etc.). For this reason, it is worth considering how you install Pytorch.
+
+When naively installing Pytorch, you will fetch whatever build is available on PyPI which is most likely a GPU enabled
+build. But if you do not have a GPU in your computer, you should instead install the CPU only build. For comparison,
+the CPU only build of Pytorch is around 729 MB on disk. Usually, I always recommend going to Pytorch's
+[homepage](https://pytorch.org/get-started/locally/) and use their selector to get the correct installation command for
+your system.
+
+<figure markdown>
+![Image](../figures/install_pytorch.png){ width="800" }
+<figcaption>
+<a href="https://pytorch.org/get-started/locally/"> Image credit </a>
+</figcaption>
+</figure>
+
+Here are some general installation commands for Pytorch:
+
+=== "Using pip"
+
+    For `pip` install you can basically follow the instructions on the Pytorch homepage. Here are some common
+    installation commands:
+
+    ```bash
+    # CPU only
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+    # GPU enabled
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+    ```
+
+    If you want this to be part of your `requirements.txt` file, it needs to looks something like this:
+
+    ```txt
+    --index-url https://download.pytorch.org/whl/cu126
+    --extra-index-url https://pypi.org/simple
+
+    torch
+    # other dependencies
+    ```
+
+    The reason we need both `--index-url` and `--extra-index-url` is that we need to force `pip` to look for Pytorch
+    packages in the Pytorch repository, but we also want to be able to install other packages from PyPI.
+
+=== "Using uv"
+
+    `uv` has dedicated a [full page](https://docs.astral.sh/uv/guides/integration/pytorch/) to installing Pytorch, which
+    I recommend you check out. Here is an example of how to configure your `pyproject.toml` file to install only CPU
+    version of Pytorch using `uv`:
+
+    ```toml
+    [project]
+    name = "project"
+    version = "0.1.0"
+    requires-python = ">=3.14.0"
+    dependencies = [
+        "torch>=2.9.1",
+    ]
+
+    [tool.uv.sources]
+    torch = [
+        { index = "pytorch-cpu" },
+    ]
+
+    [[tool.uv.index]]
+    name = "pytorch-cpu"
+    url = "https://download.pytorch.org/whl/cpu"
+    explicit = true
+    ```
+
 ### ❔ Exercises
 
 <!-- markdownlint-disable -->
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
+
+!!! tip "Notebooks and `uv`
+
+    If you are using `uv` as your package manager, you may need to restart the Jupyter Notebook kernel after installing
+    new packages to ensure that the newly installed packages are recognized within the notebook environment.
 
 1. Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
     Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
@@ -98,7 +189,7 @@ concepts is beneficial. The course focuses on the software aspects of deploying 
     notebook. This notebook addresses how to save and load model weights. This is important if you want to share a
     model with someone else.
 
-## 🧠 Knowledge check
+### 🧠 Knowledge check
 
 1. If tensor `a` has shape `[N, d]` and tensor `b` has shape `[M, d]` how can we calculate the pairwise distance
     between rows in `a` and `b` without using a for loop?
@@ -150,7 +241,7 @@ concepts is beneficial. The course focuses on the software aspects of deploying 
         to update the weights. `optimizer.step()` is in charge of updating the weights. If this is not done, then the
         weights will not be updated and the model will not learn anything.
 
-### Final exercise
+### ❔ Final exercise
 
 As the final exercise, we will develop a simple baseline model that we will continue to develop during the course.
 For this exercise, we provide a corrupted subset of the [MNIST](https://en.wikipedia.org/wiki/MNIST_database) dataset
