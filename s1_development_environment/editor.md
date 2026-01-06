@@ -60,7 +60,7 @@ The instructions below are specific to Visual Studio Code, but we recommend that
 if using another editor. In the `exercise_files` folder belonging to this session, we have put cheat sheets for VS Code
 (one for Windows and one for Mac/Linux) that can give you an easy overview of the different macros in VS Code. The
 following exercises are just to get you started, but you can find many more tutorials
-[here](https://code.visualstudio.com/docs/python/python-tutorial).
+[in the VS Code Python tutorial](https://code.visualstudio.com/docs/python/python-tutorial).
 
 1. VS Code is a versatile editor that supports many languages. For Python development, install the following extensions:
 
@@ -121,13 +121,19 @@ opinions on Jupyter notebooks that exist within the developer community.
 All this said, there exists one simple tool to make notebooks work better in a production setting. It's called
 `nbconvert` and can be installed with
 
-```bash
-pip install nbconvert
-```
+=== "Using pip"
+    ```bash
+    pip install nbconvert
+    ```
+
+=== "Using uv"
+    ```bash
+    uv add nbconvert
+    ```
 
 You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
-[here](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After this, converting a
-notebook to a `.py` script is as simple as:
+[in the nbconvert documentation](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After
+this, converting a notebook to a `.py` script is as simple as:
 
 ```bash
 jupyter nbconvert --to=script my_notebook.ipynb
@@ -203,8 +209,20 @@ code you are currently writing and in general just has access to a larger contex
     print(model(torch.randn(1, 1, 14, 14)))
     ```
 
-    and run it in the terminal: `python copilot.py`. It will naturally give you an error, but you can now ask GitHub
-    Copilot for help. The easiest way to do this is by highlighting the output in the terminal and then running
+    and run it in the terminal:
+
+    === "Using python"
+        ```bash
+        python copilot.py
+        ```
+
+    === "Using uv"
+        ```bash
+        uv run copilot.py
+        ```
+
+    It will naturally give you an error, but you can now ask GitHub Copilot for help. The easiest way to do this is by
+    highlighting the output in the terminal and then running
     the `GitHub Copilot: Explain This (Terminal)` command (see the image below, use `Ctrl+Shift+P` to open the command
     palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
     the code running?

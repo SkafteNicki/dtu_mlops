@@ -89,9 +89,10 @@ as a group.
 
 3. (Optional) If you want to think more about the product design of your project, feel free to fill out the
     [ML canvas](https://madewithml.com/static/templates/ml-canvas.pdf) (or part of it). You can read more about the
-    different fields on canvas [here](https://madewithml.com/courses/mlops/product-design/).
+    different fields in the canvas
+    [from this page on product design](https://madewithml.com/courses/mlops/product-design/).
 
-4. After having done the product description, you can start on the actual coding of the project. In the next section,
+4. After having done the project description, you can start on the actual coding of the project. In the next section,
     a to-do list is attached that summaries what we are doing in the course. You are NOT expected to fulfill all bullet
     points from week 1 today.
 

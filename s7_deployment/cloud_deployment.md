@@ -34,8 +34,8 @@ and deploy it. The service is great for small applications that can be encapsula
 
 ### ❔ Exercises
 
-1. Go to the start page of `Cloud Functions`. It can be found in the sidebar on the homepage or you can just search for it.
-    Activate the service in the cloud console or use the following command:
+1. Go to the start page of `Cloud Functions`. It can be found in the sidebar on the homepage or you can just search for
+    it. Activate the service in the cloud console or use the following command:
 
     ```bash
     gcloud services enable cloudfunctions.googleapis.com
@@ -485,8 +485,8 @@ deploying containers.
     2. If you then try to access either the `/upload/` or `/files/` endpoints you should see that the application at
         this point is unable to read or write to the folder location, because it is not mounted to the container yet.
         Mounting a volume can either be done though the command line or through the UI. You can read how to do
-        [here](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#mount-volume). Add a
-        volume to your cloud run service and try to access the endpoints again making sure you can read and write.
+        [in the cloud storage volume mounts guide](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#mount-volume).
+        Add a volume to your cloud run service and try to access the endpoints again making sure you can read and write.
 
         ??? success "Solution"
 
@@ -531,6 +531,6 @@ both sections, we have explicitly chosen to work with *serverless* deployments. 
 opposite, i.e., being the one in charge of the management of the cluster that handles the deployed services? If you are
 interested in taking deployment to the next level, you should get started on *Kubernetes* which is the de-facto
 open-source container orchestration platform that is used in production environments. If you want to deep dive we
-recommend starting [here](https://cloud.google.com/ai-platform/pipelines/docs), which describes how to make pipelines
-that are a necessary component before you start to
+recommend starting [with the AI Platform Pipelines documentation](https://cloud.google.com/ai-platform/pipelines/docs),
+which describes how to make pipelines that are a necessary component before you start to
 [create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own Kubernetes cluster.

@@ -1,8 +1,9 @@
 name: Pre-commit CI
 
 on:
-  pull_request:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
 
 jobs:
@@ -10,28 +11,14 @@ jobs:
     name: Check pre-commit
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: 3.11
 
     - name: Install pre-commit
       uses: pre-commit/action@v3.0.1
-      continue-on-error: true
-
-    - name: List modified files
-      run: |
-        git diff --name-only
-
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: Pre-commit fixes
-        commit_options: '--no-verify'

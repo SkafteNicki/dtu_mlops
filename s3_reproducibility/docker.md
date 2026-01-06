@@ -170,19 +170,30 @@ beneficial for you to download.
     `train.dockerfile`. The intention is that we want to develop one Dockerfile for running our training script and
     one for making predictions.
 
-10. Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we are
-    going to start from a simple `python` image. Add the following to your `Dockerfile`:
+10. Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we have
+    two options: using a simple `python` image or using a `uv`-based image for faster dependency installation:
 
-    ```docker
-    # Base image
-    FROM python:3.11-slim
-    ```
+    === "Using pip"
+
+        ```docker
+        # Base image
+        FROM python:3.12-slim
+        ```
+
+    === "Using uv"
+
+        ```docker
+        # Base image
+        FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+        ```
+
+        The `uv` image comes with both Python and `uv` pre-installed, which will significantly speed up dependency
+        installation.
 
 11. Next, we are going to install some essentials in our image. The essentials more or less consist of a Python
-    installation. These instructions may seem familiar if you are using Linux:
+    installation and build tools. These instructions may seem familiar if you are using Linux:
 
     ```docker
-    # Install Python
     RUN apt update && \
         apt install --no-install-recommends -y build-essential gcc && \
         apt clean && rm -rf /var/lib/apt/lists/*
@@ -213,24 +224,43 @@ beneficial for you to download.
             :man_raising_hand: As an alternative, you can use `RUN make requirements` if you have a `Makefile` that
             installs the dependencies. Just remember to also copy over the `Makefile` into the Docker image.
 
-        ```dockerfile
-        WORKDIR /
-        RUN pip install -r requirements.txt --no-cache-dir
-        RUN pip install . --no-deps --no-cache-dir
-        ```
+        === "Using pip"
 
-        The `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to
-        Docker?
+            ```dockerfile
+            WORKDIR /
+            RUN pip install -r requirements.txt --no-cache-dir
+            RUN pip install . --no-deps --no-cache-dir
+            ```
+
+            The `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to
+            Docker?
+
+        === "Using uv"
+
+            ```dockerfile
+            WORKDIR /
+            RUN uv sync --locked --no-cache
+            ```
+
+            The `--no-cache` is quite important. Can you explain what it does and why it is important in relation to
+            Docker? And what does the `--locked` flag do?
 
     3. Finally, we are going to name our training script as the *entrypoint* for our Docker image. The *entrypoint* is
         the application that we want to run when the image is executed:
 
-        ```docker
-        ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
-        ```
+        === "Using pip
 
-        The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets redirected to
-        our terminal. If not included, you would need to use `docker logs` to inspect your run.
+            ```docker
+            ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
+            ```
+            The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets
+            redirected to our terminal. If not included, you would need to use `docker logs` to inspect your run.
+
+        === "Using uv"
+
+            ```docker
+            ENTRYPOINT ["uv", "run", "src/<project-name>/train.py"]
+            ```
 
 13. We are now ready to build our Dockerfile into a Docker image.
 
@@ -291,15 +321,27 @@ beneficial for you to download.
     the same time by giving them all different names using the `--name` tag.
 
     1. You are most likely going to rebuild your Docker image multiple times, either due to an implementation error
-        or the addition of new functionality. Therefore, instead of watching pip suffer through downloading `torch` for
-        the 20th time, you can reuse the cache from the last time the Docker image was built. To do this, replace the line
-        in your Dockerfile that installs your requirements with:
+        or the addition of new functionality. Therefore, instead of watching your package manager download `torch` for
+        the 20th time, you can reuse the cache from the last time the Docker image was built. To do this, replace the
+        line in your Dockerfile that installs your requirements with:
 
-        ```bash
-        RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
-        ```
+        === "Using pip"
+            ```dockerfile
+            RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt --no-cache-dir
+            ```
 
-        which mounts your local pip cache to the Docker image. For building the image, you need to have enabled the
+            which mounts your local pip cache to the Docker image.
+
+        === "Using uv"
+            ```dockerfile
+            ENV UV_LINK_MODE=copy
+            RUN --mount=type=cache,target=/root/.cache/uv uv sync
+            ```
+
+            which mounts your local uv cache to the Docker image, see
+            [documentation](https://docs.astral.sh/uv/guides/integration/docker/#caching).
+
+        For building the image with cache mounts, you need to have enabled the
         [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature. If you have Docker
         version v23.0 or later (you can check this by running `docker version`), then this is enabled by default.
         Otherwise, you need to enable it by setting the environment variable `DOCKER_BUILDKIT=1` before building the
@@ -387,8 +429,8 @@ beneficial for you to download.
         ```
 
         but it may differ based on what Cuda version you have. You can find all the different official Nvidia images
-        [here](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi` command
-        inside a container based on the image you just pulled. It should look something like this:
+        [on Docker Hub](https://hub.docker.com/r/nvidia/cuda). After pulling the image, try running the `nvidia-smi`
+        command inside a container based on the image you just pulled. It should look something like this:
 
         ```bash
         docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
@@ -407,7 +449,7 @@ beneficial for you to download.
         Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
         through their [NGC Catalog](https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc).
         The containers that have to do with PyTorch can be seen
-        [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html).
+        [in the PyTorch release notes](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html).
         Try pulling the latest one:
 
         ```bash
@@ -465,26 +507,46 @@ beneficial for you to download.
         [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
         extension.
 
-    2. Create a `.devcontainer` folder in your project root and create a `Dockerfile` inside it. We will keep this file very
-        barebones for now, so let's just define a base installation of Python:
+    2. Create a `.devcontainer` folder in your project root and create a `Dockerfile` inside it. We will keep this file
+        very barebones for now, so let's just define a base installation of Python:
 
-        ```docker
-        FROM python:3.11-slim
+        === "Using pip"
+            ```docker
+            FROM python:3.12-slim
 
-        RUN apt update && \
-            apt install --no-install-recommends -y build-essential gcc && \
-            apt clean && rm -rf /var/lib/apt/lists/*
-        ```
+            RUN apt update && \
+                apt install --no-install-recommends -y build-essential gcc && \
+                apt clean && rm -rf /var/lib/apt/lists/*
+            ```
+
+        === "Using uv"
+            ```docker
+            FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
+            RUN apt update && \
+                apt install --no-install-recommends -y build-essential gcc && \
+                apt clean && rm -rf /var/lib/apt/lists/*
+            ```
 
     3. Create a `devcontainer.json` file in the `.devcontainer` folder. This file should look something like this:
 
-        ```json
-        {
-            "name": "my_working_env",
-            "dockerFile": "Dockerfile",
-            "postCreateCommand": "pip install -r requirements.txt"
-        }
-        ```
+        === "Using pip"
+            ```json
+            {
+                "name": "my_working_env",
+                "dockerFile": "Dockerfile",
+                "postCreateCommand": "pip install -r requirements.txt"
+            }
+            ```
+
+        === "Using uv"
+            ```json
+            {
+                "name": "my_working_env",
+                "dockerFile": "Dockerfile",
+                "postCreateCommand": "uv sync --locked"
+            }
+            ```
 
         This file tells VS Code that we want to use the `Dockerfile` that we just created and that we want to install
         our Python dependencies after the container has been created.
@@ -517,13 +579,25 @@ beneficial for you to download.
 
     1. Add the following lines to your Dockerfile
 
-        ```dockerfile
-        RUN dvc init --no-scm
-        COPY .dvc/config .dvc/config
-        COPY *.dvc .dvc/
-        RUN dvc config core.no_scm true
-        RUN dvc pull
-        ```
+        === "Using pip"
+
+            ```dockerfile
+            RUN dvc init --no-scm
+            COPY .dvc/config .dvc/config
+            COPY *.dvc .dvc/
+            RUN dvc config core.no_scm true
+            RUN dvc pull
+            ```
+
+        === "Using uv"
+
+            ```dockerfile
+            RUN uv run dvc init --no-scm
+            COPY .dvc/config .dvc/config
+            COPY *.dvc .dvc/
+            RUN uv run dvc config core.no_scm true
+            RUN uv run dvc pull
+            ```
 
         The first line initializes `dvc` in the Docker image. The `--no-scm` option is needed because normally `dvc` can
         only be initialized inside a git repository, but this option allows initializing `dvc` without being in one.

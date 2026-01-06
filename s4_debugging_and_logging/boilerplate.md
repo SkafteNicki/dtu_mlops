@@ -161,13 +161,17 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
 1. Install pytorch lightning:
 
-    ```bash
-    pip install pytorch-lightning # (1)!
-    ```
+    === "Using pip"
 
-    1. :man_raising_hand: You may also install it as `pip install lightning` which includes more than just the
-        `PyTorch Lightning` package. This also includes `Lightning Fabric` and `Lightning Apps` which you can read more
-        about [here](https://lightning.ai/docs/fabric/stable/) and [here](https://lightning.ai/docs/app/stable/).
+        ```bash
+        pip install pytorch-lightning
+        ```
+
+    === "Using uv"
+
+        ```bash
+        uv add pytorch-lightning
+        ```
 
 2. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely overwrite your old
     model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
@@ -280,8 +284,8 @@ framework to do some of the heavy lifting you need to have gone through some imp
         Try doing this by logging something other than scalar tensors.
 
 8. Finally, we maybe also want to do some validation or testing. In lightning we just need to add the `validation_step`
-    and `test_step` to our lightning module and supply the respective data in the form of a separate dataloader. Try to at
-    least implement one of them.
+    and `test_step` to our lightning module and supply the respective data in the form of a separate dataloader. Try to
+    at least implement one of them.
 
     ??? success "Solution"
 

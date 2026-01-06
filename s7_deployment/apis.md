@@ -39,10 +39,10 @@ The common request methods are (case sensitive):
 * POST/PUT: send data to the server
 * DELETE: delete data on the server
 
-You can read more about the different methods [here](https://dev.to/adidoshi/http-request-methods-16ik). For most
-machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read more
-about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol, but
-the TLDR is that it provides privacy, integrity and identification over the web.
+You can read more about the different methods [in this HTTP request methods guide](https://dev.to/adidoshi/http-request-methods-16ik).
+For most machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read
+more about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol,
+but the TLDR is that it provides privacy, integrity and identification over the web.
 
 ### ❔ Exercises
 
@@ -51,9 +51,15 @@ We are going to do a couple of exercises on sending requests using the
 
 1. Start by installing the `requests`` package.
 
-    ```bash
-    pip install requests
-    ```
+    === "Using pip"
+        ```bash
+        pip install requests
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add requests
+        ```
 
 2. Afterwards, create a small script and try to execute the code:
 
@@ -223,17 +229,29 @@ you can look through for help.
 
 1. Install FastAPI.
 
-    ```bash
-    pip install fastapi
-    ```
+    === "Using pip"
+        ```bash
+        pip install fastapi
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install fastapi
+        ```
 
     This contains the functions, modules, and variables we are going to need to define our interface.
 
 2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
 
-    ```bash
-    pip install uvicorn[standard]
-    ```
+    === "Using pip"
+        ```bash
+        pip install uvicorn[standard]
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install "uvicorn[standard]"
+        ```
 
 3. Start by defining a small application like this in a file called `main.py`:
 

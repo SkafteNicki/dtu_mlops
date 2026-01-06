@@ -40,11 +40,19 @@ get the current state of the metrics. The metrics are exposed in a format called
 
 1. Start by installing the Prometheus python client.
 
-    ```bash
-    pip install prometheus-client
-    ```
+    === "Using pip"
 
-    Remember to add the package to your `requirements.txt` file.
+        ```bash
+        pip install prometheus-client
+        ```
+
+        and remember to add this to your `requirements.txt` file.
+
+    === "Using uv"
+
+        ```bash
+        uv add prometheus-client
+        ```
 
 2. Before getting started on the coding part, we first need to understand the different kinds of metrics that Prometheus
     allows for us to specify. Look through the [documentation](https://prometheus.io/docs/concepts/metric_types/) and
@@ -181,10 +189,10 @@ running alongside the main container and can be used to do things such as collec
     </figure>
 
 3. To expose our own metrics we need to set up a sidecar container. To do this follow the instructions
-    [here](https://cloud.google.com/stackdriver/docs/managed-prometheus/cloudrun-sidecar#default-configuration). We have
-    created a simple example that uses FastAPI and Prometheus that you can find
-    [here](https://github.com/SkafteNicki/gcp_monitoring_test). After you have correctly created the sidecar container
-    you should be able to see your custom metrics in the monitoring tab.
+    [in the Cloud Run sidecar guide](https://cloud.google.com/stackdriver/docs/managed-prometheus/cloudrun-sidecar#default-configuration).
+    We have created a simple example that uses FastAPI and Prometheus that you can find
+    [in this example repository](https://github.com/SkafteNicki/gcp_monitoring_test). After you have correctly created
+    the sidecar container you should be able to see your custom metrics in the monitoring tab.
 
 ## Alert systems
 
