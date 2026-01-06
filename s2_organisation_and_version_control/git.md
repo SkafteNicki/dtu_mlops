@@ -260,6 +260,7 @@ working together on the same project.
             hint: preference for all repositories. You can also pass --rebase, --no-rebase,
             hint: or --ff-only on the command line to override the configured default per
             hint: invocation.
+
             ```
 
             In general we recommend setting `git config pull.rebase false` to merge the changes. This is the default
