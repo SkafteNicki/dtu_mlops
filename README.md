@@ -9,6 +9,7 @@
 </p>
 
 ## ℹ️ Course information
+<!-- minor doc tweak for Git exercise -->
 
 * Course responsible
     * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
