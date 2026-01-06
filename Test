@@ -1,0 +1,490 @@
+[33mcommit 33e3454bd5e44c4029da8f27b868f0f2fc370376[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Magnus <s235638@dtu.dk>
+Date:   Tue Jan 6 09:39:42 2026 +0100
+
+    123
+
+[33mcommit 3a646997b895f8c78fc8d22d564fd2a148d4e335[m
+Merge: 12d0cc77 8919ade1
+Author: MagnusHX <s235638@dtu.dk>
+Date:   Mon Jan 5 20:08:12 2026 +0100
+
+    Merge branch 'main' of https://github.com/SkafteNicki/dtu_mlops
+
+[33mcommit 12d0cc771422dec8b9ceb93154293b9fb5f881ec[m
+Author: MagnusHX <s235638@dtu.dk>
+Date:   Mon Jan 5 20:08:09 2026 +0100
+
+    123
+
+[33mcommit 8919ade1fe7f85f0a323e45e9e11da60a676e75e[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Mon Jan 5 14:52:00 2026 +0100
+
+    update recording 2026
+
+[33mcommit 897e134b7c4667663ac8bffdfee03425038bbd9c[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Mon Jan 5 10:31:04 2026 +0100
+
+    add uv tree solution
+
+[33mcommit af0c111989de3b77c3ae52402f070f9800be1b77[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Mon Jan 5 10:13:25 2026 +0100
+
+    fix solution
+
+[33mcommit 102619afa2feb37376d4e1acdc39037d5892f318[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Mon Jan 5 06:55:07 2026 +0100
+
+    note on installing pytorch
+
+[33mcommit 5c36195c49378ab1ab47b34662424311b109335a[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:55:58 2026 +0100
+
+    Auto-update pre-commit hooks (#451)
+    
+    * Auto-update pre-commit hooks
+    
+    * Pre-commit fixes
+    
+    ---------
+    
+    Co-authored-by: SkafteNicki <24896311+SkafteNicki@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 65e83f6d75f362b3f288e525d4d5f83dac1c77d1[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:53:33 2026 +0100
+
+    Bump locust from 2.42.3 to 2.42.5 (#457)
+    
+    Bumps [locust](https://github.com/locustio/locust) from 2.42.3 to 2.42.5.
+    - [Release notes](https://github.com/locustio/locust/releases)
+    - [Changelog](https://github.com/locustio/locust/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/locustio/locust/compare/2.42.3...2.42.5)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: locust
+      dependency-version: 2.42.5
+      dependency-type: direct:production
+      update-type: version-update:semver-patch
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 4cd7f0172e05545ed30ec50a017eae0c117d793c[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:53:18 2026 +0100
+
+    Bump actions/checkout from 5 to 6 (#453)
+    
+    Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6.
+    - [Release notes](https://github.com/actions/checkout/releases)
+    - [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+    - [Commits](https://github.com/actions/checkout/compare/v5...v6)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: actions/checkout
+      dependency-version: '6'
+      dependency-type: direct:production
+      update-type: version-update:semver-major
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit a074af06cc8296923b986b267e6e36ef133589ca[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:53:07 2026 +0100
+
+    Bump invoke from 2.2.0 to 2.2.1 (#456)
+    
+    Bumps [invoke](https://github.com/pyinvoke/invoke) from 2.2.0 to 2.2.1.
+    - [Commits](https://github.com/pyinvoke/invoke/compare/2.2.0...2.2.1)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: invoke
+      dependency-version: 2.2.1
+      dependency-type: direct:production
+      update-type: version-update:semver-patch
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 9a3d65721cea7a28c22505e69f2964b00cde6c4a[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:52:57 2026 +0100
+
+    Bump ruff from 0.14.5 to 0.14.6 (#454)
+    
+    Bumps [ruff](https://github.com/astral-sh/ruff) from 0.14.5 to 0.14.6.
+    - [Release notes](https://github.com/astral-sh/ruff/releases)
+    - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+    - [Commits](https://github.com/astral-sh/ruff/compare/0.14.5...0.14.6)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: ruff
+      dependency-version: 0.14.6
+      dependency-type: direct:production
+      update-type: version-update:semver-patch
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 7b8725eb00780aa42bcbf739fd8d64f0a950cd2a[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:52:46 2026 +0100
+
+    Bump mkdocs-glightbox from 0.4.0 to 0.5.2 (#455)
+    
+    Bumps [mkdocs-glightbox](https://github.com/blueswen/mkdocs-glightbox) from 0.4.0 to 0.5.2.
+    - [Release notes](https://github.com/blueswen/mkdocs-glightbox/releases)
+    - [Changelog](https://github.com/blueswen/mkdocs-glightbox/blob/main/CHANGELOG)
+    - [Commits](https://github.com/blueswen/mkdocs-glightbox/compare/v0.4.0...v0.5.2)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: mkdocs-glightbox
+      dependency-version: 0.5.2
+      dependency-type: direct:production
+      update-type: version-update:semver-minor
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit e085db9328b2b609b9da5d04c364f5b273cd8a4b[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:52:36 2026 +0100
+
+    Bump astral-sh/setup-uv from 6 to 7 (#452)
+    
+    Bumps [astral-sh/setup-uv](https://github.com/astral-sh/setup-uv) from 6 to 7.
+    - [Release notes](https://github.com/astral-sh/setup-uv/releases)
+    - [Commits](https://github.com/astral-sh/setup-uv/compare/v6...v7)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: astral-sh/setup-uv
+      dependency-version: '7'
+      dependency-type: direct:production
+      update-type: version-update:semver-major
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 4baab66370df1c9545a7b0e85276571180ea8c60[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jan 4 13:52:27 2026 +0100
+
+    Bump pymdown-extensions from 10.14.3 to 10.17.1 (#444)
+    
+    Bumps [pymdown-extensions](https://github.com/facelessuser/pymdown-extensions) from 10.14.3 to 10.17.1.
+    - [Release notes](https://github.com/facelessuser/pymdown-extensions/releases)
+    - [Commits](https://github.com/facelessuser/pymdown-extensions/compare/10.14.3...10.17.1)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: pymdown-extensions
+      dependency-version: 10.17.1
+      dependency-type: direct:production
+      update-type: version-update:semver-minor
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 1fa25710cf4960d9b3f92793e84f60a7908d491e[m
+Author: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+Date:   Sun Jan 4 13:50:38 2026 +0100
+
+    Add support for uv in material (#460)
+    
+    * update uv install instructions
+    
+    * update extra modules
+    
+    * update inference
+    
+    * update s8
+    
+    * dvc module
+    
+    * finish up package manager
+    
+    * update code structure
+    
+    * update dvc instructions
+    
+    * finish docker
+    
+    * adding to s4
+    
+    * adding to good coding practices
+    
+    * unittests
+    
+    * pre-commit module
+    
+    * fix cli
+    
+    * github actions
+    
+    * smaller fixes
+    
+    * final smaller fix
+    
+    * fix ci
+    
+    * fix misalign in tables
+    
+    * skip table
+
+[33mcommit 6347e4d9fb482eb0a66b4e5ad5ba7a09dc848a33[m
+Author: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+Date:   Fri Jan 2 09:12:59 2026 +0100
+
+    Update Slack channel invitation link in README
+
+[33mcommit 5f7465bf776461a93dba67df9bd54d14ac70f98b[m
+Author: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+Date:   Mon Dec 8 06:44:01 2025 +0100
+
+    Update schedule dates for week 2 presentations
+
+[33mcommit 0492096093029c1f5df30c0d63e70ec4779fbeec[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Nov 18 12:01:05 2025 +0100
+
+    Bump pydantic from 2.11.10 to 2.12.4 (#447)
+    
+    Bumps [pydantic](https://github.com/pydantic/pydantic) from 2.11.10 to 2.12.4.
+    - [Release notes](https://github.com/pydantic/pydantic/releases)
+    - [Changelog](https://github.com/pydantic/pydantic/blob/v2.12.4/HISTORY.md)
+    - [Commits](https://github.com/pydantic/pydantic/compare/v2.11.10...v2.12.4)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: pydantic
+      dependency-version: 2.12.4
+      dependency-type: direct:production
+      update-type: version-update:semver-minor
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
+[33mcommit ce51ffe7f8fc52a2bc78f9b60d32fc30300ee80f[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Nov 18 11:43:13 2025 +0100
+
+    Bump requests from 2.32.3 to 2.32.5 (#445)
+    
+    Bumps [requests](https://github.com/psf/requests) from 2.32.3 to 2.32.5.
+    - [Release notes](https://github.com/psf/requests/releases)
+    - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+    - [Commits](https://github.com/psf/requests/compare/v2.32.3...v2.32.5)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: requests
+      dependency-version: 2.32.5
+      dependency-type: direct:production
+      update-type: version-update:semver-patch
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit b46f64ceb77ec90f970e83391c35bb38308df5e6[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Nov 18 11:29:23 2025 +0100
+
+    Bump mkdocs-git-revision-date-localized-plugin from 1.4.5 to 1.5.0 (#446)
+    
+    Bumps [mkdocs-git-revision-date-localized-plugin](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin) from 1.4.5 to 1.5.0.
+    - [Release notes](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin/releases)
+    - [Commits](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin/compare/v1.4.5...v1.5.0)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: mkdocs-git-revision-date-localized-plugin
+      dependency-version: 1.5.0
+      dependency-type: direct:production
+      update-type: version-update:semver-minor
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 91a3c1873c8431056361f5a6517c18cacfa9e751[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Nov 18 11:06:33 2025 +0100
+
+    Bump prefect from 3.5.0 to 3.6.2 (#448)
+    
+    Bumps [prefect](https://github.com/PrefectHQ/prefect) from 3.5.0 to 3.6.2.
+    - [Release notes](https://github.com/PrefectHQ/prefect/releases)
+    - [Commits](https://github.com/PrefectHQ/prefect/compare/3.5.0...3.6.2)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: prefect
+      dependency-version: 3.6.2
+      dependency-type: direct:production
+      update-type: version-update:semver-minor
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 3374526949b14604d90cdae06e033045b90d6153[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Nov 18 11:00:25 2025 +0100
+
+    Bump google-github-actions/auth from 2 to 3 (#449)
+    
+    Bumps [google-github-actions/auth](https://github.com/google-github-actions/auth) from 2 to 3.
+    - [Release notes](https://github.com/google-github-actions/auth/releases)
+    - [Changelog](https://github.com/google-github-actions/auth/blob/main/CHANGELOG.md)
+    - [Commits](https://github.com/google-github-actions/auth/compare/v2...v3)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: google-github-actions/auth
+      dependency-version: '3'
+      dependency-type: direct:production
+      update-type: version-update:semver-major
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+
+[33mcommit 0a3dd01117b45bc6f53a24d3781aed4777af65f8[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Nov 18 10:54:45 2025 +0100
+
+    Bump actions/setup-python from 5 to 6 (#450)
+    
+    Bumps [actions/setup-python](https://github.com/actions/setup-python) from 5 to 6.
+    - [Release notes](https://github.com/actions/setup-python/releases)
+    - [Commits](https://github.com/actions/setup-python/compare/v5...v6)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: actions/setup-python
+      dependency-version: '6'
+      dependency-type: direct:production
+      update-type: version-update:semver-major
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
+[33mcommit 0fe6df097e4766b5b90857092c47c6476a2d2ea0[m
+Author: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
+Date:   Tue Nov 18 09:36:02 2025 +0100
+
+    Update project to use uv + updating deps (#443)
+    
+    * update workflow checkout version
+    
+    * move all requirements to uv
+    
+    * update workflows to use uv
+
+[33mcommit bd3104488dedf2a3d9ca41f133ba2d7b31df9eed[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Tue Nov 18 08:47:16 2025 +0100
+
+    update link check config
+
+[33mcommit bb7a2c1c5d81feb18a83309b464cf72e55935c89[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Tue Nov 18 07:41:52 2025 +0100
+
+    update linkcheck config
+
+[33mcommit 3e67fc9dc7a393eaa366bff27fa75053588118c8[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Tue Nov 18 07:27:50 2025 +0100
+
+    update pre commit
+
+[33mcommit 300e4c5043699020889d2fda656403ca36579fcb[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Tue Nov 18 07:26:41 2025 +0100
+
+    fix markdownlint issues
+
+[33mcommit 8bf4a439fa1fa6fc1fa2fb34fb9ca947b4793944[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Tue Nov 18 06:27:48 2025 +0100
+
+    update timeplan for 26
+
+[33mcommit e9035aabf04208ae73f734b04a454fb1067437ea[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Mon Sep 29 10:55:23 2025 +0200
+
+    add convert to pdf tool
+
+[33mcommit 10b760216322c228f504ef39287f44759a65e56f[m
+Author: Nicki Skafte <skaftenicki@gmail.com>
+Date:   Tue Jul 1 15:11:23 2025 +0200
+
+    add qa app
+
+[33mcommit 709c63b0bedb0902118dd873beabd3240c577473[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Tue Apr 22 13:54:10 2025 +0200
+
+    Bump ruff from 0.9.9 to 0.11.6 (#393)
+    
+    * Bump ruff from 0.9.9 to 0.11.6
+    
+    Bumps [ruff](https://github.com/astral-sh/ruff) from 0.9.9 to 0.11.6.
+    - [Release notes](https://github.com/astral-sh/ruff/releases)
+    - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+    - [Commits](https://github.com/astral-sh/ruff/compare/0.9.9...0.11.6)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: ruff
+      dependency-version: 0.11.6
+      dependency-type: direct:production
+      update-type: version-update:semver-minor
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    
+    * fixes
+    
+    ---------
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+    Co-authored-by: Nicki Skafte Detlefsen <skaftenicki@gmail.com>
