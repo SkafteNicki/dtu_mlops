@@ -1,8 +1,6 @@
 import torch
 from torch import nn
-##############
-# test box   #
-##############
+
 class Network(nn.Module):
     """Builds a feedforward network with arbitrary hidden layers.
 
