@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 import numpy as np
+import torch.nn.functional as F
 
 class Network(nn.Module):
     """Builds a feedforward network with arbitrary hidden layers.
