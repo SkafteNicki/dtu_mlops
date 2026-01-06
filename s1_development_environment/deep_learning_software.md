@@ -95,7 +95,6 @@ your system.
 
 Here are some general installation commands for Pytorch:
 
-
 === "Using pip"
 
     For `pip` install you can basically follow the instructions on the Pytorch homepage. Here are some common
