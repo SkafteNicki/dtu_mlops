@@ -255,9 +255,7 @@ to make it work.
         ??? success "Solution"
 
             ```bash
-            uv pip list
-            # or
-            uv tree
+            uv venv list
             ```
 
 4. The above is the very basic of `uv` and is actually not the recommended way of using `uv`. Instead, `uv` works best
