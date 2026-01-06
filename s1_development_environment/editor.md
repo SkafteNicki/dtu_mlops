@@ -121,15 +121,9 @@ opinions on Jupyter notebooks that exist within the developer community.
 All this said, there exists one simple tool to make notebooks work better in a production setting. It's called
 `nbconvert` and can be installed with
 
-=== "Using pip"
-    ```bash
-    pip install nbconvert
-    ```
-
-=== "Using uv"
-    ```bash
-    uv add nbconvert
-    ```
+```bash
+pip install nbconvert
+```
 
 You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
 [in the nbconvert documentation](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After
@@ -209,20 +203,8 @@ code you are currently writing and in general just has access to a larger contex
     print(model(torch.randn(1, 1, 14, 14)))
     ```
 
-    and run it in the terminal:
-
-    === "Using python"
-        ```bash
-        python copilot.py
-        ```
-
-    === "Using uv"
-        ```bash
-        uv run copilot.py
-        ```
-
-    It will naturally give you an error, but you can now ask GitHub Copilot for help. The easiest way to do this is by
-    highlighting the output in the terminal and then running
+    and run it in the terminal: `python copilot.py`. It will naturally give you an error, but you can now ask GitHub
+    Copilot for help. The easiest way to do this is by highlighting the output in the terminal and then running
     the `GitHub Copilot: Explain This (Terminal)` command (see the image below, use `Ctrl+Shift+P` to open the command
     palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
     the code running?

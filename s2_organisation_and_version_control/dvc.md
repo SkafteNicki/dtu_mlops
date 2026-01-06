@@ -10,7 +10,7 @@
 
     Since August 2024, Google has changed their policy for the Google Drive API. This means that the proceduce for
     setting up DVC with Google Drive has changed. The following exercises therefore need extra authentication to work.
-    You therefore have three options:
+    You therefore have two options:
 
     1. Skip these exercises for now. We are going to revisit DVC later in the course when we get access to a more
         permanent storage solution in this [module](../s6_the_cloud/using_the_cloud.md).
@@ -20,12 +20,6 @@
         instructions
         [here](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended).
         for setting up a custom Google Cloud project.
-
-    3. Another alternative is that you can use a local remote storage instead of Google Drive. If you are a DTU student,
-        this could be the DTU HPC system. Assuming you have access to
-        [DTU HPC via SSH](https://www.hpc.dtu.dk/?page_id=2501), you can more or less follow the steps below but instead
-        of adding Google Drive as remote storage, you can add a
-        [local remote via SSH](https://doc.dvc.org/user-guide/data-management/remote-storage/ssh).
 
 In this module, we are going to return to version control. However, this time we are going to focus on version control
 of data. The reason we need to separate between standard version control and data version control comes down to one
@@ -84,53 +78,29 @@ it contains excellent tutorials.
 
 2. Next, install DVC and the Google Drive extension
 
-    === "Using pip"
-
-        ```bash
-        pip install dvc
-        pip install dvc-gdrive
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv add dvc dvc-gdrive
-        ```
+    ```bash
+    pip install dvc
+    pip install dvc-gdrive
+    ```
 
     If you installed DVC via pip and plan to use cloud services as remote storage, you might need to install these
     optional dependencies: `[s3]`, `[azure]`, `[gdrive]`, `[gs]`, `[oss]`, `[ssh]`. Alternatively, use `[all]` to
     include them all. If you encounter that the installation fails, we recommend that you start by updating pip and then
     trying to update `dvc`:
 
-    === "Using pip"
-
-        ```bash
-        pip install -U pip
-        pip install -U dvc-gdrive
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv update -U dvc-gdrive
-        ```
+    ```bash
+    pip install -U pip
+    pip install -U dvc-gdrive
+    ```
 
     If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
     you follow the instructions [in the pygit2 installation guide](https://github.com/libgit2/pygit2/blob/master/docs/install.rst#advanced).
 
 3. In your MNIST repository run the following command from the terminal:
 
-    === "Using pip"
-
-        ```bash
-        dvc init
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run dvc init
-        ```
+    ```bash
+    dvc init
+    ```
 
     This will set up `dvc` for this repository (similar to how `git init` will initialize a git repository).
     These files should be committed using standard `git` to your repository.
@@ -144,17 +114,9 @@ it contains excellent tutorials.
 
     Using this identifier, add it as remote storage.
 
-    === "Using pip"
-
-        ```bash
-        dvc remote add -d storage gdrive://<your_identifier>
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run dvc remote add -d storage gdrive://<your_identifier>
-        ```
+    ```bash
+    dvc remote add -d storage gdrive://<your_identifier>
+    ```
 
 5. Check the content of the file `.dvc/config`. Does it contain a pointer to your remote storage? Afterwards, make sure
     to add this file to the next commit we are going to make:
@@ -207,7 +169,7 @@ it contains excellent tutorials.
     ```bash
     git clone <my_repository>
     cd <my_repository>
-    dvc pull  # or uv run dvc pull
+    dvc pull
     ```
 
     (assuming that you give them access rights to the folder in your drive). Try doing this (in some other location
@@ -218,19 +180,10 @@ it contains excellent tutorials.
     [Google Drive folder](https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing)
     or by running these two commands:
 
-    === "Using pip"
-
-        ```bash
-        pip install gdown
-        gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv add gdown
-        uv run gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
-        ```
+    ```bash
+    pip install gdown
+    gdown --folder 'https://drive.google.com/drive/folders/1JTjbom7IrB41Chx6uxLCN16ZwIxHHVw1?usp=sharing'
+    ```
 
     Copy the data to your `data/raw` folder and then rerun your data pipeline to incorporate the new data into the
     files in your `processed` folder. The new data should be 4 files with train images and 4 files with train targets,
@@ -246,7 +199,7 @@ it contains excellent tutorials.
 
     ```bash
     git checkout v1.0
-    dvc checkout  # or uv run dvc checkout
+    dvc checkout
     ```
 
     Confirm that you have reverted to the original data.
@@ -283,11 +236,11 @@ working with a dataset that consists of many small files, it can be a
     ??? success "Solution"
 
         ```bash
-        dvc add data/  # or uv run dvc add data/
+        dvc add data/
         git add .
         git commit -m "added raw data"
         git push
-        dvc push  # or uv run dvc push
+        dvc push
         ```
 
 That's all for today. With the combined power of `git` and `dvc` we should be able to version control everything in

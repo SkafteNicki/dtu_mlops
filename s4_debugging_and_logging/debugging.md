@@ -34,17 +34,9 @@ To invoke the built-in Python debugger you can either:
 * Additionally, if your program is stopping on an error and you automatically want to start the debugger where it
     happens, then you can simply launch the program like this from the terminal
 
-    === "Using pip"
-
-        ```bash
-        python -m pdb my_script.py
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run python -m pdb -c continue my_script.py
-        ```
+    ```bash
+    python -m pdb -c continue my_script.py
+    ```
 
 ## ❔ Exercises
 
