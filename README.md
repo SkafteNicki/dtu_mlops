@@ -8,7 +8,7 @@
   <img src="figures/mlops_cycle.png" width="1000">
 </p>
 
-## ℹ️ Course information - Hellooooooo
+## ℹ️ Course information - Hello test
 
 * Course responsible
     * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
