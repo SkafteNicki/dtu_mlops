@@ -184,7 +184,7 @@ to make it work.
     `uv` has a bit of a learning curve but is more structured and easier to manage in the long run. In the end, both
     approaches are valid and it is mostly a matter of personal preference which one you choose.
 
-## ❔ Exercises (uv)
+## ❔ Exercises (uv) - uv is cooler than conda
 
 1. Download and install `uv` following the
     [official installation guide](https://docs.astral.sh/uv/getting-started/installation/). Verify your installation
