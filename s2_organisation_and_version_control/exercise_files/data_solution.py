@@ -1,5 +1,6 @@
 import torch
 import typer
+import random
 
 
 def normalize(images: torch.Tensor) -> torch.Tensor:
