@@ -186,8 +186,8 @@ make changes to the course material. When you have something that you want to co
 
 ## ❕ License
 
-I highly value open source, and the content of this course is therefore free to use under the Apache 2.0 license.
-If you use parts of this course in your work, please cite using:
+I highly value open source, and the content of this course is therefore free (FREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE) to use under the Apache 2.0 license.
+If you use parts of this course in your work, please cite using: 
 
 ```bibtex
 @misc{skafte_mlops,
@@ -197,3 +197,5 @@ If you use parts of this course in your work, please cite using:
     year         = {2024}
 }
 ```
+
+YEP THAT's MEEE
