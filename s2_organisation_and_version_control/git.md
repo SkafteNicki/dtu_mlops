@@ -166,7 +166,7 @@ working together on the same project.
     1. Go online and find a project you do not own, where you can improve the code. You can either look at this
         [page](https://goodfirstissue.dev/) of good issues to get started with or for simplicity you can just choose
         [the repository belonging to the course](https://github.com/SkafteNicki/dtu_mlops). Now fork the project by
-        clicking the *Fork* button.
+        clicking the *fork* button.
 
         ![forking](../figures/forking.PNG)
 

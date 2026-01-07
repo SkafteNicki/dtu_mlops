@@ -340,7 +340,6 @@ your head around where files are located.
         uvx invoke
         # then you can execute the tasks
         uvx invoke preprocess-data  # runs the data.py file
-        uvx invoke requirements     # installs all requirements in the requirements.txt file
         uvx invoke train            # runs the train.py file
         # or get a list of all tasks
         uvx invoke --list
