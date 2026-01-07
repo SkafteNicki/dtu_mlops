@@ -204,12 +204,23 @@ beneficial for you to download.
 
     1. Let's copy over our application (the essential parts) from our computer to the container:
 
-        ```docker
-        COPY requirements.txt requirements.txt
-        COPY pyproject.toml pyproject.toml
-        COPY src/ src/
-        COPY data/ data/
-        ```
+        === "Using pip"
+
+            ```docker
+            COPY requirements.txt requirements.txt
+            COPY pyproject.toml pyproject.toml
+            COPY src/ src/
+            COPY data/ data/
+            ```
+            
+        === "Using uv"
+
+            ```docker
+            COPY uv.lock uv.lock
+            COPY pyproject.toml pyproject.toml
+            COPY src/ src/
+            COPY data/ data/
+            ```
 
         Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
         each of these files/folders to run training in our Docker container?
