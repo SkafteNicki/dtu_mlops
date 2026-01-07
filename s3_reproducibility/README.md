@@ -12,7 +12,7 @@
 
 - ![](../figures/icons/hydra.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to use `hydra` to manage configuration files and how to integrate them into your code.
+    Learn how to use `hydra` to manage configuration files, and how to integrate them into your code.
 
     [:octicons-arrow-right-24: M11: Config Files](config_files.md)
 
