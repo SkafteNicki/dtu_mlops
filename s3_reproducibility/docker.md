@@ -204,12 +204,24 @@ beneficial for you to download.
 
     1. Let's copy over our application (the essential parts) from our computer to the container:
 
-        ```docker
-        COPY requirements.txt requirements.txt
-        COPY pyproject.toml pyproject.toml
-        COPY src/ src/
-        COPY data/ data/
-        ```
+        === "Using pip"
+
+            ```docker
+            COPY requirements.txt requirements.txt
+            COPY pyproject.toml pyproject.toml
+            COPY src/ src/
+            COPY data/ data/
+            ```
+
+        === "Using uv"
+
+            ```docker
+            COPY uv.lock uv.lock
+            COPY pyproject.toml pyproject.toml
+            COPY README.md README.md
+            COPY src/ src/
+            COPY data/ data/
+            ```
 
         Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
         each of these files/folders to run training in our Docker container?
@@ -239,7 +251,7 @@ beneficial for you to download.
 
             ```dockerfile
             WORKDIR /
-            RUN uv sync --locked --no-cache
+            RUN uv sync --locked --no-cache --no-install-project
             ```
 
             The `--no-cache` is quite important. Can you explain what it does and why it is important in relation to
@@ -253,6 +265,7 @@ beneficial for you to download.
             ```docker
             ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
             ```
+
             The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets
             redirected to our terminal. If not included, you would need to use `docker logs` to inspect your run.
 
@@ -347,7 +360,9 @@ beneficial for you to download.
         Otherwise, you need to enable it by setting the environment variable `DOCKER_BUILDKIT=1` before building the
         image.
 
-        Try changing your Dockerfile and rebuilding the image. You should see that the build process is much faster.
+        Try changing your Dockerfile and rebuild the image twice e.g. first time running `docker build ...` it will
+        still take some time as it needs to fill up the cache. The second time you run `docker build ...` you should see
+        that the build process is much faster.
 
 15. Remember, if you are ever in doubt about how files are organized inside a Docker image, you always have the option
     of starting the image in interactive mode:
