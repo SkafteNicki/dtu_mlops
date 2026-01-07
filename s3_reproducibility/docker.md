@@ -250,7 +250,7 @@ beneficial for you to download.
 
             ```dockerfile
             WORKDIR /
-            RUN uv sync --locked --no-cache
+            RUN uv sync --locked --no-cache --no-install-project
             ```
 
             The `--no-cache` is quite important. Can you explain what it does and why it is important in relation to
@@ -358,7 +358,9 @@ beneficial for you to download.
         Otherwise, you need to enable it by setting the environment variable `DOCKER_BUILDKIT=1` before building the
         image.
 
-        Try changing your Dockerfile and rebuilding the image. You should see that the build process is much faster.
+        Try changing your Dockerfile and rebuild the image twice e.g. first time running `docker build ...` it will
+        still take some time as it needs to fill up the cache. The second time you run `docker build ...` you should see
+        that the build process is much faster.
 
 15. Remember, if you are ever in doubt about how files are organized inside a Docker image, you always have the option
     of starting the image in interactive mode:
