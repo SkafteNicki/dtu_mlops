@@ -212,7 +212,7 @@ beneficial for you to download.
             COPY src/ src/
             COPY data/ data/
             ```
-            
+
         === "Using uv"
 
             ```docker
