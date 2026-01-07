@@ -66,7 +66,7 @@ Yes, PhD students from other universities can attend the course. You can check o
 you can contact <phdcourses@dtu.dk> for more information. Do note that the registration deadline is usually in beginning
 of December.
 
-## I am a foreign student and my home university doesn't accept pass/not pass, what can I do ❔
+## I am a foreign student and my home university doesn't accept pass/no-pass, what can I do ❔
 
 We can give a grade on the Danish
 [7-point grading](https://ufm.dk/en/education/the-danish-education-system/grading-system) scale for foreign students who
