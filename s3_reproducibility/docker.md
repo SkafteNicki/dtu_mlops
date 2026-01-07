@@ -218,6 +218,7 @@ beneficial for you to download.
             ```docker
             COPY uv.lock uv.lock
             COPY pyproject.toml pyproject.toml
+            COPY README.md README.md
             COPY src/ src/
             COPY data/ data/
             ```
@@ -264,6 +265,7 @@ beneficial for you to download.
             ```docker
             ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
             ```
+
             The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets
             redirected to our terminal. If not included, you would need to use `docker logs` to inspect your run.
 
