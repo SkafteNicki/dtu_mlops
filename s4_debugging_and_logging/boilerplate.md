@@ -74,7 +74,7 @@ actual training, automating everything that you do not want to worry about.
 from pytorch_lightning import Trainer
 model = MyAwesomeModel()  # this is our LightningModule
 trainer = Trainer()
-traier.fit(model)
+trainer.fit(model)
 ```
 
 That's essentially all that you need to specify in lightning to have a working model. The trainer object does not
