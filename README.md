@@ -4,6 +4,8 @@
     <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
 </p>
 
+
+
 <p align="center">
   <img src="figures/mlops_cycle.png" width="1000">
 </p>
