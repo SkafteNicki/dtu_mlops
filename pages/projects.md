@@ -242,8 +242,8 @@ checklist for the exam. The parenthesis at the end indicates what module the bul
 
 ## Exam
 
-From January 2025 the exam only consist of a project report. The report should be handed in at midnight on the final day
-of the course. For January 2025, this means the 24th. We provide template folder called
+From January 2026 the exam only consist of a project report. The report should be handed in at midnight on the final day
+of the course. For January 2026, this means the 23th. We provide template folder called
 [reports](https://github.com/SkafteNicki/dtu_mlops/tree/main/reports). As the first task you should copy the folder and
 all its content to your project repository. Then, you job is to fill out the `README.md` file which contains the report
 template. The file itself contains instructions on how to fill it out and instructions on using the included `report.py`
