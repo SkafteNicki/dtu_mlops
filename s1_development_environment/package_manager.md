@@ -120,7 +120,7 @@ comparison of Python environment management and packaging tools, see
 
 If you're new to package managers, I will recommend that you use `uv`. It is becoming the de facto standard in the
 Python community due to its speed and ease of use. It combines the best features of `pip` and `conda`, allowing you to
-create virtual environments and manage dependencies seamlessly, including for multiple python versions. The alternative
+create virtual environments and manage dependencies seamlessly, including for multiple Python versions. The alternative
 (which has been the recommended approach for many years) is to use `conda` for creating virtual environments and `pip`
 for installing packages within those environments.
 
