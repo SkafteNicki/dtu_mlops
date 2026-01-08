@@ -1,6 +1,6 @@
 # Debugging, Profiling, Logging and Boilerplate
 
-[Slides](../slides/DebuggingML.pdf){ .md-button }
+[Slides](../slides/day4_debugging_ML_code.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 

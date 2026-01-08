@@ -217,7 +217,7 @@ metrics. This allows for better iteration of models and training procedure.
     use (HINT: if you forgot to copy the API key, you can find it under settings), but make sure that you do not share
     it with anyone or leak it in any way.
 
-    ??? tip ".env file"
+    !!! tip ".env file"
 
         A good place to store not only your wandb API key but also other sensitive information is in a `.env` file.
         This file should be added to your `.gitignore` file to make sure that it is not uploaded to your repository.
@@ -274,8 +274,11 @@ metrics. This allows for better iteration of models and training procedure.
 4. We are now ready to incorporate `wandb` into our code. We are going to continue development on our corrupt MNIST
     codebase from the previous sessions. For help, we recommend looking at this
     [quickstart](https://docs.wandb.ai/quickstart) and this [guide](https://docs.wandb.ai/guides/integrations/pytorch)
-    for PyTorch applications. You first job is to alter your training script to include `wandb` logging, at least for
-    the training loss.
+    for PyTorch applications. Your first job is to alter your training script to include `wandb` logging which at
+    least does the following:
+
+    * Logs the hyperparameters of the model (the configuration).
+    * Logs the training loss and tranining accuracy at each training step.
 
     ??? success "Solution"
 
@@ -321,7 +324,35 @@ metrics. This allows for better iteration of models and training procedure.
             ![Image](../figures/wandb_artifact.png){ width="600" }
             </figure>
 
-5. Weights and bias was created with collaboration in mind and let's therefore share our results with others.
+5. Going back to yesterdays topic on reproducibility, wandb also has great support for this. Assuming you now have done
+    a few runs with wandb, where can you find information about a run that would let you reproduce it and what would
+    the steps be to reproduce it (assuming code is stored in a git repository)?
+
+    ??? success "Solution"
+
+        <figure markdown>
+        ![Image](../figures/wandb_run_overview.png){ width="600" }
+        </figure>
+
+        If you go to any run page in the wandb dashboard and click the `Overview` tab you can find the following
+        information is available for reproducibility:
+
+        * The git repository URL (if the code was in a git repository).
+        * The exact git commit hash used for the run (if the code was in a git repository).
+        * The exact command used to launch the run.
+        * The exact system environment (OS, Python version, installed packages, etc.) used for the run.
+
+        If you go to the `Files` tab you will also find that it has taken a snapshot of the script that was run (but
+        not the full source code) and created a `requirement.txt` file with the installed packages. The steps to
+        reproduce the run would then be:
+
+        * Git clone the repository.
+        * Checkout the specific commit hash.
+        * Install dependencies, either by downloading the generated `requirements.txt` file or if the project comes
+            with a `requirements.txt`/`uv.lock` file use that.
+        * Run the exact same command as logged in the wandb dashboard.
+
+6. Weights and bias was created with collaboration in mind and let's therefore share our results with others.
 
     1. Let's create a report that you can share. Click the **Create report** button (upper right corner when you are in
         a project workspace) and include some of the graphs/plots/images that you have generated in the report.
@@ -330,7 +361,7 @@ metrics. This allows for better iteration of models and training procedure.
         to a group member, fellow student or a friend. In the worst case that you have no one else to share with you can
         send a link to my email `nsde@dtu.dk`, so I can check out your awesome work 😃
 
-6. When calling `wandb.init` you can provide many additional arguments. Some of the most important are
+7. When calling `wandb.init` you can provide many additional arguments. Some of the most important are
 
     * `project`
     * `entity`
@@ -352,7 +383,7 @@ metrics. This allows for better iteration of models and training procedure.
         ![Image](../figures/wandb_job_type.png){ width="600" }
         </figure>
 
-7. Wandb also comes with a built-in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
+8. Wandb also comes with a built-in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
     which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
     sweep in Wandb. You at least need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
     in your code on an appropriate value.
@@ -457,7 +488,7 @@ metrics. This allows for better iteration of models and training procedure.
             3. Look at the importance/correlation plot to see what hyperparameters have the largest impact on the
                 results.
 
-8. Next we need to understand the model registry, which will be very important later on when we get to the deployment
+9. Next we need to understand the model registry, which will be very important later on when we get to the deployment
     of our models. The model registry is a centralized place for storing and versioning models. Importantly, any model
     in the registry is immutable, meaning that once a model is uploaded it cannot be changed. This is important for
     reproducibility and traceability of models.
@@ -474,41 +505,65 @@ metrics. This allows for better iteration of models and training procedure.
         register them in the model registry. Make sure you have logged at least one model as an artifact before
         continuing.
 
-    2. Next let's create a registry. Go to the model registry tab (left pane, visible from your homepage) and then click
-        the `New Registered Model` button. Fill out the form and create the registry.
+    2. Next let's create a registry. Go to the [model registry tab](https://wandb.ai/teams/registry/model)
+        (left pane, visible from your homepage) and then click the `Create Collection` button. Fill out the form:
+
+        * Choose your personal account (you should create a team for the exam project and use that instead).
+        * Give the registry a name, e.g. `corrupt_mnist_models`.
+        * Provide a type of the registry, e.g. `model`.
+        * (Optional) Provide a description of the registry.
+
+        And click the create button.
 
         <figure markdown>
         ![Image](../figures/wandb_model_registry.png){ width="600" }
         </figure>
 
+        You should now see the collection/registry have been created.
+
     3. When then need to link our artifact to the model registry we just created. We can do this in two ways: either
         through the web interface or through the `wandb` API. In the web interface, go to the artifact you want to link
-        to the model registry and click the `Link to registry` button (upper right corner). If you want to use the
-        API you need to call the [link method](https://docs.wandb.ai/ref/python/artifact#link) on an artifact object.
+        to the model registry and click the `Link to registry` button (upper right corner). Assume you instead want to
+        do the linking using the Python SDK, how would you do that?
 
         ??? success "Solution"
 
-            To use the API, create a new script called `link_to_registry.py` and add the following code:
+            I would recommend two ways of linking:
 
-            ```python linenums="1" title="link_to_registry.py"
-            import wandb
-            api = wandb.Api()
-            artifact_path = "<entity>/<project>/<artifact_name>:<version>"
-            artifact = api.artifact(artifact_path)
-            artifact.link(target_path="<entity>/model-registry/<my_registry_name>")
-            artifact.save()
-            ```
+            * Either this is done in the same script where the artifact is created and logged. In this case we can use
+                the `run.link_artifact` method:
 
-            In the code `<entity>`, `<project>`, `<artifact_name>`, `<version>` and `<my_registry_name>` should be
-            replaced with the appropriate values.
+                ```python
+                run.link_artifact(
+                    artifact=artifact,
+                    target_path="model-registry/<my_registry_name>",
+                    aliases=["latest"]
+                )
+                ```
+
+            * Alternatively, if we want to link an already existing artifact to the model registry we can use the
+                `wandb.Api` to do so. We create a new file called `link_to_registry.py` for this purpose:
+
+                ```python linenums="1" title="link_to_registry.py"
+                import wandb
+                api = wandb.Api()
+                artifact_path = "<entity>/<project>/<artifact_name>:<version>"
+                artifact = api.artifact(artifact_path)
+                artifact.link(target_path="<entity>/model-registry/<my_registry_name>")
+                artifact.save()
+                ```
+
+                In the code `<entity>`, `<project>`, `<artifact_name>`, `<version>` and `<my_registry_name>` should be
+                replaced with the appropriate values.
 
     4. We are now ready to consume our model, which can be done by downloading the artifact from the model registry. In
         this case we use the wandb API to download the artifact.
 
         ```python
         import wandb
-        run = wandb.init()
-        artifact = run.use_artifact('<entity>/model-registry/<my_registry_name>:<version>', type='model')
+        api = wandb.Api()
+        artifact_name = f"<entity>/model-registry/<my_registry_name>:<alias>"
+        artifact = api.artifact(name = artifact_name)
         artifact_dir = artifact.download("<artifact_dir>")
         model = MyModel()
         model.load_state_dict(torch.load("<artifact_dir>/model.ckpt"))
@@ -533,7 +588,7 @@ metrics. This allows for better iteration of models and training procedure.
             --8<-- "s4_debugging_and_logging/exercise_files/wandb_register_auto_script.py"
             ```
 
-9. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
+10. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
     training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
     previous exercise; it needs to happen automatically. Let's therefore look into how we can do that.
 
@@ -590,7 +645,7 @@ metrics. This allows for better iteration of models and training procedure.
         1. :man_raising_hand: If you have stored the API key in a `.env` file you can use the `--env-file` flag instead
             of `-e` to load the environment variables from the file e.g. `docker run --env-file .env wandb:latest`.
 
-10. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
+11. Feel free to experiment more with `wandb` as it is a great tool for logging, organizing and sharing experiments.
 
 That is the module on logging. Please note that at this point in the course you will begin to see some overlap between
 the different frameworks. While we mainly used `hydra` for configuring our Python scripts it can also be used to save
