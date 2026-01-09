@@ -2566,8 +2566,7 @@
 
 
 <h1 id="project-work">Project work</h1>
-<p><a class="md-button" href="../../slides/Projects.pdf">Slides</a></p>
-<p><a class="md-button" href="https://repo-stats-leaderboard-704180779177.europe-west1.run.app">Project learderboard</a></p>
+<p><a class="md-button" href="../../slides/day5_project.pdf">Slides</a></p>
 <p>Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
 project. The overall goals with the project are:</p>
@@ -2600,32 +2599,15 @@ group yet.</p>
 <h2 id="open-source-tools">Open-source tools</h2>
 <p>We strive to keep the tools taught in this course as open-source as possible. The great thing about the open-source
 community is that whatever problem you are working on, there is probably some package out there that can get you
-at least 10% of the way. For the project, we want to enforce this point, and you are required to include some
-third-party package, that is neither PyTorch nor one of the tools already covered in the course, into your project.</p>
-<p>If you have no idea what framework to include, the <a href="https://pytorch.org/ecosystem/">PyTorch ecosystem</a> is a great place
+at least some of the way. For the project, we want to encourage you to explore and find frameworks/packages/tools that
+are not covered in the course that can help you with your project.</p>
+<p>If you have no idea what framework to include, the <a href="https://landscape.pytorch.org/">PyTorch landscape</a> is a great place
 for finding open-source frameworks that can help you accelerate your own projects where PyTorch is the back engine. All
-tools in the ecosystem should work greatly together with PyTorch. However, it is important to note that the ecosystem is
-not a complete list of all the awesome packages that exist to extend the functionality of PyTorch. If you are still
-missing inspiration for frameworks to use, we highly recommend these three that have been used in previous years of the
-course:</p>
-<ul>
-<li>
-<p><a href="https://github.com/rwightman/pytorch-image-models">PyTorch Image Models</a>. PyTorch Image Models (also known as TIMM)
-    is the absolutely most used computer vision package (maybe except for <code>torchvision</code>). It contains models, scripts
-    and pre-trained for a lot of state-of-the-art image models within computer vision.</p>
-</li>
-<li>
-<p><a href="https://github.com/huggingface/transformers">Transformers</a>. The transformers repository from the Huggingface group
-    focuses on state-of-the-art Natural Language Processing (NLP). It provides many pre-trained model to perform tasks on
-    texts such as classification, information extraction, question answering, summarization, translation, text
-    generation, etc. in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.</p>
-</li>
-<li>
-<p><a href="https://github.com/rusty1s/pytorch_geometric">PyTorch-Geometric</a>. PyTorch Geometric (PyG) is a geometric deep
-    learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
-    geometric deep learning, from a variety of published papers.</p>
-</li>
-</ul>
+tools in the landscape should work greatly together with PyTorch. However, it is important to note that the landscape is
+not a complete list of all the awesome packages that exist to extend the functionality of PyTorch.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/pytorch_landscape.png" data-desc-position="bottom"><img alt="Overview" src="../../figures/pytorch_landscape.png" width="1000"></a></p>
+</figure>
 <h2 id="project-days">Project days</h2>
 <p>Each project day is fully dedicated to project work, except for maybe external inspirational lectures in the morning.
 The group decides exactly where they want to work on the project, how they want to work on the project, how do
@@ -2657,9 +2639,9 @@ as a group.</p>
 </li>
 <li>
 <p>(Optional) If you want to think more about the product design of your project, feel free to fill out the
-    <a href="https://madewithml.com/static/templates/ml-canvas.pdf">ML canvas</a> (or part of it). You can read more about the
-    different fields in the canvas
-    <a href="https://madewithml.com/courses/mlops/product-design/">from this page on product design</a>.</p>
+    <a href="https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/canvas_en.pdf">MLOps canvas</a> (or part of it). You can
+    read more about the different fields in the canvas
+    <a href="https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/full_mlops_canvas_en.pdf">in this document</a>.</p>
 </li>
 <li>
 <p>After having done the project description, you can start on the actual coding of the project. In the next section,
@@ -2669,9 +2651,9 @@ as a group.</p>
 </ol>
 <p>The project description will serve as a guideline for us at the exam that you have somewhat reached the goals that you
 set out to do. By the end of the day, you should commit your project description to the <code>README.md</code> file belonging
-to your project repository. If you filled out the ML canvas, feel free to include that as part of the <code>README.md</code> file.
-Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn and
-hand-in (as a group) the <em>link to your GitHub repository</em> as an assignment.</p>
+to your project repository. If you filled out the MLOps canvas, feel free to include that as part of the <code>README.md</code>
+file. Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn
+and hand-in (as a group) the <em>link to your GitHub repository</em> as an assignment.</p>
 <p>We will briefly (before next Monday) look over your GitHub repository and project description to check that everything
 is fine. If we have any questions/concerns we will contact you.</p>
 <h3 id="day-2">Day 2</h3>
@@ -2791,6 +2773,7 @@ checklist for the exam. The parenthesis at the end indicates what module the bul
 <h3 id="week-3">Week 3</h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled><span class="task-list-indicator"></span></label> Check how robust your model is towards data drifting (M27)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled><span class="task-list-indicator"></span></label> Setup collection of input-output data from your deployed application (M27)</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled><span class="task-list-indicator"></span></label> Deploy to the cloud a drift detection API (M27)</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled><span class="task-list-indicator"></span></label> Instrument your API with a couple of system metrics (M28)</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled><span class="task-list-indicator"></span></label> Setup cloud monitoring of your instrumented application (M28)</li>
@@ -2852,7 +2835,7 @@ be a <code>README.md</code> file, which is your report.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41 UTC">November 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 9, 2026 06:06:51 UTC">January 9, 2026</span>
   </span>
 
     
