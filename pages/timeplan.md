@@ -34,7 +34,7 @@ Date    | Day       | Presentation topic                                        
 6/1/26  | Tuesday   | [MLOps: what is it?📝](../slides/day2_introduction_to_mlops.pdf)     | Git, CookieCutter, Pep8, DVC         | [Exercises](../s2_organisation_and_version_control/README.md)
 7/1/26  | Wednesday | [Reproducibility📝](../slides/day3_reproducibility_and_software.pdf) | Docker, Hydra                        | [Exercises](../s3_reproducibility/README.md)
 8/1/26  | Thursday  | [Debugging📝](../slides/day4_debugging_ML_code.pdf)                  | Debugger, Profiler, Wandb, Lightning | [Exercises](../s4_debugging_and_logging/README.md)
-9/1/26  | Friday    | [Project work📝](../slides/Projects.pdf)                             | -                                    | [Projects](projects.md)
+9/1/26  | Friday    | [Project work📝](../slides/day5_project.pdf)                         | -                                    | [Projects](projects.md)
 
 ## Week 2
 
@@ -47,7 +47,7 @@ Date    | Day       | Presentation topic                                        
 12/1/26 | Monday    | [Continuous Integration📝](../slides/ContinuousIntegration.pdf)| Pytest, GitHub actions, Pre-commit, CML           | [Exercises](../s5_continuous_integration/README.md)
 13/1/26 | Tuesday   | [The Cloud📝](../slides/CloudIntro.pdf)                        | GCP Engine, Bucket, Artifact registry, Vertex AI  | [Exercises](../s6_the_cloud/README.md)
 14/1/26 | Wednesday | [Deployment📝](../slides/Deployment.pdf)                       | FastAPI, Torchserve, GCP Functions, GCP Run       | [Exercises](../s7_deployment/README.md)
-15/1/26 | Thursday  | External lecture                                               | -                                                 | [Projects](projects.md)
+15/1/26 | Thursday  | No lecture                                                     | -                                                 | [Projects](projects.md)
 16/1/26 | Friday    | No lecture                                                     | -                                                 | [Projects](projects.md)
 
 ## Week 3
