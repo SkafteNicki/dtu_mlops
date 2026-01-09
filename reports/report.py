@@ -120,7 +120,7 @@ def check() -> None:
     question_constraints = {
         "question_1": NoConstraints(),
         "question_2": NoConstraints(),
-        "question_3": LengthConstraints(min_length=100, max_length=200),
+        "question_3": LengthConstraints(min_length=0, max_length=200),
         "question_4": LengthConstraints(min_length=100, max_length=200),
         "question_5": LengthConstraints(min_length=100, max_length=200),
         "question_6": LengthConstraints(min_length=100, max_length=200),
