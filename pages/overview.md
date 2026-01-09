@@ -43,6 +43,6 @@ a different stack of tools that better fits your needs. Regardless of the stack,
 | ![Run](../figures/icons/run.png){ width="50" } | For more complex deployments of our code we can use **Cloud run** that allows us to run our code in response to events through docker containers |
 | ![Locust](../figures/icons/locust.png){ width="50" } | For load testing our deployed model we can use **Locust** |
 | ![Monitor](../figures/icons/monitoring.png){ width="50" } | **Cloud monitoring** gives us the tools to keep track of important logs and errors from the other cloud services |
-| ![Evidently](../figures/icons/evidentlyai.png){ width="50" } | For monitoring our deployed model is experiencing any drift we can use **Evidently AI** that provides a framework and dashboard for monitoring drift |
+| ![Evidently](../figures/icons/evidentlyai.png){ width="50" } | To monitor whether our deployed model is experiencing any drift, we can use **Evidently AI**, which provides a framework and dashboard for drift monitoring |
 | ![Telemetry](../figures/icons/opentelemetry.png){ width="50" } | For monitoring the telemetry of our deployed model we can use **OpenTelemetry** that provides a standard for collecting and exporting telemetry data |
 <!-- markdownlint-restore -->
