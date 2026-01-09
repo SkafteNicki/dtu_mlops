@@ -112,7 +112,7 @@ it contains excellent tutorials.
     === "Using uv"
 
         ```bash
-        uv add --upgrade dvc dcv-gdrive
+        uv add --upgrade dvc dvc-gdrive
         ```
 
     If this does not work for you, it is most likely due to a problem with `pygit2` and in that case we recommend that
