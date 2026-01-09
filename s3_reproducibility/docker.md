@@ -260,7 +260,7 @@ beneficial for you to download.
     3. Finally, we are going to name our training script as the *entrypoint* for our Docker image. The *entrypoint* is
         the application that we want to run when the image is executed:
 
-        === "Using pip
+        === "Using pip"
 
             ```docker
             ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
