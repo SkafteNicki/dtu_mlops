@@ -4,7 +4,7 @@
 
 ---
 
-!!! info "Core Module"
+!!! Info "Core Module"
 
 Proper collaboration with other people will require that you can work on the same codebase in an organized manner.
 This is the reason that **version control** exists. Simply stated, it is a way to keep track of:
