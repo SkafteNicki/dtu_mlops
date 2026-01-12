@@ -2,7 +2,7 @@ import pickle
 from typing import Annotated
 
 import typer
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -14,7 +14,7 @@ train_app = typer.Typer()
 app.add_typer(train_app, name="train")
 
 # Load the dataset
-data = load_breast_cancer()
+data = load_iris()
 x = data.data
 y = data.target
 
