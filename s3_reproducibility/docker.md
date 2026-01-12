@@ -81,11 +81,13 @@ which images have been building and which are running. Additionally, the extensi
 beneficial for you to download.
 
 1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble you need to go through
-    depends on your operating system. For Windows and Mac, we recommend you install *Docker Desktop*, which comes with
-    a graphical user interface (GUI) for quickly viewing docker images and docker containers currently built/in use.
-    Windows users that have not installed WSL yet are going to have to do it now (as docker needs it as a backend for
-    starting virtual machines) but you do not need to install docker in WSL. After installing docker we recommend that
-    you restart your laptop.
+    depends on your operating system. For **macOS** users, we recommend installing [OrbStack](https://orbstack.dev/),
+    which is a lightweight, fast, and user-friendly alternative to Docker Desktop with a more intuitive GUI. For
+    **Windows** users, we recommend you install *Docker Desktop*, which comes with a graphical user interface (GUI)
+    for quickly viewing docker images and docker containers currently built/in use. Windows users that have not
+    installed WSL yet are going to have to do it now (as docker needs it as a backend for starting virtual machines)
+    but you do not need to install docker in WSL. macOS users can also use Docker Desktop if they prefer. After
+    installing docker we recommend that you restart your laptop.
 
 2. Try running the following to confirm that your installation is working:
 
