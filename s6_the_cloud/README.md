@@ -1,6 +1,6 @@
 # Cloud computing
 
-[Slides](../slides/CloudIntro.pdf){ .md-button }
+[Slides](../slides/day7_cloud.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 
