@@ -1,5 +1,6 @@
 import os
 import sys
+import matplotlib.pyplot as plt
 
 from invoke import task
 
