@@ -107,7 +107,7 @@ Here are some general installation commands for Pytorch:
     pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
     ```
 
-    If you want this to be part of your `requirements.txt` file, it needs to looks something like this:
+    If you want this to be part of your `requirements.txt` file, it needs to look something like this:
 
     ```txt
     --index-url https://download.pytorch.org/whl/cu126
