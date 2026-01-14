@@ -204,7 +204,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     </figure>
 
     Give the bucket a unique name, set it to a region close by and importantly remember to enable *Object versioning*
-    under the last tab. Finally, click `Create``.
+    under the last tab. Finally, click `Create`.
 
 2. After creating the storage, you should be able to see it online and you should be able to see it if you type in your
     local terminal:
