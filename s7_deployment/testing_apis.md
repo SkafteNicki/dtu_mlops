@@ -79,7 +79,7 @@ to change.
     example, if you have a root endpoint that just returns a simple welcome message you could write a test like this:
 
     ```python
-    def test_read_root(model):
+    def test_read_root():
         response = client.get("/")
         assert response.status_code == 200
         assert response.json() == {"message": "Welcome to the MNIST model inference API!"}
