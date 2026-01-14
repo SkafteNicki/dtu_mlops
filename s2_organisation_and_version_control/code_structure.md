@@ -225,13 +225,13 @@ directory e.g.
 === "Using pip"
     ```bash
     python src/<project_name>/data.py data/raw data/processed
-    python src/<project_name>/train_model.py <arguments>
+    python src/<project_name>/train.py <arguments>
     ```
 
 === "Using uv"
     ```bash
     uv run src/<project_name>/data.py data/raw data/processed
-    uv run src/<project_name>/train_model.py <arguments>
+    uv run src/<project_name>/train.py <arguments>
     ```
 
 In this way paths (for saving and loading files) are always relative to the root, and it is in general easier to wrap

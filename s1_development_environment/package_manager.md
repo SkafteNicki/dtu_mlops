@@ -201,7 +201,7 @@ to make it work.
     the features of `uv` we will be using in the course. That said, let's first try to see how we can use `uv` to create
     virtual environments and manage dependencies:
 
-    1. Try creating a new virtual environment called venv using Python 3.11. What command should you execute to do this?
+    1. Try creating a new virtual environment called `.venv` using Python 3.11. What command should you execute to do this?
 
         !!! warning "Use Python 3.10 or higher"
 

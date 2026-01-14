@@ -7,6 +7,13 @@
 
 !!! info "Core Module"
 
+!!! warning "Interface changes"
+
+    The Google Cloud Platform (GCP) interface is constantly changing. Therefore, some of the screenshots and
+    instructions in this module may be slightly outdated. However, the overall concepts and steps should still be
+    applicable. If you are ever in doubt about how to do something in GCP, I recommend checking out the official
+    [GCP documentation](https://cloud.google.com/docs).
+
 In this set of exercises, we are going to get more familiar with using some of the resources that GCP offers.
 
 ## Compute
@@ -197,7 +204,7 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
     </figure>
 
     Give the bucket a unique name, set it to a region close by and importantly remember to enable *Object versioning*
-    under the last tab. Finally, click `Create``.
+    under the last tab. Finally, click `Create`.
 
 2. After creating the storage, you should be able to see it online and you should be able to see it if you type in your
     local terminal:
