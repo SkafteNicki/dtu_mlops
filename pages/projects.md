@@ -6,10 +6,10 @@ Approximately 1/3 of the course time is dedicated to doing project work. The pro
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
 project. The overall goals with the project are:
 
-* Being able to work in a group on a larger project
-* To formulate a project within the provided guidelines
-* Apply the material taught in the course to the problem
-* Present your findings
+- Being able to work in a group on a larger project
+- To formulate a project within the provided guidelines
+- Apply the material taught in the course to the problem
+- Present your findings
 
 In the projects you are free to work on whatever problem that you want. If you want inspiration for projects, here are
 some examples
@@ -64,29 +64,29 @@ The first project day is all about getting started on the projects and formulati
 as a group.
 
 1. Start by brainstorming projects! Try to figure out exactly what you want to work with and begin to investigate what
-    third party package that can support the project.
+   third party package that can support the project.
 
 2. When you have come up with an idea, write a project description. The description is the delivery for today and should
-    be at least 300 words. Try to answer the following questions in the description:
+   be at least 300 words. Try to answer the following questions in the description:
 
-    * Overall goal of the project
-    * What data are you going to run on (initially, may change)
-    * What models do you expect to use
+   - Overall goal of the project
+   - What data are you going to run on (initially, may change)
+   - What models do you expect to use
 
 3. (Optional) If you want to think more about the product design of your project, feel free to fill out the
-    [MLOps canvas](https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/canvas_en.pdf) (or part of it). You can
-    read more about the different fields in the canvas
-    [in this document](https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/full_mlops_canvas_en.pdf).
+   [MLOps canvas](https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/canvas_en.pdf) (or part of it). You can
+   read more about the different fields in the canvas
+   [in this document](https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/full_mlops_canvas_en.pdf).
 
 4. After having done the project description, you can start on the actual coding of the project. In the next section,
-    a to-do list is attached that summaries what we are doing in the course. You are NOT expected to fulfill all bullet
-    points from week 1 today.
+   a to-do list is attached that summaries what we are doing in the course. You are NOT expected to fulfill all bullet
+   points from week 1 today.
 
 The project description will serve as a guideline for us at the exam that you have somewhat reached the goals that you
 set out to do. By the end of the day, you should commit your project description to the `README.md` file belonging
 to your project repository. If you filled out the MLOps canvas, feel free to include that as part of the `README.md`
 file. Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn
-and hand-in (as a group) the *link to your GitHub repository* as an assignment.
+and hand-in (as a group) the _link to your GitHub repository_ as an assignment.
 
 We will briefly (before next Monday) look over your GitHub repository and project description to check that everything
 is fine. If we have any questions/concerns we will contact you.
@@ -158,74 +158,74 @@ have encountered.
 
 ## Project checklist
 
-Please note that all the lists are *exhaustive* meaning that I do not expect you to have completed very point on the
+Please note that all the lists are _exhaustive_ meaning that I do not expect you to have completed every point on the
 checklist for the exam. The parenthesis at the end indicates what module the bullet point is related to.
 
 ### Week 1
 
-* [ ] Create a git repository (M5)
-* [ ] Make sure that all team members have write access to the GitHub repository (M5)
-* [ ] Create a dedicated environment for you project to keep track of your packages (M2)
-* [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
-* [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
-* [ ] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
-* [ ] Remember to either fill out the `requirements.txt`/`requirements_dev.txt` files or keeping your
-    `pyproject.toml`/`uv.lock` up-to-date with whatever dependencies that you are using (M2+M6)
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
-* [ ] Do a bit of code typing and remember to document essential parts of your code (M7)
-* [ ] Setup version control for your data or part of your data (M8)
-* [ ] Add command line interfaces and project commands to your code where it makes sense (M9)
-* [ ] Construct one or multiple docker files for your code (M10)
-* [ ] Build the docker files locally and make sure they work as intended (M10)
-* [ ] Write one or multiple configurations files for your experiments (M11)
-* [ ] Used Hydra to load the configurations and manage your hyperparameters (M11)
-* [ ] Use profiling to optimize your code (M12)
-* [ ] Use logging to log important events in your code (M14)
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
-* [ ] Consider running a hyperparameter optimization sweep (M14)
-* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
+- [ ] Create a git repository (M5)
+- [ ] Make sure that all team members have write access to the GitHub repository (M5)
+- [ ] Create a dedicated environment for you project to keep track of your packages (M2)
+- [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
+- [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
+- [ ] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
+- [ ] Remember to either fill out the `requirements.txt`/`requirements_dev.txt` files or keeping your
+      `pyproject.toml`/`uv.lock` up-to-date with whatever dependencies that you are using (M2+M6)
+- [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
+- [ ] Do a bit of code typing and remember to document essential parts of your code (M7)
+- [ ] Setup version control for your data or part of your data (M8)
+- [ ] Add command line interfaces and project commands to your code where it makes sense (M9)
+- [ ] Construct one or multiple docker files for your code (M10)
+- [ ] Build the docker files locally and make sure they work as intended (M10)
+- [ ] Write one or multiple configurations files for your experiments (M11)
+- [ ] Used Hydra to load the configurations and manage your hyperparameters (M11)
+- [ ] Use profiling to optimize your code (M12)
+- [ ] Use logging to log important events in your code (M14)
+- [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
+- [ ] Consider running a hyperparameter optimization sweep (M14)
+- [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code (M16)
-* [ ] Write unit tests related to model construction and or model training (M16)
-* [ ] Calculate the code coverage (M16)
-* [ ] Get some continuous integration running on the GitHub repository (M17)
-* [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
-* [ ] Add a linting step to your continuous integration (M17)
-* [ ] Add pre-commit hooks to your version control setup (M18)
-* [ ] Add a continues workflow that triggers when data changes (M19)
-* [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
-* [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
-* [ ] Create a trigger workflow for automatically building your docker images (M21)
-* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
-* [ ] Create a FastAPI application that can do inference using your model (M22)
-* [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
-* [ ] Write API tests for your application and setup continues integration for these (M24)
-* [ ] Load test your application (M24)
-* [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)
-* [ ] Create a frontend for your API (M26)
+- [ ] Write unit tests related to the data part of your code (M16)
+- [ ] Write unit tests related to model construction and or model training (M16)
+- [ ] Calculate the code coverage (M16)
+- [ ] Get some continuous integration running on the GitHub repository (M17)
+- [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
+- [ ] Add a linting step to your continuous integration (M17)
+- [ ] Add pre-commit hooks to your version control setup (M18)
+- [ ] Add a continues workflow that triggers when data changes (M19)
+- [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
+- [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
+- [ ] Create a trigger workflow for automatically building your docker images (M21)
+- [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
+- [ ] Create a FastAPI application that can do inference using your model (M22)
+- [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
+- [ ] Write API tests for your application and setup continues integration for these (M24)
+- [ ] Load test your application (M24)
+- [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)
+- [ ] Create a frontend for your API (M26)
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting (M27)
-* [ ] Setup collection of input-output data from your deployed application (M27)
-* [ ] Deploy to the cloud a drift detection API (M27)
-* [ ] Instrument your API with a couple of system metrics (M28)
-* [ ] Setup cloud monitoring of your instrumented application (M28)
-* [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
-* [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)
-* [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)
-* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)
+- [ ] Check how robust your model is towards data drifting (M27)
+- [ ] Setup collection of input-output data from your deployed application (M27)
+- [ ] Deploy to the cloud a drift detection API (M27)
+- [ ] Instrument your API with a couple of system metrics (M28)
+- [ ] Setup cloud monitoring of your instrumented application (M28)
+- [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
+- [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)
+- [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)
+- [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)
 
 ### Extra
 
-* [ ] Write some documentation for your application (M32)
-* [ ] Publish the documentation to GitHub Pages (M32)
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Create an architectural diagram over your MLOps pipeline
-* [ ] Make sure all group members have an understanding about all parts of the project
-* [ ] Uploaded all your code to GitHub
+- [ ] Write some documentation for your application (M32)
+- [ ] Publish the documentation to GitHub Pages (M32)
+- [ ] Revisit your initial project description. Did the project turn out as you wanted?
+- [ ] Create an architectural diagram over your MLOps pipeline
+- [ ] Make sure all group members have an understanding about all parts of the project
+- [ ] Uploaded all your code to GitHub
 
 ## Exam
 
