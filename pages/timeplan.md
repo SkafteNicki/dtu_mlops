@@ -46,7 +46,7 @@ Date    | Day       | Presentation topic                                        
 --------|-----------|----------------------------------------------------------------------|---------------------------------------------------|-----------
 12/1/26 | Monday    | [Continuous Integration📝](../slides/day6_continuous_integration.pdf)| Pytest, GitHub actions, Pre-commit, CML           | [Exercises](../s5_continuous_integration/README.md)
 13/1/26 | Tuesday   | [The Cloud📝](../slides/day7_cloud.pdf)                              | GCP Engine, Bucket, Artifact registry, Vertex AI  | [Exercises](../s6_the_cloud/README.md)
-14/1/26 | Wednesday | [Deployment📝](../slides/Deployment.pdf)                             | FastAPI, Torchserve, GCP Functions, GCP Run       | [Exercises](../s7_deployment/README.md)
+14/1/26 | Wednesday | [Deployment📝](../slides/day8_deployment.pdf)                        | FastAPI, Torchserve, GCP Functions, GCP Run       | [Exercises](../s7_deployment/README.md)
 15/1/26 | Thursday  | No lecture                                                           | -                                                 | [Projects](projects.md)
 16/1/26 | Friday    | No lecture                                                           | -                                                 | [Projects](projects.md)
 

@@ -1,6 +1,6 @@
 # Model deployment
 
-[Slides](../slides/Deployment.pdf){ .md-button }
+[Slides](../slides/day8_deployment.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 
