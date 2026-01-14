@@ -167,9 +167,10 @@ you want them to be able to do. The figure below shows how to do this.
 </figure>
 
 What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
-project. You can read more about quota types and levels [here](https://docs.cloud.google.com/docs/quotas/overview). By
-default, for any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that
-you can use is either 0 or 1 (their policies sometimes change). We will in the exercises below try to increase it.
+project. You can read more about quota types and levels
+[in the documentation](https://docs.cloud.google.com/docs/quotas/overview). By default, for any free accounts in GCP
+(or accounts using teaching credits) the default quota for GPUs that you can use is either 0 or 1 (their policies
+sometimes change). We will in the exercises below try to increase it.
 
 ### ❔ Exercises
 

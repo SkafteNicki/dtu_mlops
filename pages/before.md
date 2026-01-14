@@ -2,7 +2,7 @@
 
 When working on the exercises, I in general recommend following this structure:
 
-```
+```txt
 <02476_XXX>/                      # call this whatever you like
     ├── dtu_mlops/                # the content of this repository
     │   ├── .venv/
