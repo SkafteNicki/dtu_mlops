@@ -77,7 +77,7 @@ pip install torch
 
 in a new virtual environment, this will result in a disk usage of around 6.6 GB! This is not a problem if you have to
 do it one time, but what you will experience throughout this course you will end up downloading and installing your
-project dependencies over and over again for different reasons (new virtual environments, containers, continues
+project dependencies over and over again for different reasons (new virtual environments, containers, continuous
 integration systems etc.). For this reason, it is worth considering how you install Pytorch.
 
 When naively installing Pytorch, you will fetch whatever build is available on PyPI which is most likely a GPU enabled
