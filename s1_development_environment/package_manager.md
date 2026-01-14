@@ -120,7 +120,7 @@ comparison of Python environment management and packaging tools, see
 
 If you're new to package managers, I will recommend that you use `uv`. It is becoming the de facto standard in the
 Python community due to its speed and ease of use. It combines the best features of `pip` and `conda`, allowing you to
-create virtual environments and manage dependencies seamlessly, including for multiple python versions. The alternative
+create virtual environments and manage dependencies seamlessly, including for multiple Python versions. The alternative
 (which has been the recommended approach for many years) is to use `conda` for creating virtual environments and `pip`
 for installing packages within those environments.
 
@@ -201,7 +201,7 @@ to make it work.
     the features of `uv` we will be using in the course. That said, let's first try to see how we can use `uv` to create
     virtual environments and manage dependencies:
 
-    1. Try creating a new virtual environment called using Python 3.11. What command should you execute to do this?
+    1. Try creating a new virtual environment called `.venv` using Python 3.11. What command should you execute to do this?
 
         !!! warning "Use Python 3.10 or higher"
 
@@ -415,7 +415,19 @@ to make it work.
             uv python pin 3.13
             ```
 
-    8. (Optional) `uv` also supports the notion of *tools* which are external command line tools that you may use in
+    8. Assume you have a friend wonking on the same project as you and they are using `pip` together with good old
+        `requirements.txt` files. How do you create a `requirements.txt` file from your `uv` project?
+
+        ??? success "Solution"
+
+            Relevant documentation can be found
+            [here](https://docs.astral.sh/uv/concepts/projects/sync/#exporting-the-lockfile).
+
+            ```bash
+            uv export --format requirements.txt
+            ```
+
+    9. (Optional) `uv` also supports the notion of *tools* which are external command line tools that you may use in
         multiple projects. Examples of such tools are `black`, `ruff`, `pytest` and so on (all which you will encounter
         later in the course). These tools can be installed globally on your system by using the `uvx` (or `uv tool`):
         command:

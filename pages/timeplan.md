@@ -1,6 +1,6 @@
 # Time plan
 
-[Slides](../slides/IntroToTheCourse.pdf){ .md-button }
+[Slides](../slides/day1_introduction_to_the_course.pdf){ .md-button }
 
 The course is organized into *exercise* (2/3 of the course) days and *project* days (1/3 of the course).
 
@@ -28,13 +28,13 @@ be using in the exercises.
 In the first week you will be introduced to a number of development practices for organizing and developing code,
 especially with a focus on making everything reproducible.
 
-Date    | Day       | Presentation topic                                                 | Frameworks                           | Format
---------|-----------|--------------------------------------------------------------------|--------------------------------------|-----------
-5/1/26  | Monday    | [Deep learning software📝](../slides/DeepLearningSoftware.pdf)     | Terminal, Conda, IDE, PyTorch        | [Exercises](../s1_development_environment/README.md)
-6/1/26  | Tuesday   | [MLOps: what is it?📝](../slides/IntroToMLOps.pdf)                 | Git, CookieCutter, Pep8, DVC         | [Exercises](../s2_organisation_and_version_control/README.md)
-7/1/26  | Wednesday | [Reproducibility📝](../slides/ReproducibilityAndSoftware.pdf)      | Docker, Hydra                        | [Exercises](../s3_reproducibility/README.md)
-8/1/26  | Thursday  | [Debugging📝](../slides/DebuggingML.pdf)                           | Debugger, Profiler, Wandb, Lightning | [Exercises](../s4_debugging_and_logging/README.md)
-9/1/26  | Friday    | [Project work📝](../slides/Projects.pdf)                           | -                                    | [Projects](projects.md)
+Date    | Day       | Presentation topic                                                   | Frameworks                           | Format
+--------|-----------|----------------------------------------------------------------------|--------------------------------------|-----------
+5/1/26  | Monday    | [Deep learning software📝](../slides/DeepLearningSoftware.pdf)       | Terminal, Conda, IDE, PyTorch        | [Exercises](../s1_development_environment/README.md)
+6/1/26  | Tuesday   | [MLOps: what is it?📝](../slides/day2_introduction_to_mlops.pdf)     | Git, CookieCutter, Pep8, DVC         | [Exercises](../s2_organisation_and_version_control/README.md)
+7/1/26  | Wednesday | [Reproducibility📝](../slides/day3_reproducibility_and_software.pdf) | Docker, Hydra                        | [Exercises](../s3_reproducibility/README.md)
+8/1/26  | Thursday  | [Debugging📝](../slides/day4_debugging_ML_code.pdf)                  | Debugger, Profiler, Wandb, Lightning | [Exercises](../s4_debugging_and_logging/README.md)
+9/1/26  | Friday    | [Project work📝](../slides/day5_project.pdf)                         | -                                    | [Projects](projects.md)
 
 ## Week 2
 
@@ -42,13 +42,13 @@ The second week is about automatization and the cloud. Automatization will help 
 does not break when we make changes to it. The cloud will help us scale up our applications and we learn how to use
 different services to help develop a full machine learning pipeline.
 
-Date    | Day       | Presentation topic                                             | Frameworks                                        | Format
---------|-----------|----------------------------------------------------------------|---------------------------------------------------|-----------
-12/1/26 | Monday    | [Continuous Integration📝](../slides/ContinuousIntegration.pdf)| Pytest, GitHub actions, Pre-commit, CML           | [Exercises](../s5_continuous_integration/README.md)
-13/1/26 | Tuesday   | [The Cloud📝](../slides/CloudIntro.pdf)                        | GCP Engine, Bucket, Artifact registry, Vertex AI  | [Exercises](../s6_the_cloud/README.md)
-14/1/26 | Wednesday | [Deployment📝](../slides/Deployment.pdf)                       | FastAPI, Torchserve, GCP Functions, GCP Run       | [Exercises](../s7_deployment/README.md)
-15/1/26 | Thursday  | External lecture                                               | -                                                 | [Projects](projects.md)
-16/1/26 | Friday    | No lecture                                                     | -                                                 | [Projects](projects.md)
+Date    | Day       | Presentation topic                                                   | Frameworks                                        | Format
+--------|-----------|----------------------------------------------------------------------|---------------------------------------------------|-----------
+12/1/26 | Monday    | [Continuous Integration📝](../slides/day6_continuous_integration.pdf)| Pytest, GitHub actions, Pre-commit, CML           | [Exercises](../s5_continuous_integration/README.md)
+13/1/26 | Tuesday   | [The Cloud📝](../slides/day7_cloud.pdf)                              | GCP Engine, Bucket, Artifact registry, Vertex AI  | [Exercises](../s6_the_cloud/README.md)
+14/1/26 | Wednesday | [Deployment📝](../slides/Deployment.pdf)                             | FastAPI, Torchserve, GCP Functions, GCP Run       | [Exercises](../s7_deployment/README.md)
+15/1/26 | Thursday  | No lecture                                                           | -                                                 | [Projects](projects.md)
+16/1/26 | Friday    | No lecture                                                           | -                                                 | [Projects](projects.md)
 
 ## Week 3
 

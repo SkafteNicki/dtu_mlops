@@ -58,8 +58,8 @@ will check the repositories and the code to verify your answers.
 * [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
 * [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
 * [ ] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
-* [ ] Remember to fill out the `requirements.txt` and `requirements_dev.txt` file with whatever dependencies that you
-    are using (M2+M6)
+* [ ] Remember to either fill out the `requirements.txt`/`requirements_dev.txt` files or keeping your
+    `pyproject.toml`/`uv.lock` up-to-date with whatever dependencies that you are using (M2+M6)
 * [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
 * [ ] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [ ] Setup version control for your data or part of your data (M8)
@@ -98,6 +98,7 @@ will check the repositories and the code to verify your answers.
 ### Week 3
 
 * [ ] Check how robust your model is towards data drifting (M27)
+* [ ] Setup collection of input-output data from your deployed application (M27)
 * [ ] Deploy to the cloud a drift detection API (M27)
 * [ ] Instrument your API with a couple of system metrics (M28)
 * [ ] Setup cloud monitoring of your instrumented application (M28)
@@ -136,10 +137,10 @@ will check the repositories and the code to verify your answers.
 --- question 2 fill here ---
 
 ### Question 3
-> **A requirement to the project is that you include a third-party package not covered in the course. What framework**
-> **did you choose to work with and did it help you complete the project?**
+> **Did you end up using any open-source frameworks/packages not covered in the course during your project? If so**
+> **which did you use and how did they help you complete the project?**
 >
-> Recommended answer length: 100-200 words.
+> Recommended answer length: 0-200 words.
 >
 > Example:
 > *We used the third-party framework ... in our project. We used functionality ... and functionality ... from the*
@@ -581,14 +582,4 @@ will check the repositories and the code to verify your answers.
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-fewafewubaofewnafioewnifowf ewafw afew afewafewafionewoanf waf ewonfieownaf fewnaiof newio fweanøf wea fewa
- fweafewa fewiagonwa ognwra'g
- wa
- gwreapig ipweroang w rag
- wa grwa
-  g
-  ew
-  gwea g
-  ew ag ioreabnguorwa bg̈́aw
-   wa
-   gew4igioera giroeahgi0wra gwa
+--- question 31 fill here ---

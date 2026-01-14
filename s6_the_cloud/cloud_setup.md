@@ -4,6 +4,13 @@
 
 !!! info "Core Module"
 
+!!! warning "Interface changes"
+
+    The Google Cloud Platform (GCP) interface is constantly changing. Therefore, some of the screenshots and
+    instructions in this module may be slightly outdated. However, the overall concepts and steps should still be
+    applicable. If you are ever in doubt about how to do something in GCP, I recommend checking out the official
+    [GCP documentation](https://cloud.google.com/docs).
+
 Google Cloud Platform (GCP) is the cloud service provided by Google. The key concept, or selling point, of any cloud
 provider, is the idea of near-infinite resources. Without the cloud, it is simply not feasible to do many modern
 deep learning and machine learning tasks because they cannot be scaled locally.
@@ -160,7 +167,8 @@ you want them to be able to do. The figure below shows how to do this.
 </figure>
 
 What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
-project. By default, for any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that
+project. You can read more about quota types and levels [here](https://docs.cloud.google.com/docs/quotas/overview). By
+default, for any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that
 you can use is either 0 or 1 (their policies sometimes change). We will in the exercises below try to increase it.
 
 ### ❔ Exercises
@@ -169,13 +177,24 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
     to a page where you can enable the service (may take some time). We are going to look more into this service
     in the next module.
 
+    !!! note
+
+        You can only request a quota increase for a service that you have enabled. After enabling a given service it may
+        take 5-10 minutes before you can request a quota increase for that service.
+
 2. Next go to the `IAM & Admin` page, again search for it in the top search bar. The remaining steps are illustrated
     in the figure below.
 
     1. Go to the `quotas page`.
 
-    2. In the search field search for `GPUs (all regions)` (needs to match exactly, the search field is case-sensitive),
-        such that you get the same quota as in the image.
+    2. Next, lets adjust the filters such that we only see the GPU quotas. Start by setting `Type: Quota` (1).
+        Afterwards, set the `Limit name:` to `GPUS-ALL-REGIONS-per-project` (needs to match exactly, the search field
+        is case-sensitive) and you should now only see a single quota.
+        { .annotate }
+
+        1. :man_raising_hand: The alternative to choosing `Type: Quota` is choosing `Type: System limit` which is the
+            hard upper bound imposed by Google. It will nearly always say `Unlimited` and in practice this is not
+            relevant to us
 
     3. In the limit, you can see what your current quota for the number of GPUs you can use is. Additionally, to the
         right of the limit, you can see the current usage. It is worth checking if you are ever in doubt if a job
@@ -189,25 +208,26 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
 
         <figure markdown>
         ![Image](../figures/quotas.PNG){ width="1000" }
+        <figcaption>
+        Note that the exact name of the quota in the screenshot may have changed since Google sometimes updates their
+        naming convention.
+        </figcaption>
         </figure>
+
+    7. Now you just sit back and wait at the mercy of Google.
 
 If you are ever running into errors when working in GPU that contain statements about `quotas` you can always try to
 go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
 training machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
 need to ask for a quota increase for that service as well.
 
-!!! note
-
-    You can only request a quota increase for a service that you have enabled. After enabling a given service it may take
-    5-10 minutes before you can request a quota increase for that service.
-
 <figure markdown>
 ![Image](../figures/gcp_quotas.png){ width="1000" }
 </figure>
 
 Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
-request gets rejected, we recommend waiting a day and trying again. If this does still not work, you may need to use their
-services some more to show you are not a bot that wants to mine crypto.
+request gets rejected, we recommend waiting a day and trying again. If this does still not work, you may need to use
+their services some more to show you are not a bot that wants to mine crypto.
 
 ## Service accounts
 

@@ -1,6 +1,6 @@
 # Organization and version control
 
-[Slides](../slides/IntroToMLOps.pdf){ .md-button }
+[Slides](../slides/day2_introduction_to_mlops.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 

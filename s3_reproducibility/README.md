@@ -1,6 +1,6 @@
 # Reproducibility
 
-[Slides](../slides/ReproducibilityAndSoftware.pdf){ .md-button }
+[Slides](../slides/day3_reproducibility_and_software.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 

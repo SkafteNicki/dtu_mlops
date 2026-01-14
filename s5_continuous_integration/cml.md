@@ -254,6 +254,11 @@ repository.
     for production and share them with others. Figure from [wandb](https://docs.wandb.ai/guides/model_registry).
     </figure>
 
+    !!! warning "Wandb updates their interface regularly"
+
+        The interface of wandb is updated regularly. Therefore, it is possible that some of the screenshots and precise
+        instructions are slightly out of date. However, the overall process should still be the same.
+
     1. The first step is in our weights and bias account to create a team. Some of these more advanced features are only
         available for teams, however every user is allowed to create one team for free. Go to your weights and bias
         account and create a team (the option should be on the left side of the UI). Give a team name and select W&B

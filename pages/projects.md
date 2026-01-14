@@ -1,8 +1,6 @@
 # Project work
 
-[Slides](../slides/Projects.pdf){ .md-button }
-
-[Project learderboard](https://repo-stats-leaderboard-704180779177.europe-west1.run.app){ .md-button }
+[Slides](../slides/day5_project.pdf){ .md-button }
 
 Approximately 1/3 of the course time is dedicated to doing project work. The projects will serve as the basis of your
 exam. In the project, you will essentially re-apply everything that you learn throughout the course to a self chosen
@@ -33,28 +31,17 @@ group yet.
 
 We strive to keep the tools taught in this course as open-source as possible. The great thing about the open-source
 community is that whatever problem you are working on, there is probably some package out there that can get you
-at least 10% of the way. For the project, we want to enforce this point, and you are required to include some
-third-party package, that is neither PyTorch nor one of the tools already covered in the course, into your project.
+at least some of the way. For the project, we want to encourage you to explore and find frameworks/packages/tools that
+are not covered in the course that can help you with your project.
 
-If you have no idea what framework to include, the [PyTorch ecosystem](https://pytorch.org/ecosystem/) is a great place
+If you have no idea what framework to include, the [PyTorch landscape](https://landscape.pytorch.org/) is a great place
 for finding open-source frameworks that can help you accelerate your own projects where PyTorch is the back engine. All
-tools in the ecosystem should work greatly together with PyTorch. However, it is important to note that the ecosystem is
-not a complete list of all the awesome packages that exist to extend the functionality of PyTorch. If you are still
-missing inspiration for frameworks to use, we highly recommend these three that have been used in previous years of the
-course:
+tools in the landscape should work greatly together with PyTorch. However, it is important to note that the landscape is
+not a complete list of all the awesome packages that exist to extend the functionality of PyTorch.
 
-* [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models). PyTorch Image Models (also known as TIMM)
-    is the absolutely most used computer vision package (maybe except for `torchvision`). It contains models, scripts
-    and pre-trained for a lot of state-of-the-art image models within computer vision.
-
-* [Transformers](https://github.com/huggingface/transformers). The transformers repository from the Huggingface group
-    focuses on state-of-the-art Natural Language Processing (NLP). It provides many pre-trained model to perform tasks on
-    texts such as classification, information extraction, question answering, summarization, translation, text
-    generation, etc. in 100+ languages. Its aim is to make cutting-edge NLP easier to use for everyone.
-
-* [PyTorch-Geometric](https://github.com/rusty1s/pytorch_geometric). PyTorch Geometric (PyG) is a geometric deep
-    learning. It consists of various methods for deep learning on graphs and other irregular structures, also known as
-    geometric deep learning, from a variety of published papers.
+<figure markdown>
+![Overview](../figures/pytorch_landscape.png){ width="1000" }
+</figure>
 
 ## Project days
 
@@ -83,14 +70,13 @@ as a group.
     be at least 300 words. Try to answer the following questions in the description:
 
     * Overall goal of the project
-    * What framework are you going to use, and you do you intend to include the framework into your project?
     * What data are you going to run on (initially, may change)
     * What models do you expect to use
 
 3. (Optional) If you want to think more about the product design of your project, feel free to fill out the
-    [ML canvas](https://madewithml.com/static/templates/ml-canvas.pdf) (or part of it). You can read more about the
-    different fields in the canvas
-    [from this page on product design](https://madewithml.com/courses/mlops/product-design/).
+    [MLOps canvas](https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/canvas_en.pdf) (or part of it). You can
+    read more about the different fields in the canvas
+    [in this document](https://github.com/SkafteNicki/dtu_mlops/blob/main/canvas/full_mlops_canvas_en.pdf).
 
 4. After having done the project description, you can start on the actual coding of the project. In the next section,
     a to-do list is attached that summaries what we are doing in the course. You are NOT expected to fulfill all bullet
@@ -98,9 +84,9 @@ as a group.
 
 The project description will serve as a guideline for us at the exam that you have somewhat reached the goals that you
 set out to do. By the end of the day, you should commit your project description to the `README.md` file belonging
-to your project repository. If you filled out the ML canvas, feel free to include that as part of the `README.md` file.
-Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn and
-hand-in (as a group) the *link to your GitHub repository* as an assignment.
+to your project repository. If you filled out the MLOps canvas, feel free to include that as part of the `README.md`
+file. Also remember to commit whatever you have done on the project until now. When you have done this, go to DTU Learn
+and hand-in (as a group) the *link to your GitHub repository* as an assignment.
 
 We will briefly (before next Monday) look over your GitHub repository and project description to check that everything
 is fine. If we have any questions/concerns we will contact you.
@@ -183,8 +169,8 @@ checklist for the exam. The parenthesis at the end indicates what module the bul
 * [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
 * [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
 * [ ] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
-* [ ] Remember to fill out the `requirements.txt` and `requirements_dev.txt` file with whatever dependencies that you
-    are using (M2+M6)
+* [ ] Remember to either fill out the `requirements.txt`/`requirements_dev.txt` files or keeping your
+    `pyproject.toml`/`uv.lock` up-to-date with whatever dependencies that you are using (M2+M6)
 * [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
 * [ ] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [ ] Setup version control for your data or part of your data (M8)
@@ -223,6 +209,7 @@ checklist for the exam. The parenthesis at the end indicates what module the bul
 ### Week 3
 
 * [ ] Check how robust your model is towards data drifting (M27)
+* [ ] Setup collection of input-output data from your deployed application (M27)
 * [ ] Deploy to the cloud a drift detection API (M27)
 * [ ] Instrument your API with a couple of system metrics (M28)
 * [ ] Setup cloud monitoring of your instrumented application (M28)

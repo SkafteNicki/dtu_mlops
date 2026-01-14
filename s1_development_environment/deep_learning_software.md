@@ -95,7 +95,6 @@ your system.
 
 Here are some general installation commands for Pytorch:
 
-
 === "Using pip"
 
     For `pip` install you can basically follow the instructions on the Pytorch homepage. Here are some common
@@ -152,6 +151,11 @@ Here are some general installation commands for Pytorch:
 <!-- markdownlint-disable -->
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
+
+!!! tip "Notebooks and `uv`
+
+    If you are using `uv` as your package manager, you may need to restart the Jupyter Notebook kernel after installing
+    new packages to ensure that the newly installed packages are recognized within the notebook environment.
 
 1. Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
     Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
