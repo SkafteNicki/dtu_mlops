@@ -306,7 +306,7 @@ help us at all. Therefore, use `Any` only when necessary.
         is still in beta so may be rough around the edges, but it is also significantly faster than `mypy` and will
         probably be adopted by many projects in the near future. Feel free to try `ty` instead of `mypy` if you want to.
 
-3. Try to run `mypy` on the `typing.py` file
+3. Try to run `mypy` on the `typing_exercise.py` file
 
     === "Using pip"
 
@@ -320,7 +320,7 @@ help us at all. Therefore, use `Any` only when necessary.
         uv run mypy typing_exercise.py
         ```
 
-    If you have solved exercise 11 correctly then you should get no errors. If not `mypy` should tell you where your
+    If you have solved exercise 1 correctly then you should get no errors. If not `mypy` should tell you where your
     types are incompatible.
 
 ## 🧠 Knowledge check
