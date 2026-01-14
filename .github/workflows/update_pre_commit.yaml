@@ -4,7 +4,7 @@ name: Pre-commit auto-update
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 * * 0' # Runs every Sunday at 00:00 UTC
   workflow_dispatch: {}  # Allows manual executions
 
 permissions:
@@ -15,7 +15,8 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
