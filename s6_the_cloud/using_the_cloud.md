@@ -149,6 +149,50 @@ We are now going to start using the cloud.
                     --maintenance-policy TERMINATE
                 ```
 
+        ??? tip "GPU notes (resource availability and drivers)"
+
+            GPU quotas and availability vary by region/zone, so you may need to try multiple combinations. You can
+            check GPU availability per region/zone in the
+            [GCP GPU regions/zones guide](https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones).
+            If `--metadata="install-nvidia-driver=True"` does not install a working driver, install it manually after
+            the VM boots:
+
+            ```bash
+            sudo apt-get update
+            sudo apt-get install -y build-essential dkms linux-headers-$(uname -r)
+            sudo apt-get install -y ubuntu-drivers-common
+            sudo ubuntu-drivers devices
+            sudo ubuntu-drivers install
+            sudo reboot
+            ```
+
+            Then verify:
+
+            ```bash
+            nvidia-smi
+            python3 -c "import torch; \
+            print('torch:', torch.__version__); \
+            print('torch.version.cuda:', torch.version.cuda); \
+            print('cuda available:', torch.cuda.is_available())"
+            ```
+
+            A tested combination (Jan 2026) uses a V100 GPU:
+
+            ```bash
+            gcloud compute instances create "<instance_name>" \
+                --zone="europe-west4-a" \
+                --machine-type=n1-standard-8 \
+                --image="pytorch-2-7-cu128-ubuntu-2204-nvidia-570-v20260108" \
+                --image-project=deeplearning-platform-release \
+                --maintenance-policy=TERMINATE \
+                --accelerator=type=nvidia-tesla-v100,count=1 \
+                --metadata=install-nvidia-driver=True \
+                --boot-disk-size=200GB
+            ```
+
+            Note: older GPUs like P100 can report "cuda capability too old" with recent PyTorch. If GPU setup is
+            blocked by quotas or availability, continue the exercises on CPU.
+
     3. `ssh` into the VM as in one of the previous exercises. Confirm that the container indeed contains
         both a Python installation and PyTorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
