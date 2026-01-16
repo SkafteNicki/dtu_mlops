@@ -275,21 +275,6 @@ authentication between GitHub and GCP. You can read more about how to create a s
     a JSON file to your computer. This file is the key to the service account and should be kept secret. If you lose
     it you can always create a new one.
 
-    !!! note "Troubleshooting: Cannot create service account keys"
-
-        If you encounter an error when trying to create a JSON key (e.g., "Service account key creation is disabled"),
-        this is likely because your project is under an organization that has disabled this feature through the
-        `iam.disableServiceAccountKeyCreation` organization policy. This is a security measure that many organizations
-        (including universities) enforce by default, as JSON keys are long-lived credentials that can pose security
-        risks if leaked.
-
-        **Solution**: If you created your project under an organization, you'll need to either:
-
-        * Create a new project under **"No organization"** as recommended in step 4 above, or
-        * Contact your organization administrator to request an exception to the policy for your project
-
-        Projects created under "No organization" typically do not have this restriction.
-
 5. Finally, everything we just did from creating the service account, giving it permissions, and creating a key can
     also be done through the `gcloud` interface. Try to find the commands to do this in the
     [documentation](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts).
