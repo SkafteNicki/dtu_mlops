@@ -60,6 +60,16 @@ As the first step, we are going to get you some Google Cloud credits.
     is being created. The notification bell is a good way to make sure how the processes you are running are doing
     throughout the course.
 
+    !!! warning "Create project under 'No organization'"
+
+        When creating your GCP project, make sure to select **"No organization"** from the organization dropdown menu.
+        Many organization-managed accounts (including universities and Google Workspace accounts) enforce security
+        policies that disable the creation of JSON service account keys by default. This is done through the
+        `iam.disableServiceAccountKeyCreation` organization policy. If you create your project under an organization,
+        you may run into issues later when trying to create service account keys, which are needed for authenticating
+        services like GitHub Actions with GCP. Creating your project under "No organization" avoids these restrictions
+        while you are learning.
+
 5. Next is local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud SDK.
     `gcloud` is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the `gcloud` interface. Follow the installation instructions
@@ -264,6 +274,21 @@ authentication between GitHub and GCP. You can read more about how to create a s
     tab. Click `Add key` and then `Create new key`. Choose the `JSON` key type and click `Create`. This will download
     a JSON file to your computer. This file is the key to the service account and should be kept secret. If you lose
     it you can always create a new one.
+
+    !!! note "Troubleshooting: Cannot create service account keys"
+
+        If you encounter an error when trying to create a JSON key (e.g., "Service account key creation is disabled"),
+        this is likely because your project is under an organization that has disabled this feature through the
+        `iam.disableServiceAccountKeyCreation` organization policy. This is a security measure that many organizations
+        (including universities) enforce by default, as JSON keys are long-lived credentials that can pose security
+        risks if leaked.
+
+        **Solution**: If you created your project under an organization, you'll need to either:
+
+        * Create a new project under **"No organization"** as recommended in step 4 above, or
+        * Contact your organization administrator to request an exception to the policy for your project
+
+        Projects created under "No organization" typically do not have this restriction.
 
 5. Finally, everything we just did from creating the service account, giving it permissions, and creating a key can
     also be done through the `gcloud` interface. Try to find the commands to do this in the
