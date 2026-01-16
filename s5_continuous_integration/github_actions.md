@@ -265,8 +265,30 @@ Let's take a look at how a GitHub workflow file is organized:
         can bypass the rules by adding `Repository admin` to the bypass list. Implement the following rules:
 
         * At least one person needs to approve any PR
-        * All your workflows need to pass
         * All conversations need to be resolved
+        * All your workflows need to pass
+
+        ??? note "Finding the correct names of the checks"
+
+            When selecting which checks should be required you may have a hard time finding the correct names of the
+            checks. The problem is most likely that you should not be looking for the name of your workflows but instead
+            the name of the jobs e.g. if your workflow file looks like this:
+
+            ```yaml
+            name: Code linting
+
+            on:
+              push:
+                branches: [main]
+              pull_request:
+                branches: [main]
+
+            jobs:
+              format:
+                name: Check code formatting
+            ```
+
+            then you should search for `Check code formatting` and not `Code linting`.
 
     3. If you have created the rules correctly you should see something like the image below when you try to merge a
         pull request. In this case, all three checks are required to pass before the code can be merged. Additionally,
@@ -468,8 +490,8 @@ have in your code.
             version: 2
             updates:
             - package-ecosystem: "pip"
-                directory: "/"
-                schedule:
+              directory: "/"
+              schedule:
                 interval: "weekly"
             ```
 
@@ -479,8 +501,8 @@ have in your code.
             version: 2
             updates:
             - package-ecosystem: "uv"
-                directory: "/"
-                schedule:
+              directory: "/"
+              schedule:
                 interval: "weekly"
             ```
 
@@ -535,7 +557,7 @@ have in your code.
     ...
     ```
 
-    The `@v4` specifies that we are using version 4 of the `actions/checkout` action. This means that if a new version
+    The `@v5` specifies that we are using version 5 of the `actions/checkout` action. This means that if a new version
     of the action is released, we will not automatically get the new version. Dependabot can help us with this. Try
     adding to the `dependabot.yaml` file that Dependabot should also check for updates in the GitHub Actions ecosystem.
 
@@ -549,6 +571,7 @@ have in your code.
           schedule:
             interval: "weekly"
         - package-ecosystem: "github-actions"
+          directory: "/"
           schedule:
             interval: "weekly"
         ```
@@ -569,7 +592,7 @@ have in your code.
         * Workflow: A `yaml` file that defines the instructions to be executed on specific events. Needs to be placed in
             the `.github/workflows` folder.
         * Runner: Workflows need to run somewhere. The environment that the workflow is being executed on is called the
-            runner. Most commonly the runner is hosted by GitHub but can also hosted by yourself.
+            runner. Most commonly the runner is hosted by GitHub but can also be hosted by yourself.
         * Job: A series of steps that are executed on the same runner. A workflow must include at least one job but
             often contains many.
         * Action: An action is the smallest unit in a workflow. Jobs often consist of multiple actions that are
