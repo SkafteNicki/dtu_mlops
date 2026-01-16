@@ -11,12 +11,12 @@
 ## ℹ️ Course information
 
 * Course responsible
-    * Postdoc [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
+    * Associate Professor [Nicki Skafte Detlefsen](https://skaftenicki.github.io/), <nsde@dtu.dk>
     * Professor [Søren Hauberg](http://www2.compute.dtu.dk/~sohau/), <sohau@dtu.dk>
 * 5 ECTS (European Credit Transfer System), corresponding to 140 hours of work
 * 3 week period in January
 * Master level course
-* Grade: Pass/not passed
+* Grade: Pass/Fail
 * Type of assessment: project report
 * Recommended prerequisites: DTU course [02456 (Deep Learning)](https://kurser.dtu.dk/course/02456) or
     experience with the following topics:

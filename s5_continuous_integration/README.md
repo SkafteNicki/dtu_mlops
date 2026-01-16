@@ -1,6 +1,6 @@
 # Continuous Integration
 
-[Slides](../slides/ContinuousIntegration.pdf){ .md-button }
+[Slides](../slides/day6_continuous_integration.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 
