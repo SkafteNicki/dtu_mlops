@@ -265,8 +265,30 @@ Let's take a look at how a GitHub workflow file is organized:
         can bypass the rules by adding `Repository admin` to the bypass list. Implement the following rules:
 
         * At least one person needs to approve any PR
-        * All your workflows need to pass
         * All conversations need to be resolved
+        * All your workflows need to pass
+
+        ??? note "Finding the correct names of the checks"
+
+            When selecting which checks should be required you may have a hard time finding the correct names of the
+            checks. The problem is most likely that you should not be looking for the name of your workflows but instead
+            the name of the jobs e.g. if your workflow file looks like this:
+
+            ```yaml
+            name: Code linting
+
+            on:
+              push:
+                branches: [main]
+              pull_request:
+                branches: [main]
+
+            jobs:
+              format:
+                name: Check code formatting
+            ```
+
+            then you should search for `Check code formatting` and not `Code linting`.
 
     3. If you have created the rules correctly you should see something like the image below when you try to merge a
         pull request. In this case, all three checks are required to pass before the code can be merged. Additionally,
