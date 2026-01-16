@@ -490,8 +490,8 @@ have in your code.
             version: 2
             updates:
             - package-ecosystem: "pip"
-                directory: "/"
-                schedule:
+              directory: "/"
+              schedule:
                 interval: "weekly"
             ```
 
@@ -501,8 +501,8 @@ have in your code.
             version: 2
             updates:
             - package-ecosystem: "uv"
-                directory: "/"
-                schedule:
+              directory: "/"
+              schedule:
                 interval: "weekly"
             ```
 
@@ -557,7 +557,7 @@ have in your code.
     ...
     ```
 
-    The `@v4` specifies that we are using version 4 of the `actions/checkout` action. This means that if a new version
+    The `@v5` specifies that we are using version 5 of the `actions/checkout` action. This means that if a new version
     of the action is released, we will not automatically get the new version. Dependabot can help us with this. Try
     adding to the `dependabot.yaml` file that Dependabot should also check for updates in the GitHub Actions ecosystem.
 
@@ -571,6 +571,7 @@ have in your code.
           schedule:
             interval: "weekly"
         - package-ecosystem: "github-actions"
+          directory: "/"
           schedule:
             interval: "weekly"
         ```
@@ -591,7 +592,7 @@ have in your code.
         * Workflow: A `yaml` file that defines the instructions to be executed on specific events. Needs to be placed in
             the `.github/workflows` folder.
         * Runner: Workflows need to run somewhere. The environment that the workflow is being executed on is called the
-            runner. Most commonly the runner is hosted by GitHub but can also hosted by yourself.
+            runner. Most commonly the runner is hosted by GitHub but can also be hosted by yourself.
         * Job: A series of steps that are executed on the same runner. A workflow must include at least one job but
             often contains many.
         * Action: An action is the smallest unit in a workflow. Jobs often consist of multiple actions that are
