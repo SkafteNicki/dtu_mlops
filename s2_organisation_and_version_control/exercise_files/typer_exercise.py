@@ -1,4 +1,4 @@
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -8,7 +8,7 @@ from sklearn.svm import SVC
 def train():
     """Train and evaluate the model."""
     # Load the dataset
-    data = load_iris()
+    data = load_breast_cancer()
     x = data.data
     y = data.target
 
