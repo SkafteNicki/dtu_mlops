@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-from evidently.metrics import DataDriftTable
-from evidently.report import Report
+from evidently.legacy.metrics import DataDriftTable
+from evidently.legacy.report import Report
 from torchvision import datasets, transforms
 
 transform = transforms.Compose([transforms.ToTensor()])
