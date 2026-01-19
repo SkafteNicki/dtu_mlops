@@ -59,7 +59,7 @@ important topic if we ever want our applications to be used by many people at th
 
 Date    | Day       | Presentation topic                                           | Frameworks                               | Format
 --------|-----------|--------------------------------------------------------------|------------------------------------------|----------
-19/1/26 | Monday    | [Monitoring📝](../slides/Monitoring.pdf)                     | Evidently AI, Prometheus, GCP Monitoring | [Exercises](../s8_monitoring/README.md)
+19/1/26 | Monday    | [Monitoring📝](../slides/day11_monitoring.pdf)               | Evidently AI, Prometheus, GCP Monitoring | [Exercises](../s8_monitoring/README.md)
 20/1/26 | Tuesday   | [Scalable applications📝](../slides/ScalingApplications.pdf) | PyTorch, Lightning                       | [Exercises](../s9_scalable_applications/README.md)
 21/1/26 | Wednesday | Summary lecture                                              | -                                        | [Projects](projects.md)
 22/1/26 | Thursday  | No lecture                                                   | -                                        | [Projects](projects.md)

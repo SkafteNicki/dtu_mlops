@@ -1,6 +1,6 @@
 # Monitoring
 
-[Slides](../slides/Monitoring.pdf){ .md-button }
+[Slides](../slides/day11_monitoring.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 
