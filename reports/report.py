@@ -96,7 +96,8 @@ def html() -> None:
 @app.command()
 def check() -> None:
     """Check if report satisfies the requirements."""
-    with Path("README.md").open() as file:
+    path = "reports/README.md" if Path("reports/README.md").exists() else "README.md"
+    with Path(path).open() as file:
         text = file.read()
 
     # answers in general can be found between "Answer:" and "###" or "##"
@@ -172,3 +173,4 @@ def check() -> None:
 
 if __name__ == "__main__":
     app()
+
