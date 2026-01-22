@@ -16,6 +16,13 @@
 
     [:octicons-arrow-right-24: M21: Cloud Services](using_the_cloud.md)
 
+- ![](../figures/icons/opentofu.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use infrastructure as code to manage your cloud resources.
+
+    [:octicons-arrow-right-24: M21: Cloud Services](using_the_cloud.md)
+
+
 </div>
 
 Running computations locally is often sufficient when only playing around with code in the initial phase of development.
