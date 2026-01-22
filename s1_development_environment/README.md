@@ -4,26 +4,26 @@
 
 <div class="grid cards" markdown>
 
-- ![](../figures/icons/terminal.png){align=right : style="height:100px;width:100px"}
+- ![Terminal icon](../figures/icons/terminal.png){align=right : style="height:100px;width:100px"}
 
     Learn the basics of the command line, and how to use it to navigate your file system and run programs.
 
     [:octicons-arrow-right-24: M1: Command line](command_line.md)
 
-- ![](../figures/icons/conda.png){align=right : style="height:100px;width:100px"}
+- ![Conda icon](../figures/icons/conda.png){align=right : style="height:100px;width:100px"}
 
     Learn how package managers work in Python and how to create reproducible virtual environments using
     `conda` and `pip`.
 
     [:octicons-arrow-right-24: M2: Package Manager](package_manager.md)
 
-- ![](../figures/icons/vscode.png){align=right : style="height:100px;width:100px"}
+- ![VS Code icon](../figures/icons/vscode.png){align=right : style="height:100px;width:100px"}
 
     Learn how to use a modern editor for code development.
 
     [:octicons-arrow-right-24: M3: Editor](editor.md)
 
-- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
+- ![PyTorch icon](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}#
 
     Refresh your PyTorch skills and implement a simple deep-learning model.
 

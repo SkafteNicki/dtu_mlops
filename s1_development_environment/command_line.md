@@ -185,7 +185,7 @@ command line.
         `compute` is a subcommand to `gcloud`, `instances` is a subcommand to `compute`, and `create-with-container`
         is a subcommand to `instances`.
 
-2. Two common arguments that nearly all commands have are the `-h` and `-V` options. What does each of them do?
+2. Two common options that nearly all commands have are `-h` and `-V`. What does each of them do?
 
     ??? success "Solution"
 

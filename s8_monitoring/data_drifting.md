@@ -182,11 +182,11 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     1. Add the following code to the `data_drift.py` file to create a report on the data drift:
 
         ```python
-        from evidently.report import Report
-        from evidently.metric_preset import DataDriftPreset
+        from evidently.legacy.report import Report
+        from evidently.legacy.metric_preset import DataDriftPreset
         report = Report(metrics=[DataDriftPreset()])
-        report.run(reference_data=reference_data, current_data=current_data)
-        report.save_html('report.html')
+        snapshot = report.run(reference_data=reference_data, current_data=current_data)
+        snapshot.save_html('report.html')
         ```
 
         Open the generated `.html` page. What does it say about your data? Has it drifted? Make sure to poke
@@ -202,7 +202,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             The `DataQualityPreset` checks the quality of the data:
 
             ```python
-            from evidently.metric_preset import DataDriftPreset, DataQualityPreset
+            from evidently.legacy.presets import DataDriftPreset, DataQualityPreset
             report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
             ```
 
@@ -217,7 +217,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             The `TargetDriftPreset` checks the distribution of the target values:
 
             ```python
-            from evidently.metric_preset import DataDriftPreset, DataQualityPreset, TargetDriftPreset
+            from evidently.legacy.presets import DataDriftPreset, DataQualityPreset, TargetDriftPreset
             report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
             ```
 
@@ -234,8 +234,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         all tests passed and `False` otherwise.
 
         ```python
-        from evidently.test_suite import TestSuite
-        from evidently.tests import TestNumberOfMissingValues
+        from evidently.legacy.test_suite import TestSuite
+        from evidently.legacy.tests import TestNumberOfMissingValues
         data_test = TestSuite(tests=[TestNumberOfMissingValues()])
         data_test.run(reference_data=reference_data, current_data=current_data)
         result = data_test.as_dict()

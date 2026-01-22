@@ -42,7 +42,6 @@ table =  "| 🌟 Framework | 🧩 Backend Agnostic | 🧠 Model Agnostic | 📂 
 table += "|--------------|---------------------|-------------------|---------------|----------------|\n"
 
 data = [
-    ("Cortex", "Yes", "Yes", "cortexlabs/cortex"),
     ("BentoML", "Yes", "Yes", "bentoml/bentoml"),
     ("Ray Serve", "Yes", "Yes", "ray-project/ray"),
     ("Triton Inference Server", "Yes", "Yes", "NVIDIA/triton-inference-server"),
@@ -64,9 +63,9 @@ for framework, backend_agnostic, model_agnostic, repo in data:
 print(table)
 ```
 
-The first 7 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
+The first 6 frameworks are backend agnostic, meaning that they are intended to work with whatever computational backend
 your model is implemented in (TensorFlow, PyTorch, Jax, Sklearn, etc.), whereas the last 3 are backend specific (PyTorch,
-TensorFlow and a custom framework). The first 9 frameworks are model agnostic, meaning that they are intended to work
+TensorFlow and a custom framework). The first 8 frameworks are model agnostic, meaning that they are intended to work
 with whatever model you have implemented, whereas the last one is model specific in this case to LLM's. When choosing a
 framework to deploy your model, you should consider the following:
 

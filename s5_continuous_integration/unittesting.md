@@ -288,7 +288,7 @@ The following exercises should be applied to your MNIST repository
 
     3. To get a simple coverage report simply type
 
-        === "Using pip
+        === "Using pip"
 
             ```bash
             coverage report -m

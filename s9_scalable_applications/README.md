@@ -1,6 +1,6 @@
 # Scaling applications
 
-[Slides](../slides/ScalingApplications.pdf){ .md-button }
+[Slides](../slides/day12_scaling_applications.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 

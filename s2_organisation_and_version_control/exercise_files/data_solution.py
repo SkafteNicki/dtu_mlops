@@ -1,5 +1,35 @@
+from pathlib import Path
+
 import torch
 import typer
+from torch.utils.data import Dataset
+
+
+class MyDataset(Dataset):
+    """Custom dataset for corrupt MNIST."""
+
+    def __init__(self, data_dir: str | Path, train: bool = True) -> None:
+        super().__init__()
+        self.data_dir = Path(data_dir)
+        if train:
+            imgs, targets = [], []
+            for i in range(6):
+                imgs.append(torch.load(self.data_dir / f"train_images_{i}.pt"))
+                targets.append(torch.load(self.data_dir / f"train_target_{i}.pt"))
+            self.images = torch.cat(imgs).unsqueeze(1).float()
+            self.targets = torch.cat(targets).long()
+        else:
+            self.images = torch.load(self.data_dir / "test_images.pt").unsqueeze(1).float()
+            self.targets = torch.load(self.data_dir / "test_target.pt").long()
+        self.images = (self.images - self.images.mean()) / self.images.std()
+
+    def __len__(self) -> int:
+        """Return the length of the dataset."""
+        return len(self.images)
+
+    def __getitem__(self, idx: int):
+        """Return a given sample from the dataset."""
+        return self.images[idx], self.targets[idx]
 
 
 def normalize(images: torch.Tensor) -> torch.Tensor:

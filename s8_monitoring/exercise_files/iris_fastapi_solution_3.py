@@ -4,12 +4,12 @@ from datetime import datetime
 
 import anyio
 import pandas as pd
-from evidently.metric_preset import (
+from evidently.legacy.metric_preset import (
     DataDriftPreset,
     DataQualityPreset,
     TargetDriftPreset,
 )
-from evidently.report import Report
+from evidently.legacy.report import Report
 from fastapi import BackgroundTasks, FastAPI
 from fastapi.responses import HTMLResponse
 from sklearn import datasets

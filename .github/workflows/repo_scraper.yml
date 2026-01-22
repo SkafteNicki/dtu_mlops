@@ -28,5 +28,4 @@ jobs:
       - name: Run repo scraper
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python tools/repo_stats/scraper.py
+        run: python tools/repo_stats/scraper.py

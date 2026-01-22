@@ -247,8 +247,9 @@ result nicely (like `snakeviz` for `cProfile`) we are also going to use the tens
     prof.export_chrome_trace("trace.json")
     ```
 
-    You should be able to visualize the file by going to `chrome://tracing` in any chromium-based web browser.
-    Can you still identify the information printed in the previous exercises from the visualizations?
+    You should be able to visualize the file by going to `chrome://tracing` in any chromium-based web browser (provided
+    you have enabled internal debugging pages at chrome://chrome-urls). Can you still identify the information printed
+    in the previous exercises from the visualizations?
 
 5. Running profiling on a single forward step can produce misleading results, as it only provides a single sample that
     may depend on what background processes are running on your computer. Therefore it is recommended to profile

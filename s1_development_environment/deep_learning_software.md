@@ -77,7 +77,7 @@ pip install torch
 
 in a new virtual environment, this will result in a disk usage of around 6.6 GB! This is not a problem if you have to
 do it one time, but what you will experience throughout this course you will end up downloading and installing your
-project dependencies over and over again for different reasons (new virtual environments, containers, continues
+project dependencies over and over again for different reasons (new virtual environments, containers, continuous
 integration systems etc.). For this reason, it is worth considering how you install Pytorch.
 
 When naively installing Pytorch, you will fetch whatever build is available on PyPI which is most likely a GPU enabled
@@ -107,7 +107,7 @@ Here are some general installation commands for Pytorch:
     pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
     ```
 
-    If you want this to be part of your `requirements.txt` file, it needs to looks something like this:
+    If you want this to be part of your `requirements.txt` file, it needs to look something like this:
 
     ```txt
     --index-url https://download.pytorch.org/whl/cu126
@@ -152,7 +152,7 @@ Here are some general installation commands for Pytorch:
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
 
-!!! tip "Notebooks and `uv`
+!!! tip "Notebooks and `uv`"
 
     If you are using `uv` as your package manager, you may need to restart the Jupyter Notebook kernel after installing
     new packages to ensure that the newly installed packages are recognized within the notebook environment.

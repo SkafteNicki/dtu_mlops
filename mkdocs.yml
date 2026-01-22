@@ -92,7 +92,7 @@ extra:
 
 nav:
   - Home: README.md
-  - Time plan: pages/timeplan.md
+  - Introduction: pages/before.md
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
@@ -147,13 +147,7 @@ nav:
     - M32 - Documentation: s10_extra/documentation.md
     - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
-
-    # - M35 - Designing Pipelines: s10_extra/design.md
-    # - M37 - Workflow orchestration: s10_extra/orchestration.md
-    # - M38 - Kubernetes: s10_extra/kubernetes.md
-    # - M39 - Infrastructure as code: infrastructure_as_code.md
-    # - M40 - Calibration: s10_extra/calibration.md
-    # - M41 - Quantization: s10_extra/quantization.md
   - Summary: pages/overview.md
+  - Time plan: pages/timeplan.md
   - Projects: pages/projects.md
   - FAQ: pages/faq.md

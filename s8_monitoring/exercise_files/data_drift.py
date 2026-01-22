@@ -1,11 +1,11 @@
-from evidently.metric_preset import (
+from evidently.legacy.metric_preset import (
     DataDriftPreset,
     DataQualityPreset,
     TargetDriftPreset,
 )
-from evidently.report import Report
-from evidently.test_preset import DataStabilityTestPreset
-from evidently.test_suite import TestSuite
+from evidently.legacy.report import Report
+from evidently.legacy.test_preset import DataStabilityTestPreset
+from evidently.legacy.test_suite import TestSuite
 from sklearn import datasets
 
 iris_frame = datasets.load_iris(as_frame=True).frame

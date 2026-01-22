@@ -5,8 +5,8 @@ from pathlib import Path
 import anyio
 import nltk
 import pandas as pd
-from evidently.metric_preset import TargetDriftPreset, TextEvals
-from evidently.report import Report
+from evidently.legacy.metric_preset import TargetDriftPreset, TextEvals
+from evidently.legacy.report import Report
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from google.cloud import storage
