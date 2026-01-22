@@ -48,7 +48,6 @@ This includes:
 * Conduct a research project in collaboration with fellow students using the frameworks taught in the course
 * Have lots of fun and share memes! :)
 
-
 ## 🔥 Where to start
 
 We highly recommend that when going through the material you use the
@@ -57,7 +56,8 @@ We highly recommend that when going through the material you use the
 some special HTML magic provided by
 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
-In particular start by going to the [Introduction page](https://skaftenicki.github.io/dtu_mlops/intro/), which will give you an overview of the course and an soft introduction to MLOps.
+In particular start by going to the [Introduction page](pages/before.md), which will give you an overview of the course
+and a soft introduction to MLOps.
 
 ## 📓 References
 
