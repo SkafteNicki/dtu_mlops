@@ -126,34 +126,28 @@ nav:
     - s6_the_cloud/README.md
     - M20 - Cloud Setup: s6_the_cloud/cloud_setup.md
     - M21 - Using the Cloud: s6_the_cloud/using_the_cloud.md
+    - M22 - Infrastructure as Code: s6_the_cloud/infrastructure_as_code.md
   - S7 - Deployment 📦:
     - s7_deployment/README.md
-    - M22 - Requests and APIs: s7_deployment/apis.md
-    - M23 - Cloud Deployment: s7_deployment/cloud_deployment.md
-    - M24 - API Testing: s7_deployment/testing_apis.md
-    - M25 - ML deployment: s7_deployment/ml_deployment.md
-    - M26 - Frontend: s7_deployment/frontend.md
+    - M23 - Requests and APIs: s7_deployment/apis.md
+    - M24 - Cloud Deployment: s7_deployment/cloud_deployment.md
+    - M25 - API Testing: s7_deployment/testing_apis.md
+    - M26 - ML deployment: s7_deployment/ml_deployment.md
+    - M27 - Frontend: s7_deployment/frontend.md
   - S8 - Monitoring 📊:
     - s8_monitoring/README.md
-    - M27 - Data Drifting: s8_monitoring/data_drifting.md
-    - M28 - System Monitoring: s8_monitoring/monitoring.md
+    - M28 - Data Drifting: s8_monitoring/data_drifting.md
+    - M29 - System Monitoring: s8_monitoring/monitoring.md
   - S9 - Scalable applications ⚖️:
     - s9_scalable_applications/README.md
-    - M29 - Distributed Data Loading: s9_scalable_applications/data_loading.md
-    - M30 - Distributed Training: s9_scalable_applications/distributed_training.md
-    - M31 - Scalable Inference: s9_scalable_applications/inference.md
+    - M30 - Distributed Data Loading: s9_scalable_applications/data_loading.md
+    - M31 - Distributed Training: s9_scalable_applications/distributed_training.md
+    - M32 - Scalable Inference: s9_scalable_applications/inference.md
   - S10 - Extra 🔥:
     - s10_extra/README.md
-    - M32 - Documentation: s10_extra/documentation.md
-    - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
-    - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
-
-    # - M35 - Designing Pipelines: s10_extra/design.md
-    # - M37 - Workflow orchestration: s10_extra/orchestration.md
-    # - M38 - Kubernetes: s10_extra/kubernetes.md
-    # - M39 - Infrastructure as code: infrastructure_as_code.md
-    # - M40 - Calibration: s10_extra/calibration.md
-    # - M41 - Quantization: s10_extra/quantization.md
+    - M33 - Documentation: s10_extra/documentation.md
+    - M34 - Hyperparameter optimization: s10_extra/hyperparameters.md
+    - M35 - High Performance Clusters: s10_extra/high_performance_clusters.md
   - Summary: pages/overview.md
   - Projects: pages/projects.md
   - FAQ: pages/faq.md

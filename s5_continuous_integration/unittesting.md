@@ -38,7 +38,7 @@ important to note that testing machine learning-based systems is much more diffi
 reason for this is that machine learning systems depend on *data* that influences the state of our system. For this
 reason, we not only need unit tests and integration tests of our code but also need data testing, infrastructure testing
 and more monitoring to check that we stay within the data distribution we are training on (more on this in
-[module M25 on data drifting](../s8_monitoring/data_drifting.md)). This added complexity is illustrated in the figure
+[module M28 on data drifting](../s8_monitoring/data_drifting.md)). This added complexity is illustrated in the figure
 below.
 
 <figure markdown>

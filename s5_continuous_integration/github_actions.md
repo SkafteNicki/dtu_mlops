@@ -626,7 +626,7 @@ have in your code.
             </figure>
 
 This ends the module on GitHub workflows. If you are more interested in this topic you can check out module
-[M31 on documentation](../s10_extra/documentation.md) which first includes locally building some documentation for your
+[M32 on documentation](../s10_extra/documentation.md) which first includes locally building some documentation for your
 project and afterward using GitHub actions for deploying it to GitHub Pages. Additionally, GitHub also has a lot of
 templates already for running different continuous integration tasks. If you try to create a workflow file directly in
 GitHub you may encounter the following page:
