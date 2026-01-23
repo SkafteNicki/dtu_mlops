@@ -7,8 +7,7 @@
 API testing, similar to unit testing, is a type of software testing that involves testing the application programming
 interface (API) directly to ensure it meets requirements for functionality, reliability, performance, and security.
 The core difference from the unit testing we have been implementing until now is that instead of testing the individual
-functions, we are testing the entire API as a whole. Additionally, another difference is that we need to simulate API
-calls that should be as similar as possible to the ones that will be made by the users of the API.
+functions, we are testing the entire API as a whole.
 
 !!! note "API testing vs integration testing"
 
@@ -116,7 +115,7 @@ to change.
 
     ```bash
     pytest tests/apitests/test_apis.py
-    ```
+ffffffff    ```
 
     Make sure that all your tests pass.
 
