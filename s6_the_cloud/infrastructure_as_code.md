@@ -25,8 +25,66 @@ infrastructure, making it easier to scale and maintain our machine learning pipe
     If you ever encountered the concept of Infrastructure as Code before, you might have heard the mention of
     [Terraform](https://www.terraform.io/). This has been the defacto standard for IaC for many years. However, due to
     recent licensing changes from HashiCorp (the company behind Terraform), the open-source community has forked
-    Terraform and created OpenTofu as a fully open-source alternative. For this reason the two tools are very similar
-    in terms of syntax and usage, and the core concepts remain the same.
+    Terraform and created OpenTofu as a fully open-source alternative. Because OpenTofu is a fork of Terraform, there
+    should be a very high degree of compatibility between the two tools, syntax should be the same and the core concepts
+    remain unchanged.
+
+## A short introduction
+
+The two core principles of Intfrastructure as Code are **idempotency** and **declarative configuration**. 
+
+- **Idempotency**: This means that applying the same configuration multiple times will always result in the same
+    infrastructure state. For example, if you define a compute instance in your configuration and apply it, running the
+    apply command again will not create a duplicate instance but will ensure that the existing instance matches the
+    defined configuration. This is highly related to the previous session on 
+    [reproducibility](../s3_reproducibility/README.md).
+
+- **Declarative Configuration**: Instead of writing imperative commands to create and manage resources, you define the
+    desired state of your infrastructure in configuration files. E.g. instead of writing 
+    `gcloud compute instances create ...`, you will instead be creating a `.tf` (tf=terraform) file that describes the
+    desired state of your compute instance.
+
+Alright, then how does it work. Your job as the MLOps engineer is to write configuration files that describe the desired
+state of your cloud infrastructure. The files have the extension `.tf` and in general I would recommend organizing them
+in a `infrastructure` subfolder. A `.tf` file in general look something like this:
+
+```hcl
+provider "google" {
+  ...
+}
+
+resource "google_compute_instance" "my_instance" {
+  ...
+}
+
+data "google_compute_image" "my_image" {
+  ...
+}
+
+```
+
+In the beginning of the file, you define which cloud provider you want to use (yes, you can define multiple providers).
+Then you define different resources that you want to create. Each resource has a type (e.g. `google_compute_instance`)
+and a name (e.g. `my_instance`). Inside the resource block, you define different parameters that describe how you want
+the resource to be configured. You can see this file as a way to structure all the `gcloud` commands you would have to 
+run manually to create the same resource. Finally, you can also define data sources which are read-only references to
+existing resources.
+
+After writing your configuration files, you can use the OpenTofu CLI to apply the configuration and create the resources
+
+```bash
+tofu apply
+```
+
+in your cloud account. A side effect of applying the configuration is that OpenTofu creates a **state file** that keeps
+track of the current state of your infrastructure. Running `tofu apply` again will compare the desired state (your 
+configuration files) with the current state (the state file) and apply any necessary changes to reach the desired state.
+
+!!! warning "Keep state file secure"
+
+    The state file contains sensitive information (such as database passwords) and should be kept secure. When working
+    in teams, it is recommended to store the state file in a remote backend (like Google Cloud Storage) rather than
+    locally on your machine.
 
 ## ❔ Exercises
 
