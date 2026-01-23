@@ -17,7 +17,9 @@ calls that should be as similar as possible to the ones that will be made by the
     such as testing that your API correctly integrates with a database, external APIs, or other services. However, for
     the simple inference APIs we typically build in this course (load model → convert input → run inference → return
     output), we are not really integrating with other services. Therefore, the kind of testing we do in this module
-    is better described as **functional testing** and **load/performance testing** rather than integration testing.
+    is better described as **functional testing** (testing that individual API endpoints work correctly and return the
+    expected outputs for given inputs) and **load/performance testing** (testing how the API handles many concurrent
+    requests) rather than integration testing.
 
 There are in general two things that we want to test when working with APIs:
 

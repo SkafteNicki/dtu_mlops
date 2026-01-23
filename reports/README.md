@@ -478,8 +478,9 @@ will check the repositories and the code to verify your answers.
 > Recommended answer length: 100-200 words.
 >
 > Example:
-> *For functional testing we used ... to test our API endpoints. For load testing we used ... . The results of the*
-> *load testing showed that ... before the service crashed.*
+> *For functional testing we used pytest with httpx to test our API endpoints and ensure they returned the correct*
+> *responses. For load testing we used locust with 100 concurrent users. The results of the load testing showed that*
+> *our API could handle approximately 500 requests per second before the service crashed.*
 >
 > Answer:
 
