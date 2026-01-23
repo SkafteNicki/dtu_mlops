@@ -49,6 +49,10 @@ state of your cloud infrastructure. The files have the extension `.tf` and in ge
 in a `infrastructure` subfolder. A `.tf` file in general look something like this:
 
 ```hcl
+terraform  {
+  ...
+}
+
 provider "google" {
   ...
 }
@@ -63,7 +67,9 @@ data "google_compute_image" "my_image" {
 
 ```
 
-In the beginning of the file, you define which cloud provider you want to use (yes, you can define multiple providers).
+In the beginning of the file, you define the `terraform` block which contains general settings for OpenTofu/Terraform.
+It often includes which plugins (providers) you want to use and their versions. After that, you define one or more
+`provider` blocks where you define which cloud provider you want to use (yes, you can define multiple providers).
 Then you define different resources that you want to create. Each resource has a type (e.g. `google_compute_instance`)
 and a name (e.g. `my_instance`). Inside the resource block, you define different parameters that describe how you want
 the resource to be configured. You can see this file as a way to structure all the `gcloud` commands you would have to
@@ -73,7 +79,9 @@ existing resources.
 After writing your configuration files, you can use the OpenTofu CLI to apply the configuration and create the resources
 
 ```bash
-tofu apply
+tofu init  # first time setup
+tofu plan  # see what changes will be made
+tofu apply  # apply the configuration
 ```
 
 in your cloud account. A side effect of applying the configuration is that OpenTofu creates a **state file** that keeps
@@ -95,59 +103,349 @@ configuration files) with the current state (the state file) and apply any neces
     tofu --version
     ```
 
-2. Initialize a new OpenTofu configuration directory in the root of your repository:
-
-    ```bash
-    tofu init
-    ```
-
-    This command creates a `.terraform` directory and downloads the necessary provider plugins.
-
-    ??? success "Solution"
-
-        If the command runs successfully, you should see output similar to:
-
-        ```
-        Initializing the backend...
-        Initializing provider plugins...
-        Terraform has been successfully initialized!
-        ```
-
-### Exercise 2: Basic Provider Configuration
-
-For the rest of the exercises, we assume that you are using the corrupt MNIST dataset example. Create the foundational
-OpenTofu configuration files to provision cloud resources.
-
-1. In the root of the repository, create a new file called `main.tf`. This file will contain the main OpenTofu
-    configuration for provisioning the necessary cloud resources.
-
-2. Add the following code to configure the Google Cloud provider:
+2. Then lets add a `main.tf` file in the root of your repository with the following content:
 
     ```hcl
     terraform {
       required_providers {
         google = {
           source  = "hashicorp/google"
-          version = "~> 4.0"
+          version = "~> 7.16.0"  # code
         }
       }
+      required_version = ">= 1.5.0"
     }
 
+    provider "google" {
+      project = "dtu-mlops-2026"
+      region  = "europe-west1"
+    }
+    ```
+
+    and then initialize the OpenTofu configuration by running
+
+    ```bash
+    tofu init
+    ```
+
+    you should see something like this:
+
+    ```bash
+    ❯ tofu init
+
+    Initializing the backend...
+
+    Initializing provider plugins...
+    - Finding hashicorp/google versions matching "~> 7.16.0"...
+    - Installing hashicorp/google v7.16.0...
+    - Installed hashicorp/google v7.16.0 (signed, key ID 0C0AF313E5FD9F80)
+    ...
+    ```
+
+    !!! note "Add .terraform to .gitignore"
+
+        Running `tofu init` creates a `.terraform` directory that contains provider plugins and modules. This directory
+        can be large and should not be committed to version control. Add `.terraform/` to your `.gitignore` file. The
+        `.terraform.lock.hcl` file, however, **should** be committed as it locks provider versions for reproducibility.
+
+    look at the code in the `main.tf` file, can you find the relevant information/documentation on the internet to
+    understand what it does? Additionally, running `tofu init` has created a file in your folder, what is the purpose of
+    this file?
+
+    ??? success "Solution"
+
+        Even though we are using OpenTofu, most information we need is still found in the Terraform documentation. For
+        example to read about the requirements block, you can go to this link:
+
+        <https://developer.hashicorp.com/terraform/language/providers/requirements>
+
+        The relevant documentation for google cloud provider can be found here:
+
+        <https://registry.terraform.io/providers/hashicorp/google/latest>
+
+        And the specific resources that is available for Google Cloud can be found here:
+
+        <https://registry.terraform.io/providers/hashicorp/google/latest/docs>
+
+        Finally, the `tofu init` command has created a `.terraform.lock.hcl` file that locks the *exact* version of the
+        provider plugins being used. This ensures that the same versions are used across different machines and this
+        file should therefore be committed to version control.
+
+3. Let's begin the process of creating resources. To begin with lets create a simple GCP bucket.
+    Add the following code to your `main.tf` file:
+
+    ```hcl
+    resource "google_storage_bucket" "my_bucket" {
+      name          = "dtu-mlops-2026-infra-as-code-bucket-<random-numbers>"
+      location      = "EU"
+      force_destroy = true
+
+      uniform_bucket_level_access = true
+
+      versioning {
+        enabled = true
+      }
+    }
+    ```
+
+    and then run `tofu plan` to see what changes will be made. If everything looks good e.g. your plan should return
+    `Plan: 1 to add, 0 to change, 0 to destroy.` then run `tofu apply` to create the bucket. Run `gsutil ls` to verify
+    that the bucket was created. Also checkout the `*.tfstate` file that was created, what information does it contain?
+
+    ??? success "Solution"
+
+      The generated state file will look something like this:
+
+      ```json
+      {
+        "terraform_version": "1.11.4",
+        "serial": 2,
+
+        "resources": [
+          {
+            "type": "google_storage_bucket",
+            "name": "my_bucket",
+
+            "instances": [
+              {
+                "id": "dtu-mlops-2026-infra-as-code-bucket-123940141",
+
+                "attributes": {
+                  "name": "dtu-mlops-2026-infra-as-code-bucket-123940141",
+                  "project": "dtu-mlops-2026",
+                  "location": "EU",
+                  "storage_class": "STANDARD",
+                  "versioning": {
+                    "enabled": true
+                  },
+                  "force_destroy": true,
+                  "self_link": "https://www.googleapis.com/storage/v1/b/..."
+                }
+              }
+            ]
+          }
+        ]
+      }
+      ```
+
+      in very simple terms it answers the question: "what did I create, where is it, and what does it look like right
+      now?". Importantly, you will see that when you run `tofu apply` again, a `terraform.tfstate.backup` file will be
+      created as a backup of the previous state before any changes are applied.
+
+4. Next, let's make our file a little configurable. Instead of hardcoding everything in the `main.tf` file, we can use
+    variables to make it more flexible. Create a new file called `variables.tf` in the root of the repository and add
+    the following content:
+
+    ```hcl
+    variable "gcp_project_id" {
+      description = "The GCP project ID"
+      type        = string
+      default     = "dtu-mlops-2026"
+    }
+
+    variable "region" {
+      description = "The GCP region for resources"
+      type        = string
+      default     = "europe-west1"
+    }
+
+    variable "bucket_name" {
+      description = "The name of the storage bucket"
+      type        = string
+      default     = "dtu-mlops-2026-infra-as-code-bucket-<random-numbers>"
+    }
+    ```
+
+    Then update your `main.tf` file to use these variables:
+
+    ```hcl
     provider "google" {
       project = var.gcp_project_id
       region  = var.region
     }
+
+    resource "google_storage_bucket" "my_bucket" {
+      name          = var.bucket_name
+      location      = "EU"
+      force_destroy = true
+
+      uniform_bucket_level_access = true
+
+      versioning {
+        enabled = true
+      }
+    }
     ```
 
-    !!! note "Using Variables"
+    Assuming you in `variables.tf` have set the default values to the same as before, you should see that no changes
+    are needed when running `tofu plan`. Let's try to change the bucket name to something else. This can either be done
+    using the command line:
 
-        Notice we're using `var.gcp_project_id` and `var.region` instead of hardcoding values. This is a best practice
-        in IaC as it makes configurations reusable across different environments.
+    ```bash
+    tofu plan -var="bucket_name=dtu-mlops-2026-infra-as-code-bucket-987654321"
+    ```
+
+    or by creating a `terraform.tfvars` file with the following content:
+
+    ```hcl
+    bucket_name = "dtu-mlops-2026-infra-as-code-bucket-987654321"
+    ```
+
+    !!!! note "Do not commit terraform.tfvars"
+
+        The `terraform.tfvars` file often contains sensitive information. Add it to your `.gitignore` file to prevent
+        accidentally committing it to version control. Instead, you can use `terraform.tfvars.example` as a template
+        for team members.
+
+    Try it out and run `tofu apply` to create the new bucket. Try changing the other variables as well. Can you explain
+    why only changing the bucket name results in a change when running `tofu plan`?
 
     ??? success "Solution"
 
-        The provider block tells OpenTofu to use the Google Cloud provider and specifies which project and region
-        to use. The `required_providers` block specifies the minimum version of the provider required.
+        This part
+
+        ```hcl
+        provider "google" {
+          project = var.gcp_project_id
+          region  = var.region
+        }
+        ```
+
+        only affects new resources created by the provider, not the provider itself. Changing the provider configuration
+        does not automatically change existing resources.
+
+5. Now that we have created a bucket, let's learn how OpenTofu can output information from our infrastructure.
+    Outputs are useful for extracting values from your created resources, such as URLs, IPs, or resource names.
+    Create a new file called `outputs.tf` in the root of your repository and add the following content:
+
+    ```hcl
+    output "bucket_name" {
+      description = "The name of the created storage bucket"
+      value       = google_storage_bucket.my_bucket.name
+    }
+
+    output "bucket_url" {
+      description = "The GCS URL of the bucket"
+      value       = "gs://${google_storage_bucket.my_bucket.name}"
+    }
+
+    output "bucket_location" {
+      description = "The location of the bucket"
+      value       = google_storage_bucket.my_bucket.location
+    }
+    ```
+
+    Run `tofu apply` again to see the outputs. Even though no infrastructure changes are needed, OpenTofu will display
+    the output values. You can also retrieve outputs later without applying changes by running:
+
+    ```bash
+    tofu output
+    ```
+
+    or to get a specific output value:
+
+    ```bash
+    tofu output bucket_url
+    ```
+
+    Try accessing a specific output value and verify that it matches the bucket you created.
+
+    ??? success "Solution"
+
+        After running `tofu apply`, you should see output similar to:
+
+        ```
+        Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+        Outputs:
+
+        bucket_location = "EU"
+        bucket_name = "dtu-mlops-2026-infra-as-code-bucket-123940141"
+        bucket_url = "gs://dtu-mlops-2026-infra-as-code-bucket-123940141"
+        ```
+
+        Running `tofu output bucket_url` will return just the URL value, which is useful for scripting and automation.
+        You can use these outputs in other Terraform configurations, scripts, or CI/CD pipelines to reference the
+        created resources without hardcoding values.
+
+6. Next, try to figure out how to provision a virtual machine. The precise configuration you can determine but you
+    need to add it to your `main.tf` file, use variables where appropriate and create outputs to extract important
+    information about the created instance (e.g. instance name, internal and external IP address).
+
+    ??? success "Solution"
+
+        Here is an example of how you can create a GCP Compute Instance:
+
+        In `variables.tf`:
+
+        ```hcl
+        variable "instance_name" {
+          description = "The name of the compute instance"
+          type        = string
+          default     = "mnist-training-instance"
+        }
+
+        variable "machine_type" {
+          description = "The machine type for the compute instance"
+          type        = string
+          default     = "n1-standard-4"
+        }
+        ```
+
+        In `main.tf`:
+
+        ```hcl
+        resource "google_compute_instance" "training_instance" {
+          name         = var.instance_name
+          machine_type = var.machine_type
+          zone         = "${var.region}-a"
+
+          boot_disk {
+            initialize_params {
+              image = "projects/debian-cloud/global/images/debian-12-bookworm-v20240110"
+              size  = 50  # GB
+            }
+          }
+
+          network_interface {
+            network = "default"
+            access_config {
+              // Ephemeral public IP
+            }
+          }
+
+          tags = ["mnist-training", "http-server"]
+
+          metadata = {
+            enable-oslogin = "TRUE"
+          }
+
+          service_account {
+            scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+          }
+        }
+        ```
+
+        In `outputs.tf`:
+
+        ```hcl
+        output "instance_name" {
+          description = "The name of the created instance"
+          value       = google_compute_instance.training_instance.name
+        }
+
+        output "instance_internal_ip" {
+          description = "The internal IP of the created instance"
+          value       = google_compute_instance.training_instance.network_interface[0].network_ip
+        }
+
+        output "instance_external_ip" {
+          description = "The external IP of the created instance"
+          value       = google_compute_instance.training_instance.network_interface[0].access_config[0].nat_ip
+        }
+        ```
+
+<!--
 
 ### Exercise 3: Variables and Configuration
 
@@ -1188,4 +1486,4 @@ When using Infrastructure as Code, follow these best practices:
     [M21 Using the Cloud](using_the_cloud.md). For example:
     - Cloud Storage bucket configuration aligns with the data storage exercises
     - Artifact Registry setup matches the container registry exercises
-    - Vertex AI configuration supports the training exercises
+    - Vertex AI configuration supports the training exercises -->

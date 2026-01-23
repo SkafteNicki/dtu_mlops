@@ -1,3 +1,4 @@
+# Exercise 4: Same as v2, no changes to main.tf
 terraform {
   required_providers {
     google = {

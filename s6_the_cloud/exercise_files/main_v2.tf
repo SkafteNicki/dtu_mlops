@@ -1,3 +1,4 @@
+# Exercise 3: Configuration using variables
 terraform {
   required_providers {
     google = {

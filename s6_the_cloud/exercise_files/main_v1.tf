@@ -1,3 +1,4 @@
+# Exercise 2: Basic configuration with hardcoded values
 terraform {
   required_providers {
     google = {
@@ -9,12 +10,12 @@ terraform {
 }
 
 provider "google" {
-  project = var.gcp_project_id
-  region  = var.region
+  project = "dtu-mlops-2026"
+  region  = "europe-west1"
 }
 
 resource "google_storage_bucket" "my_bucket" {
-  name          = var.bucket_name
+  name          = "dtu-mlops-2026-infra-as-code-bucket-<random-numbers>"
   location      = "EU"
   force_destroy = true
 
