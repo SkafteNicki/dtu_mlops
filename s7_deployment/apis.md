@@ -74,10 +74,12 @@ We are going to do a couple of exercises on sending requests using the
     codes. Next, let's call a page that exists.
     { .annotate }
 
-    1. :man_raising_hand: If you do not get a status code of 404, it can either be due to some firewall settings or the
-        fact that many other students are doing the same exercise at the same time and we are essentially
-        [DDOS'ing](https://en.wikipedia.org/wiki/Denial-of-service_attack) GitHub. It does not matter if you get a
-        different status code.
+    1. :man_raising_hand: If you do not get a status code of 404, it can either
+        be due to some firewall settings or the fact that many other students are doing the same exercise at the same
+        time and we are hitting GitHub's API rate limits. GitHub limits unauthenticated requests to **60 per hour per
+        IP address**. When many students use the same network (e.g., DTU's network), you may see rate limit errors
+        like `{"message":"API rate limit exceeded..."}`. Don't worry - this is expected and we'll learn how to handle
+        it with authentication in a later exercise. For now, it does not matter if you get a different status code.
 
     ```python
     import requests
@@ -130,7 +132,62 @@ We are going to do a couple of exercises on sending requests using the
     Before looking at `response.json()` can you explain what the code does? You can try looking at this
     [page](https://docs.github.com/en/rest/search?apiVersion=2022-11-28) for help.
 
-6. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
+6. You may already have encountered in exercise 2 that GitHub's API
+    has rate limits. Unauthenticated requests are limited to 60 per hour per IP address, while authenticated requests
+    get 5,000 requests per hour. Let's learn how to authenticate our requests to avoid rate limit errors.
+
+    1. First, create a GitHub Personal Access Token (this is like a password for API access):
+        * Go to [GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)](https://github.com/settings/tokens)
+        * Click "Generate new token" > "Generate new token (classic)"
+        * Give it a descriptive name like "MLOps Course API Access"
+        * Select the `public_repo` scope (this allows reading public repository information)
+        * Set an expiration date (e.g., 90 days)
+        * Click "Generate token" at the bottom
+        * **Important**: Copy the token immediately - you won't be able to see it again!
+
+    2. Now try making an authenticated request. The secure way to use tokens is through environment variables:
+
+        ```python
+        import requests
+        import os
+
+        # Set your token as an environment variable first:
+        # export GITHUB_TOKEN='your_token_here'  # On Linux/Mac
+        # $env:GITHUB_TOKEN='your_token_here'    # On Windows PowerShell
+
+        token = os.getenv('GITHUB_TOKEN')
+        headers = {'Authorization': f'token {token}'}
+
+        response = requests.get('https://api.github.com/user', headers=headers)
+        print(response.status_code)
+        print(response.json())
+        ```
+
+        What information does this endpoint return about your GitHub account?
+
+    3. You can check your current rate limit status with:
+
+        ```python
+        response = requests.get('https://api.github.com/rate_limit', headers=headers)
+        print(response.json())
+        ```
+
+        Compare this to an unauthenticated request (without the `headers` parameter). What differences do you see
+        in the rate limits?
+
+    4. Try repeating exercise 5 with authentication by adding the `headers` parameter:
+
+        ```python
+        response = requests.get(
+            'https://api.github.com/search/repositories',
+            params={'q': 'requests+language:python'},
+            headers=headers
+        )
+        ```
+
+        This authenticated request will count against your 5,000/hour limit instead of the 60/hour limit.
+
+7. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
     Say that we want to download an image, which we can do in the following way:
 
     ```python
@@ -146,7 +203,7 @@ We are going to do a couple of exercises on sending requests using the
         f.write(response.content)
     ```
 
-7. The `get` method is the most useful method because it allows us to get data from the server. However, as stated in
+8. The `get` method is the most useful method because it allows us to get data from the server. However, as stated in
     the beginning, multiple request methods exist, for example, the POST method for sending data to the server. Try
     executing:
 
@@ -157,7 +214,7 @@ We are going to do a couple of exercises on sending requests using the
 
     Investigate the response (this is an artificial example because we do not control the server).
 
-8. Finally, we should also know that requests can be sent directly from the command line using the `curl` command.
+9. Finally, we should also know that requests can be sent directly from the command line using the `curl` command.
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do it from a
     script.
 
