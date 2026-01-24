@@ -7,9 +7,18 @@
 API testing, similar to unit testing, is a type of software testing that involves testing the application programming
 interface (API) directly to ensure it meets requirements for functionality, reliability, performance, and security.
 The core difference from the unit testing we have been implementing until now is that instead of testing the individual
-functions, we are testing the entire API as a whole. API testing is therefore a form of
-[integration testing](https://en.wikipedia.org/wiki/Integration_testing). Additionally, another difference is that we
-need to simulate API calls that should be as similar as possible to the ones that will be made by the users of the API.
+functions, we are testing the entire API as a whole.
+
+!!! note "API testing vs integration testing"
+
+    While API testing can sometimes be a form of [integration testing](https://en.wikipedia.org/wiki/Integration_testing),
+    it is not always the case. Integration testing specifically tests how multiple components or services work together,
+    such as testing that your API correctly integrates with a database, external APIs, or other services. However, for
+    the simple inference APIs we typically build in this course (load model → convert input → run inference → return
+    output), we are not really integrating with other services. Therefore, the kind of testing we do in this module
+    is better described as **functional testing** (testing that individual API endpoints work correctly and return the
+    expected outputs for given inputs) and **load/performance testing** (testing how the API handles many concurrent
+    requests) rather than integration testing.
 
 There are in general two things that we want to test when working with APIs:
 
@@ -37,7 +46,7 @@ my_project
 |   |-- unittests/
 |   |   |-- test_train.py
 |   |   |-- test_data.py
-|   |-- integrationtests/
+|   |-- apitests/
 |   |   |-- test_apis.py
 ```
 
@@ -63,7 +72,7 @@ to change.
 
 2. If you have already done the module on [unittesting](../s5_continuous_integration/unittesting.md) then you should
     already have a `tests/` folder. If not then create one. Inside the `tests/` folder create a new folder called
-    `integrationtests/`. Inside the `integrationtests/` folder create a file called `test_apis.py` and write the
+    `apitests/`. Inside the `apitests/` folder create a file called `test_apis.py` and write the
     following code:
 
     ```python
@@ -105,8 +114,8 @@ to change.
 4. To run the tests, you can use the following command:
 
     ```bash
-    pytest tests/integrationtests/test_apis.py
-    ```
+    pytest tests/apitests/test_apis.py
+ffffffff    ```
 
     Make sure that all your tests pass.
 

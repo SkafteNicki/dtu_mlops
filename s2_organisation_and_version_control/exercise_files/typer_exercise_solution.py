@@ -2,7 +2,7 @@ import pickle
 from typing import Annotated
 
 import typer
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -15,7 +15,7 @@ app = typer.Typer()
 def train(output: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
     """Train and evaluate the model."""
     # Load the dataset
-    data = load_breast_cancer()
+    data = load_iris()
     x = data.data
     y = data.target
 

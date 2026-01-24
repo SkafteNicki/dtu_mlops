@@ -192,7 +192,7 @@ for doing this, and another excellent framework for creating command line interf
         ```
 
 3. Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the
-    iris dataset.
+    breast cancer dataset.
 
     !!! example "iris_classifier.py"
 

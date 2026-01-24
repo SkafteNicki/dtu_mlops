@@ -472,14 +472,15 @@ will check the repositories and the code to verify your answers.
 
 ### Question 25
 
-> **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
-> **the load testing did you get. If not, explain how you would do it.**
+> **Did you perform any functional testing and load testing of your API? If yes, explain how you did it and what**
+> **results for the load testing did you get. If not, explain how you would do it.**
 >
 > Recommended answer length: 100-200 words.
 >
 > Example:
-> *For unit testing we used ... and for load testing we used ... . The results of the load testing showed that ...*
-> *before the service crashed.*
+> *For functional testing we used pytest with httpx to test our API endpoints and ensure they returned the correct*
+> *responses. For load testing we used locust with 100 concurrent users. The results of the load testing showed that*
+> *our API could handle approximately 500 requests per second before the service crashed.*
 >
 > Answer:
 
