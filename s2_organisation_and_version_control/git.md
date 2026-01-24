@@ -334,3 +334,31 @@ https://github.dev/username/repository
 ```
 
 Try it out on your newly created repository.
+
+## 🤖 AI-Assisted Code Exploration
+
+As AI tools like ChatGPT, Claude, and Gemini become increasingly popular for code understanding and development,
+having your entire repository in a format that's easy to share with Large Language Models (LLMs) can be very helpful.
+These tools allow you to pack an entire repository into a single file that can be fed into AI systems for code review,
+documentation generation, refactoring suggestions, or learning about unfamiliar codebases.
+
+[Repomix](https://github.com/yamadashy/repomix) is a powerful tool that packs your entire repository into a single
+AI-friendly file with support for multiple output formats and token counting. You can use it via CLI or through the
+web interface at [repomix.com](https://repomix.com):
+
+```bash
+# Quick usage without installation (packs current directory)
+npx repomix
+
+# Pack a remote repository directly
+npx repomix --remote https://github.com/username/repository
+```
+
+For a quick browser-based alternative, [uithub.com](https://uithub.com) lets you view any public GitHub repository
+as raw text with token counts. Simply replace `github.com` with `uithub.com` in any repository URL.
+
+!!! note "Licensing and Responsible Use"
+
+    When using these tools to explore and share code with AI systems, always ensure you have the proper licenses
+    and permissions to use the code. Respect intellectual property rights and only share code that you have
+    the right to analyze or that is under permissive open-source licenses.
