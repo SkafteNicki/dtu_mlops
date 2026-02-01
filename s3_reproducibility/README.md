@@ -20,7 +20,7 @@
 
 Today is all about reproducibility - one of those concepts that everyone agrees is very important and something should
 be done about, but the reality is that it is very hard to ensure complete reproducibility. The last sessions have already
-touched a bit on how tools like `conda` and code organization can help make code more reproducible. Today we are going
+touched a bit on how tools like `uv` and code organization can help make code more reproducible. Today we are going
 all the way to ensure that our scripts and our computing environment are fully reproducible.
 
 ## Why does reproducibility matter
