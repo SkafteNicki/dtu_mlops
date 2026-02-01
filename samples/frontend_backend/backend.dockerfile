@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc git && \
@@ -8,10 +8,10 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY requirements_backend.txt /app/requirements_backend.txt
+COPY pyproject.toml.backend /app/pyproject.toml
 COPY backend.py /app/backend.py
 
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_backend.txt
+RUN uv pip install --system -r pyproject.toml
 
 EXPOSE $PORT
 CMD exec unicorn --port $PORT --host 0.0.0.0 backend:app

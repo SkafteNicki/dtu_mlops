@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc git && \
@@ -8,10 +8,10 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY requirements_frontend.txt /app/requirements_frontend.txt
+COPY pyproject.toml.frontend /app/pyproject.toml
 COPY frontend.py /app/frontend.py
 
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_frontend.txt
+RUN uv pip install --system -r pyproject.toml
 
 EXPOSE $PORT
 
