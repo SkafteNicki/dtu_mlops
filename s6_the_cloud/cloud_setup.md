@@ -123,7 +123,7 @@ As the first step, we are going to get you some Google Cloud credits.
     4. Next, install the Google Cloud Python API:
 
         ```bash
-        pip install --upgrade google-api-python-client
+        uv add google-api-python-client
         ```
 
         Make sure that the Python interface is also installed. In a Python terminal type

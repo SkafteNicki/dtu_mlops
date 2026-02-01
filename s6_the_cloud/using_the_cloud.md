@@ -267,46 +267,22 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 
 3. Next, we need the Google storage extension for `dvc`.
 
-    === "Using pip"
-
-        ```bash
-        pip install dvc-gs
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv add dvc-gs
-        ```
+    ```bash
+    uv add dvc-gs
+    ```
 
 4. Now in your corrupt MNIST repository where you have already configured `dvc`, we are going to change the storage
     from our Google Drive to our newly created Google Cloud storage.
 
-    === "Using pip"
-
-        ```bash
-        dvc remote add -d remote_storage <output-from-gsutils>
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run dvc remote add -d remote_storage <output-from-gsutils>
-        ```
+    ```bash
+    uv run dvc remote add -d remote_storage <output-from-gsutils>
+    ```
 
     In addition, we are also going to modify the remote to support object versioning (called `version_aware` in `dvc`):
 
-    === "Using pip"
-
-        ```bash
-        dvc remote modify remote_storage version_aware true
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run dvc remote modify remote_storage version_aware true
-        ```
+    ```bash
+    uv run dvc remote modify remote_storage version_aware true
+    ```
 
     This will change the default way that `dvc` handles data. Instead of just storing the latest version of the data as
     [content-addressable storage](https://dvc.org/doc/user-guide/project-structure/internal-files#structure-of-the-cache-directory),
@@ -316,38 +292,19 @@ We are going to follow the instructions from this [page](https://dvc.org/doc/use
 5. The above command will change the `.dvc/config` file. `git add` and `git commit` the changes to that file.
     Finally, push data to the cloud.
 
-    === "Using pip"
+    ```bash
+    uv run dvc push --no-run-cache  # (1)!
+    ```
 
-        ```bash
-        dvc push --no-run-cache  # (1)!
-        ```
-
-        1. :man_raising_hand: The `--no-run-cache` flag is used to avoid pushing the cache file to the cloud, which is
-            not supported by the Google Cloud storage.
-
-    === "Using uv"
-
-        ```bash
-        uv run dvc push --no-run-cache  # (1)!
-        ```
-
-        1. :man_raising_hand: The `--no-run-cache` flag is used to avoid pushing the cache file to the cloud, which is
-            not supported by the Google Cloud storage.
+    1. :man_raising_hand: The `--no-run-cache` flag is used to avoid pushing the cache file to the cloud, which is
+        not supported by the Google Cloud storage.
 
 6. Finally, make sure that you can pull without having to give your credentials. The easiest way to see this
     is to delete the `.dvc/cache` folder that should be on your laptop and afterward do a
 
-    === "Using pip"
-
-        ```bash
-        dvc pull --no-run-cache
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run dvc pull --no-run-cache
-        ```
+    ```bash
+    uv run dvc pull --no-run-cache
+    ```
 
 This setup should work when trying to access the data from your laptop, which we authenticated in the previous
 module. However, how can you access the data from a virtual machine, inside a docker container or from a different
@@ -400,10 +357,10 @@ the corresponding `requirements.txt` file and `Dockerfile`.
     --8<-- "s6_the_cloud/exercise_files/main.py"
     ```
 
-??? example "requirements.txt"
+??? example "pyproject.toml"
 
-    ```txt linenums="1" title="requirements.txt"
-    --8<-- "s6_the_cloud/exercise_files/requirements.txt"
+    ```toml linenums="1" title="pyproject.toml"
+    --8<-- "s6_the_cloud/exercise_files/pyproject.toml"
     ```
 
 ??? example "Dockerfile"

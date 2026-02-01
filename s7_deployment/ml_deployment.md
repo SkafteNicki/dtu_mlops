@@ -121,15 +121,9 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command:
 
-    === "Using pip"
-        ```bash
-        pip install onnx onnxruntime onnxscript
-        ```
-
-    === "Using uv"
-        ```bash
-        uv add onnx onnxruntime onnxscript
-        ```
+    ```bash
+    uv add onnx onnxruntime onnxscript
+    ```
 
     The first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
     and the third package contains a new experimental package that is designed to make it easier to export models to
@@ -234,17 +228,10 @@ a developer-friendly framework, though it has historically been slow to run infe
     model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
     try it out directly in [webbrowser](https://netron.app/) or you can install it locally and then run it:
 
-    === "Using pip"
-        ```bash
-        pip install netron
-        netron resnet18.onnx
-        ```
-
-    === "Using uv"
-        ```bash
-        uv pip install netron
-        uv run netron resnet18.onnx
-        ```
+    ```bash
+    uv add netron
+    uv run netron resnet18.onnx
+    ```
 
     Can you figure out what method of the model is exported to ONNX?
 
@@ -542,17 +529,9 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
 1. Install BentoML.
 
-    === "Using pip"
-        ```bash
-        pip install bentoml
-        ```
-
-    === "Using uv"
-        ```bash
-        uv pip install bentoml
-        ```
-
-    Remember to add the dependency to your `requirements.txt` file.
+    ```bash
+    uv add bentoml
+    ```
 
 2. You are in principal free to serve any model you like, but we recommend just using a
     [torchvision](https://pytorch.org/vision/stable/index.html) model as in the ONNX exercises. Write your first service
@@ -753,8 +732,8 @@ but you will need to use a PyTorch model instead of an ONNX model.
             `CMD ["bentoml", "serve", "service:Summarization"]`. The `labels` part is used to specify labels about the
             container, see this [link](https://docs.docker.com/reference/dockerfile/#label) for more info. The `include`
             part corresponds to `COPY` statements in the dockerfile and finally the `python` part is used to specify
-            what python packages should be installed in the container which corresponds to `RUN pip install ...` in the
-            dockerfile.
+            what python packages should be installed in the container which corresponds to `RUN uv add ...` in
+            the dockerfile.
 
             Regarding how the `bentofile` is used to build the docker image, the `bentoml` package contains a number
             of templates (written using the [jinja2](https://jinja.palletsprojects.com/en/stable/) templating language)
@@ -786,11 +765,11 @@ but you will need to use a PyTorch model instead of an ONNX model.
             The corresponding dockerfile would look something like this:
 
             ```dockerfile
-            FROM python:3.11-slim
+            FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim
             WORKDIR /bento
             COPY bentoml_service.py .
             COPY model.onnx .
-            RUN pip install onnxruntime numpy bentoml
+            RUN uv pip install --system onnxruntime numpy bentoml
             CMD ["bentoml", "serve", "bentoml_service:ImageClassifierService"]
             ```
 
