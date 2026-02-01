@@ -158,17 +158,15 @@ repository.
                 - name: Checkout code
                   uses: actions/checkout@v5
 
-                - name: Set up Python
-                  uses: actions/setup-python@v5
+                - name: Set up uv
+                  uses: astral-sh/setup-uv@v7
                   with:
                     python-version: 3.11
-                    cache: 'pip'
-                    cache-dependency-path: setup.py
+                    enable-cache: true
 
                 - name: Install dependencies
                   run: |
-                    make dev_requirements
-                    pip list
+                    uv sync
 
                 - name: Auth with GCP
                   uses: google-github-actions/auth@v2
@@ -181,7 +179,7 @@ repository.
 
                 - name: Check data statistics
                   run: |
-                    python dataset_statistics.py
+                    uv run python dataset_statistics.py
             ```
 
     5. Let's make sure that the workflow works as expected for now. Create a new branch and either add or remove a file
@@ -214,7 +212,7 @@ repository.
                 # ...all the previous steps
                 - name: Check data statistics & generate report
                 run: |
-                  python src/example_mlops/data.py > data_statistics.md
+                  uv run python src/example_mlops/data.py > data_statistics.md
                   echo '![](./mnist_images.png "MNIST images")' >> data_statistics.md
                   echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
                   echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
@@ -451,21 +449,19 @@ repository.
                 - name: Checkout code
                   uses: actions/checkout@v5
 
-                - name: Set up Python
-                  uses: actions/setup-python@v5
+                - name: Set up uv
+                  uses: astral-sh/setup-uv@v7
                   with:
                     python-version: 3.11
-                    cache: 'pip'
-                    cache-dependency-path: setup.py
+                    enable-cache: true
 
                 - name: Install dependencies
                   run: |
-                    pip install -r requirements.txt
-                    pip list
+                    uv sync
 
                 - name: Test model
                   run: |
-                    pytest tests/performancetests/test_model.py
+                    uv run pytest tests/performancetests/test_model.py
             ```
 
     11. Finally, we are going to assume in this setup that if the model gets this far then it is ready for deployment.
@@ -543,21 +539,19 @@ repository.
                 - name: Checkout code
                   uses: actions/checkout@v5
 
-                - name: Set up Python
-                  uses: actions/setup-python@v5
+                - name: Set up uv
+                  uses: astral-sh/setup-uv@v7
                   with:
                     python-version: 3.11
-                    cache: 'pip'
-                    cache-dependency-path: setup.py
+                    enable-cache: true
 
                 - name: Install dependencies
                   run: |
-                    pip install -r requirements.txt
-                    pip list
+                    uv sync
 
                 - name: Add production alias
                   run: |
-                    python link_model.py $MODEL_NAME -a production
+                    uv run python link_model.py $MODEL_NAME -a production
             ```
 
     12. Finally, make sure the workflow works as expected. To try it out again and again for testing purposes, you can
