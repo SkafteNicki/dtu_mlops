@@ -54,8 +54,8 @@ Shown below is the default code structure of cookiecutter for data science proje
 </figure>
 
 What is important to keep in mind when using a template is that it is precisely a template. By definition, a template is
-a *guide* to making something. Therefore, not all parts of a template may be important for your project at hand. Your job
-is to pick the parts from the template that are useful for organizing your machine learning project and add the parts
+a *guide* to making something. Therefore, not all parts of a template may be important for your project at hand. Your
+job is to pick the parts from the template that are useful for organizing your machine learning project and add the parts
 that are missing.
 
 ## Python projects
@@ -77,8 +77,7 @@ a directory as a Python package. Therefore, as a bare minimum, any Python packag
 ```
 
 The second file to focus on is the `pyproject.toml`. This file is important for actually converting your code into a
-Python project. Essentially, whenever you run `pip install`, `pip` is in charge of both downloading the package you want
-but also in charge of *installing* it. For `pip` to be able to install a package it needs instructions on what part of
+Python project. Essentially, when installing a package, the package manager needs instructions on what part of
 the code it should install and how to install it. This is the job of the `pyproject.toml` file.
 
 Below we have both added a description of the structure of the `pyproject.toml` file but also `setup.py + setup.cfg`
@@ -108,15 +107,14 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     dependencies = {file = ["requirements.txt"]}
     ```
 
-    The `[build-system]` informs `pip`/`python` that to build this Python project it needs the two packages
+    The `[build-system]` informs the package manager that to build this Python project it needs the two packages
     `setuptools` and `wheel` and that it should call the
     [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) function to actually build the
     project. The `[project]` section essentially contains metadata regarding the package, what it's called, etc. for if
     we ever want to publish it to [PyPI](https://pypi.org/).
 
-    For specifying dependencies of your project you have two options. Either you specify them in a `requirements.txt`
-    file and put that as a dynamic field in `pyproject.toml` as shown above. Alternatively, you can add a `dependencies`
-    field under the `[project]` header like this (similar to how `uv` does it):
+    For specifying dependencies of your project you have two options. The most common today is to add a `dependencies`
+    field under the `[project]` header like this:
 
     ```toml
     [project]
@@ -125,6 +123,9 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
         'matplotlib>=3.8.1'
     ]
     ```
+
+    The lesser used alternative is to specify them in a `requirements.txt` file and reference that as a dynamic field in
+    `pyproject.toml` as shown in the first code block above.
 
     The improvement over `setup.py + setup.cfg` is that `pyproject.toml` also allows for metadata from other tools to
     be specified in it, essentially making sure you only need a single file for your project. For example, in the next
@@ -176,43 +177,19 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     This non-standardized way of providing meta information regarding a package was essentially what led to the
     creation of `pyproject.toml`.
 
-Regardless of what way a project is configured, after creating the above files, the correct way to install them would be
-the same
+All of the above are these days mostly handled automatically by package managers such as `uv`. For that reason, it is
+not super important to know all the details of how to create these files from scratch, since they are automatically
+created when running `uv init`. `uv` distinguishes between a project being an
+[application or being a library/package](https://docs.astral.sh/uv/concepts/projects/init/#creating-projects). The
+core difference is if the project was created using `uv init --app` or `uv init --lib` with `--app` being the
+default. The core difference is that applications are not installed as packages, while libraries/packages are.
+Concretely this comes down to these lines in the `pyproject.toml` file being added or not:
 
-=== "Using pip"
-
-    ```bash
-    pip install .
-    # or in developer mode
-    pip install -e .
-    ```
-
-    !!! note "Developer mode in Python"
-
-        The `-e` is short for `--editable` mode also called
-        [developer mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html). Since we will
-        continuously be iterating on our package this is the preferred way to install our package, because that means
-        that we do not have to run `pip install` every time we make a change. Essentially, in developer mode changes in
-        the Python source code can immediately take place without requiring a new installation.
-
-=== "Using uv"
-
-    TLDR: `uv` takes care of this for you when you run `uv sync`.
-
-    `uv` distinguishes between a project being an
-    [application or being a library/package](https://docs.astral.sh/uv/concepts/projects/init/#creating-projects). The
-    core difference is if the project was created using `uv init --app` or `uv init --lib` with `--app` being the
-    default. The core difference is that applications are not installed as packages, while libraries/packages are.
-    Concreatly this comes down to these lines in the `pyproject.toml` file being added or not:
-
-    ```toml
-    [build-system]
-    requires = ["uv_build>=0.9.21,<0.10.0"]
-    build-backend = "uv_build"
-    ```
-
-After running this your code should be available to import as `from project_name import ...` like any other Python
-package you use. This is the most essential information you need to know about creating Python packages.
+```toml
+[build-system]
+requires = ["uv_build>=0.9.21,<0.10.0"]
+build-backend = "uv_build"
+```
 
 ## ❔ Exercises
 
@@ -222,33 +199,20 @@ it into this structure. You are not required to fill out every folder and file i
 least follow the steps in the exercises. Whenever you need to run a file I recommend always doing so from the root
 directory e.g.
 
-=== "Using pip"
-    ```bash
-    python src/<project_name>/data.py data/raw data/processed
-    python src/<project_name>/train.py <arguments>
-    ```
-
-=== "Using uv"
-    ```bash
-    uv run src/<project_name>/data.py data/raw data/processed
-    uv run src/<project_name>/train.py <arguments>
-    ```
+```bash
+uv run src/<project_name>/data.py data/raw data/processed
+uv run src/<project_name>/train.py <arguments>
+```
 
 In this way paths (for saving and loading files) are always relative to the root, and it is in general easier to wrap
 your head around where files are located.
 
 1. Install the [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
 
-    === "Using pip"
-        ```bash
-        pip install cookiecutter
-        ```
-
-    === "Using uv"
-        ```bash
-        # install as global tool
-        uvx cookiecutter
-        ```
+    ```bash
+    # install as global tool
+    uvx cookiecutter
+    ```
 
 2. Start a new project using [this template](https://github.com/SkafteNicki/mlops_template), which is specialized for
     this course (1).
@@ -259,17 +223,9 @@ your head around where files are located.
 
     You do this by running the cookiecutter command using the template URL:
 
-    === "Using pip"
-
-        ```bash
-        cookiecutter <url-to-template>
-        ```
-
-    === "Using uv"
-
-        ```
-        uvx cookiecutter <url-to-template>
-        ```
+    ```bash
+    uvx cookiecutter <url-to-template>
+    ```
 
     !!! note "Valid project names"
 
@@ -291,17 +247,9 @@ your head around where files are located.
     install any needed requirements. If you have a virtual environment from yesterday feel free to use that. Otherwise,
     create a new one. Then install the project in that environment.
 
-    === "Using pip"
-
-        ```bash
-        pip install -e .
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv sync
-        ```
+    ```bash
+    uv sync
+    ```
 
 4. Start by filling out the `src/<project_name>/data.py` file. When this file runs, it should take the raw data, e.g. the
     corrupted MNIST files from yesterday (`../data/corruptmnist`), which now should be located in a `data/raw` folder and
@@ -320,44 +268,23 @@ your head around where files are located.
     now just know that `tasks.py` is a file that can be used to specify common tasks that you want to run in your
     project. It is similar to `Makefile`s if you are familiar with them. Try out some of the pre-defined tasks:
 
-    === "Using pip"
-
-        ```bash
-        # first install invoke
-        pip install invoke
-        # then you can execute the tasks
-        invoke preprocess-data  # runs the data.py file
-        invoke requirements     # installs all requirements in the requirements.txt file
-        invoke train            # runs the train.py file
-        # or get a list of all tasks
-        invoke --list
-        ```
-
-    === "Using uv"
-
-        ```bash
-        # first install invoke
-        uvx invoke
-        # then you can execute the tasks
-        uvx invoke preprocess-data  # runs the data.py file
-        uvx invoke train            # runs the train.py file
-        # or get a list of all tasks
-        uvx invoke --list
-        ```
+    ```bash
+    # first install invoke
+    uv add --dev invoke
+    # then you can execute the tasks
+    uv run invoke preprocess-data  # runs the data.py file
+    uv run invoke train            # runs the train.py file
+    # or get a list of all tasks
+    uv run invoke --list
+    ```
 
     In general, we recommend that you add commands to the `tasks.py` file as you move along in the course.
 
 6. Transfer your model file `model.py` into the `src/<project_name>/model.py` file. When you call the script, e.g.
 
-    === "Using pip"
-        ```bash
-        python src/<project_name>/model.py
-        ```
-
-    === "Using uv"
-        ```bash
-        uv run src/<project_name>/model.py
-        ```
+    ```bash
+    uv run src/<project_name>/model.py
+    ```
 
     it should print out the model architecture and number of parameters in the model.
 
@@ -413,8 +340,8 @@ your head around where files are located.
         ```
 10. Make sure to update the `README.md` file with a short description of how your scripts should be run.
 
-11. Finally, make sure to update the `requirements.txt` file with any packages that are necessary for running your
-    code (see [this set of exercises](../s1_development_environment/package_manager.md) for help).
+11. Finally, make sure that any packages necessary for running your code are added to your project using `uv add <package>`
+    (see [this set of exercises](../s1_development_environment/package_manager.md) for help).
 
 12. (Optional) Feel free to create more files/visualizations (what about investigating/exploring the data distribution?).
 
@@ -450,34 +377,18 @@ your head around where files are located.
 
     4. After you have made the changes you want to the template, you should test it locally. Just run
 
-        === "Using pip"
-
-            ```bash
-            cookiecutter . -f --no-input
-            ```
-
-        === "Using uv"
-
-            ```bash
-            uvx cookiecutter . -f --no-input
-            ```
+        ```bash
+        uvx cookiecutter . -f --no-input
+        ```
 
         And it should create a new folder using the default values of the `cookiecutter.json` file.
 
     5. Finally, make sure to push any changes you made to the template to GitHub, so that you in the future can use it
         by simply running
 
-        === "Using pip"
-
-            ```bash
-            cookiecutter https://github.com/<username>/<my_template_repo>
-            ```
-
-        === "Using uv"
-
-            ```bash
-            uvx cookiecutter https://github.com/<username>/<my_template_repo>
-            ```
+        ```bash
+        uvx cookiecutter https://github.com/<username>/<my_template_repo>
+        ```
 
 ## 🧠 Knowledge check
 
@@ -495,17 +406,9 @@ your head around where files are located.
 
         2. Run `cookiecutter` with the template you want to use.
 
-            === "Using pip"
-
-                ```bash
-                cookiecutter <template>
-                ```
-
-            === "Using uv"
-
-                ```bash
-                uvx cookiecutter <template>
-                ```
+            ```bash
+            uvx cookiecutter <template>
+            ```
 
             The name of the folder created by `cookiecutter` should be the same as the <repo_name> you just used.
 
