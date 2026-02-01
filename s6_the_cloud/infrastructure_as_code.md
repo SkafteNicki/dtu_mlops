@@ -194,43 +194,43 @@ configuration files) with the current state (the state file) and apply any neces
 
     ??? success "Solution"
 
-      The generated state file will look something like this:
+        The generated state file will look something like this:
 
-      ```json
-      {
-        "terraform_version": "1.11.4",
-        "serial": 2,
+        ```json
+        {
+          "terraform_version": "1.11.4",
+          "serial": 2,
 
-        "resources": [
-          {
-            "type": "google_storage_bucket",
-            "name": "my_bucket",
+          "resources": [
+            {
+              "type": "google_storage_bucket",
+              "name": "my_bucket",
 
-            "instances": [
-              {
-                "id": "dtu-mlops-2026-infra-as-code-bucket-123940141",
+              "instances": [
+                {
+                  "id": "dtu-mlops-2026-infra-as-code-bucket-123940141",
 
-                "attributes": {
-                  "name": "dtu-mlops-2026-infra-as-code-bucket-123940141",
-                  "project": "dtu-mlops-2026",
-                  "location": "EU",
-                  "storage_class": "STANDARD",
-                  "versioning": {
-                    "enabled": true
-                  },
-                  "force_destroy": true,
-                  "self_link": "https://www.googleapis.com/storage/v1/b/..."
+                  "attributes": {
+                    "name": "dtu-mlops-2026-infra-as-code-bucket-123940141",
+                    "project": "dtu-mlops-2026",
+                    "location": "EU",
+                    "storage_class": "STANDARD",
+                    "versioning": {
+                      "enabled": true
+                    },
+                    "force_destroy": true,
+                    "self_link": "https://www.googleapis.com/storage/v1/b/..."
+                  }
                 }
-              }
-            ]
-          }
-        ]
-      }
-      ```
+              ]
+            }
+          ]
+        }
+        ```
 
-      in very simple terms it answers the question: "what did I create, where is it, and what does it look like right
-      now?". Importantly, you will see that when you run `tofu apply` again, a `terraform.tfstate.backup` file will be
-      created as a backup of the previous state before any changes are applied.
+        in very simple terms it answers the question: "what did I create, where is it, and what does it look like right
+        now?". Importantly, you will see that when you run `tofu apply` again, a `terraform.tfstate.backup` file will be
+        created as a backup of the previous state before any changes are applied.
 
 4. Next, let's make our file a little configurable. Instead of hardcoding everything in the `main.tf` file, we can use
     variables to make it more flexible. Create a new file called `variables.tf` in the root of the repository and add
@@ -291,7 +291,7 @@ configuration files) with the current state (the state file) and apply any neces
     bucket_name = "dtu-mlops-2026-infra-as-code-bucket-987654321"
     ```
 
-    !!!! note "Do not commit terraform.tfvars"
+    !!! note "Do not commit terraform.tfvars"
 
         The `terraform.tfvars` file often contains sensitive information. Add it to your `.gitignore` file to prevent
         accidentally committing it to version control. Instead, you can use `terraform.tfvars.example` as a template
@@ -368,9 +368,9 @@ configuration files) with the current state (the state file) and apply any neces
         You can use these outputs in other Terraform configurations, scripts, or CI/CD pipelines to reference the
         created resources without hardcoding values.
 
-6. Next, try to figure out how to provision a virtual machine. The precise configuration you can determine but you
-    need to add it to your `main.tf` file, use variables where appropriate and create outputs to extract important
-    information about the created instance (e.g. instance name, internal and external IP address).
+6. Next, try to figure out how to provision a virtual machine. The 
+    [precise configuration](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) 
+    you can determine but you need to add it to your `main.tf` file, use variables where appropriate and create outputs to extract important information about the created instance (e.g. instance name, internal and external IP address).
 
     ??? success "Solution"
 
@@ -402,7 +402,7 @@ configuration files) with the current state (the state file) and apply any neces
 
           boot_disk {
             initialize_params {
-              image = "projects/debian-cloud/global/images/debian-12-bookworm-v20240110"
+              image = "projects/ml-images/global/images/common-cu128-ubuntu-2404-nvidia-570-v20260129"
               size  = 50  # GB
             }
           }
@@ -443,491 +443,69 @@ configuration files) with the current state (the state file) and apply any neces
           description = "The external IP of the created instance"
           value       = google_compute_instance.training_instance.network_interface[0].access_config[0].nat_ip
         }
-        ```
 
-<!--
-
-### Exercise 3: Variables and Configuration
-
-Create a `variables.tf` file to define input variables that will be used throughout your configuration:
-
-1. Create a new file called `variables.tf` in the root of your repository.
-
-2. Add the following variables:
-
-    ```hcl
-    variable "gcp_project_id" {
-      description = "The GCP project ID"
-      type        = string
-    }
-
-    variable "region" {
-      description = "The GCP region for resources"
-      type        = string
-      default     = "us-central1"
-    }
-
-    variable "instance_name" {
-      description = "The name of the compute instance"
-      type        = string
-      default     = "mnist-training-instance"
-    }
-
-    variable "machine_type" {
-      description = "The machine type for the compute instance"
-      type        = string
-      default     = "n1-standard-4"
-    }
-    ```
-
-3. Create a `terraform.tfvars` file to provide values for these variables:
-
-    ```hcl
-    gcp_project_id = "YOUR_GCP_PROJECT_ID"
-    region         = "us-central1"
-    instance_name  = "mnist-training"
-    machine_type   = "n1-standard-4"
-    ```
-
-    !!! warning "Don't commit terraform.tfvars"
-
-        The `terraform.tfvars` file often contains sensitive information. Add it to your `.gitignore` file to prevent
-        accidentally committing it to version control. Instead, you can use `terraform.tfvars.example` as a template
-        for team members.
-
-    ??? success "Solution"
-
-        Your directory structure should now look like:
-
-        ```
-        .
-        ├── main.tf
-        ├── variables.tf
-        ├── terraform.tfvars
-        └── .terraform/
-        ```
-
-### Exercise 4: Creating a GCP Compute Instance
-
-Now let's create an actual cloud resource. Add the following code to your `main.tf` file to create a Compute Engine
-instance:
-
-1. Add a resource block to `main.tf`:
-
-    ```hcl
-    resource "google_compute_instance" "training_instance" {
-      name         = var.instance_name
-      machine_type = var.machine_type
-      zone         = "${var.region}-a"
-
-      boot_disk {
-        initialize_params {
-          image = "projects/debian-cloud/global/images/debian-12-bookworm-v20240110"
-          size  = 50  # GB
+        output "ssh_command" {
+          description = "Command to SSH into the instance"
+          value       = "gcloud compute ssh ${google_compute_instance.training_instance.name} --zone=${google_compute_instance.training_instance.zone}"
         }
-      }
+        ```
 
-      tags = ["mnist-training", "http-server"]
+        Run `tofu plan` to see the changes and then `tofu apply` to create the instance. Note that we are using the
+        ML-optimized image ``projects/ml-images/global/images/common-cu128-ubuntu-2404-nvidia-570-v20260129` which comes
+        pre-installed with NVIDIA drivers and CUDA 12.8.
 
-      metadata = {
-        enable-oslogin = "TRUE"
-      }
-
-      service_account {
-        scopes = ["https://www.googleapis.com/auth/cloud-platform"]
-      }
-    }
-    ```
-
-2. Before applying this configuration, use `tofu plan` to see what changes will be made:
-
-    ```bash
-    tofu plan
-    ```
-
-    This command shows you exactly what resources will be created without making any actual changes.
-
-3. If the plan looks correct, apply the configuration:
-
-    ```bash
-    tofu apply
-    ```
-
-    OpenTofu will ask for confirmation before creating the resources. Type `yes` to proceed.
-
-    ??? success "Solution"
-
-        After running `tofu apply`, you should see output showing the created resources. You can verify the instance
-        was created by running:
+    1. After creating the instance, verify that it was created correctly by SSH-ing into it. Use the SSH command from 
+        the outputs to connect to the instance:
 
         ```bash
-        gcloud compute instances list
+        # Get the SSH command from outputs
+        tofu output ssh_command
+
+        # Or directly SSH using the command
+        $(tofu output -raw ssh_command)
         ```
 
-        Or checking the GCP Console directly.
+        Try to connect to the instance to verify that it is running and accessible.
 
-### Exercise 5: Outputs
-
-Create an `outputs.tf` file to extract and display important information about the created resources:
-
-1. Create a new file called `outputs.tf` in the root of your repository.
-
-2. Add the following output blocks:
-
-    ```hcl
-    output "instance_name" {
-      description = "The name of the created instance"
-      value       = google_compute_instance.training_instance.name
-    }
-
-    output "instance_id" {
-      description = "The ID of the created instance"
-      value       = google_compute_instance.training_instance.id
-    }
-
-    output "instance_internal_ip" {
-      description = "The internal IP of the created instance"
-      value       = google_compute_instance.training_instance.network_interface[0].network_ip
-    }
-
-    output "instance_external_ip" {
-      description = "The external IP of the created instance"
-      value       = google_compute_instance.training_instance.network_interface[0].access_config[0].nat_ip
-    }
-    ```
-
-3. After adding the outputs, run:
-
-    ```bash
-    tofu apply
-    ```
-
-    The outputs will be displayed at the end of the command, and they are also stored in the state file.
-
-4. To retrieve outputs later without applying changes, use:
-
-    ```bash
-    tofu output
-    ```
-
-    ??? success "Solution"
-
-        The output command should show something like:
-
-        ```
-        instance_external_ip = "34.123.45.67"
-        instance_id = "1234567890123456"
-        instance_internal_ip = "10.128.0.2"
-        instance_name = "mnist-training"
-        ```
-
-### Exercise 6: Adding a Storage Bucket
-
-Extend your infrastructure to include a Google Cloud Storage bucket for storing data:
-
-1. Add the following resource to your `main.tf` file:
-
-    ```hcl
-    resource "google_storage_bucket" "data_bucket" {
-      name          = "${var.gcp_project_id}-mnist-data"
-      location      = var.region
-      force_destroy = false
-
-      uniform_bucket_level_access = true
-
-      versioning {
-        enabled = true
-      }
-
-      lifecycle_rule {
-        action {
-          type = "Delete"
-        }
-        condition {
-          age = 90  # Delete objects older than 90 days
-        }
-      }
-    }
-    ```
-
-2. Add corresponding output to `outputs.tf`:
-
-    ```hcl
-    output "storage_bucket_name" {
-      description = "The name of the created storage bucket"
-      value       = google_storage_bucket.data_bucket.name
-    }
-
-    output "storage_bucket_url" {
-      description = "The URL of the created storage bucket"
-      value       = "gs://${google_storage_bucket.data_bucket.name}"
-    }
-    ```
-
-3. Run `tofu plan` to see what will be created, then `tofu apply` to create the bucket.
-
-    ??? success "Solution"
-
-        Verify the bucket was created by running:
-
-        ```bash
-        gsutil ls
-        ```
-
-        Or check in the GCP Console under Cloud Storage.
-
-### Exercise 7: State Management and Destruction
-
-Now that you've created resources, let's understand how to manage and clean up:
-
-1. Examine your state file by running:
+7. At this point it is probably a good idea to get to know also how you can manage and destroy resources using OpenTofu.
+    Start by examining your state file by running:
 
     ```bash
     tofu state list
     ```
 
     This shows all the resources currently managed by OpenTofu.
-
-2. To see details of a specific resource:
+    To see details of a specific resource:
 
     ```bash
     tofu state show google_compute_instance.training_instance
     ```
 
-3. When you no longer need the resources, you can destroy them all:
-
-    ```bash
-    tofu destroy
-    ```
-
-    OpenTofu will ask for confirmation before destroying resources.
-
-    !!! warning "Destroy Warning"
-
-        Be careful with `tofu destroy` in production environments. It will delete all resources managed by your
-        configuration!
+    What command would you use to destroy all resources created by your configuration?
 
     ??? success "Solution"
 
-        After running `tofu destroy`, all resources should be removed. Verify by checking the GCP Console or running:
+        To destroy all resources managed by your configuration, you can run:
+
+        ```bash
+        tofu destroy
+        ```
+
+        OpenTofu will ask for confirmation before destroying resources. It goes without saying that you should be very
+        careful with this command, especially in production environments. After running `tofu destroy`, all resources 
+        should be removed. You can verify this by checking the GCP Console or running:
 
         ```bash
         gcloud compute instances list
         gsutil ls
         ```
 
-### Exercise 8: Module Organization
+8. The next service we can try to provision using Opentofu is the artifact registry for storing container images.
+    Follow the steps below to create an artifact registry repository using OpenTofu.
 
-For larger infrastructure projects, it's best practice to organize your code into modules. Create a module structure:
 
-1. Create a directory called `modules/compute_instance` in the root of your repository:
+<!---
 
-    ```bash
-    mkdir -p modules/compute_instance
-    ```
-
-2. Move the compute instance configuration into the module. Create `modules/compute_instance/main.tf`:
-
-    ```hcl
-    resource "google_compute_instance" "instance" {
-      name         = var.instance_name
-      machine_type = var.machine_type
-      zone         = var.zone
-
-      boot_disk {
-        initialize_params {
-          image = var.boot_image
-          size  = var.boot_disk_size
-        }
-      }
-
-      tags = var.tags
-
-      metadata = {
-        enable-oslogin = "TRUE"
-      }
-
-      service_account {
-        scopes = var.service_account_scopes
-      }
-    }
-    ```
-
-3. Create `modules/compute_instance/variables.tf`:
-
-    ```hcl
-    variable "instance_name" {
-      type = string
-    }
-
-    variable "machine_type" {
-      type = string
-    }
-
-    variable "zone" {
-      type = string
-    }
-
-    variable "boot_image" {
-      type = string
-    }
-
-    variable "boot_disk_size" {
-      type    = number
-      default = 50
-    }
-
-    variable "tags" {
-      type    = list(string)
-      default = []
-    }
-
-    variable "service_account_scopes" {
-      type    = list(string)
-      default = ["https://www.googleapis.com/auth/cloud-platform"]
-    }
-    ```
-
-4. Create `modules/compute_instance/outputs.tf`:
-
-    ```hcl
-    output "instance_id" {
-      value = google_compute_instance.instance.id
-    }
-
-    output "instance_name" {
-      value = google_compute_instance.instance.name
-    }
-
-    output "internal_ip" {
-      value = google_compute_instance.instance.network_interface[0].network_ip
-    }
-
-    output "external_ip" {
-      value = try(google_compute_instance.instance.network_interface[0].access_config[0].nat_ip, null)
-    }
-    ```
-
-5. Update your root `main.tf` to use the module:
-
-    ```hcl
-    module "training_instance" {
-      source = "./modules/compute_instance"
-
-      instance_name = var.instance_name
-      machine_type  = var.machine_type
-      zone          = "${var.region}-a"
-      boot_image    = "projects/debian-cloud/global/images/debian-12-bookworm-v20240110"
-      boot_disk_size = 50
-      tags          = ["mnist-training"]
-    }
-    ```
-
-6. Update `outputs.tf` to reference module outputs:
-
-    ```hcl
-    output "instance_external_ip" {
-      description = "The external IP of the training instance"
-      value       = module.training_instance.external_ip
-    }
-    ```
-
-    ??? success "Solution"
-
-        Your directory structure should now look like:
-
-        ```
-        .
-        ├── main.tf
-        ├── variables.tf
-        ├── outputs.tf
-        ├── terraform.tfvars
-        ├── modules/
-        │   └── compute_instance/
-        │       ├── main.tf
-        │       ├── variables.tf
-        │       └── outputs.tf
-        └── .terraform/
-        ```
-
-        This modular structure makes it easier to reuse the module for different purposes or share it across teams.
-
-### Exercise 9: Conditional Resources and Local Variables
-
-Add flexibility to your configuration using conditional resources and local variables:
-
-1. Add to your `variables.tf`:
-
-    ```hcl
-    variable "enable_storage_bucket" {
-      description = "Whether to create a storage bucket"
-      type        = bool
-      default     = true
-    }
-
-    variable "environment" {
-      description = "The environment (dev, staging, prod)"
-      type        = string
-      default     = "dev"
-      validation {
-        condition     = contains(["dev", "staging", "prod"], var.environment)
-        error_message = "Environment must be one of: dev, staging, prod"
-      }
-    }
-    ```
-
-2. Add local variables to your `main.tf`:
-
-    ```hcl
-    locals {
-      common_tags = {
-        environment = var.environment
-        managed_by  = "terraform"
-        created_at  = timestamp()
-      }
-
-      bucket_prefix = "${var.gcp_project_id}-${var.environment}"
-    }
-    ```
-
-3. Update your storage bucket resource to use conditionals:
-
-    ```hcl
-    resource "google_storage_bucket" "data_bucket" {
-      count = var.enable_storage_bucket ? 1 : 0
-
-      name          = "${local.bucket_prefix}-mnist-data"
-      location      = var.region
-      force_destroy = var.environment != "prod"  # Don't auto-destroy in production
-
-      uniform_bucket_level_access = true
-
-      versioning {
-        enabled = true
-      }
-
-      labels = local.common_tags
-    }
-    ```
-
-4. Update corresponding outputs to handle the conditional:
-
-    ```hcl
-    output "storage_bucket_name" {
-      description = "The name of the created storage bucket"
-      value       = try(google_storage_bucket.data_bucket[0].name, null)
-    }
-    ```
-
-    ??? success "Solution"
-
-        You can now control resource creation using variables:
-
-        ```bash
-        tofu plan -var="environment=staging" -var="enable_storage_bucket=false"
-        ```
-
-        This makes your infrastructure code more flexible and reusable across different environments.
 
 ### Exercise 10: Artifact Registry for Container Storage
 
