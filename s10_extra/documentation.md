@@ -132,21 +132,11 @@ your project code is installed in your environment such that it can be imported 
 1. We are going to need two Python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
     [material for mkdocs](https://pypi.org/project/mkdocs-material/). Install with
 
-    === "Using pip"
+    ```bash
+    uv add "mkdocs-material >= 4.8.0" # (1)!
+    ```
 
-        ```bash
-        pip install "mkdocs-material >= 4.8.0" # (1)!
-        ```
-
-        1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
-
-    === "Using uv"
-
-        ```bash
-        uv add "mkdocs-material >= 4.8.0" # (1)!
-        ```
-
-        1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
+    1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
 
 2. Run in your terminal (from the `docs` folder):
 
@@ -294,14 +284,15 @@ Before getting started with this set of exercises you should have completed
           uses: actions/setup-python@v5
           with:
             python-version: 3.11
-            cache: 'pip'
-            cache-dependency-path: setup.py
+
+        - name: Install uv
+          uses: astral-sh/setup-uv@v5
 
         - name: Install dependencies
-          run: pip install -r requirements.txt
+          run: uv sync
 
         - name: Deploy docs
-          run: mkdocs gh-deploy --force
+          run: uv run mkdocs gh-deploy --force
     ```
 
     1. :man_raising_hand: It is important to give `write` permissions to this actions because it is not only reading

@@ -1,8 +1,8 @@
 .PHONY: *
 
 requirements:
-	pip install -r requirements_backend.txt
-	pip install -r requirements_frontend.txt
+	uv pip install -r pyproject.toml.backend
+	uv pip install -r pyproject.toml.frontend
 
 backend:
 	uvicorn backend:app

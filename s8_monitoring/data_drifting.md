@@ -53,20 +53,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
 1. Start by installing Evidently.
 
-    === "Using pip"
-
-        ```python
-        pip install evidently
-        pip install scikit-learn pandas  # also needed if you do not have them already
-        ```
-
-        and remember to add this to your `requirements.txt` file.
-
-    === "Using uv"
-
-        ```bash
-        uv add evidently scikit-learn pandas
-        ```
+    ```bash
+    uv add evidently scikit-learn pandas
+    ```
 
 2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
     deployment exercises about GCP functions you should have developed an application that can classify the
@@ -362,21 +351,9 @@ The training data and the trained model are available to download from the follo
 be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
 Python package):
 
-=== "Using pip"
-
-    ```bash
-    pip install gdown
-    gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
-    ```
-
-    and remember to add this to your `requirements.txt` file.
-
-=== "Using uv"
-
-    ```bash
-    uv add gdown
-    uv run gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
-    ```
+```bash
+uvx gdown --folder https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing
+```
 
 And the training script can be seen below. You are free to retrain the model yourself, but it takes about 30 mins to
 train using a GPU. Overall the model achieves around 74% accuracy on a held-out test set. We recommend that you scroll
@@ -441,17 +418,9 @@ through the files to get an understanding of what is going on.
         time and date of the request). Implement both of these functionalities in the application. To interact with
         GCP buckets in Python you should install the `google-cloud-storage` package if you have not already done so.
 
-        === "Using pip"
-
-            ```bash
-            pip install google-cloud-storage
-            ```
-
-        === "Using uv"
-
-            ```bash
-            uv add google-cloud-storage
-            ```
+        ```bash
+        uv add google-cloud-storage
+        ```
 
         ??? success "Solution"
 

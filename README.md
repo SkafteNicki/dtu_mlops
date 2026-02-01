@@ -92,16 +92,7 @@ Other courses with content similar to this:
 ## 👨‍🏫 Contributing
 
 If you want to contribute to the course, we are happy to have you! Anything from fixing typos to adding new content is
-welcome. For building the course material locally, it is a simple two-step process:
-
-Either use `pip` to install the requirements:
-
-```bash
-pip install -r requirements.txt
-mkdocs serve
-```
-
-Or use `uv`
+welcome. For building the course material locally, use `uv`:
 
 ```bash
 uv sync
