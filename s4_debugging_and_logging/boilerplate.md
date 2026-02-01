@@ -161,17 +161,9 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
 1. Install pytorch lightning:
 
-    === "Using pip"
-
-        ```bash
-        pip install pytorch-lightning
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv add pytorch-lightning
-        ```
+    ```bash
+    uv add pytorch-lightning
+    ```
 
 2. Convert your corrupted MNIST model into a `LightningModule`. You can either choose to completely overwrite your old
     model or implement it in a new file. The bare minimum that you need to add while converting to get it working with
