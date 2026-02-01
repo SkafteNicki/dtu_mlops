@@ -32,7 +32,7 @@ As the image illustrates, executing a command involves several components:
 
 1. The **prompt** is the part where you type your commands. It usually contains the name of the current directory you
     are in, followed by some kind of symbol: `$`, `>`, `:` are the usual ones. It can also contain other information,
-    such as in the case of the above image, which also shows the current `conda` environment.
+    such as the current Python virtual environment.
 2. The **command** is the actual command you want to execute. For example, `ls` or `cd`.
 3. The **options** (or flags) modify the command's behavior. They often start with a hyphen (`-`) or double
     hyphen (`--`). For example, `-l` in `ls -l`.
@@ -153,8 +153,7 @@ command line.
         ```
 
         To load the environment variables from the file, you can use the `python-dotenv` package. Install it with
-        `pip install python-dotenv` or `uv add python-dotenv` and then try to load the environment variables from the
-        file and print them out.
+        `uv add python-dotenv` and then try to load the environment variables from the file and print them out.
 
         ```python
         from dotenv import load_dotenv

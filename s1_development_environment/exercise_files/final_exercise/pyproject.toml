@@ -1,0 +1,18 @@
+[project]
+name = "s1-final-exercise"
+version = "0.1.0"
+description = "Final exercise for S1 - Development Environment module"
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "matplotlib>=3.7.2",
+  "torch>=2",
+  "torchvision>=0.15",
+  "typer>=0.13.1",
+]

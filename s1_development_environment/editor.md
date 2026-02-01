@@ -45,7 +45,7 @@ The main components of VS Code are:
     opening a `python` interpreter, management of environments, etc.
 
 * The status bar: The status bar contains information based on the extensions you have installed. In particular,
-    for Python development, the status bar can be used to change the conda environment.
+    for Python development, the status bar can be used to change the Python virtual environment.
 
 ## ❔ Exercises
 
@@ -78,7 +78,7 @@ following exercises are just to get you started, but you can find many more tuto
     ![Image](../figures/action_bar.PNG){ width="700" }
     </figure>
 
-    which indicates that you are using the stock Python installation instead of the one you have created using `conda`.
+    which indicates that you are using the stock Python installation instead of the one you have created using `uv`.
     Click it and change the Python environment to the one you want to use.
 
 3. One of the most useful tools in VS Code is the built-in `Explorer`, which allows you to navigate the entire project.
@@ -121,15 +121,9 @@ opinions on Jupyter notebooks that exist within the developer community.
 All this said, there exists one simple tool to make notebooks work better in a production setting. It's called
 `nbconvert` and can be installed with
 
-=== "Using pip"
-    ```bash
-    pip install nbconvert
-    ```
-
-=== "Using uv"
-    ```bash
-    uv add nbconvert
-    ```
+```bash
+uv add nbconvert
+```
 
 You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
 [in the nbconvert documentation](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After

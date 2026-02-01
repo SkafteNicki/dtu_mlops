@@ -72,7 +72,7 @@ concepts is beneficial. The course focuses on the software aspects of deploying 
 Pytorch is a huge library with many dependencies. As writing this, if you naively install Pytorch like this
 
 ```bash
-pip install torch
+uv add torch
 ```
 
 in a new virtual environment, this will result in a disk usage of around 6.6 GB! This is not a problem if you have to
@@ -93,58 +93,29 @@ your system.
 </figcaption>
 </figure>
 
-Here are some general installation commands for Pytorch:
+`uv` has dedicated a [full page](https://docs.astral.sh/uv/guides/integration/pytorch/) to installing Pytorch, which
+I recommend you check out. Here is an example of how to configure your `pyproject.toml` file to install only CPU
+version of Pytorch using `uv`:
 
-=== "Using pip"
+```toml
+[project]
+name = "project"
+version = "0.1.0"
+requires-python = ">=3.14.0"
+dependencies = [
+    "torch>=2.9.1",
+]
 
-    For `pip` install you can basically follow the instructions on the Pytorch homepage. Here are some common
-    installation commands:
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
 
-    ```bash
-    # CPU only
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-    # GPU enabled
-    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
-    ```
-
-    If you want this to be part of your `requirements.txt` file, it needs to look something like this:
-
-    ```txt
-    --index-url https://download.pytorch.org/whl/cu126
-    --extra-index-url https://pypi.org/simple
-
-    torch
-    # other dependencies
-    ```
-
-    The reason we need both `--index-url` and `--extra-index-url` is that we need to force `pip` to look for Pytorch
-    packages in the Pytorch repository, but we also want to be able to install other packages from PyPI.
-
-=== "Using uv"
-
-    `uv` has dedicated a [full page](https://docs.astral.sh/uv/guides/integration/pytorch/) to installing Pytorch, which
-    I recommend you check out. Here is an example of how to configure your `pyproject.toml` file to install only CPU
-    version of Pytorch using `uv`:
-
-    ```toml
-    [project]
-    name = "project"
-    version = "0.1.0"
-    requires-python = ">=3.14.0"
-    dependencies = [
-        "torch>=2.9.1",
-    ]
-
-    [tool.uv.sources]
-    torch = [
-        { index = "pytorch-cpu" },
-    ]
-
-    [[tool.uv.index]]
-    name = "pytorch-cpu"
-    url = "https://download.pytorch.org/whl/cpu"
-    explicit = true
-    ```
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+```
 
 ### ❔ Exercises
 
@@ -249,17 +220,9 @@ which can be downloaded from this
 [Google Drive folder](https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing) or using
 these two commands:
 
-=== "Using pip"
-    ```bash
-    pip install gdown
-    gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
-    ```
-
-=== "Using uv"
-    ```bash
-    uv add gdown
-    uv run gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
-    ```
+```bash
+uvx gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
+```
 
 The data should be placed in a subfolder called `data/corruptmnist` in the root of the project. Your overall
 task is the following:
@@ -332,17 +295,10 @@ future as you start to add more and more features. As subgoals, please complete 
 3. Implement training and evaluation of your model in the `main.py` script. The `main.py` script should be able to take
     additional subcommands indicating if the model is being trained or evaluated. It will look something like this:
 
-    === "Using pip"
-        ```bash
-        python main.py train --lr 1e-4
-        python main.py evaluate model.pth
-        ```
-
-    === "Using uv"
-        ```bash
-        uv run main.py train --lr 1e-4
-        uv run main.py evaluate model.pth
-        ```
+    ```bash
+    uv run main.py train --lr 1e-4
+    uv run main.py evaluate model.pth
+    ```
 
     which can be implemented in various ways. We provide you with a starting script that uses the `typer` library to
     define a command line interface (CLI), which you can learn more about in
