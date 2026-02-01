@@ -1,3 +1,0 @@
-streamlit >= 1.26.0
-dropbox >= 11.36.2
-python-dotenv >= 1.0.0

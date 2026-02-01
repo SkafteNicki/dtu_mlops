@@ -1,0 +1,17 @@
+[project]
+name = "submit-app"
+version = "0.1.0"
+description = "Submission application for DTU MLOps course"
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "dropbox>=11.36.2",
+  "python-dotenv>=1",
+  "streamlit>=1.26",
+]
