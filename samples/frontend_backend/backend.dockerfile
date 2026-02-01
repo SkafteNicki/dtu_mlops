@@ -8,10 +8,10 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY pyproject.toml.backend /app/pyproject.toml
+COPY pyproject.toml /app/pyproject.toml
 COPY backend.py /app/backend.py
 
-RUN uv pip install --system -r pyproject.toml
+RUN uv sync --group backend --no-install-project --no-dev
 
 EXPOSE $PORT
-CMD exec unicorn --port $PORT --host 0.0.0.0 backend:app
+CMD exec uvicorn --port $PORT --host 0.0.0.0 backend:app

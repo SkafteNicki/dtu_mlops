@@ -8,11 +8,11 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY pyproject.toml.frontend /app/pyproject.toml
+COPY pyproject.toml /app/pyproject.toml
 COPY frontend.py /app/frontend.py
 
-RUN uv pip install --system -r pyproject.toml
+RUN uv sync --group frontend --no-install-project --no-dev
 
 EXPOSE $PORT
 
-ENTRYPOINT ["streamlit", "run", "frontend.py", "--server.port", "$PORT", "--server.address=0.0.0.0"]
+ENTRYPOINT ["uv", "run", "streamlit", "run", "frontend.py", "--server.port", "$PORT", "--server.address=0.0.0.0"]

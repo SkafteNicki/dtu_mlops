@@ -75,13 +75,20 @@ which can be found in the `samples/frontend_backend` folder.
                 -F 'file=@my_cat.jpg;type=image/jpeg'
             ```
 
-    4. Create a `requirements_backend.txt` file with the dependencies needed for the backend.
+    4. We are going to use a single `pyproject.toml` file with dependency groups to separate the backend and frontend
+        dependencies. This allows us to keep all dependencies in one file while still being able to install only what
+        we need for each service. Try making used of the `[dependency-groups]` field for this. Create the file now.
 
         ??? success "Solution"
 
-            ```plaintext linenums="1" title="requirements_backend.txt"
-            --8<-- "samples/frontend_backend/requirements_backend.txt"
+            ```toml linenums="1" title="pyproject.toml"
+            --8<-- "samples/frontend_backend/pyproject.toml"
             ```
+
+            The `[dependency-groups]` section allows us to define separate groups of dependencies. We can then install
+            only the dependencies we need using `uv sync --group <group-name>`. This is particularly useful when
+            containerizing applications, as we can keep our Docker images smaller by only installing the dependencies
+            needed for that specific service.
 
     5. Containerize the backend into a file called `backend.dockerfile`.
 
@@ -90,6 +97,10 @@ which can be found in the `samples/frontend_backend` folder.
             ```dockerfile linenums="1" title="backend.dockerfile"
             --8<-- "samples/frontend_backend/backend.dockerfile"
             ```
+
+            Notice how we use `uv sync --group backend` to install only the backend dependencies from our unified
+            `pyproject.toml` file. The `--no-install-project` flag tells uv not to install the project itself (since
+            we don't have a package to install), and `--no-dev` skips development dependencies.
 
     6. Build the backend image
 
@@ -149,7 +160,7 @@ which can be found in the `samples/frontend_backend` folder.
     1. Start by installing `streamlit`.
 
         ```bash
-        pip install streamlit
+        uv add --group frontend streamlit
         ```
 
     2. Now create a file called `frontend.py` and implement a streamlit application. You can design it however you want,
@@ -196,21 +207,23 @@ which can be found in the `samples/frontend_backend` folder.
             function. This is useful if the function is expensive to run and we want to avoid running it multiple times.
 
         Add the above code snippet to the top of your `frontend.py` file and replace `<project>` and `<region>` with the
-        appropriate values. You will need to install `pip install google-cloud-run` to be able to use the code snippet.
+        appropriate values. You will need to install google-cloud-run using `uv add --group frontend google-cloud-run`
+        to be able to use the code snippet.
 
     4. Run the frontend using `streamlit`.
 
         ```bash
-        streamlit run frontend.py
+        uv run streamlit run frontend.py
         ```
 
-    5. Create a `requirements_frontend.txt` file with the dependencies needed for the frontend.
+    5. Update the `pyproject.toml` file from earlier with a `frontend` group under the `[dependency-groups]` section
+        that contains the `streamlit` dependency and any other dependencies you may need for the frontend. Make sure
+        that you can install the frontend dependencies separately and all dependencies together.
 
-        ??? success "Solution"
-
-            ```plaintext linenums="1" title="requirements_frontend.txt"
-            --8<-- "samples/frontend_backend/requirements_frontend.txt"
-            ```
+        ```bash
+        uv sync --group frontend  # only frontend dependencies
+        uv sync --all-groups      # all dependencies
+        ```
 
     6. Containerize the frontend into a file called `frontend.dockerfile`.
 
@@ -219,6 +232,9 @@ which can be found in the `samples/frontend_backend` folder.
             ```dockerfile linenums="1" title="frontend.dockerfile"
             --8<-- "samples/frontend_backend/frontend.dockerfile"
             ```
+
+            Similar to the backend, we use `uv sync --group frontend` to install only the frontend dependencies,
+            keeping the Docker image as small as possible.
 
     7. Build the frontend image.
 
@@ -264,13 +280,25 @@ which can be found in the `samples/frontend_backend` folder.
 
 ## 🧠 Knowledge check
 
-1. We have created separate requirement files for the frontend and the backend. Why is this a good idea?
+1. We have used dependency groups to separate the frontend and backend dependencies in a single `pyproject.toml` file.
+    Why is this approach beneficial compared to having completely separate files?
 
     ??? success "Solution"
 
-        This is a good idea because the frontend and the backend may have different dependencies. By having separate
-        requirements files we can make sure that we only install the dependencies that are needed for the specific
-        application. This also has the positive side effect that we can keep the docker images smaller. For example,
-        the frontend does not need the `torch` library which is huge and only needed for the backend.
+        Using dependency groups provides several benefits:
+
+        1. **Single source of truth**: All project dependencies are in one place, making it easier to manage and version
+           control.
+        2. **Selective installation**: We can still install only what we need for each service using
+           `uv sync --group <group-name>`, keeping Docker images small.
+        3. **Easier maintenance**: When dependencies need updating, we only need to edit one file instead of multiple.
+        4. **Flexibility**: We can easily install all dependencies for local development using `uv sync --all-groups`,
+           or install specific groups for production deployments.
+        5. **Better organization**: Related dependencies are grouped logically, making it clear which dependencies belong
+           to which part of the application.
+
+        The separation of concerns is still maintained (backend vs frontend dependencies), but without the overhead of
+        managing multiple files. This is particularly valuable as projects grow and dependency management becomes more
+        complex.
 
 This ends the exercises for this module.
