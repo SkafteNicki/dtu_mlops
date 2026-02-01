@@ -4,6 +4,13 @@
     <p align="center"><strong><a href="https://skaftenicki.github.io/dtu_mlops/">Checkout the homepage!</a></strong></p>
 </p>
 
+!!! warning "Experimental Build - Dev Branch"
+
+    This is the **experimental development version** of the course material. Content here is undergoing major
+    refactoring and may be incomplete, unstable, or subject to breaking changes.
+
+    **For the stable course content, please visit:** [https://skaftenicki.github.io/dtu_mlops/latest/](https://skaftenicki.github.io/dtu_mlops/latest/)
+
 <p align="center">
   <img src="figures/mlops_cycle.png" width="1000">
 </p>
