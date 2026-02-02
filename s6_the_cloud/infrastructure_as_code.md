@@ -10,7 +10,7 @@ cloud services to support your machine learning pipeline. You will most likely h
 cloud resources manually either through the GCP web interface or CLI can both be time-consuming and error-prone. This is
 where Infrastructure as Code (IaC) comes into play. You can see it as the cloud version of what we did in module
 [M6 on coding structure](../s2_organisation_and_version_control/code_structure.md) for organizing and managing your
-codebase. In that module, we learned how to use `cookiecutter` to create a projects from a template, which provided a
+codebase. In that module, we learned how to use `cookiecutter` to create a project from a template, which provided a
 standardized reusable structure. Similarly, IaC allows you to define and manage your cloud infrastructure using code,
 enabling you to automate the provisioning, configuration, and management of cloud resources which can be reused also
 in future projects.
@@ -147,6 +147,15 @@ configuration files) with the current state (the state file) and apply any neces
         Running `tofu init` creates a `.terraform` directory that contains provider plugins and modules. This directory
         can be large and should not be committed to version control. Add `.terraform/` to your `.gitignore` file. The
         `.terraform.lock.hcl` file, however, **should** be committed as it locks provider versions for reproducibility.
+
+        Make sure your `.gitignore` includes:
+
+        ```
+        .terraform/
+        *.tfstate
+        *.tfstate.backup
+        terraform.tfvars
+        ```
 
     look at the code in the `main.tf` file, can you find the relevant information/documentation on the internet to
     understand what it does? Additionally, running `tofu init` has created a file in your folder, what is the purpose of
@@ -368,8 +377,8 @@ configuration files) with the current state (the state file) and apply any neces
         You can use these outputs in other Terraform configurations, scripts, or CI/CD pipelines to reference the
         created resources without hardcoding values.
 
-6. Next, try to figure out how to provision a virtual machine. The 
-    [precise configuration](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) 
+6. Next, try to figure out how to provision a virtual machine. The
+    [precise configuration](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance)
     you can determine but you need to add it to your `main.tf` file, use variables where appropriate and create outputs to extract important information about the created instance (e.g. instance name, internal and external IP address).
 
     ??? success "Solution"
@@ -454,7 +463,7 @@ configuration files) with the current state (the state file) and apply any neces
         ML-optimized image ``projects/ml-images/global/images/common-cu128-ubuntu-2404-nvidia-570-v20260129` which comes
         pre-installed with NVIDIA drivers and CUDA 12.8.
 
-    1. After creating the instance, verify that it was created correctly by SSH-ing into it. Use the SSH command from 
+    1. After creating the instance, verify that it was created correctly by SSH-ing into it. Use the SSH command from
         the outputs to connect to the instance:
 
         ```bash
@@ -492,7 +501,7 @@ configuration files) with the current state (the state file) and apply any neces
         ```
 
         OpenTofu will ask for confirmation before destroying resources. It goes without saying that you should be very
-        careful with this command, especially in production environments. After running `tofu destroy`, all resources 
+        careful with this command, especially in production environments. After running `tofu destroy`, all resources
         should be removed. You can verify this by checking the GCP Console or running:
 
         ```bash
@@ -500,153 +509,277 @@ configuration files) with the current state (the state file) and apply any neces
         gsutil ls
         ```
 
-8. The next service we can try to provision using Opentofu is the artifact registry for storing container images.
-    Follow the steps below to create an artifact registry repository using OpenTofu.
+8. In [M21 Using the Cloud - Artifact Registry section](using_the_cloud.md#artifact-registry), you manually created
+    an Artifact Registry repository through the UI and gcloud commands for storing Docker container images. Now you'll
+    automate this entire process using OpenTofu, making it reproducible and version-controlled.
 
+    1. First, you need to enable the Artifact Registry API. Just like with compute instances and storage buckets, GCP
+        requires APIs to be explicitly enabled before you can create resources. Add the following to your `main.tf`:
+
+        ```hcl
+        resource "google_project_service" "artifact_registry_api" {
+          service            = "artifactregistry.googleapis.com"
+          disable_on_destroy = false
+        }
+        ```
+
+        The `disable_on_destroy = false` setting means that even if you destroy this resource with `tofu destroy`,
+        the API will remain enabled in your project. This prevents accidentally breaking other services that might
+        depend on it.
+
+    2. Next, add the Artifact Registry repository resource. This will create a Docker repository in your specified
+        region:
+
+        ```hcl
+        resource "google_artifact_registry_repository" "docker_repo" {
+          depends_on = [google_project_service.artifact_registry_api]
+
+          location      = var.region
+          repository_id = "${var.gcp_project_id}-docker-repo"
+          description   = "Docker repository for ML training images"
+          format        = "DOCKER"
+        }
+        ```
+
+        Notice the `depends_on` argument. This explicitly tells OpenTofu that the API must be enabled before creating
+        the repository.
+
+    3. Add a variable for the artifact registry ID to your `variables.tf`:
+
+        ```hcl
+        variable "artifact_registry_id" {
+          description = "The ID of the artifact registry repository (will be prefixed with project ID)"
+          type        = string
+          default     = "docker-repo"
+        }
+        ```
+
+        Then update the repository resource to use this variable:
+
+        ```hcl
+        resource "google_artifact_registry_repository" "docker_repo" {
+          depends_on = [google_project_service.artifact_registry_api]
+
+          location      = var.region
+          repository_id = "${var.gcp_project_id}-${var.artifact_registry_id}"
+          description   = "Docker repository for ML training images"
+          format        = "DOCKER"
+        }
+        ```
+
+    4. Add outputs to your `outputs.tf` to easily reference the repository:
+
+        ```hcl
+        output "artifact_registry_repository_url" {
+          description = "The URL of the Artifact Registry repository for pushing/pulling images"
+          value       = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${google_artifact_registry_repository.docker_repo.repository_id}"
+        }
+
+        output "artifact_registry_repository_id" {
+          description = "The ID of the Artifact Registry repository"
+          value       = google_artifact_registry_repository.docker_repo.repository_id
+        }
+        ```
+
+        This output will give you the full URL you need for pushing and pulling Docker images, such as:
+        `europe-west1-docker.pkg.dev/dtu-mlops-2026/dtu-mlops-2026-docker-repo`
+
+    5. Run `tofu plan` to preview the changes. You should see that OpenTofu plans to create 2 new resources:
+
+        ```bash
+        Plan: 2 to add, 0 to change, 0 to destroy.
+        ```
+
+        then apply the changes with `tofu apply` and verify that the repository was created successfully using `gcloud`:
+
+        ```bash
+        gcloud artifacts repositories list --location=europe-west1
+        ```
+
+        Confirm also that the repository URL is the same as the one generated by OpenTofu outputs.
+
+        ```bash
+        tofu output artifact_registry_repository_url
+        ```
+
+    6. (Optional) Test the registry by pushing an image. First, configure Docker to authenticate with GCP:
+
+        ```bash
+        gcloud auth configure-docker europe-west1-docker.pkg.dev
+        ```
+
+        Then tag and push an image (using the busybox image from earlier exercises):
+
+        ```bash
+        # Get the repository URL
+        REPO_URL=$(tofu output -raw artifact_registry_repository_url)
+
+        # Tag the image
+        docker tag busybox ${REPO_URL}/busybox:latest
+
+        # Push the image
+        docker push ${REPO_URL}/busybox:latest
+        ```
+
+        You can verify the image was pushed by checking the Artifact Registry in the GCP console or running:
+
+        ```bash
+        gcloud artifacts docker images list ${REPO_URL}
+        ```
+
+    7. (Optional) Can you figure out how to configure your OpenTofu setup to automatically clean up old images in the
+        Artifact Registry e.g. setting a cleanup policy?
+
+        ??? success "Solution"
+
+            You can add a cleanup policy resource to your `main.tf`:
+
+            ```hcl
+            resource "google_artifact_registry_repository" "docker_repo_cleanup" {
+              depends_on = [google_artifact_registry_repository.docker_repo]
+
+              location      = var.region
+              repository_id = google_artifact_registry_repository.docker_repo.repository_id
+
+              cleanup_policies {
+                action = "KEEP"
+                most_recent_versions {
+                  keep_count = 5
+                }
+              }
+            }
+            ```
+
+            This configuration will keep only the 5 most recent versions of each image in the repository, automatically
+            cleaning up older images. A good number of examples can be found
+            [in the documentation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/artifact_registry_repository)
+
+9. (Optional) One thing you may have probably encountered when working in GCP is service accounts and IAM permissions.
+    Let's see how we can setup a service account for Cloud Build using OpenTofu.
+
+    1. Since we have gone through this a couple of times now, can you figure out how to enable the Cloud Build API using
+        OpenTofu and then create a service account for Cloud Build?
+
+        ??? success "Solution"
+
+            First, enable the Cloud Build API by adding to your `main.tf`:
+
+            ```hcl
+            resource "google_project_service" "cloud_build_api" {
+              service            = "cloudbuild.googleapis.com"
+              disable_on_destroy = false
+            }
+            ```
+
+            Create a service account for Cloud Build:
+
+            ```hcl
+            resource "google_service_account" "cloud_build_sa" {
+              account_id   = "cloud-build-sa"
+              display_name = "Service Account for Cloud Build"
+
+              depends_on = [google_project_service.cloud_build_api]
+            }
+            ```
+
+            The `account_id` must be unique within your project and between 6-30 characters. The full email of this
+            service account will be `cloud-build-sa@<your-project-id>.iam.gserviceaccount.com`.
+
+    2. Grant the service account permission to push images to the Artifact Registry. This is done using an **IAM
+        (Identity and Access Management) binding**:
+
+        ```hcl
+        resource "google_artifact_registry_repository_iam_member" "cloud_build_push" {
+          project    = var.gcp_project_id
+          location   = google_artifact_registry_repository.docker_repo.location
+          repository = google_artifact_registry_repository.docker_repo.name
+          role       = "roles/artifactregistry.writer"
+          member     = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+
+          depends_on = [
+            google_artifact_registry_repository.docker_repo,
+            google_service_account.cloud_build_sa
+          ]
+        }
+        ```
+
+        This resource grants the `roles/artifactregistry.writer` role to our Cloud Build service account on the
+        Artifact Registry repository. The writer role allows the service account to push (write) images to the
+        repository but not delete the repository itself.
+
+    3. Add an output to expose the service account email:
+
+        ```hcl
+        output "cloud_build_service_account_email" {
+          description = "Email of the Cloud Build service account (use this in Cloud Build triggers)"
+          value       = google_service_account.cloud_build_sa.email
+        }
+        ```
+
+    4. Run `tofu plan` to see what will be created:
+
+        ```bash
+        tofu plan
+        ```
+
+        You should see 3 new resources: the API enablement, the service account, and the IAM binding. Afterwareds, run
+        `tofu apply` to create the resources and then verify everything was created correctly
+
+        ```bash
+        gcloud iam service-accounts list
+        ```
+
+        and that IAM permissions were set up correctly
+
+        ```bash
+        gcloud artifacts repositories get-iam-policy \
+            $(tofu output -raw artifact_registry_repository_id) \
+            --location=$(tofu output -raw artifact_registry_location)
+        ```
+
+        You should see your service account listed with the `roles/artifactregistry.writer` role.
+
+    9. (Optional) If you already have Cloud Build triggers set up from M21, you can update them to use this service
+        account. In your Cloud Build trigger configuration or `cloudbuild.yaml`, you can reference the service account:
+
+        ```yaml
+        # In cloudbuild.yaml (optional configuration)
+        serviceAccount: 'projects/<project-id>/serviceAccounts/cloud-build-sa@<project-id>.iam.gserviceaccount.com'
+        ```
+
+        Or when creating a trigger via `gcloud`:
+
+        ```bash
+        gcloud builds triggers create github \
+            --name="my-trigger" \
+            --repo-name="my-repo" \
+            --repo-owner="my-username" \
+            --branch-pattern="^main$" \
+            --build-config="cloudbuild.yaml" \
+            --service-account="projects/<project-id>/serviceAccounts/cloud-build-sa@<project-id>.iam.gserviceaccount.com"
+        ```
+
+10.
+
+## Further Exploration
+
+Congratulations! You've now automated the creation of storage buckets, compute instances, artifact registries, and
+Cloud Build infrastructure using OpenTofu. You've learned how to translate manual cloud operations into reproducible,
+version-controlled Infrastructure as Code.
+
+If you want to explore more advanced topics, the exercises below (currently commented out in the documentation)
+provide additional learning opportunities:
+
+- **Remote State Backend**: Configure OpenTofu to store state files in Google Cloud Storage for team collaboration
+    and state locking (see commented Exercise 13 in the source)
+- **Vertex AI Training Infrastructure**: Set up service accounts and permissions for running ML training jobs on
+    Vertex AI (see commented Exercise 12 in the source)
+- **Cloud Run Deployment**: Provision serverless container deployment infrastructure (see commented Exercise 14 in
+    the source)
+
+You can find the code for these advanced exercises in the commented sections of this file (lines 783-1026).
 
 <!---
-
-
-### Exercise 10: Artifact Registry for Container Storage
-
-In this exercise, you'll create an Artifact Registry repository to store Docker container images, similar to what
-you learned in [M21 Using the Cloud - Artifact Registry section](using_the_cloud.md#artifact-registry).
-
-1. Add the following code to your `main.tf` to create an Artifact Registry repository:
-
-    ```hcl
-    # Enable required APIs
-    resource "google_project_service" "artifact_registry_api" {
-      service            = "artifactregistry.googleapis.com"
-      disable_on_destroy = false
-    }
-
-    # Create Artifact Registry repository
-    resource "google_artifact_registry_repository" "docker_repo" {
-      depends_on = [google_project_service.artifact_registry_api]
-
-      location      = var.region
-      repository_id = "${var.gcp_project_id}-docker-repo"
-      description   = "Docker repository for MNIST training images"
-      format        = "DOCKER"
-
-      labels = local.common_tags
-    }
-
-    # Cleanup policy to keep only the most recent 5 images
-    resource "google_artifact_registry_repository" "docker_repo_cleanup" {
-      depends_on = [google_artifact_registry_repository.docker_repo]
-
-      location      = var.region
-      repository_id = google_artifact_registry_repository.docker_repo.repository_id
-
-      cleanup_policies {
-        action = "KEEP"
-        most_recent_versions {
-          keep_count = 5
-        }
-      }
-    }
-    ```
-
-2. Add corresponding outputs to your `outputs.tf`:
-
-    ```hcl
-    output "artifact_registry_repository_url" {
-      description = "The URL of the Artifact Registry repository"
-      value       = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${google_artifact_registry_repository.docker_repo.repository_id}"
-    }
-
-    output "artifact_registry_repository_id" {
-      description = "The ID of the Artifact Registry repository"
-      value       = google_artifact_registry_repository.docker_repo.repository_id
-    }
-    ```
-
-3. Apply the configuration:
-
-    ```bash
-    tofu plan
-    tofu apply
-    ```
-
-4. Verify the repository was created by listing artifacts:
-
-    ```bash
-    gcloud artifacts repositories list --location=us-central1
-    ```
-
-    ??? success "Solution"
-
-        You should see output similar to:
-
-        ```
-        REPOSITORY            FORMAT     DESCRIPTION
-        my-project-docker-repo  DOCKER     Docker repository for MNIST training images
-        ```
-
-        You can reference this repository when pushing Docker images as:
-        ```
-        us-central1-docker.pkg.dev/my-project-id/my-project-docker-repo
-        ```
-
-### Exercise 11: Cloud Build Configuration for CI/CD
-
-Create infrastructure for automatically building and pushing Docker images using Cloud Build:
-
-1. Add the Cloud Build API to your `main.tf`:
-
-    ```hcl
-    resource "google_project_service" "cloud_build_api" {
-      service            = "cloudbuild.googleapis.com"
-      disable_on_destroy = false
-    }
-    ```
-
-2. Create a Cloud Build trigger using a configuration file. First, create a `cloud_build.tf` file:
-
-    ```hcl
-    # Create service account for Cloud Build
-    resource "google_service_account" "cloud_build_sa" {
-      account_id   = "cloud-build-sa"
-      display_name = "Service Account for Cloud Build"
-
-      depends_on = [google_project_service.cloud_build_api]
-    }
-
-    # Grant Cloud Build service account permission to push to Artifact Registry
-    resource "google_artifact_registry_repository_iam_member" "cloud_build_push" {
-      depends_on = [google_artifact_registry_repository.docker_repo]
-
-      location   = var.region
-      repository = google_artifact_registry_repository.docker_repo.name
-      role       = "roles/artifactregistry.writer"
-      member     = "serviceAccount:${google_service_account.cloud_build_sa.email}"
-    }
-    ```
-
-3. Add outputs for the Cloud Build configuration:
-
-    ```hcl
-    output "cloud_build_service_account_email" {
-      description = "Email of the Cloud Build service account"
-      value       = google_service_account.cloud_build_sa.email
-    }
-    ```
-
-4. Apply and verify:
-
-    ```bash
-    tofu apply
-    gcloud service-accounts list
-    ```
-
-    ??? success "Solution"
-
-        The Cloud Build infrastructure is now set up. You can reference the service account email when
-        configuring triggers for automated builds. The service account has permissions to push images to
-        your Artifact Registry repository.
-
 ### Exercise 12: Vertex AI Training Job Configuration (Optional Advanced)
 
 In this advanced exercise, set up infrastructure for running training jobs on Vertex AI, building on concepts from
@@ -1055,10 +1188,12 @@ When using Infrastructure as Code, follow these best practices:
     values in modules.
 
 9. **Service Accounts**: Create specific service accounts for different purposes (Cloud Build, Vertex AI, etc.) with
-    minimal required permissions (principle of least privilege).
+    minimal required permissions (principle of least privilege). See Exercise 9 for an example of creating a dedicated
+    service account with specific IAM permissions.
 
 10. **API Management**: Use OpenTofu to explicitly enable required APIs. This ensures all dependencies are tracked and
-    can be reproduced in other projects or environments.
+    can be reproduced in other projects or environments. See Exercises 8 and 9 for examples of enabling APIs before
+    creating dependent resources.
 
 11. **Linking to M21 Concepts**: Ensure your IaC configuration mirrors what you learned in
     [M21 Using the Cloud](using_the_cloud.md). For example:

@@ -81,6 +81,7 @@ plugins:
         - s10_extra/quantization.md
         - samples/README.md
         - tools/README.md
+        - AGENTS.md
 
 extra:
   version:
