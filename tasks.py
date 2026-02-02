@@ -10,7 +10,7 @@ WINDOWS = os.name == "nt"
 @task
 def install(ctx) -> None:
     """Create the environment for course."""
-    ctx.run("uv sync", echo=True, pty=not WINDOWS)
+    ctx.run("uv sync --all-extras", echo=True, pty=not WINDOWS)
 
 
 @task
@@ -68,3 +68,25 @@ def linkcheck(ctx) -> None:
         echo=True,
         pty=not WINDOWS,
     )
+
+
+@task
+def deploy(ctx, version: str = "latest") -> None:
+    """Deploy latest version locally (for testing)."""
+    if version == "latest":
+        ctx.run("uv run mike deploy --update-aliases latest stable", echo=True, pty=not WINDOWS)
+        ctx.run("uv run mike set-default latest", echo=True, pty=not WINDOWS)
+    else:
+        ctx.run("uv run mike deploy dev experimental", echo=True, pty=not WINDOWS)
+
+
+@task
+def serve_versioned(ctx) -> None:
+    """Serve versioned docs locally."""
+    ctx.run("uv run mike serve", echo=True, pty=not WINDOWS)
+
+
+@task
+def list_versions(ctx) -> None:
+    """List all deployed versions."""
+    ctx.run("uv run mike list", echo=True, pty=not WINDOWS)

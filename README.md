@@ -26,90 +26,6 @@
     * Coding in [PyTorch](https://pytorch.org/). On the first day, we provide some exercises in PyTorch to
         get everyone's skills up-to-date as fast as possible.
 
-## 💻 Course setup :)
-
-Start by cloning or downloading this repository
-
-```bash
-git clone https://github.com/SkafteNicki/dtu_mlops
-```
-
-If you do not have git installed (yet) we will touch upon it in the course. The folder will contain all the exercise
-material for this course and lectures. Additionally, you should join our
-[Slack channel](https://join.slack.com/t/dtumlops/shared_invite/zt-3mgdtd0hw-TXmrOk35_vOFTQvpXb3OWA)
-which we use for communication. The link may be expired, write to [me](mailto:nsde@dtu.dk).
-
-## 📂 Course organization
-
-We highly recommend that when going through the material you use the
-[homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
-[GitHub Pages](https://pages.github.com/) version of this repository that is more nicely rendered, and also includes
-some special HTML magic provided by
-[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
-
-The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
-corresponds to a full day of work if you are following the course, meaning approximately 9 hours of work. Each session
-(**S**) corresponds to a topic within MLOps and consists of multiple modules (**M**) that each cover a specific topic.
-
-Importantly we differ between core modules and optional modules. Core modules will be marked by
-
-!!! info "Core Module"
-
-at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
-You are highly recommended to still do the optional modules.
-
-Additionally, be aware of the following icons throughout the course material:
-
-* This icon can be expanded to show code belonging to a given exercise
-
-    ??? example
-
-        I will contain some code for an exercise.
-
-* This icon can be expanded to show a solution for a given exercise
-
-    ??? success "Solution"
-
-        I will present a solution to the exercise.
-
-* This icon (1) can be expanded to show a hint or a note for a given exercise
-    { .annotate }
-
-    1. :man_raising_hand: I am a hint or note
-
-## 🆒 MLOps: What is it?
-
-*Machine Learning Operations* (MLOps) is a rather new field that has seen its uprise as machine learning and particularly
-deep learning has become a widely available technology. The term itself is a compound of "machine learning"
-and "operations" and covers everything that has to do with the management of the production ML lifecycle.
-
-The lifecycle of production ML can largely be divided into three phases:
-
-1. Design: The initial phase starts with an investigation of the problem. Based on this analysis, several requirements
-    can be prioritized for what we want our future model to do. Since machine learning requires
-    data to be trained, we also investigate in this step what data we have and if we need to source it in some other way.
-
-2. Model development: Based on the design phase we can begin to conjure some machine learning algorithms to solve our
-    problems. As always, the initial step often involves doing some data analysis to make sure that our model is
-    learning the signal that we want it to learn. Secondly, is the machine learning engineering phase, where the
-    particular model architecture is chosen. Finally, we also need to do validation and testing to make sure that
-    our model is generalizing well.
-
-3. Operations: Based on the model development phase, we now have a model that we want to use. The operations are where
-    we create an automatic pipeline that makes sure that whenever we make changes to our codebase they get automatically
-    incorporated into our model, such that we do not slow down production. Equally important is the ongoing monitoring
-    of already deployed models to make sure that they behave exactly as we specified them.
-
-It is important to note that the three steps are a *cycle*, meaning that when you have successfully deployed a
-machine learning model that is not the end of it. Your initial requirements may change, forcing you to revisit the
-design phase. Some new algorithms may show promising results, so you revisit the model development phase to implement
-this. Finally, you may try to cut the cost of running your model in production, making you revisit the operations phase,
-and trying to optimize some steps.
-
-The focus of this course is particularly on the **Operations** part of MLOps as this is what many data scientists are
-missing in their toolbox to implement all the knowledge they have about data processing and model development into a
-production setting.
-
 ## ❔ Learning objectives
 
 General course objective
@@ -131,6 +47,17 @@ This includes:
 * Deploy machine learning models, both locally and in the cloud
 * Conduct a research project in collaboration with fellow students using the frameworks taught in the course
 * Have lots of fun and share memes! :)
+
+## 🔥 Where to start
+
+We highly recommend that when going through the material you use the
+[homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
+[GitHub Pages](https://pages.github.com/) version of this repository that is more nicely rendered, and also includes
+some special HTML magic provided by
+[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+
+In particular start by going to the [Introduction page](pages/before.md), which will give you an overview of the course
+and a soft introduction to MLOps.
 
 ## 📓 References
 
@@ -194,6 +121,6 @@ If you use parts of this course in your work, please cite using:
     author       = {Nicki Skafte Detlefsen},
     title        = {Machine Learning Operations},
     howpublished = {\url{https://github.com/SkafteNicki/dtu_mlops}},
-    year         = {2024}
+    year         = {2026}
 }
 ```

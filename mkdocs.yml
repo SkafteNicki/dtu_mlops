@@ -3,7 +3,7 @@ docs_dir: .
 site_dir: ../site
 repo_url: https://github.com/SkafteNicki/dtu_mlops
 edit_uri: edit/main/
-copyright: Copyright &copy; 2021 - 2024 Nicki Skafte Detlefsen
+copyright: Copyright &copy; 2021 - 2026 Nicki Skafte Detlefsen
 
 theme:
   language: en
@@ -70,6 +70,7 @@ plugins:
       enable_creation_date: true
   - exclude:
       glob:
+        - .venv/
         - tools/*
         - reports/README.md
         - s10_extra/design.md
@@ -82,6 +83,9 @@ plugins:
         - tools/README.md
 
 extra:
+  version:
+    provider: mike
+    default: latest
   social:
     - icon: material/email
       link: mailto:skaftenicki@gmail.com
@@ -92,7 +96,7 @@ extra:
 
 nav:
   - Home: README.md
-  - Time plan: pages/timeplan.md
+  - Introduction: pages/before.md
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
@@ -149,5 +153,6 @@ nav:
     - M34 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M35 - High Performance Clusters: s10_extra/high_performance_clusters.md
   - Summary: pages/overview.md
+  - Time plan: pages/timeplan.md
   - Projects: pages/projects.md
   - FAQ: pages/faq.md

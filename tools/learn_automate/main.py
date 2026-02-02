@@ -23,8 +23,7 @@ PASSWORD = os.getenv("PASSWORD")
 def extract_datetime(folder_name):
     """Extracts the datetime part from the folder name."""
     datetime_part = folder_name.split(" - ")[-1]
-    datetime_part = datetime_part.replace("AM", " AM").replace("PM", " PM")
-    return datetime.strptime(datetime_part, "%d %B, %Y %I%M %p")  # noqa: DTZ007
+    return datetime.strptime(datetime_part, "%d %B, %Y %H%M")  # noqa: DTZ007
 
 
 def extract_base_github_url(url):
@@ -68,10 +67,10 @@ def download_from_learn(course: str) -> tuple[str, str]:
         page.get_by_role("button", name="Close").click()
         page.get_by_role("button", name="Cancel").click()
         page.get_by_role("link", name="Assignments").click()
-        page.get_by_role("link", name="Project repository link").click()
+        page.get_by_role("link", name="Project URL").click()
         page.get_by_role("checkbox", name="Select all rows").check()
         page.get_by_role("button", name="Download").click()
-        time.sleep(2)  # for some reason, the download doesn't work without this delay
+        time.sleep(5)  # for some reason, the download doesn't work without this delay
         with page.expect_download() as download2_info:
             page.get_by_role("button", name="Download").click()
         download2 = download2_info.value
@@ -88,11 +87,11 @@ def create_grouped_csv(download1: str) -> None:
     with open(download1, encoding="utf-8") as file:
         reader = csv.DictReader(file)
         for row in reader:
-            group = row["Project Groups"]
+            group = row["MLOps project groups"]
             if group:  # Only consider rows with a project group
                 # Extract the student ID, removing the '#' if present
                 username = row["Username"].lstrip("#")
-                groups[group.strip("MLOPS ")].append(username)
+                groups[group.strip("MLOps ")].append(username)
 
     # Sort groups by numeric value of group number
     sorted_groups = sorted(groups.items(), key=lambda x: int(x[0].split()[-1]))
@@ -116,7 +115,7 @@ def unzip_assignments_and_extract_links(download2: str) -> dict:
     grouped_folders = defaultdict(list)
     for folder in folders:
         if folder.is_dir():
-            group_key = folder.name.split(" - ")[1].strip("MLOPS ")
+            group_key = folder.name.split(" - ")[1].strip("MLOps ")
             grouped_folders[group_key].append(folder)
 
     # Get the most recent folder for each group

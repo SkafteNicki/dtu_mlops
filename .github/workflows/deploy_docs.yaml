@@ -2,7 +2,7 @@ name: Deploy docs
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 permissions:
   contents: write
@@ -17,6 +17,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Configure git credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
@@ -25,5 +30,12 @@ jobs:
       - name: Sync dependencies
         run: uv sync
 
-      - name: Deploy docs
-        run: uv run mkdocs gh-deploy --force
+      - name: Deploy latest version (main branch)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          uv run mike deploy --push --update-aliases latest stable
+          uv run mike set-default --push latest
+
+      - name: Deploy dev version (dev branch)
+        if: github.ref == 'refs/heads/dev'
+        run: uv run mike deploy --push dev experimental
