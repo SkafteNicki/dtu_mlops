@@ -40,7 +40,7 @@ dynamic (like video), but the site does not change (1).
 
 We are in this module going to look at [Mkdocs](https://www.mkdocs.org/), which (in my opinion) is one of the easiest
 systems to get started with because all documentation is written in markdown and the build system is written in Python.
-As an alternativ, you can consider doing the exercises in [Sphinx](https://www.sphinx-doc.org/en/master/) which is
+As an alternative, you can consider doing the exercises in [Sphinx](https://www.sphinx-doc.org/en/master/) which is
 probably the most used documentation system for Python code. Sphinx offer more customization than Mkdocs, so is
 generally preferred for larger projects with complex documentation, but for smaller projects Mkdocs should be easier to
 get started with and is sufficient.
@@ -81,7 +81,7 @@ nav: # (5)!
     [many more to choose from](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes) and you can also
     [create your own](https://www.mkdocs.org/dev-guide/themes/).
 
-3. :man_raising_hand: The `featuers` section is where features that are supported by your given theme can be enabled.
+3. :man_raising_hand: The `features` section is where features that are supported by your given theme can be enabled.
     In this example we have enabled `content.code.copy` feature which adds a small copy button to all code block and the
     `content.code.annotate` feature which allows you to add annotations like this box to code blocks.
 
@@ -132,11 +132,21 @@ your project code is installed in your environment such that it can be imported 
 1. We are going to need two Python packages to get started: [mkdocs](https://pypi.org/project/mkdocs/) and
     [material for mkdocs](https://pypi.org/project/mkdocs-material/). Install with
 
-    ```bash
-    pip install "mkdocs-material >= 4.8.0" # (1)!
-    ```
+    === "Using pip"
 
-    1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
+        ```bash
+        pip install "mkdocs-material >= 4.8.0" # (1)!
+        ```
+
+        1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
+
+    === "Using uv"
+
+        ```bash
+        uv add "mkdocs-material >= 4.8.0" # (1)!
+        ```
+
+        1. Since `mkdocs` is a dependency of `mkdocs-material` we only need to install the latter.
 
 2. Run in your terminal (from the `docs` folder):
 
@@ -248,8 +258,8 @@ your project code is installed in your environment such that it can be imported 
 
 To publish your documentation you need a place to host your build documentation e.g. the content of the `site` folder
 you build in the last exercise. There are many places to host your documentation, but if you only need a static site
-and are already hosting your code through Github, then a good option is [Github Pages](https://pages.github.com/).
-Github pages is free to use for your public projects.
+and are already hosting your code through GitHub, then a good option is [GitHub Pages](https://pages.github.com/).
+GitHub pages is free to use for your public projects.
 
 Before getting started with this set of exercises you should have completed
 [module M16 on GitHub actions](../s5_continuous_integration/github_actions.md) so you already know about workflow files.
@@ -268,7 +278,7 @@ Before getting started with this set of exercises you should have completed
             - main
 
     permissions:
-        contents: write # (1)
+        contents: write # (1)!
 
     jobs:
       deploy:
@@ -276,7 +286,7 @@ Before getting started with this set of exercises you should have completed
         runs-on: ubuntu-latest
         steps:
         - name: Checkout code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v5
           with:
             fetch-depth: 0
 
@@ -303,15 +313,15 @@ Before getting started with this set of exercises you should have completed
 2. Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
     a branch called `gh-pages`. If the action does not succeeds, then figure out what is wrong and fix it!
 
-3. After confirming that our action is working, you need to configure Github to publish the content being
-    build by Github Actions. Do the following:
+3. After confirming that our action is working, you need to configure GitHub to publish the content being
+    build by GitHub Actions. Do the following:
 
     * Go to the Settings tab and then the Pages subsection
     * In the `Source` setting choose the `Deploy from a branch`
     * In the `Branch` setting choose the `gh-pages` branch and `/(root)` folder and save
 
     <figure markdown>
-        ![Image](../figures/github_pages.png){ width="700" }
+    ![Image](../figures/github_pages.png){ width="700" }
     </figure>
 
     This should then start deploying your site to `https://<your-username>.github.io/<your-reponame>/`. If it does not
@@ -320,5 +330,5 @@ Before getting started with this set of exercises you should have completed
 4. Make sure your documentation is published and looks as it should.
 
 This ends the module on technical documentation. We cannot stress enough how important it is to write proper
-documentation for larger projects that need to be maintained over a longer time. It is often a iterative process, but
+documentation for larger projects that need to be maintained over a longer time. It is often an iterative process, but
 it is often best to do it while writing the code.

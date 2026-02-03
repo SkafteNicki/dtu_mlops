@@ -1,6 +1,7 @@
 import json
 from contextlib import asynccontextmanager
 
+import anyio
 import torch
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from PIL import Image
@@ -20,10 +21,11 @@ async def lifespan(app: FastAPI):
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ]
+        ],
     )
 
-    imagenet_classes = json.load(open("imagenet-simple-labels.json"))
+    async with await anyio.open_file("imagenet-simple-labels.json") as f:
+        imagenet_classes = json.load(f)
 
     yield
 
@@ -58,7 +60,7 @@ async def classify_image(file: UploadFile = File(...)):
     """Classify image endpoint."""
     try:
         contents = await file.read()
-        with open(file.filename, "wb") as f:
+        async with await anyio.open_file(file.filename, "wb") as f:
             f.write(contents)
         probabilities, prediction = predict_image(file.filename)
         return {"filename": file.filename, "prediction": prediction, "probabilities": probabilities.tolist()}

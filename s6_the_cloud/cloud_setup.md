@@ -4,13 +4,20 @@
 
 !!! info "Core Module"
 
+!!! warning "Interface changes"
+
+    The Google Cloud Platform (GCP) interface is constantly changing. Therefore, some of the screenshots and
+    instructions in this module may be slightly outdated. However, the overall concepts and steps should still be
+    applicable. If you are ever in doubt about how to do something in GCP, I recommend checking out the official
+    [GCP documentation](https://cloud.google.com/docs).
+
 Google Cloud Platform (GCP) is the cloud service provided by Google. The key concept, or selling point, of any cloud
-provider, is the idea of near-infinite resources. Without the cloud, it simply is not feasible to do many modern
+provider, is the idea of near-infinite resources. Without the cloud, it is simply not feasible to do many modern
 deep learning and machine learning tasks because they cannot be scaled locally.
 
 The image below shows [all the different services](https://cloud.google.com/products) that the Google Cloud platform
-offers. We are going to be working with around 10 of these services throughout the course. Therefore, if you get done
-with exercises early I highly recommend that you deep dive more into the Google cloud platform.
+offers. We are going to be working with around 10 of these services throughout the course. Therefore, if you finish
+the exercises early I highly recommend that you deep dive more into the Google Cloud Platform.
 
 <figure markdown>
 ![Image](../figures/gcp_services.png){ width="1000"  }
@@ -22,10 +29,10 @@ with exercises early I highly recommend that you deep dive more into the Google 
 As the first step, we are going to get you some Google Cloud credits.
 
 1. Go to <https://learn.inside.dtu.dk>. Go to this course. Find the recent message where there should be a download
-    link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there are a
+    link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there is a
     limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits
     whenever you sign up with a new account. NOTE that you need to provide a credit card for this so make
-    sure to closely monitor your credit use so you do not end up spending more than the free credit.
+    sure to closely monitor your credit usage so you do not end up spending more than the free credit.
 
 2. Log in to the homepage of GCP. It should look like this:
 
@@ -33,14 +40,14 @@ As the first step, we are going to get you some Google Cloud credits.
     ![Image](../figures/gcp1.PNG){ width="800"  }
     </figure>
 
-3. Go to billing and make sure that your account is showing $50 of cloud credit
+3. Go to billing and make sure that your account is showing $50 of cloud credit.
 
     <figure markdown>
     ![Image](../figures/gcp2.PNG){ width="800"  }
     </figure>
 
-    make sure to also check out the `Reports` throughout the course. When you are starting to use some of the cloud
-    services these tabs will update with info about how much time you can use before your cloud credit runs out.
+    Make sure to also check out the `Reports` throughout the course. When you are starting to use some of the cloud
+    services these tabs will update with info about how much time you have before your cloud credit runs out.
     Make sure that you monitor this page as you will not be given another coupon.
 
 4. One way to stay organized within GCP is to create projects.
@@ -53,10 +60,20 @@ As the first step, we are going to get you some Google Cloud credits.
     is being created. The notification bell is a good way to make sure how the processes you are running are doing
     throughout the course.
 
-5. Next, it local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud SDK.
+    !!! warning "Create project under 'No organization'"
+
+        When creating your GCP project, make sure to select **"No organization"** from the organization dropdown menu.
+        Many organization-managed accounts (including universities and Google Workspace accounts) enforce security
+        policies that disable the creation of JSON service account keys by default. This is done through the
+        `iam.disableServiceAccountKeyCreation` organization policy. If you create your project under an organization,
+        you may run into issues later when trying to create service account keys, which are needed for authenticating
+        services like GitHub Actions with GCP. Creating your project under "No organization" avoids these restrictions
+        while you are learning.
+
+5. Next is local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud SDK.
     `gcloud` is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the `gcloud` interface. Follow the installation instructions
-    [here](https://cloud.google.com/sdk/docs/install) for your specific OS.
+    [in the gcloud SDK installation guide](https://cloud.google.com/sdk/docs/install) for your specific OS.
 
     1. After installation, try in a terminal to type:
 
@@ -64,16 +81,19 @@ As the first step, we are going to get you some Google Cloud credits.
         gcloud -h
         ```
 
-        the command should show the help page. If not, something went wrong in the installation (you may need to
+        The command should show the help page. If not, something went wrong in the installation (you may need to
         restart after installing).
 
-    2. Now login by typing
+    2. Now log in by typing
 
         ```bash
-        gcloud auth login
+        gcloud auth login #(1)!
         ```
 
-        you should be sent to a web page where you link your cloud account to the `gcloud` interface. Afterward, also
+        1. If you are authenticating through WSL you most likely need to add the argument `--no-launch-browser` at the
+            end of the command to get the authentication link. Copy the link and paste it into your browser.
+
+        You should be sent to a web page where you link your cloud account to the `gcloud` interface. Afterward, also
         run this command:
 
         ```bash
@@ -88,7 +108,7 @@ As the first step, we are going to get you some Google Cloud credits.
 
     3. Next, you will need to set the project that we just created as the default project0. In your web browser under
         project info, you should be able to see the `Project ID` belonging to your `dtumlops` project. Copy this and
-        type he following command in a terminal
+        type the following command in a terminal:
 
         ```bash
         gcloud config set project <project-id>
@@ -112,7 +132,7 @@ As the first step, we are going to get you some Google Cloud credits.
         import googleapiclient
         ```
 
-        this should work without any errors.
+        which should work without any errors.
 
     5. (Optional) If you are using VSCode you can also download the relevant
         [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
@@ -128,7 +148,7 @@ As the first step, we are going to get you some Google Cloud credits.
     gcloud services enable servicecontrol.googleapis.com
     ```
 
-    you can always check which services are enabled by typing
+    You can always check which services are enabled by typing
 
     ```bash
     gcloud services list
@@ -140,11 +160,11 @@ services, both locally on your laptop and in the cloud console.
 ## IAM and Quotas
 
 A big part of using the cloud in a bigger organization has to do with Admin and quotas. Admin here in general refers
-to the different roles that users of GCP and quotas refer to the amount of resources that a given user has access to.
-For example, one employee, let's say a data scientist, may only be granted access to certain GCP services that have to
-do with the development and training of machine learning models, with `X` amounts of GPUs available to use to make sure
-that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not need access to
-the same services and not necessarily the same resources.
+to the different roles that users of GCP can have and quotas refers to the amount of resources that a given user has
+access to. For example, one employee, let's say a data scientist, may only be granted access to certain GCP services
+that have to do with the development and training of machine learning models, with `X` amount of GPUs available to use
+to make sure that the employee does not spend too much money. Another employee, a DevOps engineer, probably does not
+need access to the same services and not necessarily the same resources.
 
 In this course, we are not going to focus too much on this aspect but it is important to know that it exists. One
 feature you are going to need for doing the project is how to share a project with other people. This is done through
@@ -157,8 +177,10 @@ you want them to be able to do. The figure below shows how to do this.
 </figure>
 
 What we are going to go through right now is how to increase the quotas for how many GPUs you have available for your
-project. By default, for any free accounts in GCP (or accounts using teaching credits) the default quota for GPUs that
-you can use is either 0 or 1 (their policies sometimes change). We will in the exercises below try to increase it.
+project. You can read more about quota types and levels
+[in the documentation](https://docs.cloud.google.com/docs/quotas/overview). By default, for any free accounts in GCP
+(or accounts using teaching credits) the default quota for GPUs that you can use is either 0 or 1 (their policies
+sometimes change). We will in the exercises below try to increase it.
 
 ### ❔ Exercises
 
@@ -166,29 +188,46 @@ you can use is either 0 or 1 (their policies sometimes change). We will in the e
     to a page where you can enable the service (may take some time). We are going to look more into this service
     in the next module.
 
+    !!! note
+
+        You can only request a quota increase for a service that you have enabled. After enabling a given service it may
+        take 5-10 minutes before you can request a quota increase for that service.
+
 2. Next go to the `IAM & Admin` page, again search for it in the top search bar. The remaining steps are illustrated
     in the figure below.
 
-    1. Go to the `quotas page`
+    1. Go to the `quotas page`.
 
-    2. In the search field search for `GPUs (all regions)` (needs to match exactly, the search field is case sensitive),
-        such that you get the same quota as in the image.
+    2. Next, lets adjust the filters such that we only see the GPU quotas. Start by setting `Type: Quota` (1).
+        Afterwards, set the `Limit name:` to `GPUS-ALL-REGIONS-per-project` (needs to match exactly, the search field
+        is case-sensitive) and you should now only see a single quota.
+        { .annotate }
+
+        1. :man_raising_hand: The alternative to choosing `Type: Quota` is choosing `Type: System limit` which is the
+            hard upper bound imposed by Google. It will nearly always say `Unlimited` and in practice this is not
+            relevant to us
 
     3. In the limit, you can see what your current quota for the number of GPUs you can use is. Additionally, to the
-        right of the limit, you can see the current usage. It is worth checking in on if you are ever in doubt if a job
+        right of the limit, you can see the current usage. It is worth checking if you are ever in doubt if a job
         is running on GPU or not.
 
     4. Click the quota and afterward the `Edit` quotas button.
 
     5. In the pop-up window, increase your limit to either 1 or 2.
 
-    6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request
+    6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request.
 
-    <figure markdown>
+        <figure markdown>
         ![Image](../figures/quotas.PNG){ width="1000" }
-    </figure>
+        <figcaption>
+        Note that the exact name of the quota in the screenshot may have changed since Google sometimes updates their
+        naming convention.
+        </figcaption>
+        </figure>
 
-If you are ever running into errors when working in GPU that contains statements about `quotas` you can always try to
+    7. Now you just sit back and wait at the mercy of Google.
+
+If you are ever running into errors when working in GPU that contain statements about `quotas` you can always try to
 go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
 training machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
 need to ask for a quota increase for that service as well.
@@ -198,35 +237,37 @@ need to ask for a quota increase for that service as well.
 </figure>
 
 Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
-request gets rejected, we recommend to wait a day and try again. If this does still not work, you may need to use their
-services some more to make sure you are not a bot that wants to mine crypto.
+request gets rejected, we recommend waiting a day and trying again. If this does still not work, you may need to use
+their services some more to show you are not a bot that wants to mine crypto.
 
 ## Service accounts
 
 At some point, you will most likely need to use a service account. A service account is a virtual account that is used
-to interact with the Google Cloud API. It it intended for non-human users e.g. other machines, services, etc. For
-example, if you want to launch a training job from Github Actions, you will need to use a service account for
-authentication between Github and GCP. You can read more about how to create a service account
-[here](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
+to interact with the Google Cloud API. It it intended for non-human users, e.g. other machines, services, etc. For
+example, if you want to launch a training job from GitHub Actions, you will need to use a service account for
+authentication between GitHub and GCP. You can read more about how to create a service account
+[in the service accounts documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
 
 ### ❔ Exercises
 
 1. Go to the `IAM & Admin` page and click on `Service accounts`. Alternatively, you can search for it in the top search
     bar.
 
-2. Click the `Create Service Account` button. On the next page, you can give the service account a name, and id (
-    automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
+2. Click the `Create Service Account` button. On the next page, you can give the service account a name and id
+    (automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
     default and click `Create`.
 
-3. Next, let's give the service account some permissions. Click on the service account you just created. In the
-    `Permissions` tab click `Add permissions`. Your job now is to give the service account the lowest possible
-    permissions such that it can download files from a bucket. Look at this
+3. Next, let's give the service account some permissions. Your job now is to give the service account the lowest
+    possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
+    the `IAM` page. Click on the `Grant Access` button and paste in the email address in the `Add principals` field.
+    Then click the `Select a role` dropdown and either write the name of the role you want to give the service account
+    or search for it in the list. Finally, click `Save`.  For help, you can look at this
     [page](https://cloud.google.com/iam/docs/understanding-roles) and try to find the role that fits the description.
 
     ??? success "Solution"
 
         The role you are looking for is `Storage Object Viewer`. This role allows the service account to list objects
-        in a bucket and download objects, but nothing more. Thus even if someone gets access to the service account
+        in a bucket and download objects, but nothing more. Thus, even if someone gets access to the service account
         they cannot delete objects in the bucket.
 
 4. To use the service account later we need to create a key for it. Click on the service account and then the `Keys`
@@ -259,23 +300,35 @@ authentication between Github and GCP. You can read more about how to create a s
         gcloud iam service-accounts delete global-service-account@$(GCP_PROJECT_NAME).iam.gserviceaccount.com
         ```
 
+In this course we recommend that you only use a single service account for doing exercises and your project. This
+is to simplify the process of managing permissions. In a real-world scenario, you would most likely have multiple
+service accounts, each with different permissions. The following roles are the most common ones that you will use in
+this course:
+
+* `Storage Object Viewer`: Allows the service account to list objects in a bucket and download objects
+* `Cloud Build Builder`: Allows the service account to run builds in Cloud Build
+* `Secret Manager Secret Accessor`: Allows the service account to access secrets in Secret Manager
+* `Cloud Run Developer`: Allows the service account to deploy services in Cloud Run
+* `AI Platform Developer`: Allows the service account to use the AI Platform
+* `Artifact Registry Writer`: Allows the service account to write to the Artifact Registry
+
 ## 🧠 Knowledge check
 
-1. What considerations to take when choosing a GCP region for running a new application?
+1. What considerations should you have when choosing a GCP region for running a new application?
 
     ??? success "Solution"
 
         A series of factors may influence your choice of region, including:
 
-        * Services availability in the region, not all services are available in all regions
+        * Services availability in the region; not all services are available in all regions
         * Resource availability: [some regions](https://cloud.google.com/compute/docs/gpus/gpu-regions-zones) have more
             GPUs available than others
         * Reduced latency: if your application is running in the same region as your users, the latency will be lower
         * Compliance: some countries have strict rules that require user info to be stored inside a particular region
-            eg. EU has GDPR rules that require all user data to be stored in the EU
+            e.g., EU has GDPR rules that require all user data to be stored in the EU
         * Pricing: some regions may have different pricing than others
 
-2. The 3 major cloud providers all have the same services, but they are called something different depending on the
+2. The three major cloud providers all have the same services, but they are called something different depending on the
     provider. What are the corresponding names of these GCP services in AWS and Azure?
 
     * Compute Engine
@@ -285,7 +338,7 @@ authentication between Github and GCP. You can read more about how to create a s
     * Cloud build
     * Vertex AI
 
-    It is important to know these correspondences to navigate blogpost etc. about MLOps on the internet.
+    It is important to know these correspondences to navigate blog posts, etc. about MLOps on the internet.
 
     ??? success "Solution"
 
@@ -298,12 +351,12 @@ authentication between Github and GCP. You can read more about how to create a s
         Cloud build     | CodeBuild                   | DevOps
         Vertex AI       | SageMaker                   | AI Platform
 
-3. Why does is it always important to assign the lowest possible permissions to a service account?
+3. Why is it always important to assign the lowest possible permissions to a service account?
 
     ??? success "Solution"
 
         The reason is that if someone gets access to the service account they can only do what the service account is
-        allowed to do. If the service account has the permission to delete objects in a bucket, the attacker can delete
+        allowed to do. If the service account has permission to delete objects in a bucket, the attacker can delete
         all the objects in the bucket. For this reason, in most cases multiple service accounts are used, each with
         different permissions. This setup is called the
         [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege).

@@ -1,20 +1,20 @@
 import pickle
+from typing import Annotated
 
 import typer
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from typing_extensions import Annotated
 
 app = typer.Typer()
 train_app = typer.Typer()
 app.add_typer(train_app, name="train")
 
 # Load the dataset
-data = load_breast_cancer()
+data = load_iris()
 x = data.data
 y = data.target
 
@@ -28,7 +28,7 @@ x_test = scaler.transform(x_test)
 
 
 @train_app.command()
-def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
+def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train a SVM model."""
     model = SVC(kernel=kernel, random_state=42)
     model.fit(x_train, y_train)
@@ -38,9 +38,9 @@ def svm(kernel: str = "linear", output_file: Annotated[str, typer.Option("--outp
 
 
 @train_app.command()
-def knn(k: int = 5, output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
+def knn(n_neighbors: int = 5, output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train a KNN model."""
-    model = KNeighborsClassifier(n_neighbors=k)
+    model = KNeighborsClassifier(n_neighbors=n_neighbors)
     model.fit(x_train, y_train)
 
     with open(output_file, "wb") as f:

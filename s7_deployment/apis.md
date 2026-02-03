@@ -6,16 +6,16 @@
 
 !!! info "Core Module"
 
-Before we can get deployment of our models we need to understand concepts such as APIs and requests. The core reason
+Before we can deploy our models we need to understand concepts such as APIs and requests. The core reason
 for this is that we need a new abstraction layer on top of our applications that are not Python-specific. While Python
 is the defacto language for machine learning, we cannot expect everybody else to use it and in particular, we cannot
-expect network protocols (both locally and external) to be able to communicate with our Python programs out of the box.
+expect network protocols (both local and external) to be able to communicate with our Python programs out of the box.
 For this reason, we need to understand requests, in particular HTTP requests and how to create APIs that can interact
 with those requests.
 
 ## Requests
 
-When we are talking about requests, we are essentially talking about the communication method used in client-server
+When we talk about requests, we are essentially talking about the communication method used in client-server
 types of architectures. As shown in the image below, in this architecture, the client (user) is going to send
 *requests* to a server (our machine learning application) and the server will give a *response*. For example, the user
 may send a request to get the class of a specific image, which our application will do and then send back the
@@ -31,7 +31,7 @@ of the intermediary transportation method between the client and server. An HTTP
 parts:
 
 * A request URL: the location of the server we want to send our request to
-* A request Method: describing what action we want to perform on the server
+* A request method: describing what action we want to perform on the server
 
 The common request methods are (case sensitive):
 
@@ -39,23 +39,29 @@ The common request methods are (case sensitive):
 * POST/PUT: send data to the server
 * DELETE: delete data on the server
 
-You can read more about the different methods [here](https://dev.to/adidoshi/http-request-methods-16ik). For most
-machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read more
-about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol, but
-the TLDR is that it provides privacy, integrity and identification over the web.
+You can read more about the different methods [in this HTTP request methods guide](https://dev.to/adidoshi/http-request-methods-16ik).
+For most machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read
+more about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol,
+but the TLDR is that it provides privacy, integrity and identification over the web.
 
 ### ❔ Exercises
 
-We are going to do a couple of exercises on sending requests using
+We are going to do a couple of exercises on sending requests using the
 [requests package](https://requests.readthedocs.io/en/latest/) to get familiar with the syntax.
 
-1. Start by installing the `requests`` package
+1. Start by installing the `requests`` package.
 
-    ```bash
-    pip install requests
-    ```
+    === "Using pip"
+        ```bash
+        pip install requests
+        ```
 
-2. Afterwards, create a small script and try to execute the code
+    === "Using uv"
+        ```bash
+        uv add requests
+        ```
+
+2. Afterwards, create a small script and try to execute the code:
 
     ```python
     import requests
@@ -64,8 +70,16 @@ We are going to do a couple of exercises on sending requests using
     ```
 
     As you can see from the syntax, we are sending a request using the GET method. This code should return status
-    code 404. Take a look at [this page](https://restfulapi.net/http-status-codes/) that contains a list of status
-    codes. Next, let's call a page that exists
+    code 404 (1). Take a look at [this page](https://restfulapi.net/http-status-codes/) that contains a list of status
+    codes. Next, let's call a page that exists.
+    { .annotate }
+
+    1. :man_raising_hand: If you do not get a status code of 404, it can either
+        be due to some firewall settings or the fact that many other students are doing the same exercise at the same
+        time and we are hitting GitHub's API rate limits. GitHub limits unauthenticated requests to **60 per hour per
+        IP address**. When many students use the same network (e.g., DTU's network), you may see rate limit errors
+        like `{"message":"API rate limit exceeded..."}`. Don't worry - this is expected and we'll learn how to handle
+        it with authentication in a later exercise. For now, it does not matter if you get a different status code.
 
     ```python
     import requests
@@ -74,8 +88,8 @@ We are going to do a couple of exercises on sending requests using
     ```
 
     What is the status code now and what does it mean? Status codes are important when you have an application that is
-    interacting with a server and wants to make sure that it does not fail, which can be done with simple `if`
-    statements on the status codes
+    interacting with a server and want to make sure that it does not fail, which can be done with simple `if`
+    statements on the status codes.
 
     ```python
     if response.status_code == 200:
@@ -94,18 +108,18 @@ We are going to do a couple of exercises on sending requests using
     client to the server or vice-versa. Try looking at the `response.content` attribute. What is the type of this
     attribute?
 
-4. You should hopefully observe that the `.content` attribute is of type `bytes`. It is important to note that this is
+4. You should hopefully observe that the `.content` attribute is of type `bytes`. It is important to note that
     the standard way of sending payloads to encode them into `byte` objects. To get a more human-readable version of
-    the response, we can convert it to [JSON](https://www.json.org/json-en.html) format
+    the response, we can convert it to [JSON](https://www.json.org/json-en.html) format.
 
     ```python
     response.json()
     ```
 
-    Important to remember that a JSON object in Python is just a nested dictionary if you ever want to iterate over the
-    object in some way.
+    It is important to remember that a JSON object in Python is just a nested dictionary if you ever want to iterate
+    over the object in some way.
 
-5. When we use the GET method we can additionally provide a `params` argument, that specifies what we want the server
+5. When we use the GET method we can additionally provide a `params` argument that specifies what we want the server
     to send back for a specific request URL:
 
     ```python
@@ -118,8 +132,63 @@ We are going to do a couple of exercises on sending requests using
     Before looking at `response.json()` can you explain what the code does? You can try looking at this
     [page](https://docs.github.com/en/rest/search?apiVersion=2022-11-28) for help.
 
-6. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
-    Say that we want to download an image, which we can do in the following way
+6. You may already have encountered in exercise 2 that GitHub's API
+    has rate limits. Unauthenticated requests are limited to 60 per hour per IP address, while authenticated requests
+    get 5,000 requests per hour. Let's learn how to authenticate our requests to avoid rate limit errors.
+
+    1. First, create a GitHub Personal Access Token (this is like a password for API access):
+        * Go to [GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)](https://github.com/settings/tokens)
+        * Click "Generate new token" > "Generate new token (classic)"
+        * Give it a descriptive name like "MLOps Course API Access"
+        * Select the `public_repo` scope (this allows reading public repository information)
+        * Set an expiration date (e.g., 90 days)
+        * Click "Generate token" at the bottom
+        * **Important**: Copy the token immediately - you won't be able to see it again!
+
+    2. Now try making an authenticated request. The secure way to use tokens is through environment variables:
+
+        ```python
+        import requests
+        import os
+
+        # Set your token as an environment variable first:
+        # export GITHUB_TOKEN='your_token_here'  # On Linux/Mac
+        # $env:GITHUB_TOKEN='your_token_here'    # On Windows PowerShell
+
+        token = os.getenv('GITHUB_TOKEN')
+        headers = {'Authorization': f'token {token}'}
+
+        response = requests.get('https://api.github.com/user', headers=headers)
+        print(response.status_code)
+        print(response.json())
+        ```
+
+        What information does this endpoint return about your GitHub account?
+
+    3. You can check your current rate limit status with:
+
+        ```python
+        response = requests.get('https://api.github.com/rate_limit', headers=headers)
+        print(response.json())
+        ```
+
+        Compare this to an unauthenticated request (without the `headers` parameter). What differences do you see
+        in the rate limits?
+
+    4. Try repeating exercise 5 with authentication by adding the `headers` parameter:
+
+        ```python
+        response = requests.get(
+            'https://api.github.com/search/repositories',
+            params={'q': 'requests+language:python'},
+            headers=headers
+        )
+        ```
+
+        This authenticated request will count against your 5,000/hour limit instead of the 60/hour limit.
+
+7. Sometimes the content of a page cannot be converted into JSON, because as already stated data is sent as bytes.
+    Say that we want to download an image, which we can do in the following way:
 
     ```python
     import requests
@@ -134,8 +203,8 @@ We are going to do a couple of exercises on sending requests using
         f.write(response.content)
     ```
 
-7. The `get` method is the most useful method because it allows us to get data from the server. However, as stated in
-    the beginning multiple request methods exist, for example, the POST method for sending data to the server. Try
+8. The `get` method is the most useful method because it allows us to get data from the server. However, as stated in
+    the beginning, multiple request methods exist, for example, the POST method for sending data to the server. Try
     executing:
 
     ```python
@@ -145,11 +214,11 @@ We are going to do a couple of exercises on sending requests using
 
     Investigate the response (this is an artificial example because we do not control the server).
 
-8. Finally, we should also know that requests can be sent directly from the command line using the `curl` command.
+9. Finally, we should also know that requests can be sent directly from the command line using the `curl` command.
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do it from a
     script.
 
-    1. Make sure you have `curl` installed, or else find instruction on installing it. To check call `curl -`-help` with
+    1. Make sure you have `curl` installed, or else find instructions for installing it. To check, call `curl --help` with
         the documentation on curl.
 
     2. To execute `requests.get('https://api.github.com')` using curl we would simply do
@@ -167,25 +236,25 @@ That ends the intro session on `requests`. Do not worry if you are still not com
 requests, we are going to return to how we do it in practice when we have created our API. If you want to
 learn more about the `requests` package you can check out [this tutorial](https://realpython.com/python-requests/) and
 if you want to see more examples of how to use `curl` you can check out
-[this page](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58)
+[this page](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58).
 
 ## Creating APIs
 
 Requests are all about being on the client side of our client-server architecture. We are now going to move on to the
 server side where we will be learning about writing the APIs that requests can interact with. An application programming
-interface (API) is essentially the way for the developer (you) tells a user how to use the application that you have
+interface (API) is essentially the way for the developer (you) to tell a user how to use the application that you have
 created. The API is an abstraction layer that allows the user to interact with our application in the way we want them
-to interact with it, without the user even having to look at the code.
+to interact with it, without the user ever having to look at the code.
 
 We can take the API from GitHub as an example <https://api.github.com>. This API allows any user to retrieve, integrate
-and send data to Github without ever having to visit their webpage. The API exposes multiple endpoints that have various
+and send data to GitHub without ever having to visit their webpage. The API exposes multiple endpoints that have various
 functions:
 
 * <https://api.github.com/repos/OWNER/REPO/branches>: check out the branches on a given repository
-* <https://api.github.com/search/code>: search through Github for repositories
+* <https://api.github.com/search/code>: search through GitHub for repositories
 * <https://api.github.com/repos/OWNER/REPO/actions/workflows>: check the status of workflows for a given repository
 
-and we could go on. However, there may be functionality that Github is not interested in users having access to and
+and we could go on. However, there may be functionality that GitHub is not interested in users having access to and
 they may therefore choose not to have endpoints for specific features (1).
 { .annotate }
 
@@ -194,40 +263,52 @@ they may therefore choose not to have endpoints for specific features (1).
     can check out [this list](https://github.com/mauran/API-Danmark) of public and private APIs from Danish companies and
     organizations.
 
-The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specify specific
-constraints that a particular API needs to fulfill to be considered RESTful. You can read more about what the six
-guiding principles behind REST API [on this page](https://restfulapi.net/) but one of the most important to have in
-mind is that the client-server architecture needs to be stateless. This means that whenever a request is send to the
+The particular kind of API we are going to work with is called REST API (or RESTful API). The REST API specifies specific
+constraints that a particular API needs to fulfill to be considered RESTful. You can read more about the six
+guiding principles behind REST API [on this page](https://restfulapi.net/), but one of the most important to have in
+mind is that the client-server architecture needs to be stateless. This means that whenever a request is sent to the
 server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
 information from previous requests.
 
 To implement APIs in practice we are going to use [FastAPI](https://fastapi.tiangolo.com/). FastAPI is a
 *modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints*.
-FastAPI is only one of many frameworks for defining APIs, however, compared to other frameworks such as
+FastAPI is only one of many frameworks for defining APIs. However, compared to other frameworks such as
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) and [django](https://www.djangoproject.com/) it offers a sweet
 spot of being flexible enough to do what you want without having many additional (unnecessary) features.
 
 ### ❔ Exercises
 
 The exercises below are a condensed version of [this](https://fastapi.tiangolo.com/tutorial/) and
-[this](https://fastapi.tiangolo.com/advanced/) tutorial. If you ever need context for the exercises, we can recommend
+[this](https://fastapi.tiangolo.com/advanced/) tutorial. If you ever need context for the exercises, we recommend
 trying to go through these. Additionally, we also provide
 [this solution file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/fastapi.py) that
 you can look through for help.
 
-1. Install FastAPI
+1. Install FastAPI.
 
-    ```bash
-    pip install fastapi
-    ```
+    === "Using pip"
+        ```bash
+        pip install fastapi
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install fastapi
+        ```
 
     This contains the functions, modules, and variables we are going to need to define our interface.
 
 2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
 
-    ```bash
-    pip install uvicorn[standard]
-    ```
+    === "Using pip"
+        ```bash
+        pip install uvicorn[standard]
+        ```
+
+    === "Using uv"
+        ```bash
+        uv pip install "uvicorn[standard]"
+        ```
 
 3. Start by defining a small application like this in a file called `main.py`:
 
@@ -244,7 +325,7 @@ you can look through for help.
         return {"item_id": item_id}
     ```
 
-    Importantly here is the use of the `@app.get` decorator. What could this decorator refer to? Explain what the two
+    Important here is the use of the `@app.get` decorator. What could this decorator refer to? Explain what the two
     functions are probably doing.
 
 4. Next lets launch our app. Since we called our script `main.py` and we inside the script initialized our API with
@@ -254,7 +335,7 @@ you can look through for help.
     uvicorn --reload --port 8000 main:app
     ```
 
-    this will launch a server at this page: `http://localhost:8000/`. As you will hopefully see, this page will return
+    This will launch a server on this page: `http://localhost:8000/`. As you will hopefully see, this page will return
     the content of the `root` function, like the image below. Remember to also check the output in your terminal as that
     will give info on when and how your application is being invoked.
 
@@ -264,20 +345,20 @@ you can look through for help.
 
     1. What webpage should you open to get the server to return `1`?
 
-    2. Also checkout the pages: `http://localhost:8000/docs` and `http://localhost:8000/redoc`. What does
+    2. Also checkout the pages: `http://localhost:8000/docs` and `http://localhost:8000/redoc`. What do
         these pages show?
 
     3. The power of the `docs` and `redoc` pages is that they allow you to easily test your application with their
         simple UI. As shown in the image below, simply open the endpoint you want to test, click the `Try it out`
         button, input any values and execute it. It will return both the corresponding `curl` command for invoking
-        your endpoint, the corresponding URL and response of you application. Try it out.
+        your endpoint, the corresponding URL and response of your application. Try it out.
 
         <figure markdown>
         ![Image](../figures/fastapi.PNG){ width="800" }
         </figure>
 
     4. You can also checkout `http://localhost:8000/openapi.json` to check out the schema that is generated
-        which essentially is a `json` file containing the overall specifications of your program.
+        which is essentially a `json` file containing the overall specifications of your program.
 
     5. Try to access `http://localhost:8000/items/foo`, what happens in this case? When you specify types in your API,
         FastAPI will automatically do type validation using [pydantic](https://docs.pydantic.dev/), making sure users
@@ -302,13 +383,13 @@ you can look through for help.
             return response
         ```
 
-        try to reload the app and see what is returned now. You should not have to re-launch the app because we
+        Try to reload the app and see what is returned now. You should not have to re-launch the app because we
         initialized the app with the `--reload` argument.
 
-    2. When we decorate our functions with `@app.get("/items/{item_id}")`, `item_id` is in the case what we call a
-        *path parameters* because it is a parameter that is directly included in the path of our endpoint. We have
+    2. When we decorate our functions with `@app.get("/items/{item_id}")`, `item_id` is what we call a
+        *path parameter* because it is a parameter that is directly included in the path of our endpoint. We have
         already seen how we can restrict a path to a single type, but what if we want to restrict it to specific values?
-        This is often the case if we are working with parameters of type `str`. In this case we would need to define a
+        This is often the case if we are working with parameters of type `str`. In this case we would need to define an
         `enum`:
 
         ```python
@@ -323,11 +404,11 @@ you can look through for help.
             return {"item_id": item_id}
         ```
 
-        Add this API, reload and execute both a valid parameter and a non-valid parameter.
+        Add this API, reload and execute both a valid parameter and an invalid parameter.
 
-    3. In contrast to path parameters we have query parameters. In the requests exercises we saw an example of this
+    3. In addition to path parameters we have query parameters. In the requests exercises we saw an example of this
         where we were calling <https://api.github.com/search/code> with the query `'q': 'requests+language:python'`.
-        Any parameter in FastAPI that is not a path parameter, will be considered a query parameter:
+        Any parameter in FastAPI that is not a path parameter will be considered a query parameter:
 
         ```python
         @app.get("/query_items")
@@ -337,8 +418,8 @@ you can look through for help.
 
         Add this API, reload and figure out how to pass in a query parameter.
 
-    4. We have until now worked with the `.get` method, but lets also see an example of the `.post` method. As already
-        described the POST request method is used for uploading data to the server. Here is a simple app that saves
+    4. We have until now worked with the `.get` method, but let's also see an example of the `.post` method. As already
+        described the POST request method is used for uploading data to the server. Here is a simple app that saves the
         username and password in a database (please never implement this in real life like this):
 
         ```python
@@ -363,10 +444,10 @@ you can look through for help.
         and sometimes the `.post` method. For our usage it does not really matter.
 
 6. We are now moving on to figuring out how to provide different standard inputs like text, images, json to our APIs. It
-    is important that you try out each example yourself and in particular you look at the `curl` commands that are
+    is important that you try out each example yourself and in particular look at the `curl` commands that are
     necessary to invoke each application.
 
-    1. Here is a small application, that takes a single text input
+    1. Here is a small application that takes a single text input.
 
         ```python
         @app.get("/text_model/")
@@ -381,10 +462,10 @@ you can look through for help.
             return response
         ```
 
-        What does the application do? Try it out yourself
+        What does the application do? Try it out yourself.
 
     2. Let's say we wanted to extend the application to check for a specific email domain, either `gmail` or `hotmail`.
-        Assume that we want to feed this into our application as a `json` object e.g.
+        Assume that we want to feed this into our application as a `json` object, e.g.
 
         ```json
         {
@@ -423,7 +504,7 @@ you can look through for help.
         the application (you can use any image file you like).
 
     4. The above application actually does not do anything. Let's add [opencv](https://pypi.org/project/opencv-python/)
-        as a package and let's resize the image. It can be done with the following three lines:
+        as a package and resize the image. It can be done with the following three lines:
 
         ```python
         import cv2
@@ -473,7 +554,7 @@ you can look through for help.
             return {"Hello": "World"}
         ```
 
-8. Let's try to figure out how to use FastAPI in a Machine learning context. Below is a script that downloads
+8. Let's try to figure out how to use FastAPI in a machine learning context. Below is a script that downloads
     a `VisionEncoderDecoder` from
     [huggingface](https://huggingface.co/docs/transformers/model_doc/vision-encoder-decoder#transformers.VisionEncoderDecoderModel)
     . The model can be used to create captions for a given image. Thus calling
@@ -483,7 +564,7 @@ you can look through for help.
     ```
 
     returns a list of strings like `['a cat laying on a couch with a stuffed animal']` (try this yourself). Create a
-    FastAPI application that can do inference using this model e.g. it should take in an image, preferably some optional
+    FastAPI application that can do inference using this model, i.e., it should take in an image, preferably some optional
     hyperparameters (like `max_length`) and should return a string (or list of strings) containing the generated
     caption.
 
@@ -527,24 +608,25 @@ you can look through for help.
         --8<-- "s7_deployment/exercise_files/ml_app.py"
         ```
 
-9. As the final step, we want to figure out how to include our FastAPI application in a docker container as it will help
+9. As the final step, we want to figure out how to include our FastAPI application in a docker container, as that will help
     us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
-    application. For the following set of exercises you can take whatever previous FastAPI application as the base
-    application for the container
+    application. For the following set of exercises you can use any of the previous FastAPI applications as the base
+    application for the container.
 
     1. Start by creating a `requirement.txt` file for your application. You will at least need `fastapi` and `uvicorn`
-        in the file and we always recommend that you are specific about the version you want to use
+        in the file and we always recommend that you are specific about the version you want to use.
 
         ```txt
-        fastapi>=0.68.0,<0.69.0
-        uvicorn>=0.15.0,<0.16.0
+        # newest version of fastapi and uvicorn as of time of writing
+        fastapi==0.115.6
+        uvicorn==0.34.0
         # add anything else you application needs to be able to run
         ```
 
-    2. Next, create a `Dockerfile` with the following content
+    2. Next, create a `Dockerfile` with the following content:
 
         ```Dockerfile
-        FROM python:3.9
+        FROM python:3.11-slim
         WORKDIR /code
         COPY ./requirements.txt /code/requirements.txt
 
@@ -554,7 +636,7 @@ you can look through for help.
         CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
         ```
 
-        The above assumes that your file structure looks like this
+        The above assumes that your file structure looks like this:
 
         ```txt
         .
@@ -570,7 +652,7 @@ you can look through for help.
         standard way that we have run our FastAPI applications in the last couple of exercises, this time with some
         extra arguments regarding the ports we allow.
 
-    3. Next, build the corresponding docker image
+    3. Next, build the corresponding docker image.
 
         ```bash
         docker build -t my_fastapi_app .
@@ -585,10 +667,10 @@ you can look through for help.
         ```
 
     5. Check that everything is working by going to the corresponding localhost page
-        <http://localhost/items/5?q=somequery>
+        <http://localhost/items/5?q=somequery>.
 
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you check out
 [bentoml](https://github.com/bentoml/BentoML) which is an API standard that focuses solely on creating
-easy-to-understand APIs and services for ml-applications. Additionally, we can also highly recommend
+easy-to-understand APIs and services for ml-applications. Additionally, we also highly recommend
 checking out [Postman](https://www.postman.com/) which can help design, document and in particular test the API you are
 writing to make sure that it works as expected.

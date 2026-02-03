@@ -13,7 +13,7 @@ jobs:
     name: Check Markdown formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: xt0rted/markdownlint-problem-matcher@v3
       - run: npm install -g markdownlint-cli
       - run: markdownlint **/*.md --ignore node_modules -c .github/markdownlint.json

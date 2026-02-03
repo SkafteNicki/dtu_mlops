@@ -28,14 +28,14 @@ Engine which are more traditional ways of deploying your code. Here you have to 
 
 ## Cloud Functions
 
-Google Cloud Functions, is the most simple way that we can deploy our code to the cloud. As stated above, it is a
+Google Cloud Functions is the most simple way that we can deploy our code to the cloud. As stated above, it is a
 serverless service, meaning that you do not have to worry about the underlying infrastructure. You just write your code
 and deploy it. The service is great for small applications that can be encapsulated in **a single script**.
 
 ### ❔ Exercises
 
-1. Go to the start page of `Cloud Functions`. Can be found in the sidebar on the homepage or you can just search for it.
-    Activate the service in the cloud console or use the following command:
+1. Go to the start page of `Cloud Functions`. It can be found in the sidebar on the homepage or you can just search for
+    it. Activate the service in the cloud console or use the following command:
 
     ```bash
     gcloud services enable cloudfunctions.googleapis.com
@@ -50,7 +50,7 @@ and deploy it. The service is great for small applications that can be encapsula
     </figure>
 
 3. On the next page, for `Runtime` pick the `Python 3.11` option (or newer). This will make the inline editor show both
-    a `main.py` and `requirements.py` file. Look over them and try to understand what they do. Especially, take a
+    a `main.py` and `requirements.py` file. Look over them and try to understand what they do. Be sure to take a
     look at the [functions-framework](https://github.com/GoogleCloudPlatform/functions-framework-python) which is a
     needed requirement of any Cloud function.
 
@@ -72,8 +72,6 @@ and deploy it. The service is great for small applications that can be encapsula
     <figure markdown>
     ![Image](../figures/gcp_test_function.png){ width="800" }
     </figure>
-
-    1.
 
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
     therefore just send an empty request by clicking the `Test The Function` button. Does the function return
@@ -150,8 +148,10 @@ and deploy it. The service is great for small applications that can be encapsula
 
             ```bash
             gsutil mb gs://<bucket-name>  # mb stands for make bucket
-            gsutil cp <file-name> gs://<bucket-name>  # cp stands for copy
+            gsutil cp model.pkl gs://<bucket-name>  # cp stands for copy
             ```
+
+            where you replace `<bucket-name>` with the name of your bucket.
 
     3. Create a new cloud function with the same initial settings as the first one, e.g. `Python 3.11` and `HTTP`. Then
         implement in the `main.py` file code that:
@@ -173,21 +173,21 @@ and deploy it. The service is great for small applications that can be encapsula
             --8<-- "s7_deployment/exercise_files/sklearn_main_function.py"
             ```
 
-            And, the requirement file should look like this:
+            And the requirement file should look like this:
 
             ```txt
             --8<-- "s7_deployment/exercise_files/sklearn_function_main_requirements.txt"
             ```
 
-            importantly make sure that you are using the same version of `scikit-learn` as you used when you trained the
-            model. Else when trying to load the model you will most likely get an error.
+            Make sure that you are using the same version of `scikit-learn` as when you trained the
+            model. Otherwise when trying to load the model you will most likely get an error.
 
     4. When you have successfully deployed the model, try to make predictions with it. What should the request
         look like?
 
         ??? success "Solution"
 
-            It depends on how exactly you have chosen to implement the `main.py`. But for the provided solution, the
+            It depends on how exactly you have chosen to implement `main.py`. But for the provided solution, the
             payload should look like this:
 
             ```json
@@ -220,16 +220,16 @@ and deploy it. The service is great for small applications that can be encapsula
         where you need to replace `<func-name>` with the name of your function and `<folder>` with the path to the
         folder containing the `main.py` and `requirements.txt` files.
 
-8. (Optional) You can finally try to redo the exercises by deploying a Pytorch application. You will essentially
+8. (Optional) You can finally try to redo the exercises by deploying a PyTorch application. You will essentially
     need to go through the same steps as the sklearn example, including uploading a trained model to storage and
-    writing a cloud function that loads it and returns some output. You are free to choose whatever Pytorch model you
+    writing a cloud function that loads it and returns some output. You are free to choose whatever PyTorch model you
     want.
 
 ## Cloud Run
 
-Cloud functions are great for simple deployments, that can be encapsulated in a single script with only simple
+Cloud functions are great for simple deployments that can be encapsulated in a single script with only simple
 requirements. However, they do not scale with more advanced applications that may depend on multiple programming
-languages. We are already familiar with how we can deal with this through containers and
+languages. We are already familiar with how we can deal with this through containers, and
 [Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run) is the corresponding service in GCP for
 deploying containers.
 
@@ -237,10 +237,10 @@ deploying containers.
 
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
     from: first is a small FastAPI app consisting of a single Python script and a docker file. The second is a small
-    Streamlit app (which you can learn more about in [this module](../s10_extra/frontend.md)) consisting of a single
-    docker file. You can choose which one you want to work with.
+    Streamlit app (which you can learn more about in [this module](frontend.md)) consisting of a single docker file.
+    You can choose which one you want to work with.
 
-    ??? example "Simple Fastapi app"
+    ??? example "Simple FastAPI app"
 
         ```python linenums="1" title="simple_fastapi_app.py"
         --8<-- "s7_deployment/exercise_files/simple_fastapi_app.py"
@@ -256,30 +256,30 @@ deploying containers.
         --8<-- "s7_deployment/exercise_files/streamlit_app.dockerfile"
         ```
 
-    1. Start by going over the files belonging to your choice app and understand what it does.
+    1. Start by going over the files belonging to your chosen app and understand what they do.
 
-    2. Next, build the docker image belonging to the app
+    2. Next, build the docker image belonging to the app.
 
         ```bash
         docker build -f <dockerfile> . -t gcp_test_app:latest
         ```
 
-    3. Next tag and push the image to your artifact registry
+    3. Next tag and push the image to your artifact registry.
 
         ```bash
         docker tag gcp_test_app <region>-docker.pkg.dev/<project-id>/<registry-name>/gcp_test_app:latest
         docker push <region>-docker.pkg.dev/<project-id>/<registry-name>/gcp_test_app:latest
         ```
 
-        Afterward check your artifact registry contains the pushed image.
+        Afterward, check that your artifact registry contains the pushed image.
 
-2. Next ,go to `Cloud Run` in the cloud console and enable the service or use the following command:
+2. Next, go to `Cloud Run` in the cloud console and enable the service or use the following command:
 
     ```bash
     gcloud services enable run.googleapis.com
     ```
 
-3. Click the `Create Service` button which should bring you to a page similar to the one below
+3. Click the `Create Service` button which should bring you to a page similar to the one below.
 
     <figure markdown>
     ![Image](../figures/gcp_run.PNG){ width="1000" }
@@ -287,8 +287,8 @@ deploying containers.
 
     Do the following:
 
-    * Click the select button, which will bring up all build containers and pick the one you want to deploy. In the
-        future, you probably want to choose the *Continuously deploy new revision from a source repository* such that
+    * Click the select button, which will bring up all built containers, and pick the one you want to deploy. In the
+        future, you probably want to choose the *Continuously deploy new revisions from a source repository* such that
         a new version is always deployed when a new container is built.
 
     * Hereafter, give the service a name and select the region. We recommend choosing a region close to you.
@@ -343,7 +343,7 @@ deploying containers.
     You can now access your application by clicking the URL. This will access the root of your application, so you may
     need to add `/` or `/<path>` to the URL depending on how the app works.
 
-5. Everything we just did in the console UI we can also do with the
+5. Everything we just did in the console UI we can also do with
     [gcloud run deploy](https://cloud.google.com/sdk/gcloud/reference/run/deploy). How would you do that?
 
     ??? success "Solution"
@@ -359,7 +359,7 @@ deploying containers.
         image and `<region>` with the region you want to deploy to. The `--allow-unauthenticated` flag is optional but
         is needed if you want to access the service without providing credentials.
 
-6. After deploying using the command line, make sure that the service is up and running by using these two commands
+6. After deploying using the command line, make sure that the service is up and running by using these two commands:
 
     ```bash
     gcloud run services list
@@ -367,7 +367,7 @@ deploying containers.
     ```
 
 7. Instead of deploying our docker container using the UI or command line, which is a manual operation, we can do it
-    continuously by using `cloudbuild.yaml` file we learned about in the previous section. This is called
+    continuously by using the `cloudbuild.yaml` file we learned about in the previous section. This is called
     [continuous deployment](https://resources.github.com/devops/fundamentals/ci-cd/deployment), and it is a way to
     automate the deployment process.
 
@@ -401,6 +401,8 @@ deploying containers.
             'push',
             'europe-west1-docker.pkg.dev/$PROJECT_ID/<registry-name>/<image-name>'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
 
     Add a third step to the `cloudbuild.yaml` file that deploys the container image to Cloud Run. The relevant service
@@ -443,8 +445,63 @@ deploying containers.
             'europe-west1',
             '--platform',
             'managed',
+            # optional argument if you want to inject secrets as environment variables
+            '--update-secrets=<env-name-in-container>=<secret-name-in-secrets-manager>:latest'
           ]
+        options:
+          logging: CLOUD_LOGGING_ONLY
         ```
+
+8. (Optional) A common pattern when using cloud run is that your application need access to some storage during
+    operations, either for reading or writing a file. This could be reading in a model checkpoint on startup and then
+    writing some statistics during runtime. The easiest way to do this is to mount a storage bucket to your container.
+
+    1. Consider the following application that reads and writes for a folder `FOLDER = "/gcs/<bucket-name>/"`.
+
+        ??? example "Simple FastAPI app with storage"
+
+            ```python linenums="1" title="simple_fastapi_app_volume.py"
+            --8<-- "s7_deployment/exercise_files/simple_fastapi_app_volume.py"
+            ```
+
+        Replace the `<bucket-name>` in the folder path with a bucket you have created. Then write a small dockerfile
+        and deploy the application to cloud run.
+
+        ??? success "Solution"
+
+            The dockerfile should look like this:
+
+            ```dockerfile linenums="1" title="simple_fastapi_app_volume.dockerfile"
+            --8<-- "s7_deployment/exercise_files/simple_fastapi_app.dockerfile"
+            ```
+
+            and the deployment command should look like this:
+
+            ```bash
+            gcloud run deploy simple-fastapi-with-mounted-volume \
+                --image <image-name>:<image-tag> --platform managed --region <region> --allow-unauthenticated \
+            ```
+
+    2. If you then try to access either the `/upload/` or `/files/` endpoints you should see that the application at
+        this point is unable to read or write to the folder location, because it is not mounted to the container yet.
+        Mounting a volume can either be done though the command line or through the UI. You can read how to do
+        [in the cloud storage volume mounts guide](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#mount-volume).
+        Add a volume to your cloud run service and try to access the endpoints again making sure you can read and write.
+
+        ??? success "Solution"
+
+            If you are using the UI, follow the instructions in the link above. If you are using the command line, the
+            command should look like this:
+
+            ```bash
+            gcloud run services update SERVICE \
+                --add-volume name=<volume-name>,type=cloud-storage,bucket=<bucket-name> \
+                --add-volume-mount volume=<volume-name>,mount-path="/gcs/<bucket-name>"
+            ```
+
+            The `<volume-name>` you can choose arbitrarily, but the `<bucket-name>` should be the name of the bucket
+            you want to mount. And the `<mount-path>` should be the path you are reading from/writing to inside your
+            application.
 
 ## 🧠 Knowledge check
 
@@ -471,9 +528,9 @@ deploying containers.
 
 That ends the exercises on deployment. The exercises above are just a small taste of what deployment has to offer. In
 both sections, we have explicitly chosen to work with *serverless* deployments. But what if you wanted to do the
-opposite e.g. being the one in charge of the management of the cluster that handles the deployed services? If you are
-interested in taking deployment to the next level should get started on *Kubernetes* which is the de-facto
-open-source container orchestration platform that is being used in production environments. If you want to deep dive we
-recommend starting [here](https://cloud.google.com/ai-platform/pipelines/docs) which describes how to make pipelines
-that are a necessary component before you start to
+opposite, i.e., being the one in charge of the management of the cluster that handles the deployed services? If you are
+interested in taking deployment to the next level, you should get started on *Kubernetes* which is the de-facto
+open-source container orchestration platform that is used in production environments. If you want to deep dive we
+recommend starting [with the AI Platform Pipelines documentation](https://cloud.google.com/ai-platform/pipelines/docs),
+which describes how to make pipelines that are a necessary component before you start to
 [create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own Kubernetes cluster.

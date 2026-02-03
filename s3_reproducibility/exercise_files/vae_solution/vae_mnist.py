@@ -1,4 +1,4 @@
-"""Adapted from https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
+"""Adapted from https://github.com/Jackson-Kang/PyTorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
@@ -19,8 +19,9 @@ from torchvision.utils import save_image
 log = logging.getLogger(__name__)
 
 
+# creating a logger
 @hydra.main(config_path="config", config_name="default_config.yaml")
-def train(config):
+def train(config) -> None:
     """Train VAE on MNIST."""
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     hparams = config.experiment
@@ -77,7 +78,7 @@ def train(config):
 
             loss.backward()
             optimizer.step()
-        log.info(f"Epoch {epoch+1} complete! Average Loss: {overall_loss / (batch_idx*hparams['batch_size'])}")
+        log.info(f"Epoch {epoch + 1} complete! Average Loss: {overall_loss / (batch_idx * hparams['batch_size'])}")
     log.info("Finish!!")
 
     # save weights

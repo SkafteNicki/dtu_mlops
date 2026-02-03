@@ -12,7 +12,7 @@ from torchvision import transforms
 class LitClassifier(LightningModule):
     """Basic MNIST classifier."""
 
-    def __init__(self, hidden_dim: int = 128, learning_rate: float = 0.0001):
+    def __init__(self, hidden_dim: int = 128, learning_rate: float = 0.0001) -> None:
         super().__init__()
         self.save_hyperparameters()
         self.l1 = nn.Linear(28 * 28, hidden_dim)
@@ -22,8 +22,7 @@ class LitClassifier(LightningModule):
         """Forward pass of the network."""
         x = x.view(x.size(0), -1)
         x = torch.relu(self.l1(x))
-        x = torch.relu(self.l2(x))
-        return x
+        return torch.relu(self.l2(x))
 
     def training_step(self, batch, batch_idx):
         """Training step."""
@@ -33,14 +32,14 @@ class LitClassifier(LightningModule):
         self.log("train_loss", loss, on_epoch=True)
         return loss
 
-    def validation_step(self, batch, batch_idx):
+    def validation_step(self, batch, batch_idx) -> None:
         """Validation step."""
         x, y = batch
         y_hat = self(x)
         loss = nn.functional.cross_entropy(y_hat, y)
         self.log("valid_loss", loss, on_step=True)
 
-    def test_step(self, batch, batch_idx):
+    def test_step(self, batch, batch_idx) -> None:
         """Test step."""
         x, y = batch
         y_hat = self(x)
@@ -55,7 +54,7 @@ class LitClassifier(LightningModule):
 class MyDataModule(LightningDataModule):
     """Data module for MNIST."""
 
-    def __init__(self, batch_size: int = 32):
+    def __init__(self, batch_size: int = 32) -> None:
         super().__init__()
         dataset = MNIST("Datasets", train=True, download=True, transform=transforms.ToTensor())
         self.mnist_test = MNIST("Datasets", train=False, download=True, transform=transforms.ToTensor())
@@ -79,7 +78,7 @@ class MyDataModule(LightningDataModule):
         return DataLoader(self.mnist_test, batch_size=self.batch_size)
 
 
-def cli_main():
+def cli_main() -> None:
     """Main cli function."""
     cli = LightningCLI(
         LitClassifier,

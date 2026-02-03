@@ -1,17 +1,17 @@
 import pickle
+from typing import Annotated
 
 import typer
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from typing_extensions import Annotated
 
 app = typer.Typer()
 
 # Load the dataset
-data = load_breast_cancer()
+data = load_iris()
 x = data.data
 y = data.target
 
@@ -25,7 +25,7 @@ x_test = scaler.transform(x_test)
 
 
 @app.command()
-def train(output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt"):
+def train(output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
     """Train the model."""
     # Train a Support Vector Machine (SVM) model
     model = SVC(kernel="linear", random_state=42)

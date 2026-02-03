@@ -153,7 +153,28 @@ Gemfile.lock
 node_modules/
 
 # local stuff
+.vscode/
 latest_info.csv
 latest_repo_data.csv
 repo_data.csv
+group_info.csv
+repo_stats*.json
 student_repos/
+reviews.csv
+bert_sentiment_model.pt
+prediction*.json
+**/service_account_key.json
+corruptmnist_v1/
+corruptmnist_v2/
+tools/repo_stats/report.py
+tools/repo_stats/README.md
+tools/repo_stats/cloned_repos/
+tools/learn_automate/extracted_files
+tools/ai_eval/output
+tools/ai_eval/responses.json
+tools/course_stats/output
+tools/course_stats/data
+tools/to_pdf/**/*.pdf
+
+# vscode
+.vscode/

@@ -4,6 +4,13 @@
 
 ---
 
+!!! warning "Outdated module"
+
+    This module has not been updated for a long time and therefore some functionality of Optuna, which is used in these
+    exercises, may not be included. If you have completed the module on
+    [Weights & Bias](../s4_debugging_and_logging/logging.md) then we highly recommend instead using their sweep
+    functionality.
+
 Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
 the uprise of deep learning. This can mainly be contributed to the following:
 
@@ -39,7 +46,20 @@ rest to a "recommended value".
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files){ .md-button }
 
 1. Start by installing optuna:
-    `pip install optuna`
+
+    === "Using pip"
+
+        ```bash
+        pip install optuna
+        ```
+
+        and remember to add this to your `requirements.txt` file.
+
+    === "Using uv"
+
+        ```bash
+        uv add optuna
+        ```
 
 2. Initially we will look at the `cross_validate.py` file. It implements simple K-fold cross validation of
     a random forest sklearn digits dataset (subset of MNIST). Look over the script and try to run it.
@@ -138,7 +158,7 @@ rest to a "recommended value".
     1. To run hyperparameter search in parallel we need a common database that all experiments can read and
         write to. We are going to use the recommended `mysql`. You do not have to understand what SQL is to
         complete this exercise, but it is [basically](https://en.wikipedia.org/wiki/SQL) a language (like python)
-        for managing databases. Install [mysql](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/).
+        for managing databases. Install mysql.
 
     2. Next we are going to initialize a database that we can read and write to. For this exercises we are going
         to focus on a locally stored database but it could of course also be located in the cloud.

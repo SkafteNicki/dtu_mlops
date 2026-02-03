@@ -24,6 +24,9 @@
         },
         {
             "pattern": "^https://www.reddit.com.*"
+        },
+        {
+            "pattern": "^https://madewithml.com.*"
         }
     ],
     "aliveStatusCodes": [

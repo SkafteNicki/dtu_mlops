@@ -9,11 +9,11 @@ backbones = ["resnet18"]
 class EnsembleModel(nn.Module):
     """Create an ensemble model."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.backbones = nn.ModuleList([getattr(models, bb)(pretrained=True) for bb in backbones])
 
-    def forward(self, x: torch.Tensor):
+    def forward(self, x: torch.Tensor) -> None:
         """Forward pass of the network."""
         res = [bb(x) for bb in self.backbones]
 

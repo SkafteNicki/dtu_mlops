@@ -26,15 +26,13 @@ class MyAwesomeModel(pl.LightningModule):
         x = torch.max_pool2d(x, 2, 2)
         x = torch.flatten(x, 1)
         x = self.dropout(x)
-        x = self.fc1(x)
-        return x
+        return self.fc1(x)
 
     def training_step(self, batch):
         """Training step."""
         img, target = batch
         y_pred = self(img)
-        loss = self.loss_fn(y_pred, target)
-        return loss
+        return self.loss_fn(y_pred, target)
 
     def configure_optimizers(self):
         """Configure optimizer."""

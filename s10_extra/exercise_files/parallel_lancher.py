@@ -3,7 +3,7 @@ import os
 from multiprocessing import Pool
 
 
-def script_launcher(script):
+def script_launcher(script) -> None:
     """Launch a script."""
     os.system(f"python {script}")
 

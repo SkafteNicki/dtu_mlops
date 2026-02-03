@@ -5,8 +5,8 @@ import torch.nn as nn
 class Encoder(nn.Module):
     """Gaussian MLP Encoder."""
 
-    def __init__(self, input_dim, hidden_dim, latent_dim):
-        super(Encoder, self).__init__()
+    def __init__(self, input_dim, hidden_dim, latent_dim) -> None:
+        super().__init__()
 
         self.FC_input = nn.Linear(input_dim, hidden_dim)
         self.FC_mean = nn.Linear(hidden_dim, latent_dim)
@@ -31,30 +31,28 @@ class Encoder(nn.Module):
     ):
         """Reparameterization trick."""
         epsilon = torch.rand_like(var)
-        z = mean + var * epsilon
-        return z
+        return mean + var * epsilon
 
 
 class Decoder(nn.Module):
     """Bernoulli MLP Decoder."""
 
-    def __init__(self, latent_dim, hidden_dim, output_dim):
-        super(Decoder, self).__init__()
+    def __init__(self, latent_dim, hidden_dim, output_dim) -> None:
+        super().__init__()
         self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
         self.FC_output = nn.Linear(hidden_dim, output_dim)
 
     def forward(self, x):
         """Forward pass."""
         h = torch.relu(self.FC_hidden(x))
-        x_hat = torch.sigmoid(self.FC_output(h))
-        return x_hat
+        return torch.sigmoid(self.FC_output(h))
 
 
 class Model(nn.Module):
     """VAE Model."""
 
-    def __init__(self, encoder, decoder):
-        super(Model, self).__init__()
+    def __init__(self, encoder, decoder) -> None:
+        super().__init__()
         self.encoder = encoder
         self.decoder = decoder
 

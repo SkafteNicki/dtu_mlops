@@ -7,21 +7,30 @@
 API testing, similar to unit testing, is a type of software testing that involves testing the application programming
 interface (API) directly to ensure it meets requirements for functionality, reliability, performance, and security.
 The core difference from the unit testing we have been implementing until now is that instead of testing the individual
-functions, we are testing the entire API as a whole. API testing is therefore a form of
-[integration testing](https://en.wikipedia.org/wiki/Integration_testing). Additionally, another difference is that we
-need to simulate API calls that should be as similar as possible to the ones that will be made by the users of the API.
+functions, we are testing the entire API as a whole.
 
-The is in general two things that we want to test when we are working with APIs:
+!!! note "API testing vs integration testing"
 
-* Does the API work as intended? e.g. for a given input, does it return the expected output?
-* Can the API handle the expected load? e.g. if we send 1000 requests per second, does it crash?
+    While API testing can sometimes be a form of [integration testing](https://en.wikipedia.org/wiki/Integration_testing),
+    it is not always the case. Integration testing specifically tests how multiple components or services work together,
+    such as testing that your API correctly integrates with a database, external APIs, or other services. However, for
+    the simple inference APIs we typically build in this course (load model → convert input → run inference → return
+    output), we are not really integrating with other services. Therefore, the kind of testing we do in this module
+    is better described as **functional testing** (testing that individual API endpoints work correctly and return the
+    expected outputs for given inputs) and **load/performance testing** (testing how the API handles many concurrent
+    requests) rather than integration testing.
+
+There are in general two things that we want to test when working with APIs:
+
+* Does the API work as intended? E.g. for a given input, does it return the expected output?
+* Can the API handle the expected load? E.g. if we send 1,000 requests per second, does it crash?
 
 In this module, we go over how to do each of them.
 
 ## Testing for functionality
 
-Similar to when we wrote unit tests for our code back in [this module](../s5_continuous_integration/unittesting.md) we
-can also write tests for our API that checks that our code does what it is supposed to do e.g. by using
+Similar to when we wrote unit tests for our code back in [this module](../s5_continuous_integration/unittesting.md), we
+can also write tests for our API that check that our code does what it is supposed to do, e.g., by using
 `#!python assert` statements. As always we recommend implementing the tests in a separate folder called `tests`, but
 we recommend that you add further subfolders to separate the different types of tests. For example, for the type
 of machine learning projects and APIs we have been working with in this course:
@@ -29,14 +38,15 @@ of machine learning projects and APIs we have been working with in this course:
 ```plaintext
 my_project
 |-- src/
-|   |-- train.py
-|   |-- data.py
-|   |-- app.py
+|   | <project-name>/
+|   |   |-- train.py
+|   |   |-- data.py
+|   |   |-- api.py
 |-- tests/
 |   |-- unittests/
 |   |   |-- test_train.py
 |   |   |-- test_data.py
-|   |-- integrationtests/
+|   |-- apitests/
 |   |   |-- test_apis.py
 ```
 
@@ -48,42 +58,48 @@ to change.
 
 1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
 
-    ```bash
-    pip install httpx
-    ```
+    === "Using pip"
+        ```bash
+        pip install httpx
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add httpx
+        ```
 
     Remember to add it to your `requirements.txt` file.
 
 2. If you have already done the module on [unittesting](../s5_continuous_integration/unittesting.md) then you should
     already have a `tests/` folder. If not then create one. Inside the `tests/` folder create a new folder called
-    `integrationtests/`. Inside the `integrationtests/` folder create a file called `test_apis.py` and write the
+    `apitests/`. Inside the `apitests/` folder create a file called `test_apis.py` and write the
     following code:
 
     ```python
     from fastapi.testclient import TestClient
-    from app.main import app
+    from <project-name>.api import app
     client = TestClient(app)
     ```
 
-    this code will create a client that can be used to send requests to the API. The `app` variable is the FastAPI
+    This code will create a client that can be used to send requests to the API. The `app` variable is the FastAPI
     application that we want to test.
 
 3. Now, you can write tests that check that the API works as intended, much like you would write unit tests. For
-    example, if you have an root endpoint that just returns a simple welcome message you could write a test like this:
+    example, if you have a root endpoint that just returns a simple welcome message you could write a test like this:
 
     ```python
-    def test_read_root(model):
+    def test_read_root():
         response = client.get("/")
         assert response.status_code == 200
         assert response.json() == {"message": "Welcome to the MNIST model inference API!"}
     ```
 
-    make sure to always `#!python assert` that the status code is what you expect and that the response is what you
+    Make sure to always `#!python assert` that the status code is what you expect and that the response is what you
     expect. Add such tests for all the endpoints in your API.
 
     ??? note "Application with lifespans"
 
-        If you have an application with lifespan events e.g. you have implemented the `lifespan` function in your
+        If you have an application with lifespan events, i.e. you have implemented the `lifespan` function in your
         FastAPI application, you need to instead use the `TestClient` in a `with` statement. This is because the
         `TestClient` will close the connection to the application after the test is done. Here is an example:
 
@@ -98,7 +114,7 @@ to change.
 4. To run the tests, you can use the following command:
 
     ```bash
-    pytest tests/integrationtests/test_apis.py
+    pytest tests/apitests/test_apis.py
     ```
 
     Make sure that all your tests pass.
@@ -111,14 +127,14 @@ determine how an application behaves under both normal and peak conditions. The 
 operating capacity of an application as well as any bottlenecks and to determine which element is causing degradation.
 
 Before we get started on the exercises we recommend that you start by defining an environment variable that contains
-the endpoint of your API e.g we need the API running to be able to test it. To begin with, you can just run the API
+the endpoint of your API, i.e., we need the API running to be able to test it. To begin with, you can just run the API
 locally, thus in a terminal window run the following command:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-by default the API will be running on `http://localhost:8000` which we can then define as an environment variable:
+By default the API will run on `http://localhost:8000` which we can then define as an environment variable:
 
 === "Windows"
 
@@ -163,17 +179,23 @@ where you need to define `<name>` and `<region>` with the name of your service a
 For the exercises, we are going to use the [locust](https://locust.io/) framework for load testing (the name is a
 reference to a locust being a swarm of bugs invading your application). It is a Python framework that allows you to
 write tests that simulate many users interacting with your application. It is very easy to get started with and it is
-very easy to integrate with your CI/CD pipeline.
+very easy to integrate into your CI/CD pipeline.
 
 1. Install `locust`
 
-    ```bash
-    pip install locust
-    ```
+    === "Using pip"
+        ```bash
+        pip install locust
+        ```
+
+    === "Using uv"
+        ```bash
+        uv add locust
+        ```
 
     Remember to add it to your `requirements.txt` file.
 
-2. Make sure you have written an API that you can test. Else you can for simplicity just use this simple example
+2. Make sure you have written an API that you can test. Otherwise you can for simplicity just use this simple example:
 
     !!! example "Simple hallo world Fastapi example"
 
@@ -184,7 +206,7 @@ very easy to integrate with your CI/CD pipeline.
 3. Add a new folder to your `tests/` folder called `performancetests` and inside it create a file called
     `locustfile.py`. To that file, you need to add the appropriate code to simulate the users that you want to test.
     You can read more about how to write a `locustfile.py`
-    [here](https://docs.locust.io/en/stable/writing-a-locustfile.html).
+    [in the Locust documentation](https://docs.locust.io/en/stable/writing-a-locustfile.html).
 
     ??? success "Solution"
 
@@ -207,8 +229,8 @@ very easy to integrate with your CI/CD pipeline.
     ![Image](../figures/locust_page.png){ width="600" }
     </figure>
 
-    you can here define the number of users you want to simulate and how many users you want to spawn per second.
-    Finally, you can define which endpoint you want to test. When you are ready you can press the `Start`.
+    You can here define the number of users you want to simulate and how many users you want to spawn per second.
+    Finally, you can define which endpoint you want to test. When you are ready you can press `Start`.
 
     Afterward, you should see the results of the test in the web browser. Answer the following questions:
 
@@ -232,7 +254,7 @@ very easy to integrate with your CI/CD pipeline.
             --headless --users 10 --spawn-rate 1 --run-time 1m --host $MYENDPOINT
         ```
 
-    this will run the test with 10 users that are spawned at a rate of 1 per second for 1 minute.
+    This will run the test with 10 users that are spawned at a rate of 1 per second for 1 minute.
 
 6. (Optional) A good use case for load testing in our case is to test that our API can handle a load right after it
     has been deployed. To do this we need to add appropriate steps to our CI/CD pipeline. Try adding locust to an
@@ -265,7 +287,7 @@ very easy to integrate with your CI/CD pipeline.
           env:
             DEPLOYED_MODEL_URL: ${{ env.DEPLOYED_MODEL_URL }}
           run: |
-            locust -f tests/performance/locustfile.py \
+            locust -f tests/performancetests/locustfile.py \
               --headless -u 100 -r 10 --run-time 10m --host=$DEPLOYED_MODEL_URL --csv=/locust/results
 
         - name: Upload locust results
@@ -275,7 +297,7 @@ very easy to integrate with your CI/CD pipeline.
             path: /locust
         ```
 
-        the results can afterward be downloaded from the artifacts tab in the GitHub UI.
+        The results can then be downloaded from the artifacts tab in the GitHub UI.
 
 ## 🧠 Knowledge check
 
@@ -307,9 +329,9 @@ very easy to integrate with your CI/CD pipeline.
 
     ??? success "Solution"
 
-        The average response time and 99th percentile response time are both measures how "snappy" the API feels to the
+        The average response time and 99th percentile response time are both measures of how "snappy" the API feels to the
         user. While the average response time is normally considered the most important, the 99th percentile response
-        time is also important as it tells us if there are a small amount of users that are experiencing a very slow
+        time is also important as it tells us if there is a small number of users that are experiencing a very slow
         response time. The requests per second tells us how many users the API can handle at the same time. If this
         number is too low it can lead to users experiencing slow response times and may indicate that something is wrong
         with the API.

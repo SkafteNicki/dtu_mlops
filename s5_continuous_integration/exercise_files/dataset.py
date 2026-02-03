@@ -1,9 +1,14 @@
+from __future__ import annotations
+
 import os
+from typing import TYPE_CHECKING
 
 import torch
-import torchvision.transforms.v2 as transforms
 from torch import Tensor
 from torch.utils.data import Dataset
+
+if TYPE_CHECKING:
+    import torchvision.transforms.v2 as transforms
 
 
 class MnistDataset(Dataset):
@@ -55,6 +60,6 @@ class MnistDataset(Dataset):
             target = self.target_transform(target)
         return img, target
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Return the number of images in the dataset."""
         return self.images.shape[0]

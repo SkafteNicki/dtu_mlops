@@ -1,4 +1,4 @@
-"""Adapted from https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
+"""Adapted from https://github.com/Jackson-Kang/PyTorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb.
 
 A simple implementation of Gaussian MLP Encoder and Decoder trained on MNIST
 """
@@ -16,7 +16,7 @@ from torchvision.utils import save_image
 
 # Model Hyperparameters
 dataset_path = "~/datasets"
-cuda = True
+cuda = torch.cuda.is_available()
 DEVICE = torch.device("cuda" if cuda else "cpu")
 batch_size = 100
 x_dim = 784
@@ -34,7 +34,7 @@ test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=Fa
 encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=20)
 decoder = Decoder(latent_dim=20, hidden_dim=hidden_dim, output_dim=x_dim)
 
-model = Model(Encoder=encoder, Decoder=decoder).to(DEVICE)
+model = Model(encoder=encoder, decoder=decoder).to(DEVICE)
 
 
 def loss_function(x, x_hat, mean, log_var):
@@ -66,7 +66,7 @@ for epoch in range(20):
 
         loss.backward()
         optimizer.step()
-    print(f"Epoch {epoch+1} complete!,  Average Loss: {overall_loss / (batch_idx*batch_size)}")
+    print(f"Epoch {epoch + 1} complete!,  Average Loss: {overall_loss / (batch_idx * batch_size)}")
 print("Finish!!")
 
 # save weights

@@ -1,26 +1,20 @@
 # Model deployment
 
-[Slides](../slides/Deployment.pdf){ .md-button }
+[Slides](../slides/day8_deployment.pdf){ .md-button }
 
 <div class="grid cards" markdown>
 
 - ![](../figures/icons/fastapi.png){align=right : style="height:100px;width:100px"}
 
-    Learn how to use requests works and how to create custom APIs
+    Learn how to use requests and how to create custom APIs
 
     [:octicons-arrow-right-24: M22: Requests and APIs](apis.md)
-
-- ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
-
-    Learn how to use `torchserve` for serving PyTorch models
-
-    [:octicons-arrow-right-24: M23: Local Deployment](local_deployment.md)
 
 - ![](../figures/icons/run.png){align=right : style="height:100px;width:100px"}
 
     Learn how to deploy custom APIs using serverless functions and serverless containers in the cloud
 
-    [:octicons-arrow-right-24: M24: Cloud Deployment](cloud_deployment.md)
+    [:octicons-arrow-right-24: M23: Cloud Deployment](cloud_deployment.md)
 
 - ![](../figures/icons/locust.png){align=right : style="height:100px;width:100px"}
 
@@ -34,10 +28,22 @@
 
     [:octicons-arrow-right-24: M25: Deployment Testing](deployment_testing.md)
 
+- ![](../figures/icons/bentoml.png){align=right : style="height:100px;width:100px"}
+
+    Learn about different ways to improve the deployment of machine learning models
+
+    [:octicons-arrow-right-24: M26: ML Deployment](ml_deployment.md)
+
+- ![](../figures/icons/streamlit.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to create a frontend for your application using Streamlit
+
+    [:octicons-arrow-right-24: M27: Frontend](frontend.md)
+
 </div>
 
 Let's say that you have spent 1000 GPU hours and trained the most awesome model that you want to share with the
-world. One way to do this is, of course, to just place all your code in a Github repository, upload a file with
+world. One way to do this is, of course, to just place all your code in a GitHub repository, upload a file with
 the trained model weights to your favorite online storage (assuming it is too big for GitHub to handle) and
 ask people to just download your code and the weights to run the code by themselves. This is a fine approach in a small
 research setting, but in production, you need to be able to **deploy** the model to an environment that is fully
@@ -56,7 +62,10 @@ also how to deploy services in the cloud.
     The learning objectives of this session are:
 
     * Understand the basics of requests and APIs
-    * Can create custom APIs using the framework `fastapi` and run it locally
+    * Be able to create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
-      serverless containers
+        serverless containers
     * Understand and implement deployment testing strategies (A/B testing, canary deployment, shadow deployment)
+    * Can create basic continuouss deployment pipelines for your models
+    * Understand the basics of frontend development and how to create a frontend for your application using Streamlit
+    * Know how to use more advanced frameworks like onnx and bentoml to deploy your machine learning models

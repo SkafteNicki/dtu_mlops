@@ -1,24 +1,16 @@
-import click
 import matplotlib.pyplot as plt
 import torch
-from model import MyAwesomeModel
-
-from data import corrupt_mnist
+import typer
+from data_solution import corrupt_mnist
+from model_solution import MyAwesomeModel
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
-
-@click.group()
-def cli():
-    """Command line interface."""
-    pass
+app = typer.Typer()
 
 
-@click.command()
-@click.option("--lr", default=1e-3, help="learning rate to use for training")
-@click.option("--batch_size", default=32, help="batch size to use for training")
-@click.option("--epochs", default=10, help="number of epochs to train for")
-def train(lr, batch_size, epochs) -> None:
+@app.command()
+def train(lr: float = 1e-3, batch_size: int = 32, epochs: int = 10) -> None:
     """Train a model on MNIST."""
     print("Training day and night")
     print(f"{lr=}, {batch_size=}, {epochs=}")
@@ -59,9 +51,8 @@ def train(lr, batch_size, epochs) -> None:
     fig.savefig("training_statistics.png")
 
 
-@click.command()
-@click.argument("model_checkpoint")
-def evaluate(model_checkpoint) -> None:
+@app.command()
+def evaluate(model_checkpoint: str) -> None:
     """Evaluate a trained model."""
     print("Evaluating like my life depended on it")
     print(model_checkpoint)
@@ -82,9 +73,5 @@ def evaluate(model_checkpoint) -> None:
     print(f"Test accuracy: {correct / total}")
 
 
-cli.add_command(train)
-cli.add_command(evaluate)
-
-
 if __name__ == "__main__":
-    cli()
+    app()

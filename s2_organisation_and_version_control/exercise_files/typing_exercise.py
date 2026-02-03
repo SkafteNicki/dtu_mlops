@@ -12,7 +12,7 @@ class Network(nn.Module):
 
     """
 
-    def __init__(self, input_size, output_size, hidden_layers, drop_p=0.5):
+    def __init__(self, input_size, output_size, hidden_layers, drop_p=0.5) -> None:
         super().__init__()
         # Input to a hidden layer
         self.hidden_layers = nn.ModuleList([nn.Linear(input_size, hidden_layers[0])])
@@ -56,7 +56,7 @@ def validation(model, testloader, criterion):
     return test_loss, accuracy
 
 
-def train(model, trainloader, testloader, criterion, optimizer=None, epochs=5, print_every=40):
+def train(model, trainloader, testloader, criterion, optimizer=None, epochs=5, print_every=40) -> None:
     """Train a PyTorch Model."""
     if optimizer is None:
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-2)
@@ -89,10 +89,10 @@ def train(model, trainloader, testloader, criterion, optimizer=None, epochs=5, p
                     test_loss, accuracy = validation(model, testloader, criterion)
 
                 print(
-                    "Epoch: {}/{}.. ".format(e + 1, epochs),
-                    "Training Loss: {:.3f}.. ".format(running_loss / print_every),
-                    "Test Loss: {:.3f}.. ".format(test_loss / len(testloader)),
-                    "Test Accuracy: {:.3f}".format(accuracy / len(testloader)),
+                    f"Epoch: {e + 1}/{epochs}.. ",
+                    f"Training Loss: {running_loss / print_every:.3f}.. ",
+                    f"Test Loss: {test_loss / len(testloader):.3f}.. ",
+                    f"Test Accuracy: {accuracy / len(testloader):.3f}",
                 )
 
                 running_loss = 0

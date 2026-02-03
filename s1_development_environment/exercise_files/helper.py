@@ -8,6 +8,7 @@ def imshow(image, ax=None, title=None, normalize=True):
         fig, ax = plt.subplots()
     image = image.numpy().transpose((1, 2, 0))
 
+    # Sets standard for how to normalize tensor images
     if normalize:
         mean = np.array([0.485, 0.456, 0.406])
         std = np.array([0.229, 0.224, 0.225])
@@ -26,7 +27,7 @@ def imshow(image, ax=None, title=None, normalize=True):
     return ax
 
 
-def view_recon(img, recon):
+def view_recon(img, recon) -> None:
     """Function for displaying an image (as a PyTorch Tensor) and its reconstruction also a PyTorch Tensor."""
     fig, axes = plt.subplots(ncols=2, sharex=True, sharey=True)
     axes[0].imshow(img.numpy().squeeze())
@@ -36,7 +37,7 @@ def view_recon(img, recon):
         ax.set_adjustable("box-forced")
 
 
-def view_classify(img, ps, version="MNIST"):
+def view_classify(img, ps, version="MNIST") -> None:
     """Function for viewing an image and it's predicted classes."""
     ps = ps.data.numpy().squeeze()
 

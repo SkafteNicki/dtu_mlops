@@ -2,7 +2,7 @@ import logging
 import operator
 import os
 
-import click
+import typer
 import wandb
 from dotenv import load_dotenv
 
@@ -10,11 +10,7 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 
-@click.command()
-@click.argument("model-name")
-@click.option("--metric_name", default="accuracy", help="Name of the metric to choose the best model from.")
-@click.option("--higher-is-better", default=True, help="Whether higher metric values are better.")
-def stage_best_model_to_registry(model_name, metric_name, higher_is_better):
+def stage_best_model_to_registry(model_name: str, metric_name: str = "accuracy", higher_is_better: bool = True) -> None:
     """
     Stage the best model to the model registry.
 
@@ -39,16 +35,17 @@ def stage_best_model_to_registry(model_name, metric_name, higher_is_better):
             best_artifact = artifact
 
     if best_artifact is None:
-        logging.error("No model found in registry.")
+        logger.error("No model found in registry.")
         return
 
     logger.info(f"Best model found in registry: {best_artifact.name} with {metric_name}={best_metric}")
     best_artifact.link(
-        target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{model_name}", aliases=["best", "staging"]
+        target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{model_name}",
+        aliases=["best", "staging"],
     )
     best_artifact.save()
     logger.info("Model staged to registry.")
 
 
 if __name__ == "__main__":
-    stage_best_model_to_registry()
+    typer.run(stage_best_model_to_registry)

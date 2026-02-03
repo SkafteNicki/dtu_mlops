@@ -10,7 +10,7 @@ from PIL import Image
 app = fastapi.FastAPI()
 
 
-def delete_old_images():
+def delete_old_images() -> None:
     """Clean up old images."""
     for file in os.listdir():
         if file.startswith("image_"):

@@ -4,7 +4,7 @@ from torch import nn
 class LeNet(nn.Module):
     """LeNet implementation."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         # 1 input image channel, 6 output channels, 3x3 square conv kernel
         self.conv1 = nn.Conv2d(1, 6, 3)
@@ -20,8 +20,7 @@ class LeNet(nn.Module):
         x = x.view(-1, int(x.nelement() / x.shape[0]))
         x = nn.functional.relu(self.fc1(x))
         x = nn.functional.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
+        return self.fc3(x)
 
 
 if __name__ == "__main__":
