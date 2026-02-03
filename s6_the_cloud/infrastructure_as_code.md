@@ -654,6 +654,12 @@ configuration files) with the current state (the state file) and apply any neces
             cleaning up older images. A good number of examples can be found
             [in the documentation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/artifact_registry_repository)
 
+    !!! note "Looking Ahead"
+
+        The Artifact Registry you just created will be used in Exercise 10 when we set up Vertex AI training
+        infrastructure. Training jobs will pull Docker images from this registry, so it's important to keep it
+        organized with cleanup policies!
+
 9. (Optional) One thing you may have probably encountered when working in GCP is service accounts and IAM permissions.
     Let's see how we can setup a service account for Cloud Build using OpenTofu.
 
@@ -759,444 +765,771 @@ configuration files) with the current state (the state file) and apply any neces
             --service-account="projects/<project-id>/serviceAccounts/cloud-build-sa@<project-id>.iam.gserviceaccount.com"
         ```
 
-10.
+10. We have now set up infrastructure for building and storing containers. The next critical piece is setting up
+    infrastructure for **training** our ML models in the cloud. In [M21 Using the Cloud - Training section](using_the_cloud.md#training),
+    you learned how to run custom training jobs on Vertex AI by manually executing `gcloud ai custom-jobs create`
+    commands with config files specifying machine types and container images.
+
+    Behind the scenes, those training jobs needed several permissions to work:
+    - Access to pull Docker images from Artifact Registry
+    - Access to read training data from Cloud Storage
+    - Access to write model checkpoints and logs
+    - Permission to create and run training jobs
+
+    In this exercise, you'll automate the provisioning of all these permissions using Infrastructure as Code, creating
+    a dedicated service account for Vertex AI training with precisely the access it needs.
+
+    !!! info "What is Vertex AI?"
+
+        [Vertex AI](https://cloud.google.com/vertex-ai) is Google Cloud's unified ML platform that handles the entire
+        machine learning workflow. In this course, we focus specifically on **custom training jobs**, which allow you to:
+
+        - Run your own Docker containers with custom training code
+        - Automatically provision VMs with specified hardware (CPU/GPU)
+        - Scale experiments horizontally (run many jobs in parallel)
+        - Access data via mounted Cloud Storage filesystem
+        - Automatically clean up resources when jobs complete
+
+        This is more scalable than manually creating VMs (Compute Engine approach from M21) because Vertex AI handles
+        the infrastructure lifecycle automatically.
+
+    1. First, let's enable the Vertex AI API. Add the following to your `main.tf`:
+
+        ```hcl
+        resource "google_project_service" "vertex_ai_api" {
+          service            = "aiplatform.googleapis.com"
+          disable_on_destroy = false
+        }
+        ```
+
+        This enables the AI Platform API, which is the backend service for Vertex AI custom training jobs.
+
+    2. Create a dedicated service account for Vertex AI training. This service account will be used by all your
+        training jobs to access GCP resources:
+
+        ```hcl
+        resource "google_service_account" "vertex_ai_sa" {
+          account_id   = "vertex-ai-training-sa"
+          display_name = "Service Account for Vertex AI Training"
+
+          depends_on = [google_project_service.vertex_ai_api]
+        }
+        ```
+
+        The full email will be `vertex-ai-training-sa@<your-project-id>.iam.gserviceaccount.com`. You'll reference
+        this when submitting training jobs.
+
+    3. Now we need to grant this service account the necessary permissions. Let's start with **Artifact Registry access**.
+        In M21, your config files specified an `imageUri` pointing to a container in Artifact Registry. Vertex AI
+        needs permission to pull that container:
+
+        ```hcl
+        resource "google_artifact_registry_repository_iam_member" "vertex_ai_pull" {
+          project    = var.gcp_project_id
+          location   = google_artifact_registry_repository.docker_repo.location
+          repository = google_artifact_registry_repository.docker_repo.name
+          role       = "roles/artifactregistry.reader"
+          member     = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+
+          depends_on = [
+            google_artifact_registry_repository.docker_repo,
+            google_service_account.vertex_ai_sa
+          ]
+        }
+        ```
+
+        Notice we use the **reader** role (not writer like Cloud Build). Vertex AI only needs to *pull* images during
+        training, not push them. This follows the principle of least privilege.
+
+    4. Next, grant access to **Cloud Storage** for training data and outputs. In M21, you learned about the mounted
+        filesystem (`/gcs/<bucket-name>/`) that Vertex AI provides. This requires storage permissions:
+
+        ```hcl
+        resource "google_storage_bucket_iam_member" "vertex_ai_data_access" {
+          bucket = google_storage_bucket.my_bucket.name
+          role   = "roles/storage.objectAdmin"
+          member = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+
+          depends_on = [
+            google_storage_bucket.my_bucket,
+            google_service_account.vertex_ai_sa
+          ]
+        }
+        ```
+
+        The **objectAdmin** role allows both reading data and writing outputs (model checkpoints, logs, etc.).
+
+        !!! tip "Storage Roles Explained"
+
+            - `storage.objectViewer` - Read-only access to objects
+            - `storage.objectAdmin` - Read/write access to objects (recommended for training)
+            - `storage.admin` - Full bucket control including deletion (too permissive!)
+
+            For training jobs, `objectAdmin` is the right balance: jobs can read data and write results, but can't
+            delete the bucket itself or change bucket-level settings.
+
+    5. Grant the **Vertex AI User** role, which allows the service account to actually run training jobs. This is a
+        project-level permission:
+
+        ```hcl
+        resource "google_project_iam_member" "vertex_ai_user" {
+          project = var.gcp_project_id
+          role    = "roles/aiplatform.user"
+          member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+
+          depends_on = [google_service_account.vertex_ai_sa]
+        }
+        ```
+
+        This is different from the previous IAM bindings because it's a **project-level** permission (using
+        `google_project_iam_member`) rather than a resource-specific permission. The `aiplatform.user` role allows
+        creating and managing custom training jobs.
+
+        !!! info "Project-Level vs Resource-Level Permissions"
+
+            **Resource-level permissions** (`google_artifact_registry_repository_iam_member`, `google_storage_bucket_iam_member`):
+            - Apply to a specific resource (e.g., one bucket, one repository)
+            - More granular and secure
+            - Preferred when possible
+
+            **Project-level permissions** (`google_project_iam_member`):
+            - Apply to all resources in the project
+            - Necessary for some roles like `aiplatform.user`
+            - Use when resource-level isn't available
+
+            Always prefer resource-level permissions when you have the choice!
+
+    6. Finally, grant permission to write logs. Training jobs produce stdout/stderr output and metrics that get written
+        to Cloud Logging:
+
+        ```hcl
+        resource "google_project_iam_member" "vertex_ai_logs" {
+          project = var.gcp_project_id
+          role    = "roles/logging.logWriter"
+          member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+
+          depends_on = [google_service_account.vertex_ai_sa]
+        }
+        ```
+
+        Without this permission, you wouldn't be able to view logs from your training jobs in the GCP Console or via
+        `gcloud logging read` commands.
+
+    7. Create a dedicated bucket for training configurations and outputs. This is a best practice for organizing
+        your ML experiments:
+
+        ```hcl
+        resource "google_storage_bucket" "training_configs" {
+          name          = "${var.bucket_name}-training-configs"
+          location      = "EU"
+          force_destroy = true
+
+          uniform_bucket_level_access = true
+
+          versioning {
+            enabled = true
+          }
+        }
+        ```
+
+        This bucket will store:
+        - Training configuration files (config.yaml)
+        - Model checkpoints during training
+        - Final trained models
+        - Training metrics and logs
+
+    8. Grant the service account access to this new bucket:
+
+        ```hcl
+        resource "google_storage_bucket_iam_member" "vertex_ai_configs_access" {
+          bucket = google_storage_bucket.training_configs.name
+          role   = "roles/storage.objectAdmin"
+          member = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+
+          depends_on = [
+            google_storage_bucket.training_configs,
+            google_service_account.vertex_ai_sa
+          ]
+        }
+        ```
+
+    9. Add outputs to expose the service account information:
+
+        ```hcl
+        output "vertex_ai_service_account_email" {
+          description = "Email of the Vertex AI training service account (use with --service-account flag)"
+          value       = google_service_account.vertex_ai_sa.email
+        }
+
+        output "training_configs_bucket_name" {
+          description = "Name of the bucket for storing training configurations and outputs"
+          value       = google_storage_bucket.training_configs.name
+        }
+
+        output "training_configs_bucket_url" {
+          description = "GCS URL of the training configs bucket"
+          value       = "gs://${google_storage_bucket.training_configs.name}"
+        }
+        ```
+
+    10. Run `tofu plan` to preview all the resources that will be created:
+
+        ```bash
+        tofu plan
+        ```
+
+        You should see approximately 7 new resources:
+        - 1 API enablement (Vertex AI)
+        - 1 service account
+        - 4 IAM bindings (Artifact Registry, Storage, Vertex AI User, Logging)
+        - 1 training configs bucket
+        - 1 IAM binding for training configs bucket
+
+    11. Apply the configuration:
+
+        ```bash
+        tofu apply
+        ```
+
+    12. Verify the service account was created:
+
+        ```bash
+        gcloud iam service-accounts list | grep vertex-ai
+        ```
+
+        You should see `vertex-ai-training-sa@<your-project-id>.iam.gserviceaccount.com`
+
+    13. Verify the Artifact Registry permissions:
+
+        ```bash
+        gcloud artifacts repositories get-iam-policy \
+            $(tofu output -raw artifact_registry_repository_id) \
+            --location=$(tofu output -raw artifact_registry_location)
+        ```
+
+        You should see your Vertex AI service account listed with the `roles/artifactregistry.reader` role.
+
+    14. Verify the Cloud Storage permissions:
+
+        ```bash
+        gsutil iam get gs://$(tofu output -raw bucket_name)
+        ```
+
+        You should see the Vertex AI service account with `roles/storage.objectAdmin`.
+
+    15. Now comes the important test: **running an actual training job** using the infrastructure you just provisioned!
+        If you have a `config.yaml` file from your M21 exercises, you can use it. Here's an example config:
+
+        === "CPU"
+
+            ```yaml
+            # config_cpu.yaml
+            workerPoolSpecs:
+                machineSpec:
+                    machineType: n1-highmem-2
+                replicaCount: 1
+                containerSpec:
+                    imageUri: europe-west1-docker.pkg.dev/dtu-mlops-2026/dtu-mlops-2026-docker-repo/trainer:latest
+            ```
+
+        === "GPU"
+
+            ```yaml
+            # config_gpu.yaml
+            workerPoolSpecs:
+                machineSpec:
+                    machineType: n1-standard-8
+                    acceleratorType: NVIDIA_TESLA_T4
+                    acceleratorCount: 1
+                replicaCount: 1
+                containerSpec:
+                    imageUri: europe-west1-docker.pkg.dev/dtu-mlops-2026/dtu-mlops-2026-docker-repo/trainer:latest
+            ```
+
+        Update the `imageUri` to match your Artifact Registry repository (you can get this from `tofu output artifact_registry_repository_url`).
+
+    16. Submit a training job using your new service account:
+
+        ```bash
+        gcloud ai custom-jobs create \
+            --region=europe-west1 \
+            --display-name=iac-test-job \
+            --service-account=$(tofu output -raw vertex_ai_service_account_email) \
+            --config=config_cpu.yaml
+        ```
+
+        The key addition here is `--service-account=$(tofu output -raw vertex_ai_service_account_email)`, which tells
+        Vertex AI to use the service account you just created with OpenTofu.
+
+    17. Monitor the job:
+
+        ```bash
+        gcloud ai custom-jobs list --region=europe-west1
+        ```
+
+        You can also view the job in the GCP Console under Vertex AI → Training → Custom Jobs.
+
+    18. If the job runs successfully, congratulations! You've successfully:
+        - Provisioned all necessary infrastructure for Vertex AI training using IaC
+        - Created a properly-scoped service account with minimal required permissions
+        - Tested the infrastructure with an actual training job
+        - Automated what you previously did manually in M21
+
+    ??? success "Solution"
+
+        The complete solution files are available in the `exercise_files/terraform/` directory. 
+        You can expand the sections below to see the full file contents and how they build upon previous exercises:
+
+        ??? example "main_v7.tf - Complete infrastructure with Vertex AI"
+
+            This file includes all resources from previous exercises plus the new Vertex AI infrastructure:
+
+            ```hcl linenums="1" title="terraform/main_v7.tf"
+            --8<-- "s6_the_cloud/exercise_files/terraform/main_v7.tf"
+            ```
+
+        ??? example "variables_v7.tf - Variables for all exercises"
+
+            The variables file includes all the variables used across exercises 1-10:
+
+            ```hcl linenums="1" title="terraform/variables_v7.tf"
+            --8<-- "s6_the_cloud/exercise_files/terraform/variables_v7.tf"
+            ```
+
+        ??? example "outputs_v7.tf - All outputs including Vertex AI"
+
+            This outputs file exposes all the important values from your infrastructure:
+
+            ```hcl linenums="1" title="terraform/outputs_v7.tf"
+            --8<-- "s6_the_cloud/exercise_files/terraform/outputs_v7.tf"
+            ```
+
+        Key concepts demonstrated:
+        - **Multiple IAM binding types**: Resource-level and project-level permissions
+        - **Principle of least privilege**: Reader for images, objectAdmin for data, specific training role
+        - **Service account lifecycle**: Create SA, grant permissions, use in jobs
+        - **Infrastructure testing**: Verify with actual training job
+        - **Best practices**: Separate bucket for training artifacts, versioning enabled
+
+    !!! tip "Summary of Permissions"
+
+        Here's a table summarizing all the permissions granted to the Vertex AI service account:
+
+        | Permission | Type | Role | Purpose |
+        |------------|------|------|---------|
+        | Artifact Registry | Resource | `artifactregistry.reader` | Pull training container images |
+        | Cloud Storage (data) | Resource | `storage.objectAdmin` | Read training data, write outputs |
+        | Cloud Storage (configs) | Resource | `storage.objectAdmin` | Read/write training configs |
+        | Vertex AI | Project | `aiplatform.user` | Create and manage training jobs |
+        | Cloud Logging | Project | `logging.logWriter` | Write training logs |
+
+        Each permission serves a specific purpose and follows the principle of least privilege!
+
+    !!! info "Connecting Back to M21"
+
+        In [M21 Using the Cloud](using_the_cloud.md#training), you:
+        - Manually enabled the Vertex AI API through the console
+        - Used default service accounts or your own credentials
+        - Ran `gcloud ai custom-jobs create` commands
+        - Specified containers from Artifact Registry
+        - Accessed data via `/gcs/` mounted filesystem
+
+        All of those manual setup steps and implicit permissions are now:
+        - ✅ Explicitly defined in code
+        - ✅ Version controlled and reproducible
+        - ✅ Properly scoped with minimal permissions
+        - ✅ Easy to replicate across projects or teams
+
+        This is the power of Infrastructure as Code for ML workflows!
+
+11. (Optional Advanced) In the previous exercises, you've automated infrastructure for **training** ML models (Vertex AI), 
+    **building** containers (Cloud Build), and **storing** images (Artifact Registry). The final piece of a complete MLOps 
+    pipeline is **deployment**—making your trained models accessible to users via APIs. 
+    
+    In [M25 Cloud Deployment](../../s7_deployment/cloud_deployment.md#cloud-run), you'll learn how to manually deploy 
+    applications to Cloud Run using `gcloud run deploy`. But just like with training and building, we can automate the 
+    underlying infrastructure setup using Infrastructure as Code. In this optional exercise, you'll provision the service 
+    accounts and permissions needed to support Cloud Run deployments.
+
+    !!! info "What is Cloud Run?"
+
+        [Cloud Run](https://cloud.google.com/run/docs) is Google Cloud's serverless container platform that lets you 
+        deploy containerized applications without managing servers. Key features include:
+
+        - **Serverless**: No infrastructure to manage—just deploy your container
+        - **Auto-scaling**: Automatically scales from zero to handle traffic spikes
+        - **Pay-per-use**: Only pay for actual usage (CPU, memory, requests)
+        - **Perfect for ML APIs**: Ideal for inference endpoints that serve predictions
+
+        Cloud Run automatically:
+        - Creates and manages compute infrastructure
+        - Scales containers based on incoming requests
+        - Handles load balancing and traffic routing
+        - Provides HTTPS endpoints
+        - Cleans up idle containers to save costs
+
+        This makes it perfect for deploying ML inference APIs that have variable traffic patterns!
+
+    1. First, let's enable the Cloud Run API. Add the following to your `main.tf`:
+
+        ```hcl
+        resource "google_project_service" "cloud_run_api" {
+          service            = "run.googleapis.com"
+          disable_on_destroy = false
+        }
+        ```
+
+        The Cloud Run API is required for deploying and managing serverless containers in Google Cloud.
+
+    2. Create a dedicated service account for Cloud Run deployments. This service account will be used by your deployed 
+        Cloud Run services to access other GCP resources:
+
+        ```hcl
+        resource "google_service_account" "cloud_run_sa" {
+          account_id   = "cloud-run-sa"
+          display_name = "Service Account for Cloud Run Deployments"
+
+          depends_on = [google_project_service.cloud_run_api]
+        }
+        ```
+
+        The full email will be `cloud-run-sa@<your-project-id>.iam.gserviceaccount.com`. You'll use this when deploying 
+        services to Cloud Run in M25.
+
+        !!! tip "Service Account Comparison"
+
+            You've now created three different service accounts, each with a specific purpose:
+
+            | Service Account | Used During | Purpose | Artifact Registry Permission |
+            |----------------|-------------|---------|------------------------------|
+            | `cloud-build-sa` | **Build time** | Push newly built Docker images to Artifact Registry | `artifactregistry.writer` (push) |
+            | `vertex-ai-training-sa` | **Training time** | Pull containers and run ML training jobs | `artifactregistry.reader` (pull) |
+            | `cloud-run-sa` | **Deployment/Runtime** | Pull containers and serve ML inference APIs | `artifactregistry.reader` (pull) |
+
+            This separation follows the **principle of least privilege**: each service account has only the permissions 
+            it needs for its specific task. Build processes need to push images, while training and serving only need 
+            to pull them.
+
+    3. Grant the Cloud Run service account permission to pull Docker images from Artifact Registry. When you deploy a 
+        Cloud Run service, it needs to pull the container image from your registry:
+
+        ```hcl
+        resource "google_artifact_registry_repository_iam_member" "cloud_run_pull" {
+          project    = var.gcp_project_id
+          location   = google_artifact_registry_repository.docker_repo.location
+          repository = google_artifact_registry_repository.docker_repo.name
+          role       = "roles/artifactregistry.reader"
+          member     = "serviceAccount:${google_service_account.cloud_run_sa.email}"
+
+          depends_on = [
+            google_artifact_registry_repository.docker_repo,
+            google_service_account.cloud_run_sa
+          ]
+        }
+        ```
+
+        Notice we use the **reader** role (not writer), just like with Vertex AI. Cloud Run only needs to pull images 
+        during deployment, not push them. This is a key security principle—only grant write permissions where absolutely 
+        necessary.
+
+    4. (Optional) If your deployed Cloud Run services need to access Cloud Storage (e.g., to load model weights or write 
+        prediction results), you can grant storage permissions. **Skip this step for now** unless you know your 
+        deployment will need storage access:
+
+        ```hcl
+        # Uncomment if your Cloud Run services need to read/write from Cloud Storage
+        # resource "google_storage_bucket_iam_member" "cloud_run_storage_access" {
+        #   bucket = google_storage_bucket.my_bucket.name
+        #   role   = "roles/storage.objectViewer"  # Read-only access
+        #   member = "serviceAccount:${google_service_account.cloud_run_sa.email}"
+        #
+        #   depends_on = [
+        #     google_storage_bucket.my_bucket,
+        #     google_service_account.cloud_run_sa
+        #   ]
+        # }
+        ```
+
+        If you need read-only access, use `storage.objectViewer`. For read-write access (e.g., writing prediction logs), 
+        use `storage.objectAdmin`.
+
+    5. Add outputs to expose the Cloud Run service account information. This will make it easy to reference when deploying 
+        in M25:
+
+        ```hcl
+        output "cloud_run_service_account_email" {
+          description = "Email of the Cloud Run service account (use with --service-account flag in gcloud run deploy)"
+          value       = google_service_account.cloud_run_sa.email
+        }
+
+        output "cloud_run_deployment_command_example" {
+          description = "Example command for deploying to Cloud Run using this infrastructure (for M25)"
+          value       = "gcloud run deploy <service-name> --image=<image-url> --service-account=${google_service_account.cloud_run_sa.email} --region=${var.region} --allow-unauthenticated"
+        }
+        ```
+
+        The example output provides a template command you can use in M25, with the service account already filled in.
+
+    6. Run `tofu plan` to preview the changes:
+
+        ```bash
+        tofu plan
+        ```
+
+        You should see approximately 3 new resources:
+        - 1 API enablement (Cloud Run)
+        - 1 service account (cloud-run-sa)
+        - 1 IAM binding (Artifact Registry reader)
+
+    7. Apply the configuration:
+
+        ```bash
+        tofu apply
+        ```
+
+    8. Verify the service account was created:
+
+        ```bash
+        gcloud iam service-accounts list | grep cloud-run-sa
+        ```
+
+        You should see `cloud-run-sa@<your-project-id>.iam.gserviceaccount.com`
+
+    9. Verify the Artifact Registry permissions:
+
+        ```bash
+        gcloud artifacts repositories get-iam-policy \
+            $(tofu output -raw artifact_registry_repository_id) \
+            --location=$(tofu output -raw artifact_registry_location)
+        ```
+
+        You should now see **three** service accounts with permissions:
+        - `cloud-build-sa` with `roles/artifactregistry.writer` (from Exercise 9)
+        - `vertex-ai-training-sa` with `roles/artifactregistry.reader` (from Exercise 10)
+        - `cloud-run-sa` with `roles/artifactregistry.reader` (new!)
+
+    10. Get the deployment command example for M25:
+
+        ```bash
+        tofu output cloud_run_deployment_command_example
+        ```
+
+        This will show you the exact command format you'll use in M25, with your service account and region already filled 
+        in. Save this for later!
+
+    !!! success "Infrastructure Complete!"
+
+        Congratulations! You've now provisioned the complete infrastructure needed for Cloud Run deployments. The 
+        service account you created has the minimal permissions required to:
+        
+        - ✅ Pull container images from Artifact Registry during deployment
+        - ✅ Run as the identity of deployed Cloud Run services
+        - ✅ (Optional) Access Cloud Storage if you uncommented that section
+
+    !!! info "Looking Ahead to M25"
+
+        In [M25 Cloud Deployment](../../s7_deployment/cloud_deployment.md#cloud-run), you'll use this infrastructure to:
+
+        - **Deploy ML inference APIs** as serverless containers
+        - **Automatically scale** based on incoming prediction requests
+        - **Pay only for actual usage** when serving predictions
+        - **Get HTTPS endpoints** automatically for your APIs
+        - **Monitor deployments** with Cloud Logging
+
+        Example deployment command you'll run in M25:
+
+        ```bash
+        gcloud run deploy mnist-inference-api \
+            --source . \
+            --region europe-west1 \
+            --allow-unauthenticated \
+            --service-account=$(tofu output -raw cloud_run_service_account_email)
+        ```
+
+        The `--service-account` flag uses the infrastructure you just created!
+
+    ??? success "Solution"
+
+        The complete solution files are available in the `exercise_files/terraform/` directory.
+        You can expand the sections below to see the full file contents:
+
+        ??? example "main_v8.tf - Complete infrastructure with Cloud Run"
+
+            This file includes all resources from exercises 1-10 plus the new Cloud Run infrastructure:
+
+            ```hcl linenums="1" title="terraform/main_v8.tf"
+            --8<-- "s6_the_cloud/exercise_files/terraform/main_v8.tf"
+            ```
+
+        ??? example "variables_v8.tf - Variables configuration"
+
+            The variables file (same as v7, no new variables needed for Cloud Run):
+
+            ```hcl linenums="1" title="terraform/variables_v8.tf"
+            --8<-- "s6_the_cloud/exercise_files/terraform/variables_v8.tf"
+            ```
+
+        ??? example "outputs_v8.tf - All outputs including Cloud Run"
+
+            This outputs file includes all previous outputs plus Cloud Run service account information:
+
+            ```hcl linenums="1" title="terraform/outputs_v8.tf"
+            --8<-- "s6_the_cloud/exercise_files/terraform/outputs_v8.tf"
+            ```
+
+        Key concepts demonstrated:
+        - **Minimal infrastructure approach**: Only service account + permissions, no actual Cloud Run service deployment
+        - **Separation of concerns**: Infrastructure (IaC in M22) vs. Deployment (runtime in M25)
+        - **Consistent patterns**: Same approach as Vertex AI (enable API, create SA, grant permissions)
+        - **Principle of least privilege**: Reader access to Artifact Registry (not writer)
+        - **Service account segregation**: Separate SAs for build, training, and deployment
+
+    !!! tip "Summary of Service Accounts"
+
+        You've now created a complete set of service accounts for your MLOps pipeline:
+
+        | Service Account | Purpose | When Used | Key Permissions |
+        |----------------|---------|-----------|-----------------|
+        | `cloud-build-sa` | Build Docker images | CI/CD pipeline (M21) | `artifactregistry.writer` |
+        | `vertex-ai-training-sa` | Run ML training jobs | Training (M21, M22) | `artifactregistry.reader`, `storage.objectAdmin`, `aiplatform.user` |
+        | `cloud-run-sa` | Serve ML inference APIs | Deployment (M25) | `artifactregistry.reader` |
+
+        This separation ensures that a compromised deployment can't push malicious images, and a compromised build 
+        process can't access production training data!
+
+## 🧠 Knowledge check
+
+1. OpenTofu operates on two core principles: idempotency and declarative configuration. 
+   Explain what idempotency means in the context of Infrastructure as Code, and why it's 
+   important for managing cloud resources.
+
+    ??? success "Solution"
+
+        **Idempotency** means that applying the same configuration multiple times will always 
+        result in the same infrastructure state. For example, if you define a compute instance 
+        in your configuration and apply it, running `tofu apply` again will not create a duplicate 
+        instance but will ensure that the existing instance matches the defined configuration.
+
+        This is important because:
+        - It prevents accidental creation of duplicate resources
+        - It makes infrastructure changes predictable and safe
+        - It allows you to re-apply configurations without worrying about side effects
+        - It's essential for automation and CI/CD pipelines
+
+2. After running `tofu apply`, OpenTofu creates a state file. What information does this 
+   file contain, and why is it important to keep it secure? What command would you use 
+   to list all resources currently tracked in the state?
+
+    ??? success "Solution"
+
+        The **state file** (`terraform.tfstate`) contains:
+        - A mapping of resource names to their actual cloud resource IDs
+        - Current configuration values for all managed resources
+        - Metadata about dependencies between resources
+        - Sensitive information like database passwords or API keys (if stored in outputs)
+
+        It's important to keep it secure because:
+        - It may contain sensitive credentials
+        - It's the source of truth for what OpenTofu manages
+        - Loss or corruption can lead to orphaned resources or duplicate creations
+
+        To list all resources tracked in the state:
+        ```bash
+        tofu state list
+        ```
+
+3. In this module, you created three different service accounts: one for Cloud Build, 
+   one for Vertex AI training, and one for Cloud Run. Why is it better to have separate 
+   service accounts rather than using a single service account for all three purposes?
+
+    ??? success "Solution"
+
+        Using separate service accounts is better for several reasons:
+
+        - **Principle of Least Privilege**: Each service account only has the permissions 
+          it needs for its specific task. Cloud Build needs to push images (writer), while 
+          Vertex AI and Cloud Run only need to pull images (reader).
+
+        - **Security Isolation**: If one service is compromised, the damage is limited. 
+          For example, if Cloud Run is compromised, the attacker can't push malicious images 
+          because the Cloud Run SA doesn't have write access to Artifact Registry.
+
+        - **Auditability**: It's easier to track which service performed which action when 
+          they have separate identities.
+
+        - **Compliance**: Many security standards require separation of duties between 
+          build, training, and deployment processes.
+
+4. When granting IAM permissions, you used both `google_project_iam_member` (for Vertex AI User role) 
+   and `google_storage_bucket_iam_member` (for storage access). What's the difference between 
+   these two approaches, and when should you prefer one over the other?
+
+    ??? success "Solution"
+
+        **Resource-level permissions** (`google_storage_bucket_iam_member`, `google_artifact_registry_repository_iam_member`):
+        - Apply to a specific resource (e.g., one bucket, one repository)
+        - More granular and secure
+        - Preferred when possible
+        - Example: Granting access to only the training data bucket, not all buckets
+
+        **Project-level permissions** (`google_project_iam_member`):
+        - Apply to all resources of a certain type in the project
+        - Less granular but necessary for some roles
+        - Use when resource-level isn't available
+        - Example: The `aiplatform.user` role must be granted at project level
+
+        **Best practice**: Always prefer resource-level permissions when available! Only use 
+        project-level permissions when the role doesn't support resource-level binding.
+
+5. In your Terraform configuration, you used the `depends_on` argument in several places, 
+   such as when creating the Artifact Registry repository after enabling the API. What would 
+   happen if you removed these `depends_on` declarations and tried to apply the configuration?
+
+    ??? success "Solution"
+
+        Without `depends_on`, OpenTofu would try to create resources in parallel without 
+        respecting the dependency order. This could lead to:
+
+        - **API not enabled errors**: If the Artifact Registry repository was created before 
+          the API was enabled, the API call would fail with an error like "API not enabled".
+
+        - **Race conditions**: Resources might be created in the wrong order, causing failures.
+
+        - **Inconsistent state**: Some resources might be created while others fail, leaving 
+          the infrastructure in a partially working state.
+
+        The `depends_on` argument ensures that:
+        - The Cloud Build API is enabled before creating the Cloud Build service account
+        - The Artifact Registry API is enabled before creating the repository
+        - Service accounts are created before IAM permissions are granted to them
+
+        This explicit ordering prevents these race conditions and ensures reliable deployments.
 
 ## Further Exploration
 
-Congratulations! You've now automated the creation of storage buckets, compute instances, artifact registries, and
-Cloud Build infrastructure using OpenTofu. You've learned how to translate manual cloud operations into reproducible,
-version-controlled Infrastructure as Code.
+Congratulations! You've now automated the creation of a complete MLOps infrastructure stack using OpenTofu:
 
-If you want to explore more advanced topics, the exercises below (currently commented out in the documentation)
-provide additional learning opportunities:
+- ✅ **Storage buckets** for data and training artifacts
+- ✅ **Compute instances** for development and experimentation
+- ✅ **Artifact Registry** for storing Docker images
+- ✅ **Cloud Build** service accounts for CI/CD
+- ✅ **Vertex AI** infrastructure for scalable training
+- ✅ **Cloud Run** service accounts for serverless deployment (if you completed Exercise 11)
+
+You've learned how to translate manual cloud operations from M21 into reproducible, version-controlled Infrastructure
+as Code. This is the foundation of production-ready MLOps!
+
+If you want to explore more advanced topics, consider these optional exercises:
 
 - **Remote State Backend**: Configure OpenTofu to store state files in Google Cloud Storage for team collaboration
-    and state locking (see commented Exercise 13 in the source)
-- **Vertex AI Training Infrastructure**: Set up service accounts and permissions for running ML training jobs on
-    Vertex AI (see commented Exercise 12 in the source)
-- **Cloud Run Deployment**: Provision serverless container deployment infrastructure (see commented Exercise 14 in
-    the source)
+    and state locking. This is essential for working in teams where multiple people manage the same infrastructure.
+    [Learn more](https://opentofu.org/docs/language/settings/backends/gcs/)
 
-You can find the code for these advanced exercises in the commented sections of this file (lines 783-1026).
+- **Modular Terraform Organization**: As your infrastructure grows, organize it into reusable modules instead of
+    keeping everything in one file. This makes it easier to share infrastructure patterns across projects.
+    [Learn more](https://opentofu.org/docs/language/modules/)
 
-<!---
-### Exercise 12: Vertex AI Training Job Configuration (Optional Advanced)
+- **Environment Separation**: Create separate configurations for dev, staging, and production environments using
+    workspaces or separate directories. This prevents accidental changes to production infrastructure.
+    [Learn more](https://opentofu.org/docs/cli/workspaces/)
 
-In this advanced exercise, set up infrastructure for running training jobs on Vertex AI, building on concepts from
-[M21 Using the Cloud - Training section](using_the_cloud.md#training).
-
-1. First, enable the Vertex AI API in your `main.tf`:
-
-    ```hcl
-    resource "google_project_service" "vertex_ai_api" {
-      service            = "aiplatform.googleapis.com"
-      disable_on_destroy = false
-    }
-    ```
-
-2. Create a service account for Vertex AI custom training jobs:
-
-    ```hcl
-    # Service account for Vertex AI training
-    resource "google_service_account" "vertex_ai_sa" {
-      account_id   = "vertex-ai-training-sa"
-      display_name = "Service Account for Vertex AI Training"
-
-      depends_on = [google_project_service.vertex_ai_api]
-    }
-
-    # Grant Vertex AI access to Artifact Registry
-    resource "google_artifact_registry_repository_iam_member" "vertex_ai_pull" {
-      depends_on = [google_artifact_registry_repository.docker_repo]
-
-      location   = var.region
-      repository = google_artifact_registry_repository.docker_repo.name
-      role       = "roles/artifactregistry.reader"
-      member     = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
-    }
-
-    # Grant Vertex AI access to Cloud Storage for training data
-    resource "google_storage_bucket_iam_member" "vertex_ai_data_access" {
-      count = var.enable_storage_bucket ? 1 : 0
-
-      bucket = google_storage_bucket.data_bucket[0].name
-      role   = "roles/storage.objectViewer"
-      member = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
-    }
-
-    # Grant Vertex AI AI Training Agent role
-    resource "google_project_iam_member" "vertex_ai_trainer" {
-      project = var.gcp_project_id
-      role    = "roles/aiplatform.customCodeTrainingJobRunner"
-      member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
-    }
-
-    # Grant access to write logs
-    resource "google_project_iam_member" "vertex_ai_logs" {
-      project = var.gcp_project_id
-      role    = "roles/logging.logWriter"
-      member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
-    }
-    ```
-
-3. Add a variable for the container image URI in your `variables.tf`:
-
-    ```hcl
-    variable "training_container_image" {
-      description = "The Docker image URI for training jobs"
-      type        = string
-      default     = ""  # Leave empty to use a default or provide your own
-    }
-    ```
-
-4. Create a resource for storing Vertex AI training configurations:
-
-    ```hcl
-    # Storage bucket for training configurations and outputs
-    resource "google_storage_bucket" "training_configs" {
-      count = var.environment == "prod" ? 1 : 0
-
-      name          = "${local.bucket_prefix}-training-configs"
-      location      = var.region
-      force_destroy = false
-
-      uniform_bucket_level_access = true
-
-      labels = local.common_tags
-    }
-
-    # Grant Vertex AI service account access to training configs bucket
-    resource "google_storage_bucket_iam_member" "vertex_ai_configs_access" {
-      count = var.environment == "prod" ? 1 : 0
-
-      bucket = google_storage_bucket.training_configs[0].name
-      role   = "roles/storage.objectAdmin"
-      member = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
-    }
-    ```
-
-5. Add outputs for Vertex AI configuration:
-
-    ```hcl
-    output "vertex_ai_service_account_email" {
-      description = "Email of the Vertex AI training service account"
-      value       = google_service_account.vertex_ai_sa.email
-    }
-
-    output "vertex_ai_training_config_bucket" {
-      description = "Storage bucket for training configurations"
-      value       = try(google_storage_bucket.training_configs[0].name, null)
-    }
-    ```
-
-6. Apply the configuration:
-
-    ```bash
-    tofu apply -var="environment=prod"
-    ```
-
-7. Verify the setup by checking the service account permissions:
-
-    ```bash
-    gcloud iam service-accounts describe $(tofu output -raw vertex_ai_service_account_email)
-    ```
-
-    ??? success "Solution"
-
-        Your infrastructure is now ready for running training jobs on Vertex AI. The service account has:
-        - Access to pull images from Artifact Registry
-        - Access to read training data from Cloud Storage
-        - Permissions to run Vertex AI training jobs
-        - Permissions to write logs for monitoring
-
-        To use this setup with actual training jobs, you would reference the service account in your
-        `gcloud ai custom-jobs create` commands or create additional Terraform resources that depend on
-        these service accounts.
-
-### Exercise 13: Remote State Backend (Optional Advanced)
-
-For team collaboration, configure a remote backend to store the state file in Google Cloud Storage:
-
-1. Create a `backend.tf` file:
-
-    ```hcl
-    terraform {
-      backend "gcs" {
-        bucket = "your-project-id-terraform-state"
-        prefix = "mnist/training"
-      }
-    }
-    ```
-
-2. Create the GCS bucket for storing state (this needs to be done manually first or with a separate configuration):
-
-    ```bash
-    gsutil mb gs://your-project-id-terraform-state
-    ```
-
-3. Reconfigure the backend:
-
-    ```bash
-    tofu init
-    ```
-
-    OpenTofu will ask if you want to copy the existing state to the remote backend. Answer `yes`.
-
-    ??? success "Solution"
-
-        After configuring the remote backend, your state file will be stored in Google Cloud Storage instead of
-        locally. This allows team members to work with the same infrastructure state and prevents conflicts.
-
-        To verify:
-
-        ```bash
-        gsutil cat gs://your-project-id-terraform-state/mnist/training/default.tfstate
-        ```
-
-### Exercise 14: Cloud Run Deployment (Optional Advanced)
-
-In this advanced exercise, you'll set up infrastructure for deploying containerized applications to Cloud Run,
-a serverless container platform. This builds on the containers and artifact registry exercises from earlier.
-
-1. First, enable the Cloud Run API in your `main.tf`:
-
-    ```hcl
-    resource "google_project_service" "cloud_run_api" {
-      service            = "run.googleapis.com"
-      disable_on_destroy = false
-    }
-    ```
-
-2. Create a Cloud Run service that deploys from your Artifact Registry:
-
-    ```hcl
-    # Service account for Cloud Run
-    resource "google_service_account" "cloud_run_sa" {
-      account_id   = "cloud-run-sa"
-      display_name = "Service Account for Cloud Run"
-
-      depends_on = [google_project_service.cloud_run_api]
-    }
-
-    # Grant Cloud Run service account permission to pull from Artifact Registry
-    resource "google_artifact_registry_repository_iam_member" "cloud_run_pull" {
-      depends_on = [google_artifact_registry_repository.docker_repo]
-
-      location   = var.region
-      repository = google_artifact_registry_repository.docker_repo.name
-      role       = "roles/artifactregistry.reader"
-      member     = "serviceAccount:${google_service_account.cloud_run_sa.email}"
-    }
-
-    # Cloud Run service for MNIST inference API
-    resource "google_cloud_run_service" "mnist_api" {
-      name            = "mnist-inference-api"
-      location        = var.region
-      service_account = google_service_account.cloud_run_sa.email
-
-      template {
-        spec {
-          service_account_name = google_service_account.cloud_run_sa.email
-
-          containers {
-            image = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${google_artifact_registry_repository.docker_repo.repository_id}/mnist-api:latest"
-
-            ports {
-              container_port = 8080
-            }
-
-            # Environment variables for your API
-            env {
-              name  = "BUCKET_NAME"
-              value = try(google_storage_bucket.data_bucket[0].name, "")
-            }
-
-            env {
-              name  = "ENVIRONMENT"
-              value = var.environment
-            }
-
-            # Resource limits
-            resources {
-              limits = {
-                cpu    = "1"
-                memory = "512Mi"
-              }
-            }
-          }
-
-          # Autoscaling configuration
-          autoscaling {
-            max_instances = var.environment == "prod" ? 10 : 2
-            min_instances = var.environment == "prod" ? 1 : 0
-          }
-        }
-      }
-
-      traffic {
-        percent         = 100
-        latest_revision = true
-      }
-
-      depends_on = [google_cloud_run_service_iam_member.cloud_run_public]
-    }
-
-    # Make the Cloud Run service publicly accessible
-    resource "google_cloud_run_service_iam_member" "cloud_run_public" {
-      service  = google_cloud_run_service.mnist_api.name
-      location = google_cloud_run_service.mnist_api.location
-      role     = "roles/run.invoker"
-      member   = "allUsers"
-    }
-    ```
-
-3. Add variables for Cloud Run configuration in your `variables.tf`:
-
-    ```hcl
-    variable "cloud_run_memory" {
-      description = "Memory allocation for Cloud Run service (e.g., 512Mi, 1Gi)"
-      type        = string
-      default     = "512Mi"
-    }
-
-    variable "cloud_run_cpu" {
-      description = "CPU allocation for Cloud Run service"
-      type        = string
-      default     = "1"
-    }
-
-    variable "cloud_run_max_instances" {
-      description = "Maximum number of Cloud Run instances"
-      type        = number
-      default     = 2
-    }
-    ```
-
-4. Add outputs for the Cloud Run service:
-
-    ```hcl
-    output "cloud_run_service_url" {
-      description = "The public URL of the Cloud Run service"
-      value       = google_cloud_run_service.mnist_api.status[0].url
-    }
-
-    output "cloud_run_service_name" {
-      description = "The name of the Cloud Run service"
-      value       = google_cloud_run_service.mnist_api.name
-    }
-
-    output "cloud_run_service_account_email" {
-      description = "Service account email for Cloud Run"
-      value       = google_service_account.cloud_run_sa.email
-    }
-    ```
-
-5. Apply the configuration:
-
-    ```bash
-    tofu apply
-    ```
-
-6. After deployment, test your Cloud Run service:
-
-    ```bash
-    # Get the service URL
-    SERVICE_URL=$(tofu output -raw cloud_run_service_url)
-
-    # Test with a simple request (adjust based on your API)
-    curl $SERVICE_URL/health
-
-    # Test with data
-    curl -X POST $SERVICE_URL/predict \
-      -H "Content-Type: application/json" \
-      -d '{"data": [...]}'
-    ```
-
-7. Monitor the Cloud Run service:
-
-    ```bash
-    # View recent logs
-    gcloud run services describe mnist-inference-api --region=us-central1
-
-    # View logs in real-time
-    gcloud logging read "resource.type=cloud_run_revision" --limit=50
-    ```
-
-    ??? success "Solution"
-
-        Your Cloud Run service is now deployed and accessible via a public URL. The service:
-        - Automatically scales based on traffic
-        - Has separate configurations for dev and prod environments
-        - Pulls images from your Artifact Registry
-        - Has access to Cloud Storage for data
-        - Can be monitored through Cloud Logging
-
-        The service URL can be integrated into your frontend or used as an API endpoint. Since it's deployed from
-        Artifact Registry, you can update the image tag in your configuration to deploy new versions.
-
-8. (Optional) Set up Cloud Run with secrets management:
-
-    If your API needs secrets (like database credentials or API keys), you can inject them from Secret Manager:
-
-    ```hcl
-    # Grant Cloud Run service account access to secrets
-    resource "google_secret_manager_secret_iam_member" "cloud_run_secret_access" {
-      secret_id = "your-secret-name"
-      role      = "roles/secretmanager.secretAccessor"
-      member    = "serviceAccount:${google_service_account.cloud_run_sa.email}"
-    }
-
-    # Reference in Cloud Run:
-    # env {
-    #   name = "DATABASE_PASSWORD"
-    #   value_from {
-    #     secret_key_ref {
-    #       name = "database-password"
-    #       key  = "latest"
-    #     }
-    #   }
-    # }
-    ```
-
-## Best Practices
-
-When using Infrastructure as Code, follow these best practices:
-
-1. **Version Control**: Always commit your `.tf` files to version control (git), but exclude `terraform.tfvars` and
-    `*.tfstate` files.
-
-2. **Code Organization**: Organize your code into logical files (`main.tf`, `variables.tf`, `outputs.tf`) and modules.
-    As your infrastructure grows, create separate files for different services (e.g., `artifact_registry.tf`,
-    `vertex_ai.tf`).
-
-3. **State Management**: Use remote backends for team collaboration and enable state locking to prevent concurrent
-    modifications. The state file contains sensitive information and should be stored securely.
-
-4. **Variable Validation**: Use validation rules to ensure variables have appropriate values, especially for sensitive
-    settings like environment and machine types.
-
-5. **Documentation**: Add descriptions to all variables and outputs. This makes it easier for team members to understand
-    what each resource does.
-
-6. **Planning Before Applying**: Always run `tofu plan` before `tofu apply` to review changes. This is especially
-    important when working with production environments.
-
-7. **Environment Separation**: Use different directories, workspaces, or variable files for different environments
-    (dev, staging, prod). This prevents accidental changes to production infrastructure.
-
-8. **Module Reusability**: Design modules to be reusable across different projects and environments. Avoid hardcoding
-    values in modules.
-
-9. **Service Accounts**: Create specific service accounts for different purposes (Cloud Build, Vertex AI, etc.) with
-    minimal required permissions (principle of least privilege). See Exercise 9 for an example of creating a dedicated
-    service account with specific IAM permissions.
-
-10. **API Management**: Use OpenTofu to explicitly enable required APIs. This ensures all dependencies are tracked and
-    can be reproduced in other projects or environments. See Exercises 8 and 9 for examples of enabling APIs before
-    creating dependent resources.
-
-11. **Linking to M21 Concepts**: Ensure your IaC configuration mirrors what you learned in
-    [M21 Using the Cloud](using_the_cloud.md). For example:
-    - Cloud Storage bucket configuration aligns with the data storage exercises
-    - Artifact Registry setup matches the container registry exercises
-    - Vertex AI configuration supports the training exercises -->
