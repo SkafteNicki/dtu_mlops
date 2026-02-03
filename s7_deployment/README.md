@@ -26,7 +26,13 @@
 
     Learn how to test APIs for functionality and load
 
-    [:octicons-arrow-right-24: M25: API testing](testing_apis.md)
+    [:octicons-arrow-right-24: M24: API testing](testing_apis.md)
+
+- ![](../figures/icons/gcp.png){align=right : style="height:100px;width:100px"}
+
+    Learn deployment testing strategies: A/B testing, canary deployment, and shadow deployment
+
+    [:octicons-arrow-right-24: M25: Deployment Testing](deployment_testing.md)
 
 </div>
 
@@ -53,3 +59,4 @@ also how to deploy services in the cloud.
     * Can create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
       serverless containers
+    * Understand and implement deployment testing strategies (A/B testing, canary deployment, shadow deployment)
