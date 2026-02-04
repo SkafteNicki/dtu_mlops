@@ -26,19 +26,9 @@ from prefect import task, Flow
 
 1. Start by installing `prefect`:
 
-    === "Using pip"
-
-        ```bash
-        pip install prefect
-        ```
-
-        and remember to add this to your `requirements.txt` file.
-
-    === "Using uv"
-
-        ```bash
-        uv add prefect
-        ```
+    ```bash
+    uv add prefect
+    ```
 
 2. Start a local Prefect server instance in your virtual environment.
 

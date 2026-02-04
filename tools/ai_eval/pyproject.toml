@@ -1,0 +1,26 @@
+[project]
+name = "ai-eval"
+version = "0.1.0"
+description = "AI evaluation tool for DTU MLOps course"
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "asyncpg>=0.30",
+  "devtools>=0.12.2",
+  "google-cloud-storage>=2.19",
+  "logfire>=3.2",
+  "loguru>=0.7.3",
+  "openai>=1.59.8",
+  "opentelemetry-instrumentation-asyncpg>=0.50b0",
+  "pydantic>=2.10.5",
+  "pydantic-ai>=0.0.19",
+  "python-dotenv>=1.0.1",
+  "tqdm>=4.67.1",
+  "typer>=0.15.1",
+]

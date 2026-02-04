@@ -1,5 +1,0 @@
-matplotlib==3.9.2
-typer==0.15.1
-wordcloud==1.9.4
-pydantic-ai>=0.0.19
-openai>=1.59.8

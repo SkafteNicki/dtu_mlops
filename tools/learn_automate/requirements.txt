@@ -1,4 +1,0 @@
-playwright==1.49.1
-python-dotenv==1.0.1
-beautifulsoup4==4.12.3
-typer==0.15.1

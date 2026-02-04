@@ -1,0 +1,16 @@
+[project]
+name = "conceptual-qa"
+version = "0.1.0"
+description = "Conceptual Q&A application for DTU MLOps course"
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "firebase-admin",
+  "streamlit",
+]

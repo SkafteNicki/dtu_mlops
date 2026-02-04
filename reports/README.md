@@ -16,7 +16,7 @@ In addition to this markdown file, we also provide the `report.py` script that p
 Running:
 
 ```bash
-python report.py html
+uv run report.py html
 ```
 
 Will generate a `.html` page of your report. After the deadline for answering this template, we will auto-scrape
@@ -26,18 +26,12 @@ as your final hand-in.
 Running
 
 ```bash
-python report.py check
+uv run report.py check
 ```
 
 Will check your answers in this template against the constraints listed for each question e.g. is your answer too
 short, too long, or have you included an image when asked. For both functions to work you mustn't rename anything.
 The script has two dependencies that can be installed with
-
-```bash
-pip install typer markdown
-```
-
-or
 
 ```bash
 uv add typer markdown
@@ -58,8 +52,7 @@ will check the repositories and the code to verify your answers.
 * [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
 * [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
 * [ ] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
-* [ ] Remember to either fill out the `requirements.txt`/`requirements_dev.txt` files or keeping your
-    `pyproject.toml`/`uv.lock` up-to-date with whatever dependencies that you are using (M2+M6)
+* [ ] Remember to keeping your `pyproject.toml` and `uv.lock` up-to-date with whatever dependencies that you are using (M2+M6)
 * [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
 * [ ] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [ ] Setup version control for your data or part of your data (M8)

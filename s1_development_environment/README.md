@@ -10,10 +10,9 @@
 
     [:octicons-arrow-right-24: M1: Command line](command_line.md)
 
-- ![Conda icon](../figures/icons/conda.png){align=right : style="height:100px;width:100px"}
+- ![uv icon](../figures/icons/uv.png){align=right : style="height:100px;width:100px"}
 
-    Learn how package managers work in Python and how to create reproducible virtual environments using
-    `conda` and `pip`.
+    Learn how package managers work in Python and how to create reproducible virtual environments using `uv`.
 
     [:octicons-arrow-right-24: M2: Package Manager](package_manager.md)
 

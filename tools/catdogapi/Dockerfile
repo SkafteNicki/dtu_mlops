@@ -1,9 +1,9 @@
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+COPY pyproject.toml pyproject.toml
+RUN uv pip install --system -r pyproject.toml
 
 COPY app.py app.py
 

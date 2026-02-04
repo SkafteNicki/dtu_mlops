@@ -64,22 +64,12 @@ The following exercises should be applied to your MNIST repository
 
 3. Install pytest:
 
-    === "Using pip"
+    ```bash
+    uv add --dev pytest
+    ```
 
-        ```bash
-        pip install pytest
-        ```
-
-        Consider adding `pytest` to a `requirements_dev.txt` file, as it is a development tool.
-
-    === "Using uv"
-
-        ```bash
-        uv add --dev pytest
-        ```
-
-        We add `pytest` as a development dependency since it is not needed for running the actual code. Alternatively,
-        we could install it globally using `uvx pytest` to be used across multiple projects.
+    We add `pytest` as a development dependency since it is not needed for running the actual code. Alternatively,
+    we could install it globally using `uvx pytest` to be used across multiple projects.
 
 4. Write some tests. Below are some guidelines on some tests that should be implemented, but
     you are of course free to implement more tests. You can at any point check if your tests are
@@ -255,50 +245,24 @@ The following exercises should be applied to your MNIST repository
 
     1. Install coverage.
 
-        === "Using pip"
+        ```bash
+        uv add --dev coverage
+        ```
 
-            ```bash
-            pip install coverage
-            ```
-
-            Consider adding `coverage` to a `requirements_dev.txt` file, as it is a development tool.
-
-        === "Using uv"
-
-            ```bash
-            uv add --dev coverage
-            ```
-
-            We add `coverage` as a development dependency since it is not needed for running the actual code.
-            Alternatively, we could install it globally using `uvx coverage` to be used across multiple projects.
+        We add `coverage` as a development dependency since it is not needed for running the actual code.
+        Alternatively, we could install it globally using `uvx coverage` to be used across multiple projects.
 
     2. Instead of running your tests directly with `pytest`, now do:
 
-        === "Using pip"
-
-            ```bash
-            coverage run -m pytest tests/
-            ```
-
-        === "Using uv"
-
-            ```bash
-            uv run coverage run -m pytest tests/
-            ```
+        ```bash
+        uv run coverage run -m pytest tests/
+        ```
 
     3. To get a simple coverage report simply type
 
-        === "Using pip"
-
-            ```bash
-            coverage report -m
-            ```
-
-        === "Using uv"
-
-            ```bash
-            uv run coverage report -m
-            ```
+        ```bash
+        uv run coverage report -m
+        ```
 
         which will give you the percentage of cover in each of your files and also mark which lines are not covered.
 
@@ -313,21 +277,11 @@ The following exercises should be applied to your MNIST repository
             You need to set the `omit` option. This can either be done when running `coverage run` or `coverage report`
             such as:
 
-            === "Using pip"
-
-                ```bash
-                coverage run --omit="tests/*" -m pytest tests/
-                # or
-                coverage report --omit="tests/*"
-                ```
-
-            === "Using uv"
-
-                ```bash
-                uv run coverage run --omit="tests/*" -m pytest tests/
-                # or
-                uv run coverage report --omit="tests/*"
-                ```
+            ```bash
+            uv run coverage run --omit="tests/*" -m pytest tests/
+            # or
+            uv run coverage report --omit="tests/*"
+            ```
 
             As an alternative you can specify this in your `pyproject.toml` file:
 
