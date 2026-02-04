@@ -15,7 +15,7 @@
 
 While the above picture may seem silly at first, it is actually pretty close to how [Docker](https://www.docker.com/)
 came into existence. A big part of creating an MLOps pipeline is being able to **reproduce** it. Reproducibility
-goes beyond versioning our code with `git` and using `conda` environments to keep track of our Python installations.
+goes beyond versioning our code with `git` and using `uv` environments to keep track of our Python installations.
 To truly achieve reproducibility, we need to capture system-level components such as:
 
 * Operating system
@@ -177,25 +177,16 @@ beneficial for you to download.
     `train.dockerfile`. The intention is that we want to develop one Dockerfile for running our training script and
     one for making predictions.
 
-10. Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we have
-    two options: using a simple `python` image or using a `uv`-based image for faster dependency installation:
+10. Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we will
+    use a `uv`-based image for faster dependency installation:
 
-    === "Using pip"
+    ```docker
+    # Base image
+    FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+    ```
 
-        ```docker
-        # Base image
-        FROM python:3.12-slim
-        ```
-
-    === "Using uv"
-
-        ```docker
-        # Base image
-        FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
-        ```
-
-        The `uv` image comes with both Python and `uv` pre-installed, which will significantly speed up dependency
-        installation.
+    The `uv` image comes with both Python and `uv` pre-installed, which will significantly speed up dependency
+    installation.
 
 11. Next, we are going to install some essentials in our image. The essentials more or less consist of a Python
     installation and build tools. These instructions may seem familiar if you are using Linux:
@@ -211,24 +202,13 @@ beneficial for you to download.
 
     1. Let's copy over our application (the essential parts) from our computer to the container:
 
-        === "Using pip"
-
-            ```docker
-            COPY requirements.txt requirements.txt
-            COPY pyproject.toml pyproject.toml
-            COPY src/ src/
-            COPY data/ data/
-            ```
-
-        === "Using uv"
-
-            ```docker
-            COPY uv.lock uv.lock
-            COPY pyproject.toml pyproject.toml
-            COPY README.md README.md
-            COPY src/ src/
-            COPY data/ data/
-            ```
+        ```docker
+        COPY uv.lock uv.lock
+        COPY pyproject.toml pyproject.toml
+        COPY README.md README.md
+        COPY src/ src/
+        COPY data/ data/
+        ```
 
         Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
         each of these files/folders to run training in our Docker container?
@@ -243,44 +223,20 @@ beneficial for you to download.
             :man_raising_hand: As an alternative, you can use `RUN make requirements` if you have a `Makefile` that
             installs the dependencies. Just remember to also copy over the `Makefile` into the Docker image.
 
-        === "Using pip"
+        ```dockerfile
+        WORKDIR /
+        RUN uv sync --locked --no-cache --no-install-project
+        ```
 
-            ```dockerfile
-            WORKDIR /
-            RUN pip install -r requirements.txt --no-cache-dir
-            RUN pip install . --no-deps --no-cache-dir
-            ```
-
-            The `--no-cache-dir` is quite important. Can you explain what it does and why it is important in relation to
-            Docker?
-
-        === "Using uv"
-
-            ```dockerfile
-            WORKDIR /
-            RUN uv sync --locked --no-cache --no-install-project
-            ```
-
-            The `--no-cache` is quite important. Can you explain what it does and why it is important in relation to
-            Docker? And what does the `--locked` flag do?
+        The `--no-cache` is quite important. Can you explain what it does and why it is important in relation to
+        Docker? And what does the `--locked` flag do?
 
     3. Finally, we are going to name our training script as the *entrypoint* for our Docker image. The *entrypoint* is
         the application that we want to run when the image is executed:
 
-        === "Using pip"
-
-            ```docker
-            ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
-            ```
-
-            The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets
-            redirected to our terminal. If not included, you would need to use `docker logs` to inspect your run.
-
-        === "Using uv"
-
-            ```docker
-            ENTRYPOINT ["uv", "run", "src/<project-name>/train.py"]
-            ```
+        ```docker
+        ENTRYPOINT ["uv", "run", "src/<project-name>/train.py"]
+        ```
 
 13. We are now ready to build our Dockerfile into a Docker image.
 
@@ -345,21 +301,13 @@ beneficial for you to download.
         the 20th time, you can reuse the cache from the last time the Docker image was built. To do this, replace the
         line in your Dockerfile that installs your requirements with:
 
-        === "Using pip"
-            ```dockerfile
-            RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt --no-cache-dir
-            ```
+        ```dockerfile
+        ENV UV_LINK_MODE=copy
+        RUN --mount=type=cache,target=/root/.cache/uv uv sync
+        ```
 
-            which mounts your local pip cache to the Docker image.
-
-        === "Using uv"
-            ```dockerfile
-            ENV UV_LINK_MODE=copy
-            RUN --mount=type=cache,target=/root/.cache/uv uv sync
-            ```
-
-            which mounts your local uv cache to the Docker image, see
-            [documentation](https://docs.astral.sh/uv/guides/integration/docker/#caching).
+        which mounts your local uv cache to the Docker image, see
+        [documentation](https://docs.astral.sh/uv/guides/integration/docker/#caching).
 
         For building the image with cache mounts, you need to have enabled the
         [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature. If you have Docker
@@ -532,43 +480,23 @@ beneficial for you to download.
     2. Create a `.devcontainer` folder in your project root and create a `Dockerfile` inside it. We will keep this file
         very barebones for now, so let's just define a base installation of Python:
 
-        === "Using pip"
-            ```docker
-            FROM python:3.12-slim
+        ```docker
+        FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-            RUN apt update && \
-                apt install --no-install-recommends -y build-essential gcc && \
-                apt clean && rm -rf /var/lib/apt/lists/*
-            ```
-
-        === "Using uv"
-            ```docker
-            FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
-
-            RUN apt update && \
-                apt install --no-install-recommends -y build-essential gcc && \
-                apt clean && rm -rf /var/lib/apt/lists/*
-            ```
+        RUN apt update && \
+            apt install --no-install-recommends -y build-essential gcc && \
+            apt clean && rm -rf /var/lib/apt/lists/*
+        ```
 
     3. Create a `devcontainer.json` file in the `.devcontainer` folder. This file should look something like this:
 
-        === "Using pip"
-            ```json
-            {
-                "name": "my_working_env",
-                "dockerFile": "Dockerfile",
-                "postCreateCommand": "pip install -r requirements.txt"
-            }
-            ```
-
-        === "Using uv"
-            ```json
-            {
-                "name": "my_working_env",
-                "dockerFile": "Dockerfile",
-                "postCreateCommand": "uv sync --locked"
-            }
-            ```
+        ```json
+        {
+            "name": "my_working_env",
+            "dockerFile": "Dockerfile",
+            "postCreateCommand": "uv sync --locked"
+        }
+        ```
 
         This file tells VS Code that we want to use the `Dockerfile` that we just created and that we want to install
         our Python dependencies after the container has been created.
@@ -595,31 +523,18 @@ beneficial for you to download.
     * Make sure that `dvc` has all the correct files to pull data from our remote storage
     * Make sure that `dvc` has the correct credentials to pull data from our remote storage
 
-    We are going to assume that `dvc` (and any `dvc` extension needed) is part of your `requirements.txt` file and that
-    it is already being installed in a `RUN pip install -r requirements.txt` command in your Dockerfile. If not, then
-    you need to add it.
+    We are going to assume that `dvc` (and any `dvc` extension needed) is part of your `pyproject.toml` file and that
+    it is already being installed in a `RUN uv sync` command in your Dockerfile. If not, then you need to add it.
 
     1. Add the following lines to your Dockerfile
 
-        === "Using pip"
-
-            ```dockerfile
-            RUN dvc init --no-scm
-            COPY .dvc/config .dvc/config
-            COPY *.dvc .dvc/
-            RUN dvc config core.no_scm true
-            RUN dvc pull
-            ```
-
-        === "Using uv"
-
-            ```dockerfile
-            RUN uv run dvc init --no-scm
-            COPY .dvc/config .dvc/config
-            COPY *.dvc .dvc/
-            RUN uv run dvc config core.no_scm true
-            RUN uv run dvc pull
-            ```
+        ```dockerfile
+        RUN uv run dvc init --no-scm
+        COPY .dvc/config .dvc/config
+        COPY *.dvc .dvc/
+        RUN uv run dvc config core.no_scm true
+        RUN uv run dvc pull
+        ```
 
         The first line initializes `dvc` in the Docker image. The `--no-scm` option is needed because normally `dvc` can
         only be initialized inside a git repository, but this option allows initializing `dvc` without being in one.

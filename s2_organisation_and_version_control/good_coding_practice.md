@@ -91,38 +91,19 @@ developers are adding new features. (1)
 
 1. Install `ruff`.
 
-    === "Using pip"
+    ```bash
+    uv add --dev ruff
+    ```
 
-        ```bash
-        pip install ruff
-        ```
-
-        Consider adding `ruff` to a `requirements_dev.txt` file, as it is a development tool.
-
-    === "Using uv"
-
-        ```bash
-        uv add --dev ruff
-        ```
-
-        We add `ruff` as a development dependency since it is not needed for running the actual code. Alternatively,
-        we could install it globally using `uvx ruff` to be used across multiple projects.
+    We add `ruff` as a development dependency since it is not needed for running the actual code. Alternatively,
+    we could install it globally using `uvx ruff` to be used across multiple projects.
 
 2. Run `ruff` on your project or part of your project.
 
-    === "Using pip"
-
-        ```bash
-        ruff check .  # Lint all files in the current directory (and any subdirectories)
-        ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run ruff check .  # Lint all files in the current directory (and any subdirectories)
-        uv run ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
-        ```
+    ```bash
+    uv run ruff check .  # Lint all files in the current directory (and any subdirectories)
+    uv run ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
+    ```
 
     Are you PEP8-compliant or are you a mere mortal?
 
@@ -134,19 +115,10 @@ be a drop-in replacement for `black`.
 
 1. Try to use `ruff format` to format your code.
 
-    === "Using pip"
-
-        ```bash
-        ruff format .  # Format all files in the current directory.
-        ruff format /path/to/file.py  # Format a single file.
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run ruff format .  # Format all files in the current directory.
-        uv run ruff format /path/to/file.py  # Format a single file.
-        ```
+    ```bash
+    uv run ruff format .  # Format all files in the current directory.
+    uv run ruff format /path/to/file.py  # Format a single file.
+    ```
 
 By default `ruff` will apply a selection of rules when we are either checking it or formatting it. However, many more
 rules can be activated through [configuration](https://docs.astral.sh/ruff/configuration/). If you have completed
@@ -283,22 +255,12 @@ help us at all. Therefore, use `Any` only when necessary.
     typing in your code, then a static type checker can help you find common mistakes. `mypy` does not run your code,
     but it scans it and checks that the types you have given are compatible. Install `mypy`.
 
-    === "Using pip"
+    ```bash
+    uv add --dev mypy
+    ```
 
-        ```bash
-        pip install mypy
-        ```
-
-        Consider adding `mypy` to a `requirements_dev.txt` file, as it is a development tool.
-
-    === "Using uv"
-
-        ```bash
-        uv add --dev mypy
-        ```
-
-        We add `mypy` as a development dependency since it is not needed for running the actual code. Alternatively,
-        we could install it globally using `uvx mypy` to be used across multiple projects.
+    We add `mypy` as a development dependency since it is not needed for running the actual code. Alternatively,
+    we could install it globally using `uvx mypy` to be used across multiple projects.
 
     !!! info
 
@@ -308,17 +270,9 @@ help us at all. Therefore, use `Any` only when necessary.
 
 3. Try to run `mypy` on the `typing_exercise.py` file
 
-    === "Using pip"
-
-        ```bash
-        mypy typing_exercise.py
-        ```
-
-    === "Using uv"
-
-        ```bash
-        uv run mypy typing_exercise.py
-        ```
+    ```bash
+    uv run mypy typing_exercise.py
+    ```
 
     If you have solved exercise 1 correctly then you should get no errors. If not `mypy` should tell you where your
     types are incompatible.

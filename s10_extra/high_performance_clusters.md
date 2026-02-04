@@ -78,27 +78,30 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
     are on campus or not.
 
 2. When you have access to the cluster we are going to start with the setup phase. In the setup phase we are going
-    to setup the environment necessary for our computations. If you have accessed the cluster through graphical interface
-    start by opening a terminal.
+    to setup the environment necessary for our computations. If you have accessed the cluster through graphical
+    interface start by opening a terminal.
 
-    1. Lets start by setting up conda for controlling our dependencies. If you have not already worked with `conda`,
+    1. Lets start by setting up uv for controlling our dependencies. If you have not already worked with uv,
         please checkout module
         [M2 on package managers and virtual environments](../s1_development_environment/package_manager.md). In general
-        you should be able to setup (mini)conda through these two commands:
+        you should be able to setup uv through these commands:
 
         ```bash
-        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-        sh Miniconda3-latest-Linux-x86_64.sh
+        curl -LsSf https://astral.sh/uv/install.sh | sh
         ```
 
-    2. Close the terminal and open a new for the installation to complete. Type `conda` in the terminal to check that
-        everything is fine. Go ahead and create a new environment that we can install dependencies in
+    2. Close the terminal and open a new for the installation to complete. Type `uv --version` in the terminal to check
+        that everything is fine. Go ahead and create a new virtual environment that we can install dependencies in
 
         ```bash
-        conda create -n "hpc_env" python=3.10 --no-default-packages
+        uv venv hpc_env --python 3.10
         ```
 
-        and activate it.
+        and activate it:
+
+        ```bash
+        source hpc_env/bin/activate
+        ```
 
     3. Copy over any files you need. For the image classifier script you need the
         [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt)
@@ -109,13 +112,14 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
         command in the terminal
 
         ```bash
-        pip install -r image_classifier_requirements.txt
+        uv sync
         ```
 
-        using this [requirements file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt).
+        using this [pyproject.toml file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/pyproject.toml)
+        (or if using a requirements.txt file, use `uv pip install -r image_classifier_requirements.txt`).
 
 3. That's all the setup needed. You would need to go through the creating of environment and installation of requirements
-    whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
+    whenever you start a new project (no need for reinstalling uv). For the next step we need to look at how to submit
     jobs on the cluster. We are now ready to submit the our first job to the cluster:
 
     1. Start by checking the statistics for the different clusters. Try to use both the `qstat` command which should give
@@ -169,8 +173,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
         which should give you the full path. Then add to the bottom of the `jobscript` file:
 
         ```bash
-        ~/miniconda3/envs/hpc_env/bin/python \
-            image_classifier.py \
+        uv run image_classifier.py \
             --trainer.accelerator 'gpu' --trainer.devices 1  --trainer.max_epochs 5
         ```
 

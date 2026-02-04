@@ -58,17 +58,9 @@ to change.
 
 1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
 
-    === "Using pip"
-        ```bash
-        pip install httpx
-        ```
-
-    === "Using uv"
-        ```bash
-        uv add httpx
-        ```
-
-    Remember to add it to your `requirements.txt` file.
+    ```bash
+    uv add httpx
+    ```
 
 2. If you have already done the module on [unittesting](../s5_continuous_integration/unittesting.md) then you should
     already have a `tests/` folder. If not then create one. Inside the `tests/` folder create a new folder called
@@ -115,7 +107,7 @@ to change.
 
     ```bash
     pytest tests/apitests/test_apis.py
-ffffffff    ```
+    ```
 
     Make sure that all your tests pass.
 
@@ -183,17 +175,9 @@ very easy to integrate into your CI/CD pipeline.
 
 1. Install `locust`
 
-    === "Using pip"
-        ```bash
-        pip install locust
-        ```
-
-    === "Using uv"
-        ```bash
-        uv add locust
-        ```
-
-    Remember to add it to your `requirements.txt` file.
+    ```bash
+    uv add locust
+    ```
 
 2. Make sure you have written an API that you can test. Otherwise you can for simplicity just use this simple example:
 

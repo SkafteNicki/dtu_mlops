@@ -40,19 +40,9 @@ get the current state of the metrics. The metrics are exposed in a format called
 
 1. Start by installing the Prometheus python client.
 
-    === "Using pip"
-
-        ```bash
-        pip install prometheus-client
-        ```
-
-        and remember to add this to your `requirements.txt` file.
-
-    === "Using uv"
-
-        ```bash
-        uv add prometheus-client
-        ```
+    ```bash
+    uv add prometheus-client
+    ```
 
 2. Before getting started on the coding part, we first need to understand the different kinds of metrics that Prometheus
     allows for us to specify. Look through the [documentation](https://prometheus.io/docs/concepts/metric_types/) and

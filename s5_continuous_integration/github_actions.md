@@ -54,37 +54,21 @@ Let's take a look at how a GitHub workflow file is organized:
 3. We have provided a workflow file called `tests.yaml` that should run your tests for you. Place
     this file in the `.github/workflows/` folder. The workflow file consists of three steps:
 
-    * First, a Python environment or uv environment is initiated (in this case Python 3.12)
+    * First, a uv environment is set up with Python 3.12
 
-    * Next, all dependencies required to run the test are installed
+    * Next, all dependencies required to run the test are installed using uv
 
     * Finally, `pytest` is called and our tests will be run
 
     Go over the file and try to understand the overall structure and syntax of the file.
 
-    === "Using pip"
+    !!! example "`tests.yaml`"
 
-        !!! example "`tests.yaml`"
+        ```python linenums="1" title="tests.yaml"
+        --8<-- "s5_continuous_integration/exercise_files/tests.yaml"
+        ```
 
-            ```python linenums="1" title="tests.yaml"
-            --8<-- "s5_continuous_integration/exercise_files/tests_pip.yaml"
-            ```
-
-    === "Using uv"
-
-        !!! example "`tests.yaml`"
-
-            ```python linenums="1" title="tests.yaml"
-            --8<-- "s5_continuous_integration/exercise_files/tests_uv.yaml"
-            ```
-
-4. (Optional, for `pip` users) For the script to work you need to define the `requirements.txt` and
-    `requirements_tests.txt`. The first file should contain all the packages required to run your code. The second file
-    contains all *additional* packages required to run the tests. In your simple case, it may very well be that the
-    second file is empty. However, sometimes additional packages are used for testing that are not strictly required for
-    the scripts to run.
-
-5. Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and after some
+4. Finally, try pushing the changes to your repository. Hopefully, your tests should just start, and after some
     time you will see a green check mark next to the hash of the commit. Also, try to inspect the *Actions* tab where
     you can see the history of actions run.
 
@@ -92,7 +76,7 @@ Let's take a look at how a GitHub workflow file is organized:
     ![Image](../figures/action.PNG){ width="1000" }
     </figure>
 
-6. Normally we develop code on only one operating system and just hope that it will work on other operating systems.
+5. Normally we develop code on only one operating system and just hope that it will work on other operating systems.
     However, continuous integration enables us to automatically test on systems different to the one we are using.
 
     1. The provided `tests.yaml` only runs on one operating system. Which one?
@@ -121,49 +105,26 @@ Let's take a look at how a GitHub workflow file is organized:
         ??? success "Solution"
 
             Just add another line to the `strategy` attribute that specifies the Python version and use the value in the
-            setup Python action. The following code will run the tests on Python versions:
+            setup uv action. The following code will run the tests on Python versions:
 
-            === "Using pip"
+            ```yaml linenums="1" title="tests.yaml"
+            jobs:
+              build:
+                runs-on: ${{ matrix.os }}
+                strategy:
+                matrix:
+                  os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                  python-version: ["3.10", "3.11", "3.12"]
 
-                ```yaml linenums="1" title="tests.yaml"
-                jobs:
-                  build:
-                    runs-on: ${{ matrix.os }}
-                    strategy:
-                    matrix:
-                      os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                      python-version: ["3.10", "3.11", "3.12"]
+              steps:
+                - name: Checkout
+                  uses: actions/checkout@v5
 
-                  steps:
-                    - name: Checkout
-                      uses: actions/checkout@v5
-
-                    - name: Setup Python
-                      uses: actions/setup-python@v5
-                      with:
-                        python-version: ${{ matrix.python-version }}
-                ```
-
-            === "Using uv"
-
-                ```yaml linenums="1" title="tests.yaml"
-                jobs:
-                  build:
-                    runs-on: ${{ matrix.os }}
-                    strategy:
-                    matrix:
-                      os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                      python-version: ["3.10", "3.11", "3.12"]
-
-                  steps:
-                    - name: Checkout
-                      uses: actions/checkout@v5
-
-                    - name: Setup uv
-                      uses: astral-sh/setup-uv@v7
-                      with:
-                        python-version: ${{ matrix.python-version }}
-                ```
+                - name: Setup uv
+                  uses: astral-sh/setup-uv@v7
+                  with:
+                    python-version: ${{ matrix.python-version }}
+            ```
 
     4. If you push the above changes you will maybe see that whenever one of the tests in the matrix fails, it will
         automatically cancel the other tests. This is for saving time and resources. However, sometimes you want all the
@@ -184,38 +145,24 @@ Let's take a look at how a GitHub workflow file is organized:
                     python-version: ["3.10", "3.11", "3.12"]
             ```
 
-7. As the workflow is currently implemented, GitHub actions will destroy every downloaded package
+6. As the workflow is currently implemented, GitHub actions will destroy every downloaded package
     when the workflow has been executed. To improve this we can take advantage of `caching`:
 
     1. Figure out how to implement `caching` in your workflow file. You can find a guide
         [in the GitHub caching guide](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows)
         and
-        [in the setup-python caching documentation](https://github.com/actions/setup-python#caching-packages-dependencies)
-        .
+        [in the setup-uv documentation](https://github.com/astral-sh/setup-uv#caching).
 
         ??? success "Solution"
 
-            === "Using pip"
-
-                ```yaml linenums="1" title="tests.yaml"
-                steps:
-                - uses: actions/checkout@v5
-                - uses: actions/setup-python@v5
-                  with:
-                    python-version: 3.12
-                    cache: 'pip' # caching pip dependencies
-                ```
-
-            === "Using uv"
-
-                ```yaml linenums="1" title="tests.yaml"
-                steps:
-                - uses: actions/checkout@v5
-                - uses: astral-sh/setup-uv@v7
-                  with:
-                    python-version: 3.12
-                    enable-cache: true
-                ```
+            ```yaml linenums="1" title="tests.yaml"
+            steps:
+            - uses: actions/checkout@v5
+            - uses: astral-sh/setup-uv@v7
+              with:
+                python-version: 3.12
+                enable-cache: true
+            ```
 
     2. When you have implemented a caching system go to `Actions->Caches` in your repository and make sure that they
         are correctly added. It should look something like the image below.
@@ -227,12 +174,12 @@ Let's take a look at how a GitHub workflow file is organized:
     3. Measure how long your workflow takes before and after adding `caching`. Did caching improve the
         runtime of your workflow?
 
-8. (Optional) Code coverage can also be added to the workflow file by uploading it as an artifact
+7. (Optional) Code coverage can also be added to the workflow file by uploading it as an artifact
     after running the coverage. Follow the instructions in this
     [post](https://about.codecov.io/blog/python-code-coverage-using-github-actions-and-codecov/)
     on how to do it.
 
-9. With different checks in place, it is a good time to learn about *branch protection rules*. A branch
+8. With different checks in place, it is a good time to learn about *branch protection rules*. A branch
     protection rule is essentially some kind of guard that prevents you from merging code into a branch before
     certain conditions are met. In this exercise, we will create a branch protection rule that requires all checks to
     pass before merging code into the main branch.
@@ -298,7 +245,7 @@ Let's take a look at how a GitHub workflow file is organized:
         ![Image](../figures/branch_protection_rules3.png){ width="800" }
         </figure>
 
-10. (Optional, only continue if you done module [M8 - DVC](../s2_organisation_and_version_control/dvc.md) on data
+9. (Optional, only continue if you done module [M8 - DVC](../s2_organisation_and_version_control/dvc.md) on data
     version control) One problem you may have encountered is running tests that have to do with your data, with the core
     problem being that your data is not stored on GitHub (assuming you have  and therefore cannot be tested. However, we
     can download data while running our continuous integration. Let's try to create that.
@@ -356,7 +303,7 @@ Let's take a look at how a GitHub workflow file is organized:
     4. Finally, add the changes, commit, push and confirm that everything works as expected. You should now be able to
         run unit tests that depend on your input data.
 
-11. In [module M6 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
+10. In [module M6 on good coding practices](../s2_organisation_and_version_control/good_coding_practice.md)
     (optional module) of the course you were introduced to a couple of good coding practices such as being consistent
     with your coding style, how your Python packages are sorted and that your code follows certain standards. All this
     was done using the `ruff` framework. In this set of exercises, we will create GitHub workflows that will
@@ -364,7 +311,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     1. Create a new workflow file called `codecheck.yaml`, that implements the following three steps:
 
-        * Sets up Python or uv environment
+        * Sets up uv environment
 
         * Installs `ruff`
 
@@ -374,21 +321,11 @@ Let's take a look at how a GitHub workflow file is organized:
 
         ??? success "Solution"
 
-            === "Using pip"
+            !!! example "`codecheck.yaml`"
 
-                !!! example "`codecheck.yaml`"
-
-                    ```python linenums="1" title="tests.yaml"
-                    --8<-- "s5_continuous_integration/exercise_files/format_pip.yaml"
-                    ```
-
-            === "Using uv"
-
-                !!! example "`codecheck.yaml`"
-
-                    ```python linenums="1" title="tests.yaml"
-                    --8<-- "s5_continuous_integration/exercise_files/format_uv.yaml"
-                    ```
+                ```python linenums="1" title="tests.yaml"
+                --8<-- "s5_continuous_integration/exercise_files/format.yaml"
+                ```
 
     2. In addition to `ruff` we also used `mypy` in those sets of exercises for checking if the typing we added to our
         code was good enough. Add another step to the `codecheck.yaml` file that runs `mypy` on your repository.
@@ -396,7 +333,7 @@ Let's take a look at how a GitHub workflow file is organized:
     3. Try to make sure that all steps are passed on the repository. Especially `mypy` can be hard to get passing, so this
         exercise formally only requires you to get `ruff` passing.
 
-12. (Optional) As you have probably already experienced in module [M9 on docker](../s3_reproducibility/docker.md), it can
+11. (Optional) As you have probably already experienced in module [M9 on docker](../s3_reproducibility/docker.md), it can
     be cumbersome to build docker images, sometimes taking a couple of minutes to build each time we make changes to our
     code base. For this reason, we just want to build a new image every time we commit our code because that should mark
     that we believe the code to be working at that point. Thus, let's automate the process of building our docker images
@@ -481,30 +418,17 @@ have in your code.
 
     ??? success "Solution"
 
-        The following code will check for updates in the `pip` ecosystem every week, i.e. it automatically will look
-        for `requirements.txt` files and update the packages in there.
+        The following code will check for updates in the `uv` ecosystem every week, i.e. it automatically will look
+        for `pyproject.toml` files and update the packages in there.
 
-        === "Using pip"
-
-            ```yaml
-            version: 2
-            updates:
-            - package-ecosystem: "pip"
-              directory: "/"
-              schedule:
-                interval: "weekly"
-            ```
-
-        === "Using uv"
-
-            ```yaml
-            version: 2
-            updates:
-            - package-ecosystem: "uv"
-              directory: "/"
-              schedule:
-                interval: "weekly"
-            ```
+        ```yaml
+        version: 2
+        updates:
+        - package-ecosystem: "uv"
+          directory: "/"
+          schedule:
+            interval: "weekly"
+        ```
 
 2. Push the changes to your repository and check that the dependabot is working by going to the `Insights` tab and
     then the `Dependency graph` tab. From here under the `Dependabot` tab you should be able to see if the bot has
@@ -518,25 +442,11 @@ have in your code.
     can try to click the `Check for updates` button to force Dependabot to check for updates.
 
 3. At this point the Dependabot should hopefully have found some updates and created one or more pull requests. If it
-    has not done so you most likely need to update your requirement file such that your dependencies are correctly
-    restricted/specified e.g.
-
-    ```txt
-    # lets assume pytorch v2.5 is the latest version
-
-    # these different specifications will not trigger dependabot because
-    # the latest version is included in the specification
-    torch
-    torch == 2.5
-    torch >= 2.5
-    torch ~= 2.5
-
-    # these specifications will trigger dependabot because the latest
-    # version is not included
-    torch < 2.5
-    torch == 2.4
-    torch <= 2.4
-    ```
+    has not done so you most likely need to update your `pyproject.toml` file such that your dependencies are correctly
+    restricted/specified. For example, if you have a dependency like `torch = ">=2.5"` and the latest version is `2.5`,
+    then Dependabot will not create a pull request because the latest version is already included in the specification.
+    However, if you have `torch = "<2.5"` or `torch = "==2.4"`, then Dependabot will create a pull request to update
+    to the latest version.
 
     If you have a pull request from Dependabot, check it out and see if it looks good. If it does, you can merge it.
 

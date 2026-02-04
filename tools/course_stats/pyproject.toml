@@ -1,0 +1,19 @@
+[project]
+name = "course-stats"
+version = "0.1.0"
+description = "Course statistics generator for DTU MLOps course"
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "matplotlib==3.9.2",
+  "openai>=1.59.8",
+  "pydantic-ai>=0.0.19",
+  "typer==0.15.1",
+  "wordcloud==1.9.4",
+]
