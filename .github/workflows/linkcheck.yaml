@@ -2,9 +2,9 @@ name: Check Markdown links
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
   schedule:
     - cron: "0 13 * * 1"  # run every Monday at 13:00 UTC
 
