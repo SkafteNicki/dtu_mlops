@@ -1,8 +1,7 @@
 .PHONY: *
 
 requirements:
-	pip install -r requirements_backend.txt
-	pip install -r requirements_frontend.txt
+	uv sync --all-groups --no-install-project
 
 backend:
 	uvicorn backend:app
@@ -16,6 +15,7 @@ request_backend:
 
 frontend:
 	BACKEND=http://127.0.0.1:8000 streamlit run frontend.py
+
 
 build:
 	docker build -t backend:latest -f backend.dockerfile .

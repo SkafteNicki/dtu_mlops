@@ -2370,24 +2370,25 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 </li>
 <li>
 <p>When you have access to the cluster we are going to start with the setup phase. In the setup phase we are going
-    to setup the environment necessary for our computations. If you have accessed the cluster through graphical interface
-    start by opening a terminal.</p>
+    to setup the environment necessary for our computations. If you have accessed the cluster through graphical
+    interface start by opening a terminal.</p>
 <ol>
 <li>
-<p>Lets start by setting up conda for controlling our dependencies. If you have not already worked with <code>conda</code>,
+<p>Lets start by setting up uv for controlling our dependencies. If you have not already worked with uv,
     please checkout module
     <a href="../../s1_development_environment/package_manager/">M2 on package managers and virtual environments</a>. In general
-    you should be able to setup (mini)conda through these two commands:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>wget<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sh<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
+    you should be able to setup uv through these commands:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
 </span></code></pre></div>
 </li>
 <li>
-<p>Close the terminal and open a new for the installation to complete. Type <code>conda</code> in the terminal to check that
-    everything is fine. Go ahead and create a new environment that we can install dependencies in</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hpc_env&quot;</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>--no-default-packages
+<p>Close the terminal and open a new for the installation to complete. Type <code>uv --version</code> in the terminal to check
+    that everything is fine. Go ahead and create a new virtual environment that we can install dependencies in</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>venv<span class="w"> </span>hpc_env<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.10
 </span></code></pre></div>
-<p>and activate it.</p>
+<p>and activate it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">source</span><span class="w"> </span>hpc_env/bin/activate
+</span></code></pre></div>
 </li>
 <li>
 <p>Copy over any files you need. For the image classifier script you need the
@@ -2398,15 +2399,16 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 <li>
 <p>Next, install all the requirements you need. If you want to run the image classifier script you can run this
     command in the terminal</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>image_classifier_requirements.txt
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>sync
 </span></code></pre></div>
-<p>using this <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/image_classifier_requirements.txt">requirements file</a>.</p>
+<p>using this <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/pyproject.toml">pyproject.toml file</a>
+(or if using a requirements.txt file, use <code>uv pip install -r image_classifier_requirements.txt</code>).</p>
 </li>
 </ol>
 </li>
 <li>
 <p>That's all the setup needed. You would need to go through the creating of environment and installation of requirements
-    whenever you start a new project (no need for reinstalling conda). For the next step we need to look at how to submit
+    whenever you start a new project (no need for reinstalling uv). For the next step we need to look at how to submit
     jobs on the cluster. We are now ready to submit the our first job to the cluster:</p>
 <ol>
 <li>
@@ -2426,7 +2428,7 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 </li>
 <li>
 <p>Try to submit the script:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>bsub<span class="w"> </span>&lt;<span class="w"> </span>jobscript.sh
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>bsub<span class="w"> </span>&lt;<span class="w"> </span>jobscript.sh
 </span></code></pre></div>
 <p>You can check the status of your script by running the <code>bstat</code> command. Hopefully, the job should go through
 really quickly. Take a look at the output file, it should be called something like <code>gpu_*.out</code>. Also take a
@@ -2442,29 +2444,28 @@ look at the <code>gpu_*.err</code> file. Does both files look as they should?</p
     software to suit the needs of all their users, and it is the users that are in charge of <em>loading</em> the correct
     software during job submission. The only extra software that needs to be loaded for most PyTorch applications
     are a CUDA module. You can check which modules are available on the cluster with</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>module<span class="w"> </span>avail
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>module<span class="w"> </span>avail
 </span></code></pre></div>
 <p>Afterwards, add the correct CUDA version you need to the <code>jobscript.sh</code> file. If you are trying to run the
 provided image classifier script then the correct version is <code>CUDA/11.7</code> (can be seen in the requirements file).</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># add to the bottom of the file</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>module<span class="w"> </span>load<span class="w"> </span>cuda/11.7
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># add to the bottom of the file</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>module<span class="w"> </span>load<span class="w"> </span>cuda/11.7
 </span></code></pre></div>
 </li>
 <li>
 <p>We are now ready to add in our application. The only thing we need to take care of is telling the system to run
     it using the <code>python</code> version that is connected to our <code>hpc_env</code> we created in the beginning. Try typing:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>which<span class="w"> </span>python
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>which<span class="w"> </span>python
 </span></code></pre></div>
 <p>which should give you the full path. Then add to the bottom of the <code>jobscript</code> file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>~/miniconda3/envs/hpc_env/bin/python<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span>image_classifier.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span>--trainer.accelerator<span class="w"> </span><span class="s1">&#39;gpu&#39;</span><span class="w"> </span>--trainer.devices<span class="w"> </span><span class="m">1</span><span class="w">  </span>--trainer.max_epochs<span class="w"> </span><span class="m">5</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>run<span class="w"> </span>image_classifier.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span>--trainer.accelerator<span class="w"> </span><span class="s1">&#39;gpu&#39;</span><span class="w"> </span>--trainer.devices<span class="w"> </span><span class="m">1</span><span class="w">  </span>--trainer.max_epochs<span class="w"> </span><span class="m">5</span>
 </span></code></pre></div>
 <p>which will run the image classifier script (change it if you are running something else).</p>
 </li>
 <li>
 <p>Finally submit the job:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>bsub<span class="w"> </span>&lt;<span class="w"> </span>jobscript.sh
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>bsub<span class="w"> </span>&lt;<span class="w"> </span>jobscript.sh
 </span></code></pre></div>
 <p>and check when it is done that it has produced what you expected.</p>
 </li>
@@ -2500,7 +2501,7 @@ provided image classifier script then the correct version is <code>CUDA/11.7</co
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41">November 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 06:19:26">February 4, 2026</span>
   </span>
 
     
