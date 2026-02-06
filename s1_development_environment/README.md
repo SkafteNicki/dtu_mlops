@@ -32,7 +32,7 @@
 </div>
 
 Today, we begin our exploration of machine learning operations (MLOps). Before diving in, we need to ensure a basic
-understanding of several key topics that we'll use throughout the course. This session focuses on setting up a suitable
+understanding of several key topics that we will use throughout the course. This session focuses on setting up a suitable
 development environment. Many of you likely have prior experience with these topics, so this will primarily serve as a
 review.
 
