@@ -334,7 +334,7 @@ As we begin to move into the next couple of learning modules, we are going to en
 to interact with. Here is an example of a long command that you might need to run in your project in the future:
 
 ```bash
-docker run -v $(pwd):/app -w /app --gpus all --rm -it my_image:latest python my_script.py --arg1 val1 --arg2 val2
+docker run -v $(pwd):/app -w /app --gpus all --rm -it my_image:latest
 ```
 
 This can be a lot to remember, and it can be easy to make mistakes. Instead, it would be nice if we could just do
