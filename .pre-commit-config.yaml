@@ -14,7 +14,7 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.13
+    rev: v0.16.7
     hooks:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
@@ -22,14 +22,14 @@ repos:
       - id: ruff
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.3
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
         exclude: pyproject.toml
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.47.0
+    rev: v0.49.1
     hooks:
       - id: markdownlint
         args: ["-c", ".github/markdownlint.json"]
@@ -40,12 +40,12 @@ repos:
       - id: typos
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.11.1
+    rev: v2.29.4
     hooks:
       - id: pyproject-fmt
         additional_dependencies: [tox]
 
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.24.1
+    rev: '0.26'
     hooks:
       - id: validate-pyproject
