@@ -2473,14 +2473,14 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 <li>
 <p>Next we are going to initialize a database that we can read and write to. For this exercises we are going
     to focus on a locally stored database but it could of course also be located in the cloud.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE DATABASE IF NOT EXISTS example&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE DATABASE IF NOT EXISTS example"</span>
 </span></code></pre></div>
 <p>you can also do this directly in Python when calling the <code>create_study</code> command by also setting the
 <code>storage</code> and <code>load_if_exists=True</code> flags.</p>
 </li>
 <li>
 <p>Now we are going to create a Optuna study in our database</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>optuna<span class="w"> </span>create-study<span class="w"> </span>--study-name<span class="w"> </span><span class="s2">&quot;distributed-example&quot;</span><span class="w"> </span>--storage<span class="w"> </span><span class="s2">&quot;mysql://root@localhost/example&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>optuna<span class="w"> </span>create-study<span class="w"> </span>--study-name<span class="w"> </span><span class="s2">"distributed-example"</span><span class="w"> </span>--storage<span class="w"> </span><span class="s2">"mysql://root@localhost/example"</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -2489,7 +2489,7 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 </span></code></pre></div>
 <p>then do</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">load_study</span><span class="p">(</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">study_name</span><span class="o">=</span><span class="s2">&quot;distributed-example&quot;</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="s2">&quot;mysql://root@localhost/example&quot;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">study_name</span><span class="o">=</span><span class="s2">"distributed-example"</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="s2">"mysql://root@localhost/example"</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>where the <code>study_name</code> and <code>storage</code> should match how the study was created.</p>
