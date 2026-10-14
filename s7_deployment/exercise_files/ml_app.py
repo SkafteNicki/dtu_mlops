@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 import torch
 from fastapi import FastAPI, File, UploadFile
 from PIL import Image
-from transformers import AutoTokenizer, VisionEncoderDecoderModel, ViTFeatureExtractor
+from transformers import AutoTokenizer, VisionEncoderDecoderModel, ViTImageProcessor
 
 
 @asynccontextmanager
@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
     global model, feature_extractor, tokenizer, device, gen_kwargs
     print("Loading model")
     model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-    feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
+    feature_extractor = ViTImageProcessor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
     tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
