@@ -1,7 +1,7 @@
 # Automated AI review of pull requests, using the OpenCode CLI and the
 # code-review-and-quality skill. Requires an OPENCODE_API_KEY repository
-# secret (free models are served by the opencode provider). Fork PRs have no
-# access to the secret and fail early with a clear message.
+# secret (free models are served by the opencode provider). Fork PRs cannot
+# access that secret, so they are skipped.
 name: OpenCode review
 
 on:
@@ -20,7 +20,9 @@ jobs:
   review:
     name: AI review
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository
     timeout-minutes: 15
     env:
       OPENCODE_VERSION: "1.19.1"
