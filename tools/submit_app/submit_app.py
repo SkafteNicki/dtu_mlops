@@ -5,7 +5,7 @@ Run locally with (from root folder)
 """
 
 import csv
-import datetime
+import datetime as dt
 import os
 import sys
 
@@ -79,7 +79,7 @@ def send_to_dropbox_and_get_group_nb(
                 csv_writer.writerow([new_group_nb, student1, student2, student3, student4, student5, github_repo])
             file_to_upload = "latest_info.csv"
 
-        now = datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")
+        now = dt.datetime.now(tz=dt.UTC).strftime("%Y_%m_%d_%H_%M_%S")
         with open(file_to_upload, "rb") as f:
             dbx.files_upload(f.read(), f"/{now}_info.csv")
         with open(file_to_upload, "rb") as f:
