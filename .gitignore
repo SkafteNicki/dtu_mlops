@@ -178,3 +178,10 @@ tools/to_pdf/**/*.pdf
 
 # vscode
 .vscode/
+
+# terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+crash.log

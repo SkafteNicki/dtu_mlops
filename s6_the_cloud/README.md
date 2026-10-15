@@ -16,6 +16,12 @@
 
     [:octicons-arrow-right-24: M21: Cloud Services](using_the_cloud.md)
 
+- ![](../figures/icons/opentofu.png){align=right : style="height:100px;width:100px"}
+
+    Learn how to use infrastructure as code to manage your cloud resources.
+
+    [:octicons-arrow-right-24: M22: Infrastructure as Code](infrastructure_as_code.md)
+
 </div>
 
 Running computations locally is often sufficient when only playing around with code in the initial phase of development.
@@ -62,3 +68,4 @@ or going through the [general docs](https://cloud.google.com/docs).
     * Know how to implement continuous integration workflows for the building of docker images
     * Knowledge about how to store data and containers/artifacts in cloud buckets
     * Being able to train simple deep-learning models using a combination of cloud services
+    * Being able to orchestrate machine learning pipelines in the cloud using infrastructure as code (IaC)

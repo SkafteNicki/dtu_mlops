@@ -83,11 +83,15 @@ Content tabs are used to group alternatives together, for example different ways
 
 ```markdown
 === "Using uv"
+
     ```bash
     uv run python script.py
     ```
+
 === "Using python directly"
+
     ```bash
     python script.py
     ```
+
 ```

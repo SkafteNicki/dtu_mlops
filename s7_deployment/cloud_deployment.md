@@ -235,6 +235,29 @@ deploying containers.
 
 ### ❔ Exercises
 
+!!! tip "Infrastructure as Code Connection"
+
+    If you completed the optional **Exercise 11** in [M22 Infrastructure as Code](../s6_the_cloud/infrastructure_as_code.md), 
+    you've already provisioned a dedicated service account for Cloud Run deployments with the necessary permissions to pull 
+    container images from Artifact Registry.
+
+    You can retrieve the service account email with:
+
+    ```bash
+    cd infrastructure/  # Navigate to your OpenTofu directory
+    tofu output cloud_run_service_account_email
+    ```
+
+    When deploying Cloud Run services below, you can include this service account using the `--service-account` flag for 
+    better security and resource isolation:
+
+    ```bash
+    --service-account=$(cd ../infrastructure && tofu output -raw cloud_run_service_account_email)
+    ```
+
+    If you didn't complete the IaC exercise, you can proceed with the default service account that GCP provides—the 
+    commands below will work either way.
+
 1. We are going to start locally by developing a small app that we can deploy. We provide two small examples to choose
     from: first is a small FastAPI app consisting of a single Python script and a docker file. The second is a small
     Streamlit app (which you can learn more about in [this module](frontend.md)) consisting of a single docker file.
