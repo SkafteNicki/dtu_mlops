@@ -2,7 +2,7 @@ name: OpenCode review
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: read
