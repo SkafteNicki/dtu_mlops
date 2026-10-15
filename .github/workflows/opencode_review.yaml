@@ -51,10 +51,13 @@ jobs:
       - name: Run AI review
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          OPENCODE_PERMISSION: '{"skill":{"*":"allow"}}'
+          TITLE: ${{ github.event.pull_request.title }}
         run: |
+          prompt="You are an automated code reviewer for a pull request. First, load and follow the \`code-review-and-quality\` skill. Review the pull request titled \"$TITLE\": the attached pr.diff contains the exact changes under review. Evaluate the changes across the skill's five axes (correctness, readability, architecture, security, performance), label every finding with a severity (Critical, Required, Optional, or Nit), lead with the highest-leverage issues, give concrete and actionable suggestions, and finish with a short verdict. The comment must be the review itself, written as concise Markdown titled 'Automated review'. Do not modify any files."
           opencode run \
             --model "${{ steps.model.outputs.name }}" \
-            "You are an automated code reviewer for a pull request. The attached pr.diff contains the exact changes under review. Respond with a concise Markdown review titled 'Automated review'. Point out bugs and code quality issues, flag anything missing (tests, docs, error handling), and give concrete suggestions. If the changes look good, say so. Do not modify any files." \
+            "$prompt" \
             --file /tmp/pr.diff \
             > /tmp/review.md
           sed -i 's/\x1b\[[0-9;]*[a-zA-Z]//g' /tmp/review.md
