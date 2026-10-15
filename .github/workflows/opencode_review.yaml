@@ -46,7 +46,7 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: git diff --no-color "$BASE_SHA" "$HEAD_SHA" > /tmp/pr.diff
+        run: git diff --no-color "$BASE_SHA...$HEAD_SHA" > /tmp/pr.diff
 
       - name: Run AI review
         env:
