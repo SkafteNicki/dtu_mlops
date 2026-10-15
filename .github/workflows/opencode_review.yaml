@@ -1,0 +1,65 @@
+name: OpenCode review
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    name: AI review
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install OpenCode
+        run: |
+          curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+
+      - name: Pick an available free model
+        id: model
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: |
+          if [ -z "$OPENCODE_API_KEY" ]; then
+            echo "The OPENCODE_API_KEY secret is not set." >&2
+            exit 1
+          fi
+          opencode models | tee /tmp/available_models.txt
+          model=$(grep -E -- '-free$' /tmp/available_models.txt | head -n 1)
+          if [ -z "$model" ]; then
+            echo "No free model available, falling back to the first listed model." >&2
+            model=$(head -n 1 /tmp/available_models.txt)
+          fi
+          echo "Selected model: $model"
+          echo "name=$model" >> "$GITHUB_OUTPUT"
+
+      - name: Generate PR diff
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: git diff --no-color "$BASE_SHA" "$HEAD_SHA" > /tmp/pr.diff
+
+      - name: Run AI review
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: |
+          opencode run \
+            --model "${{ steps.model.outputs.name }}" \
+            "You are an automated code reviewer for a pull request. The attached pr.diff contains the exact changes under review. Respond with a concise Markdown review titled 'Automated review'. Point out bugs and code quality issues, flag anything missing (tests, docs, error handling), and give concrete suggestions. If the changes look good, say so. Do not modify any files." \
+            --file /tmp/pr.diff \
+            > /tmp/review.md
+          sed -i 's/\x1b\[[0-9;]*[a-zA-Z]//g' /tmp/review.md
+
+      - name: Post review comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/review.md
