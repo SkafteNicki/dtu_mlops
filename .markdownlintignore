@@ -1,2 +1,2 @@
-# Vendored third-party agent skills (kept in sync with their upstream source).
-.agents/skills/
+# Vendored third-party agent skill (not linted).
+.agents/skills/code-review-and-quality/
