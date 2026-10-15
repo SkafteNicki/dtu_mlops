@@ -6,7 +6,7 @@ name: OpenCode review
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
   contents: read
@@ -40,16 +40,14 @@ jobs:
           fetch-depth: 0
 
       - name: Install OpenCode
-        run: |
-          curl -fsSL https://opencode.ai/install | bash -s -- --version "$OPENCODE_VERSION"
-          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+        run: npm install -g opencode-ai@"$OPENCODE_VERSION"
 
       - name: Pick an available free model
         id: model
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         run: |
-          opencode models | tee /tmp/available_models.txt
+          opencode models | LC_ALL=C sed -E 's/\x1B\[[0-9;]*[ -/]*[@-~]//g' | tee /tmp/available_models.txt
           model=$(grep -E '^opencode/.*-free$' /tmp/available_models.txt | head -n 1)
           if [ -z "$model" ]; then
             model=$(grep -E -- '-free$' /tmp/available_models.txt | head -n 1)
