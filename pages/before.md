@@ -184,10 +184,10 @@ can sometimes lead to issues when working with command line tools. The core poin
 separated into different virtual environments. This way, you can avoid dependency conflicts between the different parts
 of this course. Additionally, we recommend making each sub-folder a git repository on its own.
 
-If you are using a coding agent such as Claude Code, Codex or Cursor during the course, always start it from the folder
-of the task you are working on, e.g. from `exercises/exercise_s2_m1/` or `<exam-project>/`. At the end of the course you
-need to [hand in your agent traces](projects.md#hand-in-of-coding-agent-traces), and the folder that the agent was
-started from is used to determine which part of the course a session belongs to.
+If you are using a coding agent such as Claude Code, Codex or Cursor during the course, either start it from the course
+root or from the folder of the task you are working on, e.g. from `exercises/exercise_s2_m1/` or `<exam-project>/`. At
+the end of the course you need to [hand in your agent traces](projects.md#hand-in-of-coding-agent-traces), and the
+folder that the agent was started from is used to determine which part of the course a session belongs to.
 
 If you need example code, exercise files or solutions from the course repository (the `dtu_mlops/` folder) you can
 simply copy them over into the relevant project folder.

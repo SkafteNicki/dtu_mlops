@@ -1,6 +1,10 @@
 site_name: DTU-MLOps
 docs_dir: .
 site_dir: ../site
+exclude_docs: |
+  docs/agents/
+  docs/adr/
+  GLOSSARY.md
 repo_url: https://github.com/SkafteNicki/dtu_mlops
 edit_uri: edit/main/
 copyright: Copyright &copy; 2021 - 2026 Nicki Skafte Detlefsen
