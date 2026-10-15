@@ -65,7 +65,11 @@ jobs:
       - name: Run AI review
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_PERMISSION: '{"skill":{"*":"allow"},"read":"deny","grep":"deny","glob":"deny","lsp":"deny","edit":"deny","bash":"deny","webfetch":"deny","task":"deny","websearch":"deny"}'
+          # Denying a tool removes it from the request, and OpenCode's free tier
+          # rejects requests that omit read/grep/glob. So we only deny the
+          # tools that can mutate state or reach the network, and rely on the
+          # prompt to treat the diff as data rather than instructions.
+          OPENCODE_PERMISSION: '{"skill":{"*":"allow"},"edit":"deny","bash":"deny","webfetch":"deny","task":"deny","websearch":"deny"}'
           TITLE: ${{ github.event.pull_request.title }}
           MODEL: ${{ steps.model.outputs.name }}
         run: |
