@@ -19,6 +19,7 @@ repos:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
       - id: ruff-format
+        types_or: [python, pyi, jupyter]
       - id: ruff
 
   - repo: https://github.com/codespell-project/codespell
