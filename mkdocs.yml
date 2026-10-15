@@ -135,22 +135,23 @@ nav:
     - M22 - Requests and APIs: s7_deployment/apis.md
     - M23 - Cloud Deployment: s7_deployment/cloud_deployment.md
     - M24 - API Testing: s7_deployment/testing_apis.md
-    - M25 - ML deployment: s7_deployment/ml_deployment.md
-    - M26 - Frontend: s7_deployment/frontend.md
+    - M25 - Deployment Testing: s7_deployment/deployment_testing.md
+    - M26 - ML deployment: s7_deployment/ml_deployment.md
+    - M27 - Frontend: s7_deployment/frontend.md
   - S8 - Monitoring 📊:
     - s8_monitoring/README.md
-    - M27 - Data Drifting: s8_monitoring/data_drifting.md
-    - M28 - System Monitoring: s8_monitoring/monitoring.md
+    - M28 - Data Drifting: s8_monitoring/data_drifting.md
+    - M29 - System Monitoring: s8_monitoring/monitoring.md
   - S9 - Scalable applications ⚖️:
     - s9_scalable_applications/README.md
-    - M29 - Distributed Data Loading: s9_scalable_applications/data_loading.md
-    - M30 - Distributed Training: s9_scalable_applications/distributed_training.md
-    - M31 - Scalable Inference: s9_scalable_applications/inference.md
+    - M30 - Distributed Data Loading: s9_scalable_applications/data_loading.md
+    - M31 - Distributed Training: s9_scalable_applications/distributed_training.md
+    - M32 - Scalable Inference: s9_scalable_applications/inference.md
   - S10 - Extra 🔥:
     - s10_extra/README.md
-    - M32 - Documentation: s10_extra/documentation.md
-    - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
-    - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
+    - M33 - Documentation: s10_extra/documentation.md
+    - M34 - Hyperparameter optimization: s10_extra/hyperparameters.md
+    - M35 - High Performance Clusters: s10_extra/high_performance_clusters.md
   - Summary: pages/overview.md
   - Time plan: pages/timeplan.md
   - Projects: pages/projects.md
