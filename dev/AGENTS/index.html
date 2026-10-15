@@ -2230,6 +2230,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#agent-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent skills
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-tracker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue tracker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triage-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triage labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain docs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2315,6 +2365,7 @@ root of the repository. This means that:</p>
     <code>uv run invoke &lt;task_name&gt;</code>. Run <code>uv run invoke --list</code> to see all available tasks.</li>
 <li>Project uses <code>pre-commit</code> for git hooks. Make sure to run the pre-commit hooks after making changes to the codebase:
     <code>uv run pre-commit</code></li>
+<li>Pull requests should target the <code>dev</code> branch unless otherwise stated. <code>main</code> is the published version of the course.</li>
 </ul>
 <h2 id="material-mkdocs-specific-instructions">Material mkdocs specific instructions</h2>
 <p>The project uses the <code>material for mkdocs</code> theme for mkdocs. You can find the documentation for this theme here:
@@ -2378,6 +2429,14 @@ actual code files.</p>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span>python<span class="w"> </span>script.py
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="sb">    ```</span>
 </span></code></pre></div>
+<h2 id="agent-skills">Agent skills</h2>
+<h3 id="issue-tracker">Issue tracker</h3>
+<p>Issues are tracked in GitHub Issues for <code>SkafteNicki/dtu_mlops</code> (via the <code>gh</code> CLI). See <code>docs/agents/issue-tracker.md</code>.</p>
+<h3 id="triage-labels">Triage labels</h3>
+<p>Uses the default label vocabulary: <code>needs-triage</code>, <code>needs-info</code>, <code>ready-for-agent</code>, <code>ready-for-human</code>, <code>wontfix</code>. See
+<code>docs/agents/triage-labels.md</code>.</p>
+<h3 id="domain-docs">Domain docs</h3>
+<p>Single-context: one <code>GLOSSARY.md</code> and <code>docs/adr/</code> at the repo root. See <code>docs/agents/domain.md</code>.</p>
 
 
 
@@ -2400,7 +2459,7 @@ actual code files.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 27, 2026 12:48:31">January 27, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2026 12:43:20">October 15, 2026</span>
   </span>
 
     
