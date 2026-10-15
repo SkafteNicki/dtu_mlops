@@ -65,7 +65,7 @@ jobs:
       - name: Run AI review
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_CONFIG_CONTENT: '{"agent":{"build":{"tools":{"bash":false,"read":false,"glob":false,"grep":false,"edit":false,"write":false,"task":false,"webfetch":false,"websearch":false,"todowrite":false,"question":false,"skill":true}}}}'
+          OPENCODE_PERMISSION: '{"skill":{"*":"allow"},"read":"deny","grep":"deny","glob":"deny","lsp":"deny","edit":"deny","bash":"deny","webfetch":"deny","task":"deny","websearch":"deny"}'
           TITLE: ${{ github.event.pull_request.title }}
           MODEL: ${{ steps.model.outputs.name }}
         run: |
