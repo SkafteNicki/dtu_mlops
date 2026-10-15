@@ -2342,37 +2342,37 @@ managers combine dependency management with virtual environment handling. Popula
 <td>uv</td>
 <td><a href="https://docs.astral.sh/uv/">🔗 Link</a></td>
 <td><a href="https://github.com/astral-sh/uv">🔗 Link</a></td>
-<td>78.5k</td>
+<td>90.8k</td>
 </tr>
 <tr>
 <td>Poetry</td>
 <td><a href="https://python-poetry.org/">🔗 Link</a></td>
 <td><a href="https://github.com/python-poetry/poetry">🔗 Link</a></td>
-<td>34.2k</td>
+<td>34.3k</td>
 </tr>
 <tr>
 <td>Pipenv</td>
 <td><a href="https://pipenv.pypa.io/en/latest/">🔗 Link</a></td>
 <td><a href="https://github.com/pypa/pipenv">🔗 Link</a></td>
-<td>25.1k</td>
+<td>25.0k</td>
 </tr>
 <tr>
 <td>Hatch</td>
 <td><a href="https://hatch.pypa.io/latest/">🔗 Link</a></td>
 <td><a href="https://github.com/pypa/hatch">🔗 Link</a></td>
-<td>7.1k</td>
+<td>7.2k</td>
 </tr>
 <tr>
 <td>PDM</td>
 <td><a href="https://pdm.fming.dev/latest/">🔗 Link</a></td>
 <td><a href="https://github.com/pdm-project/pdm">🔗 Link</a></td>
-<td>8.5k</td>
+<td>8.7k</td>
 </tr>
 <tr>
 <td>Rye</td>
 <td><a href="https://rye.astral.sh/">🔗 Link</a></td>
 <td><a href="https://github.com/astral-sh/rye">🔗 Link</a></td>
-<td>14.3k</td>
+<td>14.1k</td>
 </tr>
 </tbody>
 </table>
@@ -2406,13 +2406,13 @@ project metadata and dependency information in a structured format.</p>
 <p>When specifying package versions, you can use several operators:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project]</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s2">&quot;package1&quot;</span><span class="p">,</span><span class="w">              </span><span class="c1"># any version</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="s2">&quot;package2 == 1.2.3&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1"># exact version</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="s2">&quot;package3 &gt;= 1.2.3&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1"># at least version 1.2.3</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="s2">&quot;package4 &gt; 1.2.3&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1"># newer than version 1.2.3</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="s2">&quot;package5 &lt;= 1.2.3&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1"># at most version 1.2.3</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="s2">&quot;package6 &lt; 1.2.3&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1"># older than version 1.2.3</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="s2">&quot;package7 ~= 1.2.3&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1"># install version &gt;=1.2.3 and &lt;1.3.0</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s2">"package1"</span><span class="p">,</span><span class="w">              </span><span class="c1"># any version</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="s2">"package2 == 1.2.3"</span><span class="p">,</span><span class="w">     </span><span class="c1"># exact version</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="s2">"package3 &gt;= 1.2.3"</span><span class="p">,</span><span class="w">     </span><span class="c1"># at least version 1.2.3</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="s2">"package4 &gt; 1.2.3"</span><span class="p">,</span><span class="w">      </span><span class="c1"># newer than version 1.2.3</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="s2">"package5 &lt;= 1.2.3"</span><span class="p">,</span><span class="w">     </span><span class="c1"># at most version 1.2.3</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="s2">"package6 &lt; 1.2.3"</span><span class="p">,</span><span class="w">      </span><span class="c1"># older than version 1.2.3</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="s2">"package7 ~= 1.2.3"</span><span class="p">,</span><span class="w">     </span><span class="c1"># install version &gt;=1.2.3 and &lt;1.3.0</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">]</span>
 </span></code></pre></div>
 <p>In general, all packages (should) follow the <a href="https://semver.org/">semantic versioning</a> standard, which means that the
@@ -2424,11 +2424,11 @@ version number is based on the date of release, e.g., <code>2023.4.1</code> for 
 <p>Finally, we also need to discuss <em>dependency resolution</em>, which is the process of figuring out which packages are
 compatible. This is a complex problem with various algorithms. If a package manager takes a long time to install
 a package, it's likely due to the dependency resolution process. For example, attempting to install</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;matplotlib &gt;= 3.8.0&quot;</span><span class="w"> </span><span class="s2">&quot;numpy &lt;= 1.19&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"matplotlib &gt;= 3.8.0"</span><span class="w"> </span><span class="s2">"numpy &lt;= 1.19"</span>
 </span></code></pre></div>
 <p>would fail because there are no versions of <code>matplotlib</code> and <code>numpy</code> under the given constraints that are compatible
 with each other. In this case, we would need to relax the constraints to something like</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;matplotlib &gt;= 3.8.0&quot;</span><span class="w"> </span><span class="s2">&quot;numpy &lt;= 1.21&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"matplotlib &gt;= 3.8.0"</span><span class="w"> </span><span class="s2">"numpy &lt;= 1.21"</span>
 </span></code></pre></div>
 <p>to make it work.</p>
 <h2 id="exercises">❔ Exercises</h2>
@@ -2559,9 +2559,9 @@ same versions of all packages as specified in the <code>uv.lock</code> file.</p>
 <summary>Solution</summary>
 <p>Add the following line under the <code>[project]</code> section:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="s2">&quot;numpy&gt;=2.4.0&quot;</span><span class="p">,</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="s2">&quot;pandas&gt;=2.2.3&quot;</span><span class="p">,</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="s2">&quot;scikit-learn==1.2.2&quot;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="s2">"numpy&gt;=2.4.0"</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="s2">"pandas&gt;=2.2.3"</span><span class="p">,</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="s2">"scikit-learn==1.2.2"</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">]</span>
 </span></code></pre></div>
 <p>Afterwards, execute:</p>
@@ -2590,8 +2590,8 @@ same versions of all packages as specified in the <code>uv.lock</code> file.</p>
 <p>which will add the following section to your <code>pyproject.toml</code> file:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">[dependency-groups]</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="s2">&quot;pytest&gt;=8.3.4&quot;</span><span class="p">,</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="s2">&quot;ruff&gt;=0.14.10&quot;</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="s2">"pytest&gt;=8.3.4"</span><span class="p">,</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="s2">"ruff&gt;=0.14.10"</span><span class="p">,</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">]</span>
 </span></code></pre></div>
 </details>
@@ -2609,7 +2609,7 @@ the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afte
 <p>which will add the following line to your <code>pyproject.toml</code> file:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">[project.optional-dependencies]</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">dataframes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="s2">&quot;pandas&gt;=2.0.3&quot;</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="s2">"pandas&gt;=2.0.3"</span><span class="p">,</span>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">]</span>
 </span></code></pre></div>
 <ol>
@@ -2618,7 +2618,7 @@ the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afte
     <code>uv sync</code>. How do you install optional dependencies?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># to install optional dependencies from the &quot;dataframes&quot; group</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># to install optional dependencies from the "dataframes" group</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--group<span class="w"> </span>dataframes
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># to install all optional dependencies</span>
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>uv<span class="w"> </span>sync<span class="w"> </span>--all-groups
@@ -2633,7 +2633,7 @@ the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afte
 <p>You can specify this in the <code>pyproject.toml</code> file under the <code>[tool.uv]</code> section (see
 <a href="https://docs.astral.sh/uv/concepts/projects/dependencies/#default-groups">docs</a>):</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">[tool.uv]</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">default-groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dataframes&quot;</span><span class="p">]</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">default-groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"dev"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dataframes"</span><span class="p">]</span>
 </span></code></pre></div>
 <p>alternatively, setting <code>default-groups = "all"</code> will install all optional dependencies by default.</p>
 </details>
@@ -2669,7 +2669,7 @@ python version. This file can easily be created with the command:</p>
     multiple projects. Examples of such tools are <code>black</code>, <code>ruff</code>, <code>pytest</code> and so on (all which you will encounter
     later in the course). These tools can be installed globally on your system by using the <code>uvx</code> (or <code>uv tool</code>)
     command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>uvx<span class="w"> </span>cowsay<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;muuh&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>uvx<span class="w"> </span>cowsay<span class="w"> </span>-t<span class="w"> </span><span class="s2">"muuh"</span>
 </span></code></pre></div>
 <p>which will install the <code>cowsay</code> tool globally on your system and then execute it with the argument <code>"muuh"</code>. Try
 installing at least one tool and executing it.</p>
@@ -2682,7 +2682,7 @@ installing at least one tool and executing it.</p>
 <p>I have personally found that typing <code>uv run</code> before every command can get a bit tedious. Therefore, I recommend
 creating a shell alias to simplify this. For example, in <code>bash</code> or <code>zsh</code>, you can add the following line to your
 <code>.bashrc</code> or <code>.zshrc</code> file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">uvr</span><span class="o">=</span><span class="s1">&#39;uv run&#39;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">uvr</span><span class="o">=</span><span class="s1">'uv run'</span>
 </span></code></pre></div>
 <p>and then you can simply use <code>uvr</code> instead of <code>uv run</code>.</p>
 </div>
@@ -2690,13 +2690,13 @@ creating a shell alias to simplify this. For example, in <code>bash</code> or <c
 <ol>
 <li>
 <p>Try executing the command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;pytest &lt; 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"pytest &lt; 4.6"</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
 <p>based on the error message you get, what would be a compatible way to install these?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>As <code>pytest-cov==2.12.1</code> requires a version of <code>pytest</code> newer than <code>4.6</code>, we can simply change the command to be:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;pytest &gt;= 4.6&quot;</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"pytest &gt;= 4.6"</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
 <p>but there of course exist other solutions as well.</p>
 </details>

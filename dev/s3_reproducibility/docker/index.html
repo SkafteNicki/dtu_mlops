@@ -2413,12 +2413,12 @@ beneficial for you to download.</p>
 <ol>
 <li>
 <p>Start by <a href="https://docs.docker.com/get-docker/">installing docker</a>. How much trouble you need to go through
-    depends on your operating system. For macOS users, we recommend installing <a href="https://orbstack.dev/">OrbStack</a><em>,
-    which is a lightweight, fast, and user-friendly alternative to </em>Docker Desktop<em> with a more intuitive GUI. For
-    Windows users, we recommend you install </em>Docker Desktop<em>, which comes with a graphical user interface (GUI)
+    depends on your operating system. For macOS users, we recommend installing <a href="https://orbstack.dev/">OrbStack</a>*,
+    which is a lightweight, fast, and user-friendly alternative to <em>Docker Desktop</em> with a more intuitive GUI. For
+    Windows users, we recommend you install <em>Docker Desktop</em>, which comes with a graphical user interface (GUI)
     for quickly viewing docker images and docker containers currently built/in use. Windows users that have not
     installed WSL yet are going to have to do it now (as docker needs it as a backend for starting virtual machines)
-    but you do not need to install docker in WSL. macOS users can also use </em>Docker Desktop* if they prefer. After
+    but you do not need to install docker in WSL. macOS users can also use <em>Docker Desktop</em> if they prefer. After
     installing docker we recommend that you restart your laptop.</p>
 <div class="admonition note">
 <p class="admonition-title">GUI vs CLI</p>
@@ -2455,7 +2455,7 @@ shell utilities, etc.</p>
 <p>You will see that nothing happens! The reason for that is we did not provide any commands to <code>docker run</code>. We
 essentially just ask it to start the <code>busybox</code> virtual machine, do nothing, and then close it again. Now, try
 again, this time with</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello from busybox&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello from busybox"</span>
 </span></code></pre></div>
 <p>Note how fast this process is. In just a few seconds, Docker is able to start a virtual machine, execute a command,
 and kill it afterward.</p>
@@ -2540,7 +2540,7 @@ Docker? And what does the <code>--locked</code> flag do?</p>
 <li>
 <p>Finally, we are going to name our training script as the <em>entrypoint</em> for our Docker image. The <em>entrypoint</em> is
     the application that we want to run when the image is executed:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;src/&lt;project-name&gt;/train.py&quot;</span><span class="p">]</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"src/&lt;project-name&gt;/train.py"</span><span class="p">]</span>
 </span></code></pre></div>
 </li>
 </ol>
@@ -2762,9 +2762,9 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 <li>
 <p>Create a <code>devcontainer.json</code> file in the <code>.devcontainer</code> folder. This file should look something like this:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="p">{</span>
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_working_env&quot;</span><span class="p">,</span>
-</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dockerfile&quot;</span><span class="p">,</span>
-</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="w">    </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uv sync --locked&quot;</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_working_env"</span><span class="p">,</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">    </span><span class="nt">"dockerFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dockerfile"</span><span class="p">,</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="w">    </span><span class="nt">"postCreateCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uv sync --locked"</span>
 </span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>This file tells VS Code that we want to use the <code>Dockerfile</code> that we just created and that we want to install
@@ -2829,10 +2829,10 @@ This is the typical location, but it may vary depending on what distro you are r
 </div>
 <p>Find the file. The content should look similar to this (only some fields are shown):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="p">{</span>
-</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">    </span><span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
 </span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">    </span><span class="err">...</span>
 </span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="p">}</span>
 </span></code></pre></div>
