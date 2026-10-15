@@ -2,17 +2,23 @@ name: OpenCode review
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
   pull-requests: write
+
+concurrency:
+  group: opencode-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   review:
     name: AI review
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
+    env:
+      OPENCODE_VERSION: "1.19.1"
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -21,7 +27,7 @@ jobs:
 
       - name: Install OpenCode
         run: |
-          curl -fsSL https://opencode.ai/install | bash
+          curl -fsSL https://opencode.ai/install | bash -s -- --version "$OPENCODE_VERSION"
           echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
 
       - name: Pick an available free model
@@ -36,8 +42,8 @@ jobs:
           opencode models | tee /tmp/available_models.txt
           model=$(grep -E -- '-free$' /tmp/available_models.txt | head -n 1)
           if [ -z "$model" ]; then
-            echo "No free model available, falling back to the first listed model." >&2
-            model=$(head -n 1 /tmp/available_models.txt)
+            echo "No free model is currently available." >&2
+            exit 1
           fi
           echo "Selected model: $model"
           echo "name=$model" >> "$GITHUB_OUTPUT"
@@ -51,7 +57,7 @@ jobs:
       - name: Run AI review
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_PERMISSION: '{"skill":{"*":"allow"}}'
+          OPENCODE_PERMISSION: '{"skill":{"*":"allow"},"edit":"deny","bash":"deny","webfetch":"deny","task":"deny","websearch":"deny"}'
           TITLE: ${{ github.event.pull_request.title }}
           MODEL: ${{ steps.model.outputs.name }}
         run: |
@@ -61,7 +67,7 @@ jobs:
             "$prompt" \
             --file /tmp/pr.diff \
             > /tmp/review.md
-          sed -i 's/\x1b\[[0-9;]*[a-zA-Z]//g' /tmp/review.md
+          LC_ALL=C sed -i -E 's/\x1B\[[0-9;]*[ -/]*[@-~]//g' /tmp/review.md
           printf '\n---\nopencode v%s, model: %s\n' "$(opencode --version)" "$MODEL" >> /tmp/review.md
 
       - name: Post review comment
