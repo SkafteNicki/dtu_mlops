@@ -121,7 +121,8 @@ feel free to use any tool you like.
 
 Today you are finishing your project. Continue working on checking off bullet points and finish up answering the
 questions in the report. Remember that you have until midnight, where you need to hand in everything. This means that
-code and report should be committed to the main branch of your repository.
+code and report should be committed to the main branch of your repository. Additionally, each of you needs to hand in
+your [coding agent traces](#hand-in-of-coding-agent-traces) on DTU Learn.
 
 ## Project hints
 
@@ -253,3 +254,74 @@ have if you have used the template from the
 
 Which means that there must be a `reports` folder in the root of your repository and that inside this folder there must
 be a `README.md` file, which is your report.
+
+### Hand-in of coding agent traces
+
+In addition to the report, *each student* (not each group) needs to hand in the traces of the coding agents (Claude
+Code, Codex, Cursor, OpenCode, Gemini CLI etc.) that they have used during the course. We use these to get a better
+understanding of how coding agents are used when working on exercises and projects like the ones in this course. It is
+also in line with the general rules at DTU: you are allowed to use generative AI, but you must always be transparent
+about where it was used
+([study notice s1885](https://student.dtu.dk/meddelelser-og-opslag/studiemeddelelser/arkiv/studiemeddelelse-s1885-brug-af-kunstig-intelligens-generativ-ai-i-undervisning-og-eksamen-paa-dtu?lmsgid=b11f57bb-9d05-4a55-aba9-5cbc8e2a2843),
+in Danish), and DTU Library recommends that you
+[document your use of AI](https://www.bibliotek.dtu.dk/en/research-service/reference-management/kunstig-intelligens)
+by saving the prompts, results, date and model used, just like with any other tool. The agent traces are exactly this
+documentation for your coding agents. The traces are collected with the [export_agent_data.py](https://github.com/SkafteNicki/dtu_mlops/blob/main/reports/export_agent_data.py)
+script that you can find in the `reports` folder. It collects two things:
+
+* The token usage of your coding agents, using [ccusage](https://github.com/ryoppippi/ccusage)
+* The conversations with your coding agents, including tool calls, using
+    [coding-agent-traces](https://github.com/Infatoshi/traces)
+
+Importantly, the script only collects sessions that were started *inside* the folder you run it from, which should be
+your course folder (see the [recommended folder structure](before.md#recommended-folder-structure)), or any of its
+subfolders. Sessions started anywhere outside your course folder are never included, and with `--exclude dtu_mlops`
+neither are sessions started inside the course repository. Each session is tagged with the subfolder it was started in,
+so always start your coding agent from the folder of the task that you are working on, e.g.
+`cd <02476_XXX>/exercises/exercise_s2_m1` before running `claude` or `codex`.
+
+1. Make sure that you have [uv](https://docs.astral.sh/uv/) installed and either [Node.js](https://nodejs.org/) (which
+    comes with `npx`) or [bun](https://bun.sh/) (which comes with `bunx`). The script uses one of these to run `ccusage`,
+    so you do not have to install it yourself.
+
+2. Run the script from the root of your course folder. You can either run your local copy of the script or let `uv`
+    download and run the newest version directly from GitHub
+
+    === "Local copy"
+
+        Make sure that your local copy of the course repository is up to date, such that you have the newest version of
+        the script
+
+        ```bash
+        cd <02476_XXX>/dtu_mlops
+        git pull
+        cd ..
+        uv run dtu_mlops/reports/export_agent_data.py --exclude dtu_mlops
+        ```
+
+    === "Directly from GitHub"
+
+        `uv run` can also run a script from a URL. It downloads the file, installs its dependencies and runs it
+
+        ```bash
+        cd <02476_XXX>
+        uv run https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/reports/export_agent_data.py \
+            --exclude dtu_mlops
+        ```
+
+    Make sure that you run the script from the folder that contains *all* your work for the course, also if you did
+    not follow the recommended folder structure. Alternatively, use `--root` to point to that folder. For safety, the
+    script refuses to run from your home folder, because that would include all your coding agent sessions. Run with
+    `--help` to see all options.
+
+3. The script produces a file called `agent-data.zip` in your course folder. If you want to check what is inside before
+    handing it in, run the script with `--keep-dir <some-folder>` to also get an unzipped copy.
+
+4. Upload `agent-data.zip` to the coding agent traces assignment on DTU Learn before the deadline of the exam report.
+
+!!! info "What about my privacy?"
+
+    The zip file does not contain your name, username, email or git identity. We know who handed it in from DTU Learn.
+    Before anything is written to the zip file, the conversations are run through the redaction of `coding-agent-traces`,
+    which replaces secrets (API keys, tokens etc.), emails, usernames and absolute paths with placeholders. The redaction
+    is best-effort, so please never paste passwords or other secrets into your coding agent.
