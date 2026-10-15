@@ -2325,6 +2325,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Exam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hand-in-of-coding-agent-traces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hand-in of coding agent traces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2563,6 +2580,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Exam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hand-in-of-coding-agent-traces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hand-in of coding agent traces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2709,7 +2743,8 @@ feel free to use any tool you like.</p>
 <h3 id="day-6">Day 6</h3>
 <p>Today you are finishing your project. Continue working on checking off bullet points and finish up answering the
 questions in the report. Remember that you have until midnight, where you need to hand in everything. This means that
-code and report should be committed to the main branch of your repository.</p>
+code and report should be committed to the main branch of your repository. Additionally, each of you needs to hand in
+your <a href="#hand-in-of-coding-agent-traces">coding agent traces</a> on DTU Learn.</p>
 <h2 id="project-hints">Project hints</h2>
 <p>Below are listed some hints to prevent you from getting stuck during the project work with problems that previous groups
 have encountered.</p>
@@ -2844,6 +2879,78 @@ have if you have used the template from the
 </span></code></pre></div>
 <p>Which means that there must be a <code>reports</code> folder in the root of your repository and that inside this folder there must
 be a <code>README.md</code> file, which is your report.</p>
+<h3 id="hand-in-of-coding-agent-traces">Hand-in of coding agent traces</h3>
+<p>In addition to the report, <em>each student</em> (not each group) needs to hand in the traces of the coding agents (Claude
+Code, Codex, Cursor, OpenCode, Gemini CLI etc.) that they have used during the course. We use these to get a better
+understanding of how coding agents are used when working on exercises and projects like the ones in this course. It is
+also in line with the general rules at DTU: you are allowed to use generative AI, but you must always be transparent
+about where it was used
+(<a href="https://student.dtu.dk/meddelelser-og-opslag/studiemeddelelser/arkiv/studiemeddelelse-s1885-brug-af-kunstig-intelligens-generativ-ai-i-undervisning-og-eksamen-paa-dtu?lmsgid=b11f57bb-9d05-4a55-aba9-5cbc8e2a2843">study notice s1885</a>,
+in Danish), and DTU Library recommends that you
+<a href="https://www.bibliotek.dtu.dk/en/research-service/reference-management/kunstig-intelligens">document your use of AI</a>
+by saving the prompts, results, date and model used, just like with any other tool. The agent traces are exactly this
+documentation for your coding agents. The traces are collected with the <a href="https://github.com/SkafteNicki/dtu_mlops/blob/main/reports/export_agent_data.py">export_agent_data.py</a>
+script that you can find in the <code>reports</code> folder. It collects two things:</p>
+<ul>
+<li>The token usage of your coding agents, using <a href="https://github.com/ryoppippi/ccusage">ccusage</a></li>
+<li>The conversations with your coding agents, including tool calls, using
+    <a href="https://github.com/Infatoshi/traces">coding-agent-traces</a></li>
+</ul>
+<p>Importantly, the script only collects sessions that were started <em>inside</em> the folder you run it from, which should be
+your course folder (see the <a href="../before/#recommended-folder-structure">recommended folder structure</a>), or any of its
+subfolders. Sessions started anywhere outside your course folder are never included, and with <code>--exclude dtu_mlops</code>
+neither are sessions started inside the course repository. Each session is tagged with the subfolder it was started in,
+so always start your coding agent from the folder of the task that you are working on, e.g.
+<code>cd &lt;02476_XXX&gt;/exercises/exercise_s2_m1</code> before running <code>claude</code> or <code>codex</code>.</p>
+<ol>
+<li>
+<p>Make sure that you have <a href="https://docs.astral.sh/uv/">uv</a> installed and either <a href="https://nodejs.org/">Node.js</a> (which
+    comes with <code>npx</code>) or <a href="https://bun.sh/">bun</a> (which comes with <code>bunx</code>). The script uses one of these to run <code>ccusage</code>,
+    so you do not have to install it yourself.</p>
+</li>
+<li>
+<p>Run the script from the root of your course folder. You can either run your local copy of the script or let <code>uv</code>
+    download and run the newest version directly from GitHub</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Local copy</label><label for="__tabbed_1_2">Directly from GitHub</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Make sure that your local copy of the course repository is up to date, such that you have the newest version of
+the script</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;02476_XXX&gt;/dtu_mlops
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>..
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>uv<span class="w"> </span>run<span class="w"> </span>dtu_mlops/reports/export_agent_data.py<span class="w"> </span>--exclude<span class="w"> </span>dtu_mlops
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><code>uv run</code> can also run a script from a URL. It downloads the file, installs its dependencies and runs it</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;02476_XXX&gt;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>https://raw.githubusercontent.com/SkafteNicki/dtu_mlops/main/reports/export_agent_data.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>--exclude<span class="w"> </span>dtu_mlops
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>Make sure that you run the script from the folder that contains <em>all</em> your work for the course, also if you did
+not follow the recommended folder structure. Alternatively, use <code>--root</code> to point to that folder. For safety, the
+script refuses to run from your home folder, because that would include all your coding agent sessions. Run with
+<code>--help</code> to see all options.</p>
+</li>
+<li>
+<p>The script produces a file called <code>agent-data.zip</code> in your course folder. If you want to check what is inside before
+    handing it in, run the script with <code>--keep-dir &lt;some-folder&gt;</code> to also get an unzipped copy.</p>
+</li>
+<li>
+<p>Upload <code>agent-data.zip</code> to the coding agent traces assignment on DTU Learn before the deadline of the exam report.</p>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">What about my privacy?</p>
+<p>The zip file does not contain your name, username, email or git identity. We know who handed it in from DTU Learn.
+Before anything is written to the zip file, the conversations are run through the redaction of <code>coding-agent-traces</code>,
+which replaces secrets (API keys, tokens etc.), emails, usernames and absolute paths with placeholders. The redaction
+is best-effort, so please never paste passwords or other secrets into your coding agent.</p>
+</div>
 
 
 
@@ -2866,7 +2973,7 @@ be a <code>README.md</code> file, which is your report.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 06:19:26">February 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2026 12:28:27">October 15, 2026</span>
   </span>
 
     
