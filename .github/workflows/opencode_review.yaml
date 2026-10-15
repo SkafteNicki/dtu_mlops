@@ -1,3 +1,7 @@
+# Automated AI review of pull requests, using the OpenCode CLI and the
+# code-review-and-quality skill. Requires an OPENCODE_API_KEY repository
+# secret (free models are served by the opencode provider). Fork PRs have no
+# access to the secret and fail early with a clear message.
 name: OpenCode review
 
 on:
@@ -40,7 +44,7 @@ jobs:
             exit 1
           fi
           opencode models | tee /tmp/available_models.txt
-          model=$(grep -E -- '-free$' /tmp/available_models.txt | head -n 1)
+          model=$(grep -E '^opencode/.*-free$' /tmp/available_models.txt | head -n 1)
           if [ -z "$model" ]; then
             echo "No free model is currently available." >&2
             exit 1
