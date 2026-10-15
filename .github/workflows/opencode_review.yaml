@@ -25,6 +25,15 @@ jobs:
     env:
       OPENCODE_VERSION: "1.19.1"
     steps:
+      - name: Check for API key
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: |
+          if [ -z "$OPENCODE_API_KEY" ]; then
+            echo "The OPENCODE_API_KEY secret is not set." >&2
+            exit 1
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v6
         with:
@@ -40,10 +49,6 @@ jobs:
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         run: |
-          if [ -z "$OPENCODE_API_KEY" ]; then
-            echo "The OPENCODE_API_KEY secret is not set." >&2
-            exit 1
-          fi
           opencode models | tee /tmp/available_models.txt
           model=$(grep -E '^opencode/.*-free$' /tmp/available_models.txt | head -n 1)
           if [ -z "$model" ]; then
