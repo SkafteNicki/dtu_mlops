@@ -2523,6 +2523,41 @@ is not present on the main branch.</p>
 </ol>
 </li>
 <li>
+<p>By default you can only have one branch checked out at a time in a repository. Switching branches with
+    <code>git checkout</code> rewrites the files in your working directory, which quickly becomes painful when you want to
+    work on two things in parallel - for example, letting a coding agent implement a fix on one branch while you
+    keep working on <code>main</code>, without stashing or cloning the repository again. <em>Worktrees</em> solve this by giving
+    you multiple working directories attached to the same repository, one branch per directory.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># from inside your repository, create a new worktree in a sibling folder on a new branch</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../my_repo_fix<span class="w"> </span>-b<span class="w"> </span>fix-worktree-demo
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># list all worktrees attached to the repository</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
+</span></code></pre></div>
+<p class="annotate">Each worktree behaves like a normal checkout: the <code>add -&gt; commit -&gt; push</code> cycle works exactly the same
+inside it. The only rule is that the same branch cannot be checked out in two worktrees at once (1).</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you try, git will fail with <code>fatal: '&lt;branch&gt;' is already used by worktree at ...</code>.
+    Either check out a different branch there or remove the old worktree first.</li>
+</ol>
+<p>Try it out: add a new file inside <code>../my_repo_fix</code>, commit it, and verify that the file does not show up in
+your original checkout on <code>main</code>. When you are done, remove the worktree with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>../my_repo_fix
+</span></code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../my_repo_fix<span class="w"> </span>-b<span class="w"> </span>fix-worktree-demo
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># add a file in ../my_repo_fix, then inside that directory:</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;my_new_file&gt;
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"demo worktree commit"</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># back in the original checkout:</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="w">  </span><span class="c1"># should still be main</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># the new file should be absent here</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>../my_repo_fix
+</span></code></pre></div>
+</details>
+</li>
+<li>
 <p>If you do not already have a cloned version of the repository belonging to the course, make sure to make one!
     I am continuously updating/changing some of the material during the course and I therefore recommend that you
     each day before the lecture do a <code>git pull</code> on your local copy.</p>
@@ -2571,7 +2606,7 @@ code updates to the original repository do not update code in your local reposit
     , and set a remote upstream for the repository you just forked.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>&lt;url-to-original-repo&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>&lt;url-to-original-repo&gt;
 </span></code></pre></div>
 </details>
 </li>
@@ -2581,9 +2616,9 @@ code updates to the original repository do not update code in your local reposit
     and figure out how to do this.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>merge<span class="w"> </span>upstream/main
 </span></code></pre></div>
 </details>
 </li>
@@ -2607,12 +2642,12 @@ code updates to the original repository do not update code in your local reposit
 <li>
 <p>Now try to <code>git pull</code> the online changes. What should (hopefully) happen is that git will tell you that it found
     a merge conflict that needs to be resolved. Open the file and you should see something like this</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>this is some content to mess with
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>content to append
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>=======
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>totally different content to merge later
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>this is some content to mess with
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>content to append
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>=======
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>totally different content to merge later
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
 </span></code></pre></div>
 <p>this should be interpreted as: everything that's between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
 local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
@@ -2621,18 +2656,18 @@ remove the identifiers <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======<
 <div class="admonition note">
 <p class="admonition-title">Merge, rebase or fast-forward?</p>
 <p>On a <code>git pull</code> you can get messages like this the first time you try to pull after a merge conflict:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>hint: You have divergent branches and need to specify how to reconcile them.
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hint: You can do so by running one of the following commands sometime before
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>hint: your next pull:
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>hint:
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>hint:   git config pull.rebase false  # merge
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>hint:   git config pull.rebase true   # rebase
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>hint:   git config pull.ff only       # fast-forward only
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>hint:
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>hint: You can replace "git config" with "git config --global" to set a default
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>hint: or --ff-only on the command line to override the configured default per
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>hint: invocation.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>hint: You have divergent branches and need to specify how to reconcile them.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>hint: You can do so by running one of the following commands sometime before
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>hint: your next pull:
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>hint:
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>hint:   git config pull.rebase false  # merge
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>hint:   git config pull.rebase true   # rebase
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>hint:   git config pull.ff only       # fast-forward only
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>hint:
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>hint: You can replace "git config" with "git config --global" to set a default
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>hint: or --ff-only on the command line to override the configured default per
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>hint: invocation.
 </span></code></pre></div>
 <p>In general we recommend setting <code>git config pull.rebase false</code> to merge the changes. This is the default
 behavior of git and is the most common way to resolve merge conflicts. However, if you are working on a
@@ -2678,10 +2713,10 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
     <em>devel</em> is in sync with <em>main</em>?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>pull
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
 </span></code></pre></div>
 </details>
 </li>
@@ -2706,10 +2741,10 @@ with the most useful commands for future reference. Finally, we want to point ou
 in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
 IDE/editor. Or you may be in the situation where you are working from a device other than your usual developer machine.
 GitHub has a built-in editor that can simply be enabled by changing any URL from</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://github.com/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>https://github.com/username/repository
 </span></code></pre></div>
 <p>to</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>https://github.dev/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>https://github.dev/username/repository
 </span></code></pre></div>
 <p>Try it out on your newly created repository.</p>
 <h2 id="ai-assisted-code-exploration">🤖 AI-Assisted Code Exploration</h2>
@@ -2720,11 +2755,11 @@ documentation generation, refactoring suggestions, or learning about unfamiliar 
 <p><a href="https://github.com/yamadashy/repomix">Repomix</a> is a powerful tool that packs your entire repository into a single
 AI-friendly file with support for multiple output formats and token counting. You can use it via CLI or through the
 web interface at <a href="https://repomix.com">repomix.com</a>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Quick usage without installation (packs current directory)</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>npx<span class="w"> </span>repomix
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Pack a remote repository directly</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>npx<span class="w"> </span>repomix<span class="w"> </span>--remote<span class="w"> </span>https://github.com/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Quick usage without installation (packs current directory)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>npx<span class="w"> </span>repomix
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Pack a remote repository directly</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>npx<span class="w"> </span>repomix<span class="w"> </span>--remote<span class="w"> </span>https://github.com/username/repository
 </span></code></pre></div>
 <p>For a quick browser-based alternative, <a href="https://uithub.com">uithub.com</a> lets you view any public GitHub repository
 as raw text with token counts. Simply replace <code>github.com</code> with <code>uithub.com</code> in any repository URL.</p>
@@ -2756,7 +2791,7 @@ the right to analyze or that is under permissive open-source licenses.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 24, 2026 13:27:03">January 24, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 16, 2026 13:05:05">October 16, 2026</span>
   </span>
 
     
