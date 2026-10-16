@@ -10,6 +10,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
   "codespell<=2.4.1",
@@ -85,7 +86,6 @@ override-dependencies = [
 
 [tool.ruff]
 target-version = "py311"
-
 line-length = 120
 lint.select = [
   "A",
@@ -151,12 +151,10 @@ lint.exclude = [ "student_repos/" ]
 lint.pydocstyle.convention = "google"
 
 [tool.codespell]
-skip = "*.pdf,*.ipynb,*.drawio,*.json"
 ignore-words-list = [ "instanciate" ]
+skip = "*.pdf,*.ipynb,*.drawio,*.json"
 
-[tool.typos.default.extend-identifiers]
-arange = "arange"
-
-[tool.typos.default.extend-words]
-Ue = "Ue"
-Hashi = "Hashi"
+[tool.typos]
+default.extend-identifiers.arange = "arange"
+default.extend-words.Ue = "Ue"
+default.extend-words.Hashi = "Hashi"
