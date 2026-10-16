@@ -54,7 +54,7 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           AA_API_KEY: ${{ secrets.AA_API_KEY }}
         run: |
-          set -o pipefail
+          set -euo pipefail
           opencode models | LC_ALL=C sed -E 's/\x1B\[[0-9;]*[ -/]*[@-~]//g' \
             | tee /tmp/all_models.txt > /dev/null
           grep -E '^opencode/.*-free$' /tmp/all_models.txt \
@@ -77,8 +77,13 @@ jobs:
                  | select(.key as $m | $avail | index($m))
                  | {model: .key, score: $score[.value]}
                  | select(.score != null)]
-              | sort_by(-.score) | first | .model // empty')
-            [ -n "$model" ] && ranking_note=" (ranked via artificialanalysis.ai)"
+              | sort_by(-.score) | first | select(. != null) | "\(.model)\t\(.score)"')
+            if [ -n "$model" ]; then
+              model_score="${model#*$'\t'}"
+              model="${model%%$'\t'*}"
+              ranking_note=" (ranked via artificialanalysis.ai)"
+              echo "Ranked by Artificial Analysis Intelligence Index (score: $model_score)"
+            fi
             echo "Free models without an AA mapping (ignored):"
             jq -r 'keys[]' .github/opencode_aa_models.json \
               | grep -vxF -f - /tmp/available_models.txt \
@@ -92,7 +97,7 @@ jobs:
             echo "No free model is currently available." >&2
             exit 1
           fi
-          echo "Selected model: $model${ranking_note:-}"
+          echo "Selected model: $model${model_score:+ (score $model_score)}${ranking_note:-}"
           {
             echo "name=$model"
             echo "ranking_note=${ranking_note:-}"
