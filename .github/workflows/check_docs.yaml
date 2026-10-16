@@ -16,6 +16,10 @@ concurrency:
 
 env:
   PREVIEW_BASE_URL: https://skaftenicki.github.io/dtu_mlops
+  # Previews are plain static files under this folder on gh-pages. They are
+  # deliberately NOT registered in versions.json, so they stay hidden from
+  # the version selector and are only reachable via the PR comment link.
+  PREVIEW_DIR: previews/pr-${{ github.event.pull_request.number }}
 
 jobs:
   preview:
@@ -54,7 +58,18 @@ jobs:
       - name: Deploy PR preview
         if: github.event.pull_request.head.repo.full_name == github.repository
         run: |
-          uv run mike deploy --push pr-${{ github.event.pull_request.number }} -t "PR #${{ github.event.pull_request.number }}"
+          git fetch origin gh-pages
+          git checkout gh-pages
+          rm -rf "$PREVIEW_DIR"
+          mkdir -p "$PREVIEW_DIR"
+          cp -r build/. "$PREVIEW_DIR/"
+          git add "$PREVIEW_DIR"
+          if git diff --cached --quiet; then
+            echo "Preview is already up to date."
+          else
+            git commit -m "Deploy docs preview for PR #${{ github.event.pull_request.number }}"
+            git push origin gh-pages || { git fetch origin gh-pages && git rebase origin/gh-pages && git push origin gh-pages; }
+          fi
 
       - name: Comment preview link
         if: github.event.pull_request.head.repo.full_name == github.repository
@@ -62,7 +77,7 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request.number;
-            const url = `${process.env.PREVIEW_BASE_URL}/pr-${pr}/`;
+            const url = `${process.env.PREVIEW_BASE_URL}/previews/pr-${pr}/`;
             const marker = '<!-- docs-preview -->';
             const body = `${marker}\n📖 **Docs preview** for commit \`${context.sha.substring(0, 7)}\`: ${url}\n\n_The preview updates on every push and is deleted when the PR is closed._`;
             const { data: comments } = await github.rest.issues.listComments({
@@ -97,14 +112,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
-
-      - name: Sync dependencies
-        run: uv sync
-
       - name: Configure git credentials
         run: |
           git config user.name github-actions[bot]
@@ -112,9 +119,12 @@ jobs:
 
       - name: Delete PR preview
         run: |
-          VERSION="pr-${{ github.event.pull_request.number }}"
-          if uv run mike list | awk '{print $1}' | grep -qx "$VERSION"; then
-            uv run mike delete --push "$VERSION"
+          git fetch origin gh-pages
+          git checkout gh-pages
+          if [ -d "$PREVIEW_DIR" ]; then
+            git rm -rq "$PREVIEW_DIR"
+            git commit -m "Delete docs preview for PR #${{ github.event.pull_request.number }}"
+            git push origin gh-pages || { git fetch origin gh-pages && git rebase origin/gh-pages && git push origin gh-pages; }
           else
-            echo "No preview '$VERSION' to delete."
+            echo "No preview '$PREVIEW_DIR' to delete."
           fi
