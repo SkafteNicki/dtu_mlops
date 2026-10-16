@@ -25,11 +25,19 @@ after training. There are good reasons for doing both:
 
 1. Start by installing [intel neural compressor](https://github.com/intel/neural-compressor)
 
-    ```bash
-    pip install neural_compressor
-    ```
+    === "Using pip"
 
-    and remember to add this to your `requirements.txt` file.
+        ```bash
+        pip install neural-compressor
+        ```
+
+        and remember to add this to your `requirements.txt` file.
+
+    === "Using uv"
+
+        ```bash
+        uv add neural-compressor
+        ```
 
 2. Let's start a new script called `model_converter.py`. Start by filling it with some simple code for loading a given
     `float32` model checkpoint. You should already have such code from earlier exercises. Preferably, add a small CLI

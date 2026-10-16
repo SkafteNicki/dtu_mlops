@@ -19,6 +19,7 @@ from torchvision.utils import save_image
 log = logging.getLogger(__name__)
 
 
+# creating a logger
 @hydra.main(config_path="config", config_name="default_config.yaml")
 def train(config) -> None:
     """Train VAE on MNIST."""
@@ -77,7 +78,7 @@ def train(config) -> None:
 
             loss.backward()
             optimizer.step()
-        log.info(f"Epoch {epoch+1} complete! Average Loss: {overall_loss / (batch_idx*hparams['batch_size'])}")
+        log.info(f"Epoch {epoch + 1} complete! Average Loss: {overall_loss / (batch_idx * hparams['batch_size'])}")
     log.info("Finish!!")
 
     # save weights

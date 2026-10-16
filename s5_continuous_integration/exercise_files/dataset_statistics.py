@@ -1,13 +1,11 @@
-import click
 import matplotlib.pyplot as plt
 import torch
+import typer
 from mnist_dataset import MnistDataset
 from utils import show_image_and_target
 
 
-@click.command()
-@click.option("--datadir", default="data", help="Path to the data directory")
-def dataset_statistics(datadir: str) -> None:
+def dataset_statistics(datadir: str = "data") -> None:
     """Compute dataset statistics."""
     train_dataset = MnistDataset(data_folder=datadir, train=True)
     test_dataset = MnistDataset(data_folder=datadir, train=False)
@@ -42,4 +40,4 @@ def dataset_statistics(datadir: str) -> None:
 
 
 if __name__ == "__main__":
-    dataset_statistics()
+    typer.run(dataset_statistics)

@@ -21,7 +21,6 @@ Tier, the larger applications it is possible to run.
 
 <figure markdown>
 ![Image](../figures/hpc_tiers.png){ width="800" }
-<figcaption> <a href="https://gl.deic.dk/en/Supercomputing/EuroCC/HPC-Landscapes"> Image credit </a> </figcaption>
 </figure>
 
 ## Cluster architectures
@@ -75,7 +74,8 @@ of cluster. For the purpose of this exercise we are going to see how we can run 
 
 1. Start by accessing the cluster. This can either be through `ssh` in a terminal or if you want a graphical interface
     [thinlinc](https://www.cendio.com/thinlinc/download) can be installed. In general we recommend following the steps
-    [here](https://www.hpc.dtu.dk/?page_id=2501) for DTU students as the setup depends on if you are on campus or not.
+    [in the DTU HPC cluster guide](https://www.hpc.dtu.dk/?page_id=2501) for DTU students as the setup depends on if you
+    are on campus or not.
 
 2. When you have access to the cluster we are going to start with the setup phase. In the setup phase we are going
     to setup the environment necessary for our computations. If you have accessed the cluster through graphical interface

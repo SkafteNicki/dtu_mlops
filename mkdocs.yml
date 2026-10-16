@@ -3,7 +3,7 @@ docs_dir: .
 site_dir: ../site
 repo_url: https://github.com/SkafteNicki/dtu_mlops
 edit_uri: edit/main/
-copyright: Copyright &copy; 2021 - 2024 Nicki Skafte Detlefsen
+copyright: Copyright &copy; 2021 - 2026 Nicki Skafte Detlefsen
 
 theme:
   language: en
@@ -35,6 +35,7 @@ theme:
     - content.code.annotate
     - content.action.edit
     - content.action.view
+    - content.tabs.link
     - search.suggest
     - search.highlight
 
@@ -69,18 +70,21 @@ plugins:
       enable_creation_date: true
   - exclude:
       glob:
-        - student_repos/*
-        - reports\README.md
-        - s10_extra\design.md
-        - s10_extra\infrastructure_as_code.md
-        - s10_extra\kubernetes.md
-        - s10_extra\orchestration.md
-        - s10_extra\calibration.md
-        - s10_extra\quantization.md
-        - samples\README.md
-        - tools\README.md
+        - .venv/
+        - tools/*
+        - reports/README.md
+        - s10_extra/infrastructure_as_code.md
+        - s10_extra/kubernetes.md
+        - s10_extra/orchestration.md
+        - s10_extra/calibration.md
+        - s10_extra/quantization.md
+        - samples/README.md
+        - tools/README.md
 
 extra:
+  version:
+    provider: mike
+    default: latest
   social:
     - icon: material/email
       link: mailto:skaftenicki@gmail.com
@@ -91,7 +95,7 @@ extra:
 
 nav:
   - Home: README.md
-  - Timeplan: pages/timeplan.md
+  - Introduction: pages/before.md
   - S1 - Development Environment 💻:
     - s1_development_environment/README.md
     - M1 - The command line: s1_development_environment/command_line.md
@@ -105,7 +109,7 @@ nav:
     - M7 - Good coding practice: s2_organisation_and_version_control/good_coding_practice.md
     - M8 - Data version control: s2_organisation_and_version_control/dvc.md
     - M9 - Command Line Interfaces: s2_organisation_and_version_control/cli.md
-  - S3 - Reproduceability ♻️:
+  - S3 - Reproducibility ♻️:
     - s3_reproducibility/README.md
     - M10 - Docker: s3_reproducibility/docker.md
     - M11 - Config Files: s3_reproducibility/config_files.md
@@ -118,7 +122,7 @@ nav:
   - S5 - Continuous Integration ✔️:
     - s5_continuous_integration/README.md
     - M16 - Unit testing: s5_continuous_integration/unittesting.md
-    - M17 - Github Actions: s5_continuous_integration/github_actions.md
+    - M17 - GitHub Actions: s5_continuous_integration/github_actions.md
     - M18 - Pre-commit: s5_continuous_integration/pre_commit.md
     - M19 - Continuous Machine Learning: s5_continuous_integration/cml.md
   - S6 - The cloud 🌐:
@@ -146,12 +150,8 @@ nav:
     - M32 - Documentation: s10_extra/documentation.md
     - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
-    - M35 - Designing Pipelines: s10_extra/design.md
-    # - M37 - Workflow orchestration: s10_extra/orchestration.md
-    # - M38 - Kubernetes: s10_extra/kubernetes.md
-    # - M39 - Infrastructure as code: infrastructure_as_code.md
-    # - M40 - Calibration: s10_extra/calibration.md
-    # - M41 - Quantization: s10_extra/quantization.md
+    - M35 - Designing ML systems: s10_extra/design.md
   - Summary: pages/overview.md
+  - Time plan: pages/timeplan.md
   - Projects: pages/projects.md
   - FAQ: pages/faq.md
