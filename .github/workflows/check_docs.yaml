@@ -23,7 +23,7 @@ env:
 
 jobs:
   preview:
-    name: Build and preview docs
+    name: Check docs
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
