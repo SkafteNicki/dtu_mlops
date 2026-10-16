@@ -53,7 +53,8 @@ jobs:
 
       - name: Deploy PR preview
         if: github.event.pull_request.head.repo.full_name == github.repository
-        run: uv run mike deploy --push pr-${{ github.event.pull_request.number }} -t "PR #${{ github.event.pull_request.number }}"
+        run: |
+          uv run mike deploy --push pr-${{ github.event.pull_request.number }} -t "PR #${{ github.event.pull_request.number }}"
 
       - name: Comment preview link
         if: github.event.pull_request.head.repo.full_name == github.repository
