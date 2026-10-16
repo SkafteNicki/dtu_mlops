@@ -154,11 +154,52 @@ working together on the same project.
         change branches, to revert changes and to create new branches. An alternative is using `git switch` and
         `git restore` which are more modern commands.
 
-3. If you do not already have a cloned version of the repository belonging to the course, make sure to make one!
+3. By default you can only have one branch checked out at a time in a repository. Switching branches with
+    `git checkout` rewrites the files in your working directory, which quickly becomes painful when you want to
+    work on two things in parallel - for example, letting a coding agent implement a fix on one branch while you
+    keep working on `main`, without stashing or cloning the repository again. *Worktrees* solve this by giving
+    you multiple working directories attached to the same repository, one branch per directory.
+
+    ```bash
+    # from inside your repository, create a new worktree in a sibling folder on a new branch
+    git worktree add ../my_repo_fix -b fix-worktree-demo
+    # list all worktrees attached to the repository
+    git worktree list
+    ```
+
+    Each worktree behaves like a normal checkout: the `add -> commit -> push` cycle works exactly the same
+    inside it. The only rule is that the same branch cannot be checked out in two worktrees at once (1).
+    { .annotate }
+
+    1. :man_raising_hand: If you try, git will fail with `fatal: '<branch>' is already used by worktree at ...`.
+        Either check out a different branch there or remove the old worktree first.
+
+    Try it out: add a new file inside `../my_repo_fix`, commit it, and verify that the file does not show up in
+    your original checkout on `main`. When you are done, remove the worktree with:
+
+    ```bash
+    git worktree remove ../my_repo_fix
+    ```
+
+    ??? success "Solution"
+
+        ```bash
+        git worktree add ../my_repo_fix -b fix-worktree-demo
+        git worktree list
+        # add a file in ../my_repo_fix, then inside that directory:
+        git add <my_new_file>
+        git commit -m "demo worktree commit"
+        # back in the original checkout:
+        git branch --show-current  # should still be main
+        # the new file should be absent here
+        git worktree remove ../my_repo_fix
+        ```
+
+4. If you do not already have a cloned version of the repository belonging to the course, make sure to make one!
     I am continuously updating/changing some of the material during the course and I therefore recommend that you
     each day before the lecture do a `git pull` on your local copy.
 
-4. Git may seem like a waste of time when solutions like Dropbox, Google Drive, etc. exist, and it is
+5. Git may seem like a waste of time when solutions like Dropbox, Google Drive, etc. exist, and it is
     not completely untrue when you are only one or two working on a project. However, these file management
     systems fall short when hundreds to thousands of people work together. For this exercise you will
     go through the steps of sending an open-source contribution:
@@ -188,7 +229,7 @@ working together on the same project.
 
     6. Write a bit about the changes you have made and click `Create pull request` :).
 
-5. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
+6. Forking a repository has the consequence that your fork and the repository that you forked can diverge. To
     mitigate this we can set what is called a *remote upstream*. Take a look at this
     [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork)
     , and set a remote upstream for the repository you just forked.
@@ -199,7 +240,7 @@ working together on the same project.
         git remote add upstream <url-to-original-repo>
         ```
 
-6. After setting the upstream branch, we need to pull and merge any updates. Take a look at this
+7. After setting the upstream branch, we need to pull and merge any updates. Take a look at this
     [page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
     and figure out how to do this.
 
@@ -211,7 +252,7 @@ working together on the same project.
         git merge upstream/main
         ```
 
-7. As a final exercise we want to simulate a *merge conflict*, which happens when two users try to commit changes
+8. As a final exercise we want to simulate a *merge conflict*, which happens when two users try to commit changes
     to exactly the same lines of code in the codebase, and git is not able to resolve how the different commits should be
     integrated.
 
@@ -272,7 +313,7 @@ working together on the same project.
 
     4. Finally, commit the merge and try to push.
 
-8. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
+9. (Optional) The above exercises have focused on how to use git from the terminal, which I highly recommend learning.
     However, if you are using a proper editor they also have built-in support for version control. We recommend getting
     familiar with these features (here is a tutorial for
     [VS Code](https://code.visualstudio.com/docs/editor/versioncontrol)).
