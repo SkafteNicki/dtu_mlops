@@ -142,11 +142,18 @@ jobs:
             --file "$REVIEW_DIR/pr.diff" \
             > "$REVIEW_DIR/review.md" \
             2> >(tee "$REVIEW_DIR/opencode.log" >&2) || status=$?
+          # Let the tee process substitution flush opencode.log before reading it.
           wait
           strip_ansi() { LC_ALL=C sed -i -E 's/\x1B\[[0-9;]*[ -/]*[@-~]//g' "$1"; }
           strip_ansi "$REVIEW_DIR/review.md"
           strip_ansi "$REVIEW_DIR/opencode.log"
+          # Drop the model's progress chatter printed before the review heading.
+          if grep -q '^# Automated review' "$REVIEW_DIR/review.md"; then
+            sed -i -n '/^# Automated review/,$p' "$REVIEW_DIR/review.md"
+          fi
 
+          # Failed tool calls (✗) are shown for context but do not trigger the
+          # warning on their own, since the model often recovers from them.
           problems=$(grep -E '^(Error:|! permission requested|✗ )' "$REVIEW_DIR/opencode.log" || true)
           if [ "$status" -ne 0 ] || [ ! -s "$REVIEW_DIR/review.md" ] \
              || grep -qE '^(Error:|! permission requested.*auto-rejecting)' "$REVIEW_DIR/opencode.log"; then
