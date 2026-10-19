@@ -1,4 +1,0 @@
-torch>=2.0
-torchvision>=0.15
-typer>=0.13.1
-matplotlib>=3.7.2
