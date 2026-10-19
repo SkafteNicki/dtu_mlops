@@ -89,6 +89,13 @@ To make the design process concrete, we use an
 [Made With ML canvas](https://madewithml.com/courses/mlops/product-design/), but tilted towards the questions that show
 up when you actually try to *operate* ML in production.
 
+<figure markdown>
+![MLOps canvas](../canvas/canvas_en.png){ width="1000" }
+<figcaption>
+The one-page MLOps canvas (v1.1). Six columns, read left to right, from the problem to the risks.
+</figcaption>
+</figure>
+
 Download / open these two PDFs:
 
 * [One-page fillable canvas](../canvas/canvas_en.pdf) — what you fill out
