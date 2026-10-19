@@ -1,5 +1,5 @@
 import csv
-import datetime
+import datetime as dt
 import json
 import os
 import subprocess
@@ -62,13 +62,13 @@ def create_activity_matrix(
     min_delta: int = 1,
 ) -> list[list[int]]:
     """Creates an activity matrix from the commits."""
-    commit_times = [datetime.datetime.fromisoformat(commit["commit"]["committer"]["date"][:-1]) for commit in commits]
+    commit_times = [dt.datetime.fromisoformat(commit["commit"]["committer"]["date"][:-1]) for commit in commits]
     commit_times.sort()
 
     start_time = commit_times[0]
     end_time = max(
-        start_time + datetime.timedelta(weeks=min_delta),
-        min(start_time + datetime.timedelta(weeks=max_delta), commit_times[-1]),
+        start_time + dt.timedelta(weeks=min_delta),
+        min(start_time + dt.timedelta(weeks=max_delta), commit_times[-1]),
     )
 
     num_days = (end_time - start_time).days + 1  # include last day
@@ -210,7 +210,7 @@ def scrape():
         repo_stats.append(repo_stat)
 
     logger.info("Writing repo stats to file")
-    now = datetime.datetime.now(tz=datetime.UTC).strftime("%Y_%m_%d_%H_%M_%S")
+    now = dt.datetime.now(tz=dt.UTC).strftime("%Y_%m_%d_%H_%M_%S")
     filename = f"repo_stats_{now}.json"
     with open("repo_stats.json", "w") as f:
         json.dump([r.model_dump() for r in repo_stats], f)
