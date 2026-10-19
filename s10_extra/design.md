@@ -101,6 +101,13 @@ Download / open these two PDFs:
 * [One-page fillable canvas](../canvas/canvas_en.pdf) — what you fill out
 * [Full guide with questions and references](../canvas/full_mlops_canvas_en.pdf) — prompts for every box
 
+<figure markdown>
+![A page from the MLOps canvas guide](../canvas/full_mlops_canvas_en_p3.png){ width="600" }
+<figcaption>
+A page from the full guide. Every box comes with guiding questions — here for the Problem column.
+</figcaption>
+</figure>
+
 The canvas has six columns that you should fill **left to right**:
 
 | Column | Boxes | What you are forcing yourself to answer |
