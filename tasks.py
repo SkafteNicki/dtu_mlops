@@ -82,14 +82,6 @@ def diagrams(ctx):
         echo=True,
         pty=not WINDOWS,
     )
-    ctx.run(
-        (
-            f"docker run --rm -v {CURRENT_DIR}:/data rlespinasse/drawio-export "
-            "figures/diagrams/mlops_canvas.drawio -f pdf --on-changes --remove-page-suffix --output ../.."
-        ),
-        echo=True,
-        pty=not WINDOWS,
-    )
 
 
 @task
