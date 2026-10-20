@@ -98,6 +98,9 @@ jobs:
             echo "- Reviewers: $(jq -r 'join(", ")' <<< "$reviewers_json")"
             echo "- Summarizer: $summarizer"
             echo "- Free models available: $count"
+            if printf '%s\n' "${shuffled[@]:0:$reviewer_count}" | grep -qxF -- "$summarizer"; then
+              echo "- Note: too few free models to go around, so the summarizer also reviews."
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
 
   review:
@@ -183,14 +186,14 @@ jobs:
             strip_ansi "$REVIEW_DIR/review.md"
             strip_ansi "$REVIEW_DIR/opencode.log"
             # Drop the model's progress chatter printed before the review heading.
-            if grep -qE '^#+[[:space:]]*Automated review' "$REVIEW_DIR/review.md"; then
-              sed -i -E -n '/^#+[[:space:]]*Automated review/,$p' "$REVIEW_DIR/review.md"
+            if grep -qE '^#+[[:space:]]*[Aa]utomated [Rr]eview' "$REVIEW_DIR/review.md"; then
+              sed -i -E -n '/^#+[[:space:]]*[Aa]utomated [Rr]eview/,$p' "$REVIEW_DIR/review.md"
             fi
 
             # Failed tool calls (✗) are shown for context but do not count as a
             # problem on their own, since the model often recovers from them.
             if [ "$status" -eq 0 ] \
-               && grep -qE '^#+[[:space:]]*Automated review' "$REVIEW_DIR/review.md" \
+               && grep -qE '^#+[[:space:]]*[Aa]utomated [Rr]eview' "$REVIEW_DIR/review.md" \
                && ! grep -qE '^(Error:|! permission requested.*auto-rejecting)' "$REVIEW_DIR/opencode.log"; then
               clean=true
               break
@@ -279,10 +282,10 @@ jobs:
           for dir in "$REVIEW_DIR"/downloads/review-*; do
             [ -f "$dir/meta.json" ] || continue
             model=$(jq -r '.model // "unknown"' "$dir/meta.json")
-            if grep -qE '^#+[[:space:]]*Automated review' "$dir/review.md" 2>/dev/null; then
+            if grep -qE '^#+[[:space:]]*[Aa]utomated [Rr]eview' "$dir/review.md" 2>/dev/null; then
               note=$(jq -r 'if .clean then "" else " (incomplete: the run ended early)" end' "$dir/meta.json")
               printf '\n\n## Review by %s%s\n\n' "$model" "$note" >> "$input"
-              sed -E -n '/^#+[[:space:]]*Automated review/,$p' "$dir/review.md" >> "$input"
+              sed -E -n '/^#+[[:space:]]*[Aa]utomated [Rr]eview/,$p' "$dir/review.md" >> "$input"
               models+=("$model")
             else
               missing+=("$model")
@@ -303,7 +306,7 @@ jobs:
 
       - name: Merge reviews with a random model
         id: merge
-        if: steps.combine.outputs.count != '0'
+        if: ${{ success() && steps.combine.outputs.count != '0' }}
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           OPENCODE_PERMISSION: '{"skill":{"*":"allow"},"external_directory":{"/tmp/opencode-review/*":"allow"},"edit":"deny","bash":"deny","webfetch":"deny","task":"deny","websearch":"deny"}'
@@ -321,7 +324,7 @@ jobs:
           mapfile -t spares < <(opencode models \
             | LC_ALL=C sed -E 's/\x1B\[[0-9;]*[ -/]*[@-~]//g' \
             | grep -E '^opencode/.+-free$' | sort -u \
-            | grep -vxF "$SUMMARIZER" | shuf -n 2)
+            | grep -vxF -- "$SUMMARIZER" | shuf -n 2)
           chosen=""
           for model in "$SUMMARIZER" "${spares[@]}"; do
             status=0
@@ -335,11 +338,12 @@ jobs:
             cat "$REVIEW_DIR/merge.log" >&2
             strip_ansi "$REVIEW_DIR/final_review.md"
             strip_ansi "$REVIEW_DIR/merge.log"
-            if grep -qE '^#+[[:space:]]*Automated review' "$REVIEW_DIR/final_review.md"; then
-              sed -i -E -n '/^#+[[:space:]]*Automated review/,$p' "$REVIEW_DIR/final_review.md"
+            if grep -qE '^#+[[:space:]]*[Aa]utomated [Rr]eview' "$REVIEW_DIR/final_review.md"; then
+              sed -i -E -n '/^#+[[:space:]]*[Aa]utomated [Rr]eview/,$p' "$REVIEW_DIR/final_review.md"
             fi
             if [ "$status" -eq 0 ] \
-               && grep -qE '^#+[[:space:]]*Automated review' "$REVIEW_DIR/final_review.md"; then
+               && grep -qE '^#+[[:space:]]*[Aa]utomated [Rr]eview' "$REVIEW_DIR/final_review.md" \
+               && ! grep -qE '^(Error:|! permission requested.*auto-rejecting)' "$REVIEW_DIR/merge.log"; then
               chosen="$model"
               break
             fi
@@ -358,18 +362,32 @@ jobs:
           MODELS: ${{ steps.combine.outputs.models }}
           MISSING: ${{ steps.combine.outputs.missing }}
           CHOSEN: ${{ steps.merge.outputs.chosen }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
           shopt -s nullglob
           final="$REVIEW_DIR/comment.md"
           MODELS="${MODELS:-[]}"
           MISSING="${MISSING:-[]}"
+          RUN_URL="${RUN_URL:-}"
 
           if [ "${COUNT:-0}" = "0" ]; then
             {
               printf '# Automated review\n\n'
               printf '> [!WARNING]\n'
               printf '> None of the selected free models produced a review, so no automated review is available.\n'
+              if [ -n "$RUN_URL" ]; then
+                printf '> See the [workflow run](%s) for details.\n' "$RUN_URL"
+              fi
+              # Include the error excerpts that each review job recorded, so a
+              # total failure can be diagnosed without opening the run.
+              for dir in "$REVIEW_DIR"/downloads/review-*; do
+                [ -f "$dir/meta.json" ] || continue
+                problems=$(jq -r '.problems // ""' "$dir/meta.json")
+                [ -n "$problems" ] || continue
+                printf '\n<details><summary>%s</summary>\n\n~~~text\n%s\n~~~\n\n</details>\n' \
+                  "$(jq -r '.model // "unknown"' "$dir/meta.json")" "$problems"
+              done
             } > "$final"
             CHOSEN=""
           elif [ -s "$REVIEW_DIR/final_review.md" ]; then
@@ -381,10 +399,10 @@ jobs:
               printf '> The individual reviews could not be merged, so they are included below unmodified.\n\n'
               for dir in "$REVIEW_DIR"/downloads/review-*; do
                 [ -f "$dir/meta.json" ] || continue
-                grep -qE '^#+[[:space:]]*Automated review' "$dir/review.md" 2>/dev/null || continue
+                grep -qE '^#+[[:space:]]*[Aa]utomated [Rr]eview' "$dir/review.md" 2>/dev/null || continue
                 printf '<details><summary>%s</summary>\n\n' \
                   "$(jq -r '.model // "unknown"' "$dir/meta.json")"
-                sed -E -n '/^#+[[:space:]]*Automated review/,$p' "$dir/review.md"
+                sed -E -n '/^#+[[:space:]]*[Aa]utomated [Rr]eview/,$p' "$dir/review.md"
                 printf '\n\n</details>\n\n'
               done
             } > "$final"
