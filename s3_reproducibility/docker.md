@@ -430,11 +430,12 @@ beneficial for you to download.
         ../../models/trained_model.pt \  # argument to script, path relative to script location in container
     ```
 
-18. (Optional, requires GPU support) By default, a virtual machine created by docker only has access to your `cpu` and
+18. (Optional, requires an Nvidia GPU) By default, a virtual machine created by docker only has access to your `cpu` and
     not your `gpu`. While you do not necessarily have a laptop with a GPU that supports the training of neural networks
     (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage
     of a GPU if you were to run this on a machine in the future that has a GPU (e.g. in the cloud). It does take a bit
-    more work, but many of the steps will be similar to building a normal docker image.
+    more work, but many of the steps will be similar to building a normal docker image. This exercise covers Nvidia
+    GPUs through CUDA; if you have an AMD GPU, skip to the next exercise which covers ROCm instead.
 
     1. There are three prerequisites for working with Nvidia GPU-accelerated docker containers. First, you need to have
         the Docker Engine installed (already taken care of), have an Nvidia GPU with updated GPU drivers and finally have
@@ -514,7 +515,182 @@ beneficial for you to download.
         try doing this to one of your dockerfiles, build the image and run the container. Remember to check that your
         application is using GPU by printing `torch.cuda.is_available()`.
 
-19. (Optional) Another way you can use Dockerfiles in your day-to-day work is for Dev-containers. Developer containers
+19. (Optional, requires an AMD GPU) The previous exercise used CUDA, which only works with Nvidia GPUs. AMD GPUs
+    instead use [ROCm](https://rocm.docs.amd.com/), but the overall workflow is the same: start from an image that
+    already contains a ROCm-enabled build of PyTorch, give the container access to the GPU, and check that PyTorch
+    detects it. Be aware that ROCm builds of PyTorch still expose the GPU through the `torch.cuda` API, so
+    `torch.cuda.is_available()` is the correct check even on an AMD GPU.
+
+    1. On the host, install the AMD GPU driver and make sure your user is allowed to access the GPU. The official
+        [ROCm installation guide](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/) describes the
+        installation for different Linux distributions. You can check that the kernel driver is loaded and that the
+        device files exist with:
+
+        ```bash
+        ls /dev/kfd /dev/dri
+        ```
+
+        Your user also needs to be part of the `render` and `video` groups (log out and in again after changing
+        groups):
+
+        ```bash
+        sudo usermod -aG render,video $USER
+        ```
+
+        !!! note "Windows and macOS"
+
+            ROCm is only supported on Linux. You can still build the image on other operating systems, but you cannot
+            run it with GPU access, so this exercise is only relevant if you have a Linux machine with an AMD GPU.
+
+    2. AMD publishes images with ROCm and PyTorch pre-installed on
+        [Docker Hub](https://hub.docker.com/r/rocm/pytorch). Pull one of them (replace the tag with one that matches
+        your GPU and the PyTorch version you need, see the
+        [available tags](https://hub.docker.com/r/rocm/pytorch/tags)):
+
+        ```bash
+        docker pull rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.9.1
+        ```
+
+        Start a container with access to the GPU and check that PyTorch can see it:
+
+        ```bash
+        docker run --rm -it \
+            --cap-add=SYS_PTRACE \
+            --security-opt seccomp=unconfined \
+            --device=/dev/kfd \
+            --device=/dev/dri \
+            --group-add video \
+            --ipc=host \
+            --shm-size 8G \
+            rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.9.1
+        ```
+
+        and inside the container run:
+
+        ```python
+        import torch
+
+        print(torch.cuda.is_available())
+        print(torch.version.hip)
+        ```
+
+        which should print `True` and the ROCm version that PyTorch was built against.
+
+    3. The image already contains `torch` and `torchvision` compiled for ROCm. This is where combining ROCm with
+        `uv` needs a little extra care. If we run `uv sync` as usual, `uv` creates its own `.venv` and installs the
+        `torch` wheels from PyPI on top of the image, which are not built for ROCm. We therefore need to tell `uv` to:
+
+        * Use the Python environment that is already in the image. Find it by running `which python` inside the
+            container and set `UV_PROJECT_ENVIRONMENT` to its location (for the ROCm images this is `/opt/venv`):
+
+            ```dockerfile
+            ENV UV_PROJECT_ENVIRONMENT=/opt/venv
+            ```
+
+        * Not remove packages that are not part of the project, such as other libraries that come pre-installed in
+            the ROCm image. This is done with the `--inexact` flag.
+
+        * Not install `torch` and `torchvision` at all, because they are already present in the image. Otherwise
+            `uv` will overwrite them with the versions from `uv.lock`. This is done with the
+            `--no-install-package` flag.
+
+        Combining the three gives the following install step:
+
+        ```dockerfile
+        RUN uv sync --locked --no-cache --inexact --no-install-project \
+            --no-install-package torch --no-install-package torchvision
+        ```
+
+        The `--no-install-package` flag is the cleanest way to keep the ROCm build of PyTorch. An alternative is to
+        comment out `torch` and `torchvision` in `pyproject.toml` and re-run `uv lock`, or to add
+
+        ```toml
+        [tool.uv]
+        override-dependencies = [
+            "torch; sys_platform == 'never'",
+            "torchvision; sys_platform == 'never'",
+        ]
+        ```
+
+        to `pyproject.toml`. Both alternatives also change your local development environment, so prefer the
+        `--no-install-package` flags in the Dockerfile. Finally, make sure that `uv run` does not synchronize the
+        environment again when the container starts, since that would once more overwrite `torch`:
+
+        ```dockerfile
+        ENTRYPOINT ["uv", "run", "--no-sync", "src/<project-name>/train.py"]
+        ```
+
+    4. A full `train.dockerfile` that combines all of the above looks like this:
+
+        ```dockerfile linenums="1" title="rocm_train.dockerfile"
+        --8<-- "s3_reproducibility/exercise_files/rocm_train.dockerfile"
+        ```
+
+        Build the image and run it with the same GPU flags as above:
+
+        ```bash
+        docker build -f train.dockerfile . -t train:latest
+        ```
+
+        ```bash
+        docker run --rm -it \
+            --cap-add=SYS_PTRACE \
+            --security-opt seccomp=unconfined \
+            --device=/dev/kfd \
+            --device=/dev/dri \
+            --group-add video \
+            --ipc=host \
+            --shm-size 8G \
+            train:latest
+        ```
+
+        The `--shm-size` flag controls the size of `/dev/shm`, which is the shared memory available to the container.
+        PyTorch data loaders use shared memory to pass batches between worker processes, so a too small value can
+        cause crashes. Increase the value if you use multiple data loader workers.
+
+    5. Some GPUs require you to specify the GPU architecture explicitly. Run `rocminfo | grep gfx` inside the
+        container to find the architecture (for example `gfx1100`) and set:
+
+        ```dockerfile
+        ENV PYTORCH_ROCM_ARCH=gfx1100
+        ENV HCC_AMDGPU_TARGET=gfx1100
+        ```
+
+        These variables are mainly needed when PyTorch compiles HIP kernels for your GPU, for example when building
+        PyTorch from source or installing packages with custom extensions. They are usually not needed for the
+        official pre-built images. If your GPU is not officially supported by ROCm, you can sometimes make it work by
+        telling ROCm to use the architecture of a similar GPU instead:
+
+        ```dockerfile
+        ENV HSA_OVERRIDE_GFX_VERSION=11.5.0
+        ```
+
+        where the value is the architecture you want to pretend to be (for example `11.5.0` corresponds to
+        `gfx1150`). This is a hack, it is not guaranteed to work, and it can in the worst case produce incorrect
+        results. Only use it if you cannot get the GPU to work otherwise.
+
+    6. The ROCm image can also be used for the devcontainer exercise below. Use the same `FROM` line, environment
+        variables and `uv sync` step in `.devcontainer/Dockerfile`, and add the GPU devices to the `runArgs` in
+        `devcontainer.json`:
+
+        ```json
+        {
+            "name": "my_working_env",
+            "dockerFile": "Dockerfile",
+            "runArgs": [
+                "--device=/dev/kfd",
+                "--device=/dev/dri",
+                "--group-add=video",
+                "--ipc=host",
+                "--shm-size=8G"
+            ]
+        }
+        ```
+
+        Because the Dockerfile already runs `uv sync` with the ROCm-specific flags, no `postCreateCommand` is needed.
+        If you do add one, remember to use the same flags, otherwise `uv` will overwrite the ROCm build of PyTorch.
+
+20. (Optional) Another way you can use Dockerfiles in your day-to-day work is for Dev-containers. Developer containers
     allow you to develop code directly inside a container, making sure that your code is running in the same
     environment as it will when deployed. This is especially useful if you are working on a project that has a lot of
     dependencies that are hard to install on your local machine. Setup instructions for VS Code and PyCharm can be found
@@ -588,7 +764,7 @@ beneficial for you to download.
         You are now ready to start developing inside the container. Try opening a terminal and run `python` and
         `import torch` to confirm that everything is working.
 
-20. (Optional) In [M8 on Data version control](../s2_organisation_and_version_control/dvc.md) you learned about the
+21. (Optional) In [M8 on Data version control](../s2_organisation_and_version_control/dvc.md) you learned about the
     framework `dvc` for version controlling data. A natural question at this point would then be how to incorporate
     `dvc` into our docker image. We need to do two things:
 
