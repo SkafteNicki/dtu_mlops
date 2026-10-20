@@ -60,6 +60,7 @@ exercises = [
   "pydantic<=2.11.10",
   "pytest<=9.0.3",
   "python-dotenv<=1.2.1",
+  "python-multipart<=0.0.32",
   "pytorch-lightning<=2.5.6",
   "requests<=2.33.1",
   "ruff<=0.14.5",

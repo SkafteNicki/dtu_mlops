@@ -39,7 +39,7 @@ if sys.platform == "win32":
         dynamic_axes={"input.1": {0: "batch_size", 2: "height", 3: "width"}},
     )
 else:
-    torch.onnx.dynamo_export(model, dummy_input).save("resnet18.onnx")
+    torch.onnx.export(model, (dummy_input,), dynamo=True).save("resnet18.onnx")
 
 ort_session = ort.InferenceSession("resnet18.onnx")
 
