@@ -7,6 +7,13 @@ on:
 permissions:
   contents: write
 
+# Every job that writes gh-pages (this workflow and the PR previews in
+# check_docs.yaml) races for the same branch. Serialize deploys so main and dev
+# never push at the same time; preview pushes are handled by the retry below.
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Deploy docs
@@ -30,12 +37,48 @@ jobs:
       - name: Sync dependencies
         run: uv sync
 
-      - name: Deploy latest version (main branch)
-        if: github.ref == 'refs/heads/main'
+      # mike does not fetch: it compares the local gh-pages branch with the
+      # remote-tracking ref from checkout and then pushes exactly once. If a PR
+      # preview pushed gh-pages in the meantime, the push is rejected as a
+      # non-fast-forward. Reset onto the new remote tip and retry instead of
+      # failing the whole deploy.
+      - name: Deploy docs
         run: |
-          uv run mike deploy --push --update-aliases latest stable
-          uv run mike set-default --push latest
+          deploy_with_retry() {
+            local description="$1"
+            shift
+            local attempt=1
+            local output
 
-      - name: Deploy dev version (dev branch)
-        if: github.ref == 'refs/heads/dev'
-        run: uv run mike deploy --push dev experimental
+            while true; do
+              if output=$("$@" 2>&1); then
+                printf '%s\n' "$output"
+                return 0
+              fi
+              printf '%s\n' "$output"
+
+              if [ "$attempt" -ge 5 ] ||
+                ! printf '%s' "$output" | grep -Eq "failed to push|has diverged"; then
+                return 1
+              fi
+
+              echo "::warning::${description} lost the race for gh-pages (attempt ${attempt}/5); rebasing on the remote branch and retrying"
+              git fetch origin gh-pages
+              git branch -f gh-pages origin/gh-pages
+              sleep $((attempt * 5))
+              attempt=$((attempt + 1))
+            done
+          }
+
+          if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+            deploy_with_retry "Deploy latest docs" \
+              uv run mike deploy --push --update-aliases latest stable
+            deploy_with_retry "Set default docs version" \
+              uv run mike set-default --push latest
+          elif [ "$GITHUB_REF" = "refs/heads/dev" ]; then
+            deploy_with_retry "Deploy dev docs" \
+              uv run mike deploy --push dev experimental
+          else
+            echo "::error::No docs deployment configured for $GITHUB_REF"
+            exit 1
+          fi

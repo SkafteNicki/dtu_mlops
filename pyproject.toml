@@ -3,14 +3,14 @@ name = "dtu-mlops"
 version = "0.1.0"
 description = "DTU MLOps course"
 readme = "README.md"
-requires-python = ">=3.11"
+# Python 3.14 is excluded because onnxruntime<=1.23.2 in the exercises group has no cp314
+# wheels (see #604). Lift this cap once onnxruntime supports Python 3.14.
+requires-python = ">=3.11,<3.14"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3.14",
-  "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
   "codespell<=2.4.1",

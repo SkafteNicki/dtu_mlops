@@ -10,7 +10,7 @@ WINDOWS = os.name == "nt"
 @task
 def install(ctx) -> None:
     """Create the environment for course."""
-    ctx.run("uv sync --all-extras", echo=True, pty=not WINDOWS)
+    ctx.run("uv sync --all-groups", echo=True, pty=not WINDOWS)
 
 
 @task
