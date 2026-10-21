@@ -156,5 +156,6 @@ skip = "*.pdf,*.ipynb,*.drawio,*.json"
 
 [tool.typos]
 default.extend-identifiers.arange = "arange"
+default.extend-words.HSA = "HSA"
 default.extend-words.Ue = "Ue"
 default.extend-words.Hashi = "Hashi"
