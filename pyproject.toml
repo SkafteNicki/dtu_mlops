@@ -3,7 +3,8 @@ name = "dtu-mlops"
 version = "0.1.0"
 description = "DTU MLOps course"
 readme = "README.md"
-# onnxruntime in the exercises group does not provide Python 3.14 wheels yet
+# Python 3.14 is excluded because onnxruntime<=1.23.2 in the exercises group has no cp314
+# wheels (see #604). Lift this cap once onnxruntime supports Python 3.14.
 requires-python = ">=3.11,<3.14"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",

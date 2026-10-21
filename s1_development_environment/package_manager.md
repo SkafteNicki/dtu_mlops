@@ -203,11 +203,11 @@ to make it work.
 
     1. Try creating a new virtual environment called `.venv` using Python 3.11. What command should you execute to do this?
 
-        !!! warning "Use Python 3.10 or higher"
+        !!! warning "Use Python 3.11-3.13"
 
-            We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
-            (currently 3.13) is advisable, as the newest version may lack support from all dependencies. Check the status
-            of different Python versions [here](https://devguide.python.org/versions/).
+            We recommend using Python 3.13 for this course. Newer versions may lack support from all dependencies; the
+            exercises in the course repository support Python 3.11-3.13. Check the status of different Python versions
+            [here](https://devguide.python.org/versions/).
 
         ??? success "Solution"
 
@@ -482,11 +482,11 @@ in the exercise folder.
 3. Try creating a new virtual environment. Make sure that it is called `my_environment` and that it installs version
    3.11 of Python. What command should you execute to do this?
 
-    !!! warning "Use Python 3.10 or higher"
+    !!! warning "Use Python 3.11-3.13"
 
-        We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
-        (currently 3.12) is advisable, as the newest version may lack support from all dependencies. Check the status
-        of different Python versions [here](https://devguide.python.org/versions/).
+        We recommend using Python 3.13 for this course. Newer versions may lack support from all dependencies; the
+        exercises in the course repository support Python 3.11-3.13. Check the status of different Python versions
+        [here](https://devguide.python.org/versions/).
 
     ??? success "Solution"
 
