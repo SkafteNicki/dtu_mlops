@@ -3,14 +3,13 @@ name = "dtu-mlops"
 version = "0.1.0"
 description = "DTU MLOps course"
 readme = "README.md"
-requires-python = ">=3.11"
+# onnxruntime in the exercises group does not provide Python 3.14 wheels yet
+requires-python = ">=3.11,<3.14"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3.14",
-  "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
   "codespell<=2.4.1",
