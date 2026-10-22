@@ -138,7 +138,7 @@ a developer-friendly framework, though it has historically been slow to run infe
 2. Let's start out by converting a model to ONNX. The following code snippets show how to export a PyTorch model to
     ONNX.
 
-    === "PyTorch => 2.0"
+    === "PyTorch >= 2.9"
 
         ```python
         import torch
@@ -148,15 +148,18 @@ a developer-friendly framework, though it has historically been slow to run infe
         model.eval()
 
         dummy_input = torch.randn(1, 3, 224, 224)
-        onnx_model = torch.onnx.dynamo_export(
+        torch.onnx.export(
             model=model,
-            model_args=(dummy_input,),
-            export_options=torch.onnx.ExportOptions(dynamic_shapes=True),
+            args=(dummy_input,),
+            f="resnet18.onnx",
+            input_names=["input"],
+            output_names=["output"],
+            # `dynamo=True` is the default from PyTorch 2.9; `dynamic_shapes` replaces `dynamic_axes`
+            dynamic_shapes=({0: "batch_size"},),
         )
-        onnx_model.save("resnet18.onnx")
         ```
 
-    === "PyTorch < 2.0 or Windows"
+    === "PyTorch < 2.9"
 
         ```python
         import torch
@@ -188,7 +191,7 @@ a developer-friendly framework, though it has historically been slow to run infe
         class LitModel(pl.LightningModule):
             def __init__(self):
                 super().__init__()
-                self.model = torchvision.models.resnet18(pretrained=True)
+                self.model = torchvision.models.resnet18(weights=None)
                 self.model.eval()
 
             def forward(self, x):
@@ -209,11 +212,12 @@ a developer-friendly framework, though it has historically been slow to run infe
 
     Export a model of your own choice to ONNX or just try to export the `resnet18` model as shown in the examples above,
     and confirm that the model was exported by checking that the file exists. Can you figure out what is meant by
-    `dynamic_axes`?
+    `dynamic_axes` (or `dynamic_shapes` on PyTorch 2.9 and later)?
 
     ??? success "Solution"
 
-        The `dynamic_axes` argument is used to specify which axes of the input tensor that should be considered dynamic.
+        The `dynamic_axes` argument (called `dynamic_shapes` when exporting with `dynamo=True`) is used to specify which
+        axes of the input tensor that should be considered dynamic.
         This is useful when the model can accept inputs of different sizes, e.g. when the model is used in a dynamic
         batching scenario. In the example above we have specified that the first axis of the input tensor should be
         considered dynamic, meaning that the model can accept inputs of different batch sizes. While it may be tempting
