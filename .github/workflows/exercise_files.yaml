@@ -32,6 +32,8 @@ jobs:
   check:
     name: Check exercise files (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    # Runs take about 5-6 min. Cap them so a hanging import cannot block a runner for hours.
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
