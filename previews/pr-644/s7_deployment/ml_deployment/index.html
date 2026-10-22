@@ -2467,7 +2467,7 @@ machine learning algorithms (just listing a few here):</p>
 <td>❌</td>
 <td>❌</td>
 <td><a href="https://github.com/vllm-project/vllm">🔗 Link</a></td>
-<td>94.8k</td>
+<td>95.1k</td>
 </tr>
 </tbody>
 </table>
@@ -2810,7 +2810,7 @@ and output names of our model and finally run the model. The following code snip
 </span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39"></a>        <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">"input.1"</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"height"</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">"width"</span><span class="p">}},</span>
 </span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40"></a>    <span class="p">)</span>
 </span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41"></a><span class="k">else</span><span class="p">:</span>
-</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dummy_input</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
 </span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43"></a>
 </span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">ort</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
 </span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45"></a>
