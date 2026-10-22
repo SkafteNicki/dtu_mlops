@@ -122,7 +122,7 @@ SKIP_IMPORT: dict[str, str] = {
 def discover_exercise_files() -> list[str]:
     """Return repo relative paths of every Python file in ``s*_*/exercise_files``."""
     pattern = "s*_*/exercise_files/**/*.py"
-    return sorted(str(path.relative_to(REPO_ROOT)) for path in REPO_ROOT.glob(pattern))
+    return sorted(path.relative_to(REPO_ROOT).as_posix() for path in REPO_ROOT.glob(pattern))
 
 
 EXERCISE_FILES = discover_exercise_files()

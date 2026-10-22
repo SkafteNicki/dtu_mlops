@@ -30,8 +30,12 @@ permissions:
 
 jobs:
   check:
-    name: Check exercise files
-    runs-on: ubuntu-latest
+    name: Check exercise files (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -45,6 +49,8 @@ jobs:
         run: uv sync --group exercises
 
       - name: Byte-compile exercise files
+        # bash so the glob also expands on Windows
+        shell: bash
         run: uv run --group exercises python -m compileall -q -f s*_*/exercise_files
 
       - name: Import exercise files
