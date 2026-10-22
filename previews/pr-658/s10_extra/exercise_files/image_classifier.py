@@ -84,7 +84,7 @@ def cli_main() -> None:
         LitClassifier,
         MyDataModule,
         seed_everything_default=1234,
-        save_config_overwrite=True,
+        save_config_kwargs={"overwrite": True},
         run=False,
     )
     cli.trainer.fit(cli.model, datamodule=cli.datamodule)
