@@ -38,15 +38,18 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
+          # numpy is pinned to 1.26, which has no wheels for Python 3.13+. Without a pin,
+          # uv builds it from source, and on Windows that MinGW build crashes on import.
+          python-version: "3.12"
 
       - name: Sync dependencies
-        run: uv sync --group exercises
+        run: uv sync --group exercises --locked
 
       - name: Byte-compile exercise files
         # bash so the glob also expands on Windows
