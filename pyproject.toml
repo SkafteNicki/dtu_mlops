@@ -60,6 +60,7 @@ exercises = [
   "pydantic<=2.14.1",
   "pytest<=9.1.1",
   "python-dotenv<=1.2.1",
+  "python-multipart<=0.0.32",
   "pytorch-lightning<=2.5.6",
   "requests<=2.33.1",
   "ruff<=0.14.5",
@@ -148,6 +149,8 @@ lint.ignore = [
   "TC003",
 ]
 lint.exclude = [ "student_repos/" ]
+# pytest is built around assert, the bandit rule does not apply to our own tests.
+lint.per-file-ignores."tests/**" = [ "S101" ]
 lint.pydocstyle.convention = "google"
 
 [tool.codespell]
@@ -159,3 +162,8 @@ default.extend-identifiers.arange = "arange"
 default.extend-words.HSA = "HSA"
 default.extend-words.Ue = "Ue"
 default.extend-words.Hashi = "Hashi"
+
+[tool.pytest]
+# Keep pytest out of the exercise folders, which are full of scripts and fixtures
+# that are not tests.
+ini_options.testpaths = [ "tests" ]
