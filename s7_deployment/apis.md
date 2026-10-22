@@ -49,7 +49,7 @@ but the TLDR is that it provides privacy, integrity and identification over the 
 We are going to do a couple of exercises on sending requests using the
 [requests package](https://requests.readthedocs.io/en/latest/) to get familiar with the syntax.
 
-1. Start by installing the `requests`` package.
+1. Start by installing the `requests` package.
 
     === "Using pip"
         ```bash

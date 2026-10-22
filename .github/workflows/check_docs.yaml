@@ -9,7 +9,9 @@ permissions:
   contents: write
   pull-requests: write
 
-# Serialize preview deploys per PR so concurrent pushes do not race on gh-pages.
+# Serialize preview deploys for the same PR. Pushes from different PRs (and
+# from deploy_docs.yaml) can still land concurrently, so every push below is
+# retried against the latest gh-pages tip instead of failing the check.
 concurrency:
   group: docs-preview-${{ github.event.pull_request.number }}
   cancel-in-progress: false
@@ -28,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -58,6 +60,26 @@ jobs:
       - name: Deploy PR preview
         if: github.event.pull_request.head.repo.full_name == github.repository
         run: |
+          push_with_retry() {
+            local attempt=1
+            while true; do
+              if git push origin gh-pages; then
+                return 0
+              fi
+              if [ "$attempt" -ge 5 ]; then
+                return 1
+              fi
+              echo "::warning::gh-pages moved during the push (attempt ${attempt}/5); rebasing and retrying"
+              git fetch origin gh-pages
+              git rebase origin/gh-pages || {
+                git rebase --abort
+                return 1
+              }
+              sleep $((attempt * 5))
+              attempt=$((attempt + 1))
+            done
+          }
+
           git fetch origin gh-pages
           git checkout gh-pages
           rm -rf "$PREVIEW_DIR"
@@ -68,7 +90,7 @@ jobs:
             echo "Preview is already up to date."
           else
             git commit -m "Deploy docs preview for PR #${{ github.event.pull_request.number }}"
-            git push origin gh-pages || { git fetch origin gh-pages && git rebase origin/gh-pages && git push origin gh-pages; }
+            push_with_retry
           fi
 
       - name: Comment preview link
@@ -108,7 +130,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -119,12 +141,32 @@ jobs:
 
       - name: Delete PR preview
         run: |
+          push_with_retry() {
+            local attempt=1
+            while true; do
+              if git push origin gh-pages; then
+                return 0
+              fi
+              if [ "$attempt" -ge 5 ]; then
+                return 1
+              fi
+              echo "::warning::gh-pages moved during the push (attempt ${attempt}/5); rebasing and retrying"
+              git fetch origin gh-pages
+              git rebase origin/gh-pages || {
+                git rebase --abort
+                return 1
+              }
+              sleep $((attempt * 5))
+              attempt=$((attempt + 1))
+            done
+          }
+
           git fetch origin gh-pages
           git checkout gh-pages
           if [ -d "$PREVIEW_DIR" ]; then
             git rm -rq "$PREVIEW_DIR"
             git commit -m "Delete docs preview for PR #${{ github.event.pull_request.number }}"
-            git push origin gh-pages || { git fetch origin gh-pages && git rebase origin/gh-pages && git push origin gh-pages; }
+            push_with_retry
           else
             echo "No preview '$PREVIEW_DIR' to delete."
           fi
