@@ -30,14 +30,15 @@ permissions:
 
 jobs:
   check:
-    name: Check exercise files (${{ matrix.os }})
+    name: Check exercise files (${{ matrix.os }}, Python ${{ matrix.python-version }})
     runs-on: ${{ matrix.os }}
-    # Runs take about 5-6 min. Cap them so a hanging import cannot block a runner for hours.
+    # Runs take about 6-8 min per Python version. Cap them so a hanging import cannot block a runner for hours.
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.12", "3.13", "3.14"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -46,9 +47,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          # numpy is pinned to 1.26, which has no wheels for Python 3.13+. Without a pin,
-          # uv builds it from source, and on Windows that MinGW build crashes on import.
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
 
       - name: Sync dependencies
         run: uv sync --group exercises --locked
