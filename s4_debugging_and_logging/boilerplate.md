@@ -109,7 +109,7 @@ all three assume that we are using `torch.utils.data.DataLoader` for the data lo
     ```
 
 3. Finally, `Lightning` also has the `LightningDataModule` that organizes data loading into a single structure, see
-    this [page](https://lightning.ai/docs/pytorch/latest/data/datamodule.html) for more info. Putting
+    this [page](https://lightning.ai/docs/pytorch/stable/data/datamodule.html) for more info. Putting
     data loading into a `DataModule` makes sense as it can then be reused between projects.
 
 ### Callbacks
@@ -118,7 +118,7 @@ Callbacks are one way to add additional functionality to your model, that strict
 model. Callbacks should therefore be seen as a self-contained feature that can be reused between projects. You have the
 option of implementing callbacks yourself (by inheriting from the `pytorch_lightning.callbacks.Callback` base class) or
 using one of the
-[built-in callbacks](https://lightning.ai/docs/pytorch/latest/extensions/callbacks.html#built-in-callbacks).
+[built-in callbacks](https://lightning.ai/docs/pytorch/stable/extensions/callbacks.html#built-in-callbacks).
 Of particular interest are the `ModelCheckpoint` and `EarlyStopping` callbacks:
 
 * The `ModelCheckpoint` makes sure to save checkpoints of your model. This is in principal not hard to do yourself, but
@@ -182,7 +182,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
     * The `configure_optimizers` method
 
-    Please read the [documentation](https://lightning.ai/docs/pytorch/latest/common/lightning_module.html)
+    Please read the [documentation](https://lightning.ai/docs/pytorch/stable/common/lightning_module.html)
     for more info.
 
     ??? success "Solution"
@@ -194,7 +194,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 3. Make sure your data is formatted such that it can be loaded using the `torch.utils.data.DataLoader` object.
 
 4. Instantiate a `Trainer` object. It is recommended to take a look at the
-    [trainer arguments](https://lightning.ai/docs/pytorch/latest/common/trainer.html#trainer-flags) (there
+    [trainer arguments](https://lightning.ai/docs/pytorch/stable/common/trainer.html#trainer-flags) (there
     are many of them) and maybe adjust some of them:
 
     1. Investigate what the `default_root_dir` flag does.
@@ -247,7 +247,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
 7. The previous module was all about logging in `wandb`, so the question is naturally how does `lightning` support this.
     Lightning does not only support `wandb`, but also many
-    [others](https://lightning.ai/docs/pytorch/latest/extensions/logging.html). Common to all of them is that
+    [others](https://lightning.ai/docs/pytorch/stable/extensions/logging.html). Common to all of them is that
     logging just needs to happen through the `self.log` method in your `LightningModule`:
 
     1. Add `self.log` to your `LightningModule. It should look something like this:
@@ -326,7 +326,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
     to `float16` is that we get approximately half the
     [memory consumption](https://en.wikipedia.org/wiki/Half-precision_floating-point_format). Try out half-precision
     training in PyTorch lightning. You can enable this by setting the
-    [precision](https://lightning.ai/docs/pytorch/latest/common/trainer.html#precision) flag in the `Trainer`.
+    [precision](https://lightning.ai/docs/pytorch/stable/common/trainer.html#precision) flag in the `Trainer`.
 
     ??? success "Solution"
 
@@ -347,7 +347,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
         ```
 
 11. (Optional) Lightning also has built-in support for profiling. Check out how to do this using the
-    [profiler](https://lightning.ai/docs/pytorch/latest/tuning/profiler_basic.html) argument in
+    [profiler](https://lightning.ai/docs/pytorch/stable/tuning/profiler_basic.html) argument in
     the `Trainer` object.
 
 12. (Optional) Another great feature of Lightning is that it allows for easily defining command line interfaces through
