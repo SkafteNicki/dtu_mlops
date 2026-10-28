@@ -291,7 +291,9 @@ result nicely (like `snakeviz` for `cProfile`) we are also going to use the tens
         <figure markdown>
         ![Image](../figures/profiler_overview.png){ width="600" }
         <figcaption>
-        <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a>
+        <a
+        href="https://web.archive.org/web/20241214032747/https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html">
+        Image credit </a>
         </figcaption>
         </figure>
 
