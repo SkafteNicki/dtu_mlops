@@ -3,15 +3,25 @@ updates:
   - package-ecosystem: "uv"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "sunday"
-      time: "12:00"
-    open-pull-requests-limit: 5
+      interval: "monthly"
+    # Skip releases younger than a week, so quick follow-up patches are picked up in one go
+    cooldown:
+      default-days: 7
+    # Bundle updates into at most one minor/patch PR and one major PR per month
+    groups:
+      python-minor-patch:
+        update-types: ["minor", "patch"]
+      python-major:
+        update-types: ["major"]
+    open-pull-requests-limit: 2
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "sunday"
-      time: "12:00"
-    open-pull-requests-limit: 2
+      interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
+    open-pull-requests-limit: 1
