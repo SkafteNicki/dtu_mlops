@@ -57,6 +57,43 @@ def linkcheck(ctx, offline: bool = False) -> None:
     )
 
 
+@task(aliases=["drawio"])
+def diagrams(ctx):
+    """Generate diagrams."""
+    ctx.run("docker pull rlespinasse/drawio-export", echo=True, pty=not WINDOWS)
+    ctx.run(
+        (
+            f"docker run --rm -v {CURRENT_DIR}:/data rlespinasse/drawio-export "
+            "figures/diagrams/ -f png --on-changes --remove-page-suffix --output ../"
+        ),
+        echo=True,
+        pty=not WINDOWS,
+    )
+
+
+@task(aliases=["mlops_canvas"])
+def canvas(ctx) -> None:
+    """Render the MLOps canvas PDFs to images used in the course material."""
+    ctx.run("docker pull minidocks/poppler", echo=True, pty=not WINDOWS)
+    ctx.run(
+        (
+            f"docker run --rm -v {CURRENT_DIR}:/app -w /app minidocks/poppler "
+            "pdftoppm -png -r 200 -singlefile canvas/canvas_en.pdf canvas/canvas_en"
+        ),
+        echo=True,
+        pty=not WINDOWS,
+    )
+    ctx.run(
+        (
+            f"docker run --rm -v {CURRENT_DIR}:/app -w /app minidocks/poppler "
+            "pdftoppm -png -r 150 -singlefile -f 3 -l 3 "
+            "canvas/full_mlops_canvas_en.pdf canvas/full_mlops_canvas_en_p3"
+        ),
+        echo=True,
+        pty=not WINDOWS,
+    )
+
+
 @task
 def deploy(ctx, version: str = "latest") -> None:
     """Deploy latest version locally (for testing)."""
