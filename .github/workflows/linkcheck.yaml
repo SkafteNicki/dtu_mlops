@@ -7,13 +7,47 @@ on:
     branches: [main]
   schedule:
     - cron: "0 13 * * 1"  # run every Monday at 13:00 UTC
+  workflow_dispatch:
 
 jobs:
-  link_check:
-    name: Check Markdown links
+  # Fast and deterministic: relative links between pages and #anchors
+  local_links:
+    name: Check local links
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: gaurav-nelson/github-action-markdown-link-check@master
+      - uses: lycheeverse/lychee-action@v2
         with:
-          config-file: '.github/linkcheck_config.json'
+          lycheeVersion: v0.24.2
+          args: --offline --include-fragments './**/*.md'
+
+  # External sites go down and rate limit, so only check them on a schedule and report breakage as an issue
+  external_links:
+    name: Check external links
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: lycheeverse/lychee-action@v2
+        id: lychee
+        with:
+          lycheeVersion: v0.24.2
+          args: './**/*.md'
+          output: lychee/out.md
+          fail: false
+      - name: Open or update issue for broken links
+        if: steps.lychee.outputs.exit_code != 0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: Broken links found by link checker
+        run: |
+          issue=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number')
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body-file lychee/out.md
+          else
+            gh issue create --title "$TITLE" --body-file lychee/out.md
+          fi
