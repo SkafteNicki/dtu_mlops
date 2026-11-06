@@ -95,7 +95,7 @@ We highly recommend that when going through the material you use the
 [homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
 [GitHub Pages](https://pages.github.com/) version of this repository that is more nicely rendered, and also includes
 some special HTML magic provided by
-[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+[Zensical](https://zensical.org/).
 
 The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
 corresponds to a full day of work if you are following the course, meaning approximately 9 hours of work. Each session
