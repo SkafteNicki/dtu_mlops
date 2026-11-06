@@ -49,7 +49,7 @@ course material is in the root of the repository. This means that:
     hangs on `Build started` when a real `.venv` sits in the repository root, even with `.venv` excluded.
 - Zensical silently ignores MkDocs plugins it does not support, so a plugin listed in `mkdocs.yml` may have no effect.
     Check <https://zensical.org/docs/compatibility/mkdocs/plugins/>.
-- A failing `exec="1"` block passes `--strict`. CI catches it by searching the built HTML for `markdown_exec`.
+- A failing `exec="1"` block passes `--strict`. CI catches it by searching the built HTML for the traceback.
 - New root files that should not be published go in the `exclude` plugin's list in `mkdocs.yml`.
 
 ## Authoring syntax

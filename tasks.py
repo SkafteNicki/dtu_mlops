@@ -21,7 +21,7 @@ def _require_external_venv() -> None:
 @task
 def install(ctx) -> None:
     """Create the environment for course."""
-    ctx.run("uv sync --all-extras", echo=True, pty=not WINDOWS)
+    ctx.run("uv sync --all-groups", echo=True, pty=not WINDOWS)
 
 
 @task
@@ -59,24 +59,11 @@ def docker_running(ctx):
 
 
 @task(docker_running)
-def linkcheck(ctx) -> None:
-    """Check for broken links."""
+def linkcheck(ctx, offline: bool = False) -> None:
+    """Check for broken links. Use --offline to only check local links and anchors."""
+    args = "--offline --include-fragments " if offline else ""
     ctx.run(
-        (
-            "docker build "
-            "https://github.com/gaurav-nelson/github-action-markdown-link-check.git#master -t linkcheck:latest"
-        ),
-        echo=True,
-        pty=not WINDOWS,
-    )
-    ctx.run(
-        (
-            "docker run "
-            "--rm "
-            f"-v {CURRENT_DIR}:/github/workspace "
-            "linkcheck "
-            """no no /github/workspace/.github/linkcheck_config.json /github/workspace -1 no master .md " " """
-        ),
+        f'docker run --rm -v "{CURRENT_DIR}":/input:ro -w /input lycheeverse/lychee:0.24.2 {args}"./**/*.md"',
         echo=True,
         pty=not WINDOWS,
     )

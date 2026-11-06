@@ -88,74 +88,103 @@ We are now going to start using the cloud.
 6. While logged into the instance, check if Python and PyTorch are installed.
     You should see that neither is installed. The VM we have only specified what
     compute resources it should have, and not what software should be in it. We
-    can fix this by starting VMs based on specific docker images (it's all coming together).
+    can fix this by starting VMs based on a pre-built *virtual machine image* that already contains the software we
+    need.
 
-    1. GCP comes with several ready-to-go images for doing deep learning.
-        More info can be found [in the deep learning containers guide](https://cloud.google.com/deep-learning-containers/docs/choosing-container).
-        Try, running this line:
+    1. GCP provides several ready-to-go [Deep Learning VM images](https://cloud.google.com/deep-learning-vm/docs/images)
+        that come with NVIDIA drivers, CUDA, Python and PyTorch pre-installed. The images are grouped into
+        *image families*, and creating a VM from a family always gives you the newest image in that family. Try running
+        this command:
 
         ```bash
-        gcloud container images list --repository="gcr.io/deeplearning-platform-release"
+        gcloud compute images list \
+            --project=deeplearning-platform-release \
+            --no-standard-images \
+            --format="value(family)" | sort -u
         ```
 
-        What does the output show?
+        What does the output show? Which image families contain PyTorch?
 
         ??? success "Solution"
 
-            The output should show a list of images that are available for you to use. The images are essentially
-            docker images that contain a specific software stack. The software stack is often a specific version of
-            Python, PyTorch, TensorFlow, etc. The images are maintained by Google and are updated regularly.
+            The output is a list of image families that are maintained by Google. The names describe the software
+            stack in each image, for example `pytorch-2-9-cu129-ubuntu-2204-nvidia-580` contains PyTorch 2.9, CUDA
+            12.9 and NVIDIA driver 580 installed on Ubuntu 22.04. Families starting with `pytorch-` contain PyTorch,
+            whereas families starting with `common-` only contain the drivers and CUDA. Google regularly releases new
+            families and deprecates old ones, which is why you should always check this list instead of copying a family
+            name from a guide. All current images are GPU-enabled images; the older CPU-only images (and families such
+            as `pytorch-latest-cpu` and `pytorch-latest-gpu`) have been deprecated and can no longer be used.
 
-    2. Next, start (in the terminal) a new instance using a PyTorch image. The command for doing it should look
-        something like this:
+    2. Next, start (in the terminal) a new instance using one of the PyTorch image families. The command for doing it
+        should look something like this:
 
         ```bash
         gcloud compute instances create <instance_name> \
             --zone=<zone> \
+            --machine-type=<machine-type> \
             --image-family=<image-family> \
             --image-project=deeplearning-platform-release \
-            # add these arguments if you want to run on GPU and have the quota to do so
-            --accelerator="type=nvidia-tesla-V100,count=1" \
-            --maintenance-policy TERMINATE \
-            --metadata="install-nvidia-driver=True" \
+            --boot-disk-size=<disk-size> \
+            --accelerator="type=<gpu-type>,count=1" \
+            --maintenance-policy=TERMINATE \
+            --metadata="install-nvidia-driver=True"
         ```
 
-        You can find more info
-        [in the PyTorch VM instance guide](https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance) on
-        what `<image-family>` should be and what extra argument you need to add if you want to run on GPU (if you
-        have access).
+        The last three arguments attach a GPU to the VM, tell GCP that the VM should be stopped (instead of live
+        migrated) during host maintenance, which is required for VMs with GPUs, and make sure the NVIDIA driver is
+        installed on the first boot. You can find more info in the
+        [Deep Learning VM guide](https://cloud.google.com/deep-learning-vm/docs/create-vm-instance-gcloud).
 
         ??? success "Solution"
 
             The command should look something like this:
-
-            === "CPU"
-
-                ```bash
-                gcloud compute instances create my-instance \
-                    --zone=europe-west1-b \
-                    --image-family=pytorch-latest-cpu \
-                    --image-project=deeplearning-platform-release
-                ```
 
             === "GPU"
 
                 ```bash
                 gcloud compute instances create my-instance \
                     --zone=europe-west1-b \
-                    --image-family=pytorch-latest-gpu \
+                    --machine-type=n1-standard-4 \
+                    --image-family=pytorch-2-9-cu129-ubuntu-2204-nvidia-580 \
                     --image-project=deeplearning-platform-release \
-                    --accelerator="type=nvidia-tesla-V100,count=1" \
-                    --maintenance-policy TERMINATE
+                    --boot-disk-size=100GB \
+                    --accelerator="type=nvidia-tesla-t4,count=1" \
+                    --maintenance-policy=TERMINATE \
+                    --metadata="install-nvidia-driver=True"
                 ```
+
+            === "No GPU quota"
+
+                If you do not have GPU quota, you can still start a VM from the same GPU-enabled image by leaving out
+                the accelerator arguments. PyTorch is still installed, it will just run on the CPU:
+
+                ```bash
+                gcloud compute instances create my-instance \
+                    --zone=europe-west1-b \
+                    --machine-type=e2-standard-4 \
+                    --image-family=pytorch-2-9-cu129-ubuntu-2204-nvidia-580 \
+                    --image-project=deeplearning-platform-release \
+                    --boot-disk-size=100GB
+                ```
+
+            Remember to replace the image family with one from the list you got in the previous exercise if
+            `pytorch-2-9-cu129-ubuntu-2204-nvidia-580` is no longer available. The deep learning images are large, so
+            the boot disk needs to be at least 50GB.
 
         ??? tip "GPU notes (resource availability and drivers)"
 
             GPU quotas and availability vary by region/zone, so you may need to try multiple combinations. You can
             check GPU availability per region/zone in the
-            [GCP GPU regions/zones guide](https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones).
-            If `--metadata="install-nvidia-driver=True"` does not install a working driver, install it manually after
-            the VM boots:
+            [GCP GPU regions/zones guide](https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones)
+            or by running:
+
+            ```bash
+            gcloud compute accelerator-types list --filter="zone:europe-west1-b"
+            ```
+
+            The driver is installed on the first boot, so it can take around 5 minutes before you can `ssh` into the
+            VM. If `--metadata="install-nvidia-driver=True"` does not install a working driver, install it manually
+            after the VM boots:
 
             ```bash
             sudo apt-get update
@@ -191,9 +220,9 @@ We are now going to start using the cloud.
             ```
 
             Note: older GPUs like P100 can report "cuda capability too old" with recent PyTorch. If GPU setup is
-            blocked by quotas or availability, continue the exercises on CPU.
+            blocked by quotas or availability, continue the exercises on a VM without a GPU.
 
-    3. `ssh` into the VM as in one of the previous exercises. Confirm that the container indeed contains
+    3. `ssh` into the VM as in one of the previous exercises. Confirm that the VM indeed contains
         both a Python installation and PyTorch is also installed. Hint: you also have the possibility
         through the web page to start a browser session directly to the VMs you create:
 

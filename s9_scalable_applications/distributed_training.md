@@ -170,7 +170,7 @@ PyTorch, distributed data parallel is much more involved.
     applications yourself. Luckily for us, `PyTorch-lightning` can take care of this for us such that we do not have to
     care about the specific details. To get your model training on multiple GPUs you need to change two arguments in the
     trainer: the `accelerator` flag and the `gpus` flag. In addition to this, you can read through this
-    [guide](https://pytorch-lightning.readthedocs.io/en/latest/accelerators/gpu.html) about any additional steps you may
+    [guide](https://lightning.ai/docs/pytorch/stable/accelerators/gpu.html) about any additional steps you may
     need to do (for many of you, it should just work). Try running your model on multiple GPUs.
 
 4. Try benchmarking your training using 1 and 2 gpus, e.g., try running a couple of epochs and measure how long it

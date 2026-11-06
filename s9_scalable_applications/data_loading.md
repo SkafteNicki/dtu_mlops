@@ -114,11 +114,12 @@ It is this trade-off that we are going to investigate in the exercises.
 ### ❔ Exercises
 
 This exercise is intended to be done on the
-[labeled faces in the wild (LFW)](http://vis-www.cs.umass.edu/lfw/) dataset. The dataset consists of images of famous
-people extracted from the internet. The dataset had been used to drive the field of facial verification, which you can
-read more about [in this deep face recognition guide](https://viso.ai/deep-learning/deep-face-recognition/). We are
-going to imagine that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can
-be parallelized based on loading the raw data files (.jpg) at runtime.
+[labeled faces in the wild (LFW)](https://web.archive.org/web/20250105180242/http://vis-www.cs.umass.edu/lfw/)
+dataset. The dataset consists of images of famous people extracted from the internet. The dataset had been used to drive
+the field of facial verification, which you can read more about
+[in this deep face recognition guide](https://viso.ai/deep-learning/deep-face-recognition/). We are going to imagine
+that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can be parallelized
+based on loading the raw data files (.jpg) at runtime.
 
 1. Download the dataset and extract it to a folder. It does not matter if you choose the non-aligned or aligned version
     of the dataset.

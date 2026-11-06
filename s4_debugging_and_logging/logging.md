@@ -195,7 +195,6 @@ There exist many tools for logging your experiments, with some of them being:
 * [Tensorboard](https://www.tensorflow.org/tensorboard)
 * [Comet](https://www.comet.ml/site/)
 * [MLFlow](https://mlflow.org/)
-* [Neptune](https://neptune.ai/)
 * [Weights and Bias](https://wandb.ai/site)
 
 All of the frameworks offer many of the same functionalities, you can see a (biased) review

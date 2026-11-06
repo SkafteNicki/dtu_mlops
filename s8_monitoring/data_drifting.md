@@ -42,7 +42,7 @@ degrade, thus we need tools that can detect when we are seeing a drift in our da
 For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) ,developed
 by [EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports detection for both regression and
 classification models. The exercises are in large part taken from
-[the Evidently getting started guide](https://docs.evidentlyai.com/get-started/hello-world) and in general we recommend
+[the Evidently getting started guide](https://docs.evidentlyai.com/quickstart_ml) and in general we recommend
 if you are in doubt about an exercise to look at the [docs](https://docs.evidentlyai.com/) for the API and examples
 (their documentation can be a bit lacking sometimes, so you may also have to dive into the source code).
 
@@ -293,7 +293,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             ```
 
     2. (Optional) For text a common approach is to extract some higher-level embedding such as the very classical
-        [GLOVE](https://nlp.stanford.edu/projects/glove/) embedding. Try following
+        [GLOVE](https://github.com/stanfordnlp/GloVe) embedding. Try following
         [this tutorial](https://github.com/evidentlyai/community-examples/blob/main/examples/how_to_run_drift_report_for_text_data.ipynb)
         to understand how drift detection is done on text.
 

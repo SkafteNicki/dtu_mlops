@@ -1,0 +1,27 @@
+# Configuration for the lychee link checker: https://lychee.cli.rs
+# Used by .github/workflows/linkcheck.yaml and `uv run invoke linkcheck`.
+
+no_progress = true
+
+# Retry flaky hosts before declaring a link dead
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+
+# 429: rate limited, the link itself is fine
+accept = ["200..=299", "429"]
+
+# Skip localhost, 127.0.0.1, 0.0.0.0 etc. used in the exercises
+exclude_all_private = true
+
+exclude = [
+    # Placeholder URLs in the API exercises
+    '^https://api\.github\.com',
+    # Sites that block automated requests
+    '^https://(www\.)?(twitter|x)\.com',
+    '^https://(www\.)?reddit\.com',
+    '^https://(www\.)?stackoverflow\.com',
+    '^https://join\.slack\.com',
+    # Requires DTU login
+    '^https://panopto\.dtu\.dk',
+]

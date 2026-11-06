@@ -75,6 +75,7 @@ plugins:
         - site/*
         - docs/agents/*
         - LICENSE
+        - lychee.toml
         - mkdocs.yml
         - pyproject.toml
         - tasks.py

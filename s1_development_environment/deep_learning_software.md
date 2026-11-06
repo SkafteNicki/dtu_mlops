@@ -130,7 +130,7 @@ Here are some general installation commands for Pytorch:
     [project]
     name = "project"
     version = "0.1.0"
-    requires-python = ">=3.14.0"
+    requires-python = ">=3.13"
     dependencies = [
         "torch>=2.9.1",
     ]
