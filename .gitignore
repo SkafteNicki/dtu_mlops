@@ -120,7 +120,7 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
+# docs build output
 /site
 
 # jekyll generated site

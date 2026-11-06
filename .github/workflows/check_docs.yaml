@@ -15,6 +15,9 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  # Zensical 0.1.0 hangs when this course is built with a real `.venv` in the repo
+  # root, so keep the environment outside the checkout.
+  UV_PROJECT_ENVIRONMENT: ../docs-venv
   PREVIEW_BASE_URL: https://skaftenicki.github.io/dtu_mlops
   # Previews are plain static files under this folder on gh-pages. They are
   # deliberately NOT registered in versions.json, so they stay hidden from
@@ -41,13 +44,27 @@ jobs:
         run: uv sync
 
       - name: Build docs (strict)
-        run: uv run mkdocs build -d build --strict
+        id: build
+        run: |
+          uv run zensical build --strict
+          echo "site_dir=$(sed -n 's/^site_dir: *//p' mkdocs.yml)" >> "$GITHUB_OUTPUT"
+
+      # A failing `exec` block passes `zensical build --strict` and prints its
+      # traceback on the page, and that traceback names the markdown_exec package.
+      - name: Check exec blocks rendered without failure
+        env:
+          SITE_DIR: ${{ steps.build.outputs.site_dir }}
+        run: |
+          if grep -rl "markdown_exec" "$SITE_DIR" --include='*.html'; then
+            echo "::error::An exec block failed at build time; see the pages listed above."
+            exit 1
+          fi
 
       - name: Upload docs
         uses: actions/upload-artifact@v7
         with:
           name: docs
-          path: build
+          path: ${{ steps.build.outputs.site_dir }}
 
       - name: Configure git credentials
         if: github.event.pull_request.head.repo.full_name == github.repository
@@ -57,12 +74,14 @@ jobs:
 
       - name: Deploy PR preview
         if: github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          SITE_DIR: ${{ steps.build.outputs.site_dir }}
         run: |
           git fetch origin gh-pages
           git checkout gh-pages
           rm -rf "$PREVIEW_DIR"
           mkdir -p "$PREVIEW_DIR"
-          cp -r build/. "$PREVIEW_DIR/"
+          cp -r "$SITE_DIR"/. "$PREVIEW_DIR/"
           git add "$PREVIEW_DIR"
           if git diff --cached --quiet; then
             echo "Preview is already up to date."

@@ -1,10 +1,21 @@
 import os
 import sys
+from pathlib import Path
 
 from invoke import task
 
 CURRENT_DIR = os.getcwd()
 WINDOWS = os.name == "nt"
+
+
+def _require_external_venv() -> None:
+    """Exit with instructions, as Zensical 0.1.0 hangs when building this course with a real `.venv` in the repo."""
+    venv = Path(CURRENT_DIR, ".venv")
+    if venv.is_dir() and not venv.is_symlink():
+        sys.exit(
+            "Zensical hangs with a .venv in the repo root. Remove it, run "
+            "`export UV_PROJECT_ENVIRONMENT=../dtu_mlops-venv`, then run this task again."
+        )
 
 
 @task
@@ -22,8 +33,9 @@ def precommit(ctx) -> None:
 
 @task(aliases=["mkdocs"])
 def docs(ctx) -> None:
-    """Build the documentation."""
-    ctx.run("uv run mkdocs serve --dirty", echo=True, pty=not WINDOWS)
+    """Serve the documentation locally."""
+    _require_external_venv()
+    ctx.run("uv run zensical serve", echo=True, pty=not WINDOWS)
 
 
 @task
@@ -73,6 +85,7 @@ def linkcheck(ctx) -> None:
 @task
 def deploy(ctx, version: str = "latest") -> None:
     """Deploy latest version locally (for testing)."""
+    _require_external_venv()
     if version == "latest":
         ctx.run("uv run mike deploy --update-aliases latest stable", echo=True, pty=not WINDOWS)
         ctx.run("uv run mike set-default latest", echo=True, pty=not WINDOWS)

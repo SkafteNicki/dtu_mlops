@@ -7,6 +7,11 @@ on:
 permissions:
   contents: write
 
+env:
+  # Zensical 0.1.0 hangs when this course is built with a real `.venv` in the repo
+  # root, so keep the environment outside the checkout.
+  UV_PROJECT_ENVIRONMENT: ../docs-venv
+
 jobs:
   deploy:
     name: Deploy docs

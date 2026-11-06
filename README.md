@@ -54,7 +54,7 @@ We highly recommend that when going through the material you use the
 [homepage](https://skaftenicki.github.io/dtu_mlops/) which is the corresponding
 [GitHub Pages](https://pages.github.com/) version of this repository that is more nicely rendered, and also includes
 some special HTML magic provided by
-[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+[Zensical](https://zensical.org/).
 
 In particular start by going to the [Introduction page](pages/before.md), which will give you an overview of the course
 and a soft introduction to MLOps.
@@ -98,15 +98,19 @@ Either use `pip` to install the requirements:
 
 ```bash
 pip install -r requirements.txt
-mkdocs serve
+zensical serve
 ```
 
 Or use `uv`
 
 ```bash
+export UV_PROJECT_ENVIRONMENT=../dtu_mlops-venv
 uv sync
-uv run mkdocs serve
+uv run zensical serve
 ```
+
+Keep the virtual environment outside the repository, because Zensical currently hangs when building the course with a
+`.venv` in the repository root.
 
 Which will start a local server that you can access at `http://127.0.0.1:8000` and will automatically update when you
 make changes to the course material. When you have something that you want to contribute, please make a pull request.
