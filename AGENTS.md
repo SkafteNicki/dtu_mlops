@@ -14,8 +14,8 @@ inference, local and cloud based deployment, monitoring of deployed applications
 
 ## Project structure
 
-The course is setup as a mkdocs project. Importantly, the structure is flattened such that all course material is in the
-root of the repository. This means that:
+The course website is built with Zensical from `mkdocs.yml`. Importantly, the structure is flattened such that all
+course material is in the root of the repository. This means that:
 
 - The course is divided into several sessions, named `s1_*`, `s2_*`, etc. Each session folder contains multiple `*.md`
     files which are different learning modules within that session. In addition the `pages/` folder contains additional
@@ -42,10 +42,20 @@ root of the repository. This means that:
 - Project uses `pre-commit` for git hooks. Make sure to run the pre-commit hooks after making changes to the codebase:
     `uv run pre-commit`
 
-## Material mkdocs specific instructions
+## Building the website
 
-The project uses the `material for mkdocs` theme for mkdocs. You can find the documentation for this theme here:
-<https://squidfunk.github.io/mkdocs-material/reference/>
+- Build with `uv run zensical build --strict`; the output goes to `site_dir` in `mkdocs.yml`.
+- Keep the virtual environment outside the repository: `export UV_PROJECT_ENVIRONMENT=../dtu_mlops-venv`. Zensical
+    hangs on `Build started` when a real `.venv` sits in the repository root, even with `.venv` excluded.
+- Zensical silently ignores MkDocs plugins it does not support, so a plugin listed in `mkdocs.yml` may have no effect.
+    Check <https://zensical.org/docs/compatibility/mkdocs/plugins/>.
+- A failing `exec="1"` block passes `--strict`. CI catches it by searching the built HTML for the traceback.
+- New root files that should not be published go in the `exclude` plugin's list in `mkdocs.yml`.
+
+## Authoring syntax
+
+The website uses the Material-compatible Markdown syntax that Zensical supports. You can find the documentation here:
+<https://zensical.org/docs/authoring/admonitions/>
 
 That said here is some general guidelines for features that are used in this repository:
 

@@ -1,6 +1,6 @@
 site_name: DTU-MLOps
 docs_dir: .
-site_dir: ../site
+site_dir: site
 repo_url: https://github.com/SkafteNicki/dtu_mlops
 edit_uri: edit/main/
 copyright: Copyright &copy; 2021 - 2026 Nicki Skafte Detlefsen
@@ -8,6 +8,7 @@ copyright: Copyright &copy; 2021 - 2026 Nicki Skafte Detlefsen
 theme:
   language: en
   name: material
+  variant: classic
   favicon: figures/favicon.png
   logo: figures/mlops_cycle.png
   icon:
@@ -71,6 +72,14 @@ plugins:
   - exclude:
       glob:
         - .venv/
+        - site/*
+        - docs/agents/*
+        - LICENSE
+        - lychee.toml
+        - mkdocs.yml
+        - pyproject.toml
+        - tasks.py
+        - uv.lock
         - tools/*
         - reports/README.md
         - s10_extra/design.md
@@ -81,6 +90,10 @@ plugins:
         - s10_extra/quantization.md
         - samples/README.md
         - tools/README.md
+
+validation:
+  links:
+    anchors: warn
 
 extra:
   version:
