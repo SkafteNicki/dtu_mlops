@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 !!! quote
     *Code is read more often than it is written.* <br> <br>
     Guido Van Rossum (author of Python)

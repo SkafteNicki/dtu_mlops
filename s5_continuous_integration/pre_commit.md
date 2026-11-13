@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 One of the cornerstones of working with git is remembering to commit your work often. Frequent committing ensures
 that it is easier to identify and revert unwanted changes that you have introduced, because the code changes become
 smaller per commit.

@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 Boilerplate is a general term that describes any *standardized* text, copy, documents, methods, or procedures that may
 be used over and over again without making major changes to the original. But how does this relate to doing machine learning
 projects? If you have already tried doing a couple of projects within machine learning you will probably have seen a
