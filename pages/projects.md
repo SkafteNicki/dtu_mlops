@@ -199,29 +199,30 @@ checklist for the exam. The parenthesis at the end indicates what module the bul
 * [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
 * [ ] Create a trigger workflow for automatically building your docker images (M21)
 * [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
-* [ ] Create a FastAPI application that can do inference using your model (M22)
-* [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
-* [ ] Write API tests for your application and setup continues integration for these (M24)
-* [ ] Load test your application (M24)
-* [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)
-* [ ] Create a frontend for your API (M26)
+* [ ] Set up infrastructure as code configuration for your cloud resources using Terraform/OpenTofu (M22)
+* [ ] Create a FastAPI application that can do inference using your model (M23)
+* [ ] Deploy your model in GCP using either Functions or Run as the backend (M24)
+* [ ] Write API tests for your application and setup continues integration for these (M25)
+* [ ] Load test your application (M25)
+* [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M26)
+* [ ] Create a frontend for your API (M27)
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting (M27)
-* [ ] Setup collection of input-output data from your deployed application (M27)
-* [ ] Deploy to the cloud a drift detection API (M27)
-* [ ] Instrument your API with a couple of system metrics (M28)
-* [ ] Setup cloud monitoring of your instrumented application (M28)
-* [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
-* [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)
-* [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)
-* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)
+* [ ] Check how robust your model is towards data drifting (M28)
+* [ ] Setup collection of input-output data from your deployed application (M28)
+* [ ] Deploy to the cloud a drift detection API (M28)
+* [ ] Instrument your API with a couple of system metrics (M29)
+* [ ] Setup cloud monitoring of your instrumented application (M29)
+* [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M29)
+* [ ] If applicable, optimize the performance of your data loading using distributed data loading (M30)
+* [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M31)
+* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M32)
 
 ### Extra
 
-* [ ] Write some documentation for your application (M32)
-* [ ] Publish the documentation to GitHub Pages (M32)
+* [ ] Write some documentation for your application (M33)
+* [ ] Publish the documentation to GitHub Pages (M33)
 * [ ] Revisit your initial project description. Did the project turn out as you wanted?
 * [ ] Create an architectural diagram over your MLOps pipeline
 * [ ] Make sure all group members have an understanding about all parts of the project
