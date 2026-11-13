@@ -2,6 +2,10 @@
 
 # Frontend
 
+---
+
+!!! info "Optional Module"
+
 If you have gone over the [deployment module](../s7_deployment/README.md) you should be at the point where you have a
 machine learning model running in the cloud. The model can be interacted with by sending HTTP requests to the API
 endpoint. In general we refer to this as the *backend* of the application. It is the part of our application that is

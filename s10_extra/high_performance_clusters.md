@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 As discussed in [the intro session on the cloud](../s6_the_cloud/README.md), cloud providers offers near infinite
 compute resources. However, using these resources comes at a hefty price often and it is therefore important to be
 aware of another resource many have access to: High Performance Clusters or HPC. HPCs exist all over the world, and

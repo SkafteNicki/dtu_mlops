@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 The continuous integration we have looked at until now is what we can consider "classical" continuous integration, which
 has its roots in DevOps and not MLOps. While the tests that we have written and the containers we have developed in the
 previous session have been about machine learning, everything we have done translates completely to how it would be

@@ -5,6 +5,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 Inference is the task of applying our trained model to some new and unseen data, often called *prediction*. Thus,
 scaling inference is different from scaling data loading and training, mainly due to inference normally only using a
 single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at

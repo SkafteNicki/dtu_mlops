@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 !!! warning "Outdated module"
 
     This module has not been updated for a long time and therefore some functionality of Optuna, which is used in these

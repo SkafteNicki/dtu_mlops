@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 In today's rapidly evolving software development landscape, effective documentation is a crucial component of any
 project. The ability to create clear, concise, and user-friendly technical documentation can make a significant
 difference in the success of your codebase. We all probably encountered code that we wanted to use, only for us to

@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 Debugging is very hard to teach and is one of the skills that just comes with experience. That said, there are good
 and bad ways to debug a program. We are all probably familiar with just inserting `print(...)` statements everywhere
 in our code. It is easy and can many times help narrow down where the problem happens. That said, this is not a great

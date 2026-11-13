@@ -5,6 +5,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 With docker we can make sure that our compute environment is reproducible, but that does not mean that all our
 experiments magically become reproducible. There are other factors that are important for creating reproducible
 experiments.

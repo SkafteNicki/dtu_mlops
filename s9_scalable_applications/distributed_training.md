@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 In this module we are going to look at distributed training. Distributed training is one of the key ingredients
 to all the awesome results that deep learning models are producing. For example:
 [Alphafold](https://deepmind.com/blog/article/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology)

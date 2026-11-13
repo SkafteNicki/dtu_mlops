@@ -4,6 +4,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 As discussed in the initial [module](../s1_development_environment/command_line.md), the command line offers a robust
 interface for interacting with your computer. You should already be comfortable executing basic Python commands
 in the terminal:

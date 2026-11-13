@@ -5,6 +5,8 @@
 
 ---
 
+!!! info "Optional Module"
+
 In one of the [previous modules](../s7_deployment/apis.md) you learned about how to use
 [FastAPI](https://fastapi.tiangolo.com/) to create an API to interact with your machine learning models. FastAPI is a
 great framework, but it is a general framework meaning that it was not developed with machine learning applications in
