@@ -8,19 +8,19 @@
 
     Learn how to set up distributed data loading in your PyTorch application
 
-    [:octicons-arrow-right-24: M29: Distributed Data Loading](data_loading.md)
+    [:octicons-arrow-right-24: M30: Distributed Data Loading](data_loading.md)
 
 - ![](../figures/icons/lightning.png){align=right : style="height:100px;width:100px"}
 
     Learn how to do distributed training in PyTorch using `pytorch-lightning`
 
-    [:octicons-arrow-right-24: M30: Distributed Training](distributed_training.md)
+    [:octicons-arrow-right-24: M31: Distributed Training](distributed_training.md)
 
 - ![](../figures/icons/pytorch.png){align=right : style="height:100px;width:100px"}
 
     Learn how to do scalable inference in PyTorch
 
-    [:octicons-arrow-right-24: M31: Scalable Inference](inference.md)
+    [:octicons-arrow-right-24: M32: Scalable Inference](inference.md)
 
 </div>
 

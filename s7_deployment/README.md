@@ -22,17 +22,23 @@
 
     [:octicons-arrow-right-24: M24: API testing](testing_apis.md)
 
+- ![](../figures/icons/gcp.png){align=right : style="height:100px;width:100px"}
+
+    Learn deployment testing strategies: A/B testing, canary deployment, and shadow deployment
+
+    [:octicons-arrow-right-24: M25: Deployment Testing](deployment_testing.md)
+
 - ![](../figures/icons/bentoml.png){align=right : style="height:100px;width:100px"}
 
     Learn about different ways to improve the deployment of machine learning models
 
-    [:octicons-arrow-right-24: M25: ML Deployment](ml_deployment.md)
+    [:octicons-arrow-right-24: M26: ML Deployment](ml_deployment.md)
 
 - ![](../figures/icons/streamlit.png){align=right : style="height:100px;width:100px"}
 
     Learn how to create a frontend for your application using Streamlit
 
-    [:octicons-arrow-right-24: M26: Frontend](frontend.md)
+    [:octicons-arrow-right-24: M27: Frontend](frontend.md)
 
 </div>
 
@@ -59,6 +65,7 @@ also how to deploy services in the cloud.
     * Be able to create custom APIs using the framework `fastapi` and run it locally
     * Knowledge about serverless deployments and how to deploy custom APIs using both serverless functions and
         serverless containers
+    * Understand and implement deployment testing strategies (A/B testing, canary deployment, shadow deployment)
     * Can create basic continuouss deployment pipelines for your models
     * Understand the basics of frontend development and how to create a frontend for your application using Streamlit
     * Know how to use more advanced frameworks like onnx and bentoml to deploy your machine learning models
