@@ -1,7 +1,8 @@
 # Automated AI review of pull requests, using the OpenCode CLI and the
 # code-review-and-quality skill. Requires an OPENCODE_API_KEY repository
 # secret (free models are served by the opencode provider). Fork PRs cannot
-# access that secret, so they are skipped.
+# access that secret, so they are skipped. Dependabot PRs are skipped too, as
+# Dependabot has its own separate secret store.
 #
 # Which models are free changes often, so none are hardcoded. The workflow
 # asks the CLI which `*-free` models exist, picks several at random, reviews
@@ -35,7 +36,8 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       github.event.pull_request.draft == false &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
     timeout-minutes: 10
     outputs:
       reviewers: ${{ steps.pick.outputs.reviewers }}
