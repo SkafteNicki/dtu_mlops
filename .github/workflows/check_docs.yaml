@@ -2,7 +2,7 @@ name: Check docs
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, dev]
     types: [opened, synchronize, reopened, closed]
 
 permissions:
@@ -28,6 +28,12 @@ jobs:
     name: Check docs
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
+    env:
+      # Previews need write access, so fork PRs are skipped. Dependabot PRs are
+      # skipped too: they rarely change the docs, every preview is a full copy of
+      # the site on gh-pages, and merging a batch of them made the preview
+      # cleanups race each other for the branch.
+      DEPLOY_PREVIEW: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.user.login != 'dependabot[bot]' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -52,30 +58,30 @@ jobs:
           path: build
 
       - name: Configure git credentials
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: env.DEPLOY_PREVIEW == 'true'
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Deploy PR preview
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: env.DEPLOY_PREVIEW == 'true'
         run: |
+          # Back off (with jitter, so parallel jobs spread out) *before* fetching,
+          # so the rebased commit is pushed right away and the window in which
+          # another job can move gh-pages again stays as short as possible.
           push_with_retry() {
             local attempt=1
-            while true; do
-              if git push origin gh-pages; then
-                return 0
-              fi
-              if [ "$attempt" -ge 5 ]; then
+            until git push origin gh-pages; do
+              if [ "$attempt" -ge 10 ]; then
                 return 1
               fi
-              echo "::warning::gh-pages moved during the push (attempt ${attempt}/5); rebasing and retrying"
+              echo "::warning::gh-pages moved during the push (attempt ${attempt}/10); rebasing and retrying"
+              sleep $((attempt * 2 + RANDOM % 10))
               git fetch origin gh-pages
               git rebase origin/gh-pages || {
                 git rebase --abort
                 return 1
               }
-              sleep $((attempt * 5))
               attempt=$((attempt + 1))
             done
           }
@@ -94,7 +100,7 @@ jobs:
           fi
 
       - name: Comment preview link
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: env.DEPLOY_PREVIEW == 'true'
         uses: actions/github-script@v9
         with:
           script: |
@@ -141,22 +147,22 @@ jobs:
 
       - name: Delete PR preview
         run: |
+          # Back off (with jitter, so parallel jobs spread out) *before* fetching,
+          # so the rebased commit is pushed right away and the window in which
+          # another job can move gh-pages again stays as short as possible.
           push_with_retry() {
             local attempt=1
-            while true; do
-              if git push origin gh-pages; then
-                return 0
-              fi
-              if [ "$attempt" -ge 5 ]; then
+            until git push origin gh-pages; do
+              if [ "$attempt" -ge 10 ]; then
                 return 1
               fi
-              echo "::warning::gh-pages moved during the push (attempt ${attempt}/5); rebasing and retrying"
+              echo "::warning::gh-pages moved during the push (attempt ${attempt}/10); rebasing and retrying"
+              sleep $((attempt * 2 + RANDOM % 10))
               git fetch origin gh-pages
               git rebase origin/gh-pages || {
                 git rebase --abort
                 return 1
               }
-              sleep $((attempt * 5))
               attempt=$((attempt + 1))
             done
           }
