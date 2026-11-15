@@ -17,15 +17,18 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Sync dependencies
-        run: uv sync
-
       - name: Auth with GCP
         uses: google-github-actions/auth@v3
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+      # The scraper has its own requirements.txt, separate from the course project.
+      # streamlit and pillow are only needed by the leaderboard app, and their pins
+      # in that file currently conflict, so leave them out here.
       - name: Run repo scraper
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python tools/repo_stats/scraper.py
+        run: |
+          grep -vE '^(streamlit|pillow)==' tools/repo_stats/requirements.txt > "$RUNNER_TEMP/scraper-requirements.txt"
+          uv run --no-project --python 3.11 --with-requirements "$RUNNER_TEMP/scraper-requirements.txt" \
+            python tools/repo_stats/scraper.py scrape

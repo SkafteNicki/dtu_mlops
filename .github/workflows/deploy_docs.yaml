@@ -63,9 +63,11 @@ jobs:
               fi
 
               echo "::warning::${description} lost the race for gh-pages (attempt ${attempt}/5); rebasing on the remote branch and retrying"
+              # Back off before fetching, not after, so the retry starts from the
+              # freshest possible remote tip.
+              sleep $((attempt * 2 + RANDOM % 10))
               git fetch origin gh-pages
               git branch -f gh-pages origin/gh-pages
-              sleep $((attempt * 5))
               attempt=$((attempt + 1))
             done
           }

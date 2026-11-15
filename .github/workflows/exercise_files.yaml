@@ -5,7 +5,7 @@ name: Exercise files
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - "s*_*/exercise_files/**"
       - "tests/**"
@@ -13,7 +13,7 @@ on:
       - "uv.lock"
       - ".github/workflows/exercise_files.yaml"
   push:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - "s*_*/exercise_files/**"
       - "tests/**"
@@ -32,7 +32,7 @@ jobs:
   check:
     name: Check exercise files (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    # Runs take about 5-6 min. Cap them so a hanging import cannot block a runner for hours.
+    # Runs take about 3-6 min. Cap them so a hanging import cannot block a runner for hours.
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -57,6 +57,12 @@ jobs:
         # bash so the glob also expands on Windows
         shell: bash
         run: uv run --group exercises python -m compileall -q -f s*_*/exercise_files
+
+      # On a fresh macOS runner the first import of the heavy libraries can take more than
+      # the per-file timeout of the import test, while every later import is fast. Pay that
+      # one-off cost here, outside the timed test.
+      - name: Warm up heavy imports
+        run: uv run --group exercises python -c "import torch, torchvision, pytorch_lightning, transformers, sklearn"
 
       - name: Import exercise files
         run: uv run --group exercises pytest tests/test_exercise_files.py -v
