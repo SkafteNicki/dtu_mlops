@@ -1,6 +1,6 @@
+import datetime as dt
 import pickle
 from collections.abc import Generator
-from datetime import datetime
 
 from fastapi import BackgroundTasks, FastAPI
 
@@ -13,7 +13,7 @@ def lifespan(app: FastAPI) -> Generator[None]:
         model = pickle.load(file)
 
     with open("prediction_database.csv", "w") as file:
-        file.write("time, sepal_length, sepal_width, petal_length, petal_width, prediction\n")
+        file.write("time,sepal_length,sepal_width,petal_length,petal_width,prediction\n")
 
     yield
 
@@ -33,7 +33,7 @@ def add_to_database(
 ) -> None:
     """Simple function to add prediction to database."""
     with open("prediction_database.csv", "a") as file:
-        file.write(f"{now}, {sepal_length}, {sepal_width}, {petal_length}, {petal_width}, {prediction}\n")
+        file.write(f"{now},{sepal_length},{sepal_width},{petal_length},{petal_width},{prediction}\n")
 
 
 @app.post("/predict")
@@ -48,6 +48,6 @@ async def iris_inference(
     prediction = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
     prediction = prediction.item()
 
-    now = str(datetime.now(tz=datetime.UTC))
+    now = str(dt.datetime.now(tz=dt.UTC))
     background_tasks.add_task(add_to_database, now, sepal_length, sepal_width, petal_length, petal_width, prediction)
     return {"prediction": classes[prediction], "prediction_int": prediction}

@@ -39,25 +39,33 @@ degrade, thus we need tools that can detect when we are seeing a drift in our da
 
 ## ❔ Exercises
 
-For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) ,developed
+For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently), developed
 by [EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports detection for both regression and
 classification models. The exercises are in large part taken from
 [the Evidently getting started guide](https://docs.evidentlyai.com/quickstart_ml) and in general we recommend
 if you are in doubt about an exercise to look at the [docs](https://docs.evidentlyai.com/) for the API and examples
 (their documentation can be a bit lacking sometimes, so you may also have to dive into the source code).
 
+!!! warning "Old Evidently API"
+
+    Evidently rewrote its API in version `0.7`. The exercises use the new API (`from evidently import Report`,
+    `from evidently.presets import ...`). Many blog posts, tutorials and LLM answers still use the old API with classes
+    such as `TestSuite`, `ColumnMapping`, `DataQualityPreset` and `TargetDriftPreset`. That API now lives in the
+    `evidently.legacy` namespace and is documented at [docs-old.evidentlyai.com](https://docs-old.evidentlyai.com/).
+    Do not mix the two.
+
 Additionally, we want to stress that data drift detection, concept drift detection, etc. is still an active field of
 research and so there exist multiple frameworks for doing this kind of detection. In addition to Evidently,
 we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
-[deepcheck](https://github.com/deepchecks/deepchecks).
+[Deepchecks](https://github.com/deepchecks/deepchecks).
 
 1. Start by installing Evidently.
 
     === "Using pip"
 
-        ```python
-        pip install evidently
-        pip install scikit-learn pandas  # also needed if you do not have them already
+        ```bash
+        pip install evidently "pandas<3"
+        pip install scikit-learn  # also needed if you do not have it already
         ```
 
         and remember to add this to your `requirements.txt` file.
@@ -65,8 +73,12 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     === "Using uv"
 
         ```bash
-        uv add evidently scikit-learn pandas
+        uv add evidently "pandas<3" scikit-learn
         ```
+
+    The `pandas<3` pin is needed because the current version of Evidently cannot be imported together with pandas 3
+    (see [this issue](https://github.com/evidentlyai/evidently/issues/1974)). If `import evidently` fails with an
+    `ImportError` mentioning `infer_dtype_from_object`, then you have pandas 3 installed.
 
 2. Hopefully you have already gone through session [S7 on deployment](../s7_deployment/README.md). As part of the
     deployment exercises about GCP functions you should have developed an application that can classify the
@@ -75,7 +87,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
     ??? example "Example GCP function for iris classification"
 
-        ```python linenums="1" title="sklearn_train_function.py"
+        ```python linenums="1" title="sklearn_main_function.py"
         --8<-- "s7_deployment/exercise_files/sklearn_main_function.py"
         ```
 
@@ -84,7 +96,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
     ```bash
     curl -X 'POST' \
-        'http://127.0.0.1:8000/iris_v1/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
+        'http://127.0.0.1:8000/predict/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
         -H 'accept: application/json' \
         -d ''
     ```
@@ -110,9 +122,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         of the database should look something like this:
 
         ```csv
-        time, sepal_length, sepal_width, petal_length, petal_width, prediction
-        2022-12-28 17:24:34.045649, 1.0, 1.0, 1.0, 1.0, 1
-        2022-12-28 17:24:44.026432, 2.0, 2.0, 2.0, 2.0, 1
+        time,sepal_length,sepal_width,petal_length,petal_width,prediction
+        2022-12-28 17:24:34.045649,1.0,1.0,1.0,1.0,1
+        2022-12-28 17:24:44.026432,2.0,2.0,2.0,2.0,1
         ...
         ```
 
@@ -120,7 +132,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
         ??? success "Solution"
 
-            ```python linenums="1" title="iris_fastapi_solution.py"
+            ```python linenums="1" title="iris_fastapi_solution_2.py"
             --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution_2.py"
             ```
 
@@ -153,11 +165,12 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     2022-12-28 17:24:34.045649   1.0            1.0            1.0           1.0           1
     ...
     2022-12-28 17:24:34.045649   1.0            1.0            1.0           1.0           1
-    [10 rows x 5 columns]
+    [10 rows x 6 columns]
     ```
 
     Standardize the dataframes such that they have the same column names and drop the time column from the
-    `current_data` dataframe.
+    `current_data` dataframe. Since our API logs the predicted class, rename the `prediction` column in `current_data`
+    to `target` so it matches the `target` column in `reference_data`.
 
     ??? success "Solution"
 
@@ -170,83 +183,138 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
                 'sepal length (cm)': 'sepal_length',
                 'sepal width (cm)': 'sepal_width',
                 'petal length (cm)': 'petal_length',
-                'petal width (cm)': 'petal_width',
-                'target': 'target'
+                'petal width (cm)': 'petal_width'
             }
         )
 
         current_data = pd.read_csv('prediction_database.csv')
         current_data = current_data.drop(columns=['time'])
+        current_data = current_data.rename(columns={'prediction': 'target'})  # standardize the column names
         ```
 
-    1. Add the following code to the `data_drift.py` file to create a report on the data drift:
+    1. Evidently does not work directly on dataframes. Instead it uses a `Dataset` object, which combines a
+        dataframe with a `DataDefinition`. The data definition tells Evidently how to interpret each column, e.g.
+        which columns are numerical, which are categorical, which contain text etc. If you leave it out, Evidently
+        will try to guess the column types, which works for simple cases like this one but is not always correct.
+        Look through the [data definition docs](https://docs.evidentlyai.com/docs/library/data_definition) and
+        convert both dataframes to `Dataset` objects, where the four features are numerical and the `target` column
+        is categorical.
+
+        ??? success "Solution"
+
+            ```python
+            from evidently import DataDefinition, Dataset
+            feature_columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
+            data_definition = DataDefinition(numerical_columns=feature_columns, categorical_columns=['target'])
+            reference_dataset = Dataset.from_pandas(reference_data, data_definition=data_definition)
+            current_dataset = Dataset.from_pandas(current_data, data_definition=data_definition)
+            ```
+
+    2. Add the following code to the `data_drift.py` file to create a report on the data drift:
 
         ```python
-        from evidently.legacy.report import Report
-        from evidently.legacy.metric_preset import DataDriftPreset
+        from evidently import Report
+        from evidently.presets import DataDriftPreset
         report = Report(metrics=[DataDriftPreset()])
-        snapshot = report.run(reference_data=reference_data, current_data=current_data)
+        snapshot = report.run(current_data=current_dataset, reference_data=reference_dataset)
         snapshot.save_html('report.html')
         ```
 
-        Open the generated `.html` page. What does it say about your data? Has it drifted? Make sure to poke
-        around to understand what the different plots are actually showing.
+        Note that the `Report` object only holds the configuration of what we want to compute, and `report.run(...)`
+        returns a new `Snapshot` object that contains the actual results. Open the generated `.html` page. What does
+        it say about your data? Has it drifted? Make sure to poke around to understand what the different plots are
+        actually showing.
 
-    2. Data drifting is not the only kind of reporting evidently can make. We can also get reports on data quality.
-        Look through evidently's documentation and add the preset that has to do with data quality to the report.
-        Try adding a few `Nan` values to your `current_data` and re-run the report. Checkout the report and go over the
-        generated plots and make sure that it picked up on the missing values you just added.
+    3. Data drifting is not the only kind of reporting evidently can make. We can also get reports on data quality.
+        Look through the [list of presets](https://docs.evidentlyai.com/metrics/all_presets) in evidently's
+        documentation and add the preset that has to do with data quality to the report. Try adding a few `NaN` values
+        to your `current_data` and re-run the report. Check out the report and go over the generated plots and make
+        sure that it picked up on the missing values you just added.
 
         ??? success "Solution"
 
-            The `DataQualityPreset` checks the quality of the data:
+            The `DataSummaryPreset` computes statistics on the data quality (missing values, duplicated rows, constant
+            columns, value ranges etc.):
 
             ```python
-            from evidently.legacy.presets import DataDriftPreset, DataQualityPreset
-            report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
+            from evidently.presets import DataDriftPreset, DataSummaryPreset
+            report = Report(metrics=[DataDriftPreset(), DataSummaryPreset()])
             ```
 
-    3. Another important kind of drift is called *target drift*, where the distribution of the target values has
+    4. Another important kind of drift is called *target drift*, where the distribution of the target values has
         changed. If your training data was balanced, and you are now seeing a lot of one class being predicted this may
         indicate that your model is not performing as expected or that external factors have changed, which means that
-        you should retrain your model. Find the preset that checks for target drift, add it to the report and re-run
-        the analysis.
+        you should retrain your model. Evidently does not have a dedicated preset for target drift; instead you can
+        compute the drift of any single column. Look through the
+        [list of metrics](https://docs.evidentlyai.com/metrics/all_metrics), find the metric that computes the drift of
+        a single column and add it to the report for the `target` column. Restrict the `DataDriftPreset` to only the
+        four features (hint: `columns` argument), such that feature drift and target drift are reported separately.
 
         ??? success "Solution"
 
-            The `TargetDriftPreset` checks the distribution of the target values:
+            The `ValueDrift` metric computes the drift of a single column:
 
             ```python
-            from evidently.legacy.presets import DataDriftPreset, DataQualityPreset, TargetDriftPreset
-            report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
+            from evidently.metrics import ValueDrift
+            from evidently.presets import DataDriftPreset, DataSummaryPreset
+            report = Report(
+                metrics=[
+                    DataDriftPreset(columns=feature_columns),
+                    DataSummaryPreset(),
+                    ValueDrift(column='target'),
+                ]
+            )
             ```
+
+            If we do not restrict the `DataDriftPreset`, it will compute drift for all columns, including the `target`
+            column.
 
 4. Evidently reports are meant for debugging, exploration and reporting of results. However, if we want to integrate
     evidently functionality into our already developed pipelines, either as a simple script, as part of a GitHub action
-    workflow or something else, we need to be able to extract the results in a more programmatic way. This can be done
-    using their `Test` and `TestSuites` classes. Implement a simple test that checks if there are any missing values in
-    our dataset and print the results to the console.
+    workflow or something else, we need to be able to extract the results in a more programmatic way. This is done
+    using *tests*. In Evidently a test is a condition attached to a metric, e.g. "the number of missing values should
+    be equal to 0", which is added through the `tests` argument of the metric together with the conditions from
+    `evidently.tests` (`eq`, `lt`, `lte`, `gt`, `gte`, `is_in`, ...). The result of each test is stored in the
+    snapshot. Implement a simple test that checks if there are any missing values in our dataset and print the results
+    to the console.
 
     ??? success "Solution"
 
-        Using the `.as_dict()` method on a `TestSuite` we can programmatically extract the results of the test. In
-        particular the returned dictionary contains a key `summary` that contains a key `all_passed` that is `True` if
-        all tests passed and `False` otherwise.
+        Using the `.json()` (or `.dict()`) method on a snapshot we can programmatically extract the results. The returned
+        dictionary contains a key `tests` with a list of all test results. Each test result has a `name`, a
+        `description` and a `status` that is either `SUCCESS`, `FAIL`, `WARNING` or `ERROR`.
 
         ```python
-        from evidently.legacy.test_suite import TestSuite
-        from evidently.legacy.tests import TestNumberOfMissingValues
-        data_test = TestSuite(tests=[TestNumberOfMissingValues()])
-        data_test.run(reference_data=reference_data, current_data=current_data)
-        result = data_test.as_dict()
-        print(result)
-        print("All tests passed: ", result['summary']['all_passed'])
+        import json
+        from evidently import Report
+        from evidently.metrics import DatasetMissingValueCount
+        from evidently.tests import eq
+        report = Report(metrics=[DatasetMissingValueCount(tests=[eq(0)])])
+        snapshot = report.run(current_data=current_dataset, reference_data=reference_dataset)
+        test_results = json.loads(snapshot.json())['tests']
+        for test in test_results:
+            print(test['status'], test['description'])
+        print("All tests passed: ", all(test['status'] == 'SUCCESS' for test in test_results))
         ```
 
-    1. Take a look at this [colab notebook](https://colab.research.google.com/drive/1p9bgJZDcr_NS5IKVNvlxzswn6er9-abl)
-        that contains all the tests implemented in Evidently. Pick 5 tests of your choice, where at least 1 fails by
-        default and implement them as a `TestSuite`. Then try changing the arguments of the test so they better fit your
-        use case and get them all passing.
+    1. Presets come with a set of default tests that can be enabled with `#!python Report(..., include_tests=True)`.
+        When a reference dataset is given, the default conditions are derived from it, e.g. the `DataDriftPreset`
+        tests if the share of drifted columns is below 50%. Enable the default tests for the `DataDriftPreset` and
+        the `DataSummaryPreset` and look at the generated report. Which tests fail?
+
+    2. Take a look at the [list of metrics](https://docs.evidentlyai.com/metrics/all_metrics) and the
+        [tests documentation](https://docs.evidentlyai.com/docs/library/tests) and pick 5 metrics of your choice. Add a
+        test to each of them, where at least 1 fails on your data. Then try changing the conditions of the tests so they
+        better fit your use case and get them all passing.
+
+    ??? example "Full `data_drift.py` script"
+
+        Below is a full script, that runs on the iris dataset (using part of the data as the reference and the rest as
+        the current data) and combines the report and tests from the exercises above.
+
+        ```python linenums="1" title="data_drift.py"
+        --8<-- "s8_monitoring/exercise_files/data_drift.py"
+        ```
 
 5. (Optional) When doing monitoring in practice, we are not always interested in running on all the data collected from
     our API, maybe only the last `N` entries or maybe just from the last hour of observations. Since we are already
@@ -259,13 +327,13 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
         ```python
         import pandas as pd
-        def filter_data(data: pd.Dataframe, n: int | None = None, t: int | None = None) -> pd.Dataframe:
+        def filter_data(data: pd.DataFrame, n: int | None = None, t: int | None = None) -> pd.DataFrame:
             if n is not None:
                 return data.tail(n)
             if t is not None:
-                df['time'] = pd.to_datetime(df['time'])  # Ensure the 'time' column is a datetime object
-                one_hour_ago = datetime.now() - timedelta(hours=t)
-                return df[df['time'] > one_hour_ago]
+                data['time'] = pd.to_datetime(data['time'], utc=True)  # Ensure the 'time' column is a datetime object
+                t_hours_ago = pd.Timestamp.now(tz='UTC') - pd.Timedelta(hours=t)
+                return data[data['time'] > t_hours_ago]
             return data
         ```
 
@@ -293,9 +361,29 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             ```
 
     2. (Optional) For text a common approach is to extract some higher-level embedding such as the very classical
-        [GLOVE](https://github.com/stanfordnlp/GloVe) embedding. Try following
-        [this tutorial](https://github.com/evidentlyai/community-examples/blob/main/examples/how_to_run_drift_report_for_text_data.ipynb)
-        to understand how drift detection is done on text.
+        [GLOVE](https://github.com/stanfordnlp/GloVe) embedding. Evidently also has built-in support for text: if a
+        column is marked as a text column in the `DataDefinition`, the `DataDriftPreset` will train a small classifier
+        to tell the reference and current text apart, and if it can do that, the text has drifted. Additionally, we
+        can extract simple features from the text using
+        [descriptors](https://docs.evidentlyai.com/docs/library/descriptors) such as `TextLength`, `WordCount` and
+        `Sentiment`, which are added when creating the dataset. Try running drift detection on a small text dataset
+        of your choice using both approaches.
+
+        ??? success "Solution"
+
+            ```python
+            from evidently import DataDefinition, Dataset, Report
+            from evidently.descriptors import Sentiment, TextLength
+            from evidently.presets import DataDriftPreset, TextEvals
+            data_definition = DataDefinition(text_columns=['review'])
+            descriptors = [TextLength('review', alias='Length'), Sentiment('review', alias='Sentiment')]
+            reference = Dataset.from_pandas(reference_df, data_definition=data_definition, descriptors=descriptors)
+            current = Dataset.from_pandas(current_df, data_definition=data_definition, descriptors=descriptors)
+            # DataDriftPreset checks drift of the raw text and of the descriptors, TextEvals summarizes the descriptors
+            report = Report(metrics=[DataDriftPreset(), TextEvals()])
+            snapshot = report.run(current_data=current, reference_data=reference)
+            snapshot.save_html('text_drift.html')
+            ```
 
     3. Instead of manually specifying the features, let's take a deep learning-based approach to getting features from
         unstructured data. To do this let's consider the [CLIP](https://arxiv.org/abs/2103.00020) model, which is a
@@ -332,14 +420,52 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     http://127.0.0.1:8000/monitoring/  # monitoring endpoint
     ```
 
-    Our monitoring endpoint should return an HTML page either showing an Evidently report or test suite. Try
+    Our monitoring endpoint should return an HTML page showing an Evidently report (with or without tests). Try
     implementing this endpoint.
 
     ??? success "Solution"
 
-        ```python linenums="1" title="iris_fastapi_solution.py"
+        ```python linenums="1" title="iris_fastapi_solution_3.py"
         --8<-- "s8_monitoring/exercise_files/iris_fastapi_solution_3.py"
         ```
+
+8. (Optional) A single report only shows us the state of our data at one point in time. In practice we want to run
+    the monitoring regularly (e.g. every hour or every day) and see how the metrics evolve over time. For this
+    Evidently has a self-hosted monitoring UI, where snapshots are stored in a *workspace* and grouped into *projects*.
+    Read the [self-hosting guide](https://docs.evidentlyai.com/docs/setup/self-hosting) and try the following:
+
+    1. Create a local workspace and a project, then run a report a couple of times on different subsets of your data
+        and add each snapshot to the project.
+
+        ??? success "Solution"
+
+            ```python
+            from evidently import Report
+            from evidently.presets import DataDriftPreset
+            from evidently.ui.workspace import Workspace
+
+            ws = Workspace.create("workspace")  # creates a local folder called workspace
+            project = ws.create_project("Iris monitoring")
+            project.description = "Data drift of the iris API"
+            project.save()
+
+            report = Report(metrics=[DataDriftPreset()], include_tests=True)
+            for i in range(3):
+                snapshot = report.run(
+                    current_data=reference_data.sample(50, random_state=i), reference_data=reference_data
+                )
+                ws.add_run(project.id, snapshot, include_data=False)
+            ```
+
+    2. Start the UI with
+
+        ```bash
+        evidently ui --workspace ./workspace
+        ```
+
+        and open <http://localhost:8000> in your browser. Find your project and look at the stored reports. Try to
+        add a [dashboard panel](https://docs.evidentlyai.com/docs/platform/dashboard_overview) that shows how the
+        share of drifted columns evolves over the runs.
 
 ## Data drift in the Cloud
 
@@ -356,7 +482,7 @@ service that will check if the distribution of the reviews has drifted over time
 a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
 expected.
 
-We have already created downloaded the training data, created a training script and trained a model for you.
+We have already downloaded the training data, created a training script and trained a model for you.
 The training data and the trained model are available to download from the following
 [Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing), which can
 be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
@@ -398,9 +524,9 @@ through the files to get an understanding of what is going on.
         GCP console.
 
         ```
-        gsutil mb gs://gcp_monitoring_exercise
-        gsutil cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
-        gsutil cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
+        gcloud storage buckets create gs://gcp_monitoring_exercise
+        gcloud storage cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
+        gcloud storage cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
         ```
 
 2. Next we need to create a FastAPI application that takes a review as input and returns the predicted sentiment of
@@ -473,7 +599,7 @@ through the files to get an understanding of what is going on.
 
         ??? success "Solution"
 
-            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            ```docker linenums="1" title="sentiment_api.dockerfile"
             --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
             ```
 
@@ -524,14 +650,20 @@ through the files to get an understanding of what is going on.
 
     ??? success "Solution"
 
-        The provided starting script makes use of two presets from evidently:
-        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and
-        [TargetDriftPreset](https://docs.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
-        text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
-        second preset runs target drift detection on the predicted labels.
+        The provided starting script first uses three
+        [descriptors](https://docs.evidentlyai.com/metrics/all_descriptors) to extract descriptive statistics from the
+        review text: the length of the text (`TextLength`), the share of words that are not in the English vocabulary
+        (`OOVWordsPercentage`) and the sentiment score of the text (`Sentiment`). It then creates a report with:
 
-    1. The script is missing one key function to work: `#!python fetch_latest_data(n: int)` which should fetch the
-        latest `n` predictions. Implement this function in the script.
+        * The [TextEvals](https://docs.evidentlyai.com/metrics/preset_text_evals) preset, which summarizes the
+            descriptors and compares them to the reference data
+        * The [DataDriftPreset](https://docs.evidentlyai.com/metrics/preset_data_drift), which runs data drift
+            detection on the three descriptors
+        * The `ValueDrift` metric on the `sentiment` column, which runs target drift detection on the predicted labels
+
+    1. The script is missing two functions to work: `#!python download_files(n: int)` which should download the latest
+        `n` predictions from the bucket and `#!python load_latest_files(directory: Path, n: int)` which should load
+        them into a dataframe with a `content` and a `sentiment` column. Implement these functions in the script.
 
         ??? success "Solution"
 
@@ -582,10 +714,10 @@ through the files to get an understanding of what is going on.
             In each iteration it:
 
             * Randomly samples a review from a list of positive, neutral and negative reviews
-            * Randomly adds negative phrases to the review. Each review is added if a randomly uniform number is lower
-                than probability `negative_probability=min(count / args.max_iterations, 1.0), meaning that it becomes
-                more and more likely that the negative phrases are added as the number of iterations increases.
-            * Sends the review to the sentiment analysis service and saves the response to a file.
+            * Randomly adds negative phrases to the review. Each phrase is added if a random number is lower
+                than the probability `negativity_probability = min(count / args.max_iterations, 1.0)`, meaning that it
+                becomes more and more likely that the negative phrases are added as the number of iterations increases.
+            * Sends the review to the sentiment analysis service and prints the response.
 
     2. Run the client script for 1,000 iterations. What happens to the distribution of the reviews over time? Does the
         data drift?
@@ -594,7 +726,7 @@ That ends the module on detection of data drifting, data quality, etc. We have a
 we end the module:
 
 * Monitoring of machine learning applications is an extremely hard discipline because it is not clear-cut when we should
-    actually respond to feature/targets beginning to drift and when it is probably fine letting the system run as is.
+    actually respond to feature/targets beginning to drift and when it is probably fine to let the system run as is.
     It comes down to the individual application what kinds of rules should be implemented.
 
 * The cloud setup we have developed is very simple and not meant for production. In a real-world scenario we would not
