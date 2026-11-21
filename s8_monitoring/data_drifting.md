@@ -96,7 +96,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
     ```bash
     curl -X 'POST' \
-        'http://127.0.0.1:8000/predict/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
+        'http://127.0.0.1:8000/predict?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
         -H 'accept: application/json' \
         -d ''
     ```
@@ -192,10 +192,11 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         current_data = current_data.rename(columns={'prediction': 'target'})  # standardize the column names
         ```
 
-    1. Evidently does not work directly on dataframes. Instead it uses a `Dataset` object, which combines a
+    1. Evidently can run directly on dataframes, but internally it works with a `Dataset` object, which combines a
         dataframe with a `DataDefinition`. The data definition tells Evidently how to interpret each column, e.g.
-        which columns are numerical, which are categorical, which contain text etc. If you leave it out, Evidently
-        will try to guess the column types, which works for simple cases like this one but is not always correct.
+        which columns are numerical, which are categorical, which contain text etc. If you pass a plain dataframe,
+        Evidently will try to guess the column types, which works for simple cases like this one but is not always
+        correct.
         Look through the [data definition docs](https://docs.evidentlyai.com/docs/library/data_definition) and
         convert both dataframes to `Dataset` objects, where the four features are numerical and the `target` column
         is categorical.
@@ -228,8 +229,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     3. Data drifting is not the only kind of reporting evidently can make. We can also get reports on data quality.
         Look through the [list of presets](https://docs.evidentlyai.com/metrics/all_presets) in evidently's
         documentation and add the preset that has to do with data quality to the report. Try adding a few `NaN` values
-        to your `current_data` and re-run the report. Check out the report and go over the generated plots and make
-        sure that it picked up on the missing values you just added.
+        to your `current_data` dataframe, re-create `current_dataset` from it (the `Dataset` does not see changes made
+        to the dataframe after it was created) and re-run the report. Check out the report and go over the generated
+        plots and make sure that it picked up on the missing values you just added.
 
         ??? success "Solution"
 
@@ -298,8 +300,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         ```
 
     1. Presets come with a set of default tests that can be enabled with `#!python Report(..., include_tests=True)`.
-        When a reference dataset is given, the default conditions are derived from it, e.g. the `DataDriftPreset`
-        tests if the share of drifted columns is below 50%. Enable the default tests for the `DataDriftPreset` and
+        Some default conditions are derived from the reference dataset (e.g. the `DataSummaryPreset` compares the
+        number of rows and missing values to the reference), while others are fixed (e.g. the `DataDriftPreset`
+        tests if the share of drifted columns is below 50%). Enable the default tests for the `DataDriftPreset` and
         the `DataSummaryPreset` and look at the generated report. Which tests fail?
 
     2. Take a look at the [list of metrics](https://docs.evidentlyai.com/metrics/all_metrics) and the
@@ -337,9 +340,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             return data
         ```
 
-6. Evidently by default only supports structured data, e.g., tabular data (so does nearly every other framework). Thus,
-    the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
-    structured features from the data which we can then run the analysis on.
+6. Drift detection is mainly designed for structured data, e.g., tabular data (this holds for Evidently and nearly every
+    other framework). Thus, the question then becomes how we can extend unstructured data such as images or text? The
+    general solution is to extract structured features from the data which we can then run the analysis on.
 
     1. For images the simple solution would be to flatten the images and consider each pixel a feature,
         however this does not work in practice because changes in the individual pixels do not really tell us anything
@@ -416,8 +419,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     all the reporting we just went through such that you have two endpoints:
 
     ```bash
-    http://127.0.0.1:8000/predict/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0  # user endpoint
-    http://127.0.0.1:8000/monitoring/  # monitoring endpoint
+    http://127.0.0.1:8000/predict?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0  # user endpoint
+    http://127.0.0.1:8000/monitoring  # monitoring endpoint
     ```
 
     Our monitoring endpoint should return an HTML page showing an Evidently report (with or without tests). Try

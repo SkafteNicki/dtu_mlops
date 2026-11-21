@@ -52,6 +52,7 @@ exercises = [
   "neural-compressor<=3.6",
   "onnxruntime<=1.23.2",
   "optuna<=4.6",
+  "pandas<3",
   "pipreqs<=0.4.13",
   "pre-commit<=4.1",
   "prefect<=3.5",
