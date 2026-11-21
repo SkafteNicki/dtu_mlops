@@ -73,7 +73,6 @@ plugins:
         - .venv/
         - tools/*
         - reports/README.md
-        - s10_extra/design.md
         - s10_extra/infrastructure_as_code.md
         - s10_extra/kubernetes.md
         - s10_extra/orchestration.md
@@ -151,6 +150,7 @@ nav:
     - M32 - Documentation: s10_extra/documentation.md
     - M33 - Hyperparameter optimization: s10_extra/hyperparameters.md
     - M34 - High Performance Clusters: s10_extra/high_performance_clusters.md
+    - M35 - Designing ML systems: s10_extra/design.md
   - Summary: pages/overview.md
   - Time plan: pages/timeplan.md
   - Projects: pages/projects.md
