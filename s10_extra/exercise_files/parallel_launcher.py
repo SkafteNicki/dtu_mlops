@@ -11,7 +11,7 @@ def script_launcher(script) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("script", type=str)
-    parser.add_argument("-num_parallel", default=2, type=int)
+    parser.add_argument("--num_parallel", default=2, type=int)
     args = parser.parse_args()
 
     print(f"Arguments: {args.__dict__}")
