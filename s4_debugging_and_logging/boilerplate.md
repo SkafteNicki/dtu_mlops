@@ -41,7 +41,7 @@ course.
 
 ## PyTorch Lightning
 
-In general refer to the [documentation](https://lightning.ai/docs/pytorch/stable/) from PyTorch lightning
+In general refer to the [documentation](https://lightning.ai/docs/pytorch/stable/) from PyTorch Lightning
 if in doubt about how to format your code for doing specific tasks. We are here going to explain the key concepts of
 the API that you need to understand to use the framework, starting with the `LightningModule` and the `Trainer`.
 
@@ -74,7 +74,7 @@ actual training, automating everything that you do not want to worry about.
 from pytorch_lightning import Trainer
 model = MyAwesomeModel()  # this is our LightningModule
 trainer = Trainer()
-traier.fit(model)
+trainer.fit(model)
 ```
 
 That's essentially all that you need to specify in lightning to have a working model. The trainer object does not
@@ -121,7 +121,7 @@ using one of the
 [built-in callbacks](https://lightning.ai/docs/pytorch/stable/extensions/callbacks.html#built-in-callbacks).
 Of particular interest are the `ModelCheckpoint` and `EarlyStopping` callbacks:
 
-* The `ModelCheckpoint` makes sure to save checkpoints of your model. This is in principal not hard to do yourself, but
+* The `ModelCheckpoint` makes sure to save checkpoints of your model. This is in principle not hard to do yourself, but
     the `ModelCheckpoint` callback offers additional functionality by saving checkpoints only when some metric improves,
     or only save the best `K` performing models, etc.
 
@@ -130,7 +130,7 @@ Of particular interest are the `ModelCheckpoint` and `EarlyStopping` callbacks:
     checkpoint_callback = ModelCheckpoint(
         dirpath="./models", monitor="val_loss", mode="min"
     )
-    trainer = Trainer(callbacks=[checkpoint_callbacks])
+    trainer = Trainer(callbacks=[checkpoint_callback])
     trainer.fit(model)
     ```
 
@@ -149,7 +149,7 @@ Of particular interest are the `ModelCheckpoint` and `EarlyStopping` callbacks:
 Multiple callbacks can be used by passing them all in a list e.g.
 
 ```python
-trainer = Trainer(callbacks=[checkpoint_callbacks, early_stopping_callback])
+trainer = Trainer(callbacks=[checkpoint_callback, early_stopping_callback])
 ```
 
 ## ❔ Exercises
@@ -187,7 +187,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
     ??? success "Solution"
 
-        ```python linenums="1" hl_lines="23" title="lightning.py"
+        ```python linenums="1" hl_lines="31-39" title="lightning.py"
         --8<-- "s4_debugging_and_logging/exercise_files/lightning_solution.py"
         ```
 
@@ -199,7 +199,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
     1. Investigate what the `default_root_dir` flag does.
 
-    2. As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
+    2. By default lightning will run for 1000 epochs. This may be too much (for now). Change this by
         changing the appropriate flag. Additionally, there is also a flag to set the maximum number of steps that we
         should train for.
 
@@ -212,8 +212,8 @@ framework to do some of the heavy lifting you need to have gone through some imp
             ```
 
             Additionally, you may consider instead setting the `max_steps` flag to limit based on the number of steps or
-            `max_time` to limit based on time. Similarly, the flags `min_epochs`, `min_steps` and `min_time` can be used
-            to set the minimum number of epochs, steps or time.
+            `max_time` to limit based on time. Similarly, the flags `min_epochs` and `min_steps` can be used to set the
+            minimum number of epochs or steps.
 
     3. To start with we also want to limit the amount of training data to 20% of its original size. Which
         trainer flag do you need to set for this to work?
@@ -250,7 +250,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
     [others](https://lightning.ai/docs/pytorch/stable/extensions/logging.html). Common to all of them is that
     logging just needs to happen through the `self.log` method in your `LightningModule`:
 
-    1. Add `self.log` to your `LightningModule. It should look something like this:
+    1. Add `self.log` to your `LightningModule`. It should look something like this:
 
         ```python
         def training_step(self, batch, batch_idx):
@@ -278,7 +278,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
         def training_step(self, batch, batch_idx):
             ...
             # self.logger.experiment is the same as wandb.log
-            self.logger.experiment.log({'logits': wandb.Histrogram(preds)})
+            self.logger.experiment.log({'logits': wandb.Histogram(preds)})
         ```
 
         Try doing this by logging something other than scalar tensors.
@@ -306,8 +306,9 @@ framework to do some of the heavy lifting you need to have gone through some imp
         returning anything from the `validation_step` method because we do not optimize over the loss.
 
 9. (Optional, requires GPU) One of the big advantages of using `lightning` is that you do not need to deal with device
-    placement, i.e. calling `.to('cuda')` everywhere. If you have a GPU, try to set the `gpus` flag in the trainer. If you
-    do not have one, do not worry, we are going to return to this when we run training in the cloud.
+    placement, i.e. calling `.to('cuda')` everywhere. If you have a GPU, try to set the `accelerator` and `devices` flags
+    in the trainer. If you do not have one, do not worry, we are going to return to this when we run training in the
+    cloud.
 
     ??? success "Solution"
 
@@ -321,7 +322,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
         As an alternative the accelerator can just be set to `#!python accelerator="auto"` to automatically detect the
         best available device.
 
-10. (Optional) As default PyTorch uses `float32` for representing floating point numbers. However, research has shown
+10. (Optional) By default PyTorch uses `float32` for representing floating point numbers. However, research has shown
     that neural network training is very robust towards a decrease in precision. The great benefit of going from `float32`
     to `float16` is that we get approximately half the
     [memory consumption](https://en.wikipedia.org/wiki/Half-precision_floating-point_format). Try out half-precision
@@ -330,7 +331,8 @@ framework to do some of the heavy lifting you need to have gone through some imp
 
     ??? success "Solution"
 
-        Lightning supports four different types of mixed precision training (16-bit and 16-bit bfloat) and two types of:
+        Lightning supports four different types of reduced precision: two mixed precision variants (16-bit and
+        16-bit bfloat, where the model weights remain in full precision) and two true half-precision variants:
 
         ```python
         # 16-bit mixed precision (model weights remain in torch.float32)
@@ -370,6 +372,7 @@ want to highlight other frameworks in the lightning ecosystem:
 * [Torchmetrics](https://torchmetrics.readthedocs.io/en/latest/): collection of machine learning metrics written
     in PyTorch
 * [lightning flash](https://lightning-flash.readthedocs.io/en/latest/): high-level framework for fast prototyping,
-    baselining, finetuning with an even simpler interface than lightning
+    baselining, finetuning with an even simpler interface than lightning (note that the project is archived and no
+    longer maintained)
 * [lightning-bolts](https://lightning-bolts.readthedocs.io/en/latest/): Collection of SOTA pretrained models, model
     components, callbacks, losses and datasets for testing out ideas as fast as possible
