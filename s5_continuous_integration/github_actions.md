@@ -20,15 +20,15 @@ passed, our code should be fairly safe against unwanted bugs (assuming your test
 ## GitHub actions
 
 GitHub actions are the continuous integration solution that GitHub provides. Each of your repositories gets 2,000
-minutes of free testing per month which should be more than enough for the scope of this course (and probably
-all personal projects you do). Getting GitHub actions set up in a repository may seem complicated at
-first, but workflow files that you create for one repository can more or less be reused for any
-other repository that you have.
+minutes of free testing per month for private repositories (public repositories can use GitHub actions for free),
+which should be more than enough for the scope of this course (and probably all personal projects you do). Getting
+GitHub actions set up in a repository may seem complicated at first, but workflow files that you create for one
+repository can more or less be reused for any other repository that you have.
 
 Let's take a look at how a GitHub workflow file is organized:
 
 * Initially, we start by giving the workflow a `name`.
-* Next, we specify what events the workflow should be triggered. This includes both the action
+* Next, we specify what events the workflow should be triggered on. This includes both the action
     (pull request, push, etc.) and on what branches it should activate.
 * Next, we list the jobs that we want to do. Jobs are by default executed in parallel but can
     also be dependent on each other.
@@ -52,7 +52,8 @@ Let's take a look at how a GitHub workflow file is organized:
     to understand everything, but at least get a feeling of what a workflow file should look like.
 
 3. We have provided a workflow file called `tests.yaml` that should run your tests for you. Place
-    this file in the `.github/workflows/` folder. The workflow file consists of three steps:
+    this file in the `.github/workflows/` folder. The workflow file first checks out your repository and then
+    consists of three steps:
 
     * First, a Python environment or uv environment is initiated (in this case Python 3.12)
 
@@ -99,7 +100,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
     2. Alter the file such that it executes the test on the two other main operating systems that exist. You can find
         information on available operating systems also called *runners*
-        [in the GitHub runners documentation](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories)
+        [in the GitHub runners documentation](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories)
 
         ??? success "Solution"
 
@@ -130,18 +131,18 @@ Let's take a look at how a GitHub workflow file is organized:
                   build:
                     runs-on: ${{ matrix.os }}
                     strategy:
-                    matrix:
-                      os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                      python-version: ["3.10", "3.11", "3.12"]
+                      matrix:
+                        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                        python-version: ["3.11", "3.12", "3.13"]
 
-                  steps:
-                    - name: Checkout
-                      uses: actions/checkout@v5
+                    steps:
+                      - name: Checkout
+                        uses: actions/checkout@v7
 
-                    - name: Setup Python
-                      uses: actions/setup-python@v5
-                      with:
-                        python-version: ${{ matrix.python-version }}
+                      - name: Setup Python
+                        uses: actions/setup-python@v7
+                        with:
+                          python-version: ${{ matrix.python-version }}
                 ```
 
             === "Using uv"
@@ -151,21 +152,21 @@ Let's take a look at how a GitHub workflow file is organized:
                   build:
                     runs-on: ${{ matrix.os }}
                     strategy:
-                    matrix:
-                      os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                      python-version: ["3.10", "3.11", "3.12"]
+                      matrix:
+                        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+                        python-version: ["3.11", "3.12", "3.13"]
 
-                  steps:
-                    - name: Checkout
-                      uses: actions/checkout@v5
+                    steps:
+                      - name: Checkout
+                        uses: actions/checkout@v7
 
-                    - name: Setup uv
-                      uses: astral-sh/setup-uv@v7
-                      with:
-                        python-version: ${{ matrix.python-version }}
+                      - name: Setup uv
+                        uses: astral-sh/setup-uv@v10.4.0
+                        with:
+                          python-version: ${{ matrix.python-version }}
                 ```
 
-    4. If you push the above changes you will maybe see that whenever one of the tests in the matrix fails, it will
+    4. If you push the above changes you may see that whenever one of the tests in the matrix fails, it will
         automatically cancel the other tests. This is for saving time and resources. However, sometimes you want all the
         tests to run even if one fails. Can you figure out how to do that?
 
@@ -181,17 +182,15 @@ Let's take a look at how a GitHub workflow file is organized:
                   fail-fast: false
                   matrix:
                     os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-                    python-version: ["3.10", "3.11", "3.12"]
+                    python-version: ["3.11", "3.12", "3.13"]
             ```
 
 7. As the workflow is currently implemented, GitHub actions will destroy every downloaded package
     when the workflow has been executed. To improve this we can take advantage of `caching`:
 
     1. Figure out how to implement `caching` in your workflow file. You can find a guide
-        [in the GitHub caching guide](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows)
-        and
-        [in the setup-python caching documentation](https://github.com/actions/setup-python#caching-packages-dependencies)
-        .
+        [in the GitHub caching guide](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching)
+        and [in the setup-python caching documentation](https://github.com/actions/setup-python#caching-packages-dependencies).
 
         ??? success "Solution"
 
@@ -199,8 +198,8 @@ Let's take a look at how a GitHub workflow file is organized:
 
                 ```yaml linenums="1" title="tests.yaml"
                 steps:
-                - uses: actions/checkout@v5
-                - uses: actions/setup-python@v5
+                - uses: actions/checkout@v7
+                - uses: actions/setup-python@v7
                   with:
                     python-version: 3.12
                     cache: 'pip' # caching pip dependencies
@@ -210,8 +209,8 @@ Let's take a look at how a GitHub workflow file is organized:
 
                 ```yaml linenums="1" title="tests.yaml"
                 steps:
-                - uses: actions/checkout@v5
-                - uses: astral-sh/setup-uv@v7
+                - uses: actions/checkout@v7
+                - uses: astral-sh/setup-uv@v10.4.0
                   with:
                     python-version: 3.12
                     enable-cache: true
@@ -292,16 +291,16 @@ Let's take a look at how a GitHub workflow file is organized:
 
     3. If you have created the rules correctly you should see something like the image below when you try to merge a
         pull request. In this case, all three checks are required to pass before the code can be merged. Additionally,
-        a single reviewer is required to approve the code. A bypass rule is also setup for the repository admin.
+        a single reviewer is required to approve the code. A bypass rule is also set up for the repository admin.
 
         <figure markdown>
         ![Image](../figures/branch_protection_rules3.png){ width="800" }
         </figure>
 
-10. (Optional, only continue if you done module [M8 - DVC](../s2_organisation_and_version_control/dvc.md) on data
-    version control) One problem you may have encountered is running tests that have to do with your data, with the core
-    problem being that your data is not stored on GitHub (assuming you have  and therefore cannot be tested. However, we
-    can download data while running our continuous integration. Let's try to create that.
+10. (Optional, only continue if you have done module [M8 - DVC](../s2_organisation_and_version_control/dvc.md) on
+    data version control) One problem you may have encountered is running tests that have to do with your data, with
+    the core problem being that your data is not stored on GitHub and therefore cannot be tested. However, we can
+    download data while running our continuous integration. Let's try to create that.
 
     1. The first problem is that we need our continuous integration pipeline to be able to authenticate with our storage
         solution. We can take advantage of an authentication file that is created the first time we push with DVC. It is
@@ -332,9 +331,9 @@ Let's take a look at how a GitHub workflow file is organized:
 
     2. The content of that file should be treated as a password and not shared with the world and the relevant
         question is therefore how to use this info in a *public* repository. The answer is GitHub *secrets*, where we
-        can store information and access it in our workflow files and it is still not public. Navigate to the secrets
-        option (as shown below) and create a secret with the name `GDRIVE_CREDENTIALS_DATA` that contains the content
-        of the file you found in the previous exercise.
+        can store information and access it in our workflow files and it is still not public. Navigate to
+        `Settings -> Secrets and variables -> Actions` (as shown below) and create a secret with the name
+        `GDRIVE_CREDENTIALS_DATA` that contains the content of the file you found in the previous exercise.
 
         <figure markdown>
         ![Image](../figures/github_secrets.PNG){ width="1000" }
@@ -343,14 +342,15 @@ Let's take a look at how a GitHub workflow file is organized:
     3. Afterward, add the following code to your workflow file:
 
         ```yaml
-        - uses: iterative/setup-dvc@v1
+        - uses: treeverse/setup-dvc@v3
         - name: Get data
           run: dvc pull
           env:
             GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         ```
 
-        which runs `dvc pull` using the secret authentication file. For help you can visit this
+        which runs `dvc pull` using the secret authentication file. Note that the action used to be called
+        `iterative/setup-dvc` (the repository has since moved). For help you can visit this
         [small repository](https://github.com/SkafteNicki/gha_dvc_test) that implements the same workflow.
 
     4. Finally, add the changes, commit, push and confirm that everything works as expected. You should now be able to
@@ -368,7 +368,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
         * Installs `ruff`
 
-        * Runs `ruff check` and `ruff format` on the repository
+        * Runs `ruff check` and `ruff format --check` on the repository
 
         (HINT: You should be able to just change the last steps of the `tests.yaml` workflow file)
 
@@ -378,7 +378,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
                 !!! example "`codecheck.yaml`"
 
-                    ```python linenums="1" title="tests.yaml"
+                    ```python linenums="1" title="codecheck.yaml"
                     --8<-- "s5_continuous_integration/exercise_files/format_pip.yaml"
                     ```
 
@@ -386,7 +386,7 @@ Let's take a look at how a GitHub workflow file is organized:
 
                 !!! example "`codecheck.yaml`"
 
-                    ```python linenums="1" title="tests.yaml"
+                    ```python linenums="1" title="codecheck.yaml"
                     --8<-- "s5_continuous_integration/exercise_files/format_uv.yaml"
                     ```
 
@@ -415,12 +415,13 @@ Let's take a look at how a GitHub workflow file is organized:
 
     3. Next, create a [Docker Hub account](https://hub.docker.com/)
 
-    4. Within Docker Hub create an access token by going to `Settings -> Security`. Click the `New Access Token` button
-        and give it a name that you recognize.
+    4. Within Docker Hub create an access token by going to `Account settings -> Personal access tokens`. Click the
+        `Generate new token` button and give it a name that you recognize. Make sure to give the token write access
+        to your repositories, such that it can push the image.
 
     5. Copy the newly created access token and head over to your GitHub repository online. Go to
-        `Settings -> Secrets -> Actions` and click the `New repository secret`. Copy over the access token and give
-        it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and
+        `Settings -> Secrets and variables -> Actions` and click the `New repository secret`. Copy over the access
+        token and give it the name `DOCKER_HUB_TOKEN`. Additionally, add two other secrets `DOCKER_HUB_USERNAME` and
         `DOCKER_HUB_REPOSITORY` that contain your docker username and docker repository name respectively.
 
     6. Next, we are going to construct the actual GitHub actions workflow file
@@ -433,10 +434,10 @@ Let's take a look at how a GitHub workflow file is organized:
             branches: [ master ]
 
         jobs:
-            build:
+          build:
             runs-on: ubuntu-latest
             steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - name: Build the Docker image
               run: |
                 echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
@@ -476,8 +477,8 @@ have in your code.
 
 1. To get dependabot working in your repository, we need to add a single configuration file to your repository. Create
     a file called `.github/dependabot.yaml`. Look through the
-    [documentation](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/) for how to set up
-    the file such that it updates your Python dependencies on a weekly basis.
+    [documentation](https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-version-updates)
+    for how to set up the file such that it updates your Python dependencies on a weekly basis.
 
     ??? success "Solution"
 
@@ -553,11 +554,11 @@ have in your code.
       build:
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v5
+        - uses: actions/checkout@v7
     ...
     ```
 
-    The `@v5` specifies that we are using version 5 of the `actions/checkout` action. This means that if a new version
+    The `@v7` specifies that we are using version 7 of the `actions/checkout` action. This means that if a new version
     of the action is released, we will not automatically get the new version. Dependabot can help us with this. Try
     adding to the `dependabot.yaml` file that Dependabot should also check for updates in the GitHub Actions ecosystem.
 
@@ -618,7 +619,8 @@ have in your code.
 
         1. Direct push to branch `main` would trigger it
         2. Any pull request opened that will merge into `main` will trigger it
-        3. At the end of the day the action would trigger, see [cron](https://en.wikipedia.org/wiki/Cron) for more info
+        3. At midnight (00:00) each day the action would trigger, see [cron](https://en.wikipedia.org/wiki/Cron) for
+            more info
         4. The trigger can be executed by manually triggering it through the GitHub UI, for example, shown below
 
             <figure markdown>
