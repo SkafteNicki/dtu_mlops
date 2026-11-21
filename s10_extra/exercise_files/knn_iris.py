@@ -31,6 +31,8 @@ pipeline.fit(X_train, y_train)
 
 # predict on new data
 predictions = pipeline.predict(X_test)
+accuracy = (predictions == y_train[: len(predictions)]).mean()
+print(f"Test accuracy: {accuracy:.2f}")
 
 # save model
 dump(pipeline, "model.joblib")
