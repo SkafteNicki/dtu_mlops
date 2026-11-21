@@ -33,7 +33,7 @@ using the standard `pyproject.toml` file, as covered in this [module](code_struc
 ### ❔ Exercises
 
 1. We are going to assume that you have a training script in your project that you would like to be able to run from the
-    terminal directly without having to call the Python interpreter. Lets assume it is located like this:
+    terminal directly without having to call the Python interpreter. Let's assume it is located like this:
 
     ```plaintext
     src/
@@ -102,9 +102,9 @@ using the standard `pyproject.toml` file, as covered in this [module](code_struc
 
 That is all there really is to it. You can now run your scripts directly from the terminal without having to call the
 Python interpreter. Some good examples of Python packages that use this approach are
-[numpy](https://github.com/numpy/numpy/blob/main/pyproject.toml#L43-L45),
-[pylint](https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L67-L71) and
-[kedro](https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L99-L100).
+[numpy](https://github.com/numpy/numpy/blob/main/pyproject.toml#L83-L85),
+[pylint](https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L61-L65) and
+[kedro](https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L115-L116).
 
 ## Command line arguments
 
@@ -127,10 +127,10 @@ multiple scripts. As long as all subcommands are properly documented, then our i
 with (again think `git` where each subcommand can be given the `-h` arg to get specific help).
 
 Instead of using `argparse` we are here going to look at the [typer](https://typer.tiangolo.com/) package. `typer`
-extends the functionalities of `argparse` to allow for easy definition of subcommands and many other things, which we
-are not going to touch upon in this module. For completeness we should also mention that `typer` is not the only package
-for doing this, and another excellent framework for creating command line interfaces easily is
-[click](https://click.palletsprojects.com/en/8.1.x/).
+is built on top of [click](https://click.palletsprojects.com/) and uses Python type hints to allow for easy definition
+of subcommands and many other things, which we are not going to touch upon in this module. For completeness we should
+also mention that `typer` is not the only package for doing this, as `click` itself is also an excellent framework
+for creating command line interfaces easily.
 
 ### ❔ Exercises
 
@@ -167,7 +167,7 @@ for doing this, and another excellent framework for creating command line interf
         ```bash
         uv run greetings.py            # should print "Hello World!"
         uv run greetings.py --count=3  # should print "Hello World!" three times
-        uv run greetings.py --help     # should print the help message, informing the user of
+        uv run greetings.py --help     # should print the help message, informing the user of the possible arguments
         ```
 
     executes and gives the expected output. Relevant [documentation](https://typer.tiangolo.com/).
@@ -192,7 +192,7 @@ for doing this, and another excellent framework for creating command line interf
         ```
 
 3. Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the
-    breast cancer dataset.
+    iris dataset.
 
     !!! example "iris_classifier.py"
 
@@ -212,7 +212,7 @@ for doing this, and another excellent framework for creating command line interf
     === "Using uv"
 
         ```bash
-        uv run iris_classifier.py --output 'model.ckpt'  # should train the model
+        uv run iris_classifier.py --output 'model.ckpt'  # should train the model and save it to 'model.ckpt'
         uv run iris_classifier.py -o 'model.ckpt'        # should be the same as above
         ```
 
@@ -239,15 +239,15 @@ for doing this, and another excellent framework for creating command line interf
     === "Using uv"
 
         ```bash
-        uv run iris_classifier.py train --output 'model.ckpt'     # should train the
+        uv run iris_classifier.py train --output 'model.ckpt'     # should train the model and save it to 'model.ckpt'
         uv run iris_classifier.py evaluate 'model.ckpt'           # should evaluate the model saved in 'model.ckpt'
         ```
 
     ??? success "Solution"
 
         The only key difference between the two is that in the `train` command we define the `output` argument to
-        to be an optional parameter, i.e., we provide a default and for the `evaluate` command it is a required
-        parameter.
+        be an optional parameter, i.e., we provide a default, while the `evaluate` command takes a required argument
+        for the model file.
 
         ```python linenums="1" title="iris_classifier.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution2.py"
@@ -267,7 +267,7 @@ for doing this, and another excellent framework for creating command line interf
     === "Using uv"
 
         ```bash
-        uv run iris_classifier.py train svm --kernel 'linear'     # should train an S
+        uv run iris_classifier.py train svm --kernel 'linear'     # should train an SVM with a linear kernel
         uv run iris_classifier.py train knn --n-neighbors 5       # should train a KNN with 5 neighbors
         ```
 
@@ -281,7 +281,7 @@ for doing this, and another excellent framework for creating command line interf
         will be converted to `-` in the CLI. Meaning that if you have a variable `n_neighbors` in your code, you should
         use `--n-neighbors` in the CLI.
 
-    ??? success
+    ??? success "Solution"
 
         ```python linenums="1" title="iris_classifier.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/typer_exercise_solution3.py"
@@ -297,7 +297,7 @@ for doing this, and another excellent framework for creating command line interf
 
         ```toml
         [project.scripts]
-        greetings = "src.my_project.iris_classifier:app"
+        iris-classifier = "my_project.iris_classifier:app"
         ```
 
         to the `pyproject.toml` file and then we should be able to run
@@ -306,16 +306,16 @@ for doing this, and another excellent framework for creating command line interf
 
             ```bash
             python -m pip install -e .
-            greetings train svm --kernel 'linear'
+            iris-classifier train svm --kernel 'linear'
             ```
 
         === "Using uv"
 
             ```bash
-            uv run greetings train svm --kernel 'linear'
+            uv run iris-classifier train svm --kernel 'linear'
             ```
 
-This covers the basics of `typer` but feel free to deep dive into how the package can help you custimize your CLIs.
+This covers the basics of `typer` but feel free to deep dive into how the package can help you customize your CLIs.
 Checkout [this page](https://typer.tiangolo.com/tutorial/printing/) on adding colors to your CLI or
 [this page](https://typer.tiangolo.com/tutorial/parameter-types/number/) on validating the inputs to your CLI.
 
@@ -323,7 +323,7 @@ Checkout [this page](https://typer.tiangolo.com/tutorial/printing/) on adding co
 
 The two above sections have shown you how to create a simple CLI for your Python scripts. However, when doing machine
 learning projects, you often have a lot of non-Python code that you would like to run from the terminal. In the
-learning modules you have already completed, you have already encountered a couple of CLI tools that are used in our
+learning modules you have already completed, you have encountered a couple of CLI tools that are used in our
 projects:
 
 * [conda](../s1_development_environment/package_manager.md) for managing environments
@@ -344,7 +344,7 @@ run my_command --arg1=val1 --arg2=val2
 ```
 
 i.e. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
-it to our liking. To help with this, we are going to look at the [invoke](http://www.pyinvoke.org/) package.
+it to our liking. To help with this, we are going to look at the [invoke](https://www.pyinvoke.org/) package.
 `invoke` is a Python package that allows you to define tasks that can be
 run from the terminal. It is a bit like a more advanced version of the [Makefile](https://makefiletutorial.com/) that
 you might have encountered in other programming languages. Some good alternatives to `invoke` are
@@ -387,7 +387,7 @@ easier.
         uv run invoke --list
         ```
 
-        personally, I like to create an shell alias for `uv run invoke` called just `uvi` to shorten the command.
+        Personally, I like to create a shell alias for `uv run invoke` called just `uvi` to shorten the command.
 
     which should work but inform you that no tasks have been added yet.
 
@@ -528,8 +528,8 @@ easier.
             ctx.run("dvc pull")
 
         @task(pull_data)
-        def train(ctx)
-            ctx.run("my_cli train")
+        def train(ctx):
+            ctx.run("my_cli train --output 'model.ckpt'")
         ```
 
 That is all there is to it. You should now be able to define tasks that can be run from the terminal to simplify the

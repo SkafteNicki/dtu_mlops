@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import torch
 import typer
-from my_project_name.model import MyAwesomeModel
+from model import MyAwesomeModel
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
@@ -13,7 +13,7 @@ def visualize(model_checkpoint: str, figure_name: str = "embeddings.png") -> Non
     model: torch.nn.Module = MyAwesomeModel().to(DEVICE)
     model.load_state_dict(torch.load(model_checkpoint))
     model.eval()
-    model.fc = torch.nn.Identity()
+    model.fc1 = torch.nn.Identity()
 
     test_images = torch.load("data/processed/test_images.pt")
     test_target = torch.load("data/processed/test_target.pt")
