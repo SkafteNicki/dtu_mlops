@@ -1,8 +1,10 @@
 # Automated AI review of pull requests, using Open Code Review (OCR) in native
-# mode with a Mistral model: https://github.com/alibaba/open-code-review
+# mode: https://github.com/alibaba/open-code-review
 #
-# Requires a MISTRAL_API_KEY repository secret. The model can be changed with
-# an optional MISTRAL_MODEL repository variable.
+# The model is served by the Mistral API and defaults to DeepSeek V4.1 Flash,
+# which is cheaper than Mistral Large. It requires a MISTRAL_API_KEY repository
+# secret, and the model can be changed with an optional MISTRAL_MODEL
+# repository variable.
 #
 # A review runs when a PR is opened (or marked ready for review), and again
 # whenever a maintainer comments `/open-code-review` on the PR. Fork and
@@ -92,7 +94,7 @@ jobs:
           ocr_version: "1.14.0"
           llm_url: https://api.mistral.ai/v1
           llm_auth_token: ${{ secrets.MISTRAL_API_KEY }}
-          llm_model: ${{ vars.MISTRAL_MODEL || 'mistral-large-latest' }}
+          llm_model: ${{ vars.MISTRAL_MODEL || 'deepseek-v4-1-flash-1017' }}
           llm_use_anthropic: "false"
           # The action's default body disables "thinking", a field the Mistral
           # API does not know, so send an empty body instead.
