@@ -1,0 +1,35 @@
+/* Variant B, "DTU corporate": white, DTU red (#990000), Arial (DTU's digital fallback for Neo Sans).
+   Structure: logo + red rule header, persistent footer with course/deck/page, red cover panel, red section slides. */
+[data-variant='B'] {
+  --mlops-bg: #ffffff;
+  --mlops-ink: #000000;
+  --mlops-muted: #555555;
+  --mlops-accent: #990000;
+  --mlops-surface: #f2f2f2;
+  --mlops-font: Arial, Helvetica, sans-serif;
+}
+[data-variant='B'] .slidev-layout { padding: 3.2rem 3.5rem 3.5rem; }
+[data-variant='B'] .slidev-layout h1 { font-weight: 700; color: var(--mlops-accent); font-size: 1.9rem; }
+[data-variant='B'] .slidev-layout pre.shiki { background: #f6f6f6 !important; border: 1px solid #ddd; }
+
+[data-variant='B'] .mlops-cover { flex-direction: row; padding: 0; }
+[data-variant='B'] .mlops-cover .panel { width: 38%; background: #990000; color: #fff; padding: 3rem; display: flex; flex-direction: column; justify-content: space-between; }
+[data-variant='B'] .mlops-cover .body { flex: 1; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+[data-variant='B'] .mlops-cover h1 { font-size: 2.8rem; color: #000; }
+[data-variant='B'] .mlops-cover h2 { font-size: 1.3rem; font-weight: 400; color: #990000; margin: 0 0 1.5rem; }
+[data-variant='B'] .mlops-cover p { color: var(--mlops-muted); margin: 0.2rem 0; }
+
+[data-variant='B'] .mlops-section { background: #990000; color: #fff; justify-content: flex-end; padding-bottom: 5rem; }
+[data-variant='B'] .mlops-section .kicker { font-size: 4rem; font-weight: 700; opacity: 0.35; line-height: 1; }
+[data-variant='B'] .mlops-section h1 { color: #fff; font-size: 2.8rem; }
+
+[data-variant='B'] .mlops-quote { align-items: center; justify-content: center; text-align: center; }
+[data-variant='B'] .mlops-quote .mark { font-family: Georgia, serif; font-size: 7rem; line-height: 0.6; color: #990000; }
+[data-variant='B'] .mlops-quote blockquote { font-family: Georgia, serif; font-style: italic; font-size: 1.7rem; line-height: 1.4; max-width: 80%; }
+[data-variant='B'] .mlops-quote .who { margin-top: 1.2rem; font-weight: 700; color: #990000; }
+
+/* chrome: header rule + logo, footer */
+.mlops-chrome-b { position: absolute; inset: 0; pointer-events: none; font-family: Arial, sans-serif; }
+.mlops-chrome-b .rule { position: absolute; left: 3.5rem; right: 3.5rem; top: 1.6rem; height: 3px; background: #990000; }
+.mlops-chrome-b .logo { position: absolute; right: 3.5rem; top: 0.55rem; }
+.mlops-chrome-b .footer { position: absolute; left: 3.5rem; right: 3.5rem; bottom: 0.9rem; display: flex; justify-content: space-between; font-size: 0.65rem; color: #555; border-top: 1px solid #ddd; padding-top: 0.35rem; }

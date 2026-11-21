@@ -1,0 +1,14 @@
+{
+  "name": "dtu-mlops-slides",
+  "private": true,
+  "packageManager": "pnpm@10.34.9",
+  "scripts": {
+    "dev:cloud": "slidev cloud/slides.md --open false",
+    "build:cloud": "slidev build cloud/slides.md --base /slides/cloud/"
+  },
+  "devDependencies": {
+    "@slidev/cli": "latest",
+    "@slidev/theme-default": "latest",
+    "playwright-chromium": "^1.65.1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "slidev-theme-dtu-mlops-prototype",
+  "private": true,
+  "keywords": ["slidev-theme"],
+  "slidev": {
+    "colorSchema": "both",
+    "defaults": {
+      "transition": "fade",
+      "mdc": true
+    }
+  }
+}

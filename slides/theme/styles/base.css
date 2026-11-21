@@ -1,0 +1,42 @@
+/* PROTOTYPE theme: shared base. Variant files only set tokens and structure. */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=IBM+Plex+Sans:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --mlops-bg: #ffffff;
+  --mlops-ink: #111111;
+  --mlops-muted: #666666;
+  --mlops-accent: #990000;
+  --mlops-surface: #f2f2f2;
+  --mlops-font: Arial, sans-serif;
+  --mlops-head-font: var(--mlops-font);
+  --mlops-mono: 'JetBrains Mono', monospace;
+  --slidev-code-font-family: var(--mlops-mono);
+}
+
+.slidev-layout {
+  background: var(--mlops-bg);
+  color: var(--mlops-ink);
+  font-family: var(--mlops-font);
+  padding: 2.5rem 3.5rem;
+  height: 100%;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+.slidev-layout h1, .slidev-layout h2, .slidev-layout h3 { font-family: var(--mlops-head-font); }
+.slidev-layout h1 { font-size: 2.2rem; line-height: 1.15; margin-bottom: 1.25rem; }
+.slidev-layout h2 { font-size: 1.4rem; margin: 0.6rem 0; }
+.slidev-layout h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+.slidev-layout p { margin: 0.5rem 0; }
+.slidev-layout ul { list-style: disc; padding-left: 1.4rem; }
+.slidev-layout ol { list-style: decimal; padding-left: 1.4rem; }
+.slidev-layout li { margin: 0.2rem 0; }
+.slidev-layout a { color: var(--mlops-accent); text-decoration: underline; text-underline-offset: 3px; }
+.slidev-layout table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.slidev-layout td, .slidev-layout th { padding: 0.4rem 0.6rem; border-bottom: 1px solid color-mix(in srgb, var(--mlops-ink) 20%, transparent); }
+.slidev-layout code:not(pre code) { font-family: var(--mlops-mono); font-size: 0.85em; padding: 0.1em 0.35em; border-radius: 4px; background: var(--mlops-surface); }
+.slidev-layout pre.shiki, .slidev-code { font-size: 0.8rem !important; line-height: 1.6 !important; padding: 1rem 1.2rem !important; border-radius: 6px; }
+.slidev-layout .cite { font-size: 0.7rem; color: var(--mlops-muted); }
+
+/* layout scaffolding shared by all variants, variants restyle it */
+.mlops-cover, .mlops-section, .mlops-quote { display: flex; flex-direction: column; }
+.mlops-pageno, .mlops-chrome-b, .mlops-chrome-c { z-index: 10; }

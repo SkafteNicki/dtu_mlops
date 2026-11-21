@@ -1,0 +1,46 @@
+/* Variant C, "Engineering notebook": warm paper, ink, mono headings with a `#` prompt, one blue accent.
+   Structure: left rail with deck name and slide counter, grid-paper section slides, terminal cover,
+   dark code blocks on a light page. */
+[data-variant='C'] {
+  --mlops-bg: #f6f3ec;
+  --mlops-ink: #1d1f24;
+  --mlops-muted: #6b6a66;
+  --mlops-accent: #1f5fd1;
+  --mlops-surface: #e9e4d8;
+  --mlops-font: 'IBM Plex Sans', sans-serif;
+  --mlops-head-font: 'JetBrains Mono', monospace;
+}
+[data-variant='C'] .slidev-layout { padding: 2.4rem 3.2rem 2.4rem 5.6rem; }
+[data-variant='C'] .slidev-layout h1 { font-weight: 700; font-size: 1.8rem; letter-spacing: -0.02em; }
+[data-variant='C'] .slidev-layout:not(.mlops-cover):not(.mlops-section) h1::before { content: '# '; color: var(--mlops-accent); }
+[data-variant='C'] .slidev-layout h3 { font-family: var(--mlops-head-font); font-size: 1rem; text-transform: lowercase; color: var(--mlops-accent); }
+[data-variant='C'] .slidev-layout pre.shiki { background: #1d1f24 !important; }
+[data-variant='C'] .slidev-layout pre.shiki span { color: var(--shiki-dark) !important; }
+
+[data-variant='C'] .mlops-cover { padding: 3rem 3.5rem; justify-content: space-between; background: #1d1f24; color: #f6f3ec; }
+[data-variant='C'] .mlops-cover .prompt { font-family: var(--mlops-mono); color: #7fa7ff; font-size: 0.95rem; }
+[data-variant='C'] .mlops-cover .prompt::after { content: '▍'; animation: mlops-blink 1s steps(1) infinite; }
+[data-variant='C'] .mlops-cover h1 { font-size: 4rem; color: #fff; margin: 0; }
+[data-variant='C'] .mlops-cover h2 { font-family: 'IBM Plex Sans'; font-weight: 400; font-size: 1.2rem; margin: 0; color: #c9c5bb; }
+[data-variant='C'] .mlops-cover p { color: #9a968c; font-size: 0.85rem; margin: 0.1rem 0; }
+@keyframes mlops-blink { 50% { opacity: 0; } }
+
+[data-variant='C'] .mlops-section {
+  justify-content: center;
+  background-color: #f6f3ec;
+  background-image: linear-gradient(#e2dccd 1px, transparent 1px), linear-gradient(90deg, #e2dccd 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+[data-variant='C'] .mlops-section .kicker { font-family: var(--mlops-mono); font-size: 7rem; font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 2px var(--mlops-accent); }
+[data-variant='C'] .mlops-section h1 { font-size: 2.6rem; }
+
+[data-variant='C'] .mlops-quote { justify-content: center; }
+[data-variant='C'] .mlops-quote blockquote { font-family: var(--mlops-mono); font-size: 1.35rem; line-height: 1.6; background: #fffdf7; border: 1px solid #1d1f24; box-shadow: 6px 6px 0 #1d1f24; padding: 1.5rem 2rem; }
+[data-variant='C'] .mlops-quote blockquote::before { content: '> '; color: var(--mlops-accent); }
+[data-variant='C'] .mlops-quote .who { margin-top: 1.5rem; font-family: var(--mlops-mono); color: var(--mlops-muted); }
+[data-variant='C'] .mlops-quote .who::before { content: '-- '; }
+
+/* chrome: left rail */
+.mlops-chrome-c { position: absolute; left: 0; top: 0; bottom: 0; width: 3.6rem; border-right: 1px solid #d6d0c2; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 1.2rem 0; pointer-events: none; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #6b6a66; background: #efebe1; }
+.mlops-chrome-c .deck { writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.15em; text-transform: uppercase; }
+.mlops-chrome-c .count { color: #1f5fd1; font-weight: 700; }

@@ -1,6 +1,7 @@
 ---
-theme: default
-title: Day7 - Cloud
+theme: ../theme
+layout: cover
+title: Cloud
 info: |
   02476 Machine Learning Operations, Day 7: Cloud.
   ROUGH PILOT DRAFT extracted from slides/day7_cloud.pdf (Gamma export).
@@ -20,7 +21,7 @@ Images follow the routes from the image-recreation research: cheap ones are
 redrawn inline; the rest are <Placeholder> boxes that describe the source image.
 -->
 
-# Day7 - Cloud
+# Cloud
 
 ## 02476 Machine Learning Operations
 
@@ -60,7 +61,7 @@ A fraction of real world ML systems is composed of ML code, the rest is infrastr
   <div class="col-start-3 col-span-2 row-start-4 border-2 border-black bg-gray-300 flex items-center justify-center">Process Management Tools</div>
 </div>
 
-<div class="text-xs opacity-60 mt-1">After Sculley et al., "Hidden Technical Debt in Machine Learning Systems", NeurIPS 2015, Fig. 1.</div>
+<div class="cite mt-1">After Sculley et al., "Hidden Technical Debt in Machine Learning Systems", NeurIPS 2015, Fig. 1.</div>
 
 The cloud provides services to help lower the technical debt
 
@@ -69,28 +70,28 @@ The cloud provides services to help lower the technical debt
 # Why use cloud?
 
 <div class="grid grid-cols-2 gap-4 mt-6">
-<div class="border-2 border-red-700 rounded p-4">
+<div class="border-2 border-accent rounded p-4">
 
 ### Reliability
 
 Hardware failures, network outages, and system crashes require 24/7 monitoring and rapid response capabilities
 
 </div>
-<div class="border-2 border-red-700 rounded p-4">
+<div class="border-2 border-accent rounded p-4">
 
 ### Scalability
 
 Predicting capacity needs and provisioning hardware months in advance creates inflexibility and wasted resources
 
 </div>
-<div class="border-2 border-red-700 rounded p-4">
+<div class="border-2 border-accent rounded p-4">
 
 ### Complexity
 
 Modern infrastructure stacks involve networking, storage, compute, security, and orchestration—each requiring deep expertise
 
 </div>
-<div class="border-2 border-red-700 rounded p-4">
+<div class="border-2 border-accent rounded p-4">
 
 ### Expertise
 
@@ -119,13 +120,13 @@ Hiring and retaining infrastructure specialists is expensive and challenging, es
 </svg>
 
 </div>
-<div class="border-l-2 border-red-500 pl-6 text-sm">
+<div class="border-l-2 border-accent pl-6 text-sm">
 
 1. All teams will henceforth expose their data and functionality through service interfaces
 2. Teams must communicate with each other through these interfaces
 3. There will be no other form of interprocess communication allowed: no direct linking, no direct reads of another team's data store, no shared-memory model, no back-doors whatsoever
 4. It doesn't matter what technology they use—HTTP, Corba, Pubsub, custom protocols
-5. <span class="text-red-400">All service interfaces, without exception, must be designed from the ground up to be externalizable to developers in the outside world</span>
+5. <span class="text-accent">All service interfaces, without exception, must be designed from the ground up to be externalizable to developers in the outside world</span>
 6. Anyone who doesn't do this will be fired
 
 </div>
@@ -240,7 +241,7 @@ layout: center
 
 # Exercise: what do you need?
 
-<div class="border-l-4 border-red-400 pl-6 mt-6">
+<div class="border-l-4 border-accent pl-6 mt-6">
 
 Based on your current knowledge about machine learning and what you have already learned in this course, what kind of services would you need from a cloud provider to do Machine Learning at Scale?
 
@@ -392,3 +393,51 @@ Caption: "Me signing up for my 4th GCP account to get the $300 of free credits".
 celebrity in four different disguises (fish hat, turban, headscarf, blonde wig with glasses), watermark @AaronNBrock.
 Memes are decided per deck: recreate, regenerate, or swap (author's call).
 </Placeholder>
+
+---
+layout: section
+kicker: "05"
+---
+
+# Theme test slides
+
+Prototype only: layouts this deck does not use yet
+
+---
+layout: quote
+author: Cloud deck, slide 2 (verbatim)
+---
+
+> It is to data scientists what advance calculus was to mathematicians in the early 17th century: The power of infinity
+
+---
+
+# Talking to GCP from the terminal
+
+```bash {1|3-4|6-8}
+gcloud auth login
+
+gcloud config set project my-mlops-project
+gcloud config set compute/zone europe-west1-b
+
+gcloud compute instances create my-instance \
+    --machine-type=n1-standard-1 \
+    --image-family=pytorch-latest-cpu --image-project=deeplearning-platform-release
+```
+
+Inline code looks like `gcloud storage ls gs://my-bucket` inside a sentence.
+
+---
+
+# From commit to running container
+
+```mermaid
+flowchart LR
+  A[git push] --> B[Cloud Build]
+  B --> C[(Artifact Registry)]
+  C --> D[Cloud Run]
+  C --> E[Vertex AI training job]
+  E --> F[(Cloud Storage bucket)]
+```
+
+<div class="cite mt-4">Diagram styled by the theme's Mermaid setup; no per-deck colours.</div>

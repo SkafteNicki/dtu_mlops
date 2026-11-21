@@ -1,0 +1,34 @@
+/* Variant A, "Gamma dark": stays closest to the Gamma PDFs.
+   Near-black textured background, off-white text, coral-red accent, Barlow. No chrome. */
+[data-variant='A'] {
+  --mlops-bg: #161415;
+  --mlops-ink: #e5e0df;
+  --mlops-muted: #a8a2a0;
+  --mlops-accent: #f65f62;
+  --mlops-surface: #262223;
+  --mlops-font: 'Barlow', sans-serif;
+}
+[data-variant='A'] .slidev-layout {
+  background:
+    radial-gradient(circle at 80% 10%, rgba(246, 95, 98, 0.06), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.03), transparent 40%),
+    #161415;
+}
+[data-variant='A'] .slidev-layout h1 { font-weight: 500; color: #ffffff; }
+[data-variant='A'] .slidev-layout h3 { font-weight: 500; color: #ffffff; }
+[data-variant='A'] .slidev-layout pre.shiki { background: #1f1b1c !important; border-left: 3px solid var(--mlops-accent); }
+
+[data-variant='A'] .mlops-cover { justify-content: center; }
+[data-variant='A'] .mlops-cover h1 { font-size: 3rem; margin-bottom: 1.5rem; }
+[data-variant='A'] .mlops-cover h2 { font-size: 1.6rem; font-weight: 400; margin: 0; }
+[data-variant='A'] .mlops-cover p { color: var(--mlops-muted); }
+
+[data-variant='A'] .mlops-section { justify-content: center; }
+[data-variant='A'] .mlops-section .kicker { color: var(--mlops-accent); font-size: 1rem; letter-spacing: 0.2em; text-transform: uppercase; }
+[data-variant='A'] .mlops-section h1 { font-size: 3.2rem; }
+
+[data-variant='A'] .mlops-quote { justify-content: center; }
+[data-variant='A'] .mlops-quote blockquote { border-left: 3px solid var(--mlops-accent); padding-left: 2rem; font-size: 1.8rem; line-height: 1.35; color: #fff; }
+[data-variant='A'] .mlops-quote .who { margin-top: 1.5rem; padding-left: 2.2rem; color: var(--mlops-muted); }
+
+[data-variant='A'] .mlops-pageno { position: absolute; right: 1.5rem; bottom: 1rem; font-size: 0.7rem; color: var(--mlops-muted); }
