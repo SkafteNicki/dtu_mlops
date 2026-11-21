@@ -49,14 +49,14 @@ the same environment, in this case, the global environment. Instead, if we did s
     ```bash
     cd project_A  # Move to project A
     python -m venv env  # Create a virtual environment in project A
-    .\\env\\Scripts\\activate  # Activate that virtual environment
+    .\env\Scripts\activate  # Activate that virtual environment
     pip install torch==1.3.0  # Install the old torch version into the virtual environment belonging to project A
     cd ../project_B  # Move to project B
     python -m venv env  # Create a virtual environment in project B
-    .\\env\\Scripts\\activate  # Activate that virtual environment
+    .\env\Scripts\activate  # Activate that virtual environment
     pip install torch==2.0  # Install new torch version into the virtual environment belonging to project B
     cd ../project_A  # Move back to project A
-    .\\env\\Scripts\\activate  # Activate the virtual environment belonging to project A
+    .\env\Scripts\activate  # Activate the virtual environment belonging to project A
     python main.py  # Succeed in executing the main script from project A
     ```
 
@@ -127,8 +127,8 @@ for installing packages within those environments.
 !!! warning "`uv` and `conda+pip` in this course"
 
     Until 2026, the recommended package managers for this course have been `conda+pip`. However, starting in 2026, we
-    will transition to recommending `uv` as the primary package manager, and conda will probably be phased out of the
-    course in a few years. Therefore, we try to as much as possible to provide instructions for both `conda+pip` and
+    are transitioning to recommending `uv` as the primary package manager, and conda will probably be phased out of
+    the course in a few years. Therefore, we try as much as possible to provide instructions for both `conda+pip` and
     `uv`. However, I still expect to have missed a couple of places where only instructions for `conda+pip` are given.
     If you find such places, please report them on the course GitHub repository (or directly to me) so that I can fix
     them.
@@ -138,16 +138,16 @@ for installing packages within those environments.
 Before we get started with the exercises, let's first talk a bit about Python dependencies. One of the most common ways
 to specify dependencies in the Python community is through a `requirements.txt` file, which is a simple text file that
 contains a list of all the packages that you want to install. The format allows you to specify the package name and
-version number you want, with 7 different operators:
+version number you want, with 6 different operators:
 
 ```txt
 package1           # any version
 package2 == x.y.z  # exact version
 package3 >= x.y.z  # at least version x.y.z
 package4 >  x.y.z  # newer than version x.y.z
-package4 <= x.y.z  # at most version x.y.z
-package5 <  x.y.z  # older than version x.y.z
-package6 ~= x.y.z  # install version newer than x.y.z and older than x.y+1
+package5 <= x.y.z  # at most version x.y.z
+package6 <  x.y.z  # older than version x.y.z
+package7 ~= x.y.z  # at least version x.y.z and older than x.y+1
 ```
 
 In general, all packages (should) follow the [semantic versioning](https://semver.org/) standard, which means that the
@@ -201,7 +201,8 @@ to make it work.
     the features of `uv` we will be using in the course. That said, let's first try to see how we can use `uv` to create
     virtual environments and manage dependencies:
 
-    1. Try creating a new virtual environment called `.venv` using Python 3.11. What command should you execute to do this?
+    1. Try creating a new virtual environment called `.venv` using Python 3.13. What command should you execute to do
+        this?
 
         !!! warning "Use Python 3.11-3.13"
 
@@ -257,14 +258,14 @@ to make it work.
             ```bash
             uv pip list
             # or
-            uv tree
+            uv pip freeze
             ```
 
-4. The above is the very basic of `uv` and is actually not the recommended way of using `uv`. Instead, `uv` works best
+4. The above is the very basics of `uv` and is actually not the recommended way of using `uv`. Instead, `uv` works best
     as a project-based package manager. Let's try that out:
 
     1. When you start a new project, you can initialize it with `uv init <project_name>`, which will create a new folder
-        with the given project name and set up a virtual environment for you(1):
+        with the given project name and initialize it as a `uv` project for you(1):
 
         1. :man_raising_hand: If you already have a pre-existing folder, you can also run `uv init` inside that folder
             to set it up as a `uv` project.
@@ -279,9 +280,14 @@ to make it work.
 
             The following has been created:
 
-            * A `.venv` folder containing the virtual environment as above
             * A `README.md` file for documenting your project
-            * a `pyproject.toml` file for managing your project, more on this file later
+            * A `main.py` file containing a small starter script
+            * A `pyproject.toml` file for managing your project, more on this file later
+            * A `.python-version` file pinning the Python version that the project should use
+            * A `.gitignore` file for specifying files that git should ignore
+
+            Note that no virtual environment has been created yet. The `.venv` folder is automatically created
+            the first time you run a command such as `uv run` or `uv sync`.
 
     2. To add dependencies to your project, you can use the `uv add` command:
 
@@ -290,7 +296,7 @@ to make it work.
         ```
 
         which will install the packages in your virtual environment and also add them to the `pyproject.toml` file
-        (check this out!). An additional file have been created called `uv.lock`, can you figure out what the purpose of
+        (check this out!). An additional file has been created called `uv.lock`, can you figure out what the purpose of
         this file is?
 
         ??? success "Solution"
@@ -300,18 +306,18 @@ to make it work.
             another user wants to set up the same environment, they can use the `uv sync` command to install the exact
             same versions of all packages as specified in the `uv.lock` file.
 
-    3. Another, way to add dependencies to your project is to directly edit the `pyproject.toml` file. Try adding
-        `scikit-learn` version `1.2.2` to your `pyproject.toml` file. Afterwards, what command should you execute to
+    3. Another way to add dependencies to your project is to directly edit the `pyproject.toml` file. Try adding
+        `scikit-learn` version `1.6.1` to your `pyproject.toml` file. Afterwards, what command should you execute to
         install the dependencies specified in the `pyproject.toml` file?
 
         ??? success "Solution"
 
-            Add the following line under the `[project.dependencies]` section:
+            Add the following line under the `dependencies` list in the `[project]` section:
 
             ```toml
             dependencies = [
                 "numpy>=2.4.0",
-                "scikit-learn==1.2.2"
+                "scikit-learn==1.6.1"
             ]
             ```
 
@@ -349,12 +355,13 @@ to make it work.
             ```toml
             [dependency-groups]
             dev = [
-                "ruff>=0.14.10",
+                "pytest>=9.2.0",
+                "ruff>=0.17.6",
             ]
             ```
 
-    6. `uv` also supports for defining optional dependencies e.g. dependencies that are only needed for specific
-        use-cases. For example, `pandas` support the optional dependency `excel` for reading and writing Excel files.
+    6. `uv` also supports defining optional dependencies e.g. dependencies that are only needed for specific
+        use-cases. For example, `pandas` supports the optional dependency `excel` for reading and writing Excel files.
         Try adding an optional dependency to your project and check how it is stored in the `pyproject.toml` file.
 
         ??? success "Solution"
@@ -381,10 +388,10 @@ to make it work.
                 ??? success "Solution"
 
                     ```bash
-                    # to install optional dependencies from the "dataframes" group
-                    uv sync --group dataframes
+                    # to install optional dependencies from the "dataframes" extra
+                    uv sync --extra dataframes
                     # to install all optional dependencies
-                    uv sync --all-groups
+                    uv sync --all-extras
                     ```
 
             2. Finally, how do you specify which optional dependencies should be installed when executing
@@ -392,15 +399,26 @@ to make it work.
 
                 ??? success "Solution"
 
-                    You can specify this in the `pyproject.toml` file under the `[tool.uv]` section (see
+                    The same options are available when executing commands with `uv run`, e.g.:
+
+                    ```bash
+                    # to include optional dependencies from the "dataframes" extra
+                    uv run --extra dataframes python script.py
+                    # to include all optional dependencies
+                    uv run --all-extras python script.py
+                    ```
+
+                    For *dependency groups* (such as the `dev` group), which are installed by default, you can
+                    instead specify which groups to include in the `pyproject.toml` file under the `[tool.uv]` section
+                    using `default-groups` (see
                     [docs](https://docs.astral.sh/uv/concepts/projects/dependencies/#default-groups)):
 
                     ```toml
                     [tool.uv]
-                    default-groups = ["dev", "dataframes"]
+                    default-groups = ["dev"]
                     ```
 
-                    alternatively, setting `default-groups = "all"` will install all optional dependencies by default.
+                    alternatively, setting `default-groups = "all"` will include all dependency groups by default.
 
     7. Let's say that you want to upgrade or downgrade the python version you are running inside your `uv` project.
         How do you do that?
@@ -428,16 +446,17 @@ to make it work.
             ```
 
     9. (Optional) `uv` also supports the notion of *tools* which are external command line tools that you may use in
-        multiple projects. Examples of such tools are `black`, `ruff`, `pytest` and so on (all which you will encounter
-        later in the course). These tools can be installed globally on your system by using the `uvx` (or `uv tool`):
-        command:
+        multiple projects. Examples of such tools are `black`, `ruff`, `pytest` and so on (all of which you
+        will encounter later in the course). Such a tool can be executed without permanently installing it by using the
+        `uvx` (or `uv tool run`) command:
 
         ```bash
         uvx cowsay -t "muuh"
         ```
 
-        which will install the `cowsay` tool globally on your system and then execute it with the argument `"muuh"`. Try
-        installing at least one tool and executing it.
+        which will fetch the `cowsay` tool (if it has not already been cached) and then execute it with the argument
+        `"muuh"`. Tools can also be installed globally on your system by using the `uv tool install` command. Try
+        playing around with at least one tool.
 
 !!! tip "Alias `uvr=uv run`"
 
@@ -455,7 +474,7 @@ to make it work.
 
 !!! note "Conda vs. Mamba"
 
-    If you are using `conda` then you can also use `mamba` which is a drop-in replacement `conda` that is faster.
+    If you are using `conda` then you can also use `mamba` which is a drop-in replacement for `conda` that is faster.
     This means that any `conda` command can be replaced with `mamba` and it should work. Feel free to use `mamba` if
     you are already familiar with `conda` or after having gone through the exercises below. Install instructions can
     be found [here](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).
@@ -480,7 +499,7 @@ in the exercise folder.
     default, it will always start in the `(base)` environment.
 
 3. Try creating a new virtual environment. Make sure that it is called `my_environment` and that it installs version
-   3.11 of Python. What command should you execute to do this?
+   3.13 of Python. What command should you execute to do this?
 
     !!! warning "Use Python 3.11-3.13"
 
@@ -529,7 +548,7 @@ in the exercise folder.
         ??? success "Solution"
 
             ```bash
-            conda env create --name <environment-name> --file environment.yaml
+            conda create --name <environment-name> --file environment.yaml
             ```
 
 6. As the introduction states, it is fairly safe to use `pip` inside `conda` today. What is the corresponding `pip`
