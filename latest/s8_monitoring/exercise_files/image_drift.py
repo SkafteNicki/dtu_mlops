@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-from evidently.legacy.metrics import DataDriftTable
-from evidently.legacy.report import Report
+from evidently import Report
+from evidently.presets import DataDriftPreset
 from torchvision import datasets, transforms
 
 transform = transforms.Compose([transforms.ToTensor()])
@@ -40,6 +40,6 @@ feature_df[feature_columns] = feature_df[feature_columns].astype(float)
 reference_data = feature_df[feature_df["Dataset"] == "MNIST"].drop(columns=["Dataset"])
 current_data = feature_df[feature_df["Dataset"] == "FashionMNIST"].drop(columns=["Dataset"])
 
-report = Report(metrics=[DataDriftTable()])
-report.run(reference_data=reference_data, current_data=current_data)
-report.save_html("data_drift.html")
+report = Report(metrics=[DataDriftPreset()])
+snapshot = report.run(current_data=current_data, reference_data=reference_data)
+snapshot.save_html("data_drift.html")
