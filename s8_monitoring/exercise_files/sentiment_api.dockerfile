@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install fastapi torch transformers google-cloud-storage pydantic --no-cache-dir
+RUN pip install fastapi uvicorn torch transformers google-cloud-storage pydantic --no-cache-dir
 
 COPY sentiment_api.py .
 
