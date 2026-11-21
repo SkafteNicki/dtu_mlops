@@ -2456,7 +2456,7 @@ we can also mention <a href="https://github.com/NannyML/nannyml">NannyML</a>, <a
 <p>Start by converting your GCP function into a FastAPI application. The appropriate <code>curl</code> command should look
 something like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="s1">'http://127.0.0.1:8000/predict/?sepal_length=1.0&amp;sepal_width=1.0&amp;petal_length=1.0&amp;petal_width=1.0'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="s1">'http://127.0.0.1:8000/predict?sepal_length=1.0&amp;sepal_width=1.0&amp;petal_length=1.0&amp;petal_width=1.0'</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">''</span>
 </span></code></pre></div>
@@ -2699,10 +2699,11 @@ to <code>target</code> so it matches the <code>target</code> column in <code>ref
 </details>
 <ol>
 <li>
-<p>Evidently does not work directly on dataframes. Instead it uses a <code>Dataset</code> object, which combines a
+<p>Evidently can run directly on dataframes, but internally it works with a <code>Dataset</code> object, which combines a
     dataframe with a <code>DataDefinition</code>. The data definition tells Evidently how to interpret each column, e.g.
-    which columns are numerical, which are categorical, which contain text etc. If you leave it out, Evidently
-    will try to guess the column types, which works for simple cases like this one but is not always correct.
+    which columns are numerical, which are categorical, which contain text etc. If you pass a plain dataframe,
+    Evidently will try to guess the column types, which works for simple cases like this one but is not always
+    correct.
     Look through the <a href="https://docs.evidentlyai.com/docs/library/data_definition">data definition docs</a> and
     convert both dataframes to <code>Dataset</code> objects, where the four features are numerical and the <code>target</code> column
     is categorical.</p>
@@ -2733,8 +2734,9 @@ actually showing.</p>
 <p>Data drifting is not the only kind of reporting evidently can make. We can also get reports on data quality.
     Look through the <a href="https://docs.evidentlyai.com/metrics/all_presets">list of presets</a> in evidently's
     documentation and add the preset that has to do with data quality to the report. Try adding a few <code>NaN</code> values
-    to your <code>current_data</code> and re-run the report. Check out the report and go over the generated plots and make
-    sure that it picked up on the missing values you just added.</p>
+    to your <code>current_data</code> dataframe, re-create <code>current_dataset</code> from it (the <code>Dataset</code> does not see changes made
+    to the dataframe after it was created) and re-run the report. Check out the report and go over the generated
+    plots and make sure that it picked up on the missing values you just added.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The <code>DataSummaryPreset</code> computes statistics on the data quality (missing values, duplicated rows, constant
@@ -2801,8 +2803,9 @@ dictionary contains a key <code>tests</code> with a list of all test results. Ea
 <ol>
 <li>
 <p>Presets come with a set of default tests that can be enabled with <code class="language-python highlight"><span class="n">Report</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">include_tests</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>.
-    When a reference dataset is given, the default conditions are derived from it, e.g. the <code>DataDriftPreset</code>
-    tests if the share of drifted columns is below 50%. Enable the default tests for the <code>DataDriftPreset</code> and
+    Some default conditions are derived from the reference dataset (e.g. the <code>DataSummaryPreset</code> compares the
+    number of rows and missing values to the reference), while others are fixed (e.g. the <code>DataDriftPreset</code>
+    tests if the share of drifted columns is below 50%). Enable the default tests for the <code>DataDriftPreset</code> and
     the <code>DataSummaryPreset</code> and look at the generated report. Which tests fail?</p>
 </li>
 <li>
@@ -2943,9 +2946,9 @@ the current data) and combines the report and tests from the exercises above.</p
 </details>
 </li>
 <li>
-<p>Evidently by default only supports structured data, e.g., tabular data (so does nearly every other framework). Thus,
-    the question then becomes how we can extend unstructured data such as images or text? The solution is to extract
-    structured features from the data which we can then run the analysis on.</p>
+<p>Drift detection is mainly designed for structured data, e.g., tabular data (this holds for Evidently and nearly every
+    other framework). Thus, the question then becomes how we can extend unstructured data such as images or text? The
+    general solution is to extract structured features from the data which we can then run the analysis on.</p>
 <ol>
 <li>
 <p>For images the simple solution would be to flatten the images and consider each pixel a feature,
@@ -3141,8 +3144,8 @@ our data distribution.</p>
 <p>(Optional) If we have multiple applications and want to run monitoring for each application we often also want the
     monitoring to be a deployed application (that only we can access). Implement a <code>/monitoring</code> endpoint that does
     all the reporting we just went through such that you have two endpoints:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>http://127.0.0.1:8000/predict/?sepal_length<span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">sepal_width</span><span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">petal_length</span><span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">petal_width</span><span class="o">=</span><span class="m">1</span>.0<span class="w">  </span><span class="c1"># user endpoint</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>http://127.0.0.1:8000/monitoring/<span class="w">  </span><span class="c1"># monitoring endpoint</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>http://127.0.0.1:8000/predict?sepal_length<span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">sepal_width</span><span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">petal_length</span><span class="o">=</span><span class="m">1</span>.0<span class="p">&amp;</span><span class="nv">petal_width</span><span class="o">=</span><span class="m">1</span>.0<span class="w">  </span><span class="c1"># user endpoint</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>http://127.0.0.1:8000/monitoring<span class="w">  </span><span class="c1"># monitoring endpoint</span>
 </span></code></pre></div>
 <p>Our monitoring endpoint should return an HTML page showing an Evidently report (with or without tests). Try
 implementing this endpoint.</p>
@@ -5086,7 +5089,7 @@ frameworks that can be used for monitoring.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:29:52">November 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 16:23:21">November 21, 2026</span>
   </span>
 
     
