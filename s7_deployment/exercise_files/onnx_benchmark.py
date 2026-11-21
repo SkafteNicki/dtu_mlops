@@ -37,11 +37,15 @@ if sys.platform == "win32":
         "resnet18.onnx",
         input_names=["input.1"],
         dynamic_axes={"input.1": {0: "batch_size", 2: "height", 3: "width"}},
+        dynamo=False,
     )
 else:
-    torch.onnx.export(model, (dummy_input,), dynamo=True).save("resnet18.onnx")
+    torch.onnx.export(
+        model, (dummy_input,), dynamic_shapes=({0: "batch_size", 2: "height", 3: "width"},), dynamo=True
+    ).save("resnet18.onnx")
 
 ort_session = ort.InferenceSession("resnet18.onnx")
+ort_input_name = ort_session.get_inputs()[0].name
 
 
 @timing_decorator
@@ -53,7 +57,7 @@ def torch_predict(image) -> None:
 @timing_decorator
 def onnx_predict(image) -> None:
     """Predict using ONNX model."""
-    ort_session.run(None, {"input.1": image.numpy()})
+    ort_session.run(None, {ort_input_name: image.numpy()})
 
 
 if __name__ == "__main__":

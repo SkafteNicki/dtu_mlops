@@ -13,8 +13,8 @@ that, store data and pull it all together to make a training run. After the trai
 have a file stored in the cloud with your trained model weights.
 
 Today's exercises will be about serving those model weights to an end user. We focus on two different ways
-of deploying our model: [Google cloud functions](https://cloud.google.com/functions/docs) and
-[Google cloud run](https://cloud.google.com/run/docs). Both services are serverless, meaning that you do not have to
+of deploying our model: [Cloud Run functions](https://cloud.google.com/functions/docs) (formerly called Cloud Functions)
+and [Cloud Run](https://cloud.google.com/run/docs). Both services are serverless, meaning that you do not have to
 manage the server that runs your code.
 
 <figure markdown>
@@ -28,56 +28,62 @@ Engine which are more traditional ways of deploying your code. Here you have to 
 
 ## Cloud Functions
 
-Google Cloud Functions is the most simple way that we can deploy our code to the cloud. As stated above, it is a
+Google Cloud Functions is the simplest way that we can deploy our code to the cloud. Note that the product has been
+renamed to *Cloud Run functions* and, in the cloud console, functions are now created and managed from the
+`Cloud Run` page. As stated above, it is a
 serverless service, meaning that you do not have to worry about the underlying infrastructure. You just write your code
 and deploy it. The service is great for small applications that can be encapsulated in **a single script**.
 
 ### ❔ Exercises
 
-1. Go to the start page of `Cloud Functions`. It can be found in the sidebar on the homepage or you can just search for
-    it. Activate the service in the cloud console or use the following command:
+1. Go to the `Cloud Run` page in the cloud console (functions are now created from there). It can be found in the
+    sidebar on the homepage or you can just search for it. Enable the services required for deploying functions or use
+    the following command:
 
     ```bash
-    gcloud services enable cloudfunctions.googleapis.com
+    gcloud services enable artifactregistry.googleapis.com cloudbuild.googleapis.com \
+        run.googleapis.com logging.googleapis.com
     ```
 
-2. Click the `Create Function` button which should take you to a screen like the image below. Make sure it is a 2nd
-    Gen function, give it a name, set the server region to somewhere close by and change the authentication policy to
-    `Allow unauthenticated invocations` so we can access it directly from a browser. Remember to note down the
+2. Click the `Write a function` button which should take you to a screen like the image below. Give the service a name,
+    set the server region to somewhere close by and change the authentication policy to `Allow public access` so we can
+    access it directly from a browser. Remember to note down the URL of the function, shown next to `URL:` once it has
+    been deployed, as we are going to use it later.
 
     <figure markdown>
     ![Image](../figures/gcp_cloud_functions.png){ width="500" }
     </figure>
 
-3. On the next page, for `Runtime` pick the `Python 3.11` option (or newer). This will make the inline editor show both
-    a `main.py` and `requirements.py` file. Look over them and try to understand what they do. Be sure to take a
+3. In the create form, for `Runtime` pick the newest `Python` option available (e.g. `Python 3.13`). After clicking
+    `Create`, you should be taken to the `Source` tab of the function, which shows an inline editor with both a
+    `main.py` and a `requirements.txt` file. Look over them and try to understand what they do. Be sure to take a
     look at the [functions-framework](https://github.com/GoogleCloudPlatform/functions-framework-python) which is a
-    needed requirement of any Cloud function.
+    needed requirement of any Cloud Run function.
 
     <figure markdown>
     ![Image](../figures/gcp_functions_code.png){ width="500" }
     </figure>
 
-    After you have looked over the files, click the `Deploy` button.
+    After you have looked over the files, click the `Save and redeploy` button.
 
     ??? success "Solution"
 
         The `functions-framework` is a lightweight, open-source framework for turning Python functions into HTTP
-        functions. Any function that you deploy to Cloud Functions must be wrapped in the `@functions_framework.http`
-        decorator.
+        functions. Any function that you deploy to Cloud Run functions must use the framework, for example by
+        wrapping it in the `@functions_framework.http` decorator.
 
-4. Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by going to
-    the `Testing` tab.
+4. Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by clicking
+    the `Test` button.
 
     <figure markdown>
     ![Image](../figures/gcp_test_function.png){ width="800" }
     </figure>
 
 5. If you know what the application does, it should come as no surprise that it can run without any input. We
-    therefore just send an empty request by clicking the `Test The Function` button. Does the function return
+    therefore just send an empty request by clicking the `Test` button. Does the function return
     the output you expected? Wait for the logs to show up. What do they show?
 
-    1. What should the `Triggering event` look like in the testing prompt for the program to respond with
+    1. What should the test request payload look like in the testing prompt for the program to respond with
 
         ```txt
         Hallo General Kenobi!
@@ -87,7 +93,7 @@ and deploy it. The service is great for small applications that can be encapsula
 
         ??? success "Solution"
 
-            The default triggering event is a JSON object with a key `name` and a value. Therefore the triggering event
+            The default test request is a JSON object with a key `name` and a value. Therefore the request payload
             should look like this:
 
             ```json
@@ -96,34 +102,36 @@ and deploy it. The service is great for small applications that can be encapsula
             }
             ```
 
-    2. Go to the trigger tab and go to the URL for the application. Execute the API a couple of times. How can you
-        change the URL to make the application respond with the same output as above?
+    2. Go to the function's service page and go to the URL for the application (shown next to `URL:`). Execute the
+        API a couple of times. How can you change the URL to make the application respond with the same output as
+        above?
 
         ??? success "Solution"
 
             You can change the URL to include a query parameter `name` with the value `General Kenobi`. For example
 
             ```txt
-            https://us-central1-my-personal-mlops-project.cloudfunctions.net/function-3?name=General%20Kanobi
+            https://function-3-abc123lz-uc.a.run.app?name=General%20Kenobi
             ```
 
-            where you would need to replace everything before the `?` with your URL.
+            where you would need to replace everything before the `?` with your URL. Note that functions are served on
+            the `a.run.app` domain, like any other Cloud Run service.
 
     3. Click on the metrics tab. You should hopefully see it being populated with a few data points. Identify what each
         panel is showing.
 
         ??? success "Solution"
 
-            *  Invocations/Second: The number of times the function is invoked per second
-            *  Execution time (ms): The time it takes for the function to execute in milliseconds
-            *  Memory usage (MB): The memory usage of the function in MB
-            *  Instance count (instances): The number of instances that are running the function
+            *  Request count: The number of requests per second that the service receives
+            *  Request latencies: The time it takes for the service to handle a request
+            *  Container memory utilization: The percentage of the allocated memory that instances use
+            *  Container instance count: The number of container instances that are running the service
 
     4. Check out the logs tab. You should see that your application has already been invoked multiple times. Also, try
         to execute this command in a terminal:
 
         ```bash
-        gcloud functions logs read
+        gcloud run services logs read <service-name>
         ```
 
 6. Next, we are going to create our own application that takes some input so we can try to send it requests. We provide
@@ -141,19 +149,21 @@ and deploy it. The service is great for small applications that can be encapsula
 
             The file trains a simple KNN model on the iris dataset and saves it to a file called `model.pkl`.
 
-    2. Next, create a storage bucket and upload the model file to the bucket. Try to do this using the `gsutil` command
-        and check afterward that the file is in the bucket.
+    2. Next, create a storage bucket and upload the model file to the bucket. Try to do this using the
+        `gcloud storage` command line tool and check afterward that the file is in the bucket.
 
         ??? success "Solution"
 
             ```bash
-            gsutil mb gs://<bucket-name>  # mb stands for make bucket
-            gsutil cp model.pkl gs://<bucket-name>  # cp stands for copy
+            gcloud storage buckets create gs://<bucket-name>  # creates the bucket
+            gcloud storage cp model.pkl gs://<bucket-name>  # cp stands for copy
             ```
 
-            where you replace `<bucket-name>` with the name of your bucket.
+            where you replace `<bucket-name>` with the name of your bucket. Older tutorials often use the `gsutil`
+            command line tool (e.g. `gsutil mb gs://<bucket-name>`), but it is being replaced by `gcloud storage`.
 
-    3. Create a new cloud function with the same initial settings as the first one, e.g. `Python 3.11` and `HTTP`. Then
+    3. Create a new function with the same initial settings as the first one, e.g. the same `Python` runtime and
+        `Allow public access` authentication. Then
         implement in the `main.py` file code that:
 
         * Loads the model from the bucket
@@ -161,9 +171,9 @@ and deploy it. The service is great for small applications that can be encapsula
         * Returns the prediction of the model
 
         In addition to writing the `main.py` file, you also need to fill out the `requirements.txt` file. You need at
-        least three packages to run the application. Remember to also change the `Entry point` to the name of your
-        function. If your deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you identify
-        why.
+        least three packages to run the application. Remember to also change the `Function entry point` to the name of
+        your function. If your deployment fails, try to go to the `Logs Explorer` page in `gcp` which can help you
+        identify why.
 
         ??? success "Solution"
 
@@ -192,7 +202,7 @@ and deploy it. The service is great for small applications that can be encapsula
 
             ```json
             {
-                "data": [1, 2, 3, 4]
+                "input_data": [1, 2, 3, 4]
             }
             ```
 
@@ -200,25 +210,31 @@ and deploy it. The service is great for small applications that can be encapsula
 
             ```bash
             curl -X POST \
-                https://your-cloud-function-url/knn_classifier \
+                https://your-function-url/ \
                 -H "Content-Type: application/json" \
                 -d '{"input_data": [5.1, 3.5, 1.4, 0.2]}'
             ```
 
 7. Let's try to figure out how to do the above deployment using `gcloud` instead of the console UI. The relevant command
-    is [gcloud functions deploy](https://cloud.google.com/functions/docs/create-deploy-http-python). For this function
-    to work you will need to put the `main.py` and `requirements.txt` in a separate folder. Try to execute the command
-    to successfully deploy the function.
+    is [`gcloud run deploy`](https://cloud.google.com/sdk/gcloud/reference/run/deploy) used with the `--function` flag.
+    For this command to work you will need to put the `main.py` and `requirements.txt` in a separate folder. Try to
+    execute the command to successfully deploy the function.
 
     ??? success "Solution"
 
         ```bash
-        gcloud functions deploy <func-name> \
-            --gen2 --runtime python311 --trigger-http --source <folder> --entry-point knn_classifier
+        gcloud run deploy <func-name> \
+            --source <folder> --function knn_classifier --base-image python313 \
+            --region <region> --allow-unauthenticated
         ```
 
-        where you need to replace `<func-name>` with the name of your function and `<folder>` with the path to the
-        folder containing the `main.py` and `requirements.txt` files.
+        where you need to replace `<func-name>` with the name of your function, `<folder>` with the path to the
+        folder containing the `main.py` and `requirements.txt` files and `<region>` with the region you want to
+        deploy to. You can see the available runtime base images in
+        [the Cloud Run documentation](https://cloud.google.com/run/docs/configuring/services/runtime-base-images).
+        Note that older tutorials use `gcloud functions deploy <func-name> --gen2 --runtime python313
+        --trigger-http --source <folder> --entry-point knn_classifier`, which is still supported for backwards
+        compatibility with the Cloud Functions API.
 
 8. (Optional) You can finally try to redo the exercises by deploying a PyTorch application. You will essentially
     need to go through the same steps as the sklearn example, including uploading a trained model to storage and
@@ -227,7 +243,7 @@ and deploy it. The service is great for small applications that can be encapsula
 
 ## Cloud Run
 
-Cloud functions are great for simple deployments that can be encapsulated in a single script with only simple
+Cloud Run functions are great for simple deployments that can be encapsulated in a single script with only simple
 requirements. However, they do not scale with more advanced applications that may depend on multiple programming
 languages. We are already familiar with how we can deal with this through containers, and
 [Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run) is the corresponding service in GCP for
@@ -279,7 +295,7 @@ deploying containers.
     gcloud services enable run.googleapis.com
     ```
 
-3. Click the `Create Service` button which should bring you to a page similar to the one below.
+3. Click the `Deploy container` button which should bring up the `Create service` form, similar to the one below.
 
     <figure markdown>
     ![Image](../figures/gcp_run.PNG){ width="1000" }
@@ -287,19 +303,21 @@ deploying containers.
 
     Do the following:
 
-    * Click the select button, which will bring up all built containers, and pick the one you want to deploy. In the
-        future, you probably want to choose the *Continuously deploy new revisions from a source repository* such that
-        a new version is always deployed when a new container is built.
+    * For *Deploy one revision from an existing container image*, click the select button, which will bring up all
+        built containers, and pick the one you want to deploy. In the future, you probably want to choose the
+        *Continuously deploy new revisions from a source repository* such that a new version is always deployed when
+        a new container is built.
 
     * Hereafter, give the service a name and select the region. We recommend choosing a region close to you.
 
-    * Set the authentication method to *Allow unauthenticated invocations* such that we can call it without
+    * Set the authentication method to *Allow public access* such that we can call it without
         providing credentials. In the future, you may only set that authenticated invocations are allowed.
 
-    * Expand the *Container, Connections, Security* tab and edit the port such that it matches the port exposed in your
-        chosen application. If your docker file exposes the env variable `$PORT` you can set the port to anything.
+    * Expand the *Containers, Networking, Security* section and edit the port such that it matches the port your
+        chosen application is listening on. If your docker file uses the `$PORT` environment variable you can set the
+        port to anything.
 
-    Finally, click the create button and wait for the service to be deployed (may take some time).
+    Finally, click the `Create` button and wait for the service to be deployed (may take some time).
 
     !!! warning "Common problems"
 
@@ -307,21 +325,22 @@ deploying containers.
         *The user-provided container failed to start and listen on the port defined by the PORT environment variable.*
         there are two common reasons for this:
 
-        1. You need to add an `EXPOSE` statement in your docker container:
+        1. You need to make sure that your application is listening on the port of the container, e.g. by adding an
+            `EXPOSE` statement in your docker container:
 
             ```dockerfile
             EXPOSE 8080
-            CMD exec uvicorn my_application:app --port 8080 --workers 1 main:app
+            CMD exec uvicorn main:app --port 8080 --workers 1
             ```
 
             and make sure that your application is also listening on that port. If you hard code the port in your
-            application (as in the above code) it is best to set it 8080 which is the default port for cloud run.
+            application (as in the above code) it is best to set it to 8080 which is the default port for cloud run.
             Alternatively, a better approach is to set it to the `$PORT` environment variable which is set by cloud run
             and can be accessed in your application:
 
             ```dockerfile
             EXPOSE $PORT
-            CMD exec uvicorn my_application:app --port $PORT --workers 1 main:app
+            CMD exec uvicorn main:app --port $PORT --workers 1
             ```
 
             If you do this and then want to run locally you can run it as:
@@ -452,7 +471,7 @@ deploying containers.
           logging: CLOUD_LOGGING_ONLY
         ```
 
-8. (Optional) A common pattern when using cloud run is that your application need access to some storage during
+8. (Optional) A common pattern when using cloud run is that your application needs access to some storage during
     operations, either for reading or writing a file. This could be reading in a model checkpoint on startup and then
     writing some statistics during runtime. The easiest way to do this is to mount a storage bucket to your container.
 
@@ -472,20 +491,20 @@ deploying containers.
             The dockerfile should look like this:
 
             ```dockerfile linenums="1" title="simple_fastapi_app_volume.dockerfile"
-            --8<-- "s7_deployment/exercise_files/simple_fastapi_app.dockerfile"
+            --8<-- "s7_deployment/exercise_files/simple_fastapi_app_volume.dockerfile"
             ```
 
             and the deployment command should look like this:
 
             ```bash
             gcloud run deploy simple-fastapi-with-mounted-volume \
-                --image <image-name>:<image-tag> --platform managed --region <region> --allow-unauthenticated \
+                --image <image-name>:<image-tag> --platform managed --region <region> --allow-unauthenticated
             ```
 
     2. If you then try to access either the `/upload/` or `/files/` endpoints you should see that the application at
         this point is unable to read or write to the folder location, because it is not mounted to the container yet.
-        Mounting a volume can either be done though the command line or through the UI. You can read how to do
-        [in the cloud storage volume mounts guide](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#mount-volume).
+        Mounting a volume can either be done through the command line or through the UI. You can read how to do this in
+        the [cloud storage volume mounts guide](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts).
         Add a volume to your cloud run service and try to access the endpoints again making sure you can read and write.
 
         ??? success "Solution"
@@ -510,8 +529,8 @@ deploying containers.
 
     ??? success "Solution"
 
-        In the cloud console, secrets can be set in the *Container(s), Volumes, Networking, Security* tab under the
-        *Variables & Secrets* section, see image below.
+        In the cloud console, secrets can be set in the *Containers* tab under the
+        *Variables and Secrets* section, see image below.
 
         <figure markdown>
         ![Image](../figures/gcp_run_secrets.png){ width="500" }
@@ -523,7 +542,7 @@ deploying containers.
         gcloud run deploy <service-name> \
             --image <image-name>:<image-tag> --platform managed \
             --region <region> --allow-unauthenticated \
-            --update-secrets <secret-name>=<secret-version>
+            --update-secrets <env-var-name>=<secret-name>:<secret-version>
         ```
 
 That ends the exercises on deployment. The exercises above are just a small taste of what deployment has to offer. In
@@ -531,6 +550,6 @@ both sections, we have explicitly chosen to work with *serverless* deployments. 
 opposite, i.e., being the one in charge of the management of the cluster that handles the deployed services? If you are
 interested in taking deployment to the next level, you should get started on *Kubernetes* which is the de-facto
 open-source container orchestration platform that is used in production environments. If you want to deep dive we
-recommend starting [with the AI Platform Pipelines documentation](https://cloud.google.com/ai-platform/pipelines/docs),
-which describes how to make pipelines that are a necessary component before you start to
-[create](https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster) your own Kubernetes cluster.
+recommend starting [with the Vertex AI Pipelines documentation](https://cloud.google.com/vertex-ai/docs/pipelines/introduction),
+and when you want full control of the infrastructure you can follow the GKE quickstart to
+[create](https://cloud.google.com/kubernetes-engine/docs/quickstarts/create-cluster) your own Kubernetes cluster.

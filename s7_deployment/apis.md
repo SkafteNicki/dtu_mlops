@@ -8,7 +8,7 @@
 
 Before we can deploy our models we need to understand concepts such as APIs and requests. The core reason
 for this is that we need a new abstraction layer on top of our applications that are not Python-specific. While Python
-is the defacto language for machine learning, we cannot expect everybody else to use it and in particular, we cannot
+is the de facto language for machine learning, we cannot expect everybody else to use it and in particular, we cannot
 expect network protocols (both local and external) to be able to communicate with our Python programs out of the box.
 For this reason, we need to understand requests, in particular HTTP requests and how to create APIs that can interact
 with those requests.
@@ -41,7 +41,7 @@ The common request methods are (case sensitive):
 
 You can read more about the different methods [in this HTTP request methods guide](https://dev.to/adidoshi/http-request-methods-16ik).
 For most machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read
-more about HTTP in general we highly recommend that you go over this [comic strip](https://howhttps.works/) protocol,
+more about HTTPS in general we highly recommend that you go over this [comic strip](https://howhttps.works/),
 but the TLDR is that it provides privacy, integrity and identification over the web.
 
 ### ❔ Exercises
@@ -109,7 +109,7 @@ We are going to do a couple of exercises on sending requests using the
     attribute?
 
 4. You should hopefully observe that the `.content` attribute is of type `bytes`. It is important to note that
-    the standard way of sending payloads to encode them into `byte` objects. To get a more human-readable version of
+    the standard way of sending payloads is to encode them into `bytes` objects. To get a more human-readable version of
     the response, we can convert it to [JSON](https://www.json.org/json-en.html) format.
 
     ```python
@@ -218,8 +218,8 @@ We are going to do a couple of exercises on sending requests using the
     Sometimes it is easier to send a request directly from the terminal and sometimes it is easier to do it from a
     script.
 
-    1. Make sure you have `curl` installed, or else find instructions for installing it. To check, call `curl --help` with
-        the documentation on curl.
+    1. Make sure you have `curl` installed, or else find instructions for installing it. To check, call `curl --help`,
+        and take a look at the documentation on curl.
 
     2. To execute `requests.get('https://api.github.com')` using curl we would simply do
 
@@ -251,7 +251,7 @@ and send data to GitHub without ever having to visit their webpage. The API expo
 functions:
 
 * <https://api.github.com/repos/OWNER/REPO/branches>: check out the branches on a given repository
-* <https://api.github.com/search/code>: search through GitHub for repositories
+* <https://api.github.com/search/repositories>: search through GitHub for repositories
 * <https://api.github.com/repos/OWNER/REPO/actions/workflows>: check the status of workflows for a given repository
 
 and we could go on. However, there may be functionality that GitHub is not interested in users having access to and
@@ -271,9 +271,9 @@ server it needs to be self-contained (all information included) and the server c
 information from previous requests.
 
 To implement APIs in practice we are going to use [FastAPI](https://fastapi.tiangolo.com/). FastAPI is a
-*modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints*.
+*modern, fast (high-performance), web framework for building APIs with Python based on standard Python type hints*.
 FastAPI is only one of many frameworks for defining APIs. However, compared to other frameworks such as
-[Flask](https://flask.palletsprojects.com/en/2.0.x/) and [django](https://www.djangoproject.com/) it offers a sweet
+[Flask](https://flask.palletsprojects.com/en/stable/) and [Django](https://www.djangoproject.com/) it offers a sweet
 spot of being flexible enough to do what you want without having many additional (unnecessary) features.
 
 ### ❔ Exercises
@@ -293,21 +293,21 @@ you can look through for help.
 
     === "Using uv"
         ```bash
-        uv pip install fastapi
+        uv add fastapi
         ```
 
     This contains the functions, modules, and variables we are going to need to define our interface.
 
-2. Additionally, also install `uvicorn` which is a package for defining low level server applications.
+2. Additionally, install `uvicorn` which is a low-level ASGI web server, that we will use to run our application.
 
     === "Using pip"
         ```bash
-        pip install uvicorn[standard]
+        pip install "uvicorn[standard]"
         ```
 
     === "Using uv"
         ```bash
-        uv pip install "uvicorn[standard]"
+        uv add "uvicorn[standard]"
         ```
 
 3. Start by defining a small application like this in a file called `main.py`:
@@ -328,8 +328,8 @@ you can look through for help.
     Important here is the use of the `@app.get` decorator. What could this decorator refer to? Explain what the two
     functions are probably doing.
 
-4. Next lets launch our app. Since we called our script `main.py` and we inside the script initialized our API with
-    `app = FastAPI`, our application that we want to deploy can be referenced by `main:app`:
+4. Next let's launch our app. Since we called our script `main.py` and we inside the script initialized our API with
+    `app = FastAPI()`, our application that we want to deploy can be referenced by `main:app`:
 
     ```bash
     uvicorn --reload --port 8000 main:app
@@ -366,7 +366,7 @@ you can look through for help.
 
 5. With the fundamentals in place let's configure it a bit more:
 
-    1. Lets start by changing the root function to include a bit more info. In particular we are also interested in
+    1. Let's start by changing the root function to include a bit more info. In particular we are also interested in
         returning the status code so the end user can easily read that. Default status codes are included in the
         [http](https://docs.python.org/3/library/http.html) built-in Python package:
 
@@ -407,7 +407,7 @@ you can look through for help.
         Add this API, reload and execute both a valid parameter and an invalid parameter.
 
     3. In addition to path parameters we have query parameters. In the requests exercises we saw an example of this
-        where we were calling <https://api.github.com/search/code> with the query `'q': 'requests+language:python'`.
+        where we were calling <https://api.github.com/search/repositories> with the query `'q': 'requests+language:python'`.
         Any parameter in FastAPI that is not a path parameter will be considered a query parameter:
 
         ```python
@@ -423,8 +423,7 @@ you can look through for help.
         username and password in a database (please never implement this in real life like this):
 
         ```python
-
-        database = {'username': [ ], 'password': [ ]}
+        database = {'username': [], 'password': []}
 
         @app.post("/login/")
         def login(username: str, password: str):
@@ -450,6 +449,8 @@ you can look through for help.
     1. Here is a small application that takes a single text input.
 
         ```python
+        import re
+
         @app.get("/text_model/")
         def contains_email(data: str):
             regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -609,18 +610,18 @@ you can look through for help.
         ```
 
 9. As the final step, we want to figure out how to include our FastAPI application in a docker container, as that will help
-    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
+    us when we want to deploy in the cloud because docker, as always, can take care of the dependencies for our
     application. For the following set of exercises you can use any of the previous FastAPI applications as the base
     application for the container.
 
-    1. Start by creating a `requirement.txt` file for your application. You will at least need `fastapi` and `uvicorn`
+    1. Start by creating a `requirements.txt` file for your application. You will at least need `fastapi` and `uvicorn`
         in the file and we always recommend that you are specific about the version you want to use.
 
         ```txt
-        # newest version of fastapi and uvicorn as of time of writing
-        fastapi==0.115.6
-        uvicorn==0.34.0
-        # add anything else you application needs to be able to run
+        # newest versions of fastapi and uvicorn supported by the course environment
+        fastapi==0.121.2
+        uvicorn==0.38.0
+        # add anything else your application needs to be able to run
         ```
 
     2. Next, create a `Dockerfile` with the following content:
@@ -663,14 +664,14 @@ you can look through for help.
         specified in the last line of our Dockerfile.
 
         ```bash
-        docker run --name mycontainer -p 80:80 myimage
+        docker run --name mycontainer -p 80:80 my_fastapi_app
         ```
 
     5. Check that everything is working by going to the corresponding localhost page
         <http://localhost/items/5?q=somequery>.
 
 This ends the module on APIs. If you want to go further in this direction we highly recommend that you check out
-[bentoml](https://github.com/bentoml/BentoML) which is an API standard that focuses solely on creating
+[bentoml](https://github.com/bentoml/BentoML) which is a framework that focuses solely on creating
 easy-to-understand APIs and services for ml-applications. Additionally, we also highly recommend
 checking out [Postman](https://www.postman.com/) which can help design, document and in particular test the API you are
 writing to make sure that it works as expected.

@@ -79,7 +79,9 @@ framework to deploy your model, you should consider the following:
 
 * **Community**. Some frameworks have a large community, which can be helpful if you run into problems. As an example
     from the list above, `Triton Inference Server` was developed by Nvidia and has a large community of users. As a good
-    rule of thumb, the more stars a repository has on GitHub, the larger the community.
+    rule of thumb, the more stars a repository has on GitHub, the larger the community. It is also worth checking how
+    actively maintained a framework is, since a stopped framework will not get bug fixes or new features. As an example,
+    the `Torchserve` repository has been archived and is no longer maintained.
 
 In this module we are going to be looking at the `BentoML` framework because it strikes a good balance between ease of
 use and having a lot of features that can improve the performance of serving your models. However, before we dive into
@@ -119,7 +121,7 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 ## ❔ Exercises
 
-1. Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command:
+1. Start by installing ONNX, ONNX Runtime and ONNX Script. This can be done by running the following command:
 
     === "Using pip"
         ```bash
@@ -132,13 +134,12 @@ a developer-friendly framework, though it has historically been slow to run infe
         ```
 
     The first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
-    and the third package contains a new experimental package that is designed to make it easier to export models to
-    ONNX.
+    and the third package is a relatively new package that is designed to make it easier to export models to ONNX.
 
 2. Let's start out by converting a model to ONNX. The following code snippets show how to export a PyTorch model to
     ONNX.
 
-    === "PyTorch => 2.0"
+    === "PyTorch >= 2.6"
 
         ```python
         import torch
@@ -148,15 +149,18 @@ a developer-friendly framework, though it has historically been slow to run infe
         model.eval()
 
         dummy_input = torch.randn(1, 3, 224, 224)
-        onnx_model = torch.onnx.dynamo_export(
-            model=model,
-            model_args=(dummy_input,),
-            export_options=torch.onnx.ExportOptions(dynamic_shapes=True),
+        torch.onnx.export(
+            model,
+            (dummy_input,),
+            "resnet18.onnx",
+            input_names=["input"],
+            output_names=["output"],
+            dynamic_shapes=({0: "batch_size"},),
+            dynamo=True,
         )
-        onnx_model.save("resnet18.onnx")
         ```
 
-    === "PyTorch < 2.0 or Windows"
+    === "PyTorch < 2.6 or Windows"
 
         ```python
         import torch
@@ -172,7 +176,8 @@ a developer-friendly framework, though it has historically been slow to run infe
             f="resnet18.onnx",
             input_names=["input"],
             output_names=["output"],
-            dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}}
+            dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}},
+            dynamo=False,
         )
         ```
 
@@ -188,7 +193,7 @@ a developer-friendly framework, though it has historically been slow to run infe
         class LitModel(pl.LightningModule):
             def __init__(self):
                 super().__init__()
-                self.model = torchvision.models.resnet18(pretrained=True)
+                self.model = torchvision.models.resnet18(weights="IMAGENET1K_V1")
                 self.model.eval()
 
             def forward(self, x):
@@ -209,14 +214,16 @@ a developer-friendly framework, though it has historically been slow to run infe
 
     Export a model of your own choice to ONNX or just try to export the `resnet18` model as shown in the examples above,
     and confirm that the model was exported by checking that the file exists. Can you figure out what is meant by
-    `dynamic_axes`?
+    `dynamic_axes` and `dynamic_shapes`?
 
     ??? success "Solution"
 
         The `dynamic_axes` argument is used to specify which axes of the input tensor that should be considered dynamic.
         This is useful when the model can accept inputs of different sizes, e.g. when the model is used in a dynamic
-        batching scenario. In the example above we have specified that the first axis of the input tensor should be
-        considered dynamic, meaning that the model can accept inputs of different batch sizes. While it may be tempting
+        batching scenario. In the examples above we have specified that the first axis of the input tensor should be
+        considered dynamic, meaning that the model can accept inputs of different batch sizes. The `dynamic_shapes`
+        argument serves the same purpose, but is used by the newer `dynamo`-based exporter instead (and its keys refer to
+        the names of the model arguments instead of the input names). While it may be tempting
         to specify all axes as dynamic, this can lead to slower inference times because the ONNX runtime will
         not be able to optimize the computational graph as well.
 
@@ -232,7 +239,7 @@ a developer-friendly framework, though it has historically been slow to run infe
 
 4. To get a better understanding of what is actually exported, let's try to visualize the computational graph of the
     model. This can be done using the open-source tool [netron](https://github.com/lutzroeder/netron). You can either
-    try it out directly in [webbrowser](https://netron.app/) or you can install it locally and then run it:
+    try it out directly in your [web browser](https://netron.app/) or you can install it locally and then run it:
 
     === "Using pip"
         ```bash
@@ -267,6 +274,7 @@ a developer-friendly framework, though it has historically been slow to run infe
             and output names of our model and finally run the model. The following code snippet shows how to do this.
 
             ```python
+            import numpy as np
             import onnxruntime as rt
             ort_session = rt.InferenceSession("<path-to-model>")
             input_names = [i.name for i in ort_session.get_inputs()]
@@ -318,7 +326,7 @@ a developer-friendly framework, though it has historically been slow to run infe
         sess_options.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
 
         # To enable model serialization after graph optimization set this
-        sess_options.optimized_model_filepath = "optimized_model.onnx>"
+        sess_options.optimized_model_filepath = "optimized_model.onnx"
 
         session = rt.InferenceSession("<model_path>", sess_options)
         ```
@@ -337,8 +345,8 @@ a developer-friendly framework, though it has historically been slow to run infe
             ![Image](../figures/onnx_optimization.png){ width="600" }
             </figure>
 
-    4. Exporting a model to ONNX is not always perfect out of the box. To the conversion of your PyTorch models there
-        need to be a one-to-one correspondence between PyTorch and ONNX operators. Especially, the
+    4. Exporting a model to ONNX is not always perfect out of the box. For the conversion of your PyTorch model to work
+        there needs to be a one-to-one correspondence between PyTorch and ONNX operators. The
         [opset number](http://onnx.ai/sklearn-onnx/auto_tutorial/plot_cbegin_opset.html) is important to set correctly
         in ONNX to get the correct operators. If this is not the case, the exported model can lead to a difference in
         results. To check the model, it is therefore also a good idea to check if the difference between the PyTorch
@@ -372,7 +380,8 @@ a developer-friendly framework, though it has historically been slow to run infe
             ```
 
 6. As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engines.
-    You can check all the providers and all the available providers by running the following code:
+    You can check all the supported providers and the providers that are actually available on your machine by running
+    the following code:
 
     ```python
     import onnxruntime
@@ -442,7 +451,7 @@ a developer-friendly framework, though it has historically been slow to run infe
             ```
 
             The `--no-cache` flag is used to ensure that the build process is not cached and ensures a fair comparison.
-            On my laptop this respectively took `5m1s`, `1m4s`, `0m4s`, `0m50s` meaning that the ONNX
+            On my laptop this respectively took `5m1s`, `1m4s`, `0m43s`, `0m50s` meaning that the ONNX
             container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the PyTorch container.
 
     3. Figure out the sizes of the two docker images. This can be done in the terminal by running the `docker images`
@@ -451,8 +460,9 @@ a developer-friendly framework, though it has historically been slow to run infe
         ??? success "Solution"
 
             As of writing, the docker image containing the PyTorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
-            In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
-            respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image.
+            In comparison the ONNX image was 647MB (no CUDA), meaning that it is about 1.94x smaller than the PyTorch
+            image. The CUDA-enabled ONNX image is larger than the CPU-only one, because the `onnxruntime-gpu` package
+            bundles CUDA support, but it is still smaller than the PyTorch image with CUDA.
 
 8. (Optional) Assuming you have completed the module on [FastAPI](../s7_deployment/apis.md), try creating a small
     FastAPI application that serves a model using the ONNX runtime.
@@ -476,9 +486,9 @@ limitation.
 !!! note "BentoML cloud vs BentoML OSS"
 
     We are only going to be looking at the open-source version of BentoML in this module. However, BentoML also has a
-    cloud version that makes it very easy to deploy models that are coded in BentoML to the cloud. If you are interested
-    in this, you can check out the
-    [BentoML cloud documentation](https://docs.bentoml.com/en/latest/guides/cloud/index.html). This business strategy
+    cloud version called BentoCloud that makes it very easy to deploy models that are coded in BentoML to the cloud.
+    If you are interested in this, you can check out the
+    [BentoCloud documentation](https://docs.bentoml.com/en/latest/get-started/cloud-deployment.html). This business strategy
     of having an open-source product and a cloud product is very common in the machine learning space (HuggingFace,
     LightningAI, Weights and Biases, etc.), because it allows companies to make money from the cloud product while still
     providing a free product to the community.
@@ -488,7 +498,7 @@ agnostic, meaning that it can be used with any computational backend. It is also
 used with any machine learning model.
 
 Let's consider a simple example of how to serve a model using BentoML. The following
-[code snippet](https://docs.bentoml.com/en/latest/get-started/quickstart.html) shows how to serve a model that uses
+[code snippet](https://docs.bentoml.com/en/latest/get-started/hello-world.html) shows how to serve a model that uses
 the `transformers` library to summarize text.
 
 ```python
@@ -535,7 +545,7 @@ bentoml serve service:Summarization
 
 ### ❔ Exercises
 
-In general, we recommend looking through the [docs](https://docs.bentoml.com/en/latest/index.html) for Bento ML if you
+In general, we recommend looking through the [docs](https://docs.bentoml.com/en/latest/index.html) for BentoML if you
 need help with any of the exercises. We are going to assume that you have done the exercises on ONNX and we are
 therefore going to be using `BentoML` to serve ONNX models. If you have not done that part, you can still follow along
 but you will need to use a PyTorch model instead of an ONNX model.
@@ -554,12 +564,12 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
     Remember to add the dependency to your `requirements.txt` file.
 
-2. You are in principal free to serve any model you like, but we recommend just using a
+2. You are in principle free to serve any model you like, but we recommend just using a
     [torchvision](https://pytorch.org/vision/stable/index.html) model as in the ONNX exercises. Write your first service
     in `BentoML` that serves a model of your choice. We recommend experimenting with providing
-    [input/output as tensors](https://docs.bentoml.com/en/latest/guides/iotypes.html) because bentoml supports this
-    natively. Secondly, write a client that can send a request to the service and print the result. Here we recommend
-    using the built-in [bentoml.SyncHTTPClient](https://docs.bentoml.com/en/latest/reference/client.html).
+    [input/output as tensors](https://docs.bentoml.com/en/latest/build-with-bentoml/iotypes.html) because bentoml supports
+    this natively. Secondly, write a client that can send a request to the service and print the result. Here we recommend
+    using the built-in [bentoml.SyncHTTPClient](https://docs.bentoml.com/en/latest/reference/bentoml/client.html).
 
     ??? success "Solution"
 
@@ -598,12 +608,12 @@ but you will need to use a PyTorch model instead of an ONNX model.
     The overall architecture of the adaptive batching feature in BentoML. The feature is implemented on the server side
     and mainly consists of a dispatcher that is in charge of collecting requests and sending them to the model server when
     either the batch is full or a timeout is reached.
-    <a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html"> Image credit </a>
+    <a href="https://docs.bentoml.com/en/latest/get-started/adaptive-batching.html"> Image credit </a>
     </figcaption>
     </figure>
 
     1. Look through the
-        [documentation on adaptive batching](https://docs.bentoml.com/en/latest/guides/adaptive-batching.html) and
+        [documentation on adaptive batching](https://docs.bentoml.com/en/latest/get-started/adaptive-batching.html) and
         add adaptive batching to your service from the previous exercise. Make sure your service works as expected by
         testing it with the client from the previous exercise.
 
@@ -629,7 +639,7 @@ but you will need to use a PyTorch model instead of an ONNX model.
             and then the following command can be used to measure the throughput of the model
 
             ```bash
-            locust -f locustfile_bentoml.py --host http://localhost:4040 --headless -u 50 -t 60s
+            locust -f locustfile_bentoml.py --host http://localhost:3000 --headless -u 50 -t 60s
             ```
 
             You should hopefully see that the throughput of the model is higher when adaptive batching is enabled, but
@@ -639,19 +649,20 @@ but you will need to use a PyTorch model instead of an ONNX model.
             On my laptop I saw about a 1.5 - 2x speedup when adaptive batching was enabled.
 
 4. (Optional, requires GPU) Look through the
-    [documentation for inference on GPU](https://docs.bentoml.org/en/latest/guides/gpu-inference.html) and add this to
-    your service. Check that your service works as expected by testing it with the client from the previous exercise and
-    make sure you are seeing a speedup when running on the GPU.
+    [documentation for inference on GPU](https://docs.bentoml.com/en/latest/build-with-bentoml/gpu-inference.html) and add
+    this to your service. Check that your service works as expected by testing it with the client from the previous
+    exercise and make sure you are seeing a speedup when running on the GPU.
 
     ??? success "Solution"
 
-        A simple change to the `bento.service` decorator is all that is needed to run the model on the GPU.
+        A simple change to the `bentoml.service` decorator is all that is needed to run the model on the GPU.
 
         ```python
         @bentoml.service(resources={"gpu": 1})
         class MyService:
             def __init__(self):
                 self.model = torch.load('model.pth').to('cuda:0')
+        ```
 
 5. Another way to speed up the inference is to just use multiple workers. This duplicates the server over multiple
     processes taking advantage of modern multi-core CPUs. This is similar to running the `uvicorn` command with the
@@ -661,7 +672,7 @@ but you will need to use a PyTorch model instead of an ONNX model.
 
     ??? success "Solution"
 
-        Multiple workers can be added to the `bento.service` decorator as shown below.
+        Multiple workers can be added to the `bentoml.service` decorator as shown below.
 
         ```python
         @bentoml.service(workers=4)
@@ -683,7 +694,7 @@ but you will need to use a PyTorch model instead of an ONNX model.
         are combined to make a prediction. Ensemble models are a good example of this.
 
     `BentoML` makes it easy to
-    [compose multiple models together](https://docs.bentoml.org/en/latest/guides/model-composition.html).
+    [compose multiple models together](https://docs.bentoml.com/en/latest/get-started/model-composition.html).
 
     1. Implement two services that run in a sequence, e.g., the output of one service is used as the input to another
         service. As an example you can implement either some pre- or post-processing service that is used in conjunction
@@ -794,12 +805,12 @@ but you will need to use a PyTorch model instead of an ONNX model.
             CMD ["bentoml", "serve", "bentoml_service:ImageClassifierService"]
             ```
 
-    3. Deploy the container to GCP Run and test that it works.
+    3. Deploy the container to Google Cloud Run and test that it works.
 
         ??? success "Solution"
 
-            The following command can be used to deploy the container to GCP Run. We assume that you have already built
-            the container and called it `bentoml_service:latest`
+            The following command can be used to deploy the container to Google Cloud Run. We assume that you have
+            already built the container and called it `bentoml_service:latest`
 
             ```bash
             docker tag bentoml_service:latest \
@@ -815,10 +826,10 @@ but you will need to use a PyTorch model instead of an ONNX model.
             now be available at the URL that is printed in the terminal.
 
 This completes the exercises on the `BentoML` framework. If you want to deep dive more into this we recommend
-looking into their [tasks feature](https://docs.bentoml.org/en/latest/guides/tasks.html) for use cases that have a
-very long running time and built-in
-[model management feature](https://docs.bentoml.org/en/latest/guides/model-loading-and-management.html) to unify the
-way models are loaded, managed and served.
+looking into their [task queues feature](https://docs.bentoml.com/en/latest/get-started/async-task-queues.html) for use
+cases that have a very long running time and built-in
+[model management feature](https://docs.bentoml.com/en/latest/build-with-bentoml/model-loading-and-management.html) to
+unify the way models are loaded, managed and served.
 
 ## 🧠 Knowledge check
 
@@ -831,11 +842,14 @@ way models are loaded, managed and served.
         snippet shows how to export a `scikit-learn` model to ONNX.
 
         ```python
+        import numpy as np
         from sklearn.ensemble import RandomForestClassifier
         from skl2onnx import to_onnx
+
         model = RandomForestClassifier(n_estimators=2)
-        dummy_input = np.random.randn(1, 4)
-        onx = to_onnx(model, dummy_input)
+        model.fit(np.random.randn(20, 4).astype(np.float32), np.random.randint(0, 2, size=20))
+
+        onx = to_onnx(model, np.random.randn(1, 4).astype(np.float32))
         with open("model.onnx", "wb") as f:
             f.write(onx.SerializeToString())
         ```
