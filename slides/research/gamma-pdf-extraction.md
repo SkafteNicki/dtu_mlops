@@ -43,11 +43,11 @@ bbox comments. Rendering 18 pages at 150 dpi takes ~2.7 s; at the script's
 default 200 dpi the whole run (scaffold + 19 crops + 18 renders) is ~20 s.
 
 Stage 3, optional: `uv run --with docling docling convert slides/day7_cloud.pdf
---device cpu --no-ocr --to md --image-export-mode placeholder` (see the
-docling section for flags; ~60 s) and diff its markdown against the scaffold
-to catch any text PyMuPDF missed. Do not feed docling's `![Image](...)` lines
-into the Slidev file - half of them are the repeated Gamma background and
-course logo.
+--device cpu --no-ocr --heading-hierarchy --to md --image-export-mode
+placeholder` (see the docling section for flags; ~60 s) and diff its
+markdown against the scaffold to catch any text PyMuPDF missed. Do not feed
+docling's `![Image](...)` lines into the Slidev file - half of them are the
+repeated Gamma background and course logo.
 
 ## Sample output (stage 1, day7_cloud pages 4, 5, 16, 12)
 
@@ -221,14 +221,36 @@ Verdict: excellent as a **cross-check** (its layout model catches anything a
 geometry heuristic misses), poor as the primary pipeline for this conversion
 (no slide/page semantics, decoration spam, device fragility).
 
+A follow-up flag test improves it: `--heading-hierarchy` (CLI reference:
+"infer section-header levels ... from the PDF bookmarks, the heading numbering
+and the font style") **does** separate slide titles from card headings - page
+4 becomes `### Why use cloud?` followed by `###### Reliability` etc. - though
+the inferred levels are ragged (slide titles come out variously as
+`##`/`###`/`####` across slides), so a post-pass must still normalize them.
+Worth enabling for the stage-3 cross-check.
+
 ### docling VLM pipeline (SmolDocling) - automated "render + vision model"
 
 `--pipeline vlm --vlm-model smoldocling` renders each page and runs a local
-document-vision model. **Not measured.** On this machine (CPU only, the
-GPU is unusable for docling's torch build, see above) the run on 18 pages had
-not finished after ~4 minutes and was stopped. Given stage 1 already
-recovers text and figure positions, a small local document VLM adds little
-over stage 2's general vision model; not pursued further.
+document-vision model. Measured on CPU:
+
+- **Speed**: ~121 s per page (247 s for a 2-page `--page-range 1-2` test,
+  generating at 1.25 tok/s). A full 18-page deck extrapolates to ~36 min -
+  and the first full-deck attempt in fact crashed silently midway,
+  producing **no output at all**; `-q` plus the shell pipe masked the exit
+  code, which is exactly why the pipeline needs an artifact-verification
+  step. With a working GPU build this trade would look different.
+- **Quality**: the 2-page sample read the plain text correctly but produced
+  no usable figure description - the big page-2 illustration comes out as
+  an inline image plus the tag `Other`, and the repeated bottom-right logo
+  becomes a spurious `Logo` text item. SmolDocling is a compact
+  document-tagging model, not a general image describer; for this project's
+  "describe the figure so it can be recreated" requirement, a general
+  vision-capable LLM with the scaffold's crop list is the better stage-2
+  fit.
+
+Verdict: interesting as a fully-local automated baseline, but too slow on
+CPU here and too weak at figure description to be stage 2.
 
 ### Per-page render + general vision model (stage 2)
 
@@ -261,7 +283,8 @@ describe figures and adjudicate the flagged glyphs only.
 | PyMuPDF + `get_texttrace`/`get_image_info(hashes)` | as above, bullets recoverable | **bbox + content-hash dedup** | bullets recoverable; `4`/`&` not | ~ 8-20 s incl. crops/renders | **stage 1 (recommended)** |
 | pymupdf4llm | collapses cards, arbitrary heading levels | OCR'd "picture text" (hallucinating) | inherited + OCR noise | 24 s | not suitable |
 | docling standard (CPU) | best structure; slide titles and card headings flattened to the same `##` level; `- All ... 1.` list bugs | 52 files, ~half decorations, hash-named | inherited + literal `¦` | 60 s (+ 93 s for a CUDA auto-detect crash) | cross-check |
-| render + vision model | n/a (n/a) | describes figures | **reads true glyphs** | 2.7 s render + 1 call/page | **stage 2 (required)** |
+| render + vision model | n/a (n/a) | describes figures | **reads true glyphs** (spot-checked on p05: `use—HTTP` confirmed, red-highlighted list item seen) | 2.7 s render + 1 call/page | **stage 2 (required)** |
+| docling VLM / SmolDocling (CPU) | reads plain text fine | figure tagged `Other`, not described | reads true glyphs | **~121 s/page** (~36 min/deck; full-deck run crashed silently once) | not practical here |
 
 ## Sources
 
