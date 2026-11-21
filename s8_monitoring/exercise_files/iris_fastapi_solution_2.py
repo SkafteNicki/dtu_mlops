@@ -13,7 +13,7 @@ def lifespan(app: FastAPI) -> Generator[None]:
         model = pickle.load(file)
 
     with open("prediction_database.csv", "w") as file:
-        file.write("time, sepal_length, sepal_width, petal_length, petal_width, prediction\n")
+        file.write("time,sepal_length,sepal_width,petal_length,petal_width,prediction\n")
 
     yield
 
@@ -33,7 +33,7 @@ def add_to_database(
 ) -> None:
     """Simple function to add prediction to database."""
     with open("prediction_database.csv", "a") as file:
-        file.write(f"{now}, {sepal_length}, {sepal_width}, {petal_length}, {petal_width}, {prediction}\n")
+        file.write(f"{now},{sepal_length},{sepal_width},{petal_length},{petal_width},{prediction}\n")
 
 
 @app.post("/predict")

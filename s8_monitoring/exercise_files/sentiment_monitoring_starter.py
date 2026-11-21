@@ -17,7 +17,7 @@ def run_analysis(reference_data: pd.DataFrame, current_data: pd.DataFrame):
     """Run the analysis and return the report."""
     text_overview_report = Report(metrics=[TextEvals(column_name="content"), TargetDriftPreset(columns=["sentiment"])])
     text_overview_report.run(reference_data=reference_data, current_data=current_data)
-    text_overview_report.save("text_overview_report.html")
+    text_overview_report.save_html("monitoring.html")
 
 
 def lifespan(app: FastAPI):

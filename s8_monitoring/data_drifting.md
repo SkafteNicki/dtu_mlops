@@ -39,23 +39,26 @@ degrade, thus we need tools that can detect when we are seeing a drift in our da
 
 ## ❔ Exercises
 
-For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently) ,developed
+For these exercises we are going to use the framework [Evidently](https://github.com/evidentlyai/evidently), developed
 by [EvidentlyAI](https://www.evidentlyai.com). Evidently currently supports detection for both regression and
 classification models. The exercises are in large part taken from
-[the Evidently getting started guide](https://docs.evidentlyai.com/quickstart_ml) and in general we recommend
-if you are in doubt about an exercise to look at the [docs](https://docs.evidentlyai.com/) for the API and examples
-(their documentation can be a bit lacking sometimes, so you may also have to dive into the source code).
+[the Evidently getting started guide](https://docs-old.evidentlyai.com/get-started/hello-world/oss_quickstart_tabular)
+and in general we recommend if you are in doubt about an exercise to look at the [docs](https://docs-old.evidentlyai.com/)
+for the API and examples (their documentation can be a bit lacking sometimes, so you may also have to dive into the
+source code). Note that Evidently rewrote their API in v0.7, and the course uses the *legacy* API, which in the
+installed version is available under the `evidently.legacy` namespace (the docs above describe the same API before
+it moved).
 
 Additionally, we want to stress that data drift detection, concept drift detection, etc. is still an active field of
 research and so there exist multiple frameworks for doing this kind of detection. In addition to Evidently,
 we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](https://github.com/whylabs/whylogs) and
-[deepcheck](https://github.com/deepchecks/deepchecks).
+[Deepchecks](https://github.com/deepchecks/deepchecks).
 
 1. Start by installing Evidently.
 
     === "Using pip"
 
-        ```python
+        ```bash
         pip install evidently
         pip install scikit-learn pandas  # also needed if you do not have them already
         ```
@@ -75,7 +78,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
     ??? example "Example GCP function for iris classification"
 
-        ```python linenums="1" title="sklearn_train_function.py"
+        ```python linenums="1" title="sklearn_main_function.py"
         --8<-- "s7_deployment/exercise_files/sklearn_main_function.py"
         ```
 
@@ -84,7 +87,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
     ```bash
     curl -X 'POST' \
-        'http://127.0.0.1:8000/iris_v1/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
+        'http://127.0.0.1:8000/predict/?sepal_length=1.0&sepal_width=1.0&petal_length=1.0&petal_width=1.0' \
         -H 'accept: application/json' \
         -d ''
     ```
@@ -110,9 +113,9 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         of the database should look something like this:
 
         ```csv
-        time, sepal_length, sepal_width, petal_length, petal_width, prediction
-        2022-12-28 17:24:34.045649, 1.0, 1.0, 1.0, 1.0, 1
-        2022-12-28 17:24:44.026432, 2.0, 2.0, 2.0, 2.0, 1
+        time,sepal_length,sepal_width,petal_length,petal_width,prediction
+        2022-12-28 17:24:34.045649,1.0,1.0,1.0,1.0,1
+        2022-12-28 17:24:44.026432,2.0,2.0,2.0,2.0,1
         ...
         ```
 
@@ -153,7 +156,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
     2022-12-28 17:24:34.045649   1.0            1.0            1.0           1.0           1
     ...
     2022-12-28 17:24:34.045649   1.0            1.0            1.0           1.0           1
-    [10 rows x 5 columns]
+    [10 rows x 6 columns]
     ```
 
     Standardize the dataframes such that they have the same column names and drop the time column from the
@@ -170,13 +173,13 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
                 'sepal length (cm)': 'sepal_length',
                 'sepal width (cm)': 'sepal_width',
                 'petal length (cm)': 'petal_length',
-                'petal width (cm)': 'petal_width',
-                'target': 'target'
+                'petal width (cm)': 'petal_width'
             }
         )
 
         current_data = pd.read_csv('prediction_database.csv')
         current_data = current_data.drop(columns=['time'])
+        current_data = current_data.rename(columns={'prediction': 'target'})  # standardize the column names
         ```
 
     1. Add the following code to the `data_drift.py` file to create a report on the data drift:
@@ -185,8 +188,8 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
         from evidently.legacy.report import Report
         from evidently.legacy.metric_preset import DataDriftPreset
         report = Report(metrics=[DataDriftPreset()])
-        snapshot = report.run(reference_data=reference_data, current_data=current_data)
-        snapshot.save_html('report.html')
+        report.run(reference_data=reference_data, current_data=current_data)
+        report.save_html('report.html')
         ```
 
         Open the generated `.html` page. What does it say about your data? Has it drifted? Make sure to poke
@@ -202,7 +205,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             The `DataQualityPreset` checks the quality of the data:
 
             ```python
-            from evidently.legacy.presets import DataDriftPreset, DataQualityPreset
+            from evidently.legacy.metric_preset import DataDriftPreset, DataQualityPreset
             report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
             ```
 
@@ -217,7 +220,7 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
             The `TargetDriftPreset` checks the distribution of the target values:
 
             ```python
-            from evidently.legacy.presets import DataDriftPreset, DataQualityPreset, TargetDriftPreset
+            from evidently.legacy.metric_preset import DataDriftPreset, DataQualityPreset, TargetDriftPreset
             report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
             ```
 
@@ -259,13 +262,13 @@ we can also mention [NannyML](https://github.com/NannyML/nannyml), [WhyLogs](htt
 
         ```python
         import pandas as pd
-        def filter_data(data: pd.Dataframe, n: int | None = None, t: int | None = None) -> pd.Dataframe:
+        def filter_data(data: pd.DataFrame, n: int | None = None, t: int | None = None) -> pd.DataFrame:
             if n is not None:
                 return data.tail(n)
             if t is not None:
-                df['time'] = pd.to_datetime(df['time'])  # Ensure the 'time' column is a datetime object
-                one_hour_ago = datetime.now() - timedelta(hours=t)
-                return df[df['time'] > one_hour_ago]
+                data['time'] = pd.to_datetime(data['time'], utc=True)  # Ensure the 'time' column is a datetime object
+                t_hours_ago = pd.Timestamp.now(tz='UTC') - pd.Timedelta(hours=t)
+                return data[data['time'] > t_hours_ago]
             return data
         ```
 
@@ -356,7 +359,7 @@ service that will check if the distribution of the reviews has drifted over time
 a decrease in the number of positive reviews over time, which may indicate that our application is not performing as
 expected.
 
-We have already created downloaded the training data, created a training script and trained a model for you.
+We have already downloaded the training data, created a training script and trained a model for you.
 The training data and the trained model are available to download from the following
 [Google Drive folder](https://drive.google.com/drive/folders/19rZSGk4A4O7kDqPQiomgV0TiZkRpZ1Rs?usp=sharing), which can
 be quickly downloaded by running the following commands (which uses the [gdown](https://github.com/wkentaro/gdown)
@@ -398,9 +401,9 @@ through the files to get an understanding of what is going on.
         GCP console.
 
         ```
-        gsutil mb gs://gcp_monitoring_exercise
-        gsutil cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
-        gsutil cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
+        gcloud storage buckets create gs://gcp_monitoring_exercise
+        gcloud storage cp reviews.csv gs://gcp_monitoring_exercise/reviews.csv
+        gcloud storage cp bert_sentiment_model.pt gs://gcp_monitoring_exercise/bert_sentiment_model.pt
         ```
 
 2. Next we need to create a FastAPI application that takes a review as input and returns the predicted sentiment of
@@ -473,7 +476,7 @@ through the files to get an understanding of what is going on.
 
         ??? success "Solution"
 
-            ```docker linenums="1" title="sentiment_api.dockerfilepy"
+            ```docker linenums="1" title="sentiment_api.dockerfile"
             --8<-- "s8_monitoring/exercise_files/sentiment_api.dockerfile"
             ```
 
@@ -525,13 +528,13 @@ through the files to get an understanding of what is going on.
     ??? success "Solution"
 
         The provided starting script makes use of two presets from evidently:
-        [TextOverviewPreset](https://docs.evidentlyai.com/presets/text-overview) and
-        [TargetDriftPreset](https://docs.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
-        text statistics (like number of words, average word length etc.) and runs data drift detection on these and the
-        second preset runs target drift detection on the predicted labels.
+        [TextEvals](https://docs-old.evidentlyai.com/presets/text-overview) and
+        [TargetDriftPreset](https://docs-old.evidentlyai.com/presets/target-drift). The first preset extracts descriptive
+        text statistics (like text length, out-of-vocabulary words and sentiment) and runs data drift detection on
+        these and the second preset runs target drift detection on the predicted labels.
 
-    1. The script is missing one key function to work: `#!python fetch_latest_data(n: int)` which should fetch the
-        latest `n` predictions. Implement this function in the script.
+    1. The script is missing one key function to work: `#!python download_files(n: int)` which should fetch the
+        latest `n` predictions from the bucket. Implement this function in the script.
 
         ??? success "Solution"
 
@@ -582,10 +585,10 @@ through the files to get an understanding of what is going on.
             In each iteration it:
 
             * Randomly samples a review from a list of positive, neutral and negative reviews
-            * Randomly adds negative phrases to the review. Each review is added if a randomly uniform number is lower
-                than probability `negative_probability=min(count / args.max_iterations, 1.0), meaning that it becomes
-                more and more likely that the negative phrases are added as the number of iterations increases.
-            * Sends the review to the sentiment analysis service and saves the response to a file.
+            * Randomly adds negative phrases to the review. Each phrase is added if a random number is lower
+                than the probability `negativity_probability = min(count / args.max_iterations, 1.0)`, meaning that it
+                becomes more and more likely that the negative phrases are added as the number of iterations increases.
+            * Sends the review to the sentiment analysis service and prints the response.
 
     2. Run the client script for 1,000 iterations. What happens to the distribution of the reviews over time? Does the
         data drift?
@@ -594,7 +597,7 @@ That ends the module on detection of data drifting, data quality, etc. We have a
 we end the module:
 
 * Monitoring of machine learning applications is an extremely hard discipline because it is not clear-cut when we should
-    actually respond to feature/targets beginning to drift and when it is probably fine letting the system run as is.
+    actually respond to feature/targets beginning to drift and when it is probably fine to let the system run as is.
     It comes down to the individual application what kinds of rules should be implemented.
 
 * The cloud setup we have developed is very simple and not meant for production. In a real-world scenario we would not

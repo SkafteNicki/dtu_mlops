@@ -23,7 +23,7 @@ def lifespan(app: FastAPI) -> Generator[None]:
         model = pickle.load(file)
 
     with open("prediction_database.csv", "w") as file:
-        file.write("time, sepal_length, sepal_width, petal_length, petal_width, prediction\n")
+        file.write("time,sepal_length,sepal_width,petal_length,petal_width,prediction\n")
 
     yield
 
@@ -43,7 +43,7 @@ def add_to_database(
 ) -> None:
     """Simple function to add prediction to database."""
     with open("prediction_database.csv", "a") as file:
-        file.write(f"{now}, {sepal_length}, {sepal_width}, {petal_length}, {petal_width}, {prediction}\n")
+        file.write(f"{now},{sepal_length},{sepal_width},{petal_length},{petal_width},{prediction}\n")
 
 
 @app.post("/predict")
@@ -73,11 +73,11 @@ async def iris_monitoring():
             "sepal width (cm)": "sepal_width",
             "petal length (cm)": "petal_length",
             "petal width (cm)": "petal_width",
-            "target": "target",
         }
     )
     current_data = pd.read_csv("prediction_database.csv")
     current_data = current_data.drop(columns=["time"])
+    current_data = current_data.rename(columns={"prediction": "target"})
 
     data_drift_report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
     data_drift_report.run(current_data=current_data, reference_data=reference_data)

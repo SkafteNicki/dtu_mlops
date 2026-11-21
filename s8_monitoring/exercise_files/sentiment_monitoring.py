@@ -41,7 +41,7 @@ def run_analysis(reference_data: pd.DataFrame, current_data: pd.DataFrame) -> No
     """Run the analysis and return the report."""
     text_overview_report = Report(metrics=[TextEvals(column_name="content"), TargetDriftPreset(columns=["sentiment"])])
     text_overview_report.run(reference_data=reference_data, current_data=current_data)
-    text_overview_report.save("text_overview_report.html")
+    text_overview_report.save_html("monitoring.html")
 
 
 def lifespan(app: FastAPI):
@@ -89,7 +89,7 @@ def load_latest_files(directory: Path, n: int) -> pd.DataFrame:
 def download_files(n: int = 5) -> None:
     """Download the N latest prediction files from the GCP bucket."""
     bucket = storage.Client().bucket(BUCKET_NAME)
-    blobs = bucket.list_blobs(prefix="prediction_")
+    blobs = list(bucket.list_blobs(prefix="prediction_"))
     blobs.sort(key=lambda x: x.updated, reverse=True)
     latest_blobs = blobs[:n]
 
