@@ -12,6 +12,8 @@ if __name__ == "__main__":
 
     print(f"Comparing run {exp1} to {exp2}")
 
+    # The training script saves the full model object (not only the state_dict), which requires weights_only=False.
+    # This unpickles arbitrary Python objects, so only use it on files from your own runs.
     model1 = torch.load(f"{exp1}/trained_model.pt", weights_only=False)
     model2 = torch.load(f"{exp2}/trained_model.pt", weights_only=False)
 

@@ -13,6 +13,6 @@ COPY frontend.py /app/frontend.py
 
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_frontend.txt
 
-EXPOSE $PORT
+EXPOSE 8080
 
 ENTRYPOINT streamlit run frontend.py --server.port=$PORT --server.address=0.0.0.0

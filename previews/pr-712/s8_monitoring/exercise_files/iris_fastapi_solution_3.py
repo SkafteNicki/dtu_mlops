@@ -1,15 +1,12 @@
+import datetime as dt
 import pickle
 from collections.abc import Generator
-from datetime import datetime
 
 import anyio
 import pandas as pd
-from evidently.legacy.metric_preset import (
-    DataDriftPreset,
-    DataQualityPreset,
-    TargetDriftPreset,
-)
-from evidently.legacy.report import Report
+from evidently import DataDefinition, Dataset, Report
+from evidently.metrics import ValueDrift
+from evidently.presets import DataDriftPreset, DataSummaryPreset
 from fastapi import BackgroundTasks, FastAPI
 from fastapi.responses import HTMLResponse
 from sklearn import datasets
@@ -58,7 +55,7 @@ async def iris_inference(
     prediction = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
     prediction = prediction.item()
 
-    now = str(datetime.now(tz=datetime.UTC))
+    now = str(dt.datetime.now(tz=dt.UTC))
     background_tasks.add_task(add_to_database, now, sepal_length, sepal_width, petal_length, petal_width, prediction)
     return {"prediction": classes[prediction], "prediction_int": prediction}
 
@@ -79,11 +76,22 @@ async def iris_monitoring():
     current_data = current_data.drop(columns=["time"])
     current_data = current_data.rename(columns={"prediction": "target"})
 
-    data_drift_report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
-    data_drift_report.run(current_data=current_data, reference_data=reference_data)
-    data_drift_report.save_html("monitoring.html")
+    feature_columns = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+    data_definition = DataDefinition(numerical_columns=feature_columns, categorical_columns=["target"])
+    reference_dataset = Dataset.from_pandas(reference_data, data_definition=data_definition)
+    current_dataset = Dataset.from_pandas(current_data, data_definition=data_definition)
+
+    report = Report(
+        metrics=[
+            DataDriftPreset(columns=feature_columns),  # drift of the input features
+            DataSummaryPreset(),  # data quality
+            ValueDrift(column="target"),  # drift of the predictions/target
+        ]
+    )
+    snapshot = report.run(current_data=current_dataset, reference_data=reference_dataset)
+    snapshot.save_html("monitoring.html")
 
     async with await anyio.open_file("monitoring.html", encoding="utf-8") as f:
-        html_content = f.read()
+        html_content = await f.read()
 
     return HTMLResponse(content=html_content, status_code=200)
