@@ -2275,15 +2275,15 @@
 <p class="admonition-title">Outdated module</p>
 <p>This module has not been updated for a long time and therefore some functionality of Optuna, which is used in these
 exercises, may not be included. If you have completed the module on
-<a href="../../s4_debugging_and_logging/logging/">Weights &amp; Bias</a> then we highly recommend instead using their sweep
+<a href="../../s4_debugging_and_logging/logging/">Weights &amp; Biases</a> then we highly recommend instead using their sweep
 functionality.</p>
 </div>
 <p>Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
-the uprise of deep learning. This can mainly be contributed to the following:</p>
+the uprise of deep learning. This can mainly be attributed to the following:</p>
 <ul>
 <li>Trying to beat state-of-the-art often comes down to very small differences in performance, and hyperparameter
     optimization can help squeeze out a bit more</li>
-<li>Deep learning models are in general not that robust towards the choice of hyparameter so choosing the wrong set
+<li>Deep learning models are in general not that robust towards the choice of hyperparameter so choosing the wrong set
     may lead to a model that does not work</li>
 </ul>
 <p>However the problem with doing hyperparameter optimization of a deep learning models is that it can take over a
@@ -2325,10 +2325,10 @@ rest to a "recommended value".</p>
 </li>
 <li>
 <p>Initially we will look at the <code>cross_validate.py</code> file. It implements simple K-fold cross validation of
-    a random forest sklearn digits dataset (subset of MNIST). Look over the script and try to run it.</p>
+    a random forest on the sklearn digits dataset (a subset of MNIST). Look over the script and try to run it.</p>
 </li>
 <li>
-<p>We will now try to write the same code in optune. Please note that the script have a variable <code>OPTUNA=False</code>
+<p>We will now try to write the same code in optuna. Please note that the script have a variable <code>OPTUNA=False</code>
     that you can use to change what part of the code should run. The three main concepts of optuna is</p>
 <ul>
 <li>
@@ -2366,9 +2366,9 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
     the documentation on how to change the <strong>direction</strong> of the optimization.</p>
 </li>
 <li>
-<p>Optuna will by default do Bayesian optimization when sampling the hyperparameters (using a evolutionary
-    algorithm for suggesting new trials). However, since this example is quite simple, we can actually
-    perform a full grid search. How would you do this in Optuna?</p>
+<p>Optuna will by default do Bayesian optimization when sampling the hyperparameters (using the
+    tree-structured Parzen estimator (TPE) for suggesting new trials). However, since this example is quite
+    simple, we can actually perform a full grid search. How would you do this in Optuna?</p>
 </li>
 <li>
 <p>Compare the performance of a single optuna run using Bayesian optimization with <code>n_trials=10</code> with a
@@ -2378,27 +2378,27 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 </ol>
 </li>
 <li>
-<p>In addition to doing baysian optimization, the other great part about Optuna is that it have native support
+<p>In addition to doing Bayesian optimization, the other great part about Optuna is that it have native support
     for <strong>Pruning</strong> unpromising trials. Pruning refers to the user stopping trials for hyperparameter combinations
     that does not seem to lead anywhere. You may have learning rate that is so high that training is diverging or
     a neural network with too many parameters so it is just overfitting to the training data. This however begs the
     question: what constitutes an unpromising trial? This is up to you to define based on prior experimentation.</p>
 <ol>
 <li>
-<p>Start by looking at the <code>fashion_trainer.py</code> script. Its a simple classification network for classifying
+<p>Start by looking at the <code>fashion_trainer.py</code> script. It's a simple classification network for classifying
     images in the <a href="https://github.com/zalandoresearch/fashion-mnist">FashionMNIST</a> dataset. Run the script
-    with the default hyperparameters to get a feeling of how the training should be progress.
+    with the default hyperparameters to get a feeling of how the training should be progressing.
     Note down the performance on the test set.</p>
 </li>
 <li>
 <p>Start by defining a validation set and a validation dataloader that we can use for hyperparameter optimization
-    (HINT: use 5-10% of you training data).</p>
+    (HINT: use 5-10% of your training data).</p>
 </li>
 <li>
-<p>Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should at least be included
+<p>Now, adjust the script to use Optuna. The hyperparameters listed in the table below should at least be included
     in the hyperparameter search. For some we have already defined the search space but for the remaining you need to
-    come up with a good range of values to investigate. We done integrating optuna, run a small study (<code>n_tirals=3</code>)
-    to check that the code is working.</p>
+    come up with a good range of values to investigate. When you are done integrating optuna, run a small study
+    (<code>n_trials=3</code>) to check that the code is working.</p>
 <table>
 <thead>
 <tr>
@@ -2424,7 +2424,7 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 <td>???</td>
 </tr>
 <tr>
-<td>Use batch normalize or not</td>
+<td>Use batch normalization or not</td>
 <td>{True, False}</td>
 </tr>
 <tr>
@@ -2436,9 +2436,9 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 </li>
 <li>
 <p>If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
-    we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
+    we not only need Bayesian optimization but probably also need pruning to succeed. Checkout the page for
     <a href="https://optuna.readthedocs.io/en/stable/reference/pruners.html">built-in pruners</a> in Optuna. Implement
-    pruning in the script. I recommend using either the <code>MedianPruner</code> or the <code>ProcentilePruner</code>.</p>
+    pruning in the script. I recommend using either the <code>MedianPruner</code> or the <code>PercentilePruner</code>.</p>
 </li>
 <li>
 <p>Re-run the study using pruning with a large number of trials (<code>n_trials&gt;50</code>)</p>
@@ -2450,7 +2450,7 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
     make sure that you understand them.</p>
 </li>
 <li>
-<p>Pruning is great for better spending your computational budged, however it comes with a trade-off. What is
+<p>Pruning is great for better spending your computational budget, however it comes with a trade-off. What is
     it and what hyperparameter should one be especially careful about when using pruning?</p>
 </li>
 <li>
@@ -2461,7 +2461,7 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 </li>
 <li>
 <p>The exercises until now have focused on doing the hyperparameter searching sequentially, meaning that we test one
-    set of parameters at the time. It is a fine approach because you can easily let it run for a week without any
+    set of parameters at a time. It is a fine approach because you can easily let it run for a week without any
     interaction. However, assuming that you have the computational resources to run in parallel, how do you do that?</p>
 <ol>
 <li>
@@ -2495,10 +2495,10 @@ want to optimize. (HINT: did you remember to do K-fold crossvalidation inside yo
 <p>where the <code>study_name</code> and <code>storage</code> should match how the study was created.</p>
 </li>
 <li>
-<p>For running in parallel, you can either open up a extra terminal and simple launch your script once
-    per open terminal or you can use the provided <code>parallel_lancher.py</code> that will launch multiple executions
+<p>For running in parallel, you can either open up an extra terminal and simply launch your script once
+    per open terminal or you can use the provided <code>parallel_launcher.py</code> that will launch multiple executions
     of your script. It should be used as:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>parallel_lancher.py<span class="w"> </span>myscript.py<span class="w"> </span>--num_parallel<span class="w"> </span><span class="m">2</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>parallel_launcher.py<span class="w"> </span>myscript.py<span class="w"> </span>--num_parallel<span class="w"> </span><span class="m">2</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -2532,7 +2532,7 @@ to use.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38">January 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:20:18">November 21, 2026</span>
   </span>
 
     

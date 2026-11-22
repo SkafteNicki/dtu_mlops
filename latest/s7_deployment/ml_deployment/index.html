@@ -2411,63 +2411,63 @@ machine learning algorithms (just listing a few here):</p>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/bentoml/bentoml">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>8.9k</td>
 </tr>
 <tr>
 <td>Ray Serve</td>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/ray-project/ray">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>44.4k</td>
 </tr>
 <tr>
 <td>Triton Inference Server</td>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/NVIDIA/triton-inference-server">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>11.2k</td>
 </tr>
 <tr>
 <td>OpenVINO</td>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/openvinotoolkit/openvino">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>12.0k</td>
 </tr>
 <tr>
 <td>Seldon-core</td>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/seldonio/seldon-core">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>4.8k</td>
 </tr>
 <tr>
 <td>Litserve</td>
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://github.com/Lightning-AI/LitServe">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>4.0k</td>
 </tr>
 <tr>
 <td>Torchserve</td>
 <td>❌</td>
 <td>✅</td>
 <td><a href="https://github.com/pytorch/serve">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>4.3k</td>
 </tr>
 <tr>
 <td>TensorFlow serve</td>
 <td>❌</td>
 <td>✅</td>
 <td><a href="https://github.com/tensorflow/serving">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>6.4k</td>
 </tr>
 <tr>
 <td>vLLM</td>
 <td>❌</td>
 <td>❌</td>
 <td><a href="https://github.com/vllm-project/vllm">🔗 Link</a></td>
-<td>⭐ N/A</td>
+<td>97.3k</td>
 </tr>
 </tbody>
 </table>
@@ -2490,7 +2490,9 @@ framework to deploy your model, you should consider the following:</p>
 <li>
 <p><strong>Community</strong>. Some frameworks have a large community, which can be helpful if you run into problems. As an example
     from the list above, <code>Triton Inference Server</code> was developed by Nvidia and has a large community of users. As a good
-    rule of thumb, the more stars a repository has on GitHub, the larger the community.</p>
+    rule of thumb, the more stars a repository has on GitHub, the larger the community. It is also worth checking how
+    actively maintained a framework is, since a stopped framework will not get bug fixes or new features. As an example,
+    the <code>Torchserve</code> repository has been archived and is no longer maintained.</p>
 </li>
 </ul>
 <p>In this module we are going to be looking at the <code>BentoML</code> framework because it strikes a good balance between ease of
@@ -2527,7 +2529,7 @@ a developer-friendly framework, though it has historically been slow to run infe
 <h2 id="exercises">❔ Exercises</h2>
 <ol>
 <li>
-<p>Start by installing ONNX, ONNX runtime and ONNX script. This can be done by running the following command:</p>
+<p>Start by installing ONNX, ONNX Runtime and ONNX Script. This can be done by running the following command:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using pip</label><label for="__tabbed_1_2">Using uv</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2541,13 +2543,12 @@ a developer-friendly framework, though it has historically been slow to run infe
 </div>
 </div>
 <p>The first package contains the core ONNX framework, the second package contains the runtime for running ONNX models
-and the third package contains a new experimental package that is designed to make it easier to export models to
-ONNX.</p>
+and the third package is a relatively new package that is designed to make it easier to export models to ONNX.</p>
 </li>
 <li>
 <p>Let's start out by converting a model to ONNX. The following code snippets show how to export a PyTorch model to
     ONNX.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">PyTorch =&gt; 2.0</label><label for="__tabbed_2_2">PyTorch &lt; 2.0 or Windows</label><label for="__tabbed_2_3">PyTorch-lightning</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">PyTorch &gt;= 2.6</label><label for="__tabbed_2_2">PyTorch &lt; 2.6 or Windows</label><label for="__tabbed_2_3">PyTorch-lightning</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -2557,12 +2558,15 @@ ONNX.</p>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">onnx_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">model_args</span><span class="o">=</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">export_options</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">ExportOptions</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">)</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">onnx_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="s2">"resnet18.onnx"</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"input"</span><span class="p">],</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">output_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"output"</span><span class="p">],</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">},),</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">)</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2579,8 +2583,9 @@ ONNX.</p>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">f</span><span class="o">=</span><span class="s2">"resnet18.onnx"</span><span class="p">,</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"input"</span><span class="p">],</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">output_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"output"</span><span class="p">],</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">},</span> <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">}}</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">)</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">},</span> <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">}},</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">dynamo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">)</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2593,7 +2598,7 @@ ONNX.</p>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">LitModel</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">):</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s2">"IMAGENET1K_V1"</span><span class="p">)</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -2616,13 +2621,15 @@ ONNX.</p>
 </div>
 <p>Export a model of your own choice to ONNX or just try to export the <code>resnet18</code> model as shown in the examples above,
 and confirm that the model was exported by checking that the file exists. Can you figure out what is meant by
-<code>dynamic_axes</code>?</p>
+<code>dynamic_axes</code> and <code>dynamic_shapes</code>?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The <code>dynamic_axes</code> argument is used to specify which axes of the input tensor that should be considered dynamic.
 This is useful when the model can accept inputs of different sizes, e.g. when the model is used in a dynamic
-batching scenario. In the example above we have specified that the first axis of the input tensor should be
-considered dynamic, meaning that the model can accept inputs of different batch sizes. While it may be tempting
+batching scenario. In the examples above we have specified that the first axis of the input tensor should be
+considered dynamic, meaning that the model can accept inputs of different batch sizes. The <code>dynamic_shapes</code>
+argument serves the same purpose, but is used by the newer <code>dynamo</code>-based exporter instead (and its keys refer to
+the names of the model arguments instead of the input names). While it may be tempting
 to specify all axes as dynamic, this can lead to slower inference times because the ONNX runtime will
 not be able to optimize the computational graph as well.</p>
 </details>
@@ -2639,7 +2646,7 @@ not be able to optimize the computational graph as well.</p>
 <li>
 <p>To get a better understanding of what is actually exported, let's try to visualize the computational graph of the
     model. This can be done using the open-source tool <a href="https://github.com/lutzroeder/netron">netron</a>. You can either
-    try it out directly in <a href="https://netron.app/">webbrowser</a> or you can install it locally and then run it:</p>
+    try it out directly in your <a href="https://netron.app/">web browser</a> or you can install it locally and then run it:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Using pip</label><label for="__tabbed_3_2">Using uv</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2674,12 +2681,13 @@ means that that is the only method we have access to when we load the model late
 <summary>Solution</summary>
 <p>To use the ONNX runtime to run a model, we first need to start an inference session, then extract the input
 and output names of our model and finally run the model. The following code snippet shows how to do this.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rt</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"&lt;path-to-model&gt;"</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">input_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">()]</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">output_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_outputs</span><span class="p">()]</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">input_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)}</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">out</span> <span class="o">=</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">output_names</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rt</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"&lt;path-to-model&gt;"</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">input_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">()]</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">output_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_outputs</span><span class="p">()]</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">input_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)}</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">out</span> <span class="o">=</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">output_names</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2769,7 +2777,15 @@ and output names of our model and finally run the model. The following code snip
 <span class="normal"><a href="#__codelineno-10-61">61</a></span>
 <span class="normal"><a href="#__codelineno-10-62">62</a></span>
 <span class="normal"><a href="#__codelineno-10-63">63</a></span>
-<span class="normal"><a href="#__codelineno-10-64">64</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="normal"><a href="#__codelineno-10-64">64</a></span>
+<span class="normal"><a href="#__codelineno-10-65">65</a></span>
+<span class="normal"><a href="#__codelineno-10-66">66</a></span>
+<span class="normal"><a href="#__codelineno-10-67">67</a></span>
+<span class="normal"><a href="#__codelineno-10-68">68</a></span>
+<span class="normal"><a href="#__codelineno-10-69">69</a></span>
+<span class="normal"><a href="#__codelineno-10-70">70</a></span>
+<span class="normal"><a href="#__codelineno-10-71">71</a></span>
+<span class="normal"><a href="#__codelineno-10-72">72</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>
@@ -2808,31 +2824,39 @@ and output names of our model and finally run the model. The following code snip
 </span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37"></a>        <span class="s2">"resnet18.onnx"</span><span class="p">,</span>
 </span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38"></a>        <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"input.1"</span><span class="p">],</span>
 </span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39"></a>        <span class="n">dynamic_axes</span><span class="o">=</span><span class="p">{</span><span class="s2">"input.1"</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"height"</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">"width"</span><span class="p">}},</span>
-</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40"></a>    <span class="p">)</span>
-</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41"></a><span class="k">else</span><span class="p">:</span>
-</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
-</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43"></a>
-</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">ort</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
-</span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45"></a>
-</span><span id="__span-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46"></a>
-</span><span id="__span-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47"></a><span class="nd">@timing_decorator</span>
-</span><span id="__span-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48"></a><span class="k">def</span><span class="w"> </span><span class="nf">torch_predict</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49"></a><span class="w">    </span><span class="sd">"""Predict using PyTorch model."""</span>
-</span><span id="__span-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50"></a>    <span class="n">model</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</span><span id="__span-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51"></a>
-</span><span id="__span-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52"></a>
-</span><span id="__span-10-53"><a id="__codelineno-10-53" name="__codelineno-10-53"></a><span class="nd">@timing_decorator</span>
-</span><span id="__span-10-54"><a id="__codelineno-10-54" name="__codelineno-10-54"></a><span class="k">def</span><span class="w"> </span><span class="nf">onnx_predict</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-10-55"><a id="__codelineno-10-55" name="__codelineno-10-55"></a><span class="w">    </span><span class="sd">"""Predict using ONNX model."""</span>
-</span><span id="__span-10-56"><a id="__codelineno-10-56" name="__codelineno-10-56"></a>    <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input.1"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">()})</span>
-</span><span id="__span-10-57"><a id="__codelineno-10-57" name="__codelineno-10-57"></a>
-</span><span id="__span-10-58"><a id="__codelineno-10-58" name="__codelineno-10-58"></a>
-</span><span id="__span-10-59"><a id="__codelineno-10-59" name="__codelineno-10-59"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-10-60"><a id="__codelineno-10-60" name="__codelineno-10-60"></a>    <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">448</span><span class="p">,</span> <span class="mi">896</span><span class="p">]:</span>
-</span><span id="__span-10-61"><a id="__codelineno-10-61" name="__codelineno-10-61"></a>        <span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-</span><span id="__span-10-62"><a id="__codelineno-10-62" name="__codelineno-10-62"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Image size: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-10-63"><a id="__codelineno-10-63" name="__codelineno-10-63"></a>        <span class="n">torch_predict</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
-</span><span id="__span-10-64"><a id="__codelineno-10-64" name="__codelineno-10-64"></a>        <span class="n">onnx_predict</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40"></a>        <span class="n">dynamo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41"></a>    <span class="p">)</span>
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44"></a>        <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45"></a>        <span class="p">(</span><span class="n">dummy_input</span><span class="p">,),</span>
+</span><span id="__span-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46"></a>        <span class="s2">"resnet18.onnx"</span><span class="p">,</span>
+</span><span id="__span-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47"></a>        <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"batch_size"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"height"</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">"width"</span><span class="p">},),</span>
+</span><span id="__span-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48"></a>        <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49"></a>    <span class="p">)</span>
+</span><span id="__span-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50"></a>
+</span><span id="__span-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51"></a><span class="n">ort_session</span> <span class="o">=</span> <span class="n">ort</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"resnet18.onnx"</span><span class="p">)</span>
+</span><span id="__span-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52"></a><span class="n">ort_input_name</span> <span class="o">=</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</span><span id="__span-10-53"><a id="__codelineno-10-53" name="__codelineno-10-53"></a>
+</span><span id="__span-10-54"><a id="__codelineno-10-54" name="__codelineno-10-54"></a>
+</span><span id="__span-10-55"><a id="__codelineno-10-55" name="__codelineno-10-55"></a><span class="nd">@timing_decorator</span>
+</span><span id="__span-10-56"><a id="__codelineno-10-56" name="__codelineno-10-56"></a><span class="k">def</span><span class="w"> </span><span class="nf">torch_predict</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-10-57"><a id="__codelineno-10-57" name="__codelineno-10-57"></a><span class="w">    </span><span class="sd">"""Predict using PyTorch model."""</span>
+</span><span id="__span-10-58"><a id="__codelineno-10-58" name="__codelineno-10-58"></a>    <span class="n">model</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span id="__span-10-59"><a id="__codelineno-10-59" name="__codelineno-10-59"></a>
+</span><span id="__span-10-60"><a id="__codelineno-10-60" name="__codelineno-10-60"></a>
+</span><span id="__span-10-61"><a id="__codelineno-10-61" name="__codelineno-10-61"></a><span class="nd">@timing_decorator</span>
+</span><span id="__span-10-62"><a id="__codelineno-10-62" name="__codelineno-10-62"></a><span class="k">def</span><span class="w"> </span><span class="nf">onnx_predict</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-10-63"><a id="__codelineno-10-63" name="__codelineno-10-63"></a><span class="w">    </span><span class="sd">"""Predict using ONNX model."""</span>
+</span><span id="__span-10-64"><a id="__codelineno-10-64" name="__codelineno-10-64"></a>    <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="n">ort_input_name</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">()})</span>
+</span><span id="__span-10-65"><a id="__codelineno-10-65" name="__codelineno-10-65"></a>
+</span><span id="__span-10-66"><a id="__codelineno-10-66" name="__codelineno-10-66"></a>
+</span><span id="__span-10-67"><a id="__codelineno-10-67" name="__codelineno-10-67"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-10-68"><a id="__codelineno-10-68" name="__codelineno-10-68"></a>    <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">448</span><span class="p">,</span> <span class="mi">896</span><span class="p">]:</span>
+</span><span id="__span-10-69"><a id="__codelineno-10-69" name="__codelineno-10-69"></a>        <span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span><span id="__span-10-70"><a id="__codelineno-10-70" name="__codelineno-10-70"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Image size: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-10-71"><a id="__codelineno-10-71" name="__codelineno-10-71"></a>        <span class="n">torch_predict</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
+</span><span id="__span-10-72"><a id="__codelineno-10-72" name="__codelineno-10-72"></a>        <span class="n">onnx_predict</span><span class="p">(</span><span class="n">dummy_input</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -2849,7 +2873,7 @@ and output names of our model and finally run the model. The following code snip
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">sess_options</span><span class="o">.</span><span class="n">graph_optimization_level</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">GraphOptimizationLevel</span><span class="o">.</span><span class="n">ORT_ENABLE_EXTENDED</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># To enable model serialization after graph optimization set this</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">sess_options</span><span class="o">.</span><span class="n">optimized_model_filepath</span> <span class="o">=</span> <span class="s2">"optimized_model.onnx&gt;"</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">sess_options</span><span class="o">.</span><span class="n">optimized_model_filepath</span> <span class="o">=</span> <span class="s2">"optimized_model.onnx"</span>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">session</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"&lt;model_path&gt;"</span><span class="p">,</span> <span class="n">sess_options</span><span class="p">)</span>
 </span></code></pre></div>
@@ -2867,8 +2891,8 @@ model, before and after optimization.</p>
 </details>
 </li>
 <li>
-<p>Exporting a model to ONNX is not always perfect out of the box. To the conversion of your PyTorch models there
-    need to be a one-to-one correspondence between PyTorch and ONNX operators. Especially, the
+<p>Exporting a model to ONNX is not always perfect out of the box. For the conversion of your PyTorch model to work
+    there needs to be a one-to-one correspondence between PyTorch and ONNX operators. The
     <a href="http://onnx.ai/sklearn-onnx/auto_tutorial/plot_cbegin_opset.html">opset number</a> is important to set correctly
     in ONNX to get the correct operators. If this is not the case, the exported model can lead to a difference in
     results. To check the model, it is therefore also a good idea to check if the difference between the PyTorch
@@ -2920,7 +2944,8 @@ single output tensor. If this is not the case, you will need to modify the funct
 </li>
 <li>
 <p>As mentioned in the introduction, ONNX is able to run on many different types of hardware and execution engines.
-    You can check all the providers and all the available providers by running the following code:</p>
+    You can check all the supported providers and the providers that are actually available on your machine by running
+    the following code:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">onnxruntime</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_all_providers</span><span class="p">())</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_available_providers</span><span class="p">())</span>
@@ -2967,8 +2992,7 @@ listed.</p>
 <span class="normal"><a href="#__codelineno-15-12">12</a></span>
 <span class="normal"><a href="#__codelineno-15-13">13</a></span>
 <span class="normal"><a href="#__codelineno-15-14">14</a></span>
-<span class="normal"><a href="#__codelineno-15-15">15</a></span>
-<span class="normal"><a href="#__codelineno-15-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
@@ -2976,14 +3000,13 @@ listed.</p>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a>
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="k">ARG</span><span class="w"> </span>CUDA
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span>
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">"</span>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a>
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$CUDA</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121<span class="p">;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu<span class="p">;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$CUDA</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="w">    </span><span class="k">fi</span>
 </span></code></pre></div></td></tr></table></div>
 <p>and the dockerfile for the ONNX image could look something like this</p>
 <div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">inference_onnx.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
@@ -2997,18 +3020,22 @@ listed.</p>
 <span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-16-10">10</a></span>
 <span class="normal"><a href="#__codelineno-16-11">11</a></span>
-<span class="normal"><a href="#__codelineno-16-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$CUDA</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime-gpu<span class="p">;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime<span class="p">;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="k">ARG</span><span class="w"> </span>CUDA
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"CUDA is set to: </span><span class="si">${</span><span class="nv">CUDA</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$CUDA</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime-gpu<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="w">    </span><span class="k">fi</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -3030,7 +3057,7 @@ with the following commands:</p>
 </span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">    </span>--no-cache<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">CUDA</span><span class="o">=</span>
 </span></code></pre></div>
 <p>The <code>--no-cache</code> flag is used to ensure that the build process is not cached and ensures a fair comparison.
-On my laptop this respectively took <code>5m1s</code>, <code>1m4s</code>, <code>0m4s</code>, <code>0m50s</code> meaning that the ONNX
+On my laptop this respectively took <code>5m1s</code>, <code>1m4s</code>, <code>0m43s</code>, <code>0m50s</code> meaning that the ONNX
 container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build than the PyTorch container.</p>
 </details>
 </li>
@@ -3040,8 +3067,9 @@ container was respectively 7x (with CUDA) and 1.28x (no CUDA) faster to build th
 <details class="success">
 <summary>Solution</summary>
 <p>As of writing, the docker image containing the PyTorch framework was 5.54GB (with CUDA) and 1.25GB (no CUDA).
-In comparison the ONNX image was 647MB (with CUDA) and 647MB (no CUDA). This means that the ONNX image is
-respectively 8.5x (with CUDA) and 1.94x (no CUDA) smaller than the PyTorch image.</p>
+In comparison the ONNX image was 647MB (no CUDA), meaning that it is about 1.94x smaller than the PyTorch
+image. The CUDA-enabled ONNX image is larger than the CPU-only one, because the <code>onnxruntime-gpu</code> package
+bundles CUDA support, but it is still smaller than the PyTorch image with CUDA.</p>
 </details>
 </li>
 </ol>
@@ -3104,9 +3132,9 @@ limitation.</p>
 <div class="admonition note">
 <p class="admonition-title">BentoML cloud vs BentoML OSS</p>
 <p>We are only going to be looking at the open-source version of BentoML in this module. However, BentoML also has a
-cloud version that makes it very easy to deploy models that are coded in BentoML to the cloud. If you are interested
-in this, you can check out the
-<a href="https://docs.bentoml.com/en/latest/guides/cloud/index.html">BentoML cloud documentation</a>. This business strategy
+cloud version called BentoCloud that makes it very easy to deploy models that are coded in BentoML to the cloud.
+If you are interested in this, you can check out the
+<a href="https://docs.bentoml.com/en/latest/get-started/cloud-deployment.html">BentoCloud documentation</a>. This business strategy
 of having an open-source product and a cloud product is very common in the machine learning space (HuggingFace,
 LightningAI, Weights and Biases, etc.), because it allows companies to make money from the cloud product while still
 providing a free product to the community.</p>
@@ -3115,7 +3143,7 @@ providing a free product to the community.</p>
 agnostic, meaning that it can be used with any computational backend. It is also model agnostic, meaning that it can be
 used with any machine learning model.</p>
 <p>Let's consider a simple example of how to serve a model using BentoML. The following
-<a href="https://docs.bentoml.com/en/latest/get-started/quickstart.html">code snippet</a> shows how to serve a model that uses
+<a href="https://docs.bentoml.com/en/latest/get-started/hello-world.html">code snippet</a> shows how to serve a model that uses
 the <code>transformers</code> library to summarize text.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">bentoml</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
@@ -3157,7 +3185,7 @@ to serve the model using FastAPI.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>bentoml<span class="w"> </span>serve<span class="w"> </span>service:Summarization
 </span></code></pre></div>
 <h3 id="exercises_1">❔ Exercises</h3>
-<p>In general, we recommend looking through the <a href="https://docs.bentoml.com/en/latest/index.html">docs</a> for Bento ML if you
+<p>In general, we recommend looking through the <a href="https://docs.bentoml.com/en/latest/index.html">docs</a> for BentoML if you
 need help with any of the exercises. We are going to assume that you have done the exercises on ONNX and we are
 therefore going to be using <code>BentoML</code> to serve ONNX models. If you have not done that part, you can still follow along
 but you will need to use a PyTorch model instead of an ONNX model.</p>
@@ -3179,12 +3207,12 @@ but you will need to use a PyTorch model instead of an ONNX model.</p>
 <p>Remember to add the dependency to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
-<p>You are in principal free to serve any model you like, but we recommend just using a
+<p>You are in principle free to serve any model you like, but we recommend just using a
     <a href="https://pytorch.org/vision/stable/index.html">torchvision</a> model as in the ONNX exercises. Write your first service
     in <code>BentoML</code> that serves a model of your choice. We recommend experimenting with providing
-    <a href="https://docs.bentoml.com/en/latest/guides/iotypes.html">input/output as tensors</a> because bentoml supports this
-    natively. Secondly, write a client that can send a request to the service and print the result. Here we recommend
-    using the built-in <a href="https://docs.bentoml.com/en/latest/reference/client.html">bentoml.SyncHTTPClient</a>.</p>
+    <a href="https://docs.bentoml.com/en/latest/build-with-bentoml/iotypes.html">input/output as tensors</a> because bentoml supports
+    this natively. Secondly, write a client that can send a request to the service and print the result. Here we recommend
+    using the built-in <a href="https://docs.bentoml.com/en/latest/reference/bentoml/client.html">bentoml.SyncHTTPClient</a>.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The following implements a simple BentoML service that serves an ONNX resnet18 model. The service expects
@@ -3255,7 +3283,7 @@ both the input and output to be numpy arrays.</p>
 </span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9"></a>    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Change to CHW format</span>
 </span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10"></a>    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Add batch dimension</span>
 </span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11"></a>
-</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12"></a>    <span class="k">with</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">SyncHTTPClient</span><span class="p">(</span><span class="s2">"http://localhost:4040"</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12"></a>    <span class="k">with</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">SyncHTTPClient</span><span class="p">(</span><span class="s2">"http://localhost:3000"</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
 </span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13"></a>        <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
 </span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
@@ -3277,13 +3305,13 @@ both the input and output to be numpy arrays.</p>
 The overall architecture of the adaptive batching feature in BentoML. The feature is implemented on the server side
 and mainly consists of a dispatcher that is in charge of collecting requests and sending them to the model server when
 either the batch is full or a timeout is reached.
-<a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html"> Image credit </a>
+<a href="https://docs.bentoml.com/en/latest/get-started/adaptive-batching.html"> Image credit </a>
 </figcaption>
 </figure></p>
 <ol>
 <li>
 <p>Look through the
-    <a href="https://docs.bentoml.com/en/latest/guides/adaptive-batching.html">documentation on adaptive batching</a> and
+    <a href="https://docs.bentoml.com/en/latest/get-started/adaptive-batching.html">documentation on adaptive batching</a> and
     add adaptive batching to your service from the previous exercise. Make sure your service works as expected by
     testing it with the client from the previous exercise.</p>
 <details class="success">
@@ -3405,7 +3433,7 @@ either the batch is full or a timeout is reached.
 </span><span id="__span-27-29"><a id="__codelineno-27-29" name="__codelineno-27-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/predict"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">})</span>
 </span></code></pre></div></td></tr></table></div>
 <p>and then the following command can be used to measure the throughput of the model</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>locust<span class="w"> </span>-f<span class="w"> </span>locustfile_bentoml.py<span class="w"> </span>--host<span class="w"> </span>http://localhost:4040<span class="w"> </span>--headless<span class="w"> </span>-u<span class="w"> </span><span class="m">50</span><span class="w"> </span>-t<span class="w"> </span>60s
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>locust<span class="w"> </span>-f<span class="w"> </span>locustfile_bentoml.py<span class="w"> </span>--host<span class="w"> </span>http://localhost:3000<span class="w"> </span>--headless<span class="w"> </span>-u<span class="w"> </span><span class="m">50</span><span class="w"> </span>-t<span class="w"> </span>60s
 </span></code></pre></div>
 <p>You should hopefully see that the throughput of the model is higher when adaptive batching is enabled, but
 the speedup is largely dependent on the model you are running, the configuration of the adaptive batching
@@ -3417,17 +3445,17 @@ and the hardware you are running on.</p>
 </li>
 <li>
 <p>(Optional, requires GPU) Look through the
-    <a href="https://docs.bentoml.org/en/latest/guides/gpu-inference.html">documentation for inference on GPU</a> and add this to
-    your service. Check that your service works as expected by testing it with the client from the previous exercise and
-    make sure you are seeing a speedup when running on the GPU.</p>
+    <a href="https://docs.bentoml.com/en/latest/build-with-bentoml/gpu-inference.html">documentation for inference on GPU</a> and add
+    this to your service. Check that your service works as expected by testing it with the client from the previous
+    exercise and make sure you are seeing a speedup when running on the GPU.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>A simple change to the <code>bento.service</code> decorator is all that is needed to run the model on the GPU.</p>
-<p>```python
-@bentoml.service(resources={"gpu": 1})
-class MyService:
-    def <strong>init</strong>(self):
-        self.model = torch.load('model.pth').to('cuda:0')</p>
+<p>A simple change to the <code>bentoml.service</code> decorator is all that is needed to run the model on the GPU.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="s2">"gpu"</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyService</span><span class="p">:</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'model.pth'</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">'cuda:0'</span><span class="p">)</span>
+</span></code></pre></div>
 </details>
 </li>
 <li>
@@ -3438,10 +3466,10 @@ class MyService:
     running with multiple workers.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Multiple workers can be added to the <code>bento.service</code> decorator as shown below.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyService</span><span class="p">:</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="c1"># Service implementation</span>
+<p>Multiple workers can be added to the <code>bentoml.service</code> decorator as shown below.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyService</span><span class="p">:</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="c1"># Service implementation</span>
 </span></code></pre></div>
 <p>Alternatively, you can set <code>workers="cpu_count"</code> to use all available CPU cores. The speedup depends on the
 model you are serving, the hardware you are running on and the number of workers you are using, but it should be
@@ -3459,7 +3487,7 @@ higher than using a single worker.</p>
     are combined to make a prediction. Ensemble models are a good example of this.</li>
 </ul>
 <p><code>BentoML</code> makes it easy to
-<a href="https://docs.bentoml.org/en/latest/guides/model-composition.html">compose multiple models together</a>.</p>
+<a href="https://docs.bentoml.com/en/latest/get-started/model-composition.html">compose multiple models together</a>.</p>
 <ol>
 <li>
 <p>Implement two services that run in a sequence, e.g., the output of one service is used as the input to another
@@ -3468,94 +3496,6 @@ higher than using a single worker.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The following code snippet shows how to implement two services that run in sequence.</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_service_composition.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-30-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-30-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-30-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-30-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-30-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-30-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-30-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-30-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-30-10">10</a></span>
-<span class="normal"><a href="#__codelineno-30-11">11</a></span>
-<span class="normal"><a href="#__codelineno-30-12">12</a></span>
-<span class="normal"><a href="#__codelineno-30-13">13</a></span>
-<span class="normal"><a href="#__codelineno-30-14">14</a></span>
-<span class="normal"><a href="#__codelineno-30-15">15</a></span>
-<span class="normal"><a href="#__codelineno-30-16">16</a></span>
-<span class="normal"><a href="#__codelineno-30-17">17</a></span>
-<span class="normal"><a href="#__codelineno-30-18">18</a></span>
-<span class="normal"><a href="#__codelineno-30-19">19</a></span>
-<span class="normal"><a href="#__codelineno-30-20">20</a></span>
-<span class="normal"><a href="#__codelineno-30-21">21</a></span>
-<span class="normal"><a href="#__codelineno-30-22">22</a></span>
-<span class="normal"><a href="#__codelineno-30-23">23</a></span>
-<span class="normal"><a href="#__codelineno-30-24">24</a></span>
-<span class="normal"><a href="#__codelineno-30-25">25</a></span>
-<span class="normal"><a href="#__codelineno-30-26">26</a></span>
-<span class="normal"><a href="#__codelineno-30-27">27</a></span>
-<span class="normal"><a href="#__codelineno-30-28">28</a></span>
-<span class="normal"><a href="#__codelineno-30-29">29</a></span>
-<span class="normal"><a href="#__codelineno-30-30">30</a></span>
-<span class="normal"><a href="#__codelineno-30-31">31</a></span>
-<span class="normal"><a href="#__codelineno-30-32">32</a></span>
-<span class="normal"><a href="#__codelineno-30-33">33</a></span>
-<span class="normal"><a href="#__codelineno-30-34">34</a></span>
-<span class="normal"><a href="#__codelineno-30-35">35</a></span>
-<span class="normal"><a href="#__codelineno-30-36">36</a></span>
-<span class="normal"><a href="#__codelineno-30-37">37</a></span>
-<span class="normal"><a href="#__codelineno-30-38">38</a></span>
-<span class="normal"><a href="#__codelineno-30-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a>
-</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4"></a>
-</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">bentoml</span>
-</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="kn">import</span> <span class="n">InferenceSession</span>
-</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9"></a>
-</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10"></a>
-</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
-</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImagePreprocessorService</span><span class="p">:</span>
-</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13"></a><span class="w">    </span><span class="sd">"""Image preprocessor service."""</span>
-</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14"></a>
-</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
-</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17"></a><span class="w">        </span><span class="sd">"""Preprocess the input image."""</span>
-</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
-</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">))</span>
-</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23"></a>
-</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24"></a>
-</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
-</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierService</span><span class="p">:</span>
-</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
-</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28"></a>
-</span><span id="__span-30-29"><a id="__codelineno-30-29" name="__codelineno-30-29"></a>    <span class="n">preprocessing_service</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">ImagePreprocessorService</span><span class="p">)</span>
-</span><span id="__span-30-30"><a id="__codelineno-30-30" name="__codelineno-30-30"></a>
-</span><span id="__span-30-31"><a id="__codelineno-30-31" name="__codelineno-30-31"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-30-32"><a id="__codelineno-30-32" name="__codelineno-30-32"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"model.onnx"</span><span class="p">)</span>
-</span><span id="__span-30-33"><a id="__codelineno-30-33" name="__codelineno-30-33"></a>
-</span><span id="__span-30-34"><a id="__codelineno-30-34" name="__codelineno-30-34"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
-</span><span id="__span-30-35"><a id="__codelineno-30-35" name="__codelineno-30-35"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-</span><span id="__span-30-36"><a id="__codelineno-30-36" name="__codelineno-30-36"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
-</span><span id="__span-30-37"><a id="__codelineno-30-37" name="__codelineno-30-37"></a>        <span class="n">image</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing_service</span><span class="o">.</span><span class="n">to_async</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
-</span><span id="__span-30-38"><a id="__codelineno-30-38" name="__codelineno-30-38"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
-</span><span id="__span-30-39"><a id="__codelineno-30-39" name="__codelineno-30-39"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</li>
-<li>
-<p>Implement three services, where two of them run concurrently and the outputs of both services are combined in the
-    third service to make a prediction. As an example you can expand your previous service to serve two different
-    models and then implement a third service that combines the outputs of both models to make a prediction.</p>
-<details class="success">
-<summary>Solution</summary>
-<p>The following code snippet shows how to implement a service that consists of two concurrent services. The
-example assumes that two models called <code>model_a.onnx</code> and <code>model_b.onnx</code> are available.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_service_composition.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-31-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-31-3"> 3</a></span>
@@ -3594,69 +3534,157 @@ example assumes that two models called <code>model_a.onnx</code> and <code>model
 <span class="normal"><a href="#__codelineno-31-36">36</a></span>
 <span class="normal"><a href="#__codelineno-31-37">37</a></span>
 <span class="normal"><a href="#__codelineno-31-38">38</a></span>
-<span class="normal"><a href="#__codelineno-31-39">39</a></span>
-<span class="normal"><a href="#__codelineno-31-40">40</a></span>
-<span class="normal"><a href="#__codelineno-31-41">41</a></span>
-<span class="normal"><a href="#__codelineno-31-42">42</a></span>
-<span class="normal"><a href="#__codelineno-31-43">43</a></span>
-<span class="normal"><a href="#__codelineno-31-44">44</a></span>
-<span class="normal"><a href="#__codelineno-31-45">45</a></span>
-<span class="normal"><a href="#__codelineno-31-46">46</a></span>
-<span class="normal"><a href="#__codelineno-31-47">47</a></span>
-<span class="normal"><a href="#__codelineno-31-48">48</a></span>
-<span class="normal"><a href="#__codelineno-31-49">49</a></span>
-<span class="normal"><a href="#__codelineno-31-50">50</a></span>
-<span class="normal"><a href="#__codelineno-31-51">51</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="normal"><a href="#__codelineno-31-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2"></a>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 </span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4"></a>
 </span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">bentoml</span>
 </span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="kn">import</span> <span class="n">InferenceSession</span>
-</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8"></a>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
 </span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9"></a>
-</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
-</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierServiceModelA</span><span class="p">:</span>
-</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
-</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13"></a>
-</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"model_a.onnx"</span><span class="p">)</span>
-</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16"></a>
-</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
-</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
-</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
-</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-31-22"><a id="__codelineno-31-22" name="__codelineno-31-22"></a>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10"></a>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImagePreprocessorService</span><span class="p">:</span>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13"></a><span class="w">    </span><span class="sd">"""Image preprocessor service."""</span>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14"></a>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17"></a><span class="w">        </span><span class="sd">"""Preprocess the input image."""</span>
+</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
+</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">))</span>
+</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21"></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span><span id="__span-31-22"><a id="__codelineno-31-22" name="__codelineno-31-22"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span><span id="__span-31-23"><a id="__codelineno-31-23" name="__codelineno-31-23"></a>
-</span><span id="__span-31-24"><a id="__codelineno-31-24" name="__codelineno-31-24"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
-</span><span id="__span-31-25"><a id="__codelineno-31-25" name="__codelineno-31-25"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierServiceModelB</span><span class="p">:</span>
-</span><span id="__span-31-26"><a id="__codelineno-31-26" name="__codelineno-31-26"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
-</span><span id="__span-31-27"><a id="__codelineno-31-27" name="__codelineno-31-27"></a>
-</span><span id="__span-31-28"><a id="__codelineno-31-28" name="__codelineno-31-28"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-31-29"><a id="__codelineno-31-29" name="__codelineno-31-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"model_b.onnx"</span><span class="p">)</span>
+</span><span id="__span-31-24"><a id="__codelineno-31-24" name="__codelineno-31-24"></a>
+</span><span id="__span-31-25"><a id="__codelineno-31-25" name="__codelineno-31-25"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
+</span><span id="__span-31-26"><a id="__codelineno-31-26" name="__codelineno-31-26"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierService</span><span class="p">:</span>
+</span><span id="__span-31-27"><a id="__codelineno-31-27" name="__codelineno-31-27"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
+</span><span id="__span-31-28"><a id="__codelineno-31-28" name="__codelineno-31-28"></a>
+</span><span id="__span-31-29"><a id="__codelineno-31-29" name="__codelineno-31-29"></a>    <span class="n">preprocessing_service</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">ImagePreprocessorService</span><span class="p">)</span>
 </span><span id="__span-31-30"><a id="__codelineno-31-30" name="__codelineno-31-30"></a>
-</span><span id="__span-31-31"><a id="__codelineno-31-31" name="__codelineno-31-31"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
-</span><span id="__span-31-32"><a id="__codelineno-31-32" name="__codelineno-31-32"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-</span><span id="__span-31-33"><a id="__codelineno-31-33" name="__codelineno-31-33"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
-</span><span id="__span-31-34"><a id="__codelineno-31-34" name="__codelineno-31-34"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
-</span><span id="__span-31-35"><a id="__codelineno-31-35" name="__codelineno-31-35"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-31-36"><a id="__codelineno-31-36" name="__codelineno-31-36"></a>
-</span><span id="__span-31-37"><a id="__codelineno-31-37" name="__codelineno-31-37"></a>
-</span><span id="__span-31-38"><a id="__codelineno-31-38" name="__codelineno-31-38"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
-</span><span id="__span-31-39"><a id="__codelineno-31-39" name="__codelineno-31-39"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierService</span><span class="p">:</span>
-</span><span id="__span-31-40"><a id="__codelineno-31-40" name="__codelineno-31-40"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
-</span><span id="__span-31-41"><a id="__codelineno-31-41" name="__codelineno-31-41"></a>
-</span><span id="__span-31-42"><a id="__codelineno-31-42" name="__codelineno-31-42"></a>    <span class="n">model_a</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">ImageClassifierServiceModelA</span><span class="p">)</span>
-</span><span id="__span-31-43"><a id="__codelineno-31-43" name="__codelineno-31-43"></a>    <span class="n">model_b</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">ImageClassifierServiceModelB</span><span class="p">)</span>
-</span><span id="__span-31-44"><a id="__codelineno-31-44" name="__codelineno-31-44"></a>
-</span><span id="__span-31-45"><a id="__codelineno-31-45" name="__codelineno-31-45"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
-</span><span id="__span-31-46"><a id="__codelineno-31-46" name="__codelineno-31-46"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-</span><span id="__span-31-47"><a id="__codelineno-31-47" name="__codelineno-31-47"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
-</span><span id="__span-31-48"><a id="__codelineno-31-48" name="__codelineno-31-48"></a>        <span class="n">result_a</span><span class="p">,</span> <span class="n">result_b</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-</span><span id="__span-31-49"><a id="__codelineno-31-49" name="__codelineno-31-49"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">model_a</span><span class="o">.</span><span class="n">to_async</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">image</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_b</span><span class="o">.</span><span class="n">to_async</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</span><span id="__span-31-50"><a id="__codelineno-31-50" name="__codelineno-31-50"></a>        <span class="p">)</span>
-</span><span id="__span-31-51"><a id="__codelineno-31-51" name="__codelineno-31-51"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">result_a</span> <span class="o">+</span> <span class="n">result_b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span id="__span-31-31"><a id="__codelineno-31-31" name="__codelineno-31-31"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-31-32"><a id="__codelineno-31-32" name="__codelineno-31-32"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"model.onnx"</span><span class="p">)</span>
+</span><span id="__span-31-33"><a id="__codelineno-31-33" name="__codelineno-31-33"></a>
+</span><span id="__span-31-34"><a id="__codelineno-31-34" name="__codelineno-31-34"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
+</span><span id="__span-31-35"><a id="__codelineno-31-35" name="__codelineno-31-35"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-31-36"><a id="__codelineno-31-36" name="__codelineno-31-36"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
+</span><span id="__span-31-37"><a id="__codelineno-31-37" name="__codelineno-31-37"></a>        <span class="n">image</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing_service</span><span class="o">.</span><span class="n">to_async</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
+</span><span id="__span-31-38"><a id="__codelineno-31-38" name="__codelineno-31-38"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
+</span><span id="__span-31-39"><a id="__codelineno-31-39" name="__codelineno-31-39"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</li>
+<li>
+<p>Implement three services, where two of them run concurrently and the outputs of both services are combined in the
+    third service to make a prediction. As an example you can expand your previous service to serve two different
+    models and then implement a third service that combines the outputs of both models to make a prediction.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The following code snippet shows how to implement a service that consists of two concurrent services. The
+example assumes that two models called <code>model_a.onnx</code> and <code>model_b.onnx</code> are available.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bentoml_service_composition.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-32-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-32-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-32-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-32-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-32-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-32-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-32-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-32-10">10</a></span>
+<span class="normal"><a href="#__codelineno-32-11">11</a></span>
+<span class="normal"><a href="#__codelineno-32-12">12</a></span>
+<span class="normal"><a href="#__codelineno-32-13">13</a></span>
+<span class="normal"><a href="#__codelineno-32-14">14</a></span>
+<span class="normal"><a href="#__codelineno-32-15">15</a></span>
+<span class="normal"><a href="#__codelineno-32-16">16</a></span>
+<span class="normal"><a href="#__codelineno-32-17">17</a></span>
+<span class="normal"><a href="#__codelineno-32-18">18</a></span>
+<span class="normal"><a href="#__codelineno-32-19">19</a></span>
+<span class="normal"><a href="#__codelineno-32-20">20</a></span>
+<span class="normal"><a href="#__codelineno-32-21">21</a></span>
+<span class="normal"><a href="#__codelineno-32-22">22</a></span>
+<span class="normal"><a href="#__codelineno-32-23">23</a></span>
+<span class="normal"><a href="#__codelineno-32-24">24</a></span>
+<span class="normal"><a href="#__codelineno-32-25">25</a></span>
+<span class="normal"><a href="#__codelineno-32-26">26</a></span>
+<span class="normal"><a href="#__codelineno-32-27">27</a></span>
+<span class="normal"><a href="#__codelineno-32-28">28</a></span>
+<span class="normal"><a href="#__codelineno-32-29">29</a></span>
+<span class="normal"><a href="#__codelineno-32-30">30</a></span>
+<span class="normal"><a href="#__codelineno-32-31">31</a></span>
+<span class="normal"><a href="#__codelineno-32-32">32</a></span>
+<span class="normal"><a href="#__codelineno-32-33">33</a></span>
+<span class="normal"><a href="#__codelineno-32-34">34</a></span>
+<span class="normal"><a href="#__codelineno-32-35">35</a></span>
+<span class="normal"><a href="#__codelineno-32-36">36</a></span>
+<span class="normal"><a href="#__codelineno-32-37">37</a></span>
+<span class="normal"><a href="#__codelineno-32-38">38</a></span>
+<span class="normal"><a href="#__codelineno-32-39">39</a></span>
+<span class="normal"><a href="#__codelineno-32-40">40</a></span>
+<span class="normal"><a href="#__codelineno-32-41">41</a></span>
+<span class="normal"><a href="#__codelineno-32-42">42</a></span>
+<span class="normal"><a href="#__codelineno-32-43">43</a></span>
+<span class="normal"><a href="#__codelineno-32-44">44</a></span>
+<span class="normal"><a href="#__codelineno-32-45">45</a></span>
+<span class="normal"><a href="#__codelineno-32-46">46</a></span>
+<span class="normal"><a href="#__codelineno-32-47">47</a></span>
+<span class="normal"><a href="#__codelineno-32-48">48</a></span>
+<span class="normal"><a href="#__codelineno-32-49">49</a></span>
+<span class="normal"><a href="#__codelineno-32-50">50</a></span>
+<span class="normal"><a href="#__codelineno-32-51">51</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2"></a>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4"></a>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">bentoml</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="kn">import</span> <span class="n">InferenceSession</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8"></a>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9"></a>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierServiceModelA</span><span class="p">:</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13"></a>
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"model_a.onnx"</span><span class="p">)</span>
+</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16"></a>
+</span><span id="__span-32-17"><a id="__codelineno-32-17" name="__codelineno-32-17"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
+</span><span id="__span-32-18"><a id="__codelineno-32-18" name="__codelineno-32-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-32-19"><a id="__codelineno-32-19" name="__codelineno-32-19"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
+</span><span id="__span-32-20"><a id="__codelineno-32-20" name="__codelineno-32-20"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
+</span><span id="__span-32-21"><a id="__codelineno-32-21" name="__codelineno-32-21"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-32-22"><a id="__codelineno-32-22" name="__codelineno-32-22"></a>
+</span><span id="__span-32-23"><a id="__codelineno-32-23" name="__codelineno-32-23"></a>
+</span><span id="__span-32-24"><a id="__codelineno-32-24" name="__codelineno-32-24"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
+</span><span id="__span-32-25"><a id="__codelineno-32-25" name="__codelineno-32-25"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierServiceModelB</span><span class="p">:</span>
+</span><span id="__span-32-26"><a id="__codelineno-32-26" name="__codelineno-32-26"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
+</span><span id="__span-32-27"><a id="__codelineno-32-27" name="__codelineno-32-27"></a>
+</span><span id="__span-32-28"><a id="__codelineno-32-28" name="__codelineno-32-28"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-32-29"><a id="__codelineno-32-29" name="__codelineno-32-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">InferenceSession</span><span class="p">(</span><span class="s2">"model_b.onnx"</span><span class="p">)</span>
+</span><span id="__span-32-30"><a id="__codelineno-32-30" name="__codelineno-32-30"></a>
+</span><span id="__span-32-31"><a id="__codelineno-32-31" name="__codelineno-32-31"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
+</span><span id="__span-32-32"><a id="__codelineno-32-32" name="__codelineno-32-32"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-32-33"><a id="__codelineno-32-33" name="__codelineno-32-33"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
+</span><span id="__span-32-34"><a id="__codelineno-32-34" name="__codelineno-32-34"></a>        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
+</span><span id="__span-32-35"><a id="__codelineno-32-35" name="__codelineno-32-35"></a>        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-32-36"><a id="__codelineno-32-36" name="__codelineno-32-36"></a>
+</span><span id="__span-32-37"><a id="__codelineno-32-37" name="__codelineno-32-37"></a>
+</span><span id="__span-32-38"><a id="__codelineno-32-38" name="__codelineno-32-38"></a><span class="nd">@bentoml</span><span class="o">.</span><span class="n">service</span>
+</span><span id="__span-32-39"><a id="__codelineno-32-39" name="__codelineno-32-39"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImageClassifierService</span><span class="p">:</span>
+</span><span id="__span-32-40"><a id="__codelineno-32-40" name="__codelineno-32-40"></a><span class="w">    </span><span class="sd">"""Image classifier service using ONNX model."""</span>
+</span><span id="__span-32-41"><a id="__codelineno-32-41" name="__codelineno-32-41"></a>
+</span><span id="__span-32-42"><a id="__codelineno-32-42" name="__codelineno-32-42"></a>    <span class="n">model_a</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">ImageClassifierServiceModelA</span><span class="p">)</span>
+</span><span id="__span-32-43"><a id="__codelineno-32-43" name="__codelineno-32-43"></a>    <span class="n">model_b</span> <span class="o">=</span> <span class="n">bentoml</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">ImageClassifierServiceModelB</span><span class="p">)</span>
+</span><span id="__span-32-44"><a id="__codelineno-32-44" name="__codelineno-32-44"></a>
+</span><span id="__span-32-45"><a id="__codelineno-32-45" name="__codelineno-32-45"></a>    <span class="nd">@bentoml</span><span class="o">.</span><span class="n">api</span>
+</span><span id="__span-32-46"><a id="__codelineno-32-46" name="__codelineno-32-46"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-32-47"><a id="__codelineno-32-47" name="__codelineno-32-47"></a><span class="w">        </span><span class="sd">"""Predict the class of the input image."""</span>
+</span><span id="__span-32-48"><a id="__codelineno-32-48" name="__codelineno-32-48"></a>        <span class="n">result_a</span><span class="p">,</span> <span class="n">result_b</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+</span><span id="__span-32-49"><a id="__codelineno-32-49" name="__codelineno-32-49"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">model_a</span><span class="o">.</span><span class="n">to_async</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">image</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_b</span><span class="o">.</span><span class="n">to_async</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span id="__span-32-50"><a id="__codelineno-32-50" name="__codelineno-32-50"></a>        <span class="p">)</span>
+</span><span id="__span-32-51"><a id="__codelineno-32-51" name="__codelineno-32-51"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">result_a</span> <span class="o">+</span> <span class="n">result_b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -3670,22 +3698,22 @@ example assumes that two models called <code>model_a.onnx</code> and <code>model
     often requires you to first containerize the application. Because <code>BentoML</code> is designed to be easy to use for even
     users not that familiar with Docker, it introduces the concept of a <code>bentofile</code>. A <code>bentofile</code> is a file that
     specifies how the container should be built. Below is an example of how a <code>bentofile</code> could look.</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">'service:Summarization'</span>
-</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nt">labels</span><span class="p">:</span>
-</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bentoml-team</span>
-</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gallery</span>
-</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="nt">include</span><span class="p">:</span>
-</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'*.py'</span>
-</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="nt">python</span><span class="p">:</span>
-</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="w">  </span><span class="nt">packages</span><span class="p">:</span>
-</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">torch</span>
-</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformers</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">'service:Summarization'</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nt">labels</span><span class="p">:</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bentoml-team</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gallery</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="nt">include</span><span class="p">:</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'*.py'</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="nt">python</span><span class="p">:</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">  </span><span class="nt">packages</span><span class="p">:</span>
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">torch</span>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformers</span>
 </span></code></pre></div>
 <p>This can then be used to build a <code>bento</code> using the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>bentoml<span class="w"> </span>build
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>bentoml<span class="w"> </span>build
 </span></code></pre></div>
 <p>A <code>bento</code> is not a docker image, but it can be used to build a docker image with the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>bentoml<span class="w"> </span>containerize<span class="w"> </span>summarization:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>bentoml<span class="w"> </span>containerize<span class="w"> </span>summarization:latest
 </span></code></pre></div>
 <ol>
 <li>
@@ -3714,41 +3742,41 @@ that are used to generate the dockerfiles. The templates can be found
 <summary>Solution</summary>
 <p>The following <code>bentofile</code> can be used to containerize the very first service we implemented in this set of
 exercises.</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">'bentoml_service:ImageClassifierService'</span>
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nt">labels</span><span class="p">:</span>
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bentoml-team</span>
-</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gallery</span>
-</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="nt">include</span><span class="p">:</span>
-</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'bentoml_service.py'</span>
-</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'model.onnx'</span>
-</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="nt">python</span><span class="p">:</span>
-</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="w">  </span><span class="nt">packages</span><span class="p">:</span>
-</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onnxruntime</span>
-</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numpy</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">'bentoml_service:ImageClassifierService'</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="nt">labels</span><span class="p">:</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bentoml-team</span>
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gallery</span>
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="nt">include</span><span class="p">:</span>
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'bentoml_service.py'</span>
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'model.onnx'</span>
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="nt">python</span><span class="p">:</span>
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="w">  </span><span class="nt">packages</span><span class="p">:</span>
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onnxruntime</span>
+</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numpy</span>
 </span></code></pre></div>
 <p>The corresponding dockerfile would look something like this:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
-</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/bento</span>
-</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="k">COPY</span><span class="w"> </span>bentoml_service.py<span class="w"> </span>.
-</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="k">COPY</span><span class="w"> </span>model.onnx<span class="w"> </span>.
-</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime<span class="w"> </span>numpy<span class="w"> </span>bentoml
-</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"bentoml"</span><span class="p">,</span><span class="w"> </span><span class="s2">"serve"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bentoml_service:ImageClassifierService"</span><span class="p">]</span>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/bento</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="k">COPY</span><span class="w"> </span>bentoml_service.py<span class="w"> </span>.
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="k">COPY</span><span class="w"> </span>model.onnx<span class="w"> </span>.
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>onnxruntime<span class="w"> </span>numpy<span class="w"> </span>bentoml
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"bentoml"</span><span class="p">,</span><span class="w"> </span><span class="s2">"serve"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bentoml_service:ImageClassifierService"</span><span class="p">]</span>
 </span></code></pre></div>
 </details>
 </li>
 <li>
-<p>Deploy the container to GCP Run and test that it works.</p>
+<p>Deploy the container to Google Cloud Run and test that it works.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The following command can be used to deploy the container to GCP Run. We assume that you have already built
-the container and called it <code>bentoml_service:latest</code></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>bentoml_service:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">    </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest
-</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>docker<span class="w"> </span>push<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest
-</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>bentoml-service<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="w">    </span>--image<span class="o">=</span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="w">    </span>--platform<span class="w"> </span>managed<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="w">    </span>--port<span class="w"> </span><span class="m">3000</span><span class="w">  </span><span class="c1"># default used by BentoML</span>
+<p>The following command can be used to deploy the container to Google Cloud Run. We assume that you have
+already built the container and called it <code>bentoml_service:latest</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>docker<span class="w"> </span>tag<span class="w"> </span>bentoml_service:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>docker<span class="w"> </span>push<span class="w"> </span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>bentoml-service<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">    </span>--image<span class="o">=</span>&lt;region&gt;-docker.pkg.dev/&lt;project-id&gt;/&lt;repository-name&gt;/bentoml_service:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">    </span>--platform<span class="w"> </span>managed<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="w">    </span>--port<span class="w"> </span><span class="m">3000</span><span class="w">  </span><span class="c1"># default used by BentoML</span>
 </span></code></pre></div>
 <p>where <code>&lt;project-id&gt;</code> should be replaced with the id of the project you are deploying to. The service should
 now be available at the URL that is printed in the terminal.</p>
@@ -3758,10 +3786,10 @@ now be available at the URL that is printed in the terminal.</p>
 </li>
 </ol>
 <p>This completes the exercises on the <code>BentoML</code> framework. If you want to deep dive more into this we recommend
-looking into their <a href="https://docs.bentoml.org/en/latest/guides/tasks.html">tasks feature</a> for use cases that have a
-very long running time and built-in
-<a href="https://docs.bentoml.org/en/latest/guides/model-loading-and-management.html">model management feature</a> to unify the
-way models are loaded, managed and served.</p>
+looking into their <a href="https://docs.bentoml.com/en/latest/get-started/async-task-queues.html">task queues feature</a> for use
+cases that have a very long running time and built-in
+<a href="https://docs.bentoml.com/en/latest/build-with-bentoml/model-loading-and-management.html">model management feature</a> to
+unify the way models are loaded, managed and served.</p>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
 <ol>
 <li>
@@ -3771,13 +3799,16 @@ way models are loaded, managed and served.</p>
 <summary>Solution</summary>
 <p>It is possible to export a <code>scikit-learn</code> model to ONNX using the <code>sklearn-onnx</code> package. The following code
 snippet shows how to export a <code>scikit-learn</code> model to ONNX.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">skl2onnx</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_onnx</span>
-</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="n">dummy_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="n">onx</span> <span class="o">=</span> <span class="n">to_onnx</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dummy_input</span><span class="p">)</span>
-</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"model.onnx"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">onx</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">skl2onnx</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_onnx</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>
+</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="n">onx</span> <span class="o">=</span> <span class="n">to_onnx</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+</span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"model.onnx"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">onx</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
 </span></code></pre></div>
 <p>The method that is exported when you export a <code>scikit-learn</code> model to ONNX is the <code>predict</code> method.</p>
 </details>
@@ -3831,7 +3862,7 @@ model, you try out a few different frameworks and see which one fits your use ca
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 21, 2026 09:03:37">January 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     

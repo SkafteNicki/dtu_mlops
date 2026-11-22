@@ -68,8 +68,8 @@ def train(lr: float = 0.001, batch_size: int = 32, epochs: int = 5) -> None:
                 plot_chance_level=(class_id == 2),
             )
 
-        # alternatively use wandb.log({"roc": wandb.Image(plt)}
-        wandb.plot({"roc": plt})
+        # alternatively use wandb.log({"roc": wandb.Image(plt)})
+        wandb.log({"roc": plt})
         plt.close()  # close the plot to avoid memory leaks and overlapping figures
 
 

@@ -6,7 +6,6 @@ RUN apt update && \
 
 ARG CUDA
 ENV CUDA=${CUDA}
-RUN echo "CUDA is set to: ${CUDA}"
 
 RUN echo "CUDA is set to: ${CUDA}" && \
     if [ -n "$CUDA" ]; then \

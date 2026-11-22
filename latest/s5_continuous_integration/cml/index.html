@@ -2403,6 +2403,12 @@ repository.</p>
     the <code>cml</code> framework. It should be clear that it is the very same process that we go through in the other
     continuous integration sessions: <code>push code</code> -&gt; <code>trigger GitHub actions</code> -&gt; <code>do stuff</code>. The new part in this
     session is that we are only going to trigger whenever data changes.</p>
+<details class="note">
+<summary>CML is no longer actively developed</summary>
+<p>The <code>cml</code> framework has not seen a new release since <code>v0.20.6</code> in October 2024 and is currently in
+maintenance mode. The exercises in this session still work as described, but be aware that the framework
+is not being actively developed anymore.</p>
+</details>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/cml.jpeg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/cml.jpeg" width="1000" /></a>
 <figcaption>
@@ -2553,7 +2559,7 @@ repository.</p>
     dataset. This function should be called <code>dataset_statistics</code> and should take a path to the dataset as input.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dataset.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dataset_statistics.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
@@ -2683,10 +2689,10 @@ the correct way to pull the data.</p>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v7</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.11</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">'pip'</span>
@@ -2698,7 +2704,7 @@ the correct way to pull the data.</p>
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="no">pip list</span>
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Auth with GCP</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google-github-actions/auth@v2</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google-github-actions/auth@v3</span>
 </span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="nt">credentials_json</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GCP_SA_KEY }}</span>
 </span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
@@ -2728,21 +2734,21 @@ and runs as expected.</p>
 <p>Let's now add the <code>cml</code> framework such that we can comment the results of the <code>dataset_statistics</code> function in
     the pull request automatically. Look at the
     <a href="https://github.com/iterative/cml#getting-started">getting started guide</a> for help on how to do this. You will
-    need to write all the content of the <code>dataset_statistics</code> function to a file called <code>report.md</code> and then use the
-    <code>cml comment create</code> command to create a comment in the pull request with the content of the file.</p>
+    need to write the output of the <code>dataset_statistics</code> function to a file called <code>data_statistics.md</code> and then use
+    the <code>cml comment create</code> command to create a comment in the pull request with the content of the file.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">jobs</span><span class="p">:</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">dataset_statistics</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">run_data_checker</span><span class="p">:</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1"># ...all the previous steps</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Check data statistics &amp; generate report</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">      </span><span class="no">python src/example_mlops/data.py &gt; data_statistics.md</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">      </span><span class="no">echo '![](./mnist_images.png "MNIST images")' &gt;&gt; data_statistics.md</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">      </span><span class="no">echo '![](./train_label_distribution.png "Train label distribution")' &gt;&gt; data_statistics.md</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">      </span><span class="no">echo '![](./test_label_distribution.png "Test label distribution")' &gt;&gt; data_statistics.md</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="no">python dataset_statistics.py &gt; data_statistics.md</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="no">echo '![](./mnist_images.png "MNIST images")' &gt;&gt; data_statistics.md</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="no">echo '![](./train_label_distribution.png "Train label distribution")' &gt;&gt; data_statistics.md</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="no">echo '![](./test_label_distribution.png "Test label distribution")' &gt;&gt; data_statistics.md</span>
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup cml</span>
 </span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iterative/setup-cml@v2</span>
@@ -2754,8 +2760,9 @@ and runs as expected.</p>
 </span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">        </span><span class="no">cml comment create data_statistics.md --watermark-title="Data Checker" # (1)!</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>--watermark-title</code> flag is used to watermark the comment created by <code>cml</code>. It is
-    to make sure that no new comments are created every time the workflow runs.</li>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>--watermark-title</code> flag is used to mark the comment created by <code>cml</code>. This
+    makes it possible to update the same comment in later runs of the workflow instead of creating a new
+    one, e.g. by using the <code>cml comment update</code> command.</li>
 </ol>
 </details>
 </li>
@@ -2790,13 +2797,13 @@ instructions are slightly out of date. However, the overall process should still
 </div>
 <ol>
 <li>
-<p>The first step is in our weights and bias account to create a team. Some of these more advanced features are only
-    available for teams, however every user is allowed to create one team for free. Go to your weights and bias
-    account and create a team (the option should be on the left side of the UI). Give a team name and select W&amp;B
-    cloud storage.</p>
+<p>The first step is in our Weights &amp; Biases account to create a team. Some of these more advanced features are
+    only available for teams, however every user is allowed to create one team for free. Go to your Weights &amp;
+    Biases account and create a team (the option should be on the left side of the UI). Give a team name and
+    select W&amp;B cloud storage.</p>
 </li>
 <li>
-<p>Now we need to generate a personal access token that can link our weights and bias account to our GitHub account.
+<p>Now we need to generate a personal access token that can link our Weights &amp; Biases account to our GitHub account.
     Go to <a href="https://github.com/settings/personal-access-tokens/new">this page</a> and generate a new token. You can also
     find the page by clicking your profile icon in the upper right corner of GitHub and selecting
     <code>Settings</code>, then <code>Developer settings</code>, then <code>Personal access tokens</code> and finally choose either
@@ -2815,8 +2822,8 @@ created the token, copy it and save it somewhere safe.</p>
     WANDB will now be able to use this token to trigger actions in your repository.</p>
 </li>
 <li>
-<p>On the same settings page, scroll down to the <code>Webhooks</code> settings. Click the <code>New webhook</code> button in fill in the
-    following information:</p>
+<p>On the same settings page, scroll down to the <code>Webhooks</code> settings. Click the <code>New webhook</code> button and fill in
+    the following information:</p>
 <ul>
 <li>Name: <code>github_actions_dispatch</code></li>
 <li>URL: <code>https://api.github.com/repos/&lt;owner&gt;/&lt;repo&gt;/dispatches</code></li>
@@ -2832,10 +2839,11 @@ some other framework that should trigger a GitHub action, you can use this endpo
     registered. If not, go back to the previous module and do that.</p>
 </li>
 <li>
-<p>When you have a model in your registry, click on the <code>View details</code> button. Then click the <code>New automation</code>
-    button. On the first page, select that you want to trigger the automation when an alias is added to a model
-    version, set that alias to <code>staging</code> and select the action type to be <code>Webhook</code>. On the next page, select the
-    <code>github_actions_dispatch</code> webhook that you just created and add this as the payload:</p>
+<p>When you have a model in your registry, click on the <code>View details</code> button. Then go to the <code>Automations</code> tab
+    and click the <code>Create automation</code> button. On the first page, select that you want to trigger the automation
+    when an alias is added to a model version, set that alias to <code>staging</code> and select the action type to be
+    <code>Webhook</code>. On the next page, select the <code>github_actions_dispatch</code> webhook that you just created and add this
+    as the payload:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"staged_model"</span><span class="p">,</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">"client_payload"</span><span class="p">:</span>
@@ -2926,7 +2934,7 @@ to the default branch.</p>
 </ol>
 <details class="success">
 <summary>Solution</summary>
-<p>In this solution we assume that 4 environment variables are set: <code>WANDB_API</code>, <code>WANDB_ENTITY</code>,
+<p>In this solution we assume that 4 environment variables are set: <code>WANDB_API_KEY</code>, <code>WANDB_ENTITY</code>,
 <code>WANDB_PROJECT</code> and <code>MODEL_NAME</code>.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">test_model.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
@@ -2949,28 +2957,30 @@ to the default branch.</p>
 <span class="normal"><a href="#__codelineno-9-19">19</a></span>
 <span class="normal"><a href="#__codelineno-9-20">20</a></span>
 <span class="normal"><a href="#__codelineno-9-21">21</a></span>
-<span class="normal"><a href="#__codelineno-9-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span>
+<span class="normal"><a href="#__codelineno-9-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_project.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyModel</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_model</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_API_KEY"</span><span class="p">),</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">"entity"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_ENTITY"</span><span class="p">),</span> <span class="s2">"project"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_PROJECT"</span><span class="p">)},</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a>    <span class="p">)</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a>    <span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">)</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a>    <span class="n">artifact</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">logdir</span><span class="p">)</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a>    <span class="n">file_name</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">files</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a>    <span class="k">return</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">load_from_checkpoint</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">logdir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a>
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_model_speed</span><span class="p">():</span>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_NAME"</span><span class="p">))</span>
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a>        <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a>    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a>    <span class="k">assert</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">1</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_project.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyModel</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_model</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logdir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"model_artifacts"</span><span class="p">):</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_API_KEY"</span><span class="p">),</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">"entity"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_ENTITY"</span><span class="p">),</span> <span class="s2">"project"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_PROJECT"</span><span class="p">)},</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a>    <span class="p">)</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a>    <span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">)</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a>    <span class="n">artifact</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">logdir</span><span class="p">)</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a>    <span class="n">file_name</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">files</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a>    <span class="k">return</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">load_from_checkpoint</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">logdir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_model_speed</span><span class="p">():</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_NAME"</span><span class="p">))</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a>        <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a>    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a>    <span class="k">assert</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">1</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -3002,10 +3012,10 @@ to the default branch.</p>
 </span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 </span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">        </span><span class="no">echo "Model name: $MODEL_NAME"</span>
 </span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
 </span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v7</span>
 </span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.11</span>
 </span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">        </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">'pip'</span>
@@ -3031,37 +3041,39 @@ to the default branch.</p>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">link_model</span><span class="p">(</span><span class="n">artifact_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">aliases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"staging"</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="sd">    Stage a specific model to the model registry.</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sd">    Args:</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="sd">        artifact_path: Path to the artifact to stage.</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="sd">            Should be of the format "entity/project/artifact_name:version".</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="sd">        aliases: List of aliases to link the artifact with.</span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="sd">    Example:</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="sd">        model_management link-model entity/project/artifact_name:version -a staging -a best</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">link_model</span><span class="p">(</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">artifact_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">aliases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">([</span><span class="s2">"staging"</span><span class="p">],</span> <span class="s2">"--alias"</span><span class="p">,</span> <span class="s2">"-a"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Aliases to add."</span><span class="p">),</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="sd">    Stage a specific model to the model registry.</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="sd">    Args:</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="sd">        artifact_path: Path to the artifact to stage.</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="sd">            Should be of the format "entity/project/artifact_name:version".</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="sd">        aliases: List of aliases to link the artifact with.</span>
 </span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="sd">    """</span>
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    <span class="k">if</span> <span class="n">artifact_path</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>        <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">"No artifact path provided. Exiting."</span><span class="p">)</span>
-</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>        <span class="k">return</span>
-</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
-</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
-</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_API_KEY"</span><span class="p">),</span>
-</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">"entity"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_ENTITY"</span><span class="p">),</span> <span class="s2">"project"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_PROJECT"</span><span class="p">)},</span>
-</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>    <span class="p">)</span>
-</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">artifact_name_version</span> <span class="o">=</span> <span class="n">artifact_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
-</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>    <span class="n">artifact_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">artifact_name_version</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
-</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>
-</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>    <span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">artifact_path</span><span class="p">)</span>
-</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>    <span class="n">artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'WANDB_ENTITY'</span><span class="p">)</span><span class="si">}</span><span class="s2">/model-registry/</span><span class="si">{</span><span class="n">artifact_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">)</span>
-</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>    <span class="n">artifact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Artifact </span><span class="si">{</span><span class="n">artifact_path</span><span class="si">}</span><span class="s2"> linked to </span><span class="si">{</span><span class="n">aliases</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
-</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">link_model</span><span class="p">)</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="sd">    Example:</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="sd">        model_management link-model entity/project/artifact_name:version -a staging -a best</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="sd">    """</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>    <span class="k">if</span> <span class="n">artifact_path</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>        <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">"No artifact path provided. Exiting."</span><span class="p">)</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>        <span class="k">return</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_API_KEY"</span><span class="p">),</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">"entity"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_ENTITY"</span><span class="p">),</span> <span class="s2">"project"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_PROJECT"</span><span class="p">)},</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>    <span class="p">)</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">artifact_name_version</span> <span class="o">=</span> <span class="n">artifact_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>    <span class="n">artifact_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">artifact_name_version</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>    <span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">artifact_path</span><span class="p">)</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>    <span class="n">artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">"wandb-registry-model/</span><span class="si">{</span><span class="n">artifact_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">)</span>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Artifact </span><span class="si">{</span><span class="n">artifact_path</span><span class="si">}</span><span class="s2"> linked to </span><span class="si">{</span><span class="n">aliases</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">link_model</span><span class="p">)</span>
 </span></code></pre></div>
 <p>For example, you can run this script with the following command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>link_model.py<span class="w"> </span>entity/project/artifact_name:version<span class="w"> </span>-a<span class="w"> </span>staging<span class="w"> </span>-a<span class="w"> </span>production
@@ -3088,10 +3100,10 @@ to the default branch.</p>
 </span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">        </span><span class="no">echo "Model name: $MODEL_NAME"</span>
 </span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
 </span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
-</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
 </span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
-</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v7</span>
 </span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.11</span>
 </span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="w">        </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">'pip'</span>
@@ -3165,7 +3177,7 @@ that it is important that human oversight is always present in the process. Auto
 replace human judgement. This is especially true in machine learning where the consequences of a bad model can be
 severe if it is used in critical decision making.</p>
 <p>Finally, if you have completed the exercises on <a href="../../s6_the_cloud/using_the_cloud/">using the cloud</a> consider checking
-out the <a href="https://cml.dev/doc/ref/runner#--cloud">cml runner lunch</a> command that allows you to run your workflows on
+out the <a href="https://cml.dev/doc/ref/runner#--cloud">cml runner launch</a> command that allows you to run your workflows on
 cloud resources instead of the GitHub action runners.</p>
 
 
@@ -3189,7 +3201,7 @@ cloud resources instead of the GitHub action runners.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2026 08:33:19">January 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     

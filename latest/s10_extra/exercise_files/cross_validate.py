@@ -17,8 +17,6 @@ print(f"Train shape: {X_train.shape}, {y_train.shape}")
 print(f"Test shape: {X_test.shape}, {y_test.shape}")
 
 if not OPTUNA:
-    kf = KFold(n_splits=5)
-
     N_ESTIMATORS = [1, 5, 10, 20, 50, 100, 200]
     MAX_DEPTH = [1, 5, 10, 20, 100]
 
@@ -62,7 +60,7 @@ else:
     def objective(trial):
         """Objective function for Optuna to optimize."""
         # fill in this. Given a trial it should
-        # 1. suggest a set of hyperparameters (HINT: use trial.suggest_discrete_uniform )
+        # 1. suggest a set of hyperparameters (HINT: use trial.suggest_int )
         # 2. train a random forest using the hyperparameters
         # 3. evaluate the trained random forest
         return val_acc

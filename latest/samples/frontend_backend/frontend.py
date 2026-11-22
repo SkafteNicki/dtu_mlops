@@ -6,13 +6,14 @@ import streamlit as st
 from google.cloud import run_v2
 
 
+@st.cache_resource
 def get_backend_url():
     """Get the URL of the backend service."""
     parent = "projects/my-personal-mlops-project/locations/europe-west1"
     client = run_v2.ServicesClient()
     services = client.list_services(parent=parent)
     for service in services:
-        if service.name.split("/")[-1] == "production-model":
+        if service.name.split("/")[-1] == "backend":
             return service.uri
     return os.environ.get("BACKEND", None)
 
@@ -20,7 +21,7 @@ def get_backend_url():
 def classify_image(image, backend):
     """Send the image to the backend for classification."""
     predict_url = f"{backend}/predict"
-    response = requests.post(predict_url, files={"image": image}, timeout=10)
+    response = requests.post(predict_url, files={"file": image}, timeout=10)
     if response.status_code == 200:
         return response.json()
     return None
@@ -50,7 +51,11 @@ def main() -> None:
             st.write("Prediction:", prediction)
 
             # make a nice bar chart
-            data = {"Class": [f"Class {i}" for i in range(10)], "Probability": probabilities}
+            top_indices = sorted(range(len(probabilities)), key=probabilities.__getitem__, reverse=True)[:10]
+            data = {
+                "Class": [f"Class {i}" for i in top_indices],
+                "Probability": [probabilities[i] for i in top_indices],
+            }
             df = pd.DataFrame(data)
             df.set_index("Class", inplace=True)
             st.bar_chart(df, y="Probability")

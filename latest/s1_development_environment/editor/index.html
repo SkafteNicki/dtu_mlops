@@ -2424,7 +2424,7 @@ chosen. If you are already an expert in one of them, feel free to skip the rest.
 </ul>
 <p>The instructions below are specific to Visual Studio Code, but we recommend that you try to answer the questions
 if using another editor. In the <code>exercise_files</code> folder belonging to this session, we have put cheat sheets for VS Code
-(one for Windows and one for Mac/Linux) that can give you an easy overview of the different macros in VS Code. The
+(one for Windows and one for Mac/Linux) that can give you an easy overview of the different shortcuts in VS Code. The
 following exercises are just to get you started, but you can find many more tutorials
 <a href="https://code.visualstudio.com/docs/python/python-tutorial">in the VS Code Python tutorial</a>.</p>
 <ol>
@@ -2441,7 +2441,7 @@ following exercises are just to get you started, but you can find many more tuto
 </ul>
 </li>
 <li>
-<p>If you install the <code>Python</code> package, you should see something like this in your status bar:</p>
+<p>If you install the <code>Python</code> extension, you should see something like this in your status bar:</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/action_bar.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/action_bar.PNG" width="700" /></a>
 </figure></p>
@@ -2476,7 +2476,7 @@ have chosen, and finally run your script. In addition to clicking the <code>run<
 <p>That's the basics of using VS Code. We highly recommend that you revisit
 <a href="https://code.visualstudio.com/docs/python/python-tutorial">this tutorial</a> during the course when we get to topics such
 as debugging and version control, which VS Code can help with. We can also recommend this
-<a href="https://fmind.medium.com/how-to-configure-vs-code-for-ai-ml-and-mlops-development-in-python-%EF%B8%8F%EF%B8%8F-8582d8c6ea54">blog post</a>
+<a href="https://fmind.dev/articles/how-to-configure-vs-code-for-ai-ml-and-mlops-development-in-python/">blog post</a>
 that goes over some good extensions for AI/ML development in VS Code.</p>
 <h2 id="a-note-on-jupyter-notebooks-in-production-environments">A note on Jupyter notebooks in production environments</h2>
 <p>As already stated, Jupyter Notebooks are great for development as they allow developers to easily test out new ideas.
@@ -2497,7 +2497,7 @@ opinions on Jupyter notebooks that exist within the developer community.</p>
 </div>
 </div>
 </div>
-<p>You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
+<p>You may need some further dependencies such as Pandoc, TeX and Playwright for it to work (see install instructions
 <a href="https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert">in the nbconvert documentation</a>). After
 this, converting a notebook to a <code>.py</code> script is as simple as:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--to<span class="o">=</span>script<span class="w"> </span>my_notebook.ipynb
@@ -2527,7 +2527,7 @@ code you are currently writing and in general just has access to a larger contex
 <li>
 <p>GitHub Copilot has many different features, but the most important one is the ability to provide suggestions based
     on the code you are currently writing. Try to write some code in a new Python file and see if you can get some
-    suggestions from GitHub Copilot on how to complete the code. If you have no idea what to try out here is a
+    suggestions from GitHub Copilot on how to complete the code. If you have no idea what to try out, here is a
     simple example of starting out coding a neural network in PyTorch:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
@@ -2580,10 +2580,9 @@ code you are currently writing and in general just has access to a larger contex
 </div>
 </div>
 <p>It will naturally give you an error, but you can now ask GitHub Copilot for help. The easiest way to do this is by
-highlighting the output in the terminal and then running
-the <code>GitHub Copilot: Explain This (Terminal)</code> command (see the image below, use <code>Ctrl+Shift+P</code> to open the command
-palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
-the code running?</p>
+opening Copilot Chat and asking it to explain what went wrong (the <code>@terminal</code> keyword can be used to provide the
+terminal and its content as context to the chat). Does the explanation make sense e.g. can you figure out what to
+change to get the code running?</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/github_copilot2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_copilot2.png" width="700" /></a>
 </figure></p>
@@ -2593,8 +2592,7 @@ the code running?</p>
     exercises using ChatGPT. What are the main differences between the two tools? (1)</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Remember that ChatGPT is a general AI model, meaning that it was trained to be good at many
-    tasks, whereas GitHub Copilot (which uses OpenAI's Codex model under the hood) was specifically trained to be
-    good at coding.</li>
+    tasks, whereas GitHub Copilot is specifically designed to be good at coding.</li>
 </ol>
 </li>
 </ol>
@@ -2624,7 +2622,7 @@ you are the one responsible for the code you write, not the AI tool.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38">January 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     

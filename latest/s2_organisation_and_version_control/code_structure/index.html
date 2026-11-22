@@ -2345,7 +2345,7 @@ the question then remains: how to organize our code? As developers, we tend to n
 much. It is instead something that is just dynamically created as we may need it. However, maybe we should spend
 some time initially getting organized with the chance of this making our code easier to develop and maintain in the
 long run. If we do not spend time organizing our code, we may end up with a mess of code that is hard to understand
-or maintain</p>
+or maintain.</p>
 <div class="admonition quote">
 <p class="admonition-title">Big Ball of Mud</p>
 <p><em>A Big Ball of Mud is a haphazardly structured, sprawling, sloppy, duct-tape-and-baling-wire, spaghetti-code</em>
@@ -2370,8 +2370,8 @@ codebase should probably be different.</p>
 which is a tool for creating projects from <em>project templates</em>. A project template is in short just an overall structure
 for how you want your folders, files, etc. to be organized from the beginning. For this course we are going to be using
 a custom <a href="https://github.com/SkafteNicki/mlops_template">MLOps template</a>. The template is essentially a fork of the
-<a href="https://github.com/drivendata/cookiecutter-data-science">cookiecutter data science template</a> that has been used for a
-couple of years in the course, but specialized a bit more towards MLOps instead of general data science.</p>
+<a href="https://github.com/drivendataorg/cookiecutter-data-science">cookiecutter data science template</a> that has been used
+for a couple of years in the course, but specialized a bit more towards MLOps instead of general data science.</p>
 <p>We are not going to argue that this template is better than every other template; it is just a
 <strong>standardized</strong> way of creating project structures for machine learning projects. By standardized we mean that if two
 people are using <code>cookiecutter</code> with the same template, the layout of their code follows some specific rules,
@@ -2400,7 +2400,7 @@ a directory as a Python package. Therefore, as a bare minimum, any Python packag
 </span></code></pre></div>
 <p>The second file to focus on is the <code>pyproject.toml</code>. This file is important for actually converting your code into a
 Python project. Essentially, whenever you run <code>pip install</code>, <code>pip</code> is in charge of both downloading the package you want
-but also in charge of <em>installing</em> it. For <code>pip</code> to be able to install a package it needs instructions on what part of
+and in charge of <em>installing</em> it. For <code>pip</code> to be able to install a package it needs instructions on what part of
 the code it should install and how to install it. This is the job of the <code>pyproject.toml</code> file.</p>
 <p>Below we have both added a description of the structure of the <code>pyproject.toml</code> file but also <code>setup.py + setup.cfg</code>
 which is the "old" way of providing project instructions regarding Python projects. However, you may still encounter
@@ -2412,7 +2412,7 @@ a lot of projects using <code>setup.py + setup.cfg</code>, so it is good to at l
 <a href="https://peps.python.org/pep-0621/">PEP 621</a>. It is written in <a href="https://toml.io/en/">toml format</a> which is easy to
 read. At the very least your <code>pyproject.toml</code> file should include the <code>[build-system]</code> and <code>[project]</code> sections:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[build-system]</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"setuptools"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wheel"</span><span class="p">]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"setuptools"</span><span class="p">]</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"setuptools.build_meta"</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">[project]</span>
@@ -2426,11 +2426,11 @@ read. At the very least your <code>pyproject.toml</code> file should include the
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">[tool.setuptools.dynamic]</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"requirements.txt"</span><span class="p">]}</span>
 </span></code></pre></div>
-<p>The <code>[build-system]</code> informs <code>pip</code>/<code>python</code> that to build this Python project it needs the two packages
-<code>setuptools</code> and <code>wheel</code> and that it should call the
-<a href="https://setuptools.pypa.io/en/latest/build_meta.html">setuptools.build_meta</a> function to actually build the
-project. The <code>[project]</code> section essentially contains metadata regarding the package, what it's called, etc. for if
-we ever want to publish it to <a href="https://pypi.org/">PyPI</a>.</p>
+<p>The <code>[build-system]</code> informs <code>pip</code>/<code>python</code> that to build this Python project it needs the <code>setuptools</code> package
+and that it should call the
+<a href="https://setuptools.pypa.io/en/latest/build_meta.html">setuptools.build_meta</a> build backend to actually build
+the project. The <code>[project]</code> section essentially contains metadata regarding the package, what it's called, etc.
+for if we ever want to publish it to <a href="https://pypi.org/">PyPI</a>.</p>
 <p>For specifying dependencies of your project you have two options. Either you specify them in a <code>requirements.txt</code>
 file and put that as a dynamic field in <code>pyproject.toml</code> as shown above. Alternatively, you can add a <code>dependencies</code>
 field under the <code>[project]</code> header like this (similar to how <code>uv</code> does it):</p>
@@ -2445,26 +2445,25 @@ be specified in it, essentially making sure you only need a single file for your
 [module M7 on good coding practices] you will learn about the tool <code>ruff</code> and how it can help format your code. If
 we want to configure <code>ruff</code> for our project we can do that directly in <code>pyproject.toml</code> by adding additional
 headers:</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[ruff]</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">ruff_option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">...</span>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[tool.ruff]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span>
 </span></code></pre></div>
 <p>To read more about how to specify <code>pyproject.toml</code> this
-<a href="https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata">page</a>
+<a href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml">page</a>
 is a good place to start.</p>
 </div>
 <div class="tabbed-block">
 <p><code>setup.py</code> is the original way to describe how a Python package should be built. The most basic <code>setup.py</code> file
 will look like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">setuptools</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pip.req</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_requirements</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">ir</span><span class="o">.</span><span class="n">req</span><span class="p">)</span> <span class="k">for</span> <span class="n">ir</span> <span class="ow">in</span> <span class="n">parse_requirements</span><span class="p">(</span><span class="s2">"requirements.txt"</span><span class="p">)]</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">setup</span><span class="p">(</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">"my-package-name"</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">version</span><span class="o">=</span><span class="s2">"0.1.0"</span><span class="p">,</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">author</span><span class="o">=</span><span class="s2">"EM"</span><span class="p">,</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">"Something cool here."</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">install_requires</span><span class="o">=</span><span class="n">requirements</span><span class="p">,</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">setup</span><span class="p">(</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">"my-package-name"</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">version</span><span class="o">=</span><span class="s2">"0.1.0"</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">author</span><span class="o">=</span><span class="s2">"EM"</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">"Something cool here."</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span><span class="s2">"torch==2.1.0"</span><span class="p">,</span> <span class="s2">"matplotlib&gt;=3.8.1"</span><span class="p">],</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Essentially, it is the exact same meta information as in <code>pyproject.toml</code>, just written directly in Python
 syntax instead of <code>toml</code>. Because there was a desire to separate this meta information into its own file, the
@@ -2505,10 +2504,10 @@ the Python source code can immediately take place without requiring a new instal
 <p><code>uv</code> distinguishes between a project being an
 <a href="https://docs.astral.sh/uv/concepts/projects/init/#creating-projects">application or being a library/package</a>. The
 core difference is if the project was created using <code>uv init --app</code> or <code>uv init --lib</code> with <code>--app</code> being the
-default. The core difference is that applications are not installed as packages, while libraries/packages are.
-Concreatly this comes down to these lines in the <code>pyproject.toml</code> file being added or not:</p>
+default. This means that applications are not installed as packages, while libraries/packages are. Concretely,
+this comes down to these lines in the <code>pyproject.toml</code> file being added or not:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">[build-system]</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv_build&gt;=0.9.21,&lt;0.10.0"</span><span class="p">]</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv_build&gt;=0.13.9,&lt;0.14.0"</span><span class="p">]</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"uv_build"</span>
 </span></code></pre></div>
 </div>
@@ -2548,8 +2547,8 @@ your head around where files are located.</p>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># install as global tool</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>uvx<span class="w"> </span>cookiecutter
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># install as a global tool</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>cookiecutter
 </span></code></pre></div>
 </div>
 </div>
@@ -2570,7 +2569,7 @@ your head around where files are located.</p>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>uvx cookiecutter &lt;url-to-template&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>uvx<span class="w"> </span>cookiecutter<span class="w"> </span>&lt;url-to-template&gt;
 </span></code></pre></div>
 </div>
 </div>
@@ -2585,7 +2584,7 @@ number.</p>
 </div>
 <details class="note">
 <summary>Flat-layout vs. src-layout</summary>
-<p>There are two common choices on how layout your source directory. The first is called <em>src-layout</em>
+<p>There are two common choices on how to layout your source directory. The first is called <em>src-layout</em>
 where the source code is always placed in a <code>src/&lt;project_name&gt;</code> folder and the second is called <em>flat-layout</em>
 where the source code is just placed in a <code>&lt;project_name&gt;</code> folder. The template we are using in this
 course uses the src-layout, but there are
@@ -2796,13 +2795,11 @@ course uses the src-layout, but there are
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># first install invoke</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uvx<span class="w"> </span>invoke
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># then you can execute the tasks</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>preprocess-data<span class="w">  </span><span class="c1"># runs the data.py file</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>train<span class="w">            </span><span class="c1"># runs the train.py file</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1"># or get a list of all tasks</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>uvx<span class="w"> </span>invoke<span class="w"> </span>--list
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># invoke comes with the project development dependencies</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>preprocess-data<span class="w">  </span><span class="c1"># runs the data.py file</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>train<span class="w">            </span><span class="c1"># runs the train.py file</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># or get a list of all tasks</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>--list
 </span></code></pre></div>
 </div>
 </div>
@@ -2902,11 +2899,12 @@ course uses the src-layout, but there are
 </details>
 </li>
 <li>
-<p>Transfer the relevant parts of the <code>main.py</code> script to the <code>src/&lt;project-name&gt;/train.py</code> script, i.e. the parts that
+<p>Transfer the relevant parts of the <code>main.py</code> script to the <code>src/&lt;project_name&gt;/train.py</code> script, i.e. the parts that
     have to do with training the model. In addition, make sure it also does the following two things when run:</p>
 <ul>
 <li>Saves the trained model to the <code>models</code> folder</li>
-<li>Saves some statistics/visualizations from training to the <code>reports/figures</code> folder. This could be a simple</li>
+<li>Saves some statistics/visualizations from training to the <code>reports/figures</code> folder. This could be a simple
+plot of the training loss and accuracy.</li>
 </ul>
 <details class="success">
 <summary>Solution</summary>
@@ -3016,7 +3014,7 @@ course uses the src-layout, but there are
 </span></code></pre></div></td></tr></table></div>
 </details>
 <ol>
-<li>Transfer the remaining parts of the <code>main.py</code> script into the <code>src/&lt;project-name&gt;/evaluate.py</code> script, i.e. the parts
+<li>Transfer the remaining parts of the <code>main.py</code> script into the <code>src/&lt;project_name&gt;/evaluate.py</code> script, i.e. the parts
 that have to do with evaluating the model. When run, it should load the model from the <code>models</code> folder and print out
 the accuracy of the model on the test set.</li>
 </ol>
@@ -3087,10 +3085,10 @@ the accuracy of the model on the test set.</li>
 </details>
 </li>
 <li>
-<p>Fill out the file <code>src/&lt;project-name&gt;/visualize.py</code> with this (as minimum, feel free to add more visualizations)</p>
+<p>Fill out the file <code>src/&lt;project_name&gt;/visualize.py</code> with this (as minimum, feel free to add more visualizations)</p>
 <ul>
 <li>Loads a pre-trained network.</li>
-<li>Extracts some intermediate representation of the data (your training set) from your CNN. This could be the
+<li>Extracts some intermediate representation of the data (your training or test set) from your CNN. This could be the
     features just before the final classification layer.</li>
 <li>Visualize features in 2D space using
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-SNE</a> to do the dimensionality
@@ -3100,7 +3098,7 @@ the accuracy of the model on the test set.</li>
 <details class="success">
 <summary>Solution</summary>
 <p>The solution here depends a bit on the choice of model. However, in most cases the
-last layer in the model will be a fully connected layer, which we assume is named <code>fc</code>. The easiest way to get
+last layer in the model will be a fully connected layer, which we assume is named <code>fc1</code>. The easiest way to get
 the features before this layer is to replace the layer with <code>torch.nn.Identity</code> which essentially does nothing
 (see the highlighted line below). Alternatively, if you implemented everything in <code>torch.nn.Sequential</code> you can
 just remove the last layer from the <code>Sequential</code> object: <code>model = model[:-1]</code>.</p>
@@ -3153,7 +3151,7 @@ just remove the last layer from the <code>Sequential</code> object: <code>model 
 <span class="normal"><a href="#__codelineno-24-47">47</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_project_name.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
 </span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
 </span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
 </span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7"></a>
@@ -3165,15 +3163,15 @@ just remove the last layer from the <code>Sequential</code> object: <code>model 
 </span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13"></a>    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
 </span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
 </span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15"></a>    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16"></a>    <span class="n">model</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
-</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17"></a>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16"></a><span class="hll">    <span class="n">model</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
+</span></span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17"></a>
 </span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/processed/test_images.pt"</span><span class="p">)</span>
 </span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/processed/test_target.pt"</span><span class="p">)</span>
 </span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20"></a>    <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
 </span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21"></a>
 </span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22"></a>    <span class="n">embeddings</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23"></a><span class="hll">    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
-</span></span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24"></a>        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23"></a>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24"></a>        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
 </span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25"></a>            <span class="n">images</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
 </span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26"></a>            <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
 </span><span id="__span-24-27"><a id="__codelineno-24-27" name="__codelineno-24-27"></a>            <span class="n">embeddings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
@@ -3218,7 +3216,12 @@ just remove the last layer from the <code>Sequential</code> object: <code>model 
 <li>
 <p>Just as a starting point I would recommend that you fork either the
     <a href="https://github.com/SkafteNicki/mlops_template">mlops template</a> which you have already been using or
-    alternatively fork the <a href="https://github.com/drivendata/cookiecutter-data-science">data science template</a>.</p>
+    alternatively fork the <a href="https://github.com/drivendataorg/cookiecutter-data-science">data science template</a>.
+    Note that version 2 of the data science template is no longer a plain <code>cookiecutter</code> template: it is used
+    through its own <code>ccds</code> command and is configured through a <code>ccds.json</code> file instead of <code>cookiecutter.json</code>.
+    To use the classic <code>cookiecutter</code> version of it, run
+    <code>cookiecutter https://github.com/drivendataorg/cookiecutter-data-science -c v1</code> (or start your fork from
+    the <code>v1</code> tag).</p>
 </li>
 <li>
 <p>After forking the template, clone it locally and let's start modifying it. The first step is changing
@@ -3226,19 +3229,23 @@ just remove the last layer from the <code>Sequential</code> object: <code>model 
 <div class="language-json highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">{</span>
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="nt">"repo_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repo_name"</span><span class="p">,</span>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nt">"project_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project_name"</span><span class="p">,</span>
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nt">"author_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your name (or your organization/company/team)"</span><span class="p">,</span>
-</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A short description of the project."</span><span class="p">,</span>
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nt">"python_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.11"</span><span class="p">,</span>
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="nt">"open_source_license"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"No license file"</span><span class="p">,</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span><span class="w"> </span><span class="s2">"BSD-3-Clause"</span><span class="p">],</span>
-</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="p">}</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nt">"project_structure"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"advance"</span><span class="p">,</span><span class="w"> </span><span class="s2">"simple"</span><span class="p">],</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="nt">"deps_manager"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pip"</span><span class="p">],</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nt">"add_coding_agent_support"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">],</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="nt">"author_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your name (or your organization/company/team)"</span><span class="p">,</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A short description of the project."</span><span class="p">,</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">    </span><span class="nt">"python_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.12"</span><span class="p">,</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">    </span><span class="nt">"open_source_license"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"No license file"</span><span class="p">,</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span><span class="w"> </span><span class="s2">"BSD-3-Clause"</span><span class="p">],</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">    </span><span class="nt">"_copy_without_render"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"**/workflows/*"</span><span class="p">]</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Simply add a new line to the JSON file with the name of the variable you want to add and the default value you
 want it to have.</p>
 </li>
 <li>
-<p>The actual template is located in the <code>{{ cookiecutter.project_name }}</code> folder. <code>cookiecutter</code> works by replacing
+<p>The actual template is located in the <code>{{ cookiecutter.repo_name }}</code> folder. <code>cookiecutter</code> works by replacing
     everywhere that it sees <code>{{ cookiecutter.&lt;variable_name&gt; }}</code> with the value of the variable. Therefore, if you
-    want to add a new file to the template, just add it to the <code>{{ cookiecutter.project_name }}</code> folder and make
+    want to add a new file to the template, just add it to the <code>{{ cookiecutter.repo_name }}</code> folder and make
     sure to add the <code>{{ cookiecutter.&lt;variable_name&gt; }}</code> where you want the variable to be replaced.</p>
 </li>
 <li>
@@ -3287,7 +3294,7 @@ want it to have.</p>
 <li>
 <p>Create a completely barebone repository, either using the GitHub UI or if you have the GitHub CLI installed
     (not <code>git</code>) you can run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public<span class="w"> </span>--confirm
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>&lt;repo_name&gt;<span class="w"> </span>--public
 </span></code></pre></div>
 </li>
 <li>
@@ -3308,7 +3315,7 @@ want it to have.</p>
 </li>
 <li>
 <p>Run the following sequence of commands.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;project_name&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;repo_name&gt;
 </span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>git<span class="w"> </span>init
 </span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
 </span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Initial commit"</span>
@@ -3321,12 +3328,12 @@ want it to have.</p>
 </details>
 </li>
 </ol>
-<p>That ends the module on code structure and <code>cookiecutter</code>. We again want to stress the point of using <code>cookiecutter</code>
+<p>That ends the module on code structure and <code>cookiecutter</code>. We again want to stress that using <code>cookiecutter</code>
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
 product types because they share a common structure, while still having some specifics. Keeping templates up-to-date
 then becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we
-highly recommend to checkout <a href="https://github.com/cruft/cruft">cruft</a> that works alongside <code>cookiecutter</code> to not only
+highly recommend checking out <a href="https://github.com/cruft/cruft">cruft</a> that works alongside <code>cookiecutter</code> to not only
 make projects but also update existing ones as the template evolves. Cruft additionally also has template validation
 capabilities to ensure projects match the latest version of a template.</p>
 
@@ -3351,7 +3358,7 @@ capabilities to ensure projects match the latest version of a template.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 14, 2026 05:26:47">January 14, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     
