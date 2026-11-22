@@ -10,7 +10,9 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 
-def stage_best_model_to_registry(model_name: str, metric_name: str = "accuracy", higher_is_better: bool = True) -> None:
+def stage_best_model_to_registry(
+    model_name: str, metric_name: str = "accuracy", higher_is_better: bool = True, registry_name: str = "model"
+) -> None:
     """
     Stage the best model to the model registry.
 
@@ -18,13 +20,17 @@ def stage_best_model_to_registry(model_name: str, metric_name: str = "accuracy",
         model_name: Name of the model to be registered.
         metric_name: Name of the metric to choose the best model from.
         higher_is_better: Whether higher metric values are better.
+        registry_name: Name of the W&B registry to link the model to (defaults to the core `model` registry).
 
     """
     api = wandb.Api(
         api_key=os.getenv("WANDB_API_KEY"),
         overrides={"entity": os.getenv("WANDB_ENTITY"), "project": os.getenv("WANDB_PROJECT")},
     )
-    artifact_collection = api.artifact_collection(type_name="model", name=model_name)
+    artifact_collection = api.artifact_collection(
+        type_name="model",
+        name=f"{os.getenv('WANDB_ENTITY')}/{os.getenv('WANDB_PROJECT')}/{model_name}",
+    )
 
     best_metric = float("-inf") if higher_is_better else float("inf")
     compare_op = operator.gt if higher_is_better else operator.lt
@@ -40,10 +46,9 @@ def stage_best_model_to_registry(model_name: str, metric_name: str = "accuracy",
 
     logger.info(f"Best model found in registry: {best_artifact.name} with {metric_name}={best_metric}")
     best_artifact.link(
-        target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{model_name}",
+        target_path=f"wandb-registry-{registry_name}/{model_name}",
         aliases=["best", "staging"],
     )
-    best_artifact.save()
     logger.info("Model staged to registry.")
 
 

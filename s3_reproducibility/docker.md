@@ -68,16 +68,16 @@ The whole point of using Docker is that sharing applications becomes much easier
 
 In the following exercises, we guide you on how to build a dockerfile for your MNIST repository that will make the
 training and prediction a self-contained application. Please make sure that you somewhat understand each step and do
-not just copy the exercise. Also, note that you probably need to execute the exercise from an elevated terminal, i.e.
-with administrative privilege.
+not just copy the exercise. Also, note that on Linux you either need to run the `docker` commands with `sudo` or add
+your user to the `docker` group, see [this page](https://docs.docker.com/engine/install/linux-postinstall/).
 
 The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
 production setting view. For example, we often want to keep the size of the docker image as small as possible, which we
 are not focusing on for these exercises.
 
-If you are using `VScode` then we recommend installing the
-[VScode docker extension](https://code.visualstudio.com/docs/containers/overview) for easily getting an overview of
-which images have been building and which are running. Additionally, the extension named *Dev Containers* may also be
+If you are using VS Code then we recommend installing the
+[VS Code Docker extension](https://code.visualstudio.com/docs/containers/overview) for easily getting an overview of
+which images have been built and which are running. Additionally, the extension named *Dev Containers* may also be
 beneficial for you to download.
 
 1. Start by [installing docker](https://docs.docker.com/get-docker/). How much trouble you need to go through
@@ -131,15 +131,15 @@ beneficial for you to download.
     ```
 
     You will see that nothing happens! The reason for that is we did not provide any commands to `docker run`. We
-    essentially just ask it to start the `busybox` virtual machine, do nothing, and then close it again. Now, try
+    essentially just ask it to start the `busybox` container, do nothing, and then close it again. Now, try
     again, this time with
 
     ```bash
     docker run busybox echo "hello from busybox"
     ```
 
-    Note how fast this process is. In just a few seconds, Docker is able to start a virtual machine, execute a command,
-    and kill it afterward.
+    Note how fast this process is. In just a few seconds, Docker is able to start a container, execute a command, and
+    kill it afterward.
 
 6. Try running:
 
@@ -149,13 +149,13 @@ beneficial for you to download.
 
     What does this command do? What if you add `-a` to the end?
 
-7. If we want to run multiple commands within the virtual machine, we can start it in *interactive mode*.
+7. If we want to run multiple commands within the container, we can start it in *interactive mode*.
 
     ```bash
     docker run -it busybox
     ```
 
-    This can be a great way to investigate what the filesystem of our virtual machine looks like.
+    This can be a great way to investigate what the filesystem of our container looks like.
 
 8. As you may have already noticed by now, each time we execute `docker run`, we can still see small remnants of the
     containers using `docker ps -a`. These stray containers can end up taking up a lot of disk space. To remove them,
@@ -191,7 +191,7 @@ beneficial for you to download.
 
         ```docker
         # Base image
-        FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+        FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim
         ```
 
         The `uv` image comes with both Python and `uv` pre-installed, which will significantly speed up dependency
@@ -209,36 +209,33 @@ beneficial for you to download.
 12. The previous two steps are common for any Docker application where you want to run Python. All the remaining steps
     are application-specific (to some degree):
 
-    1. Let's copy over our application (the essential parts) from our computer to the container:
+    1. Let's set the working directory in our container and copy over the files that describe our dependencies:
 
         === "Using pip"
 
             ```docker
+            WORKDIR /
             COPY requirements.txt requirements.txt
             COPY pyproject.toml pyproject.toml
-            COPY src/ src/
-            COPY data/ data/
             ```
 
         === "Using uv"
 
             ```docker
+            WORKDIR /
             COPY uv.lock uv.lock
             COPY pyproject.toml pyproject.toml
-            COPY README.md README.md
-            COPY src/ src/
-            COPY data/ data/
             ```
 
-        Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
-        each of these files/folders to run training in our Docker container?
-
-    2. Let's set the working directory in our container and add commands that install the dependencies (1):
+    2. Next, we install the dependencies, then copy over the rest of our application (the essential parts) and
+        finally install the application itself (1):
         { .annotate }
 
         1. :man_raising_hand: We split the installation into two steps so that Docker can cache our project dependencies
-            separately from our application code. This means that if we change our application code, we do not need to
-            reinstall all the dependencies. This is a common strategy for Docker images.
+            separately from our application code. Docker caches each instruction as a layer and only rebuilds a layer
+            (and every layer after it) if the instruction or the files it copies have changed. Because the dependency
+            files are copied and installed *before* `src/` is copied, changing your application code does not trigger
+            a reinstall of all the dependencies. This is a common strategy for Docker images.
 
             :man_raising_hand: As an alternative, you can use `RUN make requirements` if you have a `Makefile` that
             installs the dependencies. Just remember to also copy over the `Makefile` into the Docker image.
@@ -246,8 +243,10 @@ beneficial for you to download.
         === "Using pip"
 
             ```dockerfile
-            WORKDIR /
             RUN pip install -r requirements.txt --no-cache-dir
+
+            COPY src/ src/
+            COPY data/ data/
             RUN pip install . --no-deps --no-cache-dir
             ```
 
@@ -257,12 +256,19 @@ beneficial for you to download.
         === "Using uv"
 
             ```dockerfile
-            WORKDIR /
             RUN uv sync --locked --no-cache --no-install-project
+
+            COPY README.md README.md
+            COPY src/ src/
+            COPY data/ data/
+            RUN uv sync --locked --no-cache
             ```
 
             The `--no-cache` is quite important. Can you explain what it does and why it is important in relation to
-            Docker? And what does the `--locked` flag do?
+            Docker? And what do the `--locked` and `--no-install-project` flags do?
+
+        Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
+        each of these files/folders to run training in our Docker container?
 
     3. Finally, we are going to name our training script as the *entrypoint* for our Docker image. The *entrypoint* is
         the application that we want to run when the image is executed:
@@ -273,14 +279,17 @@ beneficial for you to download.
             ENTRYPOINT ["python", "-u", "src/<project-name>/train.py"]
             ```
 
-            The `"u"` here makes sure that any output from our script, e.g., any `print(...)` statements, gets
+            The `-u` here makes sure that any output from our script, e.g., any `print(...)` statements, gets
             redirected to our terminal. If not included, you would need to use `docker logs` to inspect your run.
 
         === "Using uv"
 
             ```docker
-            ENTRYPOINT ["uv", "run", "src/<project-name>/train.py"]
+            ENTRYPOINT ["uv", "run", "--no-sync", "src/<project-name>/train.py"]
             ```
+
+            The `--no-sync` flag tells `uv run` to use the environment we already installed during the build instead
+            of checking (and possibly rebuilding) it every time the container starts.
 
 13. We are now ready to build our Dockerfile into a Docker image.
 
@@ -288,11 +297,12 @@ beneficial for you to download.
     docker build -f train.dockerfile . -t train:latest
     ```
 
-    ??? warning "MAC M1/M2 users"
+    ??? warning "Apple silicon users"
 
-        In general, Docker images are built for a specific platform. For example, if you are using a Mac with an M1/M2
-        chip, then you are running on an ARM architecture. If you are using a Windows or Linux machine, then you are
-        running on an AMD64 architecture. This is important to know when building Docker images. Thus, Docker images
+        In general, Docker images are built for a specific platform. For example, if you are using a Mac with an
+        M-series chip (e.g. M1, M2, M3 or M4), then you are running on an ARM architecture. If you are using a Windows
+        or Linux machine, then you are running on an AMD64 architecture. This is important to know when building Docker
+        images. Thus, Docker images
         you build may not work on platforms different than the ones you build on. You can specify which platform you want
         to build for by adding the `--platform` argument to the `docker build` command:
 
@@ -328,7 +338,7 @@ beneficial for you to download.
         docker system prune
         ```
 
-        Alternatively, you can manually delete images using `docker rm {image_name}:{image_tag}`.
+        Alternatively, you can manually delete images using `docker image rm {image_name}:{image_tag}`.
 
 14. Try running `docker images` and confirm that you get output similar to the above. If you succeed with this,
     then try running the docker image.
@@ -338,7 +348,7 @@ beneficial for you to download.
     ```
 
     You should hopefully see your training starting. Please note that we can start as many containers as we want at
-    the same time by giving them all different names using the `--name` tag.
+    the same time by giving them all different names using the `--name` flag.
 
     1. You are most likely going to rebuild your Docker image multiple times, either due to an implementation error
         or the addition of new functionality. Therefore, instead of watching your package manager download `torch` for
@@ -347,7 +357,7 @@ beneficial for you to download.
 
         === "Using pip"
             ```dockerfile
-            RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt --no-cache-dir
+            RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
             ```
 
             which mounts your local pip cache to the Docker image.
@@ -355,14 +365,14 @@ beneficial for you to download.
         === "Using uv"
             ```dockerfile
             ENV UV_LINK_MODE=copy
-            RUN --mount=type=cache,target=/root/.cache/uv uv sync
+            RUN --mount=type=cache,target=/root/.cache/uv uv sync --locked --no-install-project
             ```
 
             which mounts your local uv cache to the Docker image, see
             [documentation](https://docs.astral.sh/uv/guides/integration/docker/#caching).
 
         For building the image with cache mounts, you need to have enabled the
-        [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature. If you have Docker
+        [BuildKit](https://docs.docker.com/build/buildkit/) feature. If you have Docker
         version v23.0 or later (you can check this by running `docker version`), then this is enabled by default.
         Otherwise, you need to enable it by setting the environment variable `DOCKER_BUILDKIT=1` before building the
         image.
@@ -414,7 +424,7 @@ beneficial for you to download.
         [page](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10)
         for help.
 
-17. With training done we also need to write an application for prediction. Create a new docker image called
+17. With training done we also need to write an application for prediction. Create a new Dockerfile called
     `evaluate.dockerfile`. This file should call your `src/<project-name>/evaluate.py` script instead. This image
     will need some trained model weights to work. Feel free to either include these during the build process or mount
     them afterwards. When you create the file try to `build` and `run` it to confirm that it works. Hint: if
@@ -423,14 +433,14 @@ beneficial for you to download.
 
     ```bash
     docker run --name evaluate --rm \
-        -v %cd%/trained_model.pt:/models/trained_model.pt \  # mount trained model file
-        -v %cd%/data/test_images.pt:/test_images.pt \  # mount data we want to evaluate on
+        -v %cd%/trained_model.pt:/models/trained_model.pt \
+        -v %cd%/data/test_images.pt:/test_images.pt \
         -v %cd%/data/test_targets.pt:/test_targets.pt \
         evaluate:latest \
-        ../../models/trained_model.pt \  # argument to script, path relative to script location in container
+        ../../models/trained_model.pt  # argument to script, path relative to script location in container
     ```
 
-18. (Optional, requires a GPU) By default, a virtual machine created by docker only has access to your `cpu` and
+18. (Optional, requires a GPU) By default, a container created by docker only has access to your `cpu` and
     not your `gpu`. While you do not necessarily have a laptop with a GPU that supports the training of neural
     networks it is beneficial that you understand how to construct a docker image that can take advantage of a GPU
     if you were to run this on a machine in the future that has a GPU (e.g. in the cloud). It does take a bit more
@@ -443,7 +453,7 @@ beneficial for you to download.
         1. There are three prerequisites for working with Nvidia GPU-accelerated docker containers. First, you need to
             have the Docker Engine installed (already taken care of), have an Nvidia GPU with updated GPU drivers and
             finally install the
-            [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
+            [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
             The last part you likely have not done yet. Some distros of Linux have known problems with the installation
             process, so you may have to search through known issues in
             [nvidia-docker repository](https://github.com/NVIDIA/nvidia-docker/issues) to find a solution.
@@ -452,7 +462,7 @@ beneficial for you to download.
             the correct image:
 
             ```bash
-            docker pull nvidia/cuda:11.0.3-base-ubuntu20.04
+            docker pull nvidia/cuda:13.5.0-base-ubuntu24.04
             ```
 
             but it may differ based on what Cuda version you have. You can find all the different official Nvidia images
@@ -460,7 +470,7 @@ beneficial for you to download.
             command inside a container based on the image you just pulled. It should look something like this:
 
             ```bash
-            docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
+            docker run --rm --gpus all nvidia/cuda:13.5.0-base-ubuntu24.04 nvidia-smi
             ```
 
             and should show an image like below:
@@ -481,7 +491,7 @@ beneficial for you to download.
             Try pulling the latest one:
 
             ```bash
-            docker pull nvcr.io/nvidia/pytorch:22.07-py3
+            docker pull nvcr.io/nvidia/pytorch:26.10-py3
             ```
 
             It may take some time because the NGC images include a lot of other software for optimizing PyTorch
@@ -491,7 +501,7 @@ beneficial for you to download.
         4. Let's test that this container works:
 
             ```bash
-            docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:22.07-py3
+            docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:26.10-py3
             ```
 
             This should run the container in interactive mode attached to your current terminal. Try opening `python` in
@@ -508,13 +518,13 @@ beneficial for you to download.
             also fairly easy as we just need to change our `FROM` statement at the beginning of our docker file:
 
             ```docker
-            FROM python:3.11-slim
+            FROM python:3.12-slim
             ```
 
             change to
 
             ```docker
-            FROM  nvcr.io/nvidia/pytorch:22.07-py3
+            FROM nvcr.io/nvidia/pytorch:26.10-py3
             ```
 
             try doing this to one of your dockerfiles, build the image and run the container. Remember to check that your
@@ -634,7 +644,7 @@ beneficial for you to download.
             Build the image and run it with the same GPU flags as above:
 
             ```bash
-            docker build -f train.dockerfile . -t train:latest
+            docker build -f rocm_train.dockerfile . -t train:latest
             ```
 
             ```bash
@@ -707,7 +717,7 @@ beneficial for you to download.
     We will focus on the VS Code setup here.
 
     1. First, install the
-        [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+        [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
         extension.
 
     2. Create a `.devcontainer` folder in your project root and create a `Dockerfile` inside it. We will keep this file
@@ -724,7 +734,7 @@ beneficial for you to download.
 
         === "Using uv"
             ```docker
-            FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+            FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim
 
             RUN apt update && \
                 apt install --no-install-recommends -y build-essential gcc && \
@@ -755,7 +765,7 @@ beneficial for you to download.
         our Python dependencies after the container has been created.
 
     4. After creating these files, you should be able to open the command palette in VS Code (F1) and search for the
-        option `Remote-Containers: Reopen in Container` or `Remote-Containers: Rebuild and Reopen in Container`. Choose
+        option `Dev Containers: Reopen in Container` or `Dev Containers: Rebuild and Reopen in Container`. Choose
         either of these options.
 
         <figure markdown>
@@ -809,7 +819,8 @@ beneficial for you to download.
 
     2. If your data is not public, we need to provide credentials in some way to pull the data. We are for now going to
         do it in a not-so-secure way. When `dvc` first connected to your drive, a credential file was created. This file
-        is located in `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json` where `$CACHE_HOME`.
+        is located in `$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json`, where `$CACHE_HOME` depends on your
+        operating system:
 
         === "macOS"
             ```~/Library/Caches```
@@ -839,7 +850,7 @@ beneficial for you to download.
 
         ```dockerfile
         COPY <path_to_default.json> default.json
-        dvc remote modify myremote --local gdrive_service_account_json_file_path default.json
+        RUN dvc remote modify myremote --local gdrive_user_credentials_file default.json
         ```
 
         where `<path_to_default.json>` is the path to the `default.json` file that you just found. The last line tells

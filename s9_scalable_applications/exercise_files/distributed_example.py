@@ -1,3 +1,4 @@
+import os
 from argparse import ArgumentParser
 
 import torch
@@ -22,16 +23,17 @@ class YourDataset(Dataset):
 def main() -> None:
     """Main function for running the distributed example."""
     parser = ArgumentParser("DDP usage example")
-    # you need this argument in your scripts for DDP to work
-    parser.add_argument("--local_rank", type=int, default=-1, metavar="N", help="Local process rank.")
     args = parser.parse_args()
+
+    # `torchrun` sets the local rank of the process as an environment variable
+    args.local_rank = int(os.environ["LOCAL_RANK"])
 
     # keep track of whether the current process is the `master` process
     # (totally optional, but I find it useful for data loading, logging, etc.)
     args.is_master = args.local_rank == 0
 
     # set the device
-    args.device = torch.cuda.device(args.local_rank)
+    args.device = torch.device("cuda", args.local_rank)
 
     # initialize PyTorch distributed using environment variables (you could also do this more explicitly by specifying
     # `rank` and `world_size`, but I find using environment variables makes it so that you can easily use the same

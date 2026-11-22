@@ -8,7 +8,7 @@ endpoint. In general we refer to this as the *backend* of the application. It is
 behind-the-scenes that the user does not see and is not really that user-friendly. Instead we want to create a
 *frontend* that the user can interact with in a more user-friendly way. This is what we will be doing in this module.
 
-Another point of splitting our application into a frontend and a backend has to do with scalability. If we have a lot
+Another reason for splitting our application into a frontend and a backend has to do with scalability. If we have a lot
 of users interacting with our application, we might want to scale only the backend and not the frontend, because that
 is the part that will be running our heavy machine learning model. In general dividing an application into smaller pieces
 is the pattern that is used in [microservice architectures](https://martinfowler.com/articles/microservices.html).
@@ -16,7 +16,7 @@ is the pattern that is used in [microservice architectures](https://martinfowler
 <figure markdown>
 ![Image](../figures/different_architechtures.png){ width="800" }
 <figcaption>
-In monollithic applications everything the user may be requesting of our application is handled by a single process/
+In monolithic applications everything the user may be requesting of our application is handled by a single process/
 container. In microservice architectures the application is split into smaller pieces that can be scaled independently.
 This also leads to easier maintainability and faster development.
 </figcaption>
@@ -28,7 +28,7 @@ now a lot of frameworks that can help us create a frontend in Python:
 * [Django](https://www.djangoproject.com/)
 * [Reflex](https://reflex.dev/)
 * [Streamlit](https://streamlit.io/)
-* [Bokeh](http://bokeh.org/)
+* [Bokeh](https://bokeh.org/)
 * [Gradio](https://www.gradio.app/)
 
 In this module we will be looking at `streamlit`. `streamlit` is an easy-to-use framework that allows us to create
@@ -42,7 +42,7 @@ containerizing both applications and then deploying them to the cloud. We have a
 which can be found in the `samples/frontend_backend` folder.
 
 1. Let's start by creating the backend application in a `backend.py` file. You can use essentially any backend you want,
-    but we will be using a simple imagenet classifier that we have created in the `samples/frontend_backend/backend`
+    but we will be using a simple imagenet classifier that we have created in the `samples/frontend_backend`
     folder.
 
     1. Create a new file called `backend.py` and implement a FastAPI interface with a single `/predict` endpoint that
@@ -69,7 +69,7 @@ which can be found in the `samples/frontend_backend` folder.
 
             ```bash
             curl -X 'POST' \
-                'http://127.0.0.1:8000/classify/' \
+                'http://127.0.0.1:8000/predict' \
                 -H 'accept: application/json' \
                 -H 'Content-Type: multipart/form-data' \
                 -F 'file=@my_cat.jpg;type=image/jpeg'
@@ -91,7 +91,7 @@ which can be found in the `samples/frontend_backend` folder.
             --8<-- "samples/frontend_backend/backend.dockerfile"
             ```
 
-    6. Build the backend image
+    6. Build the backend image.
 
         ```bash
         docker build -t backend:latest -f backend.dockerfile .
@@ -105,11 +105,11 @@ which can be found in the `samples/frontend_backend` folder.
 
         and test that it works by sending a request to the `/predict` endpoint.
 
-    8. Deploy the backend to Cloud run using the `gcloud` command.
+    8. Deploy the backend to Cloud Run using the `gcloud` command.
 
         ??? success "Solution"
 
-            Assuming that we have created an artifact registry called `frontend_backend` we can deploy the backend to
+            Assuming that we have created an artifact registry called `frontend-backend` we can deploy the backend to
             Cloud Run using the following commands:
 
             ```bash
@@ -117,11 +117,11 @@ which can be found in the `samples/frontend_backend` folder.
                 backend:latest \
                 <region>-docker.pkg.dev/<project>/frontend-backend/backend:latest
             docker push \
-                <region>.pkg.dev/<project>/frontend-backend/backend:latest
+                <region>-docker.pkg.dev/<project>/frontend-backend/backend:latest
             gcloud run deploy backend \
-                --image=europe-west1-docker.pkg.dev/<project>/frontend-backend/backend:latest \
-                --region=europe-west1 \
-                --platform=managed \
+                --image=<region>-docker.pkg.dev/<project>/frontend-backend/backend:latest \
+                --region=<region> \
+                --allow-unauthenticated
             ```
 
             where `<region>` and `<project>` should be replaced with the appropriate values.
@@ -144,12 +144,12 @@ which can be found in the `samples/frontend_backend` folder.
 
 2. With the backend taken care of let's now write our frontend. Our frontend just needs to be a "nice" interface to our
     backend. Its main functionality will be to send a request to the backend and display the result
-    ([streamlit documentation](https://docs.streamlit.io/library/api-reference)).
+    ([streamlit documentation](https://docs.streamlit.io/develop/api-reference)).
 
     1. Start by installing `streamlit`.
 
         ```bash
-        pip install streamlit
+        uv pip install streamlit
         ```
 
     2. Now create a file called `frontend.py` and implement a streamlit application. You can design it however you want,
@@ -176,6 +176,8 @@ which can be found in the `samples/frontend_backend` folder.
         or fall back on an environment variable if the service is not found.
 
         ```python
+        import os
+
         from google.cloud import run_v2
         import streamlit as st
 
@@ -186,17 +188,16 @@ which can be found in the `samples/frontend_backend` folder.
             client = run_v2.ServicesClient()
             services = client.list_services(parent=parent)
             for service in services:
-                if service.name.split("/")[-1] == "production-model":
+                if service.name.split("/")[-1] == "backend":
                     return service.uri
-            name = os.environ.get("BACKEND", None)
-            return name
+            return os.environ.get("BACKEND", None)
         ```
 
         1. :man_raising_hand: The `st.cache_resource` is a decorator that tells `streamlit` to cache the result of the
             function. This is useful if the function is expensive to run and we want to avoid running it multiple times.
 
         Add the above code snippet to the top of your `frontend.py` file and replace `<project>` and `<region>` with the
-        appropriate values. You will need to install `pip install google-cloud-run` to be able to use the code snippet.
+        appropriate values. You will need to run `uv pip install google-cloud-run` to be able to use the code snippet.
 
     4. Run the frontend using `streamlit`.
 
@@ -234,21 +235,21 @@ which can be found in the `samples/frontend_backend` folder.
 
         and check in your web browser that the frontend works as expected.
 
-    9. Deploy the frontend to Cloud run using the `gcloud` command.
+    9. Deploy the frontend to Cloud Run using the `gcloud` command.
 
         ??? success "Solution"
 
-            Assuming that we have created an artifact registry called `frontend_backend` we can deploy the frontend to
+            Assuming that we have created an artifact registry called `frontend-backend` we can deploy the frontend to
             Cloud Run using the following commands:
 
             ```bash
             docker tag frontend:latest \
                 <region>-docker.pkg.dev/<project>/frontend-backend/frontend:latest
-            docker push <region>.pkg.dev/<project>/frontend-backend/frontend:latest
+            docker push <region>-docker.pkg.dev/<project>/frontend-backend/frontend:latest
             gcloud run deploy frontend \
-                --image=europe-west1-docker.pkg.dev/<project>/frontend-backend/frontend:latest \
-                --region=europe-west1 \
-                --platform=managed \
+                --image=<region>-docker.pkg.dev/<project>/frontend-backend/frontend:latest \
+                --region=<region> \
+                --allow-unauthenticated
             ```
 
     10. Test that the frontend works as expected by opening the URL of the deployed frontend in your web browser.

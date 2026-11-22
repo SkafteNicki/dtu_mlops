@@ -6,7 +6,7 @@
 
 In this module we are going to look at distributed training. Distributed training is one of the key ingredients
 to all the awesome results that deep learning models are producing. For example:
-[Alphafold](https://deepmind.com/blog/article/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology)
+[AlphaFold](https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/),
 the highly praised model from DeepMind that seems to have solved protein structure prediction, was trained
 in a distributed fashion for a few weeks. The training was done on 16 TPUv3s (specialized hardware), which
 is approximately equal to 100-200 modern GPUs. This means that training Alphafold without distributed training
@@ -22,10 +22,11 @@ our computations:
 * Sharded training
 
 In this module we are going to look at data parallel training, which is the original way of doing parallel training and
-distributed data parallel training which is an improved version of data parallel. If you want to know more about sharded
-training which is the newest of the paradigms you can read more about it in this
+distributed data parallel training, which is an improved version of data parallel. If you want to know more about sharded
+training, which is the newest of the paradigms, you can read more about it in this
 [blog post](https://medium.com/data-science/sharded-a-new-technique-to-double-the-size-of-pytorch-models-3af057466dba),
-which describes how sharded can save over 60% of memory used during your training.
+which describes how sharded can save over 60% of memory used during your training. Note that sharded training is now
+natively supported in PyTorch as [Fully Sharded Data Parallel](https://pytorch.org/docs/stable/fsdp.html).
 
 Finally, we want to note that for all the exercises in the module you are going to need a multi-GPU setup. If you have
 not already gained access to multi GPU machines on GCP (see the quotas exercises in
@@ -94,7 +95,7 @@ preds = model(input)  # same as usual
 Please note that the exercise only makes sense if you have access to multiple GPUs.
 
 1. Create a new script (call it `data_parallel.py`) where you take a copy of model `FashionCNN`
-    from the `fashion_mnist.py` script. Instantiate the model and wrap `torch.nn.DataParallel`
+    from the `fashion_trainer.py` script. Instantiate the model and wrap `torch.nn.DataParallel`
     around it such that it can be executed in data parallel.
 
 2. Try to run inference in parallel on multiple devices (pass a batch multiple times and time it):
@@ -113,11 +114,11 @@ Please note that the exercise only makes sense if you have access to multiple GP
 ## Distributed data parallel
 
 It should be clear that there is a huge disadvantage to using the data parallel paradigm to scale your applications:
-the model needs to replicated on each pass (because it is destroyed in the end), which requires a large transfer
+the model needs to be replicated on each pass (because it is destroyed in the end), which requires a large transfer
 of data. This is the main problem that distributed data parallel tries to solve.
 
 <figure markdown>
-![Image](../figures/distributed_data_parallel.png){ width="8000" }
+![Image](../figures/distributed_data_parallel.png){ width="800" }
 </figure>
 
 The key difference between distributed data parallel and data parallel is that we move the model update
@@ -142,7 +143,7 @@ we keep updating. The full set of steps (as shown in the figure):
     processes received the same gradient information, all models will still be in sync.
 
 Thus, in distributed data parallel we here end up only doing a single communication call between all processes, compared
-to all the communication going on in data parallel. While all-reduce is a more expensive operation that many of the
+to all the communication going on in data parallel. While all-reduce is a more expensive operation than many of the
 other communication operations that we can do, because we only have to do one we gain a huge performance boost.
 Empirically distributed data parallel tends to be 2-3 times faster than data parallel.
 
@@ -160,7 +161,7 @@ PyTorch, distributed data parallel is much more involved.
 
     2. What is the function of the `DistributedSampler`?
 
-    3. Why is it necessary to call `dist.barrier()` before passing a batch into the model?
+    3. Why is it necessary to call `dist.barrier()` before starting a new epoch of training?
 
     4. What do the different environment variables do in the `.sh` file?
 
@@ -169,9 +170,9 @@ PyTorch, distributed data parallel is much more involved.
 3. The first exercise has hopefully convinced you that it can be quite the trouble writing distributed training
     applications yourself. Luckily for us, `PyTorch-lightning` can take care of this for us such that we do not have to
     care about the specific details. To get your model training on multiple GPUs you need to change two arguments in the
-    trainer: the `accelerator` flag and the `gpus` flag. In addition to this, you can read through this
+    trainer: the `accelerator` flag and the `devices` flag. In addition to this, you can read through this
     [guide](https://lightning.ai/docs/pytorch/stable/accelerators/gpu.html) about any additional steps you may
     need to do (for many of you, it should just work). Try running your model on multiple GPUs.
 
-4. Try benchmarking your training using 1 and 2 gpus, e.g., try running a couple of epochs and measure how long it
+4. Try benchmarking your training using 1 and 2 GPUs, e.g., try running a couple of epochs and measure how long it
     takes. How much of a speedup can you actually get? Why can you not get a speedup of 2?

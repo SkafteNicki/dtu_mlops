@@ -43,8 +43,8 @@ this into your own projects depends, but you are at least expected to be familia
     * "Goddamn idiotic truckload of sh*t": when it breaks
 
 1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your computer and make sure
-    that your installation is working by writing `git help` in a terminal and it should show you the help message for
-    git.
+    that your installation is working by running `git help` in a terminal, which should show you the help
+    message for git.
 
 2. Create a [GitHub](https://github.com/) account if you do not already have one.
 
@@ -53,16 +53,20 @@ this into your own projects depends, but you are at least expected to be familia
 
     ```bash
     # type in a terminal
-    git config credential.helper store
+    git config --global credential.helper store
     git config --global user.email <email>
     ```
+
+    Note that the `store` helper saves your credentials unencrypted in `~/.git-credentials`. Alternatively, the
+    GitHub CLI can take care of storing your Git credentials when you log in with `gh auth login` (see the
+    exercises below).
 
 ## Git overview
 
 The most simple way to think of version control is that it is just nodes with lines connecting them:
 
 <figure markdown>
-  ![Image](../figures/git_branch.png){width="1000," }
+  ![Image](../figures/git_branch.png){ width="1000" }
 </figure>
 
 Each node, which we call a *commit*, is uniquely identified by a hash string. Each node stores what our code
@@ -73,15 +77,15 @@ The commits are made up of local changes that we make to our code. A basic workf
 adding commits can be seen below:
 
 <figure markdown>
-![Image](../figures/git_structure.PNG){width="1000," }
+![Image](../figures/git_structure.PNG){ width="1000" }
 </figure>
 
 Assuming that we have made some changes to our local *working directory* and that we
 want to get these updates to be online in the *remote repository* we have to do the following steps:
 
 * First we run the command `git add`. This will move our changes to the *staging area*. While changes are in the
-    staging area we can very easily revert them (using `git restore`). There has therefore not been assigned a unique
-    hash to the code yet, and so we can still overwrite it.
+    staging area we can very easily revert them (using `git restore --staged`). There has therefore not been
+    assigned a unique hash to the code yet, and so we can still overwrite it.
 
 * To take our code from the *staging area* and make it into a commit, we simply run `git commit` which will locally
     add a node to the graph. Note again that we have not pushed the commit to the online *repository* yet.
@@ -128,7 +132,7 @@ working together on the same project.
         updated in your repository (1).
         { .annotate }
 
-        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from you local
+        1. :man_raising_hand: Be aware that you either need to generate a token to remote push from your local
             [terminal](https://github.com/settings/tokens) or install the
             [GitHub CLI](https://docs.github.com/en/github-cli/github-cli/quickstart).
 
@@ -148,7 +152,7 @@ working together on the same project.
     Try adding something (a file, a new line of code, etc.) to the newly created branch, commit it and
     try changing back to main afterwards. You should hopefully see whatever you added on the branch
     is not present on the main branch.
-    { .annotate}
+    { .annotate }
 
     1. :man_raising_hand: The `git checkout` command is used for a lot of different things in git. It can be used to
         change branches, to revert changes and to create new branches. An alternative is using `git switch` and
@@ -211,8 +215,8 @@ working together on the same project.
 
         ![forking](../figures/forking.PNG)
 
-        This will create a local copy of the repository which you have complete writing access to. Note that
-        code updates to the original repository do not update code in your local repository.
+        This will create a copy of the repository under your own GitHub account, which you have full writing
+        access to. Note that code updates to the original repository do not update the code in your fork.
 
     2. Clone your local fork of the project using `git clone`.
 
@@ -223,9 +227,10 @@ working together on the same project.
     4. You are now ready to make changes to the repository. Try to find something to improve (any spelling mistakes?).
         When you have made the changes, do the standard git cycle: `add -> commit -> push`.
 
-    5. Go online to the original repository and go to the `Pull requests` tab. Find the `compare` button and
-        choose the button to compare the `master branch` of the original repo with the branch that you just created
-        in your own repository. Check the diff on the page to make sure that it contains the changes you have made.
+    5. Go online to the original repository and go to the `Pull requests` tab. Click the `New pull request` button,
+        choose `compare across forks` and compare the `main` branch of the original repo with the branch that you
+        just created in your own repository. Check the diff on the page to make sure that it contains the changes
+        you have made.
 
     6. Write a bit about the changes you have made and click `Create pull request` :).
 
@@ -276,7 +281,7 @@ working together on the same project.
         content to append
         =======
         totally different content to merge later
-        >>>>>>> master
+        >>>>>>> origin/main
         ```
 
         this should be interpreted as: everything that's between `<<<<<<<` and `=======` are the changes made by your
@@ -326,11 +331,11 @@ working together on the same project.
 
         You can check if there is a ".git" directory. Alternatively you can use the `git status` command.
 
-2. Explain what the file `gitignore` is used for?
+2. Explain what the file `.gitignore` is used for?
 
     ??? success "Solution"
 
-        The file `gitignore` is used to tell git which files to ignore when doing a `git add .` command. This is
+        The file `.gitignore` is used to tell git which files to ignore when doing a `git add .` command. This is
         useful for files that are not part of the codebase, but are needed for the code to run (e.g. data files)
         or files that contain sensitive information (e.g. `.env` files that contain API keys and passwords).
 
@@ -360,7 +365,7 @@ working together on the same project.
 That covers the basics of git to get you started. In the exercise folder you can find a
 [git cheat sheet](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf)
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of GitHub:
-in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
+the in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
 IDE/editor. Or you may be in the situation where you are working from a device other than your usual developer machine.
 GitHub has a built-in editor that can simply be enabled by changing any URL from
 

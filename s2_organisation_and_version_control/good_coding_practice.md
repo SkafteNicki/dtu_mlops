@@ -23,7 +23,7 @@ how you choose to style your code, etc., the important part is that you are cons
 
 ## Documentation
 
-Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourselves, but love
+Most programmers have a love-hate relationship with documentation: We absolutely hate writing it ourselves, but love
 when someone else has actually taken the time to add it to their code. There is no doubt that well documented
 code is much easier to maintain, as you do not need to remember all the details about the code to still maintain it.
 It is key to remember that good documentation saves more time than it takes to write.
@@ -33,7 +33,7 @@ The problem with documentation is that there is no right or wrong way to do it. 
 * Under-documentation: You document information that is clearly visible from the code and not the complex
     parts that are actually hard to understand.
 
-* Over-documentation: Writing too much documentation will have likely have an effect on most people opposite to
+* Over-documentation: Writing too much documentation will likely have an effect on most people opposite to
     what you want: there is too much to read, so people will skip it.
 
 Writing good documentation is a skill that takes time to train, so let's try to do it.
@@ -50,8 +50,8 @@ Writing good documentation is a skill that takes time to train, so let's try to 
 
     1. :man_raising_hand: In deep learning we often work with multi-dimensional tensors that constantly change shape
         after each operation. It is good practice to annotate with comments when tensors undergo some reshaping.
-        In the following example we compute the pairwise euclidean distance between two tensors using broadcasting
-        which results in multiple shape operations.
+        In the following example we compute the pairwise squared euclidean distance between two tensors using
+        broadcasting which results in multiple shape operations.
 
         ```python
         x = torch.randn(5, 10)  # N x D
@@ -60,7 +60,7 @@ Writing good documentation is a skill that takes time to train, so let's try to 
         pairwise_euc_dist = xy.abs().pow(2.0).sum(dim=-1)  # N x M
         ```
 
-2. Add [docstrings](https://www.python.org/dev/peps/pep-0257/) to at least two Python functions/methods.
+2. Add [docstrings](https://peps.python.org/pep-0257/) to at least two Python functions/methods.
     You can see [here (example 5)](https://www.programiz.com/python-programming/docstrings) a good example of
     how to use identifiable keywords such as `Parameters`, `Args`, `Returns`, which standardizes the way of
     writing docstrings.
@@ -73,7 +73,7 @@ will often see that your own style of coding changes as you become more and more
 difference in coding style is not that important to keep in mind when you are working on a personal project,
 but when multiple people are working together on the same project it is important to consider.
 
-The question then remains what styling you should use. This is where [Pep8](https://www.python.org/dev/peps/pep-0008/)
+The question then remains what styling you should use. This is where [Pep8](https://peps.python.org/pep-0008/)
 comes into play, which is the official style guide for python. It essentially contains what is considered
 "good practice" and "bad practice" when coding python.
 
@@ -106,7 +106,7 @@ developers are adding new features. (1)
         ```
 
         We add `ruff` as a development dependency since it is not needed for running the actual code. Alternatively,
-        we could install it globally using `uvx ruff` to be used across multiple projects.
+        we could run it directly using `uvx ruff`, without installing it in the project.
 
 2. Run `ruff` on your project or part of your project.
 
@@ -114,14 +114,14 @@ developers are adding new features. (1)
 
         ```bash
         ruff check .  # Lint all files in the current directory (and any subdirectories)
-        ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
+        ruff check path/to/code/  # Lint all files in `path/to/code` (and any subdirectories).
         ```
 
     === "Using uv"
 
         ```bash
         uv run ruff check .  # Lint all files in the current directory (and any subdirectories)
-        uv run ruff check path/to/code/  # Lint all files in `/path/to/code` (and any subdirectories).
+        uv run ruff check path/to/code/  # Lint all files in `path/to/code` (and any subdirectories).
         ```
 
     Are you PEP8-compliant or are you a mere mortal?
@@ -169,7 +169,7 @@ the `pyproject.toml` file.
     practice. (1)
     { .annotate }
 
-    1. :man_raising_hand: the common practise is to first list built-in Python packages (like `os`) in one block,
+    1. :man_raising_hand: the common practice is to first list built-in Python packages (like `os`) in one block,
         followed by third-party dependencies (like `torch`) in a second block and finally imports from your own package
         in a third block. Each block is then put in alphabetical order.
 
@@ -186,8 +186,8 @@ the `pyproject.toml` file.
     under the `[tool.ruff]` section in the `pyproject.toml` file and rerun `ruff check` and `ruff format` on your code.
 
 3. Experiment with further configuration of `ruff`. In particular we recommend adding more
-    [rules](https://docs.astral.sh/ruff/rules/) and looking at `[tool.ruff.pydocstyle]` configuration to indicate how you
-    have styled your documentation.
+    [rules](https://docs.astral.sh/ruff/rules/) and looking at `[tool.ruff.lint.pydocstyle]` configuration to indicate
+    how you have styled your documentation.
 
 ## Typing
 
@@ -197,10 +197,12 @@ earlier programming languages like `c`, `c++` etc. where
 [data types](https://www.scaler.com/topics/cpp/data-types-in-cpp/) needed to be explicitly stated for variables:
 
 ```cpp
+#include <iostream>
+
 int main() {
     int x = 5 + 6;
     float y = 0.5;
-    cout << "Hello World! " << x << std::endl();
+    std::cout << "Hello World! " << x << std::endl;
 }
 ```
 
@@ -257,15 +259,15 @@ help us at all. Therefore, use `Any` only when necessary.
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
 
-1. We provide a file called `typing_exercise.py`. Add typing everywhere in the file. Please note that you will
+1. We provide a file called `typing_exercise.py`. Add typing everywhere in the file. Please note that you may
     need the following imports
 
     ```python
-    from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
+    from typing import Callable, Optional, Tuple, Union, List  # you may not need all of them with modern syntax
     ```
 
-    for it to work. This [cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on
-    typing. We also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
+    This [cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) is a good resource on typing. We
+    also provide `typing_exercise_solution.py`, but try to solve the exercise yourself.
 
     ??? example "`typing_exercise.py`"
 
@@ -298,7 +300,7 @@ help us at all. Therefore, use `Any` only when necessary.
         ```
 
         We add `mypy` as a development dependency since it is not needed for running the actual code. Alternatively,
-        we could install it globally using `uvx mypy` to be used across multiple projects.
+        we could run it directly using `uvx mypy`, without installing it in the project.
 
     !!! info
 
@@ -351,16 +353,18 @@ help us at all. Therefore, use `Any` only when necessary.
 
     ??? success "Solution"
 
-        The easy solution would be to do `def f(x : Any)`. But instead we could also go with:
+        The easy solution would be to do `def f(x: Any)`. But instead we could also go with:
 
         ```python
         def f(x: None | Tuple[int, ...] | List[int] | Dict[int, str]):
+            ...
         ```
 
         Alternatively, we could do
 
         ```python
         def f(x: None | Iterable[int]):
+            ...
         ```
 
         because `list`, `tuple` and `dict` are all iterables and therefore can be covered by one type

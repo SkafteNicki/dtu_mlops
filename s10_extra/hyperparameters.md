@@ -8,15 +8,15 @@
 
     This module has not been updated for a long time and therefore some functionality of Optuna, which is used in these
     exercises, may not be included. If you have completed the module on
-    [Weights & Bias](../s4_debugging_and_logging/logging.md) then we highly recommend instead using their sweep
+    [Weights & Biases](../s4_debugging_and_logging/logging.md) then we highly recommend instead using their sweep
     functionality.
 
 Hyperparameter optimization is not a new idea within machine learning but have somewhat seen a renaissance with
-the uprise of deep learning. This can mainly be contributed to the following:
+the uprise of deep learning. This can mainly be attributed to the following:
 
 * Trying to beat state-of-the-art often comes down to very small differences in performance, and hyperparameter
     optimization can help squeeze out a bit more
-* Deep learning models are in general not that robust towards the choice of hyparameter so choosing the wrong set
+* Deep learning models are in general not that robust towards the choice of hyperparameter so choosing the wrong set
     may lead to a model that does not work
 
 However the problem with doing hyperparameter optimization of a deep learning models is that it can take over a
@@ -62,9 +62,9 @@ rest to a "recommended value".
         ```
 
 2. Initially we will look at the `cross_validate.py` file. It implements simple K-fold cross validation of
-    a random forest sklearn digits dataset (subset of MNIST). Look over the script and try to run it.
+    a random forest on the sklearn digits dataset (a subset of MNIST). Look over the script and try to run it.
 
-3. We will now try to write the same code in optune. Please note that the script have a variable `OPTUNA=False`
+3. We will now try to write the same code in optuna. Please note that the script have a variable `OPTUNA=False`
     that you can use to change what part of the code should run. The three main concepts of optuna is
 
     * A trial: a single experiment
@@ -97,32 +97,32 @@ rest to a "recommended value".
         be minimized? If not, a simple solution is to put a `-` in front of the metric. However, look through
         the documentation on how to change the **direction** of the optimization.
 
-    2. Optuna will by default do Bayesian optimization when sampling the hyperparameters (using a evolutionary
-        algorithm for suggesting new trials). However, since this example is quite simple, we can actually
-        perform a full grid search. How would you do this in Optuna?
+    2. Optuna will by default do Bayesian optimization when sampling the hyperparameters (using the
+        tree-structured Parzen estimator (TPE) for suggesting new trials). However, since this example is quite
+        simple, we can actually perform a full grid search. How would you do this in Optuna?
 
     3. Compare the performance of a single optuna run using Bayesian optimization with `n_trials=10` with a
         exhaustive grid search that have search through all hyperparameters. What is the performance/time
         trade-off for these two solutions?
 
-6. In addition to doing baysian optimization, the other great part about Optuna is that it have native support
+6. In addition to doing Bayesian optimization, the other great part about Optuna is that it have native support
     for **Pruning** unpromising trials. Pruning refers to the user stopping trials for hyperparameter combinations
     that does not seem to lead anywhere. You may have learning rate that is so high that training is diverging or
     a neural network with too many parameters so it is just overfitting to the training data. This however begs the
     question: what constitutes an unpromising trial? This is up to you to define based on prior experimentation.
 
-    1. Start by looking at the `fashion_trainer.py` script. Its a simple classification network for classifying
+    1. Start by looking at the `fashion_trainer.py` script. It's a simple classification network for classifying
         images in the [FashionMNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. Run the script
-        with the default hyperparameters to get a feeling of how the training should be progress.
+        with the default hyperparameters to get a feeling of how the training should be progressing.
         Note down the performance on the test set.
 
     2. Start by defining a validation set and a validation dataloader that we can use for hyperparameter optimization
-        (HINT: use 5-10% of you training data).
+        (HINT: use 5-10% of your training data).
 
-    3. Now, adjust the script to use Optuna. The 5 hyperparameters listed in the table above should at least be included
+    3. Now, adjust the script to use Optuna. The hyperparameters listed in the table below should at least be included
         in the hyperparameter search. For some we have already defined the search space but for the remaining you need to
-        come up with a good range of values to investigate. We done integrating optuna, run a small study (`n_tirals=3`)
-        to check that the code is working.
+        come up with a good range of values to investigate. When you are done integrating optuna, run a small study
+        (`n_trials=3`) to check that the code is working.
 
         Hyperparameter                                     | Search space                                                |
         ---------------------------------------------------|-------------------------------------------------------------|
@@ -130,13 +130,13 @@ rest to a "recommended value".
         Number of output features in the second last layer | ???                                                         |
         The amount of dropout to apply                     | ???                                                         |
         Batch size                                         | ???                                                         |
-        Use batch normalize or not                         | {True, False}                                               |
+        Use batch normalization or not                     | {True, False}                                               |
         (Optional) Different activations functions         | {`nn.ReLU`, `nn.Tanh`, `nn.RReLU`, `nn.LeakyReLU`, `nn.ELU`}|
 
     4. If implemented correctly the number of hyperparameter combinations should be at least 1000, meaning that
-        we not only need baysian optimization but probably also need pruning to succeed. Checkout the page for
+        we not only need Bayesian optimization but probably also need pruning to succeed. Checkout the page for
         [built-in pruners](https://optuna.readthedocs.io/en/stable/reference/pruners.html) in Optuna. Implement
-        pruning in the script. I recommend using either the `MedianPruner` or the `ProcentilePruner`.
+        pruning in the script. I recommend using either the `MedianPruner` or the `PercentilePruner`.
 
     5. Re-run the study using pruning with a large number of trials (`n_trials>50`)
 
@@ -145,14 +145,14 @@ rest to a "recommended value".
         for ideas on how to visualize the study you just did. Make at least two visualization of the study and
         make sure that you understand them.
 
-    7. Pruning is great for better spending your computational budged, however it comes with a trade-off. What is
+    7. Pruning is great for better spending your computational budget, however it comes with a trade-off. What is
         it and what hyperparameter should one be especially careful about when using pruning?
 
     8. Finally, what parameter combination achieved the best performance? What is the test set performance for this
         set of parameters. Did you improve over the initial set of hyperparameters?
 
 7. The exercises until now have focused on doing the hyperparameter searching sequentially, meaning that we test one
-    set of parameters at the time. It is a fine approach because you can easily let it run for a week without any
+    set of parameters at a time. It is a fine approach because you can easily let it run for a week without any
     interaction. However, assuming that you have the computational resources to run in parallel, how do you do that?
 
     1. To run hyperparameter search in parallel we need a common database that all experiments can read and
@@ -192,12 +192,12 @@ rest to a "recommended value".
 
         where the `study_name` and `storage` should match how the study was created.
 
-    5. For running in parallel, you can either open up a extra terminal and simple launch your script once
-        per open terminal or you can use the provided `parallel_lancher.py` that will launch multiple executions
+    5. For running in parallel, you can either open up an extra terminal and simply launch your script once
+        per open terminal or you can use the provided `parallel_launcher.py` that will launch multiple executions
         of your script. It should be used as:
 
         ```bash
-        python parallel_lancher.py myscript.py --num_parallel 2
+        python parallel_launcher.py myscript.py --num_parallel 2
         ```
 
     6. Finally, make sure that you can access the results
