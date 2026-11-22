@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install fastapi uvicorn nltk evidently google-cloud-storage pandas --no-cache-dir
+RUN pip install fastapi uvicorn nltk evidently "pandas<3" google-cloud-storage --no-cache-dir
 
 COPY sentiment_monitoring.py .
 

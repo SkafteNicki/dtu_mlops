@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.11, <3.14"
 resolution-markers = [
     "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux'",
@@ -1315,6 +1315,7 @@ exercises = [
     { name = "neural-compressor" },
     { name = "onnxruntime" },
     { name = "optuna" },
+    { name = "pandas" },
     { name = "pipreqs" },
     { name = "pre-commit" },
     { name = "prefect" },
@@ -1365,7 +1366,7 @@ exercises = [
     { name = "dvc", specifier = "<=3.64" },
     { name = "dvc-gdrive", specifier = "<=3.0.1" },
     { name = "dvc-gs", specifier = "<=3.0.2" },
-    { name = "evidently", specifier = "<=0.7.16" },
+    { name = "evidently", specifier = "<=0.7.23" },
     { name = "fastapi", specifier = "<=0.121.2" },
     { name = "google-cloud-storage", specifier = "<=3.6" },
     { name = "httpx", specifier = "<=0.28.1" },
@@ -1380,6 +1381,7 @@ exercises = [
     { name = "neural-compressor", specifier = "<=3.6" },
     { name = "onnxruntime", specifier = "<=1.23.2" },
     { name = "optuna", specifier = "<=4.6" },
+    { name = "pandas", specifier = "<3" },
     { name = "pipreqs", specifier = "<=0.4.13" },
     { name = "pre-commit", specifier = "<=4.1" },
     { name = "prefect", specifier = "<=3.5" },
@@ -1632,7 +1634,7 @@ wheels = [
 
 [[package]]
 name = "evidently"
-version = "0.7.16"
+version = "0.7.23"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -1644,6 +1646,7 @@ dependencies = [
     { name = "litestar" },
     { name = "nltk" },
     { name = "numpy" },
+    { name = "opentelemetry-proto" },
     { name = "pandas", extra = ["parquet"] },
     { name = "plotly" },
     { name = "pydantic" },
@@ -1661,9 +1664,9 @@ dependencies = [
     { name = "uvicorn", extra = ["standard"] },
     { name = "watchdog" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3f/ed/c2bddac3dbfa053255736dc2f8b9a3b876f08dac33f55bb26bdfcc9af132/evidently-0.7.16.tar.gz", hash = "sha256:db2805da6c5bbb9b7e6cd2e24ea439ea9b4375f41462bf29b2640505fccc7b08", size = 4210929, upload-time = "2025-11-11T18:06:37.512Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/15/57e49dd9e72ed7852f496c8b5f5eab066c9fd198e4d220487a28287676df/evidently-0.7.23.tar.gz", hash = "sha256:90ed736a85581c46410647dd3c1c957531c77231bb415e1021512238b12d5870", size = 7678829, upload-time = "2026-09-11T09:01:35.204Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a3/23/c56459b241729a3af9d7cbcde3ebadf43b9f953a22f1c574643e76f8ca2a/evidently-0.7.16-py3-none-any.whl", hash = "sha256:edd37f0840b54a061c3fe9d99e9f6845c9adb15999f50f450f0be42c5d4a562d", size = 4454149, upload-time = "2025-11-11T18:06:34.974Z" },
+    { url = "https://files.pythonhosted.org/packages/84/22/3e1ac087e4a817430a5b872c730c5f8e08998d1affb50a3857c661a42bec/evidently-0.7.23-py3-none-any.whl", hash = "sha256:dbba5537a644f3401b8a393008cd126e304bcf939a070a7c4399bcc5b97061f6", size = 11744609, upload-time = "2026-09-11T09:01:32.078Z" },
 ]
 
 [[package]]
@@ -3976,6 +3979,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/dd/5c/c139a7876099916879609372bfa513b7f1257f7f1a908b0bdc1c2328241b/opencv_python_headless-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0e0a27c19dd1f40ddff94976cfe43066fbbe9dfbb2ec1907d66c19caef42a57b", size = 49969856, upload-time = "2025-01-16T13:53:29.654Z" },
     { url = "https://files.pythonhosted.org/packages/95/dd/ed1191c9dc91abcc9f752b499b7928aacabf10567bb2c2535944d848af18/opencv_python_headless-4.11.0.86-cp37-abi3-win32.whl", hash = "sha256:f447d8acbb0b6f2808da71fddd29c1cdd448d2bc98f72d9bb78a7a898fc9621b", size = 29324425, upload-time = "2025-01-16T13:52:49.048Z" },
     { url = "https://files.pythonhosted.org/packages/86/8a/69176a64335aed183529207ba8bc3d329c2999d852b4f3818027203f50e6/opencv_python_headless-4.11.0.86-cp37-abi3-win_amd64.whl", hash = "sha256:6c304df9caa7a6a5710b91709dd4786bf20a74d57672b3c31f7033cc638174ca", size = 39402386, upload-time = "2025-01-16T13:52:56.418Z" },
+]
+
+[[package]]
+name = "opentelemetry-proto"
+version = "1.27.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "protobuf" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9a/59/959f0beea798ae0ee9c979b90f220736fbec924eedbefc60ca581232e659/opentelemetry_proto-1.27.0.tar.gz", hash = "sha256:33c9345d91dafd8a74fc3d7576c5a38f18b7fdf8d02983ac67485386132aedd6", size = 34749, upload-time = "2024-08-28T21:35:45.839Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/94/56/3d2d826834209b19a5141eed717f7922150224d1a982385d19a9444cbf8d/opentelemetry_proto-1.27.0-py3-none-any.whl", hash = "sha256:b133873de5581a50063e1e4b29cdcf0c5e253a8c2d8dc1229add20a4c3830ace", size = 52464, upload-time = "2024-08-28T21:35:21.434Z" },
 ]
 
 [[package]]
