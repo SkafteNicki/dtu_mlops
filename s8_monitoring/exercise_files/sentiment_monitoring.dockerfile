@@ -6,6 +6,6 @@ RUN pip install fastapi uvicorn nltk evidently "pandas<3" google-cloud-storage -
 
 COPY sentiment_monitoring.py .
 
-EXPOSE $PORT
+EXPOSE 8080
 
 CMD exec uvicorn sentiment_monitoring:app --port $PORT --host 0.0.0.0 --workers 1

@@ -5,7 +5,6 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 ARG CUDA
-ENV CUDA=${CUDA}
 
 RUN echo "CUDA is set to: ${CUDA}" && \
     if [ -n "$CUDA" ]; then \

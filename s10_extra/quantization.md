@@ -60,11 +60,12 @@ after training. There are good reasons for doing both:
         app = typer.Typer()
 
         @app.command()
-        def quantize(model_checkpoint: str) -> None:
+        def convert(model_checkpoint: str) -> None:
             if model_checkpoint.endswith(".ckpt"):
                 model = MyModel.load_from_checkpoint(model_checkpoint)
             else:
                 model = onnx.load(model_checkpoint)
+            # the quantization of `model` is added in the next exercises
 
         if __name__ == "__main__":
             app()

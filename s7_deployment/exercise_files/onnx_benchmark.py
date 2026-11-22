@@ -41,8 +41,12 @@ if sys.platform == "win32":
     )
 else:
     torch.onnx.export(
-        model, (dummy_input,), dynamic_shapes=({0: "batch_size", 2: "height", 3: "width"},), dynamo=True
-    ).save("resnet18.onnx")
+        model,
+        (dummy_input,),
+        "resnet18.onnx",
+        dynamic_shapes=({0: "batch_size", 2: "height", 3: "width"},),
+        dynamo=True,
+    )
 
 ort_session = ort.InferenceSession("resnet18.onnx")
 ort_input_name = ort_session.get_inputs()[0].name

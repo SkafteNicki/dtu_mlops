@@ -256,7 +256,7 @@ to make it work.
         ??? success "Solution"
 
             ```bash
-            uv pip list
+            uv tree
             # or
             uv pip freeze
             ```

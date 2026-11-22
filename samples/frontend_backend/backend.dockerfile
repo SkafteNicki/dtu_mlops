@@ -14,5 +14,5 @@ COPY imagenet-simple-labels.json /app/imagenet-simple-labels.json
 
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_backend.txt
 
-EXPOSE $PORT
+EXPOSE 8080
 CMD exec uvicorn --port $PORT --host 0.0.0.0 backend:app

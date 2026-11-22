@@ -330,7 +330,7 @@ deploying containers.
 
             ```dockerfile
             EXPOSE 8080
-            CMD exec uvicorn main:app --port 8080 --workers 1
+            CMD exec uvicorn main:app --port 8080 --host 0.0.0.0 --workers 1
             ```
 
             and make sure that your application is also listening on that port. If you hard code the port in your
@@ -339,9 +339,14 @@ deploying containers.
             and can be accessed in your application:
 
             ```dockerfile
-            EXPOSE $PORT
-            CMD exec uvicorn main:app --port $PORT --workers 1
+            EXPOSE 8080
+            CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
             ```
+
+            Note that `EXPOSE` is evaluated when the image is built, where `$PORT` is not set yet, so we keep it at the
+            default `8080`. It only documents the port, while the `CMD` reads `$PORT` when the container starts. Also
+            note the `--host 0.0.0.0`, which makes the application listen on all network interfaces and not only on
+            `localhost` inside the container.
 
             If you do this and then want to run locally you can run it as:
 
