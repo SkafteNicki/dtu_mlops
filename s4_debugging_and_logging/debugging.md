@@ -23,13 +23,15 @@ To invoke the built-in Python debugger you can either:
     pdb.set_trace()
     ```
 
-    anywhere you want to stop the code. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`)
-    to step through the code.
+    anywhere you want to stop the code. Since Python 3.7 you can instead call the built-in
+    [`breakpoint()`](https://docs.python.org/3/library/functions.html#breakpoint) function, which by default calls
+    `pdb.set_trace()`. Then you can use different commands (see the `python_debugger_cheatsheet.pdf`) to step through
+    the code.
 
-* If you are using an editor, then you can insert inline breakpoints (in VS Code this can be done by pressing `F9`)
-    and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
-    your code). The editor should then offer some interface to allow you step through your code. Here is a guide to
-    using the built-in debugger [in VScode](https://code.visualstudio.com/docs/python/debugging#_basic-debugging).
+* If you are using an editor, then you can insert breakpoints (in VS Code this can be done by pressing `F9`)
+    and then execute the script in debug mode (breakpoints can often be seen as small red dots to the left of
+    your code). The editor should then offer some interface to allow you to step through your code. Here is a guide to
+    using the built-in debugger [in VS Code](https://code.visualstudio.com/docs/python/debugging#_basic-debugging).
 
 * Additionally, if your program is stopping on an error and you automatically want to start the debugger where it
     happens, then you can simply launch the program like this from the terminal
@@ -37,7 +39,7 @@ To invoke the built-in Python debugger you can either:
     === "Using pip"
 
         ```bash
-        python -m pdb my_script.py
+        python -m pdb -c continue my_script.py
         ```
 
     === "Using uv"
@@ -56,7 +58,7 @@ We here provide a script `vae_mnist_bugs.py` which contains a number of bugs tha
 Start by going over the script and try to understand what is going on. Afterwards, try to get it running by fixing the
 bugs. The following bugs exist in the script:
 
-* One device bug (will only show if running on gpu, but try to find it anyways)
+* One device bug (will only show if running on GPU or MPS, but try to find it anyways)
 * One shape bug
 * One math bug
 * One training bug
@@ -65,9 +67,9 @@ Some of the bugs prevent the script from running at all, while some of them infl
 find them all. We also provide a working version called `vae_mnist_working.py` (but please try to find the bugs before
 looking at the script). Successfully debugging and running the script should produce three files:
 
-* `orig_data.png` containing images from the standard MNIST training set
+* `orig_data.png` containing images from the standard MNIST test set
 * `reconstructions.png` reconstructions from the model
-* `generated_samples.png` samples from the model
+* `generated_sample.png` samples from the model
 
 Again, we cannot stress enough that the exercise is not actually about finding the bugs but **using a proper** debugger
 to find them.
@@ -85,8 +87,8 @@ to find them.
 
     this will fail with a
     `RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!` if
-    you are running on GPU, because the noise tensor is initialized on the CPU. You can fix this by initializing the
-    noise tensor on the same device as the mean and var tensors.
+    you are running on a GPU or MPS device, because the noise tensor is initialized on the CPU. You can fix this by
+    initializing the noise tensor on the same device as the mean and var tensors.
 
     ```python
     def reparameterization(self, mean, var):
@@ -114,9 +116,9 @@ to find them.
     ```
 
     This means that `h` should be a tensor of shape `[bs, hidden_dim]`, but since we initialize the `FC_output`
-    layer with `latent_dim` output dimensions, the forward pass will fail with a
-    `RuntimeError: size mismatch, m1: [bs, hidden_dim], m2: [bs, latent_dim]` if `hidden_dim != latent_dim`. You can
-    fix this by initializing the `FC_output` layer with `hidden_dim` output dimensions.
+    layer with `latent_dim` input dimensions, the forward pass will fail with a
+    `RuntimeError: mat1 and mat2 shapes cannot be multiplied (100x400 and 20x784)` if `hidden_dim != latent_dim`. You
+    can fix this by initializing the `FC_output` layer with `hidden_dim` input dimensions.
 
     ```python
     self.FC_output = nn.Linear(hidden_dim, output_dim)

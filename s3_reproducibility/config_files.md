@@ -34,10 +34,10 @@ class my_hp:
     other_hp: 12345
 
 # easy access to them
-dl = DataLoader(Dataset, batch_size=my_hp.batch_size)
+dl = DataLoader(dataset, batch_size=my_hp.batch_size)
 ```
 
-the problem here is configuration is not easy. Each time you want to run a new experiment, you basically have to
+The problem here is configuration is not easy. Each time you want to run a new experiment, you basically have to
 change the script. If you run the code multiple times without committing the changes in between then the exact
 hyperparameter configuration for some experiments may be lost. Alright, with this in mind you change strategy to use
 an [argument parser](https://docs.python.org/3/library/argparse.html) e.g. run experiments like this:
@@ -88,7 +88,7 @@ or using `hydra` for loading the configuration
 ```python
 import hydra
 
-@hydra.main(config_name="config.yaml")
+@hydra.main(config_path=".", config_name="config.yaml", version_base="1.3")
 def main(cfg):
     print(cfg.hyperparameters.batch_size, cfg.hyperparameters.learning_rate)
 
@@ -252,15 +252,12 @@ look online for your answers before looking at the solution. Remember: it's not 
         and the python code to load the configuration file and instantiate the optimizer could look like this
 
         ```python
-        import os
-
         import hydra
-        import torch.optim as optim
 
-        @hydra.main(config_name="adam.yaml", config_path=f"{os.getcwd()}/configs")
+        @hydra.main(config_path="configs", config_name="adam.yaml", version_base="1.3")
         def main(cfg):
             model = ...  # define the model we want to optimize
-            # the first argument of any optimize is the parameters to optimize
+            # the first argument of any optimizer is the parameters to optimize
             # we add those dynamically when we instantiate the optimizer
             optimizer = hydra.utils.instantiate(cfg.optimizer, params=model.parameters())
             print(optimizer)

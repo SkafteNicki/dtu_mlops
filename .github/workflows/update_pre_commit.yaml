@@ -1,5 +1,6 @@
 # pre-commit auto-update workflow
-# Dependabot does not support updating pre-commit so this workflow will do that
+# Dependabot can also update pre-commit hooks (`package-ecosystem: pre-commit`, added March 2026), but this workflow
+# is kept as it is the solution to the optional pre-commit exercise in s5_continuous_integration/pre_commit.md
 name: Pre-commit auto-update
 
 on:

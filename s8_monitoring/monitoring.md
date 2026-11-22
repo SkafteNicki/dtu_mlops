@@ -32,8 +32,8 @@ to set up first.
 Let's start by looking at how we can attach metrics to an application and expose them afterwards. The standard framework
 for exposing metrics is called [prometheus](https://prometheus.io/). Prometheus is a time series database that is
 designed to store metrics. It is also designed to be very easy to instrument applications with and it is designed to
-scale to large amounts of data. The way prometheus works is that it exposes a `/metrics` endpoint that can be queried to
-get the current state of the metrics. The metrics are exposed in a format called
+scale to large amounts of data. The way prometheus works is that our application exposes a `/metrics` endpoint that can
+be queried to get the current state of the metrics. The metrics are exposed in a format called
 [prometheus text format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ### ❔ Exercises
@@ -92,7 +92,7 @@ get the current state of the metrics. The metrics are exposed in a format called
 
         The important parts that implement the prometheus metrics are highlighted below:
 
-        ```python linenums="1" hl_lines="10 50 74 135"
+        ```python linenums="1" hl_lines="10 50 74 134"
         --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_simple.py"
         ```
 
@@ -141,7 +141,7 @@ get the current state of the metrics. The metrics are exposed in a format called
 
             The important parts that implement the prometheus metrics are highlighted below:
 
-            ```python linenums="1" hl_lines="10 50-53 76 110 111 113 141"
+            ```python linenums="1" hl_lines="10 50-53 77 111 112 114 141-142"
             --8<-- "s8_monitoring/exercise_files/sentiment_api_prometheus_advance.py"
             ```
 
@@ -165,7 +165,7 @@ service called [Monitoring](https://cloud.google.com/monitoring) that is designe
 By default it will monitor a lot of metrics out-of-the-box. However, the question is if we want to monitor more than the
 default metrics. The complexity that comes with doing monitoring in the cloud is that we need more than one container.
 We at least need one container actually running the application that is also exposing the `/metrics` endpoint and then
-we need a another container that is collecting the metrics from the first container and storing them in a database. To
+we need another container that is collecting the metrics from the first container and storing them in a database. To
 implement such a system of containers that need to talk to each other we in general need to use a container orchestration
 system such as [Kubernetes](https://kubernetes.io/). This is out of scope for this course, but we can use a feature
 of `Cloud Run` called `sidecar containers` to achieve the same effect. A sidecar container is a container that is
@@ -177,12 +177,13 @@ running alongside the main container and can be used to do things such as collec
 
 ### ❔ Exercises
 
-1. Overall we recommend that you just become familiar with the monitoring tab for your cloud run service (see image)
+1. Overall we recommend that you just become familiar with the `Metrics` tab for your cloud run service (see image)
     above. Try to invoke your service a couple of times and see what happens to the metrics over time.
 
 2. Try creating a service level objective (SLO). In short an [SLO](https://sre.google/sre-book/service-level-objectives/)
-    is a target for how well your application should be performing. Click the `Create SLO` button and fill it out with
-    what you consider to be a good SLO for your application.
+    is a target for how well your application should be performing. Go to the `SLOs` page in the `Monitoring` service,
+    select your service and click the `Create SLO` button, and fill it out with what you consider to be a good SLO for
+    your application.
 
     <figure markdown>
     ![Image](../figures/gcp_run_slo.png){ width="800" }
@@ -192,14 +193,15 @@ running alongside the main container and can be used to do things such as collec
     [in the Cloud Run sidecar guide](https://cloud.google.com/stackdriver/docs/managed-prometheus/cloudrun-sidecar#default-configuration).
     We have created a simple example that uses FastAPI and Prometheus that you can find
     [in this example repository](https://github.com/SkafteNicki/gcp_monitoring_test). After you have correctly created
-    the sidecar container you should be able to see your custom metrics in the monitoring tab.
+    the sidecar container you should be able to see your custom metrics in the `Metrics Explorer` of the `Monitoring`
+    service (remember to switch the query type to `PromQL`).
 
 ## Alert systems
 
 A core problem within monitoring is alert systems. The alert system is in charge of sending out alerts to relevant
 people when some telemetry or metric we are tracking is not behaving as it should. Alert systems are a subjective
 choice of when and how many should be sent out and in general should be proportional to the importance of the
-metric/telemetry. We commonly run into what is referred to the
+metric/telemetry. We commonly run into what is referred to as the
 [goldilocks problem](https://en.wikipedia.org/wiki/Goldilocks_principle) where we want just the *right amount* of
 alerts, though it is more often the case that we either have
 
@@ -213,7 +215,7 @@ want to trigger alerts.
 
 ### ❔ Exercises
 
-In this exercise we are going to look at how we can setup automatic alerting such that we get a message every time one
+In this exercise we are going to look at how we can set up automatic alerting such that we get a message every time one
 of our applications is not behaving as expected.
 
 1. Go to the `Monitoring` service. Then go to the `Alerting` tab.
@@ -221,11 +223,13 @@ of our applications is not behaving as expected.
     ![Image](../figures/gcp_alert.png){ width="800" }
     </figure>
 
-2. Start by setting up a notification channel. We recommend setting up with an email.
+2. Start by setting up a notification channel. On the `Alerting` page, click `Edit notification channels` and add a new
+   channel in the `Email` section (we recommend setting up an email channel).
 
-3. Next let's create a policy. Clicking the `Add Condition` should bring up a window as below. You are free to set up the
-   condition however you want but the image is one way to setup an alert that will react to the number of times a cloud
-   function is invoked (actually it measures the number of log entries from cloud functions).
+3. Next let's create a policy. Click `Create policy` and then `Select a metric`; this should bring up a window as
+   below. You are free to set up the condition however you want but the image is one way to set up an alert that will
+   react to the number of times a cloud function is invoked (actually it measures the number of log entries from cloud
+   functions).
 
     <figure markdown>
     ![Image](../figures/gcp_alert_condition.png){ width="800" }
@@ -239,7 +243,6 @@ of our applications is not behaving as expected.
     cloud function many times (you need to change the URL and payload depending on your function):
 
     ```python
-    import time
     import requests
     url = 'https://us-central1-dtumlops-335110.cloudfunctions.net/function-2'
     payload = {'message': 'Hello, General Kenobi'}

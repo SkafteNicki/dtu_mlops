@@ -10,8 +10,9 @@ WORKDIR /app
 
 COPY requirements_backend.txt /app/requirements_backend.txt
 COPY backend.py /app/backend.py
+COPY imagenet-simple-labels.json /app/imagenet-simple-labels.json
 
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_backend.txt
 
-EXPOSE $PORT
-CMD exec unicorn --port $PORT --host 0.0.0.0 backend:app
+EXPOSE 8080
+CMD exec uvicorn --port $PORT --host 0.0.0.0 backend:app

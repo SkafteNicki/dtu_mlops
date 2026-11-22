@@ -8,7 +8,7 @@
 
 !!! warning
 
-    Since August 2024, Google has changed their policy for the Google Drive API. This means that the proceduce for
+    Since August 2024, Google has changed their policy for the Google Drive API. This means that the procedure for
     setting up DVC with Google Drive has changed. The following exercises therefore need extra authentication to work.
     You therefore have three options:
 
@@ -16,9 +16,9 @@
         permanent storage solution in this [module](../s6_the_cloud/using_the_cloud.md).
 
     2. Follow the instructions below to authenticate DVC with Google Drive. As a starting point read the following
-        [GitHub issue](https://github.com/iterative/dvc/issues/10516#issuecomment-2289652067) and then follow the
+        [GitHub issue](https://github.com/treeverse/dvc/issues/10516#issuecomment-2289652067) and then follow the
         instructions
-        [here](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended).
+        [here](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-a-custom-google-cloud-project-recommended)
         for setting up a custom Google Cloud project.
 
     3. Another alternative is that you can use a local remote storage instead of Google Drive. If you are a DTU student,
@@ -37,11 +37,11 @@ other hand, the size of data can be drastically bigger. As most machine learning
 more data that you feed them, we are seeing models today that are being trained on petabytes of data (1.000.000 GB).
 
 Because this is an important concept there exist a couple of frameworks that have specialized in versioning data such as
-[DVC](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Hub](https://www.activeloop.ai/),
+[DVC](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Deep Lake](https://www.activeloop.ai/),
 [Modelstore](https://modelstore.readthedocs.io/en/latest/) and [ModelDB](https://github.com/VertaAI/modeldb/).
 Regardless of the framework, they all implement more or less the same concept: instead of storing the actual data files
-or in general storing any large *artifact* files, we instead store a pointer to these large flies. We then version
-control the point instead of the artifact.
+or in general storing any large *artifact* files, we instead store a pointer to these large files. We then version
+control the pointer instead of the artifact.
 
 <figure markdown>
 ![Image](../figures/git_artifact.png){ width="700" }
@@ -50,13 +50,14 @@ control the point instead of the artifact.
 </figcaption>
 </figure>
 
-We are in this course going to use `DVC` provided by [iterative.ai](https://iterative.ai/), as they also provide tools
-for automating machine learning, which we are going to focus on later.
+We are in this course going to use `DVC`, originally developed by [iterative.ai](https://iterative.ai/) and now
+maintained by [lakeFS](https://lakefs.io/). The same ecosystem also provides tools for automating machine learning,
+which we are going to focus on later.
 
 ## DVC: What is it?
 
-DVC (Data Version Control) is simply an extension of `git` to not only take versioning data but also models and
-experiments in general. But how does it deal with these large data files? Essentially, `DVC` will just keep track of a
+DVC (Data Version Control) is simply an extension of `git` to not only version data but also models and experiments in
+general. But how does it deal with these large data files? Essentially, `DVC` will just keep track of a
 small *metafile* that will then point to some remote location where your original data is stored. Metafiles
 essentially work as placeholders for your data files. Your large data files are then stored in some remote location such
 as Google Drive or an `S3` bucket from Amazon.
@@ -180,7 +181,7 @@ it contains excellent tutorials.
     ```
 
 8. Finally, push your data to the remote storage using `dvc push`. You will be asked to authenticate, which involves
-    copy-pasting the code in the link prompted. Check out your Google Drive folder. You will see that the data is not
+    copy-pasting the code from the prompted link. Check out your Google Drive folder. You will see that the data is not
     in a recognizable format anymore due to the way that `dvc` packs and tracks the data. The boring detail is that
     `dvc` converts the data into [content-addressable storage](https://en.wikipedia.org/wiki/Content-addressable_storage)
     which makes data much faster to get. Finally, make sure that your data is not stored in your GitHub repository.
@@ -293,6 +294,6 @@ working with a dataset that consists of many small files, it can be a
 That's all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc`
 offers more than just data version control, so if you want to deep dive into `dvc` we recommend their
-[pipeline](https://dvc.org/doc/user-guide/project-structure/pipelines-files) feature and how this can be used to set up
+[pipeline](https://dvc.org/doc/user-guide/pipelines/defining-pipelines) feature and how this can be used to set up
 version-controlled [experiments](https://dvc.org/doc/command-reference/exp). Note that we are going to revisit `dvc`
 later for a more permanent (and large-scale) storage solution.

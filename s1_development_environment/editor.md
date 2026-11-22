@@ -58,7 +58,7 @@ chosen. If you are already an expert in one of them, feel free to skip the rest.
 
 The instructions below are specific to Visual Studio Code, but we recommend that you try to answer the questions
 if using another editor. In the `exercise_files` folder belonging to this session, we have put cheat sheets for VS Code
-(one for Windows and one for Mac/Linux) that can give you an easy overview of the different macros in VS Code. The
+(one for Windows and one for Mac/Linux) that can give you an easy overview of the different shortcuts in VS Code. The
 following exercises are just to get you started, but you can find many more tutorials
 [in the VS Code Python tutorial](https://code.visualstudio.com/docs/python/python-tutorial).
 
@@ -72,7 +72,7 @@ following exercises are just to get you started, but you can find many more tuto
     * [Python Environments](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-python-envs):
         allows for easy management of virtual environments
 
-2. If you install the `Python` package, you should see something like this in your status bar:
+2. If you install the `Python` extension, you should see something like this in your status bar:
 
     <figure markdown>
     ![Image](../figures/action_bar.PNG){ width="700" }
@@ -108,7 +108,7 @@ following exercises are just to get you started, but you can find many more tuto
 That's the basics of using VS Code. We highly recommend that you revisit
 [this tutorial](https://code.visualstudio.com/docs/python/python-tutorial) during the course when we get to topics such
 as debugging and version control, which VS Code can help with. We can also recommend this
-[blog post](https://fmind.medium.com/how-to-configure-vs-code-for-ai-ml-and-mlops-development-in-python-%EF%B8%8F%EF%B8%8F-8582d8c6ea54)
+[blog post](https://fmind.dev/articles/how-to-configure-vs-code-for-ai-ml-and-mlops-development-in-python/)
 that goes over some good extensions for AI/ML development in VS Code.
 
 ## A note on Jupyter notebooks in production environments
@@ -131,7 +131,7 @@ All this said, there exists one simple tool to make notebooks work better in a p
     uv add nbconvert
     ```
 
-You may need some further dependencies such as Pandoc, TeX and Pyppeteer for it to work (see install instructions
+You may need some further dependencies such as Pandoc, TeX and Playwright for it to work (see install instructions
 [in the nbconvert documentation](https://nbconvert.readthedocs.io/en/latest/install.html#installing-nbconvert)). After
 this, converting a notebook to a `.py` script is as simple as:
 
@@ -165,7 +165,7 @@ code you are currently writing and in general just has access to a larger contex
 
 3. GitHub Copilot has many different features, but the most important one is the ability to provide suggestions based
     on the code you are currently writing. Try to write some code in a new Python file and see if you can get some
-    suggestions from GitHub Copilot on how to complete the code. If you have no idea what to try out here is a
+    suggestions from GitHub Copilot on how to complete the code. If you have no idea what to try out, here is a
     simple example of starting out coding a neural network in PyTorch:
 
     ```python
@@ -222,10 +222,9 @@ code you are currently writing and in general just has access to a larger contex
         ```
 
     It will naturally give you an error, but you can now ask GitHub Copilot for help. The easiest way to do this is by
-    highlighting the output in the terminal and then running
-    the `GitHub Copilot: Explain This (Terminal)` command (see the image below, use `Ctrl+Shift+P` to open the command
-    palette and search for the command). Does the explanation make sense e.g. can you figure out what to change to get
-    the code running?
+    opening Copilot Chat and asking it to explain what went wrong (the `@terminal` keyword can be used to provide the
+    terminal and its content as context to the chat). Does the explanation make sense e.g. can you figure out what to
+    change to get the code running?
 
     <figure markdown>
     ![Image](../figures/github_copilot2.png){ width="700" }
@@ -236,8 +235,7 @@ code you are currently writing and in general just has access to a larger contex
     { .annotate }
 
     1. :man_raising_hand: Remember that ChatGPT is a general AI model, meaning that it was trained to be good at many
-        tasks, whereas GitHub Copilot (which uses OpenAI's Codex model under the hood) was specifically trained to be
-        good at coding.
+        tasks, whereas GitHub Copilot is specifically designed to be good at coding.
 
 That was a small introduction to GitHub Copilot. We highly recommend that you try to use it during the course to see
 how it can help you solve both the exercises and the final project. However, when using AI tools it is always important

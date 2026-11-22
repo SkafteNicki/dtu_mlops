@@ -16,10 +16,10 @@ If you give an MLOps engineer a job
 * Could you send me a message when it succeeds?
 * Could you visualize the dependencies?
 * Could you add caching?
-* Could you add add collaborators to run ad hoc - who don't code e.g could you add a UI?
+* Could you add collaborators to run ad hoc - who don't code e.g could you add a UI?
 
 ```python
-from prefect import task, Flow
+from prefect import flow, task
 ```
 
 ### ❔ Exercises
