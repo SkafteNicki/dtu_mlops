@@ -396,7 +396,6 @@ Memes are decided per deck: recreate, regenerate, or swap (author's call).
 
 ---
 layout: section
-kicker: "05"
 ---
 
 # Theme test slides

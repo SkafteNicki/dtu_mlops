@@ -5,7 +5,8 @@ export default (() => {
   const key = currentVariant()
   const html = document.documentElement
   html.dataset.variant = key
-  // Each variant fixes its own colour scheme; Slidev stores the scheme here.
+  // D follows Slidev's dark/light toggle; A-C fix their own colour scheme.
+  if (variantInfo(key).dark === null) return
   localStorage.setItem('slidev-color-schema', variantInfo(key).dark ? 'dark' : 'light')
   html.classList.toggle('dark', variantInfo(key).dark)
 })

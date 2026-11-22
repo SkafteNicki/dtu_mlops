@@ -13,7 +13,10 @@ const title = computed(() => String($slidev.configs.title ?? ''))
 </script>
 
 <template>
-  <template v-if="!bare">
+  <template v-if="variant === 'D'">
+    <div class="mlops-chrome-d"><DtuLogo class="logo" /><span v-if="!bare" class="pageno">{{ $page }}</span></div>
+  </template>
+  <template v-else-if="!bare">
     <div v-if="variant === 'A'" class="mlops-pageno">{{ $page }}</div>
     <div v-else-if="variant === 'B'" class="mlops-chrome-b">
       <div class="rule" />

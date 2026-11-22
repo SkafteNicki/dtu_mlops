@@ -1,0 +1,43 @@
+/* Variant D, the chosen direction: A's structure and Barlow, DTU red accent, both colour schemes.
+   Light: DTU red #990000 (8.9:1 on white). Dark: DTU secondary red #e83f48 (4.6:1 on #161415, WCAG AA);
+   #990000 on the dark background is only 2.1:1, unreadable as text. Logo top-right on every slide. */
+html[data-variant='D'] {
+  --mlops-bg: #ffffff;
+  --mlops-ink: #1a1718;
+  --mlops-muted: #5c5657;
+  --mlops-accent: #990000;
+  --mlops-surface: #f3f1f0;
+  --mlops-logo: #990000;
+  --mlops-font: 'Barlow', sans-serif;
+}
+html[data-variant='D'].dark {
+  --mlops-bg: #161415;
+  --mlops-ink: #e5e0df;
+  --mlops-muted: #a8a2a0;
+  --mlops-accent: #e83f48;
+  --mlops-surface: #262223;
+  --mlops-logo: #ffffff;
+}
+html[data-variant='D'].dark .slidev-layout {
+  background: radial-gradient(circle at 80% 10%, rgba(232, 63, 72, 0.06), transparent 45%), #161415;
+}
+html[data-variant='D'] .slidev-layout h1 { font-weight: 500; }
+html[data-variant='D'] .slidev-layout h3 { font-weight: 600; }
+html[data-variant='D'] .slidev-layout pre.shiki { background: var(--mlops-surface) !important; border-left: 3px solid var(--mlops-accent); }
+
+html[data-variant='D'] .mlops-cover { justify-content: center; }
+html[data-variant='D'] .mlops-cover h1 { font-size: 3rem; margin-bottom: 1.5rem; }
+html[data-variant='D'] .mlops-cover h2 { font-size: 1.6rem; font-weight: 400; margin: 0; }
+html[data-variant='D'] .mlops-cover p { color: var(--mlops-muted); }
+
+html[data-variant='D'] .mlops-section { justify-content: center; }
+html[data-variant='D'] .mlops-section h1 { font-size: 3.2rem; border-left: 4px solid var(--mlops-accent); padding-left: 1.5rem; margin-left: -1.75rem; }
+html[data-variant='D'] .mlops-section .kicker { display: none; }
+
+html[data-variant='D'] .mlops-quote { justify-content: center; }
+html[data-variant='D'] .mlops-quote blockquote { border-left: 3px solid var(--mlops-accent); padding-left: 2rem; font-size: 1.8rem; line-height: 1.35; }
+html[data-variant='D'] .mlops-quote .who { margin-top: 1.5rem; padding-left: 2.2rem; color: var(--mlops-muted); }
+
+.mlops-chrome-d { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
+.mlops-chrome-d .logo { position: absolute; right: 1.5rem; top: 1rem; }
+.mlops-chrome-d .pageno { position: absolute; right: 1.5rem; bottom: 1rem; font-size: 0.7rem; color: var(--mlops-muted); font-family: 'Barlow', sans-serif; }
