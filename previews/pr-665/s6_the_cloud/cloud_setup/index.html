@@ -2430,9 +2430,10 @@ the exercises early I highly recommend that you deep dive more into the Google C
 <li>
 <p>Go to <a href="https://learn.inside.dtu.dk">https://learn.inside.dtu.dk</a>. Go to this course. Find the recent message where there should be a download
     link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there is a
-    limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits
-    whenever you sign up with a new account. NOTE that you need to provide a credit card for this so make
-    sure to closely monitor your credit usage so you do not end up spending more than the free credit.</p>
+    limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 in cloud
+    credits (valid for 90 days) whenever you sign up with a new account. NOTE that you need to provide a credit card
+    to verify your identity, but you will not be billed unless you manually upgrade to a paid account. Also note
+    that free trial accounts cannot use GPUs or request quota increases, which some of the exercises below require.</p>
 </li>
 <li>
 <p>Log in to the homepage of GCP. It should look like this:</p>
@@ -2454,9 +2455,9 @@ Make sure that you monitor this page as you will not be given another coupon.</p
 <p><figure markdown>
     <a class="glightbox" href="../../figures/gcp3.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp3.PNG" width="800" /></a>
 </figure></p>
-<p>Create a new project called <code>dtumlops</code>. When you click <code>create</code> you should get a notification that the project
-is being created. The notification bell is a good way to make sure how the processes you are running are doing
-throughout the course.</p>
+<p>Create a new project called <code>dtumlops</code>. When you click <code>Create</code> you should get a notification that the project
+is being created. The notification bell is a good way to keep track of the processes you are running throughout
+the course.</p>
 <div class="admonition warning">
 <p class="admonition-title">Create project under 'No organization'</p>
 <p>When creating your GCP project, make sure to select <strong>"No organization"</strong> from the organization dropdown menu.
@@ -2469,10 +2470,10 @@ while you are learning.</p>
 </div>
 </li>
 <li>
-<p>Next is local setup on your laptop. We are going to install <code>gcloud</code>, which is part of the Google Cloud SDK.
+<p>Next is local setup on your laptop. We are going to install <code>gcloud</code>, which is part of the Google Cloud CLI.
     <code>gcloud</code> is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the <code>gcloud</code> interface. Follow the installation instructions
-    <a href="https://cloud.google.com/sdk/docs/install">in the gcloud SDK installation guide</a> for your specific OS.</p>
+    <a href="https://cloud.google.com/sdk/docs/install">in the gcloud CLI installation guide</a> for your specific OS.</p>
 <ol>
 <li>
 <p>After installation, try in a terminal to type:</p>
@@ -2498,7 +2499,7 @@ run this command:</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Next, you will need to set the project that we just created as the default project0. In your web browser under
+<p>Next, you will need to set the project that we just created as the default project. In your web browser under
     project info, you should be able to see the <code>Project ID</code> belonging to your <code>dtumlops</code> project. Copy this and
     type the following command in a terminal:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span>&lt;project-id&gt;
@@ -2509,17 +2510,28 @@ run this command:</p>
 </li>
 <li>
 <p>Next, install the Google Cloud Python API:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using pip</label><label for="__tabbed_1_2">Using uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>google-api-python-client
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>add<span class="w"> </span>google-api-python-client
+</span></code></pre></div>
+</div>
+</div>
+</div>
 <p>Make sure that the Python interface is also installed. In a Python terminal type</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">googleapiclient</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">googleapiclient</span>
 </span></code></pre></div>
 <p>which should work without any errors.</p>
 </li>
 <li>
 <p>(Optional) If you are using VSCode you can also download the relevant
     <a href="https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode">extension</a>
-    called <code>Cloud Code</code>. After installing it you should see a small <code>Cloud Code</code> button in the action bar.</p>
+    called <code>Google Cloud Code</code>. After installing it you should see a small <code>Google Cloud Code</code> button in the
+    activity bar.</p>
 </li>
 </ol>
 </li>
@@ -2527,12 +2539,12 @@ run this command:</p>
 <p>Finally, we need to activate a couple of
     <a href="https://cloud.google.com/api-gateway/docs/configure-dev-env#prerequisites">developer APIs</a> that are not activated
     by default. In a terminal write</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>apigateway.googleapis.com
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicemanagement.googleapis.com
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicecontrol.googleapis.com
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>apigateway.googleapis.com
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicemanagement.googleapis.com
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>servicecontrol.googleapis.com
 </span></code></pre></div>
 <p>You can always check which services are enabled by typing</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span>list
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span>list
 </span></code></pre></div>
 </li>
 </ol>
@@ -2575,16 +2587,15 @@ take 5-10 minutes before you can request a quota increase for that service.</p>
     in the figure below.</p>
 <ol>
 <li>
-<p>Go to the <code>quotas page</code>.</p>
+<p>Go to the <code>Quotas &amp; System Limits</code> page.</p>
 </li>
 <li>
-<p class="annotate">Next, lets adjust the filters such that we only see the GPU quotas. Start by setting <code>Type: Quota</code> (1).
-    Afterwards, set the <code>Limit name:</code> to <code>GPUS-ALL-REGIONS-per-project</code> (needs to match exactly, the search field
-    is case-sensitive) and you should now only see a single quota.</p>
+<p class="annotate">Next, let's adjust the filters such that we only see the GPU quotas. Start by setting <code>Service: Compute Engine
+    API</code>. Afterwards, search for the global GPU quota, which is called <code>GPUs (all regions)</code> (1) (listed by its
+    metric name <code>compute.googleapis.com/gpus_all_regions</code>) and you should now only see a single quota.</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The alternative to choosing <code>Type: Quota</code> is choosing <code>Type: System limit</code> which is the
-    hard upper bound imposed by Google. It will nearly always say <code>Unlimited</code> and in practice this is not
-    relevant to us</li>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The page also lists <code>System limits</code>, which is the hard upper bound imposed by Google.
+    System limits cannot be adjusted, so in practice they are not relevant to us</li>
 </ol>
 </li>
 <li>
@@ -2593,13 +2604,14 @@ take 5-10 minutes before you can request a quota increase for that service.</p>
     is running on GPU or not.</p>
 </li>
 <li>
-<p>Click the quota and afterward the <code>Edit</code> quotas button.</p>
+<p>Tick the checkbox next to the quota and afterwards click the <code>Edit</code> quotas button.</p>
 </li>
 <li>
-<p>In the pop-up window, increase your limit to either 1 or 2.</p>
+<p>In the pop-up window, increase your limit to either 1 or 2. If the console does not accept the value directly,
+    select <code>Apply for higher quota</code> and fill out the request form before submitting.</p>
 </li>
 <li>
-<p>After sending your request you can try clicking the <code>Increase requests</code> tab to see the status of your request.</p>
+<p>After sending your request you can try clicking the <code>Increase Requests</code> tab to see the status of your request.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/quotas.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quotas.PNG" width="1000" /></a>
 <figcaption>
@@ -2614,19 +2626,22 @@ naming convention.
 </ol>
 </li>
 </ol>
-<p>If you are ever running into errors when working in GPU that contain statements about <code>quotas</code> you can always try to
-go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
-training machine learning models using Vertex AI in the <a href="../using_the_cloud/">next module</a>, you would most likely
+<p>If you ever run into errors that contain statements about <code>quotas</code> you can always try to go to this page and
+see what you are allowed to use currently and try to increase it. For example, when you get to training
+machine learning models using Vertex AI in the <a href="../using_the_cloud/">next module</a>, you would most likely
 need to ask for a quota increase for that service as well.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/gcp_quotas.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_quotas.png" width="1000" /></a></p>
 </figure>
 <p>Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
 request gets rejected, we recommend waiting a day and trying again. If this does still not work, you may need to use
-their services some more to show you are not a bot that wants to mine crypto.</p>
+their services some more to show you are not a bot that wants to mine crypto. Note that if you are on the
+<a href="https://cloud.google.com/free/docs/free-cloud-features">$300 free trial</a> instead of teaching credits, Google does
+not allow quota increases (or GPU usage) at all until you upgrade to a paid account; you keep your remaining credit
+when you upgrade.</p>
 <h2 id="service-accounts">Service accounts</h2>
 <p>At some point, you will most likely need to use a service account. A service account is a virtual account that is used
-to interact with the Google Cloud API. It it intended for non-human users, e.g. other machines, services, etc. For
+to interact with the Google Cloud API. It is intended for non-human users, e.g. other machines, services, etc. For
 example, if you want to launch a training job from GitHub Actions, you will need to use a service account for
 authentication between GitHub and GCP. You can read more about how to create a service account
 <a href="https://cloud.google.com/iam/docs/creating-managing-service-accounts">in the service accounts documentation</a>.</p>
@@ -2638,15 +2653,15 @@ authentication between GitHub and GCP. You can read more about how to create a s
 </li>
 <li>
 <p>Click the <code>Create Service Account</code> button. On the next page, you can give the service account a name and id
-    (automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
-    default and click <code>Create</code>.</p>
+    (automatically generated, but you can change it if you want). You can also give it a description. Leave the
+    remaining steps as default and click <code>Done</code> (we grant permissions in the next step through the IAM page).</p>
 </li>
 <li>
 <p>Next, let's give the service account some permissions. Your job now is to give the service account the lowest
     possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
-    the <code>IAM</code> page. Click on the <code>Grant Access</code> button and paste in the email address in the <code>Add principals</code> field.
+    the <code>IAM</code> page. Click on the <code>Grant Access</code> button and paste in the email address in the <code>New principals</code> field.
     Then click the <code>Select a role</code> dropdown and either write the name of the role you want to give the service account
-    or search for it in the list. Finally, click <code>Save</code>.  For help, you can look at this
+    or search for it in the list. Finally, click <code>Save</code>. For help, you can look at this
     <a href="https://cloud.google.com/iam/docs/understanding-roles">page</a> and try to find the role that fits the description.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2668,17 +2683,17 @@ they cannot delete objects in the bucket.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The commands you are looking for are:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>create<span class="w"> </span>my-sa<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span>--description<span class="o">=</span><span class="s2">"My first service account"</span><span class="w"> </span>--display-name<span class="o">=</span><span class="s2">"my-sa"</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="k">$(</span>GCP_PROJECT_NAME<span class="k">)</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span>--member<span class="o">=</span><span class="s2">"serviceAccount:global-service-account@iam.gserviceaccount.com"</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span>--role<span class="o">=</span><span class="s2">"roles/storage.objectViewer"</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>keys<span class="w"> </span>create<span class="w"> </span>service_account_key.json<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span>--iam-account<span class="o">=</span>global-service-account@<span class="k">$(</span>GCP_PROJECT_NAME<span class="k">)</span>.iam.gserviceaccount.com
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>create<span class="w"> </span>my-sa<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span>--description<span class="o">=</span><span class="s2">"My first service account"</span><span class="w"> </span>--display-name<span class="o">=</span><span class="s2">"my-sa"</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="si">${</span><span class="nv">GCP_PROJECT_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span>--member<span class="o">=</span><span class="s2">"serviceAccount:global-service-account@iam.gserviceaccount.com"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span>--role<span class="o">=</span><span class="s2">"roles/storage.objectViewer"</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>keys<span class="w"> </span>create<span class="w"> </span>service_account_key.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span>--iam-account<span class="o">=</span>global-service-account@<span class="si">${</span><span class="nv">GCP_PROJECT_NAME</span><span class="si">}</span>.iam.gserviceaccount.com
 </span></code></pre></div>
-<p>where <code>$(GCP_PROJECT_NAME)</code> is the name of your project. If you then want to delete the service account you can
+<p>where <code>${GCP_PROJECT_NAME}</code> is the name of your project. If you then want to delete the service account you can
 run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>delete<span class="w"> </span>global-service-account@<span class="k">$(</span>GCP_PROJECT_NAME<span class="k">)</span>.iam.gserviceaccount.com
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>delete<span class="w"> </span>global-service-account@<span class="si">${</span><span class="nv">GCP_PROJECT_NAME</span><span class="si">}</span>.iam.gserviceaccount.com
 </span></code></pre></div>
 </details>
 </li>
@@ -2692,7 +2707,7 @@ this course:</p>
 <li><code>Cloud Build Builder</code>: Allows the service account to run builds in Cloud Build</li>
 <li><code>Secret Manager Secret Accessor</code>: Allows the service account to access secrets in Secret Manager</li>
 <li><code>Cloud Run Developer</code>: Allows the service account to deploy services in Cloud Run</li>
-<li><code>AI Platform Developer</code>: Allows the service account to use the AI Platform</li>
+<li><code>Vertex AI User</code> (<code>roles/aiplatform.user</code>): Allows the service account to use Vertex AI</li>
 <li><code>Artifact Registry Writer</code>: Allows the service account to write to the Artifact Registry</li>
 </ul>
 <h2 id="knowledge-check">🧠 Knowledge check</h2>
@@ -2749,7 +2764,7 @@ this course:</p>
 <tr>
 <td>Cloud functions</td>
 <td>Lambda</td>
-<td>Functions Serverless Compute</td>
+<td>Functions</td>
 </tr>
 <tr>
 <td>Cloud run</td>
@@ -2764,7 +2779,7 @@ this course:</p>
 <tr>
 <td>Vertex AI</td>
 <td>SageMaker</td>
-<td>AI Platform</td>
+<td>Machine Learning</td>
 </tr>
 </tbody>
 </table>
@@ -2804,7 +2819,7 @@ different permissions. This setup is called the
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 16, 2026 13:57:00">January 16, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     

@@ -2368,15 +2368,15 @@
 over time. Having proper logging in your applications can be extremely beneficial for a few reasons:</p>
 <ul>
 <li>
-<p><em>Debugging</em> becomes easier because we in a more structured way can output information about the state of our program,
-    variables, values, etc. to help identify and fix bugs or unexpected behavior.</p>
+<p><em>Debugging</em> becomes easier because we can output information about the state of our program, variables, values, etc.
+    in a more structured way to help identify and fix bugs or unexpected behavior.</p>
 </li>
 <li>
 <p>When we move into a more production environment, proper logging is essential for <em>monitoring</em> the health and
     performance of our application.</p>
 </li>
 <li>
-<p>It can help in <em>auditing</em>, as logging info about specific activities, etc. can help keeping a record of who did what
+<p>It can help in <em>auditing</em>, as logging info about specific activities, etc. can help keep a record of who did what
     and when.</p>
 </li>
 <li>
@@ -2400,8 +2400,8 @@ functionality than what <code>print</code> can offer. Python actually comes with
 <a href="https://docs.python.org/3/library/logging.html">logging</a> module that defines functions for flexible logging. However,
 it does require a bit more setup than just using <code>print</code>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"This is an info message"</span><span class="p">)</span>
 </span></code></pre></div>
 <p>For this reason we are instead going to look at the <a href="https://github.com/Delgan/loguru">loguru</a> package which makes Python
@@ -2409,7 +2409,7 @@ logging (stupidly) easy. Logging with loguru is essentially as easy as using <co
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"This is an info message"</span><span class="p">)</span>
 </span></code></pre></div>
-<p>The only core different is that we need to understand what log levels are and how to use them. Levels essentially allow
+<p>The only core difference is that we need to understand what log levels are and how to use them. Levels essentially allow
 us to get rid of statements like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -2423,19 +2423,19 @@ differentiate this based on users.</p>
 <p><a class="glightbox" href="../../figures/logging_level.drawio.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/logging_level.drawio.png" width="800" /></a></p>
 </figure>
 <p>It is also important to understand the difference between logging and error handling. Error handling in
-Python is done using <code>raise</code> statements and <code>try/catch</code> like:</p>
+Python is done using <code>raise</code> statements and <code>try/except</code> like:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Expected an integer"</span><span class="p">)</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">try</span><span class="p">:</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"I failed to do a thing, but continuing."</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Why would we ever need log <code>warning</code>, <code>error</code>, <code>critical</code> levels of information, if we are just going to handle it?
-The reason is that raising exceptions are meant to change the <em>program flow at runtime</em> e.g. things we do not want the
+<p>Why would we ever need to log <code>warning</code>, <code>error</code>, <code>critical</code> levels of information, if we are just going to handle it?
+The reason is that raising an exception is meant to change the <em>program flow at runtime</em> e.g. things we do not want the
 user to do, but we can deal with in some way. Logging is always for <em>after</em> a program has run, to inspect what went
 wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
 <h3 id="exercises">❔ Exercises</h3>
@@ -2497,8 +2497,11 @@ wrong. Sometimes you need one, sometimes the other, sometimes both.</p>
     application is running. Change the code such that logs are saved to a file called <code>my_log.log</code>.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"my_log.log"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>  <span class="c1"># Remove the default logger</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">"WARNING"</span><span class="p">)</span>  <span class="c1"># Only warning and higher are shown to the user</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"my_log.log"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">)</span>  <span class="c1"># All logs are saved to a file</span>
 </span></code></pre></div>
 </details>
 <ol>
@@ -2594,17 +2597,17 @@ important when you want to compare performance between different runs.</p>
 <ul>
 <li><a href="https://www.tensorflow.org/tensorboard">Tensorboard</a></li>
 <li><a href="https://www.comet.ml/site/">Comet</a></li>
-<li><a href="https://mlflow.org/">MLFlow</a></li>
-<li><a href="https://wandb.ai/site">Weights and Bias</a></li>
+<li><a href="https://mlflow.org/">MLflow</a></li>
+<li><a href="https://wandb.ai/site">Weights &amp; Biases</a></li>
 </ul>
 <p>All of the frameworks offer many of the same functionalities, you can see a (biased) review
 <a href="https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/">comparing experiment tracking tools</a>.
-We are going to use Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an
+We are going to use Weights &amp; Biases (wandb), as it supports everything we need in this course. Additionally, it is an
 excellent tool for collaboration and sharing of results.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/wandb_example.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_example.png" width="700" /></a></p>
 <figcaption>
-Using the Weights and Bias (wandb) dashboard we can quickly get an overview and compare many runs over different
+Using the Weights &amp; Biases (wandb) dashboard we can quickly get an overview and compare many runs over different
 metrics. This allows for better iteration of models and training procedure.
 </figcaption>
 </figure>
@@ -2612,9 +2615,20 @@ metrics. This allows for better iteration of models and training procedure.
 <ol>
 <li>
 <p>Start by creating an account at <a href="https://wandb.ai/site">wandb</a>. I recommend using your GitHub account but feel
-    free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
-    use (HINT: if you forgot to copy the API key, you can find it under settings), but make sure that you do not share
-    it with anyone or leak it in any way.</p>
+    free to choose what you want. When you are logged in, you need to create an API key: click the account selector in
+    the upper right corner, go to <code>User settings</code> and then the <code>API keys</code> section, and here create a new key. Copy the
+    key for later use, but make sure that you do not share it with anyone or leak it in any way. Note that the full key
+    is only shown once when you create it, so store it somewhere safe right away.</p>
+<div class="admonition info">
+<p class="admonition-title">Create a team</p>
+<p>Later in this module we are going to use the W&amp;B Registry, which only accepts artifacts that have been logged
+to a <em>team</em> entity and not to your personal account. We therefore recommend that you sign up for the free
+<a href="https://wandb.ai/site/research">academic plan</a> with your DTU email (which includes teams) and then create a
+team right away: on the W&amp;B home page click <code>Create a team to collaborate</code> under <em>Teams</em> in the left sidebar,
+choose a name and click <code>Create team</code>. If you are working in a group, create one team for the whole group and
+invite the other members. Then use the team name as the <code>entity</code> whenever you log runs, either by setting
+<code>WANDB_ENTITY</code> (see the tip below) or by passing <code>entity="&lt;team-name&gt;"</code> to <code>wandb.init</code>.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">.env file</p>
 <p>A good place to store not only your wandb API key but also other sensitive information is in a <code>.env</code> file.
@@ -2669,19 +2683,19 @@ see this <a href="https://pypi.org/project/python-dotenv/">page</a>.</p>
 </div>
 </div>
 </div>
-<p>You will be asked to provide the length-40 API key. The connection should remain open to the wandb server
+<p>You will be asked to provide the API key. The connection should remain open to the wandb server
 even when you close the terminal, such that you do not have to log in each time. If using <code>wandb</code> in a notebook
 you need to manually close the connection using <code>wandb.finish()</code>.</p>
 </li>
 <li>
 <p>We are now ready to incorporate <code>wandb</code> into our code. We are going to continue development on our corrupt MNIST
     codebase from the previous sessions. For help, we recommend looking at this
-    <a href="https://docs.wandb.ai/quickstart">quickstart</a> and this <a href="https://docs.wandb.ai/guides/integrations/pytorch">guide</a>
+    <a href="https://docs.wandb.ai/quickstart">quickstart</a> and this <a href="https://docs.wandb.ai/models/integrations/pytorch">guide</a>
     for PyTorch applications. Your first job is to alter your training script to include <code>wandb</code> logging which at
     least does the following:</p>
 <ul>
 <li>Logs the hyperparameters of the model (the configuration).</li>
-<li>Logs the training loss and tranining accuracy at each training step.</li>
+<li>Logs the training loss and training accuracy at each training step.</li>
 </ul>
 <details class="success">
 <summary>Solution</summary>
@@ -2934,8 +2948,8 @@ figure and log that as well.</p>
 </span><span id="__span-19-68"><a id="__codelineno-19-68" name="__codelineno-19-68"></a>                <span class="n">plot_chance_level</span><span class="o">=</span><span class="p">(</span><span class="n">class_id</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
 </span><span id="__span-19-69"><a id="__codelineno-19-69" name="__codelineno-19-69"></a>            <span class="p">)</span>
 </span><span id="__span-19-70"><a id="__codelineno-19-70" name="__codelineno-19-70"></a>
-</span><span id="__span-19-71"><a id="__codelineno-19-71" name="__codelineno-19-71"></a>        <span class="c1"># alternatively use wandb.log({"roc": wandb.Image(plt)}</span>
-</span><span id="__span-19-72"><a id="__codelineno-19-72" name="__codelineno-19-72"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">plot</span><span class="p">({</span><span class="s2">"roc"</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
+</span><span id="__span-19-71"><a id="__codelineno-19-71" name="__codelineno-19-71"></a>        <span class="c1"># alternatively use wandb.log({"roc": wandb.Image(plt)})</span>
+</span><span id="__span-19-72"><a id="__codelineno-19-72" name="__codelineno-19-72"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">"roc"</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
 </span><span id="__span-19-73"><a id="__codelineno-19-73" name="__codelineno-19-73"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># close the plot to avoid memory leaks and overlapping figures</span>
 </span><span id="__span-19-74"><a id="__codelineno-19-74" name="__codelineno-19-74"></a>
 </span><span id="__span-19-75"><a id="__codelineno-19-75" name="__codelineno-19-75"></a>
@@ -3116,8 +3130,8 @@ we add these as metadata to the artifact.</p>
 </span><span id="__span-20-68"><a id="__codelineno-20-68" name="__codelineno-20-68"></a>                <span class="n">plot_chance_level</span><span class="o">=</span><span class="p">(</span><span class="n">class_id</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
 </span><span id="__span-20-69"><a id="__codelineno-20-69" name="__codelineno-20-69"></a>            <span class="p">)</span>
 </span><span id="__span-20-70"><a id="__codelineno-20-70" name="__codelineno-20-70"></a>
-</span><span id="__span-20-71"><a id="__codelineno-20-71" name="__codelineno-20-71"></a>        <span class="c1"># alternatively use wandb.log({"roc": wandb.Image(plt)}</span>
-</span><span id="__span-20-72"><a id="__codelineno-20-72" name="__codelineno-20-72"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">plot</span><span class="p">({</span><span class="s2">"roc"</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
+</span><span id="__span-20-71"><a id="__codelineno-20-71" name="__codelineno-20-71"></a>        <span class="c1"># alternatively use wandb.log({"roc": wandb.Image(plt)})</span>
+</span><span id="__span-20-72"><a id="__codelineno-20-72" name="__codelineno-20-72"></a>        <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">"roc"</span><span class="p">:</span> <span class="n">plt</span><span class="p">})</span>
 </span><span id="__span-20-73"><a id="__codelineno-20-73" name="__codelineno-20-73"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># close the plot to avoid memory leaks and overlapping figures</span>
 </span><span id="__span-20-74"><a id="__codelineno-20-74" name="__codelineno-20-74"></a>
 </span><span id="__span-20-75"><a id="__codelineno-20-75" name="__codelineno-20-75"></a>    <span class="n">final_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
@@ -3178,7 +3192,7 @@ reproduce the run would then be:</p>
 </details>
 </li>
 <li>
-<p>Weights and bias was created with collaboration in mind and let's therefore share our results with others.</p>
+<p>Weights &amp; Biases was created with collaboration in mind and let's therefore share our results with others.</p>
 <ol>
 <li>
 <p>Let's create a report that you can share. Click the <strong>Create report</strong> button (upper right corner when you are in
@@ -3214,10 +3228,10 @@ runs in the wandb dashboard.</p>
 </details>
 </li>
 <li>
-<p>Wandb also comes with a built-in feature for doing <a href="https://docs.wandb.ai/guides/sweeps">hyperparameter sweeping</a>
-    which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
-    sweep in Wandb. You at least need to create a new file called <code>sweep.yaml</code> and make sure that you call <code>wandb.log</code>
-    in your code on an appropriate value.</p>
+<p>The <code>wandb</code> package also comes with a built-in feature for doing
+    <a href="https://docs.wandb.ai/guides/sweeps">hyperparameter sweeping</a>, which can be beneficial to get a better working
+    model. Look through the documentation on how to do a hyperparameter sweep in wandb. You at least need to create a
+    new file called <code>sweep.yaml</code> and make sure that you call <code>wandb.log</code> in your code on an appropriate value.</p>
 <ol>
 <li>
 <p>Start by creating a <code>sweep.yaml</code> file. Relevant documentation can be found
@@ -3247,10 +3261,10 @@ run the script:</p>
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
 </span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation_loss</span>
 </span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="nt">parameters</span><span class="p">:</span>
-</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">    </span><span class="nt">lr</span><span class="p">:</span>
 </span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">        </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
 </span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">        </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
-</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">        </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log_uniform</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">        </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log_uniform_values</span>
 </span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span>
 </span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="w">        </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">16</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">32</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">64</span><span class="p p-Indicator">]</span>
 </span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="w">    </span><span class="nt">epochs</span><span class="p">:</span>
@@ -3290,7 +3304,7 @@ run the script:</p>
 </div>
 </div>
 <p>where <code>&lt;sweep_id&gt;</code> is the id of the sweep you just created. You can find the id in the output of the
-<code>wandb sweep</code> command. The reason that we first lunch the sweep and then the agent is that we can have multiple
+<code>wandb sweep</code> command. The reason that we first launch the sweep and then the agent is that we can have multiple
 agents running at the same time, parallelizing the search for the best hyperparameters. Try this out by opening
 a new terminal and running the <code>wandb agent</code> command again (with the same <code>&lt;sweep_id&gt;</code>).</p>
 </li>
@@ -3318,42 +3332,46 @@ a new terminal and running the <code>wandb agent</code> command again (with the 
 </ol>
 </li>
 <li>
-<p>Next we need to understand the model registry, which will be very important later on when we get to the deployment
-    of our models. The model registry is a centralized place for storing and versioning models. Importantly, any model
-    in the registry is immutable, meaning that once a model is uploaded it cannot be changed. This is important for
-    reproducibility and traceability of models.</p>
+<p>Next we need to understand the <a href="https://docs.wandb.ai/guides/registry">W&amp;B Registry</a> (formerly known as the
+    model registry), which will be very important later on when we get to the deployment of our models. The registry is
+    a centralized place for storing and versioning models. Importantly, any model in the registry is immutable, meaning
+    that once a model is uploaded it cannot be changed. This is important for reproducibility and traceability of
+    models.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/model_registry.png" width="600" /></a>
 <figcaption>
-The model registry is in general a repository of a team's trained models where ML practitioners publish candidates
-for production and share them with others. Figure from <a href="https://docs.wandb.ai/guides/model_registry">wandb</a>.
+A registry is in general a repository of a team's trained models where ML practitioners publish candidates
+for production and share them with others. Figure from <a href="https://docs.wandb.ai/guides/registry">wandb</a>.
+</figcaption>
 </figure></p>
 <ol>
 <li>
-<p>The model registry builds on the artifact registry in wandb. Any model that is uploaded to the model registry is
+<p>The registry builds on the artifacts in wandb. Any model that is uploaded to the registry is
     stored as an artifact. This means that we first need to log our trained models as artifacts before we can
-    register them in the model registry. Make sure you have logged at least one model as an artifact before
-    continuing.</p>
+    register them in the registry. Make sure you have logged at least one model as an artifact before
+    continuing. Note that artifacts logged to your personal account cannot be linked to a registry; artifacts
+    need to be logged using a team entity (see the <em>Create a team</em> box in exercise 1).</p>
 </li>
 <li>
-<p>Next let's create a registry. Go to the <a href="https://wandb.ai/teams/registry/model">model registry tab</a>
-    (left pane, visible from your homepage) and then click the <code>Create Collection</code> button. Fill out the form:</p>
+<p>Next let's create a registry. Go to the <a href="https://wandb.ai/registry">registry app</a>
+    (left pane, visible from your homepage) and then click the <code>Create registry</code> button. Fill out the form:</p>
 <ul>
-<li>Choose your personal account (you should create a team for the exam project and use that instead).</li>
 <li>Give the registry a name, e.g. <code>corrupt_mnist_models</code>.</li>
-<li>Provide a type of the registry, e.g. <code>model</code>.</li>
+<li>Choose the registry visibility, e.g. <code>Organization</code>.</li>
+<li>Choose the accepted artifact types of the registry, e.g. <code>model</code>.</li>
 <li>(Optional) Provide a description of the registry.</li>
 </ul>
 <p>And click the create button.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/wandb_model_registry.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/wandb_model_registry.png" width="600" /></a>
 </figure></p>
-<p>You should now see the collection/registry have been created.</p>
+<p>You should now see that the registry has been created.</p>
 </li>
 <li>
-<p>When then need to link our artifact to the model registry we just created. We can do this in two ways: either
+<p>We then need to link our artifact to a collection in the registry we just created. A registry can contain
+    multiple collections, one for each task or use case. We can do the linking in two ways: either
     through the web interface or through the <code>wandb</code> API. In the web interface, go to the artifact you want to link
-    to the model registry and click the <code>Link to registry</code> button (upper right corner). Assume you instead want to
+    to the registry and click the <code>Link to registry</code> button (upper right corner). Assume you instead want to
     do the linking using the Python SDK, how would you do that?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -3364,51 +3382,52 @@ for production and share them with others. Figure from <a href="https://docs.wan
     the <code>run.link_artifact</code> method:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">run</span><span class="o">.</span><span class="n">link_artifact</span><span class="p">(</span>
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="n">artifact</span><span class="o">=</span><span class="n">artifact</span><span class="p">,</span>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">target_path</span><span class="o">=</span><span class="s2">"model-registry/&lt;my_registry_name&gt;"</span><span class="p">,</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">target_path</span><span class="o">=</span><span class="s2">"wandb-registry-&lt;registry_name&gt;/&lt;collection_name&gt;"</span><span class="p">,</span>
 </span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">"latest"</span><span class="p">]</span>
 </span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="p">)</span>
 </span></code></pre></div>
+<p>where <code>&lt;registry_name&gt;</code> is the name of the registry you just created and <code>&lt;collection_name&gt;</code> is the name
+of a collection within the registry. If the collection does not already exist, wandb automatically
+creates it.</p>
 </li>
 <li>
-<p>Alternatively, if we want to link an already existing artifact to the model registry we can use the
+<p>Alternatively, if we want to link an already existing artifact to the registry we can use the
     <code>wandb.Api</code> to do so. We create a new file called <code>link_to_registry.py</code> for this purpose:</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">link_to_registry.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
 <span class="normal"><a href="#__codelineno-28-2">2</a></span>
 <span class="normal"><a href="#__codelineno-28-3">3</a></span>
 <span class="normal"><a href="#__codelineno-28-4">4</a></span>
-<span class="normal"><a href="#__codelineno-28-5">5</a></span>
-<span class="normal"><a href="#__codelineno-28-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">()</span>
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="n">artifact_path</span> <span class="o">=</span> <span class="s2">"&lt;entity&gt;/&lt;project&gt;/&lt;artifact_name&gt;:&lt;version&gt;"</span>
 </span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4"></a><span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">artifact_path</span><span class="p">)</span>
-</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="n">artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="s2">"&lt;entity&gt;/model-registry/&lt;my_registry_name&gt;"</span><span class="p">)</span>
-</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6"></a><span class="n">artifact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="n">artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="s2">"wandb-registry-&lt;registry_name&gt;/&lt;collection_name&gt;"</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-<p>In the code <code>&lt;entity&gt;</code>, <code>&lt;project&gt;</code>, <code>&lt;artifact_name&gt;</code>, <code>&lt;version&gt;</code> and <code>&lt;my_registry_name&gt;</code> should be
-replaced with the appropriate values.</p>
+<p>In the code <code>&lt;entity&gt;</code>, <code>&lt;project&gt;</code>, <code>&lt;artifact_name&gt;</code>, <code>&lt;version&gt;</code>, <code>&lt;registry_name&gt;</code> and
+<code>&lt;collection_name&gt;</code> should be replaced with the appropriate values.</p>
 </li>
 </ul>
 </details>
 </li>
 <li>
-<p>We are now ready to consume our model, which can be done by downloading the artifact from the model registry. In
+<p>We are now ready to consume our model, which can be done by downloading the artifact from the registry. In
     this case we use the wandb API to download the artifact.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">()</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="n">artifact_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"&lt;entity&gt;/model-registry/&lt;my_registry_name&gt;:&lt;alias&gt;"</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="n">artifact_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"wandb-registry-&lt;registry_name&gt;/&lt;collection_name&gt;:&lt;alias&gt;"</span>
 </span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="n">artifact</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">artifact_name</span><span class="p">)</span>
 </span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="n">artifact_dir</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">"&lt;artifact_dir&gt;"</span><span class="p">)</span>
 </span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
-</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"&lt;artifact_dir&gt;/model.ckpt"</span><span class="p">))</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"&lt;artifact_dir&gt;/model.pth"</span><span class="p">))</span>
 </span></code></pre></div>
-<p>Try running this code with the appropriate values for <code>&lt;entity&gt;</code>, <code>&lt;my_registry_name&gt;</code>, <code>&lt;version&gt;</code> and
+<p>Try running this code with the appropriate values for <code>&lt;registry_name&gt;</code>, <code>&lt;collection_name&gt;</code>, <code>&lt;alias&gt;</code> and
 <code>&lt;artifact_dir&gt;</code>. Make sure that you can load the model and that it is the same as the one you trained.</p>
 </li>
 <li>
-<p>Each model in the registry has at least one alias, which is the version of the model. The most recently added
-    model also receives the alias <code>latest</code>. Aliases are great for indicating where in the workflow a model is, e.g.
-    if it is a candidate for production or if it is a model that is still being developed. Try adding an alias to
-    one of your models in the registry.</p>
+<p>Each model in the registry has a version (<code>v0</code>, <code>v1</code>, ...) and one or more aliases. The most recently added
+    model automatically receives the alias <code>latest</code>. Aliases are great for indicating where in the workflow a model
+    is, e.g. if it is a candidate for production or if it is a model that is still being developed. Try adding an
+    alias to one of your models in the registry.</p>
 </li>
 <li>
 <p>(Optional) A model always corresponds to an artifact, and artifacts can contain metadata that we can use to
@@ -3467,7 +3486,12 @@ replaced with the appropriate values.</p>
 <span class="normal"><a href="#__codelineno-30-48">48</a></span>
 <span class="normal"><a href="#__codelineno-30-49">49</a></span>
 <span class="normal"><a href="#__codelineno-30-50">50</a></span>
-<span class="normal"><a href="#__codelineno-30-51">51</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="normal"><a href="#__codelineno-30-51">51</a></span>
+<span class="normal"><a href="#__codelineno-30-52">52</a></span>
+<span class="normal"><a href="#__codelineno-30-53">53</a></span>
+<span class="normal"><a href="#__codelineno-30-54">54</a></span>
+<span class="normal"><a href="#__codelineno-30-55">55</a></span>
+<span class="normal"><a href="#__codelineno-30-56">56</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 </span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4"></a>
@@ -3479,60 +3503,66 @@ replaced with the appropriate values.</p>
 </span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10"></a><span class="n">load_dotenv</span><span class="p">()</span>
 </span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11"></a>
 </span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12"></a>
-</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">stage_best_model_to_registry</span><span class="p">(</span><span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"accuracy"</span><span class="p">,</span> <span class="n">higher_is_better</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15"></a><span class="sd">    Stage the best model to the model registry.</span>
-</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16"></a>
-</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17"></a><span class="sd">    Args:</span>
-</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18"></a><span class="sd">        model_name: Name of the model to be registered.</span>
-</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19"></a><span class="sd">        metric_name: Name of the metric to choose the best model from.</span>
-</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20"></a><span class="sd">        higher_is_better: Whether higher metric values are better.</span>
-</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21"></a>
-</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22"></a><span class="sd">    """</span>
-</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
-</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_API_KEY"</span><span class="p">),</span>
-</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">"entity"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_ENTITY"</span><span class="p">),</span> <span class="s2">"project"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_PROJECT"</span><span class="p">)},</span>
-</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26"></a>    <span class="p">)</span>
-</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27"></a>    <span class="n">artifact_collection</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact_collection</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="s2">"model"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
-</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28"></a>
-</span><span id="__span-30-29"><a id="__codelineno-30-29" name="__codelineno-30-29"></a>    <span class="n">best_metric</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"-inf"</span><span class="p">)</span> <span class="k">if</span> <span class="n">higher_is_better</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
-</span><span id="__span-30-30"><a id="__codelineno-30-30" name="__codelineno-30-30"></a>    <span class="n">compare_op</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span> <span class="k">if</span> <span class="n">higher_is_better</span> <span class="k">else</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span>
-</span><span id="__span-30-31"><a id="__codelineno-30-31" name="__codelineno-30-31"></a>    <span class="n">best_artifact</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-30-32"><a id="__codelineno-30-32" name="__codelineno-30-32"></a>    <span class="k">for</span> <span class="n">artifact</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">artifact_collection</span><span class="o">.</span><span class="n">artifacts</span><span class="p">()):</span>
-</span><span id="__span-30-33"><a id="__codelineno-30-33" name="__codelineno-30-33"></a>        <span class="k">if</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span> <span class="ow">and</span> <span class="n">compare_op</span><span class="p">(</span><span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">metric_name</span><span class="p">],</span> <span class="n">best_metric</span><span class="p">):</span>
-</span><span id="__span-30-34"><a id="__codelineno-30-34" name="__codelineno-30-34"></a>            <span class="n">best_metric</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span>
-</span><span id="__span-30-35"><a id="__codelineno-30-35" name="__codelineno-30-35"></a>            <span class="n">best_artifact</span> <span class="o">=</span> <span class="n">artifact</span>
-</span><span id="__span-30-36"><a id="__codelineno-30-36" name="__codelineno-30-36"></a>
-</span><span id="__span-30-37"><a id="__codelineno-30-37" name="__codelineno-30-37"></a>    <span class="k">if</span> <span class="n">best_artifact</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-30-38"><a id="__codelineno-30-38" name="__codelineno-30-38"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"No model found in registry."</span><span class="p">)</span>
-</span><span id="__span-30-39"><a id="__codelineno-30-39" name="__codelineno-30-39"></a>        <span class="k">return</span>
-</span><span id="__span-30-40"><a id="__codelineno-30-40" name="__codelineno-30-40"></a>
-</span><span id="__span-30-41"><a id="__codelineno-30-41" name="__codelineno-30-41"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best model found in registry: </span><span class="si">{</span><span class="n">best_artifact</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">best_metric</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-30-42"><a id="__codelineno-30-42" name="__codelineno-30-42"></a>    <span class="n">best_artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
-</span><span id="__span-30-43"><a id="__codelineno-30-43" name="__codelineno-30-43"></a>        <span class="n">target_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'WANDB_ENTITY'</span><span class="p">)</span><span class="si">}</span><span class="s2">/model-registry/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-</span><span id="__span-30-44"><a id="__codelineno-30-44" name="__codelineno-30-44"></a>        <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">"best"</span><span class="p">,</span> <span class="s2">"staging"</span><span class="p">],</span>
-</span><span id="__span-30-45"><a id="__codelineno-30-45" name="__codelineno-30-45"></a>    <span class="p">)</span>
-</span><span id="__span-30-46"><a id="__codelineno-30-46" name="__codelineno-30-46"></a>    <span class="n">best_artifact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</span><span id="__span-30-47"><a id="__codelineno-30-47" name="__codelineno-30-47"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Model staged to registry."</span><span class="p">)</span>
-</span><span id="__span-30-48"><a id="__codelineno-30-48" name="__codelineno-30-48"></a>
-</span><span id="__span-30-49"><a id="__codelineno-30-49" name="__codelineno-30-49"></a>
-</span><span id="__span-30-50"><a id="__codelineno-30-50" name="__codelineno-30-50"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-30-51"><a id="__codelineno-30-51" name="__codelineno-30-51"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">stage_best_model_to_registry</span><span class="p">)</span>
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">stage_best_model_to_registry</span><span class="p">(</span>
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14"></a>    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"accuracy"</span><span class="p">,</span> <span class="n">higher_is_better</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">registry_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"model"</span>
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17"></a><span class="sd">    Stage the best model to the model registry.</span>
+</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18"></a>
+</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19"></a><span class="sd">    Args:</span>
+</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20"></a><span class="sd">        model_name: Name of the model to be registered.</span>
+</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21"></a><span class="sd">        metric_name: Name of the metric to choose the best model from.</span>
+</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22"></a><span class="sd">        higher_is_better: Whether higher metric values are better.</span>
+</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23"></a><span class="sd">        registry_name: Name of the W&amp;B registry to link the model to (defaults to the core `model` registry).</span>
+</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24"></a>
+</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25"></a><span class="sd">    """</span>
+</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26"></a>    <span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span>
+</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27"></a>        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_API_KEY"</span><span class="p">),</span>
+</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28"></a>        <span class="n">overrides</span><span class="o">=</span><span class="p">{</span><span class="s2">"entity"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_ENTITY"</span><span class="p">),</span> <span class="s2">"project"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WANDB_PROJECT"</span><span class="p">)},</span>
+</span><span id="__span-30-29"><a id="__codelineno-30-29" name="__codelineno-30-29"></a>    <span class="p">)</span>
+</span><span id="__span-30-30"><a id="__codelineno-30-30" name="__codelineno-30-30"></a>    <span class="n">artifact_collection</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">artifact_collection</span><span class="p">(</span>
+</span><span id="__span-30-31"><a id="__codelineno-30-31" name="__codelineno-30-31"></a>        <span class="n">type_name</span><span class="o">=</span><span class="s2">"model"</span><span class="p">,</span>
+</span><span id="__span-30-32"><a id="__codelineno-30-32" name="__codelineno-30-32"></a>        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'WANDB_ENTITY'</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'WANDB_PROJECT'</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-30-33"><a id="__codelineno-30-33" name="__codelineno-30-33"></a>    <span class="p">)</span>
+</span><span id="__span-30-34"><a id="__codelineno-30-34" name="__codelineno-30-34"></a>
+</span><span id="__span-30-35"><a id="__codelineno-30-35" name="__codelineno-30-35"></a>    <span class="n">best_metric</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"-inf"</span><span class="p">)</span> <span class="k">if</span> <span class="n">higher_is_better</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
+</span><span id="__span-30-36"><a id="__codelineno-30-36" name="__codelineno-30-36"></a>    <span class="n">compare_op</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span> <span class="k">if</span> <span class="n">higher_is_better</span> <span class="k">else</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span>
+</span><span id="__span-30-37"><a id="__codelineno-30-37" name="__codelineno-30-37"></a>    <span class="n">best_artifact</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-30-38"><a id="__codelineno-30-38" name="__codelineno-30-38"></a>    <span class="k">for</span> <span class="n">artifact</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">artifact_collection</span><span class="o">.</span><span class="n">artifacts</span><span class="p">()):</span>
+</span><span id="__span-30-39"><a id="__codelineno-30-39" name="__codelineno-30-39"></a>        <span class="k">if</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span> <span class="ow">and</span> <span class="n">compare_op</span><span class="p">(</span><span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">metric_name</span><span class="p">],</span> <span class="n">best_metric</span><span class="p">):</span>
+</span><span id="__span-30-40"><a id="__codelineno-30-40" name="__codelineno-30-40"></a>            <span class="n">best_metric</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span>
+</span><span id="__span-30-41"><a id="__codelineno-30-41" name="__codelineno-30-41"></a>            <span class="n">best_artifact</span> <span class="o">=</span> <span class="n">artifact</span>
+</span><span id="__span-30-42"><a id="__codelineno-30-42" name="__codelineno-30-42"></a>
+</span><span id="__span-30-43"><a id="__codelineno-30-43" name="__codelineno-30-43"></a>    <span class="k">if</span> <span class="n">best_artifact</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-30-44"><a id="__codelineno-30-44" name="__codelineno-30-44"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"No model found in registry."</span><span class="p">)</span>
+</span><span id="__span-30-45"><a id="__codelineno-30-45" name="__codelineno-30-45"></a>        <span class="k">return</span>
+</span><span id="__span-30-46"><a id="__codelineno-30-46" name="__codelineno-30-46"></a>
+</span><span id="__span-30-47"><a id="__codelineno-30-47" name="__codelineno-30-47"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best model found in registry: </span><span class="si">{</span><span class="n">best_artifact</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">best_metric</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-30-48"><a id="__codelineno-30-48" name="__codelineno-30-48"></a>    <span class="n">best_artifact</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
+</span><span id="__span-30-49"><a id="__codelineno-30-49" name="__codelineno-30-49"></a>        <span class="n">target_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">"wandb-registry-</span><span class="si">{</span><span class="n">registry_name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-30-50"><a id="__codelineno-30-50" name="__codelineno-30-50"></a>        <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">"best"</span><span class="p">,</span> <span class="s2">"staging"</span><span class="p">],</span>
+</span><span id="__span-30-51"><a id="__codelineno-30-51" name="__codelineno-30-51"></a>    <span class="p">)</span>
+</span><span id="__span-30-52"><a id="__codelineno-30-52" name="__codelineno-30-52"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Model staged to registry."</span><span class="p">)</span>
+</span><span id="__span-30-53"><a id="__codelineno-30-53" name="__codelineno-30-53"></a>
+</span><span id="__span-30-54"><a id="__codelineno-30-54" name="__codelineno-30-54"></a>
+</span><span id="__span-30-55"><a id="__codelineno-30-55" name="__codelineno-30-55"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-30-56"><a id="__codelineno-30-56" name="__codelineno-30-56"></a>    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">stage_best_model_to_registry</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
 </ol>
 </li>
 <li>
-<p>In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
-    training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
+<p>In the future it will be important for us to be able to run wandb inside a docker container (together with whatever
+    training or inference we specify). The problem here is that we cannot authenticate wandb in the same way as the
     previous exercise; it needs to happen automatically. Let's therefore look into how we can do that.</p>
 <ol>
 <li>
 <p>First we need to generate an authentication key, or more precisely an API key. This is in general the way any
     service (like a docker container) can authenticate. Start by going to <a href="https://wandb.ai/home">https://wandb.ai/home</a>, click your
-    profile icon in the upper right corner and then go to <code>User settings</code>. Scroll down to the danger zone and
-    generate a new API key (if you do not already have one) and finally copy it.</p>
+    profile icon in the upper right corner and then go to <code>User settings</code>. Scroll down to the <code>API keys</code> section
+    and generate a new API key (if you do not already have one) and finally copy it. Note that the full key is
+    only shown once, so copy it right away.</p>
 </li>
 <li>
 <p>Next create a new dockerfile called <code>wandb.docker</code> and add the following code</p>
@@ -3550,12 +3580,13 @@ replaced with the appropriate values.</p>
 </div>
 <div class="tabbed-block">
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-bookworm-slim</span>
-</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span>wandb
-</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="k">COPY</span><span class="w"> </span>wandb_tester.py<span class="w"> </span>wandb_tester.py
-</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wandb_tester.py"</span><span class="p">]</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>init<span class="w"> </span>--bare<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span>wandb
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="k">COPY</span><span class="w"> </span>wandb_tester.py<span class="w"> </span>wandb_tester.py
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wandb_tester.py"</span><span class="p">]</span>
 </span></code></pre></div>
 </div>
 </div>
@@ -3570,7 +3601,7 @@ replaced with the appropriate values.</p>
 </span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>    <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">"test_metric"</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()})</span>
 </span></code></pre></div>
 <p>and then build the docker image. These two files are just a very minimal setup to test that we can authenticate
-a docker container with Wandb.</p>
+a docker container with wandb.</p>
 </li>
 <li>
 <p>When we want to run the image, what we need to do is include an environment variable that contains the API key
@@ -3596,10 +3627,10 @@ log metrics. In our opinion <code>wandb</code> just offers a better experience w
 We want to stress that the combination of tools presented in this course may not be the best for all your future
 projects, and we recommend finding a setup that works for you. That said, each framework provides specific features
 that the others do not.</p>
-<p>Finally, we want to note that while during the course we really try to showcase a lot of open-source frameworks, Wandb
+<p>Finally, we want to note that while in this course we really try to showcase a lot of open-source frameworks, wandb
 is not one. It is free to use for personal usage (with a few restrictions) but for enterprises it does require a
 license. If you are eager to only work with open-source tools we highly recommend trying out
-<a href="https://mlflow.org/">MLFlow</a>, which offers the same overall functionalities as Wandb.</p>
+<a href="https://mlflow.org/">MLflow</a>, which offers the same overall functionalities as wandb.</p>
 
 
 
@@ -3622,7 +3653,7 @@ license. If you are eager to only work with open-source tools we highly recommen
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 28, 2026 10:40:26">October 28, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     

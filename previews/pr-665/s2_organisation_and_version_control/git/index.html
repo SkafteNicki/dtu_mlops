@@ -2409,8 +2409,8 @@ this into your own projects depends, but you are at least expected to be familia
 <ol>
 <li>
 <p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Install git</a> on your computer and make sure
-    that your installation is working by writing <code>git help</code> in a terminal and it should show you the help message for
-    git.</p>
+    that your installation is working by running <code>git help</code> in a terminal, which should show you the help
+    message for git.</p>
 </li>
 <li>
 <p>Create a <a href="https://github.com/">GitHub</a> account if you do not already have one.</p>
@@ -2419,15 +2419,18 @@ this into your own projects depends, but you are at least expected to be familia
 <p>To make sure that we do not have to type in our GitHub username every time that we want to make some changes,
     we can once and for all set it on our local machine.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># type in a terminal</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>credential.helper<span class="w"> </span>store
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>credential.helper<span class="w"> </span>store
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span>&lt;email&gt;
 </span></code></pre></div>
+<p>Note that the <code>store</code> helper saves your credentials unencrypted in <code>~/.git-credentials</code>. Alternatively, the
+GitHub CLI can take care of storing your Git credentials when you log in with <code>gh auth login</code> (see the
+exercises below).</p>
 </li>
 </ol>
 <h2 id="git-overview">Git overview</h2>
 <p>The most simple way to think of version control is that it is just nodes with lines connecting them:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000" /></a></p>
 </figure>
 <p>Each node, which we call a <em>commit</em>, is uniquely identified by a hash string. Each node stores what our code
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
@@ -2435,15 +2438,15 @@ revert to a specific point in time.</p>
 <p>The commits are made up of local changes that we make to our code. A basic workflow for
 adding commits can be seen below:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000" /></a></p>
 </figure>
 <p>Assuming that we have made some changes to our local <em>working directory</em> and that we
 want to get these updates to be online in the <em>remote repository</em> we have to do the following steps:</p>
 <ul>
 <li>
 <p>First we run the command <code>git add</code>. This will move our changes to the <em>staging area</em>. While changes are in the
-    staging area we can very easily revert them (using <code>git restore</code>). There has therefore not been assigned a unique
-    hash to the code yet, and so we can still overwrite it.</p>
+    staging area we can very easily revert them (using <code>git restore --staged</code>). There has therefore not been
+    assigned a unique hash to the code yet, and so we can still overwrite it.</p>
 </li>
 <li>
 <p>To take our code from the <em>staging area</em> and make it into a commit, we simply run <code>git commit</code> which will locally
@@ -2493,7 +2496,7 @@ working together on the same project.</p>
 <p class="annotate">Finally push the files to your repository using <code>git push</code>. Make sure to check online that the files have been
     updated in your repository (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Be aware that you either need to generate a token to remote push from you local
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Be aware that you either need to generate a token to remote push from your local
     <a href="https://github.com/settings/tokens">terminal</a> or install the
     <a href="https://docs.github.com/en/github-cli/github-cli/quickstart">GitHub CLI</a>.</li>
 </ol>
@@ -2574,8 +2577,8 @@ your original checkout on <code>main</code>. When you are done, remove the workt
     <a href="https://github.com/SkafteNicki/dtu_mlops">the repository belonging to the course</a>. Now fork the project by
     clicking the <em>fork</em> button.</p>
 <p><a class="glightbox" href="../../figures/forking.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="forking" src="../../figures/forking.PNG" /></a></p>
-<p>This will create a local copy of the repository which you have complete writing access to. Note that
-code updates to the original repository do not update code in your local repository.</p>
+<p>This will create a copy of the repository under your own GitHub account, which you have full writing
+access to. Note that code updates to the original repository do not update the code in your fork.</p>
 </li>
 <li>
 <p>Clone your local fork of the project using <code>git clone</code>.</p>
@@ -2590,9 +2593,10 @@ code updates to the original repository do not update code in your local reposit
     When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code>.</p>
 </li>
 <li>
-<p>Go online to the original repository and go to the <code>Pull requests</code> tab. Find the <code>compare</code> button and
-    choose the button to compare the <code>master branch</code> of the original repo with the branch that you just created
-    in your own repository. Check the diff on the page to make sure that it contains the changes you have made.</p>
+<p>Go online to the original repository and go to the <code>Pull requests</code> tab. Click the <code>New pull request</code> button,
+    choose <code>compare across forks</code> and compare the <code>main</code> branch of the original repo with the branch that you
+    just created in your own repository. Check the diff on the page to make sure that it contains the changes
+    you have made.</p>
 </li>
 <li>
 <p>Write a bit about the changes you have made and click <code>Create pull request</code> :).</p>
@@ -2647,7 +2651,7 @@ code updates to the original repository do not update code in your local reposit
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>content to append
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>=======
 </span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>totally different content to merge later
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
 </span></code></pre></div>
 <p>this should be interpreted as: everything that's between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
 local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
@@ -2700,10 +2704,10 @@ changes that have been made to the same lines of code as you have made changes t
 </details>
 </li>
 <li>
-<p>Explain what the file <code>gitignore</code> is used for?</p>
+<p>Explain what the file <code>.gitignore</code> is used for?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The file <code>gitignore</code> is used to tell git which files to ignore when doing a <code>git add .</code> command. This is
+<p>The file <code>.gitignore</code> is used to tell git which files to ignore when doing a <code>git add .</code> command. This is
 useful for files that are not part of the codebase, but are needed for the code to run (e.g. data files)
 or files that contain sensitive information (e.g. <code>.env</code> files that contain API keys and passwords).</p>
 </details>
@@ -2738,7 +2742,7 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
 <p>That covers the basics of git to get you started. In the exercise folder you can find a
 <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf">git cheat sheet</a>
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of GitHub:
-in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
+the in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
 IDE/editor. Or you may be in the situation where you are working from a device other than your usual developer machine.
 GitHub has a built-in editor that can simply be enabled by changing any URL from</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>https://github.com/username/repository
@@ -2791,7 +2795,7 @@ the right to analyze or that is under permissive open-source licenses.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 16, 2026 13:05:05">October 16, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2026 14:06:05">November 21, 2026</span>
   </span>
 
     

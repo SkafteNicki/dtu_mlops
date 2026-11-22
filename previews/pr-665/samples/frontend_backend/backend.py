@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
     )
 
     async with await anyio.open_file("imagenet-simple-labels.json") as f:
-        imagenet_classes = json.load(f)
+        imagenet_classes = json.loads(await f.read())
 
     yield
 
@@ -55,13 +55,13 @@ async def root():
 
 
 # FastAPI endpoint for image classification
-@app.post("/classify/")
+@app.post("/predict")
 async def classify_image(file: UploadFile = File(...)):
     """Classify image endpoint."""
     try:
         contents = await file.read()
         async with await anyio.open_file(file.filename, "wb") as f:
-            f.write(contents)
+            await f.write(contents)
         probabilities, prediction = predict_image(file.filename)
         return {"filename": file.filename, "prediction": prediction, "probabilities": probabilities.tolist()}
     except Exception as e:

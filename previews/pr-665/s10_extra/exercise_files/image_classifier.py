@@ -1,5 +1,5 @@
 # Adjusted version of
-# https://github.com/Lightning-AI/lightning/blob/master/examples/pl_basics/backbone_image_classifier.py
+# https://github.com/Lightning-AI/pytorch-lightning/blob/master/examples/pytorch/basics/backbone_image_classifier.py
 import torch
 from pytorch_lightning import LightningDataModule, LightningModule
 from pytorch_lightning.cli import LightningCLI
