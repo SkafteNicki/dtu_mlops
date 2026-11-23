@@ -22,6 +22,11 @@ exclude = [
     '^https://(www\.)?reddit\.com',
     '^https://(www\.)?stackoverflow\.com',
     '^https://join\.slack\.com',
+    # Medium and its custom-domain publications answer 403 to non-browser clients
+    '^https://([\w-]+\.)*medium\.com(/|$)',
+    '^https://(www\.)?towardsdatascience\.com(/|$)',
+    '^https://(www\.)?faun\.pub(/|$)',
+    '^https://devblog\.pytorchlightning\.ai(/|$)',
     # Requires DTU login
     '^https://panopto\.dtu\.dk',
 ]
