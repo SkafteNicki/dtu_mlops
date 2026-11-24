@@ -10,8 +10,8 @@
     Lightning 2.6.6 docs, the current stable releases.
 - **Pages:** 23 PDF pages → 23 slides (22 after SCALING_APPLICATIONS-25). There are no click builds: pp. 20 and 21 share
     a heading but not content. Three Gamma "Error uploading image" placeholders (pp. 6, 12, 15). Text extracted with
-    pdftotext and links with pypdf; every page render checked by eye. Glyph repairs: the "D" and "Ì" bullets are 💡 (p. 7
-    has blanks), "¦" is ⚠️, and "don9t" on p. 14 is "don't".
+    pdftotext and links with pypdf; every page render checked by eye.
+    Glyph repairs: the "D" bullets are 💡, "Ì" is indentation only, "¦" is ⚠️, and "don9t" on p. 14 is "don't".
 
 ## Deck outline (narrative order to keep)
 
@@ -60,8 +60,8 @@
     yet. → see SCALING_APPLICATIONS-01
 - [Lock module numbering for the new layout](https://github.com/SkafteNicki/dtu_mlops/issues/656) (still **open**): name
     modules, never number them, on the slides.
-- [Design the week-3 loop closure](https://github.com/SkafteNicki/dtu_mlops/issues/655) (still **open**): likely hosted in
-    monitoring, the day before this deck. Re-check before grilling. → see SCALING_APPLICATIONS-23
+- [Design the week-3 loop closure](https://github.com/SkafteNicki/dtu_mlops/issues/655) (still **open**): likely hosted
+    in monitoring, the day before this deck. Re-check before grilling. → see SCALING_APPLICATIONS-23
 - [Find the best dataset for the lifecycle loop](https://github.com/SkafteNicki/dtu_mlops/issues/651): the deck names no
     dataset, so nothing changes.
 - [How do modern ML pipelines version data?](https://github.com/SkafteNicki/dtu_mlops/issues/648),
@@ -135,7 +135,7 @@
 - **Proposal:** Drop it, or use the space for the framework options in SCALING_APPLICATIONS-10.
 - **Evidence:** Page render.
 
-### SCALING_APPLICATIONS-06 · AMP keeps neither gradients nor underflow safe the way the slide says
+### SCALING_APPLICATIONS-06 · AMP does not keep gradients in FP32
 
 - **Category:** wrong
 - **Priority:** must
@@ -154,8 +154,8 @@
 - **Priority:** must
 - **Pages:** 17
 - **Finding:** `strategy="ddp_sharded"` with FairScale is gone: Lightning's 2.0 migration guide sends users to native
-    FSDP, the alias is not in the current table, and FairScale says its FSDP was upstreamed. The code would not run.
-    `precision=16` is the old spelling; the module uses `"16-mixed"`.
+    FSDP, the alias is not in the current table, and FairScale says its FSDP was upstreamed. The code is unlikely to run
+    on 2.6 (not executed). `precision=16` is the old spelling; the module uses `"16-mixed"`.
 - **Proposal:** Replace it with `strategy="fsdp"` and one DeepSpeed line, with current precision strings, as a code block.
 - **Evidence:** Lightning, "Upgrade from 1.9 to 2.0",
     <https://lightning.ai/docs/pytorch/stable/upgrade/from_1_9.html>; Lightning, "Strategy",
@@ -169,7 +169,7 @@
 - **Priority:** must
 - **Pages:** 15
 - **Finding:** The code and comment offer `accelerator='ipu'`. Current Lightning lists CPU, GPU, TPU and MPS on the
-    accelerator page (and `"hpu"` on the Trainer page), and the migration guide covers the dropped `ipus` flag.
+    accelerator page (and `"hpu"` on the Trainer page); IPU is on neither.
 - **Proposal:** Drop the IPU lines; show `cpu`, `gpu`, `tpu` and `auto`, with a comment that does not promise identical
     device counts on each.
 - **Evidence:** Lightning, "Accelerator", <https://lightning.ai/docs/pytorch/stable/extensions/accelerator.html>, and
@@ -296,7 +296,7 @@
 - **Proposal:** Replace the screenshots with a short code block that keeps the input-output mapping, and recall adaptive
     batching as the server-side version.
 - **Evidence:** Page render; Python docs, "Set types" (unordered collection),
-    <https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset> (`unverified`: not fetched);
+    <https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset> (accessed 2026-11-24);
     `s7_deployment/ml_deployment.md`, adaptive batching exercise.
 
 ### SCALING_APPLICATIONS-19 · Fibonacci is not an inference cache
@@ -431,7 +431,7 @@
 | 9 | Line plot: total time vs `num_workers` per batch size | chart/paper figure | re-plot/redraw (own LFW run) | | SCALING_APPLICATIONS-02 |
 | 9 | Dataset class | code/config screenshot (already text) | code block from exercise files | | SCALING_APPLICATIONS-02 |
 | 10 | W&B system metrics panels | tool screenshot | fresh screenshot | | |
-| 11 | Data parallel, forward and backward in four steps | concept diagram | redraw (same figure as `figures/data_parallel.png`, by file name and module context) | | SCALING_APPLICATIONS-09 |
+| 11 | Data parallel, forward and backward in four steps | concept diagram | redraw (same figure as `figures/data_parallel.png`) | | SCALING_APPLICATIONS-09 |
 | 12 | Gamma "Error uploading image" | — | propose replacement: redrawn DDP steps | broken | SCALING_APPLICATIONS-04 |
 | 13 | FSDP workflow, two instances (clipped box labels) | concept diagram | redraw + citation (origin `unverified`) | | SCALING_APPLICATIONS-09 |
 | 15 | Lightning Trainer accelerators | code/config screenshot | code block | stale | SCALING_APPLICATIONS-08 |
@@ -466,7 +466,7 @@ Flags: broken · voice · stale.
 | PyTorch, *Introduction to torch.compile* | <https://docs.pytorch.org/tutorials/intermediate/torch_compile_tutorial.html> | SCALING_APPLICATIONS-20 |
 | PyTorch Blog, *PyTorch compile to speed up inference on Llama 2* | <https://pytorch.org/blog/pytorch-compile-to-speed-up-inference/> | SCALING_APPLICATIONS-11, SCALING_APPLICATIONS-20, p. 18 chart |
 | PyTorch Blog, *Introducing PyTorch Fully Sharded Data Parallel (FSDP) API* | <https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/> | p. 14 claim that DDP needs more memory (full copy per GPU) |
-| Lightning, *Upgrade from 1.9 to 2.0* | <https://lightning.ai/docs/pytorch/stable/upgrade/from_1_9.html> | SCALING_APPLICATIONS-07, SCALING_APPLICATIONS-08 |
+| Lightning, *Upgrade from 1.9 to 2.0* | <https://lightning.ai/docs/pytorch/stable/upgrade/from_1_9.html> | SCALING_APPLICATIONS-07 |
 | Lightning, *Strategy* | <https://lightning.ai/docs/pytorch/stable/extensions/strategy.html> | SCALING_APPLICATIONS-07 |
 | Lightning, *Accelerator* | <https://lightning.ai/docs/pytorch/stable/extensions/accelerator.html> | SCALING_APPLICATIONS-08 |
 | FairScale README | <https://github.com/facebookresearch/fairscale> | SCALING_APPLICATIONS-07 |
