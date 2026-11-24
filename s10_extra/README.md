@@ -9,18 +9,18 @@ Some of them may still be under construction and may in the future be moved into
 
     Learn how to setup a simple documentation system for your application
 
-    [:octicons-arrow-right-24: M32: Documentation](documentation.md)
+    [:octicons-arrow-right-24: M33: Documentation](documentation.md)
 
 - ![](../figures/icons/optuna.png){align=right : style="height:100px;width:100px"}
 
     Learn how to do hyperparameter optimization using Optuna
 
-    [:octicons-arrow-right-24: M33: Hyperparameter Optimization](hyperparameters.md)
+    [:octicons-arrow-right-24: M34: Hyperparameter Optimization](hyperparameters.md)
 
 - ![](../figures/icons/pbs.png){align=right : style="height:100px;width:100px"}
 
     Learn how to use HPC systems that use PBS to do job scheduling
 
-    [:octicons-arrow-right-24: M34: High Performance Clusters](high_performance_clusters.md)
+    [:octicons-arrow-right-24: M35: High Performance Clusters](high_performance_clusters.md)
 
 </div>
