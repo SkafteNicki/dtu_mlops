@@ -117,10 +117,10 @@ by an admonition at the top of the module page:
 
     !!! info "Agentic Module"
 
-Each module has a module label: the kind prefix plus a number, for example `M5`, `O3` or `A2`. Each kind has its own
-global series (`M1, M2, ...`, `O1, O2, ...` and `A1, A2, ...`) that runs across the whole course in the order the
+Each module has a module label: the kind prefix plus a global number, for example `M5`, `O3` or `A2`. Each kind has
+its own series (`M1, M2, ...`, `O1, O2, ...` and `A1, A2, ...`) that runs across the whole course in the order the
 modules appear in the navigation. The labels are shown in the navigation and on the session pages, and they are
-renumbered when modules are added or moved, so the course text always refers to a module by its name.
+renumbered when modules are added or moved.
 
 The two agentic modules **Set up a coding agent** and **Agent safety** are the prerequisites for every other agentic
 module. Do these two first; after that, every other agentic module stands alone and can be done in any order.
