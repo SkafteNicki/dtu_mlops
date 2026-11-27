@@ -97,16 +97,36 @@ We highly recommend that when going through the material you use the
 some special HTML magic provided by
 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
-The course is divided into sessions, denoted by capital **S**, and modules, denoted by capital **M**. A session
-corresponds to a full day of work if you are following the course, meaning approximately 9 hours of work. Each session
-(**S**) corresponds to a topic within MLOps and consists of multiple modules (**M**) that each cover a specific topic.
+The course is divided into sessions, denoted by capital **S**. A session corresponds to a full day of work if you are
+following the course, meaning approximately 9 hours of work. Each session corresponds to a topic within MLOps and
+consists of multiple modules that each cover a specific topic. Every module is one of three kinds, and the kind is shown
+by an admonition at the top of the module page:
 
-Importantly we differ between core modules and optional modules. Core modules will be marked by
+* **Core modules (M)** are required learning. Go through them to be able to pass the course. They are marked by
 
-!!! info "Core Module"
+    !!! info "Core Module"
 
-at the top of their corresponding page. Core modules are important to go through to be able to pass the course.
-You are highly recommended to still do the optional modules.
+* **Optional modules (O)** are not required learning, but you are highly recommended to still do them. Some of them are
+    also part of the project checklist. They are marked by
+
+    !!! info "Optional Module"
+
+* **Agentic modules (A)** teach you how to make an AI agent do specific MLOps work for you, either interactively or
+    unattended. Agentic modules are optional and ungraded, so you can skip them without affecting your grade. They are
+    marked by
+
+    !!! info "Agentic Module"
+
+Each module has a module label: the kind prefix plus a global number, for example `M5`, `O3` or `A2`. Each kind has
+its own series (`M1, M2, ...`, `O1, O2, ...` and `A1, A2, ...`) that runs across the whole course in the order the
+modules appear in the navigation. The labels are shown in the navigation and on the session pages, and they are
+renumbered when modules are added or moved.
+
+The two agentic modules **Set up a coding agent** and **Agent safety** are the prerequisites for every other agentic
+module. Do these two first; after that, every other agentic module stands alone and can be done in any order.
+
+Using agents is never required in this course, neither in the modules nor in the project. If your project group decides
+to use agents for the project, the agent use rule on the [project page](projects.md) applies.
 
 Additionally, be aware of the following icons throughout the course material:
 
