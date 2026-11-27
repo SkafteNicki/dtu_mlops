@@ -1,0 +1,12 @@
+# Grafana reads this file at every start: Prometheus is the default data source.
+# Grafana runs in its own container, so it reaches Prometheus by its compose service name, not localhost.
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus
+    url: http://prometheus:9090
+    access: proxy
+    isDefault: true
+    jsonData:
+      timeInterval: 5s

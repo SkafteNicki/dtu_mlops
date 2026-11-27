@@ -1,0 +1,11 @@
+# Prometheus on the VM scrapes the API on Cloud Run, over HTTPS.
+# This is only correct while the service runs exactly one instance (min = max = 1).
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: api
+    scheme: https
+    static_configs:
+      # TODO: the host name of your Cloud Run service, without https:// (gcloud run services describe ...)
+      - targets: ["<your-service>.run.app"]

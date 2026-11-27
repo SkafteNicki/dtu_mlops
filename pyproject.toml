@@ -56,6 +56,7 @@ exercises = [
   "pipreqs<=0.4.13",
   "pre-commit<=4.1",
   "prefect<=3.5",
+  "prometheus-client<=0.26",
   "prometheus-fastapi-instrumentator<=7.1",
   "ptflops<=0.7.5",
   "pydantic<=2.14.1",
@@ -151,6 +152,7 @@ lint.ignore = [
 ]
 lint.exclude = [ "student_repos/" ]
 # pytest is built around assert, the bandit rule does not apply to our own tests.
+lint.per-file-ignores."s*_*/exercise_files/**/test_*.py" = [ "S101" ]
 lint.per-file-ignores."tests/**" = [ "S101" ]
 lint.pydocstyle.convention = "google"
 

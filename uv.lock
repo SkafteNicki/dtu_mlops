@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.11, <3.14"
 resolution-markers = [
     "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux'",
@@ -1319,6 +1319,7 @@ exercises = [
     { name = "pipreqs" },
     { name = "pre-commit" },
     { name = "prefect" },
+    { name = "prometheus-client" },
     { name = "prometheus-fastapi-instrumentator" },
     { name = "ptflops" },
     { name = "pydantic" },
@@ -1385,6 +1386,7 @@ exercises = [
     { name = "pipreqs", specifier = "<=0.4.13" },
     { name = "pre-commit", specifier = "<=4.1" },
     { name = "prefect", specifier = "<=3.5" },
+    { name = "prometheus-client", specifier = "<=0.26.0" },
     { name = "prometheus-fastapi-instrumentator", specifier = "<=7.1" },
     { name = "ptflops", specifier = "<=0.7.5" },
     { name = "pydantic", specifier = "<=2.14.1" },
