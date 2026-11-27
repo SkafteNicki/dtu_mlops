@@ -13,6 +13,6 @@ COPY frontend.py /app/frontend.py
 
 RUN uv sync --group frontend --no-install-project --no-dev
 
-EXPOSE $PORT
+EXPOSE 8080
 
-ENTRYPOINT ["uv", "run", "streamlit", "run", "frontend.py", "--server.port", "$PORT", "--server.address=0.0.0.0"]
+ENTRYPOINT uv run streamlit run frontend.py --server.port=$PORT --server.address=0.0.0.0

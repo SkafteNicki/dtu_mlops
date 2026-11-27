@@ -141,13 +141,14 @@ to make it work.
     the features of `uv` we will be using in the course. That said, let's first try to see how we can use `uv` to create
     virtual environments and manage dependencies:
 
-    1. Try creating a new virtual environment called `.venv` using Python 3.11. What command should you execute to do this?
+    1. Try creating a new virtual environment called `.venv` using Python 3.13. What command should you execute to do
+        this?
 
-        !!! warning "Use Python 3.10 or higher"
+        !!! warning "Use Python 3.11-3.13"
 
-            We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
-            (currently 3.13) is advisable, as the newest version may lack support from all dependencies. Check the status
-            of different Python versions [here](https://devguide.python.org/versions/).
+            We recommend using Python 3.13 for this course. Newer versions may lack support from all dependencies; the
+            exercises in the course repository support Python 3.11-3.13. Check the status of different Python versions
+            [here](https://devguide.python.org/versions/).
 
         ??? success "Solution"
 
@@ -198,13 +199,15 @@ to make it work.
             uv pip list
             # or for a tree view showing dependencies
             uv tree
+            # or
+            uv pip freeze
             ```
 
-4. The above is the very basic of `uv` and is actually not the recommended way of using `uv`. Instead, `uv` works best
+4. The above is the very basics of `uv` and is actually not the recommended way of using `uv`. Instead, `uv` works best
     as a project-based package manager. Let's try that out:
 
     1. When you start a new project, you can initialize it with `uv init <project_name>`, which will create a new folder
-        with the given project name and set up a virtual environment for you(1):
+        with the given project name and initialize it as a `uv` project for you(1):
 
         1. :man_raising_hand: If you already have a pre-existing folder, you can also run `uv init` inside that folder
             to set it up as a `uv` project.
@@ -219,10 +222,14 @@ to make it work.
 
             The following has been created:
 
-            * A `.venv` folder containing the virtual environment as above
             * A `README.md` file for documenting your project
-            * a `pyproject.toml` file for managing your project, more on this file later
-            * a `hello.py` file with a simple example script
+            * A `main.py` file containing a small starter script
+            * A `pyproject.toml` file for managing your project, more on this file later
+            * A `.python-version` file pinning the Python version that the project should use
+            * A `.gitignore` file for specifying files that git should ignore
+
+            Note that no virtual environment has been created yet. The `.venv` folder is automatically created
+            the first time you run a command such as `uv run` or `uv sync`.
 
     2. To add dependencies to your project, you can use the `uv add` command:
 
@@ -231,7 +238,7 @@ to make it work.
         ```
 
         which will install the packages in your virtual environment and also add them to the `pyproject.toml` file
-        (check this out!). An additional file have been created called `uv.lock`, can you figure out what the purpose of
+        (check this out!). An additional file has been created called `uv.lock`, can you figure out what the purpose of
         this file is?
 
         ??? success "Solution"
@@ -241,19 +248,19 @@ to make it work.
             another user wants to set up the same environment, they can use the `uv sync` command to install the exact
             same versions of all packages as specified in the `uv.lock` file.
 
-    3. Another, way to add dependencies to your project is to directly edit the `pyproject.toml` file. Try adding
-        `scikit-learn` version `1.2.2` to your `pyproject.toml` file. Afterwards, what command should you execute to
+    3. Another way to add dependencies to your project is to directly edit the `pyproject.toml` file. Try adding
+        `scikit-learn` version `1.6.1` to your `pyproject.toml` file. Afterwards, what command should you execute to
         install the dependencies specified in the `pyproject.toml` file?
 
         ??? success "Solution"
 
-            Add the following line under the `[project]` section:
+            Add the following line under the `dependencies` list in the `[project]` section:
 
             ```toml
             dependencies = [
                 "numpy>=2.4.0",
                 "pandas>=2.2.3",
-                "scikit-learn==1.2.2"
+                "scikit-learn==1.6.1"
             ]
             ```
 
@@ -291,13 +298,13 @@ to make it work.
             ```toml
             [dependency-groups]
             dev = [
-                "pytest>=8.3.4",
-                "ruff>=0.14.10",
+                "pytest>=9.2.0",
+                "ruff>=0.17.6",
             ]
             ```
 
-    6. `uv` also supports for defining optional dependencies e.g. dependencies that are only needed for specific
-        use-cases. For example, `pandas` support the optional dependency `excel` for reading and writing Excel files.
+    6. `uv` also supports defining optional dependencies e.g. dependencies that are only needed for specific
+        use-cases. For example, `pandas` supports the optional dependency `excel` for reading and writing Excel files.
         Try adding an optional dependency to your project and check how it is stored in the `pyproject.toml` file.
 
         ??? success "Solution"
@@ -324,10 +331,10 @@ to make it work.
                 ??? success "Solution"
 
                     ```bash
-                    # to install optional dependencies from the "dataframes" group
-                    uv sync --group dataframes
+                    # to install optional dependencies from the "dataframes" extra
+                    uv sync --extra dataframes
                     # to install all optional dependencies
-                    uv sync --all-groups
+                    uv sync --all-extras
                     ```
 
             2. Finally, how do you specify which optional dependencies should be installed when executing
@@ -335,15 +342,26 @@ to make it work.
 
                 ??? success "Solution"
 
-                    You can specify this in the `pyproject.toml` file under the `[tool.uv]` section (see
+                    The same options are available when executing commands with `uv run`, e.g.:
+
+                    ```bash
+                    # to include optional dependencies from the "dataframes" extra
+                    uv run --extra dataframes python script.py
+                    # to include all optional dependencies
+                    uv run --all-extras python script.py
+                    ```
+
+                    For *dependency groups* (such as the `dev` group), which are installed by default, you can
+                    instead specify which groups to include in the `pyproject.toml` file under the `[tool.uv]` section
+                    using `default-groups` (see
                     [docs](https://docs.astral.sh/uv/concepts/projects/dependencies/#default-groups)):
 
                     ```toml
                     [tool.uv]
-                    default-groups = ["dev", "dataframes"]
+                    default-groups = ["dev"]
                     ```
 
-                    alternatively, setting `default-groups = "all"` will install all optional dependencies by default.
+                    alternatively, setting `default-groups = "all"` will include all dependency groups by default.
 
     7. Let's say that you want to upgrade or downgrade the python version you are running inside your `uv` project.
         How do you do that?
@@ -371,16 +389,17 @@ to make it work.
             ```
 
     9. (Optional) `uv` also supports the notion of *tools* which are external command line tools that you may use in
-        multiple projects. Examples of such tools are `black`, `ruff`, `pytest` and so on (all which you will encounter
-        later in the course). These tools can be installed globally on your system by using the `uvx` (or `uv tool`)
-        command:
+        multiple projects. Examples of such tools are `black`, `ruff`, `pytest` and so on (all of which you
+        will encounter later in the course). Such a tool can be executed without permanently installing it by using the
+        `uvx` (or `uv tool run`) command:
 
         ```bash
         uvx cowsay -t "muuh"
         ```
 
-        which will install the `cowsay` tool globally on your system and then execute it with the argument `"muuh"`. Try
-        installing at least one tool and executing it.
+        which will fetch the `cowsay` tool (if it has not already been cached) and then execute it with the argument
+        `"muuh"`. Tools can also be installed globally on your system by using the `uv tool install` command. Try
+        playing around with at least one tool.
 
 !!! tip "Alias `uvr=uv run`"
 

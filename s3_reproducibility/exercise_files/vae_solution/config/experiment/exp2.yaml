@@ -1,4 +1,3 @@
-# @package _group_
 dataset_path: '~/datasets'
 x_dim: 784
 hidden_dim: 400

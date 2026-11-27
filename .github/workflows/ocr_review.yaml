@@ -1,0 +1,107 @@
+# Automated AI review of pull requests, using Open Code Review (OCR) in native
+# mode: https://github.com/alibaba/open-code-review
+#
+# The model is served by the Mistral API and defaults to DeepSeek V4.1 Flash,
+# which is cheaper than Mistral Large. It requires a MISTRAL_API_KEY repository
+# secret, and the model can be changed with an optional MISTRAL_MODEL
+# repository variable.
+#
+# A review runs when a PR is opened (or marked ready for review), and again
+# whenever a maintainer comments `/open-code-review` on the PR. Fork and
+# Dependabot PRs are skipped: forks cannot access the secret, and Dependabot
+# has its own separate secret store.
+name: Open Code Review
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+# Unrelated PR comments also trigger this workflow. Only real review requests
+# share the per-PR group, so an ordinary comment cannot cancel a running review.
+concurrency:
+  group: >-
+    ${{
+      (
+        github.event_name == 'pull_request'
+        || (
+          github.event.issue.pull_request
+          && startsWith(github.event.comment.body, '/open-code-review')
+        )
+      )
+      && format('ocr-review-{0}', github.event.pull_request.number || github.event.issue.number)
+      || format('ocr-noop-{0}', github.run_id)
+    }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: Review
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: >-
+      (
+        github.event_name == 'pull_request'
+        && github.event.pull_request.draft == false
+        && github.event.pull_request.head.repo.full_name == github.repository
+        && github.actor != 'dependabot[bot]'
+      )
+      || (
+        github.event_name == 'issue_comment'
+        && github.event.issue.pull_request
+        && github.event.comment.user.type != 'Bot'
+        && contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+        && startsWith(github.event.comment.body, '/open-code-review')
+      )
+    steps:
+      - name: Check for API key
+        env:
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+        run: |
+          if [ -z "$MISTRAL_API_KEY" ]; then
+            echo "::error::The MISTRAL_API_KEY secret is not set."
+            exit 1
+          fi
+
+      # issue_comment events carry no PR refs, so resolve them from the API.
+      # The comment trigger runs with secrets, so fork PRs are refused here too.
+      - name: Resolve PR from comment
+        id: pr
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            if (pr.head.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}`) {
+              core.setFailed('Reviews of fork PRs are not supported.');
+              return;
+            }
+            core.setOutput('base_ref', pr.base.ref);
+            core.setOutput('head_sha', pr.head.sha);
+
+      - name: Run Open Code Review
+        uses: alibaba/open-code-review@d29ca2044a42ea297a7fa93692d0f5ac8f38d84e # v1.14.0
+        with:
+          ocr_version: "1.14.0"
+          llm_url: https://api.mistral.ai/v1
+          llm_auth_token: ${{ secrets.MISTRAL_API_KEY }}
+          llm_model: ${{ vars.MISTRAL_MODEL || 'deepseek-v4-1-flash-1017' }}
+          llm_use_anthropic: "false"
+          # The action's default body disables "thinking", a field the Mistral
+          # API does not know, so send an empty body instead.
+          llm_extra_body: "{}"
+          # Update the summary comment in place and do not repeat inline
+          # comments that an earlier review already posted.
+          sticky_summary: "true"
+          incremental: "true"
+          base_ref: ${{ steps.pr.outputs.base_ref }}
+          head_sha: ${{ steps.pr.outputs.head_sha }}

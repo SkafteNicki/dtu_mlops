@@ -11,7 +11,7 @@ the question then remains: how to organize our code? As developers, we tend to n
 much. It is instead something that is just dynamically created as we may need it. However, maybe we should spend
 some time initially getting organized with the chance of this making our code easier to develop and maintain in the
 long run. If we do not spend time organizing our code, we may end up with a mess of code that is hard to understand
-or maintain
+or maintain.
 
 !!! quote "Big Ball of Mud"
     *A Big Ball of Mud is a haphazardly structured, sprawling, sloppy, duct-tape-and-baling-wire, spaghetti-code*
@@ -38,8 +38,8 @@ We are in this course going to use the tool [cookiecutter](https://cookiecutter.
 which is a tool for creating projects from *project templates*. A project template is in short just an overall structure
 for how you want your folders, files, etc. to be organized from the beginning. For this course we are going to be using
 a custom [MLOps template](https://github.com/SkafteNicki/mlops_template). The template is essentially a fork of the
-[cookiecutter data science template](https://github.com/drivendata/cookiecutter-data-science) that has been used for a
-couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
+[cookiecutter data science template](https://github.com/drivendataorg/cookiecutter-data-science) that has been used
+for a couple of years in the course, but specialized a bit more towards MLOps instead of general data science.
 
 We are not going to argue that this template is better than every other template; it is just a
 **standardized** way of creating project structures for machine learning projects. By standardized we mean that if two
@@ -92,7 +92,7 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
 
     ```toml
     [build-system]
-    requires = ["setuptools", "wheel"]
+    requires = ["setuptools"]
     build-backend = "setuptools.build_meta"
 
     [project]
@@ -107,11 +107,11 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     dependencies = {file = ["requirements.txt"]}
     ```
 
-    The `[build-system]` informs the package manager that to build this Python project it needs the two packages
-    `setuptools` and `wheel` and that it should call the
-    [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) function to actually build the
-    project. The `[project]` section essentially contains metadata regarding the package, what it's called, etc. for if
-    we ever want to publish it to [PyPI](https://pypi.org/).
+    The `[build-system]` informs the package manager that to build this Python project it needs the `setuptools`
+    package and that it should call the
+    [setuptools.build_meta](https://setuptools.pypa.io/en/latest/build_meta.html) build backend to actually build
+    the project. The `[project]` section essentially contains metadata regarding the package, what it's called, etc.
+    for if we ever want to publish it to [PyPI](https://pypi.org/).
 
     For specifying dependencies of your project you have two options. The most common today is to add a `dependencies`
     field under the `[project]` header like this:
@@ -134,12 +134,12 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
     headers:
 
     ```toml
-    [ruff]
-    ruff_option = ...
+    [tool.ruff]
+    line-length = 120
     ```
 
     To read more about how to specify `pyproject.toml` this
-    [page](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata)
+    [page](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml)
     is a good place to start.
 
 === "setup.py + setup.cfg"
@@ -149,14 +149,13 @@ a lot of projects using `setup.py + setup.cfg`, so it is good to at least know a
 
     ```python
     from setuptools import setup
-    from pip.req import parse_requirements
-    requirements = [str(ir.req) for ir in parse_requirements("requirements.txt")]
+
     setup(
         name="my-package-name",
         version="0.1.0",
         author="EM",
-        description="Something cool here."
-        install_requires=requirements,
+        description="Something cool here.",
+        install_requires=["torch==2.1.0", "matplotlib>=3.8.1"],
     )
     ```
 
@@ -182,12 +181,12 @@ not super important to know all the details of how to create these files from sc
 created when running `uv init`. `uv` distinguishes between a project being an
 [application or being a library/package](https://docs.astral.sh/uv/concepts/projects/init/#creating-projects). The
 core difference is if the project was created using `uv init --app` or `uv init --lib` with `--app` being the
-default. The core difference is that applications are not installed as packages, while libraries/packages are.
+default. This means that applications are not installed as packages, while libraries/packages are.
 Concretely this comes down to these lines in the `pyproject.toml` file being added or not:
 
 ```toml
 [build-system]
-requires = ["uv_build>=0.9.21,<0.10.0"]
+requires = ["uv_build>=0.13.9,<0.14.0"]
 build-backend = "uv_build"
 ```
 
@@ -210,8 +209,8 @@ your head around where files are located.
 1. Install the [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) framework
 
     ```bash
-    # install as global tool
-    uvx cookiecutter
+    # install as a global tool
+    uv tool install cookiecutter
     ```
 
 2. Start a new project using [this template](https://github.com/SkafteNicki/mlops_template), which is specialized for
@@ -237,7 +236,7 @@ your head around where files are located.
 
     ??? note "Flat-layout vs. src-layout"
 
-        There are two common choices on how layout your source directory. The first is called *src-layout*
+        There are two common choices on how to layout your source directory. The first is called *src-layout*
         where the source code is always placed in a `src/<project_name>` folder and the second is called *flat-layout*
         where the source code is just placed in a `<project_name>` folder. The template we are using in this
         course uses the src-layout, but there are
@@ -296,18 +295,19 @@ your head around where files are located.
         --8<-- "s2_organisation_and_version_control/exercise_files/model_solution.py"
         ```
 
-7. Transfer the relevant parts of the `main.py` script to the `src/<project-name>/train.py` script, i.e. the parts that
+7. Transfer the relevant parts of the `main.py` script to the `src/<project_name>/train.py` script, i.e. the parts that
     have to do with training the model. In addition, make sure it also does the following two things when run:
 
     * Saves the trained model to the `models` folder
     * Saves some statistics/visualizations from training to the `reports/figures` folder. This could be a simple
+    plot of the training loss and accuracy.
 
     ??? success "Solution"
 
         ```python linenums="1" title="train.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/train_solution.py"
         ```
-8. Transfer the remaining parts of the `main.py` script into the `src/<project-name>/evaluate.py` script, i.e. the parts
+8. Transfer the remaining parts of the `main.py` script into the `src/<project_name>/evaluate.py` script, i.e. the parts
     that have to do with evaluating the model. When run, it should load the model from the `models` folder and print out
     the accuracy of the model on the test set.
 
@@ -317,10 +317,10 @@ your head around where files are located.
         --8<-- "s2_organisation_and_version_control/exercise_files/evaluate_solution.py"
         ```
 
-9. Fill out the file `src/<project-name>/visualize.py` with this (as minimum, feel free to add more visualizations)
+9. Fill out the file `src/<project_name>/visualize.py` with this (as minimum, feel free to add more visualizations)
 
     * Loads a pre-trained network.
-    * Extracts some intermediate representation of the data (your training set) from your CNN. This could be the
+    * Extracts some intermediate representation of the data (your training or test set) from your CNN. This could be the
         features just before the final classification layer.
     * Visualize features in 2D space using
         [t-SNE](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) to do the dimensionality
@@ -330,12 +330,12 @@ your head around where files are located.
     ??? success "Solution"
 
         The solution here depends a bit on the choice of model. However, in most cases the
-        last layer in the model will be a fully connected layer, which we assume is named `fc`. The easiest way to get
+        last layer in the model will be a fully connected layer, which we assume is named `fc1`. The easiest way to get
         the features before this layer is to replace the layer with `torch.nn.Identity` which essentially does nothing
         (see the highlighted line below). Alternatively, if you implemented everything in `torch.nn.Sequential` you can
         just remove the last layer from the `Sequential` object: `model = model[:-1]`.
 
-        ```python linenums="1" hl_lines="23" title="visualize.py"
+        ```python linenums="1" hl_lines="16" title="visualize.py"
         --8<-- "s2_organisation_and_version_control/exercise_files/visualize_solution.py"
         ```
 10. Make sure to update the `README.md` file with a short description of how your scripts should be run.
@@ -351,7 +351,12 @@ your head around where files are located.
 
     1. Just as a starting point I would recommend that you fork either the
         [mlops template](https://github.com/SkafteNicki/mlops_template) which you have already been using or
-        alternatively fork the [data science template](https://github.com/drivendata/cookiecutter-data-science).
+        alternatively fork the [data science template](https://github.com/drivendataorg/cookiecutter-data-science).
+        Note that version 2 of the data science template is no longer a plain `cookiecutter` template: it is used
+        through its own `ccds` command and is configured through a `ccds.json` file instead of `cookiecutter.json`.
+        To use the classic `cookiecutter` version of it, run
+        `cookiecutter https://github.com/drivendataorg/cookiecutter-data-science -c v1` (or start your fork from
+        the `v1` tag).
 
     2. After forking the template, clone it locally and let's start modifying it. The first step is changing
         the `cookiecutter.json` file. For the MLOps template it looks like this:
@@ -360,19 +365,23 @@ your head around where files are located.
         {
             "repo_name": "repo_name",
             "project_name": "project_name",
+            "project_structure": ["advance", "simple"],
+            "deps_manager": ["uv", "pip"],
+            "add_coding_agent_support": [true, false],
             "author_name": "Your name (or your organization/company/team)",
             "description": "A short description of the project.",
-            "python_version": "3.11",
+            "python_version": "3.12",
             "open_source_license": ["No license file", "MIT", "BSD-3-Clause"],
+            "_copy_without_render": ["**/workflows/*"]
         }
         ```
 
         Simply add a new line to the JSON file with the name of the variable you want to add and the default value you
         want it to have.
 
-    3. The actual template is located in the `{{ cookiecutter.project_name }}` folder. `cookiecutter` works by replacing
+    3. The actual template is located in the `{{ cookiecutter.repo_name }}` folder. `cookiecutter` works by replacing
         everywhere that it sees `{{ cookiecutter.<variable_name> }}` with the value of the variable. Therefore, if you
-        want to add a new file to the template, just add it to the `{{ cookiecutter.project_name }}` folder and make
+        want to add a new file to the template, just add it to the `{{ cookiecutter.repo_name }}` folder and make
         sure to add the `{{ cookiecutter.<variable_name> }}` where you want the variable to be replaced.
 
     4. After you have made the changes you want to the template, you should test it locally. Just run
@@ -401,7 +410,7 @@ your head around where files are located.
             (not `git`) you can run
 
             ```bash
-            gh repo create <repo_name> --public --confirm
+            gh repo create <repo_name> --public
             ```
 
         2. Run `cookiecutter` with the template you want to use.
@@ -415,7 +424,7 @@ your head around where files are located.
         3. Run the following sequence of commands.
 
             ```bash
-            cd <project_name>
+            cd <repo_name>
             git init
             git add .
             git commit -m "Initial commit"
@@ -425,11 +434,11 @@ your head around where files are located.
 
         That's it. The template should now have been pushed to the repository as the first commit.
 
-That ends the module on code structure and `cookiecutter`. We again want to stress the point of using `cookiecutter`
+That ends the module on code structure and `cookiecutter`. We again want to stress that using `cookiecutter`
 is not about following one specific template, but instead just to use any template for organizing your code. What often
 happens in a team is that multiple templates are needed in different stages of the development phase or for different
 product types because they share a common structure, while still having some specifics. Keeping templates up-to-date
 then becomes critical such that no team member is using an outdated template. If you ever end up in this situation, we
-highly recommend to checkout [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only
+highly recommend checking out [cruft](https://github.com/cruft/cruft) that works alongside `cookiecutter` to not only
 make projects but also update existing ones as the template evolves. Cruft additionally also has template validation
 capabilities to ensure projects match the latest version of a template.

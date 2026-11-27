@@ -56,7 +56,8 @@ In these exercises, we are going to assume that we want to test an API written i
 [module](../s7_deployment/apis.md)). If the API is written in a different framework then how to write the tests may have
 to change.
 
-1. Start by installing [httpx](https://www.python-httpx.org/) which is the client we are going to use during testing:
+1. Start by installing [httpx](https://www.python-httpx.org/), as the FastAPI `TestClient` that we are going to use
+    during testing is implemented on top of it:
 
     ```bash
     uv add httpx
@@ -93,10 +94,11 @@ to change.
 
         If you have an application with lifespan events, i.e. you have implemented the `lifespan` function in your
         FastAPI application, you need to instead use the `TestClient` in a `with` statement. This is because the
-        `TestClient` will close the connection to the application after the test is done. Here is an example:
+        lifespan events are only run when the `TestClient` enters the `with` block (startup) and when it exits the
+        block (shutdown). Here is an example:
 
         ```python
-        def test_read_root(model):
+        def test_read_root():
             with TestClient(app) as client:
                 response = client.get("/")
                 assert response.status_code == 200
@@ -146,7 +148,7 @@ your API then you can get the endpoint by going to the UI and looking at the ser
 <figure markdown>
 ![Image](../figures/gcp_run_monitoring.png){ width="600" }
 <figcaption> The endpoint can be seen in the top center. It always starts with `https://<my-service-name>` followed by
-a random string and then `.a.run.app` </a> </figcaption>
+a random string and then `.a.run.app`</figcaption>
 </figure>
 
 However, we can also use the `gcloud` command to get the endpoint:
@@ -181,9 +183,9 @@ very easy to integrate into your CI/CD pipeline.
 
 2. Make sure you have written an API that you can test. Otherwise you can for simplicity just use this simple example:
 
-    !!! example "Simple hallo world Fastapi example"
+    !!! example "Simple hello world FastAPI example"
 
-        ```python linenums="1" title="model.py"
+        ```python linenums="1" title="simple_fastapi_app.py"
         --8<-- "s7_deployment/exercise_files/simple_fastapi_app.py"
         ```
 
@@ -227,7 +229,7 @@ very easy to integrate into your CI/CD pipeline.
     === "Windows"
 
         ```bash
-        locust -f tests/performancetests/locustfile.py \
+        locust -f tests/performancetests/locustfile.py ^
             --headless --users 10 --spawn-rate 1 --run-time 1m --host %MYENDPOINT%
         ```
 
@@ -247,18 +249,24 @@ very easy to integrate into your CI/CD pipeline.
     ??? success "Solution"
 
         The solution here expects that a service called `production-model` has been deployed to Google Cloud Run. Then
-        the following steps can be added to a workflow file, to first authenticate with Google Cloud, extract the
-        relevant URL, and then run the load test:
+        the following steps can be added to a workflow file: first authenticate with Google Cloud, install `locust`,
+        extract the relevant URL, and then run the load test:
 
         ```yaml
 
+        - name: Checkout
+          uses: actions/checkout@v7
+
         - name: Auth with GCP
-          uses: google-github-actions/auth@v2
+          uses: google-github-actions/auth@v3
           with:
             credentials_json: ${{ secrets.GCP_SA_KEY }}
 
         - name: Set up Cloud SDK
-          uses: google-github-actions/setup-gcloud@v2
+          uses: google-github-actions/setup-gcloud@v3
+
+        - name: Install locust
+          run: pip install locust
 
         - name: Extract deployed model URL
           run: |
@@ -272,13 +280,13 @@ very easy to integrate into your CI/CD pipeline.
             DEPLOYED_MODEL_URL: ${{ env.DEPLOYED_MODEL_URL }}
           run: |
             locust -f tests/performancetests/locustfile.py \
-              --headless -u 100 -r 10 --run-time 10m --host=$DEPLOYED_MODEL_URL --csv=/locust/results
+              --headless -u 100 -r 10 --run-time 10m --host=$DEPLOYED_MODEL_URL --csv=results
 
         - name: Upload locust results
-          uses: actions/upload-artifact@v4
+          uses: actions/upload-artifact@v7
           with:
             name: locust-results
-            path: /locust
+            path: results*.csv
         ```
 
         The results can then be downloaded from the artifacts tab in the GitHub UI.
@@ -296,7 +304,7 @@ very easy to integrate into your CI/CD pipeline.
 
     ??? success "Solution"
 
-        The `wait_time` attribute is used to define how long a user should wait between tasks. It can be either be a
+        The `wait_time` attribute is used to define how long a user should wait between tasks. It can either be a
         fixed number or a random number between two values.
 
         ```python

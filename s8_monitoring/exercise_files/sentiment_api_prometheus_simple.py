@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 import json
 import os
 from contextlib import asynccontextmanager
@@ -88,13 +88,13 @@ def save_prediction_to_gcp(review: str, outputs: list[float], sentiment: str):
     """Save the prediction results to GCP bucket."""
     client = storage.Client()
     bucket = client.bucket(BUCKET_NAME)
-    time = datetime.datetime.now(tz=datetime.UTC)
+    time = dt.datetime.now(tz=dt.UTC)
     # Prepare prediction data
     data = {
         "review": review,
         "sentiment": sentiment,
         "probability": outputs,
-        "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat(),
+        "timestamp": dt.datetime.now(tz=dt.UTC).isoformat(),
     }
     blob = bucket.blob(f"prediction_{time}.json")
     blob.upload_from_string(json.dumps(data))

@@ -9,13 +9,13 @@
 [Logging](https://en.wikipedia.org/wiki/Logging_(computing)) in general refers to the practice of recording events
 over time. Having proper logging in your applications can be extremely beneficial for a few reasons:
 
-* *Debugging* becomes easier because we in a more structured way can output information about the state of our program,
-    variables, values, etc. to help identify and fix bugs or unexpected behavior.
+* *Debugging* becomes easier because we can output information about the state of our program, variables, values, etc.
+    in a more structured way to help identify and fix bugs or unexpected behavior.
 
 * When we move into a more production environment, proper logging is essential for *monitoring* the health and
     performance of our application.
 
-* It can help in *auditing*, as logging info about specific activities, etc. can help keeping a record of who did what
+* It can help in *auditing*, as logging info about specific activities, etc. can help keep a record of who did what
     and when.
 
 * Having proper logging means that info is saved for later, which can be *analysed* to gain insight into the behavior of
@@ -44,8 +44,8 @@ it does require a bit more setup than just using `print`:
 
 ```python
 import logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 logger.info("This is an info message")
 ```
 
@@ -57,7 +57,7 @@ from loguru import logger
 logger.info("This is an info message")
 ```
 
-The only core different is that we need to understand what log levels are and how to use them. Levels essentially allow
+The only core difference is that we need to understand what log levels are and how to use them. Levels essentially allow
 us to get rid of statements like this:
 
 ```python
@@ -76,7 +76,7 @@ differentiate this based on users.
 </figure>
 
 It is also important to understand the difference between logging and error handling. Error handling in
-Python is done using `raise` statements and `try/catch` like:
+Python is done using `raise` statements and `try/except` like:
 
 ```python
 def f(x: int):
@@ -85,13 +85,13 @@ def f(x: int):
     return 2 * x
 
 try:
-    f(5):
+    f(5)
 except ValueError:
     print("I failed to do a thing, but continuing.")
 ```
 
-Why would we ever need log `warning`, `error`, `critical` levels of information, if we are just going to handle it?
-The reason is that raising exceptions are meant to change the *program flow at runtime* e.g. things we do not want the
+Why would we ever need to log `warning`, `error`, `critical` levels of information, if we are just going to handle it?
+The reason is that raising an exception is meant to change the *program flow at runtime* e.g. things we do not want the
 user to do, but we can deal with in some way. Logging is always for *after* a program has run, to inspect what went
 wrong. Sometimes you need one, sometimes the other, sometimes both.
 
@@ -135,8 +135,11 @@ If in doubt, always refer to the [documentation](https://loguru.readthedocs.io/e
     ??? success "Solution"
 
         ```python
+        import sys
         from loguru import logger
-        logger.add("my_log.log", level="DEBUG")
+        logger.remove()  # Remove the default logger
+        logger.add(sys.stdout, level="WARNING")  # Only warning and higher are shown to the user
+        logger.add("my_log.log", level="DEBUG")  # All logs are saved to a file
         ```
 
     1. A common problem with logging to a file is that the file can grow very large over time. Luckily, loguru has
@@ -184,28 +187,39 @@ There exist many tools for logging your experiments, with some of them being:
 
 * [Tensorboard](https://www.tensorflow.org/tensorboard)
 * [Comet](https://www.comet.ml/site/)
-* [MLFlow](https://mlflow.org/)
-* [Neptune](https://neptune.ai/)
-* [Weights and Bias](https://wandb.ai/site)
+* [MLflow](https://mlflow.org/)
+* [Weights & Biases](https://wandb.ai/site)
 
 All of the frameworks offer many of the same functionalities, you can see a (biased) review
 [comparing experiment tracking tools](https://dagshub.com/blog/best-8-experiment-tracking-tools-for-machine-learning-2023/).
-We are going to use Weights and Bias (wandb), as it supports everything we need in this course. Additionally, it is an
+We are going to use Weights & Biases (wandb), as it supports everything we need in this course. Additionally, it is an
 excellent tool for collaboration and sharing of results.
 
 <figure markdown>
 ![Image](../figures/wandb_example.png){ width="700" }
 <figcaption>
-Using the Weights and Bias (wandb) dashboard we can quickly get an overview and compare many runs over different
+Using the Weights & Biases (wandb) dashboard we can quickly get an overview and compare many runs over different
 metrics. This allows for better iteration of models and training procedure.
+</figcaption>
 </figure>
 
 ### ❔ Exercises
 
 1. Start by creating an account at [wandb](https://wandb.ai/site). I recommend using your GitHub account but feel
-    free to choose what you want. When you are logged in you should get an API key of length 40. Copy this for later
-    use (HINT: if you forgot to copy the API key, you can find it under settings), but make sure that you do not share
-    it with anyone or leak it in any way.
+    free to choose what you want. When you are logged in, you need to create an API key: click the account selector in
+    the upper right corner, go to `User settings` and then the `API keys` section, and here create a new key. Copy the
+    key for later use, but make sure that you do not share it with anyone or leak it in any way. Note that the full key
+    is only shown once when you create it, so store it somewhere safe right away.
+
+    !!! info "Create a team"
+
+        Later in this module we are going to use the W&B Registry, which only accepts artifacts that have been logged
+        to a *team* entity and not to your personal account. We therefore recommend that you sign up for the free
+        [academic plan](https://wandb.ai/site/research) with your DTU email (which includes teams) and then create a
+        team right away: on the W&B home page click `Create a team to collaborate` under *Teams* in the left sidebar,
+        choose a name and click `Create team`. If you are working in a group, create one team for the whole group and
+        invite the other members. Then use the team name as the `entity` whenever you log runs, either by setting
+        `WANDB_ENTITY` (see the tip below) or by passing `entity="<team-name>"` to `wandb.init`.
 
     !!! tip ".env file"
 
@@ -239,18 +253,18 @@ metrics. This allows for better iteration of models and training procedure.
     uv run wandb login
     ```
 
-    You will be asked to provide the length-40 API key. The connection should remain open to the wandb server
+    You will be asked to provide the API key. The connection should remain open to the wandb server
     even when you close the terminal, such that you do not have to log in each time. If using `wandb` in a notebook
     you need to manually close the connection using `wandb.finish()`.
 
 4. We are now ready to incorporate `wandb` into our code. We are going to continue development on our corrupt MNIST
     codebase from the previous sessions. For help, we recommend looking at this
-    [quickstart](https://docs.wandb.ai/quickstart) and this [guide](https://docs.wandb.ai/guides/integrations/pytorch)
+    [quickstart](https://docs.wandb.ai/quickstart) and this [guide](https://docs.wandb.ai/models/integrations/pytorch)
     for PyTorch applications. Your first job is to alter your training script to include `wandb` logging which at
     least does the following:
 
     * Logs the hyperparameters of the model (the configuration).
-    * Logs the training loss and tranining accuracy at each training step.
+    * Logs the training loss and training accuracy at each training step.
 
     ??? success "Solution"
 
@@ -324,7 +338,7 @@ metrics. This allows for better iteration of models and training procedure.
             with a `requirements.txt`/`uv.lock` file use that.
         * Run the exact same command as logged in the wandb dashboard.
 
-6. Weights and bias was created with collaboration in mind and let's therefore share our results with others.
+6. Weights & Biases was created with collaboration in mind and let's therefore share our results with others.
 
     1. Let's create a report that you can share. Click the **Create report** button (upper right corner when you are in
         a project workspace) and include some of the graphs/plots/images that you have generated in the report.
@@ -355,10 +369,10 @@ metrics. This allows for better iteration of models and training procedure.
         ![Image](../figures/wandb_job_type.png){ width="600" }
         </figure>
 
-8. Wandb also comes with a built-in feature for doing [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps)
-    which can be beneficial to get a better working model. Look through the documentation on how to do a hyperparameter
-    sweep in Wandb. You at least need to create a new file called `sweep.yaml` and make sure that you call `wandb.log`
-    in your code on an appropriate value.
+8. The `wandb` package also comes with a built-in feature for doing
+    [hyperparameter sweeping](https://docs.wandb.ai/guides/sweeps), which can be beneficial to get a better working
+    model. Look through the documentation on how to do a hyperparameter sweep in wandb. You at least need to create a
+    new file called `sweep.yaml` and make sure that you call `wandb.log` in your code on an appropriate value.
 
     1. Start by creating a `sweep.yaml` file. Relevant documentation can be found
         [in the wandb sweeps configuration guide](https://docs.wandb.ai/guides/sweeps/define-sweep-configuration). We
@@ -393,10 +407,10 @@ metrics. This allows for better iteration of models and training procedure.
                 goal: minimize
                 name: validation_loss
             parameters:
-                learning_rate:
+                lr:
                     min: 0.0001
                     max: 0.1
-                    distribution: log_uniform
+                    distribution: log_uniform_values
                 batch_size:
                     values: [16, 32, 64]
                 epochs:
@@ -419,7 +433,7 @@ metrics. This allows for better iteration of models and training procedure.
         ```
 
         where `<sweep_id>` is the id of the sweep you just created. You can find the id in the output of the
-        `wandb sweep` command. The reason that we first lunch the sweep and then the agent is that we can have multiple
+        `wandb sweep` command. The reason that we first launch the sweep and then the agent is that we can have multiple
         agents running at the same time, parallelizing the search for the best hyperparameters. Try this out by opening
         a new terminal and running the `wandb agent` command again (with the same `<sweep_id>`).
 
@@ -444,29 +458,32 @@ metrics. This allows for better iteration of models and training procedure.
             3. Look at the importance/correlation plot to see what hyperparameters have the largest impact on the
                 results.
 
-9. Next we need to understand the model registry, which will be very important later on when we get to the deployment
-    of our models. The model registry is a centralized place for storing and versioning models. Importantly, any model
-    in the registry is immutable, meaning that once a model is uploaded it cannot be changed. This is important for
-    reproducibility and traceability of models.
+9. Next we need to understand the [W&B Registry](https://docs.wandb.ai/guides/registry) (formerly known as the
+    model registry), which will be very important later on when we get to the deployment of our models. The registry is
+    a centralized place for storing and versioning models. Importantly, any model in the registry is immutable, meaning
+    that once a model is uploaded it cannot be changed. This is important for reproducibility and traceability of
+    models.
 
     <figure markdown>
     ![Image](../figures/model_registry.png){ width="600" }
     <figcaption>
-    The model registry is in general a repository of a team's trained models where ML practitioners publish candidates
-    for production and share them with others. Figure from [wandb](https://docs.wandb.ai/guides/model_registry).
+    A registry is in general a repository of a team's trained models where ML practitioners publish candidates
+    for production and share them with others. Figure from [wandb](https://docs.wandb.ai/guides/registry).
+    </figcaption>
     </figure>
 
-    1. The model registry builds on the artifact registry in wandb. Any model that is uploaded to the model registry is
+    1. The registry builds on the artifacts in wandb. Any model that is uploaded to the registry is
         stored as an artifact. This means that we first need to log our trained models as artifacts before we can
-        register them in the model registry. Make sure you have logged at least one model as an artifact before
-        continuing.
+        register them in the registry. Make sure you have logged at least one model as an artifact before
+        continuing. Note that artifacts logged to your personal account cannot be linked to a registry; artifacts
+        need to be logged using a team entity (see the *Create a team* box in exercise 1).
 
-    2. Next let's create a registry. Go to the [model registry tab](https://wandb.ai/teams/registry/model)
-        (left pane, visible from your homepage) and then click the `Create Collection` button. Fill out the form:
+    2. Next let's create a registry. Go to the [registry app](https://wandb.ai/registry)
+        (left pane, visible from your homepage) and then click the `Create registry` button. Fill out the form:
 
-        * Choose your personal account (you should create a team for the exam project and use that instead).
         * Give the registry a name, e.g. `corrupt_mnist_models`.
-        * Provide a type of the registry, e.g. `model`.
+        * Choose the registry visibility, e.g. `Organization`.
+        * Choose the accepted artifact types of the registry, e.g. `model`.
         * (Optional) Provide a description of the registry.
 
         And click the create button.
@@ -475,11 +492,12 @@ metrics. This allows for better iteration of models and training procedure.
         ![Image](../figures/wandb_model_registry.png){ width="600" }
         </figure>
 
-        You should now see the collection/registry have been created.
+        You should now see that the registry has been created.
 
-    3. When then need to link our artifact to the model registry we just created. We can do this in two ways: either
+    3. We then need to link our artifact to a collection in the registry we just created. A registry can contain
+        multiple collections, one for each task or use case. We can do the linking in two ways: either
         through the web interface or through the `wandb` API. In the web interface, go to the artifact you want to link
-        to the model registry and click the `Link to registry` button (upper right corner). Assume you instead want to
+        to the registry and click the `Link to registry` button (upper right corner). Assume you instead want to
         do the linking using the Python SDK, how would you do that?
 
         ??? success "Solution"
@@ -492,12 +510,16 @@ metrics. This allows for better iteration of models and training procedure.
                 ```python
                 run.link_artifact(
                     artifact=artifact,
-                    target_path="model-registry/<my_registry_name>",
+                    target_path="wandb-registry-<registry_name>/<collection_name>",
                     aliases=["latest"]
                 )
                 ```
 
-            * Alternatively, if we want to link an already existing artifact to the model registry we can use the
+                where `<registry_name>` is the name of the registry you just created and `<collection_name>` is the name
+                of a collection within the registry. If the collection does not already exist, wandb automatically
+                creates it.
+
+            * Alternatively, if we want to link an already existing artifact to the registry we can use the
                 `wandb.Api` to do so. We create a new file called `link_to_registry.py` for this purpose:
 
                 ```python linenums="1" title="link_to_registry.py"
@@ -505,33 +527,32 @@ metrics. This allows for better iteration of models and training procedure.
                 api = wandb.Api()
                 artifact_path = "<entity>/<project>/<artifact_name>:<version>"
                 artifact = api.artifact(artifact_path)
-                artifact.link(target_path="<entity>/model-registry/<my_registry_name>")
-                artifact.save()
+                artifact.link(target_path="wandb-registry-<registry_name>/<collection_name>")
                 ```
 
-                In the code `<entity>`, `<project>`, `<artifact_name>`, `<version>` and `<my_registry_name>` should be
-                replaced with the appropriate values.
+                In the code `<entity>`, `<project>`, `<artifact_name>`, `<version>`, `<registry_name>` and
+                `<collection_name>` should be replaced with the appropriate values.
 
-    4. We are now ready to consume our model, which can be done by downloading the artifact from the model registry. In
+    4. We are now ready to consume our model, which can be done by downloading the artifact from the registry. In
         this case we use the wandb API to download the artifact.
 
         ```python
         import wandb
         api = wandb.Api()
-        artifact_name = f"<entity>/model-registry/<my_registry_name>:<alias>"
+        artifact_name = f"wandb-registry-<registry_name>/<collection_name>:<alias>"
         artifact = api.artifact(name = artifact_name)
         artifact_dir = artifact.download("<artifact_dir>")
         model = MyModel()
-        model.load_state_dict(torch.load("<artifact_dir>/model.ckpt"))
+        model.load_state_dict(torch.load("<artifact_dir>/model.pth"))
         ```
 
-        Try running this code with the appropriate values for `<entity>`, `<my_registry_name>`, `<version>` and
+        Try running this code with the appropriate values for `<registry_name>`, `<collection_name>`, `<alias>` and
         `<artifact_dir>`. Make sure that you can load the model and that it is the same as the one you trained.
 
-    5. Each model in the registry has at least one alias, which is the version of the model. The most recently added
-        model also receives the alias `latest`. Aliases are great for indicating where in the workflow a model is, e.g.
-        if it is a candidate for production or if it is a model that is still being developed. Try adding an alias to
-        one of your models in the registry.
+    5. Each model in the registry has a version (`v0`, `v1`, ...) and one or more aliases. The most recently added
+        model automatically receives the alias `latest`. Aliases are great for indicating where in the workflow a model
+        is, e.g. if it is a candidate for production or if it is a model that is still being developed. Try adding an
+        alias to one of your models in the registry.
 
     6. (Optional) A model always corresponds to an artifact, and artifacts can contain metadata that we can use to
         automate the process of registering models. We could for example imagine that we at the end of each week run
@@ -544,23 +565,25 @@ metrics. This allows for better iteration of models and training procedure.
             --8<-- "s4_debugging_and_logging/exercise_files/wandb_register_auto_script.py"
             ```
 
-10. In the future it will be important for us to be able to run Wandb inside a docker container (together with whatever
-    training or inference we specify). The problem here is that we cannot authenticate Wandb in the same way as the
+10. In the future it will be important for us to be able to run wandb inside a docker container (together with whatever
+    training or inference we specify). The problem here is that we cannot authenticate wandb in the same way as the
     previous exercise; it needs to happen automatically. Let's therefore look into how we can do that.
 
     1. First we need to generate an authentication key, or more precisely an API key. This is in general the way any
         service (like a docker container) can authenticate. Start by going to <https://wandb.ai/home>, click your
-        profile icon in the upper right corner and then go to `User settings`. Scroll down to the danger zone and
-        generate a new API key (if you do not already have one) and finally copy it.
+        profile icon in the upper right corner and then go to `User settings`. Scroll down to the `API keys` section
+        and generate a new API key (if you do not already have one) and finally copy it. Note that the full key is
+        only shown once, so copy it right away.
 
     2. Next create a new dockerfile called `wandb.docker` and add the following code
 
         ```dockerfile
         FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+        WORKDIR /app
         RUN apt update && \
             apt install --no-install-recommends -y build-essential gcc && \
             apt clean && rm -rf /var/lib/apt/lists/*
-        RUN uv add wandb
+        RUN uv init --bare && uv add wandb
         COPY wandb_tester.py wandb_tester.py
         ENTRYPOINT ["uv", "run", "wandb_tester.py"]
         ```
@@ -572,7 +595,7 @@ metrics. This allows for better iteration of models and training procedure.
         ```
 
         and then build the docker image. These two files are just a very minimal setup to test that we can authenticate
-        a docker container with Wandb.
+        a docker container with wandb.
 
     3. When we want to run the image, what we need to do is include an environment variable that contains the API key
         we generated. This will then authenticate the docker container with the wandb server:
@@ -597,7 +620,7 @@ We want to stress that the combination of tools presented in this course may not
 projects, and we recommend finding a setup that works for you. That said, each framework provides specific features
 that the others do not.
 
-Finally, we want to note that while during the course we really try to showcase a lot of open-source frameworks, Wandb
+Finally, we want to note that while in this course we really try to showcase a lot of open-source frameworks, wandb
 is not one. It is free to use for personal usage (with a few restrictions) but for enterprises it does require a
 license. If you are eager to only work with open-source tools we highly recommend trying out
-[MLFlow](https://mlflow.org/), which offers the same overall functionalities as Wandb.
+[MLflow](https://mlflow.org/), which offers the same overall functionalities as wandb.

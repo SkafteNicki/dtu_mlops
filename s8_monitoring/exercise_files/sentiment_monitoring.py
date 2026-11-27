@@ -5,8 +5,10 @@ from pathlib import Path
 import anyio
 import nltk
 import pandas as pd
-from evidently.legacy.metric_preset import TargetDriftPreset, TextEvals
-from evidently.legacy.report import Report
+from evidently import DataDefinition, Dataset, Report
+from evidently.descriptors import OOVWordsPercentage, Sentiment, TextLength
+from evidently.metrics import ValueDrift
+from evidently.presets import DataDriftPreset, TextEvals
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from google.cloud import storage
@@ -14,6 +16,7 @@ from google.cloud import storage
 nltk.download("words")
 nltk.download("wordnet")
 nltk.download("omw-1.4")
+nltk.download("vader_lexicon")
 
 BUCKET_NAME = "gcp_monitoring_exercise"
 
@@ -38,10 +41,30 @@ def sentiment_to_numeric(sentiment: str) -> int:
 
 
 def run_analysis(reference_data: pd.DataFrame, current_data: pd.DataFrame) -> None:
-    """Run the analysis and return the report."""
-    text_overview_report = Report(metrics=[TextEvals(column_name="content"), TargetDriftPreset(columns=["sentiment"])])
-    text_overview_report.run(reference_data=reference_data, current_data=current_data)
-    text_overview_report.save("text_overview_report.html")
+    """Run the analysis and save the report."""
+    data_definition = DataDefinition(text_columns=["content"], categorical_columns=["sentiment"])
+    # Descriptors turn the raw text into numerical features (one per row) that we can monitor
+    descriptors = [
+        TextLength("content", alias="Length"),
+        OOVWordsPercentage("content", alias="OOV words %"),
+        Sentiment("content", alias="Text sentiment"),
+    ]
+    reference = Dataset.from_pandas(
+        reference_data[["content", "sentiment"]], data_definition=data_definition, descriptors=descriptors
+    )
+    current = Dataset.from_pandas(
+        current_data[["content", "sentiment"]], data_definition=data_definition, descriptors=descriptors
+    )
+
+    report = Report(
+        metrics=[
+            TextEvals(),  # summary of the text descriptors
+            DataDriftPreset(columns=["Length", "OOV words %", "Text sentiment"]),  # drift of the text descriptors
+            ValueDrift(column="sentiment"),  # drift of the predicted sentiment (target drift)
+        ]
+    )
+    snapshot = report.run(current_data=current, reference_data=reference)
+    snapshot.save_html("monitoring.html")
 
 
 def lifespan(app: FastAPI):
@@ -49,7 +72,6 @@ def lifespan(app: FastAPI):
     global training_data, class_names
     training_data = pd.read_csv("reviews.csv")
     training_data["sentiment"] = training_data.score.apply(to_sentiment)
-    training_data["target"] = training_data["sentiment"]  # evidently expects the target column to be named "target"
     class_names = ["negative", "neutral", "positive"]
 
     yield
@@ -81,15 +103,13 @@ def load_latest_files(directory: Path, n: int) -> pd.DataFrame:
             data = json.load(f)
             reviews.append(data["review"])
             sentiment.append(sentiment_to_numeric(data["sentiment"]))
-    dataframe = pd.DataFrame({"content": reviews, "sentiment": sentiment})
-    dataframe["target"] = dataframe["sentiment"]
-    return dataframe
+    return pd.DataFrame({"content": reviews, "sentiment": sentiment})
 
 
 def download_files(n: int = 5) -> None:
     """Download the N latest prediction files from the GCP bucket."""
     bucket = storage.Client().bucket(BUCKET_NAME)
-    blobs = bucket.list_blobs(prefix="prediction_")
+    blobs = list(bucket.list_blobs(prefix="prediction_"))
     blobs.sort(key=lambda x: x.updated, reverse=True)
     latest_blobs = blobs[:n]
 
@@ -104,6 +124,6 @@ async def get_report(n: int = 5):
     run_analysis(training_data, prediction_data)
 
     async with await anyio.open_file("monitoring.html", encoding="utf-8") as f:
-        html_content = f.read()
+        html_content = await f.read()
 
     return HTMLResponse(content=html_content, status_code=200)

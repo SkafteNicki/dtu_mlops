@@ -10,8 +10,9 @@ WORKDIR /app
 
 COPY pyproject.toml /app/pyproject.toml
 COPY backend.py /app/backend.py
+COPY imagenet-simple-labels.json /app/imagenet-simple-labels.json
 
 RUN uv sync --group backend --no-install-project --no-dev
 
-EXPOSE $PORT
+EXPOSE 8080
 CMD exec uvicorn --port $PORT --host 0.0.0.0 backend:app

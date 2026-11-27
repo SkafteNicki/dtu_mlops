@@ -10,22 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
 
-      - name: Sync dependencies
-        run: uv sync
-
       - name: Auth with GCP
         uses: google-github-actions/auth@v3
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+      # The scraper has its own pyproject.toml, separate from the course project.
       - name: Run repo scraper
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python tools/repo_stats/scraper.py
+        run: uv run --project tools/repo_stats --python 3.11 python tools/repo_stats/scraper.py scrape

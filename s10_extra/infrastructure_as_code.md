@@ -13,17 +13,18 @@ code can be tested and validated.
 
 ## Terraform
 
-Terraform is an open-source infrastructure as code software tool created by HashiCorp. It enables users to define and
-provision a datacenter infrastructure using a high-level configuration language known as Hashicorp Configuration
-Language (HCL), or optionally JSON. It allows infrastructure to be expressed as code in a simple, human-readable
-language called HCL (HashiCorp Configuration Language). It supports a multitude of cloud providers, including AWS,
-Azure, Google Cloud, and many others.
+Terraform is an infrastructure as code software tool created by HashiCorp. Since version 1.6 it is licensed under the
+source-available Business Source License (BSL); the OpenTofu project maintains an open-source fork of it. It enables
+users to define and provision a datacenter infrastructure using a high-level configuration language known as
+HashiCorp Configuration Language (HCL), or optionally JSON, allowing infrastructure to be expressed as code in a
+simple, human-readable language. It supports a multitude of cloud providers, including AWS, Azure, Google Cloud,
+and many others.
 
 ### Installation
 
 To install Terraform, download the appropriate package for your operating system from the
-[official Terraform website](https://www.terraform.io/downloads.html). Once downloaded, unzip the package and move the
-binary to a directory included in your system's PATH.
+[official Terraform website](https://developer.hashicorp.com/terraform/install). Once downloaded, unzip the package
+and move the binary to a directory included in your system's PATH.
 
 ### Getting started
 

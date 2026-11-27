@@ -13,8 +13,8 @@ somewhat narrow approach to what "performance" is: runtime, meaning the time it 
 
 At the bare minimum, the two questions a proper profiling of your program should be able to answer is:
 
-* *“ How many times is each method in my code called?”*
-* *“ How long do each of these methods take?”*
+* *“How many times is each method in my code called?”*
+* *“How long does each of these methods take?”*
 
 The first question can help us prioritize what to optimize. If two methods `A` and `B` have approximately the same
 runtime, but `A` is called 1000 more times than `B` we should probably spend time optimizing `A` over `B` if we want
@@ -22,8 +22,8 @@ to speed up our code. The second question directly tells us which methods are ex
 
 Using profilers can help you find bottlenecks in your code. In this exercise we will look at two different
 profilers, with the first one being the [cProfile](https://docs.python.org/3/library/profile.html). `cProfile` is
-python's built-in profiler that can help give you an overview runtime of all the functions and methods involved in your
-programs.
+python's built-in profiler that can help give you an overview of the runtime of all the functions and methods
+involved in your programs.
 
 ### ❔ Exercises
 
@@ -68,15 +68,17 @@ programs.
     ??? success "Solution"
 
         `tottime` is the total time spent in the function excluding time spent in subfunctions. `cumtime` is the total
-        time spent in the function including time spent in subfunctions. Therefore, `cumtime` is always greater than
-        `tottime`.
+        time spent in the function including time spent in subfunctions. Therefore, `cumtime` is always at least as
+        large as `tottime`, and the two are exactly equal when no time is spent in subfunctions, i.e. when the function
+        does not call any other functions.
 
 4. To get a better feeling of the profiled result we can try to visualize it. Python does not
     provide a native solution, but open-source solutions such as [snakeviz](https://jiffyclub.github.io/snakeviz/)
     exist. Try installing `snakeviz` and load a profiled run into it (HINT: snakeviz expects the run to have the file
     format `.prof`).
 
-5. Try optimizing the run! (Hint: The data is not stored as a torch tensor). After optimizing the code make sure
+5. Try optimizing the run! (Hint: With the `ToTensor` transform, the data is converted to a PIL image and back
+    every time it is loaded). After optimizing the code make sure
     (using `cProfile` and `snakeviz`) that the code actually runs faster.
 
     ??? success "Solution"
@@ -97,7 +99,7 @@ programs.
         ```python
         from torchvision.datasets import MNIST
         from torch.utils.data import TensorDataset
-        # the class also internally normalize to [0,1] domain so we need to divide by 255
+        # the class also internally normalizes to the [0,1] domain so we need to divide by 255
         train_dataset = MNIST(dataset_path, train=True, download=True)
         train_dataset = TensorDataset(train_dataset.data.float() / 255.0, train_dataset.targets)
         test_dataset = MNIST(dataset_path, train=False, download=True)
@@ -112,18 +114,17 @@ learning code we are often looking for *bottlenecks*. A bottleneck is simply a p
 preventing other processes from performing their best. This is the reason that all major deep learning
 frameworks also include their own profilers that can help profiling more complex applications.
 
-The image below show a typical report using the
-[built-in profiler in pytorch](https://www.google.com/search?client=firefox-b-d&q=pytorch+profiling).
-As the image shows, the profiler looks both at the `kernel` time (this is the time spent doing actual computations)
-and also transfer times such as `memcpy` (where we are copying data between devices).
-It can even analyze your code and give recommendations.
+The image below shows a typical report using the
+[built-in profiler in pytorch](https://pytorch.org/docs/stable/profiler.html). As the image shows, the profiler
+looks both at the `kernel` time (this is the time spent doing actual computations) and also transfer times such as
+`memcpy` (where we are copying data between devices). It can even analyze your code and give recommendations.
 
 <figure markdown>
 ![Image](../figures/pytorch_profiler.png){ width="700" }
 </figure>
 
 Using the profiler can be as simple as wrapping the code that you want to profile with the `torch.profiler.profile`
-decorator:
+context manager:
 
 ```python
 with torch.profiler.profile(...) as prof:
@@ -137,21 +138,16 @@ with torch.profiler.profile(...) as prof:
 [Exercise files](https://github.com/SkafteNicki/dtu_mlops/tree/main/s4_debugging_and_logging/exercise_files){ .md-button }
 <!-- markdownlint-restore -->
 
-In these investigate the profiler that is build into PyTorch already. Note that these exercises require that you
-have PyTorch v1.8.1 installed (or higher). You can always check which version you currently have installed by writing
-(in a python interpreter):
+In these exercises we investigate the profiler that is already built into PyTorch. Note that these exercises require
+that you have PyTorch v2.3.0 installed (or higher). You can always check which version you currently have installed by
+writing (in a python interpreter):
 
 ```python
 import torch
 print(torch.__version__)
 ```
 
-But we always recommend updating to the latest PyTorch version for the best experience. Additionally, to display the
-result nicely (like `snakeviz` for `cProfile`) we are also going to use the tensorboard profiler extension.
-
-```bash
-uv add torch_tb_profiler
-```
+But we always recommend updating to the latest PyTorch version for the best experience.
 
 1. A good starting point is to look at the [API for the profiler](https://pytorch.org/docs/stable/profiler.html). Here
     the important class to look at is the `torch.profiler.profile` class.
@@ -173,7 +169,7 @@ uv add torch_tb_profiler
             model(inputs)
         ```
 
-        This will profile the `forward` pass of a Resnet 18 model.
+        This will profile the `forward` pass of a ResNet 18 model.
 
     2. Running this code will produce a `prof` object that contains all the relevant information about the profiling.
         Try writing the following code:
@@ -182,7 +178,7 @@ uv add torch_tb_profiler
         print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
         ```
 
-        What operation is using most of the cpu?
+        What operation is using most of the CPU time?
 
     3. Try running
 
@@ -223,9 +219,9 @@ uv add torch_tb_profiler
     prof.export_chrome_trace("trace.json")
     ```
 
-    You should be able to visualize the file by going to `chrome://tracing` in any chromium-based web browser (provided
-    you have enabled internal debugging pages at chrome://chrome-urls). Can you still identify the information printed
-    in the previous exercises from the visualizations?
+    You should be able to visualize the file by dragging it into the trace viewer at `chrome://tracing` in any
+    chromium-based web browser or into the [Perfetto trace viewer](https://ui.perfetto.dev/) in any browser. Can you
+    still identify the information printed in the previous exercises from the visualizations?
 
 5. Running profiling on a single forward step can produce misleading results, as it only provides a single sample that
     may depend on what background processes are running on your computer. Therefore it is recommended to profile
@@ -242,41 +238,7 @@ uv add torch_tb_profiler
     Try doing this. Is the conclusion the same on what operations are taking up most of the time? Have the
     percentages changed significantly?
 
-6. Additionally, we can also visualize the profiling results using the profiling viewer in tensorboard.
-
-    1. Start by initializing the `profile` class with an additional argument:
-
-        ```python
-        from torch.profiler import profile, tensorboard_trace_handler
-        with profile(..., on_trace_ready=tensorboard_trace_handler("./log/resnet18")) as prof:
-            ...
-        ```
-
-        Try running profiling (using a couple of iterations) and make sure that a file with the `.pt.trace.json` is
-        produced in the `log/resnet18` folder.
-
-    2. Now try launching tensorboard
-
-        ```bash
-        tensorboard --logdir=./log
-        ```
-
-        and open the page <http://localhost:6006/#pytorch_profiler>, where you should hopefully see an image similar
-        to the one below:
-
-        <figure markdown>
-        ![Image](../figures/profiler_overview.png){ width="600" }
-        <figcaption>
-        <a href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html"> Image credit </a>
-        </figcaption>
-        </figure>
-
-        Try poking around in the interface.
-
-    3. Tensorboard has a nice feature for comparing runs under the `diff` tab. Try redoing a profiling run but use
-        `model = models.resnet34()` instead. Load up both runs and try to look at the `diff` between them.
-
-7. As a final exercise, try to use the profiler on the `vae_mnist_working.py` file from the previous module on
+6. As a final exercise, try to use the profiler on the `vae_mnist_working.py` file from the previous module on
     debugging, where you profile a whole training run (not only the forward pass). What is the bottleneck during the
     training? Is it still the forward pass or is it something else? Can you improve the code somehow based on the
     information from the profiler?
