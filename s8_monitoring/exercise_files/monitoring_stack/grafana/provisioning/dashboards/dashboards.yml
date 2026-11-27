@@ -1,0 +1,7 @@
+# Grafana loads every dashboard JSON file it finds in /etc/grafana/dashboards (./grafana/dashboards in this folder).
+apiVersion: 1
+providers:
+  - name: monitoring-stack
+    type: file
+    options:
+      path: /etc/grafana/dashboards

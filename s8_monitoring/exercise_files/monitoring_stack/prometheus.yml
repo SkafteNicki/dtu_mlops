@@ -1,0 +1,9 @@
+# Prometheus pulls ("scrapes") /metrics from the API every 5 seconds.
+# Inside the compose network, the API is reachable under its service name.
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: api
+    static_configs:
+      - targets: ["api:8000"]

@@ -1,0 +1,7 @@
+# What the API needs at run time, pinned. torch is installed separately in api.dockerfile, from the CPU-only index.
+fastapi==0.121.2
+numpy==1.26.4
+pillow==12.3.0
+prometheus-client==0.26.0
+python-multipart==0.0.32
+uvicorn==0.38.0

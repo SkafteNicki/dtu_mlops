@@ -1,0 +1,49 @@
+# The local monitoring stack: the API, Prometheus and Grafana.
+#   docker compose up -d --build     start everything (the first build takes several minutes: torch is big)
+#   docker compose down              stop everything (the data of Prometheus and Grafana is kept in volumes)
+#   http://localhost:8000/docs       the API
+#   http://localhost:9090            Prometheus
+#   http://localhost:3000            Grafana
+# On the VM, only Prometheus and Grafana run, and Prometheus scrapes the API on Cloud Run:
+#   PROMETHEUS_CONFIG=./prometheus.cloud.yml docker compose up -d prometheus grafana
+# Every port is published on 127.0.0.1 only: nothing here is reachable from another machine.
+name: monitoring-stack
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api.dockerfile
+    image: classifier-api
+    ports: ["127.0.0.1:8000:8000"]
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.16.0
+    ports: ["127.0.0.1:9090:9090"]
+    volumes:
+      - ${PROMETHEUS_CONFIG:-./prometheus.yml}:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:13.3.1
+    ports: ["127.0.0.1:3000:3000"]
+    environment:
+      # No login: everyone who reaches this Grafana is an admin. Fine on localhost or behind an SSH tunnel only.
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+    volumes:
+      # Provisioning: the data source and the dashboards are loaded from these files at every start.
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/etc/grafana/dashboards:ro
+      # Everything you click together in the UI (alert rules, contact points) lives here.
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+
+volumes:
+  prometheus-data:
+  grafana-data:
