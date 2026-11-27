@@ -15,4 +15,4 @@ COPY imagenet-simple-labels.json /app/imagenet-simple-labels.json
 RUN uv sync --group backend --no-install-project --no-dev
 
 EXPOSE 8080
-CMD exec uvicorn --port $PORT --host 0.0.0.0 backend:app
+CMD exec uv run --no-sync uvicorn --port $PORT --host 0.0.0.0 backend:app

@@ -384,7 +384,7 @@ afterward.
 
 In these exercises, I recommend that you start with a dummy version of some code to make sure that the building process
 does not take too long. Below is a simple Python script that does image classification using Sklearn, together with
-the corresponding `requirements.txt` file and `Dockerfile`.
+the corresponding `pyproject.toml` file and `Dockerfile`.
 
 ??? example "Python script"
 

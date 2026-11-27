@@ -11,6 +11,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN git clone https://github.com/streamlit/streamlit-example.git .
 
-RUN uv pip install -r requirements.txt
+RUN uv pip install --system -r requirements.txt
 
 CMD exec streamlit run streamlit_app.py --server.port=$PORT --server.address=0.0.0.0

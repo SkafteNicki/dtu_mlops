@@ -23,5 +23,5 @@ dependencies = [
   "python-dotenv==1.0.1",
   "requests==2.33",
   "streamlit==1.54",
-  "typer==0.13.1",
+  "typer==0.29.3",
 ]

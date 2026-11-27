@@ -116,14 +116,13 @@ of clusters. For the purpose of this exercise we are going to see how we can run
         command in the terminal
 
         ```bash
-        uv sync
+        uv pip install -r image_classifier_requirements.txt
         ```
 
-        using this [pyproject.toml file](https://github.com/SkafteNicki/dtu_mlops/tree/main/s10_extra/exercise_files/pyproject.toml)
-        (or if using a requirements.txt file, use `uv pip install -r image_classifier_requirements.txt`).
-        Note that the PyTorch packages with bundled CUDA libraries are large (around 10 GB when installed), and your HOME
-        directory on the cluster has a quota of 30 GB, so check that you have enough free space with
-        `getquota_zhome.sh` before installing.
+        using the requirements file from the previous step. Because `hpc_env` is activated, `uv pip` installs the
+        packages into that environment. Note that the PyTorch packages with bundled CUDA libraries are large (around
+        10 GB when installed), and your HOME directory on the cluster has a quota of 30 GB, so check that you have
+        enough free space with `getquota_zhome.sh` before installing.
 
 3. That's all the setup needed. You would need to go through the creating of the environment and installation of
     requirements whenever you start a new project (no need for reinstalling uv). For the next step we need to look
@@ -180,11 +179,13 @@ of clusters. For the purpose of this exercise we are going to see how we can run
         which should give you the full path. Then add to the bottom of the `jobscript.sh` file:
 
         ```bash
-        uv run image_classifier.py \
+        ~/hpc_env/bin/python \
+            image_classifier.py \
             --trainer.accelerator 'gpu' --trainer.devices 1  --trainer.max_epochs 5
         ```
 
-        which will run the image classifier script (change it if you are running something else).
+        which will run the image classifier script (change it if you are running something else). This assumes that
+        you created `hpc_env` in your home directory, otherwise use the path that `which python` gave you.
 
     3. Finally submit the job:
 
