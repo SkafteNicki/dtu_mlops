@@ -578,7 +578,7 @@ metrics. This allows for better iteration of models and training procedure.
     2. Next create a new dockerfile called `wandb.docker` and add the following code
 
         ```dockerfile
-        FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+        FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim
         WORKDIR /app
         RUN apt update && \
             apt install --no-install-recommends -y build-essential gcc && \

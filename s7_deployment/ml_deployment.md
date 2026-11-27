@@ -778,7 +778,7 @@ but you will need to use a PyTorch model instead of an ONNX model.
             The corresponding dockerfile would look something like this:
 
             ```dockerfile
-            FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim
+            FROM ghcr.io/astral-sh/uv:python3.11-trixie-slim
             WORKDIR /bento
             COPY bentoml_service.py .
             COPY model.onnx .

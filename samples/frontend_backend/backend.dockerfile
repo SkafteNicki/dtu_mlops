@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc git && \
