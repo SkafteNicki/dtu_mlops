@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 
 import firebase_admin
 import streamlit as st
@@ -36,7 +36,7 @@ def save_response(db: firestore.firestore.Client, student_id: str, answers: dict
             "day": day,
             "answers": answers,
             "score": score,
-            "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat(),
+            "timestamp": dt.datetime.now(tz=dt.UTC).isoformat(),
         }
     )
 

@@ -87,6 +87,12 @@ repository.
     continuous integration sessions: `push code` -> `trigger GitHub actions` -> `do stuff`. The new part in this
     session is that we are only going to trigger whenever data changes.
 
+    ??? note "CML is no longer actively developed"
+
+        The `cml` framework has not seen a new release since `v0.20.6` in October 2024 and is currently in
+        maintenance mode. The exercises in this session still work as described, but be aware that the framework
+        is not being actively developed anymore.
+
     <figure markdown>
     ![Image](../figures/cml.jpeg){ width="1000" }
     <figcaption>
@@ -109,7 +115,7 @@ repository.
 
         ??? success "Solution"
 
-            ```python linenums="1" title="dataset.py"
+            ```python linenums="1" title="dataset_statistics.py"
             --8<-- "s5_continuous_integration/exercise_files/dataset_statistics.py"
             ```
 
@@ -158,7 +164,7 @@ repository.
                 runs-on: ubuntu-latest
                 steps:
                 - name: Checkout code
-                  uses: actions/checkout@v5
+                  uses: actions/checkout@v7
 
                 - name: Set up uv
                   uses: astral-sh/setup-uv@v7
@@ -171,7 +177,7 @@ repository.
                     uv sync
 
                 - name: Auth with GCP
-                  uses: google-github-actions/auth@v2
+                  uses: google-github-actions/auth@v3
                   with:
                     credentials_json: ${{ secrets.GCP_SA_KEY }}
 
@@ -201,23 +207,23 @@ repository.
     6. Let's now add the `cml` framework such that we can comment the results of the `dataset_statistics` function in
         the pull request automatically. Look at the
         [getting started guide](https://github.com/iterative/cml#getting-started) for help on how to do this. You will
-        need to write all the content of the `dataset_statistics` function to a file called `report.md` and then use the
-        `cml comment create` command to create a comment in the pull request with the content of the file.
+        need to write the output of the `dataset_statistics` function to a file called `data_statistics.md` and then use
+        the `cml comment create` command to create a comment in the pull request with the content of the file.
 
         ??? success "Solution"
 
             ```yaml
             jobs:
-              dataset_statistics:
+              run_data_checker:
                 runs-on: ubuntu-latest
                 steps:
                 # ...all the previous steps
                 - name: Check data statistics & generate report
-                run: |
-                  uv run python src/example_mlops/data.py > data_statistics.md
-                  echo '![](./mnist_images.png "MNIST images")' >> data_statistics.md
-                  echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
-                  echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
+                  run: |
+                    uv run python dataset_statistics.py > data_statistics.md
+                    echo '![](./mnist_images.png "MNIST images")' >> data_statistics.md
+                    echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
+                    echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
 
                 - name: Setup cml
                   uses: iterative/setup-cml@v2
@@ -229,8 +235,9 @@ repository.
                     cml comment create data_statistics.md --watermark-title="Data Checker" # (1)!
             ```
 
-            1. :man_raising_hand: The `--watermark-title` flag is used to watermark the comment created by `cml`. It is
-                to make sure that no new comments are created every time the workflow runs.
+            1. :man_raising_hand: The `--watermark-title` flag is used to mark the comment created by `cml`. This
+                makes it possible to update the same comment in later runs of the workflow instead of creating a new
+                one, e.g. by using the `cml comment update` command.
 
     7. Make sure that the workflow works as expected. You should see a comment created by `github-actions (bot)` like
         this if you have done everything correctly:
@@ -259,12 +266,12 @@ repository.
         The interface of wandb is updated regularly. Therefore, it is possible that some of the screenshots and precise
         instructions are slightly out of date. However, the overall process should still be the same.
 
-    1. The first step is in our weights and bias account to create a team. Some of these more advanced features are only
-        available for teams, however every user is allowed to create one team for free. Go to your weights and bias
-        account and create a team (the option should be on the left side of the UI). Give a team name and select W&B
-        cloud storage.
+    1. The first step is in our Weights & Biases account to create a team. Some of these more advanced features are
+        only available for teams, however every user is allowed to create one team for free. Go to your Weights &
+        Biases account and create a team (the option should be on the left side of the UI). Give a team name and
+        select W&B cloud storage.
 
-    2. Now we need to generate a personal access token that can link our weights and bias account to our GitHub account.
+    2. Now we need to generate a personal access token that can link our Weights & Biases account to our GitHub account.
         Go to [this page](https://github.com/settings/personal-access-tokens/new) and generate a new token. You can also
         find the page by clicking your profile icon in the upper right corner of GitHub and selecting
         `Settings`, then `Developer settings`, then `Personal access tokens` and finally choose either
@@ -283,8 +290,8 @@ repository.
         `Team secrets` section. Here add the token you just created as a secret with the name `GITHUB_ACTIONS_TOKEN`.
         WANDB will now be able to use this token to trigger actions in your repository.
 
-    4. On the same settings page, scroll down to the `Webhooks` settings. Click the `New webhook` button in fill in the
-        following information:
+    4. On the same settings page, scroll down to the `Webhooks` settings. Click the `New webhook` button and fill in
+        the following information:
 
         * Name: `github_actions_dispatch`
         * URL: `https://api.github.com/repos/<owner>/<repo>/dispatches`
@@ -298,10 +305,11 @@ repository.
     5. Next, navigate to your model registry. It should hopefully contain at least one registry with at least one model
         registered. If not, go back to the previous module and do that.
 
-    6. When you have a model in your registry, click on the `View details` button. Then click the `New automation`
-        button. On the first page, select that you want to trigger the automation when an alias is added to a model
-        version, set that alias to `staging` and select the action type to be `Webhook`. On the next page, select the
-        `github_actions_dispatch` webhook that you just created and add this as the payload:
+    6. When you have a model in your registry, click on the `View details` button. Then go to the `Automations` tab
+        and click the `Create automation` button. On the first page, select that you want to trigger the automation
+        when an alias is added to a model version, set that alias to `staging` and select the action type to be
+        `Webhook`. On the next page, select the `github_actions_dispatch` webhook that you just created and add this
+        as the payload:
 
         ```json
         {
@@ -392,16 +400,17 @@ repository.
 
         ??? success "Solution"
 
-            In this solution we assume that 4 environment variables are set: `WANDB_API`, `WANDB_ENTITY`,
+            In this solution we assume that 4 environment variables are set: `WANDB_API_KEY`, `WANDB_ENTITY`,
             `WANDB_PROJECT` and `MODEL_NAME`.
 
             ```python linenums="1" title="test_model.py"
             import wandb
             import os
             import time
+            import torch
             from my_project.models import MyModel
 
-            def load_model(artifact):
+            def load_model(model_checkpoint: str, logdir: str = "model_artifacts"):
                 api = wandb.Api(
                     api_key=os.getenv("WANDB_API_KEY"),
                     overrides={"entity": os.getenv("WANDB_ENTITY"), "project": os.getenv("WANDB_PROJECT")},
@@ -449,7 +458,7 @@ repository.
                   run: |
                     echo "Model name: $MODEL_NAME"
                 - name: Checkout code
-                  uses: actions/checkout@v5
+                  uses: actions/checkout@v7
 
                 - name: Set up uv
                   uses: astral-sh/setup-uv@v7
@@ -476,7 +485,10 @@ repository.
         import wandb
 
 
-        def link_model(artifact_path: str, aliases: list[str] = ["staging"]) -> None:
+        def link_model(
+            artifact_path: str,
+            aliases: list[str] = typer.Option(["staging"], "--alias", "-a", help="Aliases to add."),
+        ) -> None:
             """
             Stage a specific model to the model registry.
 
@@ -501,8 +513,7 @@ repository.
             artifact_name, _ = artifact_name_version.split(":")
 
             artifact = api.artifact(artifact_path)
-            artifact.link(target_path=f"{os.getenv('WANDB_ENTITY')}/model-registry/{artifact_name}", aliases=aliases)
-            artifact.save()
+            artifact.link(target_path=f"wandb-registry-model/{artifact_name}", aliases=aliases)
             typer.echo(f"Artifact {artifact_path} linked to {aliases}")
 
         if __name__ == "__main__":
@@ -539,7 +550,7 @@ repository.
                     echo "Model name: $MODEL_NAME"
 
                 - name: Checkout code
-                  uses: actions/checkout@v5
+                  uses: actions/checkout@v7
 
                 - name: Set up uv
                   uses: astral-sh/setup-uv@v7
@@ -604,5 +615,5 @@ replace human judgement. This is especially true in machine learning where the c
 severe if it is used in critical decision making.
 
 Finally, if you have completed the exercises on [using the cloud](../s6_the_cloud/using_the_cloud.md) consider checking
-out the [cml runner lunch](https://cml.dev/doc/ref/runner#--cloud) command that allows you to run your workflows on
+out the [cml runner launch](https://cml.dev/doc/ref/runner#--cloud) command that allows you to run your workflows on
 cloud resources instead of the GitHub action runners.

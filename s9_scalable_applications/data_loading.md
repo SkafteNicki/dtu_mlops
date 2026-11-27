@@ -10,8 +10,8 @@
 One way that deep learning fundamentally changed the way we think about data in machine learning is that *more data is
 always better*. This was very much not the case with more traditional machine learning algorithms (random forest,
 support vector machines, etc.) where a plateau in performance was often reached for a certain amount of data and did not
-improve if more was added. However, as deep learning models have become deeper and deeper, more and more
-data-hungry performance seems to be ever-increasing or at least not reaching a plateau in the same way as for
+improve if more was added. However, as deep learning models have become deeper and deeper, more and more data-hungry,
+performance seems to be ever-increasing or at least not reaching a plateau in the same way as for
 traditional machine learning.
 
 <figure markdown>
@@ -46,12 +46,12 @@ Most modern CPUs are a single chip that consists of multiple *cores*. Each core 
 In most laptops, the core count is 4 and there are commonly 2 threads per core. This means that the common laptop has
 8 threads. The number of threads a compute unit has is important because that directly corresponds to the number of
 parallel operations that can be executed, i.e., one per thread. In a Python terminal you should be able to get the
-number of cores in your machine by writing (try it):
+number of threads in your machine by writing (try it):
 
 ```python
 import multiprocessing
-cores = multiprocessing.cpu_count()
-print(f"Number of cores: {cores}, Number of threads: {2*cores}")
+threads = multiprocessing.cpu_count()  # returns the number of logical cores, i.e. threads
+print(f"Number of threads: {threads}")
 ```
 
 A distributed application is in general any kind of application that parallelizes some or all of its workload.
@@ -61,7 +61,7 @@ is easy to parallelize data loading if you are using their dataset/data loader i
 ```python
 from torch.utils.data import Dataset, DataLoader
 class MyDataset(Dataset):
-    def __init__(self, ...):
+    def __init__(self):
         # whatever logic is needed to init the data set
         self.data = ...
 
@@ -70,7 +70,7 @@ class MyDataset(Dataset):
         return self.data[idx]
 
 dataset = MyDataset()
-dataloader = Dataloader(
+dataloader = DataLoader(
     dataset,
     batch_size=8,
     num_workers=4  # this is the number of threads we want to parallelize workload over
@@ -114,11 +114,12 @@ It is this trade-off that we are going to investigate in the exercises.
 ### ❔ Exercises
 
 This exercise is intended to be done on the
-[labeled faces in the wild (LFW)](http://vis-www.cs.umass.edu/lfw/) dataset. The dataset consists of images of famous
-people extracted from the internet. The dataset had been used to drive the field of facial verification, which you can
-read more about [in this deep face recognition guide](https://viso.ai/deep-learning/deep-face-recognition/). We are
-going to imagine that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can
-be parallelized based on loading the raw data files (.jpg) at runtime.
+[labeled faces in the wild (LFW)](https://web.archive.org/web/20250105180242/http://vis-www.cs.umass.edu/lfw/)
+dataset. The dataset consists of images of famous people extracted from the internet. The dataset has been used to drive
+the field of facial verification, which you can read more about
+[in this deep face recognition guide](https://viso.ai/deep-learning/deep-face-recognition/). We are going to imagine
+that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can be parallelized
+based on loading the raw data files (.jpg) at runtime.
 
 1. Download the dataset and extract it to a folder. It does not matter if you choose the non-aligned or aligned version
     of the dataset.
@@ -158,7 +159,7 @@ be parallelized based on loading the raw data files (.jpg) at runtime.
     loading is parallelized per batch).
 
     For certain machines like the Mac with M1 chipset it is necessary to set the `multiprocessing_context` flag in the
-    dataloder to `"fork"`. This essentially tells the dataloader how the worker nodes should be created.
+    dataloader to `"fork"`. This essentially tells the dataloader how the worker nodes should be created.
 
 6. Retry the experiment where you change the data augmentation to be more complex:
 
@@ -174,8 +175,8 @@ be parallelized based on loading the raw data files (.jpg) at runtime.
     using multiple workers because the data augmentation is also executed in parallel.
 
 7. (Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the `pin_memory` flag
-    to `True`. By setting this flag we are essentially telling PyTorch that it can lock the data in place in memory
-    which will make the transfer between the *host* (CPU) and the *device* (GPU) faster.
+    to `True`. By setting this flag we are essentially telling PyTorch to copy the loaded data into page-locked (pinned)
+    memory, which will make the transfer between the *host* (CPU) and the *device* (GPU) faster.
 
 This ends the module on distributed data loading in PyTorch. If you want to go into more details we highly recommend
 that you read [this paper](https://arxiv.org/pdf/2211.04908.pdf) that goes into great detail on analyzing how data

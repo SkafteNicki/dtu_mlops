@@ -3,14 +3,40 @@ name: Check docs
 on:
   pull_request:
     branches: [main, dev]
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Serialize preview deploys for the same PR. Pushes from different PRs (and
+# from deploy_docs.yaml) can still land concurrently, so every push below is
+# retried against the latest gh-pages tip instead of failing the check.
+concurrency:
+  group: docs-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+env:
+  PREVIEW_BASE_URL: https://skaftenicki.github.io/dtu_mlops
+  # Previews are plain static files under this folder on gh-pages. They are
+  # deliberately NOT registered in versions.json, so they stay hidden from
+  # the version selector and are only reachable via the PR comment link.
+  PREVIEW_DIR: previews/pr-${{ github.event.pull_request.number }}
 
 jobs:
-  check:
+  preview:
     name: Check docs
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
+    env:
+      # Previews need write access, so fork PRs are skipped. Dependabot PRs are
+      # skipped too: they rarely change the docs, every preview is a full copy of
+      # the site on gh-pages, and merging a batch of them made the preview
+      # cleanups race each other for the branch.
+      DEPLOY_PREVIEW: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.user.login != 'dependabot[bot]' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -22,7 +48,7 @@ jobs:
       - name: Sync dependencies
         run: uv sync
 
-      - name: Build docs
+      - name: Build docs (strict)
         run: uv run mkdocs build -d build --strict
 
       - name: Upload docs
@@ -30,3 +56,123 @@ jobs:
         with:
           name: docs
           path: build
+
+      - name: Configure git credentials
+        if: env.DEPLOY_PREVIEW == 'true'
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Deploy PR preview
+        if: env.DEPLOY_PREVIEW == 'true'
+        run: |
+          # Back off (with jitter, so parallel jobs spread out) *before* fetching,
+          # so the rebased commit is pushed right away and the window in which
+          # another job can move gh-pages again stays as short as possible.
+          push_with_retry() {
+            local attempt=1
+            until git push origin gh-pages; do
+              if [ "$attempt" -ge 10 ]; then
+                return 1
+              fi
+              echo "::warning::gh-pages moved during the push (attempt ${attempt}/10); rebasing and retrying"
+              sleep $((attempt * 2 + RANDOM % 10))
+              git fetch origin gh-pages
+              git rebase origin/gh-pages || {
+                git rebase --abort
+                return 1
+              }
+              attempt=$((attempt + 1))
+            done
+          }
+
+          git fetch origin gh-pages
+          git checkout gh-pages
+          rm -rf "$PREVIEW_DIR"
+          mkdir -p "$PREVIEW_DIR"
+          cp -r build/. "$PREVIEW_DIR/"
+          git add "$PREVIEW_DIR"
+          if git diff --cached --quiet; then
+            echo "Preview is already up to date."
+          else
+            git commit -m "Deploy docs preview for PR #${{ github.event.pull_request.number }}"
+            push_with_retry
+          fi
+
+      - name: Comment preview link
+        if: env.DEPLOY_PREVIEW == 'true'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request.number;
+            const url = `${process.env.PREVIEW_BASE_URL}/previews/pr-${pr}/`;
+            const marker = '<!-- docs-preview -->';
+            const body = `${marker}\n📖 **Docs preview** for commit \`${context.sha.substring(0, 7)}\`: ${url}\n\n_The preview updates on every push and is deleted when the PR is closed._`;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr,
+            });
+            const existing = comments.find((c) => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr,
+                body,
+              });
+            }
+
+  cleanup:
+    name: Delete PR preview
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Configure git credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Delete PR preview
+        run: |
+          # Back off (with jitter, so parallel jobs spread out) *before* fetching,
+          # so the rebased commit is pushed right away and the window in which
+          # another job can move gh-pages again stays as short as possible.
+          push_with_retry() {
+            local attempt=1
+            until git push origin gh-pages; do
+              if [ "$attempt" -ge 10 ]; then
+                return 1
+              fi
+              echo "::warning::gh-pages moved during the push (attempt ${attempt}/10); rebasing and retrying"
+              sleep $((attempt * 2 + RANDOM % 10))
+              git fetch origin gh-pages
+              git rebase origin/gh-pages || {
+                git rebase --abort
+                return 1
+              }
+              attempt=$((attempt + 1))
+            done
+          }
+
+          git fetch origin gh-pages
+          git checkout gh-pages
+          if [ -d "$PREVIEW_DIR" ]; then
+            git rm -rq "$PREVIEW_DIR"
+            git commit -m "Delete docs preview for PR #${{ github.event.pull_request.number }}"
+            push_with_retry
+          else
+            echo "No preview '$PREVIEW_DIR' to delete."
+          fi

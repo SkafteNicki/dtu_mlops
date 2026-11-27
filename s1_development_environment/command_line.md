@@ -56,15 +56,15 @@ command line.
 
     We highly recommend that you install *Windows Subsystem for Linux* (WSL). This will install a full Linux system
     on your Windows machine. Please follow this
-    [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Remember to run commands from an elevated
-    (as administrator) Windows Command Prompt. You can in general complete all exercises in the course from a normal
+    [guide](https://learn.microsoft.com/en-us/windows/wsl/install). Remember to run the install command from an
+    elevated (as administrator) PowerShell. You can in general complete all exercises in the course from a normal
     Windows Command Prompt, but some are easier to do if you run from WSL.
 
     If you decide to run in WSL, you need to remember that you now have two different systems, and installing a package
     on one system does not mean that it is installed on the other. For example, if you install `pip` in WSL, you
     need to install it again in Windows if you want to use it there.
 
-    If you decide to not run in WSL, please always work in a Windows Command Prompt and not Powershell.
+    If you decide to not run in WSL, please always work in a Windows Command Prompt and not PowerShell.
 
 1. Start by opening a terminal.
 
@@ -107,7 +107,7 @@ command line.
 
         Bash is not part of Windows, so you need to run this part through WSL. If you did not install WSL, you can
         skip this part or as an alternative do the exercises in
-        [Powershell](https://learn.microsoft.com/en-us/training/modules/script-with-powershell/), which is the native
+        [PowerShell](https://learn.microsoft.com/en-us/training/modules/script-with-powershell/), which is the native
         Windows scripting language (not recommended).
 
     1. Write a bash script (in `nano`) and try executing it:
@@ -141,7 +141,7 @@ command line.
 
     1. Try to set an environment variable and print it out.
 
-    2. To use an environment variable in a Python program, you can use the `os.environ` function from the `os` module.
+    2. To use an environment variable in a Python program, you can use the `os.environ` mapping from the `os` module.
         Write a Python program that prints out the environment variable you just set.
 
     3. If you have a collection of environment variables, these can be stored in a file called `.env`. The file is
@@ -156,9 +156,10 @@ command line.
         `uv add python-dotenv` and then try to load the environment variables from the file and print them out.
 
         ```python
-        from dotenv import load_dotenv
-        load_dotenv()
         import os
+        from dotenv import load_dotenv
+
+        load_dotenv()
         print(os.environ["MY_VAR"])
         ```
 

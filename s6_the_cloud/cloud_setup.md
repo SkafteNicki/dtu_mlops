@@ -30,9 +30,10 @@ As the first step, we are going to get you some Google Cloud credits.
 
 1. Go to <https://learn.inside.dtu.dk>. Go to this course. Find the recent message where there should be a download
     link and instructions on how to claim the $50 cloud credit. Please do not share the link anywhere as there is a
-    limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 cloud credits
-    whenever you sign up with a new account. NOTE that you need to provide a credit card for this so make
-    sure to closely monitor your credit usage so you do not end up spending more than the free credit.
+    limited amount of coupons. If you are not officially taking this course at DTU, Google gives $300 in cloud
+    credits (valid for 90 days) whenever you sign up with a new account. NOTE that you need to provide a credit card
+    to verify your identity, but you will not be billed unless you manually upgrade to a paid account. Also note
+    that free trial accounts cannot use GPUs or request quota increases, which some of the exercises below require.
 
 2. Log in to the homepage of GCP. It should look like this:
 
@@ -56,9 +57,9 @@ As the first step, we are going to get you some Google Cloud credits.
         ![Image](../figures/gcp3.PNG){ width="800"  }
     </figure>
 
-    Create a new project called `dtumlops`. When you click `create` you should get a notification that the project
-    is being created. The notification bell is a good way to make sure how the processes you are running are doing
-    throughout the course.
+    Create a new project called `dtumlops`. When you click `Create` you should get a notification that the project
+    is being created. The notification bell is a good way to keep track of the processes you are running throughout
+    the course.
 
     !!! warning "Create project under 'No organization'"
 
@@ -70,10 +71,10 @@ As the first step, we are going to get you some Google Cloud credits.
         services like GitHub Actions with GCP. Creating your project under "No organization" avoids these restrictions
         while you are learning.
 
-5. Next is local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud SDK.
+5. Next is local setup on your laptop. We are going to install `gcloud`, which is part of the Google Cloud CLI.
     `gcloud` is the command line interface for working with our Google Cloud account. Nearly everything that we can do
     through the web interface we can also do through the `gcloud` interface. Follow the installation instructions
-    [in the gcloud SDK installation guide](https://cloud.google.com/sdk/docs/install) for your specific OS.
+    [in the gcloud CLI installation guide](https://cloud.google.com/sdk/docs/install) for your specific OS.
 
     1. After installation, try in a terminal to type:
 
@@ -106,7 +107,7 @@ As the first step, we are going to get you some Google Cloud credits.
         gcloud auth revoke
         ```
 
-    3. Next, you will need to set the project that we just created as the default project0. In your web browser under
+    3. Next, you will need to set the project that we just created as the default project. In your web browser under
         project info, you should be able to see the `Project ID` belonging to your `dtumlops` project. Copy this and
         type the following command in a terminal:
 
@@ -136,7 +137,8 @@ As the first step, we are going to get you some Google Cloud credits.
 
     5. (Optional) If you are using VSCode you can also download the relevant
         [extension](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
-        called `Cloud Code`. After installing it you should see a small `Cloud Code` button in the action bar.
+        called `Google Cloud Code`. After installing it you should see a small `Google Cloud Code` button in the
+        activity bar.
 
 6. Finally, we need to activate a couple of
     [developer APIs](https://cloud.google.com/api-gateway/docs/configure-dev-env#prerequisites) that are not activated
@@ -196,26 +198,26 @@ sometimes change). We will in the exercises below try to increase it.
 2. Next go to the `IAM & Admin` page, again search for it in the top search bar. The remaining steps are illustrated
     in the figure below.
 
-    1. Go to the `quotas page`.
+    1. Go to the `Quotas & System Limits` page.
 
-    2. Next, lets adjust the filters such that we only see the GPU quotas. Start by setting `Type: Quota` (1).
-        Afterwards, set the `Limit name:` to `GPUS-ALL-REGIONS-per-project` (needs to match exactly, the search field
-        is case-sensitive) and you should now only see a single quota.
+    2. Next, let's adjust the filters such that we only see the GPU quotas. Start by setting `Service: Compute Engine
+        API`. Afterwards, search for the global GPU quota, which is called `GPUs (all regions)` (1) (listed by its
+        metric name `compute.googleapis.com/gpus_all_regions`) and you should now only see a single quota.
         { .annotate }
 
-        1. :man_raising_hand: The alternative to choosing `Type: Quota` is choosing `Type: System limit` which is the
-            hard upper bound imposed by Google. It will nearly always say `Unlimited` and in practice this is not
-            relevant to us
+        1. :man_raising_hand: The page also lists `System limits`, which is the hard upper bound imposed by Google.
+            System limits cannot be adjusted, so in practice they are not relevant to us
 
     3. In the limit, you can see what your current quota for the number of GPUs you can use is. Additionally, to the
         right of the limit, you can see the current usage. It is worth checking if you are ever in doubt if a job
         is running on GPU or not.
 
-    4. Click the quota and afterward the `Edit` quotas button.
+    4. Tick the checkbox next to the quota and afterwards click the `Edit` quotas button.
 
-    5. In the pop-up window, increase your limit to either 1 or 2.
+    5. In the pop-up window, increase your limit to either 1 or 2. If the console does not accept the value directly,
+        select `Apply for higher quota` and fill out the request form before submitting.
 
-    6. After sending your request you can try clicking the `Increase requests` tab to see the status of your request.
+    6. After sending your request you can try clicking the `Increase Requests` tab to see the status of your request.
 
         <figure markdown>
         ![Image](../figures/quotas.PNG){ width="1000" }
@@ -227,9 +229,9 @@ sometimes change). We will in the exercises below try to increase it.
 
     7. Now you just sit back and wait at the mercy of Google.
 
-If you are ever running into errors when working in GPU that contain statements about `quotas` you can always try to
-go to this page and see what you are allowed to use currently and try to increase it. For example, when you get to
-training machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
+If you ever run into errors that contain statements about `quotas` you can always try to go to this page and
+see what you are allowed to use currently and try to increase it. For example, when you get to training
+machine learning models using Vertex AI in the [next module](using_the_cloud.md), you would most likely
 need to ask for a quota increase for that service as well.
 
 <figure markdown>
@@ -238,12 +240,15 @@ need to ask for a quota increase for that service as well.
 
 Finally, we want to note that a quota increase is sometimes not allowed within 24 hours of creating an account. If your
 request gets rejected, we recommend waiting a day and trying again. If this does still not work, you may need to use
-their services some more to show you are not a bot that wants to mine crypto.
+their services some more to show you are not a bot that wants to mine crypto. Note that if you are on the
+[$300 free trial](https://cloud.google.com/free/docs/free-cloud-features) instead of teaching credits, Google does
+not allow quota increases (or GPU usage) at all until you upgrade to a paid account; you keep your remaining credit
+when you upgrade.
 
 ## Service accounts
 
 At some point, you will most likely need to use a service account. A service account is a virtual account that is used
-to interact with the Google Cloud API. It it intended for non-human users, e.g. other machines, services, etc. For
+to interact with the Google Cloud API. It is intended for non-human users, e.g. other machines, services, etc. For
 example, if you want to launch a training job from GitHub Actions, you will need to use a service account for
 authentication between GitHub and GCP. You can read more about how to create a service account
 [in the service accounts documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
@@ -254,14 +259,14 @@ authentication between GitHub and GCP. You can read more about how to create a s
     bar.
 
 2. Click the `Create Service Account` button. On the next page, you can give the service account a name and id
-    (automatically generated, but you can change it if you want). You can also give it a description. Leave the rest as
-    default and click `Create`.
+    (automatically generated, but you can change it if you want). You can also give it a description. Leave the
+    remaining steps as default and click `Done` (we grant permissions in the next step through the IAM page).
 
 3. Next, let's give the service account some permissions. Your job now is to give the service account the lowest
     possible permissions such that it can download files from a bucket. Copy the email of the service account and go to
-    the `IAM` page. Click on the `Grant Access` button and paste in the email address in the `Add principals` field.
+    the `IAM` page. Click on the `Grant Access` button and paste in the email address in the `New principals` field.
     Then click the `Select a role` dropdown and either write the name of the role you want to give the service account
-    or search for it in the list. Finally, click `Save`.  For help, you can look at this
+    or search for it in the list. Finally, click `Save`. For help, you can look at this
     [page](https://cloud.google.com/iam/docs/understanding-roles) and try to find the role that fits the description.
 
     ??? success "Solution"
@@ -286,18 +291,18 @@ authentication between GitHub and GCP. You can read more about how to create a s
         ```bash
         gcloud iam service-accounts create my-sa \
             --description="My first service account" --display-name="my-sa"
-        gcloud projects add-iam-policy-binding $(GCP_PROJECT_NAME) \
+        gcloud projects add-iam-policy-binding ${GCP_PROJECT_NAME} \
             --member="serviceAccount:global-service-account@iam.gserviceaccount.com" \
             --role="roles/storage.objectViewer"
         gcloud iam service-accounts keys create service_account_key.json \
-            --iam-account=global-service-account@$(GCP_PROJECT_NAME).iam.gserviceaccount.com
+            --iam-account=global-service-account@${GCP_PROJECT_NAME}.iam.gserviceaccount.com
         ```
 
-        where `$(GCP_PROJECT_NAME)` is the name of your project. If you then want to delete the service account you can
+        where `${GCP_PROJECT_NAME}` is the name of your project. If you then want to delete the service account you can
         run
 
         ```bash
-        gcloud iam service-accounts delete global-service-account@$(GCP_PROJECT_NAME).iam.gserviceaccount.com
+        gcloud iam service-accounts delete global-service-account@${GCP_PROJECT_NAME}.iam.gserviceaccount.com
         ```
 
 In this course we recommend that you only use a single service account for doing exercises and your project. This
@@ -309,7 +314,7 @@ this course:
 * `Cloud Build Builder`: Allows the service account to run builds in Cloud Build
 * `Secret Manager Secret Accessor`: Allows the service account to access secrets in Secret Manager
 * `Cloud Run Developer`: Allows the service account to deploy services in Cloud Run
-* `AI Platform Developer`: Allows the service account to use the AI Platform
+* `Vertex AI User` (`roles/aiplatform.user`): Allows the service account to use Vertex AI
 * `Artifact Registry Writer`: Allows the service account to write to the Artifact Registry
 
 ## 🧠 Knowledge check
@@ -346,10 +351,10 @@ this course:
         ----------------|-----------------------------|------
         Compute Engine  | Elastic Compute Cloud (EC2) | Virtual Machines
         Cloud storage   | Simple Storage Service (S3) | Blob Storage
-        Cloud functions | Lambda                      | Functions Serverless Compute
+        Cloud functions | Lambda                      | Functions
         Cloud run       | App Runner, Fargate, Lambda | Container Apps, Container Instances
         Cloud build     | CodeBuild                   | DevOps
-        Vertex AI       | SageMaker                   | AI Platform
+        Vertex AI       | SageMaker                   | Machine Learning
 
 3. Why is it always important to assign the lowest possible permissions to a service account?
 

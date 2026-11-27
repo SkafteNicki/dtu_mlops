@@ -27,7 +27,7 @@ Continuous integration simply structures and automates this.
 </figure>
 
 The kind of tests we are going to look at are called [unit tests](https://en.wikipedia.org/wiki/Unit_testing). Unit
-testing refers to the practice of writing tests that test individual parts of your code base to test for correctness. By
+testing refers to the practice of writing tests that test individual parts of your code base for correctness. By
 unit, you can therefore think of a function, module or in general any object. By writing tests in this way it should be
 very easy to isolate which part of the code broke after an update to the code base. Another way to test your code
 base would be through [integration testing](https://en.wikipedia.org/wiki/Integration_testing) which is equally
@@ -59,7 +59,7 @@ The following exercises should be applied to your MNIST repository
     of the code you have developed but try to at least write tests that cover two files. Start by
     creating a `tests` folder.
 
-2. Read the [getting started guide](https://docs.pytest.org/en/6.2.x/getting-started.html) for pytest
+2. Read the [getting started guide](https://docs.pytest.org/en/stable/getting-started.html) for pytest
     which is the testing framework that we are going to use.
 
 3. Install pytest:
@@ -68,8 +68,9 @@ The following exercises should be applied to your MNIST repository
     uv add --dev pytest
     ```
 
-    We add `pytest` as a development dependency since it is not needed for running the actual code. Alternatively,
-    we could install it globally using `uvx pytest` to be used across multiple projects.
+    We add `pytest` as a development dependency since it is not needed for running the actual code. Note that
+    `uvx pytest` is *not* recommended here, since `uvx` runs tools in an environment isolated from your project;
+    for tools that need to import your code, such as `pytest`, use `uv run pytest` instead.
 
 4. Write some tests. Below are some guidelines on some tests that should be implemented, but
     you are of course free to implement more tests. You can at any point check if your tests are
@@ -128,6 +129,8 @@ The following exercises should be applied to your MNIST repository
         ??? success "Solution"
 
             ```python
+            import torch
+
             from my_project.data import corrupt_mnist
 
             def test_data():
@@ -150,6 +153,8 @@ The following exercises should be applied to your MNIST repository
         ??? success "Solution"
 
             ```python
+            import torch
+
             from my_project.model import MyAwesomeModel
 
             def test_model():
@@ -188,6 +193,7 @@ The following exercises should be applied to your MNIST repository
             ```python
             # tests/test_model.py
             import pytest
+            import torch
             from my_project.model import MyAwesomeModel
 
             def test_error_on_wrong_shape():
@@ -219,21 +225,25 @@ The following exercises should be applied to your MNIST repository
             ...
         ```
 
-        You can read more about skipping tests [in the pytest skipping documentation](https://docs.pytest.org/en/latest/how-to/skipping.html)
+        You can read more about skipping tests [in the pytest skipping documentation](https://docs.pytest.org/en/stable/how-to/skipping.html)
 
 5. After writing the different tests, make sure that they are passing locally.
 
 6. We often want to check a function/module for various input arguments. In this case, you could write the same test
     over and over again for different inputs, but `pytest` also has built-in support for this with the use of the
-    [pytest.mark.parametrize decorator](https://docs.pytest.org/en/6.2.x/parametrize.html). Implement a parametrized
+    [pytest.mark.parametrize decorator](https://docs.pytest.org/en/stable/how-to/parametrize.html). Implement a parametrized
     test and make sure that it runs for different inputs.
 
     ??? success "Solution"
 
         ```python
+        import pytest
+        import torch
+        from my_project.model import MyAwesomeModel
+
         @pytest.mark.parametrize("batch_size", [32, 64])
         def test_model(batch_size: int) -> None:
-            model = MyModel()
+            model = MyAwesomeModel()
             x = torch.randn(batch_size, 1, 28, 28)
             y = model(x)
             assert y.shape == (batch_size, 10)
@@ -249,8 +259,9 @@ The following exercises should be applied to your MNIST repository
         uv add --dev coverage
         ```
 
-        We add `coverage` as a development dependency since it is not needed for running the actual code.
-        Alternatively, we could install it globally using `uvx coverage` to be used across multiple projects.
+        We add `coverage` as a development dependency since it is not needed for running the actual code. As with
+        `pytest`, it should be run inside your project with `uv run coverage ...` instead of `uvx coverage`, which
+        runs the tool in an environment isolated from your project.
 
     2. Instead of running your tests directly with `pytest`, now do:
 
@@ -264,7 +275,7 @@ The following exercises should be applied to your MNIST repository
         uv run coverage report -m
         ```
 
-        which will give you the percentage of cover in each of your files and also mark which lines are not covered.
+        which will give you the percentage of coverage in each of your files and also mark which lines are not covered.
 
     4. Finally, try to increase the coverage by writing a new test that runs some of the lines in your codebase that
         are not covered yet.
@@ -333,7 +344,8 @@ The following exercises should be applied to your MNIST repository
         machine and 36 on a machine without a GPU. A similar calculation can be done for `test_network2`, which only has
         three factors `network_size, device, add_dropout` that result in `3x2x2=12` tests on a GPU-enabled machine and
         6 on a machine without a GPU. In total, that means 84 tests would run on a machine with a GPU and 42 on a
-        machine without a GPU.
+        machine without a GPU. Strictly speaking, on a machine without a GPU all tests will still be collected, but the
+        ones parametrized with the `"cuda"` device will be reported as skipped instead of passed.
 
 That covers the basics of writing unit tests for Python code. We want to note that `pytest` of course is not the only
 framework for doing this. Python has a built-in framework called

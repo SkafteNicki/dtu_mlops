@@ -67,22 +67,22 @@ For a refresher on deep learning topics, consult the relevant chapters in the
 literature folder). While expertise in deep learning is not required to pass this course, a basic understanding of the
 concepts is beneficial. The course focuses on the software aspects of deploying deep learning models in production.
 
-## A note on installing Pytorch
+## A note on installing PyTorch
 
-Pytorch is a huge library with many dependencies. As writing this, if you naively install Pytorch like this
+PyTorch is a huge library with many dependencies. At the time of writing, if you naively install PyTorch like this
 
 ```bash
 uv add torch
 ```
 
 in a new virtual environment, this will result in a disk usage of around 6.6 GB! This is not a problem if you have to
-do it one time, but what you will experience throughout this course you will end up downloading and installing your
-project dependencies over and over again for different reasons (new virtual environments, containers, continuous
-integration systems etc.). For this reason, it is worth considering how you install Pytorch.
+do it one time, but what you will experience throughout this course is that you will end up downloading and installing
+your project dependencies over and over again for different reasons (new virtual environments, containers, continuous
+integration systems etc.). For this reason, it is worth considering how you install PyTorch.
 
-When naively installing Pytorch, you will fetch whatever build is available on PyPI which is most likely a GPU enabled
+When naively installing PyTorch, you will fetch whatever build is available on PyPI which is most likely a GPU-enabled
 build. But if you do not have a GPU in your computer, you should instead install the CPU only build. For comparison,
-the CPU only build of Pytorch is around 729 MB on disk. Usually, I always recommend going to Pytorch's
+the CPU only build of PyTorch is around 729 MB on disk. I always recommend going to PyTorch's
 [homepage](https://pytorch.org/get-started/locally/) and use their selector to get the correct installation command for
 your system.
 
@@ -93,15 +93,15 @@ your system.
 </figcaption>
 </figure>
 
-`uv` has dedicated a [full page](https://docs.astral.sh/uv/guides/integration/pytorch/) to installing Pytorch, which
+`uv` has dedicated a [full page](https://docs.astral.sh/uv/guides/integration/pytorch/) to installing PyTorch, which
 I recommend you check out. Here is an example of how to configure your `pyproject.toml` file to install only CPU
-version of Pytorch using `uv`:
+version of PyTorch using `uv`:
 
 ```toml
 [project]
 name = "project"
 version = "0.1.0"
-requires-python = ">=3.14.0"
+requires-python = ">=3.13"
 dependencies = [
     "torch>=2.9.1",
 ]
@@ -130,8 +130,8 @@ explicit = true
 
 1. Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
     Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
-    more about how to work with Jupyter Notebooks in VS code
-    [in page from VScode documentation](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
+    more about how to work with Jupyter Notebooks
+    [in the VS Code documentation](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
 
 2. Complete the
     [Tensors in PyTorch](https://github.com/SkafteNicki/dtu_mlops/tree/main/s1_development_environment/exercise_files/1_Tensors_in_PyTorch.ipynb)
@@ -197,7 +197,7 @@ explicit = true
         `3*3*1*32 + 32 + 3*3*32*64 + 64 + 36864*10 + 10 = 387,466`, which could be calculated by running:
 
         ```python
-        sum([prod(p.shape) for p in neural_net.parameters()])
+        sum(p.numel() for p in neural_net.parameters())
         ```
 
 3. A working training loop in PyTorch should have these three function calls: `optimizer.zero_grad()`,
@@ -274,21 +274,22 @@ future as you start to add more and more features. As subgoals, please complete 
     ??? success "Solution"
 
         Data is stored in `.pt` files which can be loaded using `torch.load` (1). We iterate over the files, load them
-        and concatenate them into a single tensor. In particular, we have highlighted the use of `.unsqueeze` function.
-        Convolutional neural networks (which we propose as a solution) need the data to be in the shape `[N, C, H, W]`
-        where `N` is the number of samples, `C` is the number of channels, `H` is the height of the image and `W` is the
-        width of the image. The dataset is stored in the shape `[N, H, W]` and therefore we need to add a channel.
+        and concatenate them into a single tensor. In particular, we have highlighted the use of the `.unsqueeze`
+        function. Convolutional neural networks (which we propose as a solution) need the data to be in the shape
+        `[N, C, H, W]` where `N` is the number of samples, `C` is the number of channels, `H` is the height of the image
+        and `W` is the width of the image. The dataset is stored in the shape `[N, H, W]` and therefore we need to add a
+        channel.
         { .annotate }
 
-        1. :man_raising_hand: The `.pt` files are nothing else than a `.pickle` file in disguise. The
+        1. :man_raising_hand: The `.pt` files are nothing more than a `.pickle` file in disguise. The
             `torch.save/torch.load` function is essentially a wrapper around the `pickle` module in Python, which
             produces serialized files. However, it is convention to use `.pt` to indicate that the file contains PyTorch
             tensors.
 
-        We have additionally in the solution added functionality for plotting the images together with the labels for
+        Additionally, we have added functionality in the solution for plotting the images together with the labels for
         inspection. Remember: all good machine learning starts with a good understanding of the data.
 
-        ```python linenums="1" hl_lines="17 18" title="data.py"
+        ```python linenums="1" hl_lines="22 23" title="data.py"
         --8<-- "s1_development_environment/exercise_files/final_exercise/data_solution.py"
         ```
 
@@ -356,7 +357,7 @@ future as you start to add more and more features. As subgoals, please complete 
         where we ensure that our model and data are moved to the GPU (or Apple MPS accelerator if you have a newer Mac)
         if available.
 
-        ```python linenums="1" hl_lines="8 26 38 69 78" title="main.py"
+        ```python linenums="1" hl_lines="7 18 30 60 69" title="main.py"
         --8<-- "s1_development_environment/exercise_files/final_exercise/main_solution.py"
         ```
 

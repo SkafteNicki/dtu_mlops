@@ -13,23 +13,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: 3.11
 
     - name: Install pre-commit
       uses: pre-commit/action@v3.0.1
-#      with:
-#        continue-on-error: true
-
-#    - name: List modified files
-#      run: git diff --name-only
-
-#    - name: Commit changes
-#      uses: stefanzweifel/git-auto-commit-action@v5
-#      with:
-#        commit_message: Pre-commit fixes
-#        commit_options: '--no-verify'

@@ -12,7 +12,7 @@ scaling inference is different from scaling data loading and training, mainly du
 single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at
 least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference
 is often not something we do on machines that can perform large computations, as most inference today is actually either
-done on *edge* devices, e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
+done on *edge* devices, e.g. mobile phones, or in low-cost-low-compute cloud environments. Thus, we need to be smarter
 about how we scale inference than just throwing more computing power at it.
 
 In this module, we are going to look at various ways that you can either reduce the size of your model or make your
@@ -51,9 +51,9 @@ architecture. In the exercises below we are going to investigate the inference s
     [table](https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights)
     which contains a list of pretrained weights in `torchvision`. Try finding
 
-    * Efficient net
-    * Resnet
-    * Transformer based
+    * EfficientNet
+    * ResNet
+    * Transformer-based
 
     models that have in the range of 20-30 million parameters.
 
@@ -106,16 +106,14 @@ architecture. In the exercises below we are going to investigate the inference s
 
             ```python
             from ptflops import get_model_complexity_info
-            import time
-            import torch
             from torchvision import models
 
             model_list = ["efficientnet_b5", "resnet50", "swin_v2_t"]
             for model in model_list:
                 macs, params = get_model_complexity_info(
-                    models.get_model(model_list[0]), (3, 256, 256), backend='pytorch', print_per_layer_stat=False
+                    models.get_model(model), (3, 256, 256), backend='pytorch', print_per_layer_stat=False
                 )
-                print(f"Model {model} have {params} parameters and uses {macs}")
+                print(f"Model {model} has {params} parameters and uses {macs}")
             ```
 
 5. In the table from the initial exercise, you could also see the overall performance of each network on the
@@ -129,7 +127,7 @@ We are essentially taking all continuous signals and converting them into discre
 
 <figure markdown>
 ![Image](../figures/quantization.png){ width="300" }
-<figcaption> <a href="https://arxiv.org/abs/1910.01108v4"> Image credit </a> </figcaption>
+<figcaption> A continuous signal and its quantized version, which can only take a fixed set of values. </figcaption>
 </figure>
 
 As discussed in this
@@ -140,7 +138,7 @@ advantage of quantization to improve the speed of our model. For instance:
 
 * Floating-point computations are slower than integer operations.
 
-* Recent hardware have specialized hardware for doing integer operations.
+* Recent hardware has specialized units for doing integer operations.
 
 * Many neural networks are actually not bottlenecked by how many computations they need to do but by how fast we can
     transfer data, e.g. the memory bandwidth and cache of your system is the limiting factor. Therefore working with 8-bit
@@ -158,7 +156,7 @@ x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$
 
 where $s$ is a scale and $z$ is the so-called zero point. But how does that relate to doing inference in a neural
-network? The figure below shows all the conversations that we need to make to our standard inference pipeline to
+network? The figure below shows all the conversions that we need to make to our standard inference pipeline to
 actually do computations in quantized format.
 
 <!-- markdownlint-disable -->
@@ -174,7 +172,7 @@ actually do computations in quantized format.
 
 1. Let's look at how quantized tensors look in PyTorch.
 
-    1. Start by creating a tensor that contains both random numbers.
+    1. Start by creating a tensor that contains random numbers.
 
     2. Next call the `torch.quantize_per_tensor` function on the tensor. What does the quantized tensor
         look like? How do the values relate to the `scale` and `zero_point` arguments?
@@ -188,10 +186,11 @@ actually do computations in quantized format.
     sound reason for this. Can you figure out why quantization still works with all the small rounding
     errors? HINT: it has to do with the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
-3. Let's move on to quantization of our model. Follow this
-    [tutorial](https://pytorch.org/docs/stable/quantization.html) from PyTorch on how to do quantization. The goal is
-    to construct a model `model_fc32` that works on normal floats and a quantized version `model_int8`. For simplicity
-    you can just use one of the models from the tutorial.
+3. Let's move on to quantization of our model. Note that the old eager mode quantization APIs in `torch.ao.quantization`
+    are deprecated in favor of the [torchao](https://docs.pytorch.org/ao/stable/index.html) package, so instead follow
+    this [tutorial](https://docs.pytorch.org/ao/stable/eager_tutorials/first_quantization_example.html) on how to do
+    quantization with torchao. The goal is to construct a model `model_fp32` that works on normal floats and a
+    quantized version `model_int8`. For simplicity you can just use one of the models from the tutorial.
 
 4. Let's try to benchmark our quantized model and see if all the trouble that we went through actually paid off. Also
     try to perform the benchmark on the non-quantized model and see if you get a difference. If you do not get an
@@ -208,7 +207,7 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
 
 <figure markdown>
 ![Image](../figures/pruning.png){ width="800" }
-<figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
+<figcaption> <a href="https://arxiv.org/abs/1506.02626"> Image credit </a> </figcaption>
 </figure>
 
 ### ❔ Exercises
@@ -221,7 +220,7 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
 2. PyTorch already has some pruning methods implemented in its package.
     Import the `prune` module from `torch.nn.utils` in the script.
 
-3. Try to prune the weights of the first convolutional layer by calling.
+3. Try to prune the weights of the first convolutional layer by calling:
 
     ```python
     prune.random_unstructured(module_1, name="weight", amount=0.3)  # (1)!
@@ -242,7 +241,8 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
 
     ```python
     for name, module in new_model.named_modules():
-        prune.l1_unstructured(module, name='weight', amount=0.2)
+        if hasattr(module, 'weight'):
+            prune.l1_unstructured(module, name='weight', amount=0.2)
     ```
 
     But what if we wanted to apply different pruning to different layers? Implement a pruning scheme where
@@ -250,7 +250,7 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
     * The weights of convolutional layers are L1 pruned with `amount=0.2`
     * The weights of linear layers are unstructured pruned with `amount=0.4`
 
-    Print `print(dict(new_model.named_buffers()).keys())` after the pruning to confirm that all weights have been
+    Print `dict(new_model.named_buffers()).keys()` after the pruning to confirm that all weights have been
     correctly pruned.
 
 6. The pruning we have looked at until now has only been local in nature, i.e., we have applied the pruning
@@ -288,7 +288,7 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
         ```python
         def check_prune_level(module: nn.Module):
             sparsity_level = 100 * float(torch.sum(module.weight == 0) / module.weight.numel())
-            print(f"Sparsity level of module {sparsity_level}")
+            print(f"Sparsity level of module: {sparsity_level}")
         ```
 
 7. With a pruned network we really want to see if all our effort actually resulted in a network that is faster and/or
@@ -341,9 +341,9 @@ perform equally well as a large model, however it does so in a completely differ
 knowledge of a large complex model (also called the teacher model) into a simpler model (also called the student model).
 
 The best known example of this is the [DistilBERT model](https://arxiv.org/abs/1910.01108). The DistilBERT model is a
-smaller version of the large natural-language procession model Bert, which achieves 97% of the performance of Bert while
-only containing 40% of the weights and being 60% faster. You can see in the figure below how it is much smaller in size
-compared to other models developed at the same time.
+smaller version of the large natural-language processing model BERT, which achieves 97% of the performance of BERT
+while only containing 40% of the weights and being 60% faster. You can see in the figure below how it is much smaller
+in size compared to other models developed at the same time.
 
 <figure markdown>
 ![Image](../figures/distill.png){ width="800" }
@@ -355,7 +355,7 @@ By running our training set through our large model we get a softmax distributio
 The goal of the student is to both match the original labels of the training data but also match the softmax
 distribution of the teacher model. The intuition behind doing this is that the teacher model needs to be more complex to
 learn the complex inter-class relationship from just (one-hot) labels. The student on the other hand gets directly fed
-with softmax distributions from the teacher that explicitly encodes this inter-class relasionship and thus does not need
+with softmax distributions from the teacher that explicitly encodes this inter-class relationship and thus does not need
 the same capacity to learn as the teacher.
 
 <figure markdown>
@@ -369,7 +369,7 @@ Let's try implementing model distillation ourselves. We are going to see if we c
 [cifar10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. Do note that the exercises below can take quite a long
 time to finish because they involve training multiple networks and therefore involve some waiting.
 
-1. Start by install the `transformers` and `datasets` packages from Huggingface
+1. Start by installing the `transformers` and `datasets` packages from Huggingface
 
     ```bash
     uv add transformers datasets
@@ -387,8 +387,8 @@ time to finish because they involve training multiple networks and therefore inv
 3. Next let's initialize our teacher model. For this we consider a large transformer-based model:
 
     ```python
-    from transformers import AutoFeatureExtractor, AutoModelForImageClassification
-    extractor = AutoFeatureExtractor.from_pretrained("aaraki/vit-base-patch16-224-in21k-finetuned-cifar10")
+    from transformers import AutoImageProcessor, AutoModelForImageClassification
+    processor = AutoImageProcessor.from_pretrained("aaraki/vit-base-patch16-224-in21k-finetuned-cifar10")
     model = AutoModelForImageClassification.from_pretrained("aaraki/vit-base-patch16-224-in21k-finetuned-cifar10")
     ```
 
@@ -397,8 +397,8 @@ time to finish because they involve training multiple networks and therefore inv
 
     ```python
     sample_img = dataset['train'][0]['img']
-    preprocessed_img = extractor(dataset['train'][0]['img'], return_tensors='pt')
-    output =  model(**preprocessed_img)
+    preprocessed_img = processor(sample_img, return_tensors='pt')
+    output = model(**preprocessed_img)
     print(output.logits)
     # tensor([[ 3.3682, -0.3160, -0.2798, -0.5006, -0.5529, -0.5625, -0.6144, -0.4671, 0.2807, -0.3066]])
     ```
@@ -417,7 +417,9 @@ time to finish because they involve training multiple networks and therefore inv
         img, target, teacher_logits = batch
         preds = model(img)
         loss = torch.nn.functional.cross_entropy(preds, target)
-        loss_teacher = torch.nn.functional.cross_entropy(preds, teacher_logits)
+        loss_teacher = torch.nn.functional.cross_entropy(
+            preds, torch.nn.functional.softmax(teacher_logits, dim=1)
+        )
         loss = loss + loss_teacher
         loss.backward()
         # ...
