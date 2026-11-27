@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2481,7 +2481,7 @@ scaling inference is different from scaling data loading and training, mainly du
 single data point (or a few). As we can neither parallelize the data loading nor parallelize using multiple GPUs (at
 least not in any efficient way), this is of no use to us when we are doing inference. Additionally, performing inference
 is often not something we do on machines that can perform large computations, as most inference today is actually either
-done on <em>edge</em> devices, e.g. mobile phones or in low-cost-low-compute cloud environments. Thus, we need to be smarter
+done on <em>edge</em> devices, e.g. mobile phones, or in low-cost-low-compute cloud environments. Thus, we need to be smarter
 about how we scale inference than just throwing more computing power at it.</p>
 <p>In this module, we are going to look at various ways that you can either reduce the size of your model or make your
 model faster. Both are important for running inference fast regardless of the setup you are running your model on. We
@@ -2514,9 +2514,9 @@ architecture. In the exercises below we are going to investigate the inference s
     <a href="https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights">table</a>
     which contains a list of pretrained weights in <code>torchvision</code>. Try finding</p>
 <ul>
-<li>Efficient net</li>
-<li>Resnet</li>
-<li>Transformer based</li>
+<li>EfficientNet</li>
+<li>ResNet</li>
+<li>Transformer-based</li>
 </ul>
 <p>models that have in the range of 20-30 million parameters.</p>
 </li>
@@ -2568,16 +2568,14 @@ the swin v2 transformer tiny (28.4M parameters) models.</p>
 <details class="success">
 <summary>Solution</summary>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ptflops</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_model_complexity_info</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">model_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"efficientnet_b5"</span><span class="p">,</span> <span class="s2">"resnet50"</span><span class="p">,</span> <span class="s2">"swin_v2_t"</span><span class="p">]</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">model_list</span><span class="p">:</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">macs</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">get_model_complexity_info</span><span class="p">(</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">models</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">backend</span><span class="o">=</span><span class="s1">'pytorch'</span><span class="p">,</span> <span class="n">print_per_layer_stat</span><span class="o">=</span><span class="kc">False</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2"> have </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2"> parameters and uses </span><span class="si">{</span><span class="n">macs</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">model_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"efficientnet_b5"</span><span class="p">,</span> <span class="s2">"resnet50"</span><span class="p">,</span> <span class="s2">"swin_v2_t"</span><span class="p">]</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">model_list</span><span class="p">:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">macs</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">get_model_complexity_info</span><span class="p">(</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">models</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">backend</span><span class="o">=</span><span class="s1">'pytorch'</span><span class="p">,</span> <span class="n">print_per_layer_stat</span><span class="o">=</span><span class="kc">False</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2"> parameters and uses </span><span class="si">{</span><span class="n">macs</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2594,7 +2592,7 @@ the swin v2 transformer tiny (28.4M parameters) models.</p>
 We are essentially taking all continuous signals and converting them into discretized signals.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/quantization.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/quantization.png" width="300" /></a></p>
-<figcaption> <a href="https://arxiv.org/abs/1910.01108v4"> Image credit </a> </figcaption>
+<figcaption> A continuous signal and its quantized version, which can only take a fixed set of values. </figcaption>
 </figure>
 <p>As discussed in this
 <a href="https://devblog.pytorchlightning.ai/benchmarking-quantized-mobile-speech-recognition-models-with-pytorch-lightning-and-grid-9a69f7503d07">blogpost series</a>,
@@ -2606,7 +2604,7 @@ advantage of quantization to improve the speed of our model. For instance:</p>
 <p>Floating-point computations are slower than integer operations.</p>
 </li>
 <li>
-<p>Recent hardware have specialized hardware for doing integer operations.</p>
+<p>Recent hardware has specialized units for doing integer operations.</p>
 </li>
 <li>
 <p>Many neural networks are actually not bottlenecked by how many computations they need to do but by how fast we can
@@ -2625,7 +2623,7 @@ advantage of quantization to improve the speed of our model. For instance:</p>
 x_{int} = \text{round}\left( \frac{x_{float}}{s} + z \right)
 $$</p>
 <p>where $s$ is a scale and $z$ is the so-called zero point. But how does that relate to doing inference in a neural
-network? The figure below shows all the conversations that we need to make to our standard inference pipeline to
+network? The figure below shows all the conversions that we need to make to our standard inference pipeline to
 actually do computations in quantized format.</p>
 <!-- markdownlint-disable -->
 <figure>
@@ -2642,7 +2640,7 @@ actually do computations in quantized format.</p>
 <p>Let's look at how quantized tensors look in PyTorch.</p>
 <ol>
 <li>
-<p>Start by creating a tensor that contains both random numbers.</p>
+<p>Start by creating a tensor that contains random numbers.</p>
 </li>
 <li>
 <p>Next call the <code>torch.quantize_per_tensor</code> function on the tensor. What does the quantized tensor
@@ -2662,10 +2660,11 @@ actually do computations in quantized format.</p>
     errors? HINT: it has to do with the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a></p>
 </li>
 <li>
-<p>Let's move on to quantization of our model. Follow this
-    <a href="https://pytorch.org/docs/stable/quantization.html">tutorial</a> from PyTorch on how to do quantization. The goal is
-    to construct a model <code>model_fc32</code> that works on normal floats and a quantized version <code>model_int8</code>. For simplicity
-    you can just use one of the models from the tutorial.</p>
+<p>Let's move on to quantization of our model. Note that the old eager mode quantization APIs in <code>torch.ao.quantization</code>
+    are deprecated in favor of the <a href="https://docs.pytorch.org/ao/stable/index.html">torchao</a> package, so instead follow
+    this <a href="https://docs.pytorch.org/ao/stable/eager_tutorials/first_quantization_example.html">tutorial</a> on how to do
+    quantization with torchao. The goal is to construct a model <code>model_fp32</code> that works on normal floats and a
+    quantized version <code>model_int8</code>. For simplicity you can just use one of the models from the tutorial.</p>
 </li>
 <li>
 <p>Let's try to benchmark our quantized model and see if all the trouble that we went through actually paid off. Also
@@ -2682,7 +2681,7 @@ intuitively makes sense, since weights in all linear operations (fully connected
 multiplied by the incoming value, thus a small weight means a small outgoing activation.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/pruning.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/pruning.png" width="800" /></a></p>
-<figcaption> <a href="https://kubernetes.io/docs/concepts/overview/components/"> Image credit </a> </figcaption>
+<figcaption> <a href="https://arxiv.org/abs/1506.02626"> Image credit </a> </figcaption>
 </figure>
 <h3 id="exercises_2">❔ Exercises</h3>
 <ol>
@@ -2697,11 +2696,11 @@ multiplied by the incoming value, thus a small weight means a small outgoing act
     Import the <code>prune</code> module from <code>torch.nn.utils</code> in the script.</p>
 </li>
 <li>
-<p>Try to prune the weights of the first convolutional layer by calling.</p>
+<p>Try to prune the weights of the first convolutional layer by calling:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">prune</span><span class="o">.</span><span class="n">random_unstructured</span><span class="p">(</span><span class="n">module_1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"weight"</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># (1)!</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You can read about the prune method
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> You can read about the prune method
     <a href="https://pytorch.org/docs/stable/generated/torch.nn.utils.prune.random_unstructured.html#torch.nn.utils.prune.random_unstructured">in the PyTorch pruning documentation</a>.</li>
 </ol>
 <p>Try printing <code>named_parameters</code> and <code>named_buffers</code> before and after the module is pruned. Can you explain the
@@ -2716,14 +2715,15 @@ difference and what the connection is to the <code>module_1.weight</code> attrib
 <p>Instead of pruning only a single module in the model let's try pruning the whole model. To do this we just need to
     iterate over all <code>named_modules</code> in the model like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">new_model</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">prune</span><span class="o">.</span><span class="n">l1_unstructured</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'weight'</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">'weight'</span><span class="p">):</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="n">prune</span><span class="o">.</span><span class="n">l1_unstructured</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'weight'</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 </span></code></pre></div>
 <p>But what if we wanted to apply different pruning to different layers? Implement a pruning scheme where</p>
 <ul>
 <li>The weights of convolutional layers are L1 pruned with <code>amount=0.2</code></li>
 <li>The weights of linear layers are unstructured pruned with <code>amount=0.4</code></li>
 </ul>
-<p>Print <code>print(dict(new_model.named_buffers()).keys())</code> after the pruning to confirm that all weights have been
+<p>Print <code>dict(new_model.named_buffers()).keys()</code> after the pruning to confirm that all weights have been
 correctly pruned.</p>
 </li>
 <li>
@@ -2758,7 +2758,7 @@ works for arbitrary-size networks?</p>
     weights.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">check_prune_level</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">sparsity_level</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">numel</span><span class="p">())</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sparsity level of module </span><span class="si">{</span><span class="n">sparsity_level</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sparsity level of module: </span><span class="si">{</span><span class="n">sparsity_level</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
 </ol>
@@ -2812,9 +2812,9 @@ perform equally well as a large model, however it does so in a completely differ
 <a href="https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf">Bucila et al.</a> in which we try to distill/compress the
 knowledge of a large complex model (also called the teacher model) into a simpler model (also called the student model).</p>
 <p>The best known example of this is the <a href="https://arxiv.org/abs/1910.01108">DistilBERT model</a>. The DistilBERT model is a
-smaller version of the large natural-language procession model Bert, which achieves 97% of the performance of Bert while
-only containing 40% of the weights and being 60% faster. You can see in the figure below how it is much smaller in size
-compared to other models developed at the same time.</p>
+smaller version of the large natural-language processing model BERT, which achieves 97% of the performance of BERT
+while only containing 40% of the weights and being 60% faster. You can see in the figure below how it is much smaller
+in size compared to other models developed at the same time.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/distill.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/distill.png" width="800" /></a></p>
 <figcaption> <a href="https://arxiv.org/pdf/1910.01108.pdf"> Image credit </a> </figcaption>
@@ -2824,7 +2824,7 @@ By running our training set through our large model we get a softmax distributio
 The goal of the student is to both match the original labels of the training data but also match the softmax
 distribution of the teacher model. The intuition behind doing this is that the teacher model needs to be more complex to
 learn the complex inter-class relationship from just (one-hot) labels. The student on the other hand gets directly fed
-with softmax distributions from the teacher that explicitly encodes this inter-class relasionship and thus does not need
+with softmax distributions from the teacher that explicitly encodes this inter-class relationship and thus does not need
 the same capacity to learn as the teacher.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/knowledge_distillation.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/knowledge_distillation.png" width="800" /></a></p>
@@ -2836,7 +2836,7 @@ the same capacity to learn as the teacher.</p>
 time to finish because they involve training multiple networks and therefore involve some waiting.</p>
 <ol>
 <li>
-<p>Start by install the <code>transformers</code> and <code>datasets</code> packages from Huggingface</p>
+<p>Start by installing the <code>transformers</code> and <code>datasets</code> packages from Huggingface</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>uv<span class="w"> </span>add<span class="w"> </span>transformers<span class="w"> </span>datasets
 </span></code></pre></div>
 <p>from which we are going to download the cifar10 dataset and a teacher model.</p>
@@ -2849,8 +2849,8 @@ time to finish because they involve training multiple networks and therefore inv
 </li>
 <li>
 <p>Next let's initialize our teacher model. For this we consider a large transformer-based model:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoFeatureExtractor</span><span class="p">,</span> <span class="n">AutoModelForImageClassification</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">extractor</span> <span class="o">=</span> <span class="n">AutoFeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"aaraki/vit-base-patch16-224-in21k-finetuned-cifar10"</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoImageProcessor</span><span class="p">,</span> <span class="n">AutoModelForImageClassification</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">processor</span> <span class="o">=</span> <span class="n">AutoImageProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"aaraki/vit-base-patch16-224-in21k-finetuned-cifar10"</span><span class="p">)</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForImageClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"aaraki/vit-base-patch16-224-in21k-finetuned-cifar10"</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
@@ -2858,8 +2858,8 @@ time to finish because they involve training multiple networks and therefore inv
 <p>To get the logits (un-normalized softmax scores) from our teacher model for a single datapoint from the training
     dataset you would extract it like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">sample_img</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">'train'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'img'</span><span class="p">]</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">preprocessed_img</span> <span class="o">=</span> <span class="n">extractor</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">'train'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'img'</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">'pt'</span><span class="p">)</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">output</span> <span class="o">=</span>  <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">preprocessed_img</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">preprocessed_img</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">sample_img</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">'pt'</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">preprocessed_img</span><span class="p">)</span>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">logits</span><span class="p">)</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># tensor([[ 3.3682, -0.3160, -0.2798, -0.5006, -0.5529, -0.5625, -0.6144, -0.4671, 0.2807, -0.3066]])</span>
 </span></code></pre></div>
@@ -2878,10 +2878,12 @@ time to finish because they involve training multiple networks and therefore inv
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">teacher_logits</span> <span class="o">=</span> <span class="n">batch</span>
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">loss_teacher</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">teacher_logits</span><span class="p">)</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">+</span> <span class="n">loss_teacher</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="c1"># ...</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">loss_teacher</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        <span class="n">preds</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">teacher_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="p">)</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">+</span> <span class="n">loss_teacher</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="c1"># ...</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -2911,7 +2913,7 @@ time to finish because they involve training multiple networks and therefore inv
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 21:08:51">November 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3051,10 +3053,10 @@ time to finish because they involve training multiple networks and therefore inv
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

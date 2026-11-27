@@ -5,7 +5,10 @@
 ### -- set the job Name --
 #BSUB -J testjob
 ### -- ask for number of cores (default: 1) --
-#BSUB -n 1
+### -- note: GPU jobs on the DTU cluster require at least 4 cores per GPU --
+#BSUB -n 4
+### -- make sure all cores are on the same host --
+#BSUB -R "span[hosts=1]"
 ### -- Select the resources: 1 gpu in exclusive process mode --
 #BSUB -gpu "num=1:mode=exclusive_process"
 ### -- set walltime limit: hh:mm --  maximum 24 hours for GPU-queues right now
@@ -28,4 +31,4 @@
 
 nvidia-smi
 # Load the cuda module
-module load cuda/11.6
+module load cuda/12.6

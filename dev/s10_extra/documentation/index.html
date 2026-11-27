@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2011,7 +2011,7 @@
   <a href="#mkdocs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mkdocs
+        MkDocs
       
     </span>
   </a>
@@ -2267,7 +2267,7 @@
   <a href="#mkdocs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mkdocs
+        MkDocs
       
     </span>
   </a>
@@ -2376,24 +2376,26 @@ or have similar experience with writing docstrings for Python functions and clas
 <li><a href="https://www.doxygen.nl/">Doxygen</a></li>
 <li><a href="https://jekyllrb.com/">Jekyll</a></li>
 </ul>
-<p class="annotate">Important to note that all these are <em>static site generators</em>. The word <em>static</em> here refers to that when the content
-is generated and served on a webside, the underlying HTML code will not change. It may contain HTML elements that
-dynamic (like video), but the site does not change (1).</p>
+<p class="annotate">Important to note that all these are <em>static site generators</em>. The word <em>static</em> here refers to the fact that when the
+content is generated and served on a website, the underlying HTML code will not change. It may contain HTML elements
+that are dynamic (like video), but the site does not change (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Good examples of dynamic sites are any social media or news media where new posts, pages etc.
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Good examples of dynamic sites are any social media or news media where new posts, pages etc.
     are constantly added over time. Good examples of static sites are documentation, blogposts etc.</li>
 </ol>
-<p>We are in this module going to look at <a href="https://www.mkdocs.org/">Mkdocs</a>, which (in my opinion) is one of the easiest
+<p>We are in this module going to look at <a href="https://www.mkdocs.org/">MkDocs</a>, which (in my opinion) is one of the easiest
 systems to get started with because all documentation is written in markdown and the build system is written in Python.
 As an alternative, you can consider doing the exercises in <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> which is
-probably the most used documentation system for Python code. Sphinx offer more customization than Mkdocs, so is
-generally preferred for larger projects with complex documentation, but for smaller projects Mkdocs should be easier to
+probably the most used documentation system for Python code. Sphinx offers more customization than MkDocs, so it is
+generally preferred for larger projects with complex documentation, but for smaller projects MkDocs should be easier to
 get started with and is sufficient.</p>
-<p>Mkdocs by default does not include many features and for that reason we are directly going to dive into using the
+<p>MkDocs by default does not include many features and for that reason we are directly going to dive into using the
 <a href="https://github.com/squidfunk/mkdocs-material">material for mkdocs theme</a> that provides a lot of nice customization
-to create professional static sites. In fact, this whole course is written in mkdocs using the material theme.</p>
-<h2 id="mkdocs">Mkdocs</h2>
-<p>The core file when using mkdocs is the <code>mkdocs.yaml</code> file, which is the configuration file for the project:</p>
+to create professional static sites. In fact, this whole course is written in mkdocs using the material theme. Note
+that the theme is in maintenance mode (through May 5, 2027) while the same authors develop
+<a href="https://zensical.org/">Zensical</a> as its compatible successor.</p>
+<h2 id="mkdocs">MkDocs</h2>
+<p>The core file when using mkdocs is the <code>mkdocs.yml</code> file, which is the configuration file for the project:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Documentation of my project</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">site_author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Jane Doe</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">docs_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="w"> </span><span class="c1"># (1)!</span>
@@ -2414,27 +2416,27 @@ to create professional static sites. In fact, this whole course is written in mk
 </span></code></pre></div>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> This indicates the source directory of our documentation. If the layout of your documentation is
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> This indicates the source directory of our documentation. If the layout of your documentation is
     a bit different than what described above, you may need to change this.</p>
 </li>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The overall theme of your documentation. We recommend the <code>material</code> theme but there are
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The overall theme of your documentation. We recommend the <code>material</code> theme but there are
     <a href="https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes">many more to choose from</a> and you can also
     <a href="https://www.mkdocs.org/dev-guide/themes/">create your own</a>.</p>
 </li>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>features</code> section is where features that are supported by your given theme can be enabled.
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>features</code> section is where features that are supported by your given theme can be enabled.
     In this example we have enabled <code>content.code.copy</code> feature which adds a small copy button to all code block and the
     <code>content.code.annotate</code> feature which allows you to add annotations like this box to code blocks.</p>
 </li>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> <a href="https://www.mkdocs.org/dev-guide/plugins/">Plugins</a> add new functionality to your documentation.
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> <a href="https://www.mkdocs.org/dev-guide/plugins/">Plugins</a> add new functionality to your documentation.
     In this case we have added two plugins that add functionality for searching through our documentation and
     automatically adding documentation from docstrings. Remember that some plugins requires you to install additional
     Python packages with those plugins, so remember to add them to your <code>requirements.txt</code> file.</p>
 </li>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>nav</code> section is where you define the navigation structure of your documentation. When you
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>nav</code> section is where you define the navigation structure of your documentation. When you
     add new <code>.md</code> files to the <code>source</code> folder you then need to add them to the <code>nav</code> section.</p>
 </li>
 </ol>
@@ -2451,7 +2453,7 @@ that at least contains the following:</p>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   │
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── index.md       &lt;- Homepage for your documentation
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   │
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── mkdocs.yaml     &lt;- Configuration file for mkdocs
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── mkdocs.yml      &lt;- Configuration file for mkdocs
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   │
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   └── source/        &lt;- Source directory for documentation files
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│
@@ -2466,16 +2468,18 @@ that at least contains the following:</p>
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>...
 </span></code></pre></div>
 <p>It is not important exactly what is in the <code>src</code> folder for the exercises, but we are going to refer to the above
-structure in the exercises, so adjust accordingly if you diviate from this. Additionally, we are going to assume that
+structure in the exercises, so adjust accordingly if you deviate from this. Additionally, we are going to assume that
 your project code is installed in your environment such that it can be imported as normal Python code.</p>
 <ol>
 <li>
-<p>We are going to need two Python packages to get started: <a href="https://pypi.org/project/mkdocs/">mkdocs</a> and
-    <a href="https://pypi.org/project/mkdocs-material/">material for mkdocs</a>. Install with</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"mkdocs-material &gt;= 4.8.0"</span><span class="w"> </span><span class="c1"># (1)!</span>
+<p>We are going to need three Python packages to get started: <a href="https://pypi.org/project/mkdocs/">mkdocs</a>,
+    <a href="https://pypi.org/project/mkdocs-material/">material for mkdocs</a> and
+    <a href="https://pypi.org/project/mkdocstrings/">mkdocstrings</a>. Install with</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"mkdocs-material &gt;= 4.8.0"</span><span class="w"> </span><span class="s2">"mkdocstrings[python]"</span><span class="w"> </span><span class="c1"># (1)!</span>
 </span></code></pre></div>
 <ol>
-<li>Since <code>mkdocs</code> is a dependency of <code>mkdocs-material</code> we only need to install the latter.</li>
+<li>Since <code>mkdocs</code> is a dependency of <code>mkdocs-material</code> we only need to install the latter. The <code>mkdocstrings</code>
+    package is needed for the plugin that renders documentation from docstrings in the exercises below.</li>
 </ol>
 </li>
 <li>
@@ -2483,7 +2487,7 @@ your project code is installed in your environment such that it can be imported 
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mkdocs<span class="w"> </span>serve<span class="w"> </span><span class="c1"># (1)!</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> <code>mkdocs serve</code> will automatically rebuild the whole site whenever you save a file inside the
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> <code>mkdocs serve</code> will automatically rebuild the whole site whenever you save a file inside the
     <code>docs</code> folder. This is not a problem if you have a fairly small site with not that many pages (or elements), but
     can take a long time for large sites. Consider running with the <code>--dirty</code> option for only re-building the site
     for files that have been changed.</li>
@@ -2492,10 +2496,10 @@ your project code is installed in your environment such that it can be imported 
 remaining exercises.</p>
 </li>
 <li>
-<p>We are no ready to document the API of our code:</p>
+<p>We are now ready to document the API of our code:</p>
 <ol>
 <li>
-<p>Make sure you at least have one function and class inside your <code>src</code> module. If you do not have you can for
+<p>Make sure you at least have one function and class inside your <code>src</code> module. If you do not, you can for
     simplicity copy the following module to the <code>src/models/model.py</code> file</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
@@ -2508,43 +2512,47 @@ remaining exercises.</p>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="sd">    """</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">l1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">out_features</span><span class="p">)</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">        </span><span class="sd">"""Forward pass of the model.</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="sd">        Args:</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="sd">            x: input tensor expected to be of shape [N,in_features]</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="sd">        Returns:</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="sd">            Output tensor with shape [N,out_features]</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="sd">        """</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">l2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">l1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">out_features</span><span class="p">)</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="sd">"""Forward pass of the model.</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="sd">        Args:</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="sd">            x: input tensor expected to be of shape [N,in_features]</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="sd">        Returns:</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="sd">            Output tensor with shape [N,out_features]</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="sd">        """</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">l2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 </span></code></pre></div>
-<p>and the following function to add <code>src/predict_model.py</code> file:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="sd">"""Run prediction for a given model and dataloader.</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sd">    Args:</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="sd">        model: model to use for prediction</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="sd">        dataloader: dataloader with batches</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="sd">    Returns</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="sd">        Tensor of shape [N, d] where N is the number of samples and d is the output dimension of the model</span>
+<p>and the following function to the <code>src/predict_model.py</code> file:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="sd">"""Run prediction for a given model and dataloader.</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="sd">    Args:</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="sd">        model: model to use for prediction</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="sd">        dataloader: dataloader with batches</span>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="sd">    """</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">]</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="sd">    Returns:</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="sd">        List of tensors, one per batch, with shape [batch_size, d] where d is the output dimension of the model</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="sd">    """</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">]</span>
 </span></code></pre></div>
 </li>
 <li>
 <p>Add a markdown file to the <code>docs/source</code> folder called <code>my_api.md</code> and add that file to the <code>nav:</code> section in
-    the <code>mkdocs.yaml</code> file.</p>
+    the <code>mkdocs.yml</code> file.</p>
 </li>
 <li>
 <p>To that file add the following code:</p>
@@ -2580,16 +2588,16 @@ on the given page. Thus, if you have a function/module located in another locati
 </li>
 </ol>
 <h2 id="publish-your-documentation">Publish your documentation</h2>
-<p>To publish your documentation you need a place to host your build documentation e.g. the content of the <code>site</code> folder
-you build in the last exercise. There are many places to host your documentation, but if you only need a static site
+<p>To publish your documentation you need a place to host your built documentation e.g. the content of the <code>site</code> folder
+you built in the last exercise. There are many places to host your documentation, but if you only need a static site
 and are already hosting your code through GitHub, then a good option is <a href="https://pages.github.com/">GitHub Pages</a>.
-GitHub pages is free to use for your public projects.</p>
+GitHub Pages is free to use for your public projects.</p>
 <p>Before getting started with this set of exercises you should have completed
 <a href="../../s5_continuous_integration/github_actions/">module M16 on GitHub actions</a> so you already know about workflow files.</p>
 <h3 id="exercises_1">Exercises</h3>
 <ol>
 <li>
-<p>Start by adding a new file called <code>deploy_docs.yaml</code> to the <code>.github/workflows</code> folder. Add the following cod to that
+<p>Start by adding a new file called <code>deploy_docs.yaml</code> to the <code>.github/workflows</code> folder. Add the following code to that
     file and save it.</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy docs</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
@@ -2607,12 +2615,12 @@ GitHub pages is free to use for your public projects.</p>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
 </span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">        </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
 </span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
-</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v7</span>
 </span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.11</span>
 </span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>
@@ -2626,29 +2634,30 @@ GitHub pages is free to use for your public projects.</p>
 </span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uv run mkdocs gh-deploy --force</span>
 </span></code></pre></div>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> It is important to give <code>write</code> permissions to this actions because it is not only reading
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> It is important to give <code>write</code> permissions to this action because it is not only reading
     your code but it will also push code.</li>
 </ol>
-<p>Before continuing, make sure you understand what the different steps of the workflow does and especially we
-recommend looking at the documentation of the <code>mkdocs gh-deploy</code> command.</p>
+<p>Before continuing, make sure you understand what the different steps of the workflow do and especially we
+recommend looking at the
+<a href="https://www.mkdocs.org/user-guide/cli/#gh-deploy">documentation of the <code>mkdocs gh-deploy</code> command</a>.</p>
 </li>
 <li>
 <p>Commit and push the file. Check that the action is executed and if it succeeds, that your build project is pushed to
-    a branch called <code>gh-pages</code>. If the action does not succeeds, then figure out what is wrong and fix it!</p>
+    a branch called <code>gh-pages</code>. If the action does not succeed, then figure out what is wrong and fix it!</p>
 </li>
 <li>
-<p>After confirming that our action is working, you need to configure GitHub to publish the content being
-    build by GitHub Actions. Do the following:</p>
+<p>After confirming that our action is working, you need to configure GitHub to publish the content being built by
+    GitHub Actions. Do the following:</p>
 <ul>
 <li>Go to the Settings tab and then the Pages subsection</li>
-<li>In the <code>Source</code> setting choose the <code>Deploy from a branch</code></li>
+<li>In the <code>Source</code> setting under <code>Build and deployment</code> choose the <code>Deploy from a branch</code> option</li>
 <li>In the <code>Branch</code> setting choose the <code>gh-pages</code> branch and <code>/(root)</code> folder and save</li>
 </ul>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/github_pages.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_pages.png" width="700" /></a>
 </figure></p>
 <p>This should then start deploying your site to <code>https://&lt;your-username&gt;.github.io/&lt;your-reponame&gt;/</code>. If it does not
-do this you may need to recommit and trigger the GitHub actions build again.</p>
+do this you may need to recommit and trigger the GitHub Actions build again.</p>
 </li>
 <li>
 <p>Make sure your documentation is published and looks as it should.</p>
@@ -2679,7 +2688,7 @@ it is often best to do it while writing the code.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 21:08:51">November 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -2819,10 +2828,10 @@ it is often best to do it while writing the code.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

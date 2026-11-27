@@ -9,6 +9,6 @@ if __name__ == "__main__":
     image = np.transpose(image, (2, 0, 1))  # Change to CHW format
     image = np.expand_dims(image, axis=0)  # Add batch dimension
 
-    with bentoml.SyncHTTPClient("http://localhost:4040") as client:
+    with bentoml.SyncHTTPClient("http://localhost:3000") as client:
         resp = client.predict(image=image)
         print(resp)

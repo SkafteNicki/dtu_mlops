@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2409,8 +2409,8 @@ this into your own projects depends, but you are at least expected to be familia
 <ol>
 <li>
 <p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Install git</a> on your computer and make sure
-    that your installation is working by writing <code>git help</code> in a terminal and it should show you the help message for
-    git.</p>
+    that your installation is working by running <code>git help</code> in a terminal, which should show you the help
+    message for git.</p>
 </li>
 <li>
 <p>Create a <a href="https://github.com/">GitHub</a> account if you do not already have one.</p>
@@ -2419,15 +2419,18 @@ this into your own projects depends, but you are at least expected to be familia
 <p>To make sure that we do not have to type in our GitHub username every time that we want to make some changes,
     we can once and for all set it on our local machine.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># type in a terminal</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>credential.helper<span class="w"> </span>store
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>credential.helper<span class="w"> </span>store
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span>&lt;email&gt;
 </span></code></pre></div>
+<p>Note that the <code>store</code> helper saves your credentials unencrypted in <code>~/.git-credentials</code>. Alternatively, the
+GitHub CLI can take care of storing your Git credentials when you log in with <code>gh auth login</code> (see the
+exercises below).</p>
 </li>
 </ol>
 <h2 id="git-overview">Git overview</h2>
 <p>The most simple way to think of version control is that it is just nodes with lines connecting them:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_branch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_branch.png" width="1000" /></a></p>
 </figure>
 <p>Each node, which we call a <em>commit</em>, is uniquely identified by a hash string. Each node stores what our code
 looked like at that point in time (when we made the commit) and using the hash codes we can easily
@@ -2435,15 +2438,15 @@ revert to a specific point in time.</p>
 <p>The commits are made up of local changes that we make to our code. A basic workflow for
 adding commits can be seen below:</p>
 <figure>
-<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000," /></a></p>
+<p><a class="glightbox" href="../../figures/git_structure.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_structure.PNG" width="1000" /></a></p>
 </figure>
 <p>Assuming that we have made some changes to our local <em>working directory</em> and that we
 want to get these updates to be online in the <em>remote repository</em> we have to do the following steps:</p>
 <ul>
 <li>
 <p>First we run the command <code>git add</code>. This will move our changes to the <em>staging area</em>. While changes are in the
-    staging area we can very easily revert them (using <code>git restore</code>). There has therefore not been assigned a unique
-    hash to the code yet, and so we can still overwrite it.</p>
+    staging area we can very easily revert them (using <code>git restore --staged</code>). There has therefore not been
+    assigned a unique hash to the code yet, and so we can still overwrite it.</p>
 </li>
 <li>
 <p>To take our code from the <em>staging area</em> and make it into a commit, we simply run <code>git commit</code> which will locally
@@ -2483,7 +2486,7 @@ working together on the same project.</p>
 <li>
 <p class="annotate">Commit the files using the <code>git commit</code> command where you use the <code>-m</code> argument to provide a commit message (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing a good commit message is a skill in and of itself. A commit message should be
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Writing a good commit message is a skill in and of itself. A commit message should be
     short but informative about the work you are trying to commit. Try to practice writing good commit messages
     throughout the course. You can see
     <a href="https://github.com/joelparkerhenderson/git-commit-message">this guideline</a> for help.</li>
@@ -2493,7 +2496,7 @@ working together on the same project.</p>
 <p class="annotate">Finally push the files to your repository using <code>git push</code>. Make sure to check online that the files have been
     updated in your repository (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Be aware that you either need to generate a token to remote push from you local
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Be aware that you either need to generate a token to remote push from your local
     <a href="https://github.com/settings/tokens">terminal</a> or install the
     <a href="https://docs.github.com/en/github-cli/github-cli/quickstart">GitHub CLI</a>.</li>
 </ol>
@@ -2517,10 +2520,45 @@ Try adding something (a file, a new line of code, etc.) to the newly created bra
 try changing back to main afterwards. You should hopefully see whatever you added on the branch
 is not present on the main branch.</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>git checkout</code> command is used for a lot of different things in git. It can be used to
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>git checkout</code> command is used for a lot of different things in git. It can be used to
     change branches, to revert changes and to create new branches. An alternative is using <code>git switch</code> and
     <code>git restore</code> which are more modern commands.</li>
 </ol>
+</li>
+<li>
+<p>By default you can only have one branch checked out at a time in a repository. Switching branches with
+    <code>git checkout</code> rewrites the files in your working directory, which quickly becomes painful when you want to
+    work on two things in parallel - for example, letting a coding agent implement a fix on one branch while you
+    keep working on <code>main</code>, without stashing or cloning the repository again. <em>Worktrees</em> solve this by giving
+    you multiple working directories attached to the same repository, one branch per directory.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># from inside your repository, create a new worktree in a sibling folder on a new branch</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../my_repo_fix<span class="w"> </span>-b<span class="w"> </span>fix-worktree-demo
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># list all worktrees attached to the repository</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
+</span></code></pre></div>
+<p class="annotate">Each worktree behaves like a normal checkout: the <code>add -&gt; commit -&gt; push</code> cycle works exactly the same
+inside it. The only rule is that the same branch cannot be checked out in two worktrees at once (1).</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you try, git will fail with <code>fatal: '&lt;branch&gt;' is already used by worktree at ...</code>.
+    Either check out a different branch there or remove the old worktree first.</li>
+</ol>
+<p>Try it out: add a new file inside <code>../my_repo_fix</code>, commit it, and verify that the file does not show up in
+your original checkout on <code>main</code>. When you are done, remove the worktree with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>../my_repo_fix
+</span></code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../my_repo_fix<span class="w"> </span>-b<span class="w"> </span>fix-worktree-demo
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># add a file in ../my_repo_fix, then inside that directory:</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;my_new_file&gt;
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"demo worktree commit"</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># back in the original checkout:</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="w">  </span><span class="c1"># should still be main</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># the new file should be absent here</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>../my_repo_fix
+</span></code></pre></div>
+</details>
 </li>
 <li>
 <p>If you do not already have a cloned version of the repository belonging to the course, make sure to make one!
@@ -2539,8 +2577,8 @@ is not present on the main branch.</p>
     <a href="https://github.com/SkafteNicki/dtu_mlops">the repository belonging to the course</a>. Now fork the project by
     clicking the <em>fork</em> button.</p>
 <p><a class="glightbox" href="../../figures/forking.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="forking" src="../../figures/forking.PNG" /></a></p>
-<p>This will create a local copy of the repository which you have complete writing access to. Note that
-code updates to the original repository do not update code in your local repository.</p>
+<p>This will create a copy of the repository under your own GitHub account, which you have full writing
+access to. Note that code updates to the original repository do not update the code in your fork.</p>
 </li>
 <li>
 <p>Clone your local fork of the project using <code>git clone</code>.</p>
@@ -2555,9 +2593,10 @@ code updates to the original repository do not update code in your local reposit
     When you have made the changes, do the standard git cycle: <code>add -&gt; commit -&gt; push</code>.</p>
 </li>
 <li>
-<p>Go online to the original repository and go to the <code>Pull requests</code> tab. Find the <code>compare</code> button and
-    choose the button to compare the <code>master branch</code> of the original repo with the branch that you just created
-    in your own repository. Check the diff on the page to make sure that it contains the changes you have made.</p>
+<p>Go online to the original repository and go to the <code>Pull requests</code> tab. Click the <code>New pull request</code> button,
+    choose <code>compare across forks</code> and compare the <code>main</code> branch of the original repo with the branch that you
+    just created in your own repository. Check the diff on the page to make sure that it contains the changes
+    you have made.</p>
 </li>
 <li>
 <p>Write a bit about the changes you have made and click <code>Create pull request</code> :).</p>
@@ -2571,7 +2610,7 @@ code updates to the original repository do not update code in your local reposit
     , and set a remote upstream for the repository you just forked.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>&lt;url-to-original-repo&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>&lt;url-to-original-repo&gt;
 </span></code></pre></div>
 </details>
 </li>
@@ -2581,9 +2620,9 @@ code updates to the original repository do not update code in your local reposit
     and figure out how to do this.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>merge<span class="w"> </span>upstream/main
 </span></code></pre></div>
 </details>
 </li>
@@ -2607,12 +2646,12 @@ code updates to the original repository do not update code in your local reposit
 <li>
 <p>Now try to <code>git pull</code> the online changes. What should (hopefully) happen is that git will tell you that it found
     a merge conflict that needs to be resolved. Open the file and you should see something like this</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>this is some content to mess with
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>content to append
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>=======
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>totally different content to merge later
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>this is some content to mess with
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>content to append
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>=======
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>totally different content to merge later
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
 </span></code></pre></div>
 <p>this should be interpreted as: everything that's between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> are the changes made by your
 local commit and everything between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> are the changes you are trying to pull. To fix
@@ -2621,18 +2660,18 @@ remove the identifiers <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======<
 <div class="admonition note">
 <p class="admonition-title">Merge, rebase or fast-forward?</p>
 <p>On a <code>git pull</code> you can get messages like this the first time you try to pull after a merge conflict:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>hint: You have divergent branches and need to specify how to reconcile them.
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hint: You can do so by running one of the following commands sometime before
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>hint: your next pull:
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>hint:
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>hint:   git config pull.rebase false  # merge
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>hint:   git config pull.rebase true   # rebase
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>hint:   git config pull.ff only       # fast-forward only
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>hint:
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>hint: You can replace "git config" with "git config --global" to set a default
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>hint: or --ff-only on the command line to override the configured default per
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>hint: invocation.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>hint: You have divergent branches and need to specify how to reconcile them.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>hint: You can do so by running one of the following commands sometime before
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>hint: your next pull:
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>hint:
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>hint:   git config pull.rebase false  # merge
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>hint:   git config pull.rebase true   # rebase
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>hint:   git config pull.ff only       # fast-forward only
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>hint:
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>hint: You can replace "git config" with "git config --global" to set a default
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>hint: or --ff-only on the command line to override the configured default per
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>hint: invocation.
 </span></code></pre></div>
 <p>In general we recommend setting <code>git config pull.rebase false</code> to merge the changes. This is the default
 behavior of git and is the most common way to resolve merge conflicts. However, if you are working on a
@@ -2665,10 +2704,10 @@ changes that have been made to the same lines of code as you have made changes t
 </details>
 </li>
 <li>
-<p>Explain what the file <code>gitignore</code> is used for?</p>
+<p>Explain what the file <code>.gitignore</code> is used for?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The file <code>gitignore</code> is used to tell git which files to ignore when doing a <code>git add .</code> command. This is
+<p>The file <code>.gitignore</code> is used to tell git which files to ignore when doing a <code>git add .</code> command. This is
 useful for files that are not part of the codebase, but are needed for the code to run (e.g. data files)
 or files that contain sensitive information (e.g. <code>.env</code> files that contain API keys and passwords).</p>
 </details>
@@ -2678,10 +2717,10 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
     <em>devel</em> is in sync with <em>main</em>?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>pull
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>devel
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>git<span class="w"> </span>merge<span class="w"> </span>main
 </span></code></pre></div>
 </details>
 </li>
@@ -2703,13 +2742,13 @@ or files that contain sensitive information (e.g. <code>.env</code> files that c
 <p>That covers the basics of git to get you started. In the exercise folder you can find a
 <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s2_organisation_and_version_control/exercise_files/git_cheat_sheet.pdf">git cheat sheet</a>
 with the most useful commands for future reference. Finally, we want to point out another awesome feature of GitHub:
-in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
+the in-browser editor. Sometimes you have a small edit that you want to make, but still would like to do this in an
 IDE/editor. Or you may be in the situation where you are working from a device other than your usual developer machine.
 GitHub has a built-in editor that can simply be enabled by changing any URL from</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://github.com/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>https://github.com/username/repository
 </span></code></pre></div>
 <p>to</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>https://github.dev/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>https://github.dev/username/repository
 </span></code></pre></div>
 <p>Try it out on your newly created repository.</p>
 <h2 id="ai-assisted-code-exploration">🤖 AI-Assisted Code Exploration</h2>
@@ -2720,11 +2759,11 @@ documentation generation, refactoring suggestions, or learning about unfamiliar 
 <p><a href="https://github.com/yamadashy/repomix">Repomix</a> is a powerful tool that packs your entire repository into a single
 AI-friendly file with support for multiple output formats and token counting. You can use it via CLI or through the
 web interface at <a href="https://repomix.com">repomix.com</a>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Quick usage without installation (packs current directory)</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>npx<span class="w"> </span>repomix
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Pack a remote repository directly</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>npx<span class="w"> </span>repomix<span class="w"> </span>--remote<span class="w"> </span>https://github.com/username/repository
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Quick usage without installation (packs current directory)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>npx<span class="w"> </span>repomix
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Pack a remote repository directly</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>npx<span class="w"> </span>repomix<span class="w"> </span>--remote<span class="w"> </span>https://github.com/username/repository
 </span></code></pre></div>
 <p>For a quick browser-based alternative, <a href="https://uithub.com">uithub.com</a> lets you view any public GitHub repository
 as raw text with token counts. Simply replace <code>github.com</code> with <code>uithub.com</code> in any repository URL.</p>
@@ -2756,7 +2795,7 @@ the right to analyze or that is under permissive open-source licenses.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 24, 2026 13:27:03">January 24, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -2896,10 +2935,10 @@ the right to analyze or that is under permissive open-source licenses.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

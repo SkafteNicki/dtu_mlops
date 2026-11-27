@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2401,14 +2401,14 @@ your own container.</p>
 <h2 id="exercises">❔ Exercises</h2>
 <p>In the following exercises, we guide you on how to build a dockerfile for your MNIST repository that will make the
 training and prediction a self-contained application. Please make sure that you somewhat understand each step and do
-not just copy the exercise. Also, note that you probably need to execute the exercise from an elevated terminal, i.e.
-with administrative privilege.</p>
+not just copy the exercise. Also, note that on Linux you either need to run the <code>docker</code> commands with <code>sudo</code> or add
+your user to the <code>docker</code> group, see <a href="https://docs.docker.com/engine/install/linux-postinstall/">this page</a>.</p>
 <p>The exercises today are only an introduction to docker and some of the steps are going to be unoptimized from a
 production setting view. For example, we often want to keep the size of the docker image as small as possible, which we
 are not focusing on for these exercises.</p>
-<p>If you are using <code>VScode</code> then we recommend installing the
-<a href="https://code.visualstudio.com/docs/containers/overview">VScode docker extension</a> for easily getting an overview of
-which images have been building and which are running. Additionally, the extension named <em>Dev Containers</em> may also be
+<p>If you are using VS Code then we recommend installing the
+<a href="https://code.visualstudio.com/docs/containers/overview">VS Code Docker extension</a> for easily getting an overview of
+which images have been built and which are running. Additionally, the extension named <em>Dev Containers</em> may also be
 beneficial for you to download.</p>
 <ol>
 <li>
@@ -2453,12 +2453,12 @@ shell utilities, etc.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox
 </span></code></pre></div>
 <p>You will see that nothing happens! The reason for that is we did not provide any commands to <code>docker run</code>. We
-essentially just ask it to start the <code>busybox</code> virtual machine, do nothing, and then close it again. Now, try
+essentially just ask it to start the <code>busybox</code> container, do nothing, and then close it again. Now, try
 again, this time with</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello from busybox"</span>
 </span></code></pre></div>
-<p>Note how fast this process is. In just a few seconds, Docker is able to start a virtual machine, execute a command,
-and kill it afterward.</p>
+<p>Note how fast this process is. In just a few seconds, Docker is able to start a container, execute a command, and
+kill it afterward.</p>
 </li>
 <li>
 <p>Try running:</p>
@@ -2467,10 +2467,10 @@ and kill it afterward.</p>
 <p>What does this command do? What if you add <code>-a</code> to the end?</p>
 </li>
 <li>
-<p>If we want to run multiple commands within the virtual machine, we can start it in <em>interactive mode</em>.</p>
+<p>If we want to run multiple commands within the container, we can start it in <em>interactive mode</em>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>busybox
 </span></code></pre></div>
-<p>This can be a great way to investigate what the filesystem of our virtual machine looks like.</p>
+<p>This can be a great way to investigate what the filesystem of our container looks like.</p>
 </li>
 <li>
 <p>As you may have already noticed by now, each time we execute <code>docker run</code>, we can still see small remnants of the
@@ -2492,7 +2492,7 @@ and kill it afterward.</p>
 <p>Instead of starting from scratch, we nearly always want to start from some base image. For this exercise, we will
     use a <code>uv</code>-based image for faster dependency installation:</p>
 <div class="language-docker highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c"># Base image</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-bookworm-slim</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-trixie-slim</span>
 </span></code></pre></div>
 <p>The <code>uv</code> image comes with both Python and <code>uv</code> pre-installed, which will significantly speed up dependency
 installation.</p>
@@ -2510,38 +2510,45 @@ installation.</p>
     are application-specific (to some degree):</p>
 <ol>
 <li>
-<p>Let's copy over our application (the essential parts) from our computer to the container:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">COPY</span><span class="w"> </span>uv.lock<span class="w"> </span>uv.lock
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>pyproject.toml
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">COPY</span><span class="w"> </span>README.md<span class="w"> </span>README.md
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">COPY</span><span class="w"> </span>src/<span class="w"> </span>src/
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">COPY</span><span class="w"> </span>data/<span class="w"> </span>data/
+<p>Let's set the working directory in our container and copy over the files that describe our dependencies:</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">COPY</span><span class="w"> </span>uv.lock<span class="w"> </span>uv.lock
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>pyproject.toml
 </span></code></pre></div>
+</li>
+<li>
+<p class="annotate">Next, we install the dependencies, then copy over the rest of our application (the essential parts) and
+    finally install the application itself (1):</p>
+<ol>
+<li>
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> We split the installation into two steps so that Docker can cache our project dependencies
+    separately from our application code. Docker caches each instruction as a layer and only rebuilds a layer
+    (and every layer after it) if the instruction or the files it copies have changed. Because the dependency
+    files are copied and installed <em>before</em> <code>src/</code> is copied, changing your application code does not trigger
+    a reinstall of all the dependencies. This is a common strategy for Docker images.</p>
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative, you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
+installs the dependencies. Just remember to also copy over the <code>Makefile</code> into the Docker image.</p>
+</li>
+</ol>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-cache<span class="w"> </span>--no-install-project
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">COPY</span><span class="w"> </span>README.md<span class="w"> </span>README.md
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">COPY</span><span class="w"> </span>src/<span class="w"> </span>src/
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">COPY</span><span class="w"> </span>data/<span class="w"> </span>data/
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-cache
+</span></code></pre></div>
+<p>The <code>--no-cache</code> is quite important. Can you explain what it does and why it is important in relation to
+Docker? And what do the <code>--locked</code> and <code>--no-install-project</code> flags do?</p>
 <p>Remember that we only want the essential parts to keep our Docker image as small as possible. Why do we need
 each of these files/folders to run training in our Docker container?</p>
 </li>
 <li>
-<p class="annotate">Let's set the working directory in our container and add commands that install the dependencies (1):</p>
-<ol>
-<li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> We split the installation into two steps so that Docker can cache our project dependencies
-    separately from our application code. This means that if we change our application code, we do not need to
-    reinstall all the dependencies. This is a common strategy for Docker images.</p>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> As an alternative, you can use <code>RUN make requirements</code> if you have a <code>Makefile</code> that
-installs the dependencies. Just remember to also copy over the <code>Makefile</code> into the Docker image.</p>
-</li>
-</ol>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-cache<span class="w"> </span>--no-install-project
-</span></code></pre></div>
-<p>The <code>--no-cache</code> is quite important. Can you explain what it does and why it is important in relation to
-Docker? And what does the <code>--locked</code> flag do?</p>
-</li>
-<li>
 <p>Finally, we are going to name our training script as the <em>entrypoint</em> for our Docker image. The <em>entrypoint</em> is
     the application that we want to run when the image is executed:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"src/&lt;project-name&gt;/train.py"</span><span class="p">]</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--no-sync"</span><span class="p">,</span><span class="w"> </span><span class="s2">"src/&lt;project-name&gt;/train.py"</span><span class="p">]</span>
 </span></code></pre></div>
+<p>The <code>--no-sync</code> flag tells <code>uv run</code> to use the environment we already installed during the build instead
+of checking (and possibly rebuilding) it every time the container starts.</p>
 </li>
 </ol>
 </li>
@@ -2550,10 +2557,11 @@ Docker? And what does the <code>--locked</code> flag do?</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>train.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>train:latest
 </span></code></pre></div>
 <details class="warning">
-<summary>MAC M1/M2 users</summary>
-<p>In general, Docker images are built for a specific platform. For example, if you are using a Mac with an M1/M2
-chip, then you are running on an ARM architecture. If you are using a Windows or Linux machine, then you are
-running on an AMD64 architecture. This is important to know when building Docker images. Thus, Docker images
+<summary>Apple silicon users</summary>
+<p>In general, Docker images are built for a specific platform. For example, if you are using a Mac with an
+M-series chip (e.g. M1, M2, M3 or M4), then you are running on an ARM architecture. If you are using a Windows
+or Linux machine, then you are running on an AMD64 architecture. This is important to know when building Docker
+images. Thus, Docker images
 you build may not work on platforms different than the ones you build on. You can specify which platform you want
 to build for by adding the <code>--platform</code> argument to the <code>docker build</code> command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>-f<span class="w"> </span>train.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>train:latest
@@ -2578,7 +2586,7 @@ image below). Please note that building a Docker image can take a couple of minu
 because PyTorch is a huge dependency. If you are running low on space, you can try to</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>system<span class="w"> </span>prune
 </span></code></pre></div>
-<p>Alternatively, you can manually delete images using <code>docker rm {image_name}:{image_tag}</code>.</p>
+<p>Alternatively, you can manually delete images using <code>docker image rm {image_name}:{image_tag}</code>.</p>
 </details>
 </li>
 <li>
@@ -2587,7 +2595,7 @@ because PyTorch is a huge dependency. If you are running low on space, you can t
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>experiment1<span class="w"> </span>train:latest
 </span></code></pre></div>
 <p>You should hopefully see your training starting. Please note that we can start as many containers as we want at
-the same time by giving them all different names using the <code>--name</code> tag.</p>
+the same time by giving them all different names using the <code>--name</code> flag.</p>
 <ol>
 <li>
 <p>You are most likely going to rebuild your Docker image multiple times, either due to an implementation error
@@ -2595,12 +2603,12 @@ the same time by giving them all different names using the <code>--name</code> t
     the 20th time, you can reuse the cache from the last time the Docker image was built. To do this, replace the
     line in your Dockerfile that installs your requirements with:</p>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">UV_LINK_MODE</span><span class="o">=</span>copy
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">RUN</span><span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>cache,target<span class="o">=</span>/root/.cache/uv<span class="w"> </span>uv<span class="w"> </span>sync
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">RUN</span><span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>cache,target<span class="o">=</span>/root/.cache/uv<span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-install-project
 </span></code></pre></div>
 <p>which mounts your local uv cache to the Docker image, see
 <a href="https://docs.astral.sh/uv/guides/integration/docker/#caching">documentation</a>.</p>
 <p>For building the image with cache mounts, you need to have enabled the
-<a href="https://docs.docker.com/develop/develop-images/build_enhancements/">BuildKit</a> feature. If you have Docker
+<a href="https://docs.docker.com/build/buildkit/">BuildKit</a> feature. If you have Docker
 version v23.0 or later (you can check this by running <code>docker version</code>), then this is enabled by default.
 Otherwise, you need to enable it by setting the environment variable <code>DOCKER_BUILDKIT=1</code> before building the
 image.</p>
@@ -2649,44 +2657,50 @@ for help.</p>
 </ol>
 </li>
 <li>
-<p>With training done we also need to write an application for prediction. Create a new docker image called
+<p>With training done we also need to write an application for prediction. Create a new Dockerfile called
     <code>evaluate.dockerfile</code>. This file should call your <code>src/&lt;project-name&gt;/evaluate.py</code> script instead. This image
     will need some trained model weights to work. Feel free to either include these during the build process or mount
     them afterwards. When you create the file try to <code>build</code> and <code>run</code> it to confirm that it works. Hint: if
     you are passing in the model checkpoint and evaluation data as arguments to your script, your <code>docker run</code> probably
     needs to look something like</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>evaluate<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/trained_model.pt:/models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount trained model file</span>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/data/test_images.pt:/test_images.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># mount data we want to evaluate on</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/trained_model.pt:/models/trained_model.pt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/data/test_images.pt:/test_images.pt<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span>-v<span class="w"> </span>%cd%/data/test_targets.pt:/test_targets.pt<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span>evaluate:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span>../../models/trained_model.pt<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># argument to script, path relative to script location in container</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span>../../models/trained_model.pt<span class="w">  </span><span class="c1"># argument to script, path relative to script location in container</span>
 </span></code></pre></div>
 </li>
 <li>
-<p>(Optional, requires GPU support) By default, a virtual machine created by docker only has access to your <code>cpu</code> and
-    not your <code>gpu</code>. While you do not necessarily have a laptop with a GPU that supports the training of neural networks
-    (e.g. one from Nvidia) it is beneficial that you understand how to construct a docker image that can take advantage
-    of a GPU if you were to run this on a machine in the future that has a GPU (e.g. in the cloud). It does take a bit
-    more work, but many of the steps will be similar to building a normal docker image.</p>
+<p>(Optional, requires a GPU) By default, a container created by docker only has access to your <code>cpu</code> and
+    not your <code>gpu</code>. While you do not necessarily have a laptop with a GPU that supports the training of neural
+    networks it is beneficial that you understand how to construct a docker image that can take advantage of a GPU
+    if you were to run this on a machine in the future that has a GPU (e.g. in the cloud). It does take a bit more
+    work, but many of the steps will be similar to building a normal docker image. The overall workflow is the same
+    for Nvidia and AMD GPUs, but the base images, environment variables and run flags differ. Select the tab that
+    matches your GPU.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Nvidia (CUDA)</label><label for="__tabbed_1_2">AMD (ROCm)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ol>
 <li>
-<p>There are three prerequisites for working with Nvidia GPU-accelerated docker containers. First, you need to have
-    the Docker Engine installed (already taken care of), have an Nvidia GPU with updated GPU drivers and finally have
-    the <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker">Nvidia container toolkit</a>
-    installed. The last part you likely have not installed and need to do. Some distros of Linux have known
-    problems with the installation process, so you may have to search through known issues in
+<p>There are three prerequisites for working with Nvidia GPU-accelerated docker containers. First, you need to
+    have the Docker Engine installed (already taken care of), have an Nvidia GPU with updated GPU drivers and
+    finally install the
+    <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">Nvidia container toolkit</a>.
+    The last part you likely have not done yet. Some distros of Linux have known problems with the installation
+    process, so you may have to search through known issues in
     <a href="https://github.com/NVIDIA/nvidia-docker/issues">nvidia-docker repository</a> to find a solution.</p>
 </li>
 <li>
 <p>To test that everything is working start by pulling a relevant Nvidia docker image. In my case this is
     the correct image:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvidia/cuda:13.5.0-base-ubuntu24.04
 </span></code></pre></div>
 <p>but it may differ based on what Cuda version you have. You can find all the different official Nvidia images
 <a href="https://hub.docker.com/r/nvidia/cuda">on Docker Hub</a>. After pulling the image, try running the <code>nvidia-smi</code>
 command inside a container based on the image you just pulled. It should look something like this:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:11.0.3-base-ubuntu20.04<span class="w"> </span>nvidia-smi
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:13.5.0-base-ubuntu24.04<span class="w"> </span>nvidia-smi
 </span></code></pre></div>
 <p>and should show an image like below:</p>
 <p><figure markdown>
@@ -2695,22 +2709,23 @@ command inside a container based on the image you just pulled. It should look so
 <p>If it does not work, try redoing the steps.</p>
 </li>
 <li>
-<p>We should hopefully have a working setup now for running Nvidia accelerated docker containers. The next step is
-    to get PyTorch inside our container, such that our PyTorch implementation also correctly identifies the GPU.
-    Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and visualizations
-    through their <a href="https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc">NGC Catalog</a>.
+<p>We should hopefully have a working setup now for running Nvidia accelerated docker containers. The next step
+    is to get PyTorch inside our container, such that our PyTorch implementation also correctly identifies the
+    GPU. Luckily for us, Nvidia provides a set of docker images for GPU-optimized software for AI, HPC and
+    visualizations through their
+    <a href="https://docs.nvidia.com/ngc/ngc-catalog-user-guide/index.html#what-is-nvidia-ngc">NGC Catalog</a>.
     The containers that have to do with PyTorch can be seen
     <a href="https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html">in the PyTorch release notes</a>.
     Try pulling the latest one:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>nvcr.io/nvidia/pytorch:26.10-py3
 </span></code></pre></div>
 <p>It may take some time because the NGC images include a lot of other software for optimizing PyTorch
-applications. It may be possible for you to find other images for running GPU-accelerated applications that have
-a smaller memory footprint, but NGC is the recommended and supported way.</p>
+applications. It may be possible for you to find other images for running GPU-accelerated applications
+that have a smaller memory footprint, but NGC is the recommended and supported way.</p>
 </li>
 <li>
 <p>Let's test that this container works:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>nvcr.io/nvidia/pytorch:22.07-py3
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>nvcr.io/nvidia/pytorch:26.10-py3
 </span></code></pre></div>
 <p>This should run the container in interactive mode attached to your current terminal. Try opening <code>python</code> in
 the container and try writing:</p>
@@ -2722,15 +2737,225 @@ the container and try writing:</p>
 <li>
 <p>Finally, we need to incorporate all this into our already developed docker files for our application. This is
     also fairly easy as we just need to change our <code>FROM</code> statement at the beginning of our docker file:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.12-slim</span>
 </span></code></pre></div>
 <p>change to</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w">  </span><span class="s">nvcr.io/nvidia/pytorch:22.07-py3</span>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">nvcr.io/nvidia/pytorch:26.10-py3</span>
 </span></code></pre></div>
 <p>try doing this to one of your dockerfiles, build the image and run the container. Remember to check that your
 application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 </li>
 </ol>
+</div>
+<div class="tabbed-block">
+<p>AMD GPUs use <a href="https://rocm.docs.amd.com/">ROCm</a> instead of CUDA. ROCm builds of PyTorch still expose
+the GPU through the <code>torch.cuda</code> API, so <code>torch.cuda.is_available()</code> is the correct check even on an AMD
+GPU.</p>
+<ol>
+<li>
+<p>On the host, install the AMD GPU driver and make sure your user is allowed to access the GPU. The official
+    <a href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/">ROCm installation guide</a> describes the
+    installation for different Linux distributions. You can check that the kernel driver is loaded and that the
+    device files exist with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ls<span class="w"> </span>/dev/kfd<span class="w"> </span>/dev/dri
+</span></code></pre></div>
+<p>Your user also needs to be part of the <code>render</code> and <code>video</code> groups (log out and in again after changing
+groups):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>render,video<span class="w"> </span><span class="nv">$USER</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Windows and macOS</p>
+<p>ROCm is only supported on Linux. You can still build the image on other operating systems, but you cannot
+run it with GPU access, so this exercise is only relevant if you have a Linux machine with an AMD GPU.</p>
+</div>
+</li>
+<li>
+<p>AMD publishes images with ROCm and PyTorch pre-installed on
+    <a href="https://hub.docker.com/r/rocm/pytorch">Docker Hub</a>. Pull one of them (replace the tag with one that matches
+    your GPU and the PyTorch version you need, see the
+    <a href="https://hub.docker.com/r/rocm/pytorch/tags">available tags</a>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.9.1
+</span></code></pre></div>
+<p>Start a container with access to the GPU and check that PyTorch can see it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span>--cap-add<span class="o">=</span>SYS_PTRACE<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span>--device<span class="o">=</span>/dev/kfd<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">    </span>--device<span class="o">=</span>/dev/dri<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">    </span>--group-add<span class="w"> </span>video<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">    </span>--ipc<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="w">    </span>--shm-size<span class="w"> </span>8G<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="w">    </span>rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.9.1
+</span></code></pre></div>
+<p>and inside the container run:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span>
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">hip</span><span class="p">)</span>
+</span></code></pre></div>
+<p>which should print <code>True</code> and the ROCm version that PyTorch was built against.</p>
+</li>
+<li>
+<p>The image already contains <code>torch</code> and <code>torchvision</code> compiled for ROCm. This is where combining ROCm with
+    <code>uv</code> needs a little extra care. If we run <code>uv sync</code> as usual, <code>uv</code> creates its own <code>.venv</code> and installs the
+    <code>torch</code> wheels from PyPI on top of the image, which are not built for ROCm. We therefore need to tell <code>uv</code> to:</p>
+<ul>
+<li>
+<p>Use the Python environment that is already in the image. Find it by running <code>which python</code> inside the
+    container and set <code>UV_PROJECT_ENVIRONMENT</code> to its location (for the ROCm images this is <code>/opt/venv</code>):</p>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">UV_PROJECT_ENVIRONMENT</span><span class="o">=</span>/opt/venv
+</span></code></pre></div>
+</li>
+<li>
+<p>Not remove packages that are not part of the project, such as other libraries that come pre-installed in
+    the ROCm image. This is done with the <code>--inexact</code> flag.</p>
+</li>
+<li>
+<p>Not install <code>torch</code> and <code>torchvision</code> at all, because they are already present in the image. Otherwise
+    <code>uv</code> will overwrite them with the versions from <code>uv.lock</code>. This is done with the
+    <code>--no-install-package</code> flag.</p>
+</li>
+</ul>
+<p>Combining the three gives the following install step:</p>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-cache<span class="w"> </span>--inexact<span class="w"> </span>--no-install-project<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span>--no-install-package<span class="w"> </span>torch<span class="w"> </span>--no-install-package<span class="w"> </span>torchvision
+</span></code></pre></div>
+<p>The <code>--no-install-package</code> flag is the cleanest way to keep the ROCm build of PyTorch. An alternative is to
+comment out <code>torch</code> and <code>torchvision</code> in <code>pyproject.toml</code> and re-run <code>uv lock</code>, or to add</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="k">[tool.uv]</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="n">override-dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">    </span><span class="s2">"torch; sys_platform == 'never'"</span><span class="p">,</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">    </span><span class="s2">"torchvision; sys_platform == 'never'"</span><span class="p">,</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="p">]</span>
+</span></code></pre></div>
+<p>to <code>pyproject.toml</code>. Both alternatives also change your local development environment, so prefer the
+<code>--no-install-package</code> flags in the Dockerfile. Finally, make sure that <code>uv run</code> does not synchronize the
+environment again when the container starts, since that would once more overwrite <code>torch</code>:</p>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--no-sync"</span><span class="p">,</span><span class="w"> </span><span class="s2">"src/&lt;project-name&gt;/train.py"</span><span class="p">]</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>A full <code>train.dockerfile</code> that combines all of the above looks like this:</p>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">rocm_train.dockerfile</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-42-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-42-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-42-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-42-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-42-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-42-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-42-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-42-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-42-10">10</a></span>
+<span class="normal"><a href="#__codelineno-42-11">11</a></span>
+<span class="normal"><a href="#__codelineno-42-12">12</a></span>
+<span class="normal"><a href="#__codelineno-42-13">13</a></span>
+<span class="normal"><a href="#__codelineno-42-14">14</a></span>
+<span class="normal"><a href="#__codelineno-42-15">15</a></span>
+<span class="normal"><a href="#__codelineno-42-16">16</a></span>
+<span class="normal"><a href="#__codelineno-42-17">17</a></span>
+<span class="normal"><a href="#__codelineno-42-18">18</a></span>
+<span class="normal"><a href="#__codelineno-42-19">19</a></span>
+<span class="normal"><a href="#__codelineno-42-20">20</a></span>
+<span class="normal"><a href="#__codelineno-42-21">21</a></span>
+<span class="normal"><a href="#__codelineno-42-22">22</a></span>
+<span class="normal"><a href="#__codelineno-42-23">23</a></span>
+<span class="normal"><a href="#__codelineno-42-24">24</a></span>
+<span class="normal"><a href="#__codelineno-42-25">25</a></span>
+<span class="normal"><a href="#__codelineno-42-26">26</a></span>
+<span class="normal"><a href="#__codelineno-42-27">27</a></span>
+<span class="normal"><a href="#__codelineno-42-28">28</a></span>
+<span class="normal"><a href="#__codelineno-42-29">29</a></span>
+<span class="normal"><a href="#__codelineno-42-30">30</a></span>
+<span class="normal"><a href="#__codelineno-42-31">31</a></span>
+<span class="normal"><a href="#__codelineno-42-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1"></a><span class="c"># Base image with ROCm and a ROCm-enabled build of PyTorch.</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2"></a><span class="c"># Replace the tag with one that matches your GPU, see https://hub.docker.com/r/rocm/pytorch/tags</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3"></a><span class="k">FROM</span><span class="w"> </span><span class="s">rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.9.1</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4"></a>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5"></a><span class="c"># Install uv by copying it from the official uv image</span>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6"></a><span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>ghcr.io/astral-sh/uv:latest<span class="w"> </span>/uv<span class="w"> </span>/uvx<span class="w"> </span>/bin/
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7"></a>
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8"></a><span class="c"># Use the Python environment that is already present in the ROCm image.</span>
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9"></a><span class="c"># You can check the location with `which python` inside the base image.</span>
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">UV_PROJECT_ENVIRONMENT</span><span class="o">=</span>/opt/venv
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">UV_LINK_MODE</span><span class="o">=</span>copy
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12"></a>
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16"></a>
+</span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
+</span><span id="__span-42-18"><a id="__codelineno-42-18" name="__codelineno-42-18"></a>
+</span><span id="__span-42-19"><a id="__codelineno-42-19" name="__codelineno-42-19"></a><span class="k">COPY</span><span class="w"> </span>uv.lock<span class="w"> </span>uv.lock
+</span><span id="__span-42-20"><a id="__codelineno-42-20" name="__codelineno-42-20"></a><span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>pyproject.toml
+</span><span id="__span-42-21"><a id="__codelineno-42-21" name="__codelineno-42-21"></a><span class="k">COPY</span><span class="w"> </span>README.md<span class="w"> </span>README.md
+</span><span id="__span-42-22"><a id="__codelineno-42-22" name="__codelineno-42-22"></a><span class="k">COPY</span><span class="w"> </span>src/<span class="w"> </span>src/
+</span><span id="__span-42-23"><a id="__codelineno-42-23" name="__codelineno-42-23"></a><span class="k">COPY</span><span class="w"> </span>data/<span class="w"> </span>data/
+</span><span id="__span-42-24"><a id="__codelineno-42-24" name="__codelineno-42-24"></a>
+</span><span id="__span-42-25"><a id="__codelineno-42-25" name="__codelineno-42-25"></a><span class="c"># --inexact keeps packages that are not part of the project, such as other libraries from the ROCm image.</span>
+</span><span id="__span-42-26"><a id="__codelineno-42-26" name="__codelineno-42-26"></a><span class="c"># --no-install-package prevents uv from replacing torch and torchvision with the PyPI wheels.</span>
+</span><span id="__span-42-27"><a id="__codelineno-42-27" name="__codelineno-42-27"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-cache<span class="w"> </span>--inexact<span class="w"> </span>--no-install-project<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-28"><a id="__codelineno-42-28" name="__codelineno-42-28"></a><span class="w">    </span>--no-install-package<span class="w"> </span>torch<span class="w"> </span>--no-install-package<span class="w"> </span>torchvision
+</span><span id="__span-42-29"><a id="__codelineno-42-29" name="__codelineno-42-29"></a>
+</span><span id="__span-42-30"><a id="__codelineno-42-30" name="__codelineno-42-30"></a><span class="c"># --no-sync prevents uv from synchronizing the environment again when the container starts.</span>
+</span><span id="__span-42-31"><a id="__codelineno-42-31" name="__codelineno-42-31"></a><span class="c"># Replace &lt;project-name&gt; with the name of your package.</span>
+</span><span id="__span-42-32"><a id="__codelineno-42-32" name="__codelineno-42-32"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"uv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--no-sync"</span><span class="p">,</span><span class="w"> </span><span class="s2">"src/&lt;project-name&gt;/train.py"</span><span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Build the image and run it with the same GPU flags as above:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>rocm_train.dockerfile<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>train:latest
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">    </span>--cap-add<span class="o">=</span>SYS_PTRACE<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">    </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">    </span>--device<span class="o">=</span>/dev/kfd<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">    </span>--device<span class="o">=</span>/dev/dri<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">    </span>--group-add<span class="w"> </span>video<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="w">    </span>--ipc<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="w">    </span>--shm-size<span class="w"> </span>8G<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="w">    </span>train:latest
+</span></code></pre></div>
+<p>The <code>--shm-size</code> flag controls the size of <code>/dev/shm</code>, which is the shared memory available to the container.
+PyTorch data loaders use shared memory to pass batches between worker processes, so a too small value can
+cause crashes. Increase the value if you use multiple data loader workers.</p>
+</li>
+<li>
+<p>Some GPUs require you to specify the GPU architecture explicitly. Run <code>rocminfo | grep gfx</code> inside the
+    container to find the architecture (for example <code>gfx1100</code>) and set:</p>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">PYTORCH_ROCM_ARCH</span><span class="o">=</span>gfx1100
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">HCC_AMDGPU_TARGET</span><span class="o">=</span>gfx1100
+</span></code></pre></div>
+<p>These variables are mainly needed when PyTorch compiles HIP kernels for your GPU, for example when building
+PyTorch from source or installing packages with custom extensions. They are usually not needed for the
+official pre-built images. If your GPU is not officially supported by ROCm, you can sometimes make it work by
+telling ROCm to use the architecture of a similar GPU instead:</p>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">HSA_OVERRIDE_GFX_VERSION</span><span class="o">=</span><span class="m">11</span>.5.0
+</span></code></pre></div>
+<p>where the value is the architecture you want to pretend to be (for example <code>11.5.0</code> corresponds to
+<code>gfx1150</code>). This is a hack, it is not guaranteed to work, and it can in the worst case produce incorrect
+results. Only use it if you cannot get the GPU to work otherwise.</p>
+</li>
+<li>
+<p>The ROCm image can also be used for the devcontainer exercise below. Use the same <code>FROM</code> line, environment
+    variables and <code>uv sync</code> step in <code>.devcontainer/Dockerfile</code>, and add the GPU devices to the <code>runArgs</code> in
+    <code>devcontainer.json</code>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="p">{</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_working_env"</span><span class="p">,</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="w">    </span><span class="nt">"dockerFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dockerfile"</span><span class="p">,</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">    </span><span class="nt">"runArgs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="w">        </span><span class="s2">"--device=/dev/kfd"</span><span class="p">,</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">        </span><span class="s2">"--device=/dev/dri"</span><span class="p">,</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="w">        </span><span class="s2">"--group-add=video"</span><span class="p">,</span>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="w">        </span><span class="s2">"--ipc=host"</span><span class="p">,</span>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="w">        </span><span class="s2">"--shm-size=8G"</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Because the Dockerfile already runs <code>uv sync</code> with the ROCm-specific flags, no <code>postCreateCommand</code> is needed.
+If you do add one, remember to use the same flags, otherwise <code>uv</code> will overwrite the ROCm build of PyTorch.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>(Optional) Another way you can use Dockerfiles in your day-to-day work is for Dev-containers. Developer containers
@@ -2746,33 +2971,33 @@ application is using GPU by printing <code>torch.cuda.is_available()</code>.</p>
 <ol>
 <li>
 <p>First, install the
-    <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers">Remote - Containers</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers">Dev Containers</a>
     extension.</p>
 </li>
 <li>
 <p>Create a <code>.devcontainer</code> folder in your project root and create a <code>Dockerfile</code> inside it. We will keep this file
     very barebones for now, so let's just define a base installation of Python:</p>
-<div class="language-docker highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-bookworm-slim</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>
-</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-trixie-slim</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="w">    </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>gcc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="w">    </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
 </span></code></pre></div>
 </li>
 <li>
 <p>Create a <code>devcontainer.json</code> file in the <code>.devcontainer</code> folder. This file should look something like this:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="p">{</span>
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_working_env"</span><span class="p">,</span>
-</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">    </span><span class="nt">"dockerFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dockerfile"</span><span class="p">,</span>
-</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="w">    </span><span class="nt">"postCreateCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uv sync --locked"</span>
-</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="p">{</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_working_env"</span><span class="p">,</span>
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">    </span><span class="nt">"dockerFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dockerfile"</span><span class="p">,</span>
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">    </span><span class="nt">"postCreateCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uv sync --locked"</span>
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>This file tells VS Code that we want to use the <code>Dockerfile</code> that we just created and that we want to install
 our Python dependencies after the container has been created.</p>
 </li>
 <li>
 <p>After creating these files, you should be able to open the command palette in VS Code (F1) and search for the
-    option <code>Remote-Containers: Reopen in Container</code> or <code>Remote-Containers: Rebuild and Reopen in Container</code>. Choose
+    option <code>Dev Containers: Reopen in Container</code> or <code>Dev Containers: Rebuild and Reopen in Container</code>. Choose
     either of these options.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/dev_container.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/dev_container.png" width="600" /></a>
@@ -2798,11 +3023,11 @@ it is already being installed in a <code>RUN uv sync</code> command in your Dock
 <ol>
 <li>
 <p>Add the following lines to your Dockerfile</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>init<span class="w"> </span>--no-scm
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="k">COPY</span><span class="w"> </span>.dvc/config<span class="w"> </span>.dvc/config
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="k">COPY</span><span class="w"> </span>*.dvc<span class="w"> </span>.dvc/
-</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>config<span class="w"> </span>core.no_scm<span class="w"> </span>true
-</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>pull
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>init<span class="w"> </span>--no-scm
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="k">COPY</span><span class="w"> </span>.dvc/config<span class="w"> </span>.dvc/config
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="k">COPY</span><span class="w"> </span>*.dvc<span class="w"> </span>.dvc/
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>config<span class="w"> </span>core.no_scm<span class="w"> </span>true
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dvc<span class="w"> </span>pull
 </span></code></pre></div>
 <p>The first line initializes <code>dvc</code> in the Docker image. The <code>--no-scm</code> option is needed because normally <code>dvc</code> can
 only be initialized inside a git repository, but this option allows initializing <code>dvc</code> without being in one.
@@ -2812,8 +3037,9 @@ data from your remote storage. The last line pulls the data.</p>
 <li>
 <p>If your data is not public, we need to provide credentials in some way to pull the data. We are for now going to
     do it in a not-so-secure way. When <code>dvc</code> first connected to your drive, a credential file was created. This file
-    is located in <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code> where <code>$CACHE_HOME</code>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">Windows</label></div>
+    is located in <code>$CACHE_HOME/pydrive2fs/{gdrive_client_id}/default.json</code>, where <code>$CACHE_HOME</code> depends on your
+    operating system:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">macOS</label><label for="__tabbed_2_2">Linux</label><label for="__tabbed_2_3">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><code>~/Library/Caches</code></p>
@@ -2828,19 +3054,19 @@ This is the typical location, but it may vary depending on what distro you are r
 </div>
 </div>
 <p>Find the file. The content should look similar to this (only some fields are shown):</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="p">{</span>
-</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">    </span><span class="err">...</span>
-</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="p">{</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="w">    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="w">    </span><span class="err">...</span>
+</span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>We are going to copy the file into our Docker image. This, of course, is not a secure way of doing it, but it is
 the easiest way to get started. As long as you are not sharing your Docker image with anyone else, then it is
 fine. Add the following lines to your Dockerfile before the <code>RUN dvc pull</code> command:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">COPY</span><span class="w"> </span>&lt;path_to_default.json&gt;<span class="w"> </span>default.json
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>--local<span class="w"> </span>gdrive_service_account_json_file_path<span class="w"> </span>default.json
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="k">COPY</span><span class="w"> </span>&lt;path_to_default.json&gt;<span class="w"> </span>default.json
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="k">RUN</span><span class="w"> </span>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>--local<span class="w"> </span>gdrive_user_credentials_file<span class="w"> </span>default.json
 </span></code></pre></div>
 <p>where <code>&lt;path_to_default.json&gt;</code> is the path to the <code>default.json</code> file that you just found. The last line tells
 <code>dvc</code> to use the <code>default.json</code> file as the credentials for pulling data from your remote storage. You can
@@ -2924,7 +3150,7 @@ Desktop that lets you explore your Docker images in depth.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 06:19:26">February 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3064,10 +3290,10 @@ Desktop that lets you explore your Docker images in depth.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

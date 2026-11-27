@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2392,8 +2392,8 @@ through the steps of having your code in your GitHub repository to automatically
 that, store data and pull it all together to make a training run. After the training is completed you should hopefully
 have a file stored in the cloud with your trained model weights.</p>
 <p>Today's exercises will be about serving those model weights to an end user. We focus on two different ways
-of deploying our model: <a href="https://cloud.google.com/functions/docs">Google cloud functions</a> and
-<a href="https://cloud.google.com/run/docs">Google cloud run</a>. Both services are serverless, meaning that you do not have to
+of deploying our model: <a href="https://cloud.google.com/functions/docs">Cloud Run functions</a> (formerly called Cloud Functions)
+and <a href="https://cloud.google.com/run/docs">Cloud Run</a>. Both services are serverless, meaning that you do not have to
 manage the server that runs your code.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/gcp_deployment_options.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_deployment_options.png" width="1000" /></a></p>
@@ -2404,61 +2404,67 @@ Engine which are more traditional ways of deploying your code. Here you have to 
 </figcaption>
 </figure>
 <h2 id="cloud-functions">Cloud Functions</h2>
-<p>Google Cloud Functions is the most simple way that we can deploy our code to the cloud. As stated above, it is a
+<p>Google Cloud Functions is the simplest way that we can deploy our code to the cloud. Note that the product has been
+renamed to <em>Cloud Run functions</em> and, in the cloud console, functions are now created and managed from the
+<code>Cloud Run</code> page. As stated above, it is a
 serverless service, meaning that you do not have to worry about the underlying infrastructure. You just write your code
 and deploy it. The service is great for small applications that can be encapsulated in <strong>a single script</strong>.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <ol>
 <li>
-<p>Go to the start page of <code>Cloud Functions</code>. It can be found in the sidebar on the homepage or you can just search for
-    it. Activate the service in the cloud console or use the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudfunctions.googleapis.com
+<p>Go to the <code>Cloud Run</code> page in the cloud console (functions are now created from there). It can be found in the
+    sidebar on the homepage or you can just search for it. Enable the services required for deploying functions or use
+    the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>artifactregistry.googleapis.com<span class="w"> </span>cloudbuild.googleapis.com<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span>run.googleapis.com<span class="w"> </span>logging.googleapis.com
 </span></code></pre></div>
 </li>
 <li>
-<p>Click the <code>Create Function</code> button which should take you to a screen like the image below. Make sure it is a 2nd
-    Gen function, give it a name, set the server region to somewhere close by and change the authentication policy to
-    <code>Allow unauthenticated invocations</code> so we can access it directly from a browser. Remember to note down the</p>
+<p>Click the <code>Write a function</code> button which should take you to a screen like the image below. Give the service a name,
+    set the server region to somewhere close by and change the authentication policy to <code>Allow public access</code> so we can
+    access it directly from a browser. Remember to note down the URL of the function, shown next to <code>URL:</code> once it has
+    been deployed, as we are going to use it later.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_cloud_functions.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_cloud_functions.png" width="500" /></a>
 </figure></p>
 </li>
 <li>
-<p>On the next page, for <code>Runtime</code> pick the <code>Python 3.11</code> option (or newer). This will make the inline editor show both
-    a <code>main.py</code> and <code>requirements.py</code> file. Look over them and try to understand what they do. Be sure to take a
+<p>In the create form, for <code>Runtime</code> pick the newest <code>Python</code> option available (e.g. <code>Python 3.13</code>). After clicking
+    <code>Create</code>, you should be taken to the <code>Source</code> tab of the function, which shows an inline editor with both a
+    <code>main.py</code> and a <code>requirements.txt</code> file. Look over them and try to understand what they do. Be sure to take a
     look at the <a href="https://github.com/GoogleCloudPlatform/functions-framework-python">functions-framework</a> which is a
-    needed requirement of any Cloud function.</p>
+    needed requirement of any Cloud Run function.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_functions_code.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_functions_code.png" width="500" /></a>
 </figure></p>
-<p>After you have looked over the files, click the <code>Deploy</code> button.</p>
+<p>After you have looked over the files, click the <code>Save and redeploy</code> button.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The <code>functions-framework</code> is a lightweight, open-source framework for turning Python functions into HTTP
-functions. Any function that you deploy to Cloud Functions must be wrapped in the <code>@functions_framework.http</code>
-decorator.</p>
+functions. Any function that you deploy to Cloud Run functions must use the framework, for example by
+wrapping it in the <code>@functions_framework.http</code> decorator.</p>
 </details>
 </li>
 <li>
-<p>Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by going to
-    the <code>Testing</code> tab.</p>
+<p>Afterwards, the function should begin to deploy. When it is done, you should see ✅. Now let's test it by clicking
+    the <code>Test</code> button.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_test_function.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_test_function.png" width="800" /></a>
 </figure></p>
 </li>
 <li>
 <p>If you know what the application does, it should come as no surprise that it can run without any input. We
-    therefore just send an empty request by clicking the <code>Test The Function</code> button. Does the function return
+    therefore just send an empty request by clicking the <code>Test</code> button. Does the function return
     the output you expected? Wait for the logs to show up. What do they show?</p>
 <ol>
 <li>
-<p>What should the <code>Triggering event</code> look like in the testing prompt for the program to respond with</p>
+<p>What should the test request payload look like in the testing prompt for the program to respond with</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Hallo General Kenobi!
 </span></code></pre></div>
 <p>Try it out.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>The default triggering event is a JSON object with a key <code>name</code> and a value. Therefore the triggering event
+<p>The default test request is a JSON object with a key <code>name</code> and a value. Therefore the request payload
 should look like this:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"General Kenobi"</span>
@@ -2467,14 +2473,16 @@ should look like this:</p>
 </details>
 </li>
 <li>
-<p>Go to the trigger tab and go to the URL for the application. Execute the API a couple of times. How can you
-    change the URL to make the application respond with the same output as above?</p>
+<p>Go to the function's service page and go to the URL for the application (shown next to <code>URL:</code>). Execute the
+    API a couple of times. How can you change the URL to make the application respond with the same output as
+    above?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>You can change the URL to include a query parameter <code>name</code> with the value <code>General Kenobi</code>. For example</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>https://us-central1-my-personal-mlops-project.cloudfunctions.net/function-3?name=General%20Kanobi
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>https://function-3-abc123lz-uc.a.run.app?name=General%20Kenobi
 </span></code></pre></div>
-<p>where you would need to replace everything before the <code>?</code> with your URL.</p>
+<p>where you would need to replace everything before the <code>?</code> with your URL. Note that functions are served on
+the <code>a.run.app</code> domain, like any other Cloud Run service.</p>
 </details>
 </li>
 <li>
@@ -2483,17 +2491,17 @@ should look like this:</p>
 <details class="success">
 <summary>Solution</summary>
 <ul>
-<li>Invocations/Second: The number of times the function is invoked per second</li>
-<li>Execution time (ms): The time it takes for the function to execute in milliseconds</li>
-<li>Memory usage (MB): The memory usage of the function in MB</li>
-<li>Instance count (instances): The number of instances that are running the function</li>
+<li>Request count: The number of requests per second that the service receives</li>
+<li>Request latencies: The time it takes for the service to handle a request</li>
+<li>Container memory utilization: The percentage of the allocated memory that instances use</li>
+<li>Container instance count: The number of container instances that are running the service</li>
 </ul>
 </details>
 </li>
 <li>
 <p>Check out the logs tab. You should see that your application has already been invoked multiple times. Also, try
     to execute this command in a terminal:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>functions<span class="w"> </span>logs<span class="w"> </span><span class="nb">read</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>logs<span class="w"> </span><span class="nb">read</span><span class="w"> </span>&lt;service-name&gt;
 </span></code></pre></div>
 </li>
 </ol>
@@ -2569,18 +2577,20 @@ should look like this:</p>
 </details>
 </li>
 <li>
-<p>Next, create a storage bucket and upload the model file to the bucket. Try to do this using the <code>gsutil</code> command
-    and check afterward that the file is in the bucket.</p>
+<p>Next, create a storage bucket and upload the model file to the bucket. Try to do this using the
+    <code>gcloud storage</code> command line tool and check afterward that the file is in the bucket.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gsutil<span class="w"> </span>mb<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># mb stands for make bucket</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gsutil<span class="w"> </span>cp<span class="w"> </span>model.pkl<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># cp stands for copy</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gcloud<span class="w"> </span>storage<span class="w"> </span>buckets<span class="w"> </span>create<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># creates the bucket</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gcloud<span class="w"> </span>storage<span class="w"> </span>cp<span class="w"> </span>model.pkl<span class="w"> </span>gs://&lt;bucket-name&gt;<span class="w">  </span><span class="c1"># cp stands for copy</span>
 </span></code></pre></div>
-<p>where you replace <code>&lt;bucket-name&gt;</code> with the name of your bucket.</p>
+<p>where you replace <code>&lt;bucket-name&gt;</code> with the name of your bucket. Older tutorials often use the <code>gsutil</code>
+command line tool (e.g. <code>gsutil mb gs://&lt;bucket-name&gt;</code>), but it is being replaced by <code>gcloud storage</code>.</p>
 </details>
 </li>
 <li>
-<p>Create a new cloud function with the same initial settings as the first one, e.g. <code>Python 3.11</code> and <code>HTTP</code>. Then
+<p>Create a new function with the same initial settings as the first one, e.g. the same <code>Python</code> runtime and
+    <code>Allow public access</code> authentication. Then
     implement in the <code>main.py</code> file code that:</p>
 <ul>
 <li>Loads the model from the bucket</li>
@@ -2588,9 +2598,9 @@ should look like this:</p>
 <li>Returns the prediction of the model</li>
 </ul>
 <p>In addition to writing the <code>main.py</code> file, you also need to fill out the <code>requirements.txt</code> file. You need at
-least three packages to run the application. Remember to also change the <code>Entry point</code> to the name of your
-function. If your deployment fails, try to go to the <code>Logs Explorer</code> page in <code>gcp</code> which can help you identify
-why.</p>
+least three packages to run the application. Remember to also change the <code>Function entry point</code> to the name of
+your function. If your deployment fails, try to go to the <code>Logs Explorer</code> page in <code>gcp</code> which can help you
+identify why.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The main script should look something like this:</p>
@@ -2661,12 +2671,12 @@ model. Otherwise when trying to load the model you will most likely get an error
 <p>It depends on how exactly you have chosen to implement <code>main.py</code>. But for the provided solution, the
 payload should look like this:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">"input_data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>with the corresponding <code>curl</code> command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span>https://your-cloud-function-url/knn_classifier<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span>https://your-function-url/<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">'{"input_data": [5.1, 3.5, 1.4, 0.2]}'</span>
 </span></code></pre></div>
@@ -2676,16 +2686,22 @@ payload should look like this:</p>
 </li>
 <li>
 <p>Let's try to figure out how to do the above deployment using <code>gcloud</code> instead of the console UI. The relevant command
-    is <a href="https://cloud.google.com/functions/docs/create-deploy-http-python">gcloud functions deploy</a>. For this function
-    to work you will need to put the <code>main.py</code> and <code>requirements.txt</code> in a separate folder. Try to execute the command
-    to successfully deploy the function.</p>
+    is <a href="https://cloud.google.com/sdk/gcloud/reference/run/deploy"><code>gcloud run deploy</code></a> used with the <code>--function</code> flag.
+    For this command to work you will need to put the <code>main.py</code> and <code>requirements.txt</code> in a separate folder. Try to
+    execute the command to successfully deploy the function.</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>functions<span class="w"> </span>deploy<span class="w"> </span>&lt;func-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span>--gen2<span class="w"> </span>--runtime<span class="w"> </span>python311<span class="w"> </span>--trigger-http<span class="w"> </span>--source<span class="w"> </span>&lt;folder&gt;<span class="w"> </span>--entry-point<span class="w"> </span>knn_classifier
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>&lt;func-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span>--source<span class="w"> </span>&lt;folder&gt;<span class="w"> </span>--function<span class="w"> </span>knn_classifier<span class="w"> </span>--base-image<span class="w"> </span>python313<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span>--region<span class="w"> </span>&lt;region&gt;<span class="w"> </span>--allow-unauthenticated
 </span></code></pre></div>
-<p>where you need to replace <code>&lt;func-name&gt;</code> with the name of your function and <code>&lt;folder&gt;</code> with the path to the
-folder containing the <code>main.py</code> and <code>requirements.txt</code> files.</p>
+<p>where you need to replace <code>&lt;func-name&gt;</code> with the name of your function, <code>&lt;folder&gt;</code> with the path to the
+folder containing the <code>main.py</code> and <code>requirements.txt</code> files and <code>&lt;region&gt;</code> with the region you want to
+deploy to. You can see the available runtime base images in
+<a href="https://cloud.google.com/run/docs/configuring/services/runtime-base-images">the Cloud Run documentation</a>.
+Note that older tutorials use <code>gcloud functions deploy &lt;func-name&gt; --gen2 --runtime python313
+--trigger-http --source &lt;folder&gt; --entry-point knn_classifier</code>, which is still supported for backwards
+compatibility with the Cloud Functions API.</p>
 </details>
 </li>
 <li>
@@ -2696,7 +2712,7 @@ folder containing the <code>main.py</code> and <code>requirements.txt</code> fil
 </li>
 </ol>
 <h2 id="cloud-run">Cloud Run</h2>
-<p>Cloud functions are great for simple deployments that can be encapsulated in a single script with only simple
+<p>Cloud Run functions are great for simple deployments that can be encapsulated in a single script with only simple
 requirements. However, they do not scale with more advanced applications that may depend on multiple programming
 languages. We are already familiar with how we can deal with this through containers, and
 <a href="https://cloud.google.com/run/docs/overview/what-is-cloud-run">Cloud Run</a> is the corresponding service in GCP for
@@ -2757,26 +2773,24 @@ deploying containers.</p>
 <span class="normal"><a href="#__codelineno-13-15">15</a></span>
 <span class="normal"><a href="#__codelineno-13-16">16</a></span>
 <span class="normal"><a href="#__codelineno-13-17">17</a></span>
-<span class="normal"><a href="#__codelineno-13-18">18</a></span>
-<span class="normal"><a href="#__codelineno-13-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+<span class="normal"><a href="#__codelineno-13-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">    </span>software-properties-common<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a>
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
-</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pydantic
-</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>uvicorn
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a>
-</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a><span class="k">COPY</span><span class="w"> </span>simple_fastapi_app.py<span class="w"> </span>simple_fastapi_app.py
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a>
-</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>simple_fastapi_app:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pydantic
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>uvicorn
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a><span class="k">COPY</span><span class="w"> </span>simple_fastapi_app.py<span class="w"> </span>simple_fastapi_app.py
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>simple_fastapi_app:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 <details class="example">
@@ -2796,24 +2810,22 @@ deploying containers.</p>
 <span class="normal"><a href="#__codelineno-14-13">13</a></span>
 <span class="normal"><a href="#__codelineno-14-14">14</a></span>
 <span class="normal"><a href="#__codelineno-14-15">15</a></span>
-<span class="normal"><a href="#__codelineno-14-16">16</a></span>
-<span class="normal"><a href="#__codelineno-14-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-bookworm-slim</span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ghcr.io/astral-sh/uv:python3.12-trixie-slim</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a>
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">    </span>software-properties-common<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="k">RUN</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/streamlit/streamlit-example.git<span class="w"> </span>.
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"streamlit"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"streamlit_app.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--server.port=$PORT"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--server.address=0.0.0.0"</span><span class="p">]</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="k">RUN</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/streamlit/streamlit-example.git<span class="w"> </span>.
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--system<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>streamlit<span class="w"> </span>run<span class="w"> </span>streamlit_app.py<span class="w"> </span>--server.port<span class="o">=</span><span class="nv">$PORT</span><span class="w"> </span>--server.address<span class="o">=</span><span class="m">0</span>.0.0.0
 </span></code></pre></div></td></tr></table></div>
 </details>
 <ol>
@@ -2840,30 +2852,32 @@ deploying containers.</p>
 </span></code></pre></div>
 </li>
 <li>
-<p>Click the <code>Create Service</code> button which should bring you to a page similar to the one below.</p>
+<p>Click the <code>Deploy container</code> button which should bring up the <code>Create service</code> form, similar to the one below.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_run.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run.PNG" width="1000" /></a>
 </figure></p>
 <p>Do the following:</p>
 <ul>
 <li>
-<p>Click the select button, which will bring up all built containers, and pick the one you want to deploy. In the
-    future, you probably want to choose the <em>Continuously deploy new revisions from a source repository</em> such that
-    a new version is always deployed when a new container is built.</p>
+<p>For <em>Deploy one revision from an existing container image</em>, click the select button, which will bring up all
+    built containers, and pick the one you want to deploy. In the future, you probably want to choose the
+    <em>Continuously deploy new revisions from a source repository</em> such that a new version is always deployed when
+    a new container is built.</p>
 </li>
 <li>
 <p>Hereafter, give the service a name and select the region. We recommend choosing a region close to you.</p>
 </li>
 <li>
-<p>Set the authentication method to <em>Allow unauthenticated invocations</em> such that we can call it without
+<p>Set the authentication method to <em>Allow public access</em> such that we can call it without
     providing credentials. In the future, you may only set that authenticated invocations are allowed.</p>
 </li>
 <li>
-<p>Expand the <em>Container, Connections, Security</em> tab and edit the port such that it matches the port exposed in your
-    chosen application. If your docker file exposes the env variable <code>$PORT</code> you can set the port to anything.</p>
+<p>Expand the <em>Containers, Networking, Security</em> section and edit the port such that it matches the port your
+    chosen application is listening on. If your docker file uses the <code>$PORT</code> environment variable you can set the
+    port to anything.</p>
 </li>
 </ul>
-<p>Finally, click the create button and wait for the service to be deployed (may take some time).</p>
+<p>Finally, click the <code>Create</code> button and wait for the service to be deployed (may take some time).</p>
 <div class="admonition warning">
 <p class="admonition-title">Common problems</p>
 <p>If you get an error saying
@@ -2871,17 +2885,22 @@ deploying containers.</p>
 there are two common reasons for this:</p>
 <ol>
 <li>
-<p>You need to add an <code>EXPOSE</code> statement in your docker container:</p>
+<p>You need to make sure that your application is listening on the port of the container, e.g. by adding an
+    <code>EXPOSE</code> statement in your docker container:</p>
 <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>my_application:app<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span><span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span><span class="w"> </span>main:app
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>main:app<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
 </span></code></pre></div>
 <p>and make sure that your application is also listening on that port. If you hard code the port in your
-application (as in the above code) it is best to set it 8080 which is the default port for cloud run.
+application (as in the above code) it is best to set it to 8080 which is the default port for cloud run.
 Alternatively, a better approach is to set it to the <code>$PORT</code> environment variable which is set by cloud run
 and can be accessed in your application:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>my_application:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span><span class="w"> </span>main:app
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>main:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
 </span></code></pre></div>
+<p>Note that <code>EXPOSE</code> is evaluated when the image is built, where <code>$PORT</code> is not set yet, so we keep it at the
+default <code>8080</code>. It only documents the port, while the <code>CMD</code> reads <code>$PORT</code> when the container starts. Also
+note the <code>--host 0.0.0.0</code>, which makes the application listen on all network interfaces and not only on
+<code>localhost</code> inside the container.</p>
 <p>If you do this and then want to run locally you can run it as:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-e<span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">8080</span><span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;
 </span></code></pre></div>
@@ -3022,7 +3041,7 @@ the application is updated continuously.</p>
 </details>
 </li>
 <li>
-<p>(Optional) A common pattern when using cloud run is that your application need access to some storage during
+<p>(Optional) A common pattern when using cloud run is that your application needs access to some storage during
     operations, either for reading or writing a file. This could be reading in a model checkpoint on startup and then
     writing some statistics during runtime. The easiest way to do this is to mount a storage bucket to your container.</p>
 <ol>
@@ -3128,35 +3147,35 @@ and deploy the application to cloud run.</p>
 <span class="normal"><a href="#__codelineno-26-18">18</a></span>
 <span class="normal"><a href="#__codelineno-26-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2"></a>
-</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
 </span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4"></a>
 </span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
 </span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6"></a>
 </span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9"></a><span class="w">    </span>software-properties-common<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12"></a>
-</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
-</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pydantic
-</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>uvicorn
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11"></a>
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pydantic
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>uvicorn
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>python-multipart
 </span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16"></a>
-</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17"></a><span class="k">COPY</span><span class="w"> </span>simple_fastapi_app.py<span class="w"> </span>simple_fastapi_app.py
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17"></a><span class="k">COPY</span><span class="w"> </span>simple_fastapi_app_volume.py<span class="w"> </span>simple_fastapi_app_volume.py
 </span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18"></a>
-</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>simple_fastapi_app:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19"></a><span class="k">CMD</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>uvicorn<span class="w"> </span>simple_fastapi_app_volume:app<span class="w"> </span>--port<span class="w"> </span><span class="nv">$PORT</span><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--workers<span class="w"> </span><span class="m">1</span>
 </span></code></pre></div></td></tr></table></div>
 <p>and the deployment command should look like this:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>simple-fastapi-with-mounted-volume<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span>--image<span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;<span class="w"> </span>--platform<span class="w"> </span>managed<span class="w"> </span>--region<span class="w"> </span>&lt;region&gt;<span class="w"> </span>--allow-unauthenticated<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span>--image<span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;<span class="w"> </span>--platform<span class="w"> </span>managed<span class="w"> </span>--region<span class="w"> </span>&lt;region&gt;<span class="w"> </span>--allow-unauthenticated
 </span></code></pre></div>
 </details>
 </li>
 <li>
 <p>If you then try to access either the <code>/upload/</code> or <code>/files/</code> endpoints you should see that the application at
     this point is unable to read or write to the folder location, because it is not mounted to the container yet.
-    Mounting a volume can either be done though the command line or through the UI. You can read how to do
-    <a href="https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#mount-volume">in the cloud storage volume mounts guide</a>.
+    Mounting a volume can either be done through the command line or through the UI. You can read how to do this in
+    the <a href="https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts">cloud storage volume mounts guide</a>.
     Add a volume to your cloud run service and try to access the endpoints again making sure you can read and write.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -3181,8 +3200,8 @@ application.</p>
     Manager in GCP. How can you use this service in combination with Cloud Run?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>In the cloud console, secrets can be set in the <em>Container(s), Volumes, Networking, Security</em> tab under the
-<em>Variables &amp; Secrets</em> section, see image below.</p>
+<p>In the cloud console, secrets can be set in the <em>Containers</em> tab under the
+<em>Variables and Secrets</em> section, see image below.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/gcp_run_secrets.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/gcp_run_secrets.png" width="500" /></a>
 </figure></p>
@@ -3190,7 +3209,7 @@ application.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span>--image<span class="w"> </span>&lt;image-name&gt;:&lt;image-tag&gt;<span class="w"> </span>--platform<span class="w"> </span>managed<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span>--region<span class="w"> </span>&lt;region&gt;<span class="w"> </span>--allow-unauthenticated<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span>--update-secrets<span class="w"> </span>&lt;secret-name&gt;<span class="o">=</span>&lt;secret-version&gt;
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span>--update-secrets<span class="w"> </span>&lt;env-var-name&gt;<span class="o">=</span>&lt;secret-name&gt;:&lt;secret-version&gt;
 </span></code></pre></div>
 </details>
 </li>
@@ -3200,9 +3219,9 @@ both sections, we have explicitly chosen to work with <em>serverless</em> deploy
 opposite, i.e., being the one in charge of the management of the cluster that handles the deployed services? If you are
 interested in taking deployment to the next level, you should get started on <em>Kubernetes</em> which is the de-facto
 open-source container orchestration platform that is used in production environments. If you want to deep dive we
-recommend starting <a href="https://cloud.google.com/ai-platform/pipelines/docs">with the AI Platform Pipelines documentation</a>,
-which describes how to make pipelines that are a necessary component before you start to
-<a href="https://cloud.google.com/ai-platform/pipelines/docs/configure-gke-cluster">create</a> your own Kubernetes cluster.</p>
+recommend starting <a href="https://cloud.google.com/vertex-ai/docs/pipelines/introduction">with the Vertex AI Pipelines documentation</a>,
+and when you want full control of the infrastructure you can follow the GKE quickstart to
+<a href="https://cloud.google.com/kubernetes-engine/docs/quickstarts/create-cluster">create</a> your own Kubernetes cluster.</p>
 
 
 
@@ -3225,7 +3244,7 @@ which describes how to make pipelines that are a necessary component before you 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 4, 2026 12:50:38">January 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3365,10 +3384,10 @@ which describes how to make pipelines that are a necessary component before you 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

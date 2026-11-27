@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -557,12 +557,12 @@
   <a href="#a-note-on-installing-pytorch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A note on installing Pytorch
+        A note on installing PyTorch
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="A note on installing Pytorch">
+    <nav class="md-nav" aria-label="A note on installing PyTorch">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2289,12 +2289,12 @@
   <a href="#a-note-on-installing-pytorch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A note on installing Pytorch
+        A note on installing PyTorch
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="A note on installing Pytorch">
+    <nav class="md-nav" aria-label="A note on installing PyTorch">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2428,17 +2428,17 @@ in small "exercise" blocks:</p>
 <a href="https://www.deeplearningbook.org/">deep learning</a> book by Goodfellow, Bengio, and Courville (also available in the
 literature folder). While expertise in deep learning is not required to pass this course, a basic understanding of the
 concepts is beneficial. The course focuses on the software aspects of deploying deep learning models in production.</p>
-<h2 id="a-note-on-installing-pytorch">A note on installing Pytorch</h2>
-<p>Pytorch is a huge library with many dependencies. As writing this, if you naively install Pytorch like this</p>
+<h2 id="a-note-on-installing-pytorch">A note on installing PyTorch</h2>
+<p>PyTorch is a huge library with many dependencies. At the time of writing, if you naively install PyTorch like this</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>add<span class="w"> </span>torch
 </span></code></pre></div>
 <p>in a new virtual environment, this will result in a disk usage of around 6.6 GB! This is not a problem if you have to
-do it one time, but what you will experience throughout this course you will end up downloading and installing your
-project dependencies over and over again for different reasons (new virtual environments, containers, continuous
-integration systems etc.). For this reason, it is worth considering how you install Pytorch.</p>
-<p>When naively installing Pytorch, you will fetch whatever build is available on PyPI which is most likely a GPU enabled
+do it one time, but what you will experience throughout this course is that you will end up downloading and installing
+your project dependencies over and over again for different reasons (new virtual environments, containers, continuous
+integration systems etc.). For this reason, it is worth considering how you install PyTorch.</p>
+<p>When naively installing PyTorch, you will fetch whatever build is available on PyPI which is most likely a GPU-enabled
 build. But if you do not have a GPU in your computer, you should instead install the CPU only build. For comparison,
-the CPU only build of Pytorch is around 729 MB on disk. Usually, I always recommend going to Pytorch's
+the CPU only build of PyTorch is around 729 MB on disk. I always recommend going to PyTorch's
 <a href="https://pytorch.org/get-started/locally/">homepage</a> and use their selector to get the correct installation command for
 your system.</p>
 <figure>
@@ -2447,13 +2447,13 @@ your system.</p>
 <a href="https://pytorch.org/get-started/locally/"> Image credit </a>
 </figcaption>
 </figure>
-<p><code>uv</code> has dedicated a <a href="https://docs.astral.sh/uv/guides/integration/pytorch/">full page</a> to installing Pytorch, which
+<p><code>uv</code> has dedicated a <a href="https://docs.astral.sh/uv/guides/integration/pytorch/">full page</a> to installing PyTorch, which
 I recommend you check out. Here is an example of how to configure your <code>pyproject.toml</code> file to install only CPU
-version of Pytorch using <code>uv</code>:</p>
+version of PyTorch using <code>uv</code>:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[project]</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"project"</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0.1.0"</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&gt;=3.14.0"</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&gt;=3.13"</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="s2">"torch&gt;=2.9.1"</span><span class="p">,</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">]</span>
@@ -2482,8 +2482,8 @@ new packages to ensure that the newly installed packages are recognized within t
 <li>
 <p>Start a Jupyter Notebook session in your terminal (assuming you are at the root of the course material).
     Alternatively, you should be able to open the notebooks directly in your code editor. For VS Code users you can read
-    more about how to work with Jupyter Notebooks in VS code
-    <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">in page from VScode documentation</a></p>
+    more about how to work with Jupyter Notebooks
+    <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">in the VS Code documentation</a></p>
 </li>
 <li>
 <p>Complete the
@@ -2551,7 +2551,7 @@ of the first convolution would be 32x26x26. The output of the second convolution
 of parameters in a linear layer is <code>in_features * out_features + out_features</code> (last term is the bias).
 Therefore, the total number of parameters in the network is
 <code>3*3*1*32 + 32 + 3*3*32*64 + 64 + 36864*10 + 10 = 387,466</code>, which could be calculated by running:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">sum</span><span class="p">([</span><span class="n">prod</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">neural_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">()])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">neural_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -2725,17 +2725,18 @@ the model definition later (which you are most likely going to do).</p>
 <details class="success">
 <summary>Solution</summary>
 <p class="annotate">Data is stored in <code>.pt</code> files which can be loaded using <code>torch.load</code> (1). We iterate over the files, load them
-and concatenate them into a single tensor. In particular, we have highlighted the use of <code>.unsqueeze</code> function.
-Convolutional neural networks (which we propose as a solution) need the data to be in the shape <code>[N, C, H, W]</code>
-where <code>N</code> is the number of samples, <code>C</code> is the number of channels, <code>H</code> is the height of the image and <code>W</code> is the
-width of the image. The dataset is stored in the shape <code>[N, H, W]</code> and therefore we need to add a channel.</p>
+and concatenate them into a single tensor. In particular, we have highlighted the use of the <code>.unsqueeze</code>
+function. Convolutional neural networks (which we propose as a solution) need the data to be in the shape
+<code>[N, C, H, W]</code> where <code>N</code> is the number of samples, <code>C</code> is the number of channels, <code>H</code> is the height of the image
+and <code>W</code> is the width of the image. The dataset is stored in the shape <code>[N, H, W]</code> and therefore we need to add a
+channel.</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>.pt</code> files are nothing else than a <code>.pickle</code> file in disguise. The
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> The <code>.pt</code> files are nothing more than a <code>.pickle</code> file in disguise. The
     <code>torch.save/torch.load</code> function is essentially a wrapper around the <code>pickle</code> module in Python, which
     produces serialized files. However, it is convention to use <code>.pt</code> to indicate that the file contains PyTorch
     tensors.</li>
 </ol>
-<p>We have additionally in the solution added functionality for plotting the images together with the labels for
+<p>Additionally, we have added functionality in the solution for plotting the images together with the labels for
 inspection. Remember: all good machine learning starts with a good understanding of the data.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">data.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
@@ -2803,14 +2804,14 @@ inspection. Remember: all good machine learning starts with a good understanding
 </span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a>        <span class="n">train_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s2">/train_images_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pt"</span><span class="p">))</span>
 </span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a>        <span class="n">train_target</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s2">/train_target_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pt"</span><span class="p">))</span>
 </span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_images</span><span class="p">)</span>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="hll">    <span class="n">train_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
-</span></span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="hll">
-</span></span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a>    <span class="n">test_images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s2">/test_images.pt"</span><span class="p">)</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a>    <span class="n">test_images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s2">/test_images.pt"</span><span class="p">)</span>
 </span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a>    <span class="n">test_target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s2">/test_target.pt"</span><span class="p">)</span>
 </span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a>    <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a>    <span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">train_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="hll">    <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+</span></span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="hll">    <span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+</span></span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24"></a>    <span class="n">train_target</span> <span class="o">=</span> <span class="n">train_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
 </span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25"></a>    <span class="n">test_target</span> <span class="o">=</span> <span class="n">test_target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
 </span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26"></a>
 </span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27"></a>    <span class="n">train_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
@@ -3039,9 +3040,9 @@ if available.</p>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">data_solution</span><span class="w"> </span><span class="kn">import</span> <span class="n">corrupt_mnist</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model_solution</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyAwesomeModel</span>
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"mps"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span><span class="p">)</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="hll">
-</span></span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="hll"><span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"mps"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span><span class="p">)</span>
+</span></span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 </span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a>
 </span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a>
 </span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
@@ -3050,28 +3051,28 @@ if available.</p>
 </span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Training day and night"</span><span class="p">)</span>
 </span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">lr</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">epochs</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a>
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a><span class="hll">    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span></span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19"></a>    <span class="n">train_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
 </span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20"></a>
 </span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21"></a>    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
 </span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22"></a>
 </span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23"></a>    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 </span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
 </span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25"></a>
-</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26"></a><span class="hll">    <span class="n">statistics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"train_loss"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"train_accuracy"</span><span class="p">:</span> <span class="p">[]}</span>
-</span></span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26"></a>    <span class="n">statistics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"train_loss"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"train_accuracy"</span><span class="p">:</span> <span class="p">[]}</span>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
 </span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 </span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
-</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30"></a>            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30"></a><span class="hll">            <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span></span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
 </span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32"></a>            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 </span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 </span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 </span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">"train_loss"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
 </span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37"></a>
-</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38"></a><span class="hll">            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-</span></span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">"train_accuracy"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38"></a>            <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39"></a>            <span class="n">statistics</span><span class="p">[</span><span class="s2">"train_accuracy"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
 </span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40"></a>
 </span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -3092,8 +3093,8 @@ if available.</p>
 </span><span id="__span-13-57"><a id="__codelineno-13-57" name="__codelineno-13-57"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Evaluating like my life depended on it"</span><span class="p">)</span>
 </span><span id="__span-13-58"><a id="__codelineno-13-58" name="__codelineno-13-58"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">)</span>
 </span><span id="__span-13-59"><a id="__codelineno-13-59" name="__codelineno-13-59"></a>
-</span><span id="__span-13-60"><a id="__codelineno-13-60" name="__codelineno-13-60"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
-</span><span id="__span-13-61"><a id="__codelineno-13-61" name="__codelineno-13-61"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
+</span><span id="__span-13-60"><a id="__codelineno-13-60" name="__codelineno-13-60"></a><span class="hll">    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</span></span><span id="__span-13-61"><a id="__codelineno-13-61" name="__codelineno-13-61"></a>    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_checkpoint</span><span class="p">))</span>
 </span><span id="__span-13-62"><a id="__codelineno-13-62" name="__codelineno-13-62"></a>
 </span><span id="__span-13-63"><a id="__codelineno-13-63" name="__codelineno-13-63"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">test_set</span> <span class="o">=</span> <span class="n">corrupt_mnist</span><span class="p">()</span>
 </span><span id="__span-13-64"><a id="__codelineno-13-64" name="__codelineno-13-64"></a>    <span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
@@ -3149,7 +3150,7 @@ you have created.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 06:19:26">February 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3289,10 +3290,10 @@ you have created.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

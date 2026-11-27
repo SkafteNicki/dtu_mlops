@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc git && \
@@ -13,6 +13,6 @@ COPY frontend.py /app/frontend.py
 
 RUN uv sync --group frontend --no-install-project --no-dev
 
-EXPOSE $PORT
+EXPOSE 8080
 
-ENTRYPOINT ["uv", "run", "streamlit", "run", "frontend.py", "--server.port", "$PORT", "--server.address=0.0.0.0"]
+ENTRYPOINT uv run --no-sync streamlit run frontend.py --server.port=$PORT --server.address=0.0.0.0

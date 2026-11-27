@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2465,7 +2465,7 @@ using the standard <code>pyproject.toml</code> file, as covered in this <a href=
 <ol>
 <li>
 <p>We are going to assume that you have a training script in your project that you would like to be able to run from the
-    terminal directly without having to call the Python interpreter. Lets assume it is located like this:</p>
+    terminal directly without having to call the Python interpreter. Let's assume it is located like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>src/
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── my_project/
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   ├── __init__.py
@@ -2505,9 +2505,9 @@ the <code>train.py</code> file, located in the <code>my_project</code> package.<
 </ol>
 <p>That is all there really is to it. You can now run your scripts directly from the terminal without having to call the
 Python interpreter. Some good examples of Python packages that use this approach are
-<a href="https://github.com/numpy/numpy/blob/main/pyproject.toml#L43-L45">numpy</a>,
-<a href="https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L67-L71">pylint</a> and
-<a href="https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L99-L100">kedro</a>.</p>
+<a href="https://github.com/numpy/numpy/blob/main/pyproject.toml#L83-L85">numpy</a>,
+<a href="https://github.com/pylint-dev/pylint/blob/main/pyproject.toml#L61-L65">pylint</a> and
+<a href="https://github.com/kedro-org/kedro/blob/main/pyproject.toml#L115-L116">kedro</a>.</p>
 <h2 id="command-line-arguments">Command line arguments</h2>
 <p>If you have experience with Python, you are likely familiar with the <code>argparse</code> package, which enables you to pass
 arguments directly to your script via the terminal.</p>
@@ -2523,10 +2523,10 @@ argument here is to give users of our code a single entrypoint to interact with 
 multiple scripts. As long as all subcommands are properly documented, then our interface should be simple to interact
 with (again think <code>git</code> where each subcommand can be given the <code>-h</code> arg to get specific help).</p>
 <p>Instead of using <code>argparse</code> we are here going to look at the <a href="https://typer.tiangolo.com/">typer</a> package. <code>typer</code>
-extends the functionalities of <code>argparse</code> to allow for easy definition of subcommands and many other things, which we
-are not going to touch upon in this module. For completeness we should also mention that <code>typer</code> is not the only package
-for doing this, and another excellent framework for creating command line interfaces easily is
-<a href="https://click.palletsprojects.com/en/8.1.x/">click</a>.</p>
+is built on top of <a href="https://click.palletsprojects.com/">click</a> and uses Python type hints to allow for easy definition
+of subcommands and many other things, which we are not going to touch upon in this module. For completeness we should
+also mention that <code>typer</code> is not the only package for doing this, as <code>click</code> itself is also an excellent framework
+for creating command line interfaces easily.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <ol>
 <li>
@@ -2563,7 +2563,7 @@ these to be able to work properly.</p>
 </li>
 <li>
 <p>Next, let's try on a slightly harder example. Below is a simple script that trains a support vector machine on the
-    breast cancer dataset.</p>
+    iris dataset.</p>
 <div class="admonition example">
 <p class="admonition-title">iris_classifier.py</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
@@ -2775,8 +2775,8 @@ giving a shorter alias to the <code>--output</code> option.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The only key difference between the two is that in the <code>train</code> command we define the <code>output</code> argument to
-to be an optional parameter, i.e., we provide a default and for the <code>evaluate</code> command it is a required
-parameter.</p>
+be an optional parameter, i.e., we provide a default, while the <code>evaluate</code> command takes a required argument
+for the model file.</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
@@ -2912,7 +2912,7 @@ will be converted to <code>-</code> in the CLI. Meaning that if you have a varia
 use <code>--n-neighbors</code> in the CLI.</p>
 </div>
 <details class="success">
-<summary>Success</summary>
+<summary>Solution</summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">iris_classifier.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
@@ -3063,21 +3063,21 @@ use <code>--n-neighbors</code> in the CLI.</p>
 <p>Assuming that our <code>iris_classifier.py</code> script from before is placed in the <code>src/my_project</code> folder, we should
 just add</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">[project.scripts]</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"src.my_project.iris_classifier:app"</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">iris-classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_project.iris_classifier:app"</span>
 </span></code></pre></div>
 <p>to the <code>pyproject.toml</code> file and then we should be able to run</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>uv<span class="w"> </span>run<span class="w"> </span>greetings<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">'linear'</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>uv<span class="w"> </span>run<span class="w"> </span>iris-classifier<span class="w"> </span>train<span class="w"> </span>svm<span class="w"> </span>--kernel<span class="w"> </span><span class="s1">'linear'</span>
 </span></code></pre></div>
 </details>
 </li>
 </ol>
-<p>This covers the basics of <code>typer</code> but feel free to deep dive into how the package can help you custimize your CLIs.
+<p>This covers the basics of <code>typer</code> but feel free to deep dive into how the package can help you customize your CLIs.
 Checkout <a href="https://typer.tiangolo.com/tutorial/printing/">this page</a> on adding colors to your CLI or
 <a href="https://typer.tiangolo.com/tutorial/parameter-types/number/">this page</a> on validating the inputs to your CLI.</p>
 <h2 id="non-python-code">Non-Python code</h2>
 <p>The two above sections have shown you how to create a simple CLI for your Python scripts. However, when doing machine
 learning projects, you often have a lot of non-Python code that you would like to run from the terminal. In the
-learning modules you have already completed, you have already encountered a couple of CLI tools that are used in our
+learning modules you have already completed, you have encountered a couple of CLI tools that are used in our
 projects:</p>
 <ul>
 <li><a href="../git/">git</a> for version control of code</li>
@@ -3091,7 +3091,7 @@ to interact with. Here is an example of a long command that you might need to ru
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>run<span class="w"> </span>my_command<span class="w"> </span>--arg1<span class="o">=</span>val1<span class="w"> </span>--arg2<span class="o">=</span>val2
 </span></code></pre></div>
 <p>i.e. easier to remember because we have removed a lot of the hard-to-remember stuff, but we are still able to configure
-it to our liking. To help with this, we are going to look at the <a href="http://www.pyinvoke.org/">invoke</a> package.
+it to our liking. To help with this, we are going to look at the <a href="https://www.pyinvoke.org/">invoke</a> package.
 <code>invoke</code> is a Python package that allows you to define tasks that can be
 run from the terminal. It is a bit like a more advanced version of the <a href="https://makefiletutorial.com/">Makefile</a> that
 you might have encountered in other programming languages. Some good alternatives to <code>invoke</code> are
@@ -3111,7 +3111,7 @@ we could install it globally using <code>uvx invoke</code> to be used across mul
 <p>Add a <code>tasks.py</code> file to your repository and try to just run</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>--list
 </span></code></pre></div>
-<p>personally, I like to create an shell alias for <code>uv run invoke</code> called just <code>uvi</code> to shorten the command.</p>
+<p>Personally, I like to create a shell alias for <code>uv run invoke</code> called just <code>uvi</code> to shorten the command.</p>
 <p>which should work but inform you that no tasks have been added yet.</p>
 </li>
 <li>
@@ -3200,8 +3200,8 @@ returns the current Python interpreter, but it works for all operating systems. 
 </span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"dvc pull"</span><span class="p">)</span>
 </span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>
 </span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="nd">@task</span><span class="p">(</span><span class="n">pull_data</span><span class="p">)</span>
-</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"my_cli train"</span><span class="p">)</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"my_cli train --output 'model.ckpt'"</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
 </li>
@@ -3242,7 +3242,7 @@ terminal. It allows you to interact with your code in a more advanced way than j
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 21:08:51">November 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3382,10 +3382,10 @@ terminal. It allows you to interact with your code in a more advanced way than j
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

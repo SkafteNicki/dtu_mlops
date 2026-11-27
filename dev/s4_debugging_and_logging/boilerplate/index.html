@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2429,7 +2429,7 @@ the actual boilerplate that comes with it.</p>
 We are here going to use <code>PyTorch Lightning</code>, as it offers all the functionality that we are going to need later in the
 course.</p>
 <h2 id="pytorch-lightning">PyTorch Lightning</h2>
-<p>In general refer to the <a href="https://lightning.ai/docs/pytorch/stable/">documentation</a> from PyTorch lightning
+<p>In general refer to the <a href="https://lightning.ai/docs/pytorch/stable/">documentation</a> from PyTorch Lightning
 if in doubt about how to format your code for doing specific tasks. We are here going to explain the key concepts of
 the API that you need to understand to use the framework, starting with the <code>LightningModule</code> and the <code>Trainer</code>.</p>
 <h3 id="lightningmodule">LightningModule</h3>
@@ -2457,7 +2457,7 @@ actual training, automating everything that you do not want to worry about.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pytorch_lightning</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span>  <span class="c1"># this is our LightningModule</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">()</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">traier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span></code></pre></div>
 <p>That's essentially all that you need to specify in lightning to have a working model. The trainer object does not
 have methods that you need to implement yourself, but it has a bunch of arguments that can be used to control how many
@@ -2488,7 +2488,7 @@ all three assume that we are using <code>torch.utils.data.DataLoader</code> for 
 </li>
 <li>
 <p>Finally, <code>Lightning</code> also has the <code>LightningDataModule</code> that organizes data loading into a single structure, see
-    this <a href="https://lightning.ai/docs/pytorch/latest/data/datamodule.html">page</a> for more info. Putting
+    this <a href="https://lightning.ai/docs/pytorch/stable/data/datamodule.html">page</a> for more info. Putting
     data loading into a <code>DataModule</code> makes sense as it can then be reused between projects.</p>
 </li>
 </ol>
@@ -2497,18 +2497,18 @@ all three assume that we are using <code>torch.utils.data.DataLoader</code> for 
 model. Callbacks should therefore be seen as a self-contained feature that can be reused between projects. You have the
 option of implementing callbacks yourself (by inheriting from the <code>pytorch_lightning.callbacks.Callback</code> base class) or
 using one of the
-<a href="https://lightning.ai/docs/pytorch/latest/extensions/callbacks.html#built-in-callbacks">built-in callbacks</a>.
+<a href="https://lightning.ai/docs/pytorch/stable/extensions/callbacks.html#built-in-callbacks">built-in callbacks</a>.
 Of particular interest are the <code>ModelCheckpoint</code> and <code>EarlyStopping</code> callbacks:</p>
 <ul>
 <li>
-<p>The <code>ModelCheckpoint</code> makes sure to save checkpoints of your model. This is in principal not hard to do yourself, but
+<p>The <code>ModelCheckpoint</code> makes sure to save checkpoints of your model. This is in principle not hard to do yourself, but
     the <code>ModelCheckpoint</code> callback offers additional functionality by saving checkpoints only when some metric improves,
     or only save the best <code>K</code> performing models, etc.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">checkpoint_callback</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">dirpath</span><span class="o">=</span><span class="s2">"./models"</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s2">"val_loss"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"min"</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callbacks</span><span class="p">])</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callback</span><span class="p">])</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </span></code></pre></div>
 </li>
@@ -2525,7 +2525,7 @@ Of particular interest are the <code>ModelCheckpoint</code> and <code>EarlyStopp
 </li>
 </ul>
 <p>Multiple callbacks can be used by passing them all in a list e.g.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callbacks</span><span class="p">,</span> <span class="n">early_stopping_callback</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint_callback</span><span class="p">,</span> <span class="n">early_stopping_callback</span><span class="p">])</span>
 </span></code></pre></div>
 <h2 id="exercises">❔ Exercises</h2>
 <p>Please note that in the following exercise we will basically ask you to reformat all your MNIST code to follow the
@@ -2551,7 +2551,7 @@ framework to do some of the heavy lifting you need to have gone through some imp
 <p>The <code>configure_optimizers</code> method</p>
 </li>
 </ul>
-<p>Please read the <a href="https://lightning.ai/docs/pytorch/latest/common/lightning_module.html">documentation</a>
+<p>Please read the <a href="https://lightning.ai/docs/pytorch/stable/common/lightning_module.html">documentation</a>
 for more info.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2625,24 +2625,24 @@ for more info.</p>
 </span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="w">        </span><span class="sd">"""Forward pass."""</span>
 </span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="hll">        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</span></span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30"></a>
-</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
-</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="w">        </span><span class="sd">"""Training step."""</span>
-</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33"></a>        <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
-</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a>        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36"></a>
-</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38"></a><span class="w">        </span><span class="sd">"""Configure optimizer."""</span>
-</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39"></a>        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
-</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40"></a>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+</span></span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="hll"><span class="w">        </span><span class="sd">"""Training step."""</span>
+</span></span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33"></a><span class="hll">        <span class="n">img</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
+</span></span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a><span class="hll">        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span></span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35"></a><span class="hll">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span></span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36"></a><span class="hll">
+</span></span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37"></a><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38"></a><span class="hll"><span class="w">        </span><span class="sd">"""Configure optimizer."""</span>
+</span></span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39"></a><span class="hll">        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</span></span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40"></a>
 </span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41"></a>
 </span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
 </span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">MyAwesomeModel</span><span class="p">()</span>
@@ -2660,14 +2660,14 @@ for more info.</p>
 </li>
 <li>
 <p>Instantiate a <code>Trainer</code> object. It is recommended to take a look at the
-    <a href="https://lightning.ai/docs/pytorch/latest/common/trainer.html#trainer-flags">trainer arguments</a> (there
+    <a href="https://lightning.ai/docs/pytorch/stable/common/trainer.html#trainer-flags">trainer arguments</a> (there
     are many of them) and maybe adjust some of them:</p>
 <ol>
 <li>
 <p>Investigate what the <code>default_root_dir</code> flag does.</p>
 </li>
 <li>
-<p>As default lightning will run for 1000 epochs. This may be too much (for now). Change this by
+<p>By default lightning will run for 1000 epochs. This may be too much (for now). Change this by
     changing the appropriate flag. Additionally, there is also a flag to set the maximum number of steps that we
     should train for.</p>
 <details class="success">
@@ -2676,8 +2676,8 @@ for more info.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Additionally, you may consider instead setting the <code>max_steps</code> flag to limit based on the number of steps or
-<code>max_time</code> to limit based on time. Similarly, the flags <code>min_epochs</code>, <code>min_steps</code> and <code>min_time</code> can be used
-to set the minimum number of epochs, steps or time.</p>
+<code>max_time</code> to limit based on time. Similarly, the flags <code>min_epochs</code> and <code>min_steps</code> can be used to set the
+minimum number of epochs or steps.</p>
 </details>
 </li>
 <li>
@@ -2714,11 +2714,11 @@ and test data.</p>
 <li>
 <p>The previous module was all about logging in <code>wandb</code>, so the question is naturally how does <code>lightning</code> support this.
     Lightning does not only support <code>wandb</code>, but also many
-    <a href="https://lightning.ai/docs/pytorch/latest/extensions/logging.html">others</a>. Common to all of them is that
+    <a href="https://lightning.ai/docs/pytorch/stable/extensions/logging.html">others</a>. Common to all of them is that
     logging just needs to happen through the <code>self.log</code> method in your <code>LightningModule</code>:</p>
 <ol>
 <li>
-<p>Add <code>self.log</code> to your `LightningModule. It should look something like this:</p>
+<p>Add <code>self.log</code> to your <code>LightningModule</code>. It should look something like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">batch</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -2741,7 +2741,7 @@ and test data.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="o">...</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="c1"># self.logger.experiment is the same as wandb.log</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s1">'logits'</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histrogram</span><span class="p">(</span><span class="n">preds</span><span class="p">)})</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s1">'logits'</span><span class="p">:</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">preds</span><span class="p">)})</span>
 </span></code></pre></div>
 <p>Try doing this by logging something other than scalar tensors.</p>
 </li>
@@ -2769,8 +2769,9 @@ returning anything from the <code>validation_step</code> method because we do no
 </li>
 <li>
 <p>(Optional, requires GPU) One of the big advantages of using <code>lightning</code> is that you do not need to deal with device
-    placement, i.e. calling <code>.to('cuda')</code> everywhere. If you have a GPU, try to set the <code>gpus</code> flag in the trainer. If you
-    do not have one, do not worry, we are going to return to this when we run training in the cloud.</p>
+    placement, i.e. calling <code>.to('cuda')</code> everywhere. If you have a GPU, try to set the <code>accelerator</code> and <code>devices</code> flags
+    in the trainer. If you do not have one, do not worry, we are going to return to this when we run training in the
+    cloud.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The two arguments <code>accelerator</code> and <code>devices</code> can be used to specify which devices to run on and how many to run
@@ -2782,15 +2783,16 @@ best available device.</p>
 </details>
 </li>
 <li>
-<p>(Optional) As default PyTorch uses <code>float32</code> for representing floating point numbers. However, research has shown
+<p>(Optional) By default PyTorch uses <code>float32</code> for representing floating point numbers. However, research has shown
     that neural network training is very robust towards a decrease in precision. The great benefit of going from <code>float32</code>
     to <code>float16</code> is that we get approximately half the
     <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">memory consumption</a>. Try out half-precision
     training in PyTorch lightning. You can enable this by setting the
-    <a href="https://lightning.ai/docs/pytorch/latest/common/trainer.html#precision">precision</a> flag in the <code>Trainer</code>.</p>
+    <a href="https://lightning.ai/docs/pytorch/stable/common/trainer.html#precision">precision</a> flag in the <code>Trainer</code>.</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Lightning supports four different types of mixed precision training (16-bit and 16-bit bfloat) and two types of:</p>
+<p>Lightning supports four different types of reduced precision: two mixed precision variants (16-bit and
+16-bit bfloat, where the model weights remain in full precision) and two true half-precision variants:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># 16-bit mixed precision (model weights remain in torch.float32)</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="s2">"16-mixed"</span><span class="p">,</span> <span class="n">devices</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
@@ -2807,7 +2809,7 @@ best available device.</p>
 </li>
 <li>
 <p>(Optional) Lightning also has built-in support for profiling. Check out how to do this using the
-    <a href="https://lightning.ai/docs/pytorch/latest/tuning/profiler_basic.html">profiler</a> argument in
+    <a href="https://lightning.ai/docs/pytorch/stable/tuning/profiler_basic.html">profiler</a> argument in
     the <code>Trainer</code> object.</p>
 </li>
 <li>
@@ -2833,7 +2835,8 @@ want to highlight other frameworks in the lightning ecosystem:</p>
 <li><a href="https://torchmetrics.readthedocs.io/en/latest/">Torchmetrics</a>: collection of machine learning metrics written
     in PyTorch</li>
 <li><a href="https://lightning-flash.readthedocs.io/en/latest/">lightning flash</a>: high-level framework for fast prototyping,
-    baselining, finetuning with an even simpler interface than lightning</li>
+    baselining, finetuning with an even simpler interface than lightning (note that the project is archived and no
+    longer maintained)</li>
 <li><a href="https://lightning-bolts.readthedocs.io/en/latest/">lightning-bolts</a>: Collection of SOTA pretrained models, model
     components, callbacks, losses and datasets for testing out ideas as fast as possible</li>
 </ul>
@@ -2859,7 +2862,7 @@ want to highlight other frameworks in the lightning ecosystem:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 21:08:51">November 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -2999,10 +3002,10 @@ want to highlight other frameworks in the lightning ecosystem:</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

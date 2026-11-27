@@ -1,5 +1,5 @@
 # Adjusted version of
-# https://github.com/Lightning-AI/lightning/blob/master/examples/pl_basics/backbone_image_classifier.py
+# https://github.com/Lightning-AI/pytorch-lightning/blob/master/examples/pytorch/basics/backbone_image_classifier.py
 import torch
 from pytorch_lightning import LightningDataModule, LightningModule
 from pytorch_lightning.cli import LightningCLI
@@ -84,7 +84,7 @@ def cli_main() -> None:
         LitClassifier,
         MyDataModule,
         seed_everything_default=1234,
-        save_config_overwrite=True,
+        save_config_kwargs={"overwrite": True},
         run=False,
     )
     cli.trainer.fit(cli.model, datamodule=cli.datamodule)

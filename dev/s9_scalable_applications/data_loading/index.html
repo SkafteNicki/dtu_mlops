@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2311,8 +2311,8 @@
 <p>One way that deep learning fundamentally changed the way we think about data in machine learning is that <em>more data is
 always better</em>. This was very much not the case with more traditional machine learning algorithms (random forest,
 support vector machines, etc.) where a plateau in performance was often reached for a certain amount of data and did not
-improve if more was added. However, as deep learning models have become deeper and deeper, more and more
-data-hungry performance seems to be ever-increasing or at least not reaching a plateau in the same way as for
+improve if more was added. However, as deep learning models have become deeper and deeper, more and more data-hungry,
+performance seems to be ever-increasing or at least not reaching a plateau in the same way as for
 traditional machine learning.</p>
 <figure>
 <p><a class="glightbox" href="../../figures/ml_data.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/ml_data.png" width="500" /></a></p>
@@ -2340,17 +2340,17 @@ brain of your computer).</p>
 In most laptops, the core count is 4 and there are commonly 2 threads per core. This means that the common laptop has
 8 threads. The number of threads a compute unit has is important because that directly corresponds to the number of
 parallel operations that can be executed, i.e., one per thread. In a Python terminal you should be able to get the
-number of cores in your machine by writing (try it):</p>
+number of threads in your machine by writing (try it):</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">cores</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Number of cores: </span><span class="si">{</span><span class="n">cores</span><span class="si">}</span><span class="s2">, Number of threads: </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">cores</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">threads</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>  <span class="c1"># returns the number of logical cores, i.e. threads</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Number of threads: </span><span class="si">{</span><span class="n">threads</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 <p>A distributed application is in general any kind of application that parallelizes some or all of its workload.
 In these exercises we focus only on distributed data loading, which happens primarily only on the CPU. In <code>PyTorch</code> it
 is easy to parallelize data loading if you are using their dataset/data loader interface:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="c1"># whatever logic is needed to init the data set</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="o">...</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
@@ -2359,7 +2359,7 @@ is easy to parallelize data loading if you are using their dataset/data loader i
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">MyDataset</span><span class="p">()</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">dataloader</span> <span class="o">=</span> <span class="n">Dataloader</span><span class="p">(</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">dataset</span><span class="p">,</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span>  <span class="c1"># this is the number of threads we want to parallelize workload over</span>
@@ -2393,11 +2393,12 @@ between the main thread and the workers. Multiprocessing makes sense when the pr
 <p>It is this trade-off that we are going to investigate in the exercises.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <p>This exercise is intended to be done on the
-<a href="http://vis-www.cs.umass.edu/lfw/">labeled faces in the wild (LFW)</a> dataset. The dataset consists of images of famous
-people extracted from the internet. The dataset had been used to drive the field of facial verification, which you can
-read more about <a href="https://viso.ai/deep-learning/deep-face-recognition/">in this deep face recognition guide</a>. We are
-going to imagine that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can
-be parallelized based on loading the raw data files (.jpg) at runtime.</p>
+<a href="https://web.archive.org/web/20250105180242/http://vis-www.cs.umass.edu/lfw/">labeled faces in the wild (LFW)</a>
+dataset. The dataset consists of images of famous people extracted from the internet. The dataset has been used to drive
+the field of facial verification, which you can read more about
+<a href="https://viso.ai/deep-learning/deep-face-recognition/">in this deep face recognition guide</a>. We are going to imagine
+that this dataset cannot fit in memory, and your job is therefore to construct a data pipeline that can be parallelized
+based on loading the raw data files (.jpg) at runtime.</p>
 <ol>
 <li>
 <p>Download the dataset and extract it to a folder. It does not matter if you choose the non-aligned or aligned version
@@ -2433,7 +2434,7 @@ over the 5 runs. HINT: if it is taking too long to evaluate, measure the time ov
 <code>-batches_to_check</code> flag). Also if you are not seeing any improvement, try increasing the batch size (since data
 loading is parallelized per batch).</p>
 <p>For certain machines like the Mac with M1 chipset it is necessary to set the <code>multiprocessing_context</code> flag in the
-dataloder to <code>"fork"</code>. This essentially tells the dataloader how the worker nodes should be created.</p>
+dataloader to <code>"fork"</code>. This essentially tells the dataloader how the worker nodes should be created.</p>
 </li>
 <li>
 <p>Retry the experiment where you change the data augmentation to be more complex:</p>
@@ -2448,8 +2449,8 @@ using multiple workers because the data augmentation is also executed in paralle
 </li>
 <li>
 <p>(Optional, requires access to GPU) If your dataset fits in GPU memory it is beneficial to set the <code>pin_memory</code> flag
-    to <code>True</code>. By setting this flag we are essentially telling PyTorch that it can lock the data in place in memory
-    which will make the transfer between the <em>host</em> (CPU) and the <em>device</em> (GPU) faster.</p>
+    to <code>True</code>. By setting this flag we are essentially telling PyTorch to copy the loaded data into page-locked (pinned)
+    memory, which will make the transfer between the <em>host</em> (CPU) and the <em>device</em> (GPU) faster.</p>
 </li>
 </ol>
 <p>This ends the module on distributed data loading in PyTorch. If you want to go into more details we highly recommend
@@ -2477,7 +2478,7 @@ loading in PyTorch works and performance benchmarks.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 18, 2025 06:26:41">November 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -2617,10 +2618,10 @@ loading in PyTorch works and performance benchmarks.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

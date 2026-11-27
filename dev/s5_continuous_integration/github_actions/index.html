@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2398,14 +2398,14 @@ combine this with only pushing to branches and then only merging these branches 
 passed, our code should be fairly safe against unwanted bugs (assuming your tests cover your code well).</p>
 <h2 id="github-actions_1">GitHub actions</h2>
 <p>GitHub actions are the continuous integration solution that GitHub provides. Each of your repositories gets 2,000
-minutes of free testing per month which should be more than enough for the scope of this course (and probably
-all personal projects you do). Getting GitHub actions set up in a repository may seem complicated at
-first, but workflow files that you create for one repository can more or less be reused for any
-other repository that you have.</p>
+minutes of free testing per month for private repositories (public repositories can use GitHub actions for free),
+which should be more than enough for the scope of this course (and probably all personal projects you do). Getting
+GitHub actions set up in a repository may seem complicated at first, but workflow files that you create for one
+repository can more or less be reused for any other repository that you have.</p>
 <p>Let's take a look at how a GitHub workflow file is organized:</p>
 <ul>
 <li>Initially, we start by giving the workflow a <code>name</code>.</li>
-<li>Next, we specify what events the workflow should be triggered. This includes both the action
+<li>Next, we specify what events the workflow should be triggered on. This includes both the action
     (pull request, push, etc.) and on what branches it should activate.</li>
 <li>Next, we list the jobs that we want to do. Jobs are by default executed in parallel but can
     also be dependent on each other.</li>
@@ -2431,7 +2431,8 @@ other repository that you have.</p>
 </li>
 <li>
 <p>We have provided a workflow file called <code>tests.yaml</code> that should run your tests for you. Place
-    this file in the <code>.github/workflows/</code> folder. The workflow file consists of three steps:</p>
+    this file in the <code>.github/workflows/</code> folder. The workflow file first checks out your repository and then
+    consists of three steps:</p>
 <ul>
 <li>
 <p>First, a uv environment is set up with Python 3.12</p>
@@ -2489,10 +2490,10 @@ other repository that you have.</p>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">steps</span><span class="p">:</span>
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Checkout</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v5</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v7</span>
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Setup</span> <span class="n">uv</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">astral</span><span class="o">-</span><span class="n">sh</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">uv</span><span class="nd">@v7</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">astral</span><span class="o">-</span><span class="n">sh</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">uv</span><span class="nd">@v10</span><span class="mf">.4.0</span>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a>      <span class="k">with</span><span class="p">:</span>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>        <span class="n">python</span><span class="o">-</span><span class="n">version</span><span class="p">:</span> <span class="mf">3.12</span>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a>
@@ -2524,7 +2525,7 @@ other repository that you have.</p>
 <li>
 <p>Alter the file such that it executes the test on the two other main operating systems that exist. You can find
     information on available operating systems also called <em>runners</em>
-    <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories">in the GitHub runners documentation</a></p>
+    <a href="https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories">in the GitHub runners documentation</a></p>
 <details class="success">
 <summary>Solution</summary>
 <p>We can "parametrize" the script to run on different operating systems by using the <code>strategy</code> attribute. This
@@ -2569,23 +2570,23 @@ setup uv action. The following code will run the tests on Python versions:</p>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.os }}</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="nt">strategy</span><span class="p">:</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="nt">matrix</span><span class="p">:</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">      </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"ubuntu-latest"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"windows-latest"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"macos-latest"</span><span class="p p-Indicator">]</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">      </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"3.10"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.11"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.12"</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">      </span><span class="nt">matrix</span><span class="p">:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">        </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"ubuntu-latest"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"windows-latest"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"macos-latest"</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"3.11"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.12"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.13"</span><span class="p p-Indicator">]</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup uv</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v7</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup uv</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v10.4.0</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
 <li>
-<p>If you push the above changes you will maybe see that whenever one of the tests in the matrix fails, it will
+<p>If you push the above changes you may see that whenever one of the tests in the matrix fails, it will
     automatically cancel the other tests. This is for saving time and resources. However, sometimes you want all the
     tests to run even if one fails. Can you figure out how to do that?</p>
 <details class="success">
@@ -2605,7 +2606,7 @@ setup uv action. The following code will run the tests on Python versions:</p>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">      </span><span class="nt">fail-fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">      </span><span class="nt">matrix</span><span class="p">:</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">        </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"ubuntu-latest"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"windows-latest"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"macos-latest"</span><span class="p p-Indicator">]</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"3.10"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.11"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.12"</span><span class="p p-Indicator">]</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"3.11"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.12"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"3.13"</span><span class="p p-Indicator">]</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </li>
@@ -2617,7 +2618,7 @@ setup uv action. The following code will run the tests on Python versions:</p>
 <ol>
 <li>
 <p>Figure out how to implement <code>caching</code> in your workflow file. You can find a guide
-    <a href="https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows">in the GitHub caching guide</a>
+    <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching">in the GitHub caching guide</a>
     and
     <a href="https://github.com/astral-sh/setup-uv#caching">in the setup-uv documentation</a>.</p>
 <details class="success">
@@ -2628,8 +2629,8 @@ setup uv action. The following code will run the tests on Python versions:</p>
 <span class="normal"><a href="#__codelineno-4-4">4</a></span>
 <span class="normal"><a href="#__codelineno-4-5">5</a></span>
 <span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v7</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v10.4.0</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.12</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="nt">enable-cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -2718,7 +2719,7 @@ the name of the jobs e.g. if your workflow file looks like this:</p>
 <li>
 <p>If you have created the rules correctly you should see something like the image below when you try to merge a
     pull request. In this case, all three checks are required to pass before the code can be merged. Additionally,
-    a single reviewer is required to approve the code. A bypass rule is also setup for the repository admin.</p>
+    a single reviewer is required to approve the code. A bypass rule is also set up for the repository admin.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/branch_protection_rules3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/branch_protection_rules3.png" width="800" /></a>
 </figure></p>
@@ -2726,10 +2727,10 @@ the name of the jobs e.g. if your workflow file looks like this:</p>
 </ol>
 </li>
 <li>
-<p>(Optional, only continue if you done module <a href="../../s2_organisation_and_version_control/dvc/">M8 - DVC</a> on data
-    version control) One problem you may have encountered is running tests that have to do with your data, with the core
-    problem being that your data is not stored on GitHub (assuming you have  and therefore cannot be tested. However, we
-    can download data while running our continuous integration. Let's try to create that.</p>
+<p>(Optional, only continue if you have done module <a href="../../s2_organisation_and_version_control/dvc/">M8 - DVC</a> on
+    data version control) One problem you may have encountered is running tests that have to do with your data, with
+    the core problem being that your data is not stored on GitHub and therefore cannot be tested. However, we can
+    download data while running our continuous integration. Let's try to create that.</p>
 <ol>
 <li>
 <p>The first problem is that we need our continuous integration pipeline to be able to authenticate with our storage
@@ -2763,22 +2764,23 @@ This is the typical location, but it may vary depending on what distro you are r
 <li>
 <p>The content of that file should be treated as a password and not shared with the world and the relevant
     question is therefore how to use this info in a <em>public</em> repository. The answer is GitHub <em>secrets</em>, where we
-    can store information and access it in our workflow files and it is still not public. Navigate to the secrets
-    option (as shown below) and create a secret with the name <code>GDRIVE_CREDENTIALS_DATA</code> that contains the content
-    of the file you found in the previous exercise.</p>
+    can store information and access it in our workflow files and it is still not public. Navigate to
+    <code>Settings -&gt; Secrets and variables -&gt; Actions</code> (as shown below) and create a secret with the name
+    <code>GDRIVE_CREDENTIALS_DATA</code> that contains the content of the file you found in the previous exercise.</p>
 <p><figure markdown>
 <a class="glightbox" href="../../figures/github_secrets.PNG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/github_secrets.PNG" width="1000" /></a>
 </figure></p>
 </li>
 <li>
 <p>Afterward, add the following code to your workflow file:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iterative/setup-dvc@v1</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">treeverse/setup-dvc@v3</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Get data</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dvc pull</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">env</span><span class="p">:</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">GDRIVE_CREDENTIALS_DATA</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GDRIVE_CREDENTIALS_DATA }}</span>
 </span></code></pre></div>
-<p>which runs <code>dvc pull</code> using the secret authentication file. For help you can visit this
+<p>which runs <code>dvc pull</code> using the secret authentication file. Note that the action used to be called
+<code>iterative/setup-dvc</code> (the repository has since moved). For help you can visit this
 <a href="https://github.com/SkafteNicki/gha_dvc_test">small repository</a> that implements the same workflow.</p>
 </li>
 <li>
@@ -2804,7 +2806,7 @@ This is the typical location, but it may vary depending on what distro you are r
 <p>Installs <code>ruff</code></p>
 </li>
 <li>
-<p>Runs <code>ruff check</code> and <code>ruff format</code> on the repository</p>
+<p>Runs <code>ruff check</code> and <code>ruff format --check</code> on the repository</p>
 </li>
 </ul>
 <p>(HINT: You should be able to just change the last steps of the <code>tests.yaml</code> workflow file)</p>
@@ -2812,7 +2814,7 @@ This is the typical location, but it may vary depending on what distro you are r
 <summary>Solution</summary>
 <div class="admonition example">
 <p class="admonition-title"><code>codecheck.yaml</code></p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">tests.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">codecheck.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
@@ -2859,10 +2861,10 @@ This is the typical location, but it may vary depending on what distro you are r
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a>    <span class="n">steps</span><span class="p">:</span>
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a>    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Checkout</span>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v5</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v7</span>
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a>
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18"></a>    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Setup</span> <span class="n">uv</span>
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">astral</span><span class="o">-</span><span class="n">sh</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">uv</span><span class="nd">@v7</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a>      <span class="n">uses</span><span class="p">:</span> <span class="n">astral</span><span class="o">-</span><span class="n">sh</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">uv</span><span class="nd">@v10</span><span class="mf">.4.0</span>
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20"></a>      <span class="k">with</span><span class="p">:</span>
 </span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21"></a>        <span class="n">python</span><span class="o">-</span><span class="n">version</span><span class="p">:</span> <span class="mf">3.12</span>
 </span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22"></a>
@@ -2876,7 +2878,7 @@ This is the typical location, but it may vary depending on what distro you are r
 </span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30"></a>      <span class="n">run</span><span class="p">:</span> <span class="n">uv</span> <span class="n">run</span> <span class="n">ruff</span> <span class="n">check</span> <span class="o">.</span>
 </span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31"></a>
 </span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32"></a>    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Ruff</span> <span class="nb">format</span>
-</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33"></a>      <span class="n">run</span><span class="p">:</span> <span class="n">uv</span> <span class="n">run</span> <span class="n">ruff</span> <span class="nb">format</span> <span class="o">.</span>
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33"></a>      <span class="n">run</span><span class="p">:</span> <span class="n">uv</span> <span class="n">run</span> <span class="n">ruff</span> <span class="nb">format</span> <span class="o">--</span><span class="n">check</span> <span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 </details>
@@ -2913,13 +2915,14 @@ This is the typical location, but it may vary depending on what distro you are r
 <p>Next, create a <a href="https://hub.docker.com/">Docker Hub account</a></p>
 </li>
 <li>
-<p>Within Docker Hub create an access token by going to <code>Settings -&gt; Security</code>. Click the <code>New Access Token</code> button
-    and give it a name that you recognize.</p>
+<p>Within Docker Hub create an access token by going to <code>Account settings -&gt; Personal access tokens</code>. Click the
+    <code>Generate new token</code> button and give it a name that you recognize. Make sure to give the token write access
+    to your repositories, such that it can push the image.</p>
 </li>
 <li>
 <p>Copy the newly created access token and head over to your GitHub repository online. Go to
-    <code>Settings -&gt; Secrets -&gt; Actions</code> and click the <code>New repository secret</code>. Copy over the access token and give
-    it the name <code>DOCKER_HUB_TOKEN</code>. Additionally, add two other secrets <code>DOCKER_HUB_USERNAME</code> and
+    <code>Settings -&gt; Secrets and variables -&gt; Actions</code> and click the <code>New repository secret</code>. Copy over the access
+    token and give it the name <code>DOCKER_HUB_TOKEN</code>. Additionally, add two other secrets <code>DOCKER_HUB_USERNAME</code> and
     <code>DOCKER_HUB_REPOSITORY</code> that contain your docker username and docker repository name respectively.</p>
 </li>
 <li>
@@ -2931,10 +2934,10 @@ This is the typical location, but it may vary depending on what distro you are r
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">master</span><span class="w"> </span><span class="p p-Indicator">]</span>
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nt">jobs</span><span class="p">:</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build the Docker image</span>
 </span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 </span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">        </span><span class="no">echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \</span>
@@ -2976,8 +2979,8 @@ have in your code.</p>
 <li>
 <p>To get dependabot working in your repository, we need to add a single configuration file to your repository. Create
     a file called <code>.github/dependabot.yaml</code>. Look through the
-    <a href="https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/">documentation</a> for how to set up
-    the file such that it updates your Python dependencies on a weekly basis.</p>
+    <a href="https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-version-updates">documentation</a>
+    for how to set up the file such that it updates your Python dependencies on a weekly basis.</p>
 <details class="success">
 <summary>Solution</summary>
 <p>The following code will check for updates in the <code>uv</code> ecosystem every week, i.e. it automatically will look
@@ -3021,10 +3024,10 @@ can try to click the <code>Check for updates</code> button to force Dependabot t
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v7</span>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nn">...</span>
 </span></code></pre></div>
-<p>The <code>@v5</code> specifies that we are using version 5 of the <code>actions/checkout</code> action. This means that if a new version
+<p>The <code>@v7</code> specifies that we are using version 7 of the <code>actions/checkout</code> action. This means that if a new version
 of the action is released, we will not automatically get the new version. Dependabot can help us with this. Try
 adding to the <code>dependabot.yaml</code> file that Dependabot should also check for updates in the GitHub Actions ecosystem.</p>
 <details class="success">
@@ -3086,7 +3089,8 @@ adding to the <code>dependabot.yaml</code> file that Dependabot should also chec
 <ol>
 <li>Direct push to branch <code>main</code> would trigger it</li>
 <li>Any pull request opened that will merge into <code>main</code> will trigger it</li>
-<li>At the end of the day the action would trigger, see <a href="https://en.wikipedia.org/wiki/Cron">cron</a> for more info</li>
+<li>At midnight (00:00) each day the action would trigger, see <a href="https://en.wikipedia.org/wiki/Cron">cron</a> for
+    more info</li>
 <li>
 <p>The trigger can be executed by manually triggering it through the GitHub UI, for example, shown below</p>
 <p><figure markdown>
@@ -3129,7 +3133,7 @@ Actions locally!</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 06:19:26">February 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3269,10 +3273,10 @@ Actions locally!</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

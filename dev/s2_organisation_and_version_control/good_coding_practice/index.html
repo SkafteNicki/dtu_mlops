@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2459,7 +2459,7 @@ how you choose to style your code, etc., the important part is that you are cons
 </figcaption>
 </figure>
 <h2 id="documentation">Documentation</h2>
-<p>Most programmers have a love-hate relationship with documentation: We absolute hate writing it ourselves, but love
+<p>Most programmers have a love-hate relationship with documentation: We absolutely hate writing it ourselves, but love
 when someone else has actually taken the time to add it to their code. There is no doubt that well documented
 code is much easier to maintain, as you do not need to remember all the details about the code to still maintain it.
 It is key to remember that good documentation saves more time than it takes to write.</p>
@@ -2470,7 +2470,7 @@ It is key to remember that good documentation saves more time than it takes to w
     parts that are actually hard to understand.</p>
 </li>
 <li>
-<p>Over-documentation: Writing too much documentation will have likely have an effect on most people opposite to
+<p>Over-documentation: Writing too much documentation will likely have an effect on most people opposite to
     what you want: there is too much to read, so people will skip it.</p>
 </li>
 </ul>
@@ -2487,10 +2487,10 @@ Jeff Atwood</p>
     behind the code is not easily understandable. (1)</p>
 <ol>
 <li>
-<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> In deep learning we often work with multi-dimensional tensors that constantly change shape
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> In deep learning we often work with multi-dimensional tensors that constantly change shape
     after each operation. It is good practice to annotate with comments when tensors undergo some reshaping.
-    In the following example we compute the pairwise euclidean distance between two tensors using broadcasting
-    which results in multiple shape operations.</p>
+    In the following example we compute the pairwise squared euclidean distance between two tensors using
+    broadcasting which results in multiple shape operations.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># N x D</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># M x D</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">xy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># (N x 1 x D) - (1 x M x D) = (N x M x D)</span>
@@ -2500,7 +2500,7 @@ Jeff Atwood</p>
 </ol>
 </li>
 <li>
-<p>Add <a href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> to at least two Python functions/methods.
+<p>Add <a href="https://peps.python.org/pep-0257/">docstrings</a> to at least two Python functions/methods.
     You can see <a href="https://www.programiz.com/python-programming/docstrings">here (example 5)</a> a good example of
     how to use identifiable keywords such as <code>Parameters</code>, <code>Args</code>, <code>Returns</code>, which standardizes the way of
     writing docstrings.</p>
@@ -2512,7 +2512,7 @@ to ensure that code from different users actually looks similar. Maybe even more
 will often see that your own style of coding changes as you become more and more experienced. This kind of
 difference in coding style is not that important to keep in mind when you are working on a personal project,
 but when multiple people are working together on the same project it is important to consider.</p>
-<p>The question then remains what styling you should use. This is where <a href="https://www.python.org/dev/peps/pep-0008/">Pep8</a>
+<p>The question then remains what styling you should use. This is where <a href="https://peps.python.org/pep-0008/">Pep8</a>
 comes into play, which is the official style guide for python. It essentially contains what is considered
 "good practice" and "bad practice" when coding python.</p>
 <p class="annotate">For many years the most commonly used tool to check if your code was PEP8-compliant was to use
@@ -2520,7 +2520,7 @@ comes into play, which is the official style guide for python. It essentially co
 <a href="https://github.com/astral-sh/ruff">ruff</a>, which is quickly gaining popularity due to how fast it is and how quickly the
 developers are adding new features. (1)</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> both <code>flake8</code> and <code>ruff</code> are what is called a
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> both <code>flake8</code> and <code>ruff</code> are what is called a
     <a href="https://en.wikipedia.org/wiki/Lint_(software)">linter or lint tool</a>, which is any kind of static code analysis
     program that is used to flag programming errors, bugs, and styling errors.</li>
 </ol>
@@ -2531,12 +2531,12 @@ developers are adding new features. (1)</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span>ruff
 </span></code></pre></div>
 <p>We add <code>ruff</code> as a development dependency since it is not needed for running the actual code. Alternatively,
-we could install it globally using <code>uvx ruff</code> to be used across multiple projects.</p>
+we could run it directly using <code>uvx ruff</code>, without installing it in the project.</p>
 </li>
 <li>
 <p>Run <code>ruff</code> on your project or part of your project.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.<span class="w">  </span><span class="c1"># Lint all files in the current directory (and any subdirectories)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>path/to/code/<span class="w">  </span><span class="c1"># Lint all files in `/path/to/code` (and any subdirectories).</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>path/to/code/<span class="w">  </span><span class="c1"># Lint all files in `path/to/code` (and any subdirectories).</span>
 </span></code></pre></div>
 <p>Are you PEP8-compliant or are you a mere mortal?</p>
 </li>
@@ -2572,7 +2572,7 @@ the <code>pyproject.toml</code> file.</p>
 <p class="annotate">and try re-running <code>ruff check</code> and <code>ruff format</code>. Hopefully this should reorganize your imports to follow common
 practice. (1)</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> the common practise is to first list built-in Python packages (like <code>os</code>) in one block,
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> the common practice is to first list built-in Python packages (like <code>os</code>) in one block,
     followed by third-party dependencies (like <code>torch</code>) in a second block and finally imports from your own package
     in a third block. Each block is then put in alphabetical order.</li>
 </ol>
@@ -2589,8 +2589,8 @@ practice. (1)</p>
 </li>
 <li>
 <p>Experiment with further configuration of <code>ruff</code>. In particular we recommend adding more
-    <a href="https://docs.astral.sh/ruff/rules/">rules</a> and looking at <code>[tool.ruff.pydocstyle]</code> configuration to indicate how you
-    have styled your documentation.</p>
+    <a href="https://docs.astral.sh/ruff/rules/">rules</a> and looking at <code>[tool.ruff.lint.pydocstyle]</code> configuration to indicate
+    how you have styled your documentation.</p>
 </li>
 </ol>
 <h2 id="typing">Typing</h2>
@@ -2598,11 +2598,13 @@ practice. (1)</p>
 the quality of our code: <a href="https://docs.python.org/3/library/typing.html">through typing</a>. Typing goes back to the
 earlier programming languages like <code>c</code>, <code>c++</code> etc. where
 <a href="https://www.scaler.com/topics/cpp/data-types-in-cpp/">data types</a> needed to be explicitly stated for variables:</p>
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Hello World! "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">();</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Hello World! "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>This is not required by Python but it can really improve the readability of code, since then you can directly read from
 the code what the expected types of input arguments and returns are. In Python the <code>:</code> character has been reserved for
@@ -2650,12 +2652,12 @@ help us at all. Therefore, use <code>Any</code> only when necessary.</p>
 
 <ol>
 <li>
-<p>We provide a file called <code>typing_exercise.py</code>. Add typing everywhere in the file. Please note that you will
+<p>We provide a file called <code>typing_exercise.py</code>. Add typing everywhere in the file. Please note that you may
     need the following imports</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>  <span class="c1"># you will need all of them in your code</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>  <span class="c1"># you may not need all of them with modern syntax</span>
 </span></code></pre></div>
-<p>for it to work. This <a href="https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html">cheat sheet</a> is a good resource on
-typing. We also provide <code>typing_exercise_solution.py</code>, but try to solve the exercise yourself.</p>
+<p>This <a href="https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html">cheat sheet</a> is a good resource on typing. We
+also provide <code>typing_exercise_solution.py</code>, but try to solve the exercise yourself.</p>
 <details class="example">
 <summary><code>typing_exercise.py</code></summary>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">typing_exercise.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">  1</a></span>
@@ -3118,7 +3120,7 @@ typing. We also provide <code>typing_exercise_solution.py</code>, but try to sol
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span>mypy
 </span></code></pre></div>
 <p>We add <code>mypy</code> as a development dependency since it is not needed for running the actual code. Alternatively,
-we could install it globally using <code>uvx mypy</code> to be used across multiple projects.</p>
+we could run it directly using <code>uvx mypy</code>, without installing it in the project.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>An alternative to <code>mypy</code> is <a href="https://docs.astral.sh/ty/">ty</a> developed by the same team as <code>uv</code> and <code>ruff</code>. <code>ty</code>
@@ -3159,11 +3161,13 @@ and methods should be all lowercase with words separated by underscore. Thus <co
 </span></code></pre></div>
 <details class="success">
 <summary>Solution</summary>
-<p>The easy solution would be to do <code>def f(x : Any)</code>. But instead we could also go with:</p>
+<p>The easy solution would be to do <code>def f(x: Any)</code>. But instead we could also go with:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="o">...</span>
 </span></code></pre></div>
 <p>Alternatively, we could do</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="o">...</span>
 </span></code></pre></div>
 <p>because <code>list</code>, <code>tuple</code> and <code>dict</code> are all iterables and therefore can be covered by one type
 (in this specific case).</p>
@@ -3198,7 +3202,7 @@ problem.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 21:08:51">November 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3338,10 +3342,10 @@ problem.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

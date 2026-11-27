@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2366,7 +2366,7 @@
 </div>
 <p>Before we can deploy our models we need to understand concepts such as APIs and requests. The core reason
 for this is that we need a new abstraction layer on top of our applications that are not Python-specific. While Python
-is the defacto language for machine learning, we cannot expect everybody else to use it and in particular, we cannot
+is the de facto language for machine learning, we cannot expect everybody else to use it and in particular, we cannot
 expect network protocols (both local and external) to be able to communicate with our Python programs out of the box.
 For this reason, we need to understand requests, in particular HTTP requests and how to create APIs that can interact
 with those requests.</p>
@@ -2395,14 +2395,14 @@ parts:</p>
 </ul>
 <p>You can read more about the different methods <a href="https://dev.to/adidoshi/http-request-methods-16ik">in this HTTP request methods guide</a>.
 For most machine learning applications, GET and POST are the core methods to remember. Additionally, if you want to read
-more about HTTP in general we highly recommend that you go over this <a href="https://howhttps.works/">comic strip</a> protocol,
+more about HTTPS in general we highly recommend that you go over this <a href="https://howhttps.works/">comic strip</a>,
 but the TLDR is that it provides privacy, integrity and identification over the web.</p>
 <h3 id="exercises">❔ Exercises</h3>
 <p>We are going to do a couple of exercises on sending requests using the
 <a href="https://requests.readthedocs.io/en/latest/">requests package</a> to get familiar with the syntax.</p>
 <ol>
 <li>
-<p>Start by installing the `requests`` package.</p>
+<p>Start by installing the <code>requests</code> package.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>add<span class="w"> </span>requests
 </span></code></pre></div>
 </li>
@@ -2416,7 +2416,7 @@ but the TLDR is that it provides privacy, integrity and identification over the 
 code 404 (1). Take a look at <a href="https://restfulapi.net/http-status-codes/">this page</a> that contains a list of status
 codes. Next, let's call a page that exists.</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you do not get a status code of 404, it can either
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you do not get a status code of 404, it can either
     be due to some firewall settings or the fact that many other students are doing the same exercise at the same
     time and we are hitting GitHub's API rate limits. GitHub limits unauthenticated requests to <strong>60 per hour per
     IP address</strong>. When many students use the same network (e.g., DTU's network), you may see rate limit errors
@@ -2446,7 +2446,7 @@ attribute?</p>
 </li>
 <li>
 <p>You should hopefully observe that the <code>.content</code> attribute is of type <code>bytes</code>. It is important to note that
-    the standard way of sending payloads to encode them into <code>byte</code> objects. To get a more human-readable version of
+    the standard way of sending payloads is to encode them into <code>bytes</code> objects. To get a more human-readable version of
     the response, we can convert it to <a href="https://www.json.org/json-en.html">JSON</a> format.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </span></code></pre></div>
@@ -2546,8 +2546,8 @@ case we would need to convert from bytes to an image:</p>
     script.</p>
 <ol>
 <li>
-<p>Make sure you have <code>curl</code> installed, or else find instructions for installing it. To check, call <code>curl --help</code> with
-    the documentation on curl.</p>
+<p>Make sure you have <code>curl</code> installed, or else find instructions for installing it. To check, call <code>curl --help</code>,
+    and take a look at the documentation on curl.</p>
 </li>
 <li>
 <p>To execute <code>requests.get('https://api.github.com')</code> using curl we would simply do</p>
@@ -2578,13 +2578,13 @@ and send data to GitHub without ever having to visit their webpage. The API expo
 functions:</p>
 <ul>
 <li><a href="https://api.github.com/repos/OWNER/REPO/branches">https://api.github.com/repos/OWNER/REPO/branches</a>: check out the branches on a given repository</li>
-<li><a href="https://api.github.com/search/code">https://api.github.com/search/code</a>: search through GitHub for repositories</li>
+<li><a href="https://api.github.com/search/repositories">https://api.github.com/search/repositories</a>: search through GitHub for repositories</li>
 <li><a href="https://api.github.com/repos/OWNER/REPO/actions/workflows">https://api.github.com/repos/OWNER/REPO/actions/workflows</a>: check the status of workflows for a given repository</li>
 </ul>
 <p class="annotate">and we could go on. However, there may be functionality that GitHub is not interested in users having access to and
 they may therefore choose not to have endpoints for specific features (1).</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Many companies provide public APIs to interact with their services/data. For a general list of
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Many companies provide public APIs to interact with their services/data. For a general list of
     public APIs you can check out this <a href="https://github.com/public-apis/public-apis">page</a>. For the Danes out there, you
     can check out <a href="https://github.com/mauran/API-Danmark">this list</a> of public and private APIs from Danish companies and
     organizations.</li>
@@ -2596,15 +2596,15 @@ mind is that the client-server architecture needs to be stateless. This means th
 server it needs to be self-contained (all information included) and the server cannot rely on any previously stored
 information from previous requests.</p>
 <p>To implement APIs in practice we are going to use <a href="https://fastapi.tiangolo.com/">FastAPI</a>. FastAPI is a
-<em>modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints</em>.
+<em>modern, fast (high-performance), web framework for building APIs with Python based on standard Python type hints</em>.
 FastAPI is only one of many frameworks for defining APIs. However, compared to other frameworks such as
-<a href="https://flask.palletsprojects.com/en/2.0.x/">Flask</a> and <a href="https://www.djangoproject.com/">django</a> it offers a sweet
+<a href="https://flask.palletsprojects.com/en/stable/">Flask</a> and <a href="https://www.djangoproject.com/">Django</a> it offers a sweet
 spot of being flexible enough to do what you want without having many additional (unnecessary) features.</p>
 <h3 id="exercises_1">❔ Exercises</h3>
 <p>The exercises below are a condensed version of <a href="https://fastapi.tiangolo.com/tutorial/">this</a> and
 <a href="https://fastapi.tiangolo.com/advanced/">this</a> tutorial. If you ever need context for the exercises, we recommend
-trying to go through these. Additionally, we also provide
-<a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/fastapi.py">this solution file</a> that
+trying to go through these. Additionally, we also provide <a href="https://github.com/SkafteNicki/dtu_mlops/tree/main/s7_deployment/exercise_files/fastapi_solution.py">this solution
+file</a> that
 you can look through for help.</p>
 <ol>
 <li>
@@ -2614,7 +2614,7 @@ you can look through for help.</p>
 <p>This contains the functions, modules, and variables we are going to need to define our interface.</p>
 </li>
 <li>
-<p>Additionally, also install <code>uvicorn</code> which is a package for defining low level server applications.</p>
+<p>Additionally, install <code>uvicorn</code> which is a low-level ASGI web server, that we will use to run our application.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"uvicorn[standard]"</span>
 </span></code></pre></div>
 </li>
@@ -2635,8 +2635,8 @@ you can look through for help.</p>
 functions are probably doing.</p>
 </li>
 <li>
-<p>Next lets launch our app. Since we called our script <code>main.py</code> and we inside the script initialized our API with
-    <code>app = FastAPI</code>, our application that we want to deploy can be referenced by <code>main:app</code>:</p>
+<p>Next let's launch our app. Since we called our script <code>main.py</code> and we inside the script initialized our API with
+    <code>app = FastAPI()</code>, our application that we want to deploy can be referenced by <code>main:app</code>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>uvicorn<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span><span class="w"> </span>main:app
 </span></code></pre></div>
 <p>This will launch a server on this page: <code>http://localhost:8000/</code>. As you will hopefully see, this page will return
@@ -2677,7 +2677,7 @@ will give info on when and how your application is being invoked.</p>
 <p>With the fundamentals in place let's configure it a bit more:</p>
 <ol>
 <li>
-<p>Lets start by changing the root function to include a bit more info. In particular we are also interested in
+<p>Let's start by changing the root function to include a bit more info. In particular we are also interested in
     returning the status code so the end user can easily read that. Default status codes are included in the
     <a href="https://docs.python.org/3/library/http.html">http</a> built-in Python package:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPStatus</span>
@@ -2714,7 +2714,7 @@ initialized the app with the <code>--reload</code> argument.</p>
 </li>
 <li>
 <p>In addition to path parameters we have query parameters. In the requests exercises we saw an example of this
-    where we were calling <a href="https://api.github.com/search/code">https://api.github.com/search/code</a> with the query <code>'q': 'requests+language:python'</code>.
+    where we were calling <a href="https://api.github.com/search/repositories">https://api.github.com/search/repositories</a> with the query <code>'q': 'requests+language:python'</code>.
     Any parameter in FastAPI that is not a path parameter will be considered a query parameter:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/query_items"</span><span class="p">)</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -2726,7 +2726,7 @@ initialized the app with the <code>--reload</code> argument.</p>
 <p>We have until now worked with the <code>.get</code> method, but let's also see an example of the <code>.post</code> method. As already
     described the POST request method is used for uploading data to the server. Here is a simple app that saves the
     username and password in a database (please never implement this in real life like this):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">database</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'username'</span><span class="p">:</span> <span class="p">[</span> <span class="p">],</span> <span class="s1">'password'</span><span class="p">:</span> <span class="p">[</span> <span class="p">]}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">database</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'username'</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">'password'</span><span class="p">:</span> <span class="p">[]}</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/login/"</span><span class="p">)</span>
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -2752,16 +2752,18 @@ and sometimes the <code>.post</code> method. For our usage it does not really ma
 <ol>
 <li>
 <p>Here is a small application that takes a single text input.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/text_model/"</span><span class="p">)</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">contains_email</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="s2">"input"</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>        <span class="s2">"message"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>        <span class="s2">"status-code"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
-</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>        <span class="s2">"is_email"</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="p">}</span>
-</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>    <span class="k">return</span> <span class="n">response</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/text_model/"</span><span class="p">)</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">contains_email</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>        <span class="s2">"input"</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>        <span class="s2">"message"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="o">.</span><span class="n">phrase</span><span class="p">,</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>        <span class="s2">"status-code"</span><span class="p">:</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>        <span class="s2">"is_email"</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>    <span class="p">}</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="k">return</span> <span class="n">response</span>
 </span></code></pre></div>
 <p>What does the application do? Try it out yourself.</p>
 </li>
@@ -2980,17 +2982,17 @@ caption.</p>
 </li>
 <li>
 <p>As the final step, we want to figure out how to include our FastAPI application in a docker container, as that will help
-    us when we want to deploy in the cloud because docker as always can take care of the dependencies for our
+    us when we want to deploy in the cloud because docker, as always, can take care of the dependencies for our
     application. For the following set of exercises you can use any of the previous FastAPI applications as the base
     application for the container.</p>
 <ol>
 <li>
-<p>Start by creating a <code>requirement.txt</code> file for your application. You will at least need <code>fastapi</code> and <code>uvicorn</code>
+<p>Start by creating a <code>requirements.txt</code> file for your application. You will at least need <code>fastapi</code> and <code>uvicorn</code>
     in the file and we always recommend that you are specific about the version you want to use.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a># newest version of fastapi and uvicorn as of time of writing
-</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>fastapi==0.115.6
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>uvicorn==0.34.0
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a># add anything else you application needs to be able to run
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a># newest versions of fastapi and uvicorn supported by the course environment
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>fastapi==0.121.2
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>uvicorn==0.38.0
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a># add anything else your application needs to be able to run
 </span></code></pre></div>
 </li>
 <li>
@@ -3026,7 +3028,7 @@ extra arguments regarding the ports we allow.</p>
 <p>Finally, run the image such that a container is spun up that runs our application. The important part here is
     to remember to specify the <code>-p</code> argument (p for port) which should be the same number as the port we have
     specified in the last line of our Dockerfile.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mycontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>myimage
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mycontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>my_fastapi_app
 </span></code></pre></div>
 </li>
 <li>
@@ -3037,7 +3039,7 @@ extra arguments regarding the ports we allow.</p>
 </li>
 </ol>
 <p>This ends the module on APIs. If you want to go further in this direction we highly recommend that you check out
-<a href="https://github.com/bentoml/BentoML">bentoml</a> which is an API standard that focuses solely on creating
+<a href="https://github.com/bentoml/BentoML">bentoml</a> which is a framework that focuses solely on creating
 easy-to-understand APIs and services for ml-applications. Additionally, we also highly recommend
 checking out <a href="https://www.postman.com/">Postman</a> which can help design, document and in particular test the API you are
 writing to make sure that it works as expected.</p>
@@ -3063,7 +3065,7 @@ writing to make sure that it works as expected.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2026 12:13:28">October 15, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -3203,10 +3205,10 @@ writing to make sure that it works as expected.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

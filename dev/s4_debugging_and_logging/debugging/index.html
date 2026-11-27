@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2289,14 +2289,16 @@ way of debugging when dealing with a very large codebase. You should therefore f
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pdb</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
 </span></code></pre></div>
-<p>anywhere you want to stop the code. Then you can use different commands (see the <code>python_debugger_cheatsheet.pdf</code>)
-to step through the code.</p>
+<p>anywhere you want to stop the code. Since Python 3.7 you can instead call the built-in
+<a href="https://docs.python.org/3/library/functions.html#breakpoint"><code>breakpoint()</code></a> function, which by default calls
+<code>pdb.set_trace()</code>. Then you can use different commands (see the <code>python_debugger_cheatsheet.pdf</code>) to step through
+the code.</p>
 </li>
 <li>
-<p>If you are using an editor, then you can insert inline breakpoints (in VS Code this can be done by pressing <code>F9</code>)
-    and then execute the script in debug mode (inline breakpoints can often be seen as small red dots to the left of
-    your code). The editor should then offer some interface to allow you step through your code. Here is a guide to
-    using the built-in debugger <a href="https://code.visualstudio.com/docs/python/debugging#_basic-debugging">in VScode</a>.</p>
+<p>If you are using an editor, then you can insert breakpoints (in VS Code this can be done by pressing <code>F9</code>)
+    and then execute the script in debug mode (breakpoints can often be seen as small red dots to the left of
+    your code). The editor should then offer some interface to allow you to step through your code. Here is a guide to
+    using the built-in debugger <a href="https://code.visualstudio.com/docs/python/debugging#_basic-debugging">in VS Code</a>.</p>
 </li>
 <li>
 <p>Additionally, if your program is stopping on an error and you automatically want to start the debugger where it
@@ -2314,7 +2316,7 @@ to step through the code.</p>
 Start by going over the script and try to understand what is going on. Afterwards, try to get it running by fixing the
 bugs. The following bugs exist in the script:</p>
 <ul>
-<li>One device bug (will only show if running on gpu, but try to find it anyways)</li>
+<li>One device bug (will only show if running on GPU or MPS, but try to find it anyways)</li>
 <li>One shape bug</li>
 <li>One math bug</li>
 <li>One training bug</li>
@@ -2323,9 +2325,9 @@ bugs. The following bugs exist in the script:</p>
 find them all. We also provide a working version called <code>vae_mnist_working.py</code> (but please try to find the bugs before
 looking at the script). Successfully debugging and running the script should produce three files:</p>
 <ul>
-<li><code>orig_data.png</code> containing images from the standard MNIST training set</li>
+<li><code>orig_data.png</code> containing images from the standard MNIST test set</li>
 <li><code>reconstructions.png</code> reconstructions from the model</li>
-<li><code>generated_samples.png</code> samples from the model</li>
+<li><code>generated_sample.png</code> samples from the model</li>
 </ul>
 <p>Again, we cannot stress enough that the exercise is not actually about finding the bugs but <strong>using a proper</strong> debugger
 to find them.</p>
@@ -2339,8 +2341,8 @@ to find them.</p>
 </span></code></pre></div>
 <p>this will fail with a
 <code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</code> if
-you are running on GPU, because the noise tensor is initialized on the CPU. You can fix this by initializing the
-noise tensor on the same device as the mean and var tensors.</p>
+you are running on a GPU or MPS device, because the noise tensor is initialized on the CPU. You can fix this by
+initializing the noise tensor on the same device as the mean and var tensors.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reparameterization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""Reparameterization trick to sample z values."""</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">epsilon</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">mean</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -2360,9 +2362,9 @@ noise tensor on the same device as the mean and var tensors.</p>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FC_output</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
 </span></code></pre></div>
 <p>This means that <code>h</code> should be a tensor of shape <code>[bs, hidden_dim]</code>, but since we initialize the <code>FC_output</code>
-layer with <code>latent_dim</code> output dimensions, the forward pass will fail with a
-<code>RuntimeError: size mismatch, m1: [bs, hidden_dim], m2: [bs, latent_dim]</code> if <code>hidden_dim != latent_dim</code>. You can
-fix this by initializing the <code>FC_output</code> layer with <code>hidden_dim</code> output dimensions.</p>
+layer with <code>latent_dim</code> input dimensions, the forward pass will fail with a
+<code>RuntimeError: mat1 and mat2 shapes cannot be multiplied (100x400 and 20x784)</code> if <code>hidden_dim != latent_dim</code>. You
+can fix this by initializing the <code>FC_output</code> layer with <code>hidden_dim</code> input dimensions.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">FC_output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
 </span></code></pre></div>
 </details>
@@ -2432,7 +2434,7 @@ explode. You can fix this by adding the line</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 21:08:51">November 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -2572,10 +2574,10 @@ explode. You can fix this by adding the line</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

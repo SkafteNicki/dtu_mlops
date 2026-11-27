@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2342,7 +2342,7 @@ managers combine dependency management with virtual environment handling. Popula
 <td>uv</td>
 <td><a href="https://docs.astral.sh/uv/">🔗 Link</a></td>
 <td><a href="https://github.com/astral-sh/uv">🔗 Link</a></td>
-<td>92.0k</td>
+<td>92.7k</td>
 </tr>
 <tr>
 <td>Poetry</td>
@@ -2360,7 +2360,7 @@ managers combine dependency management with virtual environment handling. Popula
 <td>Hatch</td>
 <td><a href="https://hatch.pypa.io/latest/">🔗 Link</a></td>
 <td><a href="https://github.com/pypa/hatch">🔗 Link</a></td>
-<td>7.2k</td>
+<td>7.3k</td>
 </tr>
 <tr>
 <td>PDM</td>
@@ -2451,12 +2451,13 @@ with each other. In this case, we would need to relax the constraints to somethi
     virtual environments and manage dependencies:</p>
 <ol>
 <li>
-<p>Try creating a new virtual environment called <code>.venv</code> using Python 3.11. What command should you execute to do this?</p>
+<p>Try creating a new virtual environment called <code>.venv</code> using Python 3.13. What command should you execute to do
+    this?</p>
 <div class="admonition warning">
-<p class="admonition-title">Use Python 3.10 or higher</p>
-<p>We recommend using Python 3.10 or higher for this course. Generally, using the second latest Python version
-(currently 3.13) is advisable, as the newest version may lack support from all dependencies. Check the status
-of different Python versions <a href="https://devguide.python.org/versions/">here</a>.</p>
+<p class="admonition-title">Use Python 3.11-3.13</p>
+<p>We recommend using Python 3.13 for this course. Newer versions may lack support from all dependencies; the
+exercises in the course repository support Python 3.11-3.13. Check the status of different Python versions
+<a href="https://devguide.python.org/versions/">here</a>.</p>
 </div>
 <details class="success">
 <summary>Solution</summary>
@@ -2506,20 +2507,22 @@ do.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>list
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># or for a tree view showing dependencies</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>uv<span class="w"> </span>tree
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># or</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>uv<span class="w"> </span>pip<span class="w"> </span>freeze
 </span></code></pre></div>
 </details>
 </li>
 </ol>
 </li>
 <li>
-<p>The above is the very basic of <code>uv</code> and is actually not the recommended way of using <code>uv</code>. Instead, <code>uv</code> works best
+<p>The above is the very basics of <code>uv</code> and is actually not the recommended way of using <code>uv</code>. Instead, <code>uv</code> works best
     as a project-based package manager. Let's try that out:</p>
 <ol>
 <li>
 <p>When you start a new project, you can initialize it with <code>uv init &lt;project_name&gt;</code>, which will create a new folder
-    with the given project name and set up a virtual environment for you(1):</p>
+    with the given project name and initialize it as a <code>uv</code> project for you(1):</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you already have a pre-existing folder, you can also run <code>uv init</code> inside that folder
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> If you already have a pre-existing folder, you can also run <code>uv init</code> inside that folder
     to set it up as a <code>uv</code> project.</li>
 </ol>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>uv<span class="w"> </span>init<span class="w"> </span>my_project
@@ -2529,11 +2532,14 @@ do.</p>
 <summary>Solution</summary>
 <p>The following has been created:</p>
 <ul>
-<li>A <code>.venv</code> folder containing the virtual environment as above</li>
 <li>A <code>README.md</code> file for documenting your project</li>
-<li>a <code>pyproject.toml</code> file for managing your project, more on this file later</li>
-<li>a <code>hello.py</code> file with a simple example script</li>
+<li>A <code>main.py</code> file containing a small starter script</li>
+<li>A <code>pyproject.toml</code> file for managing your project, more on this file later</li>
+<li>A <code>.python-version</code> file pinning the Python version that the project should use</li>
+<li>A <code>.gitignore</code> file for specifying files that git should ignore</li>
 </ul>
+<p>Note that no virtual environment has been created yet. The <code>.venv</code> folder is automatically created
+the first time you run a command such as <code>uv run</code> or <code>uv sync</code>.</p>
 </details>
 </li>
 <li>
@@ -2541,7 +2547,7 @@ do.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>uv<span class="w"> </span>add<span class="w"> </span>numpy<span class="w"> </span>pandas
 </span></code></pre></div>
 <p>which will install the packages in your virtual environment and also add them to the <code>pyproject.toml</code> file
-(check this out!). An additional file have been created called <code>uv.lock</code>, can you figure out what the purpose of
+(check this out!). An additional file has been created called <code>uv.lock</code>, can you figure out what the purpose of
 this file is?</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2552,16 +2558,16 @@ same versions of all packages as specified in the <code>uv.lock</code> file.</p>
 </details>
 </li>
 <li>
-<p>Another, way to add dependencies to your project is to directly edit the <code>pyproject.toml</code> file. Try adding
-    <code>scikit-learn</code> version <code>1.2.2</code> to your <code>pyproject.toml</code> file. Afterwards, what command should you execute to
+<p>Another way to add dependencies to your project is to directly edit the <code>pyproject.toml</code> file. Try adding
+    <code>scikit-learn</code> version <code>1.6.1</code> to your <code>pyproject.toml</code> file. Afterwards, what command should you execute to
     install the dependencies specified in the <code>pyproject.toml</code> file?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>Add the following line under the <code>[project]</code> section:</p>
+<p>Add the following line under the <code>dependencies</code> list in the <code>[project]</code> section:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="s2">"numpy&gt;=2.4.0"</span><span class="p">,</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="s2">"pandas&gt;=2.2.3"</span><span class="p">,</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="s2">"scikit-learn==1.2.2"</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="s2">"scikit-learn==1.6.1"</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">]</span>
 </span></code></pre></div>
 <p>Afterwards, execute:</p>
@@ -2590,15 +2596,15 @@ same versions of all packages as specified in the <code>uv.lock</code> file.</p>
 <p>which will add the following section to your <code>pyproject.toml</code> file:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">[dependency-groups]</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="s2">"pytest&gt;=8.3.4"</span><span class="p">,</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="s2">"ruff&gt;=0.14.10"</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="s2">"pytest&gt;=9.2.0"</span><span class="p">,</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="s2">"ruff&gt;=0.17.6"</span><span class="p">,</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">]</span>
 </span></code></pre></div>
 </details>
 </li>
 <li>
-<p><code>uv</code> also supports for defining optional dependencies e.g. dependencies that are only needed for specific
-    use-cases. For example, <code>pandas</code> support the optional dependency <code>excel</code> for reading and writing Excel files.
+<p><code>uv</code> also supports defining optional dependencies e.g. dependencies that are only needed for specific
+    use-cases. For example, <code>pandas</code> supports the optional dependency <code>excel</code> for reading and writing Excel files.
     Try adding an optional dependency to your project and check how it is stored in the <code>pyproject.toml</code> file.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -2618,10 +2624,10 @@ the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afte
     <code>uv sync</code>. How do you install optional dependencies?</p>
 <details class="success">
 <summary>Solution</summary>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># to install optional dependencies from the "dataframes" group</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--group<span class="w"> </span>dataframes
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># to install optional dependencies from the "dataframes" extra</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>dataframes
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># to install all optional dependencies</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>uv<span class="w"> </span>sync<span class="w"> </span>--all-groups
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
 </span></code></pre></div>
 </details>
 </li>
@@ -2630,12 +2636,20 @@ the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afte
     <code>uv run</code>?</p>
 <details class="success">
 <summary>Solution</summary>
-<p>You can specify this in the <code>pyproject.toml</code> file under the <code>[tool.uv]</code> section (see
-<a href="https://docs.astral.sh/uv/concepts/projects/dependencies/#default-groups">docs</a>):</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">[tool.uv]</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">default-groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"dev"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dataframes"</span><span class="p">]</span>
+<p>The same options are available when executing commands with <code>uv run</code>, e.g.:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># to include optional dependencies from the "dataframes" extra</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>dataframes<span class="w"> </span>python<span class="w"> </span>script.py
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># to include all optional dependencies</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>uv<span class="w"> </span>run<span class="w"> </span>--all-extras<span class="w"> </span>python<span class="w"> </span>script.py
 </span></code></pre></div>
-<p>alternatively, setting <code>default-groups = "all"</code> will install all optional dependencies by default.</p>
+<p>For <em>dependency groups</em> (such as the <code>dev</code> group), which are installed by default, you can
+instead specify which groups to include in the <code>pyproject.toml</code> file under the <code>[tool.uv]</code> section
+using <code>default-groups</code> (see
+<a href="https://docs.astral.sh/uv/concepts/projects/dependencies/#default-groups">docs</a>):</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">[tool.uv]</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">default-groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"dev"</span><span class="p">]</span>
+</span></code></pre></div>
+<p>alternatively, setting <code>default-groups = "all"</code> will include all dependency groups by default.</p>
 </details>
 </li>
 </ol>
@@ -2649,7 +2663,7 @@ the package <code>pandas</code>. Check the <code>pyproject.toml</code> file afte
 <p>The <a href="https://docs.astral.sh/uv/concepts/python-versions/#requesting-a-version">recommended way</a> is to pin
 the python version by having a <code>.python-version</code> file in the root of your project with the desired
 python version. This file can easily be created with the command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>uv<span class="w"> </span>python<span class="w"> </span>pin<span class="w"> </span><span class="m">3</span>.13
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>uv<span class="w"> </span>python<span class="w"> </span>pin<span class="w"> </span><span class="m">3</span>.13
 </span></code></pre></div>
 </details>
 </li>
@@ -2660,19 +2674,20 @@ python version. This file can easily be created with the command:</p>
 <summary>Solution</summary>
 <p>Relevant documentation can be found
 <a href="https://docs.astral.sh/uv/concepts/projects/sync/#exporting-the-lockfile">here</a>.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>uv<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>requirements.txt<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>uv<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>requirements.txt<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
 </span></code></pre></div>
 </details>
 </li>
 <li>
 <p>(Optional) <code>uv</code> also supports the notion of <em>tools</em> which are external command line tools that you may use in
-    multiple projects. Examples of such tools are <code>black</code>, <code>ruff</code>, <code>pytest</code> and so on (all which you will encounter
-    later in the course). These tools can be installed globally on your system by using the <code>uvx</code> (or <code>uv tool</code>)
-    command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>uvx<span class="w"> </span>cowsay<span class="w"> </span>-t<span class="w"> </span><span class="s2">"muuh"</span>
+    multiple projects. Examples of such tools are <code>black</code>, <code>ruff</code>, <code>pytest</code> and so on (all of which you
+    will encounter later in the course). Such a tool can be executed without permanently installing it by using the
+    <code>uvx</code> (or <code>uv tool run</code>) command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>uvx<span class="w"> </span>cowsay<span class="w"> </span>-t<span class="w"> </span><span class="s2">"muuh"</span>
 </span></code></pre></div>
-<p>which will install the <code>cowsay</code> tool globally on your system and then execute it with the argument <code>"muuh"</code>. Try
-installing at least one tool and executing it.</p>
+<p>which will fetch the <code>cowsay</code> tool (if it has not already been cached) and then execute it with the argument
+<code>"muuh"</code>. Tools can also be installed globally on your system by using the <code>uv tool install</code> command. Try
+playing around with at least one tool.</p>
 </li>
 </ol>
 </li>
@@ -2682,7 +2697,7 @@ installing at least one tool and executing it.</p>
 <p>I have personally found that typing <code>uv run</code> before every command can get a bit tedious. Therefore, I recommend
 creating a shell alias to simplify this. For example, in <code>bash</code> or <code>zsh</code>, you can add the following line to your
 <code>.bashrc</code> or <code>.zshrc</code> file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">uvr</span><span class="o">=</span><span class="s1">'uv run'</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">uvr</span><span class="o">=</span><span class="s1">'uv run'</span>
 </span></code></pre></div>
 <p>and then you can simply use <code>uvr</code> instead of <code>uv run</code>.</p>
 </div>
@@ -2690,13 +2705,13 @@ creating a shell alias to simplify this. For example, in <code>bash</code> or <c
 <ol>
 <li>
 <p>Try executing the command</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"pytest &lt; 4.6"</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"pytest &lt; 4.6"</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
 <p>based on the error message you get, what would be a compatible way to install these?</p>
 <details class="success">
 <summary>Solution</summary>
 <p>As <code>pytest-cov==2.12.1</code> requires a version of <code>pytest</code> newer than <code>4.6</code>, we can simply change the command to be:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"pytest &gt;= 4.6"</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"pytest &gt;= 4.6"</span><span class="w"> </span>pytest-cov<span class="o">==</span><span class="m">2</span>.12.1
 </span></code></pre></div>
 <p>but there of course exist other solutions as well.</p>
 </details>
@@ -2726,7 +2741,7 @@ dependencies are properly managed and reproducible across different machines and
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 06:19:26">February 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2026 20:46:11">November 27, 2026</span>
   </span>
 
     
@@ -2866,10 +2881,10 @@ dependencies are properly managed and reproducible across different machines and
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/_markdown_exec_pyodide.js"></script>
       

@@ -19,11 +19,10 @@ from torchvision.utils import save_image
 log = logging.getLogger(__name__)
 
 
-# creating a logger
-@hydra.main(config_path="config", config_name="default_config.yaml")
+@hydra.main(config_path="config", config_name="default_config.yaml", version_base="1.3")
 def train(config) -> None:
     """Train VAE on MNIST."""
-    print(f"configuration: \n {OmegaConf.to_yaml(config)}")
+    log.info(f"configuration: \n {OmegaConf.to_yaml(config)}")
     hparams = config.experiment
     torch.manual_seed(hparams["seed"])
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -65,7 +64,7 @@ def train(config) -> None:
         overall_loss = 0
         for batch_idx, (x, _) in enumerate(train_loader):
             if batch_idx % 100 == 0:
-                print(batch_idx)
+                log.info(batch_idx)
             x = x.view(hparams["batch_size"], hparams["x_dim"])
             x = x.to(device)
 
@@ -89,7 +88,7 @@ def train(config) -> None:
     with torch.no_grad():
         for batch_idx, (x, _) in enumerate(test_loader):
             if batch_idx % 100 == 0:
-                print(batch_idx)
+                log.info(batch_idx)
             x = x.view(hparams["batch_size"], hparams["x_dim"])
             x = x.to(device)
             x_hat, _, _ = model(x)
